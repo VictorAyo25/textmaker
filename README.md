@@ -38,6 +38,35 @@ active recall, traps, "every number recomputed") and the build engineering
 (structure-aware PDF extraction, the 2-pass Contents render, the print-CSS
 traps). `courses/PHY121/build/` is a working reference implementation to copy from.
 
+## Backup to GitHub
+
+This folder is a git repo. Everything needed to rebuild every manual from
+scratch is committed; only regenerable build outputs and drafts are ignored.
+
+First time (one interactive login, then push):
+
+```bash
+gh auth login                                   # pick GitHub.com -> HTTPS -> browser
+gh repo create study-manuals --private --source=. --remote=origin --push
+```
+
+Use `--private`: these are your course materials and carry your name.
+
+After that, whenever you change something:
+
+```bash
+git add -A && git commit -m "what changed" && git push
+```
+
+To restore onto a new machine:
+
+```bash
+git clone https://github.com/<you>/study-manuals.git
+cd study-manuals/courses/PHY121/build
+pip install playwright pymupdf pillow && python -m playwright install chromium
+python assemble.py        # rebuilds the full manual
+```
+
 ## House rules (apply to every course)
 
 - No em dashes or en dashes in any manual.
