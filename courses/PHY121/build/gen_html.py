@@ -1,6 +1,6 @@
 # Generate clean styled HTML for teaching sections (Foundations + Modules 1-4).
 import fitz, io, os, re, html, sys
-from reconstruct import (PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, hx, classify, blank_spans, near, join_wrapped)
+from reconstruct import (PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, hx, classify, blank_spans, near, join_wrapped, unletterspace)
 
 doc=fitz.open(PDF)
 MUT=0x6b7280; FAINT=0x8a8f98; MAG=0xc2185b; AMBER=0xb45309; BROWN=0x7a6a52
@@ -346,6 +346,16 @@ def render_section_header(page,first_y):
     if not lines: return ''
     maxsz=max(l['sz'] for l in lines)
     if maxsz<12.5: return ''   # not a real section header page
+    # The kicker is tracked so wide that the extractor reports a space between
+    # every letter ("R E F E R E N C E R . 3"). Re-emitting that under the .kick
+    # letter-spacing doubles the tracking and buries the real word break, so the
+    # page reads "REFERENCER.3". Rebuild the text before it becomes html. Safe
+    # here because a header holds only the kicker, the title and the lead: no
+    # formula whose spaces are all genuine.
+    for s in sp:
+        if s['sz']<maxsz-0.3:
+            s['t']=unletterspace(page,s)
+    lines=reflow(sp)
     ti=next(i for i,l in enumerate(lines) if l['sz']>=maxsz-0.3)
     parts=[]
     kick=' '.join(l['html'] for l in lines[:ti]).strip()

@@ -27,11 +27,34 @@ manual_composer/
    (versioned, e.g. `_v2`). Work in progress lives in that course's `drafts/`.
    Nothing lands in `FINAL_MANUALS/` until the manual is explicitly approved.
 
+## Working on two courses at once
+
+Two chats building **different** courses is fine. Every path the build touches is
+derived from `courses/<COURSE>/`, so PHY121 and PHY122 share no file: separate
+code, `content/`, `sources/`, and PDF. `FINAL_MANUALS/` names are per-course too.
+
+Two things to know:
+
+1. **Git is the one shared thing.** Never `git add -A` while another chat is
+   working: it would sweep that course's half-finished files into your commit.
+   Stage one course at a time:
+   ```bash
+   tools/commit_course.sh PHY121 "message"        # stages courses/PHY121 only
+   tools/commit_course.sh PHY121 "message" MANUAL_METHODOLOGY.md   # + shared file
+   ```
+   Before pushing, `git pull --rebase` in case the other chat pushed first.
+2. **Never build the same course in two chats.** They would overwrite each
+   other's `content/` and PDF. `build/.build.lock` now makes that fail loudly
+   instead of silently losing work; a lock left by a crashed build is detected as
+   stale and taken over automatically.
+
 ## Starting a new course
 
 ```bash
-mkdir -p courses/<COURSE>/{build,sources,drafts}
-# put the slide decks / tests / any prior manual in courses/<COURSE>/sources/
+mkdir -p courses/<COURSE>/{build,drafts}
+mkdir -p courses/<COURSE>/sources/{slides,tests,manual_v1,extracted}
+# slide decks -> sources/slides/, test screenshots -> sources/tests/,
+# any prior manual -> sources/manual_v1/
 ```
 Then read `MANUAL_METHODOLOGY.md` — it carries the pedagogy (the box system,
 active recall, traps, "every number recomputed") and the build engineering

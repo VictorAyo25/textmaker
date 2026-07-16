@@ -25,7 +25,22 @@ if [ ! -d "courses/$COURSE" ]; then
   exit 2
 fi
 
-git add -- "courses/$COURSE" "$@"
+# git serialises on .git/index.lock. That is momentary, but with several chats
+# committing at once one of them can land on it, so retry rather than fail.
+git_retry() {
+  local n=0
+  until git "$@"; do
+    n=$((n+1))
+    if [ "$n" -ge 5 ]; then
+      echo "git $1 failed after $n attempts" >&2
+      return 1
+    fi
+    echo "  git index busy (another chat is committing), retry $n..." >&2
+    sleep 1
+  done
+}
+
+git_retry add -- "courses/$COURSE" "$@"
 
 if git diff --cached --quiet; then
   echo "nothing staged for $COURSE"
@@ -44,5 +59,5 @@ if [ -n "$OTHERS" ]; then
   echo "$OTHERS" | sed 's/^/  /'
 fi
 
-git commit -q -m "$MSG"
+git_retry commit -q -m "$MSG"
 git log --oneline -1

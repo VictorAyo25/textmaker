@@ -76,6 +76,46 @@ def bars(page):
 
 def esc(t): return html.escape(t,quote=False)
 
+def _is_letterspaced(t):
+    """Spaces outnumbering the glyphs means the extractor put one in every gap.
+
+    Not a regex over "single char, space, single char": kerning fuses some pairs,
+    so the real extractions read "O R I E N TAT I O N" and "S O LU T I O N S S . 1".
+    Ordinary prose sits near one space per six characters and never trips this."""
+    nsp=t.count(' '); other=len(t)-nsp
+    return other>=4 and nsp>=other*0.5
+
+def unletterspace(page,span):
+    """Undo the spaces PyMuPDF invents inside a letterspaced label.
+
+    The kickers are tracked so wide that every letter gap exceeds the extractor's
+    space threshold, so "REFERENCE R.3" comes out as "R E F E R E N C E R . 3".
+    Re-emitting that with the CSS letter-spacing on top doubles the tracking AND
+    hides the real word break, leaving "REFERENCER.3" on the page.
+
+    The word space is physically wider than the letter gaps (3.13pt vs 1.61pt in
+    the R.3 kicker), so measure the space glyphs and keep only the wide ones.
+
+    Only ever call this on a kicker. The same shape occurs in real text whose
+    spaces are all genuine ("F = k · q" is 4 uniform 4.44pt spaces), and there the
+    rule would close up every one of them."""
+    t=span['t']
+    if not _is_letterspaced(t):
+        return t
+    for b in page.get_text('rawdict')['blocks']:
+        for l in b.get('lines',[]):
+            for s in l.get('spans',[]):
+                if abs(s['bbox'][0]-span['x'])>0.6 or abs(s['bbox'][1]-span['y'])>0.6:
+                    continue
+                chars=s['chars']
+                w=sorted(c['bbox'][2]-c['bbox'][0] for c in chars if c['c']==' ')
+                if not w: return t
+                med=w[len(w)//2]
+                out=''.join('' if (c['c']==' ' and (c['bbox'][2]-c['bbox'][0])<med*1.5)
+                            else c['c'] for c in chars)
+                return out.strip()
+    return t
+
 def _linegroup(spans):
     """Group spans into visual lines by vertical OVERLAP, so superscripts and
     subscripts stay on the same line as their base."""
