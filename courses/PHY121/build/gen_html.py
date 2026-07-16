@@ -1,6 +1,6 @@
 # Generate clean styled HTML for teaching sections (Foundations + Modules 1-4).
 import fitz, io, os, re, html, sys
-from reconstruct import (PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, hx, classify, blank_spans, near)
+from reconstruct import (PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, hx, classify, blank_spans, near, join_wrapped)
 
 doc=fitz.open(PDF)
 MUT=0x6b7280; FAINT=0x8a8f98; MAG=0xc2185b; AMBER=0xb45309; BROWN=0x7a6a52
@@ -135,7 +135,7 @@ ANSRE=re.compile(r'^<b>\s*\d+\.')
 
 def render_lines(lines):
     """Turn reflow lines (non-table) into HTML: paragraphs, steps, notes, hooks, redo, bullets, answer."""
-    out=[]; para=[]; steps=[]; cur_step=None
+    out=[]; para=[]; para_cls=None; steps=[]; cur_step=None
     items=[]; cur_item=None; list_kind=None; item_x=None
     def flush_list():
         nonlocal items,cur_item,list_kind,item_x
@@ -146,14 +146,14 @@ def render_lines(lines):
             items=[]
         list_kind=None; item_x=None
     def flush_para():
-        nonlocal para
+        nonlocal para,para_cls
         if para:
             txt=''
             for i,h in enumerate(para):
-                if i==0: txt=h
-                elif txt.endswith(('‐','-')): txt=txt[:-1]+h
-                else: txt+=' '+h
-            out.append(f'<p>{txt}</p>'); para=[]
+                txt=h if i==0 else join_wrapped(txt,h)
+            cls=f' class="{para_cls}"' if para_cls else ''
+            out.append(f'<p{cls}>{txt}</p>'); para=[]
+        para_cls=None
     def flush_steps():
         nonlocal steps,cur_step
         if cur_step is not None: steps.append(cur_step); cur_step=None
@@ -194,7 +194,7 @@ def render_lines(lines):
             if cur_item is not None:
                 # a wrapped continuation line sits indented under the item text
                 if ln['x0']>(item_x or 0)+6 and not cnear(c,MUT) and not cnear(c,FAINT):
-                    cur_item=(cur_item[:-1]+h) if cur_item.endswith(('‐','-')) else cur_item+' '+h
+                    cur_item=join_wrapped(cur_item,h)
                     continue
                 flush_list()
         # each numbered answer begins a fresh paragraph, else all of them run
@@ -222,14 +222,15 @@ def render_lines(lines):
             if cur_step is not None and not cur_step.get('note'):
                 cur_step['note']=h
             else:
-                flush_para()
-                out.append(f'<p class="small">{h}</p>')
+                # a muted note wraps like any other paragraph: emitting one <p> per
+                # line split it mid-word ("...Module 2 (capacit-" / "ance) 20%...")
+                if para_cls!='small': flush_para(); para_cls='small'
+                para.append(h)
         else:
             if cur_step is not None:
-                # continuation of step text
-                if cur_step['html'].endswith(('‐','-')): cur_step['html']=cur_step['html'][:-1]+h
-                else: cur_step['html']+=' '+h
+                cur_step['html']=join_wrapped(cur_step['html'],h)   # step text wraps too
             else:
+                if para_cls is not None: flush_para()
                 para.append(h)
     flush_para(); flush_list(); flush_steps()
     return '\n'.join(out)
@@ -352,31 +353,83 @@ def render_section_header(page,first_y):
         cls='lead' if cnear(l['col'],MUT) else ('lo' if 'outcomes' in l['text'].lower() else '')
         lead.append((cls,l['html']))
     # merge consecutive lead lines
+    def _join(bits):
+        t=''
+        for i,x in enumerate(bits):
+            t=x if i==0 else join_wrapped(t,x)   # lead lines wrap too, hyphens and all
+        return t
     buf=[]; curcls=None; outp=[]
     for cls,h in lead:
         if cls!=curcls and buf:
-            outp.append((curcls,' '.join(buf))); buf=[]
+            outp.append((curcls,_join(buf))); buf=[]
         curcls=cls; buf.append(h)
-    if buf: outp.append((curcls,' '.join(buf)))
+    if buf: outp.append((curcls,_join(buf)))
     for cls,h in outp:
         parts.append(f'<p class="{cls}">{h}</p>' if cls else f'<p>{h}</p>')
     return '\n'.join(parts)
+
+def split_runs(free,taken):
+    """Split leftover spans into runs separated by consumed regions, keeping y order."""
+    runs=[]; cur=[]
+    for ln in _linegroup(sorted(free,key=lambda s:s['y'])):
+        y=min(s['y'] for s in ln)
+        if cur and any(a<=y<=b for a,b in taken):
+            runs.append(cur); cur=[]
+        cur.extend(ln)
+    if cur: runs.append(cur)
+    return [(r,min(s['y'] for s in r)) for r in runs if r]
+
+def render_outside(lines):
+    """Content on a teaching page that sits outside every box: sub-headings such as
+    "Resistance and Ohm's law", and the occasional stray answer line. gen_pages used
+    to emit boxes and nothing else, so all of this was silently dropped."""
+    out=[]; buf=[]
+    def flush():
+        if buf:
+            out.append('<p>'+' '.join(buf)+'</p>'); buf.clear()
+    for l in lines:
+        if not l['text'].strip(): continue
+        if l['sz']>=11.0:
+            flush()
+            hh=l['html']
+            # the heading is set in a bold face, so <b> wrapping the whole line is
+            # redundant against the .sub rule; keep partial emphasis if any
+            m=re.fullmatch(r'<b>(.*)</b>',hh)
+            if m and '<b>' not in m.group(1): hh=m.group(1)
+            out.append(f'<h3 class="sub">{hh}</h3>')
+        else:
+            buf.append(l['html'])
+    flush()
+    return '\n'.join(out)
 
 def gen_pages(lo,hi):
     chunks=[]
     for p in range(lo,hi+1):
         page=doc[p-1]; ph=page.rect.height
         bb=bars(page)
-        if not bb:
-            continue
+        blocks=[]; taken=[]
+        # A page need not carry a box. p76 holds nothing but the sub-heading "The full
+        # two-loop problem", whose boxes run over onto the next page; skipping box-less
+        # pages dropped it. (Part dividers are box-less too, but they are rendered
+        # separately and never fall inside a section's page range.)
+        first_y=bb[0]['y0'] if bb else ph-40
         # section header only if this page starts a section (kicker present above first box)
-        hdr=render_section_header(page,bb[0]['y0'])
+        hdr=render_section_header(page,first_y)
         if hdr and ('kick' in hdr):
-            chunks.append(f'<section>{hdr}')
-            close_needed=True
+            blocks.append((0,f'<section>{hdr}'))
+            taken.append((0,first_y-1))
         for i,b in enumerate(bb):
             nexty=bb[i+1]['y0'] if i+1<len(bb) else ph-40
-            chunks.append(render_box(page,b,nexty))
+            blocks.append((b['y0'],render_box(page,b,nexty)))
+            taken.append((b['y0']-1,nexty))
+        free=[s for s in raw_spans(page,40,ph-40)
+              if not FOOTER_RE.match(s['t'])
+              and not any(a<=(s['y']+s['y1'])/2<=b for a,b in taken)]
+        for grp,y in split_runs(free,taken):
+            h=render_outside(reflow(grp))
+            if h.strip(): blocks.append((y,h))
+        blocks.sort(key=lambda t:t[0])
+        chunks.append('\n'.join(h for _,h in blocks))
     return '\n'.join(chunks)
 
 if __name__=='__main__':

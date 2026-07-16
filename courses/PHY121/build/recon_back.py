@@ -18,9 +18,9 @@ Two things this gets right that the old table code did not:
 """
 import re
 import fitz
-from reconstruct import PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc
+from reconstruct import PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, join_wrapped
 from gen_html import (table_headers_in, col_bounds, render_box, render_section_header,
-                      table_extent, crop_datauri, figures_in)
+                      table_extent, crop_datauri, figures_in, split_runs)
 
 doc = fitz.open(PDF)
 PAGE_BOTTOM = 792.0
@@ -104,7 +104,9 @@ def render_free(lines):
     def flush():
         if not buf:
             return
-        txt = ' '.join(buf)
+        txt = ''
+        for i, x in enumerate(buf):
+            txt = x if i == 0 else join_wrapped(txt, x)
         if buf_cls == 'ul':
             items = ''.join(f'<li>{i}</li>' for i in buf)
             out.append(f'<ul class="bul">{items}</ul>')
@@ -120,6 +122,10 @@ def render_free(lines):
             continue
         if sz >= 11.0:                                   # subheading, e.g. "Section A"
             flush(); buf_cls = None
+            # the .sub rule is already bold, so <b> around the whole line is redundant
+            m = re.fullmatch(r'<b>(.*)</b>', h)
+            if m and '<b>' not in m.group(1):
+                h = m.group(1)
             out.append(f'<h3 class="sub">{h}</h3>')
             continue
         if sz <= 8.6 and txt == txt.upper() and len(txt) > 3:   # small caps label
@@ -259,15 +265,4 @@ def _lines(sp):
     return out
 
 
-def _split_runs(free, taken):
-    """Split leftover spans into runs separated by consumed regions, keep y order."""
-    runs = []
-    cur = []
-    for ln in _linegroup(sorted(free, key=lambda s: s['y'])):
-        y = min(s['y'] for s in ln)
-        if cur and any(cy0 <= y <= cy1 for cy0, cy1 in taken):
-            runs.append(cur); cur = []
-        cur.extend(ln)
-    if cur:
-        runs.append(cur)
-    return [(r, min(s['y'] for s in r)) for r in runs if r]
+_split_runs = split_runs   # shared with gen_pages

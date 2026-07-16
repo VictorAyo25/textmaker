@@ -157,9 +157,22 @@ def reflow(spans, body_sz_hint=10.2):
                         col=domcol, sz=base, badge=badge))
     return out
 
-def join_hyphen(lines):
-    """Join soft-hyphenated line breaks and merge wrapped lines into paragraphs is left to caller."""
-    return lines
+# A line-break hyphen is U+2010, a real hyphen is ASCII. The typesetter distinguishes
+# them, so this needs no guessing: across the whole manual all 49 U+2010 line ends are
+# words the hyphenator split ("capa-citor", "substi-tution") and all 6 ASCII line ends
+# are genuine compounds ("cross-sectional", "T-joint", "problem-solving").
+_SOFTHYPH=re.compile('‐(?=(?:</[^>]+>)*\\s*$)')
+
+def join_wrapped(txt,h):
+    """Append a wrapped line's html to the previous line's, resolving a line-end hyphen.
+    Dropping every hyphen yields "crosssectional" and "Tjoint"; keeping every one
+    yields "capa-citor"."""
+    plain=re.sub(r'<[^>]+>','',txt).rstrip()
+    if not plain.endswith(('-','‐')):
+        return _mergeruns(txt+' '+h)
+    if plain.endswith('-'):
+        return _mergeruns(txt+h)                             # real hyphen: keep it, no space
+    return _mergeruns(_SOFTHYPH.sub('',txt,count=1)+h)       # line-break hyphen: close the word up
 
 if __name__=='__main__':
     doc=fitz.open(PDF)
