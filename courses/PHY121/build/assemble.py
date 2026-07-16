@@ -4,6 +4,7 @@ import fitz, io, os, re, subprocess, sys
 from reconstruct import PDF, raw_spans, reflow, FOOTER_RE
 import gen_html
 from gen_html import gen_pages, crop_datauri, set_diagram_map
+from recon_back import gen_back
 
 HERE=os.path.dirname(os.path.abspath(__file__))
 doc=fitz.open(PDF)
@@ -65,7 +66,7 @@ def build_diagram_map():
 
 # TOC: (level, label, marker)
 TOC=[
- (1,'How to use this manual','HOWTO'),
+ (1,'How to use this manual','ORIENTATION'),
  (0,'PART I · FOUNDATIONS','PARTI'),
  (2,'F.1 Powers of ten, prefixes and calculator discipline','FOUNDATIONSF1'),
  (2,'F.2 Rearranging formulas','FOUNDATIONSF2'),
@@ -102,12 +103,12 @@ TOC=[
  (2,"5.1 Maxwell's equations",'UNIT51'),
  (2,'5.2 Electromagnetic waves','UNIT52'),
  (0,'PART VII · EVERY EXERCISE, FULLY SOLVED','PARTVII'),
- (2,'S.1 Module 1 classwork','S1'),
- (2,'S.2 Module 2 classwork','S2'),
- (2,'S.3 Module 3 classwork and circuit questions','S3'),
- (2,'S.4 Module 4 tutorial questions','S4'),
- (2,'S.5 CBT Test 1: all fifteen questions','S5'),
- (2,'S.6 CBT Test 2: all fifteen questions','S6'),
+ (2,'S.1 Module 1 classwork','SOLUTIONSS1'),
+ (2,'S.2 Module 2 classwork','SOLUTIONSS2'),
+ (2,'S.3 Module 3 classwork and circuit questions','SOLUTIONSS3'),
+ (2,'S.4 Module 4 tutorial questions','SOLUTIONSS4'),
+ (2,'S.5 CBT Test 1: all fifteen questions','SOLUTIONSS5CBTTEST1'),
+ (2,'S.6 CBT Test 2: all fifteen questions','SOLUTIONSS6CBTTEST2'),
  (2,'S.7 Module 5 exercises, fully solved','S7'),
  (0,'PART VIII · MOCK EXAMINATIONS','PARTVIII'),
  (2,'M.1 Mock exam paper','M1'),
@@ -116,10 +117,10 @@ TOC=[
  (2,'M.4 Second paper: worked answer key','M4'),
  (2,'M.5 Module 5 mock: Maxwell & EM waves','M5'),
  (0,'PART IX · REFERENCE','PARTIX'),
- (2,'R.1 Complete formula and constant sheet','R1'),
- (2,'R.2 The must-memorise list','R2'),
- (2,'R.3 A general problem-solving method','R3'),
- (2,'R.4 Glossary','R4'),
+ (2,'R.1 Complete formula and constant sheet','REFERENCER1'),
+ (2,'R.2 The must-memorise list','REFERENCER2'),
+ (2,'R.3 A general problem-solving method','REFERENCER3'),
+ (2,'R.4 Glossary','REFERENCER4'),
  (2,'R.1b Module 5 formulas & must-memorise additions','REFERENCER1ADDITION'),
 ]
 
@@ -132,9 +133,9 @@ def frozen(name):
         return io.open(p,encoding='utf-8').read()
     return None
 
-def section(name, lo, hi):
+def section(name, lo, hi, gen=None):
     """Frozen content if available (editable), else re-derive from the v1 PDF."""
-    return frozen(name) or gen_pages(lo,hi)
+    return frozen(name) or (gen or gen_pages)(lo,hi)
 
 def part(name, roman, pg, marker):
     return frozen(name) or divider_html(roman,pg,marker)
@@ -145,7 +146,7 @@ def assemble(contents_html=''):
     S=[]
     S.append(crop_page(1))
     S.append(f'<div class="contents-page">{contents_html}</div>')
-    S.append(crop_page(4, marker='HOWTO')); S.append(crop_page(5))
+    S.append(section('howto',4,5,gen_back))
     S.append(part('partI','I',6,'PARTI'))
     S.append(section('foundations',7,20)); S.append(m5['foundations'])
     S.append(part('partII','II',21,'PARTII')); S.append(section('module1',22,40))
@@ -154,16 +155,13 @@ def assemble(contents_html=''):
     S.append(part('partV','V',80,'PARTV')); S.append(section('module4',81,106))
     S.append(m5['module'])                                    # Module 5 (Part VI)
     S.append(part('partVII','VII',107,'PARTVII'))
-    exmk={108:'S1',112:'S2',116:'S3',118:'S4',122:'S5',135:'S6'}
-    for p in range(108,144): S.append(crop_page(p, marker=exmk.get(p)))
+    S.append(section('exercises',108,143,gen_back))
     S.append(m5['s7'])
     S.append(part('partVIII','VIII',144,'PARTVIII'))
-    mkmk={145:'M1',149:'M2',157:'M3',160:'M4'}
-    for p in range(145,165): S.append(crop_page(p, marker=mkmk.get(p)))
+    S.append(section('mocks',145,164,gen_back))
     S.append(m5['m5'])
     S.append(part('partIX','IX',165,'PARTIX'))
-    rfmk={166:'R1',169:'R2',171:'R3',172:'R4'}
-    for p in range(166,175): S.append(crop_page(p, marker=rfmk.get(p)))
+    S.append(section('reference',166,174,gen_back))
     S.append(m5['refadd'])
     body='\n'.join(S)
     html=(f'<!doctype html><html lang="en"><head><meta charset="utf-8">'

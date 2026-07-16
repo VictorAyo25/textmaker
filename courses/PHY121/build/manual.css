@@ -22,6 +22,8 @@
   --work:#b45309;       --work-bg:#fdf6ec;
   --recall:#4a5568;     --recall-bg:#ffffff;
   --fill:#5b3a8e;       --fill-bg:#f4effb;
+  --formula:#0b6b5f;    --formula-bg:#f0faf7;
+  --qgroup:#4c1d95;     --qgroup-bg:#f6f2fd;
   --rule:#d7dbe2;
 }
 
@@ -87,7 +89,8 @@ h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:16.5pt; 
 .work   > .bar{ background:var(--work);  }   .work   .body{ background:var(--work-bg); }
 .recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
 .fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
-.formula> .bar{ background:var(--teach); }   .formula .body{ background:#fff; }
+.formula> .bar{ background:var(--formula);}  .formula .body{ background:var(--formula-bg); }
+.qgroup > .bar{ background:var(--qgroup); }  .qgroup .body{ background:var(--qgroup-bg); }
 
 .mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* ● */
 .trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* ⚠ */
@@ -137,6 +140,7 @@ table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',san
 table.data td{ padding:4pt 7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
 table.data tr:nth-child(even) td{ background:#f7f8fa; }
 img.tablefig{ display:block; width:100%; max-width:100%; margin:.5em 0; }
+img.figure{ display:block; width:100%; max-width:100%; margin:.5em 0; break-inside:avoid; }
 .fullpage{ page-break-before:always; line-height:0; }
 .fullpage img{ display:block; margin:0 auto; width:auto; height:auto; max-width:100%; max-height:255mm; }
 .fullpage-part{ page-break-before:always; }
@@ -169,3 +173,10 @@ figure svg{ max-width:100%; height:auto; }
 figcaption{ font-size:8.2pt; color:var(--muted); font-style:italic; margin-top:.35em; }
 .vs-wrap{ display:flex; gap:8pt; align-items:stretch; }
 .vs-wrap > div{ flex:1; }
+
+/* inline monospace (the manual sets formulas in mono inside worked examples) */
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em; }
+
+/* numbered question/gap lists (hanging indent, like the original) */
+ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
+ol.qlist li{ margin:.18em 0; padding-left:.15em; }

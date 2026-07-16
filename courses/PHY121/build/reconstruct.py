@@ -4,8 +4,17 @@ import fitz, io, os, re, html, sys
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF = os.path.join(BASE, 'sources', 'PHY121_Study_Manual.pdf')
 
+# Every box bar in the manual, keyed by its bar fill. This is the ONLY way a box is
+# identified: table headers are #1e2430 and are absent here on purpose, so classify()
+# returning None is what marks a bar as a table header.
 HEADER_COLORS = {'#1b2a4a':'teach','#c2185b':'mem','#b91c1c':'trap',
-                 '#b45309':'work','#4a5568':'recall','#5b3a8e':'fill'}
+                 '#b45309':'work','#4a5568':'recall','#5b3a8e':'fill',
+                 # teal: FORMULA and CASE boxes ("FORMULA - THE BIOT-SAVART LAW")
+                 '#0b6b5f':'formula',
+                 # back-matter only: the violet bar that opens a group of questions
+                 # ("THE QUESTIONS - MODULE 1", "INSTRUCTIONS"). Distinct from the
+                 # teaching FILL purple (#5b3a8e), so it needs its own entry.
+                 '#4c1d95':'qgroup'}
 WHITE=16777215
 FOOTER_RE=re.compile(r'^PHY121.+Victor Ayodeji')
 
@@ -44,12 +53,24 @@ def bars(page):
         hdr=raw_spans(page,b['y0']-1,b['y1']+1)
         white=[s for s in hdr if s['col']==WHITE]
         if not white: continue
-        label=' '.join(s['t'] for s in white).strip()
-        U=label.upper()
-        KW=('TEACH','MUST-MEMORISE','MUST','TRAP','WORKED EXAMPLE','WORKED','RECALL','FILL IN','FILL','FORMULA')
-        if not any(k in U for k in KW):
-            continue   # reject table headers and other dark bars
-        b['label']=label
+        white.sort(key=lambda s:s['x'])
+        # Do NOT gate on keywords. That was written for the teaching sections, where
+        # every bar starts with TEACH/WORKED/RECALL/..., and it silently discarded 54
+        # real back-matter boxes labelled "Q4 - POTENTIAL AT TWO DISTANCES" etc.
+        # Table headers are already rejected upstream by colour: they are #1e2430,
+        # which is not in HEADER_COLORS, so classify() returns None for them.
+        # A right-aligned span separated by a wide gap is the bar's tag chip
+        # ("ANSWER: C"), not part of the label. Joining it on would weld it to the
+        # last word ("...TWO DISTANCESANSWER: C").
+        tag=''
+        if len(white)>1:
+            gaps=[(white[i+1]['x']-white[i]['x1'],i) for i in range(len(white)-1)]
+            g,i=max(gaps)
+            if g>40 and white[i+1]['x'] > b['x0']+0.55*(b['x1']-b['x0']):
+                tag=' '.join(s['t'] for s in white[i+1:]).strip()
+                white=white[:i+1]
+        b['label']=' '.join(s['t'] for s in white).strip()
+        b['tag']=tag
         out.append(b)
     return out
 
@@ -69,6 +90,28 @@ def _linegroup(spans):
     if cur: lines.append(cur)
     return lines
 
+BLANK = ''   # sentinel for a fill-in-the-gap blank (drawn, not text)
+
+def blank_spans(page, y0, y1):
+    """The fill-in-the-gap blanks are thin filled rects (~62 x 1pt), not text, so a
+    text-only extraction silently drops them and the exercise becomes unanswerable.
+    Return them as pseudo-spans positioned on their text line."""
+    out = []
+    for d in page.get_drawings():
+        r = d['rect']
+        if d.get('fill') and 0.7 <= r.height <= 1.6 and 40 <= r.width <= 90 and y0 <= r.y0 <= y1:
+            out.append(dict(y=r.y0 - 9.0, y1=r.y0 + 0.5, x=r.x0, x1=r.x1,
+                            t=BLANK, sz=10.2, col=0x2b3140, flags=0))
+    return out
+
+
+
+def _mergeruns(h):
+    """Collapse adjacent identical inline tags: <b>a</b><b>b</b> -> <b>ab</b>."""
+    for tag in ('b','i','code','sup','sub'):
+        h=h.replace(f'</{tag}><{tag}>','')
+    return h
+
 def reflow(spans, body_sz_hint=10.2):
     """Merge spans into visual lines; wrap sub/superscripts. Returns list of dicts:
        {y, html, text, col, sz, badge(None|int), x0}."""
@@ -84,20 +127,33 @@ def reflow(spans, body_sz_hint=10.2):
         htmlparts=[]; textparts=[]; cols={}; badge=None
         for k,s in enumerate(ln):
             txt=esc(s['t']); raw=s['t']
+            if raw==BLANK:
+                htmlparts.append('<span class="blank"></span>'); textparts.append(' ')
+                continue
             cols[s['col']]=cols.get(s['col'],0)+len(raw.strip())
             # white lone-digit at line start in a work box = step badge
             if s['col']==WHITE and raw.strip().isdigit() and k==0 and len(raw.strip())<=2:
                 badge=int(raw.strip()); continue
             not_bigger = s['sz']<=base+0.4
             if not_bigger and s['y1'] < baseline-2.0:
-                htmlparts.append(f'<sup>{txt}</sup>'); textparts.append(raw)
+                piece=f'<sup>{txt}</sup>'
             elif not_bigger and s['y1'] > baseline+2.0:
-                htmlparts.append(f'<sub>{txt}</sub>'); textparts.append(raw)
+                piece=f'<sub>{txt}</sub>'
             else:
-                htmlparts.append(txt); textparts.append(raw)
+                piece=txt
+            # PyMuPDF flags: bit1(2)=italic, bit3(8)=monospaced, bit4(16)=bold.
+            # The manual uses all three meaningfully (emphasis, code-style formulas),
+            # so dropping them loses real information.
+            if s['flags'] & 8:
+                piece=f'<code>{piece}</code>'
+            if s['flags'] & 2:
+                piece=f'<i>{piece}</i>'
+            if s['flags'] & 16:
+                piece=f'<b>{piece}</b>'
+            htmlparts.append(piece); textparts.append(raw)
         domcol=max(cols,key=cols.get) if cols else 0
         out.append(dict(y=min(s['y'] for s in ln), x0=min(s['x'] for s in ln),
-                        html=''.join(htmlparts), text=''.join(textparts),
+                        html=_mergeruns(''.join(htmlparts)), text=''.join(textparts),
                         col=domcol, sz=base, badge=badge))
     return out
 

@@ -28,6 +28,13 @@ SECTIONS = {
     'module3':     (55, 79),
     'module4':     (81, 106),
 }
+# back matter uses the free-flow generator (recon_back), not the box generator
+BACK = {
+    'howto':      (4, 5),
+    'exercises':  (108, 143),
+    'mocks':      (145, 164),
+    'reference':  (166, 174),
+}
 # part dividers: name -> (roman, source_page, marker)
 DIVIDERS = {
     'partI':   ('I',   6,   'PARTI'),
@@ -72,6 +79,7 @@ def main():
 
     from gen_html import gen_pages, set_diagram_map
     from assemble import build_diagram_map, divider_html
+    from recon_back import gen_back
     set_diagram_map(build_diagram_map())
     os.makedirs(CONTENT, exist_ok=True)
 
@@ -87,6 +95,13 @@ def main():
         total_imgs += k
         io.open(os.path.join(CONTENT, name + '.html'), 'w', encoding='utf-8').write(banner + html)
         print(f'  froze {name:12s} (v1 pages {lo}-{hi})  {len(html)/1024:7.1f} KB, {k} images externalised')
+
+    for name, (lo, hi) in BACK.items():
+        html = gen_back(lo, hi)
+        html, k = externalise(html, name)
+        total_imgs += k
+        io.open(os.path.join(CONTENT, name + '.html'), 'w', encoding='utf-8').write(banner + html)
+        print(f'  froze {name:12s} (v1 pages {lo}-{hi}, free-flow)  {len(html)/1024:7.1f} KB')
 
     for name, (roman, pg, marker) in DIVIDERS.items():
         html = divider_html(roman, pg, marker)

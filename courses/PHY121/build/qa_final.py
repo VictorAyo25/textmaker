@@ -36,8 +36,10 @@ for term in ['stroud','covenant','ccodel']:
 toc_pg=d[1].get_text()+d[2].get_text() if N>2 else ''
 import re as _re
 nums=_re.findall(r'\b(1?\d{1,2})\b', toc_pg)
+# case-insensitive: the TOC is uppercased by CSS, so the text layer holds "FOUNDATIONS"
+_toc=toc_pg.upper()
 print('Contents pages 2-3 have', toc_pg.count('.'), 'dots-ish; sample entries present:',
-      'Foundations' in toc_pg, 'Maxwell' in toc_pg, 'Glossary' in toc_pg)
+      'FOUNDATIONS' in _toc, 'MAXWELL' in _toc, 'GLOSSARY' in _toc)
 
 # 5. rendered text banned terms across whole doc
 alltext=''.join(d[i].get_text() for i in range(N))
