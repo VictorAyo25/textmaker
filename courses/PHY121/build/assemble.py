@@ -188,6 +188,11 @@ def build_contents(pages):
     return '\n'.join(rows)
 
 if __name__=='__main__':
+  # Building the same course from two chats at once would have them overwrite each
+  # other's content/ and full_manual*.pdf. Different courses need no lock: their
+  # paths do not overlap.
+  from buildlock import build_lock
+  with build_lock('assemble.py'):
     print('pass 1: assemble + render to locate sections...')
     assemble('')
     subprocess.run([sys.executable,'render.py','full_manual.html','full_manual.pdf'],cwd=HERE,check=True)

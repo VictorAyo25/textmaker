@@ -117,4 +117,8 @@ def main():
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    # --force rewrites every file in content/. If a second chat is building this
+    # same course, that pulls the rug out from under it mid-run.
+    from buildlock import build_lock
+    with build_lock('freeze.py'):
+        sys.exit(main())
