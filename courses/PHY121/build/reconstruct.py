@@ -2,7 +2,7 @@
 import fitz, io, os, re, html, sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PDF = os.path.join(BASE, 'sources', 'PHY121_Study_Manual.pdf')
+PDF = os.path.join(BASE, 'sources', 'manual_v1', 'PHY121_Study_Manual.pdf')
 
 # Every box bar in the manual, keyed by its bar fill. This is the ONLY way a box is
 # identified: table headers are #1e2430 and are absent here on purpose, so classify()

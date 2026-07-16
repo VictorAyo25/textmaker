@@ -14,7 +14,7 @@ manual_composer/
     └── PHY121/
         ├── README.md         how to rebuild/update THIS course
         ├── build/            code + assets
-        ├── sources/          raw inputs (slides, tests, prior manual)
+        ├── sources/          raw inputs, grouped: slides/ tests/ manual_v1/ extracted/
         └── drafts/           work in progress
 ```
 

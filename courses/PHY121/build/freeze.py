@@ -85,7 +85,7 @@ def main():
 
     banner = ('<!-- FROZEN CONTENT. This file is now the source of truth for this section.\n'
               '     assemble.py reads it as-is; edit it freely and re-run assemble.py.\n'
-              '     It was generated once from sources/PHY121_Study_Manual.pdf.\n'
+              '     It was generated once from sources/manual_v1/PHY121_Study_Manual.pdf.\n'
               '     Re-running `python freeze.py --force` would DISCARD your edits. -->\n')
 
     total_imgs = 0

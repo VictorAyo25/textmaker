@@ -2,7 +2,7 @@
 import fitz, io, os, sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PDF = os.path.join(BASE, 'sources', 'PHY121_Study_Manual.pdf')
+PDF = os.path.join(BASE, 'sources', 'manual_v1', 'PHY121_Study_Manual.pdf')
 
 HEADER_COLORS = {  # hex -> box type
     '#1b2a4a': 'teach',      # also table header / formula

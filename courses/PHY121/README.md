@@ -6,7 +6,11 @@ The finished PDF is published to `../../FINAL_MANUALS/`.
 ```
 PHY121/
 ├── build/      all code + assets (see below)
-├── sources/    the raw inputs: original manual v1, the 5 slide decks, CBT screenshots
+├── sources/    the raw inputs, grouped (see sources/README.md)
+│   ├── slides/       the 5 lecturer decks, in teaching order
+│   ├── tests/        CBT test screenshots (test1/, test2/)
+│   ├── manual_v1/    the original manual the blend is rebuilt from
+│   └── extracted/    text/images pulled out of the manual, regenerable
 └── drafts/     work-in-progress PDFs (never the published copy)
 ```
 
@@ -17,7 +21,7 @@ cd build
 python assemble.py          # ~5 min: writes build/full_manual_clean.pdf
 ```
 
-That file is the finished manual (163 pages). Copy it to `../../FINAL_MANUALS/`
+That file is the finished manual (151 pages). Copy it to `../../FINAL_MANUALS/`
 only when it is signed off.
 
 **Requirements:** Python 3 with `playwright` (+ `python -m playwright install chromium`),
@@ -26,8 +30,9 @@ self-contained and reproducible.
 
 ## What `assemble.py` does
 
-1. Reads `sources/PHY121_Study_Manual.pdf` (the original v1) and **regenerates**
-   the teaching sections as HTML, using a structure-aware extractor.
+1. Reads the frozen HTML in `build/content/` for every section. Anything not
+   frozen is regenerated from `sources/manual_v1/PHY121_Study_Manual.pdf` with a
+   structure-aware extractor.
 2. Splices in the new Module 5 content and the inline diagrams.
 3. Renders with headless Chromium, **twice**, to resolve Contents page numbers
    (chicken-and-egg: the Contents changes the pagination it is describing).
@@ -79,8 +84,9 @@ is not selectable and cannot be edited. Changing them requires reconstructing
 those pages as HTML (the machinery to do it is already here: see `reconstruct.py`
 + `gen_html.py`, which is exactly how Modules 1-4 were done).
 
-**Never delete `sources/PHY121_Study_Manual.pdf`.** Even with the prose frozen,
-the build still crops the back matter and the how-to pages from it on every run.
+**Never delete `sources/manual_v1/PHY121_Study_Manual.pdf`.** Even with every
+section frozen, the build still opens it on every run, and it is the reference
+the QA scripts diff against to prove no content was lost.
 
 ## House rules enforced (see ../../MANUAL_METHODOLOGY.md)
 

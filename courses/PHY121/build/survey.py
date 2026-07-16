@@ -1,7 +1,7 @@
 # Survey the extracted manual text: page count, section headers, box markers.
 import re, io, json, os
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(BASE, 'sources', 'manual_text.txt')
+SRC = os.path.join(BASE, 'sources', 'extracted', 'manual_text.txt')
 raw = io.open(SRC, encoding='utf-8').read()
 
 # split into pages
