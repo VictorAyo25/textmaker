@@ -159,12 +159,71 @@ parser: every box is a coloured header bar + tinted body. So:
 4. Within a box, classify by span colour/size: grey+small = step note, amber =
    "Now redo it", white-on-magenta circle = step number, etc.
 
-### Reuse pixels where reconstruction is not worth it
-Dense tables, exercise/mock/reference pages: **crop the original page to a
-300-dpi image** and place it full-bleed. Fidelity is guaranteed (they *are* the
-original), at the cost of selectable text. Stamp a fresh footer over the old one
-so numbering stays global. Reserve reconstruction for teaching sections, where
-inline diagrams must be injected.
+**Identify boxes by bar colour, never by a keyword in the label.** Gating on
+"the label starts with TEACH/WORKED/RECALL/..." only holds for the teaching
+sections; it silently discarded 54 back-matter boxes labelled "Q4 - POTENTIAL AT
+TWO DISTANCES". Colour is what actually distinguishes them: table headers are a
+neutral ink and classify to None, every box uses the semantic palette. Enumerate
+the palette from the document, do not assume you know it.
+
+### Crop only what is genuinely not text
+Reconstruct everything you can: real text is searchable, editable, and reflows.
+Crop to an image only for **line art** (framed vector diagrams), which has no
+text to recover. Dense tables are *not* an excuse to crop — rebuild them as real
+`<table>` (see the sup/sub trap below). Stamp a fresh footer over any crop so
+numbering stays global.
+
+Reflowed text is denser than the fixed page images it replaces, so the page count
+drops. That is expected; verify content, not page count.
+
+### Fidelity traps that a text-only diff will not catch
+Every one of these shipped once, because the check was
+`v1.get_text() == v2.get_text()` — which ignores formatting entirely.
+
+- **Formatting lives in span flags**, and dropping them loses meaning:
+  bit0(1)=superscript, bit1(2)=italic, bit3(8)=monospace, bit4(16)=bold.
+  **Subscripts have no flag** — detect geometrically (smaller size AND lower `y1`
+  than the line's baseline). Flatten `8.99 x 10^9` to "8.99 x 109" and you have
+  published a wrong constant, not a typo.
+- **Some content is drawn, not typed.** Fill-in-the-gap blanks are thin filled
+  rects (~62 x 1pt). A text-only pass drops them and the exercise becomes
+  unanswerable. Recover them from `get_drawings()` as pseudo-spans.
+- **Line-end hyphens come in two kinds and the typesetter marks them.** U+2010 is
+  one the hyphenator inserted to break a word ("capa-citor") and must be dropped;
+  ASCII '-' belongs to the word ("cross-sectional", "T-joint") and must be kept.
+  Do not guess from a dictionary: check the character.
+- **Letterspaced labels lose their word breaks.** Tracking wide enough that every
+  letter gap beats the extractor's space threshold yields "R E F E R E N C E R . 3".
+  Re-emitting that under CSS letter-spacing doubles the tracking and buries the
+  real space, printing "REFERENCER.3". Rebuild from `get_text('rawdict')` char
+  widths: the word space is measurably wider (3.13pt vs 1.61pt). Only do this to
+  labels you know are tracked — in ordinary text ("F = k · q") every space is real
+  and the same rule closes them all up.
+- **A right-aligned chip is not part of the label.** Reading bar spans in document
+  order welds them: "WORKED EXAMPLE - A 2 H INDUCTOR" + chip "TEST 2, Q1" becomes
+  "Test 2, q1 worked example - a 2 h inductor". Split on the x-gap.
+- **Pages need not contain a box.** Emitting only boxes drops sub-headings, stray
+  prose, and any page whose sole content is a heading whose boxes run over onto
+  the next page.
+- **Wrapped lines must merge.** A note or paragraph emitted one `<p>` per line
+  splits mid-word; worse, if steps are flushed as a list at the end, a note's tail
+  is printed *above* the whole list, detached from the sentence it ends.
+- **A table ends where its own row shading ends** (`table_extent`), not at "the
+  next heading" — otherwise the prose after it is swallowed in as rows. A table
+  continuing across a page break does not repeat its header: carry the column
+  bounds forward.
+
+### Auditing the rebuild honestly
+Compare v1 against the rebuild **excluding cropped regions**, and expect two
+categories of false positive that are not losses:
+1. soft-hyphen fragments ("capa", "citor") that you correctly rejoined;
+2. subscripts, if you strip inline tags without a separator ("Q<sub>total</sub>"
+   -> "Qtotal" hides the token "total").
+
+Strip **inline** tags with no separator and **block** tags with a space; do it
+the other way and the audit invents hundreds of phantom losses. When a residual
+will not reconcile, find the specific span and look at it — every one of them was
+either a real bug or a flaw in the measurement.
 
 ### Page numbers + Contents (the 2-pass dance)
 Auto page numbers need a chicken-and-egg fix:
@@ -196,3 +255,17 @@ Auto page numbers need a chicken-and-egg fix:
 near-blank pages; footer number != page position; unresolved TOC entries;
 `TOCM` left in text; em/en dashes; banned terms; Contents links not GOTO.
 Plus: recompute **every** number independently, and eyeball a montage of all pages.
+
+**A passing text diff proves almost nothing.** `get_text()` is blind to bold,
+italic, monospace, sub/superscript, drawn elements, list structure, and block
+order — every fidelity bug listed above survived a clean text diff. Add gates for
+what text comparison cannot see:
+- a word-level audit against the original, excluding cropped regions, reconciled
+  to zero (see "Auditing the rebuild honestly");
+- structural counts: `<b>` runs, `<sub>`/`<sup>`, fill-in blanks, list items,
+  figures, tables, sub-headings — a drop to zero means a detector broke;
+- no `<li>` whose text still starts with its own marker (doubled numbering);
+- no mid-word `-</p>` (a paragraph split across a hyphen);
+- **look at the rendered pages.** The stranded note tail, the welded kicker, and
+  the run-together answers were all invisible to every automated check and
+  obvious on sight.
