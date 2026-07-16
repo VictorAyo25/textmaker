@@ -163,7 +163,7 @@ def render_lines(lines):
                 note=f'<span class="note">{st["note"]}</span>' if st.get('note') else ''
                 lis.append(f'<li>{st["html"]}{note}</li>')
             out.append('<ol class="steps">'+''.join(lis)+'</ol>'); steps=[]
-    for ln in lines:
+    for li,ln in enumerate(lines):
         t=ln['text'].strip(); c=ln['col']; h=ln['html']
         if ln['badge'] is not None:
             flush_para()
@@ -219,8 +219,16 @@ def render_lines(lines):
             flush_para(); flush_steps()
             out.append(f'<hr class="cut"><p class="alabel">{esc(t.title())}</p>')
         elif role=='note':
-            if cur_step is not None and not cur_step.get('note'):
-                cur_step['note']=h
+            # A step's note wraps. Only the first line was kept, so the tail was
+            # emitted as a stray paragraph that landed ABOVE the whole steps list
+            # ("every single time." floating over step 1). Keep appending while the
+            # previous line was also a note; a note further down still starts a
+            # paragraph of its own.
+            prv=lines[li-1] if li>0 else None
+            prev_note=(prv is not None and prv['badge'] is None
+                       and (cnear(prv['col'],MUT) or cnear(prv['col'],FAINT)))
+            if cur_step is not None and (not cur_step.get('note') or prev_note):
+                cur_step['note']=join_wrapped(cur_step['note'],h) if cur_step.get('note') else h
             else:
                 # a muted note wraps like any other paragraph: emitting one <p> per
                 # line split it mid-word ("...Module 2 (capacit-" / "ance) 20%...")
