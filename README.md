@@ -9,7 +9,7 @@ manual_composer/
 │                             (course-agnostic — read this first for any new course)
 ├── FINAL_MANUALS/            ← THE ONLY PUBLISHED OUTPUT. All courses. Signed off only.
 │   ├── README.txt
-│   └── PHY121_Study_Manual_v2.pdf
+│   └── PHY121_Study_Manual_v3.pdf
 └── courses/                  ← one self-contained working folder per course
     └── PHY121/
         ├── README.md         how to rebuild/update THIS course
@@ -78,8 +78,12 @@ Use `--private`: these are your course materials and carry your name.
 After that, whenever you change something:
 
 ```bash
-git add -A && git commit -m "what changed" && git push
+tools/commit_course.sh PHY121 "what changed"    # stages that course only
+git pull --rebase && git push
 ```
+
+Use the helper rather than `git add -A`: if another chat is mid-edit on a
+different course, `-A` would commit its half-finished work as part of yours.
 
 To restore onto a new machine:
 
