@@ -106,7 +106,7 @@ own and merged in front of the body.
 **Both gates stop the build on failure. Neither is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (72 claims at the checkpoint). This is the
+  interpreter and fails on any mismatch (141 claims through Module Three). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the
