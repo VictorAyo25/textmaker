@@ -1,0 +1,453 @@
+<!-- ============ SOLVED: 2025/26 SECTION A ============ -->
+
+<section>
+  <div class="kick">S.1 · 2025/26 · HOW THIS PAPER WORKS</div>
+  <h2 class="title">The 2025/26 paper, and its rigid template</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Three hours, 70 marks, and the single most useful thing you can
+  know before you open it.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The shape of the paper</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Attempt one question from each Section.</b></p>
+        <p>Section A: 20 marks, Q1 <b>or</b> Q2<br/>
+        Section B: 25 marks, Q3 <b>or</b> Q4<br/>
+        Section C: 25 marks, Q5 <b>or</b> Q6</p>
+        <p>And: <b>use comments in Section B and Section C</b> to distinguish what
+        task each block of code performs. That is an instruction, not advice.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>20 + 25 + 25</b>. Section A is the
+      cheapest and the most predictable, so it is where you bank marks fastest.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Section A is a template, and both questions use it</span></div>
+    <div class="body">
+      <p>Q1 and Q2 are the same question with different nouns. Once you see this, you
+      can prepare for Section A precisely:</p>
+      <table class="data">
+        <tr><th style="width:10%">Part</th><th style="width:14%">Marks</th><th style="width:34%">Always asks</th><th>Q1 / Q2 in 2025/26</th></tr>
+        <tr><td><b>A</b></td><td>2</td><td>Define one term</td><td>method overloading / encapsulation</td></tr>
+        <tr><td><b>B</b></td><td>3</td><td>State <b>three differences</b> between two things</td><td>checked vs unchecked / overloading vs overriding</td></tr>
+        <tr><td><b>C</b></td><td>5</td><td><b>Find the errors</b>, given the correct output</td><td>a loop over an array with planted bugs</td></tr>
+        <tr><td><b>D</b></td><td>10</td><td><b>State the output</b>, then <b>convert the loops</b></td><td>Armstrong numbers / perfect numbers</td></tr>
+      </table>
+      <p>Part D is worth <b>half of Section A</b> and it is two mechanical tasks: dry
+      run (F.9) and loop conversion (Unit 4.6). Neither requires an idea. Both
+      require practice.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The five planted errors, both years</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part C plants the <b>same five kinds</b> of error in both Q1 and Q2:</p>
+        <p>1. <b>Wrong array type</b>: <code>int[]</code> holding decimal literals.<br/>
+        2. <b>Wrong accumulator type</b>: <code>int sum</code> for a decimal total.<br/>
+        3. <b>Off by one</b>: <code>i &lt;= arr.length</code>.<br/>
+        4. <b>Inverted continue</b>: skipping exactly what it should keep.<br/>
+        5. <b>Wrong stop count</b>: the wrong number in the final <code>if</code>.</p>
+      </div>
+      <p>Check for those five first, in that order, and you will find them in about a
+      minute. They are the same five in both questions and in both years.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>TTOIS</b>: Type, Total, Off-by-one,
+      Inverted, Stop. Read the snippet five times, once per letter, rather than once
+      hoping to spot everything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q1 ---------------- -->
+<section>
+  <div class="kick">S.2 · 2025/26 · QUESTION ONE · 20 MARKS</div>
+  <h2 class="title">Question One, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 A · Define method overloading, and the role of the signature</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> "Define method overloading in Java, and state precisely
+      the role that the method signature plays in enabling the compiler to resolve an
+      overloaded call at compile time."</p>
+      <p><b>Model answer.</b></p>
+      <p>Method overloading is a feature that allows a class to have more than one
+      method with the <b>same name</b> but <b>different parameter lists</b> (differing
+      in the number, types, or order of parameters).</p>
+      <p>The <b>method signature</b> is a method's <b>name together with its parameter
+      list</b>. Its role in resolution is this: at a call such as
+      <code>add(2, 3)</code>, the compiler compares the number, types and order of the
+      <b>arguments written at the call site</b> against the parameter list of every
+      candidate with that name, and selects the one whose signature matches (widening
+      the argument types if no exact match exists). Because the resolution uses only
+      what appears at the call site, and the <b>return type is not part of the
+      signature</b>, the return type plays <b>no role</b>: two methods differing only
+      by return type are rejected by the compiler as a duplicate definition. The
+      choice is therefore made entirely at <b>compile time</b>, which is why
+      overloading is called compile-time (static) polymorphism.</p>
+      <p class="small"><b>Where the marks are:</b> one for the definition, one for
+      "signature = name + parameter list" and the fact that the return type is
+      excluded. Saying "the compiler picks the right one" without saying <i>how</i>
+      is half an answer. See Units 5.1 and 5.6.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 B · Three differences: checked vs unchecked</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b> Three differences, one mark each:</p>
+      <ol class="qlist">
+        <li><b>When they are detected.</b> Checked exceptions are checked by the
+        compiler at <b>compile time</b>; unchecked exceptions occur at <b>run
+        time</b> and the compiler does not examine them.</li>
+        <li><b>Whether you must handle them.</b> A checked exception <b>must</b> be
+        either caught in a try-catch or declared with <code>throws</code>, or the code
+        <b>will not compile</b>. An unchecked exception carries no such obligation.</li>
+        <li><b>What causes them.</b> Checked exceptions represent conditions outside
+        the program's control (a missing file, a failed network call), whereas
+        unchecked exceptions represent <b>programming errors</b> (dereferencing null,
+        a bad index, dividing by zero).</li>
+      </ol>
+      <p><b>Examples</b> (add them; they cost one line and prove the point):
+      checked: <code>IOException</code>, <code>FileNotFoundException</code>,
+      <code>ClassNotFoundException</code>. Unchecked:
+      <code>NullPointerException</code>,
+      <code>ArrayIndexOutOfBoundsException</code>,
+      <code>ArithmeticException</code>.</p>
+      <p class="small"><b>Where the marks are:</b> three <i>distinct</i> axes. Writing
+      "one is checked and one is not" three different ways scores one mark. See Unit
+      10.1.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 C · Find the errors</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> The code should loop through the array, and for each
+      starting index i find the first number from i onward that is a multiple of 4;
+      add <b>(that number - 1)</b> to sum, count it as a match, stop after 3 matches,
+      then display the sum and match count. <b>The correct output is
+      Sum: 141.0, Matches: 3.</b></p>
+      <p class="small"><b>Read the output first.</b> "141.<b>0</b>" tells you the sum
+      is a <code>double</code> before you have read a line of code. That single
+      character finds two of the five errors.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The paper's snippet, with every error marked</span><span class="tag">AS PRINTED</span></div>
+    <div class="body">
+      <pre class="src" data-nocheck="the paper's broken snippet, reproduced verbatim for diagnosis; the corrected version below is compiled and run"><span class="l"><span class="k">import</span> javax.swing.JOptionPane;</span><span class="l"><span class="k">public class</span> <span class="t">Snippet</span> {</span><span class="l"><span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l bad"><span class="k">int</span>[] arr = {24.0, 40.0, 66.0, 80.0, 98.0};        <span class="c">// ERROR 1 and 2</span></span><span class="l bad">  <span class="k">int</span> sum = 0;                                     <span class="c">// ERROR 2</span></span><span class="l">  <span class="k">int</span> matches = 0;</span><span class="l">  <span class="k">boolean</span> stop = <span class="k">false</span>;</span><span class="l bad">  <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= arr.length &amp;&amp; !stop; i++) {   <span class="c">// ERROR 3</span></span><span class="l">      <span class="k">for</span> (<span class="k">int</span> j = i; j &lt; arr.length; j++) {</span><span class="l bad">          <span class="k">if</span> (arr[j] % 4 == 0) {                     <span class="c">// ERROR 4</span></span><span class="l">              <span class="k">continue</span>;</span><span class="l">          }</span><span class="l bad">          sum += arr[j] - j;                        <span class="c">// ERROR 5</span></span><span class="l">          matches++;</span><span class="l">          <span class="k">if</span> (matches == 3) {</span><span class="l">              stop = <span class="k">true</span>;</span><span class="l">          }</span><span class="l">          <span class="k">break</span>;</span><span class="l">      }</span><span class="l">  }</span><span class="l">  JOptionPane.showMessageDialog(<span class="k">null</span>, <span class="s">"Sum: "</span> + sum);</span><span class="l">  JOptionPane.showMessageDialog(<span class="k">null</span>, <span class="s">"Matches: "</span> + matches);</span><span class="l">  System.exit(0);</span><span class="l">}</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · The five errors, and why each is one</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Line 4: <code>int[]</code> cannot hold <code>24.0</code>.</b> Those are
+        <code>double</code> literals. This is a <b>compile</b> error: "incompatible
+        types: possible lossy conversion from double to int". Fix:
+        <code>double[] arr</code>.
+        <span class="note">The output confirms it: 141.0 is a double.</span></li>
+        <li><b>Line 5: <code>int sum</code> cannot total doubles</b>, and could never
+        print "141.0". Fix: <code>double sum = 0;</code>
+        <span class="note">Unit 3.3: the type decides what you may do and how it
+        prints.</span></li>
+        <li><b>Line 8: <code>i &lt;= arr.length</code> is off by one.</b> Indexes run
+        0 to length-1 (F.10). Fix: <code>i &lt; arr.length</code>.
+        <span class="note">Here it would not actually throw, because the inner loop
+        never runs when i = 5, but it is still wrong and it is one of the five
+        marks.</span></li>
+        <li><b>Lines 10 to 12: the <code>continue</code> is inverted.</b> The spec
+        says find numbers that <b>are</b> multiples of 4. This skips them and
+        processes everything else: precisely backwards. Fix:
+        <code>if (arr[j] % 4 != 0) continue;</code>
+        <span class="note">Unit 4.7: read every continue as "unless". This is the
+        error worth the most attention, because it is the one that is pure logic.</span></li>
+        <li><b>Line 13: <code>arr[j] - j</code> subtracts the index.</b> The spec says
+        add <b>(that number - 1)</b>. Fix: <code>sum += arr[j] - 1;</code>
+        <span class="note">A subtle one: with j it would give the right answer for
+        j = 1 only, so a spot check could miss it.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Corrected, and it reproduces the paper's answer</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Q1C"><span class="l"><span class="c">// JOptionPane replaced by println so the output can be printed here;</span></span><span class="l"><span class="c">// in the exam, keep the dialogs exactly as the paper has them.</span></span><span class="l"><span class="k">public class</span> <span class="t">Q1C</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l good">        <span class="k">double</span>[] arr = {24.0, 40.0, 66.0, 80.0, 98.0};   <span class="c">// fix 1</span></span><span class="l good">        <span class="k">double</span> sum = 0;                                 <span class="c">// fix 2</span></span><span class="l">        <span class="k">int</span> matches = 0;</span><span class="l">        <span class="k">boolean</span> stop = <span class="k">false</span>;</span><span class="l good">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; arr.length &amp;&amp; !stop; i++) {  <span class="c">// fix 3</span></span><span class="l">            <span class="k">for</span> (<span class="k">int</span> j = i; j &lt; arr.length; j++) {</span><span class="l good">                <span class="k">if</span> (arr[j] % 4 != 0) {                   <span class="c">// fix 4</span></span><span class="l">                    <span class="k">continue</span>;</span><span class="l">                }</span><span class="l good">                sum += arr[j] - 1;                      <span class="c">// fix 5</span></span><span class="l">                matches++;</span><span class="l">                <span class="k">if</span> (matches == 3) {</span><span class="l">                    stop = <span class="k">true</span>;</span><span class="l">                }</span><span class="l">                <span class="k">break</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum: "</span> + sum);</span><span class="l">        System.out.println(<span class="s">"Matches: "</span> + matches);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Sum: 141.0
+Matches: 3</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>That is the proof.</b> The paper
+      printed Sum: 141.0 and Matches: 3, and the corrected program produces exactly
+      that. If your five fixes do not reproduce the stated output, one of them is
+      wrong, and the paper has handed you the means to check your own answer.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · Why the answer is 141</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>arr = {24.0, 40.0, 66.0, 80.0, 98.0}</caption>
+        <tr><th style="width:8%">i</th><th style="width:32%">first multiple of 4 from i onward</th><th style="width:22%">add (that - 1)</th><th style="width:14%">matches</th><th>sum</th></tr>
+        <tr><td>0</td><td>arr[0] = 24</td><td>24 - 1 = 23</td><td class="chg">1</td><td class="chg">23.0</td></tr>
+        <tr><td>1</td><td>arr[1] = 40</td><td>40 - 1 = 39</td><td class="chg">2</td><td class="chg">62.0</td></tr>
+        <tr><td>2</td><td>66 is not, arr[3] = 80 is</td><td>80 - 1 = 79</td><td class="chg">3</td><td class="chg">141.0</td></tr>
+        <tr><td>-</td><td colspan="3">matches == 3, so stop = true</td><td class="emit">141.0</td></tr>
+      </table>
+      <p>Note i = 2 skipped 66 and found 80, which is exactly what the inner loop is
+      for: "the first multiple of 4 <b>from i onward</b>". And the outer loop never
+      reached i = 3, because <code>stop</code> ended it.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D i · State the five outputs</span><span class="tag">10 MARKS, PART ONE</span></div>
+    <div class="body">
+      <p><b>The question.</b> An Armstrong number equals the sum of its own digits
+      each raised to the power of the number of digits. State the five outputs for
+      the <code>ArmstrongChecker</code> code, for
+      <code>{370, 371, 372, 407, 408}</code>.</p>
+      <p><b>The answer.</b> Compute each digit cubed (all five are 3-digit numbers, so
+      the power is 3):</p>
+      <table class="data">
+        <tr><th style="width:14%">n</th><th style="width:44%">sum of digits^3</th><th style="width:14%">= n?</th><th>Output</th></tr>
+        <tr><td>370</td><td>27 + 343 + 0 = <b>370</b></td><td>yes</td><td><b>370 -&gt; ARMSTRONG</b></td></tr>
+        <tr><td>371</td><td>27 + 343 + 1 = <b>371</b></td><td>yes</td><td><b>371 -&gt; ARMSTRONG</b></td></tr>
+        <tr><td>372</td><td>27 + 343 + 8 = <b>378</b></td><td>no</td><td><b>372 -&gt; NOT ARMSTRONG</b></td></tr>
+        <tr><td>407</td><td>64 + 0 + 343 = <b>407</b></td><td>yes</td><td><b>407 -&gt; ARMSTRONG</b></td></tr>
+        <tr><td>408</td><td>64 + 0 + 512 = <b>576</b></td><td>no</td><td><b>408 -&gt; NOT ARMSTRONG</b></td></tr>
+      </table>
+      <p class="small">The arithmetic: 3<sup>3</sup> = 27, 7<sup>3</sup> = 343,
+      0<sup>3</sup> = 0, 1<sup>3</sup> = 1, 2<sup>3</sup> = 8, 4<sup>3</sup> = 64,
+      8<sup>3</sup> = 512. Three of the five are Armstrong numbers, which is worth
+      noticing: the examiner chose 370, 371 and 407 because they are the three
+      three-digit Armstrong numbers next to each other, and 372 and 408 as near
+      misses.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Confirmed by running the paper's own code</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="ArmstrongChecker"><span class="l"><span class="k">public class</span> <span class="t">ArmstrongChecker</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] numbers = {370, 371, 372, 407, 408};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> idx = 0; idx &lt; numbers.length; idx++) {</span><span class="l">            <span class="k">int</span> n = numbers[idx], digits = 0, temp = n, sum = 0;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) { digits++; temp /= 10; }</span><span class="l">            temp = n;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) {</span><span class="l">                <span class="k">int</span> d = temp % 10, power = 1;</span><span class="l">                <span class="k">for</span> (<span class="k">int</span> p = 0; p &lt; digits; p++) power *= d;</span><span class="l">                sum += power;</span><span class="l">                temp /= 10;</span><span class="l">            }</span><span class="l">            System.out.println(n + <span class="s">" -&gt; "</span> + (sum == n ? <span class="s">"ARMSTRONG"</span> : <span class="s">"NOT ARMSTRONG"</span>));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>370 -&gt; ARMSTRONG
+371 -&gt; ARMSTRONG
+372 -&gt; NOT ARMSTRONG
+407 -&gt; ARMSTRONG
+408 -&gt; NOT ARMSTRONG</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D ii · Convert the loops</span><span class="tag">10 MARKS, PART TWO</span></div>
+    <div class="body">
+      <p><b>The question.</b> "Retain other things but change the For Loop to While
+      loop and the While loops to For loops."</p>
+      <p>Read it precisely. The original has <b>three</b> loops:</p>
+      <table class="data">
+        <tr><th style="width:34%">Loop</th><th style="width:22%">Currently</th><th>Becomes</th></tr>
+        <tr><td>the outer one over <code>idx</code></td><td><code>for</code></td><td><b>while</b></td></tr>
+        <tr><td>counting the digits</td><td><code>while</code></td><td><b>for</b></td></tr>
+        <tr><td>summing the powers</td><td><code>while</code></td><td><b>for</b></td></tr>
+        <tr><td>the inner <code>p</code> loop</td><td><code>for</code></td><td><b>while</b></td></tr>
+      </table>
+      <p>"The For Loop" (singular) is the outer one; "the While loops" (plural) are
+      the two digit loops. The innermost <code>p</code> loop is also a for, so convert
+      it too: the safest reading is that <b>every</b> for becomes a while and every
+      while becomes a for. Apply Unit 4.6's recipe to each.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Every loop converted, same output</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="ArmstrongConverted"><span class="l"><span class="k">public class</span> <span class="t">ArmstrongConverted</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] numbers = {370, 371, 372, 407, 408};</span><span class="l"></span><span class="l good">        <span class="c">// FOR -&gt; WHILE: init out, condition in, update at the bottom</span></span><span class="l good">        <span class="k">int</span> idx = 0;</span><span class="l good">        <span class="k">while</span> (idx &lt; numbers.length) {</span><span class="l">            <span class="k">int</span> n = numbers[idx], digits = 0, temp = n, sum = 0;</span><span class="l"></span><span class="l good">            <span class="c">// WHILE -&gt; FOR: no init needed, temp is the counter</span></span><span class="l good">            <span class="k">for</span> (; temp &gt; 0; temp /= 10) {</span><span class="l">                digits++;</span><span class="l">            }</span><span class="l"></span><span class="l">            temp = n;</span><span class="l"></span><span class="l good">            <span class="c">// WHILE -&gt; FOR</span></span><span class="l good">            <span class="k">for</span> (; temp &gt; 0; temp /= 10) {</span><span class="l">                <span class="k">int</span> d = temp % 10, power = 1;</span><span class="l"></span><span class="l good">                <span class="c">// FOR -&gt; WHILE</span></span><span class="l good">                <span class="k">int</span> p = 0;</span><span class="l good">                <span class="k">while</span> (p &lt; digits) {</span><span class="l">                    power *= d;</span><span class="l good">                    p++;</span><span class="l">                }</span><span class="l">                sum += power;</span><span class="l">            }</span><span class="l"></span><span class="l">            System.out.println(n + <span class="s">" -&gt; "</span> + (sum == n ? <span class="s">"ARMSTRONG"</span> : <span class="s">"NOT ARMSTRONG"</span>));</span><span class="l good">            idx++;                      <span class="c">// the update, at the bottom</span></span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>370 -&gt; ARMSTRONG
+371 -&gt; ARMSTRONG
+372 -&gt; NOT ARMSTRONG
+407 -&gt; ARMSTRONG
+408 -&gt; NOT ARMSTRONG</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Identical output to the original.</b>
+      That is the test of a conversion: same program, different clothes.</p>
+      <p class="small" style="padding:0 8pt 6pt">Two points a marker looks for. The
+      <code>for (; temp &gt; 0; temp /= 10)</code> has an <b>empty initialisation</b>,
+      which is legal and is the honest conversion: the original while had nothing to
+      initialise, because <code>temp</code> already existed. Do not invent a variable
+      to fill the slot. And <code>idx++</code> sits at the <b>bottom</b> of the while
+      body, which is Unit 4.6's step 3 and the one people forget: leave it out and the
+      program runs forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q2 ---------------- -->
+<section>
+  <div class="kick">S.3 · 2025/26 · QUESTION TWO · 20 MARKS</div>
+  <h2 class="title">Question Two, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 A · Define encapsulation</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p>Encapsulation is the OOP principle of <b>bundling data (fields) and the
+      methods that operate on them into a single unit (a class), while restricting
+      direct access to some of its components</b>.</p>
+      <p>In Java it is achieved by declaring the fields <code>private</code> and
+      exposing controlled access through <code>public</code> getter and setter
+      methods. This gives <b>data hiding</b> (unauthorised code cannot read or modify
+      the state), <b>validation</b> (a setter can reject invalid input, for example
+      preventing a negative balance), and <b>flexibility</b> (the internal
+      representation can change without breaking any code that uses the class).</p>
+      <p class="small"><b>Where the marks are:</b> one for the bundling-plus-
+      restricting definition, one for how it is achieved (private fields, public
+      getters and setters). Add one benefit if you have room. See Unit 6.4.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 B · Three differences: overloading vs overriding</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b> Three differences, one mark each:</p>
+      <ol class="qlist">
+        <li><b>Where they occur.</b> Overloading happens <b>within a single class</b>:
+        several methods share a name. Overriding happens <b>between a superclass and
+        a subclass</b>: the subclass replaces the inherited method.</li>
+        <li><b>The parameter list.</b> Overloaded methods must have <b>different</b>
+        parameter lists. An overriding method must have <b>exactly the same</b> name
+        and parameter list as the one it overrides.</li>
+        <li><b>When the method is chosen.</b> Overloading is resolved at <b>compile
+        time</b> by the compiler (static polymorphism); overriding is resolved at
+        <b>run time</b> by the JVM, from the object's actual type (dynamic
+        polymorphism).</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> three separate axes. If you have
+      room, add that overriding <b>requires inheritance</b> and overloading does not.
+      See Unit 6.7.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 C · Find the errors</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Loop through an array of prices, <b>skip anything under
+      20</b>, apply a 10% discount to prices 20 and above, add the discounted price to
+      total, count it, and <b>stop once 4 items have been discounted</b>. Then display
+      the total and count. <b>Correct output: Total: 202.725, Count: 4.</b></p>
+      <p>The same five errors as Q1, in the same order. This is the payoff of the
+      template.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · The five errors</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Line 4: <code>int[] prices = {15.5, ...}</code></b>. Decimal literals in
+        an int array: a compile error. Fix: <code>double[] prices</code>.
+        <span class="note">The output "202.725" says double before you read anything
+        else.</span></li>
+        <li><b>Line 5: <code>int total = 0;</code></b> cannot hold 202.725. Fix:
+        <code>double total = 0;</code></li>
+        <li><b>Line 8: <code>i &lt;= prices.length</code></b> is off by one. Fix:
+        <code>i &lt; prices.length</code>.
+        <span class="note">Unlike Q1, this one <b>would</b> throw
+        <code>ArrayIndexOutOfBoundsException</code> at i = 6, because line 9 reads
+        <code>prices[i]</code> straight away. Same error, worse
+        consequence.</span></li>
+        <li><b>Line 9: <code>if (prices[i] &gt; 20) continue;</code> is inverted.</b>
+        The spec says skip anything <b>under</b> 20. This skips everything <b>over</b>
+        20, i.e. exactly the items to be discounted. Fix:
+        <code>if (prices[i] &lt; 20) continue;</code></li>
+        <li><b>Line 15: <code>if (count == 5)</code></b>. The spec says stop once
+        <b>4</b> have been discounted. Fix: <code>if (count == 4)</code>.
+        <span class="note">Only four of the six prices are 20 or above anyway, so with
+        <code>== 5</code> the flag never fires. The count would still be 4, and the
+        total would still be right, which makes this the easiest error to miss: it
+        does not change the answer, it just means the code does not do what it was
+        asked.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Corrected, reproducing the paper's answer</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Q2C"><span class="l"><span class="k">public class</span> <span class="t">Q2C</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l good">        <span class="k">double</span>[] prices = {15.5, 42.0, 8.75, 60.0, 33.25, 90.0};  <span class="c">// fix 1</span></span><span class="l good">        <span class="k">double</span> total = 0;                                        <span class="c">// fix 2</span></span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">boolean</span> done = <span class="k">false</span>;</span><span class="l good">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; prices.length &amp;&amp; !done; i++) {         <span class="c">// fix 3</span></span><span class="l good">            <span class="k">if</span> (prices[i] &lt; 20) {                                 <span class="c">// fix 4</span></span><span class="l">                <span class="k">continue</span>;</span><span class="l">            }</span><span class="l">            <span class="k">double</span> discount = prices[i] * 0.1;</span><span class="l">            total += prices[i] - discount;</span><span class="l">            count++;</span><span class="l good">            <span class="k">if</span> (count == 4) {                                     <span class="c">// fix 5</span></span><span class="l">                done = <span class="k">true</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Total: "</span> + total);</span><span class="l">        System.out.println(<span class="s">"Count: "</span> + count);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Total: 202.725
+Count: 4</pre>
+      <p class="small" style="padding:6pt 8pt 0">Matches the paper exactly.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · Why the answer is 202.725</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>prices = {15.5, 42.0, 8.75, 60.0, 33.25, 90.0}, 10% off each</caption>
+        <tr><th style="width:8%">i</th><th style="width:14%">price</th><th style="width:22%">under 20?</th><th style="width:24%">discounted (90%)</th><th style="width:16%">count</th><th>total</th></tr>
+        <tr><td>0</td><td>15.5</td><td><b>yes: skip</b></td><td>-</td><td>0</td><td>0</td></tr>
+        <tr><td>1</td><td>42.0</td><td>no</td><td>37.8</td><td class="chg">1</td><td class="chg">37.8</td></tr>
+        <tr><td>2</td><td>8.75</td><td><b>yes: skip</b></td><td>-</td><td>1</td><td>37.8</td></tr>
+        <tr><td>3</td><td>60.0</td><td>no</td><td>54.0</td><td class="chg">2</td><td class="chg">91.8</td></tr>
+        <tr><td>4</td><td>33.25</td><td>no</td><td>29.925</td><td class="chg">3</td><td class="chg">121.725</td></tr>
+        <tr><td>5</td><td>90.0</td><td>no</td><td>81.0</td><td class="chg">4</td><td class="emit">202.725</td></tr>
+      </table>
+      <p>count reaches 4, done becomes true, and the loop ends having consumed the
+      whole array anyway. Total 202.725, Count 4.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 D i · State the output</span><span class="tag">10 MARKS, PART ONE</span></div>
+    <div class="body">
+      <p><b>The question.</b> <code>NumberClassifier</code> counts, for 1 to 30, how
+      many numbers are perfect (proper divisors sum to the number), abundant (sum to
+      more) and deficient (sum to less). State the output.</p>
+      <p><b>The answer:</b>
+      <code>Perfect: 2, Abundant: 5, Deficient: 23</code></p>
+      <p>The reasoning, which is worth writing out because "no need to show workings"
+      does not mean "do not check":</p>
+      <table class="data">
+        <tr><th style="width:22%">Class</th><th style="width:16%">Count</th><th>Which</th></tr>
+        <tr><td><b>Perfect</b></td><td>2</td><td><b>6</b> (1+2+3 = 6) and <b>28</b> (1+2+4+7+14 = 28)</td></tr>
+        <tr><td><b>Abundant</b></td><td>5</td><td><b>12</b> (16), <b>18</b> (21), <b>20</b> (22), <b>24</b> (36), <b>30</b> (42)</td></tr>
+        <tr><td><b>Deficient</b></td><td>23</td><td>everything else, including every prime, and <b>1</b></td></tr>
+      </table>
+      <p class="small">Two checks that catch mistakes. <b>2 + 5 + 23 = 30</b>, so
+      every number is classified exactly once. And <b>1</b> is deficient: its proper
+      divisors sum to 0, because 1 has no proper divisor, and the loop
+      <code>for (div = 1; div &lt; num; div++)</code> never runs for num = 1. Forget
+      that and you get 22, not 23.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Confirmed, with the classification printed</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="NumberClassifier"><span class="l"><span class="k">public class</span> <span class="t">NumberClassifier</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> perfectCount = 0, abundantCount = 0, deficientCount = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> num = 1; num &lt;= 30; num++) {</span><span class="l">            <span class="k">int</span> sum = 0;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> div = 1; div &lt; num; div++) {</span><span class="l">                <span class="k">if</span> (num % div == 0) sum += div;</span><span class="l">            }</span><span class="l">            <span class="k">if</span> (sum == num) perfectCount++;</span><span class="l">            <span class="k">else if</span> (sum &gt; num) abundantCount++;</span><span class="l">            <span class="k">else</span> deficientCount++;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Perfect: "</span> + perfectCount + <span class="s">", Abundant: "</span> + abundantCount</span><span class="l">            + <span class="s">", Deficient: "</span> + deficientCount);</span><span class="l">        System.out.println(<span class="s">"check: "</span> + (perfectCount + abundantCount + deficientCount)</span><span class="l">            + <span class="s">" numbers classified"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Perfect: 2, Abundant: 5, Deficient: 23
+check: 30 numbers classified</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Q2 D ii · For loops converted to while loops</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="NumberClassifierWhile"><span class="l"><span class="k">public class</span> <span class="t">NumberClassifierWhile</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> perfectCount = 0, abundantCount = 0, deficientCount = 0;</span><span class="l"></span><span class="l good">        <span class="k">int</span> num = 1;                        <span class="c">// 1. init above</span></span><span class="l good">        <span class="k">while</span> (num &lt;= 30) {                 <span class="c">// 2. condition</span></span><span class="l">            <span class="k">int</span> sum = 0;</span><span class="l"></span><span class="l good">            <span class="k">int</span> div = 1;                    <span class="c">// the inner one too</span></span><span class="l good">            <span class="k">while</span> (div &lt; num) {</span><span class="l">                <span class="k">if</span> (num % div == 0) sum += div;</span><span class="l good">                div++;                      <span class="c">// 3. update at the bottom</span></span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">if</span> (sum == num) perfectCount++;</span><span class="l">            <span class="k">else if</span> (sum &gt; num) abundantCount++;</span><span class="l">            <span class="k">else</span> deficientCount++;</span><span class="l"></span><span class="l good">            num++;                          <span class="c">// 3. update at the bottom</span></span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Perfect: "</span> + perfectCount + <span class="s">", Abundant: "</span> + abundantCount</span><span class="l">            + <span class="s">", Deficient: "</span> + deficientCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Perfect: 2, Abundant: 5, Deficient: 23</pre>
+      <p class="small" style="padding:6pt 8pt 0">Identical output, which is the whole
+      test. Note <code>int sum = 0;</code> stays <b>inside</b> the outer loop: it must
+      be reset for every number, and moving it out is the classic way to wreck this
+      conversion. The recipe only moves the loop's <b>own</b> three parts; everything
+      else stays exactly where it was, which is what "retain other things" means.</p>
+    </div>
+  </div>
+</section>
