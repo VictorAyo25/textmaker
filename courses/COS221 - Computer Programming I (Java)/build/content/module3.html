@@ -735,3 +735,379 @@ true &amp;&amp; loud:
     </div>
   </div>
 </section>
+
+<!-- ---------------- 3.9 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.9 · OPERATOR PRECEDENCE</div>
+  <h2 class="title">Which operator goes first</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Precedence</span></div>
+    <div class="body">
+      <p>When several operators meet in one expression, <b>precedence</b> decides
+      which acts first. You already know this from arithmetic: <code>2 + 3 * 4</code>
+      is 14, not 20, because multiplication binds tighter than addition. Java works
+      the same way and extends it to every operator it has.</p>
+      <p>"Why is operator precedence important?" and "how can parentheses change the
+      evaluation of expressions?" are both stated in-text questions, so both are
+      candidates for the define slot.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Precedence, highest first</span></div>
+    <div class="body">
+      <div class="card">
+        <p>1. <code>( )</code> parentheses<br/>
+        2. <code>++ -- !</code> unary<br/>
+        3. <code>* / %</code> multiplicative<br/>
+        4. <code>+ -</code> additive<br/>
+        5. <code>&lt; &lt;= &gt; &gt;=</code> relational<br/>
+        6. <code>== !=</code> equality<br/>
+        7. <code>&amp;&amp;</code> logical AND<br/>
+        8. <code>||</code> logical OR<br/>
+        9. <code>?:</code> ternary<br/>
+        10. <code>= += -= *= /=</code> assignment (last, and right to left)</p>
+      </div>
+      <p>Two facts do most of the work: <b>arithmetic beats comparison, comparison
+      beats logic, and assignment is always last</b>. That is why
+      <code>x = a + b &gt; c &amp;&amp; d</code> parses the way you would hope:
+      add, then compare, then AND, then assign.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the order is the order you would do it on
+      paper. <b>Work out the numbers, then compare them, then combine the answers,
+      then write the result down.</b> Assignment is writing it down, so it is last.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Precedence, and parentheses overriding it</span></div>
+    <div class="body">
+      <pre class="src" data-run="Precedence"><span class="l"><span class="k">public class</span> <span class="t">Precedence</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(2 + 3 * 4);       <span class="c">// * first</span></span><span class="l">        System.out.println((2 + 3) * 4);     <span class="c">// parentheses win</span></span><span class="l"></span><span class="l">        <span class="k">int</span> a = 5, b = 3, c = 2;</span><span class="l">        System.out.println(a - b - c);       <span class="c">// left to right: (5-3)-2</span></span><span class="l">        System.out.println(a - (b - c));     <span class="c">// forced the other way</span></span><span class="l"></span><span class="l">        <span class="c">// arithmetic, then relational, then logical</span></span><span class="l">        System.out.println(a + b &gt; c &amp;&amp; b &lt; a);</span><span class="l">        System.out.println(10 / 2 * 5);      <span class="c">// same rank: left to right</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>14
+20
+0
+4
+true
+25</pre>
+      <p class="small" style="padding:6pt 8pt 0">The last line is the one that catches
+      people. <code>/</code> and <code>*</code> have the <b>same</b> precedence, so
+      Java goes left to right: <code>(10 / 2) * 5</code> = 25, not
+      <code>10 / (2 * 5)</code> = 1. Equal precedence is settled by
+      <b>associativity</b>, and for arithmetic that means left first.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Parentheses cost nothing</span></div>
+    <div class="body">
+      <p>You will not be asked to recite the precedence table under exam pressure,
+      and you should not rely on it under any pressure. <b>Write the parentheses.</b>
+      <code>(a + b) &gt; (c * d)</code> takes two seconds longer to type, is
+      impossible to misread, and cannot be wrong. Every professional Java programmer
+      does this, and the reason is not ignorance of the table.</p>
+      <p>Where it does matter is <i>reading</i>: an exam hands you an expression
+      without parentheses and asks what it evaluates to. Then you need the table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.10 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.10 · JAVA INPUT</div>
+  <h2 class="title">Three ways to get data from the user</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The three</span></div>
+    <div class="body">
+      <p>Input handling lets users provide data from the keyboard, files or
+      networks. Your course names three ways:</p>
+      <table class="data">
+        <tr><th style="width:26%">Way</th><th style="width:26%">Lives in</th><th>Use it when</th></tr>
+        <tr><td><b>Scanner</b></td><td><code>java.util</code></td><td>almost always. The most common, and the one to reach for.</td></tr>
+        <tr><td><b>BufferedReader</b> with <b>InputStreamReader</b></td><td><code>java.io</code></td><td>you want speed, or you are already reading files (Module 10).</td></tr>
+        <tr><td><b>Console</b></td><td><code>java.io</code></td><td>you need a password typed without it appearing on screen.</td></tr>
+      </table>
+      <p>And there is a fourth this course actually examines most: <b>JOptionPane</b>,
+      from F.11, which asks in a pop-up window. The 2025/26 paper demands it by name.
+      Know all four; reach for Scanner when the question does not say.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Scanner</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="ScannerInput" data-stdin="John Doe&#10;"><span class="l"><span class="k">import</span> java.util.Scanner;</span><span class="l"><span class="k">public class</span> <span class="t">ScannerInput</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> input = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        System.out.print(<span class="s">"Enter your name: "</span>);</span><span class="l">        <span class="t">String</span> name = input.nextLine();</span><span class="l">        System.out.print(<span class="s">"Welcome "</span> + name);</span><span class="l"></span><span class="l">        input.close();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, with "John Doe" typed</span>Enter your name: Welcome John Doe</pre>
+      <p class="small" style="padding:6pt 8pt 0">Your course shows this as two lines,
+      "Enter your name: John Doe" then "Welcome John Doe". Both are right, and the
+      difference is worth understanding. When a <i>person</i> types, the terminal
+      echoes their keystrokes and their Enter moves the cursor down, so "John Doe"
+      and the line break appear on screen without the program printing them. Feed the
+      same program its input from a file and that echo does not happen, so you get the
+      single line above. <b>The program printed exactly the same characters both
+      times.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Reading Scanner's four lines</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:38%">Line</th><th>What it is doing</th></tr>
+        <tr><td><code>import java.util.Scanner;</code></td><td>tells the compiler where <code>Scanner</code> lives. Without it, "cannot find symbol".</td></tr>
+        <tr><td><code>new Scanner(System.in)</code></td><td>makes a Scanner object reading from <code>System.in</code>, which is the keyboard. <code>new</code> creates an object, exactly as in Module 1.</td></tr>
+        <tr><td><code>input.nextLine()</code></td><td>waits for the user to press Enter, then hands back everything typed, as a <code>String</code>.</td></tr>
+        <tr><td><code>input.close()</code></td><td>releases the resource. Good manners, and Module 10 explains why it matters.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Scanner's read methods</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>nextLine()</code> reads a whole line, returns <code>String</code><br/>
+        <code>next()</code> reads one word, returns <code>String</code><br/>
+        <code>nextInt()</code> reads a whole number, returns <code>int</code><br/>
+        <code>nextDouble()</code> reads a decimal, returns <code>double</code><br/>
+        <code>nextBoolean()</code> returns <code>boolean</code></p>
+      </div>
+      <p>Note the difference from <code>JOptionPane</code> in F.11: a dialog always
+      hands you text and you must parse it. Scanner will do the conversion for you if
+      you ask the right method. <code>nextInt()</code> needs no
+      <code>Integer.parseInt</code>.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the method name says what you get back.
+      <code>nextInt</code> gives an int. The only one that surprises is
+      <code>nextLine</code> versus <code>next</code>: <b>line takes everything, next
+      takes one word.</b></p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · nextInt() then nextLine() eats your input</span></div>
+    <div class="body">
+      <p>The most notorious Scanner bug, and it looks like the computer ignoring you.
+      <code>nextInt()</code> takes the digits and <b>leaves the Enter key sitting in
+      the buffer</b>. The next <code>nextLine()</code> finds that leftover newline,
+      says "ah, an empty line", and returns immediately without letting you type.</p>
+      <p>The fix is an extra <code>input.nextLine();</code> after the
+      <code>nextInt()</code>, purely to consume the stray newline. It looks like a
+      pointless line of code and it is load-bearing.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The trap, and the fix, both run</span></div>
+    <div class="body">
+      <pre class="src" data-run="ScannerTrap" data-stdin="25&#10;Lagos&#10;30&#10;Abuja&#10;"><span class="l"><span class="k">import</span> java.util.Scanner;</span><span class="l"><span class="k">public class</span> <span class="t">ScannerTrap</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// BROKEN: nextInt leaves the newline behind</span></span><span class="l">        <span class="k">int</span> age = in.nextInt();</span><span class="l bad">        <span class="t">String</span> city = in.nextLine();      <span class="c">// grabs the leftover newline</span></span><span class="l">        System.out.println(<span class="s">"broken -> age="</span> + age + <span class="s">" city=["</span> + city + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        in.nextLine();                    <span class="c">// clear the rest of that line</span></span><span class="l"></span><span class="l">        <span class="c">// FIXED: consume the newline before reading the line</span></span><span class="l">        <span class="k">int</span> age2 = in.nextInt();</span><span class="l good">        in.nextLine();                    <span class="c">// &lt;- the load-bearing line</span></span><span class="l">        <span class="t">String</span> city2 = in.nextLine();</span><span class="l">        System.out.println(<span class="s">"fixed  -> age="</span> + age2 + <span class="s">" city=["</span> + city2 + <span class="s">"]"</span>);</span><span class="l">        in.close();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, given 25 / Lagos / 30 / Abuja</span>broken -> age=25 city=[]
+fixed  -> age=30 city=[Abuja]</pre>
+      <p class="small" style="padding:6pt 8pt 0">Look at <code>city=[]</code>. The
+      program never waited, and "Lagos" was never read. Nothing crashed and nothing
+      warned: a logic error, in the sense of F.7.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · BufferedReader with InputStreamReader</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="BufferedReaderInput" data-stdin="42&#10;"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"><span class="k">public class</span> <span class="t">BufferedReaderInput</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> IOException {</span><span class="l">        <span class="t">BufferedReader</span> br =</span><span class="l">            <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">InputStreamReader</span>(System.in));</span><span class="l"></span><span class="l">        System.out.print(<span class="s">"Enter an integer: "</span>);</span><span class="l">        <span class="k">int</span> n = <span class="t">Integer</span>.parseInt(br.readLine());</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"You entered: "</span> + n);</span><span class="l">        br.close();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, with 42 typed</span>Enter an integer: You entered: 42</pre>
+      <p class="small" style="padding:6pt 8pt 0">Two things to notice.
+      <code>readLine()</code> always returns a <code>String</code>, so
+      <code>Integer.parseInt</code> is compulsory, exactly as with
+      <code>JOptionPane</code> in F.11. And <code>throws IOException</code> on
+      <code>main</code>: reading can fail, and Java forces you to acknowledge it.
+      Module 10 explains what that phrase really means; for now, without it this
+      will not compile.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Console, and why it may hand you nothing</span></div>
+    <div class="body">
+      <p>The third way, for passwords. <code>System.console()</code> gives a
+      <code>Console</code> object whose <code>readPassword</code> reads without
+      echoing the characters to the screen.</p>
+      <pre class="src nonum" data-nocheck="Console cannot run here or in any IDE: System.console() returns null unless the program is attached to a real terminal, which is precisely the point the slide's null check makes"><span class="l">import java.io.Console;</span><span class="l"></span><span class="l">public class ConsoleExample {</span><span class="l">    public static void main(String[] args) {</span><span class="l">        Console console = System.console();</span><span class="l">        if (console == null) {                       &lt;- this check matters</span><span class="l">            System.err.println("Console not available!");</span><span class="l">            return;</span><span class="l">        }</span><span class="l">        String username = console.readLine("Enter username: ");</span><span class="l">        char[] passwordChars = console.readPassword("Enter password: ");</span><span class="l">        String password = new String(passwordChars);</span><span class="l">        System.out.println("Username: " + username);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <p>This is the one listing in this book that is not run for you, and the reason
+      is the lesson: <b><code>System.console()</code> returns <code>null</code> unless
+      the program is attached to a real terminal.</b> Run it from an IDE, or with its
+      input piped from a file, and there is no console, so the program prints "Console
+      not available!" and stops. That is why your course's slide checks for
+      <code>null</code> first, and why the check is not optional politeness.</p>
+      <p>Notice also that <code>readPassword</code> returns <code>char[]</code>, not
+      <code>String</code>: a security decision, so the password can be erased from
+      memory afterwards. The slide's own comment, "don't do this in real apps", is
+      about printing it out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.11 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.11 · JAVA OUTPUT</div>
+  <h2 class="title">print, println, printf</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three output methods</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>System.out.print(x)</code> prints, cursor <b>stays</b> on the line.<br/>
+        <code>System.out.println(x)</code> prints, cursor <b>moves</b> to the next line.<br/>
+        <code>System.out.printf(fmt, ...)</code> prints with <b>formatting</b>, and does
+        <b>not</b> move to a new line unless you ask with <code>%n</code>.</p>
+      </div>
+      <p>"What are the differences between print, println and printf" is a stated
+      in-text question, which makes it a strong candidate for the 2 or 3 mark slot.
+      Answer with all three, including the <code>%n</code> detail.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>ln means line-end.</b> The
+      <code>ln</code> is not decoration; it is the newline, and it is the only
+      difference between the first two.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · printf and the format string</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="PrintFormatOne"><span class="l"><span class="k">public class</span> <span class="t">PrintFormatOne</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">double</span> pi = 3.14159;</span><span class="l">        System.out.printf(<span class="s">"The value of Pi is %.2f"</span>, pi);</span><span class="l">        <span class="c">// Prints pi with two decimal places</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>The value of Pi is 3.14</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · How printf works</span></div>
+    <div class="body">
+      <p>The first argument is a <b>format string</b>: ordinary text with
+      <b>format specifiers</b> in it. Each specifier starts with <code>%</code> and is
+      a slot. The arguments after the format string fill the slots, left to right.</p>
+      <p style="text-align:center"><code>System.out.printf("%s scored %d, average %.1f%n", name, mark, avg);</code></p>
+      <p>Three slots, three arguments, in order. The letter after the
+      <code>%</code> says what kind of value goes there, and getting it wrong is a
+      run-time crash, not a compile error.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The format specifiers</span></div>
+    <div class="body">
+      <p>Your course's table, <b>with two corrections</b>, each flagged and explained
+      in the trap below. Every Example column here was produced by running it.</p>
+      <table class="data">
+        <tr><th style="width:16%">Format</th><th style="width:40%">Description</th><th>Example output</th></tr>
+        <tr><td><code>%s</code></td><td>String</td><td><code>John</code></td></tr>
+        <tr><td><code>%d</code></td><td>Integer</td><td><code>100</code></td></tr>
+        <tr><td><code>%f</code></td><td>Floating-point, <b>six decimals by default</b></td><td><code>3.141590</code></td></tr>
+        <tr><td><code>%.2f</code></td><td>2 decimal places</td><td><code>3.14</code></td></tr>
+        <tr><td><code>%c</code></td><td>Character</td><td><code>A</code></td></tr>
+        <tr><td><code>%x</code> or <code>%X</code></td><td>Hexadecimal, lower or upper case</td><td><code>ff</code> or <code>FF</code></td></tr>
+        <tr><td><code>%e</code> / <code>%E</code></td><td>Scientific notation, lower or upper</td><td><code>1.234568e+06</code></td></tr>
+        <tr><td><code>%05d</code></td><td>Pad with zeros to width 5</td><td><code>00005</code></td></tr>
+        <tr><td><code>%+d</code></td><td>Force a sign</td><td><code>+10</code></td></tr>
+        <tr><td><code>%-5d</code></td><td>Left justified, width 5</td><td><code>|10&nbsp;&nbsp;&nbsp;|</code></td></tr>
+        <tr><td><code>%5d</code></td><td>Right justified, minimum width 5</td><td><code>|&nbsp;&nbsp;&nbsp;&nbsp;5|</code></td></tr>
+        <tr><td><code>%n</code></td><td>A new line</td><td>(moves the cursor)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Two errors in the specifier table</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:20%">The slide says</th><th style="width:34%">Running it gives</th><th>Why</th></tr>
+        <tr><td><code>%f</code> of 3.14159 is <b>3.14159</b></td><td><b>3.141590</b></td><td>bare <code>%f</code> always prints <b>six</b> decimal places, padding with a zero. To get 3.14159 you must ask: <code>%.5f</code>.</td></tr>
+        <tr><td>"<code>%x</code> or <b><code>X%</code></b>"</td><td><code>X%</code> <b>throws</b> <code>UnknownFormatConversionException</code></td><td>the <code>%</code> comes <b>first</b>, always. It is <code>%X</code>. As printed, the program crashes at run time.</td></tr>
+      </table>
+      <p>The <code>%f</code> one is the dangerous one, because it is silent. Ask for
+      <code>%f</code> expecting your number back and you get a spurious trailing zero
+      in your output, and an exam asking for exact output will not accept it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Every specifier, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Specifiers"><span class="l"><span class="k">public class</span> <span class="t">Specifiers</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.printf(<span class="s">"%%s    -&gt; [%s]%n"</span>, <span class="s">"John"</span>);</span><span class="l">        System.out.printf(<span class="s">"%%d    -&gt; [%d]%n"</span>, 100);</span><span class="l bad">        System.out.printf(<span class="s">"%%f    -&gt; [%f]%n"</span>, 3.14159);</span><span class="l good">        System.out.printf(<span class="s">"%%.2f  -&gt; [%.2f]%n"</span>, 3.14159);</span><span class="l">        System.out.printf(<span class="s">"%%c    -&gt; [%c]%n"</span>, <span class="s">'A'</span>);</span><span class="l">        System.out.printf(<span class="s">"%%x    -&gt; [%x]  %%X -&gt; [%X]%n"</span>, 255, 255);</span><span class="l">        System.out.printf(<span class="s">"%%e    -&gt; [%e]%n"</span>, 1234567.891);</span><span class="l">        System.out.printf(<span class="s">"%%05d  -&gt; [%05d]%n"</span>, 5);</span><span class="l">        System.out.printf(<span class="s">"%%+d   -&gt; [%+d]%n"</span>, 10);</span><span class="l">        System.out.printf(<span class="s">"%%-5d  -&gt; [%-5d]%n"</span>, 10);</span><span class="l">        System.out.printf(<span class="s">"%%5d   -&gt; [%5d]%n"</span>, 5);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>%s    -&gt; [John]
+%d    -&gt; [100]
+%f    -&gt; [3.141590]
+%.2f  -&gt; [3.14]
+%c    -&gt; [A]
+%x    -&gt; [ff]  %X -&gt; [FF]
+%e    -&gt; [1.234568e+06]
+%05d  -&gt; [00005]
+%+d   -&gt; [+10]
+%-5d  -&gt; [10   ]
+%5d   -&gt; [    5]</pre>
+      <p class="small" style="padding:6pt 8pt 0">The square brackets are there so you
+      can see the padding. Note <code>%%</code> in the format string: that is how you
+      print a literal percent sign, since a lone <code>%</code> would start a
+      specifier.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · A formatted table</span><span class="tag">PAST PAPER · 24/25 Q3 D</span></div>
+    <div class="body">
+      <p>A past paper asks for student records "in a formatted table" using
+      <code>printf</code> "for proper column alignment". This is the technique.</p>
+      <ol class="steps">
+        <li>Decide a width for each column, wide enough for the longest entry plus
+        breathing room.
+        <span class="note">Name needs 6 for "Lilian", so take 8.</span></li>
+        <li>Left justify text with <code>%-8s</code>, right justify numbers with
+        <code>%5d</code>.
+        <span class="note">This is what makes a table readable: text lines up on the
+        left, digits line up on the right.</span></li>
+        <li>Give decimals a fixed number of places with <code>%.2f</code>, so the
+        points align in a column.</li>
+        <li>End every line with <code>%n</code>.</li>
+      </ol>
+      <pre class="src" data-run="Table"><span class="l"><span class="k">public class</span> <span class="t">Table</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span>[] names = {<span class="s">"John"</span>, <span class="s">"Lilian"</span>, <span class="s">"Ken"</span>};</span><span class="l">        <span class="k">int</span>[] ages     = {20, 21, 19};</span><span class="l">        <span class="k">double</span>[] gpas = {3.75, 3.95, 3.65};</span><span class="l"></span><span class="l">        System.out.printf(<span class="s">"%-8s %5s %6s%n"</span>, <span class="s">"Name"</span>, <span class="s">"Age"</span>, <span class="s">"GPA"</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; names.length; i++) {</span><span class="l">            System.out.printf(<span class="s">"%-8s %5d %6.2f%n"</span>, names[i], ages[i], gpas[i]);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Name       Age    GPA
+John        20   3.75
+Lilian      21   3.95
+Ken         19   3.65</pre>
+      <p class="redo"><b>Now redo it:</b> on blank paper, write the two
+      <code>printf</code> lines from memory. Then change the GPA column to three
+      decimal places and predict the output before you run it.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Input and output</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li><code>Scanner</code> lives in the <span class="blank"></span> package and
+        is created with <code>new Scanner(<span class="blank"></span>)</code>.</li>
+        <li>To read a whole line use <span class="blank"></span>; to read a single
+        word use <span class="blank"></span>; to read a whole number use
+        <span class="blank"></span>.</li>
+        <li>After <code>nextInt()</code>, a following <code>nextLine()</code> returns
+        <span class="blank"></span> because <span class="blank"></span>.</li>
+        <li><code>br.readLine()</code> returns a <span class="blank"></span>, so to
+        get a number you must call <span class="blank"></span>.</li>
+        <li><code>printf("%f", 3.14159)</code> prints <span class="blank"></span>,
+        not 3.14159, because bare <code>%f</code> gives
+        <span class="blank"></span> decimal places.</li>
+        <li>To print a literal percent sign in a format string, write
+        <span class="blank"></span>. To start a new line, write
+        <span class="blank"></span>.</li>
+        <li><code>System.console()</code> returns <span class="blank"></span> when
+        the program is not attached to a real terminal.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. <code>java.util</code>, <code>System.in</code>
+      &nbsp;·&nbsp; 2. <code>nextLine()</code>, <code>next()</code>,
+      <code>nextInt()</code> &nbsp;·&nbsp; 3. an empty string, nextInt left the
+      newline in the buffer &nbsp;·&nbsp; 4. <code>String</code>,
+      <code>Integer.parseInt</code> &nbsp;·&nbsp; 5. <code>3.141590</code>, six
+      &nbsp;·&nbsp; 6. <code>%%</code>, <code>%n</code> &nbsp;·&nbsp;
+      7. <code>null</code></p>
+    </div>
+  </div>
+</section>
