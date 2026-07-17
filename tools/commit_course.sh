@@ -5,10 +5,12 @@
 # working on PHY121 would sweep in whatever another chat has half-finished in
 # PHY122 and commit it as if it were yours. This stages one course only.
 #
-#   tools/commit_course.sh PHY121 "Fix the capacitor worked example"
+#   tools/commit_course.sh "PHY121 - General Physics II" "Fix the capacitor example"
+#
+# Course folders carry code AND title, so they contain spaces: always quote.
 #
 # Pass extra paths after the message to include shared files deliberately:
-#   tools/commit_course.sh PHY121 "Update playbook" MANUAL_METHODOLOGY.md
+#   tools/commit_course.sh "PHY121 - General Physics II" "Update playbook" MANUAL_METHODOLOGY.md
 set -euo pipefail
 
 COURSE="${1:-}"; MSG="${2:-}"; shift 2 || true

@@ -1,8 +1,8 @@
 FINAL_MANUALS — signed-off study manuals only. One per course.
-Work in progress belongs in courses/<COURSE>/drafts/, never here.
+Work in progress belongs in that course's drafts/ folder, never here.
 
 -------------------------------------------------------------------------------
-PHY121_Study_Manual_v3.pdf            150 pages          signed off 2026-07-16
+PHY121 - General Physics II - Study Manual v3.pdf   150 pp   signed off 2026-07-16
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.
 
@@ -38,4 +38,5 @@ lists, tables, figures) all above floor.
 v2 was withdrawn as defective. It remains in git history (commit 2312940) if a
 copy is ever needed.
 
-To rebuild or update:  see courses/PHY121/README.md  (cd build && python assemble.py)
+To rebuild or update:  see "courses/PHY121 - General Physics II/README.md"
+                       (cd build && python assemble.py)

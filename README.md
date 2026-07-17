@@ -9,14 +9,15 @@ manual_composer/
 │                             (course-agnostic — read this first for any new course)
 ├── FINAL_MANUALS/            ← THE ONLY PUBLISHED OUTPUT. All courses. Signed off only.
 │   ├── README.txt
-│   └── PHY121_Study_Manual_v3.pdf
+│   └── PHY121 - General Physics II - Study Manual v3.pdf
 └── courses/                  ← one self-contained working folder per course
-    ├── PHY121/
+    ├── PHY121 - General Physics II/
     │   ├── README.md         how to rebuild/update THIS course
     │   ├── build/            code + assets
-    │   ├── sources/          raw inputs, grouped: slides/ tests/ manual_v1/ extracted/
+    │   ├── sources/          raw inputs: slides/ tests/ manual_v1/ extracted/
     │   └── drafts/           work in progress
     └── COS221 - Computer Programming I (Java)/
+        ├── README.md
         └── sources/          slides/ exams/ course_manual/ extracted/
 ```
 
@@ -39,12 +40,16 @@ manual_composer/
    A bare code is unreadable a year later, and course titles do drift (COS221 was
    "Object-Oriented Programming (Java)" in 2024/25 and "Computer Programming I
    (Java)" in 2025/26), so the title in the name records which one the manual was
-   built for. PHY121 predates this rule and still uses the old bare-code naming.
+   built for. PHY121 was renamed to match on 2026-07-17; the rule is universal, with
+   no grandfathered exceptions.
+
+   Folder names contain spaces, so **quote paths** in the shell:
+   `cd "courses/PHY121 - General Physics II/build"`.
 
 ## Working on two courses at once
 
 Two chats building **different** courses is fine. Every path the build touches is
-derived from `courses/<COURSE>/`, so PHY121 and PHY122 share no file: separate
+derived from the course's own folder, so two courses share no file: separate
 code, `content/`, `sources/`, and PDF. `FINAL_MANUALS/` names are per-course too.
 
 Two things to know:
@@ -53,8 +58,8 @@ Two things to know:
    working: it would sweep that course's half-finished files into your commit.
    Stage one course at a time:
    ```bash
-   tools/commit_course.sh PHY121 "message"        # stages courses/PHY121 only
-   tools/commit_course.sh PHY121 "message" MANUAL_METHODOLOGY.md   # + shared file
+   tools/commit_course.sh "PHY121 - General Physics II" "message"   # that course only
+   tools/commit_course.sh "PHY121 - General Physics II" "message" MANUAL_METHODOLOGY.md
    ```
    Before pushing, `git pull --rebase` in case the other chat pushed first.
 2. **Never build the same course in two chats.** They would overwrite each
@@ -82,7 +87,8 @@ zero (COS221), so skip the extraction and fidelity machinery entirely.
 Then read `MANUAL_METHODOLOGY.md` — it carries the pedagogy (the box system,
 active recall, traps, "every number recomputed") and the build engineering
 (structure-aware PDF extraction, the 2-pass Contents render, the print-CSS
-traps). `courses/PHY121/build/` is a working reference implementation to copy from.
+traps). `courses/PHY121 - General Physics II/build/` is a working reference
+implementation to copy from.
 
 ## Backup to GitHub
 
@@ -101,7 +107,7 @@ Use `--private`: these are your course materials and carry your name.
 After that, whenever you change something:
 
 ```bash
-tools/commit_course.sh PHY121 "what changed"    # stages that course only
+tools/commit_course.sh "PHY121 - General Physics II" "what changed"   # that course only
 git pull --rebase && git push
 ```
 
@@ -112,7 +118,7 @@ To restore onto a new machine:
 
 ```bash
 git clone https://github.com/<you>/study-manuals.git
-cd study-manuals/courses/PHY121/build
+cd "study-manuals/courses/PHY121 - General Physics II/build"
 pip install playwright pymupdf pillow && python -m playwright install chromium
 python assemble.py        # rebuilds the full manual
 ```

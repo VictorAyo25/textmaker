@@ -1,7 +1,7 @@
 # PHY121 sources
 
 Raw inputs for this course only. Every course keeps its own copy under
-`courses/<COURSE>/sources/`, so nothing here is shared with another course.
+this course's own `sources/`, so nothing here is shared with another course.
 
 ```
 sources/
