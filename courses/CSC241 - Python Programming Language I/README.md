@@ -7,8 +7,8 @@ never the bare code (workspace name-and-title rule).
 ## Status
 
 **All five modules, both mocks, and the Contents page authored**, rendered to
-`build/CSC241_checkpoint.pdf` (127 pages: cover, Contents, and 125). Voice and palette
-approved.
+`build/CSC241_checkpoint.pdf` (134 pages: cover, Contents, and 132). Voice and palette
+approved. Every page has been looked at, not just gated.
 
 Every one of the exam's six questions now has a home:
 
@@ -184,9 +184,15 @@ repeats until a render agrees with the Contents it was built from.
   prints. Checking the Contents for internal consistency is not enough, because a
   Contents can be uniformly wrong and perfectly consistent with itself.
 - `qa_layout.py` looks at every page: **the body must render at its designed 9.6pt**, no
-  text outside the content box, nothing in the bottom margin but the running footer, and
-  no page left short without a reason (a section that must start fresh, or a next block
-  too tall to fit).
+  text outside the content box, nothing in the bottom margin but the running footer, **no
+  box cut by a page break that would have fitted whole**, and no page left short without
+  a reason (a section that must start fresh, or a next block too tall to fit).
+  - The box rule found 30 answer boxes being cut mid-idea, because `.ans` and `.qpaper`
+    had been given `break-inside:auto` on the theory that a box taller than a page cannot
+    be kept together anyway. Measured, that relaxation cut 30 boxes that would have fitted
+    whole to save 1 that had to split. They now inherit `avoid`, which the engine
+    overrides by itself for the one genuinely oversized box. It cost 7 pages of white
+    space and is worth it: a box is one idea.
 
 `build/` also holds `manual.css` (the CSC241 palette and box grammar), `render.py`
 (Chromium via Playwright, footer via `footerTemplate`), `contents.py`, `buildlock.py`,

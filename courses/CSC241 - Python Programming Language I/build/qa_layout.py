@@ -5,6 +5,10 @@
 Hard failures (these stop a release):
   * text outside the content box, on any side
   * anything in the bottom margin that is not the running footer
+  * a box cut in half by a page break when it would have fit whole on the next
+    page. A box is one idea, and half an idea either side of a page turn is not
+    the grammar this manual is built on. A box genuinely taller than a page has
+    to be cut and is not counted.
   * a body that did not render at its designed size, which means Chromium shrank
     the whole document to fit something too wide. gates.py catches the usual
     cause (an over-long code line) precisely and early; this catches the effect
@@ -102,6 +106,32 @@ def first_block(page):
     return bottom - top
 
 
+def split_boxes(doc):
+    """Boxes cut by a page break, with the height they would have needed whole.
+
+    A box that runs off the bottom of one page and resumes at the top of the next
+    was cut. If the two halves together would have fitted on a page, the cut was
+    avoidable and the box should have moved down entire.
+    """
+    out = []
+    for i in range(doc.page_count - 1):
+        r = doc[i].rect
+        bot, top = r.y1 - BOTTOM, TOP
+        wide = [d['rect'] for d in doc[i].get_drawings()
+                if d['rect'].width > 400 and d['rect'].height > 8]
+        tail = [x for x in wide if x.y1 > bot - 1.5]
+        if not tail:
+            continue
+        head = [d['rect'] for d in doc[i + 1].get_drawings()
+                if d['rect'].width > 400 and d['rect'].height > 8
+                and d['rect'].y0 < top + 1.5]
+        if not head:
+            continue
+        whole = max(x.height for x in tail) + max(x.height for x in head)
+        out.append((i, whole, whole <= (r.y1 - BOTTOM - TOP)))
+    return out
+
+
 def content_bottom(page, body):
     """How far down the page anything reaches: text, or the box drawn around it.
 
@@ -162,6 +192,11 @@ def check(pdf_path):
                + '. Look at this one.')
         sparse.append((i, f'text covers {(bot - top) / box.height:.0%}, {why}'))
 
+    for i, whole, avoidable in split_boxes(doc):
+        if avoidable:
+            fails.append(f'page {i}: a box is cut by the page break, and at {whole:.0f}pt '
+                         f'it would have fitted whole on the next page')
+
     # The body is set in DejaVu Serif at BODY_PT. If it came back smaller, every
     # page was scaled and the size the manual was designed at is not the size it
     # prints at.
@@ -188,6 +223,7 @@ def check(pdf_path):
     else:
         print('  . no text outside the content box on any page')
         print('  . nothing in the bottom margin but the running footer')
+        print('  . no box cut by a page break that could have fitted whole')
     if sparse:
         print(f'  ? {len(sparse)} short pages that a forced break or an oversized next '
               f'block does not explain:')

@@ -1549,6 +1549,81 @@ finally:
     os.chdir(_cwd6)
     shutil.rmtree(_tmp6, ignore_errors=True)
 
+# ---- the claims the mock makes in prose ----
+# These are stated in the (a) answers rather than shown as output, which is
+# exactly why they are pinned: prose is not executed by anything else here, so a
+# confident sentence about how Python behaves is otherwise never checked.
+
+# Q3(a): "it must come last ... Python refuses the definition outright"
+raises('mock2 Q3(a) a default cannot come before a required parameter',
+       lambda: exec('def f(a=1, b):\n    pass'),
+       'SyntaxError: parameter without a default follows parameter with a default '
+       '(<string>, line 1)')
+# Q3(e): "and then crash on int('')"
+raises("mock2 Q3(e) int('') is the crash after the stop word",
+       lambda: int(''),
+       "ValueError: invalid literal for int() with base 10: ''")
+
+_tmpP = tempfile.mkdtemp(prefix='csc241_prose_')
+_cwdP = os.getcwd()
+os.chdir(_tmpP)
+try:
+    import sqlite3 as _sq
+    _c = _sq.connect('t.db')
+    _c.execute('CREATE TABLE p (id INTEGER PRIMARY KEY, n TEXT)')
+    _c.commit(); _c.close()
+
+    # Q6(a): "Forget it and the program runs, prints nothing wrong, exits, and the
+    # database is unchanged. No error is ever raised."
+    n += 1
+    _c = _sq.connect('t.db')
+    _c.execute("INSERT INTO p (n) VALUES ('Pen')")
+    _c.close()                                   # deliberately no commit
+    _c = _sq.connect('t.db')
+    _rows = _c.execute('SELECT * FROM p').fetchall()
+    _c.close()
+    if _rows != []:
+        fails.append(('mock2 Q6(a) no commit means the row is silently lost',
+                      '[]', repr(_rows)))
+
+    # Q6(a): "fetchone ... or None if there are none left. fetchall ... an empty
+    # list if there are none."
+    _c = _sq.connect('t.db'); _cur = _c.cursor()
+    _cur.execute('SELECT * FROM p')
+    n += 1
+    if _cur.fetchone() is not None:
+        fails.append(('mock2 Q6(a) fetchone on no rows', 'None', 'a row'))
+    _cur.execute('SELECT * FROM p')
+    n += 1
+    if _cur.fetchall() != []:
+        fails.append(('mock2 Q6(a) fetchall on no rows', '[]', 'rows'))
+    _c.close()
+
+    # Q6(d): "a product named O'Brien ends your statement early and crashes it"
+    _c = _sq.connect('t.db'); _cur = _c.cursor()
+    _name = "O'Brien"
+    raises('mock2 Q6(d) the apostrophe ends the glued SQL early',
+           lambda: _cur.execute("INSERT INTO p (n) VALUES ('" + _name + "')"),
+           'OperationalError: near "Brien": syntax error')
+    # ...and the placeholder the answer recommends handles it
+    _cur.execute('INSERT INTO p (n) VALUES (?)', (_name,))
+    n += 1
+    _got = _c.execute('SELECT n FROM p').fetchall()
+    if _got != [("O'Brien",)]:
+        fails.append(('mock2 Q6(d) the placeholder stores the apostrophe intact',
+                      '[("O\'Brien",)]', repr(_got)))
+    _c.close()
+
+    # Q6(e): "put it inside the loop and the second product is inserted through a
+    # closed connection"
+    _c = _sq.connect('t.db'); _cur = _c.cursor(); _c.close()
+    raises('mock2 Q6(e) closing inside the loop kills the next insert',
+           lambda: _cur.execute("INSERT INTO p (n) VALUES ('x')"),
+           'ProgrammingError: Cannot operate on a closed database.')
+finally:
+    os.chdir(_cwdP)
+    shutil.rmtree(_tmpP, ignore_errors=True)
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:

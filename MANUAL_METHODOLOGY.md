@@ -376,6 +376,18 @@ near-blank pages; footer number != page position; unresolved TOC entries;
 em/en dashes; banned terms; Contents links not GOTO.
 Plus: recompute **every** number independently, and eyeball a montage of all pages.
 
+**A box is one idea, so never let one be cut across a page turn.** Set
+`break-inside:avoid` on every box and leave it there. The temptation is to relax
+it to `auto` for the long boxes (a whole exam question, a worked answer) on the
+theory that something taller than a page cannot be kept together anyway. That
+reasoning is wrong twice: `avoid` is best effort, so a box that genuinely cannot
+fit is still split by the engine, and the relaxation applies to every box and not
+just the long ones. Measured on CSC241, `auto` cut **30 boxes that would have
+fitted whole** and exactly **1 that had to split**. The cost of `avoid` was 7
+pages of white space in a 134-page book. Gate it: a box that runs off the bottom
+of one page and resumes at the top of the next has been cut, and if the two
+halves together fit on a page, the cut was avoidable.
+
 A "short page" gate cries wolf unless it knows *why* a page is short. A box is
 never split, so a page legitimately ends early whenever the next box is taller
 than the room left, and the page before a forced section break is short by

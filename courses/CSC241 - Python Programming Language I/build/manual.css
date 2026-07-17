@@ -103,12 +103,16 @@ h3.sub:first-child{ margin-top:0; }
 /* an exam question, reproduced as a paper: plain, no teaching colour */
 .qpaper > .bar{ background:var(--qpaper); }
 .qpaper .body{ background:var(--qpaper-bg); }
-.qpaper{ border-color:#b9c0cc; break-inside:auto; }
+.qpaper{ border-color:#b9c0cc; }
 .qpaper .body > p{ margin:.5em 0; }
 
 /* a worked answer to an exam question */
 .ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
-.ans{ break-inside:auto; }
+/* A box is one idea, so it does not get cut across a page turn. These two used
+   to say break-inside:auto, on the theory that a whole question or a long answer
+   is taller than a page and would be futile to keep together. Measured, that was
+   wrong: it cut 30 boxes that would have fit whole and only 1 that had to split.
+   avoid is best effort, so the genuinely oversized box still splits by itself. */
 .ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
 .ans .marks:first-child{ margin-top:0; }
