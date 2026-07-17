@@ -80,6 +80,23 @@ CORRECTIONS = {
   ('(b) Q ≈ 26.6 µC',
    '(b) Q ≈ 26.7 µC',
    'Q = 2.6667e-5 C rounds to 26.7 uC, not 26.6; 26.6 came from early rounding'),
+
+  # The step that produces Q. Fixing the box alone left the working printing 26.6
+  # under a box saying 26.7, which is worse than the original: before, box and
+  # step at least agreed. The step must show the arithmetic that actually gives
+  # 26.7, and (2.22)(12) does not -- it gives 26.6. So carry the exact 20/9 the
+  # example established two steps earlier. The energy step below legitimately
+  # keeps 2.22: 1/2(2.22e-6)(144) = 1.5984e-4, which rounds to the printed
+  # 1.60e-4 either way, so it is not wrong and is left alone.
+  ('Q = C<sub>eq</sub>V = (2.22 × 10<sup>−6</sup>)(12) = 2.66 × 10<sup>−5</sup> C. '
+   '<span class="note">Convert microfarads to farads before multiplying, '
+   'or the answer will be out by 10<sup>6</sup>.</span>',
+   'Q = C<sub>eq</sub>V = (20/9 × 10<sup>−6</sup>)(12) = 2.67 × 10<sup>−5</sup> C. '
+   '<span class="note">Convert microfarads to farads before multiplying, '
+   'or the answer will be out by 10<sup>6</sup>. Keep C<sub>eq</sub> exact as 20/9 '
+   'here: the rounded 2.22 gives 2.66 × 10<sup>−5</sup> C, wrong in the third '
+   "figure. That is this manual's own rounding trap, in the wild.</span>",
+   'the step printed 2.66e-5 while its own answer box says 26.7 uC'),
  ],
 
  'module1': [
@@ -142,6 +159,20 @@ CORRECTIONS = {
   ('So ε = −120 V.',
    'So ε = +120 V.',
    'a falling flux drives a positive emf here; -120 V had the sign backwards'),
+
+  # The note under that step explained the minus sign of the old -120 V answer.
+  # With the sign corrected there is no minus left to explain, and the note
+  # reassured the reader about a "negative voltage" that is no longer on the page.
+  # It has to say what the PLUS means, which is the whole point of the example.
+  ("The <b>magnitude</b> is 120 V. The minus sign is Lenz's law, telling you the "
+   'induced emf opposes the change that made it. It does not mean a negative '
+   'voltage in any troubling sense.',
+   'The <b>magnitude</b> is 120 V. The sign came out <b>positive</b> because the '
+   "flux <b>fell</b>: Lenz's law is the minus in Faraday's law, and here it "
+   'multiplied a negative ΔΦ. Read the plus as the emf opposing that fall, '
+   'driving current in the direction that props the flux back up. Had the flux '
+   'risen instead, the same law would have returned −120 V.',
+   'the note explained a minus sign the corrected answer no longer has'),
  ],
 
  'reference': [
