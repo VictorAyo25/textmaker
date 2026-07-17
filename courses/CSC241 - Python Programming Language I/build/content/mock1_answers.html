@@ -1,0 +1,880 @@
+<section id="mock1-answers" style="page-break-before:always;">
+  <div class="kick">Mock Examination One</div>
+  <h2 class="title">Answers</h2>
+  <hr class="rule">
+  <p class="lead">Every output below was produced by running the code, not by reading it.
+  Where your answer differs in wording but not in substance, you are right.</p>
+
+  <h3 class="sub">Question One</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (a)</span></div>
+    <div class="body">
+      <p class="marks">Three control structures, one example each</p>
+      <ul class="bul">
+        <li><b>Sequence.</b> Statements run one after another, top to bottom, with no
+        choices. Example: <code>a = 2</code> then <code>b = a + 1</code>.</li>
+        <li><b>Selection</b> (decision). A block runs only if a condition is true. Written
+        with <code>if</code>, <code>elif</code>, <code>else</code>. Example:
+        <code>if n % 2 == 0: print("even")</code>.</li>
+        <li><b>Iteration</b> (repetition). A block runs many times. Written with
+        <code>while</code> or <code>for</code>. Example:
+        <code>for i in range(3): print(i)</code>.</li>
+      </ul>
+      <p class="small">The question says "give one example of each", so a sentence without
+      code will not score full marks. Write the three lines.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (b)</span></div>
+    <div class="body">
+      <p class="marks">The error</p>
+      <p>The code <b>does not just print the wrong numbers. It never stops.</b> It prints
+      <code>1</code>, then <code>3</code>, and then hangs forever.</p>
+      <p>When <code>n</code> reaches 5, <code>continue</code> jumps straight back to the top
+      of the <code>while</code>, <b>skipping <code>n += 1</code></b> on the way. So
+      <code>n</code> stays 5 for ever and the condition <code>n &lt;= 9</code> never turns
+      false.</p>
+      <p class="marks">The fix</p>
+<pre class="code">n = <span class="n">1</span>
+<span class="k">while</span> n &lt;= <span class="n">9</span>:
+    <span class="k">if</span> n % <span class="n">2</span> != <span class="n">0</span> <span class="k">and</span> n != <span class="n">5</span>:
+        <span class="k">print</span>(n)
+    n += <span class="n">1</span></pre>
+<pre class="out">1
+3
+7
+9</pre>
+      <p>Removing <code>continue</code> removes the bug at its root. If you keep
+      <code>continue</code>, <code>n += 1</code> must happen before it, or the loop hangs
+      again.</p>
+      <p class="small"><b>Say the word "infinite" in your answer.</b> A candidate who writes
+      "it prints 5 by mistake" has not spotted the actual error and will not get the marks.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (c)</span></div>
+    <div class="body">
+      <p class="marks">Output</p>
+<pre class="out">1
+2
+3</pre>
+      <p class="marks">Explanation</p>
+      <p>The loop counts 1, 2, 3, 4, 5. It prints each until <code>i</code> is 4, where
+      <code>4 % 4 == 0</code> is true and <code>break</code> leaves the loop at once, before
+      the <code>print</code>. So 4 and 5 never print.</p>
+      <p><b>"All done" never prints.</b> A loop's <code>else</code> runs only when the loop
+      finishes <i>normally</i>. A <code>break</code> skips it. Read <code>else</code> here as
+      "if no break happened".</p>
+      <p class="small">This is the marked difference between a good answer and a lucky one.
+      Most candidates add "All done" to the output.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (d)</span></div>
+    <div class="body">
+<pre class="code">age = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Enter age: "</span>))
+
+<span class="k">if</span> age &gt; <span class="n">0</span>:
+    <span class="k">if</span> age &lt; <span class="n">13</span>:
+        <span class="k">print</span>(<span class="s">"Child - N500"</span>)
+    <span class="k">elif</span> age &lt; <span class="n">18</span>:
+        <span class="k">print</span>(<span class="s">"Teen - N800"</span>)
+    <span class="k">elif</span> age &gt;= <span class="n">60</span>:
+        <span class="k">print</span>(<span class="s">"Senior - N600"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"Adult - N1200"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"Please enter a valid age"</span>)</pre>
+      <p>Run with 8, 15, 70, 30 and 0:</p>
+<pre class="out">Child - N500
+Teen - N800
+Senior - N600
+Adult - N1200
+Please enter a valid age</pre>
+      <p class="marks">Why the order is what it is</p>
+      <p><b>The tests must run narrowest first.</b> <code>age &lt; 13</code> before
+      <code>age &lt; 18</code>, because a 10 year old satisfies both and the first true test
+      wins. Swap them and no child could ever be priced.</p>
+      <p><code>elif age &gt;= 60</code> is reached only by people 18 or over, because
+      anything younger was caught above. That is why it needs no upper bound.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (e)</span></div>
+    <div class="body">
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter ages separated by spaces: "</span>)
+count = <span class="n">0</span>
+
+<span class="k">for</span> part <span class="k">in</span> line.split():
+    age = <span class="k">int</span>(part)
+    <span class="k">if</span> age &gt; <span class="n">0</span>:
+        <span class="k">if</span> age &lt; <span class="n">13</span>:
+            <span class="k">print</span>(age, <span class="s">"Child - N500"</span>)
+        <span class="k">elif</span> age &lt; <span class="n">18</span>:
+            <span class="k">print</span>(age, <span class="s">"Teen - N800"</span>)
+        <span class="k">elif</span> age &gt;= <span class="n">60</span>:
+            <span class="k">print</span>(age, <span class="s">"Senior - N600"</span>)
+        <span class="k">else</span>:
+            <span class="k">print</span>(age, <span class="s">"Adult - N1200"</span>)
+        count += <span class="n">1</span>
+    <span class="k">else</span>:
+        <span class="k">print</span>(age, <span class="s">"Please enter a valid age"</span>)
+
+<span class="k">print</span>(<span class="s">"Tickets priced:"</span>, count)</pre>
+      <p>Entering <code>8 15 70 30</code>:</p>
+<pre class="out">Enter ages separated by spaces: 8 15 70 30
+8 Child - N500
+15 Teen - N800
+70 Senior - N600
+30 Adult - N1200
+Tickets priced: 4</pre>
+      <p class="marks">What earned the marks</p>
+      <p>The decision logic is <b>identical</b> to part (d). Only two things changed:
+      <code>split()</code> replaced the single <code>input</code>, and a <code>for</code>
+      loop wrapped the whole thing. That is what part (e) is testing, every single year.</p>
+      <p><code>count</code> is incremented inside the positive branch only, because an
+      invalid age is not a ticket.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Two</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two (a)</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Structure</th><th>Description</th><th>Real world example</th></tr>
+        <tr><td><b>List</b> <code>[ ]</code></td><td>Ordered, changeable, allows duplicates</td><td>The register of a class, in order</td></tr>
+        <tr><td><b>Tuple</b> <code>( )</code></td><td>Ordered, cannot be changed</td><td>The latitude and longitude of a place</td></tr>
+        <tr><td><b>Set</b> <code>{ }</code></td><td>Unordered, no duplicates</td><td>The distinct courses a student is taking</td></tr>
+        <tr><td><b>Dictionary</b> <code>{k: v}</code></td><td>Pairs looked up by key</td><td>A student's matric number against their name</td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">The question asks for a real-world example
+      for each, so a bare definition scores half. Give the example.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two (b)</span></div>
+    <div class="body">
+      <p class="marks">The issues</p>
+      <p><b>The code runs perfectly and prints the wrong answer.</b> There is no error
+      message to find, which is the difficulty.</p>
+<pre class="out">Distinct courses: 5</pre>
+      <ul class="bul">
+        <li><code>list(courses)</code> copies a list that is already a list. It does
+        nothing useful and removes no duplicates.</li>
+        <li><code>distinct = courses</code> merely gives the same list a second name.
+        Nothing was deduplicated at all.</li>
+      </ul>
+      <p class="marks">The fix</p>
+<pre class="code">courses = [<span class="s">"CSC241"</span>, <span class="s">"MAT121"</span>, <span class="s">"CSC241"</span>, <span class="s">"PHY121"</span>, <span class="s">"MAT121"</span>]
+distinct = <span class="k">set</span>(courses)
+<span class="k">print</span>(<span class="s">"Distinct courses:"</span>, <span class="k">len</span>(distinct))</pre>
+<pre class="out">Distinct courses: 3</pre>
+      <p>The distinct courses are CSC241, MAT121 and PHY121. The question allows a
+      <code>for</code> loop instead of a set, which is worth the same marks but more
+      writing:</p>
+<pre class="code">distinct = []
+<span class="k">for</span> c <span class="k">in</span> courses:
+    <span class="k">if</span> c <span class="k">not</span> <span class="k">in</span> distinct:
+        distinct.append(c)</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two (c)</span></div>
+    <div class="body">
+      <p class="marks">Output</p>
+<pre class="out">['CSC241', 'MAT121', 'PHY121']
+3</pre>
+      <p class="marks">Each stage</p>
+      <ul class="bul">
+        <li><code>student["courses"]</code> looks up the key and returns <b>the list
+        itself</b>, not a copy. <code>.append("PHY121")</code> then changes that list, so the
+        dictionary's value is changed. No reassignment was needed.</li>
+        <li><code>student["level"] = 300</code> replaces an existing value. The key already
+        existed, so nothing is added.</li>
+        <li><code>print(student["courses"])</code> shows the three courses.</li>
+        <li><code>len(student)</code> is <b>3</b>, because <b><code>len</code> on a
+        dictionary counts its keys</b>: name, level and courses. It does not count the
+        courses inside it, and it did not change when level was reassigned.</li>
+      </ul>
+      <p class="small"><b>The trap is the last line.</b> Answering 4 means you counted
+      something else. There were three keys at the start and three at the end.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two (d)</span></div>
+    <div class="body">
+<pre class="code">quantities = []
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">4</span>):
+    q = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Enter quantity: "</span>))
+    quantities.append(q)
+
+quantities.sort()
+<span class="k">print</span>(<span class="s">"Sorted:"</span>, quantities)
+<span class="k">print</span>(<span class="s">"Highest:"</span>, <span class="k">max</span>(quantities))
+<span class="k">print</span>(<span class="s">"Lowest:"</span>, <span class="k">min</span>(quantities))</pre>
+      <p>Entering 25, 4, 60, 12:</p>
+<pre class="out">Sorted: [4, 12, 25, 60]
+Highest: 60
+Lowest: 4</pre>
+      <p class="marks">Two ways to lose marks here</p>
+      <ul class="bul">
+        <li><code>quantities = quantities.sort()</code> would leave <code>None</code> in the
+        variable and everything after would fail. <code>sort()</code> sorts in place and
+        returns nothing. Call it on its own line.</li>
+        <li>Forgetting <code>int()</code> means you sort strings, so
+        <code>"12"</code> would come before <code>"4"</code> alphabetically.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two (e)</span></div>
+    <div class="body">
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter quantities separated by spaces: "</span>)
+
+quantities = []
+<span class="k">for</span> part <span class="k">in</span> line.split():
+    quantities.append(<span class="k">int</span>(part))
+
+quantities.sort(reverse=<span class="k">True</span>)
+
+reorder = <span class="n">0</span>
+<span class="k">for</span> q <span class="k">in</span> quantities:
+    <span class="k">if</span> q &lt; <span class="n">10</span>:
+        reorder += <span class="n">1</span>
+
+average = <span class="k">sum</span>(quantities) / <span class="k">len</span>(quantities)
+
+<span class="k">print</span>(<span class="s">"Sorted:"</span>, quantities)
+<span class="k">print</span>(<span class="s">"Highest:"</span>, <span class="k">max</span>(quantities))
+<span class="k">print</span>(<span class="s">"Lowest:"</span>, <span class="k">min</span>(quantities))
+<span class="k">print</span>(<span class="s">f"Average: </span>{average:.2f}<span class="s">"</span>)
+<span class="k">print</span>(<span class="s">"Need reordering:"</span>, reorder)</pre>
+      <p>Entering <code>25 4 60 12 8</code>:</p>
+<pre class="out">Enter quantities separated by spaces: 25 4 60 12 8
+Sorted: [60, 25, 12, 8, 4]
+Highest: 60
+Lowest: 4
+Average: 21.80
+Need reordering: 2
+</pre>
+      <p class="marks">The details that earn the marks</p>
+      <ul class="bul">
+        <li><code>sort(reverse=True)</code> for descending. The question says descending.</li>
+        <li><b><code>{average:.2f}</code></b>. The average is a float and will often be a
+        long ugly one. Format it. This is the difference between a professional answer and a
+        puzzling one.</li>
+        <li><code>q &lt; 10</code>, strictly below, because the question says "below 10". A
+        quantity of exactly 10 does <b>not</b> need reordering. Here 4 and 8 do.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Three</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three (a)</span></div>
+    <div class="body">
+      <p><b>What a function is:</b> a named block of code that runs only when it is called.
+      It may take values in and may hand a value back.</p>
+      <p><b>Why they matter:</b> reuse (write once, call anywhere); readability (a name says
+      what a block does); maintenance (fix a bug in one place); decomposition (a large
+      problem splits into small testable pieces).</p>
+      <p><b>Built in against user defined:</b> a built in function comes with Python and is
+      always available (<code>print</code>, <code>len</code>, <code>int</code>,
+      <code>max</code>). A user defined function is one you write with <code>def</code>, and
+      it must be defined before it is called.</p>
+      <p><b>The two types of user defined function:</b></p>
+      <ul class="bul">
+        <li><b>Void:</b> does something and returns nothing. It has no <code>return</code>,
+        so calling it gives <code>None</code>. Example: a function that only prints.</li>
+        <li><b>Value returning:</b> works something out and hands it back with
+        <code>return</code>, so the call can be used as a value.</li>
+      </ul>
+      <p class="small">Four things are asked here and each is worth roughly a quarter.
+      Answer all four explicitly, with a heading for each if it helps you not to forget one.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three (b)</span></div>
+    <div class="body">
+      <p class="marks">The errors</p>
+      <ul class="bul">
+        <li><b>No colon</b> after <code>def cube(n)</code>. This is a SyntaxError, found
+        while reading the file, so <b>nothing runs at all</b>.</li>
+        <li><b><code>Cube</code> with a capital C</b> does not exist. The function is
+        <code>cube</code>, and names are case sensitive.</li>
+      </ul>
+      <p>Only the first is reported. Fix it, run again, and only then do you see:</p>
+<pre class="out">NameError: name 'Cube' is not defined. Did you mean: 'cube'?</pre>
+      <p class="marks">The fix</p>
+<pre class="code"><span class="k">def</span> cube(n):
+    <span class="k">return</span> n ** <span class="n">3</span>
+
+<span class="k">print</span>(cube(<span class="n">3</span>))</pre>
+<pre class="out">27</pre>
+      <p class="small">Say <b>both</b> errors. The question says "errors", plural, and the
+      marks are split. Say also that the first hides the second: it shows you understand why
+      a SyntaxError stops everything.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three (c)</span></div>
+    <div class="body">
+      <p class="marks">Output</p>
+<pre class="out">110.0
+120.0</pre>
+      <p class="marks">Explanation</p>
+      <ul class="bul">
+        <li><code>tax=0.1</code> is a <b>default parameter</b>: a value used when the caller
+        does not supply one.</li>
+        <li><code>total(100)</code> passes only <code>price</code>, so <code>tax</code>
+        falls back to <code>0.1</code>. The result is 100 + 10.0 = <b>110.0</b>.</li>
+        <li><code>total(100, 0.2)</code> supplies <code>tax</code>, and the argument
+        <b>overrides</b> the default. The result is 100 + 20.0 = <b>120.0</b>.</li>
+      </ul>
+      <p><b>Both answers are floats</b>, printed as <code>110.0</code> and
+      <code>120.0</code>, not <code>110</code> and <code>120</code>. The multiplication by a
+      float makes the whole expression a float. Writing 110 without the decimal point is not
+      the output.</p>
+      <p class="small">Worth stating in your answer: a parameter with a default must come
+      after any without one, so <code>def total(tax=0.1, price)</code> would be a
+      SyntaxError.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three (d)</span></div>
+    <div class="body">
+<pre class="code"><span class="k">def</span> grade(score):
+    <span class="k">if</span> score &gt;= <span class="n">70</span>:
+        <span class="k">return</span> <span class="s">"A"</span>
+    <span class="k">elif</span> score &gt;= <span class="n">60</span>:
+        <span class="k">return</span> <span class="s">"B"</span>
+    <span class="k">elif</span> score &gt;= <span class="n">50</span>:
+        <span class="k">return</span> <span class="s">"C"</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s">"F"</span>
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    name = <span class="k">input</span>(<span class="s">"Student name: "</span>)
+    score = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Score: "</span>))
+    <span class="k">print</span>(<span class="s">f"Student: </span>{name}<span class="s"> | Score: </span>{score}<span class="s"> | Grade: </span>{grade(score)}<span class="s">"</span>)</pre>
+      <p>Entering Ada 72, Bola 45, John 65:</p>
+<pre class="out">Student: Ada | Score: 72 | Grade: A
+Student: Bola | Score: 45 | Grade: F
+Student: John | Score: 65 | Grade: B</pre>
+      <p class="marks">Two things the marker is looking for</p>
+      <ul class="bul">
+        <li><b><code>return</code>, not <code>print</code>.</b> The question says the
+        function "returns" the letter. A function that prints instead hands back
+        <code>None</code>, and the caller has nothing to display.</li>
+        <li><b>Descending order of tests.</b> 70 first. Test 50 first and every score above
+        50 would be a C.</li>
+      </ul>
+      <p><code>grade(score)</code> is called <b>inside the f-string</b>, which is neat and
+      legal. Assigning it to a variable first is equally correct.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three (e)</span></div>
+    <div class="body">
+<pre class="code"><span class="k">def</span> grade(score):
+    <span class="k">if</span> score &gt;= <span class="n">70</span>:
+        <span class="k">return</span> <span class="s">"A"</span>
+    <span class="k">elif</span> score &gt;= <span class="n">60</span>:
+        <span class="k">return</span> <span class="s">"B"</span>
+    <span class="k">elif</span> score &gt;= <span class="n">50</span>:
+        <span class="k">return</span> <span class="s">"C"</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s">"F"</span>
+
+total = <span class="n">0</span>
+passed = <span class="n">0</span>
+
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Student name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    score = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Score: "</span>))
+    <span class="k">print</span>(<span class="s">f"Student: </span>{name}<span class="s"> | Score: </span>{score}<span class="s"> | Grade: </span>{grade(score)}<span class="s">"</span>)
+    total += <span class="n">1</span>
+    <span class="k">if</span> score &gt;= <span class="n">50</span>:
+        passed += <span class="n">1</span>
+
+<span class="k">print</span>(<span class="s">f"Students: </span>{total}<span class="s">, Passed: </span>{passed}<span class="s">, Failed: </span>{total - passed}<span class="s">"</span>)</pre>
+      <p>Entering Ada 72, Bola 45, John 65, then done:</p>
+<pre class="out">Student: Ada | Score: 72 | Grade: A
+Student: Bola | Score: 45 | Grade: F
+Student: John | Score: 65 | Grade: B
+Students: 3, Passed: 2, Failed: 1</pre>
+      <p class="marks">The shape</p>
+      <p><b>The function is untouched.</b> Only the loop changed, from
+      <code>for i in range(3)</code> to a sentinel <code>while True</code> with a
+      <code>break</code>. That is the whole of part (e), and it is why a function is worth
+      writing in part (d) in the first place.</p>
+      <p><b>Test for 'done' before asking for the score</b>, or the program will demand a
+      score for a student who does not exist.</p>
+      <p>A pass is 50 and above, so the test is <code>&gt;=</code>. Bola's 45 fails.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Four</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four (a)</span></div>
+    <div class="body">
+      <p><b>What a string is:</b> a sequence of characters, written in single or double
+      quotes. It is <b>immutable</b>, so it cannot be changed in place.</p>
+      <table class="data">
+        <tr><th>Method</th><th>Explanation</th><th>Example</th><th>Gives</th></tr>
+        <tr><td><code>upper()</code></td><td>Returns a copy in capitals</td><td><code>"ada".upper()</code></td><td><code>'ADA'</code></td></tr>
+        <tr><td><code>lower()</code></td><td>Returns a copy in small letters</td><td><code>"ADA".lower()</code></td><td><code>'ada'</code></td></tr>
+        <tr><td><code>strip()</code></td><td>Returns a copy with whitespace removed from both ends</td><td><code>"  hi  ".strip()</code></td><td><code>'hi'</code></td></tr>
+        <tr><td><code>replace(a, b)</code></td><td>Returns a copy with every a changed to b</td><td><code>"a-b".replace("-", " ")</code></td><td><code>'a b'</code></td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">Notice every explanation says
+      <b>"returns a copy"</b>. That single word shows the marker you understand
+      immutability, and it costs you nothing to write.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four (b)</span></div>
+    <div class="body">
+      <p class="marks">The errors</p>
+      <ul class="bul">
+        <li><code>full_name.index()</code> is called with <b>nothing to search for</b>. It
+        needs the text whose position you want, here the space.
+        <code>TypeError: index expected at least 1 argument, got 0</code></li>
+        <li><code>lowercase()</code> <b>does not exist</b>. The method is
+        <code>lower()</code>.</li>
+      </ul>
+      <p class="marks">The subtlety that costs half the marks</p>
+      <p>Fixing <code>index()</code> to <code>index(" ")</code> is not enough. That gives the
+      position <b>of the space</b>, which is 5, and slicing from 5 <b>includes the
+      space</b>:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> full_name = <span class="s">"Grace Hopper"</span>
+<span class="p">&gt;&gt;&gt;</span> full_name[full_name.index(<span class="s">" "</span>):]
+' Hopper'</pre>
+      <p>Note the leading space inside the quotes. You must start <b>one past</b> it:</p>
+      <p class="marks">The fix</p>
+<pre class="code">full_name = <span class="s">"Grace Hopper"</span>
+surname = full_name[full_name.index(<span class="s">" "</span>) + <span class="n">1</span>:]
+<span class="k">print</span>(<span class="s">"Surname:"</span>, surname.lower())</pre>
+<pre class="out">Surname: hopper</pre>
+      <p>A cleaner answer, worth full marks and less error prone:</p>
+<pre class="code">surname = full_name.split()[<span class="n">1</span>]
+<span class="k">print</span>(<span class="s">"Surname:"</span>, surname.lower())</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four (c)</span></div>
+    <div class="body">
+      <p class="marks">Output</p>
+<pre class="out">CSC241 Python
+   CSC241 CODE
+13</pre>
+      <p class="marks">Each line</p>
+      <ul class="bul">
+        <li><code>tag.strip()</code> removes the three spaces at each end and returns
+        <code>CSC241 Python</code>. <b><code>tag</code> itself is unchanged.</b></li>
+        <li><code>tag.upper()</code> gives <code>"   CSC241 PYTHON   "</code>. <b>Now</b>
+        <code>replace("PYTHON", "CODE")</code> matches, because the text is in capitals by
+        the time <code>replace</code> sees it. <b>The spaces are still there</b>, because
+        <code>strip</code> on the line before returned a new string and changed nothing.</li>
+        <li><code>len(tag.strip())</code> is <b>13</b>: six for CSC241, one space, six for
+        Python. Note it is <code>len</code> of the <i>stripped</i> string, not of
+        <code>tag</code>, which is 19.</li>
+      </ul>
+      <p><b>Two traps in three lines.</b> The middle line only matches because of the
+      <code>upper()</code> before it, and the last line only gives 13 because of the
+      <code>strip()</code> inside it.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four (d)</span></div>
+    <div class="body">
+<pre class="code">regs = [
+    <span class="s">"24/CSC/001"</span>,
+    <span class="s">"23/CSC/117"</span>,
+    <span class="s">"24/MAT/042"</span>,
+    <span class="s">"22/PHY/008"</span>,
+    <span class="s">"24/CSC/236"</span>,
+]
+
+<span class="k">for</span> reg <span class="k">in</span> regs:
+    year = reg.split(<span class="s">"/"</span>)[<span class="n">0</span>]
+    <span class="k">print</span>(<span class="s">f"Reg: </span>{reg}<span class="s"> | Year: </span>{year}<span class="s">"</span>)</pre>
+<pre class="out">Reg: 24/CSC/001 | Year: 24
+Reg: 23/CSC/117 | Year: 23
+Reg: 24/MAT/042 | Year: 24
+Reg: 22/PHY/008 | Year: 22
+Reg: 24/CSC/236 | Year: 24</pre>
+      <p class="marks">Why index 0</p>
+      <p><code>"24/CSC/001".split("/")</code> gives <code>['24', 'CSC', '001']</code>. The
+      year is the part before the first slash, so it is item <b>0</b>. The separator itself
+      is thrown away.</p>
+      <p>The year stays a <b>string</b>, which is correct here: it is a label, not a number,
+      and <code>"001"</code> would lose its zeros as an integer.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four (e)</span></div>
+    <div class="body">
+<pre class="code">paragraph = <span class="k">input</span>(<span class="s">"Enter a paragraph: "</span>)
+
+<span class="k">for</span> sentence <span class="k">in</span> paragraph.split(<span class="s">"."</span>):
+    sentence = sentence.strip()
+    <span class="k">if</span> sentence == <span class="s">""</span>:
+        <span class="k">continue</span>
+
+    words = <span class="k">len</span>(sentence.split())
+
+    consonants = <span class="n">0</span>
+    <span class="k">for</span> ch <span class="k">in</span> sentence.lower():
+        <span class="k">if</span> ch.isalpha() <span class="k">and</span> ch <span class="k">not</span> <span class="k">in</span> <span class="s">"aeiou"</span>:
+            consonants += <span class="n">1</span>
+
+    <span class="k">print</span>(<span class="s">f"Sentence: </span>{sentence.lower()}<span class="s">"</span>)
+    <span class="k">print</span>(<span class="s">f"  Words: </span>{words}<span class="s">, Consonants: </span>{consonants}<span class="s">"</span>)</pre>
+      <p>Entering <code>Python is fun. I like code.</code></p>
+<pre class="out">Enter a paragraph: Python is fun. I like code.
+Sentence: python is fun
+  Words: 3, Consonants: 8
+Sentence: i like code
+  Words: 3, Consonants: 4</pre>
+      <p class="marks">The one that catches everybody</p>
+      <p><b><code>ch.isalpha()</code> is not optional.</b> A consonant is a <i>letter</i>
+      that is not a vowel. Without that test the <b>spaces</b> get counted, since a space is
+      certainly not in <code>"aeiou"</code>, and the answer comes out as 10 instead of 8.</p>
+      <p>The eight consonants in "python is fun" are <code>p</code>, <code>y</code>,
+      <code>t</code>, <code>h</code> and <code>n</code> from <i>python</i>, <code>s</code>
+      from <i>is</i>, then <code>f</code> and <code>n</code> from <i>fun</i>. The vowels
+      <code>o</code>, <code>i</code> and <code>u</code> are excluded, and the two spaces are
+      excluded by <code>isalpha()</code>.</p>
+      <p><b><code>y</code> counts as a consonant here</b>, because the question defines
+      vowels as a, e, i, o, u and <code>y</code> is not among them. Follow the question's
+      definition, not your instinct about English.</p>
+      <p>The <code>continue</code> is needed because the paragraph ends in a full stop, so
+      splitting leaves an empty final piece.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Five</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five (a)</span></div>
+    <div class="body">
+      <p><b>File handling</b> is working with files on disk from a program, so that data
+      survives after the program ends. It is always three steps: open, process, close.</p>
+      <table class="data">
+        <tr><th>Mode</th><th>Name</th><th>Behaviour</th></tr>
+        <tr><td><code>"r"</code></td><td>Read</td><td>Opens for reading. <b>Error if the file does not exist.</b></td></tr>
+        <tr><td><code>"w"</code></td><td>Write</td><td><b>Erases the file completely</b>, then writes. Creates it if absent.</td></tr>
+        <tr><td><code>"a"</code></td><td>Append</td><td>Adds to the end, keeping what is there. Creates it if absent.</td></tr>
+        <tr><td><code>"x"</code></td><td>Exclusive create</td><td>Creates it. <b>Error if it already exists.</b></td></tr>
+      </table>
+      <p style="margin-top:.5em"><b>Reading against appending:</b> reading takes data
+      <i>out</i> of the file and changes nothing, and the file must already exist. Appending
+      puts data <i>into</i> the file at the end, keeps everything already there, and creates
+      the file if needed.</p>
+      <p class="small">Worth adding, and it shows real understanding: the dangerous
+      distinction is <code>"w"</code> against <code>"a"</code>. Opening with
+      <code>"w"</code> destroys the contents immediately, before you write anything.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five (b)</span></div>
+    <div class="body">
+      <p class="marks">The errors</p>
+      <ul class="bul">
+        <li>The <code>write</code> line is <b>missing its closing bracket</b>. This is a
+        SyntaxError, so <b>nothing in the file runs</b>.</li>
+        <li><code>f.close</code> has <b>no brackets</b>, so it is not a call. It names the
+        method and discards it. The file is never closed.</li>
+      </ul>
+      <p><b>The first hides the second</b>, and the second is the more dangerous, because it
+      reports nothing at all: no error, no message, and possibly an empty file.</p>
+      <p class="marks">The fix</p>
+<pre class="code">f = <span class="k">open</span>(<span class="s">"report.txt"</span>, <span class="s">"w"</span>)
+f.write(<span class="s">"Weekly Report"</span>)
+f.close()</pre>
+      <p>Better still, and worth saying:</p>
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"report.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    f.write(<span class="s">"Weekly Report"</span>)</pre>
+      <p><code>with</code> closes the file for you, so the second bug becomes impossible.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five (c)</span></div>
+    <div class="body">
+      <p class="marks">Result</p>
+<pre class="out">Log updated.</pre>
+      <p class="marks">Each line</p>
+      <ul class="bul">
+        <li><code>with open("log.txt", "a") as f</code> opens <code>log.txt</code> in
+        <b>append</b> mode, <b>creating it if it does not exist</b>, and calls it
+        <code>f</code>.</li>
+        <li><code>f.write("Entry recorded.\n")</code> adds that line <b>to the end</b> of the
+        file, keeping everything already in it. The <code>\n</code> is needed because
+        <code>write</code> adds no newline of its own.</li>
+        <li>The block ends, so <code>with</code> <b>closes the file automatically</b>. There
+        is no <code>close()</code> to forget.</li>
+        <li><code>print("Log updated.")</code> displays that text on screen.</li>
+      </ul>
+      <p><b>Only "Log updated." appears on screen.</b> The written line went into the file,
+      not to the display. Saying so is the mark. Run it three times and the file has three
+      entries, while the screen still shows one line each time.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five (d)</span></div>
+    <div class="body">
+<pre class="code">count = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"How many books were borrowed? "</span>))
+
+<span class="k">with</span> <span class="k">open</span>(<span class="s">"borrowed.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(count):
+        title = <span class="k">input</span>(<span class="s">"Title: "</span>)
+        f.write(title + <span class="s">"\n"</span>)
+
+<span class="k">print</span>(<span class="s">"Log saved successfully."</span>)</pre>
+      <p>Entering 2, then Things Fall Apart, then Purple Hibiscus:</p>
+<pre class="out">Log saved successfully.</pre>
+      <p>and <code>borrowed.txt</code> now holds:</p>
+<pre class="out">Things Fall Apart
+Purple Hibiscus</pre>
+      <p class="marks">The detail</p>
+      <p><b><code>+ "\n"</code> is essential.</b> The requirement says "on a new line", and
+      <code>write</code> adds none. Without it the file would hold
+      <code>Things Fall ApartPurple Hibiscus</code> on one line. An f-string works equally
+      well: <code>f.write(f"{title}\n")</code>.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five (e)</span></div>
+    <div class="body">
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"fines.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">while</span> <span class="k">True</span>:
+        title = <span class="k">input</span>(<span class="s">"Title (or 'done'): "</span>)
+        <span class="k">if</span> title == <span class="s">"done"</span>:
+            <span class="k">break</span>
+        days = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Days overdue: "</span>))
+        f.write(<span class="s">f"</span>{title}<span class="s">, </span>{days}<span class="s">\n"</span>)
+
+total_fine = <span class="n">0</span>
+<span class="k">with</span> <span class="k">open</span>(<span class="s">"fines.txt"</span>, <span class="s">"r"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> line <span class="k">in</span> f:
+        title, days = line.strip().split(<span class="s">", "</span>)
+        days = <span class="k">int</span>(days)
+        fine = days * <span class="n">50</span>
+        total_fine += fine
+        <span class="k">print</span>(<span class="s">f"</span>{title}<span class="s">: </span>{days}<span class="s"> days, N</span>{fine}<span class="s">"</span>)
+
+<span class="k">print</span>(<span class="s">"Total fine: N"</span> + <span class="k">str</span>(total_fine))</pre>
+      <p>Entering Things Fall Apart 3, Purple Hibiscus 0, Half of a Yellow Sun 2, then done:</p>
+<pre class="out">Things Fall Apart: 3 days, N150
+Purple Hibiscus: 0 days, N0
+Half of a Yellow Sun: 2 days, N100
+Total fine: N250</pre>
+      <p class="marks">The details that decide this</p>
+      <ul class="bul">
+        <li><b><code>line.strip()</code> before <code>split(", ")</code>.</b> Every line read
+        from a file keeps its <code>\n</code>. Without the strip, <code>days</code> would be
+        <code>"3\n"</code>, and <code>int("3\n")</code> happens to work, but the habit will
+        bite you elsewhere. Strip first, always.</li>
+        <li><b><code>split(", ")</code> with the space</b>, matching exactly the format you
+        wrote. Splitting on <code>","</code> alone leaves a leading space on the number.</li>
+        <li>The fine is N50 per day, so a book 0 days overdue owes N0 and still appears in
+        the list. Do not skip it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Six</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six (a)</span></div>
+    <div class="body">
+      <p><b>i. What a database is, and why:</b> an organised collection of data held in
+      tables of rows and columns, stored so it can be searched, changed and retrieved
+      efficiently. It is used because the data lasts beyond the program; it can be searched
+      without reading everything; it enforces structure, so a column keeps its type; it
+      serves many users at once; and it keeps data consistent through rules such as a
+      primary key.</p>
+      <p><b>ii. The role of <code>sqlite3</code>:</b> it is the built in Python module that
+      connects a Python program to an SQLite database file, letting you create tables, insert
+      rows and query them from Python. It ships with Python, so nothing needs installing.</p>
+      <p><b>iii. Three SQL commands:</b></p>
+      <table class="data">
+        <tr><th>Command</th><th>Function</th></tr>
+        <tr><td><code>CREATE TABLE</code></td><td>Makes a new table and defines its columns</td></tr>
+        <tr><td><code>INSERT INTO</code></td><td>Adds a new row of data to a table</td></tr>
+        <tr><td><code>SELECT</code></td><td>Retrieves rows from a table</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six (b)</span></div>
+    <div class="body">
+      <p class="marks">The issues</p>
+      <p><b>Both are missing brackets</b>, and they behave very differently.</p>
+      <ul class="bul">
+        <li><code>conn.cursor</code> does not call the method, so <code>cursor</code> holds
+        the method itself rather than a cursor. The next line then fails with
+        <code>AttributeError: 'builtin_function_or_method' object has no attribute
+        'execute'</code>.</li>
+        <li><code>conn.commit</code> does nothing at all, <b>silently</b>. The table would
+        never be saved.</li>
+      </ul>
+      <p class="marks">The fix</p>
+<pre class="code"><span class="k">import</span> sqlite3
+conn = sqlite3.connect(<span class="s">"library.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY, title TEXT)"</span>)
+conn.commit()
+conn.close()</pre>
+      <p><b>Worth the extra mark:</b> add <code>IF NOT EXISTS</code>. Without it the fixed
+      program works once and then fails on every later run with
+      <code>sqlite3.OperationalError: table books already exists</code>, because
+      <code>connect</code> keeps the file between runs.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six (c)</span></div>
+    <div class="body">
+      <p><b>i. What it does:</b> connects to <code>library.db</code>, creating the file if it
+      does not exist; gets a cursor; runs an <code>INSERT</code> adding one row to the
+      <code>books</code> table with the title 'Things Fall Apart', letting <code>id</code>
+      fill itself; commits, making the change permanent; and closes the connection.</p>
+      <p><b>ii. What happens when it runs:</b> <b>nothing is displayed at all.</b> There is
+      no <code>print</code> and no <code>SELECT</code>, so a successful run produces no
+      output. One row is silently added to the table.</p>
+      <p><b>iii. The assumptions:</b></p>
+      <ul class="bul">
+        <li>The <code>books</code> table <b>must already exist</b>, with a
+        <code>title</code> column. This code never creates it, so without it you get
+        <code>sqlite3.OperationalError: no such table: books</code>.</li>
+        <li><code>id</code> must fill itself, that is, be declared
+        <code>INTEGER PRIMARY KEY</code>, since no id is supplied.</li>
+        <li>The file must be writable, and the disk must have room.</li>
+      </ul>
+      <p class="small">Part ii is the easy mark most candidates miss. "No output" is the
+      answer, and it is worth saying in those words.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six (d)</span></div>
+    <div class="body">
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"registry.db"</span>)
+cursor = conn.cursor()
+
+cursor.execute(<span class="s">"""CREATE TABLE IF NOT EXISTS students
+                  (id INTEGER PRIMARY KEY, name TEXT, matric TEXT)"""</span>)
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    name = <span class="k">input</span>(<span class="s">"Name: "</span>)
+    matric = <span class="k">input</span>(<span class="s">"Matric: "</span>)
+    cursor.execute(<span class="s">"INSERT INTO students (name, matric) VALUES (?, ?)"</span>, (name, matric))
+
+conn.commit()
+conn.close()
+<span class="k">print</span>(<span class="s">"Students saved."</span>)</pre>
+      <p>Entering Ada 24/CSC/001, Bola 24/CSC/117, John 24/MAT/042:</p>
+<pre class="out">Students saved.</pre>
+      <p class="marks">What earns the marks</p>
+      <ul class="bul">
+        <li><b><code>IF NOT EXISTS</code></b>, because the question says "if it does not
+        already exist" in as many words.</li>
+        <li><b>The <code>?</code> placeholders</b>, not string joining. A matric number
+        contains slashes and a name may contain an apostrophe, which would break joined SQL
+        outright.</li>
+        <li><b><code>matric</code> is TEXT</b>, not INTEGER. It contains slashes, so it is
+        not a number at all.</li>
+        <li><code>commit()</code> before <code>close()</code>, or nothing is saved.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six (e)</span></div>
+    <div class="body">
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"registry.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"""CREATE TABLE IF NOT EXISTS students
+                  (id INTEGER PRIMARY KEY, name TEXT, matric TEXT)"""</span>)
+
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    matric = <span class="k">input</span>(<span class="s">"Matric: "</span>)
+    cursor.execute(<span class="s">"INSERT INTO students (name, matric) VALUES (?, ?)"</span>, (name, matric))
+
+conn.commit()
+
+cursor.execute(<span class="s">"SELECT * FROM students"</span>)
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(<span class="s">f"</span>{row[<span class="n">0</span>]}<span class="s"> | </span>{row[<span class="n">1</span>]}<span class="s"> | </span>{row[<span class="n">2</span>]}<span class="s">"</span>)
+
+conn.close()</pre>
+      <p>Entering Ada 24/CSC/001, Bola 24/CSC/117, then done:</p>
+<pre class="out">1 | Ada | 24/CSC/001
+2 | Bola | 24/CSC/117</pre>
+      <p class="marks">The shape, one last time</p>
+      <p>The sentinel loop is <b>exactly</b> the one from Questions Three and Five. The only
+      new thing in this question is the <code>SELECT</code> and <code>fetchall()</code> at
+      the end, which the question asks for in its last line.</p>
+      <p><b>Each row is a tuple</b>, so <code>row[0]</code>, <code>row[1]</code> and
+      <code>row[2]</code> are id, name and matric, in the order the table declares them.</p>
+      <p><b>Commit before you select.</b></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">What this paper was really testing</span></div>
+    <div class="body">
+      <p>Look back at the six questions you just answered. Underneath the different
+      scenarios, <b>every part (e) was the same two lines of thinking</b>:</p>
+      <ul class="bul">
+        <li><b>The sentinel loop:</b> <code>while True</code>, read, test for 'done',
+        <code>break</code>, otherwise process. Questions Three, Five and Six.</li>
+        <li><b>Split and convert:</b> read one line, <code>split()</code>, loop, convert each
+        with <code>int()</code>. Questions One and Two.</li>
+      </ul>
+      <p>That is 17.5 marks of the 70 you can attempt, and it is two patterns. If you can
+      write both from a blank page, without thinking, you have banked a quarter of the paper
+      before you read a single question.</p>
+      <p>And <b>every part (b) was a hidden second error</b>: a SyntaxError masking a
+      NameError, an unclosed bracket masking a missing pair of brackets. Look for two.</p>
+    </div>
+  </div>
+</section>

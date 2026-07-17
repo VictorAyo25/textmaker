@@ -6,8 +6,8 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**All five modules authored**, rendered to `build/CSC241_checkpoint.pdf`
-(78 pages: cover plus 77). Voice and palette approved.
+**All five modules plus Mock One authored**, rendered to
+`build/CSC241_checkpoint.pdf` (100 pages: cover plus 99). Voice and palette approved.
 
 Every one of the exam's six questions now has a home:
 
@@ -26,9 +26,15 @@ so the coverage table above would have had a hole in it. It is slotted into Modu
 Two after Operators, because it needs indexing and slicing from Module Three, Unit 3
 only by analogy, not by dependency.
 
+**Mock One** mirrors the 24/25 paper exactly in shape (six questions, attempt any
+four, five subparts at 3.5 marks) with entirely fresh scenarios, so it is practice
+rather than a re-read of the real paper. Every answer is executed by the gate: a mock
+with a wrong answer is worse than no mock, because it teaches the wrong thing to
+somebody with no way to check.
+
 **Still to build:** the Contents page with working links (needs the two-pass approach
-from PHY121), the mocks mirroring the 24/25 template question for question, and an
-audit that every API the manual uses has an in-manual reference card.
+from PHY121), Mock Two, and an audit that every API the manual uses has an in-manual
+reference card.
 
 ## Sources
 
@@ -123,7 +129,7 @@ own and merged in front of the body.
 **Both gates stop the build on failure. Neither is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (227 claims across all five modules). This is the
+  interpreter and fails on any mismatch (266 claims, including every mock answer). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the

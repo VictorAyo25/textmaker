@@ -883,6 +883,289 @@ except Exception as e:
 if _got != 'importable':
     fails.append(('m5u2 tkinter ships with Python', 'importable', _got))
 
+# ======================= MOCK ONE =======================
+# Every answer in the mock, executed. A mock with a wrong answer is worse than no
+# mock: it teaches the wrong thing to somebody who has no way to check.
+
+# ---- Q1 ----
+# (b) the hang: prints 1, 3, then sticks at n = 5
+n += 1
+_o, _n, _s = [], 1, 0
+while _n <= 9:
+    _s += 1
+    if _s > 500:
+        break
+    if _n % 2 != 0:
+        if _n == 5:
+            continue
+        _o.append(_n)
+    _n += 1
+if _o != [1, 3] or _n != 5 or _s <= 500:
+    fails.append(('mock1 Q1(b) hangs: prints 1,3 then sticks at n=5',
+                  'out=[1, 3], n=5, does not terminate', f'out={_o}, n={_n}, steps={_s}'))
+check('mock1 Q1(b) fixed', 'n=1\nwhile n<=9:\n    if n % 2 != 0 and n != 5:\n'
+      '        print(n)\n    n+=1', '1\n3\n7\n9')
+check('mock1 Q1(c) for/else with break',
+      'for i in range(1,6):\n    if i % 4 == 0:\n        break\n    print(i)\n'
+      'else:\n    print("All done")', '1\n2\n3')
+
+TICKET = '''age = {}
+if age > 0:
+    if age < 13:
+        print("Child - N500")
+    elif age < 18:
+        print("Teen - N800")
+    elif age >= 60:
+        print("Senior - N600")
+    else:
+        print("Adult - N1200")
+else:
+    print("Please enter a valid age")'''
+for v, exp in [(8, 'Child - N500'), (15, 'Teen - N800'), (70, 'Senior - N600'),
+               (30, 'Adult - N1200'), (0, 'Please enter a valid age')]:
+    check(f'mock1 Q1(d) age={v}', TICKET.format(v), exp)
+
+check('mock1 Q1(e)', '''line = "8 15 70 30"
+count = 0
+for part in line.split():
+    age = int(part)
+    if age > 0:
+        if age < 13:
+            print(age, "Child - N500")
+        elif age < 18:
+            print(age, "Teen - N800")
+        elif age >= 60:
+            print(age, "Senior - N600")
+        else:
+            print(age, "Adult - N1200")
+        count += 1
+    else:
+        print(age, "Please enter a valid age")
+print("Tickets priced:", count)''',
+      '8 Child - N500\n15 Teen - N800\n70 Senior - N600\n30 Adult - N1200\n'
+      'Tickets priced: 4')
+
+# ---- Q2 ----
+check('mock1 Q2(b) broken prints 5',
+      'courses = ["CSC241","MAT121","CSC241","PHY121","MAT121"]\ncourses = list(courses)\n'
+      'distinct = courses\nprint("Distinct courses:", len(distinct))',
+      'Distinct courses: 5')
+check('mock1 Q2(b) fixed prints 3',
+      'courses = ["CSC241","MAT121","CSC241","PHY121","MAT121"]\ndistinct = set(courses)\n'
+      'print("Distinct courses:", len(distinct))', 'Distinct courses: 3')
+check('mock1 Q2(b) the loop alternative',
+      'courses = ["CSC241","MAT121","CSC241","PHY121","MAT121"]\ndistinct = []\n'
+      'for c in courses:\n    if c not in distinct:\n        distinct.append(c)\n'
+      'print(len(distinct))', '3')
+check('mock1 Q2(c)', '''student = {"name": "Bola", "level": 200, "courses": ["CSC241", "MAT121"]}
+student["courses"].append("PHY121")
+student["level"] = 300
+print(student["courses"])
+print(len(student))''', "['CSC241', 'MAT121', 'PHY121']\n3")
+check('mock1 Q2(d)', '''data = iter([25, 4, 60, 12])
+quantities = []
+for i in range(4):
+    quantities.append(next(data))
+quantities.sort()
+print("Sorted:", quantities)
+print("Highest:", max(quantities))
+print("Lowest:", min(quantities))''',
+      'Sorted: [4, 12, 25, 60]\nHighest: 60\nLowest: 4')
+check('mock1 Q2(e)', '''line = "25 4 60 12 8"
+quantities = []
+for part in line.split():
+    quantities.append(int(part))
+quantities.sort(reverse=True)
+reorder = 0
+for q in quantities:
+    if q < 10:
+        reorder += 1
+average = sum(quantities) / len(quantities)
+print("Sorted:", quantities)
+print("Highest:", max(quantities))
+print("Lowest:", min(quantities))
+print(f"Average: {average:.2f}")
+print("Need reordering:", reorder)''',
+      'Sorted: [60, 25, 12, 8, 4]\nHighest: 60\nLowest: 4\nAverage: 21.80\n'
+      'Need reordering: 2')
+
+# ---- Q3 ----
+check('mock1 Q3(b) fixed cube', 'def cube(n):\n    return n ** 3\n\nprint(cube(3))', '27')
+n += 1
+try:
+    compile('def cube(n)\n    return n ** 3\nprint(Cube(3))', '<m>', 'exec')
+    _g = 'compiled'
+except SyntaxError:
+    _g = 'SyntaxError'
+if _g != 'SyntaxError':
+    fails.append(('mock1 Q3(b) missing colon is a SyntaxError', 'SyntaxError', _g))
+traceback_tail('mock1 Q3(b) Cube NameError',
+               'def cube(n):\n    return n ** 3\nprint(Cube(3))\n',
+               ["NameError: name 'Cube' is not defined. Did you mean: 'cube'?"])
+check('mock1 Q3(c) defaults', 'def total(price, tax=0.1):\n    return price + price * tax\n\n'
+      'print(total(100))\nprint(total(100, 0.2))', '110.0\n120.0')
+
+GRADE = '''def grade(score):
+    if score >= 70:
+        return "A"
+    elif score >= 60:
+        return "B"
+    elif score >= 50:
+        return "C"
+    else:
+        return "F"
+'''
+check('mock1 Q3(d)', GRADE + '''data = iter([("Ada", 72), ("Bola", 45), ("John", 65)])
+for i in range(3):
+    name, score = next(data)
+    print(f"Student: {name} | Score: {score} | Grade: {grade(score)}")''',
+      'Student: Ada | Score: 72 | Grade: A\nStudent: Bola | Score: 45 | Grade: F\n'
+      'Student: John | Score: 65 | Grade: B')
+check('mock1 Q3(e)', GRADE + '''data = iter([("Ada", 72), ("Bola", 45), ("John", 65), ("done", 0)])
+total = 0
+passed = 0
+while True:
+    name, score = next(data)
+    if name == "done":
+        break
+    print(f"Student: {name} | Score: {score} | Grade: {grade(score)}")
+    total += 1
+    if score >= 50:
+        passed += 1
+print(f"Students: {total}, Passed: {passed}, Failed: {total - passed}")''',
+      'Student: Ada | Score: 72 | Grade: A\nStudent: Bola | Score: 45 | Grade: F\n'
+      'Student: John | Score: 65 | Grade: B\nStudents: 3, Passed: 2, Failed: 1')
+
+# ---- Q4 ----
+raises('mock1 Q4(b) index() no argument', lambda: "Grace Hopper".index(),
+       'TypeError: index expected at least 1 argument, got 0')
+val('mock1 Q4(b) index of space is 5', '"Grace Hopper".index(" ")', '5')
+val('mock1 Q4(b) slicing from the space keeps it',
+    '"Grace Hopper"[ "Grace Hopper".index(" "): ]', "' Hopper'")
+check('mock1 Q4(b) fixed with +1',
+      'full_name = "Grace Hopper"\nsurname = full_name[full_name.index(" ") + 1:]\n'
+      'print("Surname:", surname.lower())', 'Surname: hopper')
+check('mock1 Q4(b) the split alternative',
+      'full_name = "Grace Hopper"\nsurname = full_name.split()[1]\n'
+      'print("Surname:", surname.lower())', 'Surname: hopper')
+check('mock1 Q4(c)', 'tag = "   CSC241 Python   "\nprint(tag.strip())\n'
+      'print(tag.upper().replace("PYTHON", "CODE"))\nprint(len(tag.strip()))',
+      'CSC241 Python\n   CSC241 CODE   \n13')
+val('mock1 Q4(c) len(tag) is 19 not 13', 'len("   CSC241 Python   ")', '19')
+check('mock1 Q4(d)', '''regs = ["24/CSC/001", "23/CSC/117", "24/MAT/042", "22/PHY/008", "24/CSC/236"]
+for reg in regs:
+    year = reg.split("/")[0]
+    print(f"Reg: {reg} | Year: {year}")''',
+      'Reg: 24/CSC/001 | Year: 24\nReg: 23/CSC/117 | Year: 23\n'
+      'Reg: 24/MAT/042 | Year: 24\nReg: 22/PHY/008 | Year: 22\n'
+      'Reg: 24/CSC/236 | Year: 24')
+val('mock1 Q4(d) split on slash', '"24/CSC/001".split("/")', "['24', 'CSC', '001']")
+check('mock1 Q4(e) consonants', '''paragraph = "Python is fun. I like code."
+for sentence in paragraph.split("."):
+    sentence = sentence.strip()
+    if sentence == "":
+        continue
+    words = len(sentence.split())
+    consonants = 0
+    for ch in sentence.lower():
+        if ch.isalpha() and ch not in "aeiou":
+            consonants += 1
+    print(f"Sentence: {sentence.lower()}")
+    print(f"  Words: {words}, Consonants: {consonants}")''',
+      'Sentence: python is fun\n  Words: 3, Consonants: 8\n'
+      'Sentence: i like code\n  Words: 3, Consonants: 4')
+# the isalpha() claim: without it the spaces are counted and 8 becomes 10
+val('mock1 Q4(e) without isalpha the answer is 10',
+    'len([c for c in "python is fun" if c not in "aeiou"])', '10')
+val('mock1 Q4(e) the 8 consonants',
+    'str([c for c in "python is fun" if c.isalpha() and c not in "aeiou"])',
+    '"[\'p\', \'y\', \'t\', \'h\', \'n\', \'s\', \'f\', \'n\']"')
+
+# ---- Q5 and Q6: real files and real databases ----
+_tmpM = tempfile.mkdtemp(prefix='csc241_mock_')
+_cwdM = os.getcwd()
+os.chdir(_tmpM)
+try:
+    check('mock1 Q5(c) only "Log updated." is displayed',
+          'with open("log.txt", "a") as f:\n    f.write("Entry recorded.\\n")\n\n'
+          'print("Log updated.")', 'Log updated.')
+    check('mock1 Q5(d)', '''data = iter(["Things Fall Apart", "Purple Hibiscus"])
+count = 2
+with open("borrowed.txt", "w") as f:
+    for i in range(count):
+        title = next(data)
+        f.write(title + "\\n")
+print("Log saved successfully.")
+print(open("borrowed.txt").read(), end="")''',
+          'Log saved successfully.\nThings Fall Apart\nPurple Hibiscus')
+    check('mock1 Q5(e)', '''data = iter([("Things Fall Apart", 3), ("Purple Hibiscus", 0),
+              ("Half of a Yellow Sun", 2), ("done", 0)])
+with open("fines.txt", "w") as f:
+    while True:
+        title, days = next(data)
+        if title == "done":
+            break
+        f.write(f"{title}, {days}\\n")
+
+total_fine = 0
+with open("fines.txt", "r") as f:
+    for line in f:
+        title, days = line.strip().split(", ")
+        days = int(days)
+        fine = days * 50
+        total_fine += fine
+        print(f"{title}: {days} days, N{fine}")
+print("Total fine: N" + str(total_fine))''',
+          'Things Fall Apart: 3 days, N150\nPurple Hibiscus: 0 days, N0\n'
+          'Half of a Yellow Sun: 2 days, N100\nTotal fine: N250')
+
+    check('mock1 Q6(d)', '''import sqlite3
+data = iter([("Ada", "24/CSC/001"), ("Bola", "24/CSC/117"), ("John", "24/MAT/042")])
+conn = sqlite3.connect("registry.db")
+cursor = conn.cursor()
+cursor.execute("""CREATE TABLE IF NOT EXISTS students
+                  (id INTEGER PRIMARY KEY, name TEXT, matric TEXT)""")
+for i in range(3):
+    name, matric = next(data)
+    cursor.execute("INSERT INTO students (name, matric) VALUES (?, ?)", (name, matric))
+conn.commit()
+conn.close()
+print("Students saved.")''', 'Students saved.')
+
+    check('mock1 Q6(e)', '''import sqlite3
+data = iter([("Ada", "24/CSC/001"), ("Bola", "24/CSC/117"), ("done", None)])
+conn = sqlite3.connect("registry2.db")
+cursor = conn.cursor()
+cursor.execute("""CREATE TABLE IF NOT EXISTS students
+                  (id INTEGER PRIMARY KEY, name TEXT, matric TEXT)""")
+while True:
+    name, matric = next(data)
+    if name == "done":
+        break
+    cursor.execute("INSERT INTO students (name, matric) VALUES (?, ?)", (name, matric))
+conn.commit()
+cursor.execute("SELECT * FROM students")
+for row in cursor.fetchall():
+    print(f"{row[0]} | {row[1]} | {row[2]}")
+conn.close()''', '1 | Ada | 24/CSC/001\n2 | Bola | 24/CSC/117')
+
+    # Q6(b): the fixed-but-no-IF-NOT-EXISTS version fails on a second run
+    def _books_twice():
+        import sqlite3
+        for _ in range(2):
+            conn = sqlite3.connect("library.db")
+            c = conn.cursor()
+            c.execute("CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT)")
+            conn.commit()
+            conn.close()
+
+    raises('mock1 Q6(b) without IF NOT EXISTS the 2nd run fails', _books_twice,
+           'OperationalError: table books already exists')
+finally:
+    os.chdir(_cwdM)
+    import shutil as _shM
+    _shM.rmtree(_tmpM, ignore_errors=True)
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:

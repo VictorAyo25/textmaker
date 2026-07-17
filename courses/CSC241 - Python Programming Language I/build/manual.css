@@ -28,6 +28,8 @@
   --mem:#ffd43b;        --mem-bg:#fffbea;    --mem-bg2:#fff4cc;  --mem-ink:#5c4600;
   --recall:#4a5568;     --recall-bg:#ffffff;
   --fill:#5b3a8e;       --fill-bg:#f4effb;
+  --qpaper:#1a2332;     --qpaper-bg:#ffffff;
+  --ans:#0f766e;        --ans-bg:#f0faf8;
   --rule:#d7dbe2;
 }
 
@@ -92,6 +94,19 @@ h3.sub:first-child{ margin-top:0; }
 .dry    > .bar{ background:var(--dry);   }   .dry    .body{ background:var(--dry-bg); }
 .recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
 .fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+
+/* an exam question, reproduced as a paper: plain, no teaching colour */
+.qpaper > .bar{ background:var(--qpaper); }
+.qpaper .body{ background:var(--qpaper-bg); }
+.qpaper{ border-color:#b9c0cc; break-inside:auto; }
+.qpaper .body > p{ margin:.5em 0; }
+
+/* a worked answer to an exam question */
+.ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
+.ans{ break-inside:auto; }
+.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
+.ans .marks:first-child{ margin-top:0; }
 
 /* MUST MEMORISE: the reserved hue. Yellow needs dark ink, not white. */
 .mem    > .bar{ background:var(--mem); color:var(--mem-ink); }
