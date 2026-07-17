@@ -11,21 +11,35 @@ manual_composer/
 │   ├── README.txt
 │   └── PHY121_Study_Manual_v3.pdf
 └── courses/                  ← one self-contained working folder per course
-    └── PHY121/
-        ├── README.md         how to rebuild/update THIS course
-        ├── build/            code + assets
-        ├── sources/          raw inputs, grouped: slides/ tests/ manual_v1/ extracted/
-        └── drafts/           work in progress
+    ├── PHY121/
+    │   ├── README.md         how to rebuild/update THIS course
+    │   ├── build/            code + assets
+    │   ├── sources/          raw inputs, grouped: slides/ tests/ manual_v1/ extracted/
+    │   └── drafts/           work in progress
+    └── COS221 - Computer Programming I (Java)/
+        └── sources/          slides/ exams/ course_manual/ extracted/
 ```
 
-## The two rules that keep this tidy
+## The three rules that keep this tidy
 
 1. **Every course gets its own folder under `courses/`.** All of its sources,
    code, and drafts stay inside it. Nothing course-specific ever sits at the top
-   level. Starting PHY122 means creating `courses/PHY122/` and nothing else moves.
+   level. Starting PHY122 means creating its folder and nothing else moves.
 2. **`FINAL_MANUALS/` is central and holds only signed-off PDFs**, one per course
    (versioned, e.g. `_v2`). Work in progress lives in that course's `drafts/`.
    Nothing lands in `FINAL_MANUALS/` until the manual is explicitly approved.
+3. **Name-and-title rule.** A course folder and its produced manual both carry the
+   course **code and title**, never the bare code:
+
+   ```
+   courses/COS221 - Computer Programming I (Java)/
+   FINAL_MANUALS/COS221 - Computer Programming I (Java) - Study Manual v1.pdf
+   ```
+
+   A bare code is unreadable a year later, and course titles do drift (COS221 was
+   "Object-Oriented Programming (Java)" in 2024/25 and "Computer Programming I
+   (Java)" in 2025/26), so the title in the name records which one the manual was
+   built for. PHY121 predates this rule and still uses the old bare-code naming.
 
 ## Working on two courses at once
 
@@ -51,11 +65,20 @@ Two things to know:
 ## Starting a new course
 
 ```bash
-mkdir -p courses/<COURSE>/{build,drafts}
-mkdir -p courses/<COURSE>/sources/{slides,tests,manual_v1,extracted}
-# slide decks -> sources/slides/, test screenshots -> sources/tests/,
-# any prior manual -> sources/manual_v1/
+C="courses/<CODE> - <Course Title>"       # name-and-title rule, see above
+mkdir -p "$C"/{build,drafts}
+mkdir -p "$C"/sources/{slides,exams,extracted}
+# slide decks     -> sources/slides/
+# past papers/CBTs -> sources/exams/
+# a lecturer's or institution's manual is a SOURCE -> sources/course_manual/
+# a prior manual OF OURS that we rebuild verbatim  -> sources/manual_v1/
 ```
+
+That last distinction decides the whole architecture. If `manual_v1/` exists, the
+job is a **rebuild**: preserve wording verbatim and audit fidelity (PHY121). If the
+only manual is someone else's, it is a **source** and the job is to **author** from
+zero (COS221), so skip the extraction and fidelity machinery entirely.
+
 Then read `MANUAL_METHODOLOGY.md` — it carries the pedagogy (the box system,
 active recall, traps, "every number recomputed") and the build engineering
 (structure-aware PDF extraction, the 2-pass Contents render, the print-CSS
@@ -98,5 +121,12 @@ python assemble.py        # rebuilds the full manual
 
 - No em dashes or en dashes in any manual.
 - Never name the institution, its e-learning platform, or any methodology author.
-- Every number is recomputed independently before it is written down.
+- Every number is recomputed independently before it is written down. For a
+  programming course the same rule reads: every snippet is compiled and run, and
+  every claimed output is captured from a real run, never asserted from reading.
+- **Zero to perfect score, zero external sources.** A manual must carry a complete
+  novice to a perfect exam score on its own. The reader must never need a lecturer,
+  a website, or official docs, so the manual teaches its own toolchain and documents
+  every API it uses. Nothing may appear before it has been introduced.
+- Course folders and published manuals both carry the course code and title.
 - A manual reaches `FINAL_MANUALS/` only on explicit sign-off.
