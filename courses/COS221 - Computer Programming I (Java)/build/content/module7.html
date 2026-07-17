@@ -1,0 +1,394 @@
+<!-- ============ MODULE SEVEN ============ -->
+
+<!-- ---------------- 7.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 7.1 · WHAT A STRING IS</div>
+  <h2 class="title">An object that behaves like a value</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain strings,
+  perform concatenation, substring extraction and searching, differentiate String,
+  StringBuilder and StringBuffer, and use the mutable classes for efficient
+  manipulation.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · String</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>A String is an object representing a sequence of characters (char
+        values) enclosed in double quotes.</b></p>
+        <p>It is a <b>final class</b> in the <code>java.lang</code> package. Final
+        means it <b>cannot be subclassed</b>.</p>
+      </div>
+      <p>"What is a String, and how can you create one?" is a stated in-text question,
+      so this definition is a candidate for the two-mark slot.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> a String is a <b>necklace of chars</b>. The
+      beads are <code>char</code> values (Unit 3.3), each at a numbered position, and
+      the clasp is welded shut: you can read any bead, and you can never swap
+      one.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Two ways to create one, and they are not the same</span></div>
+    <div class="body">
+      <p><b>1. String literals</b>, stored in the <b>String Pool</b>:</p>
+      <pre class="src nonum" data-nocheck="fragments; the difference is proved by the runnable listing in 7.3"><span class="l">String s1 = "Hello";</span><span class="l">String s2 = "Hello";      // REUSES the same object from the String Pool</span></pre>
+      <p><b>2. The <code>new</code> keyword</b>, which always builds a fresh object:</p>
+      <pre class="src nonum" data-nocheck="fragments; the difference is proved by the runnable listing in 7.3"><span class="l">String s3 = new String("Hello");</span><span class="l">String s4 = new String("Hello");   // a SECOND, separate object</span></pre>
+      <p>The <b>String Pool</b> is a store Java keeps of every literal it has seen. Ask
+      for the literal <code>"Hello"</code> twice and Java hands you the <b>same
+      object</b> both times, because a String can never change, so sharing it is
+      safe. Say <code>new</code> and you have explicitly demanded a new object, so
+      Java makes one, pool or no pool.</p>
+      <p>This sounds like an implementation detail. It is the reason for Unit 7.3,
+      which is the most important unit in this module.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Immutability</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Strings are immutable: once created, their value cannot be changed. Any
+        operation that appears to modify a string actually creates a new String
+        object.</b></p>
+      </div>
+      <p>"Why are Strings immutable, and what is the implication?" is a stated in-text
+      question. The implication: it improves <b>security</b> and <b>performance</b>
+      (sharing via the pool is safe), but it is <b>inefficient for frequent
+      changes</b>, because every change allocates a new object. That inefficiency is
+      why StringBuilder exists (Unit 7.5).</p>
+      <p class="hook"><b>MEMORY HOOK:</b> a String is <b>printed</b>, not written in
+      pencil. "Editing" it means printing a new page. The old page still exists,
+      unchanged, until nobody is looking at it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Immutability, caught in the act</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Immutable"><span class="l"><span class="k">public class</span> <span class="t">Immutable</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> s = <span class="s">"Java"</span>;</span><span class="l"></span><span class="l bad">        s.concat(<span class="s">" Programming"</span>);        <span class="c">// result thrown away!</span></span><span class="l">        System.out.println(<span class="s">"without assignment: "</span> + s);</span><span class="l"></span><span class="l good">        <span class="t">String</span> t = s.concat(<span class="s">" Programming"</span>);  <span class="c">// result kept</span></span><span class="l">        System.out.println(<span class="s">"with assignment   : "</span> + t);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>without assignment: Java
+with assignment   : Java Programming</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>s.concat(...)</code> did not
+      fail, and it did not change <code>s</code>. It <b>built a new String and
+      returned it</b>, and because nobody caught the return value, that new String was
+      discarded instantly. This is the practical meaning of immutable: <b>every
+      String method returns a new String and changes nothing</b>. If you do not assign
+      the result, nothing happened.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 7.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 7.2 · THE STRING METHODS</div>
+  <h2 class="title">Everything you need, in one place</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The reference card</span></div>
+    <div class="body">
+      <p>This is the complete set this course uses. Every Result column below was
+      produced by running it, on <code>str = "Hello, World!"</code>.</p>
+      <table class="data">
+        <tr><th style="width:30%">Method</th><th style="width:20%">Result</th><th>Does</th></tr>
+        <tr><td><code>length()</code></td><td><code>13</code></td><td>how many characters. A <b>method</b>, with brackets.</td></tr>
+        <tr><td><code>charAt(0)</code></td><td><code>H</code></td><td>the char at an index. Indexes start at <b>0</b>.</td></tr>
+        <tr><td><code>indexOf('o')</code></td><td><code>4</code></td><td>index of the <b>first</b> occurrence, or <b>-1</b> if absent</td></tr>
+        <tr><td><code>indexOf("World")</code></td><td><code>7</code></td><td>works for a whole substring too</td></tr>
+        <tr><td><code>contains("World")</code></td><td><code>true</code></td><td>is it in there at all?</td></tr>
+        <tr><td><code>startsWith("Hello")</code></td><td><code>true</code></td><td>does it begin with this?</td></tr>
+        <tr><td><code>endsWith("!")</code></td><td><code>true</code></td><td>does it end with this?</td></tr>
+        <tr><td><code>toUpperCase()</code></td><td><code>HELLO, WORLD!</code></td><td>a <b>new</b> String, upper cased</td></tr>
+        <tr><td><code>concat(" x")</code></td><td>a new String</td><td>the same as <code>+</code></td></tr>
+        <tr><td><code>equals(other)</code></td><td>see 7.3</td><td>same characters? <b>Use this, not ==</b></td></tr>
+        <tr><td><code>equalsIgnoreCase(other)</code></td><td>see 7.3</td><td>same, ignoring case</td></tr>
+        <tr><td><code>compareTo(other)</code></td><td>see 7.3</td><td>lexicographic order</td></tr>
+        <tr><td><code>substring(3)</code></td><td>see below</td><td>from index 3 to the end</td></tr>
+        <tr><td><code>substring(3, 8)</code></td><td>see below</td><td>from 3 <b>up to but not including</b> 8</td></tr>
+        <tr><td><code>split(" ")</code></td><td>a <code>String[]</code></td><td>break it up on a separator</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · substring: start inclusive, end exclusive</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>substring(start)</code> gives everything from <code>start</code> to
+        the end.</p>
+        <p><code>substring(start, end)</code> gives characters from
+        <code>start</code> <b>up to but NOT including</b> <code>end</code>.</p>
+        <p>So its length is exactly <code>end - start</code>.</p>
+      </div>
+      <p>Your course states this plainly ("start is inclusive while end is
+      exclusive") and it is still the thing people get wrong under pressure.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the same rule as a <code>for</code> loop:
+      <code>for (int i = start; i &lt; end; i++)</code> also stops <i>before</i>
+      <code>end</code>. Java is consistent: <b>an end bound is always a fence you
+      stop at, not a post you include.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Every method, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="StringMethods"><span class="l"><span class="k">public class</span> <span class="t">StringMethods</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> str = <span class="s">"Hello, World!"</span>;</span><span class="l">        System.out.println(<span class="s">"length()          : "</span> + str.length());</span><span class="l">        System.out.println(<span class="s">"charAt(0)         : "</span> + str.charAt(0));</span><span class="l">        System.out.println(<span class="s">"indexOf('o')      : "</span> + str.indexOf(<span class="s">'o'</span>));</span><span class="l">        System.out.println(<span class="s">"indexOf(\"World\")  : "</span> + str.indexOf(<span class="s">"World"</span>));</span><span class="l">        System.out.println(<span class="s">"contains(\"World\") : "</span> + str.contains(<span class="s">"World"</span>));</span><span class="l">        System.out.println(<span class="s">"startsWith(\"Hello\"): "</span> + str.startsWith(<span class="s">"Hello"</span>));</span><span class="l">        System.out.println(<span class="s">"endsWith(\"!\")     : "</span> + str.endsWith(<span class="s">"!"</span>));</span><span class="l">        System.out.println(<span class="s">"toUpperCase()     : "</span> + str.toUpperCase());</span><span class="l"></span><span class="l">        <span class="t">String</span> cs = <span class="s">"Computer Science"</span>;</span><span class="l">        System.out.println(<span class="s">"substring(3)      : "</span> + cs.substring(3));</span><span class="l">        System.out.println(<span class="s">"substring(3, 8)   : "</span> + cs.substring(3, 8));</span><span class="l"></span><span class="l">        <span class="c">// concatenation: the + operator, or concat()</span></span><span class="l">        <span class="t">String</span> firstName = <span class="s">"John"</span>, lastName = <span class="s">"Doe"</span>;</span><span class="l">        System.out.println(<span class="s">"+ operator        : "</span> + firstName + <span class="s">" "</span> + lastName);</span><span class="l">        System.out.println(<span class="s">"concat()          : "</span> + <span class="s">"Hello"</span>.concat(<span class="s">" World"</span>));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>length()          : 13
+charAt(0)         : H
+indexOf('o')      : 4
+indexOf("World")  : 7
+contains("World") : true
+startsWith("Hello"): true
+endsWith("!")     : true
+toUpperCase()     : HELLO, WORLD!
+substring(3)      : puter Science
+substring(3, 8)   : puter
++ operator        : John Doe
+concat()          : Hello World</pre>
+      <p class="small" style="padding:6pt 8pt 0">Check <code>substring(3, 8)</code>
+      against the rule: indexes 3, 4, 5, 6, 7, stopping before 8. "Computer" is
+      C0 o1 m2 p3 u4 t5 e6 r7, so you get "puter", five characters, which is
+      8 - 3 = 5. The <code>r</code> at index 7 is included; index 8, the space, is
+      not.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · length vs length()</span></div>
+    <div class="body">
+      <p>An array has <code>arr.length</code>, a <b>property</b>, with no brackets
+      (F.10). A String has <code>str.length()</code>, a <b>method</b>, with brackets.
+      A String is an object with methods; an array's length is a plain field.</p>
+      <p>Get it backwards and it does not compile, so it costs you seconds on a
+      machine and marks on paper. Both papers hand you array and String code in the
+      same question.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 7.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 7.3 · == VERSUS EQUALS · THE FAMOUS ONE</div>
+  <h2 class="title">Why comparing text with == destroys programs</h2>
+  <hr class="rule"/>
+
+  <p class="lead">This unit is the reason Unit 3.7 told you to remember that
+  <code>==</code> compares values for primitives and <b>references</b> for objects.
+  Here is the bill.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Never compare Strings with ==</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>==</code> on two Strings asks <b>"are these the same object?"</b></p>
+        <p><code>.equals()</code> asks <b>"do these have the same characters?"</b></p>
+        <p>You almost always mean the second. <b>Always use <code>.equals()</code>
+        for text.</b></p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <code>==</code> asks "are you living at the
+      same address?"; <code>.equals()</code> asks "do you look the same?". Identical
+      twins in different houses are equal but not ==.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The whole trap, in five lines of output</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="EqualsTrap"><span class="l"><span class="k">public class</span> <span class="t">EqualsTrap</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> s1 = <span class="s">"Hello"</span>;                 <span class="c">// literal -> String Pool</span></span><span class="l">        <span class="t">String</span> s2 = <span class="s">"Hello"</span>;                 <span class="c">// literal -> the SAME pooled object</span></span><span class="l">        <span class="t">String</span> s3 = <span class="k">new</span> <span class="t">String</span>(<span class="s">"Hello"</span>);     <span class="c">// new -> a fresh object</span></span><span class="l">        <span class="t">String</span> s4 = <span class="k">new</span> <span class="t">String</span>(<span class="s">"Hello"</span>);     <span class="c">// new -> another fresh object</span></span><span class="l"></span><span class="l bad">        System.out.println(<span class="s">"s1 == s2       : "</span> + (s1 == s2));</span><span class="l bad">        System.out.println(<span class="s">"s3 == s4       : "</span> + (s3 == s4));</span><span class="l bad">        System.out.println(<span class="s">"s1 == s3       : "</span> + (s1 == s3));</span><span class="l good">        System.out.println(<span class="s">"s1.equals(s3)  : "</span> + s1.equals(s3));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>s1 == s2       : true
+s3 == s4       : false
+s1 == s3       : false
+s1.equals(s3)  : true</pre>
+      <p class="small" style="padding:6pt 8pt 0">Every one of those four strings
+      contains "Hello". Read the outputs again.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The reason this bug is so vicious</span></div>
+    <div class="body">
+      <p>Look at the first line: <b><code>s1 == s2</code> is true.</b></p>
+      <p>That is what makes this the most famous bug in Java. If <code>==</code> were
+      simply always wrong for Strings, everyone would learn it on day one. Instead it
+      <b>works perfectly</b> whenever both sides are literals, because the pool hands
+      you the same object twice. So you write <code>==</code>, you test it with
+      literals, it passes, you ship it.</p>
+      <p>Then a real String arrives, from <code>JOptionPane.showInputDialog</code>,
+      from <code>Scanner</code>, from a file, built by concatenation, and it is a
+      <b>new object</b>, not a pooled literal. Now <code>==</code> is false even
+      though the text matches, your <code>if</code> never fires, and nothing crashes
+      to tell you.</p>
+      <p><b>Every user input in your exam is one of those.</b> Question Five's tier is
+      typed by a user. <code>if (tier == "Gold")</code> would be false for a user who
+      typed Gold. <code>tier.equals("Gold")</code> is true. That is the difference
+      between a working program and a zero.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · equals, equalsIgnoreCase, compareTo</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Comparing"><span class="l"><span class="k">public class</span> <span class="t">Comparing</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> a = <span class="s">"Java"</span>, b = <span class="s">"java"</span>;</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"equals            : "</span> + a.equals(b));</span><span class="l">        System.out.println(<span class="s">"equalsIgnoreCase  : "</span> + a.equalsIgnoreCase(b));</span><span class="l">        System.out.println(<span class="s">"compareTo         : "</span> + a.compareTo(b));</span><span class="l">        System.out.println(<span class="s">"'J' is "</span> + (<span class="k">int</span>) <span class="s">'J'</span> + <span class="s">", 'j' is "</span> + (<span class="k">int</span>) <span class="s">'j'</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>equals            : false
+equalsIgnoreCase  : true
+compareTo         : -32
+'J' is 74, 'j' is 106</pre>
+      <p class="small" style="padding:6pt 8pt 0">Ignore the number for a second and
+      read the sign. <b><code>compareTo</code> returns negative if this comes before
+      the other, zero if equal, positive if after.</b> So -32 means "Java" sorts
+      before "java". And the size is not magic: 'J' is 74 and 'j' is 106, so
+      74 - 106 = -32. It is comparing the char codes of Unit 3.3, and capitals come
+      first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 7.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 7.4 · STRINGBUILDER AND STRINGBUFFER</div>
+  <h2 class="title">When immutability becomes the problem</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why they exist</span></div>
+    <div class="body">
+      <p><b>The String class is immutable. Every modification creates a new String
+      object, which can be inefficient when dealing with frequent or large-scale
+      string operations.</b> To overcome this, Java provides two <b>mutable</b>
+      alternatives: <b>StringBuilder</b> and <b>StringBuffer</b>.</p>
+      <p>Concretely: building a 1000-character string by adding one character at a
+      time with <code>+</code> creates a thousand String objects, each a copy of the
+      last plus one. A StringBuilder edits one buffer in place.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three compared</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:22%">Feature</th><th style="width:24%">String</th><th style="width:26%">StringBuilder</th><th>StringBuffer</th></tr>
+          <tr><td>Mutability</td><td><b>Immutable</b></td><td>Mutable</td><td>Mutable</td></tr>
+          <tr><td>Thread-safe</td><td>No</td><td><b>No</b></td><td><b>Yes</b> (synchronized)</td></tr>
+          <tr><td>Performance</td><td>Slow with many modifications</td><td><b>Fast</b> (single-threaded)</td><td>Slower (synchronisation costs)</td></tr>
+          <tr><td>Use when</td><td>content does not change</td><td>frequent changes, one thread</td><td>frequent changes, many threads</td></tr>
+        </table>
+      </div>
+      <p>"When should you use StringBuilder instead of String?" is a stated in-text
+      question. The difference between the two mutable ones is <b>only</b>
+      thread-safety, and its cost is speed.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>Builder is Buffer without the
+      locks.</b> Buffer is safe for many threads and pays for it; Builder assumes
+      you are alone and is faster. Alone is the normal case, so <b>StringBuilder is
+      the default choice</b>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The slide's chain, traced step by step</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Builder"><span class="l"><span class="k">public class</span> <span class="t">Builder</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">StringBuilder</span> sb = <span class="k">new</span> <span class="t">StringBuilder</span>(<span class="s">"Java"</span>);</span><span class="l">        System.out.println(<span class="s">"start          ["</span> + sb + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        sb.append(<span class="s">" Programming"</span>);</span><span class="l">        System.out.println(<span class="s">"append         ["</span> + sb + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        sb.insert(5, <span class="s">"Language "</span>);</span><span class="l">        System.out.println(<span class="s">"insert(5,..)   ["</span> + sb + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        sb.replace(5, 13, <span class="s">"Core "</span>);</span><span class="l">        System.out.println(<span class="s">"replace(5,13)  ["</span> + sb + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        sb.delete(5, 10);</span><span class="l">        System.out.println(<span class="s">"delete(5,10)   ["</span> + sb + <span class="s">"]"</span>);</span><span class="l"></span><span class="l">        sb.reverse();</span><span class="l">        System.out.println(<span class="s">"reverse        ["</span> + sb + <span class="s">"]"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>start          [Java]
+append         [Java Programming]
+insert(5,..)   [Java Language Programming]
+replace(5,13)  [Java Core  Programming]
+delete(5,10)   [Java  Programming]
+reverse        [gnimmargorP  avaJ]</pre>
+      <p class="small" style="padding:6pt 8pt 0">Your course gives only the final
+      answer, <code>Result: gnimmargorP  avaJ</code>, which is correct but teaches
+      nothing. The six lines above are the same program printing after every step,
+      and now the double space is explicable: <code>replace(5, 13, "Core ")</code>
+      swapped the eight characters "Language" for the five "Core ", leaving the
+      original space at index 13 next to the new one. It survives every later step
+      and ends up in the middle of the reversed text.</p>
+      <p class="small" style="padding:0 8pt 6pt">Note also that <b>none of these
+      returned anything you had to keep</b>. <code>sb.append(...)</code> changed
+      <code>sb</code> itself. That is the whole difference from Unit 7.1's
+      <code>concat</code>, which changed nothing and returned everything.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Your exam may forbid StringBuilder</span></div>
+    <div class="body">
+      <p>2025/26 Question Three asks you to build a comma-separated list and says:
+      "Build this string using <b>plain String concatenation only (no StringBuilder,
+      no array of booleans returned)</b>."</p>
+      <p>So the efficient tool is banned, on purpose. The examiner is testing that you
+      can do it with <code>+</code> and a loop, and probably that you handle the
+      trailing comma. Read the constraint and obey it: using StringBuilder there
+      scores zero regardless of correctness.</p>
+      <p>Which is the real lesson of this module: <b>know both, and let the question
+      choose.</b></p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Building a list with + and no StringBuilder</span><span class="tag">PAST PAPER · 25/26 Q3 A ii</span></div>
+    <div class="body">
+      <p>The classic difficulty is the separator: three items need two commas, not
+      three, and a stray trailing comma looks like a bug to a marker.</p>
+      <ol class="steps">
+        <li>Start with an empty String, not <code>null</code>.
+        <span class="note"><code>null + "x"</code> gives the text "nullx". An empty
+        String gives "x".</span></li>
+        <li>Before appending an item, append a comma <b>only if the string is not
+        already empty</b>.
+        <span class="note">This is the trick. It puts separators <i>between</i>
+        items rather than after them, and needs no special case for the last
+        one.</span></li>
+        <li>Append the item.</li>
+      </ol>
+      <pre class="src" data-run="JoinNoBuilder"><span class="l"><span class="k">public class</span> <span class="t">JoinNoBuilder</span> {</span><span class="l">    <span class="k">static</span> <span class="t">String</span> join(<span class="k">int</span>[] vals) {</span><span class="l">        <span class="t">String</span> out = <span class="s">""</span>;                     <span class="c">// empty, never null</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; vals.length; i++) {</span><span class="l good">            <span class="k">if</span> (!out.isEmpty()) {</span><span class="l">                out = out + <span class="s">", "</span>;           <span class="c">// separator BEFORE, not after</span></span><span class="l">            }</span><span class="l">            out = out + vals[i];</span><span class="l">        }</span><span class="l">        <span class="k">return</span> out;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"three : ["</span> + join(<span class="k">new int</span>[]{20, 40, 60}) + <span class="s">"]"</span>);</span><span class="l">        System.out.println(<span class="s">"one   : ["</span> + join(<span class="k">new int</span>[]{20}) + <span class="s">"]"</span>);</span><span class="l">        System.out.println(<span class="s">"none  : ["</span> + join(<span class="k">new int</span>[]{}) + <span class="s">"]"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>three : [20, 40, 60]
+one   : [20]
+none  : []</pre>
+      <p class="small" style="padding:6pt 8pt 0">No trailing comma, and the one-item
+      and empty cases came out right without a single line written for them. Those
+      are the edge cases a marker checks first.</p>
+      <p class="redo"><b>Now redo it:</b> on blank paper, write <code>join</code> from
+      memory. Then say why starting with <code>String out = null;</code> would print
+      <code>null20, 40, 60</code>.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Strings</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>A String is an <span class="blank"></span> representing a sequence of
+        <span class="blank"></span>, and it is a <span class="blank"></span> class,
+        so it cannot be <span class="blank"></span>.</li>
+        <li>Strings are <span class="blank"></span>: any operation that seems to
+        modify one actually <span class="blank"></span>.</li>
+        <li><code>"Hello"</code> written as a literal is stored in the
+        <span class="blank"></span>, so two identical literals are
+        <span class="blank"></span> object. Using <code>new</code> always creates
+        <span class="blank"></span>.</li>
+        <li><code>==</code> on Strings asks <span class="blank"></span>;
+        <code>.equals()</code> asks <span class="blank"></span>.</li>
+        <li><code>s1 == s2</code> for two identical literals is
+        <span class="blank"></span>, which is why the bug is so
+        <span class="blank"></span>.</li>
+        <li><code>"Computer".substring(3, 8)</code> gives
+        <span class="blank"></span>, because start is
+        <span class="blank"></span> and end is <span class="blank"></span>.</li>
+        <li>An array uses <span class="blank"></span>; a String uses
+        <span class="blank"></span>.</li>
+        <li>StringBuilder differs from StringBuffer only in
+        <span class="blank"></span>, at the cost of <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. object, chars, final, subclassed &nbsp;·&nbsp;
+      2. immutable, creates a new String &nbsp;·&nbsp; 3. String Pool, the same,
+      a new object &nbsp;·&nbsp; 4. are these the same object, do these have the same
+      characters &nbsp;·&nbsp; 5. true, vicious (it works until the text comes from a
+      user) &nbsp;·&nbsp; 6. <code>puter</code>, inclusive, exclusive &nbsp;·&nbsp;
+      7. <code>length</code>, <code>length()</code> &nbsp;·&nbsp; 8. thread-safety
+      (Buffer is synchronized), speed</p>
+    </div>
+  </div>
+</section>
