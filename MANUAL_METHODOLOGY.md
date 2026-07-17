@@ -286,6 +286,11 @@ still exist (before the GOTO conversion), not by position on the page.
   caught when a generated Contents printed the same page number for a module and
   its first unit. Give `.part` a `page-break-after:always` so a divider owns its
   page. Reach for `min-height` only to place the divider's own motif.
+  - PHY121, where this note came from, is clean on all 9 dividers **by luck**:
+    its field-lines motif is tall enough to push the divider past the content box
+    on its own. CSC241 copied the rule with a small REPL motif in place of the
+    SVG and the gap opened. The rule never worked; one manual's artwork was
+    hiding it. So do not "fix" PHY121, and do not trust `min-height` again.
   - `page-break-after:always` here is safe **only if** the following section does
     not also force a break-before, which is the blank-page case above. Check what
     actually follows the divider before adding it.
