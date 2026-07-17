@@ -16,7 +16,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(HERE, 'content')
 
 COVER = 'cover.html'
-BODY_PARTS = ['front.html', 'module1.html', 'module2.html']
+BODY_PARTS = ['front.html', 'module1.html', 'module2.html', 'module3.html']
 
 HEAD = """<!DOCTYPE html>
 <html lang="en">

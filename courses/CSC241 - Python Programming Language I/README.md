@@ -6,9 +6,12 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**Checkpoint built, awaiting sign-off on voice and palette.** Modules One and Two are
-authored and rendered to `build/CSC241_checkpoint.pdf` (27 pages: cover plus 26).
-Modules Three to Five are not started; they begin once the checkpoint is approved.
+**Modules One to Three authored**, rendered to `build/CSC241_checkpoint.pdf`
+(47 pages: cover plus 46). Voice and palette approved. Modules Four and Five remain.
+
+Module Three is the heaviest: it carries exam questions One (control structures) and
+Two (data structures), and it holds the two patterns that decide part (e) of every
+question, the `done` sentinel loop and the split-and-convert loop.
 
 ## Sources
 
@@ -108,7 +111,10 @@ own and merged in front of the body.
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the
   gate derives the dot string from a real run and requires that exact string to be
-  present in the page, so a hand-miscounted dot fails the build.
+  present in the page, so a hand-miscounted dot fails the build. Sets are compared as
+  sets, never by printed order: Python randomises string hashing per process, so a
+  set of strings prints in a different order every run, and only `len()` and
+  `sorted()` are reproducible.
 - `gates.py` enforces house style: no em or en dashes, no institution branding, the
   pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, and all
   code monospace.

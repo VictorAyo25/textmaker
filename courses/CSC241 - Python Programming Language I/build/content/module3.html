@@ -1,0 +1,913 @@
+<div class="part" id="m3">
+  <div class="kicker">Module Three</div>
+  <h1>Control Flow and<br>Data Structures</h1>
+  <p class="blurb">Choosing, repeating, and storing many things at once. Two of the six
+  questions on your paper come from this module alone, and the habits you build here decide
+  how the other four go.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="62" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="16">
+        <text x="0" y="34" fill="#306998" opacity=".9">if</text>
+        <text x="28" y="34" fill="#1a2332" opacity=".65">n % 2 == 0:</text>
+        <text x="28" y="60" fill="#1a2332" opacity=".65">print(</text>
+        <text x="92" y="60" fill="#1f7a4d" opacity=".85">"even"</text>
+        <text x="152" y="60" fill="#1a2332" opacity=".65">)</text>
+        <text x="0" y="86" fill="#306998" opacity=".9">else:</text>
+        <text x="28" y="112" fill="#1a2332" opacity=".65">print(</text>
+        <text x="92" y="112" fill="#1f7a4d" opacity=".85">"odd"</text>
+        <text x="140" y="112" fill="#1a2332" opacity=".65">)</text>
+      </g>
+      <rect x="164" y="100" width="9" height="16" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<section id="m3u1">
+  <div class="kick">Module Three &middot; Unit 1</div>
+  <h2 class="title">Decision Making in Python</h2>
+  <hr class="rule">
+  <p class="lead">Making the program choose. Everything so far has run top to bottom with no
+  choices at all.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> write <code>if</code>,
+  <code>if/else</code> and <code>if/elif/else</code>, nest them, explain why order matters,
+  and write the divisibility program this course sets every year.</p>
+
+  <h3 class="sub">if</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>An <code>if</code> statement runs a block only when a condition is true. You met
+      the shape in Module Two; here is the full rule.</p>
+<pre class="code"><span class="k">if</span> <span class="hl">condition</span>:
+    <span class="c"># this block runs only if the condition is True</span>
+    <span class="k">print</span>(<span class="s">"yes"</span>)</pre>
+      <p>Three parts, and all three are compulsory:</p>
+      <ul class="bul">
+        <li>The word <code>if</code>.</li>
+        <li>A <b>condition</b>: anything that produces <code>True</code> or
+        <code>False</code>. Usually a comparison, as in Module Two, Unit 3.</li>
+        <li>A <b>colon</b>, then an indented block beneath.</li>
+      </ul>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> age = <span class="n">20</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="k">if</span> age &gt;= <span class="n">18</span>:
+<span class="p">...</span>     <span class="k">print</span>(<span class="s">"You may vote."</span>)
+<span class="p">...</span>
+You may vote.</pre>
+      <p>At the prompt, a block makes the prompt change to <code>...</code> to show it is
+      waiting for more. Press <span class="key">Enter</span> on an empty line to finish the
+      block and run it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">if / else</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p><code>else</code> gives the other path. Exactly one of the two blocks runs, always.</p>
+<pre class="code">n = <span class="n">7</span>
+<span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span>:
+    <span class="k">print</span>(<span class="s">"even"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"odd"</span>)</pre>
+<pre class="out">odd</pre>
+      <p><code>else</code> takes no condition of its own. It means "in every other case", so
+      writing a condition after it is an error.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">if / elif / else</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The three way choice</span></div>
+    <div class="body">
+      <p>For more than two paths, use <code>elif</code>, short for "else if". You may have
+      as many as you like. Python tests them <b>in order, from the top</b>, and stops at the
+      first one that is true. Every later test is skipped, even if it would also be true.</p>
+<pre class="code">score = <span class="n">72</span>
+<span class="k">if</span> score &gt;= <span class="n">70</span>:
+    <span class="k">print</span>(<span class="s">"A"</span>)
+<span class="k">elif</span> score &gt;= <span class="n">60</span>:
+    <span class="k">print</span>(<span class="s">"B"</span>)
+<span class="k">elif</span> score &gt;= <span class="n">50</span>:
+    <span class="k">print</span>(<span class="s">"C"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"F"</span>)</pre>
+<pre class="out">A</pre>
+      <p>72 is greater than 70, so <code>A</code> prints and nothing else is tested.
+      Note that 72 is <i>also</i> greater than 60 and 50. Those tests never ran, and that is
+      the whole point of <code>elif</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Order decides the answer</span></div>
+    <div class="body">
+      <p>Write the same tests in the wrong order and every mark goes:</p>
+<pre class="code">score = <span class="n">72</span>
+<span class="k">if</span> score &gt;= <span class="n">50</span>:
+    <span class="k">print</span>(<span class="s">"C"</span>)
+<span class="k">elif</span> score &gt;= <span class="n">70</span>:
+    <span class="k">print</span>(<span class="s">"A"</span>)</pre>
+<pre class="out">C</pre>
+      <p>72 passes the first test, so it prints <code>C</code> and stops. The
+      <code>A</code> branch is unreachable: no score can ever print <code>A</code>, because
+      anything that is 70 or more is also 50 or more. <b>With <code>elif</code>, put the
+      narrowest test first.</b></p>
+      <p>Using separate <code>if</code> statements instead of <code>elif</code> is a
+      different bug with the same smell: each one is tested independently, so a score of 72
+      would print <code>A</code>, <code>B</code> and <code>C</code>.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Nesting</span></div>
+    <div class="body">
+      <p>An <code>if</code> may live inside another. Each level indents four more spaces.</p>
+<pre class="code">n = <span class="n">15</span>
+<span class="k">if</span> n &gt; <span class="n">0</span>:
+    <span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span>:
+        <span class="k">print</span>(<span class="s">"positive and even"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"positive and odd"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"not positive"</span>)</pre>
+<pre class="out">positive and odd</pre>
+      <p>Read the indentation to see which <code>else</code> belongs to which
+      <code>if</code>: an <code>else</code> pairs with the <code>if</code> at its own indent
+      level. The inner <code>else</code> is at 4 spaces, so it answers the inner
+      <code>if</code>. The outer one is at 0, so it answers the outer <code>if</code>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>Ask the user for a number of exercise sessions. If it is not positive, say so.
+      Otherwise: divisible by both 3 and 5, print "Active - FizzBuzz"; by 3 only,
+      "Active - Fizz"; by 5 only, "Active - Buzz"; otherwise "Delulu - Not divisible by 3
+      or 5".</p>
+      <ol class="steps">
+        <li>Read the number and convert it, because <code>input</code> gives a string.
+        <span class="note">n = int(input(...))</span></li>
+        <li>Check positive first, and put everything else inside that branch. The
+        requirement says "check if the number is positive" before any of the rest.</li>
+        <li><b>Test "both 3 and 5" first.</b> This is the trap above. 15 is divisible by 3,
+        so a "divisible by 3" test placed first would catch 15 and never reach FizzBuzz.
+        <span class="note">narrowest test first</span></li>
+        <li>Then 3 alone, then 5 alone, then the catch all <code>else</code>.</li>
+      </ol>
+      <div class="codelabel">fitness.py</div>
+<pre class="code">n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Number of sessions: "</span>))
+
+<span class="k">if</span> n &gt; <span class="n">0</span>:
+    <span class="k">if</span> n % <span class="n">3</span> == <span class="n">0</span> <span class="k">and</span> n % <span class="n">5</span> == <span class="n">0</span>:
+        <span class="k">print</span>(<span class="s">"Active - FizzBuzz"</span>)
+    <span class="k">elif</span> n % <span class="n">3</span> == <span class="n">0</span>:
+        <span class="k">print</span>(<span class="s">"Active - Fizz"</span>)
+    <span class="k">elif</span> n % <span class="n">5</span> == <span class="n">0</span>:
+        <span class="k">print</span>(<span class="s">"Active - Buzz"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"Delulu - Not divisible by 3 or 5"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"Please enter a positive number"</span>)</pre>
+      <p>Run it four times, with 15, 9, 10 and 7:</p>
+<pre class="out">Number of sessions: 15
+Active - FizzBuzz
+Number of sessions: 9
+Active - Fizz
+Number of sessions: 10
+Active - Buzz
+Number of sessions: 7
+Delulu - Not divisible by 3 or 5</pre>
+      <p class="redo"><b>Now you try:</b> what does it print for 0, and for 30?
+      <span class="small">(0 is not positive, so "Please enter a positive number". 30 is
+      divisible by both, so "Active - FizzBuzz".)</span></p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. In an <code>if/elif/elif/else</code>, how many blocks run?</p>
+      <p class="q">2. Why must "divisible by 3 and 5" be tested before "divisible by 3"?</p>
+      <p class="q">3. How do you tell which <code>if</code> an <code>else</code> belongs to?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>Exactly one. Python stops at the first true test.</li>
+        <li>Because anything divisible by both is also divisible by 3. The wider test would
+        catch it first and the narrower branch could never run.</li>
+        <li>By indentation. An <code>else</code> pairs with the <code>if</code> at the same
+        indent level.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m3u2">
+  <div class="kick">Module Three &middot; Unit 2</div>
+  <h2 class="title">Loops: Repetition and Branching</h2>
+  <hr class="rule">
+  <p class="lead">Doing something many times. This unit contains the two patterns that carry
+  a quarter of the marks on your paper.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> write <code>while</code> and
+  <code>for</code> loops, use <code>range</code>, use <code>break</code> and
+  <code>continue</code>, explain <code>for</code>/<code>else</code>, avoid infinite loops,
+  and write both of the "accept any number of inputs" patterns.</p>
+
+  <h3 class="sub">while</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <code>while</code> loop repeats its block <b>as long as</b> a condition stays
+      true. It checks before each pass, so a condition false at the start means the block
+      never runs at all.</p>
+<pre class="code">i = <span class="n">1</span>
+<span class="k">while</span> i &lt;= <span class="n">3</span>:
+    <span class="k">print</span>(i)
+    i += <span class="n">1</span></pre>
+<pre class="out">1
+2
+3</pre>
+      <p>Three parts, and leaving out the third is the classic disaster:</p>
+      <ul class="bul">
+        <li><b>Set up</b> before the loop: <code>i = 1</code>.</li>
+        <li><b>Test</b> in the header: <code>i &lt;= 3</code>.</li>
+        <li><b>Change</b> inside the block: <code>i += 1</code>. Without this,
+        <code>i</code> stays 1 forever and the condition never turns false.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Two kinds of loop</span></div>
+    <div class="body">
+      <p>This distinction is asked directly, in those words:</p>
+      <table class="data">
+        <tr><th></th><th>Condition controlled</th><th>Count controlled</th></tr>
+        <tr><td>Written with</td><td><code>while</code></td><td><code>for</code></td></tr>
+        <tr><td>Repeats</td><td>While something stays true</td><td>Once per item in a sequence</td></tr>
+        <tr><td>Use when</td><td>You do not know how many times</td><td>You know how many times</td></tr>
+        <tr><td>Example</td><td>Read until the user types 'done'</td><td>Read exactly five scores</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="sub">for and range</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <code>for</code> loop walks through a sequence, giving you one item at a time.
+      The commonest sequence is made by <code>range</code>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">5</span>):
+<span class="p">...</span>     <span class="k">print</span>(i)
+<span class="p">...</span>
+0
+1
+2
+3
+4</pre>
+      <p>Read it as: "for each value <code>i</code> in this sequence, do the block".</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">range</span></div>
+    <div class="body">
+      <p><b><code>range</code> starts at 0 and stops <i>before</i> the number you give.</b>
+      This off by one is deliberate and constant, and it is worth marks every year.</p>
+      <table class="data">
+        <tr><th>Written</th><th>Gives</th><th>How many</th></tr>
+        <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4</td><td>5</td></tr>
+        <tr><td><code>range(1, 5)</code></td><td>1, 2, 3, 4</td><td>4</td></tr>
+        <tr><td><code>range(1, 10, 2)</code></td><td>1, 3, 5, 7, 9</td><td>5</td></tr>
+        <tr><td><code>range(5, 0, -1)</code></td><td>5, 4, 3, 2, 1</td><td>5</td></tr>
+      </table>
+      <p style="margin-top:.5em">One argument is the stop. Two are start and stop. Three are
+      start, stop and <b>step</b>. The stop is never included, in every case.</p>
+      <p>So to count 1 to 10 inclusive you must write <code>range(1, 11)</code>.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">break and continue</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The difference</span></div>
+    <div class="body">
+      <p><b><code>break</code> leaves the loop entirely.</b> Nothing further repeats.</p>
+      <p><b><code>continue</code> skips the rest of this pass only</b>, and goes straight
+      back to the top for the next one.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">5</span>):
+<span class="p">...</span>     <span class="k">if</span> i == <span class="n">3</span>:
+<span class="p">...</span>         <span class="k">break</span>
+<span class="p">...</span>     <span class="k">print</span>(i)
+<span class="p">...</span>
+0
+1
+2</pre>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">5</span>):
+<span class="p">...</span>     <span class="k">if</span> i == <span class="n">3</span>:
+<span class="p">...</span>         <span class="k">continue</span>
+<span class="p">...</span>     <span class="k">print</span>(i)
+<span class="p">...</span>
+0
+1
+2
+4</pre>
+      <p>Same loop, one word different. <code>break</code> stops at 3 and never prints 4.
+      <code>continue</code> skips only 3 and carries on to 4.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>This is the single most instructive broken snippet in the course. It is presented
+      as "intended to print all even numbers from 1 to 10, skipping number 6", and you are
+      asked to find the error.</p>
+<pre class="code">i = <span class="n">1</span>
+<span class="k">while</span> i &lt;= <span class="n">10</span>:
+    <span class="k">if</span> i % <span class="n">2</span> == <span class="n">0</span>:
+        <span class="k">if</span> i == <span class="n">6</span>:
+            <span class="bad"><span class="k">continue</span></span>
+        <span class="k">print</span>(i)
+    i += <span class="n">1</span></pre>
+      <p>It does not merely print the wrong numbers. <b>It hangs forever.</b> It prints
+      <code>2</code>, then <code>4</code>, and then stops responding.</p>
+      <p>Trace it. When <code>i</code> is 6, <code>continue</code> jumps back to the top of
+      the <code>while</code> immediately, which means it <b>skips</b> <code>i += 1</code> on
+      its way past. So <code>i</code> is still 6 at the next test, and 6 again, forever.</p>
+      <p><b>The lesson, and it is general:</b> in a <code>while</code> loop,
+      <code>continue</code> skips everything below it, including the line that moves the
+      loop forward. In a <code>for</code> loop this cannot happen, because the
+      <code>for</code> advances the counter itself.</p>
+      <p>The safe fix removes the need for <code>continue</code> at all:</p>
+<pre class="code">i = <span class="n">1</span>
+<span class="k">while</span> i &lt;= <span class="n">10</span>:
+    <span class="k">if</span> i % <span class="n">2</span> == <span class="n">0</span> <span class="k">and</span> i != <span class="n">6</span>:
+        <span class="k">print</span>(i)
+    i += <span class="n">1</span></pre>
+<pre class="out">2
+4
+8
+10</pre>
+      <p>If a question insists you keep <code>continue</code>, then <code>i += 1</code> must
+      come <i>before</i> it, and you must be careful not to skip the increment.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">for / else</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Unusual and examined</span></div>
+    <div class="body">
+      <p>A loop may have an <code>else</code>. This surprises nearly everyone, because it
+      does not mean what it looks like.</p>
+      <p><b>The <code>else</code> block runs when the loop finishes normally. It is skipped
+      if the loop was stopped by <code>break</code>.</b></p>
+      <p>Read <code>else</code> here as "if no break happened".</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">5</span>):
+<span class="p">...</span>     <span class="k">if</span> i == <span class="n">3</span>:
+<span class="p">...</span>         <span class="k">break</span>
+<span class="p">...</span>     <span class="k">print</span>(i)
+<span class="p">...</span> <span class="k">else</span>:
+<span class="p">...</span>     <span class="k">print</span>(<span class="s">"Loop finished"</span>)
+<span class="p">...</span>
+0
+1
+2</pre>
+      <p><b>"Loop finished" never prints.</b> The <code>break</code> at 3 stopped the loop,
+      so the <code>else</code> was skipped. Remove the <code>break</code> and it would print
+      after 0 1 2 3 4.</p>
+      <p>This exact snippet has been set as a "what is the output" question. The wrong
+      answer, and the one most candidates give, is to include "Loop finished".</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Accepting any number of inputs</h3>
+
+  <p>Part (e) of every question on the most recent paper asks you to extend a fixed size
+  program to handle any number of inputs. There are exactly two patterns, and between them
+  they are worth a quarter of the marks you can attempt. Learn both cold.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Pattern 1: the sentinel loop</span></div>
+    <div class="body">
+      <p>Keep asking until the user types a particular word. That word is called a
+      <b>sentinel</b>. Here it is <code>done</code>.</p>
+<pre class="code">names = []
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    names.append(name)
+
+<span class="k">print</span>(<span class="s">"You entered:"</span>, names)</pre>
+<pre class="out">Name (or 'done'): Ada
+Name (or 'done'): Bola
+Name (or 'done'): done
+You entered: ['Ada', 'Bola']</pre>
+      <p>The shape is always the same:</p>
+      <ul class="bul">
+        <li><code>while True:</code> means "loop forever". It is not a mistake here, because
+        the <code>break</code> is the exit.</li>
+        <li><b>Test for the sentinel first</b>, before doing anything with the value.
+        Otherwise 'done' gets stored as a name.</li>
+        <li><code>break</code> leaves the loop.</li>
+      </ul>
+      <p>Note that the sentinel is checked with <code>==</code> against a string, so it is
+      case sensitive: 'Done' would not stop this loop.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Pattern 2: split and convert</span></div>
+    <div class="body">
+      <p>Take one line holding many values separated by spaces, and turn it into a list of
+      numbers.</p>
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter scores separated by spaces: "</span>)
+parts = line.split()
+scores = []
+<span class="k">for</span> p <span class="k">in</span> parts:
+    scores.append(<span class="k">int</span>(p))
+
+<span class="k">print</span>(scores)</pre>
+<pre class="out">Enter scores separated by spaces: 70 55 90
+[70, 55, 90]</pre>
+      <p><code>split()</code> with no argument cuts a string at every run of whitespace and
+      gives back a <b>list of strings</b>. It does not convert anything, which is why the
+      loop and <code>int()</code> are still needed.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="s">"70 55 90"</span>.split()
+['70', '55', '90']</pre>
+      <p>Those are strings, in quotes. Forget the conversion and you will be sorting
+      <code>"90"</code> before <code>"70"</code> alphabetically, or joining them end to end
+      instead of adding.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What does <code>range(1, 5)</code> give?</p>
+      <p class="q">2. Difference between <code>break</code> and <code>continue</code>?</p>
+      <p class="q">3. When does a loop's <code>else</code> block run?</p>
+      <p class="q">4. Why can <code>continue</code> hang a <code>while</code> loop but not a
+      <code>for</code> loop?</p>
+      <p class="q">5. What does <code>"70 55".split()</code> give, and what type are the
+      items?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>1, 2, 3, 4. The stop value is never included.</li>
+        <li><code>break</code> leaves the loop completely. <code>continue</code> skips the
+        rest of this pass and goes to the next one.</li>
+        <li>When the loop finishes normally. It is skipped if <code>break</code> stopped
+        the loop. Read it as "if no break happened".</li>
+        <li>Because <code>continue</code> skips the rest of the block, including the line
+        that increments the counter. A <code>for</code> loop advances its own counter, so
+        nothing can skip it.</li>
+        <li><code>['70', '55']</code>. They are strings, and must be converted with
+        <code>int()</code> before arithmetic.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m3u3">
+  <div class="kick">Module Three &middot; Unit 3</div>
+  <h2 class="title">Lists and Tuples</h2>
+  <hr class="rule">
+  <p class="lead">Holding many values under one name.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> create and index lists, slice them,
+  use the list methods this course examines, explain negative indexing, and say what a tuple
+  is and how it differs from a list.</p>
+
+  <h3 class="sub">Lists</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>list</b> holds many values in order, under one name. Write it with square
+      brackets, values separated by commas.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores = [<span class="n">70</span>, <span class="n">55</span>, <span class="n">90</span>, <span class="n">45</span>]
+<span class="p">&gt;&gt;&gt;</span> scores
+[70, 55, 90, 45]
+<span class="p">&gt;&gt;&gt;</span> <span class="k">len</span>(scores)
+4</pre>
+      <p>A list can hold anything, including a mixture, and including other lists. An empty
+      list is <code>[]</code>, which is where most programs start.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Indexing starts at 0</span></div>
+    <div class="body">
+      <p>Reach one item with square brackets. <b>The first item is number 0</b>, not 1.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores = [<span class="n">70</span>, <span class="n">55</span>, <span class="n">90</span>, <span class="n">45</span>]
+<span class="p">&gt;&gt;&gt;</span> scores[<span class="n">0</span>]
+70
+<span class="p">&gt;&gt;&gt;</span> scores[<span class="n">3</span>]
+45</pre>
+      <p>So a list of 4 items has indexes 0, 1, 2, 3. <b>The last index is always
+      <code>len</code> minus 1.</b> Asking for <code>scores[4]</code> is the commonest
+      runtime error in this course:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores[<span class="n">4</span>]
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+IndexError: list index out of range</pre>
+      <p><b>Negative indexes count from the right</b>, starting at <code>-1</code> for the
+      last item. This is the neat way to get the end without knowing the length:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores[-<span class="n">1</span>]
+45
+<span class="p">&gt;&gt;&gt;</span> scores[-<span class="n">2</span>]
+90</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Lists can be changed</span></div>
+    <div class="body">
+      <p>Unlike a string, a list can be modified in place. This property is called being
+      <b>mutable</b>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores = [<span class="n">70</span>, <span class="n">55</span>, <span class="n">90</span>, <span class="n">45</span>]
+<span class="p">&gt;&gt;&gt;</span> scores[<span class="n">1</span>] = <span class="n">65</span>
+<span class="p">&gt;&gt;&gt;</span> scores
+[70, 65, 90, 45]</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">Slicing</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Slices</span></div>
+    <div class="body">
+      <p>A <b>slice</b> takes several items at once, written <code>[start:stop]</code>. As
+      with <code>range</code>, <b>the stop is not included</b>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> nums = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+<span class="p">&gt;&gt;&gt;</span> nums[<span class="n">1</span>:<span class="n">3</span>]
+[2, 3]
+<span class="p">&gt;&gt;&gt;</span> nums[:<span class="n">2</span>]
+[1, 2]
+<span class="p">&gt;&gt;&gt;</span> nums[<span class="n">2</span>:]
+[3, 4, 5]
+<span class="p">&gt;&gt;&gt;</span> nums[-<span class="n">3</span>:]
+[3, 4, 5]</pre>
+      <p>Leave out the start to mean "from the beginning". Leave out the stop to mean "to
+      the end". A slice always gives back a <b>new list</b>; the original is untouched.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">List methods</span></div>
+    <div class="body">
+      <p>A <b>method</b> is a function that belongs to a value, called by writing a dot after
+      it. These are the ones this course uses:</p>
+      <table class="data">
+        <tr><th>Method</th><th>Does</th><th>Note</th></tr>
+        <tr><td><code>append(x)</code></td><td>Adds x to the end</td><td>The one you use in every loop</td></tr>
+        <tr><td><code>insert(i, x)</code></td><td>Puts x at index i</td><td>Shifts the rest right</td></tr>
+        <tr><td><code>remove(x)</code></td><td>Removes the first x <b>by value</b></td><td>ValueError if x is absent</td></tr>
+        <tr><td><code>pop(i)</code></td><td>Removes and returns the item at i</td><td>No i means the last</td></tr>
+        <tr><td><code>index(x)</code></td><td>Gives the index of the first x</td><td>ValueError if x is absent</td></tr>
+        <tr><td><code>sort()</code></td><td>Sorts the list <b>in place</b></td><td>Returns None</td></tr>
+        <tr><td><code>reverse()</code></td><td>Reverses in place</td><td>Returns None</td></tr>
+      </table>
+      <p style="margin-top:.5em">And three built in functions that take a list:
+      <code>len()</code>, <code>max()</code>, <code>min()</code>, plus <code>sum()</code>
+      for numbers.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">sort() returns None</span></div>
+    <div class="body">
+      <p><code>sort()</code> changes the list and gives back <b>nothing</b>. So assigning
+      its result destroys your list:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores = [<span class="n">70</span>, <span class="n">55</span>, <span class="n">90</span>]
+<span class="p">&gt;&gt;&gt;</span> scores = scores.sort()
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(scores)
+None</pre>
+      <p>Correct is to call it on its own line:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores = [<span class="n">70</span>, <span class="n">55</span>, <span class="n">90</span>]
+<span class="p">&gt;&gt;&gt;</span> scores.sort()
+<span class="p">&gt;&gt;&gt;</span> scores
+[55, 70, 90]</pre>
+      <p>To sort the other way, pass <code>reverse=True</code>:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> scores.sort(reverse=<span class="k">True</span>)
+<span class="p">&gt;&gt;&gt;</span> scores
+[90, 70, 55]</pre>
+      <p>If you want a sorted copy and the original kept, use <code>sorted(scores)</code>,
+      which <i>does</i> return a new list.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">remove takes a value, not an index</span></div>
+    <div class="body">
+      <p><code>remove</code> is given the <b>value</b> to delete. <code>pop</code> is given
+      the <b>index</b>. Confusing them is a set error in this course:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> items = [<span class="s">"apples"</span>, <span class="s">"bananas"</span>, <span class="s">"carrots"</span>]
+<span class="p">&gt;&gt;&gt;</span> items.remove(<span class="s">"banana"</span>)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: list.remove(x): x not in list</pre>
+      <p>The value is <code>"bananas"</code>, not <code>"banana"</code>. The message says
+      exactly that: x is not in the list.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">+ and * on lists</span></div>
+    <div class="body">
+      <p><code>+</code> joins two lists into a new one. <code>*</code> repeats a list.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> [<span class="n">1</span>, <span class="n">2</span>] + [<span class="n">3</span>, <span class="n">4</span>]
+[1, 2, 3, 4]
+<span class="p">&gt;&gt;&gt;</span> [<span class="n">1</span>, <span class="n">2</span>] * <span class="n">2</span>
+[1, 2, 1, 2]</pre>
+      <p>Both appear in "what is the output" questions. Note <code>[1, 2] * 2</code> is
+      <code>[1, 2, 1, 2]</code>, not <code>[2, 4]</code>: it repeats the list, it does not
+      multiply the numbers.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Tuples</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">List vs tuple</span></div>
+    <div class="body">
+      <p>A <b>tuple</b> is a list that cannot be changed. Write it with round brackets.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> point = (<span class="n">3</span>, <span class="n">4</span>)
+<span class="p">&gt;&gt;&gt;</span> point[<span class="n">0</span>]
+3
+<span class="p">&gt;&gt;&gt;</span> point[<span class="n">0</span>] = <span class="n">9</span>
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment</pre>
+      <table class="data">
+        <tr><th></th><th>List</th><th>Tuple</th></tr>
+        <tr><td>Written with</td><td><code>[ ]</code></td><td><code>( )</code></td></tr>
+        <tr><td>Can be changed?</td><td>Yes, it is <b>mutable</b></td><td>No, it is <b>immutable</b></td></tr>
+        <tr><td>Has append, remove, sort?</td><td>Yes</td><td>No</td></tr>
+        <tr><td>Indexing and slicing</td><td>Yes</td><td>Yes, both work the same</td></tr>
+        <tr><td>Use for</td><td>Data that changes</td><td>Data that must not change</td></tr>
+      </table>
+      <p style="margin-top:.5em">Indexing and slicing work identically on both. Only
+      <i>changing</i> is forbidden.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>Dry run</span><span class="tag">Trace it by hand</span></div>
+    <div class="body">
+<pre class="code">nums = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+total = <span class="n">0</span>
+<span class="k">for</span> n <span class="k">in</span> nums:
+    <span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span>:
+        <span class="k">continue</span>
+    total += n
+<span class="k">print</span>(total)</pre>
+      <p>The <code>continue</code> skips the even numbers, so only the odd ones are added.
+      Take it one pass at a time:</p>
+      <table class="trace">
+        <tr><th>Pass</th><th>n</th><th>n % 2 == 0?</th><th>Action</th><th>total</th></tr>
+        <tr><td>start</td><td>-</td><td>-</td><td>-</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>False</td><td>add</td><td>1</td></tr>
+        <tr><td>2</td><td>2</td><td>True</td><td>skip</td><td>1</td></tr>
+        <tr><td>3</td><td>3</td><td>False</td><td>add</td><td>4</td></tr>
+        <tr><td>4</td><td>4</td><td>True</td><td>skip</td><td>4</td></tr>
+        <tr><td>5</td><td>5</td><td>False</td><td>add</td><td>9</td></tr>
+        <tr><td>print</td><td>-</td><td>-</td><td>-</td><td class="out">9</td></tr>
+      </table>
+      <div class="codelabel">Confirmed against a real interpreter</div>
+<pre class="out">9</pre>
+      <p class="small">Note this <code>continue</code> is safe: it is in a <code>for</code>
+      loop, which advances its own counter. The same code as a <code>while</code> loop would
+      need care.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. In <code>nums = [1,2,3,4,5]</code>, what is <code>nums[-2]</code>?</p>
+      <p class="q">2. What is <code>nums[1:3]</code>?</p>
+      <p class="q">3. What does <code>scores = scores.sort()</code> leave in
+      <code>scores</code>?</p>
+      <p class="q">4. Give two differences between a list and a tuple.</p>
+      <p class="q">5. What is <code>[1, 2] * 2</code>?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li><code>4</code>. Negative indexes count from the right, starting at -1.</li>
+        <li><code>[2, 3]</code>. The stop index is not included.</li>
+        <li><code>None</code>. <code>sort()</code> sorts in place and returns nothing. Call
+        it on its own line.</li>
+        <li>A list uses square brackets and is mutable; a tuple uses round brackets and is
+        immutable. A list has <code>append</code>, <code>remove</code> and <code>sort</code>;
+        a tuple has none of them.</li>
+        <li><code>[1, 2, 1, 2]</code>. It repeats the list.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m3u4">
+  <div class="kick">Module Three &middot; Unit 4</div>
+  <h2 class="title">Sets and Dictionaries</h2>
+  <hr class="rule">
+  <p class="lead">The other two built in data structures. One removes duplicates for free;
+  the other looks things up by name.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> create sets, use them to remove
+  duplicates, apply the four set operations, create and read dictionaries, change them, and
+  explain what happens when a dictionary holds a list.</p>
+
+  <h3 class="sub">Sets</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">A set has no duplicates</span></div>
+    <div class="body">
+      <p>A <b>set</b> is an unordered collection with <b>no duplicates</b>. Write it with
+      curly brackets, or build one from a list with <code>set()</code>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> students = [<span class="s">"Alice"</span>, <span class="s">"Bob"</span>, <span class="s">"Alice"</span>, <span class="s">"Eve"</span>, <span class="s">"Bob"</span>]
+<span class="p">&gt;&gt;&gt;</span> <span class="k">len</span>(<span class="k">set</span>(students))
+3</pre>
+      <p>Five names in, three unique out, with no loop and no test. <b>This is the standard
+      way to remove duplicates and it is set as an examination question.</b></p>
+      <p>Two consequences of being a set, both examinable:</p>
+      <ul class="bul">
+        <li><b>No order.</b> There is no first item, so <code>s[0]</code> is an error.</li>
+        <li><b>No duplicates, ever.</b> Adding something already present does nothing.</li>
+      </ul>
+      <p>To see the contents in a form you can rely on, sort them.
+      <code>sorted()</code> gives back a <b>list</b>, in order:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">sorted</span>(<span class="k">set</span>(students))
+['Alice', 'Bob', 'Eve']</pre>
+      <p>Note the square brackets in that answer: <code>sorted</code> handed back a list,
+      not a set. That is what makes the order meaningful.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">A set's printed order changes</span></div>
+    <div class="body">
+      <p>"Unordered" is stronger than it sounds. Printing a set of strings gives an order
+      that <b>varies from one run to the next</b>, on the same machine, with the same code.
+      Running this same line in three fresh sessions:</p>
+<pre class="out">{'Alice', 'Eve', 'Bob'}
+{'Bob', 'Alice', 'Eve'}
+{'Alice', 'Bob', 'Eve'}</pre>
+      <p>Python deliberately randomises how it stores text each time it starts, so the order
+      a set happens to print in is an accident of that run. It is not alphabetical, it is
+      not insertion order, and it is not stable.</p>
+      <p><b>What this means for you:</b> never write a set's printed order as your answer,
+      and never rely on it in a program. If a question asks what
+      <code>print(set([...]))</code> displays, the honest answer names the members and says
+      the order is not defined. If you need a definite order, use <code>sorted()</code>.</p>
+      <p class="small">Sets of small whole numbers do tend to print in ascending order, which
+      is why <code>{1, 2, 3}</code> looks so well behaved. That is a side effect of how
+      integers are stored, not a promise, so do not lean on it either.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">A set question that has been asked</span></div>
+    <div class="body">
+      <p>This is presented as code that "should remove duplicates and print the number of
+      unique students". Find the issue:</p>
+<pre class="code">students = [<span class="s">"Alice"</span>, <span class="s">"Bob"</span>, <span class="s">"Alice"</span>, <span class="s">"Eve"</span>, <span class="s">"Bob"</span>]
+<span class="bad">students = <span class="k">list</span>(students)</span>
+<span class="bad">unique_students = students</span>
+<span class="k">print</span>(<span class="s">"Total unique students:"</span>, <span class="k">len</span>(unique_students))</pre>
+<pre class="out">Total unique students: 5</pre>
+      <p><b>There is no error message.</b> It runs perfectly and prints the wrong number,
+      which is what makes it hard. Two things are wrong, and neither raises anything:</p>
+      <ul class="bul">
+        <li><code>list(students)</code> makes a copy of a list that is already a list. It
+        does nothing useful and removes no duplicates.</li>
+        <li><code>unique_students = students</code> just gives the same list a second name.
+        Nothing was deduplicated.</li>
+      </ul>
+      <p>The fix is one word:</p>
+<pre class="code">students = [<span class="s">"Alice"</span>, <span class="s">"Bob"</span>, <span class="s">"Alice"</span>, <span class="s">"Eve"</span>, <span class="s">"Bob"</span>]
+unique_students = <span class="k">set</span>(students)
+<span class="k">print</span>(<span class="s">"Total unique students:"</span>, <span class="k">len</span>(unique_students))</pre>
+<pre class="out">Total unique students: 3</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four set operations</span></div>
+    <div class="body">
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> a = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}
+<span class="p">&gt;&gt;&gt;</span> b = {<span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>}</pre>
+      <table class="data">
+        <tr><th>Name</th><th>Symbol</th><th>Method</th><th>Means</th><th>Result</th></tr>
+        <tr><td>Union</td><td><code>a | b</code></td><td><code>a.union(b)</code></td><td>In either</td><td><code>{1, 2, 3, 4, 5, 6}</code></td></tr>
+        <tr><td>Intersection</td><td><code>a &amp; b</code></td><td><code>a.intersection(b)</code></td><td>In both</td><td><code>{3, 4}</code></td></tr>
+        <tr><td>Difference</td><td><code>a - b</code></td><td><code>a.difference(b)</code></td><td>In a but not b</td><td><code>{1, 2}</code></td></tr>
+        <tr><td>Symmetric difference</td><td><code>a ^ b</code></td><td><code>a.symmetric_difference(b)</code></td><td>In one but not both</td><td><code>{1, 2, 5, 6}</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">Note <code>a - b</code> is not the same as
+      <code>b - a</code>: difference has a direction. Here <code>b - a</code> is
+      <code>{5, 6}</code>.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Dictionaries</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Key and value</span></div>
+    <div class="body">
+      <p>A <b>dictionary</b> stores pairs: a <b>key</b> and its <b>value</b>. You look
+      things up by key rather than by position.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> person = {<span class="s">"name"</span>: <span class="s">"John"</span>, <span class="s">"age"</span>: <span class="n">25</span>}
+<span class="p">&gt;&gt;&gt;</span> person[<span class="s">"name"</span>]
+'John'</pre>
+      <p>Curly brackets like a set, but with <code>key: value</code> pairs. The key goes in
+      the square brackets, and it is <b>not</b> a number counting positions. There is no
+      <code>person[0]</code> here.</p>
+      <p>Assigning to a key adds it if new, and replaces it if it exists:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> person[<span class="s">"city"</span>] = <span class="s">"Lagos"</span>
+<span class="p">&gt;&gt;&gt;</span> person[<span class="s">"age"</span>] = <span class="n">26</span>
+<span class="p">&gt;&gt;&gt;</span> person
+{'name': 'John', 'age': 26, 'city': 'Lagos'}</pre>
+      <p>Asking for a key that does not exist is an error:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> person[<span class="s">"height"</span>]
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+KeyError: 'height'</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Walking a dictionary</span></div>
+    <div class="body">
+      <p>Three methods give you the parts, and each is examinable:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> person = {<span class="s">"name"</span>: <span class="s">"John"</span>, <span class="s">"age"</span>: <span class="n">25</span>}
+<span class="p">&gt;&gt;&gt;</span> <span class="k">list</span>(person.keys())
+['name', 'age']
+<span class="p">&gt;&gt;&gt;</span> <span class="k">list</span>(person.values())
+['John', 25]
+<span class="p">&gt;&gt;&gt;</span> <span class="k">for</span> k, v <span class="k">in</span> person.items():
+<span class="p">...</span>     <span class="k">print</span>(k, <span class="s">"is"</span>, v)
+<span class="p">...</span>
+name is John
+age is 25</pre>
+      <p>A plain <code>for</code> over a dictionary gives you the <b>keys</b>, not the
+      values. That catches people out, so say it to yourself now.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">A dictionary holding a list</span></div>
+    <div class="body">
+      <p>A value can be any type, including a list. This exact code has been set as a "what
+      is the output, and explain each stage" question:</p>
+<pre class="code">person = {
+    <span class="s">"name"</span>: <span class="s">"John"</span>,
+    <span class="s">"age"</span>: <span class="n">25</span>,
+    <span class="s">"skills"</span>: [<span class="s">"Python"</span>, <span class="s">"Java"</span>]
+}
+person[<span class="s">"skills"</span>].append(<span class="s">"C++"</span>)
+<span class="k">print</span>(person[<span class="s">"skills"</span>])</pre>
+<pre class="out">['Python', 'Java', 'C++']</pre>
+      <p>Take the middle line apart, because that is what "explain each stage" is asking
+      for:</p>
+      <ul class="bul">
+        <li><code>person["skills"]</code> looks up the key and gives back <b>the list
+        itself</b>, not a copy.</li>
+        <li><code>.append("C++")</code> is then called on that list, so the list inside the
+        dictionary is changed.</li>
+      </ul>
+      <p>No reassignment happened, and none was needed. The list is mutable, and you reached
+      it through the dictionary.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. How do you remove duplicates from a list in one step?</p>
+      <p class="q">2. Why is <code>s[0]</code> an error on a set?</p>
+      <p class="q">3. What is <code>{1,2,3} &amp; {3,4}</code>?</p>
+      <p class="q">4. What does a plain <code>for</code> over a dictionary give you?</p>
+      <p class="q">5. Name the four built in data structures and one use for each.</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>Pass it to <code>set()</code>. Wrap that in <code>len()</code> to count them.</li>
+        <li>A set is unordered, so there is no item at a position. Indexing has no meaning.</li>
+        <li><code>{3}</code>. <code>&amp;</code> is intersection, the items in both.</li>
+        <li>The keys. Use <code>.values()</code> or <code>.items()</code> for the rest.</li>
+        <li>List (ordered, changeable: a class register). Tuple (ordered, fixed: map
+        coordinates). Set (unique, unordered: the distinct courses a student takes).
+        Dictionary (lookup by key: a student's name against their score).</li>
+      </ol>
+    </div>
+  </div>
+</section>
