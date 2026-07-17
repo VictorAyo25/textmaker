@@ -16,6 +16,52 @@ THIN = ' '   # v1 sets its formulas with thin spaces
 
 CORRECTIONS = {
 
+ 'exercises': [
+  # With the manual's own g = 9.8 (its formula sheet, and used three lines above
+  # in this same solution), q = 10 uC and m = 5 mg give E = mg/q = 4.9 V/m, not 5.
+  # "Exactly 5" needs g = 10. The manual's own answer (5.44 V/m) is right and
+  # option (a) stands; only the explanation of the discrepancy does not follow
+  # from its stated constants.
+  ('uses q = 10 µC and gets exactly 5 V/m',
+   'uses q = 10 µC and g = 10 m/s², which gives 5 V/m',
+   'with the manual own g = 9.8 the slide numbers give 4.9 V/m, not exactly 5'),
+
+  # Contradicted by the table printed directly above it: option (e), W = 3e-6 J,
+  # gives E = W/(qd) = 3e-6/(6e-6 x 0.50) = exactly 1.0 V/m and V = W/q = exactly
+  # 0.5 V, and the manual prints both. Round numbers are what "natural" means
+  # here. The verdict (unanswerable, refuse to fabricate) is still right, because
+  # nothing in the question selects that option; only the stated reason is false.
+  ('None is a natural, standard value, so I cannot reverse-engineer the intended field, '
+   'and I will not fabricate one.',
+   'Option (e) is the only one that lands on round numbers (exactly 1.0 V/m and 0.5 V), '
+   'but nothing in the question points to it rather than to any other option, so I cannot '
+   'reverse-engineer the intended field, and I will not fabricate one.',
+   'its own table shows option (e) gives exactly 1.0 V/m and 0.5 V'),
+
+  # V is CONSTANT on an equipotential, not zero; it is the potential DIFFERENCE
+  # between start and finish that vanishes. Unit 1.3 states it correctly. As a
+  # model answer a student would reproduce, "V = 0 along it" is markable-wrong.
+  ('Because V = 0 along it, so W = qV = 0',
+   'Because V is constant along it, so ΔV = 0 and W = qΔV = 0',
+   'V is constant on an equipotential, not zero; it is the difference that vanishes'),
+ ],
+
+ 'mocks': [
+  # The formula sheet is R.1, in Part IX. Part VIII is the mock examinations
+  # themselves, i.e. this very part.
+  ('formula sheet in Part VIII.',
+   'formula sheet in Part IX.',
+   'the formula sheet is R.1 in Part IX; Part VIII is the mocks themselves'),
+
+  # F = 8.99e9 x 3.0e-6 x 5.0e-6 / 0.040^2 = 84.2812 N, so 84.28, and the
+  # resultant is 216.83 N at 22.87 deg. The line claims a full-precision
+  # recomputation, so it should be exact. The reported answer (~217 N at ~22.9)
+  # is right to 3 s.f. either way.
+  ('84.30 N up, 199.78 N left, resultant 216.85 N at 22.88°',
+   '84.28 N up, 199.78 N left, resultant 216.83 N at 22.87°',
+   'F = 84.2812 N; the line claims full precision so it must be exact'),
+ ],
+
  'module2': [
   # U = -p.E. As printed, aligned (theta=0) gives U = +pE, a MAXIMUM, which
   # contradicts this box's own note ("minimum when aligned") and the next box's
@@ -72,6 +118,12 @@ CORRECTIONS = {
  ],
 
  'module4': [
+  # r = 0.057 mm, so the path is 0.114 mm across. "A twentieth of a millimetre"
+  # (0.05 mm) is the radius; "across" conventionally means the diameter.
+  ('curls it into a path a twentieth of a millimetre</p>\n<p class="redo">across.',
+   'curls it into a path about a tenth of a millimetre</p>\n<p class="redo">across.',
+   'r = 0.057 mm, so the diameter is 0.114 mm; a twentieth of a mm is the radius'),
+
   # Delta-Phi is defined final - initial. The manual computes initial - final, gets
   # +0.06, and so lands on -120 V. The flux FELL, so Delta-Phi = -0.06 Wb and
   # eps = -N dPhi/dt = -(200)(-0.06)/0.10 = +120 V. The magnitude quoted in the
@@ -99,6 +151,15 @@ CORRECTIONS = {
   (f'<td>U = pE{THIN}cos{THIN}θ</td>',
    f'<td>U = −pE{THIN}cos{THIN}θ</td>',
    'dipole potential energy is U = -pE cos(theta); the minus sign was missing'),
+
+  # The claim is true but the reason given is the wrong one: a stationary charge
+  # feels no force because v = 0, not because sin(theta) = 0 -- with no velocity
+  # there is no angle to take a sine of. R.1's own note gets this right, listing
+  # the two conditions separately ("Zero if v = 0 or theta = 0"). These hooks are
+  # meant to be memorised, so the reasoning has to be the right one.
+  ('<td>A stationary charge feels nothing. sin 0 = 0.</td>',
+   '<td>A stationary charge feels nothing: v = 0. Along the field, sin 0 = 0.</td>',
+   'v = 0 and theta = 0 are two distinct conditions; the hook conflated them'),
 
   # R.1 calls itself the COMPLETE formula sheet, and the mock papers say to sit
   # them "with only a calculator and the formula sheet" -- but it stops at
