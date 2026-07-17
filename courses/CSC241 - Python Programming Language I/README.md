@@ -6,8 +6,9 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**All five modules plus Mock One authored**, rendered to
-`build/CSC241_checkpoint.pdf` (100 pages: cover plus 99). Voice and palette approved.
+**All five modules plus Mock One authored, and the Contents page built**, rendered to
+`build/CSC241_checkpoint.pdf` (101 pages: cover, Contents, and 99). Voice and palette
+approved.
 
 Every one of the exam's six questions now has a home:
 
@@ -32,9 +33,19 @@ rather than a re-read of the real paper. Every answer is executed by the gate: a
 with a wrong answer is worse than no mock, because it teaches the wrong thing to
 somebody with no way to check.
 
-**Still to build:** the Contents page with working links (needs the two-pass approach
-from PHY121), Mock Two, and an audit that every API the manual uses has an in-manual
-reference card.
+**The Contents** is generated, never typed: 25 rows, every one a working link. Page
+numbers are read back out of the rendered book, so they cannot drift from it. See
+`build/contents.py`, which carries the reasoning, including why the obvious
+implementation is wrong.
+
+Building it paid for itself immediately: it printed the same page number for a module
+divider and that module's first unit, which is how a long-standing layout fault
+surfaced. Four of the six divider pages were stranding the following unit's heading at
+their foot, with the unit's own text overleaf. `.part` now takes `page-break-after`, so
+a divider owns its page.
+
+**Still to build:** Mock Two, and an audit that every API the manual uses has an
+in-manual reference card.
 
 ## Sources
 
@@ -122,11 +133,13 @@ python assemble.py            # gates, then HTML, then PDF
 python assemble.py --no-pdf   # gates and HTML only, skips Chromium
 ```
 
-`assemble.py` concatenates `content/*.html` in book order, runs both gates, and
-renders. The cover is full bleed with no running footer, so it is rendered on its
-own and merged in front of the body.
+`assemble.py` concatenates `content/*.html` in book order, runs the gates, and renders.
+The cover is full bleed with no running footer, so it is rendered on its own and merged
+in front of the body. The body is rendered twice: the Contents cannot be written until
+the book has been rendered, and writing it moves the pages it names, so `assemble.py`
+repeats until a render agrees with the Contents it was built from.
 
-**Both gates stop the build on failure. Neither is advisory.**
+**Every gate stops the build on failure. None is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
   interpreter and fails on any mismatch (266 claims, including every mock answer). This is the
@@ -141,10 +154,18 @@ own and merged in front of the body.
 - `gates.py` enforces house style: no em or en dashes, no institution branding, the
   pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, and all
   code monospace.
+- The **Contents gate** (in `assemble.py`) follows all 25 links and checks each against
+  the book rather than against itself: the page it lands on must carry that section's
+  heading, and the number the row prints must be the number that page's own footer
+  prints. Checking the Contents for internal consistency is not enough, because a
+  Contents can be uniformly wrong and perfectly consistent with itself.
+- `qa_layout.py` looks at every page: no text outside the content box, nothing in the
+  bottom margin but the running footer, and no page left short without a reason (a
+  section that must start fresh, or a next block too tall to fit).
 
 `build/` also holds `manual.css` (the CSC241 palette and box grammar), `render.py`
-(Chromium via Playwright, footer via `footerTemplate`), `buildlock.py`, and vendored
-`fonts/`.
+(Chromium via Playwright, footer via `footerTemplate`), `contents.py`, `buildlock.py`,
+and vendored `fonts/`.
 
 Only one chat may build this course at a time; `build/.build.lock` enforces it.
 Stage commits with `tools/commit_course.sh` from the workspace root, never

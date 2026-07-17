@@ -50,7 +50,12 @@ b,strong{ font-weight:bold; }
 sub,sup{ font-size:.72em; }
 
 /* ---------- part / module divider ---------- */
-.part{ page-break-before:always; padding-top:32mm; min-height:248mm; }
+/* A divider owns its page. Without break-after the next unit's heading drops
+   into whatever space is left below the divider and is stranded there, its own
+   text starting overleaf. min-height alone does not prevent it: it leaves just
+   enough room for a heading to squeeze in. */
+.part{ page-break-before:always; page-break-after:always; break-after:page;
+  padding-top:32mm; min-height:248mm; }
 .part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:11pt;
   color:var(--teach); font-weight:bold; text-transform:uppercase; }
 .part h1{ font-family:'DejaVu Serif',serif; font-size:34pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
@@ -203,7 +208,8 @@ figure svg{ max-width:100%; height:auto; }
 figcaption{ font-size:8.2pt; color:var(--muted); font-style:italic; margin-top:.35em; }
 ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
 ol.qlist li{ margin:.18em 0; padding-left:.15em; }
-.tocm{ font-size:2px; color:#ffffff; line-height:0; letter-spacing:0; }
+/* The Contents links to an id on each .kick / .part .kicker, injected at build
+   time. There is deliberately no marker element to style: see contents.py. */
 
 /* ---- Contents ---- */
 .contents-page{ page-break-before:always; }

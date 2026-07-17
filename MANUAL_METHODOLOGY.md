@@ -227,34 +227,87 @@ either a real bug or a flaw in the measurement.
 
 ### Page numbers + Contents (the 2-pass dance)
 Auto page numbers need a chicken-and-egg fix:
-1. Pass 1: render with an empty Contents; locate each section by an invisible
-   marker span (`TOCM<id>TOCM`, white, 2px).
-2. Read marker -> page map from the render; build the Contents; re-render.
-   Loop until page count stops shifting.
-3. Chromium emits **named** destinations; many viewers ignore them. Convert every
-   Contents link to an explicit `LINK_GOTO` with pymupdf.
-4. **Strip the marker text afterwards** via `add_redact_annot(rect, fill=None)` +
-   `apply_redactions(images=..._NONE, graphics=..._NONE)` so no junk is left in
-   the text layer.
-5. Match TOC ids by **exact-then-prefix** — real kickers carry suffixes
-   (e.g. `UNIT 4.5 · TEST 2 · NOT IN THE SLIDES` -> id `UNIT45TEST2...`).
+1. Put an `id` on each heading element that is already on the page. Pass 1:
+   render with the links real and the numbers blank.
+2. Read each section's page back from the **link destinations Chromium
+   resolved** (`page.get_links()`), build the Contents, re-render. Loop until a
+   render agrees with the Contents it was built from.
+3. Chromium emits **named** destinations; many viewers ignore them, and a merge
+   will not renumber them. Convert every Contents link to an explicit
+   `LINK_GOTO` with pymupdf, then merge. `fitz.Document.insert_pdf` shifts GOTO
+   targets for you; named destinations it leaves pointing at the old page.
+
+**Do not locate sections with invisible marker text.** PHY121 did (a 2px white
+`TOCM<id>TOCM` span) and CSC241 inherited it, at a cost worth recording:
+
+- Any extra element, however small, is laid out in its own right. A zero-height
+  box sitting at a page boundary gets painted into the fragment on **both** sides
+  of the break, so the marker is found on the page *before* the heading starts.
+  The Contents then numbers that section one page early and links to the same
+  wrong page. Every number agrees with every link: the book is internally
+  consistent and wrong, which is the failure mode that survives review.
+- `display:block` + `break-after:avoid` does not save it (it fragmented on 4 of
+  25 headings). `position:absolute` inside the heading does not either.
+- Making the marker inline instead moves the bug rather than fixing it: it then
+  shifts the heading text sideways by the marker's own width.
+- The anchor approach has none of this, because it adds no box. It is also the
+  better check: a link destination is *exactly* what a reader gets by clicking,
+  so it is the thing you wanted to verify anyway.
+
+**Do not find a section by searching for its heading text either.** The Contents
+page lists every heading in the book, so a naive search finds each one on the
+Contents itself. (Also: a letterspaced kicker extracts as `M O D U L E  O N E`
+and will not match at all. Search the title, which is not letterspaced.)
+
+**Two page numbers are in play; do not confuse them.** With a cover merged in
+front of the body, the number printed in the Contents is the **footer** number
+(Chromium numbers the body render from 1), while the link target is the
+**physical** page, which is one greater. Confusing them yields a Contents whose
+numbers are all right and whose links are all off by one.
+
+**The pymupdf link dict key is `nameddest`, not `name`.** Reading the wrong key
+returns nothing and looks exactly like "the renderer emitted no links".
+
+### Verify the Contents against the book, never against itself
+Follow every link and assert, per row: the page it lands on carries that
+section's heading, and the number the row prints equals the number that page's
+own **footer** prints. Consistency checks pass happily on a Contents that is
+uniformly one page out. Pair rows to sections **by anchor name** while the names
+still exist (before the GOTO conversion), not by position on the page.
 
 ### Print-CSS gotchas that cost real time
 - `page-break-before` on a full-page image **plus** `page-break-after` on the
   preceding divider = a **blank page** between them. Use one, not both.
-- Full-page dividers: don't use `page-break-after`. Give `.part` a
-  `min-height:248mm` so following content is naturally pushed off the page (no
-  blanks possible).
-- Add `page-break-after:avoid` to `.kick`, `.title`, `.rule` or a section kicker
-  **orphans** at the foot of the divider page while its title lands overleaf.
+- Full-page dividers: **`min-height` does not reserve the page.** `min-height:248mm`
+  in a 262mm content box leaves 14mm, and 14mm is enough for the next section's
+  kicker and title to squeeze in. They then sit stranded at the foot of the
+  divider while their own text starts overleaf. This is not hypothetical: it was
+  live on 4 of 6 dividers in CSC241, inherited from this very note, and was only
+  caught when a generated Contents printed the same page number for a module and
+  its first unit. Give `.part` a `page-break-after:always` so a divider owns its
+  page. Reach for `min-height` only to place the divider's own motif.
+  - `page-break-after:always` here is safe **only if** the following section does
+    not also force a break-before, which is the blank-page case above. Check what
+    actually follows the divider before adding it.
+- `page-break-after:avoid` on `.kick` binds a kicker to its title, but the pair
+  still moves as a unit. It stops the kicker being orphaned *from its title*; it
+  does not stop the pair being stranded on a page they do not belong to.
 - When harvesting text from a source page by a y-window, filter on the span's
   **top**, not its centre — a last line at y=396 has centre ~401 and silently
   vanishes from a `60..400` window. (This truncated a divider blurb mid-sentence.)
 
 ### QA gates to run before delivering (all must be zero)
 near-blank pages; footer number != page position; unresolved TOC entries;
-`TOCM` left in text; em/en dashes; banned terms; Contents links not GOTO.
+em/en dashes; banned terms; Contents links not GOTO.
 Plus: recompute **every** number independently, and eyeball a montage of all pages.
+
+A "short page" gate cries wolf unless it knows *why* a page is short. A box is
+never split, so a page legitimately ends early whenever the next box is taller
+than the room left, and the page before a forced section break is short by
+design. Report the free space and the height of the next block alongside the
+flag: a short page whose successor **would** have fit is the real defect, and
+that number tells the two apart at a glance. A check that flags known-good pages
+on every run is a check that gets ignored.
 
 **A passing text diff proves almost nothing.** `get_text()` is blind to bold,
 italic, monospace, sub/superscript, drawn elements, list structure, and block
