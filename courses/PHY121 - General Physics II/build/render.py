@@ -18,7 +18,21 @@ NOFOOTER = len(sys.argv) > 3 and sys.argv[3] == 'nofooter'
 with sync_playwright() as p:
     b = p.chromium.launch()
     pg = b.new_page()
-    pg.goto(url, wait_until='networkidle')
+    # 'networkidle' is not a reliable barrier for local images: it settles on a
+    # quiet network, not on decoded pixels. A snapshot taken early renders the
+    # img elements at zero height, and the manual silently came out 64 pages
+    # instead of 148 -- with sequential footers and no blank pages, so nothing
+    # downstream noticed. Wait for the real conditions instead.
+    pg.goto(url, wait_until='load')
+    pg.wait_for_function(
+        """() => document.fonts.status === 'loaded'
+              && Array.from(document.images).every(i => i.complete && i.naturalHeight > 0)""",
+        timeout=120000)
+    n_img = pg.evaluate('document.images.length')
+    bad = pg.evaluate("Array.from(document.images).filter(i => !i.naturalHeight).length")
+    if bad:
+        raise SystemExit(f'{bad} of {n_img} images failed to load; refusing to render')
+    print(f'  {n_img} images loaded, fonts ready')
     if NOFOOTER:
         pg.pdf(path=out, format='A4', print_background=True,
                display_header_footer=False,

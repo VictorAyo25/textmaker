@@ -245,22 +245,17 @@ def render_lines(lines):
 
 def render_box(page,b,nexty):
     typ=b['type']; label=b['label']
-    # tag chip (SLIDE/CLASSWORK/METHOD/GUIDED/MCQ) sometimes prefixes label
-    tag=''
-    m=re.match(r'^((?:SLIDE|CLASSWORK|METHOD|GUIDED|MCQ|,|\s)+)\b',label)
-    # detect known tags
-    tagwords=re.findall(r'SLIDE|CLASSWORK|METHOD|GUIDED|MCQ',label)
-    core=label
-    for tw in tagwords: core=core.replace(tw,'')
+    # The chip is whatever bars() split off by the wide x-gap at the right of the
+    # bar. It must NOT be found by searching the label for keywords: "METHOD" is an
+    # ordinary English word, and ripping every occurrence out of the title turned
+    # "SUBSTITUTION, THE ONLY METHOD YOU NEED" into "THE ONLY YOU NEED".
+    tag=f'<span class="tag">{esc(b["tag"])}</span>' if b.get('tag') else ''
     # strip leading marker glyphs (CSS re-adds them) and stray punctuation
-    core=core.lstrip('●⚠•●⚠↻ ,·').strip(' ,·')
-    if tagwords: tag=f'<span class="tag">{", ".join(dict.fromkeys(tagwords)).title()}</span>'
-    # a right-aligned chip carried on the bar itself, e.g. the back matter's "ANSWER: C"
-    if not tag and b.get('tag'): tag=f'<span class="tag">{esc(b["tag"])}</span>'
-    # sentence-case the label (keep existing case for mixed)
+    core=label.lstrip('●⚠•●⚠↻ ,·').strip(' ,·')
+    # Keep the label exactly as the original set it. It is already upper case, and
+    # .bar no longer re-uppercases: CSS uppercasing maps the micro sign onto Greek
+    # capital Mu, so "3 µC" printed as "3 MC" -- microcoulombs shown as megacoulombs.
     barlabel=core if core else LABELMAP.get(typ,typ).upper()
-    if barlabel.isupper():
-        barlabel=barlabel[:1]+barlabel[1:].lower()
     # body: handle tables via crop
     y0=b['y1']+2
     heads=table_headers_in(page,y0,nexty)
@@ -319,8 +314,15 @@ def render_box(page,b,nexty):
             txt=' '.join(l['html'] for l in reflow(payload))
             body_html.append(f'<div class="answerbox">{txt}</div>')
         elif kind=='figure':
-            uri=crop_datauri(page,*payload)
-            body_html.append(f'<img class="figure" src="{uri}" alt="diagram"/>')
+            # Two of the original's figures are redrawn rather than cropped: their
+            # loop arrowheads are rotated ~80 degrees off the arc (a hardcoded
+            # angle, not the tangent), which cannot be fixed in a raster crop.
+            sub=FIGURE_SVG.get(page.number+1)
+            if sub:
+                body_html.append(f'<div class="figure">{sub}</div>')
+            else:
+                uri=crop_datauri(page,*payload)
+                body_html.append(f'<img class="figure" src="{uri}" alt="diagram"/>')
         else:
             tx0,ty0,tx1,ty1=payload
             uri=crop_datauri(page,tx0-2,ty0-1,tx1+2,ty1+2)
@@ -328,17 +330,28 @@ def render_box(page,b,nexty):
     cls=typ   # box type IS the CSS class; every type in HEADER_COLORS has a rule
     boxhtml=(f'<div class="box {cls}"><div class="bar"><span>{esc(barlabel)}</span>{tag}</div>'
              f'<div class="body">{"".join(body_html)}</div></div>')
-    # optional diagram injection after a box whose label matches
+    # Optional diagram injection after a box whose label matches. Never inject into
+    # a box that already carries a figure: "THREE RESISTORS IN SERIES" contains
+    # "RESISTORS IN SERIES", so the added diagram printed a second, near-identical
+    # circuit right under the original's own.
     fig=''
-    for key,(svg,cap) in (DIAGRAM_MAP or {}).items():
-        if key.upper() in label.upper():
-            fig=f'<figure>{svg}<figcaption>{cap}</figcaption></figure>'
-            break
+    if not any(k=='figure' for k,_ in segments):
+        for key,(svg,cap) in (DIAGRAM_MAP or {}).items():
+            if key.upper() in label.upper():
+                fig=f'<figure>{svg}<figcaption>{cap}</figcaption></figure>'
+                break
     return boxhtml+fig
 
 DIAGRAM_MAP=None
 def set_diagram_map(m):
     global DIAGRAM_MAP; DIAGRAM_MAP=m
+
+# v1 page -> replacement SVG, for figures that are wrong in the original and so
+# must not be reused as pixels. Keyed by v1 page: each of these pages holds
+# exactly one figure.
+FIGURE_SVG={}
+def set_figure_svg(m):
+    global FIGURE_SVG; FIGURE_SVG=m
 
 def render_section_header(page,first_y):
     sp=[s for s in raw_spans(page,40,first_y-3) if not FOOTER_RE.match(s['t'])]
@@ -386,14 +399,36 @@ def render_section_header(page,first_y):
         parts.append(f'<p class="{cls}">{h}</p>' if cls else f'<p>{h}</p>')
     return '\n'.join(parts)
 
+def box_end(page,bar,hard):
+    """Where a box's body actually stops.
+
+    Not "wherever the next bar starts": a section heading often sits in the gap
+    between two boxes, and treating the gap as body swallowed it into the box above
+    ("Semiconductors", "Combining capacitors"). Every box paints a tinted body rect
+    directly under its bar, so its bottom edge is the real end."""
+    best=None
+    for d in page.get_drawings():
+        r=d['rect']; f=hx(d.get('fill'))
+        if not f or f=='#ffffff' or r.width<300: continue
+        if abs(r.y0-bar['y1'])>2.5 or r.y1<=bar['y1']+4: continue
+        if best is None or r.y1>best: best=r.y1
+    return min(best+1.5,hard) if best else hard
+
 def split_runs(free,taken):
-    """Split leftover spans into runs separated by consumed regions, keeping y order."""
-    runs=[]; cur=[]
+    """Split leftover spans into runs separated by consumed regions, keeping y order.
+
+    The break must happen when a consumed region lies BETWEEN two free lines, not
+    merely when a line falls inside one. Free lines never fall inside a taken
+    region (that is what made them free), so the old test never fired: two headings
+    with a table between them merged into a single run, which is emitted at the
+    first one's y, and "Module 3" ended up printed directly under "Module 2" with
+    both tables below it."""
+    runs=[]; cur=[]; prev=None
     for ln in _linegroup(sorted(free,key=lambda s:s['y'])):
         y=min(s['y'] for s in ln)
-        if cur and any(a<=y<=b for a,b in taken):
+        if cur and prev is not None and any(prev<b and a<y for a,b in taken):
             runs.append(cur); cur=[]
-        cur.extend(ln)
+        cur.extend(ln); prev=max(s['y1'] for s in ln)
     if cur: runs.append(cur)
     return [(r,min(s['y'] for s in r)) for r in runs if r]
 
@@ -438,8 +473,9 @@ def gen_pages(lo,hi):
             taken.append((0,first_y-1))
         for i,b in enumerate(bb):
             nexty=bb[i+1]['y0'] if i+1<len(bb) else ph-40
-            blocks.append((b['y0'],render_box(page,b,nexty)))
-            taken.append((b['y0']-1,nexty))
+            end=box_end(page,b,nexty)          # the tint's bottom, not the next bar
+            blocks.append((b['y0'],render_box(page,b,end)))
+            taken.append((b['y0']-1,end))
         free=[s for s in raw_spans(page,40,ph-40)
               if not FOOTER_RE.match(s['t'])
               and not any(a<=(s['y']+s['y1'])/2<=b for a,b in taken)]

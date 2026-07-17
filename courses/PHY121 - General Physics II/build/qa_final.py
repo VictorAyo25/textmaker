@@ -58,8 +58,11 @@ src = ' '.join(io.open(f, encoding='utf-8').read() for f in glob.glob(os.path.jo
 # blank=100 is exact and deliberate. The original has 108 blank-shaped rects, but
 # 8 of those are the decorative rule on the 8 part-divider pages, which
 # divider_html draws itself. 100 is the true number of fill-in blanks.
+# tablefig=13, not 14: two back-matter answer keys used to print twice, once as a
+# cropped image and again as a real table underneath, because the box was assumed
+# to run to the next bar. box_end() ended that, and with it the duplicate crops.
 FLOOR = {'<b>': 1100, '<sub>': 480, '<sup>': 750, 'class="blank"': 100,
-         '<li>': 560, 'class="sub"': 22, '<table': 15, 'tablefig': 14}
+         '<li>': 560, 'class="sub"': 30, '<table': 15, 'tablefig': 13}
 print('--- structural counts (floor):')
 bad = 0
 for k, floor in FLOOR.items():
@@ -77,5 +80,13 @@ soft = re.findall('‐', re.sub(r'<[^>]+>', '', src))
 print('doubled list markers:', len(dbl), '| mid-word paragraph splits:', len(split),
       '| stray soft hyphens:', len(soft))
 bad += (len(dbl) > 0) + (len(split) > 0) + (len(soft) > 0)
+
+# A truncated render is the failure that hides best: when the images had not
+# decoded the manual came out 64 pages instead of 148, and every other gate still
+# passed (footers were sequential, no page was blank). Page count is the only
+# thing that catches it.
+PAGE_FLOOR = 140
+print(f'page count: {N} (floor {PAGE_FLOOR})', '' if N >= PAGE_FLOOR else '<-- TRUNCATED RENDER')
+bad += (N < PAGE_FLOOR)
 print('STRUCTURAL GATES:', 'PASS' if bad == 0 else f'FAIL ({bad})')
 print('=== END QA ===')

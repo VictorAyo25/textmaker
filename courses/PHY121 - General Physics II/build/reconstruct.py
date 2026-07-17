@@ -62,15 +62,36 @@ def bars(page):
         # A right-aligned span separated by a wide gap is the bar's tag chip
         # ("ANSWER: C"), not part of the label. Joining it on would weld it to the
         # last word ("...TWO DISTANCESANSWER: C").
+        # The chip rides on its own translucent plate drawn over the bar. Detect the
+        # plate, not a gap: behind a long label the gap is only ~11pt, so a gap rule
+        # misses it and the chip welds onto the last word ("...ENCLOSING 3 MC
+        # CLASSWORK"). Fall back to a wide gap where no plate was drawn.
         tag=''
-        if len(white)>1:
+        mid=b['x0']+0.5*(b['x1']-b['x0'])
+        plate=None
+        for d in page.get_drawings():
+            r=d['rect']
+            if (r.y0>=b['y0']-1.5 and r.y1<=b['y1']+1.5 and 18<r.width<200 and r.x0>mid):
+                if plate is None or r.x0<plate.x0: plate=r
+        if plate is not None:
+            inside=[s for s in white if s['x']>=plate.x0-3 and s['x1']<=plate.x1+3]
+            rest=[s for s in white if s not in inside]
+            if inside and rest:
+                tag=' '.join(s['t'] for s in inside).strip()
+                white=rest
+        if not tag and len(white)>1:
             gaps=[(white[i+1]['x']-white[i]['x1'],i) for i in range(len(white)-1)]
             g,i=max(gaps)
-            if g>40 and white[i+1]['x'] > b['x0']+0.55*(b['x1']-b['x0']):
+            if g>40 and white[i+1]['x']>b['x0']+0.55*(b['x1']-b['x0']):
                 tag=' '.join(s['t'] for s in white[i+1:]).strip()
                 white=white[:i+1]
-        b['label']=' '.join(s['t'] for s in white).strip()
-        b['tag']=tag
+        lab=' '.join(s['t'] for s in white).strip()
+        # v1's own build uppercased these labels in CSS, and uppercasing the micro
+        # sign yields Greek capital Mu: "3 µC" was baked in as "3 ΜC", printing
+        # microcoulombs as megacoulombs. U+039C occurs exactly once in the source
+        # and this is it, so the mapping back is unambiguous.
+        b['label']=lab.replace('Μ','µ')
+        b['tag']=tag.replace('Μ','µ')
         out.append(b)
     return out
 

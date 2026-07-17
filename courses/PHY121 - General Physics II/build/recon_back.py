@@ -20,7 +20,7 @@ import re
 import fitz
 from reconstruct import PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, join_wrapped
 from gen_html import (table_headers_in, col_bounds, render_box, render_section_header,
-                      table_extent, crop_datauri, figures_in, split_runs)
+                      table_extent, crop_datauri, figures_in, split_runs, box_end)
 
 doc = fitz.open(PDF)
 PAGE_BOTTOM = 792.0
@@ -183,8 +183,9 @@ def gen_back(lo, hi, marker_first=None):
         bb = bars(page)
         for i, b in enumerate(bb):
             nexty = bb[i + 1]['y0'] if i + 1 < len(bb) else PAGE_BOTTOM - 8
-            blocks.append((b['y0'], render_box(page, b, nexty)))
-            taken.append((b['y0'] - 1, nexty))
+            end = box_end(page, b, nexty)      # the tint's bottom, not the next bar
+            blocks.append((b['y0'], render_box(page, b, end)))
+            taken.append((b['y0'] - 1, end))
 
         # 2b. figures (vector line art) -> cropped image, before the prose pass so
         # their internal labels are not stranded as loose paragraphs

@@ -3,7 +3,7 @@
 import fitz, io, os, re, subprocess, sys
 from reconstruct import PDF, raw_spans, reflow, FOOTER_RE
 import gen_html
-from gen_html import gen_pages, crop_datauri, set_diagram_map
+from gen_html import gen_pages, crop_datauri, set_diagram_map, set_figure_svg
 from recon_back import gen_back
 
 HERE=os.path.dirname(os.path.abspath(__file__))
@@ -52,6 +52,18 @@ def divider_html(roman, pagenum, marker):
             f'<div class="divider-motif">{FIELDLINES}</div></div>')
 
 def load_msvg(n): return load(f'msvg_{n}.svg')
+
+def build_figure_svg():
+    """Original figures replaced by a redraw, keyed by their page in the v1 PDF.
+
+    Both are Kirchhoff figures whose loop arrowheads are rotated ~80 degrees off
+    the arc. A crop cannot be corrected, so these two are drawn from geometry by
+    make_circuit_svgs.py, where the head follows the path's own tangent."""
+    return {
+        74: load_msvg('kvl_single_loop'),      # 12 V single loop, "traverse"
+        77: load_msvg('kirchhoff_two_loop'),   # 50 V, two meshes
+    }
+
 def build_diagram_map():
     return {
       'ELECTRIC FIELD LINES AND HOW TO READ':(load_msvg('field_points'),'Field lines point out of a positive charge and in to a negative charge.'),
@@ -142,7 +154,7 @@ def part(name, roman, pg, marker):
 
 def assemble(contents_html=''):
     m5=split_module5()
-    set_diagram_map(build_diagram_map())
+    set_diagram_map(build_diagram_map()); set_figure_svg(build_figure_svg())
     S=[]
     S.append(crop_page(1))
     S.append(f'<div class="contents-page">{contents_html}</div>')

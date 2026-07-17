@@ -77,10 +77,10 @@ def main():
             print('Use --force ONLY if you want to discard those edits and re-derive from the PDF.')
             return 1
 
-    from gen_html import gen_pages, set_diagram_map
-    from assemble import build_diagram_map, divider_html
+    from gen_html import gen_pages, set_diagram_map, set_figure_svg
+    from assemble import build_diagram_map, build_figure_svg, divider_html
     from recon_back import gen_back
-    set_diagram_map(build_diagram_map())
+    set_diagram_map(build_diagram_map()); set_figure_svg(build_figure_svg())
     os.makedirs(CONTENT, exist_ok=True)
 
     banner = ('<!-- FROZEN CONTENT. This file is now the source of truth for this section.\n'
@@ -88,9 +88,11 @@ def main():
               '     It was generated once from sources/manual_v1/PHY121_Study_Manual.pdf.\n'
               '     Re-running `python freeze.py --force` would DISCARD your edits. -->\n')
 
+    import corrections
     total_imgs = 0
     for name, (lo, hi) in SECTIONS.items():
         html = gen_pages(lo, hi)
+        html = corrections.apply(name, html)     # errata against the original
         html, k = externalise(html, name)
         total_imgs += k
         io.open(os.path.join(CONTENT, name + '.html'), 'w', encoding='utf-8').write(banner + html)
@@ -98,6 +100,7 @@ def main():
 
     for name, (lo, hi) in BACK.items():
         html = gen_back(lo, hi)
+        html = corrections.apply(name, html)     # errata against the original
         html, k = externalise(html, name)
         total_imgs += k
         io.open(os.path.join(CONTENT, name + '.html'), 'w', encoding='utf-8').write(banner + html)

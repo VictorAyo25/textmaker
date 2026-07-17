@@ -73,7 +73,10 @@ h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:16.5pt; 
 /* ---------- generic box ---------- */
 .box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
 .box > .bar{
-  font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
+  /* No text-transform: the label arrives already upper case, and uppercasing it
+     here maps the micro sign (U+00B5) onto Greek capital Mu, so "3 µC" prints as
+     "3 MC" -- micro silently shown as mega. */
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold;
   letter-spacing:.14em; font-size:7.7pt; color:#fff; padding:5.5pt 9pt; line-height:1.2;
   display:flex; justify-content:flex-start; align-items:center;
 }
