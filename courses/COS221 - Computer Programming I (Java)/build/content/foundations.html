@@ -1,0 +1,967 @@
+<!-- ============ FOUNDATIONS ============ -->
+
+<!-- ---------------- F.1 ---------------- -->
+<section>
+  <div class="kick">F.1 · WHAT A COMPUTER ACTUALLY DOES</div>
+  <h2 class="title">A machine that follows instructions, very fast, very literally</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Before any Java, one idea. Everything else in this book is built
+  on it.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A computer does one thing</span></div>
+    <div class="body">
+      <p>A computer takes a list of instructions and performs them, one at a time,
+      in order, exactly as written. That is the whole of it. It is not clever, it
+      does not know what you meant, and it will not fix your mistake for you. It is
+      simply very fast and perfectly obedient.</p>
+      <p>Those two properties together are why programming is hard. The machine will
+      do precisely what you said, several billion times a second, including the part
+      you got wrong.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A program is a recipe you cannot be present for</span></div>
+    <div class="body">
+      <p>Think of writing instructions for someone making tea in a kitchen you will
+      never visit, for a person who has no common sense and will not ask questions.
+      "Add milk" is not good enough. How much? Before or after the water? What if
+      there is no milk?</p>
+      <p>A <b>program</b> is that recipe, written for that person. The skill you are
+      learning is not typing. It is thinking precisely enough that a literal machine
+      cannot misunderstand you.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Your program produces the wrong answer. Before you look at
+      anything else, what is the single most likely explanation?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>That the machine did exactly what you told it to do, and you told it the
+      wrong thing. Suspect your instructions before you suspect the computer. In a
+      whole degree you will almost never meet a genuine hardware or compiler fault;
+      you will meet your own logic errors daily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.2 ---------------- -->
+<section>
+  <div class="kick">F.2 · SOURCE CODE</div>
+  <h2 class="title">The instructions are just text</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Source code</span></div>
+    <div class="body">
+      <p><b>Source code</b> is the text you write, in a language with rules strict
+      enough that a machine can read it without guessing. It is ordinary text: you
+      could type it in Notepad. There is nothing magical in the file.</p>
+      <p>A <b>programming language</b> is that set of rules. Java is one. Python, C
+      and C++ are others. They differ the way natural languages differ: same ideas,
+      different grammar and vocabulary.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why not just write English?</span></div>
+    <div class="body">
+      <p>Because English is ambiguous, and a machine cannot resolve ambiguity.
+      "Take the number and add one to it, then double it" has two meanings. Java's
+      grammar exists to make every statement mean exactly one thing.</p>
+      <p>The price is that Java is <b>unforgiving</b>. A missing semicolon is not a
+      small slip it can overlook; it is a sentence with no full stop, and the
+      compiler refuses to continue. Beginners read this as hostility. It is the
+      opposite: every complaint at compile time is a bug that cannot reach your
+      exam script.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.3 ---------------- -->
+<section>
+  <div class="kick">F.3 · FROM YOUR TYPING TO A RUNNING PROGRAM</div>
+  <h2 class="title">The compiler, bytecode, and the virtual machine</h2>
+  <hr class="rule"/>
+
+  <p class="lead">This section explains the three words your course uses constantly
+  and never defines: <b>compile</b>, <b>bytecode</b>, and <b>JVM</b>. Every one of
+  them is examinable.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A processor cannot read Java</span></div>
+    <div class="body">
+      <p>The chip in your laptop understands only its own <b>machine code</b>:
+      numbers meaning "add these two", "put this there". It has never heard of
+      <code>System.out.println</code>. Something must translate.</p>
+      <p>That translator is a <b>compiler</b>: a program whose input is your source
+      code and whose output is something closer to what a machine can run. Java's
+      compiler is called <code>javac</code>, and it comes with the kit you will
+      install in Module 2.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Java compiles to bytecode, not to machine code</span></div>
+    <div class="body">
+      <p>Here is where Java differs from C, and where most exam confusion lives.
+      <code>javac</code> does <b>not</b> produce machine code for your particular
+      chip. It produces <b>bytecode</b>: instructions for an imaginary computer that
+      does not physically exist.</p>
+      <p>Bytecode lands in a <code>.class</code> file. It is not readable text and
+      it is not something your processor can run.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The JVM is the imaginary computer, made real</span></div>
+    <div class="body">
+      <p>The <b>Java Virtual Machine</b> (JVM) is a program that pretends to be that
+      imaginary computer. It reads bytecode instructions and carries them out using
+      the real chip underneath. It is a translator standing between your compiled
+      program and the actual hardware, working while your program runs.</p>
+      <p>So a Java program runs on a machine that is itself a program. That sounds
+      wasteful, and it costs a little speed. What you buy with it is the single most
+      famous property of the language.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · WORA, and why it is true</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Write Once, Run Anywhere</b> (WORA). You compile your source to
+        bytecode <b>once</b>. That same <code>.class</code> file then runs on
+        Windows, macOS or Linux without being changed or recompiled, because each
+        platform has its own JVM that knows how to translate the same bytecode for
+        its own hardware.</p>
+      </div>
+      <p>The bytecode is identical everywhere. The JVM is what differs. That single
+      sentence is the answer to "what is the role of the JVM?", which both papers we
+      have ask in some form.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> bytecode is a document written in one
+      language; the JVM is the local interpreter hired in each country. One
+      document, many interpreters, same meaning everywhere.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The whole journey, in five steps</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:16%">Step</th><th style="width:30%">What exists afterwards</th><th>Who does it</th></tr>
+        <tr><td>You type</td><td><code>Hello.java</code>, plain text</td><td>You, in any editor</td></tr>
+        <tr><td>Compile</td><td><code>Hello.class</code>, bytecode</td><td><code>javac Hello.java</code></td></tr>
+        <tr><td>Load</td><td>bytecode in memory, checked for safety</td><td>the JVM</td></tr>
+        <tr><td>Execute</td><td>your program running</td><td>the JVM, using the real chip</td></tr>
+        <tr><td>Output</td><td>text on your screen</td><td>your program</td></tr>
+      </table>
+      <p>You only ever type two of these: <code>javac</code> to compile, then
+      <code>java</code> to run. Everything else happens for you.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · javac and java are different programs</span></div>
+    <div class="body">
+      <p><code>javac</code> compiles, and its name ends in <b>c</b> for compiler. It
+      takes a <b>file name</b>, with the <code>.java</code> on the end:
+      <code>javac Hello.java</code>.</p>
+      <p><code>java</code> runs, and it takes a <b>class name</b>, with no extension
+      at all: <code>java Hello</code>. Not <code>java Hello.java</code>, and not
+      <code>java Hello.class</code>. Both of those fail, and both are typed by
+      almost every beginner in their first hour.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Your friend compiles a Java program on a Mac and emails you the
+      <code>.class</code> file. You are on Windows. Does it run, and why?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Yes. The <code>.class</code> file holds bytecode, which is not specific to
+      any machine or operating system. Your Windows JVM reads that same bytecode and
+      translates it for your hardware. That is WORA, and it is exactly why Java
+      compiles to bytecode instead of machine code.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.4 ---------------- -->
+<section>
+  <div class="kick">F.4 · GETTING JAVA ONTO YOUR COMPUTER</div>
+  <h2 class="title">Installing the kit, and telling your computer where it is</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Do this once, now, before Module 1. Nothing else in this book can
+  be practised until it works, and it is worth marks directly: the setup is
+  examinable.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · JDK, JRE, JVM</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>JVM</b>: the virtual machine that runs bytecode. Runs programs.<br/>
+        <b>JRE</b>: the JVM plus the standard library. Everything needed to
+        <i>run</i> a Java program, but not to write one.<br/>
+        <b>JDK</b>: the JRE plus the development tools, above all the compiler
+        <code>javac</code>. Everything needed to <i>write</i> Java.</p>
+      </div>
+      <p>You install the <b>JDK</b>, because you are a developer, not just a user.
+      Installing the JDK gives you the JRE and the JVM inside it.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> nested Russian dolls, biggest first:
+      <b>JDK &gt; JRE &gt; JVM</b>. The kit contains the environment contains the
+      machine. Developers need the outermost doll.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Installing the JDK</span><span class="tag">DO THIS NOW</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li>Download the JDK installer for your operating system from Oracle's Java
+        downloads page. Any version from 17 upward suits this course.
+        <span class="note">Your course notes point at Oracle. Any build of the same
+        version behaves identically for everything in this book.</span></li>
+        <li>Run the installer and accept the default location. On Windows that is
+        <code>C:\Program Files\Java\jdk-&lt;version&gt;</code>.
+        <span class="note">Write that path down. You need it in the next step, and
+        &lt;version&gt; is whatever number you actually installed.</span></li>
+        <li>Open a terminal. On Windows press <kbd>Win</kbd>+<kbd>R</kbd>, type
+        <code>cmd</code>, press Enter.</li>
+        <li>Type <code>java --version</code> and press Enter.
+        <span class="note">If you see a version number, the installer already set
+        your PATH and you are done. If you see "not recognised", do F.4.1 below.</span></li>
+      </ol>
+      <p class="redo"><b>Now redo it:</b> close the terminal, open a new one, and run
+      <code>javac --version</code> as well. Both commands must answer. If
+      <code>java</code> answers and <code>javac</code> does not, you have installed
+      the JRE instead of the JDK, and you cannot compile anything.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">F.4.1 Setting the environment variables</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · What PATH is, and why "not recognised" happens</span></div>
+    <div class="body">
+      <p>When you type <code>javac</code>, your terminal does not search your whole
+      hard disk for it. It looks only in a specific list of folders. That list is an
+      <b>environment variable</b> called <code>PATH</code>: a setting that belongs to
+      your operating system rather than to any one program.</p>
+      <p>"<code>javac</code> is not recognised" almost never means Java is missing.
+      It means Java is installed somewhere your PATH does not mention, so the
+      terminal looked in its usual places, did not find it, and gave up.</p>
+      <p><code>JAVA_HOME</code> is a second variable holding the folder where the JDK
+      lives. Java tools read it to find each other, so set it too.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Setting JAVA_HOME and PATH on Windows</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li>Open File Explorer and confirm the JDK folder really exists, for example
+        <code>C:\Program Files\Java\jdk-17</code>. Look inside it for a
+        <code>bin</code> folder containing <code>javac.exe</code>.
+        <span class="note">Never set a path you have not looked at. A typo here
+        produces the exact error you are trying to fix.</span></li>
+        <li>Right-click <b>This PC</b>, choose <b>Properties</b>, then <b>Advanced
+        system settings</b>, then <b>Environment Variables</b>.</li>
+        <li>Under <b>System variables</b> click <b>New</b>. Variable name:
+        <code>JAVA_HOME</code>. Variable value: the JDK folder,
+        <code>C:\Program Files\Java\jdk-17</code>.
+        <span class="note">The folder itself, not its bin. No trailing backslash, no
+        quotes.</span></li>
+        <li>In the same list select <b>Path</b>, click <b>Edit</b>, click <b>New</b>,
+        and add <code>%JAVA_HOME%\bin</code>.
+        <span class="note">This is the bin, because that is the folder holding the
+        commands. <code>%JAVA_HOME%</code> means "whatever JAVA_HOME says", so
+        upgrading Java later means changing one setting, not two.</span></li>
+        <li>Click OK on all three dialogs. Close every open terminal and open a new
+        one.
+        <span class="note">A terminal reads PATH once, when it starts. This is why
+        it "didn't work" for you and did for the person next to you.</span></li>
+        <li>Verify.</li>
+      </ol>
+      <pre class="out"><span class="olabel">Terminal</span>C:\&gt; java --version
+openjdk 17.0.16 2025-07-15
+OpenJDK Runtime Environment Temurin-17.0.16+8 (build 17.0.16+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.16+8 (build 17.0.16+8, mixed mode, sharing)
+
+C:\&gt; javac --version
+javac 17.0.16</pre>
+      <p class="redo"><b>Now redo it:</b> from memory, name the two variables, say
+      which one ends in <code>\bin</code> and why, and say why a terminal that was
+      already open still fails.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The three that catch everyone</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Old terminal.</b> Changing PATH does not affect terminals that are
+        already open. Close and reopen.</li>
+        <li><b>JAVA_HOME pointing at bin.</b> <code>JAVA_HOME</code> is the JDK
+        folder; PATH gets the <code>\bin</code>. Put bin in both and PATH becomes
+        <code>...\bin\bin</code>, which exists nowhere.</li>
+        <li><b>JRE not JDK.</b> <code>java</code> works, <code>javac</code> does not.
+        You installed the thing that runs Java, not the thing that compiles it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.5 ---------------- -->
+<section>
+  <div class="kick">F.5 · YOUR FIRST PROGRAM</div>
+  <h2 class="title">Hello, world</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Type this yourself. Do not copy and paste. The typing is the
+  point: your fingers need to learn the shape of a Java program, and you will be
+  writing it on paper in the exam.</p>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Hello.java</span><span class="tag">TYPE IT</span></div>
+    <div class="body">
+      <pre class="src" data-run="Hello"><span class="l"><span class="k">public class</span> <span class="t">Hello</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"Hello, world!"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Hello, world!</pre>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Getting it to run</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li>Make a folder, say <code>C:\java</code>, and save the file inside it as
+        <code>Hello.java</code>.
+        <span class="note">The file name must be <code>Hello.java</code>, matching
+        the class name exactly, capital H included. F.6 explains why this is a rule
+        and not a preference.</span></li>
+        <li>In your terminal, move into that folder: <code>cd C:\java</code>
+        <span class="note"><code>cd</code> means change directory. The terminal is
+        always "in" one folder, and it compiles what is in front of it.</span></li>
+        <li>Compile: <code>javac Hello.java</code>
+        <span class="note">Silence means success. Unix-descended tools say nothing
+        when all is well; this unnerves beginners, but no news is good news.</span></li>
+        <li>Look: <code>dir</code>. There is now a <code>Hello.class</code> beside
+        your <code>Hello.java</code>. That is the bytecode from F.3.</li>
+        <li>Run: <code>java Hello</code>
+        <span class="note">Class name, no extension.</span></li>
+      </ol>
+      <pre class="out"><span class="olabel">Terminal</span>C:\java&gt; javac Hello.java
+
+C:\java&gt; dir
+Hello.class
+Hello.java
+
+C:\java&gt; java Hello
+Hello, world!</pre>
+      <p class="redo"><b>Now redo it:</b> delete <code>Hello.class</code>, close the
+      book, and get from an empty folder to the words on screen without looking.
+      Do it until it is boring. This loop is the floor of everything else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.6 ---------------- -->
+<section>
+  <div class="kick">F.6 · THE ANATOMY OF A PROGRAM</div>
+  <h2 class="title">Every word in Hello.java, explained</h2>
+  <hr class="rule"/>
+
+  <p class="lead">You just typed nine words you were not told the meaning of. That
+  is the last time this book does that. Here is every one.</p>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The smallest Java program that does anything</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="annotated skeleton, not a compilable listing; the real one is checked in F.5"><span class="l">public class <b>NAME</b> {                    &lt;- the file must be NAME.java</span><span class="l">    public static void main(String[] args) {   &lt;- where running begins</span><span class="l">        <b>your statements, in order</b></span><span class="l">    }</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · class, and why your file has that name</span></div>
+    <div class="body">
+      <p>A <b>class</b> is a named container for code. For now that is all you need:
+      Java has nowhere to put a statement except inside a class, so every program
+      has at least one. Module 6 will show you what classes are really for.</p>
+      <p><code>public</code> means anything may use it. The rule that catches
+      beginners: <b>a public class must live in a file with exactly its own name</b>.
+      Class <code>Hello</code> goes in <code>Hello.java</code>. Capitals count.
+      Rename the file to <code>hello.java</code> and the compiler refuses it, which
+      is one of the planted errors in your past papers.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · main, the door in</span></div>
+    <div class="body">
+      <p>When you type <code>java Hello</code>, the JVM must decide which line to run
+      first. It does not guess or start at the top. It looks for one exact method:</p>
+      <p style="text-align:center"><code>public static void main(String[] args)</code></p>
+      <p>Every word is load-bearing, and the JVM matches it letter for letter:</p>
+      <table class="data">
+        <tr><th style="width:22%">Word</th><th>What it means</th></tr>
+        <tr><td><code>public</code></td><td>Visible to everything, so the JVM (outside your class) is allowed to call it.</td></tr>
+        <tr><td><code>static</code></td><td>Belongs to the class itself, so it can be called without creating an object first. Since nothing exists yet when your program starts, it must be static.</td></tr>
+        <tr><td><code>void</code></td><td>Hands nothing back when it finishes.</td></tr>
+        <tr><td><code>main</code></td><td>The name the JVM looks for. Not <code>Main</code>, not <code>start</code>.</td></tr>
+        <tr><td><code>String[] args</code></td><td>A list of text values typed after the class name on the command line. You will rarely use it, and it must still be there.</td></tr>
+      </table>
+      <p>Get any of it wrong and the program compiles perfectly, then refuses to
+      start: the class is fine, it simply has no door.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The main method signature</span></div>
+    <div class="body">
+      <div class="card">
+        <p style="text-align:center; font-size:11pt">
+        <code>public static void main(String[] args)</code></p>
+      </div>
+      <p>Write it from memory until you cannot get it wrong. You will write it on
+      every program in the exam, and a mangled <code>main</code> costs marks in a
+      question you otherwise answered perfectly.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> say it aloud as one word, in rhythm:
+      <b>"public-static-void-main-string-args"</b>. It is a chant, not five
+      decisions.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · System.out.println, and the semicolon</span></div>
+    <div class="body">
+      <p><code>System.out.println("Hello, world!");</code> reads right to left as:
+      inside the class <code>System</code> there is <code>out</code>, which
+      represents your screen, and you are asking it to <code>println</code> (print
+      line) the text you gave it.</p>
+      <p>The double quotes mark a <b>String literal</b>: text meant literally rather
+      than as an instruction. Without them, Java would read <code>Hello</code> as the
+      name of something and complain that it does not exist.</p>
+      <p>The <b>semicolon</b> ends a statement, as a full stop ends a sentence. Java
+      ignores line breaks entirely, so the semicolon is the only way it knows one
+      instruction has finished. A missing one is the most common compiler error in
+      the world, and it appears as a planted bug on both of your past papers.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · println versus print</span></div>
+    <div class="body">
+      <p><code>println</code> prints and then moves to a new line.
+      <code>print</code> prints and stays put. Use <code>print</code> and the next
+      output continues on the same line, which is exactly what a past paper's
+      PrintWriter question turns on. When an exam asks for the precise output, this
+      is worth a mark on its own.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The difference, run for real</span></div>
+    <div class="body">
+      <pre class="src" data-run="PrintDemo"><span class="l"><span class="k">public class</span> <span class="t">PrintDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.print(<span class="s">"A"</span>);</span><span class="l">        System.out.print(<span class="s">"B"</span>);</span><span class="l">        System.out.println(<span class="s">"C"</span>);</span><span class="l">        System.out.println(<span class="s">"D"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>ABC
+D</pre>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · The skeleton</span></div>
+    <div class="body">
+      <p>Cover the page above. Fill these in with a pen.</p>
+      <ol class="qlist">
+        <li>A public class named <code>Bank</code> must be saved in a file called
+        <span class="blank"></span>.</li>
+        <li>The JVM starts your program by looking for the method
+        <code>public <span class="blank"></span> void main(String[] <span class="blank"></span>)</code>.</li>
+        <li><code>javac</code> takes a <span class="blank"></span> name;
+        <code>java</code> takes a <span class="blank"></span> name.</li>
+        <li>Compiling <code>Hello.java</code> produces a file called
+        <span class="blank"></span>, which contains <span class="blank"></span>.</li>
+        <li>Every statement in Java ends with a <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. <code>Bank.java</code> &nbsp;·&nbsp; 2. <code>static</code>,
+      <code>args</code> &nbsp;·&nbsp; 3. file, class &nbsp;·&nbsp;
+      4. <code>Hello.class</code>, bytecode &nbsp;·&nbsp; 5. semicolon</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.7 ---------------- -->
+<section>
+  <div class="kick">F.7 · YOUR FIRST ERRORS</div>
+  <h2 class="title">Reading what the compiler is telling you</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Both past papers ask you to find errors in code. That is not a
+  trick: it is the actual daily work. Here is how to read a complaint.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The two kinds of error</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Compile-time error:</b> the code is not legal Java. Nothing runs at
+        all. The compiler tells you the file and line. These are the cheap ones.</p>
+        <p><b>Run-time error:</b> the code is legal and the program starts, then hits
+        something impossible and stops. Java calls this <b>throwing an exception</b>.
+        Module 10 handles them properly.</p>
+        <p>And the dangerous third case, which is not an error at all: a
+        <b>logic error</b>. It compiles, it runs, it finishes, and the answer is
+        wrong. Nothing warns you. Only a dry run (F.9) finds these.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> compile-time is a letter rejected by the
+      post office. Run-time is a letter delivered to a house that has burned down.
+      A logic error is a letter delivered perfectly, to the wrong person, who never
+      tells you.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Broken on purpose</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="Broken" data-error="';' expected"><span class="l"><span class="k">public class</span> <span class="t">Broken</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l bad">        System.out.println(<span class="s">"Hello"</span>)</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>Broken.java:3: error: ';' expected
+        System.out.println("Hello")
+                                   ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read it as four facts: the file
+      (<code>Broken.java</code>), the line (<code>3</code>), the complaint
+      (<code>';' expected</code>), and the caret pointing at the exact column. The
+      compiler has told you precisely what to type and where. Most beginners panic at
+      the word "error" and never read the sentence.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The line number can lie, but only forwards</span></div>
+    <div class="body">
+      <p>A missing semicolon on line 3 is often reported on line 4, because the
+      compiler only realises the sentence never ended when it meets the next word.
+      If line N looks perfect, look at N-1. The compiler is never wrong about
+      <i>that something is wrong</i>; it is sometimes late about <i>where</i>.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">A program compiles with no errors and runs to completion, but
+      prints 141 when the right answer is 142. Which of the three kinds is this, and
+      which tool finds it?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>A logic error. No tool finds it. The compiler is satisfied and the JVM never
+      complained, because nothing illegal or impossible happened: you simply told the
+      machine to compute the wrong thing. Only tracing the program by hand, a dry run,
+      will locate it. This is exactly what the exam's "find the errors" questions are
+      testing, and why they hand you the correct output.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.8 ---------------- -->
+<section>
+  <div class="kick">F.8 · VARIABLES</div>
+  <h2 class="title">A named box that holds one value</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Module 3 covers types in full. You need enough now to read the
+  rest of Foundations.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Variables</span></div>
+    <div class="body">
+      <p>A <b>variable</b> is a named box in memory holding one value at a time. You
+      must say what kind of thing goes in the box before you use it, which is called
+      <b>declaring</b> it:</p>
+      <p style="text-align:center"><code>int score = 0;</code></p>
+      <p>reads as: make a box called <code>score</code>, allow whole numbers in it,
+      and put 0 in it now. <code>int</code> is the <b>type</b>, <code>score</code>
+      the <b>name</b>, <code>0</code> the initial <b>value</b>.</p>
+      <p>The box holds exactly one value. Putting a new one in destroys the old one.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · = does not mean equals</span></div>
+    <div class="body">
+      <p>In mathematics <code>x = x + 1</code> is a false statement. In Java it is an
+      instruction, and a perfectly normal one.</p>
+      <p><code>=</code> means <b>put the value on the right into the box on the
+      left</b>. So <code>x = x + 1</code> says: work out what is in <code>x</code>,
+      add one, put the result back in <code>x</code>. Right side first, always.</p>
+      <p>Java writes "is equal to" as <code>==</code>. Confusing the two is the most
+      common single-character bug in the language, and both papers plant it.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The four types you need right now</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:16%">Type</th><th style="width:34%">Holds</th><th>Example</th></tr>
+        <tr><td><code>int</code></td><td>a whole number</td><td><code>int n = 42;</code></td></tr>
+        <tr><td><code>double</code></td><td>a number with a decimal point</td><td><code>double p = 15.5;</code></td></tr>
+        <tr><td><code>boolean</code></td><td>true or false, nothing else</td><td><code>boolean done = false;</code></td></tr>
+        <tr><td><code>String</code></td><td>text</td><td><code>String s = "Ken";</code></td></tr>
+      </table>
+      <p><code>String</code> is capitalised and the other three are not. That is not
+      a typo, and Module 6 explains the real reason: the first three are built into
+      the language, while <code>String</code> is a class.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · int division throws away the remainder</span></div>
+    <div class="body">
+      <p>Divide one <code>int</code> by another and Java gives you an
+      <code>int</code>, discarding anything after the decimal point. It does not
+      round; it truncates.</p>
+      <p><code>1 / 2</code> is <b>0</b>. Not 0.5, not 1. Zero.</p>
+      <p>This looks like pedantry until you see that a past paper's dry-run question
+      is built entirely on it, and the answer is 0 when every student's instinct says
+      otherwise. F.9 traces exactly that question.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.9 ---------------- -->
+<section>
+  <div class="kick">F.9 · THE DRY RUN</div>
+  <h2 class="title">Being the computer, on paper</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Your lecturer's own word for this is "dry run", and the exam asks
+  for it by name, for marks, on both papers we have. It is also the only way to find
+  a logic error. Learn it now and use it for the rest of the book.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The method</span></div>
+    <div class="body">
+      <p>A dry run means executing the program by hand, one statement at a time,
+      writing down what every variable holds after every step. No skipping, no
+      "obviously this loops five times". The machine does not skip, so neither do
+      you: the whole point is to catch the step where your assumption and the code
+      part company.</p>
+      <p>Draw a table. One column per variable, plus one for anything printed. One
+      row per step. Then walk the code.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The one from the 2024/25 paper</span><span class="tag">PAST PAPER · Q1 C</span></div>
+    <div class="body">
+      <pre class="src" data-frag="1" data-nocheck="method fragment reproduced from the paper; its behaviour is verified by the traced listing below"><span class="l"><span class="k">public static int</span> sumSeries(<span class="k">int</span> i) {</span><span class="l">    <span class="k">int</span> sum = 0;</span><span class="l">    <span class="k">for</span> (<span class="k">int</span> j = 1; j &lt;= i; j++) {</span><span class="l">        sum += j / (j + 1);</span><span class="l">    }</span><span class="l">    <span class="k">return</span> sum;</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · sumSeries(3), step by step</span></div>
+    <div class="body">
+      <p class="small" style="margin-top:0">Cover the table. Trace it yourself first,
+      then compare. Remember F.8: <code>j</code> and <code>j+1</code> are both
+      <code>int</code>, so <code>j / (j + 1)</code> is <b>int division</b>.</p>
+      <table class="trace">
+        <caption>i = 3</caption>
+        <tr><th style="width:13%">Step</th><th style="width:9%">j</th><th style="width:26%">j &lt;= i ?</th><th style="width:26%">j / (j + 1)</th><th>sum after</th></tr>
+        <tr><td>start</td><td>-</td><td>-</td><td>-</td><td class="chg">0</td></tr>
+        <tr><td>pass 1</td><td class="chg">1</td><td>1 &lt;= 3, yes</td><td>1 / 2 = <b>0</b></td><td>0 + 0 = <b>0</b></td></tr>
+        <tr><td>pass 2</td><td class="chg">2</td><td>2 &lt;= 3, yes</td><td>2 / 3 = <b>0</b></td><td>0 + 0 = <b>0</b></td></tr>
+        <tr><td>pass 3</td><td class="chg">3</td><td>3 &lt;= 3, yes</td><td>3 / 4 = <b>0</b></td><td>0 + 0 = <b>0</b></td></tr>
+        <tr><td>test</td><td class="chg">4</td><td>4 &lt;= 3, <b>no</b>: stop</td><td>-</td><td>0</td></tr>
+        <tr><td>return</td><td>4</td><td>-</td><td>-</td><td class="emit">returns 0</td></tr>
+      </table>
+      <p>Every term is zero, so the sum is zero, and the same holds for 4, 5 and 7.
+      The question hands you four values hoping you will grind through the arithmetic
+      and miss the one thing that matters: these are <code>int</code>s, and
+      <code>1/2</code> is 0.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The same method, actually run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="SumSeries"><span class="l"><span class="k">public class</span> <span class="t">SumSeries</span> {</span><span class="l">    <span class="k">public static int</span> sumSeries(<span class="k">int</span> i) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> j = 1; j &lt;= i; j++) {</span><span class="l">            sum += j / (j + 1);</span><span class="l">        }</span><span class="l">        <span class="k">return</span> sum;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(sumSeries(3));</span><span class="l">        System.out.println(sumSeries(4));</span><span class="l">        System.out.println(sumSeries(5));</span><span class="l">        System.out.println(sumSeries(7));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>0
+0
+0
+0</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · How to dry run</span></div>
+    <div class="body">
+      <div class="card">
+        <p>1. A column per variable, a column for output, a row per step.<br/>
+        2. Write the value after <b>every</b> statement, even when it does not change.<br/>
+        3. Evaluate the right-hand side fully before writing into the left.<br/>
+        4. Check the loop's condition <b>every</b> pass, including the failing one.<br/>
+        5. Never skip a pass because you can "see" the pattern.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> you are not reading the code, you are
+      <b>being</b> the computer. The computer never skips a row, and it never sees a
+      pattern.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Your turn, then check</span><span class="tag">PAST PAPER · 24/25 Q2 C</span></div>
+    <div class="body">
+      <p>Trace this on paper before reading on. Values start
+      <code>nums = {2, 4, 6, 8}</code>, and <code>x = nums[0]</code>. Square brackets
+      pick one item out of a list; F.10 explains them properly in a moment.</p>
+      <pre class="src nonum" data-nocheck="fragment shown for the trace; the full runnable version is checked in the solutions"><span class="l">int x = nums[0];</span><span class="l">for (int i = 1; i &lt; nums.length; i++) {</span><span class="l">    x = x - nums[i];</span><span class="l">}</span><span class="l">System.out.println(x);</span></pre>
+      <table class="trace">
+        <caption>nums = {2, 4, 6, 8}</caption>
+        <tr><th style="width:14%">Step</th><th style="width:10%">i</th><th style="width:20%">nums[i]</th><th style="width:30%">x = x - nums[i]</th><th>x after</th></tr>
+        <tr><td>start</td><td>-</td><td>-</td><td>x = nums[0]</td><td class="chg">2</td></tr>
+        <tr><td>pass 1</td><td class="chg">1</td><td>4</td><td>2 - 4</td><td class="chg">-2</td></tr>
+        <tr><td>pass 2</td><td class="chg">2</td><td>6</td><td>-2 - 6</td><td class="chg">-8</td></tr>
+        <tr><td>pass 3</td><td class="chg">3</td><td>8</td><td>-8 - 8</td><td class="chg">-16</td></tr>
+        <tr><td>test</td><td class="chg">4</td><td>-</td><td>4 &lt; 4 is false: stop</td><td>-16</td></tr>
+        <tr><td>print</td><td>4</td><td>-</td><td>-</td><td class="emit">-16</td></tr>
+      </table>
+      <p class="redo"><b>Now redo it:</b> cover the table and trace it again with
+      <code>nums = {5, 1, 1}</code>. You should get 3. If you got 7, you started
+      <code>i</code> at 0 and subtracted <code>nums[0]</code> from itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.10 ---------------- -->
+<section>
+  <div class="kick">F.10 · ARRAYS, EARLY AND HONEST</div>
+  <h2 class="title">A row of numbered boxes</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why this is here and not in Module 8</span></div>
+    <div class="body">
+      <p>Your course teaches arrays in Module 8, near the end. But every recent exam
+      puts array problems in Section A, and arrays are the natural thing to loop
+      over when you meet loops in Module 4. Waiting until Module 8 would mean using
+      them before explaining them, which this book does not do.</p>
+      <p>So here is an honest introduction, enough to read any listing in this book.
+      <b>Module 8 is still where arrays are taught in full</b>: searching, copying,
+      two dimensions, the standard algorithms. This is the floor, not the whole
+      house.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · An array</span></div>
+    <div class="body">
+      <p>An <b>array</b> is a fixed row of boxes, all of the same type, sharing one
+      name and told apart by a number called an <b>index</b>.</p>
+      <p style="text-align:center"><code>int[] nums = {2, 4, 6, 8};</code></p>
+      <p>makes four <code>int</code> boxes in a row. <code>int[]</code> means "array
+      of int". You reach one box with square brackets: <code>nums[0]</code> is the
+      first, <code>nums[1]</code> the second.</p>
+      <p><code>nums.length</code> is how many boxes there are: 4. It is a property,
+      not a method, so there are <b>no brackets after it</b>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Indexes start at zero</span></div>
+    <div class="body">
+      <div class="card">
+        <p>An array of length <b>n</b> has indexes <b>0 to n-1</b>. There is no
+        <code>nums[n]</code>. The last item is always <code>nums[nums.length - 1]</code>.</p>
+      </div>
+      <p>Reaching outside that range does not give you rubbish or zero: the JVM stops
+      the program with <code>ArrayIndexOutOfBoundsException</code>. Every past paper
+      plants this, usually as <code>i &lt;= arr.length</code> in a loop.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> an index is not "which one" but "how far
+      from the start". The first box is zero steps from the start. So
+      <code>{2,4,6,8}</code> has a box 3 and no box 4.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Indexes, length, and the edge</span></div>
+    <div class="body">
+      <pre class="src" data-run="ArrayBasics"><span class="l"><span class="k">public class</span> <span class="t">ArrayBasics</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] nums = {2, 4, 6, 8};</span><span class="l">        System.out.println(<span class="s">"length      : "</span> + nums.length);</span><span class="l">        System.out.println(<span class="s">"first  [0]  : "</span> + nums[0]);</span><span class="l">        System.out.println(<span class="s">"last   [3]  : "</span> + nums[nums.length - 1]);</span><span class="l"></span><span class="l">        <span class="c">// walk every box: i stops BEFORE length</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; nums.length; i++) {</span><span class="l">            System.out.print(nums[i] + <span class="s">" "</span>);</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>length      : 4
+first  [0]  : 2
+last   [3]  : 8
+2 4 6 8 </pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · One character wrong</span><span class="tag">CRASHES ON PURPOSE</span></div>
+    <div class="body">
+      <pre class="src" data-run="OffByOne"><span class="l"><span class="k">public class</span> <span class="t">OffByOne</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] nums = {2, 4, 6, 8};</span><span class="l">        <span class="k">try</span> {</span><span class="l bad">            <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= nums.length; i++) {   <span class="c">// &lt;= is the bug</span></span><span class="l">                System.out.println(<span class="s">"reading nums["</span> + i + <span class="s">"] ..."</span>);</span><span class="l">                System.out.println(<span class="s">"  got "</span> + nums[i]);</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (ArrayIndexOutOfBoundsException e) {</span><span class="l">            System.out.println(<span class="s">"CRASH: "</span> + e);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>reading nums[0] ...
+  got 2
+reading nums[1] ...
+  got 4
+reading nums[2] ...
+  got 6
+reading nums[3] ...
+  got 8
+reading nums[4] ...
+CRASH: java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4</pre>
+      <p class="small" style="padding:6pt 8pt 0">The four real boxes print fine, then
+      index 4 stops the program dead. Note it printed "reading nums[4]" before
+      crashing: the crash happens at the moment of the read, not before.
+      (<code>try</code> and <code>catch</code> are here only to show you the crash
+      without the program dying; Module 10 teaches them.)</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q"><code>double[] prices = {15.5, 42.0, 8.75};</code> What is
+      <code>prices.length</code>, what is the largest legal index, and what does
+      <code>prices[3]</code> do?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Length is 3. The largest legal index is 2, because indexes run 0 to n-1.
+      <code>prices[3]</code> compiles perfectly and then throws
+      <code>ArrayIndexOutOfBoundsException</code> at run time. It is a run-time
+      error, not a compile-time one: the compiler does not know what is in
+      <code>i</code> until the program runs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- F.11 ---------------- -->
+<section>
+  <div class="kick">F.11 · JOPTIONPANE, EARLY AND HONEST</div>
+  <h2 class="title">Pop-up boxes, and a promise about what they are</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why this is here too</span></div>
+    <div class="body">
+      <p>The most recent paper demands <code>JOptionPane</code> for input and output
+      in five of its six questions, sometimes saying "JOptionPane only". You cannot
+      pass that paper without it. It is also a method call on a class from a
+      library, and this book will not pretend that means nothing.</p>
+      <p>So: here is the pattern, and an honest account of what each word is. The
+      full explanation of classes, objects and libraries is Module 6, and this box
+      will make complete sense then. Until then you may use this as a shape you copy
+      exactly. That is not cheating; it is the order the exam forces on us.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The two calls you need</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; the runnable version is the checked listing below"><span class="l">import javax.swing.JOptionPane;                      &lt;- at the very top of the file</span><span class="l"></span><span class="l">JOptionPane.showMessageDialog(null, "some text");    &lt;- show a message</span><span class="l"></span><span class="l">String s = JOptionPane.showInputDialog("Enter N:");  &lt;- ask; you always get TEXT</span><span class="l">int n = Integer.parseInt(s);                         &lt;- turn that text into a number</span></pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · What those words actually are</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:30%">Word</th><th>Honestly, what it is</th></tr>
+        <tr><td><code>import</code></td><td>Tells the compiler where to find a class written by someone else. Without it, Java does not know the name <code>JOptionPane</code>.</td></tr>
+        <tr><td><code>javax.swing</code></td><td>A <b>package</b>: a named folder of ready-made classes that came with your JDK. Swing is Java's window toolkit.</td></tr>
+        <tr><td><code>JOptionPane</code></td><td>A class, exactly like your <code>Hello</code> class, but written by Java's authors.</td></tr>
+        <tr><td><code>showMessageDialog</code></td><td>A method belonging to that class. It is <code>static</code>, in the sense of F.6, which is why you can call it without making an object first.</td></tr>
+        <tr><td><code>null</code></td><td>"No parent window." <code>null</code> means "nothing here". You will meet it properly in Module 6.</td></tr>
+        <tr><td><code>Integer.parseInt</code></td><td>A method that takes text and hands back the <code>int</code> it represents. <code>"25"</code> is text; <code>25</code> is a number; they are not the same thing.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Input always arrives as text</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>showInputDialog</code> hands you a <code>String</code>, <b>always</b>,
+        even when the user typed 25. To do arithmetic you must convert:</p>
+        <p style="text-align:center"><code>int n = Integer.parseInt(JOptionPane.showInputDialog("Enter N:"));</code><br/>
+        <code>double d = Double.parseDouble(JOptionPane.showInputDialog("Enter price:"));</code></p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> the dialog is a form, and everything written
+      on a form is handwriting, even the numbers. <b>parse</b> is you reading the
+      handwriting and deciding it is a number.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · "25" + 1 is not 26</span></div>
+    <div class="body">
+      <p>Forget to parse, and <code>+</code> does something perfectly legal and
+      completely wrong. With text on either side, <code>+</code> means <b>join</b>,
+      not add: <code>"25" + 1</code> is the text <code>"251"</code>. It compiles, it
+      runs, it prints nonsense. A logic error, in the sense of F.7, and no tool will
+      warn you.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The trap, run for real</span></div>
+    <div class="body">
+      <pre class="src" data-run="JoinVsAdd"><span class="l"><span class="k">public class</span> <span class="t">JoinVsAdd</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> typed = <span class="s">"25"</span>;              <span class="c">// what a dialog hands you</span></span><span class="l"></span><span class="l bad">        System.out.println(typed + 1);      <span class="c">// join: WRONG</span></span><span class="l good">        System.out.println(<span class="t">Integer</span>.parseInt(typed) + 1);   <span class="c">// add: right</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>251
+26</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A note on practising this</span></div>
+    <div class="body">
+      <p><code>JOptionPane</code> opens a real window, so it cannot show its output
+      on a printed page and the listings in this book use
+      <code>System.out.println</code> instead. They are the same program with a
+      different mouth.</p>
+      <p>When the exam says "JOptionPane only", it means the marks are for the
+      dialogs, so write the dialogs. When you are practising at home and want to see
+      what your loop did, <code>System.out.println</code> is faster. Know both, and
+      read the question.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Foundations, all of it</span></div>
+    <div class="body">
+      <p>Book shut. Pen.</p>
+      <ol class="qlist">
+        <li>The compiler turns <code>.java</code> into <span class="blank"></span>,
+        which contains <span class="blank"></span>, which is run by the
+        <span class="blank"></span>.</li>
+        <li>WORA is true because the <span class="blank"></span> is the same on every
+        platform while the <span class="blank"></span> differs.</li>
+        <li>Biggest to smallest: <span class="blank"></span> &gt;
+        <span class="blank"></span> &gt; <span class="blank"></span>.</li>
+        <li><code>7 / 2</code> where both are <code>int</code> gives
+        <span class="blank"></span>.</li>
+        <li>An array of length 6 has indexes <span class="blank"></span> to
+        <span class="blank"></span>; <code>a[6]</code> throws
+        <span class="blank"></span>.</li>
+        <li><code>showInputDialog</code> always returns a
+        <span class="blank"></span>, so you must call
+        <span class="blank"></span> before doing arithmetic.</li>
+        <li>An error that compiles, runs, finishes and is wrong is a
+        <span class="blank"></span> error, and only a <span class="blank"></span>
+        will find it.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. <code>.class</code>, bytecode, JVM &nbsp;·&nbsp;
+      2. bytecode, JVM &nbsp;·&nbsp; 3. JDK, JRE, JVM &nbsp;·&nbsp; 4. 3 &nbsp;·&nbsp;
+      5. 0, 5, <code>ArrayIndexOutOfBoundsException</code> &nbsp;·&nbsp;
+      6. <code>String</code>, <code>Integer.parseInt</code> (or
+      <code>Double.parseDouble</code>) &nbsp;·&nbsp; 7. logic, dry run</p>
+    </div>
+  </div>
+</section>

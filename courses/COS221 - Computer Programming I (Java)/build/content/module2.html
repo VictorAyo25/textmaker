@@ -1,0 +1,207 @@
+<!-- ============ MODULE TWO ============ -->
+
+<!-- ---------------- 2.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 2.1 · INTRODUCTION TO JAVA</div>
+  <h2 class="title">What Java is, and what makes it Java</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain the fundamental
+  concepts of Java programming, install and configure the JDK on any operating
+  system, and set up the environment variables needed to run Java applications.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Java, in one paragraph</span></div>
+    <div class="body">
+      <p><b>Java is a versatile, object-oriented programming language used to build
+      scalable applications across multiple platforms.</b> It launched in
+      <b>1995</b> and has remained a first choice for web, desktop, enterprise and
+      mobile development ever since.</p>
+      <p>Its defining property is <b>"Write Once, Run Anywhere"</b> (WORA), powered
+      by the Java Virtual Machine, which gives it cross-platform compatibility.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · You have already met the machinery</span></div>
+    <div class="body">
+      <p>F.3 built the compile-and-run story from zero: source becomes bytecode
+      becomes a running program, and the JVM is what makes the same bytecode work
+      everywhere. F.4 got a JDK onto your machine and your first program running.</p>
+      <p>This unit is not a repeat. It is the same material as your course examines
+      it: the formal definitions, the distinctions between the three J-words, and the
+      question forms that actually appear on the paper. If F.3 and F.4 are hazy, go
+      back now; the rest of this unit assumes them.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Java's four headline properties</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Platform independent:</b> compiled to bytecode, run by a JVM, so one
+        compilation runs anywhere (WORA).<br/>
+        <b>Object-oriented:</b> code is organised as classes and objects.<br/>
+        <b>Versatile:</b> web, desktop, enterprise and mobile.<br/>
+        <b>Scalable:</b> suits systems that must grow.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> Java is a <b>POVS</b> language: Platform
+      independent, Object-oriented, Versatile, Scalable. Then attach one sentence to
+      each letter, because a bare list earns half the marks a sentence does.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">What does WORA stand for, what makes it possible, and what is the
+      role of the JVM?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>WORA stands for "Write Once, Run Anywhere": Java's ability to run the same
+      code on multiple platforms. It is possible because Java compiles to bytecode
+      rather than to machine code, and bytecode is identical on every platform. The
+      JVM's role is to read that bytecode and carry it out on its own particular
+      platform, which is what makes the same compiled file run everywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 2.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 2.2 · THE JAVA DEVELOPMENT ENVIRONMENT</div>
+  <h2 class="title">JDK, JRE, JVM, and getting them working</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The JDK</span></div>
+    <div class="body">
+      <p>To write Java you download and install the <b>Java Development Kit</b>.
+      The JDK is a software development environment used for developing Java
+      applications: it provides the tools needed to <b>write, compile and run</b>
+      them.</p>
+      <p>That three-verb phrase is your course's own wording, and it is the shape of
+      the expected answer to "what is the JDK?".</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Which of the three do you need?</span></div>
+    <div class="body">
+      <p>The three J-words nest, as F.4 set out: <b>JDK &gt; JRE &gt; JVM</b>. The
+      exam likes the distinction, so hold it precisely:</p>
+      <table class="data">
+        <tr><th style="width:12%">Name</th><th style="width:34%">Is</th><th style="width:26%">Lets you</th><th>Who needs it</th></tr>
+        <tr><td><b>JVM</b></td><td>the virtual machine that executes bytecode</td><td>execute bytecode</td><td>everyone, and it comes inside the others</td></tr>
+        <tr><td><b>JRE</b></td><td>JVM + the standard class library</td><td>run Java programs</td><td>a user running someone else's program</td></tr>
+        <tr><td><b>JDK</b></td><td>JRE + development tools, above all <code>javac</code></td><td>write, compile and run</td><td><b>you</b></td></tr>
+      </table>
+      <p>Install the JDK. A JRE cannot compile, and a language you cannot compile is
+      a language you cannot learn.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Installing and configuring</span></div>
+    <div class="body">
+      <p>The full procedure, with every step and every trap, is <b>F.4</b>: download
+      the JDK for your operating system, install it, set <code>JAVA_HOME</code> to
+      the JDK folder, add <code>%JAVA_HOME%\bin</code> to <code>PATH</code>, open a
+      <i>new</i> terminal, and verify.</p>
+      <p>It is in Foundations rather than here for one reason: you needed a working
+      compiler before Module 1, not after it. Nothing about it is different when your
+      course reaches this unit.</p>
+      <p>The verification command is the one your course gives:</p>
+      <pre class="out"><span class="olabel">Terminal</span>C:\&gt; java --version
+openjdk 17.0.16 2025-07-15
+OpenJDK Runtime Environment Temurin-17.0.16+8 (build 17.0.16+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.16+8 (build 17.0.16+8, mixed mode, sharing)</pre>
+      <p class="small">Your version numbers will differ, and that is fine: any JDK 17
+      or later runs everything in this book. What matters is that the command answers
+      at all. Silence or "not recognised" means PATH, and F.4.1 fixes it.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · java --version is not proof you can compile</span></div>
+    <div class="body">
+      <p>Your course's verification step only runs <code>java --version</code>. That
+      command answers happily on a machine with a JRE and no compiler, and then
+      <code>javac Hello.java</code> fails and you cannot see why.</p>
+      <p>Always check <b>both</b>. If <code>java</code> answers and <code>javac</code>
+      does not, you have a JRE, not a JDK.</p>
+      <pre class="out"><span class="olabel">Terminal</span>C:\&gt; javac --version
+javac 17.0.16</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The two environment variables</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>JAVA_HOME</code> = the JDK folder itself.<br/>
+        &nbsp;&nbsp;<code>C:\Program Files\Java\jdk-17</code></p>
+        <p><code>PATH</code> gets the <b>bin</b> inside it.<br/>
+        &nbsp;&nbsp;<code>%JAVA_HOME%\bin</code></p>
+      </div>
+      <p>PATH is the list of folders your terminal searches when you type a command.
+      That is why the <code>bin</code> goes there: <code>bin</code> is the folder the
+      commands actually live in.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>HOME is the house, PATH is the front
+      door.</b> You address a letter to the house; you walk in through the door.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Java and its environment</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>Java was launched in <span class="blank"></span> and its defining
+        property is <span class="blank"></span>, powered by the
+        <span class="blank"></span>.</li>
+        <li>The JDK provides the tools needed to <span class="blank"></span>,
+        <span class="blank"></span> and <span class="blank"></span> Java
+        applications.</li>
+        <li>A user who only wants to run a Java program needs the
+        <span class="blank"></span>; a developer needs the
+        <span class="blank"></span>.</li>
+        <li><code>JAVA_HOME</code> is set to the <span class="blank"></span>, while
+        PATH receives <span class="blank"></span>.</li>
+        <li>After changing PATH you must <span class="blank"></span> before the
+        change takes effect.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. 1995, WORA / Write Once Run Anywhere, JVM &nbsp;·&nbsp;
+      2. write, compile, run &nbsp;·&nbsp; 3. JRE, JDK &nbsp;·&nbsp; 4. JDK folder,
+      <code>%JAVA_HOME%\bin</code> &nbsp;·&nbsp; 5. open a new terminal (an open one
+      read PATH when it started)</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Diagnosing a broken setup</span><span class="tag">EXAM SKILL</span></div>
+    <div class="body">
+      <p>"I installed Java but <code>javac</code> says it is not recognised." Work it
+      in this order, and stop at the first step that fails.</p>
+      <ol class="steps">
+        <li>Does <code>java --version</code> answer?
+        <span class="note">If yes, Java is installed and PATH is partly right, so
+        jump to step 3. If no, PATH is wrong or nothing is installed.</span></li>
+        <li>Does the JDK folder exist in File Explorer, with a <code>bin</code>
+        holding <code>javac.exe</code>?
+        <span class="note">If there is no javac.exe, you installed a JRE. Reinstall
+        the JDK. This is the single most common cause.</span></li>
+        <li>Is this terminal older than the change you made?
+        <span class="note">Close it, open a new one, try again. Second most common
+        cause, and it costs people hours.</span></li>
+        <li>Does <code>echo %JAVA_HOME%</code> print the JDK folder, with no
+        <code>\bin</code> on the end and no quotes?</li>
+        <li>Does <code>echo %PATH%</code> contain that folder plus
+        <code>\bin</code>?</li>
+      </ol>
+      <p class="redo"><b>Now redo it:</b> from memory, name the two most common
+      causes in order. Then say why <code>java</code> can work while
+      <code>javac</code> does not, in one sentence.</p>
+    </div>
+  </div>
+</section>

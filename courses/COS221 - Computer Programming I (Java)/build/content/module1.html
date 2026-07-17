@@ -1,0 +1,285 @@
+<!-- ============ MODULE ONE ============ -->
+
+<!-- ---------------- 1.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 1.1 · OVERVIEW OF COMPUTER PROGRAMMING</div>
+  <h2 class="title">Programming, and why it matters</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain computer
+  programming and its significance, identify the major programming paradigms and the
+  languages associated with each, and identify classes, objects, attributes and
+  methods in a written Java program.</p>
+
+  <p class="lead">Foundations showed you what a machine does. This unit is about the
+  words: the vocabulary your lecturer, your exam and your future colleagues all use.
+  Most of the marks here are definitions, and definitions are the cheapest marks on
+  any paper.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Computer programming</span></div>
+    <div class="body">
+      <p><b>Computer programming is the process of writing instructions that tell a
+      computer how to perform tasks.</b> Those instructions are written as code, in a
+      specialised language such as Java, Python or C++.</p>
+      <p>Learn that sentence in that form. It is your course's own definition, and
+      "define computer programming" is worth marks in the exam almost every year.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why programming matters</span></div>
+    <div class="body">
+      <p>Your course gives four reasons, and an exam question asking for "three major
+      benefits" wants three of these:</p>
+      <table class="data">
+        <tr><th style="width:26%">Benefit</th><th>What it means</th></tr>
+        <tr><td><b>Task automation</b></td><td>Repetitive work is done by the machine, saving time and removing human error.</td></tr>
+        <tr><td><b>Software development</b></td><td>Websites, apps and enterprise systems all exist because someone wrote them.</td></tr>
+        <tr><td><b>Problem solving</b></td><td>It trains logical thinking, which transfers to fields far outside computing.</td></tr>
+        <tr><td><b>Career growth</b></td><td>Diverse, well-paid work in software engineering, data science and beyond.</td></tr>
+      </table>
+      <p>Programming is called the backbone of software development because it drives
+      innovation in artificial intelligence, web development, data analysis and
+      automation. That phrasing is the expected answer to a past in-text question.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Define computer programming in one sentence, and give three
+      benefits of learning it.</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Computer programming is the process of writing instructions that enable a
+      computer to perform specific tasks. Three benefits: task automation, which
+      saves time and reduces errors; the creation of software such as websites and
+      mobile apps; and the development of logical thinking and problem-solving
+      skills.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 1.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 1.2 · PROGRAMMING PARADIGMS</div>
+  <h2 class="title">Five ways to think about a problem</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A paradigm</span></div>
+    <div class="body">
+      <p>A <b>programming paradigm</b> is a fundamental style or approach to writing
+      computer programs. It is not a language. It is a way of thinking about what a
+      program <i>is</i>, and languages are built to support one or more of them.</p>
+      <p>Your course names five. The whole set turns on one distinction, so learn
+      that distinction and the five arrange themselves.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The one distinction underneath all five</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Imperative</b> paradigms say <b>HOW</b>: step by step, do this, then
+        this.</p>
+        <p><b>Declarative</b> paradigms say <b>WHAT</b>: describe the result you
+        want and let the language work out the steps.</p>
+      </div>
+      <p>Everything else is detail. Imperative and object-oriented are HOW styles;
+      declarative, logic-based and functional lean WHAT.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> a taxi. Imperative is giving the driver
+      turn-by-turn directions. Declarative is saying "the airport, please".</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The five, with their languages</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:20%">Paradigm</th><th style="width:44%">The idea</th><th>Languages</th></tr>
+        <tr><td><b>Imperative</b></td><td>Step by step: tell the computer <i>how</i> to achieve the task. Built on variables, loops and conditionals.</td><td>C, and Java's method bodies</td></tr>
+        <tr><td><b>Functional</b></td><td>Focuses on <i>what</i> to compute. Functions are first-class citizens; pure functions; avoid changing variables (immutability).</td><td>Haskell, Lisp, JavaScript in functional style</td></tr>
+        <tr><td><b>Declarative</b></td><td>Express the logic of a computation without describing its control flow.</td><td>SQL</td></tr>
+        <tr><td><b>Logic-based</b></td><td>A declarative style built on formal logic: write facts and rules, and the engine infers answers by deduction.</td><td>Prolog</td></tr>
+        <tr><td><b>Object-oriented</b></td><td>Organise code as objects, which are instances of classes, each holding its own data and behaviour.</td><td>Java, C++, Python in OOP style</td></tr>
+      </table>
+      <p><b>Java is object-oriented</b>, and that is the answer if you are asked which
+      paradigm this course sits in. Note that Java is not <i>purely</i> OOP: the
+      inside of any method you write is plain imperative code, step after step. Most
+      real languages blend paradigms.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The same task, three ways</span></div>
+    <div class="body">
+      <p>To make the difference concrete, here is "give me the total of the amounts
+      over 20", written three ways. You are not expected to write SQL or Prolog in
+      this course; read them only to feel the shift from HOW to WHAT.</p>
+      <pre class="src nonum" data-nocheck="a three-language comparison for contrast; only the Java line is this course's language, and it is taught and run in Module 4"><span class="l">imperative (Java)   total = 0;</span><span class="l">                    for (int i = 0; i &lt; a.length; i++)</span><span class="l">                        if (a[i] &gt; 20) total += a[i];      &lt;- you write every step</span><span class="l"></span><span class="l">declarative (SQL)   SELECT SUM(amount) FROM sales WHERE amount &gt; 20;</span><span class="l">                                                          &lt;- no loop, no counter</span><span class="l"></span><span class="l">logic (Prolog)      big(X) :- sale(X), X &gt; 20.            &lt;- facts and rules only</span></pre>
+      <p>The imperative version names a counter, a loop and an order. The other two
+      never mention any of it. That is the whole distinction, and it is what an exam
+      answer should say.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · A paradigm is not a language</span></div>
+    <div class="body">
+      <p>"Java is a paradigm" is wrong, and so is "OOP is a language". Java is a
+      <i>language</i> that supports the object-oriented <i>paradigm</i>. Python
+      supports several. The paradigm is the style of thinking; the language is the
+      grammar you express it in. Examiners notice this one.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · The five paradigms</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>A fundamental style or approach to writing programs is a
+        <span class="blank"></span>.</li>
+        <li><span class="blank"></span> programming says HOW, step by step, using
+        variables, loops and conditionals.</li>
+        <li><span class="blank"></span> programming says WHAT rather than how; SQL is
+        the example.</li>
+        <li>In functional programming, functions are <span class="blank"></span>
+        citizens and variables are not changed, a property called
+        <span class="blank"></span>.</li>
+        <li>Logic-based programming, whose language is <span class="blank"></span>,
+        expresses computation as <span class="blank"></span> and rules.</li>
+        <li>Java's paradigm is <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. paradigm &nbsp;·&nbsp; 2. Imperative &nbsp;·&nbsp;
+      3. Declarative &nbsp;·&nbsp; 4. first-class, immutability &nbsp;·&nbsp;
+      5. Prolog, facts &nbsp;·&nbsp; 6. object-oriented</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 1.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 1.3 · CLASSES, OBJECTS, ATTRIBUTES AND METHODS</div>
+  <h2 class="title">The four words the rest of the course is built on</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Module 6 teaches object-oriented programming properly. This unit
+  gives you the four words and lets you find them in a program, which is exactly
+  what your learning outcome asks and no more.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The main idea of OOP</span></div>
+    <div class="body">
+      <p>Object-oriented programming organises code using <b>objects</b>, which
+      represent real-world things. Each object carries both:</p>
+      <ul class="bul">
+        <li><b>data</b>, called its attributes or state: what it <i>is</i>;</li>
+        <li><b>methods</b>, its behaviour: what it can <i>do</i>.</li>
+      </ul>
+      <p>The main idea is to model software as a collection of interacting objects,
+      each responsible for its own data and its own logic.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Class versus object</span></div>
+    <div class="body">
+      <div class="card">
+        <p>A <b>class</b> is a blueprint. It describes what something will be like.
+        It is written once, and on its own it holds no data.</p>
+        <p>An <b>object</b> is an <b>instance</b> of a class: one actual thing built
+        from that blueprint, with its own values. One class, many objects.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> the class is the architect's drawing; the
+      objects are the houses built from it. Nobody lives in the drawing, and every
+      house has its own furniture.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · One class, two objects</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="DogDemo"><span class="l"><span class="c">// The CLASS: a blueprint for dogs. No dog exists yet.</span></span><span class="l"><span class="k">class</span> <span class="t">Dog</span> {</span><span class="l">    <span class="t">String</span> name;        <span class="c">// ATTRIBUTE (data / state)</span></span><span class="l">    <span class="k">int</span> age;            <span class="c">// ATTRIBUTE</span></span><span class="l"></span><span class="l">    <span class="k">void</span> bark() {        <span class="c">// METHOD (behaviour)</span></span><span class="l">        System.out.println(name + <span class="s">" says: Woof!"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">DogDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Dog</span> a = <span class="k">new</span> <span class="t">Dog</span>();   <span class="c">// OBJECT 1: an instance of Dog</span></span><span class="l">        a.name = <span class="s">"Rex"</span>;</span><span class="l">        a.age = 3;</span><span class="l"></span><span class="l">        <span class="t">Dog</span> b = <span class="k">new</span> <span class="t">Dog</span>();   <span class="c">// OBJECT 2: same blueprint, own values</span></span><span class="l">        b.name = <span class="s">"Bella"</span>;</span><span class="l">        b.age = 5;</span><span class="l"></span><span class="l">        a.bark();</span><span class="l">        b.bark();</span><span class="l">        System.out.println(a.name + <span class="s">" is "</span> + a.age + <span class="s">", "</span></span><span class="l">                         + b.name + <span class="s">" is "</span> + b.age);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Rex says: Woof!
+Bella says: Woof!
+Rex is 3, Bella is 5</pre>
+      <p class="small" style="padding:6pt 8pt 0">One <code>bark()</code> method was
+      written, and it printed a different name each time, because it belongs to
+      whichever object it was called on. That sentence is the whole of OOP in
+      miniature, and Module 6 unpacks it.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Finding the four in any program</span></div>
+    <div class="body">
+      <p>Your learning outcome is to <i>identify</i> these in written Java. There is a
+      mechanical way to do it:</p>
+      <table class="data">
+        <tr><th style="width:22%">Look for</th><th style="width:34%">You have found</th><th>In the listing above</th></tr>
+        <tr><td><code>class Name {</code></td><td>a class (blueprint)</td><td><code>Dog</code>, <code>DogDemo</code></td></tr>
+        <tr><td>a variable declared straight inside the class</td><td>an attribute (state)</td><td><code>name</code>, <code>age</code></td></tr>
+        <tr><td><code>returnType name(...) {</code></td><td>a method (behaviour)</td><td><code>bark()</code>, <code>main()</code></td></tr>
+        <tr><td><code>new Name()</code></td><td>an object being created</td><td><code>a</code>, <code>b</code></td></tr>
+      </table>
+      <p>The word <code>new</code> is the giveaway: <b>new is the moment an object
+      comes into existence</b>. Before line 15 there were no dogs, only the idea of a
+      dog.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The attribute is not inside a method</span></div>
+    <div class="body">
+      <p><code>name</code> and <code>age</code> are declared directly inside the
+      class, not inside <code>bark()</code>. That is what makes them attributes: they
+      belong to the object and live as long as it does.</p>
+      <p>A variable declared inside a method is a <b>local variable</b>. It is born
+      when the method starts and dies when it ends, and it is not an attribute.
+      Asked to identify attributes, students routinely list local variables and lose
+      the mark.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">In one sentence each: what is a class, what is an object, what is
+      an attribute, what is a method?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>A class is a blueprint describing what something will be like. An object is
+      an instance of a class: one actual thing built from that blueprint, with its
+      own values. An attribute is a piece of data an object holds, its state. A
+      method is a piece of behaviour, something the object can do.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Reading an unfamiliar class</span><span class="tag">EXAM SKILL</span></div>
+    <div class="body">
+      <p>An exam gives you a class you have never seen and asks you to identify its
+      parts. Work outside in, and never read the method bodies first.</p>
+      <ol class="steps">
+        <li>Find every <code>class</code> keyword. Those are your blueprints.
+        <span class="note">A file can hold several. Only one may be public, and it
+        names the file (F.6).</span></li>
+        <li>Inside each class, list variables declared before any method opens. Those
+        are the attributes.
+        <span class="note">Indentation is a lie: it is not what makes them
+        attributes. Position relative to the braces is.</span></li>
+        <li>List everything shaped <code>type name(parameters) {</code>. Those are the
+        methods.</li>
+        <li>Search for <code>new</code>. Every occurrence is an object being born.</li>
+      </ol>
+      <p class="redo"><b>Now redo it:</b> cover the Dog listing and write out its two
+      classes, two attributes, two methods and two objects from memory. Then do the
+      same for the <code>Hello</code> program in F.5. (It has one class, no
+      attributes, one method, and no objects at all: perfectly legal, and worth
+      understanding why.)</p>
+    </div>
+  </div>
+</section>

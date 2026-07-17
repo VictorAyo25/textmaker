@@ -12,15 +12,34 @@ COS221 - Computer Programming I (Java)/
 │   ├── slides/         13 lecturer decks, 408 slides, Modules 1 to 10
 │   ├── exams/          exam_2024_25.pdf, exam_2025_26.pdf
 │   ├── course_manual/  CCODeL's official 222-page manual (a SOURCE, see below)
-│   └── extracted/      transcripts + page renders, regenerable
+│   └── extracted/      transcripts, exam analysis, source survey, page renders
 └── drafts/     work in progress (never the published copy)
 ```
 
 ## Status
 
-Intake complete. Both papers transcribed and verified; exam analysis written. Build
-not yet started. Next: port the build pipeline from PHY121, then author Modules 1 to 2
-as a style checkpoint.
+**Style checkpoint delivered, awaiting sign-off.** Front matter, Foundations F.1 to
+F.11, Module 1 and Module 2 are written and rendering to 33 pages. All gates pass and
+every listing compiles and runs. Awaiting Victor's verdict on voice, palette and box
+balance before Modules 3 to 10 are written to the same bar.
+
+Still to write: Modules 3 to 10; full solutions to every question on both papers; mock
+papers in both formats; the reference section (formula-free, but an API card, a keyword
+index, a method reference and a glossary).
+
+## Build it
+
+```bash
+cd build
+python check_code.py        # compile + run EVERY listing        <- do this first
+python assemble.py          # ~2 min: writes build/full_manual_clean.pdf
+python qa.py                # gate the rendered PDF: every count must be zero
+```
+
+**Requirements:** Python 3 with `playwright` (+ `python -m playwright install
+chromium`) and `pymupdf`; a **JDK** on PATH (built against Temurin 17) for
+`check_code.py`. Fonts are vendored in `build/fonts/`, so a render never depends on
+what happens to be installed on the machine.
 
 ## This manual is AUTHORED, not rebuilt
 
@@ -32,18 +51,44 @@ COS221 has no such thing. The 222-page manual in `course_manual/` is the
 institution's, i.e. an input to learn from, not an artifact to reproduce. So:
 
 - **Do not** port `reconstruct.py`, `struct_extract.py`, `recon_back.py`, `freeze.py`
-  or the fidelity audits from PHY121. There is nothing to be faithful to.
-- **Do** port the build pipeline: Chromium render, vendored DejaVu fonts, the 2-pass
-  Contents resolve, named-to-GoTo link conversion, marker stripping, and the QA gates
-  for house style and layout.
+  or the fidelity audits from PHY121. There is nothing to be faithful to, and nothing
+  to reconstruct from: `build/content/*.html` **is** the manual, written by hand.
+- **Ported instead:** Chromium render, vendored DejaVu fonts, the 2-pass Contents
+  resolve, named-to-GoTo link conversion, marker stripping, and the QA gates.
+
+## What assemble.py does
+
+1. Concatenates `content/*.html` in the `ORDER` list at the top of the file.
+2. Injects an invisible marker before every part and section heading.
+3. Renders, reads back which page each marker landed on, rebuilds the Contents with
+   real page numbers, and re-renders until pagination stops moving. The Contents
+   changes the pagination it describes, so this iterates to a fixed point.
+4. Converts Contents links to real page links (Chromium emits *named* destinations,
+   which many viewers ignore), strips the markers out of the text layer, and swaps the
+   cover into page 1.
+
+Two things worth knowing:
+
+- The Contents is **derived from the headings**, never hand-listed, so it cannot drift
+  from the content. Add a section and it appears; `assemble.py` fails loudly if an
+  entry cannot be resolved to a page.
+- Page 1 is rendered as an empty **cover slot** and swapped for `cover.pdf` at the end.
+  The slot must exist *during* the render: splicing the cover in afterwards shifts
+  every body page down by one, so each footer reads one less than the page it sits on,
+  and the Contents is off by one to match. That bug shipped once here and the gate now
+  catches it.
 
 ## Course facts
 
 - Lecturer: Mr. Otavie Okuoyo. Omega semester, 3 credit units, 3-hour written exam.
 - Deck numbering matches the course manual exactly: 13 decks = 13 units over Modules 1
-  to 10. No PHY121-style off-by-one quirk. (Verified, not assumed.)
+  to 10. No PHY121-style off-by-one quirk. Verified from the decks' own title slides,
+  not from filenames.
 - The course was retitled between sessions: "Object-Oriented Programming (Java)" in
   2024/25, "Computer Programming I (Java)" in 2025/26. Same code, COS221.
+- Where the course manual and the decks disagree (Operators/Operations, Parameter
+  Passing/Testing, Strings/Data Structures), **the deck wins**. The course manual's own
+  contents page has a broken bookmark: it is a fallible source.
 
 ## The exam (see `sources/extracted/exam_analysis.md`)
 
@@ -51,22 +96,56 @@ The format changed between years but the skills did not. Both papers are 70 mark
 3 hours and test exactly four things: **define**, **debug**, **dry run**, **write a
 program**. Teach the four skills, not a paper format, and write mocks in both shapes.
 
-The 25/26 paper is written long-form with Sections A/B/C (attempt one from each). It is
-**not** a CBT multiple-choice test, so the manual must train writing Java on paper,
-tracing code by hand, and finding bugs, not recognising right answers.
+- 24/25: "attempt any four (4)", six questions at 17.5 marks.
+- 25/26: three sections, one question from each, 20 + 25 + 25.
+
+The 25/26 paper is written long-form, **not** a CBT multiple-choice test, so the manual
+trains writing Java on paper, tracing by hand, and finding bugs, not recognising right
+answers. Recurring obsessions: `JOptionPane` for all I/O, nested if-else insisted on
+over separate ifs, no collection classes, parallel arrays, loop conversion.
+
+**Every question on both papers gets solved in full**, including the ones a candidate
+would skip in the hall: a question you skip is still a topic you can be examined on.
+
+## Decisions worth not re-litigating
+
+- **Module numbers follow the lecturer**, 1 to 10, so this book and the course always
+  mean the same Module 4.
+- **The lecturer's order is not a teach-from-zero order.** Arrays are Module 8, yet both
+  Section A questions are array problems and arrays are the natural vehicle for loops in
+  Module 4; `JOptionPane` is demanded from Section B but is a method call on a library
+  class. Since nothing may be used before it is taught, **Foundations** carries those
+  concepts early and honestly (F.10 arrays, F.11 JOptionPane), each pointing at the
+  module that develops it in full. Modules then deepen, never re-introduce.
+- **Palette:** terminal dark-ink. Cyan `#0891b2` is **reserved for MUST-MEMORISE** and
+  appears nowhere else, ever.
+- **"Dry run" is the lecturer's own term**, which is why the trace-table box is called
+  DRY RUN, and why F.9 teaches the technique before any module needs it.
 
 ## Hard QA gates for this course
 
-1. **Every snippet compiles and runs.** JDK 17 (Temurin) is installed. Claimed outputs
-   are captured from a real JVM, never asserted from reading. This is the local form of
-   the house rule "recompute every number".
+1. **Every snippet compiles and runs** (`check_code.py`). This is the local form of the
+   house rule "recompute every number independently". A printed output nobody executed
+   is a wrong constant, not a typo. Every listing must declare a contract:
+
+   | Attribute | Meaning |
+   |---|---|
+   | `data-run="Cls"` | compile as `Cls.java`, run, compare stdout with the box's `.out` block |
+   | `data-run` + `data-stdin="..."` | as above, feeding stdin |
+   | `data-compile="Cls"` | must **fail** to compile (a planted bug); `data-error="..."` asserts the message |
+   | `data-frag="1"` | a fragment: wrapped in a class + main, must still compile |
+   | `data-nocheck="reason"` | excluded, and the reason is printed in the report |
+
+   Silence is never a way out: a listing with no attribute is a failure.
+
 2. **Keyword/API before use.** The manual must be sufficient with no external sources,
-   so every keyword, symbol, and library call is introduced before first appearance and
-   every API used gets an in-manual reference card. Script this check over the built
-   HTML; do not eyeball it.
-3. Plus the house gates: no em/en dashes, no institution or methodology names, no
-   near-blank pages, footer numbering, resolved Contents links.
+   so every keyword, symbol and library call is introduced before first appearance and
+   every API used gets an in-manual reference card. **Not yet scripted** (see Status);
+   currently held by hand. Script it over the built HTML before v1 ships.
 
-## Rebuild
+3. **`qa.py`**: no em/en dashes, no institution or platform or methodology names, no
+   marker text left behind, footer numbering, Contents accuracy, no near-blank pages,
+   no text outside the margins, no orphaned section headings. Every count zero.
 
-Not yet wired. Will be `cd build && python assemble.py` once the pipeline is ported.
+See `sources/extracted/` for the paper transcripts, the cross-year exam analysis, and
+the source survey.
