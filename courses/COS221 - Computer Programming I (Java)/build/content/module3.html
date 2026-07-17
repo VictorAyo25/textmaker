@@ -1,0 +1,737 @@
+<!-- ============ MODULE THREE ============ -->
+
+<!-- ---------------- 3.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.1 · THE FOUR BUILDING BLOCKS</div>
+  <h2 class="title">Variables, data types, operators, control structures</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain Java's data
+  types and their memory sizes, declare and use variables with correct naming
+  conventions, identify the various operators, identify the forms of control
+  structure, write and compile basic programs, and handle user input and output.</p>
+
+  <p class="lead">Your course says programming rests on four building blocks. Every
+  program you write for the rest of your life is made of these and nothing else.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The four building blocks</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Variables</b> hold data. <b>Data types</b> say what kind of data.
+        <b>Operators</b> combine and compare it. <b>Control structures</b> decide
+        what runs, and how often.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a kitchen. Variables are the containers,
+      data types say what may go in each, operators are the knives and the mixer,
+      control structures are the recipe deciding order and repetition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.2 · VARIABLES AND THE RULES FOR NAMING THEM</div>
+  <h2 class="title">Declaring a variable, and what you may call it</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Declaration</span></div>
+    <div class="body">
+      <p>F.8 introduced a variable as a named box holding one value. Formally: <b>a
+      variable is a container that stores data</b>, and <b>a variable in Java must be
+      declared before it is used</b>. You declare it by writing its data type and
+      then its name.</p>
+      <p style="text-align:center"><code>int number;</code></p>
+      <p><code>int</code> is the data type, <code>number</code> is the name. That
+      line makes the box but puts nothing in it. To make it and fill it in one go:</p>
+      <p style="text-align:center"><code>dataType variableName = value;</code></p>
+      <p>which your course calls <b>declaration and initialisation</b>. Learn that
+      one-line syntax exactly: "what is the syntax to declare and initialise a
+      variable" is a stated in-text question, so it is a candidate for the two-mark
+      define slot in Section A.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Four declarations</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Declare"><span class="l"><span class="k">public class</span> <span class="t">Declare</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> age = 25;              <span class="c">// Integer variable</span></span><span class="l">        <span class="t">String</span> name = <span class="s">"John"</span>;       <span class="c">// String variable</span></span><span class="l">        <span class="k">boolean</span> isActive = <span class="k">true</span>;   <span class="c">// Boolean variable</span></span><span class="l">        <span class="k">double</span> price = 19.99;      <span class="c">// Double variable</span></span><span class="l"></span><span class="l">        System.out.println(name + <span class="s">" is "</span> + age + <span class="s">", active: "</span> + isActive</span><span class="l">                         + <span class="s">", price: "</span> + price);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>John is 25, active: true, price: 19.99</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The six naming rules</span></div>
+    <div class="body">
+      <div class="card">
+        <p>1. Must <b>start</b> with a letter, an underscore <code>_</code>, or a
+        dollar sign <code>$</code>.<br/>
+        2. Cannot start with a <b>digit</b>.<br/>
+        3. May contain letters, digits, <code>_</code> and <code>$</code>.<br/>
+        4. Are <b>case-sensitive</b>: <code>age</code>, <code>AGE</code> and
+        <code>Age</code> are three different variables.<br/>
+        5. Cannot contain <b>spaces</b> or special characters like
+        <code>!</code>, <code>@</code>, <code>-</code>.<br/>
+        6. Cannot be a <b>keyword</b>: <code>int</code>, <code>class</code>,
+        <code>float</code>, <code>if</code>, <code>public</code>, <code>else</code>,
+        <code>private</code> are all illegal as names.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> rules 1, 2, 3 and 5 all say the same thing
+      once you see it: <b>a name is letters, digits, <code>_</code> and
+      <code>$</code>, and it may not start with a digit</b>. Learn that one sentence,
+      then add case-sensitivity and no-keywords. Six rules, two facts.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Valid and invalid, side by side</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:32%">Valid</th><th style="width:30%">Invalid</th><th>Why it is rejected</th></tr>
+        <tr><td><code>person</code>, <code>name2</code></td><td><code>1variable</code>, <code>2name</code></td><td>starts with a digit (rule 2)</td></tr>
+        <tr><td><code>_myName</code></td><td><code>123LondonStreet</code></td><td>starts with a digit (rule 2)</td></tr>
+        <tr><td><code>$fileName</code></td><td><code>my-variable</code></td><td>hyphen is a special character (rule 5)</td></tr>
+        <tr><td><code>totalPrice</code></td><td><code>my@name</code></td><td>at-sign is a special character (rule 5)</td></tr>
+        <tr><td><code>Age</code>, <code>age</code>, <code>AGE</code></td><td><code>int</code>, <code>class</code></td><td>keyword (rule 6)</td></tr>
+      </table>
+      <p>Note the third column of the first two rows: <code>my-variable</code> is
+      rejected not because hyphens are ugly but because Java has already given
+      <code>-</code> a job. It would read <code>my-variable</code> as
+      <code>my</code> minus <code>variable</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Case-sensitivity is not a formality</span></div>
+    <div class="body">
+      <p>Rule 4 sounds like pedantry and is the source of real bugs. Declare
+      <code>int count = 0;</code> and later write <code>Count++</code> and Java does
+      not correct you; it says <code>cannot find symbol</code>, because
+      <code>Count</code> is a different name that was never declared.</p>
+      <p>This is a planted error on the 2024/25 paper: a loop body writes
+      <code>Count</code> where the variable is <code>count</code>. Two of that
+      question's three marks are for spotting it.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Which of these are illegal variable names, and why?
+      <code>2fast</code>, <code>_total</code>, <code>grand-total</code>,
+      <code>double</code>, <code>$price</code>, <code>my name</code></p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Illegal: <code>2fast</code> starts with a digit; <code>grand-total</code>
+      contains a hyphen, a special character; <code>double</code> is a keyword;
+      <code>my name</code> contains a space. Legal: <code>_total</code> and
+      <code>$price</code>, because underscore and dollar are both allowed starters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.3 · DATA TYPES</div>
+  <h2 class="title">Primitive and non-primitive, and the sizes you must know</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · What a data type is for</span></div>
+    <div class="body">
+      <p><b>Data types specify the type of data a variable can hold</b>, and the type
+      <b>determines the operations that can be performed</b> on it. That second half
+      is the part students skip and the exam rewards: the type is not just a label on
+      the box, it decides what you are allowed to do.</p>
+      <p><code>+</code> on two <code>int</code>s adds. <code>+</code> on two
+      <code>String</code>s joins. Same symbol, different operation, chosen entirely
+      by the types. F.11's <code>"25" + 1</code> trap is precisely this.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Primitive versus non-primitive</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Primitive</b> types are the most basic type of data in Java. They
+        represent <b>single values</b> and are built into the language. There are
+        eight: <code>byte</code>, <code>short</code>, <code>int</code>,
+        <code>long</code>, <code>float</code>, <code>double</code>,
+        <code>char</code>, <code>boolean</code>.</p>
+        <p><b>Non-primitive</b> types are also called <b>reference types</b>, because
+        they <b>refer to objects in memory</b>. They can store objects and can be
+        user-defined. The four your course names: <b>Classes</b>, <b>Interfaces</b>,
+        <b>Arrays</b>, <b>Strings</b>.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a primitive variable <i>is</i> the value; a
+      reference variable is a <i>street address</i> where the value lives. The box
+      holds the number itself, or it holds directions to it.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The eight primitives, with sizes</span></div>
+    <div class="body">
+      <p>Memory sizes are a stated learning outcome, so this table is examinable in
+      full. It is reproduced from your course, <b>with three errors corrected</b>;
+      the next box shows exactly what was wrong and why it matters.</p>
+      <table class="data">
+        <tr><th style="width:12%">Type</th><th style="width:12%">Size</th><th style="width:14%">Default</th><th>Description and range</th></tr>
+        <tr><td><code>byte</code></td><td>1 byte</td><td><code>0</code></td><td>8-bit signed integer. Range -128 to 127</td></tr>
+        <tr><td><code>short</code></td><td>2 bytes</td><td><code>0</code></td><td>16-bit signed integer. Range -32,768 to 32,767</td></tr>
+        <tr><td><code>int</code></td><td>4 bytes</td><td><code>0</code></td><td>32-bit signed integer. Range -2<sup>31</sup> to 2<sup>31</sup>-1, that is <b>-2,147,483,648 to 2,147,483,647</b></td></tr>
+        <tr><td><code>long</code></td><td>8 bytes</td><td><code>0L</code></td><td>64-bit signed integer. Range <b>-2<sup>63</sup></b> to 2<sup>63</sup>-1</td></tr>
+        <tr><td><code>float</code></td><td>4 bytes</td><td><code>0.0f</code></td><td>32-bit floating-point. Precision up to 7 digits</td></tr>
+        <tr><td><code>double</code></td><td>8 bytes</td><td><code>0.0d</code></td><td>64-bit floating-point. Precision up to 15 digits</td></tr>
+        <tr><td><code>char</code></td><td>2 bytes</td><td><code>' '</code></td><td>a single 16-bit Unicode character, in single quotes: <code>'A'</code>, <code>'1'</code></td></tr>
+        <tr><td><code>boolean</code></td><td>see below</td><td><code>false</code></td><td>stores <code>true</code> or <code>false</code></td></tr>
+      </table>
+      <p>The pattern is worth more than the table: sizes double down the integer
+      family, 1, 2, 4, 8 bytes, and each doubling squares the range.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Three errors in your course's own table</span></div>
+    <div class="body">
+      <p>Reproduced honestly, because you will sit an exam that may repeat them.</p>
+      <table class="data">
+        <tr><th style="width:16%">Row</th><th style="width:40%">What the slide says</th><th>What is true</th></tr>
+        <tr><td><code>int</code></td><td>"-2,147,483,648 to <b>2,147,483,648</b>"</td><td>the top is <b>2,147,483,647</b>. The formula beside it, 2<sup>31</sup>-1, is right; the number written out is one too big.</td></tr>
+        <tr><td><code>long</code></td><td>"Range is <b>2<sup>63</sup></b> to 2<sup>63</sup>-1"</td><td>a minus sign is missing: <b>-2<sup>63</sup></b> to 2<sup>63</sup>-1. As printed it reads "from about 9 quintillion to about 9 quintillion", which is not a range.</td></tr>
+        <tr><td><code>boolean</code></td><td>"1 <b>bite</b>"</td><td>a typo, and the honest answer is subtler: <b>Java does not define the size of a boolean.</b> It is left to the JVM, and typically occupies a whole byte. Write "not specified by the language, typically 1 byte" and you cannot be wrong.</td></tr>
+      </table>
+      <p>The <code>int</code> one is worth savouring. The slide's claimed maximum,
+      2,147,483,648, is the one value that is <b>exactly too big to fit</b>. Ask Java
+      for it and it wraps around to the most negative number there is.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Asking the JVM who is right</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Limits"><span class="l"><span class="k">public class</span> <span class="t">Limits</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"int  min = "</span> + <span class="t">Integer</span>.MIN_VALUE);</span><span class="l">        System.out.println(<span class="s">"int  max = "</span> + <span class="t">Integer</span>.MAX_VALUE);</span><span class="l">        System.out.println(<span class="s">"long min = "</span> + <span class="t">Long</span>.MIN_VALUE);</span><span class="l">        System.out.println(<span class="s">"long max = "</span> + <span class="t">Long</span>.MAX_VALUE);</span><span class="l"></span><span class="l">        <span class="c">// the slide's claimed int max, one past the real one:</span></span><span class="l bad">        System.out.println(<span class="s">"max + 1  = "</span> + (<span class="t">Integer</span>.MAX_VALUE + 1));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>int  min = -2147483648
+int  max = 2147483647
+long min = -9223372036854775808
+long max = 9223372036854775807
+max + 1  = -2147483648</pre>
+      <p class="small" style="padding:6pt 8pt 0">Look at the last line. Add one to the
+      largest <code>int</code> and you do not get an error, and you do not get
+      2,147,483,648. You get the <i>smallest</i> <code>int</code>. The counter runs
+      off the end of its 32 bits and wraps to the far end, silently. This is called
+      <b>integer overflow</b>, and it is a logic error in the sense of F.7: nothing
+      warns you.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The four non-primitive types</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:16%">Type</th><th>Your course's definition</th><th style="width:22%">Met in</th></tr>
+        <tr><td><b>Class</b></td><td>a template used to create objects; it defines the properties (variables) and behaviour (methods) an object can have</td><td>Module 1, in full in Module 6</td></tr>
+        <tr><td><b>Interface</b></td><td>an abstract type defining a set of methods that a class must implement</td><td>Module 6</td></tr>
+        <tr><td><b>Array</b></td><td>a data structure that can hold multiple values of the same type</td><td>F.10, in full in Module 8</td></tr>
+        <tr><td><b>String</b></td><td>an object, used to store text</td><td>Module 7</td></tr>
+      </table>
+      <p>This is why <code>String</code> is capitalised while <code>int</code> is
+      not, the loose end left in F.8: <b>the eight primitives are keywords built into
+      the language; every non-primitive is a class</b>, and Java's convention
+      capitalises class names. The capital letter is a clue about what a thing is.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Types</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>There are <span class="blank"></span> primitive types. A non-primitive
+        type is also called a <span class="blank"></span> type because it
+        <span class="blank"></span>.</li>
+        <li><code>int</code> occupies <span class="blank"></span> bytes;
+        <code>double</code> occupies <span class="blank"></span> bytes;
+        <code>char</code> occupies <span class="blank"></span> bytes.</li>
+        <li>The default value of a <code>boolean</code> is
+        <span class="blank"></span>; of a <code>long</code> it is
+        <span class="blank"></span>.</li>
+        <li>A <code>char</code> literal is written in <span class="blank"></span>
+        quotes; a <code>String</code> literal in <span class="blank"></span>
+        quotes.</li>
+        <li>The largest <code>int</code> is <span class="blank"></span>; adding one
+        to it gives <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. eight, reference, refers to an object in memory
+      &nbsp;·&nbsp; 2. 4, 8, 2 &nbsp;·&nbsp; 3. <code>false</code>, <code>0L</code>
+      &nbsp;·&nbsp; 4. single, double &nbsp;·&nbsp; 5. 2,147,483,647,
+      -2,147,483,648 (it overflows)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.4 · CONSTANTS</div>
+  <h2 class="title">final: a box that will not change</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Constants</span></div>
+    <div class="body">
+      <p><b>A constant is a data container whose value cannot change once it has been
+      assigned.</b> Constants improve readability and prevent accidental
+      modification. In Java you declare one with the <code>final</code> keyword.</p>
+      <p style="text-align:center"><code>final dataType CONSTANT_NAME = value;</code></p>
+      <p>By convention constant names are written in <b>capitals with underscores</b>.
+      That is a convention, not a rule: the compiler accepts <code>final double
+      pi</code>, and every Java programmer alive will read it as a mistake.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · final, and what happens if you fight it</span></div>
+    <div class="body">
+      <pre class="src" data-compile="FinalDemo" data-error="cannot assign a value to final variable"><span class="l"><span class="k">public class</span> <span class="t">FinalDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">final double</span> PI = 3.14159;</span><span class="l">        <span class="k">final int</span> MAX_USERS = 100;</span><span class="l">        System.out.println(PI + <span class="s">" "</span> + MAX_USERS);</span><span class="l"></span><span class="l bad">        PI = 3.14;      <span class="c">// the compiler refuses this</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>FinalDemo.java:7: error: cannot assign a value to final variable PI
+        PI = 3.14;
+        ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">Note <i>when</i> this is caught: at
+      compile time, not run time. The program never runs at all. That is the value of
+      <code>final</code>, in the sense of F.7: it converts a possible logic error
+      into a compile-time error, which is the cheapest kind.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Tax-inclusive pricing</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <p>Your course's own example: total price of some items including 15% tax, with
+      the rate as a constant.</p>
+      <pre class="src" data-run="TaxInclusivePricing"><span class="l"><span class="k">public class</span> <span class="t">TaxInclusivePricing</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">final double</span> TAX_RATE = 0.15;      <span class="c">// 15%, fixed</span></span><span class="l">        <span class="k">int</span> quantity = 3;</span><span class="l">        <span class="k">double</span> basePrice = 250.0;</span><span class="l"></span><span class="l">        <span class="k">double</span> total = quantity * basePrice * (1 + TAX_RATE);</span><span class="l">        System.out.println(<span class="s">"Total: "</span> + total);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Total: 862.4999999999999</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Look at that output.</b> Three
+      items at 250.00 plus 15% is exactly 862.50, and Java printed
+      862.4999999999999. Nothing is broken and this is not a bug in your code: it is
+      what <code>double</code> is, and Unit 3.6 explains it. It is also why real
+      money is never stored in a <code>double</code>. Your course's slide does not
+      mention this; the machine does.</p>
+      <p class="redo"><b>Now redo it:</b> write the same program with
+      <code>TAX_RATE</code> as an ordinary variable rather than
+      <code>final</code>, and say in one sentence what you have lost.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Why declare <code>final double INTEREST_RATE = 0.05;</code> rather
+      than just writing <code>0.05</code> wherever it is needed?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Three reasons. Readability: <code>INTEREST_RATE</code> says what the number
+      means and <code>0.05</code> does not. Safety: <code>final</code> makes
+      accidental modification a compile-time error rather than a silent logic error.
+      And change: the rate lives in one place, so a new rate is a one-line edit
+      rather than a hunt for every 0.05 in the file, some of which might mean
+      something else entirely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.5 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.5 · OPERATORS · THE EIGHT FAMILIES</div>
+  <h2 class="title">Every operator Java gives you</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Operators</span></div>
+    <div class="body">
+      <p><b>Operators are symbols that perform operations on variables, constants or
+      values.</b> Your course names eight families. "Identify various operators" is a
+      learning outcome, so know the list and one example of each.</p>
+      <table class="data">
+        <tr><th style="width:22%">Family</th><th style="width:30%">Symbols</th><th>Does</th></tr>
+        <tr><td>1. Arithmetic</td><td><code>+ - * / %</code></td><td>basic mathematics</td></tr>
+        <tr><td>2. Relational</td><td><code>== != &gt; &gt;= &lt; &lt;=</code></td><td>compares two values, gives <code>true</code> or <code>false</code></td></tr>
+        <tr><td>3. Logical</td><td><code>&amp;&amp; || ! ^</code></td><td>combines <code>boolean</code> values</td></tr>
+        <tr><td>4. Assignment</td><td><code>= += -= *= /=</code></td><td>puts a value into a variable</td></tr>
+        <tr><td>5. Unary</td><td><code>++ -- + - !</code></td><td>acts on a single operand</td></tr>
+        <tr><td>6. Ternary</td><td><code>? :</code></td><td>shorthand for if-else</td></tr>
+        <tr><td>7. instanceof</td><td><code>instanceof</code></td><td>is this object an instance of that class?</td></tr>
+        <tr><td>8. Bitwise</td><td><code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code></td><td>works on the individual bits of a number</td></tr>
+      </table>
+      <p>Families 1 to 5 are the working set and are covered in full below.
+      Family 6 is here. Family 7 needs objects, so it waits for Module 6. Family 8 is
+      named by your course and not used by it, and it has never appeared on a paper
+      we have; know that it exists and manipulates individual bits.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The ternary operator</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; the runnable form is the checked listing below"><span class="l">condition ? value1 : value2</span><span class="l"></span><span class="l">read it as:  if (condition) give me value1, otherwise give me value2</span></pre>
+      <p class="small" style="padding:0 8pt">It takes <b>three</b> operands, which is
+      what "ternary" means, and it is the only operator in Java that does.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Ternary, and the if-else it replaces</span></div>
+    <div class="body">
+      <pre class="src" data-run="Ternary"><span class="l"><span class="k">public class</span> <span class="t">Ternary</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> n = 7;</span><span class="l"></span><span class="l">        <span class="c">// the ternary way, in one line</span></span><span class="l">        <span class="t">String</span> a = (n % 2 == 0) ? <span class="s">"even"</span> : <span class="s">"odd"</span>;</span><span class="l"></span><span class="l">        <span class="c">// exactly the same thing, the long way</span></span><span class="l">        <span class="t">String</span> b;</span><span class="l">        <span class="k">if</span> (n % 2 == 0) { b = <span class="s">"even"</span>; } <span class="k">else</span> { b = <span class="s">"odd"</span>; }</span><span class="l"></span><span class="l">        System.out.println(n + <span class="s">" is "</span> + a + <span class="s">" / "</span> + b);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>7 is odd / odd</pre>
+      <p class="small" style="padding:6pt 8pt 0">You have already met this operator
+      without being told its name: the 2025/26 paper's Armstrong question ends with
+      <code>(sum == n ? "ARMSTRONG" : "NOT ARMSTRONG")</code>. If you cannot read
+      that line you cannot answer a ten-mark question.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.6 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.6 · ARITHMETIC OPERATORS</div>
+  <h2 class="title">Five symbols, and four ways they surprise you</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The five</span></div>
+    <div class="body">
+      <p>Your course's own table, with <code>a = 7</code>, <code>b = 2</code>,
+      <code>x = 18.0</code>, <code>y = 9.0</code>:</p>
+      <table class="data">
+        <tr><th style="width:10%">Op</th><th style="width:24%">Name</th><th style="width:22%">Example</th><th style="width:12%">Result</th><th>Notes</th></tr>
+        <tr><td><code>+</code></td><td>Addition</td><td><code>a + b</code></td><td>9</td><td>int, long, float, double</td></tr>
+        <tr><td><code>-</code></td><td>Subtraction</td><td><code>a - b</code></td><td>5</td><td>all numeric types</td></tr>
+        <tr><td><code>*</code></td><td>Multiplication</td><td><code>a * b</code></td><td>14</td><td>all numeric types</td></tr>
+        <tr><td><code>/</code></td><td>Division</td><td><code>a / b</code> = 7/2</td><td><b>3</b></td><td>int / int truncates. <code>x / y</code> = 2.0</td></tr>
+        <tr><td><code>%</code></td><td>Modulus</td><td><code>a % b</code> = 7%2</td><td>1</td><td>the <b>remainder</b> after division</td></tr>
+      </table>
+      <p><code>%</code> is worth dwelling on because this course leans on it
+      constantly. <code>a % b</code> is what is left over: 7 divided by 2 is 3
+      remainder 1, so <code>7 % 2</code> is 1. Every "is it even", "is it a multiple
+      of 4", "get the last digit" question in your past papers is <code>%</code>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three things % buys you</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>n % 2 == 0</code> &nbsp; means &nbsp; <b>n is even</b><br/>
+        <code>n % k == 0</code> &nbsp; means &nbsp; <b>n divides exactly by k</b><br/>
+        <code>n % 10</code> &nbsp;&nbsp;&nbsp;&nbsp; gives &nbsp; <b>the last digit of n</b>,
+        and <code>n / 10</code> removes it</p>
+      </div>
+      <p>That last line is an entire exam technique. The Armstrong, palindrome,
+      digit-sum and Harshad questions on your papers are all built from
+      <code>% 10</code> and <code>/ 10</code> in a loop, and nothing else.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>% peels the last digit off, / pushes it
+      away.</b> Together they walk a number's digits from right to left.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · Walking a number's digits</span><span class="tag">EXAM TECHNIQUE</span></div>
+    <div class="body">
+      <p>This tiny loop is the engine of four separate past-paper questions. Learn it
+      as a shape.</p>
+      <pre class="src" data-run="Digits"><span class="l"><span class="k">public class</span> <span class="t">Digits</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> n = 4821;</span><span class="l">        <span class="k">int</span> temp = n, sum = 0, reversed = 0;</span><span class="l"></span><span class="l">        <span class="k">while</span> (temp &gt; 0) {</span><span class="l">            <span class="k">int</span> d = temp % 10;          <span class="c">// peel the last digit off</span></span><span class="l">            sum += d;                    <span class="c">// use it</span></span><span class="l">            reversed = reversed * 10 + d;<span class="c">// build the reverse</span></span><span class="l">            temp /= 10;                  <span class="c">// push it away</span></span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"n        = "</span> + n);</span><span class="l">        System.out.println(<span class="s">"digitsum = "</span> + sum);</span><span class="l">        System.out.println(<span class="s">"reversed = "</span> + reversed);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>n        = 4821
+digitsum = 15
+reversed = 1284</pre>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · Digits, for n = 4821</span></div>
+    <div class="body">
+      <p class="small" style="margin-top:0">Cover it and trace first. The 2025/26
+      paper states that for N = 4821 the reversed value is 1284, so this is that
+      question's engine, checked.</p>
+      <table class="trace">
+        <caption>n = 4821</caption>
+        <tr><th style="width:12%">Pass</th><th style="width:16%">temp</th><th style="width:14%">d = temp%10</th><th style="width:16%">sum</th><th style="width:20%">reversed</th><th>temp /= 10</th></tr>
+        <tr><td>start</td><td>4821</td><td>-</td><td class="chg">0</td><td class="chg">0</td><td>-</td></tr>
+        <tr><td>1</td><td>4821</td><td class="chg">1</td><td>0+1 = <b>1</b></td><td>0*10+1 = <b>1</b></td><td class="chg">482</td></tr>
+        <tr><td>2</td><td>482</td><td class="chg">2</td><td>1+2 = <b>3</b></td><td>1*10+2 = <b>12</b></td><td class="chg">48</td></tr>
+        <tr><td>3</td><td>48</td><td class="chg">8</td><td>3+8 = <b>11</b></td><td>12*10+8 = <b>128</b></td><td class="chg">4</td></tr>
+        <tr><td>4</td><td>4</td><td class="chg">4</td><td>11+4 = <b>15</b></td><td>128*10+4 = <b>1284</b></td><td class="chg">0</td></tr>
+        <tr><td>test</td><td>0</td><td>-</td><td>15</td><td>1284</td><td class="emit">0 &gt; 0 false: stop</td></tr>
+      </table>
+      <p>Notice <code>reversed = reversed * 10 + d</code>: multiplying by 10 shifts
+      what you have left, and adding <code>d</code> drops the new digit into the gap.
+      That one line reverses any number, and it is worth memorising as a phrase.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">3.6.1 The pitfalls</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Your course names three</span></div>
+    <div class="body">
+      <p>Division by zero, modulus with negative numbers, and string concatenation.
+      Its example program is below, and it is worth more than your course claims.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The slide's program, exactly as printed</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-nocheck="reproduced verbatim from the slide to be examined; it is run for real in the next box, where its true behaviour is captured"><span class="l"><span class="k">public class</span> <span class="t">ArithmeticOperatorsPitfalls</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(10/0);</span><span class="l">        System.out.println(10.0/0);</span><span class="l">        System.out.println(-7%3);</span><span class="l">        System.out.println(7%-3);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <p class="small" style="padding:6pt 8pt 0">Your course says: line 3 throws an
+      ArithmeticException; line 4 prints Infinity; line 5 prints -1; line 6 prints 1.
+      Every one of those statements about the <b>expressions</b> is true. The claim
+      about the <b>program</b> is not.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Lines 4, 5 and 6 never run</span></div>
+    <div class="body">
+      <p>An uncaught exception <b>stops the program dead</b>. Line 3 throws, so the
+      JVM abandons <code>main</code> there and lines 4, 5 and 6 are never reached.
+      Run this program exactly as printed and it produces <b>no output at all</b>,
+      only a crash report:</p>
+      <pre class="out"><span class="olabel">What actually happens</span>Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at ArithmeticOperatorsPitfalls.main(ArithmeticOperatorsPitfalls.java:3)</pre>
+      <p>So if an exam hands you this program and asks "state the output", the answer
+      is <b>not</b> "Infinity, -1, 1". It is: the program throws
+      <code>ArithmeticException: / by zero</code> at line 3 and terminates, printing
+      none of the remaining lines.</p>
+      <p>This matters beyond one slide. It is the difference between reading code
+      line by line as four independent facts, and dry running it as one program with
+      a flow that can stop.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The same four expressions, made to survive</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Pitfalls"><span class="l"><span class="k">public class</span> <span class="t">Pitfalls</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">try</span> {</span><span class="l">            System.out.println(10/0);       <span class="c">// int / int  -> throws</span></span><span class="l">        } <span class="k">catch</span> (ArithmeticException e) {</span><span class="l">            System.out.println(<span class="s">"line 3 -> "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"line 4 -> "</span> + (10.0/0));   <span class="c">// double -> Infinity</span></span><span class="l">        System.out.println(<span class="s">"line 5 -> "</span> + (-7%3));    <span class="c">// sign follows the LEFT</span></span><span class="l">        System.out.println(<span class="s">"line 6 -> "</span> + (7%-3));    <span class="c">// sign follows the LEFT</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>line 3 -> / by zero
+line 4 -> Infinity
+line 5 -> -1
+line 6 -> 1</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three arithmetic pitfalls</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>1. Division by zero depends on the type.</b><br/>
+        <code>10/0</code> with <code>int</code>s <b>throws</b>
+        <code>ArithmeticException</code> and stops the program.<br/>
+        <code>10.0/0</code> with a <code>double</code> gives <b>Infinity</b> and
+        carries on. (And <code>0.0/0.0</code> gives <code>NaN</code>, "not a
+        number".)</p>
+        <p><b>2. Modulus keeps the sign of the LEFT operand.</b><br/>
+        <code>-7 % 3</code> is <b>-1</b>. &nbsp; <code>7 % -3</code> is <b>1</b>.</p>
+        <p><b>3. <code>+</code> joins when either side is text.</b><br/>
+        <code>"25" + 1</code> is <code>"251"</code>, not 26.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> for modulus, <b>the remainder inherits its
+      sign from the number being divided, not the divider</b>. Ask "what is left of
+      -7?" and the answer is negative.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Integers throw, doubles do not</span></div>
+    <div class="body">
+      <p>This asymmetry catches everyone. There is no <code>int</code> that can
+      represent infinity, so Java has no choice but to throw. <code>double</code> has
+      a genuine <code>Infinity</code> value built into it, so it returns one and the
+      program keeps running with a poisoned number in it, which is arguably worse:
+      a crash is loud, an <code>Infinity</code> quietly contaminates every later
+      calculation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.7 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.7 · RELATIONAL OPERATORS</div>
+  <h2 class="title">Comparing, and the one comparison you must never make</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The six</span></div>
+    <div class="body">
+      <p><b>Relational operators compare two values and return a boolean</b>,
+      <code>true</code> or <code>false</code>. With <code>a = 5</code>,
+      <code>b = 3</code>:</p>
+      <table class="data">
+        <tr><th style="width:12%">Op</th><th style="width:26%">Name</th><th style="width:20%">Example</th><th style="width:14%">Returns</th><th>Notes</th></tr>
+        <tr><td><code>==</code></td><td>Equal to</td><td><code>a == b</code></td><td>false</td><td>compares <b>values</b> for primitives, <b>references</b> for objects</td></tr>
+        <tr><td><code>!=</code></td><td>Not equal to</td><td><code>a != b</code></td><td>true</td><td>the opposite of <code>==</code></td></tr>
+        <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>a &gt; b</code></td><td>true</td><td>numbers</td></tr>
+        <tr><td><code>&lt;</code></td><td>Less than</td><td><code>a &lt; b</code></td><td>false</td><td>numbers</td></tr>
+        <tr><td><code>&gt;=</code></td><td>Greater or equal</td><td><code>a &gt;= b</code></td><td>true</td><td>numbers</td></tr>
+        <tr><td><code>&lt;=</code></td><td>Less or equal</td><td><code>a &lt;= b</code></td><td>false</td><td>numbers</td></tr>
+      </table>
+      <p>Hold on to that note against <code>==</code>: <b>values for primitives,
+      references for objects</b>. It is quiet now and it detonates in Module 7, where
+      comparing two <code>String</code>s with <code>==</code> is the single most
+      famous bug in Java.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Your course's comparison examples</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Compare"><span class="l"><span class="k">public class</span> <span class="t">Compare</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> y = 5, x = 5;</span><span class="l">        <span class="k">double</span> a = 0.1 + 0.2;</span><span class="l">        <span class="k">double</span> b = 0.3;</span><span class="l">        System.out.println(y == x);        <span class="c">// true</span></span><span class="l bad">        System.out.println(a == b);        <span class="c">// false. Look below.</span></span><span class="l">        System.out.println(a);             <span class="c">// why it is false</span></span><span class="l"></span><span class="l">        <span class="k">int</span> num = 10;</span><span class="l">        <span class="k">double</span> decimal = 10.0;</span><span class="l">        <span class="k">char</span> letter = <span class="s">'A'</span>;</span><span class="l">        System.out.println(num == decimal); <span class="c">// true: compares values, not types</span></span><span class="l">        System.out.println(letter &gt; num);   <span class="c">// true: 'A' is 65</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>true
+false
+0.30000000000000004
+true
+true</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Never compare doubles with ==</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>0.1 + 0.2 == 0.3</code> is <b>false</b>, because
+        <code>0.1 + 0.2</code> is actually <code>0.30000000000000004</code>.</p>
+        <p>A <code>double</code> stores a number in binary, and 0.1 has no exact
+        binary form, exactly as 1/3 has no exact decimal form. The tiny error is
+        real and it survives the addition.</p>
+        <p>To compare two doubles, ask whether they are <b>close enough</b>:<br/>
+        <code>if (Math.abs(a - b) &lt; 0.0000001) { ... }</code></p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> writing 1/3 in decimal you must stop
+      somewhere: 0.3333. Binary has to stop somewhere too, and 0.1 is binary's 1/3.
+      <b>Doubles are approximations wearing a convincing disguise.</b></p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · == compares values, not types</span></div>
+    <div class="body">
+      <p><code>num == decimal</code>, comparing <code>int</code> 10 with
+      <code>double</code> 10.0, is <b>true</b>. Java widens the <code>int</code> to a
+      <code>double</code> and compares the values. The types differ; the values do
+      not; <code>==</code> only cares about the values.</p>
+      <p>And <code>letter &gt; num</code>, comparing <code>'A'</code> with 10, is
+      <b>true</b>, because a <code>char</code> <i>is</i> a number: <code>'A'</code>
+      is 65. This is why <code>char</code> sits in the integer family of primitives
+      rather than off on its own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 3.8 ---------------- -->
+<section>
+  <div class="kick">UNIT 3.8 · LOGICAL OPERATORS</div>
+  <h2 class="title">Combining conditions, and the shortcut Java takes</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The four</span></div>
+    <div class="body">
+      <p><b>Logical operators combine boolean values.</b> With <code>a = true</code>
+      and <code>b = false</code>:</p>
+      <table class="data">
+        <tr><th style="width:12%">Op</th><th style="width:20%">Name</th><th style="width:38%">Returns true when</th><th>Example</th></tr>
+        <tr><td><code>&amp;&amp;</code></td><td>Logical AND</td><td><b>both</b> operands are true</td><td><code>a &amp;&amp; b</code> = false</td></tr>
+        <tr><td><code>||</code></td><td>Logical OR</td><td><b>at least one</b> operand is true</td><td><code>a || b</code> = true</td></tr>
+        <tr><td><code>!</code></td><td>Logical NOT</td><td>reverses the value</td><td><code>!a</code> = false</td></tr>
+        <tr><td><code>^</code></td><td>Logical XOR</td><td><b>exactly one</b> operand is true</td><td><code>a ^ b</code> = true</td></tr>
+      </table>
+      <p>XOR is the one people forget: exclusive OR, true when the two sides
+      <i>differ</i>. <code>true ^ true</code> is false, where <code>true || true</code>
+      is true.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · All four, with every combination</span></div>
+    <div class="body">
+      <pre class="src" data-run="Logic"><span class="l"><span class="k">public class</span> <span class="t">Logic</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">boolean</span>[] vals = {<span class="k">true</span>, <span class="k">false</span>};</span><span class="l">        System.out.println(<span class="s">"  p      q      p&amp;&amp;q   p||q   p^q    !p"</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">boolean</span> p : vals) {</span><span class="l">            <span class="k">for</span> (<span class="k">boolean</span> q : vals) {</span><span class="l">                System.out.printf(<span class="s">"  %-6b %-6b %-6b %-6b %-6b %-6b%n"</span>,</span><span class="l">                                  p, q, (p &amp;&amp; q), (p || q), (p ^ q), (!p));</span><span class="l">            }</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  p      q      p&amp;&amp;q   p||q   p^q    !p
+  true   true   true   true   false  false
+  true   false  false  true   true   false
+  false  true   false  true   true   true
+  false  false  false  false  false  true</pre>
+      <p class="small" style="padding:6pt 8pt 0">That is a complete truth table, and
+      it was printed by the machine rather than typed by me. Read the
+      <code>p^q</code> column against <code>p||q</code>: they differ in exactly one
+      row, the one where both are true.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Short-circuit evaluation</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>&amp;&amp;</code> stops as soon as it meets a <b>false</b>: if the
+        left side is false the whole thing is false, so <b>the right side is never
+        evaluated</b>.</p>
+        <p><code>||</code> stops as soon as it meets a <b>true</b>, for the mirror
+        reason.</p>
+      </div>
+      <p>This is not an optimisation you can ignore. It is a tool: it is what lets
+      you write <code>if (i &lt; a.length &amp;&amp; a[i] &gt; 0)</code> safely. The
+      left guard runs first, and when it is false the array is never touched, so no
+      exception. Swap the two around and the same line crashes.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>&amp;&amp; is a pessimist and || is an
+      optimist.</b> The pessimist stops at the first bad news; the optimist stops at
+      the first good news. Neither reads any further.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Short-circuiting, made visible</span></div>
+    <div class="body">
+      <pre class="src" data-run="ShortCircuit"><span class="l"><span class="k">public class</span> <span class="t">ShortCircuit</span> {</span><span class="l">    <span class="c">// prints when it is called, so we can see IF it is called</span></span><span class="l">    <span class="k">static boolean</span> loud(<span class="t">String</span> tag, <span class="k">boolean</span> v) {</span><span class="l">        System.out.println(<span class="s">"    (evaluated "</span> + tag + <span class="s">")"</span>);</span><span class="l">        <span class="k">return</span> v;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"false &amp;&amp; loud:"</span>);</span><span class="l">        <span class="k">boolean</span> r1 = <span class="k">false</span> &amp;&amp; loud(<span class="s">"right"</span>, <span class="k">true</span>);</span><span class="l">        System.out.println(<span class="s">"  result "</span> + r1);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"true || loud:"</span>);</span><span class="l">        <span class="k">boolean</span> r2 = <span class="k">true</span> || loud(<span class="s">"right"</span>, <span class="k">false</span>);</span><span class="l">        System.out.println(<span class="s">"  result "</span> + r2);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"true &amp;&amp; loud:"</span>);</span><span class="l">        <span class="k">boolean</span> r3 = <span class="k">true</span> &amp;&amp; loud(<span class="s">"right"</span>, <span class="k">true</span>);</span><span class="l">        System.out.println(<span class="s">"  result "</span> + r3);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>false &amp;&amp; loud:
+  result false
+true || loud:
+  result true
+true &amp;&amp; loud:
+    (evaluated right)
+  result true</pre>
+      <p class="small" style="padding:6pt 8pt 0">The proof is in what is
+      <b>missing</b>. In the first two cases "(evaluated right)" never prints,
+      because the right-hand side was never run. In the third it does, because
+      <code>true &amp;&amp; ?</code> still has to look.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Operators</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li><code>7 / 2</code> is <span class="blank"></span> but
+        <code>7.0 / 2</code> is <span class="blank"></span>.</li>
+        <li><code>10 / 0</code> <span class="blank"></span> while
+        <code>10.0 / 0</code> gives <span class="blank"></span>.</li>
+        <li><code>-7 % 3</code> is <span class="blank"></span> because the remainder
+        takes the sign of the <span class="blank"></span> operand.</li>
+        <li><code>0.1 + 0.2 == 0.3</code> is <span class="blank"></span> because the
+        sum is really <span class="blank"></span>.</li>
+        <li><code>&amp;&amp;</code> does not evaluate its right side when the left is
+        <span class="blank"></span>. This is called <span class="blank"></span>.</li>
+        <li>To test that <code>n</code> is even, write
+        <code>n <span class="blank"></span> 2 == 0</code>. To get the last digit of
+        <code>n</code>, write <span class="blank"></span>.</li>
+        <li>The ternary operator takes <span class="blank"></span> operands and its
+        syntax is <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. 3, 3.5 &nbsp;·&nbsp; 2. throws ArithmeticException,
+      Infinity &nbsp;·&nbsp; 3. -1, left &nbsp;·&nbsp; 4. false,
+      0.30000000000000004 &nbsp;·&nbsp; 5. false, short-circuit evaluation
+      &nbsp;·&nbsp; 6. <code>%</code>, <code>n % 10</code> &nbsp;·&nbsp; 7. three,
+      <code>condition ? value1 : value2</code></p>
+    </div>
+  </div>
+</section>

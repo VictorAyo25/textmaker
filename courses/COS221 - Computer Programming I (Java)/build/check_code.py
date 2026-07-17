@@ -57,6 +57,15 @@ class _Lines(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag != 'span':
             return
+        # A duplicate class attribute (class="l" class="bad") is invalid HTML that
+        # browsers resolve by keeping the FIRST and dropping the rest, while
+        # dict(attrs) keeps the LAST. That disagreement is silent and vicious: the
+        # span stops looking like a line, this parser drops it, and the listing
+        # compiles and runs MINUS one line, quietly changing its output. It has
+        # happened twice. Refuse it instead of guessing.
+        if sum(1 for k, _ in attrs if k == 'class') > 1:
+            raise ValueError(f'duplicate class attribute in <span {attrs}>: '
+                             f'write class="l bad", not class="l" class="bad"')
         cls = dict(attrs).get('class', '').split()
         if self.depth == 0:
             if 'l' in cls:
