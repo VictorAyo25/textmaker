@@ -1,0 +1,530 @@
+<!-- ============ MODULE FIVE ============ -->
+
+<!-- ---------------- 5.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.1 · WHAT A METHOD IS</div>
+  <h2 class="title">Write it once, use it everywhere</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to identify the key parts
+  of a method, define void and non-void methods and call them, compare formal
+  parameters with actual arguments, differentiate static from instance methods,
+  explain parameter passing, and use method overloading.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · A method</span></div>
+    <div class="body">
+      <p><b>A method is a reusable block of code that performs a specific task.</b>
+      You have been writing one since F.5, called <code>main</code>, and calling
+      others (<code>println</code>, <code>parseInt</code>) all along. This module is
+      about writing your own.</p>
+      <p>Your course gives three reasons they exist, and an in-text question asks for
+      them:</p>
+      <table class="data">
+        <tr><th style="width:28%">Benefit</th><th>Means</th></tr>
+        <tr><td><b>Modularising code</b></td><td>breaking code into smaller, manageable parts</td></tr>
+        <tr><td><b>Improving readability</b></td><td>logical separation of tasks</td></tr>
+        <tr><td><b>Reducing redundancy</b></td><td>avoiding repetition: write once, reuse</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The anatomy of a method</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="an annotated skeleton; every part is run for real in the listings below"><span class="l">public static int  add    (int a, int b)  {</span><span class="l">   |      |     |     |          |</span><span class="l">   |      |     |     |          +--- PARAMETER LIST: what it needs</span><span class="l">   |      |     |     +-------------- NAME</span><span class="l">   |      |     +-------------------- RETURN TYPE: what it hands back</span><span class="l">   |      +-------------------------- static: belongs to the class (5.5)</span><span class="l">   +--------------------------------- ACCESS MODIFIER: who may call it</span><span class="l"></span><span class="l">       return a + b;                &lt;- the body, and the value going back</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The method signature</span></div>
+    <div class="body">
+      <div class="card">
+        <p>A method's <b>signature</b> is its <b>name</b> plus its <b>parameter
+        list</b> (the number, types and order of its parameters).</p>
+        <p>The <b>return type is NOT part of the signature.</b> Neither is the access
+        modifier, nor the parameter names.</p>
+      </div>
+      <p>This is not trivia. Your 2025/26 paper asks you to "state precisely the role
+      that the method signature plays in enabling the compiler to resolve an
+      overloaded call at compile time", and your 2024/25 paper asks you to define
+      method signature outright. It is worth marks on both papers we have.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the signature is <b>what you must write at
+      the call site</b>. When you call <code>add(2, 3)</code> you write the name and
+      the arguments; you never write the return type. So the compiler cannot use what
+      you never wrote. <b>Signature = name + parameters.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Why the return type cannot be part of it</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="SigProof" data-error="already defined"><span class="l"><span class="k">public class</span> <span class="t">SigProof</span> {</span><span class="l">    <span class="k">static int</span> value() { <span class="k">return</span> 1; }</span><span class="l bad">    <span class="k">static double</span> value() { <span class="k">return</span> 1.0; }   <span class="c">// same name, no parameters</span></span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(value());</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>SigProof.java:3: error: method value() is already defined in class SigProof
+    static double value() { return 1.0; }
+                  ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">Two methods differing <b>only</b> in
+      return type are, to the compiler, <b>the same method defined twice</b>. It
+      refuses before you can even call one. And that is the reason: at
+      <code>value()</code> there is nothing in what you typed to tell the compiler
+      which you meant. <b>This listing is the proof of the box above</b>, and it is
+      the "state precisely" the exam is asking for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.2 · VOID AND NON-VOID METHODS</div>
+  <h2 class="title">Methods that do, and methods that answer</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · void versus non-void</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Void methods</b> perform actions but <b>do not return any value</b>.
+        Their return type is the keyword <code>void</code>.</p>
+        <p><b>Non-void (returning) methods</b> return a value. Their return type is
+        the type of that value, and every path through them <b>must</b>
+        <code>return</code> one.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> void is a <b>command</b> ("print this"),
+      non-void is a <b>question</b> ("what is the square of 5?"). A command needs no
+      answer; a question is not allowed to go unanswered.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Both kinds, from the slides</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Methods"><span class="l"><span class="k">public class</span> <span class="t">Methods</span> {</span><span class="l"></span><span class="l">    <span class="c">// VOID: does something, answers nothing</span></span><span class="l">    <span class="k">static void</span> sayHello(<span class="t">String</span> name) {</span><span class="l">        System.out.println(<span class="s">"Hello "</span> + name);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// VOID: prints a sum, but does not hand it back</span></span><span class="l">    <span class="k">static void</span> printSum(<span class="k">int</span> a, <span class="k">int</span> b) {</span><span class="l">        System.out.println(<span class="s">"The sum of "</span> + a + <span class="s">" and "</span> + b + <span class="s">" is "</span> + (a + b));</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// NON-VOID: answers, and prints nothing</span></span><span class="l">    <span class="k">static int</span> square(<span class="k">int</span> n) {</span><span class="l">        <span class="k">return</span> n * n;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// NON-VOID: builds a String and hands it back</span></span><span class="l">    <span class="k">static</span> <span class="t">String</span> getGreeting(<span class="t">String</span> name) {</span><span class="l">        <span class="k">return</span> <span class="s">"Hello, "</span> + name + <span class="s">"!"</span>;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        sayHello(<span class="s">"James"</span>);                        <span class="c">// call: nothing comes back</span></span><span class="l">        printSum(5, 10);</span><span class="l">        System.out.println(<span class="s">"Square: "</span> + square(5)); <span class="c">// call: use the answer</span></span><span class="l">        System.out.println(getGreeting(<span class="s">"Oghenetega"</span>));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Hello James
+The sum of 5 and 10 is 15
+Square: 25
+Hello, Oghenetega!</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Printing is not returning</span></div>
+    <div class="body">
+      <p>The single most common beginner confusion in this module.
+      <code>printSum</code> and <code>square</code> both "give you a sum", and they
+      are completely different things.</p>
+      <p><code>printSum(5, 10)</code> puts text on the screen and evaluates to
+      <b>nothing</b>. You cannot write <code>int x = printSum(5, 10);</code>: it does
+      not compile, because there is no value to put in <code>x</code>.</p>
+      <p><code>square(5)</code> puts <b>nothing</b> on the screen and evaluates to
+      25, which you can store, add to, or print. It is <i>useful to other code</i>;
+      <code>printSum</code> is only useful to a human watching.</p>
+      <p><b>Rule of thumb:</b> a method that computes should return, not print.
+      Printing is a decision about presentation, and it belongs to whoever called
+      you. Your exam questions ask for methods that "return the count" and then
+      display it in <code>main</code>: that separation is deliberate and it is
+      marked.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · A non-void method with a path that does not return</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="MissingReturn" data-error="missing return statement"><span class="l"><span class="k">public class</span> <span class="t">MissingReturn</span> {</span><span class="l">    <span class="k">static</span> <span class="t">String</span> grade(<span class="k">int</span> score) {</span><span class="l">        <span class="k">if</span> (score &gt;= 50) {</span><span class="l">            <span class="k">return</span> <span class="s">"pass"</span>;</span><span class="l">        }</span><span class="l bad">        <span class="c">// what about scores below 50? No return here.</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(grade(70));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>MissingReturn.java:7: error: missing return statement
+    }
+    ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">The compiler is not asking whether
+      the missing path <i>ever happens</i>. It requires that <b>every</b> route out of
+      a non-void method carries a value. This is the same mercy as F.7's compile-time
+      errors: a question that can go unanswered becomes a refusal to build, rather
+      than a mystery at run time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.3 · PARAMETERS AND ARGUMENTS</div>
+  <h2 class="title">Two words for two different things</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Formal parameter vs actual argument</span></div>
+    <div class="body">
+      <div class="card">
+        <p>A <b>formal parameter</b> is the variable in the method's
+        <b>declaration</b>: <code>static int square(int n)</code>. It is a name for
+        a value that does not exist yet.</p>
+        <p>An <b>actual argument</b> is the value you pass at the <b>call</b>:
+        <code>square(5)</code>. It is a real value, right now.</p>
+      </div>
+      <p>Your learning outcome says "compare formal parameters with actual arguments",
+      so this distinction is examinable in its own right.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the parameter is the empty seat; the
+      argument is the passenger.</b> The seat is described when the bus is built; the
+      passenger arrives at departure.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Parameterized and non-parameterized</span></div>
+    <div class="body">
+      <p><b>Parameterized methods take one or more parameters</b> to do their work.
+      <b>Non-parameterized methods take none</b>: their brackets are empty.</p>
+      <p>A non-parameterized method is not useless: it either works on data it can
+      already see, or it fetches something from the outside world. Your course's
+      examples are the date and time, and a random number, neither of which needs you
+      to supply anything.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Parameterized and not</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Params"><span class="l"><span class="k">public class</span> <span class="t">Params</span> {</span><span class="l"></span><span class="l">    <span class="c">// PARAMETERIZED: needs a name and an age to do anything</span></span><span class="l">    <span class="k">static</span> <span class="t">String</span> getAgeInfo(<span class="k">int</span> age, <span class="t">String</span> name) {</span><span class="l">        <span class="k">return</span> name + <span class="s">" is "</span> + age + <span class="s">" years old."</span>;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static</span> <span class="t">String</span> getFullName(<span class="t">String</span> first, <span class="t">String</span> last) {</span><span class="l">        <span class="k">return</span> first + <span class="s">" "</span> + last;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// NON-PARAMETERIZED: empty brackets, needs nothing from you</span></span><span class="l">    <span class="k">static</span> <span class="t">String</span> banner() {</span><span class="l">        <span class="k">return</span> <span class="s">"=== report ==="</span>;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(banner());</span><span class="l">        <span class="c">// 45 and "Blake" are the ACTUAL ARGUMENTS.</span></span><span class="l">        <span class="c">// age and name are the FORMAL PARAMETERS.</span></span><span class="l">        System.out.println(getAgeInfo(45, <span class="s">"Blake"</span>));</span><span class="l">        System.out.println(<span class="s">"Full Name: "</span> + getFullName(<span class="s">"John"</span>, <span class="s">"Doe"</span>));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>=== report ===
+Blake is 45 years old.
+Full Name: John Doe</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Arguments go in by position, not by name</span></div>
+    <div class="body">
+      <p><code>getAgeInfo(int age, String name)</code> is called as
+      <code>getAgeInfo(45, "Blake")</code>. Note the order: <b>age first</b>, because
+      that is the order the parameters were declared in, even though the sentence it
+      builds reads "Blake is 45".</p>
+      <p>Java matches arguments to parameters <b>by position only</b>. The names are
+      for you, not for the compiler. Swap them to <code>getAgeInfo("Blake", 45)</code>
+      and it does not compile, which is lucky: if both parameters were
+      <code>String</code>, it would compile and quietly print "45 is Blake years
+      old."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.4 · PARAMETER PASSING · READ THIS TWICE</div>
+  <h2 class="title">What actually crosses the boundary</h2>
+  <hr class="rule"/>
+
+  <p class="lead">This unit corrects your course, and the correction is the single
+  most important idea in the module. It is also the most misunderstood topic in all
+  of Java, so if you get this right you are ahead of most graduates.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · What your course says</span></div>
+    <div class="body">
+      <p>"Parameter passing refers to the mechanism of transferring data between
+      methods. The two types are:</p>
+      <ul class="bul">
+        <li><b>Pass-by-value</b> (primitive types): a copy of the value is passed.
+        Changes inside the method do not affect the original variable.</li>
+        <li><b>Pass-by-reference</b> (objects and arrays): changes inside the method
+        affect the original."</li>
+      </ul>
+      <p>The first bullet is right. The second is <b>wrong</b>, and your course's own
+      slides contain the evidence that it is wrong.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Java is always pass-by-value</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Java is pass-by-value. Always. There is no pass-by-reference in
+        Java.</b></p>
+        <p>For a primitive, the value copied is <b>the number</b>.</p>
+        <p>For an object or array, the value copied is <b>the reference</b>: the
+        address, in the sense of Unit 3.3. So the method gets its own copy of the
+        address, pointing at the <b>same</b> object.</p>
+        <p>That is why you can <b>change what the address points at</b> (and the
+        caller sees it), but you cannot <b>change which address the caller
+        holds</b>.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> you photocopy your house key and hand over
+      the copy. They can go in and <b>rearrange the furniture</b>, and you will see
+      it. They cannot <b>make your key open a different house</b>. The key was
+      copied; the house was not.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The proof, in one program</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="PassByValue"><span class="l"><span class="k">public class</span> <span class="t">PassByValue</span> {</span><span class="l"></span><span class="l">    <span class="c">// a primitive: the NUMBER is copied</span></span><span class="l">    <span class="k">static void</span> modifyValue(<span class="k">int</span> n) {</span><span class="l">        n = 25;</span><span class="l">        System.out.println(<span class="s">"  inside method: "</span> + n);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// an array: the REFERENCE is copied. Same array underneath.</span></span><span class="l good">    <span class="k">static void</span> mutate(<span class="k">int</span>[] a) {</span><span class="l">        a[0] = 99;                <span class="c">// rearranging the furniture</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// an array: pointing the COPY of the reference somewhere new</span></span><span class="l bad">    <span class="k">static void</span> reassign(<span class="k">int</span>[] a) {</span><span class="l">        a = <span class="k">new int</span>[]{7, 7, 7};  <span class="c">// making the copied key open a new house</span></span><span class="l">        a[0] = 55;                <span class="c">// caller cannot possibly see this</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> myNumber = 15;</span><span class="l">        System.out.println(<span class="s">"primitive before: "</span> + myNumber);</span><span class="l">        modifyValue(myNumber);</span><span class="l">        System.out.println(<span class="s">"primitive after : "</span> + myNumber);</span><span class="l"></span><span class="l">        <span class="k">int</span>[] nums = {1, 2, 3};</span><span class="l">        mutate(nums);</span><span class="l">        System.out.println(<span class="s">"after mutate    : "</span> + nums[0] + <span class="s">"   &lt;- changed"</span>);</span><span class="l"></span><span class="l">        <span class="k">int</span>[] nums2 = {1, 2, 3};</span><span class="l">        reassign(nums2);</span><span class="l">        System.out.println(<span class="s">"after reassign  : "</span> + nums2[0] + <span class="s">"    &lt;- UNCHANGED"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>primitive before: 15
+  inside method: 25
+primitive after : 15
+after mutate    : 99   &lt;- changed
+after reassign  : 1    &lt;- UNCHANGED</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Look at the last line, because it
+      settles the argument.</b> If Java really passed arrays by reference, then
+      <code>reassign</code> would have replaced the caller's array and
+      <code>nums2[0]</code> would be 7. It is 1. The method could reach through its
+      copy of the reference and change the array (<code>mutate</code>), but it could
+      not change which array the caller was holding. That is pass-by-value of a
+      reference, and it is not pass-by-reference.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Your course states the evidence and misses the conclusion</span></div>
+    <div class="body">
+      <p>Read your own slide again, on the pass-by-reference array example. It says,
+      correctly: "Because arrays are passed by reference, this change affects the
+      original array. <b>However, reassigning the array inside the method</b> [does
+      not affect the original]."</p>
+      <p>That "however" is the whole thing. It is not an exception to
+      pass-by-reference; it is <b>proof that this was never pass-by-reference</b>.
+      In a language that genuinely has it, reassignment propagates. The slide
+      observed the exact behaviour that disproves its own label, and shrugged.</p>
+      <p><b>What to write in the exam.</b> If asked to describe parameter passing,
+      the safe and correct answer covers both: "Java passes all arguments by value.
+      For primitives the value is the data itself, so the method's changes are
+      invisible to the caller. For objects and arrays the value is a copy of the
+      reference, so the method can modify the object the caller sees, but cannot make
+      the caller's variable refer to a different object. Some texts call the second
+      case pass-by-reference; strictly it is passing a reference by value." That is
+      right, it earns the mark, and it shows you know why.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">What happens when you pass a primitive type to a method? And what
+      one experiment proves Java is not pass-by-reference for arrays?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>Only a copy of the value is used, so any change inside the method does not
+      affect the original variable. The experiment: inside a method, <b>reassign</b>
+      the array parameter to a brand-new array and change that. If Java were
+      pass-by-reference, the caller's variable would now point at the new array. It
+      does not: the caller still sees its original. Only the copy of the reference
+      was redirected.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.5 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.5 · STATIC AND INSTANCE METHODS</div>
+  <h2 class="title">Belonging to the class, or to an object</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · static versus instance</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Static methods belong to the class</b>, not to instances. They can be
+        called <b>without creating an object</b>, and they can only directly access
+        other static methods and variables. Used for utility and helper methods.</p>
+        <p><b>Instance (non-static) methods belong to an object.</b> You must create
+        an object with <code>new</code> before you can call one, and they can see
+        that object's own data.</p>
+      </div>
+      <p>This is why <code>main</code> is static, the loose end from F.6: when your
+      program starts, no object exists yet, so the JVM needs a method it can call
+      without one.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <code>Math.sqrt(9)</code> needs no object:
+      square roots do not belong to any particular thing. <code>rex.bark()</code>
+      needs Rex: barking belongs to a dog. <b>Static is about the idea; instance is
+      about the thing.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Every method you have written so far is static</span></div>
+    <div class="body">
+      <p>Your course notes this and it is worth pausing on. Every method in this book
+      until now has carried <code>static</code>, because every one has been called
+      from <code>main</code> without an object in sight.</p>
+      <p>Module 6 is where objects arrive properly and instance methods become the
+      normal case. The Dog example back in Module 1 already showed one:
+      <code>bark()</code> had no <code>static</code>, which is exactly why it needed
+      a <code>Dog</code> to be called on, and why it could print
+      <code>name</code>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Both, and why static cannot see instance data</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="StaticVsInstance"><span class="l"><span class="k">class</span> <span class="t">Person</span> {</span><span class="l">    <span class="t">String</span> name;                      <span class="c">// instance data: one per object</span></span><span class="l"></span><span class="l">    <span class="k">void</span> greet() {                     <span class="c">// INSTANCE method: no 'static'</span></span><span class="l">        System.out.println(<span class="s">"Hello, "</span> + name + <span class="s">"!"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Rectangle</span> {</span><span class="l">    <span class="k">int</span> length, width;</span><span class="l"></span><span class="l">    <span class="k">void</span> setDimensions(<span class="k">int</span> l, <span class="k">int</span> w) { length = l; width = w; }</span><span class="l">    <span class="k">int</span> getArea() { <span class="k">return</span> length * width; }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">StaticVsInstance</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> square(<span class="k">int</span> n) { <span class="k">return</span> n * n; }   <span class="c">// STATIC: a pure utility</span></span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(square(5));         <span class="c">// no object needed</span></span><span class="l"></span><span class="l">        <span class="t">Person</span> p = <span class="k">new</span> <span class="t">Person</span>();              <span class="c">// instance method NEEDS an object</span></span><span class="l">        p.name = <span class="s">"Alice"</span>;</span><span class="l">        p.greet();</span><span class="l"></span><span class="l">        <span class="t">Rectangle</span> r = <span class="k">new</span> <span class="t">Rectangle</span>();</span><span class="l">        r.setDimensions(5, 3);</span><span class="l">        System.out.println(<span class="s">"Area: "</span> + r.getArea());</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>25
+Hello, Alice!
+Area: 15</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The error every beginner meets</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="StaticTrap" data-error="non-static method"><span class="l"><span class="k">public class</span> <span class="t">StaticTrap</span> {</span><span class="l">    <span class="k">int</span> counter = 0;                 <span class="c">// instance data: belongs to an object</span></span><span class="l"></span><span class="l">    <span class="k">void</span> bump() { counter++; }        <span class="c">// instance method</span></span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l bad">        bump();      <span class="c">// which object's counter would this bump?</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>StaticTrap.java:7: error: non-static method bump() cannot be referenced from a static context
+        bump();
+        ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">"Non-static method cannot be
+      referenced from a static context" is the error you will meet most often this
+      year, and its meaning is a fair question: <code>bump()</code> increments
+      <b>some object's</b> counter, and <code>main</code> is not running on any
+      object, so there is no answer to "whose?". The fix is to make one:
+      <code>new StaticTrap().bump();</code>, or to make the method static if it
+      genuinely needs no object.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.6 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.6 · METHOD OVERLOADING</div>
+  <h2 class="title">One name, several methods</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Overloading</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Method overloading is a feature that allows a class to have more than
+        one method with the same name but with different parameter lists.</b></p>
+        <p>The compiler picks which one you meant, <b>at compile time</b>, using:</p>
+        <p>1. the <b>method signature</b> (name + parameter list), and<br/>
+        2. the <b>arguments passed</b> at the call.</p>
+      </div>
+      <p>This is your 2025/26 Section A, part A, worth two marks, and it wants the
+      "state precisely" part: the compiler matches the types, number and order of the
+      arguments you wrote against each candidate's parameter list, and since the
+      return type is not part of the signature, it plays no role in the decision.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> overloading is <b>one word with several
+      meanings, disambiguated by context</b>, exactly like "run" in English. "Run a
+      race" and "run a program" are different acts; you know which from what follows
+      the verb. The compiler knows from what is in the brackets.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Overloading, from the slides</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Plus"><span class="l"><span class="k">public class</span> <span class="t">Plus</span> {</span><span class="l"></span><span class="l">    <span class="k">static void</span> print(<span class="t">String</span> name) { System.out.println(<span class="s">"I am "</span> + name); }</span><span class="l">    <span class="k">static void</span> print(<span class="k">int</span> age)     { System.out.println(<span class="s">"I am "</span> + age + <span class="s">" years old"</span>); }</span><span class="l"></span><span class="l">    <span class="k">static int</span> add(<span class="k">int</span> a, <span class="k">int</span> b)            { <span class="k">return</span> a + b; }</span><span class="l">    <span class="k">static int</span> add(<span class="k">int</span> a, <span class="k">int</span> b, <span class="k">int</span> c)     { <span class="k">return</span> a + b + c; }</span><span class="l">    <span class="k">static double</span> add(<span class="k">double</span> a, <span class="k">double</span> b)  { <span class="k">return</span> a + b; }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        print(<span class="s">"John"</span>);        <span class="c">// String -> the first print</span></span><span class="l">        print(18);            <span class="c">// int    -> the second print</span></span><span class="l"></span><span class="l">        System.out.println(add(7, 8));       <span class="c">// two ints</span></span><span class="l">        System.out.println(add(2, 3, 4));    <span class="c">// three ints</span></span><span class="l">        System.out.println(add(1.5, 2.5));   <span class="c">// two doubles</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>I am John
+I am 18 years old
+15
+9
+4.0</pre>
+      <p class="small" style="padding:6pt 8pt 0">Three <code>add</code> methods, and
+      the compiler chose correctly three times without being told. Note the last
+      output is <code>4.0</code>, not <code>4</code>: the <code>double</code> version
+      ran, and a double prints with its decimal point. That detail is exactly the sort
+      of thing a "state the output" question turns on.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · What counts as a different parameter list</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:36%">Different by</th><th style="width:16%">Overloads?</th><th>Example</th></tr>
+        <tr><td>number of parameters</td><td><b>yes</b></td><td><code>add(int,int)</code> vs <code>add(int,int,int)</code></td></tr>
+        <tr><td>types of parameters</td><td><b>yes</b></td><td><code>add(int,int)</code> vs <code>add(double,double)</code></td></tr>
+        <tr><td>order of types</td><td><b>yes</b></td><td><code>f(int,String)</code> vs <code>f(String,int)</code></td></tr>
+        <tr><td>return type only</td><td><b>no</b></td><td>compile error: already defined (5.1)</td></tr>
+        <tr><td>parameter names only</td><td><b>no</b></td><td><code>f(int a)</code> vs <code>f(int b)</code> are the same signature</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 5.7 ---------------- -->
+<section>
+  <div class="kick">UNIT 5.7 · TYPE PROMOTION</div>
+  <h2 class="title">When there is no exact match</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The promotion order</span></div>
+    <div class="body">
+      <div class="card">
+        <p>When an exact type match is not found, Java automatically promotes smaller
+        types to larger ones:</p>
+        <p style="text-align:center"><b>byte &rarr; short &rarr; int &rarr; long
+        &rarr; float &rarr; double</b></p>
+        <p style="text-align:center"><b>char &rarr; int</b></p>
+      </div>
+      <p>"Can Java promote data types automatically in method overloading?" is a
+      stated in-text question. Yes: if no exact match exists, it promotes step by step
+      along that chain until it finds a method that fits.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> promotion only ever goes <b>uphill</b>,
+      towards the bigger box, because a bigger box can always hold a smaller value
+      without losing anything. Java will never quietly go downhill and lose your
+      data: that needs a cast, and you have to ask.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Promotion, watched</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Promotion"><span class="l"><span class="k">public class</span> <span class="t">Promotion</span> {</span><span class="l"></span><span class="l">    <span class="k">static void</span> show(<span class="k">int</span> x)    { System.out.println(<span class="s">"  show(int) got "</span> + x); }</span><span class="l">    <span class="k">static void</span> only(<span class="k">double</span> d) { System.out.println(<span class="s">"  only(double) got "</span> + d); }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// there is no show(char). 'A' is promoted char -> int.</span></span><span class="l">        System.out.println(<span class="s">"show('A'):"</span>);</span><span class="l good">        show(<span class="s">'A'</span>);</span><span class="l"></span><span class="l">        <span class="c">// there is no only(byte). Promoted byte -> short -> int</span></span><span class="l">        <span class="c">// -> long -> float -> double, step by step, until it fits.</span></span><span class="l">        <span class="k">byte</span> b = 5;</span><span class="l">        System.out.println(<span class="s">"only(byte 5):"</span>);</span><span class="l">        only(b);</span><span class="l"></span><span class="l">        <span class="c">// and the plain arithmetic version of the same rule</span></span><span class="l">        <span class="k">char</span> letter = <span class="s">'A'</span>;</span><span class="l">        System.out.println(<span class="s">"letter + 0 = "</span> + (letter + 0));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>show('A'):
+  show(int) got 65
+only(byte 5):
+  only(double) got 5.0
+letter + 0 = 65</pre>
+      <p class="small" style="padding:6pt 8pt 0">"65" is the answer to your course's
+      own example: <code>'A'</code> was promoted to its Unicode value, because there
+      was no method taking a <code>char</code>. This is the same fact as Unit 3.7's
+      <code>letter &gt; num</code>, seen from the other side: <b>a char really is a
+      number</b>, and Java will use that whenever it needs to.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · An exact match always beats a promotion</span></div>
+    <div class="body">
+      <p>Add a <code>show(char)</code> to the listing above and <code>show('A')</code>
+      prints <code>A</code>, not 65. Java promotes <b>only when it has to</b>: it
+      looks for an exact match first, and only widens if none exists.</p>
+      <p>This is why adding a harmless-looking overload can silently change what your
+      existing calls do. It is also a favourite exam trick: given several overloads,
+      being asked which one runs.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Methods</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>A method signature is its <span class="blank"></span> plus its
+        <span class="blank"></span>. The <span class="blank"></span> is <b>not</b>
+        part of it.</li>
+        <li>Two methods differing only in return type produce
+        <span class="blank"></span>.</li>
+        <li>The variable in the declaration is the <span class="blank"></span>; the
+        value at the call is the <span class="blank"></span>.</li>
+        <li>Java passes arguments by <span class="blank"></span>, always. For an
+        array, the thing copied is the <span class="blank"></span>, which is why
+        <span class="blank"></span> is visible to the caller but
+        <span class="blank"></span> is not.</li>
+        <li>A <span class="blank"></span> method can be called without creating an
+        object; that is why <code>main</code> is one.</li>
+        <li>The promotion order is byte &rarr; <span class="blank"></span> &rarr;
+        int &rarr; <span class="blank"></span> &rarr; float &rarr;
+        <span class="blank"></span>, and char &rarr; <span class="blank"></span>.</li>
+        <li>Given both <code>show(int)</code> and <code>show(char)</code>,
+        <code>show('A')</code> calls <span class="blank"></span>, because
+        <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. name, parameter list, return type &nbsp;·&nbsp; 2. a compile
+      error ("already defined") &nbsp;·&nbsp; 3. formal parameter, actual argument
+      &nbsp;·&nbsp; 4. value, reference, mutating the array, reassigning it
+      &nbsp;·&nbsp; 5. static &nbsp;·&nbsp; 6. short, long, double, int &nbsp;·&nbsp;
+      7. <code>show(char)</code>, an exact match always beats a promotion</p>
+    </div>
+  </div>
+</section>

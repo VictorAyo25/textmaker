@@ -35,6 +35,7 @@ ORDER = [
     'part_m2', 'module2',
     'part_m3', 'module3',
     'part_m4', 'module4',
+    'part_m5', 'module5',
 ]
 
 TITLE = 'COS221 · Computer Programming I (Java) · Study Manual'
