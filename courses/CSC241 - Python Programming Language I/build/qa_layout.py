@@ -5,6 +5,11 @@
 Hard failures (these stop a release):
   * text outside the content box, on any side
   * anything in the bottom margin that is not the running footer
+  * a body that did not render at its designed size, which means Chromium shrank
+    the whole document to fit something too wide. gates.py catches the usual
+    cause (an over-long code line) precisely and early; this catches the effect
+    whatever the cause, and it is the check that matters, because a shrunk book
+    has nothing overflowing and looks perfect to every other test here.
 
 Advisory (printed for a human to look at):
   * pages holding very little, reported with the space left on them and the size
@@ -30,6 +35,10 @@ SLACK = 2.0            # pt: glyph bboxes sit a hair proud of the text edge
 
 FOOTER_TEXT = 'CSC241'
 SPARSE = 0.30          # fraction of the content height below which a page is odd
+BODY_PT = 9.6          # the body size manual.css asks for
+BODY_TOL = 0.02        # pt: allow rounding, nothing more
+BLOCK_GAP = 6          # pt: the margin between two boxes (.55em), which the next
+                       # block also needs and which no rectangle shows
 
 
 def spans(page):
@@ -75,13 +84,34 @@ def forced_starts(doc):
 
 
 def first_block(page):
-    """Height of the topmost drawn box on the page, if it has one.
+    """Height of the whole topmost block on the page, if it has one.
 
-    Every teaching box paints a background, so this is what the page below had to
-    make room for.
+    Every teaching box paints a background, so this is what the page above had to
+    make room for. Walk down from the topmost rectangle while they keep touching,
+    so the answer is the box entire (bar, body and border) and not one part of it.
     """
-    rects = [d['rect'] for d in page.get_drawings() if d['rect'].height > 20]
-    return min(rects, key=lambda r: r.y0).height if rects else None
+    rects = sorted([d['rect'] for d in page.get_drawings() if d['rect'].height > 3],
+                   key=lambda r: r.y0)
+    if not rects:
+        return None
+    top, bottom = rects[0].y0, rects[0].y1
+    for r in rects[1:]:
+        if r.y0 > bottom + 3:      # a real gap: the next block is a separate one
+            break
+        bottom = max(bottom, r.y1)
+    return bottom - top
+
+
+def content_bottom(page, body):
+    """How far down the page anything reaches: text, or the box drawn around it.
+
+    A box extends below its last line by its padding, border and margin, so
+    measuring the gap from the text alone overstates the room left by a good
+    15pt and reports a block that missed by a hair as one that should have fit.
+    """
+    text = max(s['bbox'][3] for s in body)
+    drawn = max((d['rect'].y1 for d in page.get_drawings()), default=0)
+    return max(text, drawn)
 
 
 def check(pdf_path):
@@ -116,10 +146,10 @@ def check(pdf_path):
                 fails.append(f'page {i}: text sits {box.y0 - y0:.1f}pt above the content '
                              f'area: {t!r}')
 
-        top, bot = min(s['bbox'][1] for s in body), max(s['bbox'][3] for s in body)
+        top, bot = min(s['bbox'][1] for s in body), content_bottom(page, body)
         if (bot - top) >= SPARSE * box.height:
             continue
-        free = box.y1 - bot
+        free = box.y1 - bot - BLOCK_GAP
         nxt = first_block(doc[i + 1]) if i + 1 < doc.page_count else None
         if i + 1 in forced:
             continue                    # the next section must start on a fresh page
@@ -132,10 +162,25 @@ def check(pdf_path):
                + '. Look at this one.')
         sparse.append((i, f'text covers {(bot - top) / box.height:.0%}, {why}'))
 
+    # The body is set in DejaVu Serif at BODY_PT. If it came back smaller, every
+    # page was scaled and the size the manual was designed at is not the size it
+    # prints at.
+    body = max((s['size'] for i in range(1, doc.page_count)
+                for s in spans(doc[i])
+                if s['font'].endswith('DejaVuSerif')), default=None)
+    if body is None:
+        fails.append('no body text found: cannot tell whether the page was scaled')
+    elif body < BODY_PT - BODY_TOL:
+        fails.append(f'the body rendered at {body:.2f}pt, not {BODY_PT}pt: Chromium '
+                     f'shrank every page to {body / BODY_PT:.1%} to fit something too '
+                     f'wide. Run gates.py: it names the line.')
+
     pages = doc.page_count
     doc.close()
 
     print(f'LAYOUT QA: {pages} pages examined')
+    if body and body >= BODY_PT - BODY_TOL:
+        print(f'  . body renders at {body:.2f}pt, its designed size: nothing was scaled')
     if fails:
         print('LAYOUT QA: FAIL')
         for f in fails:

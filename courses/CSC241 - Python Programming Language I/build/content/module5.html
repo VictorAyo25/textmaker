@@ -253,7 +253,8 @@ rows = cursor.fetchall()
       <p><b>Right:</b> a question mark for each value, and a tuple of the values.</p>
 <pre class="code">cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES (?, ?)"</span>, (name, phone))</pre>
       <p><b>Wrong:</b> building the SQL by joining strings.</p>
-<pre class="code"><span class="bad">cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES ('"</span> + name + <span class="s">"', '"</span> + phone + <span class="s">"')"</span>)</span></pre>
+<pre class="code"><span class="bad">sql = <span class="s">"INSERT INTO contacts (name, phone) VALUES ('"</span> + name + <span class="s">"', '"</span> + phone + <span class="s">"')"</span>
+cursor.execute(sql)</span></pre>
       <p>The joined version breaks the moment a name contains an apostrophe, which ends the
       SQL string early and leaves nonsense behind. A name like O'Brien is enough to do it.
       It is also how databases get attacked, by typing SQL into a name box.</p>

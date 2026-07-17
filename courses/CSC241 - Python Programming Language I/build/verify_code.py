@@ -1189,6 +1189,366 @@ finally:
     import shutil as _shM
     _shM.rmtree(_tmpM, ignore_errors=True)
 
+# ======================= MOCK TWO =======================
+# Same rule as Mock One: every answer executed, none typed.
+
+# ---- Q1 ----
+check('mock2 Q1(b) fixed', 'total = 0\nfor i in range(1, 5):\n    total += i\n'
+      'print("Total:", total)', 'Total: 10')
+val('mock2 Q1(b) range(1,5) stops at 4, so 10 and not 15', 'sum(range(1, 5))', '10')
+traceback_tail('mock2 Q1(b) the colon comes first',
+               'total = 0\nfor i in range(1, 5)\n    total += i\nprint("Total:", Total)\n',
+               ["    for i in range(1, 5)",
+                "                        ^",
+                "SyntaxError: expected ':'"])
+check('mock2 Q1(b) the NameError only appears once the colon is fixed',
+      'total = 0\nfor i in range(1, 5):\n    total += i\nprint("Total:", Total)',
+      "NameError: name 'Total' is not defined")
+check('mock2 Q1(c) for/else with no break',
+      'for i in range(3, 0, -1):\n    print(i)\nelse:\n    print("Liftoff")',
+      '3\n2\n1\nLiftoff')
+
+BILL = '''units = {}
+if units > 0:
+    if units < 50:
+        band, rate = "Lifeline", 10
+    elif units < 200:
+        band, rate = "Domestic", 20
+    else:
+        band, rate = "Commercial", 30
+    print(f"Band: {{band}} | Bill: N{{units * rate}}")
+else:
+    print("Please enter a valid reading")'''
+# the boundary table on the page, every row of it
+for v, exp in [(120, 'Band: Domestic | Bill: N2400'),
+               (49, 'Band: Lifeline | Bill: N490'),
+               (50, 'Band: Domestic | Bill: N1000'),
+               (199, 'Band: Domestic | Bill: N3980'),
+               (200, 'Band: Commercial | Bill: N6000'),
+               (30, 'Band: Lifeline | Bill: N300'),
+               (250, 'Band: Commercial | Bill: N7500'),
+               (0, 'Please enter a valid reading')]:
+    check(f'mock2 Q1(d) units={v}', BILL.format(v), exp)
+
+check('mock2 Q1(e)', '''line = "30 120 250"
+count = 0
+grand = 0
+for part in line.split():
+    units = int(part)
+    if units > 0:
+        if units < 50:
+            band, rate = "Lifeline", 10
+        elif units < 200:
+            band, rate = "Domestic", 20
+        else:
+            band, rate = "Commercial", 30
+        bill = units * rate
+        grand += bill
+        count += 1
+        print(f"{units} units | {band} | N{bill}")
+    else:
+        print(units, "Please enter a valid reading")
+print("Readings billed:", count)
+print("Total:", grand)''',
+      '30 units | Lifeline | N300\n120 units | Domestic | N2400\n'
+      '250 units | Commercial | N7500\nReadings billed: 3\nTotal: 10200')
+
+# ---- Q2 ----
+check('mock2 Q2(b) a tuple has no append',
+      'weights = (12, 5, 20, 8)\nweights.append(15)\nprint("Sorted:", weights.sort())',
+      "AttributeError: 'tuple' object has no attribute 'append'")
+check('mock2 Q2(b) make it a list and sort() still prints None',
+      'weights = [12, 5, 20, 8]\nweights.append(15)\nprint("Sorted:", weights.sort())',
+      'Sorted: None')
+check('mock2 Q2(b) fixed',
+      'weights = [12, 5, 20, 8]\nweights.append(15)\nweights.sort()\n'
+      'print("Sorted:", weights)', 'Sorted: [5, 8, 12, 15, 20]')
+check('mock2 Q2(c)', '''stock = {"pen": 12, "book": 5}
+stock["pen"] = stock["pen"] - 3
+stock["bag"] = 7
+print(stock["pen"])
+print(len(stock))
+print("book" in stock)''', '9\n3\nTrue')
+val('mock2 Q2(c) in looks at the keys, never the values',
+    '12 in {"pen": 12, "book": 5}', 'False')
+check('mock2 Q2(d)', '''weights = []
+for e in ["12", "5", "20", "8"]:
+    weights.append(int(e))
+weights.sort()
+print("Sorted:", weights)
+print("Heaviest:", max(weights))
+print("Lightest:", min(weights))''',
+      'Sorted: [5, 8, 12, 20]\nHeaviest: 20\nLightest: 5')
+check('mock2 Q2(e)', '''line = "12 5 20 8 25"
+weights = []
+for part in line.split():
+    weights.append(int(part))
+weights.sort(reverse=True)
+average = sum(weights) / len(weights)
+surcharge = 0
+for w in weights:
+    if w > 20:
+        surcharge += 1
+print("Sorted:", weights)
+print("Heaviest:", max(weights))
+print("Lightest:", min(weights))
+print(f"Average: {average:.2f}")
+print("Surcharged:", surcharge)''',
+      'Sorted: [25, 20, 12, 8, 5]\nHeaviest: 25\nLightest: 5\nAverage: 14.00\n'
+      'Surcharged: 1')
+# the boundary the answer calls the most expensive habit in the paper
+val('mock2 Q2(e) a 20kg parcel is not above 20', '20 > 20', 'False')
+val('mock2 Q2(e) surcharged with > is 1, with >= would be 2',
+    '(len([w for w in [12,5,20,8,25] if w > 20]),'
+    ' len([w for w in [12,5,20,8,25] if w >= 20]))', '(1, 2)')
+
+# ---- Q3 ----
+check('mock2 Q3(b) fix the colon and it prints None',
+      'def fee(hours):\n    total = 200 + (hours - 1) * 150\nprint(fee(3))', 'None')
+check('mock2 Q3(b) fixed',
+      'def fee(hours):\n    return 200 + (hours - 1) * 150\nprint(fee(3))', '500')
+check('mock2 Q3(c) default parameter',
+      'def pay(hours, rate=500):\n    return hours * rate\n\nprint(pay(8))\n'
+      'print(pay(8, 700))', '4000\n5600')
+check('mock2 Q3(d)', '''def fee(hours):
+    return 200 + (hours - 1) * 150
+
+for plate, hours in [("ABC123", 3), ("XYZ789", 1), ("KJA55", 5)]:
+    print(f"Plate: {plate} | Hours: {hours} | Fee: N{fee(hours)}")''',
+      'Plate: ABC123 | Hours: 3 | Fee: N500\nPlate: XYZ789 | Hours: 1 | Fee: N200\n'
+      'Plate: KJA55 | Hours: 5 | Fee: N800')
+# the one-hour case the answer says to check by hand
+val('mock2 Q3(d) the first hour is 200, not 350', '200 + (1 - 1) * 150', '200')
+val('mock2 Q3(d) the wrong formula overcharges by 150 every time',
+    '200 + 1 * 150', '350')
+check('mock2 Q3(e)', '''def fee(hours):
+    return 200 + (hours - 1) * 150
+
+count = 0
+takings = 0
+for plate, raw in [("ABC123", "3"), ("XYZ789", "1"), ("done", "")]:
+    if plate == "done":
+        break
+    hours = int(raw)
+    amount = fee(hours)
+    takings += amount
+    count += 1
+    print(f"Plate: {plate} | Hours: {hours} | Fee: N{amount}")
+print("Vehicles charged:", count)
+print(f"Total takings: N{takings}")''',
+      'Plate: ABC123 | Hours: 3 | Fee: N500\nPlate: XYZ789 | Hours: 1 | Fee: N200\n'
+      'Vehicles charged: 2\nTotal takings: N700')
+
+# ---- Q4 ----
+check('mock2 Q4(b) split gives a list, and a list has no lower',
+      'email = "Ada@CU.edu.ng"\ndomain = email.split("@")\nprint("Domain:", domain.lower)',
+      "AttributeError: 'list' object has no attribute 'lower'")
+check('mock2 Q4(b) fixed',
+      'email = "Ada@CU.edu.ng"\ndomain = email.split("@")[1]\n'
+      'print("Domain:", domain.lower())', 'Domain: cu.edu.ng')
+val('mock2 Q4(b) the domain is index 1', '"Ada@CU.edu.ng".split("@")',
+    "['Ada', 'CU.edu.ng']")
+# The page prints the bound method with its address elided as 0x..., because the
+# address is a different number in every process. Check the shape, never the text.
+n += 1
+_bm = repr('cu.edu.ng'.lower)
+if not (_bm.startswith('<built-in method lower of str object at 0x')
+        and _bm.endswith('>')):
+    fails.append(('mock2 Q4(b) a method without brackets prints as itself',
+                  '<built-in method lower of str object at 0x...>', _bm))
+check('mock2 Q4(c)',
+      'code = "  csc241-python  "\nprint(code.strip().upper())\n'
+      'print(code.strip().split("-"))\nprint(len(code.strip()))',
+      "CSC241-PYTHON\n['csc241', 'python']\n13")
+val('mock2 Q4(c) len without the strip is 17', 'len("  csc241-python  ")', '17')
+check('mock2 Q4(d)', '''emails = ["ada@cu.edu.ng", "bola@gmail.com", "chidi@yahoo.com",
+          "dele@cu.edu.ng", "efe@outlook.com"]
+for email in emails:
+    domain = email.split("@")[1]
+    print(f"Email: {email} | Domain: {domain}")''',
+      'Email: ada@cu.edu.ng | Domain: cu.edu.ng\n'
+      'Email: bola@gmail.com | Domain: gmail.com\n'
+      'Email: chidi@yahoo.com | Domain: yahoo.com\n'
+      'Email: dele@cu.edu.ng | Domain: cu.edu.ng\n'
+      'Email: efe@outlook.com | Domain: outlook.com')
+check('mock2 Q4(e)', '''line = "csc241, mat121x, , abc"
+for code in line.split(","):
+    code = code.strip()
+    if code == "":
+        continue
+    code = code.upper()
+    letters = 0
+    for ch in code:
+        if ch.isalpha():
+            letters += 1
+    others = len(code) - letters
+    csc = code.startswith("CSC")
+    print(f"Code: {code} | Letters: {letters} | Not letters: {others} | CSC: {csc}")''',
+      'Code: CSC241 | Letters: 3 | Not letters: 3 | CSC: True\n'
+      'Code: MAT121X | Letters: 4 | Not letters: 3 | CSC: False\n'
+      'Code: ABC | Letters: 3 | Not letters: 0 | CSC: False')
+val('mock2 Q4(e) four pieces go in and one is empty',
+    '"csc241, mat121x, , abc".split(",")', "['csc241', ' mat121x', ' ', ' abc']")
+val('mock2 Q4(e) startswith is case sensitive, so capitalise first',
+    '("csc241".startswith("CSC"), "csc241".upper().startswith("CSC"))',
+    '(False, True)')
+
+# ---- Q5 ----
+_tmp5 = tempfile.mkdtemp(prefix='csc241_m2_')
+_cwd5 = os.getcwd()
+os.chdir(_tmp5)
+try:
+    # (b) the SAME bug reports differently depending on whether the file is there,
+    # which is the point the answer makes and the reason both are pinned.
+    with open('names.txt', 'w') as _f:
+        _f.write('Bola\n')
+    _fh = open('names.txt', 'r')
+    raises('mock2 Q5(b) the file exists: not writable',
+           lambda: _fh.write('Ada\n'),
+           'UnsupportedOperation: not writable')
+    _fh.close()
+    os.remove('names.txt')
+    raises('mock2 Q5(b) the file is missing: open() fails first',
+           lambda: open('names.txt', 'r'),
+           "FileNotFoundError: [Errno 2] No such file or directory: 'names.txt'")
+    check('mock2 Q5(b) fixed',
+          'f = open("names.txt", "a")\nf.write("Ada\\n")\nf.close()\n'
+          'print(open("names.txt").read().strip())', 'Ada')
+    check('mock2 Q5(c) w truncates, so the first line is gone', '''with open("data.txt", "w") as f:
+    f.write("first\\n")
+
+with open("data.txt", "w") as f:
+    f.write("second\\n")
+
+with open("data.txt") as f:
+    print(f.read())''', 'second')
+    check('mock2 Q5(c) with "a" both lines survive', '''with open("data2.txt", "w") as f:
+    f.write("first\\n")
+
+with open("data2.txt", "a") as f:
+    f.write("second\\n")
+
+with open("data2.txt") as f:
+    print(f.read())''', 'first\nsecond')
+    check('mock2 Q5(d)', '''names = ["Ada", "Bola", "Chidi"]
+with open("attendance.txt", "w") as f:
+    for name in names:
+        f.write(name + "\\n")
+print("Attendance saved successfully.")''', 'Attendance saved successfully.')
+    check('mock2 Q5(d) the file holds one name per line',
+          'print(open("attendance.txt").read().strip())', 'Ada\nBola\nChidi')
+    check('mock2 Q5(d) without the newline the register is one line',
+          'f = open("bad.txt", "w")\n'
+          'for name in ["Ada", "Bola", "Chidi"]:\n    f.write(name)\nf.close()\n'
+          'print(open("bad.txt").read())', 'AdaBolaChidi')
+    check('mock2 Q5(e)', '''entries = [("Ada", "72"), ("Bola", "45"), ("Chidi", "58"), ("done", "")]
+f = open("scores.txt", "w")
+for name, raw in entries:
+    if name == "done":
+        break
+    f.write(name + ", " + raw + "\\n")
+f.close()
+
+f = open("scores.txt", "r")
+total = 0
+count = 0
+passes = 0
+for line in f:
+    name, raw = line.strip().split(", ")
+    score = int(raw)
+    total += score
+    count += 1
+    if score >= 50:
+        passes += 1
+    print(f"{name}: {score}")
+f.close()
+print(f"Average: {total / count:.2f}")
+print("Passed:", passes)''',
+          'Ada: 72\nBola: 45\nChidi: 58\nAverage: 58.33\nPassed: 2')
+    val('mock2 Q5(e) 45 is not a pass', '45 >= 50', 'False')
+    val('mock2 Q5(e) the average is 175/3', 'round(175 / 3, 2)', '58.33')
+    val('mock2 Q5(e) int() does survive the newline, but strip anyway',
+        'int("72\\n")', '72')
+finally:
+    os.chdir(_cwd5)
+    shutil.rmtree(_tmp5, ignore_errors=True)
+
+# ---- Q6 ----
+_tmp6 = tempfile.mkdtemp(prefix='csc241_m2db_')
+_cwd6 = os.getcwd()
+os.chdir(_tmp6)
+try:
+    check('mock2 Q6(b) VALUE is a SQL error, not a Python one', '''import sqlite3
+conn = sqlite3.connect("shop.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+cursor.execute("INSERT INTO products (name, price) VALUE ('Pen', 150)")
+conn.commit()
+conn.close''', 'OperationalError: near "VALUE": syntax error')
+    check('mock2 Q6(b) fixed', '''import sqlite3
+conn = sqlite3.connect("shop2.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+cursor.execute("INSERT INTO products (name, price) VALUES ('Pen', 150)")
+conn.commit()
+conn.close()
+print("ok")''', 'ok')
+    check('mock2 Q6(c) a list of one-item tuples', '''import sqlite3
+conn = sqlite3.connect("shop2.db")
+cursor = conn.cursor()
+cursor.execute("SELECT name FROM products")
+print(cursor.fetchall())
+conn.close()''', "[('Pen',)]")
+    check('mock2 Q6(c) connect() creates the file, so the table is what fails',
+          '''import sqlite3
+conn = sqlite3.connect("typo.db")
+cursor = conn.cursor()
+cursor.execute("SELECT name FROM products")
+conn.close()''', 'OperationalError: no such table: products')
+    check('mock2 Q6(b) run twice without IF NOT EXISTS', '''import sqlite3
+conn = sqlite3.connect("twice.db")
+c = conn.cursor()
+c.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT)")
+c.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT)")
+conn.close()''', 'OperationalError: table products already exists')
+    check('mock2 Q6(d)', '''import sqlite3
+conn = sqlite3.connect("inventory.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+for name, raw in [("Pen", "150"), ("Book", "1200"), ("Bag", "4500")]:
+    cursor.execute("INSERT INTO products (name, price) VALUES (?, ?)", (name, int(raw)))
+conn.commit()
+conn.close()
+print("Three products saved.")''', 'Three products saved.')
+    check('mock2 Q6(e)', '''import sqlite3
+conn = sqlite3.connect("inv2.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+for name, raw in [("Pen", "150"), ("Book", "1200"), ("done", "")]:
+    if name == "done":
+        break
+    cursor.execute("INSERT INTO products (name, price) VALUES (?, ?)", (name, int(raw)))
+conn.commit()
+
+cursor.execute("SELECT * FROM products")
+for row in cursor.fetchall():
+    print(row)
+conn.close()''', "(1, 'Pen', 150)\n(2, 'Book', 1200)")
+    # the id the page says fills itself in
+    check('mock2 Q6(d) INTEGER PRIMARY KEY numbers itself 1, 2, 3', '''import sqlite3
+conn = sqlite3.connect("ids.db")
+c = conn.cursor()
+c.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+for nm in ("Pen", "Book", "Bag"):
+    c.execute("INSERT INTO products (name, price) VALUES (?, ?)", (nm, 1))
+conn.commit()
+c.execute("SELECT id FROM products")
+print([r[0] for r in c.fetchall()])
+conn.close()''', '[1, 2, 3]')
+finally:
+    os.chdir(_cwd6)
+    shutil.rmtree(_tmp6, ignore_errors=True)
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:

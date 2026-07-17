@@ -6,8 +6,8 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**All five modules plus Mock One authored, and the Contents page built**, rendered to
-`build/CSC241_checkpoint.pdf` (103 pages: cover, Contents, and 101). Voice and palette
+**All five modules, both mocks, and the Contents page authored**, rendered to
+`build/CSC241_checkpoint.pdf` (127 pages: cover, Contents, and 125). Voice and palette
 approved.
 
 Every one of the exam's six questions now has a home:
@@ -44,7 +44,23 @@ surfaced. Four of the six divider pages were stranding the following unit's head
 their foot, with the unit's own text overleaf. `.part` now takes `page-break-after`, so
 a divider owns its page.
 
-**Still to build:** Mock Two.
+**Mock Two** mirrors the same rigid shape with fresh problems throughout, and asks the
+parts that caught you in Mock One from the other side: where Mock One's Q1(c) broke the
+loop so the `else` was skipped, Mock Two's does not, so it runs. Its closing box teaches
+the structure of both papers back, because underneath sixty parts there are four
+patterns.
+
+**The whole book had been rendering at the wrong size.** Chromium's print path scales the
+entire document to fit its widest box, so one 93-character line in Module Five had been
+shrinking every page to 96.9% of design, and Mock Two's three 104-character SQL lines took
+it to 87.1%: a 9.6pt body reaching the reader at 8.36pt. Fixing four lines took the book
+from 106 pages to its true 127. Nothing else caught it, and nothing else could: after the
+shrink nothing overflows, so the layout QA saw a perfect book. There are now two gates for
+it, one before the render (`gates.py`, no code line over 90 columns) and one after
+(`qa_layout.py`, the body must come back at 9.6pt).
+
+**Still to build:** nothing outstanding. Both mocks, all five modules, the Contents and
+the full gate suite are in.
 
 ## Sources
 
@@ -159,16 +175,18 @@ repeats until a render agrees with the Contents it was built from.
   set of strings prints in a different order every run, and only `len()` and
   `sorted()` are reproducible.
 - `gates.py` enforces house style: no em or en dashes, no institution branding, the
-  pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, and all
-  code monospace.
+  pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, all code
+  monospace, and **no code line over 90 columns** (see above: a longer one shrinks every
+  page in the book).
 - The **Contents gate** (in `assemble.py`) follows all 25 links and checks each against
   the book rather than against itself: the page it lands on must carry that section's
   heading, and the number the row prints must be the number that page's own footer
   prints. Checking the Contents for internal consistency is not enough, because a
   Contents can be uniformly wrong and perfectly consistent with itself.
-- `qa_layout.py` looks at every page: no text outside the content box, nothing in the
-  bottom margin but the running footer, and no page left short without a reason (a
-  section that must start fresh, or a next block too tall to fit).
+- `qa_layout.py` looks at every page: **the body must render at its designed 9.6pt**, no
+  text outside the content box, nothing in the bottom margin but the running footer, and
+  no page left short without a reason (a section that must start fresh, or a next block
+  too tall to fit).
 
 `build/` also holds `manual.css` (the CSC241 palette and box grammar), `render.py`
 (Chromium via Playwright, footer via `footerTemplate`), `contents.py`, `buildlock.py`,

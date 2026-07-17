@@ -9,8 +9,23 @@ These encode the workspace's hard rules:
   4. Code must never be set in a proportional font. The source manual does this
      and its column-alignment examples are meaningless as a result; we do not
      inherit that defect.
+  5. No line of code may be wider than the page. Chromium's print path shrinks
+     the WHOLE document to fit its widest box, so one long line in one snippet
+     silently reduces the body font size of every page in the book. This is not
+     hypothetical: a 93-character line in Module Five had been rendering the
+     manual at 96.9% of its design size, and three 104-character lines in Mock
+     Two took it to 87.1%. Nothing else caught it. Layout QA could not: after the
+     shrink, nothing overflows. See qa_layout.py, which checks the rendered size
+     as well, and MANUAL_METHODOLOGY.md.
 """
+import html as _html
 import re, sys
+
+# Measured, not derived: see the probe recorded in MANUAL_METHODOLOGY.md. At 90
+# characters the body still renders at its designed 9.6pt; at 92 it is 9.40pt.
+MAX_CODE_COLS = 90
+
+CODE_BLOCK = re.compile(r'<pre class="[^"]*">(.*?)</pre>', re.S)
 
 # Dashes: em (U+2014), en (U+2013), horizontal bar (U+2015), minus-as-dash figure
 # dash (U+2012). The maths minus (U+2212) is explicitly allowed.
@@ -67,12 +82,21 @@ def run_gates(html):
         if 'mono' not in fam:
             fails.append(f'code set in a non-monospace font: {m.group(2)!r}')
 
+    # ---- 5. no code line wider than the page ----
+    for block in CODE_BLOCK.findall(html):
+        for line in _html.unescape(re.sub(r'<[^>]+>', '', block)).split('\n'):
+            if len(line) > MAX_CODE_COLS:
+                fails.append(f'code line is {len(line)} characters, over the '
+                             f'{MAX_CODE_COLS} that fit: Chromium would shrink every '
+                             f'page in the book to fit it. {line.strip()[:56]!r}')
+
     # ---- report ----
     checks = [
         'no em/en dashes',
         'no institution branding or pedagogy source named',
         'reserved colour reserved',
         'all code monospace',
+        f'no code line over {MAX_CODE_COLS} columns',
     ]
     if fails:
         print('HOUSE-STYLE GATE: FAIL')

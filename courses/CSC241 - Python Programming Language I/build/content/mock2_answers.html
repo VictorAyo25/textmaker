@@ -1,0 +1,870 @@
+<section id="mock2-answers" style="page-break-before:always;">
+  <div class="kick">Mock Examination Two</div>
+  <h2 class="title">Answers</h2>
+  <hr class="rule">
+  <p class="lead">Every output below was produced by running the code, not by reading it.
+  Where your answer differs from the marking, the difference is information: find out which
+  of you is right before you move on.</p>
+
+  <h3 class="sub">Question One</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (a)</span></div>
+    <div class="body">
+      <p>A <b>control structure</b> decides which statements run, and how often. Without one a
+      program is a list that runs top to bottom, once.</p>
+      <ul class="bul">
+        <li><b><code>break</code></b> leaves the loop immediately. Nothing after it in the
+        loop body runs, and the loop does not continue.
+        <span class="note">for i in range(5): if i == 2: break</span></li>
+        <li><b><code>continue</code></b> abandons <i>this pass only</i> and jumps to the next.
+        The loop carries on.
+        <span class="note">for i in range(5): if i % 2: continue</span></li>
+        <li><b><code>else</code> on a loop</b> runs when the loop finishes <b>without being
+        broken</b>. It is the part everyone forgets: it is not "otherwise", it is "and we got
+        all the way through".</li>
+      </ul>
+      <p>The three-way answer the examiner wants: sequence, selection (<code>if</code>),
+      repetition (<code>for</code>, <code>while</code>). <code>break</code> and
+      <code>continue</code> steer the third.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors, and the second only appears once the first is gone.</b></p>
+      <ol class="steps">
+        <li>The <code>for</code> line has <b>no colon</b>. Python stops before running
+        anything:
+        <span class="note">SyntaxError: expected ':'</span></li>
+        <li>Add the colon and it runs, and now fails on the last line:
+        <span class="note">NameError: name 'Total' is not defined</span>
+        <code>Total</code> is not <code>total</code>. Python is case sensitive, and a name
+        with a capital letter is a different name.</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code">total = <span class="n">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">1</span>, <span class="n">5</span>):
+    total += i
+<span class="k">print</span>(<span class="s">"Total:"</span>, total)</pre>
+<pre class="out">Total: 10</pre>
+      <p><code>range(1, 5)</code> gives 1, 2, 3, 4. The 5 is the stop and never arrives, so
+      the total is 10 and not 15. If you answered 15 you have the off by one that this part
+      exists to catch.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (c)</span></div>
+    <div class="body">
+<pre class="out">3
+2
+1
+Liftoff</pre>
+      <p><code>range(3, 0, -1)</code> counts <b>down</b>: start at 3, stop before 0, step by
+      -1. So 3, 2, 1, and never 0.</p>
+      <p><b>Why the last line prints at all</b> is the whole question. A loop's
+      <code>else</code> runs when the loop <b>completes without a <code>break</code></b>.
+      There is no <code>break</code> here, so the loop finishes, and the <code>else</code>
+      fires.</p>
+      <p>This is the mirror of Mock One Q1(c), where a <code>break</code> did fire and the
+      <code>else</code> was skipped. Same rule, both sides of it. If you can state that rule
+      in one sentence you have both marks.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">bill.py</div>
+<pre class="code">units = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Enter units consumed: "</span>))
+
+<span class="k">if</span> units &gt; <span class="n">0</span>:
+    <span class="k">if</span> units &lt; <span class="n">50</span>:
+        band, rate = <span class="s">"Lifeline"</span>, <span class="n">10</span>
+    <span class="k">elif</span> units &lt; <span class="n">200</span>:
+        band, rate = <span class="s">"Domestic"</span>, <span class="n">20</span>
+    <span class="k">else</span>:
+        band, rate = <span class="s">"Commercial"</span>, <span class="n">30</span>
+    <span class="k">print</span>(<span class="s">f"Band: </span>{band}<span class="s"> | Bill: N</span>{units * rate}<span class="s">"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"Please enter a valid reading"</span>)</pre>
+      <p>Entering 120:</p>
+<pre class="out">Band: Domestic | Bill: N2400</pre>
+      <p>The <code>elif</code> chain is doing work you get for free: by the time Python
+      reaches <code>elif units &lt; 200</code> it already knows the units are <b>not</b> under
+      50, so you never write <code>units &gt;= 50 and units &lt; 200</code>. Writing that
+      instead is not wrong, but it is the long way round and it is where people put the
+      boundary in the wrong place.</p>
+      <p><b>The boundaries decide the mark:</b></p>
+      <table class="data">
+        <tr><th>Units</th><th>Band</th><th>Bill</th></tr>
+        <tr><td>49</td><td>Lifeline</td><td>N490</td></tr>
+        <tr><td>50</td><td>Domestic</td><td>N1000</td></tr>
+        <tr><td>199</td><td>Domestic</td><td>N3980</td></tr>
+        <tr><td>200</td><td>Commercial</td><td>N6000</td></tr>
+      </table>
+      <p style="margin-top:.4em">50 is <b>not</b> under 50, so it is Domestic. 200 is not
+      under 200, so it is Commercial. Read <code>&lt;</code> as "strictly less than" every
+      time, and these four fall out on their own.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (e)</span></div>
+    <div class="body">
+      <p>Same banding, wrapped in <b>split and convert</b>. Nothing about the pricing changes.
+      That is the point of "as an extension of (d)": do not rewrite it, wrap it.</p>
+      <div class="codelabel">bills.py</div>
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter the readings separated by spaces: "</span>)
+
+count = <span class="n">0</span>
+grand = <span class="n">0</span>
+<span class="k">for</span> part <span class="k">in</span> line.split():
+    units = <span class="k">int</span>(part)
+    <span class="k">if</span> units &gt; <span class="n">0</span>:
+        <span class="k">if</span> units &lt; <span class="n">50</span>:
+            band, rate = <span class="s">"Lifeline"</span>, <span class="n">10</span>
+        <span class="k">elif</span> units &lt; <span class="n">200</span>:
+            band, rate = <span class="s">"Domestic"</span>, <span class="n">20</span>
+        <span class="k">else</span>:
+            band, rate = <span class="s">"Commercial"</span>, <span class="n">30</span>
+        bill = units * rate
+        grand += bill
+        count += <span class="n">1</span>
+        <span class="k">print</span>(<span class="s">f"</span>{units}<span class="s"> units | </span>{band}<span class="s"> | N</span>{bill}<span class="s">"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(units, <span class="s">"Please enter a valid reading"</span>)
+
+<span class="k">print</span>(<span class="s">"Readings billed:"</span>, count)
+<span class="k">print</span>(<span class="s">"Total:"</span>, grand)</pre>
+      <p>Entering <code>30 120 250</code>:</p>
+<pre class="out">30 units | Lifeline | N300
+120 units | Domestic | N2400
+250 units | Commercial | N7500
+Readings billed: 3
+Total: 10200</pre>
+      <p>Three things earn the marks: <code>split()</code> with no argument (any run of
+      spaces), <code>int(part)</code> on every piece because <code>input()</code> hands you
+      text, and <code>count</code> incremented <b>inside</b> the valid branch, so a rejected
+      reading is not counted as billed.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Two</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (a)</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Structure</th><th>What it is</th><th>Use it for</th></tr>
+        <tr><td><b>List</b> <code>[]</code></td><td>Ordered, changeable, duplicates allowed</td><td>The parcels weighed today: the set of them changes all day.</td></tr>
+        <tr><td><b>Tuple</b> <code>()</code></td><td>Ordered, <b>unchangeable</b></td><td>A fixed pair like (latitude, longitude), or the days of the week.</td></tr>
+        <tr><td><b>Set</b> <code>{}</code></td><td>Unordered, <b>no duplicates</b></td><td>The distinct courses a student takes: ask it "how many different?"</td></tr>
+        <tr><td><b>Dictionary</b> <code>{k: v}</code></td><td>Keyed pairs</td><td>Stock levels: look up "pen" directly, without searching.</td></tr>
+      </table>
+      <p style="margin-top:.5em"><b>List against tuple:</b> use a tuple when the collection
+      must not change, and the fact that it cannot is the protection. A list is the default;
+      reach for a tuple deliberately.</p>
+      <p><b>What a dictionary gives that a list cannot:</b> it finds a value <b>by name</b>.
+      In a list you must know the position, or search the whole thing. In a dictionary
+      <code>stock["pen"]</code> goes straight there, however many items there are.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors, the second hidden behind the first.</b></p>
+      <ol class="steps">
+        <li><code>weights</code> is a <b>tuple</b>, and a tuple cannot be changed:
+        <span class="note">AttributeError: 'tuple' object has no attribute 'append'</span>
+        The collection is being added to, so it should have been a list: <code>[12, 5, 20,
+        8]</code>.</li>
+        <li>Make it a list and the crash stops, but the output is wrong:
+        <span class="note">Sorted: None</span>
+        <code>sort()</code> sorts the list <b>in place</b> and returns <code>None</code>. You
+        printed its return value, which is nothing. Sort first, then print the list.</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code">weights = [<span class="n">12</span>, <span class="n">5</span>, <span class="n">20</span>, <span class="n">8</span>]
+weights.append(<span class="n">15</span>)
+weights.sort()
+<span class="k">print</span>(<span class="s">"Sorted:"</span>, weights)</pre>
+<pre class="out">Sorted: [5, 8, 12, 15, 20]</pre>
+      <p>The second error is the one worth remembering: <b>a method that changes a thing in
+      place gives back <code>None</code></b>. <code>sort()</code>, <code>reverse()</code> and
+      <code>append()</code> are all like this. If you want a sorted copy and the original
+      kept, that is <code>sorted(weights)</code>, which returns a new list.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (c)</span></div>
+    <div class="body">
+<pre class="out">9
+3
+True</pre>
+      <ol class="steps">
+        <li><code>stock["pen"] = stock["pen"] - 3</code> reads 12, takes 3, and writes 9 back
+        to the <b>existing</b> key. The dictionary still has two keys.</li>
+        <li><code>stock["bag"] = 7</code> uses a key that is not there, so it is
+        <b>created</b>. The same square brackets both update and add: which one happens
+        depends entirely on whether the key already exists.</li>
+        <li><code>print(stock["pen"])</code> gives <b>9</b>.</li>
+        <li><code>len(stock)</code> counts the <b>keys</b>: pen, book, bag, so <b>3</b>.
+        Not the values, and not the characters.</li>
+        <li><code>"book" in stock</code> asks whether that is a <b>key</b>, and it is:
+        <b>True</b>. On a dictionary, <code>in</code> looks at the keys, never the values.
+        <code>12 in stock</code> would be False even though 12 is in there.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">parcels.py</div>
+<pre class="code">weights = []
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">4</span>):
+    w = <span class="k">int</span>(<span class="k">input</span>(<span class="s">f"Weight of parcel </span>{i + <span class="n">1</span>}<span class="s">: "</span>))
+    weights.append(w)
+
+weights.sort()
+<span class="k">print</span>(<span class="s">"Sorted:"</span>, weights)
+<span class="k">print</span>(<span class="s">"Heaviest:"</span>, <span class="k">max</span>(weights))
+<span class="k">print</span>(<span class="s">"Lightest:"</span>, <span class="k">min</span>(weights))</pre>
+      <p>Entering 12, 5, 20, 8:</p>
+<pre class="out">Sorted: [5, 8, 12, 20]
+Heaviest: 20
+Lightest: 5</pre>
+      <p>"Appropriate built-in functions" means <code>max()</code> and <code>min()</code>. You
+      could take <code>weights[-1]</code> and <code>weights[0]</code> after sorting and be
+      right, but only because you sorted first; <code>max()</code> needs no such promise and
+      says what it means.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (e)</span></div>
+    <div class="body">
+      <div class="codelabel">parcels_any.py</div>
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter all the weights separated by spaces: "</span>)
+
+weights = []
+<span class="k">for</span> part <span class="k">in</span> line.split():
+    weights.append(<span class="k">int</span>(part))
+
+weights.sort(reverse=<span class="k">True</span>)
+average = <span class="k">sum</span>(weights) / <span class="k">len</span>(weights)
+
+surcharge = <span class="n">0</span>
+<span class="k">for</span> w <span class="k">in</span> weights:
+    <span class="k">if</span> w &gt; <span class="n">20</span>:
+        surcharge += <span class="n">1</span>
+
+<span class="k">print</span>(<span class="s">"Sorted:"</span>, weights)
+<span class="k">print</span>(<span class="s">"Heaviest:"</span>, <span class="k">max</span>(weights))
+<span class="k">print</span>(<span class="s">"Lightest:"</span>, <span class="k">min</span>(weights))
+<span class="k">print</span>(<span class="s">f"Average: </span>{average:.2f}<span class="s">"</span>)
+<span class="k">print</span>(<span class="s">"Surcharged:"</span>, surcharge)</pre>
+      <p>Entering <code>12 5 20 8 25</code>:</p>
+<pre class="out">Sorted: [25, 20, 12, 8, 5]
+Heaviest: 25
+Lightest: 5
+Average: 14.00
+Surcharged: 1</pre>
+      <ul class="bul">
+        <li><b>Descending</b> is <code>sort(reverse=True)</code>. It still returns
+        <code>None</code>, so it is still a statement on its own line.</li>
+        <li><b>Only one parcel is surcharged.</b> The rule is <i>above</i> 20, so the 20 kg
+        parcel does not qualify: 25 does. If you answered 2 you read <code>&gt;</code> as
+        <code>&gt;=</code>, which is the single most expensive habit in this paper.</li>
+        <li>The average is 70 divided by 5, which is 14.0 exactly.
+        <code>{average:.2f}</code> shows it as 14.00: two decimal places for money and
+        measurements, always.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Three</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (a)</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Parameter against argument.</b> The <b>parameter</b> is the name in the
+        definition, <code>def fee(hours)</code>. The <b>argument</b> is the actual value you
+        pass, <code>fee(3)</code>. One is the label, the other is the thing.</li>
+        <li><b><code>return</code></b> hands a value back to whoever called the function, and
+        ends the function there and then. Leave it out and the function still returns
+        something: it returns <b><code>None</code></b>. That is not an error, which is exactly
+        why it is dangerous, and it is what part (b) is about.</li>
+        <li><b>A default parameter</b> supplies a value for an argument the caller does not
+        give: <code>def pay(hours, rate=500)</code>. It <b>must come last</b> because Python
+        matches arguments to parameters by position. If a default came first, then
+        <code>pay(8)</code> could not say whether the 8 is the defaulted one or the required
+        one. Python refuses the definition outright rather than guess.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors, and the second is invisible until the first is fixed.</b></p>
+      <ol class="steps">
+        <li><code>def fee(hours)</code> has <b>no colon</b>. Nothing runs at all:
+        <span class="note">SyntaxError: expected ':'</span></li>
+        <li>Add it and the program runs cleanly and prints the wrong thing:
+        <span class="note">None</span>
+        The function works out <code>total</code> and then <b>throws it away</b>. There is no
+        <code>return</code>, so the function gives back <code>None</code>, and
+        <code>print</code> faithfully prints it. No error, no warning, no marks.</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code"><span class="k">def</span> fee(hours):
+    <span class="k">return</span> <span class="n">200</span> + (hours - <span class="n">1</span>) * <span class="n">150</span>
+
+<span class="k">print</span>(fee(<span class="n">3</span>))</pre>
+<pre class="out">500</pre>
+      <p>200 for the first hour, then 2 more hours at 150, so 200 + 300 = 500. <b>A function
+      that computes and does not return is the most common quiet failure in this course.</b>
+      If your function prints <code>None</code>, this is why, every time.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (c)</span></div>
+    <div class="body">
+<pre class="out">4000
+5600</pre>
+      <ul class="bul">
+        <li><code>pay(8)</code> gives one argument, so <code>hours</code> is 8 and
+        <code>rate</code> falls back to its default of 500: 8 * 500 = <b>4000</b>.</li>
+        <li><code>pay(8, 700)</code> gives two, so the second <b>replaces</b> the default:
+        8 * 700 = <b>5600</b>.</li>
+      </ul>
+      <p>The default is not a constant. It is the value used <i>only</i> when the caller stays
+      silent. That is what makes <code>rate</code> optional without making it fixed, and it is
+      the whole reason default parameters exist.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">carpark.py</div>
+<pre class="code"><span class="k">def</span> fee(hours):
+    <span class="k">return</span> <span class="n">200</span> + (hours - <span class="n">1</span>) * <span class="n">150</span>
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    plate = <span class="k">input</span>(<span class="s">"Plate number: "</span>)
+    hours = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Hours parked: "</span>))
+    <span class="k">print</span>(<span class="s">f"Plate: </span>{plate}<span class="s"> | Hours: </span>{hours}<span class="s"> | Fee: N</span>{fee(hours)}<span class="s">"</span>)</pre>
+      <p>Entering ABC123/3, XYZ789/1 and KJA55/5:</p>
+<pre class="out">Plate: ABC123 | Hours: 3 | Fee: N500
+Plate: XYZ789 | Hours: 1 | Fee: N200
+Plate: KJA55 | Hours: 5 | Fee: N800</pre>
+      <p>Check the one-hour case by hand, because it is the one the formula can get wrong:
+      200 + (1 - 1) * 150 = 200 + 0 = 200. Correct. Write the formula as
+      <code>200 + hours * 150</code> and that vehicle is charged 350 for its first hour, and
+      every single answer is 150 too high.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (e)</span></div>
+    <div class="body">
+      <p>The <b>sentinel loop</b>: <code>while True</code>, ask, and <code>break</code> on the
+      stop word. The function itself does not change at all.</p>
+      <div class="codelabel">carpark_any.py</div>
+<pre class="code"><span class="k">def</span> fee(hours):
+    <span class="k">return</span> <span class="n">200</span> + (hours - <span class="n">1</span>) * <span class="n">150</span>
+
+count = <span class="n">0</span>
+takings = <span class="n">0</span>
+
+<span class="k">while</span> <span class="k">True</span>:
+    plate = <span class="k">input</span>(<span class="s">"Plate number (or 'done'): "</span>)
+    <span class="k">if</span> plate == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    hours = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Hours parked: "</span>))
+    amount = fee(hours)
+    takings += amount
+    count += <span class="n">1</span>
+    <span class="k">print</span>(<span class="s">f"Plate: </span>{plate}<span class="s"> | Hours: </span>{hours}<span class="s"> | Fee: N</span>{amount}<span class="s">"</span>)
+
+<span class="k">print</span>(<span class="s">"Vehicles charged:"</span>, count)
+<span class="k">print</span>(<span class="s">f"Total takings: N</span>{takings}<span class="s">"</span>)</pre>
+      <p>Entering ABC123/3, XYZ789/1, then <code>done</code>:</p>
+<pre class="out">Plate: ABC123 | Hours: 3 | Fee: N500
+Plate: XYZ789 | Hours: 1 | Fee: N200
+Vehicles charged: 2
+Total takings: N700</pre>
+      <p><b>Test the stop word before you ask for the hours.</b> Put the
+      <code>int(input(...))</code> above the check and typing <code>done</code> makes the
+      program demand the hours for a vehicle that does not exist, and then crash on
+      <code>int("")</code>. The check goes immediately after the input it checks.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Four</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (a)</span></div>
+    <div class="body">
+      <p>A <b>string</b> is text: a sequence of characters in quotes. It is
+      <b>immutable</b>, meaning it can never be changed after it is made.</p>
+      <p><b>What follows from that</b> is the examinable half: a string method can never
+      change the string it is called on, so it hands you a <b>new</b> one.
+      <code>name.upper()</code> leaves <code>name</code> exactly as it was. If you do not
+      catch the result, with <code>name = name.upper()</code>, the work is thrown away and
+      nothing happens. This is the opposite of a list's <code>sort()</code>, which changes the
+      list and hands back nothing.</p>
+      <table class="data">
+        <tr><th>Method</th><th>Does</th><th>Example</th><th>Gives</th></tr>
+        <tr><td><code>upper()</code></td><td>Returns a capitalised copy</td><td><code>"ada".upper()</code></td><td><code>'ADA'</code></td></tr>
+        <tr><td><code>strip()</code></td><td>Returns a copy with the ends trimmed</td><td><code>"  hi  ".strip()</code></td><td><code>'hi'</code></td></tr>
+        <tr><td><code>split(sep)</code></td><td>Cuts it into a list</td><td><code>"a,b".split(",")</code></td><td><code>['a', 'b']</code></td></tr>
+        <tr><td><code>isalpha()</code></td><td><b>Asks</b> a question, changes nothing</td><td><code>"Ada".isalpha()</code></td><td><code>True</code></td></tr>
+      </table>
+      <p style="margin-top:.4em">The fourth is the one the question is fishing for.
+      <code>isalpha()</code>, <code>startswith()</code> and <code>find()</code> interrogate a
+      string rather than transform it; the rest hand back a changed copy.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors, the second wearing the first as a disguise.</b></p>
+      <ol class="steps">
+        <li><code>split("@")</code> gives a <b>list</b>, <code>['Ada', 'CU.edu.ng']</code>,
+        not a string. So <code>domain</code> is a list, and a list has no
+        <code>lower</code>:
+        <span class="note">AttributeError: 'list' object has no attribute 'lower'</span>
+        You want the piece after the <code>@</code>, which is index <b>1</b>:
+        <code>email.split("@")[1]</code>.</li>
+        <li>Take the index and the crash goes away, and the output is still wrong:
+        <span class="note">Domain: &lt;built-in method lower of str object at 0x...&gt;</span>
+        <code>domain.lower</code> has <b>no brackets</b>, so it never calls the method. It
+        names it. Python prints the method itself, which is a real object and prints happily.
+        (The <code>0x...</code> is a memory address, and it is a different number every time
+        the program runs.)</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code">email = <span class="s">"Ada@CU.edu.ng"</span>
+domain = email.split(<span class="s">"@"</span>)[<span class="n">1</span>]
+<span class="k">print</span>(<span class="s">"Domain:"</span>, domain.lower())</pre>
+<pre class="out">Domain: cu.edu.ng</pre>
+      <p><b>The missing brackets again.</b> This is the third time this manual has shown you
+      the same fault: <code>file.close</code>, <code>conn.cursor</code>, and now
+      <code>domain.lower</code>. <b>A method without brackets is not called, and Python never
+      complains.</b> When output looks like <code>&lt;built-in method ...&gt;</code> or
+      <code>&lt;bound method ...&gt;</code>, you have found it.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (c)</span></div>
+    <div class="body">
+<pre class="out">CSC241-PYTHON
+['csc241', 'python']
+13</pre>
+      <ol class="steps">
+        <li><code>code.strip()</code> gives <code>'csc241-python'</code>, and
+        <code>.upper()</code> capitalises that copy. The chain reads left to right: strip
+        first, then capitalise the result.</li>
+        <li><code>split("-")</code> cuts the stripped string at the hyphen into <b>two</b>
+        pieces. They stay lowercase, because <code>upper()</code> on the line above returned a
+        new string and did not touch <code>code</code>.</li>
+        <li><code>len(code.strip())</code> is <b>13</b>: c-s-c-2-4-1 is 6, the hyphen is 1,
+        p-y-t-h-o-n is 6. <code>len(code)</code> without the strip would be <b>17</b>,
+        counting the four spaces.</li>
+      </ol>
+      <p><code>code</code> itself is unchanged throughout, spaces and all. Three methods were
+      called on it and not one of them altered it: that is immutability doing exactly what
+      part (a) says it does.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">domains.py</div>
+<pre class="code">emails = [<span class="s">"ada@cu.edu.ng"</span>, <span class="s">"bola@gmail.com"</span>, <span class="s">"chidi@yahoo.com"</span>,
+          <span class="s">"dele@cu.edu.ng"</span>, <span class="s">"efe@outlook.com"</span>]
+
+<span class="k">for</span> email <span class="k">in</span> emails:
+    domain = email.split(<span class="s">"@"</span>)[<span class="n">1</span>]
+    <span class="k">print</span>(<span class="s">f"Email: </span>{email}<span class="s"> | Domain: </span>{domain}<span class="s">"</span>)</pre>
+<pre class="out">Email: ada@cu.edu.ng | Domain: cu.edu.ng
+Email: bola@gmail.com | Domain: gmail.com
+Email: chidi@yahoo.com | Domain: yahoo.com
+Email: dele@cu.edu.ng | Domain: cu.edu.ng
+Email: efe@outlook.com | Domain: outlook.com</pre>
+      <p>Index <b>1</b>, not 0. Splitting <code>"ada@cu.edu.ng"</code> at the <code>@</code>
+      gives <code>['ada', 'cu.edu.ng']</code>: the name is 0 and the domain is 1. The dots in
+      <code>cu.edu.ng</code> are harmless, because we split on <code>@</code> and the dots are
+      all inside a piece we never cut again.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (e)</span></div>
+    <div class="body">
+      <div class="codelabel">codes.py</div>
+<pre class="code">line = <span class="k">input</span>(<span class="s">"Enter the codes separated by commas: "</span>)
+
+<span class="k">for</span> code <span class="k">in</span> line.split(<span class="s">","</span>):
+    code = code.strip()
+    <span class="k">if</span> code == <span class="s">""</span>:
+        <span class="k">continue</span>
+    code = code.upper()
+
+    letters = <span class="n">0</span>
+    <span class="k">for</span> ch <span class="k">in</span> code:
+        <span class="k">if</span> ch.isalpha():
+            letters += <span class="n">1</span>
+
+    others = <span class="k">len</span>(code) - letters
+    csc = code.startswith(<span class="s">"CSC"</span>)
+    <span class="k">print</span>(<span class="s">f"Code: </span>{code}<span class="s"> | Letters: </span>{letters}<span class="s"> | Not letters: </span>{others}<span class="s"> | CSC: </span>{csc}<span class="s">"</span>)</pre>
+      <p>Entering <code>csc241, mat121x, , abc</code>:</p>
+<pre class="out">Code: CSC241 | Letters: 3 | Not letters: 3 | CSC: True
+Code: MAT121X | Letters: 4 | Not letters: 3 | CSC: False
+Code: ABC | Letters: 3 | Not letters: 0 | CSC: False</pre>
+      <ul class="bul">
+        <li><b>Four pieces went in and three came out.</b> The empty one between the two
+        commas is skipped by the <code>continue</code>, exactly as the requirement asks. This
+        is the same guard as Mock One's paragraph, and it exists because real input has gaps
+        in it.</li>
+        <li><b>Capitalise before you test.</b> <code>startswith("CSC")</code> is case
+        sensitive, so <code>"csc241"</code> would answer False if you tested it before
+        <code>upper()</code>. Order matters, and the requirement lists it in the right order
+        for a reason.</li>
+        <li><b>Not letters is <code>len(code) - letters</code></b>, not a second loop. You have
+        already counted the letters, and everything else is what remains.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Five</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (a)</span></div>
+    <div class="body">
+      <p><b><code>with open(...)</code></b> closes the file for you, whatever happens, even if
+      the code inside raises an error. A plain <code>open()</code> leaves that to you, and if
+      an exception fires before your <code>close()</code>, the file is never closed and the
+      last thing you wrote may never reach the disk. <code>with</code> is not a convenience;
+      it is the guarantee.</p>
+      <table class="data">
+        <tr><th>Mode</th><th>Does</th><th>If the file does not exist</th></tr>
+        <tr><td><code>"r"</code></td><td>Read only. Cannot write.</td><td><b>Error.</b> It refuses to create it.</td></tr>
+        <tr><td><code>"w"</code></td><td>Write, and <b>empty the file first</b>.</td><td>Creates it.</td></tr>
+        <tr><td><code>"a"</code></td><td>Append: add to the end, keep what is there.</td><td>Creates it.</td></tr>
+      </table>
+      <p style="margin-top:.4em"><b>Reading against appending:</b> <code>"r"</code> takes data
+      out and changes nothing; <code>"a"</code> puts data in at the end and destroys nothing.
+      The dangerous one is <code>"w"</code>, which silently throws away the whole file the
+      instant you open it.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors.</b></p>
+      <ol class="steps">
+        <li><code>"r"</code> is <b>read only</b>, and the program is trying to write. The
+        mode should be <code>"a"</code> to add a name and keep the others.</li>
+        <li><code>f.close</code> has <b>no brackets</b>, so the file is never closed. Same
+        fault as Q4(b), in a different coat.</li>
+      </ol>
+      <p><b>The first error gives two different messages, and which one you get depends on
+      something the code does not show you:</b></p>
+      <table class="data">
+        <tr><th>If names.txt</th><th>Python says</th></tr>
+        <tr><td>exists</td><td><code>UnsupportedOperation: not writable</code></td></tr>
+        <tr><td>does not exist</td><td><code>FileNotFoundError: [Errno 2] No such file or directory: 'names.txt'</code></td></tr>
+      </table>
+      <p style="margin-top:.4em">With the file missing, <code>open()</code> itself fails and
+      <code>write</code> is never reached, so you never hear about writability at all. Both
+      answers are correct, and saying <b>why there are two</b> is worth more than either.</p>
+      <div class="codelabel">fixed</div>
+<pre class="code">f = <span class="k">open</span>(<span class="s">"names.txt"</span>, <span class="s">"a"</span>)
+f.write(<span class="s">"Ada\n"</span>)
+f.close()</pre>
+      <p>Better still, let <code>with</code> do the closing and the second error cannot happen
+      at all:</p>
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"names.txt"</span>, <span class="s">"a"</span>) <span class="k">as</span> f:
+    f.write(<span class="s">"Ada\n"</span>)</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (c)</span></div>
+    <div class="body">
+<pre class="out">second</pre>
+      <p>Followed by a blank line, because the file's contents end in <code>\n</code> and
+      <code>print</code> adds another.</p>
+      <p><b>The first line is gone.</b> Opening in <code>"w"</code> empties the file
+      immediately, before a single byte is written. The second <code>with</code> block
+      therefore starts from nothing, and <code>"first"</code> is destroyed without a word.</p>
+      <p>Had the second block used <code>"a"</code>, the file would hold both lines. This one
+      question is the whole difference between the two modes, and it is why a program that
+      saves records in a loop must open the file <b>once</b>, outside the loop: reopen it in
+      <code>"w"</code> each time round and you finish with a file containing only the last
+      record.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">attendance.py</div>
+<pre class="code">count = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"How many students are present? "</span>))
+
+<span class="k">with</span> <span class="k">open</span>(<span class="s">"attendance.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(count):
+        name = <span class="k">input</span>(<span class="s">f"Name of student </span>{i + <span class="n">1</span>}<span class="s">: "</span>)
+        f.write(name + <span class="s">"\n"</span>)
+
+<span class="k">print</span>(<span class="s">"Attendance saved successfully."</span>)</pre>
+      <p>Entering 3, then Ada, Bola, Chidi:</p>
+<pre class="out">Attendance saved successfully.</pre>
+      <p>and <code>attendance.txt</code> holds:</p>
+<pre class="out">Ada
+Bola
+Chidi</pre>
+      <p><code>write()</code> adds <b>no</b> newline of its own, unlike <code>print</code>.
+      Leave off the <code>+ "\n"</code> and the whole register lands on one line as
+      <code>AdaBolaChidi</code>. The file is opened once, outside the loop, for the reason
+      part (c) just demonstrated.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (e)</span></div>
+    <div class="body">
+      <div class="codelabel">scores.py</div>
+<pre class="code">f = <span class="k">open</span>(<span class="s">"scores.txt"</span>, <span class="s">"w"</span>)
+
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    score = <span class="k">input</span>(<span class="s">"Score: "</span>)
+    f.write(name + <span class="s">", "</span> + score + <span class="s">"\n"</span>)
+
+f.close()
+
+f = <span class="k">open</span>(<span class="s">"scores.txt"</span>, <span class="s">"r"</span>)
+total = <span class="n">0</span>
+count = <span class="n">0</span>
+passes = <span class="n">0</span>
+
+<span class="k">for</span> line <span class="k">in</span> f:
+    name, raw = line.strip().split(<span class="s">", "</span>)
+    score = <span class="k">int</span>(raw)
+    total += score
+    count += <span class="n">1</span>
+    <span class="k">if</span> score &gt;= <span class="n">50</span>:
+        passes += <span class="n">1</span>
+    <span class="k">print</span>(<span class="s">f"</span>{name}<span class="s">: </span>{score}<span class="s">"</span>)
+
+f.close()
+<span class="k">print</span>(<span class="s">f"Average: </span>{total / count:.2f}<span class="s">"</span>)
+<span class="k">print</span>(<span class="s">"Passed:"</span>, passes)</pre>
+      <p>Entering Ada/72, Bola/45, Chidi/58, then <code>done</code>:</p>
+<pre class="out">Ada: 72
+Bola: 45
+Chidi: 58
+Average: 58.33
+Passed: 2</pre>
+      <ul class="bul">
+        <li><b>Bola fails.</b> A pass is 50 <b>and above</b>, and 45 is not. Two of the three
+        passed. The average is 175 / 3 = 58.33, which is not a pass mark for anybody: it is
+        just the class average.</li>
+        <li><code>line.strip()</code> before <code>split(", ")</code>, or the newline sticks
+        to the score and <code>int("72\n")</code>... in fact survives, because
+        <code>int()</code> ignores surrounding whitespace. Strip anyway: relying on that is a
+        habit that breaks the moment you compare the text instead of converting it.</li>
+        <li><b>Split on <code>", "</code> including the space</b>, because that is exactly how
+        you wrote it. Split on <code>","</code> and the score arrives as <code>" 72"</code>.
+        The file format and the parser are one decision, made twice.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Six</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (a)</span></div>
+    <div class="body">
+      <p><b>i.</b> A <b>table</b> is one kind of thing being stored, like products. A
+      <b>row</b> is one of them: one product. A <b>column</b> is one fact held about every one
+      of them: the price. A table is a grid, rows down, columns across.</p>
+      <p><b>ii.</b> <code>conn.commit()</code> makes your changes <b>permanent</b>. Until you
+      call it, inserts live in an open transaction and belong only to your connection. Forget
+      it and the program runs, prints nothing wrong, exits, and <b>the database is unchanged</b>.
+      No error is ever raised. It is the single most common way to lose work in this
+      topic.</p>
+      <p><b>iii.</b> <code>fetchone()</code> returns <b>one</b> row and moves on, or
+      <code>None</code> if there are none left. <code>fetchall()</code> returns <b>every</b>
+      remaining row, as a list of tuples, and an empty list if there are none. Use
+      <code>fetchone()</code> when you expect a single answer, <code>fetchall()</code> when you
+      want to loop over the lot.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (b)</span></div>
+    <div class="body">
+      <p><b>Two errors.</b></p>
+      <ol class="steps">
+        <li><code>VALUE</code> should be <code><b>VALUES</b></code>. This is SQL, not Python,
+        so Python cannot help you: the string is perfectly good Python and the database is the
+        one that objects.
+        <span class="note">OperationalError: near "VALUE": syntax error</span></li>
+        <li><code>conn.close</code> has <b>no brackets</b>, so the connection is never closed.
+        The third appearance of this fault in two mocks. Note that the program never even
+        reaches it here: the error above stops everything first.</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"shop.db"</span>)
+cursor = conn.cursor()
+fields = <span class="s">"(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"</span>
+cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS products "</span> + fields)
+cursor.execute(<span class="s">"INSERT INTO products (name, price) VALUES ('Pen', 150)"</span>)
+conn.commit()
+conn.close()</pre>
+      <p><code>IF NOT EXISTS</code> is added for a reason worth a mark on its own: run the
+      original twice and the second run dies with <code>OperationalError: table products
+      already exists</code>. A program that only works once is not finished.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (c)</span></div>
+    <div class="body">
+      <p><b>i.</b> It opens <code>shop.db</code>, asks for the <code>name</code> column of
+      every row in <code>products</code>, prints all the rows it gets back, and closes the
+      connection.</p>
+      <p><b>ii.</b> With the single Pen row from (b) in the table:</p>
+<pre class="out">[('Pen',)]</pre>
+      <p>A <b>list of tuples</b>, one tuple per row, even though only one column was asked for.
+      That trailing comma in <code>('Pen',)</code> is Python's way of writing a tuple of one
+      item, and it is not a typo. To print plain names you would loop and take
+      <code>row[0]</code>.</p>
+      <p><b>iii.</b> Three assumptions:</p>
+      <ol class="qlist">
+        <li><code>shop.db</code> can be opened. <code>connect()</code> <b>creates</b> the file
+        if it is absent, so this never fails, and that is the trap.</li>
+        <li>A table called <code>products</code> exists in it, with a <code>name</code>
+        column. If not:
+        <span class="note">OperationalError: no such table: products</span>
+        which is exactly what you get if <code>connect()</code> just made you a fresh, empty
+        database because you misspelled the filename.</li>
+        <li>The rows were <b>committed</b> by whoever inserted them. Uncommitted inserts from
+        another connection are invisible here.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (d)</span></div>
+    <div class="body">
+      <div class="codelabel">inventory.py</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"inventory.db"</span>)
+cursor = conn.cursor()
+fields = <span class="s">"(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"</span>
+cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS products "</span> + fields)
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    name = <span class="k">input</span>(<span class="s">"Product name: "</span>)
+    price = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Price: "</span>))
+    cursor.execute(<span class="s">"INSERT INTO products (name, price) VALUES (?, ?)"</span>, (name, price))
+
+conn.commit()
+conn.close()
+<span class="k">print</span>(<span class="s">"Three products saved."</span>)</pre>
+<pre class="out">Three products saved.</pre>
+      <ul class="bul">
+        <li><b>The <code>?</code> placeholders.</b> Pass the values as a tuple second and let
+        sqlite3 put them in. Build the SQL by gluing strings together and a product named
+        <code>O'Brien</code> ends your statement early and crashes it.</li>
+        <li><b><code>id</code> is not inserted.</b> <code>INTEGER PRIMARY KEY</code> fills
+        itself in: 1, 2, 3.</li>
+        <li><b><code>conn.commit()</code> is not optional.</b> Leave it out and this program
+        prints "Three products saved." and saves nothing at all.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (e)</span></div>
+    <div class="body">
+      <p>The sentinel loop from Q3(e), with the database from (d) behind it.</p>
+      <div class="codelabel">inventory_any.py</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"inventory.db"</span>)
+cursor = conn.cursor()
+fields = <span class="s">"(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"</span>
+cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS products "</span> + fields)
+
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Product name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    price = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Price: "</span>))
+    cursor.execute(<span class="s">"INSERT INTO products (name, price) VALUES (?, ?)"</span>, (name, price))
+
+conn.commit()
+
+cursor.execute(<span class="s">"SELECT * FROM products"</span>)
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(row)
+
+conn.close()</pre>
+      <p>Entering Pen/150, Book/1200, then <code>done</code>:</p>
+<pre class="out">(1, 'Pen', 150)
+(2, 'Book', 1200)</pre>
+      <p><b>Commit before you select.</b> The order is: loop, commit, then read back. And
+      <code>close()</code> comes last of all, once: put it inside the loop and the second
+      product is inserted through a closed connection.</p>
+      <p><code>SELECT *</code> gives every column, so each row arrives as the full tuple
+      including the id the database made for you. That is why these tuples have three items
+      and Q6(c)'s had one.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">What both mocks were teaching</span></div>
+    <div class="body">
+      <p>Two papers, sixty parts, and underneath them <b>four</b> patterns. Learn these and
+      you have not learned two mocks, you have learned the exam.</p>
+      <table class="data">
+        <tr><th>Part</th><th>Always one of</th></tr>
+        <tr><td><b>(b)</b></td><td>A first error that hides a second. Fix the crash and read the output again: it is usually <code>None</code>, or a method printed instead of called.</td></tr>
+        <tr><td><b>(c)</b></td><td>A rule stated from one side. Mock One broke the loop so <code>else</code> was skipped; Mock Two did not, so it ran.</td></tr>
+        <tr><td><b>(d)</b></td><td>A banding decided by boundaries. 49 against 50, 199 against 200, "under 13" against "13 and above".</td></tr>
+        <tr><td><b>(e)</b></td><td><b>Sentinel loop</b> (<code>while True</code>, break on 'done') or <b>split and convert</b> (one line, <code>split()</code>, <code>int()</code> each piece). Nothing else has ever been set.</td></tr>
+      </table>
+      <p style="margin-top:.5em"><b>The one habit worth more than any of them:</b> read
+      <code>&lt;</code> as "strictly less than" and <code>&gt;</code> as "strictly more than",
+      out loud, every single time. A parcel above 20 kg is not a parcel of 20 kg. A pass of 50
+      and above includes 50. Every (d) and every (e) in both papers turns on that, and it is
+      the cheapest mark on the paper to lose.</p>
+    </div>
+  </div>
+</section>

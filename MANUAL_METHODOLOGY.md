@@ -97,6 +97,38 @@ that evokes what the course is about, and give the box colours a semantic readin
 - Files: `manual.css`, section HTML fragments, an assembler that injects SVGs +
   wraps `<head>`, and `render.py` (Playwright). See the scratchpad `build/` dir.
 
+### 2b. Chromium shrinks the WHOLE book to fit its widest box
+
+The most expensive bug found in this workspace, and the quietest. Chromium's
+print path scales the entire document down so its widest box fits the paper. One
+over-long line, in one code block, on one page, therefore reduces the body font
+size of **every page in the book**.
+
+CSC241 was rendering at **96.9%** of its design size because of a single
+93-character line in Module Five, and dropped to **87.1%** when Mock Two added
+three 104-character lines. The manual asks for a 9.6pt body; readers would have
+got 8.36pt. Nobody would have noticed: there is no error, no warning, and the
+page looks perfectly proportioned, because *everything* shrank together. Fixing
+the four lines took the book from 106 pages to its true 127.
+
+**Every other gate is blind to it.** A layout check for content outside the
+content box cannot see it: after the shrink, nothing overflows. That is the
+trap. The scale is the fingerprint, so measure the scale:
+
+- **Cheap and precise, before rendering:** no code line may exceed the measured
+  column limit. For an A4 page with 18mm side margins and `pre` at 8.7pt DejaVu
+  Sans Mono inside a box, that limit is **90 characters** (measured: 90 renders
+  at 9.60pt, 92 at 9.40pt, 93 at 9.31pt, 104 at 8.36pt). Re-measure it if the
+  page geometry, the code font size, or the box padding changes.
+- **Model-free, after rendering:** assert the body text came back at the size the
+  CSS asks for. This catches any cause, not just long code, and it is the check
+  that actually matters.
+
+Both live in CSC241's `gates.py` and `qa_layout.py`. PHY121 is clean at scale
+1.0000 (physics has no long code lines), but any course with code, and
+especially SQL or Java, should be checked. **Measure the rendered font size of a
+finished manual before believing it is the size you designed.**
+
 ## 3. Reconstructing an existing manual with no source
 
 If only the PDF exists (no HTML/CSS):
