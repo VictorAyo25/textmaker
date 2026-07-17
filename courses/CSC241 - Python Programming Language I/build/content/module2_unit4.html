@@ -1,0 +1,316 @@
+<section id="m2u4">
+  <div class="kick">Module Two &middot; Unit 4</div>
+  <h2 class="title">Working with Strings</h2>
+  <hr class="rule">
+  <p class="lead">Text, in depth. An entire question on your paper is nothing but this unit,
+  so it earns the space.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> index and slice a string, explain
+  why a string cannot be changed, use every string method this course examines, and write
+  the text analysis programs it sets.</p>
+
+  <h3 class="sub">A string is a sequence</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Indexing and slicing</span></div>
+    <div class="body">
+      <p>A string is a sequence of characters, and everything you learned about indexing a
+      list in Module Three applies here unchanged. The first character is number 0.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> name = <span class="s">"Python"</span>
+<span class="p">&gt;&gt;&gt;</span> name[<span class="n">0</span>]
+'P'
+<span class="p">&gt;&gt;&gt;</span> name[-<span class="n">1</span>]
+'n'
+<span class="p">&gt;&gt;&gt;</span> name[<span class="n">0</span>:<span class="n">3</span>]
+'Pyt'
+<span class="p">&gt;&gt;&gt;</span> <span class="k">len</span>(name)
+6</pre>
+      <p>Negative indexes count from the right. Slices exclude the stop. Same rules, same
+      traps, and <code>name[6]</code> is an IndexError just as a list's would be.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Strings are immutable</span></div>
+    <div class="body">
+      <p>A list can be changed in place. <b>A string cannot.</b> This property is called
+      being <b>immutable</b>, and it is asked directly.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> name = <span class="s">"Python"</span>
+<span class="p">&gt;&gt;&gt;</span> name[<span class="n">0</span>] = <span class="s">"J"</span>
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'str' object does not support item assignment</pre>
+      <p>Compare that message with the tuple's in Module Three: they are the same sentence
+      with a different type name, because they are the same idea.</p>
+      <p><b>The consequence, and this is the important part:</b> every string method that
+      looks like it changes a string actually <b>returns a new string</b> and leaves the
+      original untouched.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> name = <span class="s">"Python"</span>
+<span class="p">&gt;&gt;&gt;</span> name.upper()
+'PYTHON'
+<span class="p">&gt;&gt;&gt;</span> name
+'Python'</pre>
+      <p><code>name</code> is <b>unchanged</b>. To keep the result you must catch it:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> name = name.upper()
+<span class="p">&gt;&gt;&gt;</span> name
+'PYTHON'</pre>
+      <p>Calling <code>name.upper()</code> on its own line and expecting <code>name</code> to
+      change is one of the most common errors in this course. It is the mirror image of the
+      <code>sort()</code> trap from Module Three: a list method changes the list and returns
+      None, a string method changes nothing and returns the answer.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The methods</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Every one of these is examined</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Method</th><th>Does</th><th>Example</th><th>Gives</th></tr>
+        <tr><td><code>upper()</code></td><td>All capitals</td><td><code>"ada".upper()</code></td><td><code>'ADA'</code></td></tr>
+        <tr><td><code>lower()</code></td><td>All small letters</td><td><code>"ADA".lower()</code></td><td><code>'ada'</code></td></tr>
+        <tr><td><code>strip()</code></td><td>Removes whitespace from both ends</td><td><code>"  hi  ".strip()</code></td><td><code>'hi'</code></td></tr>
+        <tr><td><code>replace(a, b)</code></td><td>Every a becomes b</td><td><code>"a-b".replace("-", " ")</code></td><td><code>'a b'</code></td></tr>
+        <tr><td><code>split(sep)</code></td><td>Cuts into a list</td><td><code>"a,b".split(",")</code></td><td><code>['a', 'b']</code></td></tr>
+        <tr><td><code>index(sub)</code></td><td>Where sub starts</td><td><code>"Ada".index("d")</code></td><td><code>1</code></td></tr>
+        <tr><td><code>find(sub)</code></td><td>Same, but -1 if absent</td><td><code>"Ada".find("z")</code></td><td><code>-1</code></td></tr>
+        <tr><td><code>count(sub)</code></td><td>How many times</td><td><code>"banana".count("a")</code></td><td><code>3</code></td></tr>
+        <tr><td><code>startswith(s)</code></td><td>True or False</td><td><code>"https://x".startswith("https")</code></td><td><code>True</code></td></tr>
+        <tr><td><code>join(list)</code></td><td>Glues a list into a string</td><td><code>", ".join(["a", "b"])</code></td><td><code>'a, b'</code></td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">A question asks you to "list and briefly
+      explain four common string methods, with an example of each". The four safest are
+      <code>upper</code>, <code>lower</code>, <code>strip</code> and <code>replace</code>:
+      each is one line to explain and impossible to get wrong.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">index vs find</span></div>
+    <div class="body">
+      <p>They do the same job and fail differently, which is the whole reason both exist.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="s">"Ada"</span>.find(<span class="s">"z"</span>)
+-1
+<span class="p">&gt;&gt;&gt;</span> <span class="s">"Ada"</span>.index(<span class="s">"z"</span>)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: substring not found</pre>
+      <p><b><code>find</code> returns -1 when it is not there. <code>index</code> raises a
+      ValueError.</b> Use <code>find</code> when absence is normal, <code>index</code> when
+      absence means something has gone wrong.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">split, with and without an argument</span></div>
+    <div class="body">
+      <p><code>split()</code> behaves differently depending on whether you give it a
+      separator, and both forms are examined.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="s">"70 55 90"</span>.split()
+['70', '55', '90']
+<span class="p">&gt;&gt;&gt;</span> <span class="s">"ada@mail.com"</span>.split(<span class="s">"@"</span>)
+['ada', 'mail.com']</pre>
+      <ul class="bul">
+        <li><b>No argument:</b> cuts at every run of whitespace, and ignores extra spaces.
+        This is the one used for "values separated by spaces".</li>
+        <li><b>With an argument:</b> cuts at exactly that text, which is then thrown away.</li>
+      </ul>
+      <p><b>It always returns a list of strings</b>, never numbers. That is the
+      split-and-convert pattern from Module Three: <code>split</code> then <code>int</code>.</p>
+      <p>Note what happens when the separator is not there at all. You get a list of one:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="s">"nothing here"</span>.split(<span class="s">"@"</span>)
+['nothing here']</pre>
+      <p>No error. So <code>parts[1]</code> on that would be an IndexError, which is worth
+      remembering when a question asks you to split an email at the <code>@</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>Meant to extract the first name and put it in capitals. Find the errors:</p>
+<pre class="code">full_name = <span class="s">"Ada Lovelace"</span>
+first_name = full_name[<span class="n">0</span>:full_name.<span class="bad">index()</span>]
+<span class="k">print</span>(<span class="s">"First name:"</span>, first_name.<span class="bad">uppercase()</span>)</pre>
+      <p><b>Two errors, and both are invented method calls:</b></p>
+      <ul class="bul">
+        <li><code>index()</code> is called with <b>nothing to look for</b>. It needs the
+        text you want the position of. Here that is the space.</li>
+        <li><code>uppercase()</code> <b>does not exist in Python.</b> The method is
+        <code>upper()</code>. Nothing in the language is called <code>uppercase</code>.</li>
+      </ul>
+      <p>Only the first speaks, because the program stops there:</p>
+<pre class="out">TypeError: index expected at least 1 argument, got 0</pre>
+      <p>Fix that, run again, and only then do you meet the second:</p>
+<pre class="out">AttributeError: 'str' object has no attribute 'uppercase'</pre>
+      <p>Note what you do <b>not</b> get here: a suggestion. Python offers "Did you mean"
+      only when your typo is close enough to a real name. Write <code>uppe()</code> and it
+      says <i>Did you mean: 'upper'?</i>; write <code>uppercase()</code> and it just says no.
+      <b>The help arrives when you least need it.</b> Do not rely on it.</p>
+      <p>The corrected program:</p>
+<pre class="code">full_name = <span class="s">"Ada Lovelace"</span>
+first_name = full_name[<span class="n">0</span>:full_name.index(<span class="s">" "</span>)]
+<span class="k">print</span>(<span class="s">"First name:"</span>, first_name.upper())</pre>
+<pre class="out">First name: ADA</pre>
+      <p><code>full_name.index(" ")</code> is <b>3</b>, the position of the space, so the
+      slice takes characters 0 to 2. The space itself is excluded, because a slice stops
+      before its stop.</p>
+      <p class="small">A neater answer, worth mentioning to a marker:
+      <code>full_name.split()[0]</code> does the same job in fewer characters and does not
+      break when there is no space.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>A "what is the output, explain each line" question. It looks gentle and has a trap
+      in the middle.</p>
+<pre class="code">text = <span class="s">"  Hello, Python!  "</span>
+<span class="k">print</span>(text.strip())
+<span class="k">print</span>(text.lower().replace(<span class="s">"python"</span>, <span class="s">"world"</span>))
+<span class="k">print</span>(<span class="k">len</span>(text))</pre>
+<pre class="out">Hello, Python!
+  hello, world!
+18</pre>
+      <p>Line by line, which is what "explain the result of each line" wants:</p>
+      <ul class="bul">
+        <li><code>text.strip()</code> removes the two spaces at each end, giving
+        <code>Hello, Python!</code>. <b><code>text</code> itself is unchanged</b>, which the
+        next line proves.</li>
+        <li><code>text.lower()</code> gives <code>"  hello, python!  "</code>. <b>Now</b>
+        <code>replace("python", "world")</code> matches, because the text is lowercase by
+        the time <code>replace</code> sees it. The result keeps its spaces, because
+        <code>strip</code> on the line before returned a new string and changed nothing.</li>
+        <li><code>len(text)</code> is <b>18</b>, counting the original with all four spaces:
+        2 at the front, 14 for <code>Hello, Python!</code>, 2 at the back.</li>
+      </ul>
+      <p><b>The trap is the middle line.</b> Answer it without noticing the
+      <code>lower()</code> and you will say <code>replace</code> finds nothing and the text
+      is unchanged. It does match, and the answer is <code>hello, world!</code>. Chained
+      methods run left to right, and each one works on what the one before it returned.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>Process a list of student email addresses and print the usernames, where the
+      username is the part before the <code>@</code>.</p>
+      <ol class="steps">
+        <li>Put the addresses in a list.</li>
+        <li>Loop through it.</li>
+        <li>Split each at <code>"@"</code> and take item <b>0</b>.
+        <span class="note">split gives a list; [0] is before the @, [1] is after</span></li>
+        <li>Print in the format the question shows.</li>
+      </ol>
+      <div class="codelabel">emails.py</div>
+<pre class="code">emails = [
+    <span class="s">"azu.ezenwoke@university.edu.ng"</span>,
+    <span class="s">"odunayo.osofuye@university.edu"</span>,
+    <span class="s">"emmanuel.franklin@university.edu"</span>,
+    <span class="s">"ada.lovelace@university.edu"</span>,
+    <span class="s">"bola.ahmed@university.edu"</span>,
+]
+
+<span class="k">for</span> email <span class="k">in</span> emails:
+    username = email.split(<span class="s">"@"</span>)[<span class="n">0</span>]
+    <span class="k">print</span>(<span class="s">f"Email: </span>{email}<span class="s"> | Username: </span>{username}<span class="s">"</span>)</pre>
+<pre class="out">Email: azu.ezenwoke@university.edu.ng | Username: azu.ezenwoke
+Email: odunayo.osofuye@university.edu | Username: odunayo.osofuye
+Email: emmanuel.franklin@university.edu | Username: emmanuel.franklin
+Email: ada.lovelace@university.edu | Username: ada.lovelace
+Email: bola.ahmed@university.edu | Username: bola.ahmed</pre>
+      <p class="redo"><b>Now you try:</b> the question asks for "at least five addresses".
+      Why does <code>split("@")[0]</code> still work on an address with a dot in the domain,
+      such as <code>university.edu.ng</code>?
+      <span class="small">(Because it splits on <code>@</code>, not on dots. The domain's
+      dots are all in item 1, which we never look at.)</span></p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Part (e): analysing a paragraph</span></div>
+    <div class="body">
+      <p>The extension: read a paragraph, split it into sentences at <code>"."</code>, and
+      for each one strip it, skip it if empty, count the words, put it in capitals, and count
+      the vowels.</p>
+      <ol class="steps">
+        <li>Split at <code>"."</code>. This is where the empty pieces come from: a paragraph
+        ending in a full stop leaves an empty string after the last one.
+        <span class="note">"A. B.".split(".") gives ['A', ' B', '']</span></li>
+        <li><code>strip()</code> each piece, then <b>skip the empties</b>. That is what the
+        requirement is protecting you from.</li>
+        <li><code>split()</code> with no argument to count words.</li>
+        <li>Count vowels by walking the characters and testing membership with
+        <code>in</code>.</li>
+      </ol>
+      <div class="codelabel">analyse.py</div>
+<pre class="code">paragraph = <span class="k">input</span>(<span class="s">"Enter a paragraph: "</span>)
+
+<span class="k">for</span> sentence <span class="k">in</span> paragraph.split(<span class="s">"."</span>):
+    sentence = sentence.strip()
+    <span class="k">if</span> sentence == <span class="s">""</span>:
+        <span class="k">continue</span>
+
+    words = <span class="k">len</span>(sentence.split())
+
+    vowels = <span class="n">0</span>
+    <span class="k">for</span> ch <span class="k">in</span> sentence.lower():
+        <span class="k">if</span> ch <span class="k">in</span> <span class="s">"aeiou"</span>:
+            vowels += <span class="n">1</span>
+
+    <span class="k">print</span>(<span class="s">f"Sentence: </span>{sentence.upper()}<span class="s">"</span>)
+    <span class="k">print</span>(<span class="s">f"  Words: </span>{words}<span class="s">, Vowels: </span>{vowels}<span class="s">"</span>)</pre>
+      <p>Entering <code>Python is fun. I like code.</code></p>
+<pre class="out">Enter a paragraph: Python is fun. I like code.
+Sentence: PYTHON IS FUN
+  Words: 3, Vowels: 3
+Sentence: I LIKE CODE
+  Words: 3, Vowels: 5</pre>
+      <p>Three details that decide whether this works:</p>
+      <ul class="bul">
+        <li><b><code>ch in "aeiou"</code></b> asks whether that character appears in the
+        string <code>"aeiou"</code>. It is a neat way to test membership without five
+        comparisons joined by <code>or</code>.</li>
+        <li><b>Count vowels on <code>sentence.lower()</code></b>, not on the sentence. The
+        <code>I</code> in "I like" is a vowel, and testing it against lowercase
+        <code>"aeiou"</code> would miss it. Count first, then display in capitals.</li>
+        <li><b>"Python is fun" has three vowels, not four.</b> They are the <code>o</code>,
+        the <code>i</code> and the <code>u</code>. The <code>y</code> in Python is
+        <i>not</i> counted, because the question defines the vowels as
+        <code>(a, e, i, o, u)</code> and <code>y</code> is not in that list. Follow the
+        question's definition, not your instinct about English.</li>
+      </ul>
+      <p class="redo"><b>Now you try:</b> why is the <code>continue</code> needed at all?
+      <span class="small">(The paragraph ends with a full stop, so splitting leaves an empty
+      final piece. Without the skip you would print a blank sentence with 0 words.)</span></p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What does immutable mean, and what follows from it for
+      <code>name.upper()</code>?</p>
+      <p class="q">2. Difference between <code>find</code> and <code>index</code>?</p>
+      <p class="q">3. What is <code>"a b".split()</code> against <code>"a-b".split("-")</code>?</p>
+      <p class="q">4. What is <code>len("  Hello, Python!  ")</code>?</p>
+      <p class="q">5. Which method does not exist: <code>upper</code> or
+      <code>uppercase</code>?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>A string cannot be changed in place. So <code>name.upper()</code> returns a new
+        string and leaves <code>name</code> alone. You must write
+        <code>name = name.upper()</code> to keep it.</li>
+        <li>Both give the position of the text. <code>find</code> returns -1 when it is
+        absent; <code>index</code> raises a ValueError.</li>
+        <li>Both give <code>['a', 'b']</code>. No argument splits at whitespace; an argument
+        splits at exactly that text.</li>
+        <li><b>18.</b> Two spaces, 14 characters, two spaces.</li>
+        <li><code>uppercase</code> does not exist. The method is <code>upper</code>.</li>
+      </ol>
+    </div>
+  </div>
+</section>

@@ -221,6 +221,114 @@ check('m2u3 time converter 7325 ("now you try")', TIME.format(7325),
       'Hours: 2\nMinutes: 2\nSeconds: 5')
 check('m2u3 dry run', 'a=7\nb=2\na+=b\nc=a//b\nd=a%b\nprint(a,b,c,d)', '9 2 4 1')
 
+# ======================= MODULE TWO, UNIT 4: STRINGS =======================
+val('m2u4 index 0', '"Python"[0]', "'P'")
+val('m2u4 index -1', '"Python"[-1]', "'n'")
+val('m2u4 slice 0:3', '"Python"[0:3]', "'Pyt'")
+val('m2u4 len', 'len("Python")', '6')
+
+
+def _str_assign():
+    name = "Python"
+    name[0] = "J"
+
+
+raises('m2u4 strings are immutable', _str_assign,
+       "TypeError: 'str' object does not support item assignment")
+check('m2u4 upper() does not change the original',
+      'name = "Python"\nprint(name.upper())\nprint(name)', 'PYTHON\nPython')
+check('m2u4 catching the result',
+      'name = "Python"\nname = name.upper()\nprint(name)', 'PYTHON')
+
+# the methods table
+val('m2u4 upper', '"ada".upper()', "'ADA'")
+val('m2u4 lower', '"ADA".lower()', "'ada'")
+val('m2u4 strip', '"  hi  ".strip()', "'hi'")
+val('m2u4 replace', '"a-b".replace("-", " ")', "'a b'")
+val('m2u4 split with sep', '"a,b".split(",")', "['a', 'b']")
+val('m2u4 index sub', '"Ada".index("d")', '1')
+val('m2u4 find absent', '"Ada".find("z")', '-1')
+val('m2u4 count', '"banana".count("a")', '3')
+val('m2u4 startswith', '"https://x".startswith("https")', 'True')
+val('m2u4 join', '", ".join(["a", "b"])', "'a, b'")
+raises('m2u4 index absent raises', lambda: "Ada".index("z"),
+       'ValueError: substring not found')
+
+# split forms
+val('m2u4 split no arg', '"70 55 90".split()', "['70', '55', '90']")
+val('m2u4 split at @', '"ada@mail.com".split("@")', "['ada', 'mail.com']")
+val('m2u4 split with no separator present', '"nothing here".split("@")',
+    "['nothing here']")
+
+# the broken first-name snippet
+raises('m2u4 index() with no argument', lambda: "Ada Lovelace".index(),
+       'TypeError: index expected at least 1 argument, got 0')
+# Python does NOT suggest a fix here: 'uppercase' is too far from 'upper' for its
+# similarity threshold. It DOES suggest for the closer typo 'uppe'. The page claimed
+# a suggestion until this gate caught it, so both behaviours are pinned below.
+traceback_tail('m2u4 .uppercase() gets NO suggestion',
+               'full_name = "Ada Lovelace"\n'
+               'first_name = full_name[0:full_name.index(" ")]\n'
+               'print("First name:", first_name.uppercase())\n',
+               ["AttributeError: 'str' object has no attribute 'uppercase'"])
+traceback_tail('m2u4 .uppe() DOES get a suggestion',
+               'print("Ada".uppe())\n',
+               ["AttributeError: 'str' object has no attribute 'uppe'. "
+                "Did you mean: 'upper'?"])
+val('m2u4 index of the space is 3', '"Ada Lovelace".index(" ")', '3')
+check('m2u4 corrected first name',
+      'full_name = "Ada Lovelace"\nfirst_name = full_name[0:full_name.index(" ")]\n'
+      'print("First name:", first_name.upper())', 'First name: ADA')
+val('m2u4 the neater answer', '"Ada Lovelace".split()[0]', "'Ada'")
+
+# the strip/lower.replace/len question
+check('m2u4 the three-line output question',
+      'text = "  Hello, Python!  "\nprint(text.strip())\n'
+      'print(text.lower().replace("python", "world"))\nprint(len(text))',
+      'Hello, Python!\n  hello, world!  \n18')
+val('m2u4 len("  Hello, Python!  ") is 18', 'len("  Hello, Python!  ")', '18')
+val('m2u4 "Hello, Python!" is 14 chars', 'len("Hello, Python!")', '14')
+
+# the emails program
+check('m2u4 emails program', '''emails = [
+    "azu.ezenwoke@university.edu.ng",
+    "odunayo.osofuye@university.edu",
+    "emmanuel.franklin@university.edu",
+    "ada.lovelace@university.edu",
+    "bola.ahmed@university.edu",
+]
+for email in emails:
+    username = email.split("@")[0]
+    print(f"Email: {email} | Username: {username}")''',
+      'Email: azu.ezenwoke@university.edu.ng | Username: azu.ezenwoke\n'
+      'Email: odunayo.osofuye@university.edu | Username: odunayo.osofuye\n'
+      'Email: emmanuel.franklin@university.edu | Username: emmanuel.franklin\n'
+      'Email: ada.lovelace@university.edu | Username: ada.lovelace\n'
+      'Email: bola.ahmed@university.edu | Username: bola.ahmed')
+
+# the paragraph analyser, including the empty-piece claim
+val('m2u4 splitting leaves an empty final piece', '"A. B.".split(".")',
+    "['A', ' B', '']")
+check('m2u4 paragraph analyser', '''paragraph = "Python is fun. I like code."
+for sentence in paragraph.split("."):
+    sentence = sentence.strip()
+    if sentence == "":
+        continue
+    words = len(sentence.split())
+    vowels = 0
+    for ch in sentence.lower():
+        if ch in "aeiou":
+            vowels += 1
+    print(f"Sentence: {sentence.upper()}")
+    print(f"  Words: {words}, Vowels: {vowels}")''',
+      'Sentence: PYTHON IS FUN\n  Words: 3, Vowels: 3\n'
+      'Sentence: I LIKE CODE\n  Words: 3, Vowels: 5')
+# "Python is fun" has 3 vowels: o, i, u. The y is NOT one, per the question's own
+# definition (a, e, i, o, u). The page said 4 until this gate caught it.
+val('m2u4 "python is fun" vowel count',
+    'len([c for c in "python is fun" if c in "aeiou"])', '3')
+val('m2u4 y is not in aeiou', '"y" in "aeiou"', 'False')
+
 # ======================= MODULE THREE, UNIT 1 =======================
 check('m3u1 vote', 'age=20\nif age >= 18:\n    print("You may vote.")', 'You may vote.')
 check('m3u1 if/else odd',

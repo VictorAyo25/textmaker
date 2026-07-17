@@ -7,7 +7,7 @@ never the bare code (workspace name-and-title rule).
 ## Status
 
 **All five modules authored**, rendered to `build/CSC241_checkpoint.pdf`
-(71 pages: cover plus 70). Voice and palette approved.
+(78 pages: cover plus 77). Voice and palette approved.
 
 Every one of the exam's six questions now has a home:
 
@@ -16,15 +16,19 @@ Every one of the exam's six questions now has a home:
 | One | Control structures | Module Three, Units 1 to 2 |
 | Two | Data structures | Module Three, Units 3 to 4 |
 | Three | Functions | Module Four, Unit 1 |
-| Four | Strings | Module Two, Unit 2 |
+| Four | Strings | Module Two, Unit 4 |
 | Five | File handling | Module Four, Unit 3 |
 | Six | Databases, sqlite3 | Module Five, Unit 1 |
 
+Note that **Module Two, Unit 4 (Working with Strings) is ours, not the source's**.
+The source manual has no strings unit at all, yet question Four is entirely strings,
+so the coverage table above would have had a hole in it. It is slotted into Module
+Two after Operators, because it needs indexing and slicing from Module Three, Unit 3
+only by analogy, not by dependency.
+
 **Still to build:** the Contents page with working links (needs the two-pass approach
-from PHY121), the mocks mirroring the 24/25 template question for question, and the
-API reference cards the zero-external-sources rule requires. Module Two, Unit 2 is
-thin on string *methods* specifically (`.split`, `.strip`, `.upper`, `.replace`,
-`.index`, slicing), which question Four leans on: that needs a pass before the mocks.
+from PHY121), the mocks mirroring the 24/25 template question for question, and an
+audit that every API the manual uses has an in-manual reference card.
 
 ## Sources
 
@@ -119,7 +123,7 @@ own and merged in front of the body.
 **Both gates stop the build on failure. Neither is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (192 claims across all five modules). This is the
+  interpreter and fails on any mismatch (227 claims across all five modules). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the
