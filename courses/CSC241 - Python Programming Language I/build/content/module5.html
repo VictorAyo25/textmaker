@@ -1,0 +1,525 @@
+<div class="part" id="m5">
+  <div class="kicker">Module Five</div>
+  <h1>Databases and<br>GUI Development</h1>
+  <p class="blurb">Storing data so it can be searched rather than merely saved, and putting
+  a window on the front of a program. Question Six comes from here.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="62" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="15">
+        <text x="0" y="32" fill="#306998" opacity=".9">import</text>
+        <text x="72" y="32" fill="#1a2332" opacity=".7">sqlite3</text>
+        <text x="0" y="58" fill="#1a2332" opacity=".7">conn = sqlite3.connect(</text>
+        <text x="258" y="58" fill="#1f7a4d" opacity=".85">"school.db"</text>
+        <text x="374" y="58" fill="#1a2332" opacity=".7">)</text>
+        <text x="0" y="84" fill="#1a2332" opacity=".7">cur.execute(</text>
+        <text x="132" y="84" fill="#1f7a4d" opacity=".85">"SELECT * FROM students"</text>
+        <text x="382" y="84" fill="#1a2332" opacity=".7">)</text>
+        <text x="0" y="112" fill="#1a2332" opacity=".55">conn.commit()</text>
+      </g>
+      <rect x="140" y="100" width="9" height="15" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<section id="m5u1">
+  <div class="kick">Module Five &middot; Unit 1</div>
+  <h2 class="title">Python and Databases</h2>
+  <hr class="rule">
+  <p class="lead">A file holds data. A database organises it, so you can ask questions of
+  it.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> say what a database is and why it is
+  used, explain what <code>sqlite3</code> does, name the three SQL commands this course
+  wants, and write the contact program it sets.</p>
+
+  <h3 class="sub">What a database is</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Asked in these words</span></div>
+    <div class="body">
+      <p>A <b>database</b> is an organised collection of data, stored so that it can be
+      searched, changed and retrieved efficiently. Data lives in <b>tables</b>: a table has
+      named <b>columns</b>, and each <b>row</b> is one record.</p>
+      <p><b>Why it is used in programming</b>, which is the second half of the question:</p>
+      <ul class="bul">
+        <li><b>It lasts.</b> Like a file, the data outlives the program.</li>
+        <li><b>It can be searched.</b> Ask for one record out of a million without reading
+        the other 999,999. A text file makes you read the lot.</li>
+        <li><b>It has structure.</b> Columns have types, so a score cannot quietly become
+        text.</li>
+        <li><b>It handles many users at once</b> without them overwriting each other.</li>
+        <li><b>It keeps data consistent</b>, through rules such as a primary key that
+        forbid nonsense.</li>
+      </ul>
+      <p>Compare with Module Four's <code>students.txt</code>: to find one student there you
+      read every line and split every one. In a database you ask for that student.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">What sqlite3 is</span></div>
+    <div class="body">
+      <p><b>SQL</b> (say "sequel", or spell it out) is the language you ask a database
+      questions in. It is not Python. You write it as a <i>string</i> inside your Python
+      and hand it over to be run.</p>
+      <p><b>SQLite</b> is a small database that keeps everything in a single ordinary file
+      on your disk. There is no server to install and no password.</p>
+      <p><b><code>sqlite3</code> is the Python module</b> that lets your program talk to an
+      SQLite database. It <b>ships with Python</b>, so there is nothing to install: it is
+      part of the standard library from Module Four, Unit 2.</p>
+      <p>That is the answer to "what role does the sqlite3 module play in Python": it is the
+      built in interface between your Python code and an SQLite database file, letting you
+      create tables, insert rows, and query them from Python.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The three SQL commands</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Name these three</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Command</th><th>Function</th><th>Example</th></tr>
+        <tr><td><code>CREATE TABLE</code></td><td>Makes a new table and names its columns</td><td><code>CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)</code></td></tr>
+        <tr><td><code>INSERT INTO</code></td><td>Adds a row of data</td><td><code>INSERT INTO students (name) VALUES ('Ada')</code></td></tr>
+        <tr><td><code>SELECT</code></td><td>Fetches rows back out</td><td><code>SELECT * FROM students</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">Two more are worth a sentence each, in case the question
+      asks for more than three: <code>UPDATE</code> changes rows that already exist, and
+      <code>DELETE</code> removes rows.</p>
+      <p>SQL keywords are conventionally written in capitals. It is not required, but it is
+      what a marker expects. The <code>*</code> in <code>SELECT *</code> means "every
+      column".</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Column types and the primary key</span></div>
+    <div class="body">
+      <p>In <code>CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)</code>, each
+      column is a name then a type:</p>
+      <ul class="bul">
+        <li><code>INTEGER</code> whole numbers, <code>TEXT</code> for text,
+        <code>REAL</code> for decimals.</li>
+        <li><b><code>PRIMARY KEY</code></b> marks the column that identifies a row uniquely.
+        Declared as <code>INTEGER PRIMARY KEY</code>, SQLite fills it in for you, counting
+        up, so you never supply an <code>id</code> yourself.</li>
+      </ul>
+      <p>That is why the example inserts only the name: <code>INSERT INTO students (name)
+      VALUES ('Ada')</code> names the one column it is supplying, and <code>id</code>
+      appears by itself.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The five steps</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Every database program</span></div>
+    <div class="body">
+      <p>Every program in this unit is the same five steps:</p>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"school.db"</span>)   <span class="c"># 1 connect (creates the file if absent)</span>
+cursor = conn.cursor()                <span class="c"># 2 get a cursor</span>
+cursor.execute(<span class="s">"..."</span>)               <span class="c"># 3 run SQL</span>
+conn.commit()                         <span class="c"># 4 save the changes</span>
+conn.close()                          <span class="c"># 5 disconnect</span></pre>
+      <p>What each one is, since the question may ask:</p>
+      <ul class="bul">
+        <li><b><code>connect</code></b> opens the database file, and <b>creates it if it
+        does not exist</b>. It never fails for a missing file, unlike <code>open</code> in
+        read mode.</li>
+        <li><b>A cursor</b> is the object you actually run SQL through and read results
+        back from. Think of it as the hand that reaches into the database.</li>
+        <li><b><code>execute</code></b> runs one SQL statement, given as a string.</li>
+        <li><b><code>commit</code></b> makes your changes permanent. <b>Without it, your
+        inserts are thrown away when the program ends.</b> No error, no warning, no data.</li>
+        <li><b><code>close</code></b> ends the connection.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>Meant to create a table named students. Find the errors:</p>
+<pre class="code"><span class="k">import</span> sqlite3
+conn = sqlite3.connect(<span class="s">"school.db"</span>)
+cursor = conn.<span class="bad">cursor</span>
+cursor.execute(<span class="s">"CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)"</span>)
+conn.<span class="bad">commit</span>
+conn.close()</pre>
+      <p><b>Two errors, and both are missing brackets.</b> Exactly the
+      <code>file.close</code> bug from Module Four, wearing a different hat.</p>
+      <ul class="bul">
+        <li><code>conn.cursor</code> without <code>()</code> does not call the method. It
+        hands you the method itself, so <code>cursor</code> is not a cursor at all. The next
+        line then fails.</li>
+        <li><code>conn.commit</code> without <code>()</code> does nothing at all, silently.
+        The table is never saved.</li>
+      </ul>
+      <p>Only the first one speaks up:</p>
+<pre class="out">Traceback (most recent call last):
+  File "C:\Users\you\db.py", line 4, in &lt;module&gt;
+    cursor.execute("CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)")
+AttributeError: 'builtin_function_or_method' object has no attribute 'execute'</pre>
+      <p>Read that message closely, because it names the bug precisely: the thing you called
+      <code>cursor</code> is a <i>method</i>, not a cursor, and methods have no
+      <code>execute</code>. Corrected:</p>
+<pre class="code"><span class="k">import</span> sqlite3
+conn = sqlite3.connect(<span class="s">"school.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)"</span>)
+conn.commit()
+conn.close()</pre>
+      <p class="redo"><b>Watch out:</b> run that corrected version <b>twice</b> and the
+      second run fails, because the table already exists. See the next box.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">IF NOT EXISTS</span></div>
+    <div class="body">
+      <p>Creating a table that is already there is an error:</p>
+<pre class="out">sqlite3.OperationalError: table students already exists</pre>
+      <p>Since <code>connect</code> keeps the file between runs, this bites the second time
+      you run any program that creates a table. The fix is to say so in the SQL:</p>
+<pre class="code">cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)"</span>)</pre>
+      <p>Now it creates the table the first time and quietly does nothing afterwards. The
+      examination asks for a table "if it doesn't already exist" in as many words, so
+      <b><code>IF NOT EXISTS</code> is the phrase that earns the mark.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What this code does, and its assumptions</span></div>
+    <div class="body">
+      <p>A question shows this and asks three things: explain it, say what happens when it
+      runs, and state what must be true for it to succeed.</p>
+<pre class="code"><span class="k">import</span> sqlite3
+conn = sqlite3.connect(<span class="s">"school.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"INSERT INTO students (name) VALUES ('Ada')"</span>)
+conn.commit()
+conn.close()</pre>
+      <p><b>What it does:</b> connects to <code>school.db</code>, creating the file if
+      absent; gets a cursor; adds one row to the <code>students</code> table with the name
+      Ada, letting <code>id</code> fill itself; saves the change; closes.</p>
+      <p><b>What happens when it runs:</b> nothing appears on screen. It is not a
+      <code>SELECT</code>, so there is nothing to display. If it works you see no output at
+      all, which is the correct answer and an easy mark to miss.</p>
+      <p><b>What must be true for it to succeed:</b></p>
+      <ul class="bul">
+        <li>The <code>students</code> table <b>must already exist</b>, with a
+        <code>name</code> column. This code never creates it, so if the table is absent you
+        get <code>sqlite3.OperationalError: no such table: students</code>.</li>
+        <li><code>id</code> must fill itself, i.e. be an <code>INTEGER PRIMARY KEY</code>,
+        since no <code>id</code> is supplied.</li>
+        <li>The file must be writable.</li>
+      </ul>
+      <p>The single quotes around <code>'Ada'</code> are <b>SQL's</b> quotes, inside
+      Python's double quotes. Two languages, one line.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Reading rows back</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">SELECT and fetchall</span></div>
+    <div class="body">
+      <p><code>execute</code> runs the <code>SELECT</code>, but it does not hand you the
+      rows. You fetch them from the cursor:</p>
+<pre class="code">cursor.execute(<span class="s">"SELECT * FROM students"</span>)
+rows = cursor.fetchall()
+<span class="k">for</span> row <span class="k">in</span> rows:
+    <span class="k">print</span>(row)</pre>
+<pre class="out">(1, 'Ada')
+(2, 'Bola')</pre>
+      <p><b>Each row comes back as a tuple</b>, in the column order of the table. So
+      <code>row[0]</code> is the id and <code>row[1]</code> is the name, and the round
+      brackets in that output are Python showing you tuples, from Module Three, Unit 3.</p>
+      <p><code>fetchall()</code> gives every row as a list of tuples.
+      <code>fetchone()</code> gives just the next row, or <code>None</code> when there are
+      none left.</p>
+      <p>A <code>SELECT</code> needs no <code>commit</code>, because it changes nothing.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The ? placeholder</span></div>
+    <div class="body">
+      <p>Everything so far put fixed text in the SQL. Real data comes from variables, and
+      there is a right way and a wrong way.</p>
+      <p><b>Right:</b> a question mark for each value, and a tuple of the values.</p>
+<pre class="code">cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES (?, ?)"</span>, (name, phone))</pre>
+      <p><b>Wrong:</b> building the SQL by joining strings.</p>
+<pre class="code"><span class="bad">cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES ('"</span> + name + <span class="s">"', '"</span> + phone + <span class="s">"')"</span>)</span></pre>
+      <p>The joined version breaks the moment a name contains an apostrophe, which ends the
+      SQL string early and leaves nonsense behind. A name like O'Brien is enough to do it.
+      It is also how databases get attacked, by typing SQL into a name box.</p>
+      <p><b>The placeholder is a question mark, not a format specifier.</b> Do not use an
+      f-string here. And note the comma inside <code>(name,)</code> if you have only one
+      value: without it, it is not a tuple.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>A contact manager. Create <code>contacts.db</code> with a table
+      <code>contacts</code> (id, name, phone), read three contacts from the user, insert
+      each, then commit and close.</p>
+      <ol class="steps">
+        <li>Connect and get a cursor.
+        <span class="note">connect creates contacts.db if it is absent</span></li>
+        <li>Create the table <b>if it does not already exist</b>. The question says those
+        words, so use <code>IF NOT EXISTS</code>.</li>
+        <li>Loop three times with <code>range(3)</code>, reading name and phone.
+        <span class="note">phone stays TEXT: numbers can start with 0</span></li>
+        <li>Insert with placeholders, then commit once at the end and close.</li>
+      </ol>
+      <div class="codelabel">contacts.py</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"contacts.db"</span>)
+cursor = conn.cursor()
+
+cursor.execute(<span class="s">"""CREATE TABLE IF NOT EXISTS contacts
+                  (id INTEGER PRIMARY KEY, name TEXT, phone TEXT)"""</span>)
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    name = <span class="k">input</span>(<span class="s">"Name: "</span>)
+    phone = <span class="k">input</span>(<span class="s">"Phone: "</span>)
+    cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES (?, ?)"</span>, (name, phone))
+
+conn.commit()
+conn.close()
+<span class="k">print</span>(<span class="s">"Contacts saved."</span>)</pre>
+      <p>Entering Ada 08011112222, Bola 08033334444, John 08055556666:</p>
+<pre class="out">Contacts saved.</pre>
+      <p class="small">The triple quoted string <code>"""..."""</code> lets a long piece of
+      SQL run across two lines without fuss. It is an ordinary string, just one that may
+      contain newlines.</p>
+      <p><b>Why phone is TEXT and not INTEGER:</b> a phone number starting with 0 would lose
+      that 0 as a number, and nobody ever adds two phone numbers together. Storing it as
+      text is the correct choice, and saying so earns the mark.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Part (e): any number, then show them</span></div>
+    <div class="body">
+      <p>The extension: accept contacts until the user types 'done' as the name, then fetch
+      and display everything in the table. Sentinel loop from Module Three, plus
+      <code>SELECT</code>.</p>
+      <div class="codelabel">contacts_any.py</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"contacts.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"""CREATE TABLE IF NOT EXISTS contacts
+                  (id INTEGER PRIMARY KEY, name TEXT, phone TEXT)"""</span>)
+
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    phone = <span class="k">input</span>(<span class="s">"Phone: "</span>)
+    cursor.execute(<span class="s">"INSERT INTO contacts (name, phone) VALUES (?, ?)"</span>, (name, phone))
+
+conn.commit()
+
+cursor.execute(<span class="s">"SELECT * FROM contacts"</span>)
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(<span class="s">f"</span>{row[<span class="n">0</span>]}<span class="s"> | </span>{row[<span class="n">1</span>]}<span class="s"> | </span>{row[<span class="n">2</span>]}<span class="s">"</span>)
+
+conn.close()</pre>
+      <p>Entering Ada 08011112222, then Bola 08033334444, then done:</p>
+<pre class="out">1 | Ada | 08011112222
+2 | Bola | 08033334444</pre>
+      <p><b>Commit before you select.</b> It happens to work without it here, but the habit
+      is what keeps the marks, and the question asks for the changes to be saved.</p>
+      <p class="redo"><b>Now you try:</b> run it a second time and add John. What ids do you
+      see? <span class="small">(1, 2 and 3. The file persists, so the old rows are still
+      there and the new one continues the count. If you expected to see only John, you have
+      just learned what "it lasts" means.)</span></p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What is a database, and give two reasons to use one?</p>
+      <p class="q">2. What role does <code>sqlite3</code> play?</p>
+      <p class="q">3. Name three SQL commands and their functions.</p>
+      <p class="q">4. What happens if you forget <code>conn.commit()</code>?</p>
+      <p class="q">5. What does a row from <code>fetchall()</code> come back as?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>An organised collection of data held in tables of rows and columns, stored so it
+        can be searched and changed efficiently. Any two of: it lasts beyond the program, it
+        can be searched without reading everything, it enforces structure, it serves many
+        users, it keeps data consistent.</li>
+        <li>It is the built in Python module that connects your program to an SQLite
+        database file, letting you create tables, insert rows and query them from Python.</li>
+        <li><code>CREATE TABLE</code> makes a table. <code>INSERT INTO</code> adds a row.
+        <code>SELECT</code> fetches rows back.</li>
+        <li>Your changes are silently discarded when the program ends. No error is
+        reported.</li>
+        <li>A tuple, with the columns in table order.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m5u2">
+  <div class="kick">Module Five &middot; Unit 2</div>
+  <h2 class="title">Python GUI Programming</h2>
+  <hr class="rule">
+  <p class="lead">Putting a window, a box and a button on the front of a program.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> say what a GUI is, build a window
+  with a label, an entry and a button, and wire the button to a function.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>GUI</b> is a Graphical User Interface: windows, buttons and boxes, rather than
+      typing at a prompt. The opposite is the <b>command line interface</b>, which is
+      everything you have written so far.</p>
+      <p><b><code>tkinter</code></b> is Python's built in GUI module. Like
+      <code>sqlite3</code>, it ships with Python.</p>
+      <p>A GUI program is inside out compared with everything so far. A normal program runs
+      top to bottom and ends. A GUI program builds its window, then <b>waits</b>, and things
+      happen only when the user does something. That waiting is a loop, and you start it
+      yourself.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four widgets</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Widget</th><th>Is</th><th>Made with</th></tr>
+        <tr><td>Window</td><td>The window itself</td><td><code>tk.Tk()</code></td></tr>
+        <tr><td>Label</td><td>Text the user reads</td><td><code>tk.Label(window, text="...")</code></td></tr>
+        <tr><td>Entry</td><td>A box the user types in</td><td><code>tk.Entry(window)</code></td></tr>
+        <tr><td>Button</td><td>Something to click</td><td><code>tk.Button(window, text="...", command=fn)</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">Every widget must be <b>placed</b> before it appears.
+      <code>.pack()</code> is the simplest way: it stacks widgets down the window in the
+      order you pack them. Create it and forget to pack it, and it simply is not there.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">command takes the name, not the call</span></div>
+    <div class="body">
+      <p>A button is told which function to run when clicked:</p>
+<pre class="code">tk.Button(window, text=<span class="s">"Go"</span>, command=convert)</pre>
+      <p><b><code>command=convert</code>, not <code>command=convert()</code>.</b> With
+      brackets you would <i>call</i> it now, at the moment the button is built, and hand its
+      return value to <code>command</code>. The button would then do nothing when clicked,
+      and the work would have happened once, before the window even appeared.</p>
+      <p>Same rule as <code>file.close</code> against <code>file.close()</code> in Module
+      Four, and <code>conn.cursor</code> against <code>conn.cursor()</code> in this module.
+      <b>Brackets mean "do it now". No brackets means "the thing itself".</b> Here you want
+      the thing itself, because the button will do it later.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>A window that converts Celsius to Fahrenheit. The formula is
+      F = C &times; 9/5 + 32.</p>
+      <ol class="steps">
+        <li>Import <code>tkinter</code>, conventionally shortened to <code>tk</code>, and
+        make the window.</li>
+        <li>Define what the button will do. It reads the entry with <code>.get()</code>,
+        which hands back a <b>string</b>, exactly like <code>input</code>. Convert it.
+        <span class="note">float(entry.get())</span></li>
+        <li>Show the answer by changing the label's text with
+        <code>.config(text=...)</code>.</li>
+        <li>Pack every widget, then start the wait with <code>mainloop()</code>.</li>
+      </ol>
+      <div class="codelabel">converter.py</div>
+<pre class="code"><span class="k">import</span> tkinter <span class="k">as</span> tk
+
+window = tk.Tk()
+window.title(<span class="s">"Celsius to Fahrenheit"</span>)
+
+label = tk.Label(window, text=<span class="s">"Celsius:"</span>)
+entry = tk.Entry(window)
+result = tk.Label(window, text=<span class="s">""</span>)
+
+<span class="k">def</span> convert():
+    celsius = <span class="k">float</span>(entry.get())
+    fahrenheit = celsius * <span class="n">9</span> / <span class="n">5</span> + <span class="n">32</span>
+    result.config(text=<span class="s">f"</span>{fahrenheit:.1f}<span class="s"> F"</span>)
+
+button = tk.Button(window, text=<span class="s">"Convert"</span>, command=convert)
+
+label.pack()
+entry.pack()
+button.pack()
+result.pack()
+
+window.mainloop()</pre>
+      <p>Type 100 and click Convert, and the bottom label reads:</p>
+<pre class="out">212.0 F</pre>
+      <p><b><code>mainloop()</code> is the line people forget.</b> Without it the program
+      builds the window, reaches the end, and exits. The window flashes up and vanishes, or
+      never appears at all. It must be the last line.</p>
+      <p class="redo"><b>Now you try:</b> what does 37 give?
+      <span class="small">(98.6 F. Worth knowing: it is body temperature, so it is an easy
+      check that your formula is the right way round.)</span></p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">get() gives a string</span></div>
+    <div class="body">
+      <p><code>entry.get()</code> hands back a string, always, exactly like
+      <code>input()</code> in Module Two. Forget to convert and</p>
+<pre class="code">celsius = entry.get()
+fahrenheit = celsius * <span class="n">9</span> / <span class="n">5</span> + <span class="n">32</span></pre>
+      <p>fails with</p>
+<pre class="out">TypeError: unsupported operand type(s) for /: 'str' and 'int'</pre>
+      <p>Read where that error actually lands, because it is instructive.
+      <code>celsius * 9</code> <b>does not fail</b>: <code>"100" * 9</code> is a perfectly
+      legal string repeated nine times, giving
+      <code>"100100100100100100100100100"</code>. It is the <code>/ 5</code> on the next
+      step that has nowhere to go, because you cannot divide text.</p>
+      <p>So the error names the division, several characters after the mistake. <b>The line
+      Python blames is not always the line you got wrong</b>, and here the real fault is the
+      missing <code>float()</code> one line earlier.</p>
+      <p>It is the <code>53</code> trap from Module Two wearing a window.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What is a GUI, and what is the alternative called?</p>
+      <p class="q">2. Name four tkinter widgets.</p>
+      <p class="q">3. Why <code>command=convert</code> and not <code>command=convert()</code>?</p>
+      <p class="q">4. What does <code>mainloop()</code> do, and what happens without it?</p>
+      <p class="q">5. What type does <code>entry.get()</code> return?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>A Graphical User Interface: windows, buttons and boxes. The alternative is a
+        command line interface.</li>
+        <li>Window (<code>Tk</code>), <code>Label</code>, <code>Entry</code>,
+        <code>Button</code>.</li>
+        <li>Without brackets you hand over the function itself, for the button to call when
+        clicked. With brackets you call it immediately and hand over its result, so clicking
+        does nothing.</li>
+        <li>It starts the loop that waits for the user. Without it the program ends at once
+        and the window never appears.</li>
+        <li>A string, like <code>input()</code>. Convert it before doing arithmetic.</li>
+      </ol>
+    </div>
+  </div>
+</section>

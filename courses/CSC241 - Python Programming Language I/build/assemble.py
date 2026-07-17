@@ -17,7 +17,7 @@ CONTENT = os.path.join(HERE, 'content')
 
 COVER = 'cover.html'
 BODY_PARTS = ['front.html', 'module1.html', 'module2.html', 'module3.html',
-              'module4.html']
+              'module4.html', 'module5.html']
 
 HEAD = """<!DOCTYPE html>
 <html lang="en">

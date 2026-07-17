@@ -6,13 +6,25 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**Modules One to Four authored**, rendered to `build/CSC241_checkpoint.pdf`
-(62 pages: cover plus 61). Voice and palette approved. Module Five remains, plus the
-Contents, the mocks, and the reference cards.
+**All five modules authored**, rendered to `build/CSC241_checkpoint.pdf`
+(71 pages: cover plus 70). Voice and palette approved.
 
-Coverage against the exam: Module Three carries questions One and Two, Module Four
-carries Three and Five, Module Five will carry Six. Question Four (strings) is
-covered by Module Two, Unit 2.
+Every one of the exam's six questions now has a home:
+
+| Exam question | Topic | Covered by |
+| --- | --- | --- |
+| One | Control structures | Module Three, Units 1 to 2 |
+| Two | Data structures | Module Three, Units 3 to 4 |
+| Three | Functions | Module Four, Unit 1 |
+| Four | Strings | Module Two, Unit 2 |
+| Five | File handling | Module Four, Unit 3 |
+| Six | Databases, sqlite3 | Module Five, Unit 1 |
+
+**Still to build:** the Contents page with working links (needs the two-pass approach
+from PHY121), the mocks mirroring the 24/25 template question for question, and the
+API reference cards the zero-external-sources rule requires. Module Two, Unit 2 is
+thin on string *methods* specifically (`.split`, `.strip`, `.upper`, `.replace`,
+`.index`, slicing), which question Four leans on: that needs a pass before the mocks.
 
 ## Sources
 
@@ -107,7 +119,7 @@ own and merged in front of the body.
 **Both gates stop the build on failure. Neither is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (174 claims through Module Four). This is the
+  interpreter and fails on any mismatch (192 claims across all five modules). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the

@@ -586,6 +586,195 @@ finally:
 raises('m4u4 TypeError "a" + 1', lambda: "a" + 1,
        'TypeError: can only concatenate str (not "int") to str')
 
+# ======================= MODULE FIVE, UNIT 1 =======================
+# Real sqlite3, real database files, in a throwaway directory.
+_tmp5 = tempfile.mkdtemp(prefix='csc241_db_')
+_cwd5 = os.getcwd()
+os.chdir(_tmp5)
+try:
+    check('m5u1 the five steps', '''import sqlite3
+conn = sqlite3.connect("school.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)")
+conn.commit()
+conn.close()
+print("ok")''', 'ok')
+
+    # the broken version: conn.cursor without brackets
+    def _no_brackets():
+        import sqlite3
+        conn = sqlite3.connect("b.db")
+        cursor = conn.cursor          # the bug: no ()
+        cursor.execute("CREATE TABLE t (id INTEGER PRIMARY KEY)")
+
+    raises('m5u1 conn.cursor with no brackets', _no_brackets,
+           "AttributeError: 'builtin_function_or_method' object has no attribute 'execute'")
+
+    # creating a table twice
+    def _twice():
+        import sqlite3
+        conn = sqlite3.connect("twice.db")
+        c = conn.cursor()
+        c.execute("CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)")
+        c.execute("CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT)")
+
+    raises('m5u1 CREATE TABLE twice', _twice,
+           'OperationalError: table students already exists')
+
+    check('m5u1 IF NOT EXISTS is safe to repeat', '''import sqlite3
+conn = sqlite3.connect("ine.db")
+c = conn.cursor()
+for _ in range(3):
+    c.execute("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)")
+conn.commit()
+conn.close()
+print("ran three times, no error")''', 'ran three times, no error')
+
+    # INSERT prints nothing at all
+    check('m5u1 INSERT displays nothing', '''import sqlite3
+conn = sqlite3.connect("school.db")
+cursor = conn.cursor()
+cursor.execute("INSERT INTO students (name) VALUES ('Ada')")
+conn.commit()
+conn.close()''', '')
+
+    # no such table
+    def _no_table():
+        import sqlite3
+        conn = sqlite3.connect("empty.db")
+        c = conn.cursor()
+        c.execute("INSERT INTO students (name) VALUES ('Ada')")
+
+    raises('m5u1 INSERT with no table', _no_table,
+           'OperationalError: no such table: students')
+
+    # SELECT gives tuples, id fills itself
+    check('m5u1 SELECT gives tuples', '''import sqlite3
+conn = sqlite3.connect("sel.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)")
+cursor.execute("INSERT INTO students (name) VALUES ('Ada')")
+cursor.execute("INSERT INTO students (name) VALUES ('Bola')")
+conn.commit()
+cursor.execute("SELECT * FROM students")
+for row in cursor.fetchall():
+    print(row)
+conn.close()''', "(1, 'Ada')\n(2, 'Bola')")
+
+    # forgetting commit silently loses the insert
+    check('m5u1 no commit means no data', '''import sqlite3
+conn = sqlite3.connect("nc.db")
+c = conn.cursor()
+c.execute("CREATE TABLE t (id INTEGER PRIMARY KEY, name TEXT)")
+conn.commit()
+c.execute("INSERT INTO t (name) VALUES ('Ada')")
+conn.close()                      # no commit for the insert
+
+conn = sqlite3.connect("nc.db")
+c = conn.cursor()
+c.execute("SELECT * FROM t")
+print(c.fetchall())
+conn.close()''', '[]')
+
+    # the contacts program, part (d)
+    check('m5u1 contacts program', '''import sqlite3
+data = iter([("Ada", "08011112222"), ("Bola", "08033334444"), ("John", "08055556666")])
+conn = sqlite3.connect("contacts.db")
+cursor = conn.cursor()
+cursor.execute("""CREATE TABLE IF NOT EXISTS contacts
+                  (id INTEGER PRIMARY KEY, name TEXT, phone TEXT)""")
+for i in range(3):
+    name, phone = next(data)
+    cursor.execute("INSERT INTO contacts (name, phone) VALUES (?, ?)", (name, phone))
+conn.commit()
+conn.close()
+print("Contacts saved.")''', 'Contacts saved.')
+
+    # part (e): sentinel loop then display
+    check('m5u1 contacts part (e)', '''import sqlite3
+data = iter([("Ada", "08011112222"), ("Bola", "08033334444"), ("done", None)])
+conn = sqlite3.connect("contacts2.db")
+cursor = conn.cursor()
+cursor.execute("""CREATE TABLE IF NOT EXISTS contacts
+                  (id INTEGER PRIMARY KEY, name TEXT, phone TEXT)""")
+while True:
+    name, phone = next(data)
+    if name == "done":
+        break
+    cursor.execute("INSERT INTO contacts (name, phone) VALUES (?, ?)", (name, phone))
+conn.commit()
+cursor.execute("SELECT * FROM contacts")
+for row in cursor.fetchall():
+    print(f"{row[0]} | {row[1]} | {row[2]}")
+conn.close()''', '1 | Ada | 08011112222\n2 | Bola | 08033334444')
+
+    # the "now you try": run again, ids continue
+    check('m5u1 "now you try": ids continue across runs', '''import sqlite3
+conn = sqlite3.connect("contacts2.db")
+cursor = conn.cursor()
+cursor.execute("INSERT INTO contacts (name, phone) VALUES (?, ?)", ("John", "08055556666"))
+conn.commit()
+cursor.execute("SELECT id FROM contacts")
+print([r[0] for r in cursor.fetchall()])
+conn.close()''', '[1, 2, 3]')
+
+    # the apostrophe that breaks string-joined SQL, and the placeholder that does not
+    check('m5u1 placeholder survives an apostrophe', '''import sqlite3
+conn = sqlite3.connect("ap.db")
+c = conn.cursor()
+c.execute("CREATE TABLE t (name TEXT)")
+c.execute("INSERT INTO t (name) VALUES (?)", ("O'Brien",))
+conn.commit()
+c.execute("SELECT name FROM t")
+print(c.fetchone()[0])
+conn.close()''', "O'Brien")
+
+    def _joined_sql_breaks():
+        import sqlite3
+        conn = sqlite3.connect("ap2.db")
+        c = conn.cursor()
+        c.execute("CREATE TABLE t (name TEXT)")
+        name = "O'Brien"
+        c.execute("INSERT INTO t (name) VALUES ('" + name + "')")
+
+    raises('m5u1 joined SQL breaks on an apostrophe', _joined_sql_breaks,
+           'OperationalError: near "Brien": syntax error')
+finally:
+    os.chdir(_cwd5)
+    import shutil as _sh5
+    _sh5.rmtree(_tmp5, ignore_errors=True)
+
+# ======================= MODULE FIVE, UNIT 2 =======================
+# The GUI cannot be clicked here, but its arithmetic and its error can be checked.
+check('m5u2 converter maths 100 C',
+      'celsius = float("100")\nfahrenheit = celsius * 9 / 5 + 32\n'
+      'print(f"{fahrenheit:.1f} F")', '212.0 F')
+check('m5u2 converter "now you try" 37 C',
+      'celsius = float("37")\nfahrenheit = celsius * 9 / 5 + 32\n'
+      'print(f"{fahrenheit:.1f} F")', '98.6 F')
+
+
+def _get_without_convert():
+    celsius = "100"          # what entry.get() hands back
+    return celsius * 9 / 5 + 32
+
+
+# The failure is at the DIVISION, not the multiply: "100" * 9 is a legal string
+# repeat. The page quoted the multiply error until this gate caught it.
+raises('m5u2 forgetting to convert entry.get()', _get_without_convert,
+       "TypeError: unsupported operand type(s) for /: 'str' and 'int'")
+val('m5u2 "100" * 9 really does succeed', 'len("100" * 9)', '27')
+
+# tkinter must actually be importable, since the manual promises it ships with Python
+n += 1
+try:
+    import tkinter  # noqa: F401
+    _got = 'importable'
+except Exception as e:
+    _got = f'{type(e).__name__}: {e}'
+if _got != 'importable':
+    fails.append(('m5u2 tkinter ships with Python', 'importable', _got))
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:
