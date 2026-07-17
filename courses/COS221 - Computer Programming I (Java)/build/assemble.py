@@ -74,8 +74,16 @@ def strip_tags(html):
     id that slug() then truncates to 40 characters, so two headings that differ
     only near the end can collide on the same marker and the Contents sends both
     rows to one page. Decode first, and either spelling gives the same clean id.
+
+    A <br/> is a word boundary, so it must become a space, not nothing. The module
+    part dividers read `<h1>Module One<br/>Introduction to ...</h1>`, which the
+    divider page renders on two lines. Delete the tag outright and the Contents
+    label welds to `Module OneIntroduction to ...`. slug() strips spaces anyway, so
+    inserting one here changes no marker id and breaks no link; it only unwelds the
+    visible label.
     """
-    return htmllib.unescape(re.sub(r'<[^>]+>', '', html)).strip()
+    html = re.sub(r'<br\s*/?>', ' ', html)
+    return htmllib.unescape(re.sub(r'<[^>]+>', '', html)).replace('\xa0', ' ').strip()
 
 
 TOC = []   # (level, label, marker) in document order, rebuilt on every assemble
