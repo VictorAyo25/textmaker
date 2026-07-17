@@ -19,14 +19,52 @@ How a CODE box declares its contract, in the HTML:
                                               the gate asserts the failure and, if
                                               data-error is given, that the compiler
                                               message contains it
-    <pre class="src" data-frag="1">           a fragment, not a whole program: wrapped
-                                              in a class+main before compiling, so it
-                                              still has to be valid Java
+    <pre class="src" data-frag="1">           loose statements: wrapped in a class+main
+                                              before compiling, so they still have to
+                                              be valid Java
+    <pre class="src" data-member="1">          a method declaration on its own: wrapped
+                                              in a class BODY, since Java has no nested
+                                              methods and data-frag would make it a
+                                              syntax error rather than a check
+    <pre class="src" data-question="M.7">     a mock/exam question: it runs, but its
+                                              output is WITHHELD on purpose, because
+                                              printing it would be printing the answer.
+                                              The gate runs it anyway and then proves
+                                              the identical source is output-checked in
+                                              the named solution section.
     <pre class="src" data-nocheck="why">      excluded, with the reason recorded here
                                               and printed in the report
 
 Anything without one of those attributes is an ERROR: silence must never be the
 way a snippet escapes checking.
+
+Why data-question has to exist
+------------------------------
+A mock paper is the one place the book shows a program and must NOT show what it
+prints: the output is the question. But "no output block" is exactly what a
+forgotten output block looks like, and data-run with nothing to compare against
+only WARNs. So the two cases were indistinguishable, and the honest one was
+indistinguishable from the careless one.
+
+Worse, the obvious workaround is worse than the problem: mark the question
+data-nocheck and the paper's copy of the code is never compiled at all. The mock
+would then be the only unverified code in a book whose whole claim is that every
+listing ran, and it would be unverified in the place a reader is most exposed,
+sitting a timed paper with no way to check.
+
+So data-question keeps both halves. It compiles and runs the question's code, and
+it requires the answer to exist: every line of the question must reappear, in
+order, inside some data-run listing whose output IS checked against a real JVM.
+Edit one line of the answer and the gate reports that the answer no longer answers
+the question that was asked.
+
+The test is an ordered line-subsequence, not equality, because of the file
+questions. When a question's program writes a file and prints nothing, its answer
+is the file's bytes, and the only way to show those honestly is to run the same
+writer and read the file back. The solution's listing is therefore the question's
+program with verification lines threaded through it. Equality would reject the one
+pattern that proves a file question; a subsequence still pins every line the
+question actually asked about.
 """
 import html as htmllib
 import io, os, re, shutil, subprocess, sys, tempfile
@@ -124,6 +162,38 @@ def norm(s):
     return '\n'.join(line.rstrip() for line in s.strip().replace('\r\n', '\n').split('\n'))
 
 
+def wrap(src, cls, mode):
+    """Make a compilable program out of a listing that is not one.
+
+    Two shapes, because the papers use two. `frag` is loose statements, which belong
+    inside main. `member` is a method declaration, which does NOT: Java has no nested
+    methods, so wrapping `public static int f(int n) {...}` in a main is a syntax
+    error rather than a check. It belongs in the class body instead. The dry-run
+    questions on both papers are always method-shaped, so without `member` the only
+    way to gate them is to not gate them.
+    """
+    if mode == 'frag':
+        return (f'public class {cls} {{ public static void main(String[] a) '
+                f'throws Exception {{\n{src}\n}} }}')
+    return (f'public class {cls} {{\n{src}\n'
+            f'public static void main(String[] a) throws Exception {{ }} }}')
+
+
+def code_lines(src):
+    """The lines of a listing that carry meaning, for matching a question to its answer.
+
+    Blank lines and indentation go: a solution is free to re-space the code it is
+    answering. Nothing else is normalised, so a changed literal or a renamed
+    variable still counts as a different line, which is the point.
+    """
+    return [ln.strip() for ln in norm(src).split('\n') if ln.strip()]
+
+
+def is_subsequence(need, have):
+    it = iter(have)
+    return all(ln in it for ln in need)
+
+
 def run_one(src, cls, stdin, workdir):
     """Compile and run one listing in a directory of its own.
 
@@ -151,7 +221,13 @@ def run_one(src, cls, stdin, workdir):
     return True, r.stdout
 
 
-def check_file(name, results):
+def check_file(name, results, answered=None, questions=None):
+    """Check one content file.
+
+    `answered` and `questions` are the book-wide registries backing data-question:
+    a question and its answer live in different files by design, so neither can be
+    resolved until every file has been read.
+    """
     path = os.path.join(CONTENT, name + '.html')
     doc = io.open(path, encoding='utf-8').read()
     work = tempfile.mkdtemp(prefix='cos221_')
@@ -194,19 +270,51 @@ def check_file(name, results):
                     results.append(('OK', where, f'{cls}: fails to compile, as the text claims'))
                 continue
 
-            if 'frag' in attrs:
-                cls = 'Frag' + re.sub(r'\W', '', where)
-                src = (f'public class {cls} {{ public static void main(String[] a) '
-                       f'throws Exception {{\n{src}\n}} }}')
-                ok, msg = run_one(src, cls, attrs.get('stdin'), work)
+            # data-question is tested BEFORE data-frag/data-member, and the order is
+            # load-bearing rather than stylistic. A dry-run question is usually a bare
+            # method, so it carries data-member too; if the member branch runs first it
+            # returns "member compiles" and the listing never registers as a question,
+            # so the requirement that its answer exist quietly evaporates. The gate
+            # still reports a clean pass, having checked half of what it claims. That
+            # is precisely the failure this contract was added to prevent, so the
+            # question branch owns any listing that declares itself one.
+            if 'question' in attrs:
+                # The question usually prints the METHOD it wants traced, not a whole
+                # program, exactly as the papers do. So it composes with frag/member:
+                # wrap it to prove it compiles, but register the lines as written,
+                # since those are the lines the answer must contain.
+                cls = 'Q' + re.sub(r'\W', '', where)
+                probe = src
+                if 'frag' in attrs or 'member' in attrs:
+                    probe = wrap(src, cls, 'frag' if 'frag' in attrs else 'member')
+                else:
+                    cls = attrs.get('run') or cls
+                ok, got = run_one(probe, cls, attrs.get('stdin'), work)
+                if not ok:
+                    results.append(('FAIL', where,
+                                    f'{cls}: a question, but it does not compile/run:\n{got[:400]}'))
+                    continue
+                if claimed_output(doc, m.end()) is not None:
+                    results.append(('FAIL', where,
+                                    f'{cls}: declared data-question (output withheld) but an '
+                                    f'output block follows it: the paper is printing its own answer'))
+                    continue
+                if questions is not None:
+                    questions.append((where, code_lines(src), attrs['question'], cls))
+                continue
+
+            if 'frag' in attrs or 'member' in attrs:
+                mode = 'frag' if 'frag' in attrs else 'member'
+                cls = mode.capitalize() + re.sub(r'\W', '', where)
+                ok, msg = run_one(wrap(src, cls, mode), cls, attrs.get('stdin'), work)
                 results.append(('OK' if ok else 'FAIL', where,
-                                'fragment compiles' if ok else f'fragment does not compile:\n{msg[:400]}'))
+                                f'{mode} compiles' if ok else f'{mode} does not compile:\n{msg[:400]}'))
                 continue
 
             if 'run' not in attrs:
                 results.append(('FAIL', where,
                                 'listing declares no contract: add data-run, data-compile, '
-                                'data-frag or data-nocheck'))
+                                'data-frag, data-member, data-question or data-nocheck'))
                 continue
 
             cls = attrs['run']
@@ -219,6 +327,8 @@ def check_file(name, results):
                 results.append(('WARN', where, f'{cls}: runs, but the box claims no output to check'))
                 continue
             if norm(got) == norm(want):
+                if answered is not None:
+                    answered.append((where, code_lines(src)))
                 results.append(('OK', where, f'{cls}: output matches the JVM'))
             else:
                 results.append(('FAIL', where,
@@ -229,13 +339,44 @@ def check_file(name, results):
         shutil.rmtree(work, ignore_errors=True)
 
 
+def resolve_questions(questions, answered, results, partial):
+    """Every withheld answer must actually exist, and still match its question.
+
+    A data-question listing proves it runs, but not that the reader can ever find
+    out what it printed. That is the half a mock paper is judged on. So the answer
+    is required to exist as an output-checked listing of the SAME source, which
+    also pins the two copies together: edit the solution's code and the question it
+    answers is no longer the question that was asked, and the gate says so.
+    """
+    for where, need, target, cls in questions:
+        if partial:
+            results.append(('SKIP', where,
+                            f'{cls}: question output withheld; its answer is in {target}, '
+                            f'not cross-checked because only some files were checked '
+                            f'(run check_code.py bare)'))
+            continue
+        hits = [w for w, have in answered if is_subsequence(need, have)]
+        if not hits:
+            results.append(('FAIL', where,
+                            f'{cls}: declares its answer is in {target}, but no listing '
+                            f'anywhere runs this code with a checked output block. Either '
+                            f'the answer is missing, or it was edited and no longer answers '
+                            f'the question that was asked.'))
+        else:
+            results.append(('OK', where,
+                            f'{cls}: output withheld here, answered at {", ".join(hits)}'))
+
+
 def main():
     if not shutil.which('javac'):
         raise SystemExit('javac not on PATH: the snippet gate cannot run')
-    names = sys.argv[1:] or [f[:-5] for f in sorted(os.listdir(CONTENT)) if f.endswith('.html')]
+    all_names = [f[:-5] for f in sorted(os.listdir(CONTENT)) if f.endswith('.html')]
+    names = sys.argv[1:] or all_names
     results = []
+    answered, questions = [], []
     for n in names:
-        check_file(n, results)
+        check_file(n, results, answered, questions)
+    resolve_questions(questions, answered, results, partial=(names != all_names))
 
     for status, where, msg in results:
         if status != 'OK':

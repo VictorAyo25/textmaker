@@ -23,7 +23,12 @@ Usage
     python hl.py Foo.java --run Foo
     python hl.py Bad.java --compile Bad --error "has private access"
     python hl.py Frag.java --frag
+    python hl.py Method.java --member
     python hl.py Foo.java --run Foo --stdin "4\n7"
+
+    # a mock paper's question: it must run, but its output is the answer, so it is
+    # withheld here and check_code.py proves it is checked in the named section
+    python hl.py Trace.java --member --question "M.7"
 
 Marking a line
 --------------
@@ -119,8 +124,14 @@ def main():
     ap.add_argument('--compile')
     ap.add_argument('--error')
     ap.add_argument('--frag', action='store_true')
+    ap.add_argument('--member', action='store_true',
+                    help='a method declaration on its own: wrapped in a class body')
+    ap.add_argument('--question', metavar='SECTION',
+                    help='a mock/exam question: output withheld, answered in SECTION')
     ap.add_argument('--stdin')
     ap.add_argument('--nocheck')
+    ap.add_argument('--nonum', action='store_true',
+                    help='no line numbers (class="src nonum")')
     a = ap.parse_args()
 
     src = io.open(a.java, encoding='utf-8').read()
@@ -134,6 +145,10 @@ def main():
         attrs += f' data-error="{html.escape(a.error, quote=True)}"'
     if a.frag:
         attrs += ' data-frag="1"'
+    if a.member:
+        attrs += ' data-member="1"'
+    if a.question:
+        attrs += f' data-question="{html.escape(a.question, quote=True)}"'
     if a.stdin:
         enc = a.stdin.replace('\\n', '&#10;')
         attrs += f' data-stdin="{enc}"'
@@ -141,9 +156,10 @@ def main():
         attrs += f' data-nocheck="{html.escape(a.nocheck, quote=True)}"'
     if not attrs:
         sys.exit('hl.py: a listing must declare a contract '
-                 '(--run/--compile/--frag/--nocheck)')
+                 '(--run/--compile/--frag/--member/--question/--nocheck)')
 
-    sys.stdout.write(f'<pre class="src"{attrs}>{markup(src)}</pre>\n')
+    cls = 'src nonum' if a.nonum else 'src'
+    sys.stdout.write(f'<pre class="{cls}"{attrs}>{markup(src)}</pre>\n')
 
 
 if __name__ == '__main__':

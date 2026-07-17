@@ -1,0 +1,1114 @@
+<!-- ============ MOCK PAPER A: SOLUTIONS ============ -->
+
+<section>
+  <div class="kick">MS.1 &middot; MOCK A SOLUTIONS &middot; MARK YOUR OWN PAPER</div>
+  <h2 class="title">Marking Mock A, and the one thing it is really testing</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Mark like a stranger. You know what you meant; the marker does not,
+  and neither does the compiler.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The compiler counts errors in waves, not in bugs</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>The number of errors javac prints is not the number of bugs you have.</b>
+        Once the compiler cannot work out what a name or a type means, it stops
+        looking inside it, so the bugs hiding behind that one are simply not reported
+        yet. Fix the front row and a new row appears.</p>
+      </div>
+      <p>Every debug snippet on this mock was fed to a real compiler, and then fed to
+      it again with the reported errors fixed. This is what came back:</p>
+      <table class="data">
+        <tr>
+          <th style="width:26%">Snippet</th>
+          <th style="width:17%">javac says</th>
+          <th style="width:23%">fix those, and</th>
+          <th>never mentioned at all</th>
+        </tr>
+        <tr><td>Q1 B <code>CubeCalcBroken</code></td><td>4 errors</td><td>3 more appear</td><td></td></tr>
+        <tr><td>Q2 B <code>ReverseArrayBroken</code></td><td><b>1 error</b></td><td>3 more appear</td><td>an out-of-bounds crash</td></tr>
+        <tr><td>Q3 B <code>NoteWriterBroken</code></td><td><b>1 error</b></td><td>3 more appear</td><td></td></tr>
+        <tr><td>Q4 B <code>CountUpBroken</code></td><td>3 errors</td><td>2 more appear</td><td>an infinite loop</td></tr>
+        <tr><td>Q5 C <code>TotalsBroken</code></td><td>2 errors</td><td>4 more appear</td><td>the wrong element printed</td></tr>
+        <tr><td>Q6 C <code>OddFinderBroken</code></td><td>2 errors</td><td>3 more appear</td><td>a <code>main</code> that cannot run</td></tr>
+      </table>
+      <p>Read the second column against the third. <code>ReverseArrayBroken</code> and
+      <code>NoteWriterBroken</code> each report <b>one</b> error and each contain
+      <b>four</b>. A candidate who lists what the compiler listed writes down one error
+      out of four and loses the question.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the compiler is a <b>witness</b>, not an
+      auditor. It reports what it tripped over first. The last column is the one that
+      matters: those bugs are invisible to it entirely, and they are still bugs.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Why "list the errors" is never "list what javac printed"</span></div>
+    <div class="body">
+      <p>This is why every debug question on both real papers is worth 3 marks and
+      contains four or five errors. The examiner is not counting your ability to read
+      a compiler transcript. You do not have a compiler in the hall. You are being
+      asked to read code the way the compiler cannot: all the way down, including the
+      parts it gives up on.</p>
+      <p>So read for <b>faults</b>, not for messages, and use F.7's three kinds as your
+      checklist rather than the compiler's list as your answer. <b>Compile-time</b>
+      errors are the ones it reports, and it reports them late and in waves.
+      <b>Run-time</b> errors it never mentions: <code>ReverseArrayBroken</code>'s
+      out-of-bounds crash is perfectly legal Java. <b>Logic</b> errors are invisible to
+      the machine entirely, and two of the six snippets above contain one, which is
+      exactly why the exam hands you the correct output: that output is the only
+      instrument that detects them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q1 ---------------- -->
+<section>
+  <div class="kick">MS.2 &middot; MOCK A SOLUTIONS &middot; QUESTION ONE</div>
+  <h2 class="title">Question One, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 A &middot; Formal parameter, actual argument, return type</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p>A <b>formal parameter</b> is the variable named in a method's declaration,
+      inside its brackets. It does not hold a value while the method is not running;
+      it is a name waiting for one, and it exists only inside that method. In
+      <code>public static int cube(int s)</code>, the formal parameter is
+      <code>s</code>.</p>
+      <p>An <b>actual argument</b> is the value written at the <b>call site</b>, which
+      is copied into the formal parameter when the call is made. In
+      <code>cube(side)</code>, the actual argument is <code>side</code>, and what
+      reaches <code>s</code> is a <b>copy</b> of its value (Unit 5.4).</p>
+      <p>The <b>return type</b> is the type of the value a method hands back, written
+      immediately before the method's name. In <code>public static int cube(int s)</code>
+      it is <code>int</code>. A method that returns nothing declares <code>void</code>.
+      The return type is <b>not part of the method signature</b>, which is why two
+      methods cannot differ by return type alone.</p>
+      <p class="small"><b>Where the marks are:</b> one each. The word doing the work in
+      the first two is <b>copy</b>: parameter is the name, argument is the value, and
+      the value is copied in. Say that and both marks are yours.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 B &middot; Debug CubeCalcBroken</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Five errors.</b></p>
+      <ol class="qlist">
+        <li><b>Line 2: <code>main(String[] )</code> has no parameter name.</b> Write
+        <code>main(String[] args)</code>.</li>
+        <li><b>Line 4: no semicolon</b> after <code>cube(side)</code>.</li>
+        <li><b>Line 8: <code>cube(int)</code> has no parameter name.</b> Write
+        <code>cube(int s)</code>.</li>
+        <li><b>Line 9: <code>s</code> does not exist.</b> This is the symptom of error
+        3, not a separate fault: name the parameter and <code>s</code> exists.
+        <span class="note">Say that out loud in your answer. It shows you found the
+        cause rather than the squiggle.</span></li>
+        <li><b>The closing brace is missing</b> for <code>cube</code> and for the
+        class. Only one <code>}</code> is present where two are needed.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> four errors, and <b>not</b> the one
+      about <code>s</code>. It reported the two missing names, the missing semicolon,
+      and "reached end of file while parsing" for the brace. Only after those are
+      fixed does it turn to line 9 and report <code>cannot find symbol: variable s</code>
+      three times, once per use.</p>
+      <p class="note">Three marks, five errors, and the fifth is invisible until the
+      third is fixed. Do not stop at three.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CubeCalc"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CubeCalc</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> side = 4;</span><span class="l">        <span class="k">double</span> result = cube(side);</span><span class="l">        System.out.println(<span class="s">"Cube is: "</span> + result);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> cube(<span class="k">int</span> s) {</span><span class="l">        <span class="k">return</span> s * s * s;</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Cube is: 64.0</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>64.0, not 64.</b>
+      <code>cube</code> returns an <code>int</code>, and that <code>int</code> is
+      stored into a <code>double result</code>. Java <b>widens</b> it on the way in
+      (Unit 5.7), so what is printed is a double, and a double always prints its
+      point. Writing "Cube is: 64" throws away a mark that costs nothing.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 C &middot; Dry run tally with 3 and 5</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>The answers are 4 and 9.</b> Not 5 and 10.5, which is what the arithmetic
+      gives if you read <code>(k + 1) / 2</code> as a fraction.</p>
+      <p>Both <code>k + 1</code> and <code>2</code> are <code>int</code>, so
+      <code>/</code> is <b>integer division</b> and every term is chopped down to a
+      whole number (Unit 3.6). Nothing rounds: 3/2 is 1, not 1.5 and not 2.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; tally(5), one row per iteration</span></div>
+    <div class="body">
+      <table class="data">
+        <tr>
+          <th style="width:10%">k</th><th style="width:16%">k + 1</th>
+          <th style="width:24%">(k + 1) / 2</th>
+          <th style="width:24%">as real arithmetic</th><th>total</th>
+        </tr>
+        <tr><td>1</td><td>2</td><td><b>1</b></td><td>1.0</td><td>1</td></tr>
+        <tr><td>2</td><td>3</td><td><b>1</b></td><td>1.5</td><td>2</td></tr>
+        <tr><td>3</td><td>4</td><td><b>2</b></td><td>2.0</td><td>4</td></tr>
+        <tr><td>4</td><td>5</td><td><b>2</b></td><td>2.5</td><td>6</td></tr>
+        <tr><td>5</td><td>6</td><td><b>3</b></td><td>3.0</td><td><b>9</b></td></tr>
+      </table>
+      <p class="small"><b>tally(3)</b> stops after the third row: 1, 2, <b>4</b>.
+      <b>tally(5)</b> runs all five: <b>9</b>.</p>
+      <p class="small">Column four is not part of the answer. It is there to show you
+      the trap: the two columns agree on rows 1, 3 and 5 and disagree on rows 2 and 4,
+      so the loss is exactly 0.5 twice, and the real-arithmetic total of 10.5 becomes
+      9. A candidate who never notices the division is an int division still gets rows
+      1, 3 and 5 right, which is precisely why this trap survives: it is half
+      invisible.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 C, the same method with a main that calls it</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="TallyTrace"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">TallyTrace</span> {</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> tally(<span class="k">int</span> n) {</span><span class="l">        <span class="k">int</span> total = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> k = 1; k &lt;= n; k++) {</span><span class="l">            total += (k + 1) / 2;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> total;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"tally(3) = "</span> + tally(3));</span><span class="l">        System.out.println(<span class="s">"tally(5) = "</span> + tally(5));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>tally(3) = 4
+tally(5) = 9</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D &middot; Overload volume</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>Read the three shapes before you write anything.</b> A cube needs one
+      length, a cylinder needs a radius and a height, a box needs three lengths. One
+      parameter, two parameters, three parameters: the three overloads differ by
+      <b>arity</b>, so the compiler can always tell them apart.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question One, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="VolumeOverload"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">VolumeOverload</span> {</span><span class="l"></span><span class="l">    <span class="c">// i. a cube: one length is all it takes</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> volume(<span class="k">double</span> side) {</span><span class="l">        <span class="k">return</span> side * side * side;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// ii. a cylinder: a radius and a height</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> volume(<span class="k">double</span> radius, <span class="k">double</span> height) {</span><span class="l">        <span class="k">return</span> <span class="t">Math</span>.<span class="t">PI</span> * radius * radius * height;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii. a box: a length, a width and a height</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> volume(<span class="k">double</span> length, <span class="k">double</span> width, <span class="k">double</span> height) {</span><span class="l">        <span class="k">return</span> length * width * height;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.printf(<span class="s">"Cube, side 4:        %.2f%n"</span>, volume(4.0));</span><span class="l">        System.out.printf(<span class="s">"Cylinder, r 3, h 5:  %.2f%n"</span>, volume(3.0, 5.0));</span><span class="l">        System.out.printf(<span class="s">"Box, 2 by 3 by 4:    %.2f%n"</span>, volume(2.0, 3.0, 4.0));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Cube, side 4:        64.00
+Cylinder, r 3, h 5:  141.37
+Box, 2 by 3 by 4:    24.00</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; This question is answerable. Its ancestor was not</span></div>
+    <div class="body">
+      <p>Compare this with the 2024/25 paper's Question One D, solved in S.9. That one
+      asked for <code>area</code> overloaded for a circle, a rectangle and a triangle.
+      A circle takes one length, but a rectangle takes two and a triangle takes two,
+      so two of the three overloads have the <b>same signature</b>,
+      <code>area(double, double)</code>, and the compiler rejects the class outright
+      with "method area(double,double) is already defined". <b>That question, as
+      printed, cannot be answered as printed.</b></p>
+      <p><code>volume</code> escapes because 1, 2 and 3 lengths are three different
+      counts. That is luck, not design, and it is worth understanding rather than
+      enjoying: <b>overloading resolves on the parameter list alone</b>. Not on the
+      names you give the parameters, not on what you meant, and not on the return
+      type. Two shapes that need the same numbers cannot be overloads, and the fix is
+      to name them <code>rectangleArea</code> and <code>triangleArea</code>, or to
+      make the lists genuinely differ.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Why can <code>volume(double side)</code> and
+      <code>volume(double radius, double height)</code> coexist, when
+      <code>area(double, double)</code> twice cannot?</p>
+      <hr class="cut"/>
+      <p><span class="alabel">Answer</span> Because the signature is the name plus the
+      <b>parameter list</b>, and one parameter is a different list from two. The two
+      <code>area</code> methods have identical lists, so they have identical
+      signatures, so they are the same method declared twice. What the parameters
+      <i>mean</i> to you is not in the signature.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q2 ---------------- -->
+<section>
+  <div class="kick">MS.3 &middot; MOCK A SOLUTIONS &middot; QUESTION TWO</div>
+  <h2 class="title">Question Two, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 A &middot; Declaration, creation, index, parallel arrays</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p><b>Array declaration</b> announces a name and its type:
+      <code>int[] a;</code>. It creates <b>no array</b>. It creates a reference
+      variable capable of referring to one, and until something is assigned to it the
+      variable refers to <code>null</code>.</p>
+      <p><b>Array creation</b> is what actually makes the array and reserves its
+      elements: <code>a = new int[4];</code>, or the shorthand
+      <code>int[] a = {1, 3, 5, 7};</code> which declares and creates in one line. The
+      length is fixed at the moment of creation and can never change afterwards.</p>
+      <p>The <b>index</b> is the position of an element, counted <b>from 0</b>. In an
+      array of length 4 the valid indexes are 0, 1, 2 and 3, so the last index is
+      always <code>length - 1</code> and <code>a[a.length]</code> is always wrong.</p>
+      <p><b>Parallel arrays</b> are two or more arrays of the same length in which the
+      same index refers to the same subject: <code>names[2]</code> and
+      <code>ages[2]</code> are the name and the age of one person. They are the way
+      this course models a record without a class and without a collection.</p>
+      <p class="small"><b>Where the marks are:</b> the distinction in the first two is
+      the whole point. "Declaration names it, creation makes it." A declaration that
+      is never followed by a creation is exactly the bug in part B.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 B &middot; Debug ReverseArrayBroken</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Four errors. The compiler reports one.</b></p>
+      <ol class="qlist">
+        <li><b>Line 5: <code>i</code> is not an update.</b> The third slot of a
+        <code>for</code> must be a statement; <code>i</code> on its own is an
+        expression that does nothing. Write <code>i++</code>. <span class="note">This
+        is the only error javac reports: "not a statement".</span></li>
+        <li><b>Line 4: <code>int b;</code> declares an int, not an array,</b> and
+        never creates anything. Write
+        <code>int[] b = new int[a.length];</code>.</li>
+        <li><b>Line 5: <code>i &lt;= a.length</code> is off by one.</b> Write
+        <code>i &lt; a.length</code>.</li>
+        <li><b>Line 6: <code>a[a.length - i]</code> is out of bounds</b> the moment
+        <code>i</code> is 0, because that is <code>a[4]</code> in an array of length
+        4. Reversing needs <code>a[a.length - 1 - i]</code>.</li>
+        <li><b>Line 8: <code>i</code> does not exist here.</b> It was declared inside
+        the <code>for</code>, so it dies with it. Printing the array needs its own
+        loop.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> one error, "not a statement". Fix
+      that alone and three more appear: "array required, but int found" twice, and
+      "cannot find symbol: variable i". Error 4 is never reported by the compiler at
+      all, because it is not a compile error: it is an
+      <code>ArrayIndexOutOfBoundsException</code> that waits until the program is
+      running, and the message it eventually gives is
+      <code>Index 4 out of bounds for length 4</code>.</p>
+      <p class="note">One reported error. Four real ones. This snippet is the whole
+      argument of MS.1 in nine lines.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ReverseArray"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ReverseArray</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] a = {1, 3, 5, 7};</span><span class="l">        <span class="k">int</span>[] b = <span class="k">new</span> <span class="k">int</span>[a.length];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; a.length; i++) {</span><span class="l">            b[i] = a[a.length - 1 - i];</span><span class="l">        }</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; b.length; i++) {</span><span class="l">            System.out.println(b[i]);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>7
+5
+3
+1</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 C &middot; Dry run MaxOrDrop</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p>The question asks for the output <b>of each iteration</b> and the final
+      output, so a bare "8" is not the answer even though 8 is the final value. Write
+      the four lines.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; MaxOrDrop, one row per iteration</span></div>
+    <div class="body">
+      <table class="data">
+        <tr>
+          <th style="width:8%">i</th><th style="width:14%">data[i]</th>
+          <th style="width:18%">data[i] &gt; x?</th>
+          <th style="width:26%">what happens</th><th>x after</th>
+        </tr>
+        <tr><td colspan="4"><i>before the loop:</i> <code>x = data[0]</code></td><td><b>5</b></td></tr>
+        <tr><td>1</td><td>3</td><td>3 &gt; 5? <b>no</b></td><td><code>x = x - 3</code></td><td><b>2</b></td></tr>
+        <tr><td>2</td><td>9</td><td>9 &gt; 2? <b>yes</b></td><td><code>x = 9</code></td><td><b>9</b></td></tr>
+        <tr><td>3</td><td>1</td><td>1 &gt; 9? <b>no</b></td><td><code>x = x - 1</code></td><td><b>8</b></td></tr>
+      </table>
+      <p class="small">The <code>else</code> is what makes this worth tracing. The
+      variable is not a running maximum: when the new value does not beat it, it is
+      <b>subtracted from it</b>, so <code>x</code> can fall as well as rise, and the
+      final 8 is not any element of the array.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 C, run for real</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MaxOrDrop"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MaxOrDrop</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] data = {5, 3, 9, 1};</span><span class="l">        <span class="k">int</span> x = data[0];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; data.length; i++) {</span><span class="l">            <span class="k">if</span> (data[i] &gt; x) {</span><span class="l">                x = data[i];</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                x = x - data[i];</span><span class="l">            }</span><span class="l">            System.out.println(<span class="s">"i = "</span> + i + <span class="s">", x = "</span> + x);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Final x = "</span> + x);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>i = 1, x = 2
+i = 2, x = 9
+i = 3, x = 8
+Final x = 8</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Two, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ArrayReport" data-stdin="12
+25
+-4
+30
+7
+15
+3
+20"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ArrayReport</span> {</span><span class="l"></span><span class="l">    <span class="c">// ii a. find, count and display the multiples of 5</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> multiplesOfFive(<span class="k">int</span>[] values) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="t">String</span> found = <span class="s">""</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] % 5 == 0) {</span><span class="l">                count++;</span><span class="l">                found = found.equals(<span class="s">""</span>) ? <span class="s">""</span> + values[i] : found + <span class="s">", "</span> + values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Multiples of 5: "</span> + found);</span><span class="l">        System.out.println(<span class="s">"How many: "</span> + count);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// ii b. sum and display everything that is not a multiple of 5</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> sumOfTheRest(<span class="k">int</span>[] values) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] % 5 != 0) {</span><span class="l">                sum += values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum of the rest: "</span> + sum);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// i. prompt for 8 values</span></span><span class="l">        <span class="k">int</span>[] values = <span class="k">new</span> <span class="k">int</span>[8];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            values[i] = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">        }</span><span class="l"></span><span class="l">        multiplesOfFive(values);</span><span class="l">        sumOfTheRest(values);</span><span class="l"></span><span class="l">        <span class="c">// iii. a for loop in main to find and display the minimum</span></span><span class="l">        <span class="k">int</span> min = values[0];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] &lt; min) {</span><span class="l">                min = values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Minimum: "</span> + min);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for the inputs 12, 25, -4, 30, 7, 15, 3, 20</span>Multiples of 5: 25, 30, 15, 20
+How many: 4
+Sum of the rest: 18
+Minimum: -4</pre>
+      <p class="small" style="padding:6pt 8pt 0">Input is a <code>Scanner</code> here
+      so the run can be printed on a page. In the hall, each prompt is
+      <code>JOptionPane.showInputDialog</code> and each display is
+      <code>showMessageDialog</code> (F.11). Everything else is unchanged.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; "-4 % 5" is not what you expect, and here it does not matter</span></div>
+    <div class="body">
+      <p><code>-4 % 5</code> in Java is <b>-4</b>, not 1: the remainder takes the sign
+      of the <b>left</b> operand (Unit 3.6). So the test <code>values[i] % 5 == 0</code>
+      still correctly rejects -4, because -4 is not 0 either way.</p>
+      <p>But had the question asked for <b>odd</b> numbers and you had written
+      <code>values[i] % 2 == 1</code>, every negative odd number would have failed the
+      test, because <code>-7 % 2</code> is <b>-1</b>. That is why this book always
+      writes <code>% 2 != 0</code> for odd. It is right for negatives; the other is
+      not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q3 ---------------- -->
+<section>
+  <div class="kick">MS.4 &middot; MOCK A SOLUTIONS &middot; QUESTION THREE</div>
+  <h2 class="title">Question Three, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 A &middot; FileWriter, BufferedReader, checked exception</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p><b>FileWriter</b> is a class in <code>java.io</code> that writes characters to
+      a file. Constructing one, <code>new FileWriter("log.txt")</code>, creates the
+      file if it does not exist and <b>truncates it if it does</b>; the two-argument
+      form <code>new FileWriter("log.txt", true)</code> appends instead. It writes
+      characters one at a time, which is why it is usually wrapped in something more
+      convenient, such as <code>PrintWriter</code> or <code>BufferedWriter</code>.</p>
+      <p><b>BufferedReader</b> is a class in <code>java.io</code> that wraps another
+      reader and reads it in blocks rather than a character at a time. It is worth
+      naming for one method: <code>readLine()</code>, which returns the next line as a
+      <code>String</code>, or <code>null</code> at end of file. That
+      <code>null</code> is the loop's stopping condition.</p>
+      <p>A <b>checked exception</b> is one the compiler <b>insists</b> you deal with:
+      you must either catch it or declare it with <code>throws</code>, and if you do
+      neither the program does not compile. <code>IOException</code> is the example
+      that matters here. The reasoning is that a missing file is not a programming
+      mistake, it is a fact about the world, so the compiler forces you to have a plan
+      for it. An <b>unchecked</b> exception, such as
+      <code>ArrayIndexOutOfBoundsException</code>, is not policed this way, because it
+      is a bug rather than a circumstance.</p>
+      <p class="small"><b>Where the marks are:</b> for the third, the phrase "caught or
+      declared, or it will not compile" is the mark. Part B is that sentence with the
+      compiler saying it out loud.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 B &middot; Debug NoteWriterBroken</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Four errors, in two families. The compiler reports one.</b></p>
+      <ol class="qlist">
+        <li><b>Line 5: <code>FileWriter("log.txt")</code> has no <code>new</code>.</b>
+        As written, that is a call to a method named <code>FileWriter</code>, which
+        does not exist. A constructor is only a constructor when <code>new</code> is
+        in front of it. <span class="note">This is the only error javac reports:
+        "cannot find symbol: method FileWriter(String)".</span></li>
+        <li><b>Lines 5, 6 and 7 all throw <code>IOException</code>, which is
+        checked,</b> and nothing here catches or declares it. Three errors, one cause.
+        Wrap the work in <code>try (FileWriter out = new FileWriter("log.txt")) { ...
+        } catch (IOException e) { ... }</code>, or declare
+        <code>throws IOException</code> on <code>main</code>.</li>
+        <li><b>The file is never closed on the failure path.</b> Even with a
+        <code>catch</code>, a plain <code>out.close()</code> at the end is skipped if
+        <code>write</code> throws. <b>try-with-resources</b> closes it either way, which
+        is exactly why it exists.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> one error, about
+      <code>new</code>. The three <code>unreported exception IOException</code> errors
+      are invisible until it is fixed, because until then the compiler does not know
+      what type <code>FileWriter("log.txt")</code> has, so it cannot know what that
+      line throws.</p>
+      <p class="note">This is the single best illustration on the paper of MS.1's
+      rule. The <b>interesting</b> error, the one the question is really about, is the
+      one the compiler will not tell you about until you have fixed the boring
+      one.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q3 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="NoteWriter"><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">NoteWriter</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">try</span> (<span class="t">FileWriter</span> out = <span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"log.txt"</span>)) {</span><span class="l">            out.write(<span class="s">"Session started"</span>);</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not write log.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"log.txt written"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>log.txt written</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 C &middot; What lands in report.txt</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>The answer, three lines:</b></p>
+      <pre class="out"><span class="olabel">report.txt</span>Unit: 7
+Rate: 12.3
+Total:  3.14</pre>
+      <p>Four things are being tested here at once, and each is worth a mark.</p>
+      <ol class="qlist">
+        <li><b><code>print</code> then <code>println</code>.</b>
+        <code>print("Unit: ")</code> adds no line break, so the <code>7</code> lands on
+        the same line and <b>then</b> the line ends. One line, not two.</li>
+        <li><b><code>%.1f</code> of 12.345 is <code>12.3</code>.</b> One decimal place
+        means the <code>3</code> stays and everything after it decides whether it
+        moves. What follows is <code>45</code>, and 0.045 is less than half of 0.1, so
+        it does not. See the box below, because the reason this is <i>ordinary</i> is
+        itself worth a mark.</li>
+        <li><b><code>%n</code> ends the line</b> after the rate.</li>
+        <li><b><code>%5.2f</code> of 3.14159 is <code>&nbsp;3.14</code></b>: two
+        decimals, and then <b>padded to a total width of 5</b>, which is 4 characters
+        wide, so one space goes in front. The line reads
+        <code>Total:</code>, a space from the literal, then a <b>second</b> space from
+        the padding.</li>
+      </ol>
+      <p>And there is no line break after the last one, because
+      <code>printf("Total: %5.2f", ...)</code> has no <code>%n</code>. The file ends
+      without a newline.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; printf rounds the digits you wrote, half up. You can trust your paper arithmetic</span></div>
+    <div class="body">
+      <div class="card">
+        <p>To answer any <code>printf</code> rounding question: <b>take the literal as
+        printed, round it half up to the places asked for, and write that down.</b>
+        That is the answer. Every time.</p>
+      </div>
+      <p>You may have been told the frightening version: that
+      <code>double</code> is inexact, so <code>%.2f</code> of <code>1.005</code> comes
+      out as <code>1.00</code> because 1.005 is really stored as
+      1.00499999999999989. The first half is true. <b>The conclusion is false in
+      Java</b>, and it is worth knowing why, because it is true in some other
+      languages and the folklore travels.</p>
+      <p>Java's <code>printf</code> does not round the raw binary value. It first takes
+      the <b>shortest decimal that uniquely identifies</b> that <code>double</code>,
+      which for the literal <code>1.005</code> is the string <code>1.005</code>, and
+      rounds <b>that</b>, half up. So it prints <b>1.01</b>, exactly as your paper
+      arithmetic says.</p>
+      <p><b>This was measured, not assumed.</b> Every three-decimal value from 0.001 to
+      99.999 was formatted with <code>%.2f</code> on a real JVM and compared against
+      both rules:</p>
+      <table class="data">
+        <tr><th style="width:56%">Rule</th><th style="width:22%">Values tested</th><th>Disagreements</th></tr>
+        <tr><td>round the digits you wrote, half up</td><td>99,999</td><td><b>0</b></td></tr>
+        <tr><td>round the stored binary value, half up</td><td>99,999</td><td><b>4,800</b></td></tr>
+      </table>
+      <p>Zero. The scary rule is the one that is wrong, and it is wrong about one value
+      in twenty: at <code>0.015</code>, <code>printf</code> prints <b>0.02</b> while
+      the stored value sits just below 0.015 and the folklore predicts 0.01.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b><code>printf</code> reads what you wrote,
+      not what the hardware kept.</b> Unit 3.7's warning about inexact doubles is about
+      <b>arithmetic</b>, where the error accumulates and is real. It is not about
+      displaying a literal.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The inexactness is real. It just shows up somewhere else</span></div>
+    <div class="body">
+      <p>Do not read the box above as "doubles are fine". They are not, and Unit 3.7
+      means what it says. The difference is <b>where</b> the damage lands.</p>
+      <p><b>Displaying</b> a literal is safe, because <code>printf</code> rounds the
+      decimal you wrote. <b>Comparing</b> and <b>accumulating</b> are not:
+      <code>0.1 + 0.2 == 0.3</code> is <code>false</code>, and no formatting rule saves
+      you from that, because the damage happened in the addition, before
+      <code>printf</code> ever saw it.</p>
+      <p>So the rule has a boundary, and it is this: trust <code>printf</code> to show
+      a value faithfully; never trust <code>==</code> between two doubles.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q3 C, the same program, reading its own file back</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ReportWriter"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ReportWriter</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> <span class="t">IOException</span> {</span><span class="l">        <span class="t">PrintWriter</span> pw = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="s">"report.txt"</span>);</span><span class="l">        pw.print(<span class="s">"Unit: "</span>);</span><span class="l">        pw.println(7);</span><span class="l">        pw.printf(<span class="s">"Rate: %.1f%n"</span>, 12.345);</span><span class="l">        pw.printf(<span class="s">"Total: %5.2f"</span>, 3.14159);</span><span class="l">        pw.close();</span><span class="l"></span><span class="l">        <span class="c">// Not part of the answer: read report.txt back so this book can show you</span></span><span class="l">        <span class="c">// exactly what landed in it. A dot marks every space, because %5.2f pads</span></span><span class="l">        <span class="c">// with spaces you cannot see on paper.</span></span><span class="l">        <span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"report.txt"</span>));</span><span class="l">        <span class="t">String</span> line = in.readLine();</span><span class="l">        <span class="k">int</span> n = 0;</span><span class="l">        <span class="k">while</span> (line != <span class="k">null</span>) {</span><span class="l">            n++;</span><span class="l">            System.out.println(<span class="s">"line "</span> + n + <span class="s">": "</span> + line.replace(<span class="s">' '</span>, <span class="s">'.'</span>));</span><span class="l">            line = in.readLine();</span><span class="l">        }</span><span class="l">        in.close();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, with every space shown as a dot</span>line 1: Unit:.7
+line 2: Rate:.12.3
+line 3: Total:..3.14</pre>
+      <p class="small" style="padding:6pt 8pt 0">The read-back is not part of the
+      answer; it is how this book proves the answer instead of asserting it. Count the
+      dots on line 3: <b>two</b>. One is the space you typed inside
+      <code>"Total: "</code> and the other is <code>%5.2f</code> padding
+      <code>3.14</code> out to five columns. On line 2, <b>one</b> dot, and
+      <code>12.3</code> after it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Three, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="BookTable"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">PrintWriter</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">BookTable</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span>[] titles = {<span class="s">"Algebra"</span>, <span class="s">"Optics"</span>, <span class="s">"Ecology"</span>};</span><span class="l">        <span class="k">int</span>[] copies = {12, 4, 7};</span><span class="l">        <span class="k">double</span>[] prices = {2500.0, 1875.5, 990.25};</span><span class="l"></span><span class="l">        <span class="c">// iv. append, do not overwrite: the append flag belongs to the FileWriter</span></span><span class="l">        <span class="c">// underneath. i. FileWriter also creates books.txt if it does not exist.</span></span><span class="l">        <span class="k">try</span> (<span class="t">PrintWriter</span> out = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"books.txt"</span>, <span class="k">true</span>))) {</span><span class="l"></span><span class="l">            <span class="c">// iii. printf for column alignment: %-10s is left-aligned in 10 columns</span></span><span class="l">            out.printf(<span class="s">"%-10s %-7s %-9s%n"</span>, <span class="s">"Title"</span>, <span class="s">"Copies"</span>, <span class="s">"Price"</span>);</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; titles.length; i++) {</span><span class="l">                out.printf(<span class="s">"%-10s %-7d %-9.2f%n"</span>, titles[i], copies[i], prices[i]);</span><span class="l">            }</span><span class="l"></span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            <span class="c">// v. handle possible exceptions properly</span></span><span class="l">            System.out.println(<span class="s">"Could not write books.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Not part of the answer: read the file back so the book can show you what</span></span><span class="l">        <span class="c">// landed in it. A dot marks each trailing space that printf's padding leaves.</span></span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"books.txt"</span>))) {</span><span class="l">            <span class="t">String</span> line = in.readLine();</span><span class="l">            <span class="k">while</span> (line != <span class="k">null</span>) {</span><span class="l">                System.out.println(line.replace(<span class="s">' '</span>, <span class="s">'.'</span>));</span><span class="l">                line = in.readLine();</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not read books.txt back: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">books.txt after one run, every space shown as a dot</span>Title......Copies..Price....
+Algebra....12......2500.00..
+Optics.....4.......1875.50..
+Ecology....7.......990.25...</pre>
+      <p class="small" style="padding:6pt 8pt 0">The dots are this book showing you
+      the padding; the file has spaces. Read the alignment: <code>%-10s</code> puts
+      the title in ten columns, left-aligned, and <code>%-9.2f</code> puts the price in
+      nine, so the columns line up whatever the values are.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Append lives on the FileWriter, not the PrintWriter</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>new PrintWriter("books.txt")</code> <b>truncates</b>. There is no
+        append flag on that constructor.</p>
+        <p><code>new PrintWriter(new FileWriter("books.txt", true))</code>
+        <b>appends</b>.</p>
+      </div>
+      <p>Part iv of this question says "ensure the file is appended to if it already
+      exists", and it is the whole reason the two classes are stacked. The
+      <code>true</code> belongs to the <code>FileWriter</code> underneath;
+      <code>PrintWriter</code> is only there to give you <code>printf</code>.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the flag is on the writer that touches the
+      disk.</b> <code>PrintWriter</code> never touches the disk; it formats and hands
+      down. Ask "who opens the file?" and the answer tells you where
+      <code>true</code> goes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q4 ---------------- -->
+<section>
+  <div class="kick">MS.5 &middot; MOCK A SOLUTIONS &middot; QUESTION FOUR</div>
+  <h2 class="title">Question Four, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 A &middot; Counter-controlled, sentinel-controlled, continue</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p>A <b>counter-controlled</b> loop repeats a number of times that is known
+      before the loop starts. It counts. A <code>for</code> loop is its natural shape,
+      because the start, the test and the step sit together on one line:
+      <code>for (int i = 0; i &lt; 8; i++)</code> runs exactly 8 times. It is also
+      called a <b>definite</b> loop.</p>
+      <p>A <b>sentinel-controlled</b> loop repeats until a particular value arrives to
+      say stop. That value is the <b>sentinel</b>, and it is not data: it is a signal,
+      chosen so it cannot be mistaken for a real reading. Reading lines until
+      <code>readLine()</code> returns <code>null</code> is sentinel-controlled, and so
+      is "keep asking until the user types -1". The number of repetitions is not known
+      in advance, which is why a <code>while</code> is its natural shape. It is also
+      called an <b>indefinite</b> loop.</p>
+      <p><b>continue</b> abandons the <b>rest of the current iteration</b> and goes
+      straight to the next one. It does not leave the loop: that is <code>break</code>.
+      In a <code>for</code> loop the update still runs, so <code>continue</code> is
+      safe there; in a <code>while</code> loop it jumps straight back to the test, so
+      if the increment sits below it, the loop never moves again and hangs
+      (Unit 4.7).</p>
+      <p class="small"><b>Where the marks are:</b> "known in advance" against "known
+      only when it happens" carries the first two. For the third, the distinction from
+      <code>break</code> is the mark: <b>continue skips an iteration, break leaves the
+      loop</b>.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 B &middot; Debug CountUpBroken</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Four errors, and the worst one compiles.</b></p>
+      <ol class="qlist">
+        <li><b>Line 3: no semicolon</b> after <code>int count = 1</code>.</li>
+        <li><b>Line 4: <code>float output = "";</code> is the wrong type.</b> A
+        <code>float</code> is a number and <code>""</code> is text; there is no
+        conversion between them. It must be <code>String output = "";</code>.</li>
+        <li><b>Line 6: <code>while (count &lt;= 5);</code> has a stray semicolon.</b>
+        That semicolon <b>is</b> the loop body: an empty statement. The block below it
+        then runs once, on its own, as an ordinary block. Nothing inside the empty body
+        ever changes <code>count</code>, so the test stays true forever and the program
+        <b>hangs</b>. Delete the semicolon.</li>
+        <li><b>Line 8: <code>Count</code> is not a statement,</b> and it is not
+        <code>count</code> either, because Java is case sensitive. It should be
+        <code>count++;</code>.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> three errors: the missing semicolon,
+      and <code>Count</code> twice ("not a statement" and "';' expected"). Fix those
+      and <b>two more</b> appear, both <code>incompatible types: String cannot be
+      converted to float</code>. And error 3, the stray semicolon, is <b>never reported
+      at all.</b> It was compiled on its own to check: it is legal Java. It is an
+      infinite loop, and the compiler has no opinion about those.</p>
+      <p class="note">This snippet is the clearest case on the paper: <b>the most
+      damaging bug in it is the one the compiler is happiest with.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q4 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CountUp"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CountUp</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> count = 1;</span><span class="l">        <span class="t">String</span> output = <span class="s">""</span>;</span><span class="l"></span><span class="l">        <span class="k">while</span> (count &lt;= 5) {</span><span class="l">            output = output + count + <span class="s">" "</span>;</span><span class="l">            count++;</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(output);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>1 2 3 4 5 </pre>
+      <p class="small" style="padding:6pt 8pt 0">There is a trailing space after the 5,
+      because the loop appends <code>count + " "</code> every time round, including the
+      last. The question asked for <code>1 2 3 4 5</code> and this is what that
+      instruction produces. Do not invent a fix the question did not ask for.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 C &middot; State the output of each iteration and the final sum</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>Three lines, then the total.</b> The loop runs five times and prints three,
+      because <code>continue</code> jumps over the print.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; SkipTotal, one row per iteration</span></div>
+    <div class="body">
+      <table class="data">
+        <tr>
+          <th style="width:8%">i</th><th style="width:14%">inputs[i]</th>
+          <th style="width:18%">negative?</th>
+          <th style="width:28%">what happens</th><th>printed</th>
+        </tr>
+        <tr><td>0</td><td>4</td><td>no</td><td>sum = 0 + 4 = 4</td><td><code>i = 0, sum = 4</code></td></tr>
+        <tr><td>1</td><td>-2</td><td><b>yes</b></td><td><code>continue</code>: skip the rest</td><td><i>nothing</i></td></tr>
+        <tr><td>2</td><td>6</td><td>no</td><td>sum = 4 + 6 = 10</td><td><code>i = 2, sum = 10</code></td></tr>
+        <tr><td>3</td><td>-8</td><td><b>yes</b></td><td><code>continue</code>: skip the rest</td><td><i>nothing</i></td></tr>
+        <tr><td>4</td><td>5</td><td>no</td><td>sum = 10 + 5 = 15</td><td><code>i = 4, sum = 15</code></td></tr>
+      </table>
+      <p class="small">Look at the <code>i</code> values that print: <b>0, 2, 4</b>. The
+      gaps are the evidence. A candidate who writes three lines numbered 0, 1, 2 has
+      read <code>continue</code> as "do not add" rather than "skip the rest of this
+      turn", and loses a mark on a detail they never looked at.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q4 C, run for real</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SkipTotal"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SkipTotal</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">int</span>[] inputs = {4, -2, 6, -8, 5};</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; inputs.length; i++) {</span><span class="l">            <span class="k">if</span> (inputs[i] &lt; 0) {</span><span class="l">                <span class="k">continue</span>;</span><span class="l">            }</span><span class="l">            sum += inputs[i];</span><span class="l">            System.out.println(<span class="s">"i = "</span> + i + <span class="s">", sum = "</span> + sum);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum = "</span> + sum);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>i = 0, sum = 4
+i = 2, sum = 10
+i = 4, sum = 15
+Sum = 15</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; continue here, break on the real paper, and the keyword is the whole question</span></div>
+    <div class="body">
+      <p>The 2024/25 paper's Question Four C is this question with <code>break</code>
+      instead of <code>continue</code>, over the array <code>{3, 4, -1, 2}</code>. It
+      answers <b>7</b>: the loop <b>stops</b> at -1, so the 2 sitting behind it is never
+      reached and is silently missing from a sum that looks complete.</p>
+      <p>Here, <code>continue</code> only skips the negatives and carries on, so the 5
+      behind -8 <b>is</b> counted and the answer is 15. Same array shape, same question
+      shape, one keyword, and a different answer.</p>
+      <p><b>Both have been asked.</b> When you meet either keyword in a dry-run
+      question, say which one it is out loud before you trace a single row.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Four, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SpeedCheck" data-stdin="75"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SpeedCheck</span> {</span><span class="l"></span><span class="l">    <span class="c">// i. the state: one data field</span></span><span class="l">    <span class="k">private</span> <span class="k">double</span> speed;</span><span class="l"></span><span class="l">    <span class="c">// ii. a constructor that sets the temperature-equivalent: the speed</span></span><span class="l">    <span class="k">public</span> <span class="t">SpeedCheck</span>(<span class="k">double</span> speed) {</span><span class="l">        <span class="k">this</span>.speed = speed;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii. if-else, in one chain, so exactly one verdict can be reached</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> evaluateSpeed() {</span><span class="l">        <span class="k">if</span> (speed &lt; 40) {</span><span class="l">            System.out.println(<span class="s">"Too Slow"</span>);</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (speed &lt;= 100) {</span><span class="l">            System.out.println(<span class="s">"Normal"</span>);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.println(<span class="s">"Too Fast"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// iv. prompt, build the object, display the evaluation</span></span><span class="l">        <span class="k">double</span> entered = <span class="t">Double</span>.parseDouble(in.nextLine());</span><span class="l">        <span class="t">SpeedCheck</span> check = <span class="k">new</span> <span class="t">SpeedCheck</span>(entered);</span><span class="l">        check.evaluateSpeed();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for the input 75</span>Normal</pre>
+      <p class="small" style="padding:6pt 8pt 0">Input is a <code>Scanner</code> here so
+      the run can be printed on a page. In the hall it is
+      <code>Double.parseDouble(JOptionPane.showInputDialog("Enter the speed:"))</code>
+      and the verdict goes out through <code>showMessageDialog</code> (F.11).</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; "Between 40 and 100 inclusive" is one else-if, not two tests</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>if (speed &lt; 40) ... else if (speed &lt;= 100) ... else ...</code></p>
+        <p>The middle branch needs <b>no</b> lower bound. Reaching it already proves
+        <code>speed &gt;= 40</code>, because the first branch did not fire.</p>
+      </div>
+      <p>Writing <code>else if (speed &gt;= 40 &amp;&amp; speed &lt;= 100)</code> is not
+      wrong and costs only ink. But the same misunderstanding written as three separate
+      <code>if</code> statements <b>is</b> wrong, because then nothing guarantees
+      anything and every test runs on every value. Unit 4.4 is the paper's own
+      obsession for this reason.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>an else-if arrives already knowing what
+      failed.</b> Its job is only the upper bound. Every branch you reach carries the
+      previous conditions' failure behind it, for free.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q4 D, every boundary probed</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SpeedBench"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SpeedBench</span> {</span><span class="l"></span><span class="l">    <span class="k">private</span> <span class="k">double</span> speed;</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="t">SpeedBench</span>(<span class="k">double</span> speed) {</span><span class="l">        <span class="k">this</span>.speed = speed;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">void</span> evaluateSpeed() {</span><span class="l">        <span class="k">if</span> (speed &lt; 40) {</span><span class="l">            System.out.println(speed + <span class="s">" -&gt; Too Slow"</span>);</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (speed &lt;= 100) {</span><span class="l">            System.out.println(speed + <span class="s">" -&gt; Normal"</span>);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.println(speed + <span class="s">" -&gt; Too Fast"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">double</span>[] probes = {39.9, 40.0, 75.0, 100.0, 100.1};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; probes.length; i++) {</span><span class="l">            <span class="k">new</span> <span class="t">SpeedBench</span>(probes[i]).evaluateSpeed();</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>39.9 -> Too Slow
+40.0 -> Normal
+75.0 -> Normal
+100.0 -> Normal
+100.1 -> Too Fast</pre>
+      <p class="small" style="padding:6pt 8pt 0">Not part of the answer: this is how you
+      check an if-else ladder. Both edges of "inclusive" are probed, 40.0 and 100.0, and
+      both land in <b>Normal</b>. Test the boundaries, never the middle: 75 would have
+      passed even with <code>&lt;</code> written where <code>&lt;=</code> belongs, and
+      told you nothing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q5 ---------------- -->
+<section>
+  <div class="kick">MS.6 &middot; MOCK A SOLUTIONS &middot; QUESTION FIVE</div>
+  <h2 class="title">Question Five, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 A &middot; super, @Override, runtime polymorphism</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p><b>super</b> is a keyword that refers to the superclass part of the current
+      object. It has two uses. <code>super(...)</code>, as the <b>first statement</b>
+      of a constructor, calls the superclass constructor, which is how a subclass gets
+      the inherited fields initialised. <code>super.method()</code> calls the
+      superclass version of a method that the subclass has overridden, which is how an
+      override extends the original rather than replacing it.</p>
+      <p><b>@Override</b> is an annotation placed above a method to state that it is
+      meant to override an inherited one. It changes nothing at run time. Its whole
+      value is that the <b>compiler checks the claim</b>: if the method does not
+      actually override anything, because the name or the parameter list does not
+      match, it is a compile error instead of a silent new method that never gets
+      called.</p>
+      <p><b>Runtime polymorphism</b>, also called dynamic method dispatch, is this: the
+      method that runs is chosen by the <b>object's actual class at run time</b>, not
+      by the type of the reference variable at compile time. So an
+      <code>Employee</code> reference holding a <code>Manager</code> runs
+      <code>Manager</code>'s <code>displayInfo()</code>. It is what makes overriding
+      useful, and it is the opposite of overloading, which is settled entirely at
+      compile time (Unit 5.6).</p>
+      <p class="small"><b>Where the marks are:</b> for the third, the sentence that
+      earns it is "the <b>object</b> decides, not the reference". For the second, "the
+      compiler checks it" is the mark; "it makes it override" is wrong, and that is the
+      commonest answer.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <p style="padding:6pt 8pt 0">The question asks for the method definition only, so
+      this is the whole answer:</p>
+<pre class="src nonum" data-member="1"><span class="l"><span class="k">public</span> <span class="k">static</span> <span class="k">int</span> countAbove(<span class="k">double</span>[] values, <span class="k">double</span> limit) {</span><span class="l">    <span class="k">int</span> count = 0;</span><span class="l">    <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">        <span class="k">if</span> (values[i] &gt; limit) {</span><span class="l">            count++;</span><span class="l">        }</span><span class="l">    }</span><span class="l">    <span class="k">return</span> count;</span><span class="l">}</span></pre>
+      <p class="small" style="padding:6pt 8pt 0">Three marks and four decisions: the
+      <b>return type</b> is <code>int</code>, because it returns a count; the
+      <b>parameters</b> are the array and the limit; the loop runs
+      <code>i &lt; values.length</code>; and the test is <code>&gt;</code>, because the
+      question said <b>strictly</b> greater. Write <code>&gt;=</code> and you have
+      answered a different question.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q5 B, the same method with a main around it</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CountAboveDemo"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CountAboveDemo</span> {</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> countAbove(<span class="k">double</span>[] values, <span class="k">double</span> limit) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] &gt; limit) {</span><span class="l">                count++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">double</span>[] marks = {45.0, 70.0, 39.5, 70.0, 88.25};</span><span class="l">        System.out.println(<span class="s">"above 70.0: "</span> + countAbove(marks, 70.0));</span><span class="l">        System.out.println(<span class="s">"above 39.5: "</span> + countAbove(marks, 39.5));</span><span class="l">        System.out.println(<span class="s">"above 99.0: "</span> + countAbove(marks, 99.0));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>above 70.0: 1
+above 39.5: 4
+above 99.0: 0</pre>
+      <p class="small" style="padding:6pt 8pt 0">Not part of the answer, but read the
+      first line: the array holds <code>70.0</code> twice and "above 70.0" is
+      <b>1</b>, not 3. That is <code>&gt;</code> doing exactly what was asked. The third
+      line proves the method survives a limit nothing beats.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 C &middot; Identify the errors, and state the output after correction</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>Five errors, and one of them prints the wrong answer without ever
+      failing.</b></p>
+      <ol class="qlist">
+        <li><b>Line 3: <code>int values = {4, 8, 12, 16};</code> is not an array.</b>
+        Write <code>int[] values</code>. Everything else on the list is downstream of
+        this one.</li>
+        <li><b>Line 4: <code>values[3]</code> is not the third value.</b> Indexes count
+        from 0, so the third value is <code>values[2]</code>, which is <b>12</b>.
+        <code>values[3]</code> is 16, the fourth. <span class="note">This is a
+        <b>logic</b> error: it compiles, it runs, and it prints a number that is simply
+        wrong.</span></li>
+        <li><b>Line 6: <code>i &lt;= values.length</code> is off by one</b> and would
+        throw <code>ArrayIndexOutOfBoundsException</code> at
+        <code>values[4]</code>. Write <code>i &lt; values.length</code>.</li>
+        <li><b>Line 6: <code>i</code> is not an update.</b> Write <code>i++</code>.</li>
+        <li><b>Line 9: <code>"Sum is: " + )</code> is missing its operand.</b> Write
+        <code>"Sum is: " + sum</code>.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> two errors, "not a statement" and
+      "illegal start of expression". Fix those and <b>four more</b> appear, all
+      downstream of error 1: "illegal initializer for int", "array required, but int
+      found" twice, and "int cannot be dereferenced" for <code>values.length</code>.
+      And error 2 is <b>never reported at any stage</b>, because printing the wrong
+      element is not illegal. It is just wrong.</p>
+      <p><b>The output after correction:</b></p>
+      <pre class="out"><span class="olabel">Output</span>Third value is: 12
+Sum is: 40</pre>
+      <p class="note">4 + 8 + 12 + 16 = 40. If you answered "Third value is: 16" you
+      corrected the compiler's errors and left the examiner's error in place, which is
+      the one this question is actually about.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q5 C corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="Totals"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">Totals</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] values = {4, 8, 12, 16};</span><span class="l">        System.out.println(<span class="s">"Third value is: "</span> + values[2]);</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            sum += values[i];</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum is: "</span> + sum);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Third value is: 12
+Sum is: 40</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="StaffDemo"><span class="l"><span class="c">// i. the superclass</span></span><span class="l"><span class="k">class</span> <span class="t">Employee</span> {</span><span class="l">    <span class="k">protected</span> <span class="k">int</span> salary;</span><span class="l"></span><span class="l">    <span class="c">// i b. a constructor that initialises the state</span></span><span class="l">    <span class="k">public</span> <span class="t">Employee</span>(<span class="k">int</span> salary) {</span><span class="l">        <span class="k">this</span>.salary = salary;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// i c. the method the subclass will override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> displayInfo() {</span><span class="l">        System.out.println(<span class="s">"Employee salary: N"</span> + salary + <span class="s">" per month"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// ii. the subclass overrides displayInfo()</span></span><span class="l"><span class="k">class</span> <span class="t">Manager</span> <span class="k">extends</span> <span class="t">Employee</span> {</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="t">Manager</span>(<span class="k">int</span> salary) {</span><span class="l">        <span class="k">super</span>(salary);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> displayInfo() {</span><span class="l">        System.out.println(<span class="s">"Manager salary: N"</span> + salary</span><span class="l">            + <span class="s">" per month. This post carries a leadership allowance."</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">StaffDemo</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// iii a, b. one of each</span></span><span class="l">        <span class="t">Employee</span> e = <span class="k">new</span> <span class="t">Employee</span>(80000);</span><span class="l">        <span class="t">Manager</span> m = <span class="k">new</span> <span class="t">Manager</span>(250000);</span><span class="l"></span><span class="l">        <span class="c">// iii c. the same call, on two objects, reaching two different methods</span></span><span class="l">        e.displayInfo();</span><span class="l">        m.displayInfo();</span><span class="l"></span><span class="l">        <span class="c">// the same again through one superclass reference: this is the polymorphism</span></span><span class="l">        <span class="t">Employee</span>[] staff = {<span class="k">new</span> <span class="t">Employee</span>(80000), <span class="k">new</span> <span class="t">Manager</span>(250000)};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; staff.length; i++) {</span><span class="l">            staff[i].displayInfo();</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Employee salary: N80000 per month
+Manager salary: N250000 per month. This post carries a leadership allowance.
+Employee salary: N80000 per month
+Manager salary: N250000 per month. This post carries a leadership allowance.</pre>
+      <p class="small" style="padding:6pt 8pt 0">The last two lines are the point. They
+      come from an <code>Employee[]</code> array, so at compile time both slots are just
+      <code>Employee</code>. At run time each object runs <b>its own</b>
+      <code>displayInfo()</code>. That is polymorphism, and the array is the shortest
+      honest way to show it: one call site, two behaviours, chosen by the object.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; protected, not private, or the subclass cannot see the field</span></div>
+    <div class="body">
+      <p><code>salary</code> is declared <code>protected</code>, and that is deliberate.
+      Declare it <code>private</code> and <code>Manager</code>'s
+      <code>displayInfo()</code> <b>will not compile</b>: "salary has private access in
+      Employee". A subclass inherits a private field in the sense that the object
+      carries it, but it <b>cannot name it</b>.</p>
+      <p>Both ways are defensible in real code, and <code>private</code> plus a getter
+      is the better habit, which is exactly what the 2025/26 Question Four demands. Here
+      the question said "an instance variable <code>salary</code>" and the subclass must
+      print it, so <code>protected</code> is the shortest correct reading. Say which you
+      chose and why, in a comment. That is a mark for one line.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q6 ---------------- -->
+<section>
+  <div class="kick">MS.7 &middot; MOCK A SOLUTIONS &middot; QUESTION SIX</div>
+  <h2 class="title">Question Six, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="LoopDemo"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">LoopDemo</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// i. a for loop that prints the even numbers 2 to 10</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 2; i &lt;= 10; i += 2) {</span><span class="l">            System.out.print(i + <span class="s">" "</span>);</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// ii. a while loop that prints 9 down to 1</span></span><span class="l">        <span class="k">int</span> n = 9;</span><span class="l">        <span class="k">while</span> (n &gt;= 1) {</span><span class="l">            System.out.print(n + <span class="s">" "</span>);</span><span class="l">            n--;</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// iii. a do-while that prints 100 exactly once</span></span><span class="l">        <span class="k">int</span> k = 100;</span><span class="l">        <span class="k">do</span> {</span><span class="l">            System.out.println(k);</span><span class="l">        } <span class="k">while</span> (<span class="k">false</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>2 4 6 8 10
+9 8 7 6 5 4 3 2 1
+100</pre>
+      <p class="small" style="padding:6pt 8pt 0">One mark each, and each one is a
+      different loop <b>because of what it knows</b>. The <code>for</code> counts and
+      steps by 2. The <code>while</code> counts down, and its <code>n--</code> must be
+      inside the body or it never ends. The <code>do-while</code> is the only loop that
+      runs its body <b>before</b> its test, which is exactly why it can print once with
+      a condition that is <code>false</code> from the very start.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; do-while runs first and asks afterwards</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>do { ... } while (false);</code> runs its body <b>exactly once</b>.</p>
+        <p><code>while (false) { ... }</code> runs its body <b>exactly zero times</b>.</p>
+      </div>
+      <p>That single difference is the entire reason <code>do-while</code> exists, and
+      "print only the number 10 once" is a question built to test it. Note the
+      <b>semicolon</b> after <code>while (false)</code>: a <code>do-while</code> is the
+      one loop that ends in one, and leaving it off is a compile error.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>do first, ask later.</b> A do-while is a
+      shop that lets you in and then checks your ticket. You are always getting in at
+      least once.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 B &middot; The return value of compute(2736)</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The answer is 9.</b> The method walks the digits from the right using
+      <code>% 10</code> to take one off and <code>/ 10</code> to drop it, and adds up
+      only the digits that divide by 3.</p>
+      <p>The question says "show the steps", so the table <b>is</b> the answer. Two of
+      the three marks are the working.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; compute(2736)</span></div>
+    <div class="body">
+      <table class="data">
+        <tr>
+          <th style="width:14%">x</th><th style="width:14%">d = x % 10</th>
+          <th style="width:20%">d % 3 == 0?</th>
+          <th style="width:24%">result</th><th>x = x / 10</th>
+        </tr>
+        <tr><td>2736</td><td>6</td><td><b>yes</b></td><td>0 + 6 = <b>6</b></td><td>273</td></tr>
+        <tr><td>273</td><td>3</td><td><b>yes</b></td><td>6 + 3 = <b>9</b></td><td>27</td></tr>
+        <tr><td>27</td><td>7</td><td>no</td><td>9</td><td>2</td></tr>
+        <tr><td>2</td><td>2</td><td>no</td><td>9</td><td>0</td></tr>
+        <tr><td>0</td><td colspan="4"><code>x &gt; 0</code> is false: the loop ends and <b>9</b> is returned</td></tr>
+      </table>
+      <p class="small">Watch the last row. <code>2 / 10</code> is <b>0</b>, not 0.2:
+      integer division is what terminates this loop, and every digit-walking loop in
+      this course ends the same way (Unit 3.6). If <code>/</code> gave 0.2 the loop
+      would never stop.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 B, run for real</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ComputeTrace"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ComputeTrace</span> {</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> compute(<span class="k">int</span> x) {</span><span class="l">        <span class="k">int</span> result = 0;</span><span class="l">        <span class="k">while</span> (x &gt; 0) {</span><span class="l">            <span class="k">int</span> d = x % 10;</span><span class="l">            <span class="k">if</span> (d % 3 == 0) {</span><span class="l">                result = result + d;</span><span class="l">            }</span><span class="l">            x = x / 10;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> result;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"compute(2736) = "</span> + compute(2736));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>compute(2736) = 9</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 C &middot; Debug OddFinderBroken, and state the correct output</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>Five errors, and the first one compiles perfectly.</b></p>
+      <ol class="qlist">
+        <li><b>Line 2: <code>main(String args)</code> is not a main method.</b> It needs
+        <code>String[] args</code>. <span class="note">This is the one to notice. It is
+        <b>legal Java</b>: it compiles without a murmur, and it is simply an ordinary
+        method that happens to be called main. The failure waits until you run it, and
+        the JVM says <code>Error: Main method not found in class OddFinderBroken</code>.
+        It was compiled and run to confirm exactly that.</span></li>
+        <li><b>Line 3: no semicolon</b> after <code>printOdd(9.0)</code>.</li>
+        <li><b>Line 3: <code>9.0</code> is a double</b> and the method takes an
+        <code>int</code>. Java will not narrow it for you: "incompatible types: possible
+        lossy conversion from double to int". Write <code>printOdd(9)</code>.</li>
+        <li><b>Line 6: <code>printOdd(int)</code> has no parameter name.</b> Write
+        <code>printOdd(int n)</code>.</li>
+        <li><b>Line 7: <code>for (...);</code> has a stray semicolon.</b> The loop body
+        is that empty statement, so the loop spins 9 times doing nothing, and then the
+        <code>if</code> below runs <b>once</b>, outside the loop, where <code>i</code>
+        no longer exists.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> two errors, the semicolon and the
+      missing parameter name. Fix those and <b>three more</b> appear: the lossy
+      conversion, and <code>cannot find symbol: variable i</code> twice, which is error
+      5 finally surfacing. Error 1 is never reported at any stage.</p>
+      <p><b>The output after correction:</b></p>
+      <pre class="out"><span class="olabel">Output</span>1 3 5 7 9 </pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 C corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="OddFinder"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">OddFinder</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        printOdd(9);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> printOdd(<span class="k">int</span> n) {</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt;= n; i++) {</span><span class="l">            <span class="k">if</span> (i % 2 != 0) {</span><span class="l">                System.out.print(i + <span class="s">" "</span>);</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>1 3 5 7 9 </pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; A stray semicolon after for or while is the body</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>for (int i = 1; i &lt;= n; i++);</code> is a <b>complete loop</b> with
+        an empty body. The indented block below it is <b>not</b> inside it.</p>
+      </div>
+      <p>It appears twice on this mock, in Q4 B and Q6 C, and once on the real 2024/25
+      paper, in its Question Four B and Question Six C. That is not a coincidence: this
+      lecturer plants it deliberately, because it is the purest example of code that
+      compiles and lies.</p>
+      <p>Java does not care about your indentation. It cares about the semicolon, and a
+      semicolon where a body should be <b>is</b> a body: an empty one.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>a loop header never ends in a
+      semicolon.</b> If you see <code>);</code> at the end of a <code>for</code> or
+      <code>while</code> line, that loop is already finished and everything you thought
+      was inside it is not.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part D</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="AscendingDigits"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AscendingDigits</span> {</span><span class="l"></span><span class="l">    <span class="c">// i, ii. true only if the digits strictly increase from left to right</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">boolean</span> hasAscendingDigits(<span class="k">int</span> n) {</span><span class="l">        <span class="k">int</span> previous = n % 10;      <span class="c">// start at the rightmost digit</span></span><span class="l">        n = n / 10;</span><span class="l">        <span class="k">while</span> (n &gt; 0) {</span><span class="l">            <span class="k">int</span> digit = n % 10;     <span class="c">// the digit to its left</span></span><span class="l">            <span class="k">if</span> (digit &gt;= previous) {</span><span class="l">                <span class="k">return</span> <span class="k">false</span>;       <span class="c">// not strictly increasing: stop at the first proof</span></span><span class="l">            }</span><span class="l">            previous = digit;</span><span class="l">            n = n / 10;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> <span class="k">true</span>;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii b. test more than two cases</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"1359 -&gt; "</span> + hasAscendingDigits(1359));</span><span class="l">        System.out.println(<span class="s">"1354 -&gt; "</span> + hasAscendingDigits(1354));</span><span class="l">        System.out.println(<span class="s">"1223 -&gt; "</span> + hasAscendingDigits(1223));</span><span class="l">        System.out.println(<span class="s">"7    -&gt; "</span> + hasAscendingDigits(7));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>1359 -> true
+1354 -> false
+1223 -> false
+7    -> true</pre>
+      <p class="small" style="padding:6pt 8pt 0">The method walks right to left, so it
+      compares each digit with the one <b>to its right</b> and demands
+      <code>digit &lt; previous</code>. Reading right to left and testing "smaller"
+      <b>is</b> reading left to right and testing "larger": the same fact, from the end
+      that <code>% 10</code> can actually reach.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; "Strictly" is a whole mark, and 1223 is the test for it</span></div>
+    <div class="body">
+      <p><code>1223</code> answers <b>false</b>, and the digits never go down. They
+      stop going <b>up</b>: 2 is not <b>strictly</b> less than 2. Write
+      <code>digit &gt; previous</code> instead of <code>digit &gt;= previous</code> and
+      1223 wrongly answers true, while every other example on the paper still passes.
+      That is one character, one example, one mark.</p>
+      <p>The single digit <code>7</code> is the other test worth writing: the loop body
+      never runs at all, and the method must still answer <b>true</b>. A method that
+      cannot survive a one-digit input is a method that was never traced.</p>
+      <p><b>Choose your own test cases the way this book chose these four:</b> one that
+      passes, one that fails on a decrease, one that fails on a tie, and one edge. Two
+      cases were asked for. Four cost you a minute and prove you thought.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Of the six debug snippets on this paper, three contain a bug that
+      the compiler never reports at any stage. Name the three bugs, and say what each
+      would do to a running program.</p>
+      <hr class="cut"/>
+      <p><span class="alabel">Answer</span> <b>Q4 B:</b> the stray semicolon after
+      <code>while (count &lt;= 5)</code> makes an empty body, so the program hangs
+      forever. <b>Q5 C:</b> <code>values[3]</code> where <code>values[2]</code> was
+      meant, so it prints 16 and calls it the third value: it runs perfectly and
+      answers wrongly. <b>Q6 C:</b> <code>main(String args)</code> compiles as an
+      ordinary method, so the JVM finds no main method and the program cannot start at
+      all.</p>
+      <p><span class="alabel"></span> One hangs, one lies, one never starts. None of
+      them is a compile error, and that is the exam's whole point.</p>
+    </div>
+  </div>
+</section>

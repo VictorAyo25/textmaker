@@ -214,11 +214,20 @@ def named_in(api, prose):
 
 def report(html):
     first_code, first_any, prose, order = scan(html)
-    # ^S<digit> is a solved-paper section (S.1, S.14). A bare startswith('S')
-    # also matches STARTHEREHOWTOUSETHISBOOK, which is the front matter and does
-    # teach; that false positive reported every keyword in the book as exam-taught.
-    exam_secs = [m for m in order
-                 if m.startswith('MOCK') or re.match(r'^S\d', m)]
+    # What counts as a section that TESTS rather than teaches.
+    #
+    # ^S<digit> is a solved-paper section (S.1, S.14). A bare startswith('S') also
+    # matches STARTHEREHOWTOUSETHISBOOK, which is the front matter and does teach;
+    # that false positive reported every keyword in the book as exam-taught.
+    #
+    # MOCK is matched anywhere in the id, not as a prefix. The id is the section's
+    # kick text with the punctuation stripped, so a kick reading "M.4 - MOCK A -
+    # QUESTION THREE" becomes M4MOCKAQUESTIONTHREE: a prefix test silently answers
+    # "not an exam" for every mock in the book, and this rule would then be enforced
+    # on nothing while still reporting a clean pass. The count is printed below for
+    # exactly that reason: a rule that quietly applies to zero sections must not be
+    # able to look identical to a rule that passes.
+    exam_secs = [m for m in order if 'MOCK' in m or re.match(r'^S\d', m)]
 
     undocumented, taught_by_exam = [], []
     for api, mid in first_code.items():
@@ -228,8 +237,13 @@ def report(html):
             taught_by_exam.append((api, first_any[api]))
 
     print(f'FIRST-USE AUDIT: {len(first_code)} distinct keywords and APIs across '
-          f'{len(order)} sections')
+          f'{len(order)} sections, {len(exam_secs)} of which test rather than teach')
     ok = True
+    if not exam_secs:
+        print('  x no section looks like a solved paper or a mock, which cannot be '
+              'right in a book that contains both: the "a mock teaches nothing" rule '
+              'is being enforced on nothing. Check the section id pattern.')
+        ok = False
 
     if undocumented:
         ok = False
