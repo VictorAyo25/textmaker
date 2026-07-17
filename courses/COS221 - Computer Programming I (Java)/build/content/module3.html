@@ -226,6 +226,70 @@ max + 1  = -2147483648</pre>
     </div>
   </div>
 
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; All eight primitives, declared and printed</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="EightPrimitives"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">EightPrimitives</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">byte</span>    b = 100;</span><span class="l">        <span class="k">short</span>   s = 32000;</span><span class="l">        <span class="k">int</span>     i = 2000000;</span><span class="l">        <span class="k">long</span>    big = 9000000000<span class="t">L</span>;     <span class="c">// the L is not optional</span></span><span class="l">        <span class="k">float</span>   rate = 3.14f;          <span class="c">// the f is not optional</span></span><span class="l">        <span class="k">double</span>  d = 3.14159;</span><span class="l">        <span class="k">char</span>    c = <span class="s">'J'</span>;               <span class="c">// single quotes, exactly one character</span></span><span class="l">        <span class="k">boolean</span> ok = <span class="k">true</span>;</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"byte    "</span> + b);</span><span class="l">        System.out.println(<span class="s">"short   "</span> + s);</span><span class="l">        System.out.println(<span class="s">"int     "</span> + i);</span><span class="l">        System.out.println(<span class="s">"long    "</span> + big);</span><span class="l">        System.out.println(<span class="s">"float   "</span> + rate);</span><span class="l">        System.out.println(<span class="s">"double  "</span> + d);</span><span class="l">        System.out.println(<span class="s">"char    "</span> + c);</span><span class="l">        System.out.println(<span class="s">"boolean "</span> + ok);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>byte    100
+short   32000
+int     2000000
+long    9000000000
+float   3.14
+double  3.14159
+char    J
+boolean true</pre>
+      <p class="small" style="padding:6pt 8pt 0">A table of types tells you a
+      <code>long</code> holds nineteen digits. It cannot tell you that
+      <b>writing one down needs an <code>L</code></b>. That is what a listing is
+      for, and it is why this box exists next to the table above.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; A number literal is an int, and a decimal literal is a double, until you say otherwise</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>long big = 9000000000<b>L</b>;</code> &nbsp; the <b>L</b> is not
+        optional.</p>
+        <p><code>float rate = 3.14<b>f</b>;</code> &nbsp; the <b>f</b> is not
+        optional.</p>
+      </div>
+      <p>Every whole number you type is an <code>int</code> the moment you type it,
+      <b>before</b> anything looks at what you are assigning it to. So
+      <code>9000000000</code> is an <code>int</code> that will not fit in an
+      <code>int</code>, and it is rejected where it stands. The <code>L</code> makes
+      it a <code>long</code> literal instead.</p>
+      <p>Every decimal you type is a <code>double</code> in the same way. So
+      <code>3.14</code> is a <code>double</code>, and putting a <code>double</code>
+      into a <code>float</code> loses precision, which Java never does silently. The
+      <code>f</code> makes it a <code>float</code> literal.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the literal is typed before it is
+      assigned.</b> Java reads what you wrote first and asks where it is going second,
+      which is why the variable's type cannot rescue the number.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Both suffixes left off, on purpose</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+<pre class="src" data-compile="SuffixBroken" data-error="integer number too large"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SuffixBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">long</span> big = 9000000000;</span><span class="l">        <span class="k">float</span> rate = 3.14;</span><span class="l">        System.out.println(big + <span class="s">" "</span> + rate);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What javac says</span>SuffixBroken.java:3: error: integer number too large
+        long big = 9000000000;
+                   ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>One error, and there are two
+      bugs.</b> The <code>float</code> line is just as wrong, and the compiler has not
+      mentioned it: "integer number too large" happens while it is still reading the
+      characters, so it never gets as far as checking types. Add the <code>L</code> and
+      recompile, and the second one appears: <code>incompatible types: possible lossy
+      conversion from double to float</code>. Both were run to check.</p>
+      <p class="small" style="padding:0 8pt 6pt">This is worth meeting now, in Module
+      3, because it is how the compiler always behaves. <b>The number of errors it
+      prints is not the number of bugs you have</b>, and the exam's debug questions are
+      built on exactly that gap.</p>
+    </div>
+  </div>
+
   <div class="box teach">
     <div class="bar"><span>TEACH · The four non-primitive types</span></div>
     <div class="body">

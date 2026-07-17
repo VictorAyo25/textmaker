@@ -111,8 +111,34 @@ def sections(html):
     return out
 
 
+# Strings, chars and comments: everything in a listing that is NOT code. One pattern,
+# one pass, so the leftmost construct wins and they cannot corrupt each other. Strip
+# comments first in a separate pass and the `//` inside "http://x" ends the world;
+# strip strings first and an apostrophe in a comment starts a char literal.
+NOT_CODE_RE = re.compile(r'"(?:[^"\\\n]|\\.)*"'      # a string literal
+                         r"|'(?:[^'\\\n]|\\.)*'"     # a char literal
+                         r'|//[^\n]*'                # a line comment
+                         r'|/\*.*?\*/', re.S)        # a block comment
+
+
 def apis_in(code):
-    """Keywords and library APIs used in a chunk of Java."""
+    """Keywords and library APIs USED in a chunk of Java.
+
+    Strings, chars and comments come out first, because a name inside any of them is
+    prose that happens to live in a listing, and prose mentioning a name is not code
+    using it.
+
+    This is not hypothetical tidiness. The line
+
+        System.out.println("reading output.txt (does not exist):");
+
+    contains `.txt (`, which is a dot, a word and a bracket: exactly what the method
+    pattern below hunts for. So the audit believed in an API called `.txt()`, decided
+    Unit 10.3 used it, and went looking for the prose that introduces it. The rule
+    only stayed quiet because the same sentence, being prose too, appeared to define
+    the very thing it had invented.
+    """
+    code = NOT_CODE_RE.sub(' ', code)
     found = set()
     for kw in re.findall(r'\b([a-z]+)\b', code):
         if kw in KEYWORDS:
@@ -148,6 +174,15 @@ def apis_in(code):
         found.add(f'{typ}.{fld}')
     for t in re.findall(r'\bnew\s+([A-Z]\w*)\s*[\(\[]', code):
         found.add(f'new {t}')
+    # A caught or declared exception type is a use, and it is the ONLY way most
+    # exceptions ever appear: `catch (NumberFormatException e)` never says `new`, and
+    # java.lang types are never imported, so without this every unchecked exception
+    # the book handles was invisible to the audit.
+    for t in re.findall(r'\bcatch\s*\(\s*([A-Z]\w*)', code):
+        found.add(t)
+    for clause in re.findall(r'\bthrows\s+([A-Z][\w,\s]*)', code):
+        for t in re.findall(r'[A-Z]\w*', clause):
+            found.add(t)
     # An import contributes the CLASS, not the import line. Tracking the line makes
     # `import java.io.PrintWriter;` a different thing from PrintWriter, so a module
     # that teaches PrintWriter behind `import java.io.*;` looks like it never taught
@@ -218,6 +253,20 @@ def scan(html):
             if k.startswith('.') and k[1:-2] in mine:
                 del d[k]
             elif k.startswith('new ') and k[4:] in my_classes:
+                del d[k]
+            # Vehicle.start(): our own class, our own method, called statically. The
+            # two filters above only catch `.start()` and `new Vehicle`, so the
+            # qualified spelling slipped through and the audit asked the book to
+            # document an API it had invented four lines earlier.
+            elif '.' in k and k.endswith('()'):
+                typ, _, meth = k[:-2].partition('.')
+                if typ in my_classes and meth in mine:
+                    del d[k]
+            # A bare class name, which is now reachable through `catch (X e)` and
+            # `throws X`. Unit 10.2 declares InvalidAgeException three lines above the
+            # catch that names it, so without this the audit demands the book document
+            # its own teaching example as though it were part of Java.
+            elif k in my_classes:
                 del d[k]
 
     return first_code, first_any, (prose_names, ' '.join(prose_text)), [m for m, _, _ in secs]

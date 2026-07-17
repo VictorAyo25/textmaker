@@ -34,11 +34,14 @@ re-asking 24/25's file I/O, inheritance and digit-loops in a new costume.
 answers live in separate parts, because a mock you can see the answer to is a worked
 example, not a mock.
 
-All three gates are scripted and green, including the before-use audit that used to be
-held by hand: `check_code.py`, `qa.py`, `qa_firstuse.py`.
+**The reference is written and gated**: the exam API card, the method reference by
+class, the keyword index and the glossary. No formula sheet: this is not that kind of
+course.
 
-Still to write: the reference section (formula-free, but an API card, a keyword index,
-a method reference and a glossary).
+All four gates are scripted and green: `check_code.py`, `qa.py`, `qa_firstuse.py`,
+`qa_reference.py`.
+
+The book is complete. Nothing goes to `../../FINAL_MANUALS/` until Victor says so.
 
 ## Build it
 
@@ -48,6 +51,7 @@ python check_code.py        # compile + run EVERY listing        <- do this firs
 python assemble.py          # ~2 min: writes build/full_manual_clean.pdf
 python qa.py                # gate the rendered PDF: every count must be zero
 python qa_firstuse.py       # gate the "no external sources" promise
+python qa_reference.py      # gate the reference against the book, both ways
 ```
 
 `check_code.py` compiles ~90 programs and takes a few minutes; pass a section name
@@ -252,7 +256,28 @@ would skip in the hall: a question you skip is still a topic you can be examined
    fails when that is zero. A rule quietly applying to nothing must never look like a
    rule that passed.
 
-3. **`qa.py`**: no em/en dashes, no institution or platform or methodology names, no
+3. **The reference describes this book** (`qa_reference.py`, run after `assemble.py`).
+   Two rules, both measured against the same inventory `qa_firstuse.py` takes from the
+   listings:
+
+   - **Everything the book uses is in it.** The reader who forgets `newLine()` and
+     turns to the back must find it, or the reference is a decoration and the
+     no-external-sources promise has a hole exactly where the reader looked.
+   - **Nothing in it is unused.** An entry for an API this book never touches is a
+     claim it cannot support: no page to turn to, no listing that ran it.
+
+   An entry is a row of a `<table class="data ref">` whose first cell is a `<code>`,
+   so the prose around the tables cannot accidentally satisfy the audit. The
+   "unused" half also accepts a mention in the prose **outside** the reference, because
+   the book earns its `ArrayIndexOutOfBoundsException` entry by discussing it at length
+   without ever writing the name in code. That exclusion is load-bearing: every entry's
+   own row is prose, so counting the reference's own text would let all 143 entries
+   vouch for themselves and the rule would pass on a table of pure invention.
+
+   Both directions are control-tested: delete `Math.sqrt` from the reference and it
+   reports it missing; invent `Frobnicate.wibble` and it reports it unused.
+
+4. **`qa.py`**: no em/en dashes, no institution or platform or methodology names, no
    marker text left behind, footer numbering, Contents accuracy, no near-blank pages,
    no text outside the margins, no orphaned section headings. Every count zero.
 

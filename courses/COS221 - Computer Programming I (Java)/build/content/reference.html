@@ -1,0 +1,589 @@
+<!-- ============ REFERENCE ============ -->
+
+<section>
+  <div class="kick">R.1 &middot; REFERENCE &middot; THE EXAM API CARD</div>
+  <h2 class="title">The API card: what you must have cold</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Every call below has appeared on a real COS221 paper. This is the
+  short list. If you know only one page of this reference, know this one.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Input and output, the lecturer's way</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Every write-a-program question on both papers says <b>JOptionPane</b>. It is
+        two calls and one import.</p>
+      </div>
+      <table class="data ref">
+        <tr><th style="width:44%">Call</th><th>What it does, and what to watch</th></tr>
+        <tr>
+          <td><code>import javax.swing.JOptionPane;</code></td>
+          <td>The import. <code>javax</code>, not <code>java</code>: the single
+          commonest typo in the hall.</td>
+        </tr>
+        <tr>
+          <td><code>JOptionPane.showInputDialog(null, "Enter age:")</code></td>
+          <td>Asks, and returns what was typed as a <b>String</b>, always. Returns
+          <code>null</code> if the user presses Cancel.</td>
+        </tr>
+        <tr>
+          <td><code>JOptionPane.showMessageDialog(null, "Total: " + t)</code></td>
+          <td>Shows a message. Returns nothing. The <code>null</code> is the parent
+          window: there isn't one.</td>
+        </tr>
+        <tr>
+          <td><code>System.exit(0)</code></td>
+          <td>Ends the program. 0 means "ended normally". See F.11: it is insurance,
+          not a rescue.</td>
+        </tr>
+      </table>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>show<i>Input</i> asks, show<i>Message</i>
+      tells.</b> Input comes back as text, so it always needs converting.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Text to number, because a dialog only ever gives you text</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:44%">Call</th><th>What it does, and what to watch</th></tr>
+        <tr>
+          <td><code>Integer.parseInt(s)</code></td>
+          <td>String to <code>int</code>. Throws <code>NumberFormatException</code> if
+          <code>s</code> is not a whole number.</td>
+        </tr>
+        <tr>
+          <td><code>Double.parseDouble(s)</code></td>
+          <td>String to <code>double</code>. Same exception on nonsense.</td>
+        </tr>
+      </table>
+      <p>The full shape, which you will write a dozen times on one paper:</p>
+      <p><code>int age = Integer.parseInt(JOptionPane.showInputDialog(null, "Age:"));</code></p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the dialog hands you a String even when
+      you asked for a number.</b> Every input is two steps: ask, then convert.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The file I/O the paper allows</span></div>
+    <div class="body">
+      <div class="card">
+        <p>The 2025/26 Question Three names <b>five</b> classes and permits nothing
+        else: <code>FileWriter</code>, <code>FileReader</code>,
+        <code>BufferedReader</code>, <code>BufferedWriter</code>,
+        <code>IOException</code>.</p>
+      </div>
+      <table class="data ref">
+        <tr><th style="width:44%">Call</th><th>What it does, and what to watch</th></tr>
+        <tr>
+          <td><code>new FileWriter("f.txt")</code></td>
+          <td>Opens for writing. Creates the file if absent, and
+          <b>truncates it if present</b>.</td>
+        </tr>
+        <tr>
+          <td><code>new FileWriter("f.txt", true)</code></td>
+          <td>The same, but <b>appends</b>. This second argument is the only way to
+          append, and it belongs here, on the writer that touches the disk.</td>
+        </tr>
+        <tr>
+          <td><code>new BufferedWriter(new FileWriter("f.txt"))</code></td>
+          <td>Wraps a writer and writes in blocks. Gives you
+          <code>newLine()</code>.</td>
+        </tr>
+        <tr>
+          <td><code>new PrintWriter(new FileWriter("f.txt", true))</code></td>
+          <td>Wraps a writer and gives you <code>printf()</code> and
+          <code>println()</code> on a file. Note <code>new PrintWriter("f.txt")</code>
+          on its own <b>truncates and cannot append</b>.</td>
+        </tr>
+        <tr>
+          <td><code>new BufferedReader(new FileReader("f.txt"))</code></td>
+          <td>Opens for reading, in blocks. Gives you <code>readLine()</code>.</td>
+        </tr>
+        <tr>
+          <td><code>readLine()</code></td>
+          <td>The next line, or <b><code>null</code></b> at the end of the file. That
+          <code>null</code> is the loop's stopping condition.</td>
+        </tr>
+        <tr>
+          <td><code>try (BufferedReader in = ...) { }</code></td>
+          <td>try-with-resources. Closes it whether the block ends normally or by
+          throwing. Nothing to forget.</td>
+        </tr>
+        <tr>
+          <td><code>catch (IOException e)</code></td>
+          <td><b>Checked</b>: catch it or declare <code>throws</code>, or it will not
+          compile.</td>
+        </tr>
+      </table>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>Reader in, Writer out; Buffered wraps;
+      Print formats.</b> The one that touches the disk carries the append flag.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; printf, and the four formats that cover every paper</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:30%">Format</th><th>Means</th></tr>
+        <tr><td><code>%d</code></td><td>a whole number</td></tr>
+        <tr><td><code>%f</code></td><td>a decimal. <code>%.2f</code> means two decimal places.</td></tr>
+        <tr><td><code>%s</code></td><td>a string. <code>%-8s</code> means left-aligned in 8 columns.</td></tr>
+        <tr><td><code>%n</code></td><td>end the line. Use this, not <code>\n</code>.</td></tr>
+      </table>
+      <p><code>printf</code> rounds <b>the digits you wrote</b>, half up, so your paper
+      arithmetic is trustworthy: <code>%.2f</code> of <code>1.005</code> really is
+      <code>1.01</code>. See MS.4, where that was measured against 99,999 values.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>width before the point, precision
+      after.</b> <code>%-8.2f</code> is "left-aligned, eight wide, two decimals".</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">R.2 &middot; REFERENCE &middot; THE METHOD REFERENCE</div>
+  <h2 class="title">The method reference, by class</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Every library call this book makes, grouped by the class it belongs
+  to. If you met it in a listing, it is here.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; System: printing, and two things that are not printing</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>System.out.println(x)</code></td><td>Prints <code>x</code>, then ends the line.</td></tr>
+        <tr><td><code>System.out.print(x)</code></td><td>Prints <code>x</code> and <b>stays on the line</b>.</td></tr>
+        <tr><td><code>System.out.printf(fmt, ...)</code></td><td>Formatted printing. Ends no line unless you write <code>%n</code>.</td></tr>
+        <tr><td><code>System.exit(0)</code></td><td>Stops the JVM at once. 0 means normal.</td></tr>
+        <tr><td><code>System.arraycopy(src, a, dst, b, n)</code></td><td>Copies <code>n</code> elements from <code>src</code> at <code>a</code> into <code>dst</code> at <code>b</code>. Note the lower-case c: <code>arrayCopy</code> does not exist.</td></tr>
+        <tr><td><code>System.console()</code></td><td>The terminal, or <b><code>null</code></b> when there isn't one. Returns a <code>Console</code>.</td></tr>
+        <tr><td><code>System.in</code></td><td>The keyboard, as a stream. Only ever seen inside <code>new Scanner(System.in)</code>.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Math: no import needed, and every method is static</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>Math.PI</code></td><td>3.141592653589793. A constant, so no brackets.</td></tr>
+        <tr><td><code>Math.abs(x)</code></td><td>The size of <code>x</code>, sign removed.</td></tr>
+        <tr><td><code>Math.max(a, b)</code></td><td>The larger.</td></tr>
+        <tr><td><code>Math.min(a, b)</code></td><td>The smaller.</td></tr>
+        <tr><td><code>Math.pow(a, b)</code></td><td><code>a</code> to the power <code>b</code>, <b>always a double</b>. See Unit 3.6: it is exact for the sizes this course uses.</td></tr>
+        <tr><td><code>Math.sqrt(x)</code></td><td>The square root, as a double. For a primality test prefer <code>d * d &lt;= n</code>, which stays in integers.</td></tr>
+        <tr><td><code>Math.round(x)</code></td><td>Nearest whole number, halves going up. Returns <code>long</code> for a double.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; String: the text type, and it never changes</span></div>
+    <div class="body">
+      <p>Every method here <b>returns a new String</b>. None of them alters the one you
+      called it on, because a <code>String</code> cannot be altered (Unit 7.1). If you
+      do not keep the answer, nothing happened.</p>
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>length()</code></td><td>How many characters. A <b>method</b> on a String, unlike an array's <code>length</code>.</td></tr>
+        <tr><td><code>charAt(i)</code></td><td>The character at index <code>i</code>, counting from 0.</td></tr>
+        <tr><td><code>substring(from)</code></td><td>From <code>from</code> to the end.</td></tr>
+        <tr><td><code>substring(from, to)</code></td><td>From <code>from</code> up to but <b>not including</b> <code>to</code>.</td></tr>
+        <tr><td><code>indexOf(s)</code></td><td>Where <code>s</code> starts, or <b>-1</b> if it is absent.</td></tr>
+        <tr><td><code>contains(s)</code></td><td><code>true</code> if <code>s</code> is in there.</td></tr>
+        <tr><td><code>startsWith(s)</code></td><td><code>true</code> if it begins with <code>s</code>.</td></tr>
+        <tr><td><code>endsWith(s)</code></td><td><code>true</code> if it ends with <code>s</code>.</td></tr>
+        <tr><td><code>toUpperCase()</code></td><td>A new String, in capitals.</td></tr>
+        <tr><td><code>isEmpty()</code></td><td><code>true</code> only if there are <b>no</b> characters. A space is a character.</td></tr>
+        <tr><td><code>concat(s)</code></td><td>A new String with <code>s</code> joined on. The <code>+</code> operator does the same.</td></tr>
+        <tr><td><code>replace(a, b)</code></td><td>A new String with every <code>a</code> swapped for <code>b</code>.</td></tr>
+        <tr><td><code>equals(s)</code></td><td>Compares the <b>characters</b>. This is the one you want (Unit 7.3).</td></tr>
+        <tr><td><code>equalsIgnoreCase(s)</code></td><td>The same, treating "JAVA" and "java" as equal.</td></tr>
+        <tr><td><code>compareTo(s)</code></td><td>Negative, zero or positive, by dictionary order.</td></tr>
+        <tr><td><code>new String("hi")</code></td><td>Forces a brand new object. It exists to demonstrate why <code>==</code> is wrong for text, and for no other reason.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; StringBuilder: the text type that does change</span></div>
+    <div class="body">
+      <p>The mirror image of String: every method here <b>alters the builder itself</b>
+      and you do not keep a return value (Unit 7.4).</p>
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>new StringBuilder("Java")</code></td><td>A builder holding "Java".</td></tr>
+        <tr><td><code>append(x)</code></td><td>Adds <code>x</code> to the end.</td></tr>
+        <tr><td><code>insert(i, s)</code></td><td>Pushes <code>s</code> in so it <b>starts at</b> <code>i</code>, sliding the rest right. Nothing is lost.</td></tr>
+        <tr><td><code>delete(a, b)</code></td><td>Removes from <code>a</code> up to but not including <code>b</code>.</td></tr>
+        <tr><td><code>replace(a, b, s)</code></td><td>Removes <code>a</code> to <code>b</code>, then puts <code>s</code> there. Can change the length.</td></tr>
+        <tr><td><code>reverse()</code></td><td>Turns it back to front.</td></tr>
+        <tr><td><code>toString()</code></td><td>The finished text, as a String.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Arrays and the array itself</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>Arrays</code></td><td>The toolkit class. <code>import java.util.Arrays;</code>. Every method on it is static.</td></tr>
+        <tr><td><code>length</code></td><td>The size of an array. A <b>field</b>: <code>a.length</code>, never <code>a.length()</code>. The last index is always <code>length - 1</code>.</td></tr>
+        <tr><td><code>Arrays.toString(a)</code></td><td>The array as readable text. Printing <code>a</code> directly gives you a hash code.</td></tr>
+        <tr><td><code>Arrays.sort(a)</code></td><td>Sorts <code>a</code> <b>in place</b>. Returns nothing.</td></tr>
+        <tr><td><code>Arrays.copyOf(a, n)</code></td><td>A new array of length <code>n</code>, padded or trimmed.</td></tr>
+        <tr><td><code>Arrays.equals(a, b)</code></td><td>Compares the <b>contents</b>. <code>a == b</code> compares the references.</td></tr>
+        <tr><td><code>Arrays.asList(x, y)</code></td><td>The arguments as a list, for the one place this course needs one: <code>Files.write</code>.</td></tr>
+      </table>
+      <p class="small">The exam bans collection classes and asks for <b>parallel
+      arrays</b> instead: two arrays of the same length where index <code>i</code>
+      means the same subject in both.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Reading the keyboard: Scanner, and the two alternatives</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>Scanner</code></td><td>The class. <code>import java.util.Scanner;</code>.</td></tr>
+        <tr><td><code>new Scanner(System.in)</code></td><td>A scanner on the keyboard.</td></tr>
+        <tr><td><code>nextLine()</code></td><td>The whole next line, as a String.</td></tr>
+        <tr><td><code>nextInt()</code></td><td>The next whole number. <b>Leaves the newline behind</b>, which is why a following <code>nextLine()</code> returns empty (Unit 3.10).</td></tr>
+        <tr><td><code>hasNextLine()</code></td><td><code>true</code> while a line is waiting. Ask before you take, instead of comparing against a sentinel.</td></tr>
+        <tr><td><code>close()</code></td><td>Releases it. Every reader and writer has one.</td></tr>
+        <tr><td><code>new InputStreamReader(System.in)</code></td><td>Turns the raw keyboard stream into something a reader can read.</td></tr>
+        <tr><td><code>new BufferedReader(new InputStreamReader(System.in))</code></td><td>The older way to read the keyboard. Its <code>readLine()</code> returns a String.</td></tr>
+        <tr><td><code>Console</code></td><td>The class <code>System.console()</code> hands back. It is <code>null</code> in every IDE, which is the whole lesson of Unit 3.10.</td></tr>
+        <tr><td><code>readPassword()</code></td><td>On a <code>Console</code>: reads without echoing. Returns a <code>char[]</code>, not a String.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Files: the classic way, which the paper demands</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>new FileWriter(name)</code></td><td>Opens for writing. Creates, or <b>truncates</b>.</td></tr>
+        <tr><td><code>new FileWriter(name, true)</code></td><td>Opens for <b>appending</b>.</td></tr>
+        <tr><td><code>new FileReader(name)</code></td><td>Opens for reading.</td></tr>
+        <tr><td><code>new BufferedWriter(w)</code></td><td>Wraps a writer, writing in blocks.</td></tr>
+        <tr><td><code>new BufferedReader(r)</code></td><td>Wraps a reader, reading in blocks.</td></tr>
+        <tr><td><code>new PrintWriter(w)</code></td><td>Wraps a writer and adds <code>printf</code> and <code>println</code>.</td></tr>
+        <tr><td><code>new File(name)</code></td><td>A file <b>name</b>, not a file. Creating one opens nothing.</td></tr>
+        <tr><td><code>write(s)</code></td><td>Writes text. On a <code>FileWriter</code> or <code>BufferedWriter</code>.</td></tr>
+        <tr><td><code>newLine()</code></td><td>Ends the line, on a <code>BufferedWriter</code>.</td></tr>
+        <tr><td><code>read()</code></td><td>One character, as an <code>int</code>, or <b>-1</b> at the end of the file.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Files: the modern one-liners, and the 24/25 question that names them</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>Paths.get("f.txt")</code></td><td>A <code>Path</code>: a file name in the form the <code>Files</code> methods want.</td></tr>
+        <tr><td><code>Files.write(path, lines)</code></td><td>Writes every line and closes the file, in one call.</td></tr>
+        <tr><td><code>Files.readAllLines(path)</code></td><td>The whole file, as a list of lines.</td></tr>
+        <tr><td><code>Files.readAllBytes(path)</code></td><td>The whole file, as raw bytes.</td></tr>
+      </table>
+      <p class="small">The 2024/25 Question Three A asks you to define
+      <code>Files.write()</code>. Learn these four, and then use the classic classes in
+      Section B, because the 2025/26 paper bans everything but them.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Exceptions, and the wrappers that throw them</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Name</th><th>What it is</th></tr>
+        <tr><td><code>Exception</code></td><td>The parent of nearly all of them. <code>catch (Exception e)</code> catches everything below it, which is why it must come <b>last</b>, and why catching it instead of the specific one is a way of not saying what you expected to go wrong.</td></tr>
+        <tr><td><code>IOException</code></td><td><b>Checked.</b> Anything went wrong with a file. Catch it or declare it.</td></tr>
+        <tr><td><code>FileNotFoundException</code></td><td><b>Checked.</b> A subclass of <code>IOException</code>, so catch it <b>first</b> or it is unreachable.</td></tr>
+        <tr><td><code>NumberFormatException</code></td><td>Unchecked. <code>parseInt</code> met something that is not a number.</td></tr>
+        <tr><td><code>ArithmeticException</code></td><td>Unchecked. Integer division by zero. Decimal division by zero gives <code>Infinity</code> instead.</td></tr>
+        <tr><td><code>ArrayIndexOutOfBoundsException</code></td><td>Unchecked. An index below 0 or at <code>length</code> or above.</td></tr>
+        <tr><td><code>NullPointerException</code></td><td>Unchecked. A method was called on <code>null</code>.</td></tr>
+        <tr><td><code>new IllegalArgumentException("why")</code></td><td>Unchecked. Throw it yourself when an argument makes no sense.</td></tr>
+        <tr><td><code>new ArithmeticException("why")</code></td><td>Throwing one yourself, to show <code>throw</code> against <code>throws</code>.</td></tr>
+        <tr><td><code>getMessage()</code></td><td>The text carried by the exception.</td></tr>
+        <tr><td><code>getClass()</code></td><td>The object's class, at run time.</td></tr>
+        <tr><td><code>getSimpleName()</code></td><td>On a class: its name without the package, so <code>IOException</code> rather than <code>java.io.IOException</code>.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The wrapper classes and their constants</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:40%">Call</th><th>What it does</th></tr>
+        <tr><td><code>Integer.parseInt(s)</code></td><td>String to <code>int</code>.</td></tr>
+        <tr><td><code>Double.parseDouble(s)</code></td><td>String to <code>double</code>.</td></tr>
+        <tr><td><code>Integer.MAX_VALUE</code></td><td>2147483647. Use the constant, not the digits: your course's own table mistyped them.</td></tr>
+        <tr><td><code>Integer.MIN_VALUE</code></td><td>-2147483648.</td></tr>
+        <tr><td><code>Long.MAX_VALUE</code></td><td>9223372036854775807.</td></tr>
+        <tr><td><code>Long.MIN_VALUE</code></td><td>-9223372036854775808.</td></tr>
+        <tr><td><code>Integer.toBinaryString(n)</code></td><td><code>n</code> written in binary, as text.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">R.3 &middot; REFERENCE &middot; THE KEYWORD INDEX</div>
+  <h2 class="title">The keyword index</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Every Java keyword this course uses, in one line each. These are
+  reserved: you can never name a variable after one.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Types</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:20%">Keyword</th><th>What it means</th></tr>
+        <tr><td><code>byte</code></td><td>A whole number, 8 bits, -128 to 127.</td></tr>
+        <tr><td><code>short</code></td><td>A whole number, 16 bits, -32768 to 32767.</td></tr>
+        <tr><td><code>int</code></td><td>A whole number, 32 bits. The default for any whole number you type.</td></tr>
+        <tr><td><code>long</code></td><td>A whole number, 64 bits. A big literal needs an <code>L</code>: <code>9000000000L</code>.</td></tr>
+        <tr><td><code>float</code></td><td>A decimal, 32 bits. A literal needs an <code>f</code>: <code>3.14f</code>.</td></tr>
+        <tr><td><code>double</code></td><td>A decimal, 64 bits. The default for any decimal you type.</td></tr>
+        <tr><td><code>char</code></td><td>One character, in single quotes: <code>'J'</code>.</td></tr>
+        <tr><td><code>boolean</code></td><td><code>true</code> or <code>false</code>, and nothing else. Not 0 and 1.</td></tr>
+        <tr><td><code>true</code></td><td>One of the two boolean values.</td></tr>
+        <tr><td><code>false</code></td><td>The other.</td></tr>
+        <tr><td><code>null</code></td><td>"Refers to no object." Not zero, and not an empty string.</td></tr>
+        <tr><td><code>void</code></td><td>As a return type: this method gives nothing back.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Control flow</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:20%">Keyword</th><th>What it means</th></tr>
+        <tr><td><code>if</code></td><td>Run the block only when the condition is true.</td></tr>
+        <tr><td><code>else</code></td><td>Otherwise. It arrives already knowing what failed.</td></tr>
+        <tr><td><code>switch</code></td><td>Choose a branch by matching a value against cases.</td></tr>
+        <tr><td><code>case</code></td><td>One value a <code>switch</code> matches.</td></tr>
+        <tr><td><code>default</code></td><td>The <code>switch</code> branch for everything unmatched.</td></tr>
+        <tr><td><code>for</code></td><td>A counting loop: init, test and update on one line.</td></tr>
+        <tr><td><code>while</code></td><td>A loop that tests <b>before</b> the body, so it can run zero times.</td></tr>
+        <tr><td><code>do</code></td><td>With <code>while</code>: a loop that tests <b>after</b>, so it always runs once.</td></tr>
+        <tr><td><code>break</code></td><td><b>Leaves the loop</b> at once. In a <code>switch</code>, ends that case.</td></tr>
+        <tr><td><code>continue</code></td><td><b>Skips the rest of this turn</b> and goes to the next. It does not leave the loop.</td></tr>
+        <tr><td><code>return</code></td><td>Leaves the method, carrying a value unless the method is <code>void</code>.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Classes, objects and access</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:20%">Keyword</th><th>What it means</th></tr>
+        <tr><td><code>class</code></td><td>Declares a class: the blueprint an object is made from.</td></tr>
+        <tr><td><code>new</code></td><td>Makes an object and runs its constructor.</td></tr>
+        <tr><td><code>this</code></td><td>The object the method was called on. Used to tell a field from a parameter of the same name.</td></tr>
+        <tr><td><code>static</code></td><td>Belongs to the <b>class</b>, not to any object. Called as <code>ClassName.method()</code>.</td></tr>
+        <tr><td><code>final</code></td><td>Cannot be changed after it is set. The way to write a constant.</td></tr>
+        <tr><td><code>public</code></td><td>Visible everywhere.</td></tr>
+        <tr><td><code>private</code></td><td>Visible only inside this class. <b>Not even a subclass can name it.</b></td></tr>
+        <tr><td><code>protected</code></td><td>Visible inside this class and its subclasses.</td></tr>
+        <tr><td><code>extends</code></td><td>This class inherits from that one.</td></tr>
+        <tr><td><code>super</code></td><td>The superclass part of this object: <code>super(...)</code> calls its constructor, <code>super.m()</code> its method.</td></tr>
+        <tr><td><code>abstract</code></td><td>Incomplete on purpose: it cannot be instantiated, and a subclass must finish it.</td></tr>
+        <tr><td><code>interface</code></td><td>A contract of method signatures with no bodies.</td></tr>
+        <tr><td><code>implements</code></td><td>This class promises to supply an interface's methods.</td></tr>
+        <tr><td><code>import</code></td><td>Names a class from another package so you can use its short name.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Exceptions</span></div>
+    <div class="body">
+      <table class="data ref">
+        <tr><th style="width:20%">Keyword</th><th>What it means</th></tr>
+        <tr><td><code>try</code></td><td>Guard this block. With brackets, it also closes what it opened.</td></tr>
+        <tr><td><code>catch</code></td><td>Handle an exception of the named type. Catch subclasses first.</td></tr>
+        <tr><td><code>finally</code></td><td>Runs whatever happens, exception or not.</td></tr>
+        <tr><td><code>throw</code></td><td><b>Raises</b> an exception now: <code>throw new IllegalArgumentException("...")</code>.</td></tr>
+        <tr><td><code>throws</code></td><td><b>Declares</b> that this method may raise one, and refuses to handle it.</td></tr>
+      </table>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>throw does, throws warns.</b> The
+      <code>s</code> is a signature, not an action.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The keywords this course does not use are still reserved</span></div>
+    <div class="body">
+      <p>Java has fifty reserved words. This book uses the forty-two above, because
+      they are the ones your course teaches and your papers examine. The rest are real
+      and you may not use them as names either:</p>
+      <p><code>assert</code>, <code>const</code>, <code>enum</code>,
+      <code>goto</code>, <code>instanceof</code>, <code>native</code>,
+      <code>package</code>, <code>strictfp</code>, <code>synchronized</code>,
+      <code>transient</code>, <code>volatile</code>.</p>
+      <p>Two of those are curiosities worth ten seconds: <code>const</code> and
+      <code>goto</code> are reserved and <b>do nothing at all</b>. They exist only so
+      that the compiler can give you a proper error instead of a confusing one if you
+      arrive from a language that has them. Java's constant is <code>final</code>.</p>
+      <p>They are listed here rather than tabled above for one reason: <b>this book
+      documents what it uses.</b> An entry claiming to teach you
+      <code>synchronized</code> would be a promise no page of this manual keeps.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">R.4 &middot; REFERENCE &middot; THE GLOSSARY</div>
+  <h2 class="title">The glossary</h2>
+  <hr class="rule"/>
+
+  <p class="lead">The vocabulary, defined once. Both papers open with "define" and
+  "describe" questions, and those are the cheapest marks on either paper: they are the
+  only ones you can be certain of before you walk in.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The machine and the language</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Term</th><th>Definition</th></tr>
+        <tr><td><b>Source code</b></td><td>The Java you type, in a <code>.java</code> file. Text, readable by people.</td></tr>
+        <tr><td><b>Compiler</b> (javac)</td><td>Translates source into bytecode, and refuses if the source is not legal Java.</td></tr>
+        <tr><td><b>Bytecode</b></td><td>The <code>.class</code> file. Not machine code, and not tied to any one processor.</td></tr>
+        <tr><td><b>JVM</b></td><td>The Java Virtual Machine: the program that runs bytecode. The reason Java runs anywhere.</td></tr>
+        <tr><td><b>JDK</b></td><td>The kit: compiler, JVM, and libraries. You need it to write Java, not merely to run it.</td></tr>
+        <tr><td><b>Compile-time error</b></td><td>The code is not legal Java. Nothing runs. The compiler tells you the line.</td></tr>
+        <tr><td><b>Run-time error</b></td><td>Legal code that hits something impossible while running. Java throws an exception.</td></tr>
+        <tr><td><b>Logic error</b></td><td>It compiles, it runs, it finishes, and the answer is wrong. <b>Nothing warns you.</b> Only a dry run finds it.</td></tr>
+        <tr><td><b>Dry run</b></td><td>Executing a program by hand, one row per step, writing down every variable as it changes. Your lecturer's own term, and an exam skill.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Data</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Term</th><th>Definition</th></tr>
+        <tr><td><b>Variable</b></td><td>A named box holding one value of a declared type.</td></tr>
+        <tr><td><b>Primitive type</b></td><td>One of the eight built-in types. The variable holds the <b>value</b> itself.</td></tr>
+        <tr><td><b>Reference type</b></td><td>Everything else. The variable holds a <b>reference</b> to an object stored elsewhere.</td></tr>
+        <tr><td><b>Literal</b></td><td>A value written directly in the code: <code>42</code>, <code>3.14</code>, <code>"hi"</code>. Its type is fixed when you type it, before anything is assigned.</td></tr>
+        <tr><td><b>Constant</b></td><td>A <code>final</code> variable: set once, never changed.</td></tr>
+        <tr><td><b>Casting</b></td><td>Telling the compiler to convert a type, taking responsibility for the loss: <code>(int) 3.9</code> is 3.</td></tr>
+        <tr><td><b>Widening</b></td><td>A smaller type flowing into a bigger one automatically, losing nothing: an <code>int</code> into a <code>double</code>.</td></tr>
+        <tr><td><b>Narrowing</b></td><td>The reverse, which loses data, so Java never does it silently.</td></tr>
+        <tr><td><b>Integer division</b></td><td><code>/</code> between two whole numbers, which <b>chops</b> the remainder away. <code>7 / 2</code> is 3. It does not round.</td></tr>
+        <tr><td><b>Array</b></td><td>A fixed-length run of values of one type, reached by index from <b>0</b>.</td></tr>
+        <tr><td><b>Index</b></td><td>An element's position. The last is always <code>length - 1</code>.</td></tr>
+        <tr><td><b>Parallel arrays</b></td><td>Two or more arrays of equal length where the same index means the same subject. This course's substitute for a collection.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Methods</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Term</th><th>Definition</th></tr>
+        <tr><td><b>Method</b></td><td>A named, reusable block that may take values in and may give one back.</td></tr>
+        <tr><td><b>Formal parameter</b></td><td>The variable named in the method's declaration. A name waiting for a value.</td></tr>
+        <tr><td><b>Actual argument</b></td><td>The value written at the call, which is <b>copied</b> into the parameter.</td></tr>
+        <tr><td><b>Method signature</b></td><td>The name <b>plus the parameter list</b>. The return type is <b>not</b> part of it.</td></tr>
+        <tr><td><b>Return type</b></td><td>The type of what comes back, or <code>void</code> for nothing.</td></tr>
+        <tr><td><b>Overloading</b></td><td>Several methods, same name, <b>different parameter lists</b>. Resolved at <b>compile time</b>. Compile-time polymorphism.</td></tr>
+        <tr><td><b>Overriding</b></td><td>A subclass replacing an inherited method with the <b>same</b> signature. Resolved at <b>run time</b>.</td></tr>
+        <tr><td><b>Pass by value</b></td><td>Java's only mechanism. The <b>value</b> is copied. For a reference type, the <b>reference</b> is copied, so the method can change the object but cannot make your variable point elsewhere.</td></tr>
+        <tr><td><b>Recursion</b></td><td>A method that calls itself, with a base case that stops it.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Objects</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Term</th><th>Definition</th></tr>
+        <tr><td><b>Class</b></td><td>The blueprint: what an object of this kind knows and can do.</td></tr>
+        <tr><td><b>Object</b></td><td>One thing made from that blueprint, with its own copy of the state.</td></tr>
+        <tr><td><b>Attribute</b> (field)</td><td>A variable belonging to an object: what it <b>knows</b>.</td></tr>
+        <tr><td><b>Constructor</b></td><td>Runs once, at <code>new</code>, to put a new object into a valid state. Named <b>exactly</b> like the class, and declares <b>no return type at all</b>.</td></tr>
+        <tr><td><b>Instance method</b></td><td>Belongs to an object. Called on one: <code>account.deposit(500)</code>.</td></tr>
+        <tr><td><b>Static method</b></td><td>Belongs to the class. Called on it: <code>Math.abs(-3)</code>.</td></tr>
+        <tr><td><b>Encapsulation</b></td><td>Keeping state <code>private</code> and exposing it through methods, so an object controls its own data.</td></tr>
+        <tr><td><b>Inheritance</b></td><td>A subclass acquiring the superclass's members with <code>extends</code>. An <b>is-a</b> relationship.</td></tr>
+        <tr><td><b>Polymorphism</b></td><td>One name, several behaviours. Compile-time is overloading; run-time is overriding.</td></tr>
+        <tr><td><b>Dynamic method dispatch</b></td><td>The run-time half: the <b>object</b> decides which override runs, not the reference's declared type.</td></tr>
+        <tr><td><b>Abstraction</b></td><td>Exposing what a thing does and hiding how. In Java: <code>abstract</code> classes and <code>interface</code>s.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Exceptions and files</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Term</th><th>Definition</th></tr>
+        <tr><td><b>Exception</b></td><td>An object describing something that went wrong, thrown at the point of failure.</td></tr>
+        <tr><td><b>Checked exception</b></td><td>The compiler <b>insists</b> you catch it or declare it. <code>IOException</code>. A fact about the world, not a bug.</td></tr>
+        <tr><td><b>Unchecked exception</b></td><td>Not policed. <code>NullPointerException</code>. Usually a bug, so the fix is to correct the code, not to catch it.</td></tr>
+        <tr><td><b>try-with-resources</b></td><td><code>try (Reader r = ...)</code>: closes what it opened, on every path, including the throwing one.</td></tr>
+        <tr><td><b>Stream</b></td><td>A one-way flow of data. A reader reads one; a writer writes one.</td></tr>
+        <tr><td><b>Buffering</b></td><td>Collecting data and moving it in blocks rather than one character at a time.</td></tr>
+        <tr><td><b>Sentinel</b></td><td>A value that means "stop", chosen so it cannot be real data: <code>readLine()</code> gives <code>null</code>, <code>read()</code> gives -1.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The five definitions both papers keep asking for</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Across 2024/25 and 2025/26, these came up again and again. If you learn five
+        definitions, learn these, in these words:</p>
+        <p><b>1. Method signature:</b> the method's <b>name plus its parameter
+        list</b>. The return type is not part of it.<br/>
+        <b>2. Overloading against overriding:</b> same name different parameters,
+        settled at compile time; against same signature in a subclass, settled at run
+        time.<br/>
+        <b>3. Checked against unchecked:</b> the compiler forces you to handle a
+        checked one, or it will not compile.<br/>
+        <b>4. Encapsulation:</b> private state, public methods, so the object owns its
+        own data.<br/>
+        <b>5. Dry run:</b> hand-execute the code, one row per step.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> every one of these is a <b>distinction</b>,
+      not a fact. The mark is in the contrast, so answer in two halves and say which is
+      which.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; That is the whole course</span></div>
+    <div class="body">
+      <p>You have the machine underneath, the ten modules, both real papers solved,
+      two mocks sat and marked, and this reference. Nothing in this book was taken on
+      trust: every listing was compiled and run, every printed output came off a real
+      JVM, and every claim about what the compiler says was made by asking it.</p>
+      <p>Where your course materials and the compiler disagreed, this book says so and
+      shows you the run. That is not disrespect. It is the only habit that matters in
+      programming: <b>the machine is the authority, and it will tell you, and you can
+      ask it any time you like.</b></p>
+      <p>Go and ask it. Then go and pass.</p>
+    </div>
+  </div>
+</section>
