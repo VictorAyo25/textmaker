@@ -9,6 +9,9 @@ Hard failures (these stop a release):
     page. A box is one idea, and half an idea either side of a page turn is not
     the grammar this manual is built on. A box genuinely taller than a page has
     to be cut and is not counted.
+  * a code line that runs out past the panel drawn around it. Staying inside the
+    page margins is not enough: code sits in a teaching box, which is narrower
+    than the page, so a line can clear every margin and still hang over the box.
   * a body that did not render at its designed size, which means Chromium shrank
     the whole document to fit something too wide. gates.py catches the usual
     cause (an over-long code line) precisely and early; this catches the effect
@@ -132,6 +135,44 @@ def split_boxes(doc):
     return out
 
 
+def panel_overruns(doc):
+    """Code lines that run out past the panel drawn around them.
+
+    gates.py caps code at a column count, but that is a proxy standing in for
+    this: the real rule is that code must not outrun its own box. The column cap
+    was set by measuring against the PAGE, and almost all code sits inside a
+    teaching box, which is about 20pt narrower. Two lines cleared the page,
+    stayed inside every margin, and still hung over the panel edge. Every check
+    here passed them, because none of them was looking at the box.
+
+    A line is matched to the innermost rectangle that vertically contains it and
+    starts to its left. Narrow rectangles are ignored: an inline highlight sits
+    behind a word or two, and picking one as the container reports a 1-character
+    line overflowing by 150pt, which is how the first version of this read.
+    """
+    out = []
+    for i in range(1, doc.page_count):
+        page = doc[i]
+        panels = [d['rect'] for d in page.get_drawings()
+                  if d['rect'].width > 300 and d['rect'].height > 5]
+        for b in page.get_text('dict')['blocks']:
+            for l in b.get('lines', []):
+                sp = [s for s in l.get('spans', []) if s['text'].strip()]
+                if not sp or not all('Mono' in s['font'] for s in sp):
+                    continue
+                y = (sp[0]['bbox'][1] + sp[0]['bbox'][3]) / 2
+                x0 = min(s['bbox'][0] for s in sp)
+                x1 = max(s['bbox'][2] for s in sp)
+                encl = [r for r in panels if r.y0 <= y <= r.y1 and r.x0 <= x0 - 4]
+                if not encl:
+                    continue
+                panel = min(encl, key=lambda r: r.width)
+                if x1 > panel.x1 + 0.5:
+                    txt = ''.join(s['text'] for s in sp).strip()
+                    out.append((i, x1 - panel.x1, len(txt), txt))
+    return out
+
+
 def content_bottom(page, body):
     """How far down the page anything reaches: text, or the box drawn around it.
 
@@ -197,6 +238,10 @@ def check(pdf_path):
             fails.append(f'page {i}: a box is cut by the page break, and at {whole:.0f}pt '
                          f'it would have fitted whole on the next page')
 
+    for i, over, n, txt in panel_overruns(doc):
+        fails.append(f'page {i}: a {n}-character code line hangs {over:.1f}pt past the '
+                     f'panel drawn around it: {txt[:56]!r}')
+
     # The body is set in DejaVu Serif at BODY_PT. If it came back smaller, every
     # page was scaled and the size the manual was designed at is not the size it
     # prints at.
@@ -224,6 +269,7 @@ def check(pdf_path):
         print('  . no text outside the content box on any page')
         print('  . nothing in the bottom margin but the running footer')
         print('  . no box cut by a page break that could have fitted whole')
+        print('  . no code line hanging past the panel drawn around it')
     if sparse:
         print(f'  ? {len(sparse)} short pages that a forced break or an oversized next '
               f'block does not explain:')

@@ -752,11 +752,14 @@ print("ok")''', 'ok')
     raises('m5u1 CREATE TABLE twice', _twice,
            'OperationalError: table students already exists')
 
+    # The concatenated form is the one the book prints, so it is the one run
+    # here: the trailing space in the first string is load-bearing and invisible.
     check('m5u1 IF NOT EXISTS is safe to repeat', '''import sqlite3
 conn = sqlite3.connect("ine.db")
 c = conn.cursor()
+fields = "(id INTEGER PRIMARY KEY, name TEXT)"
 for _ in range(3):
-    c.execute("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS students " + fields)
 conn.commit()
 conn.close()
 print("ran three times, no error")''', 'ran three times, no error')
@@ -1481,14 +1484,16 @@ try:
     check('mock2 Q6(b) VALUE is a SQL error, not a Python one', '''import sqlite3
 conn = sqlite3.connect("shop.db")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+fields = "(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"
+cursor.execute("CREATE TABLE products " + fields)
 cursor.execute("INSERT INTO products (name, price) VALUE ('Pen', 150)")
 conn.commit()
 conn.close''', 'OperationalError: near "VALUE": syntax error')
     check('mock2 Q6(b) fixed', '''import sqlite3
 conn = sqlite3.connect("shop2.db")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
+fields = "(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"
+cursor.execute("CREATE TABLE IF NOT EXISTS products " + fields)
 cursor.execute("INSERT INTO products (name, price) VALUES ('Pen', 150)")
 conn.commit()
 conn.close()

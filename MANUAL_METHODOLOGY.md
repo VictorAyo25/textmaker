@@ -117,17 +117,53 @@ trap. The scale is the fingerprint, so measure the scale:
 
 - **Cheap and precise, before rendering:** no code line may exceed the measured
   column limit. For an A4 page with 18mm side margins and `pre` at 8.7pt DejaVu
-  Sans Mono inside a box, that limit is **90 characters** (measured: 90 renders
-  at 9.60pt, 92 at 9.40pt, 93 at 9.31pt, 104 at 8.36pt). Re-measure it if the
-  page geometry, the code font size, or the box padding changes.
+  Sans Mono, the page allows **90 characters** (measured: 90 renders at 9.60pt,
+  92 at 9.40pt, 93 at 9.31pt, 104 at 8.36pt). Re-measure it if the page geometry,
+  the code font size, or the box padding changes.
 - **Model-free, after rendering:** assert the body text came back at the size the
   CSS asks for. This catches any cause, not just long code, and it is the check
   that actually matters.
 
-Both live in CSC241's `gates.py` and `qa_layout.py`. PHY121 is clean at scale
-1.0000 (physics has no long code lines), but any course with code, and
-especially SQL or Java, should be checked. **Measure the rendered font size of a
-finished manual before believing it is the size you designed.**
+**But the page is the wrong thing to measure against, and 90 is a trap.** Almost
+no code sits on the page: it sits in a teaching box, which costs it about 20pt of
+width. Measured in CSC241, code inside a box starts at x=73.7 and its panel ends
+at x=534.8, which is 461.1pt, or **87 characters** at 5.238pt each. 88 clears by
+0.1pt, which is noise rather than room. So there are two different limits and the
+smaller one governs:
+
+| | Limit | What breaks past it |
+| --- | --- | --- |
+| Code inside a box | **87** | the line hangs over the panel edge |
+| Code at page width | 90 | Chromium shrinks all 134 pages |
+
+Between 88 and 90 a line clears every margin, triggers no shrink, and still
+prints with its tail outside the box drawn around it. CSC241 shipped two such
+lines and every gate passed them, because each was looking at the page. Cap code
+at the box limit, and **check the rendered code against its panel, not against
+the page**: the column count is only a proxy for that.
+
+All three checks live in CSC241's `gates.py` and `qa_layout.py`. PHY121 is clean
+at scale 1.0000 (physics has no long code lines). COS221 was found rendering at
+**92.9%** on two 99-character lines. Any course with code, and especially SQL or
+Java, should be checked. **Measure the rendered font size of a finished manual
+before believing it is the size you designed.**
+
+### 2c. The type size is pinned by the code, not chosen
+
+A related consequence, worth knowing before anyone proposes to make a manual more
+readable by enlarging it. In CSC241 the prose was tested at 10.5pt and 11pt:
+
+- **Scaling the whole sheet up does nothing at all.** At 11pt the code font goes
+  with it, the 90-column lines stop fitting, and Chromium shrinks the document
+  straight back: the render came back at 9.61pt and 132 pages, indistinguishable
+  from the 9.6pt original. The code width, not the prose, fixes the book's scale.
+- **Prose can grow only if the code is held.** Scaling every pt except the mono
+  sizes gives a clean 10.5pt body at 141 pages (+9). At 11pt something overflows
+  again and it shrinks, so 10.5 is the ceiling for this geometry.
+
+So a code-bearing manual cannot be enlarged the way a prose one can. The lever is
+prose-only, the ceiling is measured rather than chosen, and the price is paid in
+pages.
 
 ## 3. Reconstructing an existing manual with no source
 

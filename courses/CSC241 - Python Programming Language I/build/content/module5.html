@@ -184,7 +184,8 @@ conn.close()</pre>
 <pre class="out">sqlite3.OperationalError: table students already exists</pre>
       <p>Since <code>connect</code> keeps the file between runs, this bites the second time
       you run any program that creates a table. The fix is to say so in the SQL:</p>
-<pre class="code">cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)"</span>)</pre>
+<pre class="code">fields = <span class="s">"(id INTEGER PRIMARY KEY, name TEXT)"</span>
+cursor.execute(<span class="s">"CREATE TABLE IF NOT EXISTS students "</span> + fields)</pre>
       <p>Now it creates the table the first time and quietly does nothing afterwards. The
       examination asks for a table "if it doesn't already exist" in as many words, so
       <b><code>IF NOT EXISTS</code> is the phrase that earns the mark.</b></p>

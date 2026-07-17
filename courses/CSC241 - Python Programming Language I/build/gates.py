@@ -21,9 +21,20 @@ These encode the workspace's hard rules:
 import html as _html
 import re, sys
 
-# Measured, not derived: see the probe recorded in MANUAL_METHODOLOGY.md. At 90
-# characters the body still renders at its designed 9.6pt; at 92 it is 9.40pt.
-MAX_CODE_COLS = 90
+# Measured off the render, not derived. 90 was the old value and it was wrong: it
+# was measured against the PAGE, where 90 characters do fit without triggering
+# Chromium's shrink. But almost every code block sits inside a teaching box, and a
+# box costs its code about 20pt of width, so the line clears the page and still
+# runs out past the panel drawn around it. Nothing failed, because nothing left
+# the page: two lines printed with their tails hanging over the box edge.
+#
+# Inside a box the code starts at x=73.7 and the panel ends at x=534.8, which is
+# 461.1pt at a measured 5.238pt per character:
+#     87 cols -> ends at 529.4  (5.4pt clear)
+#     88 cols -> ends at 534.7  (0.1pt clear, which is noise, not room)
+#     89 cols -> ends at 539.9  (spills 5.1pt)
+# 88 is the geometric limit and 87 is the honest one.
+MAX_CODE_COLS = 87
 
 CODE_BLOCK = re.compile(r'<pre class="[^"]*">(.*?)</pre>', re.S)
 
@@ -82,13 +93,14 @@ def run_gates(html):
         if 'mono' not in fam:
             fails.append(f'code set in a non-monospace font: {m.group(2)!r}')
 
-    # ---- 5. no code line wider than the page ----
+    # ---- 5. no code line wider than the box it sits in ----
     for block in CODE_BLOCK.findall(html):
         for line in _html.unescape(re.sub(r'<[^>]+>', '', block)).split('\n'):
             if len(line) > MAX_CODE_COLS:
                 fails.append(f'code line is {len(line)} characters, over the '
-                             f'{MAX_CODE_COLS} that fit: Chromium would shrink every '
-                             f'page in the book to fit it. {line.strip()[:56]!r}')
+                             f'{MAX_CODE_COLS} that fit inside a teaching box: it would '
+                             f'hang over the panel edge, and past about 90 Chromium '
+                             f'shrinks every page in the book. {line.strip()[:56]!r}')
 
     # ---- report ----
     checks = [

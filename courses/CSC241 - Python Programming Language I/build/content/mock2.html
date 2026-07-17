@@ -346,7 +346,8 @@ Bola, 45</pre>
 <pre class="code broken"><span class="k">import</span> sqlite3
 conn = sqlite3.connect(<span class="s">"shop.db"</span>)
 cursor = conn.cursor()
-cursor.execute(<span class="s">"CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"</span>)
+fields = <span class="s">"(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)"</span>
+cursor.execute(<span class="s">"CREATE TABLE products "</span> + fields)
 cursor.execute(<span class="s">"INSERT INTO products (name, price) VALUE ('Pen', 150)"</span>)
 conn.commit()
 conn.close</pre>

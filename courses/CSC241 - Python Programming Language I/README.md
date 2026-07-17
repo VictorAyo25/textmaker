@@ -176,8 +176,9 @@ repeats until a render agrees with the Contents it was built from.
   `sorted()` are reproducible.
 - `gates.py` enforces house style: no em or en dashes, no institution branding, the
   pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, all code
-  monospace, and **no code line over 90 columns** (see above: a longer one shrinks every
-  page in the book).
+  monospace, and **no code line over 87 columns**. There are two limits and the smaller
+  one governs: 90 is where Chromium shrinks the book (see above), but 87 is where a line
+  starts hanging over the teaching box it sits in, and almost all code sits in a box.
 - The **Contents gate** (in `assemble.py`) follows all 25 links and checks each against
   the book rather than against itself: the page it lands on must carry that section's
   heading, and the number the row prints must be the number that page's own footer
@@ -185,8 +186,14 @@ repeats until a render agrees with the Contents it was built from.
   Contents can be uniformly wrong and perfectly consistent with itself.
 - `qa_layout.py` looks at every page: **the body must render at its designed 9.6pt**, no
   text outside the content box, nothing in the bottom margin but the running footer, **no
-  box cut by a page break that would have fitted whole**, and no page left short without
-  a reason (a section that must start fresh, or a next block too tall to fit).
+  box cut by a page break that would have fitted whole**, **no code line hanging past the
+  panel drawn around it**, and no page left short without a reason (a section that must
+  start fresh, or a next block too tall to fit).
+  - The panel rule exists because staying inside the page is not enough. Two
+    `cursor.execute("CREATE TABLE ...")` lines, at 89 and 90 columns, cleared every margin,
+    triggered no shrink, and printed with their tails outside the box. Every gate passed
+    them, because every gate was measuring against the page. Found by eye, on a spread
+    rendered for an unrelated question.
   - The box rule found 30 answer boxes being cut mid-idea, because `.ans` and `.qpaper`
     had been given `break-inside:auto` on the theory that a box taller than a page cannot
     be kept together anyway. Measured, that relaxation cut 30 boxes that would have fitted
