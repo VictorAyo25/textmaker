@@ -7,6 +7,44 @@ printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
 below records what changed; git holds every superseded copy.
 
 -------------------------------------------------------------------------------
+COS221 - Computer Programming I (Java) - Study Manual.pdf   298 pp   published 2026-07-17
+-------------------------------------------------------------------------------
+COS221 Computer Programming I (Java), complete manual, Modules 1 to 10.
+
+Contents: Foundations F.1-F.11, Modules 1 to 10, both past papers solved in full
+(2024/25 six-of-which-attempt-four, and 2025/26 three-sections), mock papers in
+both of those shapes (Mock A and Mock B) with solutions, and reference R.1-R.4
+(exam API card, method reference by class, keyword index, glossary). 126 clickable
+Contents links, real selectable text throughout.
+
+Unlike PHY121 this manual was AUTHORED, not rebuilt: there was no prior manual of
+ours to reproduce, so content/*.html is the book, written by hand. Every one of the
+216 code listings was compiled and run on a real JVM (Temurin 17), and every printed
+output was captured from that JVM, never typed. Withheld-answer listings on the mock
+papers still run: the gate proves each one's answer exists and matches, elsewhere in
+the book.
+
+Four scripted gates, all green at publish:
+  - check_code.py: every listing compiles and runs; every claimed output diffed
+    against the JVM. 216 listings, 0 failures.
+  - qa_firstuse.py: the "no external sources" promise, measured not asserted. Nothing
+    is used before the prose names it, and no API is first met inside an exam.
+  - qa_reference.py: the reference and the book agree both ways. Everything the
+    listings use is documented; nothing documented goes unused.
+  - qa.py: no em/en dashes, no institution or platform or methodology-author names,
+    footer numbering sequential, all 126 Contents links resolve, no near-blank pages,
+    nothing outside the margins, no orphaned headings.
+
+Where the course's own materials were wrong, the book shows the run rather than
+repeating the error: the int-limit table that printed the overflow value as the
+limit, the printf half-up rounding folklore (disproved against 99,999 values), the
+Math.pow inexactness myth, and the "Swing hangs without System.exit" myth were each
+tested on the JVM and corrected with the measurement in view.
+
+To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/README.md"
+                       (cd build && python assemble.py)
+
+-------------------------------------------------------------------------------
 PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.
