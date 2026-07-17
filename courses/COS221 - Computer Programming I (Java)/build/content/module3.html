@@ -553,6 +553,97 @@ line 6 -> 1</pre>
       calculation.</p>
     </div>
   </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; When the five operators are not enough: the Math class</span></div>
+    <div class="body">
+      <p>Java gives you <code>+ - * / %</code> and nothing else. There is no operator
+      for a square root, none for a power, and none for "the bigger of these two". Those
+      live as <b>methods on a class called <code>Math</code></b>, which comes with the
+      JDK.</p>
+      <p><b>You do not import it.</b> <code>Math</code> lives in
+      <code>java.lang</code>, the one package Java imports into every file for you
+      (<code>String</code> and <code>System</code> are there too, which is why they have
+      never needed an import either). And you never make a <code>Math</code> object:
+      every one of its methods is <code>static</code>, so you call them on the class
+      itself, exactly as F.6 described and Unit 5.5 will explain properly.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The Math you actually need</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MathTools"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MathTools</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"Math.PI          = "</span> + <span class="t">Math</span>.<span class="t">PI</span>);</span><span class="l">        System.out.println(<span class="s">"Math.sqrt(9)     = "</span> + <span class="t">Math</span>.sqrt(9));</span><span class="l">        System.out.println(<span class="s">"Math.pow(2, 10)  = "</span> + <span class="t">Math</span>.pow(2, 10));</span><span class="l">        System.out.println(<span class="s">"Math.abs(-7)     = "</span> + <span class="t">Math</span>.abs(-7));</span><span class="l">        System.out.println(<span class="s">"Math.max(3, 9)   = "</span> + <span class="t">Math</span>.max(3, 9));</span><span class="l">        System.out.println(<span class="s">"Math.min(3, 9)   = "</span> + <span class="t">Math</span>.min(3, 9));</span><span class="l">        System.out.println(<span class="s">"Math.round(2.4)  = "</span> + <span class="t">Math</span>.round(2.4));</span><span class="l">        System.out.println(<span class="s">"Math.round(2.5)  = "</span> + <span class="t">Math</span>.round(2.5));</span><span class="l">        System.out.println(<span class="s">"Math.round(-2.5) = "</span> + <span class="t">Math</span>.round(-2.5));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Math.PI          = 3.141592653589793
+Math.sqrt(9)     = 3.0
+Math.pow(2, 10)  = 1024.0
+Math.abs(-7)     = 7
+Math.max(3, 9)   = 9
+Math.min(3, 9)   = 3
+Math.round(2.4)  = 2
+Math.round(2.5)  = 3
+Math.round(-2.5) = -2</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The Math members worth knowing by heart</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data">
+          <tr><th style="width:30%">Call</th><th style="width:18%">Gives back</th><th>What it is for</th></tr>
+          <tr><td><code>Math.PI</code></td><td>double</td><td>Not a method: a <b>constant</b>, so no brackets. 3.141592653589793.</td></tr>
+          <tr><td><code>Math.sqrt(x)</code></td><td><b>double</b></td><td>Square root.</td></tr>
+          <tr><td><code>Math.pow(a, b)</code></td><td><b>double</b></td><td>a to the power b.</td></tr>
+          <tr><td><code>Math.abs(x)</code></td><td>same type as x</td><td>Distance from zero, so never negative.</td></tr>
+          <tr><td><code>Math.max(a, b)</code><br/><code>Math.min(a, b)</code></td><td>same type</td><td>The larger, and the smaller, of two.</td></tr>
+          <tr><td><code>Math.round(x)</code></td><td><b>long</b> (from a double)</td><td>Nearest whole number.</td></tr>
+        </table>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>Math hands back doubles.</b>
+      <code>sqrt</code>, <code>pow</code> and <code>PI</code> are all
+      <code>double</code>, whatever you feed them.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Math.pow(2, 10) is not 1024, and Math.round(-2.5) is not -3</span></div>
+    <div class="body">
+      <p><b>1. <code>Math.pow</code> returns a double, always.</b> It printed
+      <code>1024.0</code>, not <code>1024</code>. So this does not compile:</p>
+      <p style="text-align:center"><code>int cube = Math.pow(d, 3);</code> &nbsp; &nbsp;
+      <span class="note">incompatible types: possible lossy conversion from double to int</span></p>
+      <p>You must cast: <code>int cube = (int) Math.pow(d, 3);</code>.</p>
+      <p><b>And now a myth, because you will be told it.</b> You will hear that
+      <code>Math.pow(5, 3)</code> can come back as 124.99999999, so casting to
+      <code>int</code> truncates it to 124. <b>In Java, that is not true</b>, and this
+      book does not repeat claims it has not run. We checked every base from 2 to 1000
+      and every power from 2 to 12 whose exact answer fits in a <code>double</code>:
+      <code>Math.pow</code> returned the <b>exact</b> value every single time, zero
+      exceptions. <code>Math.pow(5, 3) == 125.0</code> is <code>true</code>.</p>
+      <p>What <i>is</i> true is smaller and duller: a <code>double</code> can only hold
+      whole numbers exactly up to about 9 &times; 10<sup>15</sup> (Unit 3.3). Past that
+      it rounds, because there are no bits left, and no method can rescue you from it.
+      That is the <code>double</code>'s limit, not a flaw in <code>Math.pow</code>.</p>
+      <p>So why does the Armstrong answer on the 2025/26 paper multiply in a loop rather
+      than call <code>Math.pow</code>? Not for accuracy. Because it wants an
+      <code>int</code>, and <code>pow</code> hands back a <code>double</code>: the loop
+      skips the cast entirely, and the paper's own code does it that way.</p>
+      <p class="note">Do keep one thing from the myth, because the <b>cast</b> really
+      does behave that way: <code>(int)</code> <b>truncates</b>, it does not round (Unit
+      3.3). <code>(int) 124.99999999</code> is 124. If a value ever does arrive slightly
+      under, the cast will not save you: that is what <code>Math.round</code> is for.</p>
+      <p><b>2. <code>Math.round</code> rounds half <i>up</i>, and "up" means toward
+      positive infinity, not away from zero.</b> So <code>2.5</code> gives 3 and
+      <code>-2.5</code> gives <b>-2</b>, not -3. The rule is
+      <code>Math.round(x)</code> = <code>Math.floor(x + 0.5)</code>, and adding 0.5 to
+      -2.5 gives exactly -2.0. Both halves round the same direction on the number line,
+      which is not what "round half up" sounds like it means.</p>
+      <p class="note">Note also <code>Math.round(2.4)</code> gave <code>2</code>, an
+      <b>int-looking</b> value that is really a <code>long</code>. Assigning it to an
+      <code>int</code> needs a cast too.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ---------------- 3.7 ---------------- -->

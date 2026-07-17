@@ -19,14 +19,19 @@ COS221 - Computer Programming I (Java)/
 
 ## Status
 
-**Style checkpoint delivered, awaiting sign-off.** Front matter, Foundations F.1 to
-F.11, Module 1 and Module 2 are written and rendering to 33 pages. All gates pass and
-every listing compiles and runs. Awaiting Victor's verdict on voice, palette and box
-balance before Modules 3 to 10 are written to the same bar.
+**Style signed off. All ten modules written. Both papers solved in full.** Front
+matter, Foundations F.1 to F.11, Modules 1 to 10, and every question on both the
+2024/25 and the 2025/26 papers, worked end to end. Every listing compiles and runs on a
+real JVM and every printed output was captured from one; all gates report zero.
 
-Still to write: Modules 3 to 10; full solutions to every question on both papers; mock
-papers in both formats; the reference section (formula-free, but an API card, a keyword
-index, a method reference and a glossary).
+The papers are answered **completely**, not to the rubric: 24/25 says attempt four of
+six and 25/26 says one question per section, and both are answered whole. A question
+you skip is a topic you can be examined on next year, and the 25/26 paper proves it by
+re-asking 24/25's file I/O, inheritance and digit-loops in a new costume.
+
+Still to write: mock papers in both formats; the reference section (formula-free, but
+an API card, a keyword index, a method reference and a glossary); the keyword/API
+before-use gate (gate 2 below, still held by hand).
 
 ## Build it
 

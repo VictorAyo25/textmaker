@@ -1,0 +1,403 @@
+<!-- ============ SOLVED: 2024/25 QUESTIONS TWO AND THREE ============ -->
+
+<section>
+  <div class="kick">S.10 &middot; 2024/25 &middot; QUESTION TWO &middot; 17.5 MARKS</div>
+  <h2 class="title">Question Two, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 A &middot; Define dynamic array initialisation, length, and the out-of-bounds exception</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <ol class="qlist">
+        <li><b>Dynamic array initialisation.</b> Creating the array with
+        <code>new</code> and a size decided <b>while the program runs</b>, rather than
+        from a literal list written in the source:
+        <code>int[] a = new int[n];</code> where <code>n</code> is only known at run
+        time. Every element starts at its default (0 for <code>int</code>,
+        <code>null</code> for objects), and the values are filled in afterwards.
+        <span class="note">Contrast static initialisation,
+        <code>int[] a = {2, 4, 6, 8};</code>, where the size and the values are both
+        fixed in the source.</span></li>
+        <li><b>The length property.</b> <code>a.length</code> gives the number of
+        elements. It is a <b>field, not a method</b>, so there are no brackets: writing
+        <code>a.length()</code> is a compile error. It is <code>final</code>: an array's
+        length is fixed the moment it is created and can never change.
+        <span class="note">A String's length IS a method, <code>s.length()</code>. The
+        examiner knows that catches people; Unit 7.2.</span></li>
+        <li><b>The out-of-bounds exception.</b>
+        <code>ArrayIndexOutOfBoundsException</code>, thrown at <b>run time</b> when you
+        use an index below 0 or at or above <code>length</code>. Valid indexes are
+        <b>0 to length - 1</b>, so <code>a[a.length]</code> always throws. It is
+        <b>unchecked</b>, so the compiler will not warn you about it.</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> "length is a field, not a method" and
+      "indexes are 0 to length-1" are the two facts every other part of this question
+      depends on. F.10 and Unit 8.1.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 B &middot; Debug CopyArray</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="CopyArrayBroken" data-error="not a statement"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CopyArrayBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] a = {2, 4, 6, 8};</span><span class="l">        <span class="k">int</span> b;</span><span class="l">        System.arrayCopy(a, 0, b, 0, a.length);</span><span class="l">        <span class="k">for</span>(<span class="k">int</span> i = 0; i &lt;= b.length; i) {</span><span class="l">            System.out.println(b[i]);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: not a statement</pre>
+      <p><b>The errors, listed.</b></p>
+      <ol class="qlist">
+        <li><b><code>int b;</code> is not an array.</b> It is a single int, and it is
+        never given a value. <code>System.arraycopy</code> needs a <b>destination array
+        that already exists and has room</b>: it copies into an array, it does not
+        create one. Fix: <code>int[] b = new int[a.length];</code>
+        <span class="note">This is Q2 A part 1 being examined: dynamic initialisation,
+        sized from <code>a.length</code>.</span></li>
+        <li><b><code>System.arrayCopy</code> has a capital C.</b> The method is
+        <code>System.arraycopy</code>, all lower case. Java is case sensitive, so this
+        is not a typo the compiler forgives: it is a method that does not exist.</li>
+        <li><b><code>i &lt;= b.length</code> is off by one.</b> The last index is
+        <code>length - 1</code>, so this reads <code>b[4]</code> on an array of 4 and
+        throws <code>ArrayIndexOutOfBoundsException</code>. Fix:
+        <code>i &lt; b.length</code>. <span class="note">Q2 A part 3, being examined.</span></li>
+        <li><b><code>i</code> is not an increment.</b> The third slot of the for needs
+        <code>i++</code>. As written it is not even a statement, which is the error
+        javac reports first. Without it the loop would never end.</li>
+      </ol>
+      <p class="note"><b>Notice what this question is.</b> Its three errors are its own
+      part A, in order: dynamic initialisation, the length property, the out-of-bounds
+      exception. Part A is not a warm-up, it is the answer key to part B.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CopyArray"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CopyArray</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] a = {2, 4, 6, 8};</span><span class="l good">        <span class="k">int</span>[] b = <span class="k">new</span> <span class="k">int</span>[a.length];</span><span class="l good">        System.arraycopy(a, 0, b, 0, a.length);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; b.length; i++) {</span><span class="l">            System.out.println(b[i]);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>2
+4
+6
+8</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>System.arraycopy(a, 0, b, 0,
+      a.length)</code> reads: from <code>a</code> starting at 0, into <code>b</code>
+      starting at 0, <code>a.length</code> elements. Source, source position,
+      destination, destination position, count. Unit 8.3.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 C &middot; Dry run the subtraction loop</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p>The question asks for <b>the output of each iteration and the final output</b>,
+      which is a specific instruction: it wants the table, not just the number.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; x = x - nums[i], starting from nums[0]</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>nums = {2, 4, 6, 8}, and x starts at nums[0] = 2</caption>
+        <tr><th style="width:10%">i</th><th style="width:18%">nums[i]</th><th style="width:36%">x = x - nums[i]</th><th>x after</th></tr>
+        <tr><td>-</td><td>-</td><td>x = nums[0]</td><td>2</td></tr>
+        <tr><td>1</td><td>4</td><td>2 - 4</td><td class="chg">-2</td></tr>
+        <tr><td>2</td><td>6</td><td>-2 - 6</td><td class="chg">-8</td></tr>
+        <tr><td>3</td><td>8</td><td>-8 - 8</td><td class="chg">-16</td></tr>
+        <tr><td colspan="3"><b>Final output</b></td><td class="emit">-16</td></tr>
+      </table>
+      <p><b>Two things the marker is watching for.</b> First, <b>the loop starts at
+      i = 1, not 0</b>, because <code>x</code> was already primed with
+      <code>nums[0]</code>; start at 0 and you subtract 2 from itself and get -18.
+      Second, <b>the loop prints nothing</b>: the <code>println</code> is outside it, so
+      "the output of each iteration" is a trace of <code>x</code>, and the only thing the
+      program actually prints is <code>-16</code>. Say both.</p>
+      <p class="note">This is the "prime with the first element, then start the loop at
+      1" idiom you use for maximum and minimum (Unit 8.4). Here it is used for a running
+      subtraction, which is the same shape with a different operator.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The paper's own code, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SubtractDown"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SubtractDown</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] nums = {2, 4, 6, 8};</span><span class="l">        <span class="k">int</span> x = nums[0];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; nums.length; i++) {</span><span class="l">            x = x - nums[i];</span><span class="l">        }</span><span class="l">        System.out.println(x);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>-16</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 D &middot; Ten values, evens, odd sum, and the maximum</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Prompt for 10 values into an array. Write a method that
+      <b>finds, counts and displays</b> the even numbers, and another that <b>sums and
+      displays</b> the odd numbers. Then, <b>in main, use a for loop</b> to find and
+      display the maximum.</p>
+      <p class="small">Read the verbs: <b>find, count, display</b> is three things, and
+      the even method must do all three. And the maximum must be found <b>in main with a
+      for loop</b>, not in a third method: the question says where to put it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ArrayStats" data-stdin="4&#10;7&#10;-3&#10;12&#10;9&#10;0&#10;15&#10;-8&#10;6&#10;11"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ArrayStats</span> {</span><span class="l"></span><span class="l">    <span class="c">// ii a. find, count and display the even numbers</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> evens(<span class="k">int</span>[] values) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="t">String</span> found = <span class="s">""</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] % 2 == 0) {</span><span class="l">                count++;</span><span class="l">                found = found.equals(<span class="s">""</span>) ? <span class="s">""</span> + values[i] : found + <span class="s">", "</span> + values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Even numbers: "</span> + found);</span><span class="l">        System.out.println(<span class="s">"How many even: "</span> + count);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// ii b. sum and display the odd numbers</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> odds(<span class="k">int</span>[] values) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] % 2 != 0) {</span><span class="l">                sum += values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum of the odd numbers: "</span> + sum);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// i. prompt for 10 values</span></span><span class="l">        <span class="k">int</span>[] values = <span class="k">new</span> <span class="k">int</span>[10];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; values.length; i++) {</span><span class="l">            values[i] = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">        }</span><span class="l"></span><span class="l">        evens(values);</span><span class="l">        odds(values);</span><span class="l"></span><span class="l">        <span class="c">// iii. a for loop in main to find and display the maximum</span></span><span class="l">        <span class="k">int</span> max = values[0];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; values.length; i++) {</span><span class="l">            <span class="k">if</span> (values[i] &gt; max) {</span><span class="l">                max = values[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Maximum: "</span> + max);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Even numbers: 4, 12, 0, -8, 6
+How many even: 5
+Sum of the odd numbers: 39
+Maximum: 15</pre>
+      <p class="small" style="padding:6pt 8pt 0">Input is a Scanner here so the run can
+      be printed. The ten values fed in were 4, 7, -3, 12, 9, 0, 15, -8, 6, 11.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Test for odd with != 0, never == 1</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>if (v % 2 != 0)</code> &nbsp; is odd. <b>Always.</b></p>
+        <p><code>if (v % 2 == 1)</code> &nbsp; is odd <b>only for positives</b>, and
+        silently wrong for negatives.</p>
+      </div>
+      <p>In Java, <code>%</code> keeps the sign of the <b>left</b> operand, so
+      <code>-3 % 2</code> is <b>-1</b>, not 1. So <code>-3 % 2 == 1</code> is false and
+      the <code>== 1</code> test declares -3 even.</p>
+      <p><b>The test data above proves it.</b> The odd numbers are 7, -3, 9, 15 and 11,
+      and they sum to <b>39</b>. Had the method used <code>== 1</code>, it would have
+      skipped -3 and printed <b>42</b>: a wrong answer, from a program that runs
+      cleanly and looks right. That is why the ten values include a negative odd number,
+      and why yours should too. Unit 3.6 and Unit 8.4.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>"not even" is safe; "equals one" is
+      not.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Priming the maximum: why not start at 0</span></div>
+    <div class="body">
+      <p>The maximum loop starts <code>int max = values[0];</code> and then runs from
+      <code>i = 1</code>. The tempting alternative is <code>int max = 0;</code>, and it
+      is a bug waiting for the right data.</p>
+      <p>If every value is negative, <code>max = 0</code> never gets replaced and the
+      program reports a maximum of <b>0</b>, a number that <b>is not in the array</b>.
+      Priming with <code>values[0]</code> cannot do that: the answer starts as a real
+      element and only ever moves to another real element.</p>
+      <p class="note">The same reasoning as Unit 8.4's minimum, and the same reasoning
+      that makes <code>Integer.MIN_VALUE</code> the other correct prime. Starting at 0
+      is correct only if you know the data contains a non-negative number, and "I know
+      my data" is how bugs are born.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.11 &middot; 2024/25 &middot; QUESTION THREE &middot; 17.5 MARKS</div>
+  <h2 class="title">Question Three, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 A &middot; Define PrintWriter, Files.write(), and try-with-resources</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <ol class="qlist">
+        <li><b>PrintWriter.</b> A character-output class that writes <b>formatted
+        text</b> to a file or stream, giving you the same familiar methods as
+        <code>System.out</code>: <code>print</code>, <code>println</code> and
+        <code>printf</code>. It is a wrapper: you hand it a destination (a file name, or
+        another Writer) and it adds the formatting.</li>
+        <li><b><code>Files.write()</code>.</b> A <code>static</code> method on
+        <code>java.nio.file.Files</code> that writes an entire byte array or collection
+        of lines to a file <b>in a single call</b>, creating the file if needed and
+        closing it for you. It is the one-line alternative to opening a writer, looping,
+        and closing.</li>
+        <li><b>try-with-resources.</b> A <code>try</code> with the resource declared in
+        brackets, <code>try (PrintWriter out = ...) { ... }</code>, which
+        <b>automatically closes</b> that resource when the block ends, whether it ends
+        normally or by an exception. It removes the need for a <code>finally</code>
+        block whose only job is closing. Unit 10.2.</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> for each, say <b>what it is</b> and
+      <b>what it saves you</b>. "PrintWriter writes formatted text" earns the mark;
+      "PrintWriter is for files" does not distinguish it from FileWriter.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 B &middot; Debug FileTest</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="FileTestBroken" data-error="class, interface, enum, or record expected"><span class="l">java.io.<span class="t">FileWriter</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">FileTestBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">FileWriter</span> writer = <span class="t">FileWriter</span>(<span class="s">"note.txt"</span>);</span><span class="l">        writer.write(<span class="s">"Hello from Java!"</span>);</span><span class="l">        writer.close</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: class, interface, enum, or record expected</pre>
+      <p><b>The errors, listed.</b></p>
+      <ol class="qlist">
+        <li><b>Line 1 is missing <code>import</code>.</b> <code>java.io.FileWriter;</code>
+        on its own is not a statement, it is nothing at all, which is why javac's first
+        complaint is that it expected a class. Fix:
+        <code>import java.io.FileWriter;</code></li>
+        <li><b><code>FileWriter("note.txt")</code> is missing <code>new</code>.</b>
+        Creating an object requires <code>new</code>: without it Java looks for a
+        <b>method</b> called <code>FileWriter</code> and finds none. Fix:
+        <code>new FileWriter("note.txt")</code>.</li>
+        <li><b><code>writer.close</code> is missing its brackets and semicolon.</b> A
+        method call needs <code>()</code>. Fix: <code>writer.close();</code>
+        <span class="note">Naming a method without calling it is not a statement, so it
+        cannot stand on a line by itself.</span></li>
+        <li><b>The <code>IOException</code> is never handled.</b> This is the error the
+        others hide, and it is the one worth the mark.
+        <code>new FileWriter(...)</code>, <code>write(...)</code> and
+        <code>close()</code> all throw <code>IOException</code>, which is
+        <b>checked</b> (Unit 10.1), so the code <b>will not compile</b> until you either
+        catch it or declare <code>throws IOException</code> on main. Fix all three
+        syntax errors and it still does not compile.</li>
+      </ol>
+      <p class="note">Error 4 is the one that separates answers. Anyone can see a
+      missing bracket; the examiner wants to know whether you understand that a checked
+      exception is a <b>compile-time</b> obligation.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q3 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="FileTest"><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">FileTest</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">try</span> (<span class="t">FileWriter</span> writer = <span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"note.txt"</span>)) {</span><span class="l">            writer.write(<span class="s">"Hello from Java!"</span>);</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not write note.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"note.txt written"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>note.txt written</pre>
+      <p class="small" style="padding:6pt 8pt 0">try-with-resources answers error 3 and
+      error 4 together: it closes the writer for you, so <code>close()</code> cannot be
+      forgotten, and the <code>catch</code> discharges the checked exception. That is
+      Q3 A part 3 being examined in part B.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 C &middot; What is the output of the data.txt file?</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p>Note the question: not what the program prints on screen (it prints
+      <b>nothing</b>), but what ends up <b>in the file</b>.</p>
+      <p><b>The answer:</b></p>
+      <pre class="out"><span class="olabel">data.txt</span>Age: 25
+Score: 89.46</pre>
+      <p>Two lines. And three details carry the four marks.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; print, println, printf: the three differences</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>print("Age: ")</code> &nbsp; writes the text, <b>no line break</b>. So
+        the 25 lands on the same line.</p>
+        <p><code>println(25)</code> &nbsp; writes it <b>and a line break</b>. That break
+        is what ends line 1.</p>
+        <p><code>printf("Score: %.2f", 89.456)</code> &nbsp; formats, and adds
+        <b>no line break</b> unless you write <code>%n</code>.</p>
+      </div>
+      <p><b>1. <code>%.2f</code> rounds, it does not truncate.</b> 89.456 to two places
+      is <b>89.46</b>, not 89.45. Unit 3.11.</p>
+      <p><b>2. The file has no trailing newline.</b> <code>printf</code> did not add
+      one, so the file ends immediately after the 6 of 89.46. The file is 21 bytes and
+      its last character is not a line break.</p>
+      <p><b>3. Nothing appears on screen.</b> Every call is on <code>pw</code>, not on
+      <code>System.out</code>. A common wrong answer is to write the two lines as
+      program output.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>only println breaks the line.</b>
+      <code>print</code> and <code>printf</code> leave the cursor exactly where it
+      stopped.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The paper's code, plus a dump of the file it wrote</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="PrintWriterExample"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">PrintWriterExample</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> <span class="t">IOException</span> {</span><span class="l">        <span class="t">PrintWriter</span> pw = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="s">"data.txt"</span>);</span><span class="l">        pw.print(<span class="s">"Age: "</span>);</span><span class="l">        pw.println(25);</span><span class="l">        pw.printf(<span class="s">"Score: %.2f"</span>, 89.456);</span><span class="l">        pw.close();</span><span class="l"></span><span class="l">        <span class="c">// show exactly what landed in the file, bytes and all</span></span><span class="l">        <span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"data.txt"</span>));</span><span class="l">        <span class="t">StringBuilder</span> sb = <span class="k">new</span> <span class="t">StringBuilder</span>();</span><span class="l">        <span class="k">int</span> c;</span><span class="l">        <span class="k">while</span> ((c = in.read()) != -1) sb.append((<span class="k">char</span>) c);</span><span class="l">        in.close();</span><span class="l">        System.out.println(<span class="s">"--- data.txt verbatim ---"</span>);</span><span class="l">        System.out.print(sb);</span><span class="l">        System.out.println(<span class="s">"\n--- as escaped bytes ---"</span>);</span><span class="l">        System.out.println(sb.toString().replace(<span class="s">"\r"</span>, <span class="s">"\r"</span>).replace(<span class="s">"\n"</span>, <span class="s">"\n"</span>));</span><span class="l">        System.out.println(<span class="s">"length = "</span> + sb.length());</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>--- data.txt verbatim ---
+Age: 25
+Score: 89.46
+--- as escaped bytes ---
+Age: 25
+Score: 89.46
+length = 21</pre>
+      <p class="small" style="padding:6pt 8pt 0">The paper's four lines are exactly as
+      printed; everything after <code>pw.close()</code> is ours, reading the file back so
+      that this book can show you what landed in it. <b>Length 21</b> is the proof of the
+      trailing-newline point: "Age: 25" is 7 characters, "Score: 89.46" is 12, which is
+      19, and the two remaining bytes are the single line break in the middle. There is
+      nothing on the end.</p>
+      <p class="note">Those two bytes are worth a word. <code>println</code> uses the
+      <b>platform's</b> line separator, which on Windows is carriage-return plus
+      line-feed (two characters) and on Linux is line-feed alone (one). Same program, 21
+      bytes here and 20 there. The two printed lines are the answer either way; if you
+      are asked for a byte count, say which platform.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 D &middot; Write students.txt as a formatted, appended table</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Create <code>students.txt</code> if it does not exist. Use
+      <b>PrintWriter</b> to write John (20, 3.75), Lilian (21, 3.95) and Ken (19, 3.65)
+      as a formatted table. Use <b>printf()</b> for column alignment. Ensure the file is
+      <b>appended to if it already exists</b>. Handle exceptions properly.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; PrintWriter cannot append. The FileWriter under it can</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>new PrintWriter("students.txt")</code> &nbsp; <b>truncates</b> the file
+        to empty. Every time. There is no append constructor.</p>
+        <p><code>new PrintWriter(new FileWriter("students.txt", <b>true</b>))</code>
+        &nbsp; appends.</p>
+      </div>
+      <p>The <code>true</code> is the append flag, and it belongs to
+      <b>FileWriter</b>, not to PrintWriter. So the answer to "append with PrintWriter"
+      is to <b>wrap</b> one around a FileWriter opened in append mode, exactly as
+      Unit 10.3 wraps a BufferedReader around a FileReader to get
+      <code>readLine()</code>. Each wrapper adds what the other lacks.</p>
+      <p><b>And it satisfies part i for free.</b> FileWriter <b>creates the file if it
+      does not exist</b>, in either mode. So "create students.txt if it does not exist"
+      needs no <code>if</code>, no <code>File.exists()</code>, no check at all: opening
+      it in append mode does both jobs.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the flag is on the writer that touches the
+      disk.</b> PrintWriter only formats; FileWriter opens the file, so the mode is its
+      business.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q3 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="StudentTable"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">PrintWriter</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">StudentTable</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span>[] names = {<span class="s">"John"</span>, <span class="s">"Lilian"</span>, <span class="s">"Ken"</span>};</span><span class="l">        <span class="k">int</span>[] ages = {20, 21, 19};</span><span class="l">        <span class="k">double</span>[] gpas = {3.75, 3.95, 3.65};</span><span class="l"></span><span class="l">        <span class="c">// iv. APPEND, not overwrite. new PrintWriter("students.txt") would truncate</span></span><span class="l">        <span class="c">// the file on every run; the append flag belongs to the FileWriter underneath.</span></span><span class="l">        <span class="c">// i. FileWriter also creates students.txt if it does not already exist.</span></span><span class="l good">        <span class="k">try</span> (<span class="t">PrintWriter</span> out = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"students.txt"</span>, <span class="k">true</span>))) {</span><span class="l"></span><span class="l">            <span class="c">// iii. printf for column alignment: %-8s is left-aligned in 8 columns.</span></span><span class="l">            out.printf(<span class="s">"%-8s %-5s %-6s%n"</span>, <span class="s">"Name"</span>, <span class="s">"Age"</span>, <span class="s">"GPA"</span>);</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; names.length; i++) {</span><span class="l">                out.printf(<span class="s">"%-8s %-5d %-6.2f%n"</span>, names[i], ages[i], gpas[i]);</span><span class="l">            }</span><span class="l"></span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            <span class="c">// v. handle possible exceptions properly</span></span><span class="l">            System.out.println(<span class="s">"Could not write students.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Not part of the answer: read the file back so this book can show you what</span></span><span class="l">        <span class="c">// landed in it. A dot marks each trailing space, which printf's padding leaves.</span></span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"students.txt"</span>))) {</span><span class="l">            <span class="t">String</span> line = in.readLine();</span><span class="l">            <span class="k">while</span> (line != <span class="k">null</span>) {</span><span class="l">                System.out.println(line.replace(<span class="s">' '</span>, <span class="s">'.'</span>));</span><span class="l">                line = in.readLine();</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not read students.txt back: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">students.txt, read back, every space shown as a dot</span>Name.....Age...GPA...
+John.....20....3.75..
+Lilian...21....3.95..
+Ken......19....3.65..</pre>
+      <p class="small" style="padding:6pt 8pt 0">The dots are the marks. <code>%-8s</code>
+      means: a String, left aligned, <b>padded to 8 columns</b>, and you can count the
+      padding: "Name" plus four dots, "Lilian" plus two. The minus sign is what makes it
+      left aligned; drop it and every column is pushed right and the table goes ragged.
+      <code>%-6.2f</code> is the same idea for a double, fixed at 2 decimal places, which
+      is why 3.75 prints as 3.75 and not 3.8. Unit 3.11.</p>
+      <p class="note">Those trailing dots are real spaces, sitting at the end of every
+      line. <code>printf</code> pads the last column just as faithfully as the others,
+      because it cannot know it is last. Harmless in a text file, and worth knowing
+      before you go looking for why two files that "look identical" are not.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Proof that the append flag is doing the work</span><span class="tag">RUN TWICE, IN ONE PROGRAM</span></div>
+    <div class="body">
+      <p class="small" style="padding:0 8pt 6pt">The claim above is that the
+      <code>true</code> is what makes it append and that without it the file is wiped.
+      Here that claim is tested: the same write is done <b>twice</b> each way, and the
+      lines are counted.</p>
+<pre class="src" data-run="AppendProof"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">PrintWriter</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AppendProof</span> {</span><span class="l"></span><span class="l">    <span class="k">static</span> <span class="k">void</span> writeOnce(<span class="t">String</span> file, <span class="k">boolean</span> append) <span class="k">throws</span> <span class="t">IOException</span> {</span><span class="l">        <span class="k">try</span> (<span class="t">PrintWriter</span> out = append</span><span class="l">                ? <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(file, <span class="k">true</span>))   <span class="c">// appends</span></span><span class="l">                : <span class="k">new</span> <span class="t">PrintWriter</span>(file)) {                      <span class="c">// TRUNCATES</span></span><span class="l">            out.printf(<span class="s">"%-8s %-5d %-6.2f%n"</span>, <span class="s">"John"</span>, 20, 3.75);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static</span> <span class="k">int</span> lines(<span class="t">String</span> file) <span class="k">throws</span> <span class="t">IOException</span> {</span><span class="l">        <span class="k">int</span> n = 0;</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(file))) {</span><span class="l">            <span class="k">while</span> (in.readLine() != <span class="k">null</span>) n++;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> n;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> <span class="t">IOException</span> {</span><span class="l">        writeOnce(<span class="s">"appended.txt"</span>, <span class="k">true</span>);</span><span class="l">        writeOnce(<span class="s">"appended.txt"</span>, <span class="k">true</span>);</span><span class="l">        System.out.println(<span class="s">"new PrintWriter(new FileWriter(f, true)) twice -&gt; "</span></span><span class="l">            + lines(<span class="s">"appended.txt"</span>) + <span class="s">" lines"</span>);</span><span class="l"></span><span class="l">        writeOnce(<span class="s">"truncated.txt"</span>, <span class="k">false</span>);</span><span class="l">        writeOnce(<span class="s">"truncated.txt"</span>, <span class="k">false</span>);</span><span class="l">        System.out.println(<span class="s">"new PrintWriter(f)                     twice -&gt; "</span></span><span class="l">            + lines(<span class="s">"truncated.txt"</span>) + <span class="s">" lines"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>new PrintWriter(new FileWriter(f, true)) twice -&gt; 2 lines
+new PrintWriter(f)                     twice -&gt; 1 lines</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Two lines against one.</b> The
+      appending version kept both records; the plain PrintWriter threw the first away
+      and left only the second. If you write <code>new PrintWriter("students.txt")</code>
+      in the exam, your program passes every other part of this question and still fails
+      part iv, and nothing in its output tells you.</p>
+    </div>
+  </div>
+</section>

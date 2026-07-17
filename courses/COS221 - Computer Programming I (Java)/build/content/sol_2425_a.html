@@ -1,0 +1,241 @@
+<!-- ============ SOLVED: 2024/25 QUESTIONS ONE TO THREE ============ -->
+
+<section>
+  <div class="kick">S.8 &middot; 2024/25 &middot; HOW THIS PAPER WORKS</div>
+  <h2 class="title">The 2024/25 paper, and why you are reading it</h2>
+  <hr class="rule"/>
+
+  <p class="lead">A different shape, the same four skills, and a title that changed
+  while the subject did not.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The format changed; the skills did not</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>2024/25:</b> six questions at 17.5 marks, <b>attempt any four</b>. No
+        sections.<br/>
+        <b>2025/26:</b> three sections, <b>one question from each</b>, 20 + 25 + 25.</p>
+        <p>Both are <b>70 marks over 3 hours</b>. Both test exactly four things:
+        <b>define, debug, dry run, write a program</b>.</p>
+      </div>
+      <p>The course was even retitled between the two: "Object-Oriented Programming
+      (Java)" became "Computer Programming I (Java)". Same code, COS221, same lecturer,
+      same syllabus.</p>
+      <p><b>So do not learn a paper. Learn the four skills.</b> A format can change
+      again between the writing of this book and the day you sit down; the four things
+      being tested have not changed in two years and will not.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>define, debug, dry run, write.</b> Every
+      question on both papers is one of those four, or a bundle of all four.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The 24/25 template, question by question</span></div>
+    <div class="body">
+      <p>Each of the six questions is the same four parts, in the same order, for the
+      same marks. Recognising this is worth as much as any single answer:</p>
+      <table class="data">
+        <tr><th style="width:10%">Part</th><th style="width:12%">Marks</th><th>What it always is</th></tr>
+        <tr><td><b>A</b></td><td>3</td><td><b>Define</b> or describe three terms. One mark each, one sentence each.</td></tr>
+        <tr><td><b>B</b></td><td>3</td><td><b>Debug</b>: list and correct the errors in a snippet.</td></tr>
+        <tr><td><b>C</b></td><td>4</td><td><b>Dry run</b>: state the output, sometimes per iteration.</td></tr>
+        <tr><td><b>D</b></td><td>7.5</td><td><b>Write a program</b> to a specification.</td></tr>
+      </table>
+      <p>Q5 and Q6 shuffle the order slightly (Q5 B asks you to write a method; Q6 A
+      asks for loop snippets), but the marks are identical and so is the intent.</p>
+      <p><b>This book answers all six.</b> The paper says attempt four, and in the hall
+      you will. But a question you skip is a topic you can be examined on next year, and
+      the 25/26 paper proves it: it took this paper's file I/O, its inheritance and its
+      digit-loops and asked them again in a different costume.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.9 &middot; 2024/25 &middot; QUESTION ONE &middot; 17.5 MARKS</div>
+  <h2 class="title">Question One, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 A &middot; Define method signature, overloading, and void method</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b> One mark each, and each is one sentence.</p>
+      <ol class="qlist">
+        <li><b>Method signature.</b> A method's <b>name together with its parameter
+        list</b> (the number, types and order of its parameters). The return type is
+        <b>not</b> part of the signature. It is what the compiler uses to tell one
+        method from another.</li>
+        <li><b>Method overloading.</b> Declaring more than one method with the <b>same
+        name</b> but <b>different parameter lists</b> in the same class, so the compiler
+        chooses between them at compile time by matching the arguments at the call site
+        against each signature.</li>
+        <li><b>Void method.</b> A method declared <code>void</code>, meaning it
+        <b>returns no value</b>. It is called as a statement on its own, cannot be used
+        in an expression, and may use a bare <code>return;</code> to exit early.</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> the examiner asked for signature and
+      overloading in the same breath deliberately, because the second is defined by the
+      first. Say "signature = name + parameter list, return type excluded" and the
+      overloading definition writes itself. Units 5.1, 5.2 and 5.6.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 B &middot; Debug SquareCalc</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="SquareCalcBroken" data-error="&lt;identifier&gt; expected"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SquareCalcBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] ) {</span><span class="l">        <span class="k">int</span> num = 5;</span><span class="l">        <span class="k">double</span> result = square(num)</span><span class="l">        System.out.println(<span class="s">"Square is: "</span> + result);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> square(<span class="k">int</span>) {</span><span class="l">        <span class="k">return</span> n * n;</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: &lt;identifier&gt; expected</pre>
+      <p><b>The errors, listed.</b> The question says <b>list and correct</b>, so list
+      them: a correction with no list is half an answer.</p>
+      <ol class="qlist">
+        <li><b>Line 2: <code>main(String[] )</code> has no parameter name.</b> A
+        parameter needs a type <b>and</b> a name. Fix: <code>main(String[] args)</code>.</li>
+        <li><b>Line 4: no semicolon</b> after <code>double result = square(num)</code>.</li>
+        <li><b>Line 8: <code>square(int)</code> has no parameter name.</b> Fix:
+        <code>square(int n)</code>.</li>
+        <li><b>Line 9: <code>n</code> does not exist.</b> It is the symptom of error 3:
+        name the parameter and <code>n</code> exists. <span class="note">Worth saying
+        out loud in your answer, because it shows you understand the cause rather than
+        listing every red squiggle.</span></li>
+        <li><b>The braces are missing</b> for both <code>square</code> and the class.</li>
+      </ol>
+      <p class="note">Three marks, five errors. Do not stop at three: the marker is
+      looking for the <b>set</b>, and errors 3 and 4 are one fault with two faces.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SquareCalc"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SquareCalc</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> num = 5;</span><span class="l">        <span class="k">double</span> result = square(num);</span><span class="l">        System.out.println(<span class="s">"Square is: "</span> + result);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> square(<span class="k">int</span> n) {</span><span class="l">        <span class="k">return</span> n * n;</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Square is: 25.0</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Look hard at that output: 25.0, not
+      25.</b> <code>square</code> returns an <code>int</code>, and 25 is stored into a
+      <code>double result</code>. Java <b>widens</b> the int to a double on the way in
+      (Unit 5.7), so what gets printed is a double, and a double always prints its
+      point. Nothing is wrong; but if you wrote "Square is: 25" you have missed a mark
+      that costs nothing to get right.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 C &middot; Dry run sumSeries with 3, 4, 5, 7</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p>The paper gives you this and four values to trace:</p>
+      <pre class="src nonum" data-nocheck="reproduced from the paper; it is run for real in the next box"><span class="l"><span class="k">public static int</span> sumSeries(<span class="k">int</span> i) {</span><span class="l">    <span class="k">int</span> sum = 0;</span><span class="l">    <span class="k">for</span> (<span class="k">int</span> j = 1; j &lt;= i; j++) {</span><span class="l bad">        sum += j / (j + 1);</span><span class="l">    }</span><span class="l">    <span class="k">return</span> sum;</span><span class="l">}</span></pre>
+      <p><b>The answer is 0. For all four values.</b></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Four values, one answer, and that is the question</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>j</code> and <code>j + 1</code> are both <code>int</code>, so
+        <code>j / (j + 1)</code> is <b>integer division</b>.</p>
+        <p><code>j</code> is always <b>smaller</b> than <code>j + 1</code>. A smaller
+        int divided by a larger int is <b>always 0</b>. Every term is 0. The sum is 0.</p>
+      </div>
+      <p>1/2 is 0. 2/3 is 0. 3/4 is 0. Not 0.5, 0.67, 0.75: <b>0</b>, because integer
+      division throws the remainder away (Unit 3.6). It does not round; it truncates.</p>
+      <p><b>Why the examiner gave you four values.</b> Being handed 3, 4, 5 and 7
+      shouts "four different answers". It is bait. The four values are there so that you
+      either notice the types once and answer all four in one line, or trace fractions
+      by hand for ten minutes and write four confident wrong numbers.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>int / int is an int.</b> Before you trace
+      any division, look at the two types. One <code>double</code> anywhere on top and
+      the answer changes completely: <code>1.0 / 2</code> is 0.5.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The paper's own method, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SumSeriesTrace"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SumSeriesTrace</span> {</span><span class="l"></span><span class="l">    <span class="c">// exactly as the paper prints it</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> sumSeries(<span class="k">int</span> i) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> j = 1; j &lt;= i; j++) {</span><span class="l">            sum += j / (j + 1);</span><span class="l">        }</span><span class="l">        <span class="k">return</span> sum;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"sumSeries(3) = "</span> + sumSeries(3));</span><span class="l">        System.out.println(<span class="s">"sumSeries(4) = "</span> + sumSeries(4));</span><span class="l">        System.out.println(<span class="s">"sumSeries(5) = "</span> + sumSeries(5));</span><span class="l">        System.out.println(<span class="s">"sumSeries(7) = "</span> + sumSeries(7));</span><span class="l">        System.out.println(<span class="s">"and the terms themselves: 1/2 = "</span> + (1 / 2)</span><span class="l">            + <span class="s">", 2/3 = "</span> + (2 / 3) + <span class="s">", 3/4 = "</span> + (3 / 4));</span><span class="l">        System.out.println(<span class="s">"with a double on top:     1.0/2 = "</span> + (1.0 / 2));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>sumSeries(3) = 0
+sumSeries(4) = 0
+sumSeries(5) = 0
+sumSeries(7) = 0
+and the terms themselves: 1/2 = 0, 2/3 = 0, 3/4 = 0
+with a double on top:     1.0/2 = 0.5</pre>
+      <p class="small" style="padding:6pt 8pt 0">Four inputs, one answer. The last two
+      lines are the whole explanation: every term really is 0, and the single change
+      that would rescue the method is a double on top.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; How to write this up for 4 marks</span></div>
+    <div class="body">
+      <p>Do not just write "0" four times. Show the trace for one value and generalise;
+      that is what the marks are for.</p>
+      <table class="trace">
+        <caption>sumSeries(3): the loop runs for j = 1, 2, 3</caption>
+        <tr><th style="width:10%">j</th><th style="width:22%">j / (j + 1)</th><th style="width:28%">in real arithmetic</th><th style="width:22%">as int division</th><th>sum</th></tr>
+        <tr><td>1</td><td>1 / 2</td><td>0.5</td><td class="chg">0</td><td>0</td></tr>
+        <tr><td>2</td><td>2 / 3</td><td>0.667</td><td class="chg">0</td><td>0</td></tr>
+        <tr><td>3</td><td>3 / 4</td><td>0.75</td><td class="chg">0</td><td class="emit">0</td></tr>
+      </table>
+      <p>Then one sentence: <b>"for any i, every term j/(j+1) has j &lt; j+1, so integer
+      division gives 0 every time; therefore sumSeries returns 0 for 3, 4, 5 and 7
+      alike."</b> That sentence is the answer to all four values, and it is worth more
+      than four traced tables.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D &middot; Overload area for circle, rectangle and triangle</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Write a program that <i>overloads</i> a method named
+      <code>area</code> to compute (i) the area of a circle, (ii) the area of a
+      rectangle, (iii) the area of a triangle, and call them from main.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The obvious answer to this question does not compile</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Circle needs one number. Rectangle needs two. Triangle needs two.</p>
+        <p>So rectangle is <code>area(double, double)</code>, and triangle (base and
+        height) is <b>also</b> <code>area(double, double)</code>.</p>
+        <p><b>That is the same signature. It will not compile.</b></p>
+      </div>
+      <p>Overloading needs different <b>parameter lists</b>, and "base, height" is not
+      different from "length, width": the parameter <i>names</i> are not part of the
+      signature, only the <b>types</b> (Q1 A, which you just answered). Write both and
+      javac says:</p>
+      <p style="text-align:center"><code>error: method area(double,double) is already
+      defined in class</code></p>
+      <p><b>The resolution:</b> give the triangle a <b>three-number</b> formula, so its
+      signature is <code>area(double, double, double)</code> and distinct. Heron's
+      formula takes the three sides:</p>
+      <p style="text-align:center">s = (a + b + c) / 2 &nbsp; &nbsp; and &nbsp; &nbsp;
+      area = &radic;<span style="text-decoration:overline">&nbsp;s(s-a)(s-b)(s-c)&nbsp;</span></p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>overloads differ by types, not by
+      names.</b> If two of your methods take the same types in the same order, you have
+      one method and a compiler error.</p>
+      <p class="note">This is the single most valuable thing in Question One, and the
+      examiner may not have noticed it. Say it explicitly in your answer: "base and
+      height would collide with length and width, so the triangle is done by Heron's
+      formula on three sides, giving a distinct signature." That sentence proves you
+      understand overloading, which is what the question is for.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="AreaOverload"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AreaOverload</span> {</span><span class="l"></span><span class="l">    <span class="c">// i. circle: one number, so the signature is area(double)</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> area(<span class="k">double</span> radius) {</span><span class="l">        <span class="k">return</span> <span class="t">Math</span>.<span class="t">PI</span> * radius * radius;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// ii. rectangle: two numbers, so the signature is area(double, double)</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> area(<span class="k">double</span> length, <span class="k">double</span> width) {</span><span class="l">        <span class="k">return</span> length * width;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii. triangle: base and height would ALSO be area(double, double), which is</span></span><span class="l">    <span class="c">// the rectangle's signature and will not compile. Three sides gives a distinct</span></span><span class="l">    <span class="c">// signature and a genuine formula: Heron's.</span></span><span class="l good">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> area(<span class="k">double</span> sideA, <span class="k">double</span> sideB, <span class="k">double</span> sideC) {</span><span class="l">        <span class="k">double</span> s = (sideA + sideB + sideC) / 2;</span><span class="l">        <span class="k">return</span> <span class="t">Math</span>.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"Circle, radius 7      : "</span> + area(7.0));</span><span class="l">        System.out.println(<span class="s">"Rectangle, 5 by 3     : "</span> + area(5.0, 3.0));</span><span class="l">        System.out.println(<span class="s">"Triangle, sides 3 4 5 : "</span> + area(3.0, 4.0, 5.0));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Circle, radius 7      : 153.93804002589985
+Rectangle, 5 by 3     : 15.0
+Triangle, sides 3 4 5 : 6.0</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Check the triangle without trusting
+      Heron.</b> 3, 4, 5 is a right triangle, so its area must be half of 3 &times; 4,
+      which is <b>6</b>. Heron gave exactly 6.0. When you use a formula you cannot see
+      through, feed it a case whose answer you already know. <code>Math.PI</code> and
+      <code>Math.sqrt</code> are Unit 3.6.</p>
+    </div>
+  </div>
+</section>

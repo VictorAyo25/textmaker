@@ -1,0 +1,542 @@
+<!-- ============ SOLVED: 2024/25 QUESTIONS FOUR TO SIX ============ -->
+
+<section>
+  <div class="kick">S.12 &middot; 2024/25 &middot; QUESTION FOUR &middot; 17.5 MARKS</div>
+  <h2 class="title">Question Four, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 A &middot; Describe decision-making, looping and branching</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b> These are the three families of <b>control structure</b>
+      (Unit 4.1): the statements that decide <b>which</b> code runs and <b>how often</b>,
+      rather than doing the work themselves.</p>
+      <ol class="qlist">
+        <li><b>Decision-making.</b> Choosing between paths by testing a condition, so
+        that some code runs and some does not: <code>if</code>, <code>if-else</code>, the
+        <code>if-else</code> ladder, and <code>switch</code>.</li>
+        <li><b>Looping (iteration).</b> Repeating a block while a condition holds:
+        <code>for</code>, <code>while</code> and <code>do-while</code>. The
+        <code>do-while</code> is the one that always runs <b>at least once</b>, because
+        it tests at the bottom.</li>
+        <li><b>Branching (jumping).</b> Transferring control out of the normal flow:
+        <code>break</code> leaves a loop or a switch case, <code>continue</code> skips to
+        the next iteration, and <code>return</code> leaves the method entirely.</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> name the actual keywords. "Looping
+      means repeating" is the idea; "for, while, do-while, and do-while tests at the
+      bottom so it runs at least once" is the answer. Units 4.1 to 4.7.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 B &middot; Debug the while loop</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="WhileDebugBroken" data-error="&#x27;;&#x27; expected"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">WhileDebugBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> count = 1</span><span class="l">        <span class="k">float</span> output = <span class="s">""</span>;</span><span class="l"></span><span class="l">        <span class="k">while</span>(count &lt;=5); {</span><span class="l">            output = output + count + <span class="s">" "</span>;</span><span class="l">            <span class="t">Count</span></span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(output);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: ';' expected</pre>
+      <p><b>The errors, listed.</b></p>
+      <ol class="qlist">
+        <li><b><code>int count = 1</code> has no semicolon.</b></li>
+        <li><b><code>float output = "";</code> is the wrong type.</b> A
+        <code>float</code> is a number; <code>""</code> is text. They are not
+        interchangeable and Java will not convert one to the other. Fix:
+        <code>String output = "";</code></li>
+        <li><b><code>while(count &lt;=5);</code> has a stray semicolon.</b> This is the
+        one worth the mark. That semicolon <b>is</b> the loop body: an empty statement.
+        The block below it then runs once, on its own, as an ordinary block. Since
+        <code>count</code> never changes inside the empty body, the condition stays true
+        forever and the program <b>hangs</b>.</li>
+        <li><b><code>Count</code> is not a statement.</b> Wrong case (Java is case
+        sensitive) and, even spelled right, <code>count</code> alone does nothing. Fix:
+        <code>count++;</code> which is what stops the loop.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The semicolon that eats the loop body</span></div>
+    <div class="body">
+      <p><code>while (condition);</code> and <code>for (...);</code> are both <b>legal
+      Java</b>. The semicolon is an empty statement, and an empty statement is a perfectly
+      good loop body. So the compiler says nothing at all.</p>
+      <p>What you wrote:</p>
+      <p style="text-align:center"><code>while (count &lt;= 5); { ... }</code></p>
+      <p>What Java read:</p>
+      <p style="text-align:center"><code>while (count &lt;= 5) { }</code> &nbsp; then, separately, &nbsp; <code>{ ... }</code></p>
+      <p>The braces you meant as the body became a free-floating block that runs
+      <b>once</b>, after the loop finishes. Except the loop never finishes, because
+      nothing inside an empty body can change <code>count</code>.</p>
+      <p class="note">This exact trap appears <b>twice</b> on this paper: here, and again
+      in Q6 C as <code>for (int i = 0; i &lt;= n; i++);</code>. The examiner is not being
+      subtle about how much they want you to notice it. <b>Whenever a loop misbehaves,
+      look at the character immediately after the closing bracket.</b> Unit 4.5.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q4 B corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="WhileDebug"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">WhileDebug</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> count = 1;</span><span class="l good">        <span class="t">String</span> output = <span class="s">""</span>;</span><span class="l"></span><span class="l">        <span class="k">while</span> (count &lt;= 5) {</span><span class="l">            output = output + count + <span class="s">" "</span>;</span><span class="l">            count++;</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(output);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>1 2 3 4 5 </pre>
+      <p class="small" style="padding:6pt 8pt 0">There is a trailing space after the 5,
+      because the loop appends <code>count + " "</code> every time including the last.
+      Harmless, and worth writing down if you are asked for the output exactly.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 C &middot; State the output of each iteration and the final sum</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>The answer: Sum = 7.</b></p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; break stops the loop dead</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>inputs = {3, 4, -1, 2}</caption>
+        <tr><th style="width:10%">i</th><th style="width:16%">inputs[i]</th><th style="width:30%">negative?</th><th style="width:24%">sum += inputs[i]</th><th>sum</th></tr>
+        <tr><td>0</td><td>3</td><td>no</td><td>0 + 3</td><td class="chg">3</td></tr>
+        <tr><td>1</td><td>4</td><td>no</td><td>3 + 4</td><td class="chg">7</td></tr>
+        <tr><td>2</td><td>-1</td><td class="chg">yes, so <b>break</b></td><td>never runs</td><td>7</td></tr>
+        <tr><td>3</td><td>2</td><td colspan="2"><b>never examined at all</b></td><td class="emit">7</td></tr>
+      </table>
+      <p><b>The 2 is the question.</b> <code>break</code> leaves the loop
+      <b>entirely</b>, so the 2 at index 3 is never seen and never added. Answer 9 and
+      you have read <code>break</code> as <code>continue</code>, which is the whole point
+      of the question.</p>
+      <div class="card">
+        <p><b><code>break</code> ends the loop. <code>continue</code> ends the
+        iteration.</b></p>
+        <p>Swap them here and the sum is 3 + 4 + 2 = <b>9</b>, because
+        <code>continue</code> would skip only the -1 and carry on to the 2.</p>
+      </div>
+      <p class="note">Note also that this loop prints nothing per iteration: the
+      <code>println</code> is after it. "The output of each iteration" is the trace of
+      <code>sum</code>; the program's only output is <code>Sum = 7</code>. Unit 4.7.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The paper's own code, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="BreakSum"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">BreakSum</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">int</span>[] inputs = {3, 4, -1, 2};</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; inputs.length; i++) {</span><span class="l">            <span class="k">if</span> (inputs[i] &lt; 0)</span><span class="l">                <span class="k">break</span>;</span><span class="l">            sum += inputs[i];</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum = "</span> + sum);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Sum = 7</pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 D &middot; The TemperatureCheck class</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Define a class <code>TemperatureCheck</code> with a
+      <code>double temperature</code> field, a constructor that sets it, and a method
+      <code>evaluateTemperature()</code> using <b>if-else</b> to print "Too Cold" below
+      15, "Normal" between 15 and 30 <b>inclusive</b>, and "Too Hot" above 30. In main,
+      prompt for a temperature with <b>JOptionPane</b>, create an object, and display the
+      result.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; "Between 15 and 30 inclusive" needs no upper test</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>if (t &lt; 15) "Too Cold";</code><br/>
+        <code>else if (t &lt;= 30) "Normal";</code><br/>
+        <code>else "Too Hot";</code></p>
+      </div>
+      <p>The <code>else if</code> only runs when <code>t &lt; 15</code> was <b>false</b>,
+      which already means <code>t &gt;= 15</code>. So writing
+      <code>else if (t &gt;= 15 &amp;&amp; t &lt;= 30)</code> is not wrong, it is
+      <b>redundant</b>: the ladder has already established the lower bound. Let the
+      structure carry what it has proved (Unit 4.2).</p>
+      <p><b>The two boundaries are the marks.</b> "Inclusive" means 15 and 30 are both
+      Normal. Get <code>&lt;</code> and <code>&lt;=</code> the wrong way round and the
+      program is right for 99% of inputs and wrong on exactly the two values the examiner
+      will test.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>test the fences, not the field.</b> When a
+      spec names a boundary, that boundary is the test case.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q4 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="TemperatureDemo" data-stdin="5&#10;15&#10;22&#10;30&#10;31&#10;40"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="c">// i. the class, with its one data field</span></span><span class="l"><span class="k">class</span> <span class="t">TemperatureCheck</span> {</span><span class="l">    <span class="k">private</span> <span class="k">double</span> temperature;</span><span class="l"></span><span class="l">    <span class="c">// ii. a constructor that sets the temperature</span></span><span class="l">    <span class="k">public</span> <span class="t">TemperatureCheck</span>(<span class="k">double</span> temperature) {</span><span class="l">        <span class="k">this</span>.temperature = temperature;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii. if-else evaluation</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> evaluateTemperature() {</span><span class="l">        <span class="k">if</span> (temperature &lt; 15) {</span><span class="l">            System.out.println(<span class="s">"Too Cold"</span>);</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (temperature &lt;= 30) {</span><span class="l">            System.out.println(<span class="s">"Normal"</span>);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.println(<span class="s">"Too Hot"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">TemperatureDemo</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l">        <span class="k">while</span> (in.hasNextLine()) {</span><span class="l">            <span class="t">String</span> line = in.nextLine().trim();</span><span class="l">            <span class="k">if</span> (line.isEmpty()) <span class="k">continue</span>;</span><span class="l">            <span class="k">double</span> t = <span class="t">Double</span>.parseDouble(line);</span><span class="l">            System.out.print(t + <span class="s">" -&gt; "</span>);</span><span class="l">            <span class="t">TemperatureCheck</span> check = <span class="k">new</span> <span class="t">TemperatureCheck</span>(t);</span><span class="l">            check.evaluateTemperature();</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>5.0 -&gt; Too Cold
+15.0 -&gt; Normal
+22.0 -&gt; Normal
+30.0 -&gt; Normal
+31.0 -&gt; Too Hot
+40.0 -&gt; Too Hot</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Read rows 2 and 4:</b> 15.0 and 30.0
+      are both Normal, which is exactly what "inclusive" demands, and 31.0 is the first
+      Too Hot. The values were chosen to sit on the fences. In the hall this reads
+      <code>double t = Double.parseDouble(JOptionPane.showInputDialog("Enter a
+      temperature:"));</code> and the result goes out through
+      <code>showMessageDialog</code> (F.11); the loop here exists only so one run can
+      show you all six cases.</p>
+      <p class="note">The field is <code>private</code> and set only by the constructor,
+      which is Unit 6.4's encapsulation arriving without being asked for. The question
+      says "data field (state)"; making it private costs one word and is never wrong.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.13 &middot; 2024/25 &middot; QUESTION FIVE &middot; 17.5 MARKS</div>
+  <h2 class="title">Question Five, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 A &middot; Describe inheritance, polymorphism and method overriding</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <ol class="qlist">
+        <li><b>Inheritance.</b> One class acquiring the fields and methods of another
+        with <code>extends</code>, so the subclass has everything the superclass has
+        without repeating it, and may add or replace behaviour. It models an <b>is-a</b>
+        relationship: a Bicycle is a Vehicle.</li>
+        <li><b>Polymorphism.</b> One reference, many behaviours: a variable of the
+        superclass type may hold an object of any subclass, and a call through it runs
+        the <b>object's own</b> version, decided at <b>run time</b>. "Many forms".</li>
+        <li><b>Method overriding.</b> A subclass supplying its own version of a method
+        <b>the superclass already has</b>, with the <b>same signature</b>, which replaces
+        the inherited one for objects of that subclass.</li>
+      </ol>
+      <p class="small"><b>Where the marks are:</b> these three are one idea in three
+      parts, and saying so earns the mark. <b>Inheritance</b> makes the family;
+      <b>overriding</b> makes the members differ; <b>polymorphism</b> is what you get
+      when you then hold any of them in one variable and call the method. Distinguish
+      overriding (same signature, subclass, run time) from overloading (different
+      parameters, same class, compile time), which is Q1 of this same paper. Units 6.6
+      and 6.7.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 B &middot; Write countNegatives</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A method taking a single-dimensional <code>int</code> array
+      and returning how many values are negative. The question explicitly says you do
+      <b>not</b> need the class or main: just the method.</p>
+      <p class="small">Read that concession and take it. Writing a whole class here wins
+      no extra marks and costs you minutes you need for part D.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q5 B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CountNegatives"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CountNegatives</span> {</span><span class="l"></span><span class="l">    <span class="c">// Q5 B: the method the question asks for, and nothing else.</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> countNegatives(<span class="k">int</span>[] numbers) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; numbers.length; i++) {</span><span class="l">            <span class="k">if</span> (numbers[i] &lt; 0) {</span><span class="l">                count++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// main is not part of the answer; it is here so the method can be run.</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] a = {3, -1, 0, -7, 8, -2};</span><span class="l">        <span class="k">int</span>[] b = {1, 2, 3};</span><span class="l">        <span class="k">int</span>[] c = {};</span><span class="l">        System.out.println(<span class="s">"{3, -1, 0, -7, 8, -2} -&gt; "</span> + countNegatives(a));</span><span class="l">        System.out.println(<span class="s">"{1, 2, 3}             -&gt; "</span> + countNegatives(b));</span><span class="l">        System.out.println(<span class="s">"{} (empty)            -&gt; "</span> + countNegatives(c));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>{3, -1, 0, -7, 8, -2} -&gt; 3
+{1, 2, 3}             -&gt; 0
+{} (empty)            -&gt; 0</pre>
+      <p class="small" style="padding:6pt 8pt 0">Only
+      <code>countNegatives</code> is the answer; <code>main</code> is here so the method
+      can be run. <b>Zero is not negative</b>, which is why the first array has a 0 in it
+      and the count is 3, not 4: the test is <code>&lt; 0</code>, never
+      <code>&lt;= 0</code>. And the empty array returns 0 without any special case, since
+      the loop simply never runs.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 C &middot; Identify the errors and state the output after correction</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="MiddleValueBroken" data-error="not a statement"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MiddleValueBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> nums = {10, 20, 30};</span><span class="l">        System.out.println(<span class="s">"Middle value is: "</span> + nums[3]);</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span>(<span class="k">int</span> i = 0; i &lt;= nums.length; i) {</span><span class="l">            sum += nums[i];</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum is: "</span> + );</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: not a statement</pre>
+      <p><b>The errors, listed.</b></p>
+      <ol class="qlist">
+        <li><b><code>int nums = {10, 20, 30};</code> is not an array.</b> A list in braces
+        needs an array type. Fix: <code>int[] nums = {10, 20, 30};</code></li>
+        <li><b><code>nums[3]</code> does not exist.</b> Three elements means indexes 0, 1
+        and 2. And the label says <b>"Middle value"</b>, so the intent is
+        <code>nums[1]</code>, which is 20. <span class="note">Say both halves: the index
+        is out of bounds <b>and</b> the middle of three is index 1.</span></li>
+        <li><b><code>i &lt;= nums.length</code> is off by one</b> and would throw at
+        <code>nums[3]</code>. Fix: <code>i &lt; nums.length</code>.</li>
+        <li><b><code>i</code> never increments.</b> Fix: <code>i++</code>.</li>
+        <li><b><code>"Sum is: " + );</code> has nothing to add.</b> Fix:
+        <code>"Sum is: " + sum</code>.</li>
+      </ol>
+      <p><b>The output after correction:</b></p>
+      <pre class="out"><span class="olabel">Output</span>Middle value is: 20
+Sum is: 60</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q5 C corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MiddleValue"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MiddleValue</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l good">        <span class="k">int</span>[] nums = {10, 20, 30};</span><span class="l">        System.out.println(<span class="s">"Middle value is: "</span> + nums[1]);</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; nums.length; i++) {</span><span class="l">            sum += nums[i];</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum is: "</span> + sum);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Middle value is: 20
+Sum is: 60</pre>
+      <p class="note" style="padding:6pt 8pt 0">Errors 3 and 4 are the same two errors as
+      Q2 B on this paper, character for character. <b>The off-by-one and the missing
+      increment are this examiner's signature.</b> They are on both papers, in both
+      years. Learn them once.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 D &middot; Vehicle and Bicycle</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A superclass <code>Vehicle</code> with an
+      <code>int speed</code>, a constructor that initialises it, and
+      <code>displayInfo()</code> printing "Vehicle speed: &lt;speed&gt; km/h". A subclass
+      <code>Bicycle</code> overriding <code>displayInfo()</code> to print "Bicycle speed:
+      &lt;speed&gt; km/h. This is an eco-friendly ride." In main, create a Vehicle at 80
+      and a Bicycle at 25 and call <code>displayInfo()</code> on both <b>to demonstrate
+      polymorphism</b>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q5 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="VehicleDemo"><span class="l"><span class="c">// i. the superclass</span></span><span class="l"><span class="k">class</span> <span class="t">Vehicle</span> {</span><span class="l">    <span class="k">protected</span> <span class="k">int</span> speed;</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="t">Vehicle</span>(<span class="k">int</span> speed) {</span><span class="l">        <span class="k">this</span>.speed = speed;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">void</span> displayInfo() {</span><span class="l">        System.out.println(<span class="s">"Vehicle speed: "</span> + speed + <span class="s">" km/h"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// ii. the subclass, overriding displayInfo()</span></span><span class="l"><span class="k">class</span> <span class="t">Bicycle</span> <span class="k">extends</span> <span class="t">Vehicle</span> {</span><span class="l">    <span class="k">public</span> <span class="t">Bicycle</span>(<span class="k">int</span> speed) {</span><span class="l">        <span class="k">super</span>(speed);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> displayInfo() {</span><span class="l">        System.out.println(<span class="s">"Bicycle speed: "</span> + speed</span><span class="l">            + <span class="s">" km/h. This is an eco-friendly ride."</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">VehicleDemo</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// iii a/b. one of each</span></span><span class="l">        <span class="t">Vehicle</span> car = <span class="k">new</span> <span class="t">Vehicle</span>(80);</span><span class="l">        <span class="t">Bicycle</span> bike = <span class="k">new</span> <span class="t">Bicycle</span>(25);</span><span class="l"></span><span class="l">        <span class="c">// iii c. call displayInfo() on both</span></span><span class="l">        car.displayInfo();</span><span class="l">        bike.displayInfo();</span><span class="l"></span><span class="l">        <span class="c">// and the polymorphic form the question is really after</span></span><span class="l">        <span class="t">Vehicle</span>[] fleet = {<span class="k">new</span> <span class="t">Vehicle</span>(80), <span class="k">new</span> <span class="t">Bicycle</span>(25)};</span><span class="l">        System.out.println(<span class="s">"-- through a Vehicle reference --"</span>);</span><span class="l">        <span class="k">for</span> (<span class="t">Vehicle</span> v : fleet) {</span><span class="l">            v.displayInfo();</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Vehicle speed: 80 km/h
+Bicycle speed: 25 km/h. This is an eco-friendly ride.
+-- through a Vehicle reference --
+Vehicle speed: 80 km/h
+Bicycle speed: 25 km/h. This is an eco-friendly ride.</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The last four words of the question change the answer</span></div>
+    <div class="body">
+      <p>The question says: call displayInfo() on both objects <b>to demonstrate
+      polymorphism</b>. Read literally, parts a to c are satisfied by:</p>
+      <pre class="src nonum" data-nocheck="the literal reading; the fuller answer is the listing above, which is run"><span class="l"><span class="t">Vehicle</span> car = <span class="k">new</span> <span class="t">Vehicle</span>(80);</span><span class="l"><span class="t">Bicycle</span> bike = <span class="k">new</span> <span class="t">Bicycle</span>(25);</span><span class="l">car.displayInfo();</span><span class="l">bike.displayInfo();</span></pre>
+      <p>That prints the two required lines, and it demonstrates <b>nothing</b>. Each
+      variable's declared type already matches its object exactly, so the compiler could
+      have picked both methods without any run-time decision. Overriding happened, but
+      polymorphism was never tested.</p>
+      <p><b>Polymorphism needs the reference to be the SUPERCLASS type</b>, so that the
+      declared type and the actual object disagree and only the run time can settle it:</p>
+      <p style="text-align:center"><code>Vehicle[] fleet = {new Vehicle(80), new
+      Bicycle(25)};</code><br/><code>for (Vehicle v : fleet) v.displayInfo();</code></p>
+      <p>Now every element is declared <code>Vehicle</code>, the loop body is one
+      identical call, and it still prints two different lines. <b>That</b> is the
+      demonstration, and it is what the last four words are asking for. The listing above
+      does both: the literal answer first, then the proof.</p>
+      <p class="note">Same idea as Q4 part 3 v on the 2025/26 paper, where the reference
+      is explicitly required to be a <code>BankAccount</code>. Two papers, two years, one
+      point: <b>the reference decides what you may call, the object decides what
+      runs.</b></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.14 &middot; 2024/25 &middot; QUESTION SIX &middot; 17.5 MARKS</div>
+  <h2 class="title">Question Six, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 A &middot; Snippets for the three loop types</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A <code>for</code> printing 1 to 5; a <code>while</code>
+      printing 5 down to 1; a <code>do-while</code> printing <b>only the number 10,
+      once</b>.</p>
+      <p class="small">Part iii is the one being marked. A <code>do-while</code> whose
+      condition is false still runs <b>once</b>, and "print 10 once" is the cleanest
+      possible demonstration of that. Choose a condition that is false immediately, and
+      the body still prints.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ThreeLoopTypes"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ThreeLoopTypes</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// i. a for loop printing 1 to 5</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt;= 5; i++) {</span><span class="l">            System.out.print(i + <span class="s">" "</span>);</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// ii. a while loop printing 5 down to 1</span></span><span class="l">        <span class="k">int</span> j = 5;</span><span class="l">        <span class="k">while</span> (j &gt;= 1) {</span><span class="l">            System.out.print(j + <span class="s">" "</span>);</span><span class="l">            j--;</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// iii. a do-while printing only 10, once</span></span><span class="l">        <span class="k">int</span> k = 10;</span><span class="l">        <span class="k">do</span> {</span><span class="l">            System.out.print(k + <span class="s">" "</span>);</span><span class="l">            k++;</span><span class="l">        } <span class="k">while</span> (k &lt;= 10);</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>1 2 3 4 5
+5 4 3 2 1
+10 </pre>
+      <p class="small" style="padding:6pt 8pt 0">In the do-while, <code>k</code> is 10,
+      the body prints it, <code>k</code> becomes 11, and <code>while (k &lt;= 10)</code>
+      is <b>false</b>, so it stops. The body ran once <b>before</b> the condition was
+      ever looked at, which is the whole difference between <code>do-while</code> and
+      <code>while</code>. Write it as a <code>while</code> with the same condition and
+      nothing prints at all. Unit 4.5.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 B &middot; What does compute(13) return? Show the steps</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p><b>The answer: 3.</b> And the question says <b>show the steps</b>, so the table
+      is the answer, not the number.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; compute(13), step by step</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>while (x &gt; 0): count the odd steps, halve each time</caption>
+        <tr><th style="width:12%">x</th><th style="width:22%">x % 2</th><th style="width:26%">odd, so count++?</th><th style="width:22%">x = x / 2</th><th>count</th></tr>
+        <tr><td>13</td><td>1</td><td class="chg">yes</td><td>6</td><td class="chg">1</td></tr>
+        <tr><td>6</td><td>0</td><td>no</td><td>3</td><td>1</td></tr>
+        <tr><td>3</td><td>1</td><td class="chg">yes</td><td>1</td><td class="chg">2</td></tr>
+        <tr><td>1</td><td>1</td><td class="chg">yes</td><td>0</td><td class="chg">3</td></tr>
+        <tr><td>0</td><td colspan="3">x &gt; 0 is false, so the loop ends</td><td class="emit">3</td></tr>
+      </table>
+      <p><b>What the method actually is.</b> Repeatedly halving with
+      <code>x / 2</code> and testing <code>x % 2</code> walks the number's <b>binary
+      digits</b>, from the right. So <code>compute</code> counts the <b>1 bits</b>.
+      13 in binary is <b>1101</b>, which has three 1s, so the answer is 3, and you can
+      check it in one second without tracing anything.</p>
+      <p class="note">Say that in your answer after showing the table. Naming what the
+      code <i>is</i> ("it counts the set bits") is what separates a trace from
+      understanding, and it costs one line.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The paper's own method, run on 13 and on friends</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ComputeBits"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ComputeBits</span> {</span><span class="l"></span><span class="l">    <span class="c">// exactly as the paper prints it</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> compute(<span class="k">int</span> x) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">while</span> (x &gt; 0) {</span><span class="l">            <span class="k">if</span> (x % 2 == 1) count++;</span><span class="l">            x = x / 2;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"compute(13) = "</span> + compute(13));</span><span class="l">        System.out.println(<span class="s">"13 in binary is "</span> + <span class="t">Integer</span>.toBinaryString(13));</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> v : <span class="k">new</span> <span class="k">int</span>[]{1, 2, 3, 7, 8, 255}) {</span><span class="l">            System.out.println(<span class="s">"compute("</span> + v + <span class="s">") = "</span> + compute(v)</span><span class="l">                + <span class="s">"   binary "</span> + <span class="t">Integer</span>.toBinaryString(v));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>compute(13) = 3
+13 in binary is 1101
+compute(1) = 1   binary 1
+compute(2) = 1   binary 10
+compute(3) = 2   binary 11
+compute(7) = 3   binary 111
+compute(8) = 1   binary 1000
+compute(255) = 8   binary 11111111</pre>
+      <p class="small" style="padding:6pt 8pt 0">Every row is its own proof: the answer
+      always equals the number of 1s printed beside it. <code>compute(255) = 8</code>
+      and 255 is eight 1s; <code>compute(8) = 1</code> and 8 is <code>1000</code>. The
+      claim is not "this looks like a bit count", it is a bit count.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 C &middot; Debug EvenFinder</span><span class="tag">4 MARKS</span></div>
+    <div class="body">
+      <p><b>The code as printed:</b></p>
+<pre class="src" data-compile="EvenFinderBroken" data-error="&#x27;;&#x27; expected"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">EvenFinderBroken</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span> args) {</span><span class="l">        printEven(10.0)</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> printEven(<span class="k">int</span>) {</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= n; i++);</span><span class="l">            <span class="k">if</span> (i % 2 == 0)</span><span class="l">                System.out.print(i + <span class="s">" "</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: ';' expected</pre>
+      <p><b>The errors, listed.</b></p>
+      <ol class="qlist">
+        <li><b><code>main(String args)</code> is not main.</b> It must be
+        <code>String[] args</code>. Without the brackets it is an ordinary method that
+        the JVM will not recognise as the entry point.</li>
+        <li><b><code>printEven(10.0)</code> has no semicolon.</b></li>
+        <li><b><code>10.0</code> is a double.</b> The method takes an <code>int</code>,
+        and Java will not narrow a double to an int on its own, because that loses
+        information (Unit 3.3). Fix: <code>printEven(10);</code></li>
+        <li><b><code>printEven(int)</code> has no parameter name.</b> Fix:
+        <code>printEven(int n)</code>, which is also why <code>n</code> "does not
+        exist" three lines later.</li>
+        <li><b><code>for (...);</code> has a stray semicolon.</b> The loop body is
+        empty, so the <code>if</code> below is <b>not in the loop</b>. It runs once,
+        after the loop, and it cannot even compile: <code>i</code> was declared in the
+        for, so it is out of scope the moment the for ends.</li>
+      </ol>
+      <p class="note">Error 5 is Q4 B's stray semicolon again, on the same paper, in a
+      <code>for</code> this time. The scope error is what gives it away here: when the
+      compiler says "cannot find symbol: i" about a variable you can plainly see, the
+      loop that declared it has already closed.</p>
+      <p><b>The output after correction: <code>0 2 4 6 8 10</code></b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 C corrected</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="EvenFinder"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">EvenFinder</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        printEven(10);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> printEven(<span class="k">int</span> n) {</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= n; i++) {</span><span class="l">            <span class="k">if</span> (i % 2 == 0) {</span><span class="l">                System.out.print(i + <span class="s">" "</span>);</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>0 2 4 6 8 10 </pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>0 is even</b>, and
+      <code>i &lt;= n</code> means 10 is included, so the answer starts at 0 and ends at
+      10. Both ends are worth checking: this is the rare loop where <code>&lt;=</code> is
+      correct, because <code>n</code> is a value to reach, not a length.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 D &middot; hasEqualAdjacentPairs</span><span class="tag">7.5 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Write <code>hasEqualAdjacentPairs(int n)</code> returning
+      <b>true</b> if the positive integer n contains <b>at least two pairs</b> of equal
+      adjacent digits, and false otherwise. Write main to test at least two cases. The
+      paper's examples:</p>
+      <p style="text-align:center"><code>112233</code> &rarr; true (pairs: 11, 22, 33).
+      More than two adjacent pairs.<br/>
+      <code>1223</code> &rarr; true (pairs: 22). Only one pair &rarr; return false</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The paper contradicts itself, and you must answer anyway</span></div>
+    <div class="body">
+      <p>Read the second example again. It says <b>"1223 - true"</b> and then, in the
+      same line, <b>"Only one pair - return false"</b>. Both cannot be right.</p>
+      <div class="card">
+        <p>The <b>specification</b> says "at least two pairs". <code>1223</code> has
+        <b>one</b> pair, the 22. One is not at least two.</p>
+        <p><b>The correct return is false.</b> The leading "true" is a slip of the pen.</p>
+      </div>
+      <p>The examiner's own explanation ("Only one pair") agrees with the specification,
+      so the specification and the reasoning outvote the stray word. This book shows you
+      the paper exactly as printed and tells you what is true, and it never quietly
+      corrects a source (compare the six errors in Module 3, which come from this
+      course's own slides).</p>
+      <p><b>What to do in the hall.</b> Do not agonise, and do not answer the typo.
+      Implement the specification, and <b>write one line saying why</b>: "1223 has only
+      one adjacent pair, so by the stated rule of at least two pairs the method returns
+      false; the 'true' in the example appears to be a typographical error." That
+      sentence costs ten seconds and it protects you whichever way the marking scheme
+      reads, because it proves the answer was a decision and not a mistake.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>when a question contradicts itself, follow
+      the specification and say that you did.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 D, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="AdjacentPairs"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AdjacentPairs</span> {</span><span class="l"></span><span class="l">    <span class="c">// i/ii. true when n has AT LEAST TWO pairs of equal adjacent digits.</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">boolean</span> hasEqualAdjacentPairs(<span class="k">int</span> n) {</span><span class="l">        <span class="k">int</span> pairs = 0;</span><span class="l good">        <span class="k">int</span> previous = n % 10;</span><span class="l">        n = n / 10;</span><span class="l">        <span class="k">while</span> (n &gt; 0) {</span><span class="l">            <span class="k">int</span> current = n % 10;</span><span class="l">            <span class="k">if</span> (current == previous) {</span><span class="l">                pairs++;</span><span class="l">            }</span><span class="l">            previous = current;</span><span class="l">            n = n / 10;</span><span class="l">        }</span><span class="l good">        <span class="k">return</span> pairs &gt;= 2;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii b. main testing more than the two cases the question asks for</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] tests = {112233, 1223, 1122, 111, 123, 7, 122333};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> t : tests) {</span><span class="l">            System.out.println(t + <span class="s">" -&gt; "</span> + hasEqualAdjacentPairs(t));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>112233 -&gt; true
+1223 -&gt; false
+1122 -&gt; true
+111 -&gt; true
+123 -&gt; false
+7 -&gt; false
+122333 -&gt; true</pre>
+      <p class="small" style="padding:6pt 8pt 0">The paper asks for at least two test
+      cases; there are seven, and each earns its place. <b>112233</b> and <b>1223</b> are
+      the paper's own. <b>1122</b> is the boundary: exactly two pairs, so exactly true.
+      <b>111</b> asks what a triple counts as. <b>123</b> has no pairs and <b>7</b> has
+      no adjacent digits at all, so the loop never runs and <code>pairs</code> stays 0.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Compare adjacent digits by remembering the last one</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Take the last digit <b>before</b> the loop and call it
+        <code>previous</code>. Then each turn: take the new <code>current</code>, compare
+        it with <code>previous</code>, and <b>make current the new previous</b>.</p>
+      </div>
+      <p>That is the whole technique, and it is the same
+      <code>% 10</code> and <code>/ 10</code> pair as Q6 A on the 2025/26 paper. The only
+      new idea is carrying <b>one</b> value forward so that each digit can see its
+      neighbour. You never need the digits in an array; you need exactly one of them
+      remembered.</p>
+      <p><b>111 gives two pairs, not one.</b> The digits are compared in overlapping
+      pairs: positions 1-2 and 2-3. The middle 1 belongs to both. If you think a triple
+      should count once, that is a different specification, and this one does not say so:
+      it says pairs of equal adjacent digits, and 111 contains two of them.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>to compare neighbours, remember one.</b>
+      Peel a digit, compare, then let it become the memory for the next.</p>
+    </div>
+  </div>
+</section>
