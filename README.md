@@ -9,7 +9,7 @@ manual_composer/
 │                             (course-agnostic — read this first for any new course)
 ├── FINAL_MANUALS/            ← THE ONLY PUBLISHED OUTPUT. All courses. Signed off only.
 │   ├── README.txt
-│   └── PHY121 - General Physics II - Study Manual v3.pdf
+│   └── PHY121 - General Physics II - Study Manual v4.pdf
 └── courses/                  ← one self-contained working folder per course
     ├── PHY121 - General Physics II/
     │   ├── README.md         how to rebuild/update THIS course
