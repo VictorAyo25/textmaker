@@ -1,0 +1,536 @@
+<!-- ============ SOLVED: 2025/26 SECTION C ============ -->
+
+<section>
+  <div class="kick">S.6 &middot; 2025/26 &middot; QUESTION FIVE &middot; 25 MARKS</div>
+  <h2 class="title">Question Five, worked in full</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Two programs that are really one skill: read the question so
+  literally that the structure it demands writes itself.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Section C dictates your structure, and marks it</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Section C does not merely ask for a working program. It tells you
+        <b>which construct to use</b>, and using a different one loses the mark even
+        when the output is right.</p>
+        <p>"Use a <b>switch</b>" &middot; "use <b>nested</b> if-else (not a switch, and not
+        independent/separate if checks)" &middot; "using a <b>nested control statement</b>"
+        &middot; "no <b>StringBuilder</b>" &middot; "no <b>collection classes</b>" &middot;
+        "<b>JOptionPane only</b>" &middot; "each task must be its own <b>method</b>".</p>
+      </div>
+      <p>And from the front page: <b>use comments in Section B and Section C</b> to say
+      what each block does. That is an instruction, and it is free marks.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>underline every noun that names a
+      construct</b> before you write anything. Those nouns are the marking scheme.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 A &middot; Conference ticket pricing</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Using JOptionPane only, price tickets for a 3-day
+      conference and produce a sales summary, with four methods:</p>
+      <ol class="qlist">
+        <li>takes a day number, uses a <b>switch</b> to return a base price for Day 1,
+        2 or 3 (<b>pick any three distinct prices and state them clearly</b>); any other
+        day <b>throws IllegalArgumentException</b>;</li>
+        <li>takes a tier and days attending, and uses <b>nested if-else</b> to return a
+        discount: Gold 3 days 25%, Gold 1-2 days 15%, Silver 3 days 15%, Silver 1-2
+        days 5%, Bronze 0%, and <b>any tier that is not "Gold" or "Silver" is
+        Bronze</b>. The nesting must reflect that days are only checked <b>within</b>
+        each tier branch;</li>
+        <li>takes a base total and a discount percentage, applies it, and returns
+        <b>50.0</b> if the result would fall below 50.0 (a price floor);</li>
+        <li><code>main()</code>: ask for N attendees; loop N times asking days and tier;
+        sum the day prices into a per-attendee base total; get the discount; get the
+        final price; accumulate total revenue and a count of Gold, Silver and Bronze;
+        then show <b>one</b> summary dialog.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Choose prices that let the floor fire</span></div>
+    <div class="body">
+      <div class="card">
+        <p>The question lets you <b>pick the three prices</b>. That freedom is a trap
+        with a right answer.</p>
+        <p>Pick 15000, 12000 and 9000 and part 3's price floor <b>can never fire</b>.
+        The largest possible discount is 25%, so nothing ever falls near 50.0. You will
+        have written a floor you cannot demonstrate and the examiner cannot see work.</p>
+      </div>
+      <p>Pick <b>30.0, 25.0 and 20.0</b> and the floor becomes live: one Gold day is
+      30, less 15% is 25.50, which is below 50.0, so the method returns 50.0. The
+      50.0 floor is itself the hint about the scale the examiner had in mind.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>when a question lets you choose the
+      numbers, choose numbers that make every rule visible.</b> A rule that never
+      fires is a rule you cannot be shown to have written correctly.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; What "nested, not separate" actually means here</span></div>
+    <div class="body">
+      <p>Part 2 is unusually explicit: nested if-else, <b>not</b> a switch, <b>not</b>
+      independent if checks, and "the nesting must reflect that days attending is only
+      checked <b>within</b> each tier branch, not as a separate top-level check."</p>
+      <p>So the shape is forced. The tier decides the branch; the days are examined
+      <b>inside</b> it:</p>
+      <table class="data">
+        <tr><th style="width:50%">What the question demands</th><th>What loses the mark</th></tr>
+        <tr>
+          <td><code>if (Gold) { if (days == 3) 25 else 15 }<br/>
+          else if (Silver) { if (days == 3) 15 else 5 }<br/>
+          else { 0 }</code></td>
+          <td><code>if (Gold &amp;&amp; days == 3) 25;<br/>
+          if (Gold &amp;&amp; days &lt; 3) 15;<br/>
+          if (Silver &amp;&amp; days == 3) 15;</code><br/>
+          <span class="note">Right answers, wrong structure: days is tested at the top
+          level, four separate times. This is what "not independent checks" forbids.</span></td>
+        </tr>
+      </table>
+      <p><b>Why the final <code>else</code> is the whole Bronze rule.</b> "Any tier
+      string that is not Gold or Silver must be treated as Bronze" is not an extra
+      check you add: it is what a bare <code>else</code> already means. Write
+      <code>else if (tier.equals("Bronze"))</code> and you have broken the rule, because
+      "Platinum" would then match nothing and fall through with no discount assigned.
+      The bare <code>else</code> catches Bronze, Platinum, "gold" in lower case, and an
+      empty string, which is exactly what was asked (Unit 4.4).</p>
+      <p class="note">The same <code>else</code> must also do the <b>counting</b>. If
+      "Platinum" is treated as Bronze for the discount, it is a Bronze attendee in the
+      summary too. Count it anywhere else and your dialog contradicts your own pricing.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ConferenceTickets" data-stdin="5&#10;3&#10;Gold&#10;1&#10;Gold&#10;2&#10;Silver&#10;1&#10;Bronze&#10;3&#10;Platinum"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ConferenceTickets</span> {</span><span class="l"></span><span class="l">    <span class="c">// Part i: a switch returning the base price for a day. Any other day is illegal.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> basePriceForDay(<span class="k">int</span> day) {</span><span class="l">        <span class="k">switch</span> (day) {</span><span class="l">            <span class="k">case</span> 1:  <span class="k">return</span> 30.0;</span><span class="l">            <span class="k">case</span> 2:  <span class="k">return</span> 25.0;</span><span class="l">            <span class="k">case</span> 3:  <span class="k">return</span> 20.0;</span><span class="l good">            <span class="k">default</span>: <span class="k">throw</span> <span class="k">new</span> <span class="t">IllegalArgumentException</span>(</span><span class="l">                         <span class="s">"Day must be 1, 2 or 3 but was "</span> + day);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part ii: NESTED if-else. Days are only examined inside a tier branch.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> discountPercent(<span class="t">String</span> tier, <span class="k">int</span> daysAttending) {</span><span class="l good">        <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {</span><span class="l">            <span class="k">if</span> (daysAttending == 3) {</span><span class="l">                <span class="k">return</span> 25.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">            <span class="k">if</span> (daysAttending == 3) {</span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 5.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            <span class="k">return</span> 0.0;</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part iii: apply the discount, with a price floor of 50.0.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> applyDiscount(<span class="k">double</span> baseTotal, <span class="k">double</span> percent) {</span><span class="l">        <span class="k">double</span> discounted = baseTotal - (baseTotal * percent / 100.0);</span><span class="l">        <span class="k">if</span> (discounted &lt; 50.0) {</span><span class="l">            <span class="k">return</span> 50.0;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> discounted;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="k">int</span> attendees = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="k">double</span> totalRevenue = 0;</span><span class="l">        <span class="k">int</span> goldCount = 0, silverCount = 0, bronzeCount = 0;</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> a = 1; a &lt;= attendees; a++) {</span><span class="l">            <span class="k">int</span> days = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">            <span class="t">String</span> tier = in.nextLine();</span><span class="l"></span><span class="l">            <span class="k">double</span> baseTotal = 0;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> d = 1; d &lt;= days; d++) {</span><span class="l">                baseTotal += basePriceForDay(d);</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">double</span> percent = discountPercent(tier, days);</span><span class="l">            <span class="k">double</span> finalPrice = applyDiscount(baseTotal, percent);</span><span class="l">            totalRevenue += finalPrice;</span><span class="l"></span><span class="l">            <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {</span><span class="l">                goldCount++;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">                silverCount++;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                bronzeCount++;</span><span class="l">            }</span><span class="l"></span><span class="l">            System.out.println(<span class="s">"Attendee "</span> + a + <span class="s">": "</span> + tier + <span class="s">", "</span> + days + <span class="s">" day(s), base "</span></span><span class="l">                + baseTotal + <span class="s">", discount "</span> + percent + <span class="s">"%, pays "</span> + finalPrice);</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"SUMMARY"</span>);</span><span class="l">        System.out.println(<span class="s">"Total revenue: "</span> + totalRevenue);</span><span class="l">        System.out.println(<span class="s">"Gold: "</span> + goldCount + <span class="s">", Silver: "</span> + silverCount</span><span class="l">            + <span class="s">", Bronze: "</span> + bronzeCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Attendee 1: Gold, 3 day(s), base 75.0, discount 25.0%, pays 56.25
+Attendee 2: Gold, 1 day(s), base 30.0, discount 15.0%, pays 50.0
+Attendee 3: Silver, 2 day(s), base 55.0, discount 5.0%, pays 52.25
+Attendee 4: Bronze, 1 day(s), base 30.0, discount 0.0%, pays 50.0
+Attendee 5: Platinum, 3 day(s), base 75.0, discount 0.0%, pays 75.0
+SUMMARY
+Total revenue: 283.5
+Gold: 2, Silver: 1, Bronze: 2</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read attendees 2 and 4: both would have
+      paid less than 50 and both paid exactly 50.0, so <b>the floor is visibly
+      working</b>. Read attendee 5: "Platinum" got a 0% discount <b>and</b> was counted
+      as Bronze, so the two Bronze rules agree. Input is a Scanner here so the run can
+      be printed; in the hall, every prompt is
+      <code>JOptionPane.showInputDialog</code> and the summary is one
+      <code>showMessageDialog</code> (F.11).</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The switch must return, or fall through</span></div>
+    <div class="body">
+      <p>Part 1's method must give back a price for 1, 2 and 3 and <b>throw</b>
+      otherwise. Writing <code>return</code> inside each <code>case</code> is what makes
+      that safe: a <code>return</code> leaves the method immediately, so no
+      <code>break</code> is needed and there is no fall-through to worry about (Unit
+      4.3).</p>
+      <p>Use <code>double price;</code> with assignments instead and you must not forget
+      the <code>break</code>s, and the compiler will additionally complain that
+      <code>price</code> "might not have been initialized" unless every path assigns it.
+      The <code>default: throw</code> is what convinces the compiler every path is
+      covered: an exception is a legitimate way to leave a method that promised to
+      return a double, because it does not return at all.</p>
+      <p class="note">Note also that <code>throw</code> needs no <code>throws</code>
+      clause here. <code>IllegalArgumentException</code> is <b>unchecked</b> (Unit
+      10.1), which is Q1 B's distinction being examined a second time on the same
+      paper.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.6 &middot; 2025/26 &middot; QUESTION FIVE B</div>
+  <h2 class="title">The cold-storage log, and the streak that ends at midnight</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 B &middot; Sustained breaches of a safe limit</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A warehouse records its temperature once an hour for 24
+      hours. A reading is a <b>breach</b> if it is <b>above 8 degrees C</b>. Using
+      JOptionPane only:</p>
+      <ol class="qlist">
+        <li>prompt 24 times, one dialog per hour. Each input must parse as a number
+        <b>between -20 and 50 inclusive</b>; if invalid, re-prompt for the <b>same</b>
+        hour using a nested loop, until valid. Store all 24 in a 1-D array;</li>
+        <li>scan the array <b>once</b>, using only loops and conditionals (<b>no extra
+        arrays</b>), to find the <b>number of qualifying streaks</b> (runs of <b>3 or
+        more</b> consecutive breach-hours) and the <b>length of the longest</b> breach
+        streak;</li>
+        <li>using nested if-else, classify: <b>CRITICAL</b> if the longest streak is
+        &gt;= 6, <b>WARNING</b> if it is 3 to 5, <b>SAFE</b> if no streak of 3 or more
+        occurred;</li>
+        <li>show one dialog with the streak count, the longest length, and the
+        classification.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Count the run when it turns 3, and measure it as you go</span></div>
+    <div class="body">
+      <div class="card">
+        <p>The whole of part 2 is three variables and one pass:</p>
+        <p><b>currentRun</b>: breach hours in a row right now, reset to 0 on any
+        non-breach.<br/>
+        <b>longestStreak</b>: updated <b>every breach hour</b>, not at the end of a
+        run.<br/>
+        <b>qualifyingStreaks</b>: incremented when <code>currentRun == 3</code>,
+        <b>exactly</b>.</p>
+      </div>
+      <p><b>Why <code>== 3</code> and not <code>&gt;= 3</code>.</b> A run passes through
+      3 exactly once, on its third hour. So <code>== 3</code> counts each qualifying run
+      <b>once</b>, however long it becomes. Use <code>&gt;= 3</code> and a 6-hour run is
+      counted four times, giving 4 streaks where there is one.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>a run is counted at the moment it
+      qualifies, not while it continues.</b> The threshold is a door you pass through
+      once, not a room you stay in.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The streak that is still running when the day ends</span></div>
+    <div class="body">
+      <p>The instinct is to close each run in the <code>else</code>, where the
+      non-breach hour is: "the run just ended, so now measure it."</p>
+      <pre class="src nonum" data-nocheck="the wrong shape, shown for contrast; the correct version is the checked listing below"><span class="l"><span class="k">if</span> (readings[hour] &gt; 8) {</span><span class="l">    currentRun++;</span><span class="l">} <span class="k">else</span> {</span><span class="l bad">    <span class="k">if</span> (currentRun &gt; longestStreak) longestStreak = currentRun;  <span class="c">// only on a NON-breach</span></span><span class="l bad">    <span class="k">if</span> (currentRun &gt;= 3) qualifyingStreaks++;</span><span class="l">    currentRun = 0;</span><span class="l">}</span></pre>
+      <p>It works, until the day ends mid-streak. If hours 18 to 23 are all breaches,
+      the loop finishes with <code>currentRun = 6</code> and <b>never reaches the
+      else</b>. The longest streak of the day is never measured and never counted. The
+      program reports SAFE on a day the freezer was over temperature for six straight
+      hours.</p>
+      <p><b>The fix is not to bolt a copy of the else-block on after the loop.</b> That
+      is the usual patch and it duplicates the logic in two places, so the next edit
+      changes one and forgets the other. Instead, <b>update on every breach hour</b>:</p>
+      <div class="card">
+        <p>Measure <code>longestStreak</code> <b>as the run grows</b>, and count the run
+        <b>the instant it turns 3</b>. Then a run that is still going when the array
+        ends has already been measured and already been counted, and the end of the
+        array needs no special case at all.</p>
+      </div>
+      <p>This is worth more than one exam question. <b>A boundary you never treat
+      specially cannot be got wrong at the boundary.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ColdStorage" data-stdin="99&#10;abc&#10;5&#10;9&#10;10&#10;4&#10;9&#10;9&#10;9&#10;2&#10;12&#10;11&#10;9&#10;9&#10;10&#10;3&#10;1&#10;2&#10;3&#10;4&#10;9&#10;9&#10;9&#10;9&#10;9&#10;9"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ColdStorage</span> {</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l">        <span class="k">double</span>[] readings = <span class="k">new</span> <span class="k">double</span>[24];</span><span class="l"></span><span class="l">        <span class="c">// Part i: 24 prompts, each re-prompted until the value is valid.</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> hour = 0; hour &lt; 24; hour++) {</span><span class="l">            <span class="k">boolean</span> valid = <span class="k">false</span>;</span><span class="l">            <span class="k">while</span> (!valid) {</span><span class="l">                <span class="t">String</span> typed = in.nextLine();</span><span class="l">                <span class="k">try</span> {</span><span class="l">                    <span class="k">double</span> t = <span class="t">Double</span>.parseDouble(typed);</span><span class="l">                    <span class="k">if</span> (t &gt;= -20 &amp;&amp; t &lt;= 50) {</span><span class="l">                        readings[hour] = t;</span><span class="l">                        valid = <span class="k">true</span>;</span><span class="l">                    } <span class="k">else</span> {</span><span class="l">                        System.out.println(<span class="s">"  hour "</span> + hour + <span class="s">": "</span> + t</span><span class="l">                            + <span class="s">" is outside -20 to 50. Asking again."</span>);</span><span class="l">                    }</span><span class="l">                } <span class="k">catch</span> (<span class="t">NumberFormatException</span> e) {</span><span class="l">                    System.out.println(<span class="s">"  hour "</span> + hour + <span class="s">": \""</span> + typed</span><span class="l">                        + <span class="s">"\" is not a number. Asking again."</span>);</span><span class="l">                }</span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Part ii: ONE scan, no extra arrays.</span></span><span class="l">        <span class="k">int</span> currentRun = 0, longestStreak = 0, qualifyingStreaks = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> hour = 0; hour &lt; 24; hour++) {</span><span class="l">            <span class="k">if</span> (readings[hour] &gt; 8) {</span><span class="l">                currentRun++;</span><span class="l good">                <span class="k">if</span> (currentRun &gt; longestStreak) {</span><span class="l">                    longestStreak = currentRun;</span><span class="l">                }</span><span class="l good">                <span class="k">if</span> (currentRun == 3) {</span><span class="l">                    qualifyingStreaks++;</span><span class="l">                }</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                currentRun = 0;</span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Part iii: classify.</span></span><span class="l">        <span class="t">String</span> classification;</span><span class="l">        <span class="k">if</span> (longestStreak &gt;= 6) {</span><span class="l">            classification = <span class="s">"CRITICAL"</span>;</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (longestStreak &gt;= 3) {</span><span class="l">            classification = <span class="s">"WARNING"</span>;</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            classification = <span class="s">"SAFE"</span>;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Part iv: one dialog.</span></span><span class="l">        <span class="t">String</span> message = <span class="s">"Qualifying streaks (3+ hours): "</span> + qualifyingStreaks</span><span class="l">                       + <span class="s">"\nLongest breach streak: "</span> + longestStreak + <span class="s">" hour(s)"</span></span><span class="l">                       + <span class="s">"\nClassification: "</span> + classification;</span><span class="l">        System.out.println(message);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  hour 0: 99.0 is outside -20 to 50. Asking again.
+  hour 0: "abc" is not a number. Asking again.
+Qualifying streaks (3+ hours): 3
+Longest breach streak: 6 hour(s)
+Classification: CRITICAL</pre>
+      <p class="small" style="padding:6pt 8pt 0">The run fed hour 0 a 99, then the text
+      "abc", then a valid 5, so both halves of "must parse as a number between -20 and
+      50" are shown rejecting input and re-prompting <b>the same hour</b>.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; The 24 hours, and where the three streaks are</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>breach = above 8. The bar shows breach hours.</caption>
+        <tr><th style="width:12%">hours</th><th style="width:34%">readings</th><th style="width:22%">breach run</th><th>counted?</th></tr>
+        <tr><td>0 to 3</td><td>5, 9, 10, 4</td><td>2 in a row</td><td>no: under 3</td></tr>
+        <tr><td>4 to 7</td><td>9, 9, 9, 2</td><td class="chg">3 in a row</td><td class="chg">yes, streak 1</td></tr>
+        <tr><td>8 to 13</td><td>12, 11, 9, 9, 10, 3</td><td class="chg">5 in a row</td><td class="chg">yes, streak 2</td></tr>
+        <tr><td>14 to 17</td><td>1, 2, 3, 4</td><td>none</td><td>no</td></tr>
+        <tr><td>18 to 23</td><td>9, 9, 9, 9, 9, 9</td><td class="chg">6 in a row, <b>to the last hour</b></td><td class="chg">yes, streak 3</td></tr>
+        <tr><td colspan="2"><b>Answers</b></td><td class="emit">longest = 6</td><td class="emit">3 streaks, CRITICAL</td></tr>
+      </table>
+      <p>The first run of 2 is the control: it proves the counter is not simply counting
+      runs. The last run is the trap above, live: it reaches hour 23 and stops because
+      the day stopped, not because the temperature did. It is both the longest streak
+      and the one that decides the classification, and the else-branch version would
+      have missed it entirely and printed WARNING.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.7 &middot; 2025/26 &middot; QUESTION SIX &middot; 25 MARKS</div>
+  <h2 class="title">Question Six, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 A &middot; Classify a number by its digit pattern</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Using JOptionPane only, classify one positive integer N.
+      <b>Constraints:</b> everything inside <code>main()</code>, using loops and
+      nested/chained if-else and/or switch. <b>No arrays and no user-defined helper
+      methods.</b> Everything inline.</p>
+      <ol class="qlist">
+        <li>in <b>one loop</b>, built only on <code>%</code> and <code>/</code> (no
+        converting N to a String or array), compute <b>both</b> the digit sum of N and
+        N with its digits <b>reversed</b>;</li>
+        <li>N is a palindrome if it equals its reversed value;</li>
+        <li>inline, decide whether the <b>digit sum</b> is prime, testing divisibility
+        only up to its <b>square root</b>;</li>
+        <li>classify, strictly in this priority order: <b>PALINDROME-PRIME-SUM</b>
+        (palindrome and sum prime), <b>PALINDROME</b> (palindrome, sum not prime),
+        <b>HARSHAD</b> (not a palindrome, but N divides exactly by its digit sum),
+        <b>STANDARD</b> otherwise;</li>
+        <li>show N, its digit sum, its reversed value and its classification in a
+        <b>single</b> dialog.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The digit loop, and the copy that saves it</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Peeling digits off a number is three lines you should be able to write
+        without thinking:</p>
+        <p><code>int digit = temp % 10;</code> &nbsp; takes the <b>last</b> digit<br/>
+        <code>reversed = reversed * 10 + digit;</code> &nbsp; pushes it onto the
+        <b>right</b> of the answer<br/>
+        <code>temp = temp / 10;</code> &nbsp; drops the last digit</p>
+        <p>Loop <code>while (temp &gt; 0)</code>. Both answers fall out of one pass.</p>
+      </div>
+      <p><b>The line the marks hang on is <code>int temp = n;</code></b>. The loop
+      destroys whatever it walks: <code>temp</code> ends at 0. Walk <code>n</code>
+      itself and by step 2 there is nothing left to compare the reversed value against,
+      and nothing left to divide in step 4. <b>Copy it, consume the copy.</b></p>
+      <p><code>reversed * 10 + digit</code> is worth a moment. Take 4821: the loop pulls
+      1, then 2, then 8, then 4. Start at 0, and each step shifts what you have one
+      place left and drops the new digit into the units: 1, then 12, then 128, then
+      1284. The digits come off backwards, which is exactly why pushing them on in the
+      order they arrive reverses the number.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>% takes the last digit, / removes it.</b>
+      Every digit problem in this course is those two lines and a loop.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The square root test, without Math.sqrt</span></div>
+    <div class="body">
+      <p>Part 3 says test divisibility only up to the square root of the digit sum. The
+      clean way needs no square root at all:</p>
+      <pre class="src nonum" data-nocheck="the prime test on its own; it is compiled and run inside the listing below"><span class="l"><span class="k">boolean</span> sumIsPrime = (digitSum &gt;= 2);</span><span class="l"><span class="k">for</span> (<span class="k">int</span> f = 2; f * f &lt;= digitSum; f++) {</span><span class="l">    <span class="k">if</span> (digitSum % f == 0) { sumIsPrime = <span class="k">false</span>; <span class="k">break</span>; }</span><span class="l">}</span></pre>
+      <p><code>f * f &lt;= digitSum</code> <b>is</b> "f is at most the square root of
+      digitSum", squared on both sides. It stays in whole numbers, so there is no
+      <code>Math.sqrt</code>, no <code>double</code>, and no floating-point comparison
+      to get wrong at the boundary (Unit 3.6).</p>
+      <p><b>Why stopping at the square root is correct, not just faster.</b> If
+      <code>digitSum = a * b</code>, then a and b cannot both be above the square root,
+      or their product would exceed digitSum. So every factor pairs with one at or below
+      the square root. Find none there and there are none at all.</p>
+      <p><b>And the initialiser is the whole edge case.</b> <code>digitSum &gt;= 2</code>
+      is what makes <b>1 not prime</b> and <b>0 not prime</b>. The loop cannot help you:
+      for digitSum = 1 it never runs, so whatever you started with survives. Start at
+      <code>true</code> and the program declares 1 prime, and then N = 1 (a palindrome
+      with digit sum 1) is misclassified. See the table below, last row.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="PalindromeClassifier" data-stdin="4884"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">PalindromeClassifier</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="k">int</span> n = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="c">// Step i: ONE loop, using only % and /, computing BOTH the digit sum and</span></span><span class="l">        <span class="c">// the reversed value. temp is consumed; n must survive for step ii.</span></span><span class="l good">        <span class="k">int</span> temp = n;</span><span class="l">        <span class="k">int</span> digitSum = 0;</span><span class="l">        <span class="k">int</span> reversed = 0;</span><span class="l">        <span class="k">while</span> (temp &gt; 0) {</span><span class="l">            <span class="k">int</span> digit = temp % 10;</span><span class="l">            digitSum = digitSum + digit;</span><span class="l">            reversed = reversed * 10 + digit;</span><span class="l">            temp = temp / 10;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Step ii: palindrome is a comparison against the ORIGINAL n.</span></span><span class="l">        <span class="k">boolean</span> isPalindrome = (n == reversed);</span><span class="l"></span><span class="l">        <span class="c">// Step iii: is digitSum prime? Test factors only up to its square root.</span></span><span class="l">        <span class="k">boolean</span> sumIsPrime = (digitSum &gt;= 2);</span><span class="l good">        <span class="k">for</span> (<span class="k">int</span> f = 2; f * f &lt;= digitSum; f++) {</span><span class="l">            <span class="k">if</span> (digitSum % f == 0) {</span><span class="l">                sumIsPrime = <span class="k">false</span>;</span><span class="l">                <span class="k">break</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Step iv: classify, in the paper's priority order.</span></span><span class="l">        <span class="t">String</span> classification;</span><span class="l">        <span class="k">if</span> (isPalindrome) {</span><span class="l">            <span class="k">if</span> (sumIsPrime) {</span><span class="l">                classification = <span class="s">"PALINDROME-PRIME-SUM"</span>;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                classification = <span class="s">"PALINDROME"</span>;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (n % digitSum == 0) {</span><span class="l">            classification = <span class="s">"HARSHAD"</span>;</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            classification = <span class="s">"STANDARD"</span>;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Step v: one dialog with all four facts.</span></span><span class="l">        <span class="t">String</span> message = <span class="s">"N: "</span> + n</span><span class="l">                       + <span class="s">"\nDigit sum: "</span> + digitSum</span><span class="l">                       + <span class="s">"\nReversed: "</span> + reversed</span><span class="l">                       + <span class="s">"\nClassification: "</span> + classification;</span><span class="l">        System.out.println(message);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>N: 4884
+Digit sum: 24
+Reversed: 4884
+Classification: PALINDROME</pre>
+      <p class="small" style="padding:6pt 8pt 0">4884 is the paper's own example. It is
+      a palindrome, and 24 = 2 &times; 12 is not prime, so it is PALINDROME and not
+      PALINDROME-PRIME-SUM. That is the priority order doing its job.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; The same statements, run over every case</span><span class="tag">SO THE TABLE IS REAL</span></div>
+    <div class="body">
+      <p class="small" style="padding:0 8pt 6pt">This is <b>not</b> the exam answer: the
+      question forbids helper methods and demands a single N. It is the identical block
+      of statements with a loop around it, so that every row below is real output rather
+      than someone's arithmetic.</p>
+<pre class="src" data-run="ClassifierBench" data-stdin="4884&#10;7&#10;4821&#10;21&#10;131&#10;1"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="c">// The SAME statements as the answer, with a loop around them, so that every row</span></span><span class="l"><span class="c">// of the table in this book is real output rather than someone's arithmetic.</span></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ClassifierBench</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l">        System.out.println(<span class="s">"     N | sum | reversed | classification"</span>);</span><span class="l">        <span class="k">while</span> (in.hasNextLine()) {</span><span class="l">            <span class="t">String</span> line = in.nextLine().trim();</span><span class="l">            <span class="k">if</span> (line.isEmpty()) {</span><span class="l">                <span class="k">continue</span>;</span><span class="l">            }</span><span class="l">            <span class="k">int</span> n = <span class="t">Integer</span>.parseInt(line);</span><span class="l"></span><span class="l">            <span class="k">int</span> temp = n, digitSum = 0, reversed = 0;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) {</span><span class="l">                <span class="k">int</span> digit = temp % 10;</span><span class="l">                digitSum = digitSum + digit;</span><span class="l">                reversed = reversed * 10 + digit;</span><span class="l">                temp = temp / 10;</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">boolean</span> isPalindrome = (n == reversed);</span><span class="l"></span><span class="l">            <span class="k">boolean</span> sumIsPrime = (digitSum &gt;= 2);</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> f = 2; f * f &lt;= digitSum; f++) {</span><span class="l">                <span class="k">if</span> (digitSum % f == 0) {</span><span class="l">                    sumIsPrime = <span class="k">false</span>;</span><span class="l">                    <span class="k">break</span>;</span><span class="l">                }</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="t">String</span> classification;</span><span class="l">            <span class="k">if</span> (isPalindrome) {</span><span class="l">                classification = sumIsPrime ? <span class="s">"PALINDROME-PRIME-SUM"</span> : <span class="s">"PALINDROME"</span>;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (n % digitSum == 0) {</span><span class="l">                classification = <span class="s">"HARSHAD"</span>;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                classification = <span class="s">"STANDARD"</span>;</span><span class="l">            }</span><span class="l"></span><span class="l">            System.out.printf(<span class="s">"%6d | %3d | %8d | %s%n"</span>, n, digitSum, reversed, classification);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>     N | sum | reversed | classification
+  4884 |  24 |     4884 | PALINDROME
+     7 |   7 |        7 | PALINDROME-PRIME-SUM
+  4821 |  15 |     1284 | STANDARD
+    21 |   3 |       12 | HARSHAD
+   131 |   5 |      131 | PALINDROME-PRIME-SUM
+     1 |   1 |        1 | PALINDROME</pre>
+      <p class="small" style="padding:6pt 8pt 0">Six rows, and every branch of part 4 is
+      exercised. <b>4884</b> and <b>4821</b> are the paper's own two examples and both
+      come out as the paper says. <b>7</b> is its one-digit palindrome. <b>4821</b>: the
+      digit sum is 15 and 4821 = 15 &times; 321 + 6, so it is not a Harshad number
+      either, and it falls to STANDARD. <b>1</b> is the row worth staring at: a
+      palindrome whose digit sum is 1, and 1 is <b>not</b> prime, so PALINDROME. Get the
+      initialiser wrong and this row alone would read PALINDROME-PRIME-SUM.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; "Priority order" means else-if, not four ifs</span></div>
+    <div class="body">
+      <p>Part 4 says <b>checked strictly in this priority order</b> and <b>exactly
+      one</b> category. Both phrases point at the same structure: one chain, where
+      reaching a test means every test above it already failed.</p>
+      <p>Write four independent <code>if</code>s and a palindrome with a prime digit sum
+      matches the first, then falls into the others too, and your single dialog reports
+      whichever assignment landed last. The chain is what makes "exactly one" true, and
+      it is also what makes HARSHAD's rule readable: <b>HARSHAD never has to say "and is
+      not a palindrome"</b>, because it is only ever reached when the palindrome test
+      failed. The order does that work, which is precisely why the question fixes
+      it (Unit 4.2).</p>
+      <p class="note">Watch <code>n % digitSum</code> in the HARSHAD test. It is safe
+      here only because N is a <b>positive</b> integer, so digitSum is at least 1 and
+      never 0. Take that guarantee away and it throws
+      <code>ArithmeticException</code> (Unit 3.6): a division by zero hiding in a
+      remainder.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.7 &middot; 2025/26 &middot; QUESTION SIX B</div>
+  <h2 class="title">The parking garage, and three counts from one method</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 B &middot; Parking fees for a batch of vehicles</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Using JOptionPane only, process vehicles exiting on one
+      day and total the fees. <b>Clear separation of concerns: each task must be its own
+      method. No collection classes (e.g. ArrayList) anywhere.</b></p>
+      <ol class="qlist">
+        <li>prompt for the number of vehicles V, then fill two <b>parallel arrays</b> of
+        length V: hours parked (int per vehicle; a value &lt;= 0 is invalid, so use a
+        <b>nested control statement</b> to re-prompt until valid) and permit type
+        (String per vehicle, "Staff" or "Visitor");</li>
+        <li>a method taking one vehicle's hours and permit, computing its fee with
+        <b>nested if-else</b>: <b>Staff</b>, first 2 hours free, each additional hour
+        1.00, capped at 10.00/day; <b>Visitor</b>, no free period, first 3 hours a flat
+        6.00, each hour beyond 3 costs 2.50, capped at 25.00/day; and <b>any permit that
+        is not exactly "Staff" is treated as Visitor</b>;</li>
+        <li>a method taking the hours array, tallying <b>SHORT-STAY</b> (1-2),
+        <b>STANDARD</b> (3-6) and <b>EXTENDED</b> (&gt;6), returning the three counts
+        <b>without any collection class</b>;</li>
+        <li><code>main()</code>: call (ii) for every vehicle across both arrays to
+        accumulate revenue, call (iii) once, and display <b>one</b> dialog with the total
+        and the three counts.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Three counts, one return, no collections</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part 3 asks for <b>three</b> numbers back. A Java method returns <b>one</b>
+        value. And ArrayList is banned.</p>
+        <p>So return an <code>int[]</code> of length 3.</p>
+      </div>
+      <p><b>An array is not a collection class.</b> That distinction is the question:
+      "collection classes (e.g. ArrayList)" means <code>java.util</code>'s
+      List/Set/Map family. An array is a built-in Java type, not a class you import,
+      which is why F.10 and Module 8 exist and why the ban costs you nothing.</p>
+      <p>Document the slots in a comment (<code>[0]</code> short, <code>[1]</code>
+      standard, <code>[2]</code> extended) and use them in that order. The alternative
+      the ban is steering you away from is three separate fields or three methods
+      walking the same array three times.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>one return value, several numbers, no
+      collections: that is an array.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Parallel arrays, and the invariant that keeps them honest</span></div>
+    <div class="body">
+      <p>Two arrays are <b>parallel</b> when index i in one and index i in the other
+      describe the same thing. <code>hoursParked[3]</code> and
+      <code>permitType[3]</code> are one car.</p>
+      <p>The whole idea rests on one invariant: <b>they are the same length and they are
+      always written together</b>. The loop in part 1 fills both in the same iteration,
+      which is what keeps them aligned. Fill them in two separate loops, or
+      <code>continue</code> past one but not the other, and vehicle 3's hours are paired
+      with vehicle 4's permit. Nothing throws. Every fee is simply wrong.</p>
+      <p class="note">In Module 6's terms this is what a class is for: a
+      <code>Vehicle</code> object holding hours and permit together cannot fall out of
+      step, because there is no "step" to fall out of. The paper asks for parallel
+      arrays, so write parallel arrays; but knowing what they are the poor relation
+      <i>of</i> is what Q4 was testing.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="ParkingGarage" data-stdin="6&#10;0&#10;2&#10;Staff&#10;5&#10;Staff&#10;15&#10;Staff&#10;1&#10;Visitor&#10;5&#10;Visitor&#10;12&#10;Guest"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">ParkingGarage</span> {</span><span class="l"></span><span class="l">    <span class="c">// Part ii: one vehicle's fee, by NESTED if-else. The permit decides the branch;</span></span><span class="l">    <span class="c">// the hours are only examined inside it.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> feeFor(<span class="k">int</span> hours, <span class="t">String</span> permit) {</span><span class="l">        <span class="k">double</span> fee;</span><span class="l">        <span class="k">if</span> (permit.equals(<span class="s">"Staff"</span>)) {</span><span class="l">            <span class="k">if</span> (hours &lt;= 2) {</span><span class="l">                fee = 0.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                fee = (hours - 2) * 1.00;</span><span class="l good">                <span class="k">if</span> (fee &gt; 10.00) {</span><span class="l">                    fee = 10.00;</span><span class="l">                }</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            <span class="k">if</span> (hours &lt;= 3) {</span><span class="l">                fee = 6.00;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                fee = 6.00 + (hours - 3) * 2.50;</span><span class="l good">                <span class="k">if</span> (fee &gt; 25.00) {</span><span class="l">                    fee = 25.00;</span><span class="l">                }</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> fee;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part iii: tally the three categories. Three counts, one return value, and no</span></span><span class="l">    <span class="c">// collection class: an int[] of length 3. An array is not a collection.</span></span><span class="l">    <span class="c">// [0] SHORT-STAY (1-2), [1] STANDARD (3-6), [2] EXTENDED (&gt;6)</span></span><span class="l good">    <span class="k">static</span> <span class="k">int</span>[] tally(<span class="k">int</span>[] hoursParked) {</span><span class="l">        <span class="k">int</span>[] counts = <span class="k">new</span> <span class="k">int</span>[3];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; hoursParked.length; i++) {</span><span class="l">            <span class="k">if</span> (hoursParked[i] &lt;= 2) {</span><span class="l">                counts[0]++;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (hoursParked[i] &lt;= 6) {</span><span class="l">                counts[1]++;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                counts[2]++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> counts;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="k">int</span> vehicles = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="c">// Part i: two PARALLEL arrays. Index i is one vehicle in both.</span></span><span class="l">        <span class="k">int</span>[] hoursParked = <span class="k">new</span> <span class="k">int</span>[vehicles];</span><span class="l">        <span class="t">String</span>[] permitType = <span class="k">new</span> <span class="t">String</span>[vehicles];</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; vehicles; i++) {</span><span class="l">            <span class="k">int</span> hours = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">            <span class="k">while</span> (hours &lt;= 0) {</span><span class="l">                System.out.println(<span class="s">"  vehicle "</span> + i + <span class="s">": "</span> + hours</span><span class="l">                    + <span class="s">" is not a valid number of hours. Asking again."</span>);</span><span class="l">                hours = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">            }</span><span class="l">            hoursParked[i] = hours;</span><span class="l">            permitType[i] = in.nextLine();</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// Part iv: accumulate revenue across both arrays, then tally once.</span></span><span class="l">        <span class="k">double</span> totalRevenue = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; vehicles; i++) {</span><span class="l">            <span class="k">double</span> fee = feeFor(hoursParked[i], permitType[i]);</span><span class="l">            totalRevenue += fee;</span><span class="l">            System.out.println(<span class="s">"Vehicle "</span> + i + <span class="s">": "</span> + hoursParked[i] + <span class="s">"h, "</span></span><span class="l">                + permitType[i] + <span class="s">" -&gt; "</span> + fee);</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="k">int</span>[] counts = tally(hoursParked);</span><span class="l"></span><span class="l">        <span class="t">String</span> message = <span class="s">"Total revenue: "</span> + totalRevenue</span><span class="l">                       + <span class="s">"\nSHORT-STAY (1-2 hrs): "</span> + counts[0]</span><span class="l">                       + <span class="s">"\nSTANDARD (3-6 hrs): "</span> + counts[1]</span><span class="l">                       + <span class="s">"\nEXTENDED (&gt;6 hrs): "</span> + counts[2];</span><span class="l">        System.out.println(message);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  vehicle 0: 0 is not a valid number of hours. Asking again.
+Vehicle 0: 2h, Staff -&gt; 0.0
+Vehicle 1: 5h, Staff -&gt; 3.0
+Vehicle 2: 15h, Staff -&gt; 10.0
+Vehicle 3: 1h, Visitor -&gt; 6.0
+Vehicle 4: 5h, Visitor -&gt; 11.0
+Vehicle 5: 12h, Guest -&gt; 25.0
+Total revenue: 55.0
+SHORT-STAY (1-2 hrs): 2
+STANDARD (3-6 hrs): 2
+EXTENDED (&gt;6 hrs): 2</pre>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; Every rule in the fee table, fired once</span></div>
+    <div class="body">
+      <table class="trace">
+        <tr><th style="width:10%">hours</th><th style="width:14%">permit</th><th style="width:42%">which rule, and the arithmetic</th><th>fee</th></tr>
+        <tr><td>2</td><td>Staff</td><td>first 2 hours free, and 2 is not beyond 2</td><td class="emit">0.00</td></tr>
+        <tr><td>5</td><td>Staff</td><td>(5 - 2) &times; 1.00 = 3.00, under the 10.00 cap</td><td class="emit">3.00</td></tr>
+        <tr><td>15</td><td>Staff</td><td>(15 - 2) &times; 1.00 = 13.00, <b>over the cap</b></td><td class="emit">10.00</td></tr>
+        <tr><td>1</td><td>Visitor</td><td>flat 6.00 for the first 3 hours, even for 1</td><td class="emit">6.00</td></tr>
+        <tr><td>5</td><td>Visitor</td><td>6.00 + (5 - 3) &times; 2.50 = 11.00</td><td class="emit">11.00</td></tr>
+        <tr><td>12</td><td><b>Guest</b></td><td><b>not exactly "Staff", so Visitor:</b> 6.00 + 9 &times; 2.50 = 28.50, <b>over the cap</b></td><td class="emit">25.00</td></tr>
+        <tr><td colspan="3"><b>Total revenue</b></td><td class="emit">55.00</td></tr>
+      </table>
+      <p><b>Every rule in the question fires exactly once in that table</b>, which is how
+      the test data was chosen: both free periods, both per-hour rates, <b>both</b> caps,
+      and the not-Staff-means-Visitor rule. When you invent your own test data, invent it
+      like this: one row per rule, so a single run proves the lot.</p>
+      <p>Two rows repay a second look. <b>1 hour as a Visitor costs 6.00</b>: "first 3
+      hours cost a flat 6.00" is a flat fee, not a rate, so an hour and three hours cost
+      the same, and a Visitor pays more than a Staff member who stayed fifteen. That is
+      not a bug, it is the pricing the question specifies. And <b>Guest at 12 hours</b>
+      is the only row testing the fallback rule; delete it from your test data and a
+      program that crashes on unknown permits would look perfectly healthy.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; A cap is a ceiling you apply after, not a rule you fold in</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Compute the fee, <b>then</b> clamp it:</p>
+        <p><code>fee = 6.00 + (hours - 3) * 2.50;</code><br/>
+        <code>if (fee &gt; 25.00) { fee = 25.00; }</code></p>
+      </div>
+      <p>The temptation is to work out the hour at which the cap bites (for Visitors,
+      10.6 hours) and branch on <b>that</b>. It gives the same answers and it is a worse
+      answer: you have hidden a magic number that no line of the question contains, and
+      changing the rate to 3.00 silently breaks it, because the crossover moves and your
+      constant does not.</p>
+      <p>This is the same shape as Q5 A's price floor, which is a cap from below. Both
+      read as one line placed after the sum, and both then say plainly what the question
+      said: <b>capped at a maximum of 25.00/day</b>.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>compute, then clamp.</b> Never solve for
+      where the clamp starts.</p>
+    </div>
+  </div>
+</section>
