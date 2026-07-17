@@ -1,0 +1,659 @@
+<!-- ============ MODULE SIX ============ -->
+
+<!-- ---------------- 6.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.1 · WHAT OOP IS</div>
+  <h2 class="title">Organising software around things, not steps</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to define OOP and describe
+  its purpose, and explain its key principles: classes, objects, encapsulation and
+  abstraction.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Object-oriented programming</span></div>
+    <div class="body">
+      <p><b>OOP is a paradigm that organises software design around objects
+      (instances of classes) rather than functions and logic, to model real-world
+      entities.</b></p>
+      <p>Compare that with Module 1's imperative paradigm, which organises a program
+      around <i>steps</i>. Both write the same instructions in the end. The
+      difference is what you put at the centre of your thinking: the verbs, or the
+      nouns.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The four pillars</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Your course lists six key concepts, and says <b>the last four are the
+        pillars of OOP</b>:</p>
+        <p>i. Class &nbsp;&nbsp; ii. Object<br/>
+        <b>iii. Encapsulation &nbsp;&nbsp; iv. Abstraction &nbsp;&nbsp;
+        v. Inheritance &nbsp;&nbsp; vi. Polymorphism</b></p>
+        <p><b>Encapsulation</b>: bundle data and methods together, and restrict
+        direct access.<br/>
+        <b>Abstraction</b>: hide the internal detail, show only the essentials.<br/>
+        <b>Inheritance</b>: a class acquires the attributes and behaviour of
+        another.<br/>
+        <b>Polymorphism</b>: different objects respond to the same method call in
+        different ways.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>A PIE</b>: Abstraction, Polymorphism,
+      Inheritance, Encapsulation. Four letters, four pillars, and you will not blank
+      on the list under pressure.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why OOP</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:32%">Reason</th><th>Means</th></tr>
+        <tr><td><b>Modularity and reusability</b></td><td>code is organised into reusable, self-contained components, easier to maintain and scale</td></tr>
+        <tr><td><b>Real-world modelling</b></td><td>objects map onto the things the software is actually about</td></tr>
+        <tr><td><b>Maintainability</b></td><td>a change to one object's internals need not touch anything else</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.2 · CLASSES AND OBJECTS</div>
+  <h2 class="title">The blueprint and the building</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Class and object, formally</span></div>
+    <div class="body">
+      <p>Module 1 gave you these informally, and the definitions have not changed:</p>
+      <p><b>A class is a blueprint or template for creating objects.</b> It defines
+      the structure: the attributes (variables) and the behaviour (methods) an object
+      will have.</p>
+      <p><b>An object is a specific instance of a class.</b> Once a class is defined,
+      you create objects from it.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · Declaring a class, creating an object</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; run for real in the listings below"><span class="l">accessModifier class ClassName {          &lt;- the blueprint</span><span class="l">    // attributes (fields)</span><span class="l">    // methods</span><span class="l">}</span><span class="l"></span><span class="l">ClassName objectName = new ClassName();   &lt;- one object, built from it</span><span class="l">   |          |               |</span><span class="l">   |          |               +--- 'new' builds it and calls the constructor</span><span class="l">   |          +------------------- the reference variable (Unit 3.3)</span><span class="l">   +------------------------------ its type</span></pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · A class, and two objects from it</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="StudentDemo"><span class="l"><span class="k">class</span> <span class="t">Student</span> {</span><span class="l">    <span class="t">String</span> name;                <span class="c">// attribute</span></span><span class="l">    <span class="k">int</span> age;                    <span class="c">// attribute</span></span><span class="l"></span><span class="l">    <span class="k">void</span> displayInfo() {         <span class="c">// behaviour</span></span><span class="l">        System.out.println(<span class="s">"Name: "</span> + name + <span class="s">", Age: "</span> + age);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">StudentDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Student</span> s1 = <span class="k">new</span> <span class="t">Student</span>();   <span class="c">// object 1</span></span><span class="l">        s1.name = <span class="s">"Ada"</span>;</span><span class="l">        s1.age = 20;</span><span class="l"></span><span class="l">        <span class="t">Student</span> s2 = <span class="k">new</span> <span class="t">Student</span>();   <span class="c">// object 2: its own data</span></span><span class="l">        s2.name = <span class="s">"Ken"</span>;</span><span class="l">        s2.age = 19;</span><span class="l"></span><span class="l">        s1.displayInfo();</span><span class="l">        s2.displayInfo();</span><span class="l"></span><span class="l">        s1.name = <span class="s">"Adaeze"</span>;               <span class="c">// changing one</span></span><span class="l">        s1.displayInfo();</span><span class="l">        s2.displayInfo();                  <span class="c">// ... does not touch the other</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Name: Ada, Age: 20
+Name: Ken, Age: 19
+Name: Adaeze, Age: 20
+Name: Ken, Age: 19</pre>
+      <p class="small" style="padding:6pt 8pt 0">One class, two objects, each with its
+      own <code>name</code> and <code>age</code>. Changing <code>s1</code> left
+      <code>s2</code> untouched. That independence is the whole point of an
+      instance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.3 · CONSTRUCTORS</div>
+  <h2 class="title">Setting an object up as it is born</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · A constructor</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>A constructor is a special method used to initialise objects of a
+        class. It is called automatically when an object is created.</b></p>
+        <p>Its key features:</p>
+        <p>1. Its <b>name must be exactly the class name</b>.<br/>
+        2. It has <b>no return type</b>. Not even <code>void</code>.<br/>
+        3. It is called automatically by <code>new</code>.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a constructor has no return type because it
+      is not a question, it is <b>the act of making the thing</b>. Writing
+      <code>void Car()</code> does not make a constructor; it makes an ordinary
+      method that happens to be named Car, and your object is silently built by the
+      default constructor instead. That is a real bug and hard to see.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Default and parameterized</span></div>
+    <div class="body">
+      <p><b>A default constructor takes no parameters.</b> If you do not define any
+      constructor at all, <b>Java automatically provides one</b>, which sets every
+      field to its type's default value (Unit 3.3: <code>0</code>,
+      <code>false</code>, and <code>null</code> for objects).</p>
+      <p><b>A parameterized constructor accepts one or more arguments</b>, letting you
+      initialise an object with specific values at the moment of creation rather than
+      assigning them afterwards.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · All three cases</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Constructors"><span class="l"><span class="c">// 1. NO constructor written: Java supplies a default one</span></span><span class="l"><span class="k">class</span> <span class="t">Book</span> {</span><span class="l">    <span class="t">String</span> title;</span><span class="l">    <span class="k">int</span> pages;</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// 2. A no-argument constructor, written by hand</span></span><span class="l"><span class="k">class</span> <span class="t">Car</span> {</span><span class="l">    <span class="t">String</span> brand;</span><span class="l">    <span class="k">int</span> year;</span><span class="l"></span><span class="l">    <span class="t">Car</span>() {                       <span class="c">// name = class, no return type</span></span><span class="l">        brand = <span class="s">"Unknown"</span>;</span><span class="l">        year = 2000;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// 3. A parameterized constructor</span></span><span class="l"><span class="k">class</span> <span class="t">Bike</span> {</span><span class="l">    <span class="t">String</span> brand;</span><span class="l">    <span class="k">int</span> year;</span><span class="l"></span><span class="l">    <span class="t">Bike</span>(<span class="t">String</span> brand, <span class="k">int</span> year) {</span><span class="l">        <span class="k">this</span>.brand = brand;         <span class="c">// 'this' = the object being built</span></span><span class="l">        <span class="k">this</span>.year = year;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Constructors</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Book</span> b = <span class="k">new</span> <span class="t">Book</span>();</span><span class="l">        System.out.println(<span class="s">"Book  : "</span> + b.title + <span class="s">", "</span> + b.pages);</span><span class="l"></span><span class="l">        <span class="t">Car</span> c = <span class="k">new</span> <span class="t">Car</span>();</span><span class="l">        System.out.println(<span class="s">"Car   : "</span> + c.brand + <span class="s">", "</span> + c.year);</span><span class="l"></span><span class="l">        <span class="t">Bike</span> k = <span class="k">new</span> <span class="t">Bike</span>(<span class="s">"Trek"</span>, 2024);</span><span class="l">        System.out.println(<span class="s">"Bike  : "</span> + k.brand + <span class="s">", "</span> + k.year);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Book  : null, 0
+Car   : Unknown, 2000
+Bike  : Trek, 2024</pre>
+      <p class="small" style="padding:6pt 8pt 0">The <code>Book</code> line is the one
+      to study: <code>null</code> and <code>0</code>. Nobody wrote those. Java's
+      supplied default constructor filled each field with its type's default, and
+      <code>null</code> for a <code>String</code> is exactly the value that will
+      throw a <code>NullPointerException</code> the moment anyone uses it. This is
+      why parameterized constructors exist.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · this</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>this</code> refers to <b>the object the method is currently running
+        on</b>.</p>
+        <p><code>this.brand = brand;</code> means "the <b>field</b> called brand
+        belonging to this object = the <b>parameter</b> called brand".</p>
+      </div>
+      <p>It is needed exactly when a parameter has the same name as a field, which is
+      the normal case in a constructor, because both want the same obvious name.
+      Without <code>this</code>, <code>brand = brand</code> assigns the parameter to
+      itself and the field stays null. It compiles. It runs. It does nothing.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the nearer name always wins, and the
+      parameter is nearer. <code>this.</code> is how you say "no, I mean <b>my</b>
+      one".</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Writing a constructor removes the free one</span></div>
+    <div class="body">
+      <p>Java supplies a default constructor <b>only if you write no constructor at
+      all</b>. Add a parameterized one and the free no-argument version <b>vanishes</b>.</p>
+      <p>So a class with only <code>Bike(String, int)</code> cannot be built with
+      <code>new Bike()</code>: it does not compile. If you want both, write both.
+      This bites hardest in inheritance, in Unit 6.6, where a superclass with only a
+      parameterized constructor forces every subclass to call it explicitly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.4 · ENCAPSULATION</div>
+  <h2 class="title">Private data, public doors</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Encapsulation</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Encapsulation is the mechanism of bundling data (fields) and methods
+        (behaviour) into a single unit (a class), while restricting direct access to
+        some components.</b></p>
+        <p>You achieve it in two moves:</p>
+        <p>1. declare the fields <code>private</code>;<br/>
+        2. provide <code>public</code> <b>getter</b> and <b>setter</b> methods for
+        controlled access.</p>
+      </div>
+      <p>"Define encapsulation as an OOP principle" is <b>2025/26 Section A, Question
+      Two, part A, for two marks</b>. Learn the sentence in the card, verbatim.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> a <b>cash machine</b>. The money and the
+      ledger are sealed inside; you interact only through the slot and the keypad.
+      The bank does not trust you with a door into the safe, and the slot can refuse
+      you.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why bother</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:24%">Reason</th><th>Means</th></tr>
+        <tr><td><b>Data hiding</b></td><td>prevents unauthorised access or modification</td></tr>
+        <tr><td><b>Validation</b></td><td>setters can check input, for example preventing a negative balance</td></tr>
+        <tr><td><b>Flexibility</b></td><td>the internals can change without breaking anyone who uses the class</td></tr>
+      </table>
+      <p>Validation is the one that makes it concrete. A <code>public double
+      balance;</code> can be set to -5000 by anybody, from anywhere, and the class is
+      powerless. A private field with a setter means every change must pass through
+      code <i>you</i> wrote, so the object can refuse to enter an impossible state.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Encapsulation, and what it prevents</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="BankDemo"><span class="l"><span class="k">class</span> <span class="t">BankAccount</span> {</span><span class="l good">    <span class="k">private</span> <span class="t">String</span> accountNumber;    <span class="c">// PRIVATE: nobody outside touches these</span></span><span class="l good">    <span class="k">private double</span> balance;</span><span class="l"></span><span class="l">    <span class="t">BankAccount</span>(<span class="t">String</span> accountNumber, <span class="k">double</span> balance) {</span><span class="l">        <span class="k">this</span>.accountNumber = accountNumber;</span><span class="l">        <span class="k">this</span>.balance = balance;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public double</span> getBalance() {       <span class="c">// GETTER: read, but not write</span></span><span class="l">        <span class="k">return</span> balance;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public void</span> deposit(<span class="k">double</span> amount) {  <span class="c">// SETTER, with VALIDATION</span></span><span class="l">        <span class="k">if</span> (amount &lt;= 0) {</span><span class="l">            System.out.println(<span class="s">"  rejected: deposit must be positive"</span>);</span><span class="l">            <span class="k">return</span>;</span><span class="l">        }</span><span class="l">        balance += amount;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public void</span> withdraw(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">if</span> (amount &gt; balance) {</span><span class="l">            System.out.println(<span class="s">"  rejected: insufficient funds"</span>);</span><span class="l">            <span class="k">return</span>;</span><span class="l">        }</span><span class="l">        balance -= amount;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">BankDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">BankAccount</span> a = <span class="k">new</span> <span class="t">BankAccount</span>(<span class="s">"ACC-001"</span>, 1000.0);</span><span class="l">        System.out.println(<span class="s">"start    : "</span> + a.getBalance());</span><span class="l"></span><span class="l">        a.deposit(500);</span><span class="l">        System.out.println(<span class="s">"deposit  : "</span> + a.getBalance());</span><span class="l"></span><span class="l">        a.deposit(-9999);          <span class="c">// the object refuses</span></span><span class="l">        System.out.println(<span class="s">"after    : "</span> + a.getBalance());</span><span class="l"></span><span class="l">        a.withdraw(10000);         <span class="c">// and refuses again</span></span><span class="l">        System.out.println(<span class="s">"final    : "</span> + a.getBalance());</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>start    : 1000.0
+deposit  : 1500.0
+  rejected: deposit must be positive
+after    : 1500.0
+  rejected: insufficient funds
+final    : 1500.0</pre>
+      <p class="small" style="padding:6pt 8pt 0">The account defended itself twice.
+      Had <code>balance</code> been public, <code>a.balance = -9999;</code> would
+      have worked and no code in the class could have stopped it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · What private actually enforces</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="Breakin" data-error="has private access"><span class="l"><span class="k">class</span> <span class="t">Account</span> {</span><span class="l">    <span class="k">private double</span> balance = 1000.0;</span><span class="l">    <span class="k">public double</span> getBalance() { <span class="k">return</span> balance; }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Breakin</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Account</span> a = <span class="k">new</span> <span class="t">Account</span>();</span><span class="l bad">        a.balance = -9999;      <span class="c">// straight at the field</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>Breakin.java:9: error: balance has private access in Account
+        a.balance = -9999;
+         ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">Note <b>when</b> it is stopped:
+      compile time, in the sense of F.7. <code>private</code> is not a polite request
+      or a run-time check. The program cannot be built.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.5 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.5 · ABSTRACTION</div>
+  <h2 class="title">Showing what, hiding how</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Abstraction, and how it differs from encapsulation</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Abstraction is the process of hiding internal implementation details
+        and showing only the essential features of an object.</b></p>
+        <p>The pair everyone confuses:<br/>
+        <b>Encapsulation hides DATA</b>, using <code>private</code> fields and public
+        methods. It is about <b>protection</b>.<br/>
+        <b>Abstraction hides COMPLEXITY</b>, using simple methods, abstract classes
+        and interfaces. It is about <b>simplicity</b>.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a car. <b>Encapsulation</b> is the locked
+      bonnet: you cannot reach the engine. <b>Abstraction</b> is the steering wheel:
+      you do not need to. One says "you may not", the other says "you need not".</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Method-level abstraction</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="CarStartSystem"><span class="l"><span class="k">class</span> <span class="t">Car</span> {</span><span class="l">    <span class="c">// the messy detail: private, and none of the driver's business</span></span><span class="l">    <span class="k">private void</span> turnOnEngine()  { System.out.println(<span class="s">"  engine on"</span>); }</span><span class="l">    <span class="k">private void</span> checkFuel()    { System.out.println(<span class="s">"  fuel checked"</span>); }</span><span class="l">    <span class="k">private void</span> startIgnition() { System.out.println(<span class="s">"  ignition started"</span>); }</span><span class="l"></span><span class="l good">    <span class="k">public void</span> start() {         <span class="c">// the whole interface the driver needs</span></span><span class="l">        checkFuel();</span><span class="l">        turnOnEngine();</span><span class="l">        startIgnition();</span><span class="l">        System.out.println(<span class="s">"Car started."</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">CarStartSystem</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">new</span> <span class="t">Car</span>().start();          <span class="c">// one word. That is the point.</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  fuel checked
+  engine on
+  ignition started
+Car started.</pre>
+      <p class="small" style="padding:6pt 8pt 0">The caller wrote
+      <code>start()</code> and nothing else. Three private steps ran, in an order the
+      caller never had to know, and could not have got wrong. "How does abstraction
+      simplify code for users?" is a stated in-text question, and this listing is the
+      answer.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Abstract classes and interfaces</span></div>
+    <div class="body">
+      <p>Two stronger tools, both about promising <i>what</i> without saying
+      <i>how</i>.</p>
+      <p><b>An abstract class cannot be instantiated directly.</b> It provides partial
+      implementation of some methods and leaves others abstract, for subclasses to
+      fill in.</p>
+      <p><b>An interface defines a set of methods that any implementing class must
+      implement</b>, without specifying how they work.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Interface versus abstract class</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:22%">Feature</th><th style="width:39%">Interface</th><th>Abstract class</th></tr>
+          <tr><td>Purpose</td><td>defines a <b>contract</b> for the implementing class</td><td>a contract <b>plus</b> some common behaviour</td></tr>
+          <tr><td>Inheritance</td><td>a class may implement <b>many</b></td><td>a class may extend <b>only one</b></td></tr>
+          <tr><td>Keyword</td><td><code>implements</code></td><td><code>extends</code></td></tr>
+          <tr><td>Fields</td><td>constants only</td><td>ordinary fields allowed</td></tr>
+          <tr><td>Constructor</td><td>none</td><td>has one (called via <code>super</code>)</td></tr>
+        </table>
+      </div>
+      <p>"What is the difference between an abstract class and an interface?" and
+      "when should you use an interface instead of an abstract class?" are both
+      stated in-text questions.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> an abstract class is <b>what a thing
+      is</b>; an interface is <b>what a thing can do</b>. A Dog <i>is</i> an Animal
+      (only one of those). A Dog <i>can</i> Swim, and Run, and Fetch (as many as you
+      like). Hence one <code>extends</code> and many <code>implements</code>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Abstract class and interface, together</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="AbstractDemo"><span class="l"><span class="c">// ABSTRACT CLASS: partial. Cannot be built on its own.</span></span><span class="l"><span class="k">abstract class</span> <span class="t">Vehicle</span> {</span><span class="l good">    <span class="k">abstract void</span> start();          <span class="c">// no body: subclasses MUST supply one</span></span><span class="l"></span><span class="l">    <span class="k">void</span> fuelUp() {                  <span class="c">// concrete: shared by all vehicles</span></span><span class="l">        System.out.println(<span class="s">"  refuelling..."</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// INTERFACE: a pure contract. No bodies at all.</span></span><span class="l"><span class="k">interface</span> <span class="t">Movable</span> {</span><span class="l">    <span class="k">void</span> move();</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Car</span> <span class="k">extends</span> <span class="t">Vehicle</span> <span class="k">implements</span> <span class="t">Movable</span> {</span><span class="l">    <span class="k">void</span> start() { System.out.println(<span class="s">"Car starts with a key"</span>); }</span><span class="l">    <span class="k">public void</span> move()  { System.out.println(<span class="s">"Car drives on roads"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Boat</span> <span class="k">extends</span> <span class="t">Vehicle</span> <span class="k">implements</span> <span class="t">Movable</span> {</span><span class="l">    <span class="k">void</span> start() { System.out.println(<span class="s">"Boat starts with a button"</span>); }</span><span class="l">    <span class="k">public void</span> move()  { System.out.println(<span class="s">"Boat sails on water"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">AbstractDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Vehicle</span>[] fleet = { <span class="k">new</span> <span class="t">Car</span>(), <span class="k">new</span> <span class="t">Boat</span>() };</span><span class="l">        <span class="k">for</span> (<span class="t">Vehicle</span> v : fleet) {</span><span class="l">            v.start();          <span class="c">// same call, different behaviour</span></span><span class="l">            v.fuelUp();         <span class="c">// inherited, identical for both</span></span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="t">Movable</span>[] things = { <span class="k">new</span> <span class="t">Car</span>(), <span class="k">new</span> <span class="t">Boat</span>() };</span><span class="l">        <span class="k">for</span> (<span class="t">Movable</span> m : things) m.move();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Car starts with a key
+  refuelling...
+Boat starts with a button
+  refuelling...
+Car drives on roads
+Boat sails on water</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>Car</code> extends <b>one</b>
+      class and implements an interface at the same time. Note
+      <code>fuelUp()</code> printed identically for both: that is the "some common
+      behaviour" an interface could not have given you. And the loop already shows
+      polymorphism, which is Unit 6.7.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Why "cannot be instantiated" is literal</span><span class="tag">DOES NOT COMPILE</span></div>
+    <div class="body">
+      <pre class="src" data-compile="NoAbstract" data-error="is abstract; cannot be instantiated"><span class="l"><span class="k">abstract class</span> <span class="t">Shape</span> {</span><span class="l">    <span class="k">abstract double</span> area();</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">NoAbstract</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l bad">        <span class="t">Shape</span> s = <span class="k">new</span> <span class="t">Shape</span>();   <span class="c">// what would its area() do?</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">What the compiler says</span>NoAbstract.java:7: error: Shape is abstract; cannot be instantiated
+        Shape s = new Shape();
+                  ^
+1 error</pre>
+      <p class="small" style="padding:6pt 8pt 0">And the reason is in the comment:
+      <code>area()</code> has no body, so a bare <code>Shape</code> object would have
+      a method with nothing to run. "Abstract" means <b>incomplete on purpose</b>,
+      and Java will not build something incomplete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.6 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.6 · INHERITANCE</div>
+  <h2 class="title">Getting behaviour for free</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain and implement
+  inheritance, apply polymorphism, differentiate overriding from overloading, and
+  understand access modifiers.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Inheritance</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Inheritance allows a class (the subclass, derived class or child class)
+        to inherit attributes and behaviour from another class (the superclass, base
+        class or parent class).</b></p>
+        <p>The keyword is <code>extends</code>:</p>
+        <p style="text-align:center"><code>class Dog extends Animal { ... }</code></p>
+        <p>Benefits: <b>code reuse</b>, <b>extensibility</b>, and <b>hierarchical
+        design</b>.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> the <b>is-a</b> test. A Dog <i>is an</i>
+      Animal, so <code>Dog extends Animal</code>. A Car <i>is not a</i> Engine, it
+      <i>has</i> one, so that is a field, not inheritance. If "is-a" sounds wrong out
+      loud, do not use <code>extends</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The keyword is extends, with an s</span></div>
+    <div class="body">
+      <p>Your course's slide titles it "The <b>extend</b> keyword". It is
+      <code>extends</code>. Java has no keyword <code>extend</code>, and
+      <code>class Dog extend Animal</code> does not compile.</p>
+      <p>Worth knowing because a debug question could plant exactly this, and because
+      a wrong keyword in a written exam answer is a wrong answer.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The three types of inheritance</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:26%">Type</th><th style="width:34%">Shape</th><th>Meaning</th></tr>
+        <tr><td><b>Single</b></td><td>Animal &rarr; Dog</td><td>a subclass inherits from one superclass</td></tr>
+        <tr><td><b>Multilevel</b></td><td>Animal &rarr; Dog &rarr; Puppy</td><td>a class derives from a derived class</td></tr>
+        <tr><td><b>Hierarchical</b></td><td>Animal &rarr; Lion, and Animal &rarr; Cat</td><td>several subclasses inherit from one class</td></tr>
+      </table>
+      <p>You may notice one missing: <b>multiple inheritance</b>, where a class has
+      two superclasses. <b>Java does not allow it for classes</b>, which is exactly
+      why a class may only <code>extend</code> one thing but may
+      <code>implement</code> many interfaces.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · All three types</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Inherit"><span class="l"><span class="k">class</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> eat() { System.out.println(<span class="s">"Animal eats food"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// SINGLE: Dog from Animal</span></span><span class="l"><span class="k">class</span> <span class="t">Dog</span> <span class="k">extends</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> bark() { System.out.println(<span class="s">"Dog barks"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// MULTILEVEL: Puppy from Dog, and so from Animal too</span></span><span class="l"><span class="k">class</span> <span class="t">Puppy</span> <span class="k">extends</span> <span class="t">Dog</span> {</span><span class="l">    <span class="k">public void</span> weep() { System.out.println(<span class="s">"Puppy weeps"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// HIERARCHICAL: Lion and Cat both from Animal</span></span><span class="l"><span class="k">class</span> <span class="t">Lion</span> <span class="k">extends</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> roar() { System.out.println(<span class="s">"Lion roars"</span>); }</span><span class="l">}</span><span class="l"><span class="k">class</span> <span class="t">Cat</span> <span class="k">extends</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> meow() { System.out.println(<span class="s">"Cat meows"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Inherit</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Dog</span> d = <span class="k">new</span> <span class="t">Dog</span>();</span><span class="l">        d.eat();      <span class="c">// inherited: never written in Dog</span></span><span class="l">        d.bark();</span><span class="l"></span><span class="l">        <span class="t">Puppy</span> p = <span class="k">new</span> <span class="t">Puppy</span>();</span><span class="l">        p.eat();      <span class="c">// from Animal, two levels up</span></span><span class="l">        p.bark();     <span class="c">// from Dog, one level up</span></span><span class="l">        p.weep();     <span class="c">// its own</span></span><span class="l"></span><span class="l">        <span class="k">new</span> <span class="t">Lion</span>().roar();</span><span class="l">        <span class="k">new</span> <span class="t">Cat</span>().meow();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Animal eats food
+Dog barks
+Animal eats food
+Dog barks
+Puppy weeps
+Lion roars
+Cat meows</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>Puppy</code> has three methods
+      and only one was written in it. <b>That is code reuse, and it is what
+      inheritance buys.</b></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The four access modifiers</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:22%">Modifier</th><th>Visible</th></tr>
+          <tr><td><code>public</code></td><td><b>everywhere</b></td></tr>
+          <tr><td><code>protected</code></td><td>same package, <b>and subclasses even in other packages</b></td></tr>
+          <tr><td>(none, "default")</td><td>same package <b>only</b></td></tr>
+          <tr><td><code>private</code></td><td>same class only. Reachable from outside only <b>indirectly</b>, through a public or protected method.</td></tr>
+        </table>
+      </div>
+      <p>A subclass can only access what is visible to it. So default access works
+      only while parent and child share a package: separate them and it becomes a
+      compile-time error, which your course notes.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> in order, the doors open wider:
+      <b>private &lt; default &lt; protected &lt; public</b>. Only
+      <code>protected</code> is unusual, and its job is exactly "family only": it
+      exists so children can inherit what strangers cannot see.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · private, reached indirectly</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="AccessDemo"><span class="l"><span class="k">class</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> eat()      { System.out.println(<span class="s">"Animal eats food"</span>); }</span><span class="l">    <span class="k">protected void</span> sleep() { System.out.println(<span class="s">"Animal sleeps"</span>); }</span><span class="l">    <span class="k">void</span> move()            { System.out.println(<span class="s">"Animal moves"</span>); }  <span class="c">// default</span></span><span class="l"></span><span class="l bad">    <span class="k">private void</span> breathe() { System.out.println(<span class="s">"Animal breathes"</span>); }</span><span class="l"></span><span class="l good">    <span class="k">public void</span> showBreathing() {   <span class="c">// the public door to a private room</span></span><span class="l">        breathe();</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Cat</span> <span class="k">extends</span> <span class="t">Animal</span> {</span><span class="l">    <span class="k">public void</span> rest() {</span><span class="l">        sleep();                  <span class="c">// protected: a subclass may</span></span><span class="l">        System.out.println(<span class="s">"Cat rests"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">AccessDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Cat</span> c = <span class="k">new</span> <span class="t">Cat</span>();</span><span class="l">        c.eat();</span><span class="l">        c.rest();</span><span class="l">        c.move();</span><span class="l">        c.showBreathing();        <span class="c">// breathe() runs, indirectly</span></span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Animal eats food
+Animal sleeps
+Cat rests
+Animal moves
+Animal breathes</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>breathe()</code> is private, so
+      <code>Cat</code> cannot call it and neither can <code>main</code>. Yet "Animal
+      breathes" printed, because <code>showBreathing()</code> is public and lives
+      <i>inside</i> Animal, where private is visible. That is Unit 6.4's cash machine
+      again: not a locked box, a controlled door.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · super</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>super</code> is a reference to the <b>immediate superclass</b>. Two
+        uses:</p>
+        <p><b>1. <code>super(args)</code></b>: call the superclass constructor. Must
+        be the <b>first statement</b> in the subclass constructor.</p>
+        <p><b>2. <code>super.method()</code></b>: call the superclass's version of a
+        method you have overridden.</p>
+      </div>
+      <p>If you do not call it explicitly, <b>Java automatically invokes the
+      superclass's no-argument constructor</b>. And if the superclass has no
+      no-argument constructor, the subclass <b>must</b> call a parameterized one with
+      <code>super(arguments)</code>, or it will not compile. That is Unit 6.3's trap
+      arriving with consequences.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>you cannot build the first floor before
+      the ground floor.</b> The superclass part of the object must exist before the
+      subclass part, which is why <code>super(...)</code> must come first.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Both uses of super</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="SuperDemo"><span class="l"><span class="k">class</span> <span class="t">Vehicle</span> {</span><span class="l">    <span class="t">String</span> brand;</span><span class="l"></span><span class="l">    <span class="t">Vehicle</span>(<span class="t">String</span> brand) {          <span class="c">// ONLY a parameterized constructor</span></span><span class="l">        <span class="k">this</span>.brand = brand;</span><span class="l">        System.out.println(<span class="s">"Vehicle constructor: "</span> + brand);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">void</span> start() { System.out.println(<span class="s">"Vehicle is starting"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Car</span> <span class="k">extends</span> <span class="t">Vehicle</span> {</span><span class="l"></span><span class="l">    <span class="t">Car</span>(<span class="t">String</span> brand) {</span><span class="l good">        <span class="k">super</span>(brand);              <span class="c">// COMPULSORY, and must be first</span></span><span class="l">        System.out.println(<span class="s">"Car constructor"</span>);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">void</span> start() {                 <span class="c">// overrides Vehicle.start()</span></span><span class="l">        System.out.println(<span class="s">"Car is starting"</span>);</span><span class="l good">        <span class="k">super</span>.start();             <span class="c">// ... and still calls the original</span></span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">SuperDemo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">new</span> <span class="t">Car</span>(<span class="s">"Toyota"</span>).start();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Vehicle constructor: Toyota
+Car constructor
+Car is starting
+Vehicle is starting</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the order. The
+      <b>Vehicle</b> constructor ran <b>before</b> the Car constructor, even though
+      you wrote <code>new Car(...)</code>: ground floor first. Then
+      <code>start()</code> printed the Car line and the Vehicle line, because
+      <code>super.start()</code> reached back to the version it had replaced.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 6.7 ---------------- -->
+<section>
+  <div class="kick">UNIT 6.7 · POLYMORPHISM</div>
+  <h2 class="title">One call, many behaviours</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Polymorphism and its two types</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Polymorphism is the ability of different objects to respond to the same
+        method in different ways.</b> It lets objects be treated as instances of their
+        parent class rather than their actual class.</p>
+        <p><b>Compile-time (static) polymorphism</b> is achieved through <b>method
+        overloading</b>. Which method runs is decided by the compiler.</p>
+        <p><b>Runtime (dynamic) polymorphism</b> is achieved through <b>method
+        overriding</b>. Which method runs is decided by the JVM, from the object's
+        actual type, while the program runs.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> the names say when the decision is made.
+      <b>Overloading is decided by reading; overriding is decided by running.</b>
+      The compiler can see which <code>add()</code> you wrote; only the running
+      program knows whether that <code>Animal</code> variable is holding a Dog.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Overloading versus overriding</span><span class="tag">25/26 Q2 B · 3 MARKS</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:24%"></th><th style="width:38%">Overloading</th><th>Overriding</th></tr>
+          <tr><td><b>1. Where</b></td><td>same class</td><td>subclass, redefining the parent's method</td></tr>
+          <tr><td><b>2. Parameters</b></td><td>must be <b>different</b></td><td>must be <b>identical</b></td></tr>
+          <tr><td><b>3. Decided</b></td><td>at <b>compile</b> time</td><td>at <b>run</b> time</td></tr>
+          <tr><td>4. Return type</td><td>may differ freely</td><td>must be the same (or a subtype)</td></tr>
+          <tr><td>5. Purpose</td><td>same idea, different inputs</td><td>same input, different behaviour</td></tr>
+          <tr><td>6. Inheritance</td><td>not needed</td><td>impossible without it</td></tr>
+        </table>
+      </div>
+      <p>"State three differences between Method overloading and Method overriding" is
+      <b>2025/26 Section A, Question Two, part B, for three marks</b>. Give rows 1, 2
+      and 3: they are the crispest, and each is a genuinely different axis.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>overLOAD adds more</b> (more versions,
+      different parameters, in one class). <b>overRIDE replaces</b> (same signature,
+      new behaviour, in a child). Load means adding; ride means riding over the
+      top.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Both kinds of polymorphism in one program</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Poly"><span class="l"><span class="k">class</span> <span class="t">Appliance</span> {</span><span class="l">    <span class="k">void</span> operate() { System.out.println(<span class="s">"Appliance is operating"</span>); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">WashingMachine</span> <span class="k">extends</span> <span class="t">Appliance</span> {</span><span class="l good">    <span class="k">void</span> operate() { System.out.println(<span class="s">"Washing clothes"</span>); }   <span class="c">// OVERRIDE</span></span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Microwave</span> <span class="k">extends</span> <span class="t">Appliance</span> {</span><span class="l good">    <span class="k">void</span> operate() { System.out.println(<span class="s">"Heating food"</span>); }        <span class="c">// OVERRIDE</span></span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Poly</span> {</span><span class="l"></span><span class="l">    <span class="c">// COMPILE-TIME polymorphism: overloading</span></span><span class="l">    <span class="k">static int</span> add(<span class="k">int</span> a, <span class="k">int</span> b)        { <span class="k">return</span> a + b; }</span><span class="l">    <span class="k">static int</span> add(<span class="k">int</span> a, <span class="k">int</span> b, <span class="k">int</span> c) { <span class="k">return</span> a + b + c; }</span><span class="l">    <span class="k">static double</span> add(<span class="k">double</span> a, <span class="k">double</span> b) { <span class="k">return</span> a + b; }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"compile-time (overloading):"</span>);</span><span class="l">        System.out.println(<span class="s">"  "</span> + add(1, 2) + <span class="s">" "</span> + add(1, 2, 3) + <span class="s">" "</span> + add(1.5, 2.5));</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"runtime (overriding):"</span>);</span><span class="l good">        <span class="t">Appliance</span> myAppliance;         <span class="c">// declared type: Appliance</span></span><span class="l"></span><span class="l">        myAppliance = <span class="k">new</span> <span class="t">WashingMachine</span>();  <span class="c">// actual object decides</span></span><span class="l">        System.out.print(<span class="s">"  "</span>); myAppliance.operate();</span><span class="l"></span><span class="l">        myAppliance = <span class="k">new</span> <span class="t">Microwave</span>();</span><span class="l">        System.out.print(<span class="s">"  "</span>); myAppliance.operate();</span><span class="l"></span><span class="l">        myAppliance = <span class="k">new</span> <span class="t">Appliance</span>();</span><span class="l">        System.out.print(<span class="s">"  "</span>); myAppliance.operate();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>compile-time (overloading):
+  3 6 4.0
+runtime (overriding):
+  Washing clothes
+  Heating food
+  Appliance is operating</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>This is the heart of Module 6.</b>
+      The variable <code>myAppliance</code> is declared <code>Appliance</code> and
+      never changes its declared type. The line <code>myAppliance.operate()</code> is
+      written once. It printed three different things, because each time the JVM
+      looked at <b>what the object actually was</b>, not what the variable said it
+      was. The compiler could not have known: only the running program can.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why the exam keeps asking for this shape</span></div>
+    <div class="body">
+      <p>Your 2025/26 Question Four ends: "Demonstrates polymorphism by storing each
+      object in a <b>BankAccount reference</b> and calling the withdrawal method
+      through it, confirming that the correct overridden version runs."</p>
+      <p>That sentence is describing exactly the listing above. The marks are for
+      three things: the <b>declared type is the parent</b>, the <b>object is the
+      child</b>, and calling through the parent reference <b>still runs the child's
+      method</b>. If you write <code>SavingAccount s = new SavingAccount();</code>
+      you have not demonstrated polymorphism, even though the right method runs: the
+      point is lost, and so is the mark.</p>
+      <p>Write <code>BankAccount acc = new SavingAccount();</code>. That single line
+      is the whole demonstration.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Given <code>Appliance a = new Microwave();</code>, which
+      <code>operate()</code> runs, and which type decides: the declared type or the
+      actual object?</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p><code>Microwave</code>'s. The <b>actual object</b> decides, at run time. The
+      declared type (<code>Appliance</code>) decides only <b>which methods you are
+      allowed to call</b> at compile time; among those, the object decides which
+      version actually runs. That split is the whole of runtime polymorphism.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · OOP</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>The four pillars are <span class="blank"></span>,
+        <span class="blank"></span>, <span class="blank"></span> and
+        <span class="blank"></span>.</li>
+        <li>Encapsulation is achieved by making fields <span class="blank"></span>
+        and providing public <span class="blank"></span> and
+        <span class="blank"></span> methods.</li>
+        <li>Encapsulation hides <span class="blank"></span>; abstraction hides
+        <span class="blank"></span>.</li>
+        <li>A constructor's name must be <span class="blank"></span> and it has
+        <span class="blank"></span>.</li>
+        <li>If you write no constructor, Java gives you a
+        <span class="blank"></span>. If you write a parameterized one, the free one
+        <span class="blank"></span>.</li>
+        <li>A class may <code>extends</code> <span class="blank"></span> class(es) and
+        <code>implements</code> <span class="blank"></span> interface(s).</li>
+        <li>Overloading happens in <span class="blank"></span> and is resolved at
+        <span class="blank"></span> time; overriding happens in
+        <span class="blank"></span> and is resolved at <span class="blank"></span>
+        time.</li>
+        <li>To demonstrate polymorphism you must store the object in a
+        <span class="blank"></span> reference.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. encapsulation, abstraction, inheritance, polymorphism (A PIE)
+      &nbsp;·&nbsp; 2. private, getter, setter &nbsp;·&nbsp; 3. data, complexity
+      &nbsp;·&nbsp; 4. exactly the class name, no return type &nbsp;·&nbsp;
+      5. default constructor, disappears &nbsp;·&nbsp; 6. one, many &nbsp;·&nbsp;
+      7. the same class, compile, a subclass, run &nbsp;·&nbsp; 8. superclass (parent)</p>
+    </div>
+  </div>
+</section>
