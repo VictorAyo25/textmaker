@@ -18,7 +18,8 @@ Two things this gets right that the old table code did not:
 """
 import re
 import fitz
-from reconstruct import PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc, join_wrapped
+from reconstruct import (PDF, bars, raw_spans, reflow, _linegroup, FOOTER_RE, WHITE, esc,
+                         join_wrapped, hx)
 from gen_html import (table_headers_in, col_bounds, render_box, render_section_header,
                       table_extent, crop_datauri, figures_in, split_runs, box_end)
 
@@ -49,6 +50,29 @@ def cell_html(spans):
     return h.strip()
 
 
+def row_edges(page, head_y1, endy):
+    """Row boundaries taken from the table's own zebra shading.
+
+    Grouping by "column 0 is empty" only catches a wrap in a later column. When it
+    is column 0 that wraps, the tail starts a bogus row with every other cell
+    blank: "Like repels, unlike / attracts" became two entries, the second with an
+    empty hook. Each shaded band is exactly one row and the gaps between bands are
+    the unshaded rows, so the shading settles it. Returns [] if unshaded."""
+    bands = sorted((d['rect'].y0, d['rect'].y1) for d in page.get_drawings()
+                   if d.get('fill') and hx(d.get('fill')) in ('#fafbfc', '#f4f7fc')
+                   and d['rect'].width > 300 and head_y1 - 1 <= d['rect'].y0 < endy)
+    if not bands:
+        return []
+    edges = [head_y1]
+    for a, b in bands:
+        if a > edges[-1] + 1.5:
+            edges.append(a)
+        edges.append(min(b, endy))
+    if endy > edges[-1] + 1.5:
+        edges.append(endy)
+    return edges
+
+
 def build_table(page, head, endy):
     """Reconstruct one table, honouring wrapped rows."""
     hspans = [s for s in raw_spans(page, head['y0'] - 1, head['y1'] + 2) if s['col'] == WHITE]
@@ -73,17 +97,34 @@ def build_table(page, head, endy):
     body = [s for s in raw_spans(page, head['y1'] + 1, endy) if not FOOTER_RE.match(s['t'])]
 
     rows = []
-    for ln in _linegroup(body):
-        cells = [cell_html(c) for c in split(ln)]
-        if not any(cells):
-            continue
-        # a row continues (rather than starts) when column 0 is empty
-        if rows and not cells[0]:
-            for i, c in enumerate(cells):
-                if c:
-                    rows[-1][i] = (rows[-1][i] + ' ' + c).strip()
-        else:
-            rows.append(cells)
+    edges = row_edges(page, head['y1'] + 1, endy)
+    if edges:
+        # group every line into the shaded band (or gap) it sits in: one band = one row
+        for i in range(len(edges) - 1):
+            a, b = edges[i], edges[i + 1]
+            sp = [s for s in body if a - 1 <= (s['y'] + s['y1']) / 2 <= b + 1]
+            if not sp:
+                continue
+            cells = ['' for _ in range(ncol)]
+            for ln in _linegroup(sp):
+                for j, c in enumerate(split(ln)):
+                    h = cell_html(c)
+                    if h:
+                        cells[j] = join_wrapped(cells[j], h) if cells[j] else h
+            if any(cells):
+                rows.append(cells)
+    else:
+        for ln in _linegroup(body):
+            cells = [cell_html(c) for c in split(ln)]
+            if not any(cells):
+                continue
+            # unshaded table: a row continues when column 0 is empty
+            if rows and not cells[0]:
+                for i, c in enumerate(cells):
+                    if c:
+                        rows[-1][i] = (rows[-1][i] + ' ' + c).strip()
+            else:
+                rows.append(cells)
 
     if not rows:
         return ''

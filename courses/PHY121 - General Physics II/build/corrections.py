@@ -99,6 +99,28 @@ CORRECTIONS = {
   (f'<td>U = pE{THIN}cos{THIN}θ</td>',
    f'<td>U = −pE{THIN}cos{THIN}θ</td>',
    'dipole potential energy is U = -pE cos(theta); the minus sign was missing'),
+
+  # R.1 calls itself the COMPLETE formula sheet, and the mock papers say to sit
+  # them "with only a calculator and the formula sheet" -- but it stops at
+  # internal resistance and carries nothing from Units 4.5 or 4.6. All four of
+  # these are MUST-MEMORISE boxes in the teaching text, and both units are
+  # examined (4.5 in CBT Test 2 Q1; 4.6 is Q7's torque on a current loop). A
+  # student following the manual's own instruction sat those questions with no
+  # sheet entry for them.
+  ('<td>emf and internal resistance</td><td>E = I(R + r), V = E − Ir</td>'
+   '<td>V is always less than E</td></tr></tbody>',
+   '<td>emf and internal resistance</td><td>E = I(R + r), V = E − Ir</td>'
+   '<td>V is always less than E</td></tr>'
+   f'<tr><td>Self-induced emf</td><td>ε = −L{THIN}dI/dt</td>'
+   '<td>Unit 4.5. The minus sign is Lenz again</td></tr>'
+   f'<tr><td>Energy in an inductor</td><td>W = ½LI<sup>2</sup></td>'
+   '<td>Unit 4.5. Mirrors ½CV² for a capacitor</td></tr>'
+   f'<tr><td>Magnetic dipole moment</td><td>m = NIA</td>'
+   '<td>Unit 4.6. N turns, current I, area A</td></tr>'
+   f'<tr><td>Torque on a current loop</td><td>τ = mB{THIN}sin{THIN}θ = NIAB{THIN}sin{THIN}θ</td>'
+   '<td>Unit 4.6. Zero when m is along B</td></tr></tbody>',
+   'R.1 omitted every formula from Units 4.5 and 4.6, both examined, while '
+   'calling itself complete and being the only aid allowed in the mocks'),
  ],
 }
 

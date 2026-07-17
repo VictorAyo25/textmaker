@@ -16,7 +16,18 @@ set -euo pipefail
 COURSE="${1:-}"; MSG="${2:-}"; shift 2 || true
 if [ -z "$COURSE" ] || [ -z "$MSG" ]; then
   echo "usage: tools/commit_course.sh <COURSE> <message> [extra paths...]" >&2
+  echo "       tools/commit_course.sh <COURSE> -F <msgfile> [extra paths...]" >&2
   exit 2
+fi
+
+# -F <file> for long messages. A multi-line message passed inline is a trap: any
+# double quote inside it ends the shell's quoting, and the rest of the prose is
+# then handed to git as pathspecs ("fatal: pathspec 'anticlockwise' did not
+# match any files").
+MSGFILE=''
+if [ "$MSG" = "-F" ]; then
+  MSGFILE="${1:-}"; shift || true
+  if [ ! -f "$MSGFILE" ]; then echo "no such message file: $MSGFILE" >&2; exit 2; fi
 fi
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -61,5 +72,9 @@ if [ -n "$OTHERS" ]; then
   echo "$OTHERS" | sed 's/^/  /'
 fi
 
-git_retry commit -q -m "$MSG"
+if [ -n "$MSGFILE" ]; then
+  git_retry commit -q -F "$MSGFILE"
+else
+  git_retry commit -q -m "$MSG"
+fi
 git log --oneline -1
