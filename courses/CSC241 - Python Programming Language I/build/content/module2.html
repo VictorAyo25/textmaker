@@ -1,0 +1,881 @@
+<div class="part" id="m2">
+  <div class="kicker">Module Two</div>
+  <h1>Python Basics<br>and Syntax</h1>
+  <p class="blurb">The grammar of the language, the boxes you keep values in, and the
+  symbols that combine them. Everything in the rest of the manual is built out of what is
+  in these three units.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="62" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="16">
+        <text x="0" y="40" fill="#306998" opacity=".85">age</text>
+        <text x="42" y="40" fill="#1a2332" opacity=".6">=</text>
+        <text x="62" y="40" fill="#b45309" opacity=".85">25</text>
+        <text x="0" y="96" fill="#306998" opacity=".85">name</text>
+        <text x="52" y="96" fill="#1a2332" opacity=".6">=</text>
+        <text x="72" y="96" fill="#1f7a4d" opacity=".85">"Ada"</text>
+      </g>
+      <rect x="130" y="84" width="9" height="16" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<section id="m2u1">
+  <div class="kick">Module Two &middot; Unit 1</div>
+  <h2 class="title">Python Language Syntax</h2>
+  <hr class="rule">
+  <p class="lead">Syntax means the grammar: the rules that decide whether a line is Python
+  at all, before anyone asks whether it is correct.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> write and run statements, use
+  comments, explain why indentation is not decoration in Python, print with
+  <code>sep</code> and <code>end</code>, use escape characters, format with f-strings, and
+  read a traceback.</p>
+
+  <h3 class="sub">Statements</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>statement</b> is one complete instruction. In Python, one statement occupies
+      one line, and the end of the line ends the statement. There is no symbol to mark the
+      end.</p>
+<pre class="code"><span class="k">print</span>(<span class="s">"first"</span>)
+<span class="k">print</span>(<span class="s">"second"</span>)</pre>
+      <p>Two lines, two statements, carried out top to bottom. If you know a language that
+      ends statements with a semicolon, note that Python does not want one. It is not an
+      error, but it marks your code as written by somebody thinking in another language,
+      and the marks in this course go to Python style.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Comments</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>comment</b> is a note to a human. Python ignores it completely. Everything
+      from a <code>#</code> to the end of that line is a comment.</p>
+<pre class="code"><span class="c"># Work out the area of the room.</span>
+area = length * width      <span class="c"># in square metres</span></pre>
+      <p>Comments do not run, do not print, and do not affect anything. They exist so that
+      you, in three weeks, can tell what you meant.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Read this once, carefully</span></div>
+    <div class="body">
+      <p>A comment is <b>never</b> output. If you see</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">10</span> % <span class="n">2</span>
+<span class="n">0</span>          <span class="c"># Even</span></pre>
+      <p>then the output is <code>0</code>. The words <code>#&nbsp;Even</code> are a human
+      annotation sitting beside it, not something Python said. Python never answers you in
+      comments.</p>
+      <p>This matters because printed material sometimes puts the annotation where the
+      output should be, and a reader new to the language cannot tell which is which. In
+      this manual the rule is absolute: <b>output is shown on its own line, in an output
+      block, exactly as a real interpreter printed it.</b> Every output in this manual was
+      captured from a run, not typed by hand.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Indentation</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Python's one big idea</span></div>
+    <div class="body">
+      <p>In most languages, spaces at the start of a line are decoration, and blocks of code
+      are marked with braces. <b>In Python the spaces are the structure.</b> There are no
+      braces. Indentation is how Python knows which lines belong to what.</p>
+      <p>You have not met <code>if</code> yet, and it arrives properly in Module Three. Read
+      this only for the shape:</p>
+<pre class="code"><span class="k">if</span> raining:
+    <span class="k">print</span>(<span class="s">"take a coat"</span>)      <span class="c"># indented: belongs to the if</span>
+<span class="k">print</span>(<span class="s">"leave the house"</span>)      <span class="c"># not indented: always runs</span></pre>
+      <p>The indented line runs only when it is raining. The unindented line always runs.
+      Move that one line four spaces to the left or right and you have changed what the
+      program does. Nothing else changed.</p>
+      <p><b>The rule:</b> a colon at the end of a line means "a block follows", and that
+      block is the lines indented beneath it. Use <b>four spaces</b> per level. Be
+      consistent: Python accepts any consistent width, and rejects a mixture.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Exam favourite</span></div>
+    <div class="body">
+      <p>Indentation errors are a standing question in this course. Two distinct failures,
+      and the wording of the error tells you which:</p>
+<pre class="out">IndentationError: expected an indented block after 'if' statement on line 1</pre>
+      <p>means you wrote the colon and then did not indent anything beneath it.</p>
+<pre class="out">IndentationError: unexpected indent</pre>
+      <p>means you indented a line that had no colon above it to belong to.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Printing</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p><code>print()</code> displays things. Give it several items separated by commas and
+      it prints them all, putting <b>one space</b> between each:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"Ada"</span>, <span class="n">25</span>, <span class="s">"Lagos"</span>)
+Ada 25 Lagos</pre>
+      <p>It then moves to a new line. Both of those behaviours can be changed, and each has
+      a name you must know.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">sep and end</span></div>
+    <div class="body">
+      <p><code>sep</code> sets what goes <b>between</b> the items. Default: one space.</p>
+      <p><code>end</code> sets what goes <b>after</b> the last item. Default: a newline,
+      written <code>\n</code>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"2026"</span>, <span class="s">"07"</span>, <span class="s">"17"</span>, sep=<span class="s">"-"</span>)
+2026-07-17
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"Ada"</span>, <span class="s">"Bob"</span>, sep=<span class="s">""</span>)
+AdaBob</pre>
+      <p>Setting <code>end</code> to the empty string stops the newline, so the next
+      <code>print</code> continues on the same line:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"Hello"</span>, end=<span class="s">""</span>)
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"World"</span>)
+HelloWorld</pre>
+      <p>Read that transcript carefully. The first <code>print</code> displayed
+      <code>Hello</code> and stayed put; the second added <code>World</code> and ended the
+      line. The output <code>HelloWorld</code> is the work of both statements together.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Quotes and escape characters</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>Text in Python is written inside quotes, and is called a <b>string</b>. Single and
+      double quotes are equally valid and mean exactly the same thing:</p>
+<pre class="code"><span class="s">'Ada'</span>
+<span class="s">"Ada"</span></pre>
+      <p>Having both is useful, because a string in double quotes may freely contain a
+      single quote:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"It's fine"</span>)
+It's fine</pre>
+      <p>The problem arrives when the string must contain the same quote that ends it.
+      Python reads the second quote as the end of the string and the rest becomes nonsense.
+      The fix is an <b>escape character</b>: a backslash <code>\</code> before the quote,
+      which tells Python "this next character is data, not punctuation".</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"She said, \"Python is cool!\""</span>)
+She said, "Python is cool!"</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Escape characters</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Escape</th><th>Means</th></tr>
+        <tr><td><code>\n</code></td><td>Newline: move to the next line</td></tr>
+        <tr><td><code>\t</code></td><td>Tab: jump to the next tab stop</td></tr>
+        <tr><td><code>\"</code></td><td>A double quote, as data</td></tr>
+        <tr><td><code>\'</code></td><td>A single quote, as data</td></tr>
+        <tr><td><code>\\</code></td><td>One backslash, as data</td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">A question asking you to "list three escape
+      characters and their effects" has appeared in this course. The three safest to give
+      are <code>\n</code>, <code>\t</code> and <code>\\</code>.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">One string, two lines</span></div>
+    <div class="body">
+      <p><code>\n</code> inside a string breaks it across lines when printed. It is one
+      string, not two:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"Name: Ada\nCity: Lagos"</span>)
+Name: Ada
+City: Lagos</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">f-strings</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>You will constantly want to put a value inside a sentence. The direct way is an
+      <b>f-string</b>: put the letter <code>f</code> immediately before the opening quote,
+      then write <code>{ }</code> wherever a value belongs.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> name = <span class="s">"Ada"</span>
+<span class="p">&gt;&gt;&gt;</span> age = <span class="n">25</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">f"</span>{name}<span class="s"> is </span>{age}<span class="s">"</span>)
+Ada is 25</pre>
+      <p>The <code>f</code> is not optional and not decoration. Without it you get the
+      braces themselves:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"</span>{name}<span class="s"> is </span>{age}<span class="s">"</span>)
+{name} is {age}</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Format specifiers</span></div>
+    <div class="body">
+      <p>After a colon inside the braces you may say <i>how</i> to display the value. These
+      are the ones this course uses:</p>
+      <table class="data">
+        <tr><th>Written</th><th>Means</th><th>Example in</th><th>Example out</th></tr>
+        <tr><td><code>:.2f</code></td><td>Fixed to 2 decimal places</td><td><code>123.456</code></td><td><code>123.46</code></td></tr>
+        <tr><td><code>:,</code></td><td>Comma between thousands</td><td><code>1250000</code></td><td><code>1,250,000</code></td></tr>
+        <tr><td><code>:,.2f</code></td><td>Both together</td><td><code>9876543.21</code></td><td><code>9,876,543.21</code></td></tr>
+        <tr><td><code>:.2%</code></td><td>As a percentage, 2 decimals</td><td><code>0.875</code></td><td><code>87.50%</code></td></tr>
+        <tr><td><code>:&lt;10</code></td><td>Left aligned, width 10</td><td><code>'Item'</code></td><td><code>Item······</code></td></tr>
+        <tr><td><code>:&gt;10</code></td><td>Right aligned, width 10</td><td><code>'Price'</code></td><td><code>·····Price</code></td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">In the last two rows each dot stands for one
+      space, so that you can count them. Python prints spaces, not dots.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Alignment you can actually see</span></div>
+    <div class="body">
+      <p>Field widths exist to build columns, and columns only work in a font where every
+      character takes the same width. Every code block in this manual is set in such a font.
+      Give three rows <b>the same format string</b> and they line up:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">f"</span>{<span class="s">'Item'</span>:&lt;10}{<span class="s">'Price'</span>:&gt;10}<span class="s">"</span>)
+Item           Price
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">f"</span>{<span class="s">'Apple'</span>:&lt;10}{<span class="n">1.5</span>:&gt;10.2f}<span class="s">"</span>)
+Apple           1.50
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">f"</span>{<span class="s">'Banana'</span>:&lt;10}{<span class="n">12.75</span>:&gt;10.2f}<span class="s">"</span>)
+Banana         12.75</pre>
+      <p>The words start in the same column because <code>:&lt;10</code> pins them to the
+      left. The prices <b>end</b> in the same column because <code>:&gt;10</code> pins them
+      to the right, and that is true even though <code>1.50</code> and <code>12.75</code>
+      have different lengths. That is what a field width buys you.</p>
+      <p>Spaces cannot be counted by eye, so here are those same three lines with every
+      space drawn as a dot. Each dot is one space, and nothing else has changed:</p>
+<pre class="out">Item···········Price
+Apple···········1.50
+Banana·········12.75</pre>
+      <p>Count the first line. <code>Item</code> takes 4 of its 10 columns, so <b>6</b>
+      spaces pad it on the right. <code>Price</code> is 5 characters pushed to the right
+      hand edge of its own 10 columns, so <b>5</b> spaces come first. That is 6 + 5 =
+      <b>11</b> dots, which is what you counted. Every line is 20 characters wide.</p>
+      <p class="redo"><b>Now you try:</b> work out the dots for a row holding
+      <code>'Fig'</code> and <code>3.5</code> in the same format, before you run it.
+      <span class="small">(3 + 7 pad, then 6 + '3.50': Fig then 13 dots then 3.50.)</span></p>
+    </div>
+  </div>
+
+  <h3 class="sub">Reading a traceback</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Worth many marks</span></div>
+    <div class="body">
+      <p>When Python cannot do what you asked, it prints a <b>traceback</b>. Beginners see
+      a wall of red and look away. It is the most useful text on the screen, and half of
+      this course's code marks come from finding errors, so learn to read it.</p>
+<pre class="out">Traceback (most recent call last):
+  File "C:\Users\you\hello.py", line 3, in &lt;module&gt;
+    print(10 / 0)
+          ~~~^~~
+ZeroDivisionError: division by zero</pre>
+      <p>Read it <b>from the bottom up</b>:</p>
+      <ul class="bul">
+        <li><b>Last line</b> is what went wrong: <code>ZeroDivisionError</code>, and in
+        plain words, division by zero. This is the line that tells you the problem.</li>
+        <li><b>Above it</b> is the offending code, with the marks <code>~~~^~~</code>
+        pointing at the exact part that failed. The <code>^</code> sits under
+        <code>/</code>, the operation that could not be done.</li>
+        <li><b>Above that</b> is where: the full path of the file, and line 3.</li>
+      </ul>
+      <p>Error type, then message, then place. Three facts, always in that order.</p>
+      <p class="small">Python prints the file's whole location, so your first line will be
+      longer than the one above and will show wherever you saved it. Only the file name and
+      the line number matter to you.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Syntax before runtime</span></div>
+    <div class="body">
+      <p>Errors come in two kinds and they happen at <b>different times</b>:</p>
+      <p><b>A SyntaxError</b> is a grammar failure. Python finds it while reading the file,
+      <i>before running a single line</i>. Nothing in the file executes. There is no
+      traceback of the kind above, because nothing ran.</p>
+      <p><b>A runtime error</b> is a meaning failure in a line that is grammatically fine.
+      Python only finds it when it reaches that line, so everything before it has already
+      run and printed.</p>
+      <p><b>The consequence, which is examinable:</b> a SyntaxError anywhere in a file
+      hides every other error in it. If a file has a missing bracket on line 2 and a
+      misspelled name on line 9, you are told about line 2 only. Fix it, run again, and
+      only then hear about line 9.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What does a colon at the end of a line announce?</p>
+      <p class="q">2. What are <code>sep</code> and <code>end</code>?</p>
+      <p class="q">3. Which end of a traceback do you read first?</p>
+      <p class="q">4. A file has a SyntaxError on line 2 and a NameError on line 9. What
+      does Python report?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>That a block follows, made of the lines indented beneath it.</li>
+        <li><code>sep</code> is what <code>print</code> puts between items (default one
+        space); <code>end</code> is what it puts after the last one (default a newline).</li>
+        <li>The bottom. The last line names the error and states it in words.</li>
+        <li>The SyntaxError on line 2, and nothing else. The file never runs, so line 9 is
+        never reached.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m2u2">
+  <div class="kick">Module Two &middot; Unit 2</div>
+  <h2 class="title">Variables and Data Types</h2>
+  <hr class="rule">
+  <p class="lead">Where values are kept, what kinds of value exist, and the one thing about
+  numbers that surprises everybody exactly once.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> create and reassign variables, name
+  them legally, list the four basic types, check a type, read input, convert between types,
+  and explain why <code>0.1 + 0.2</code> is not <code>0.3</code>.</p>
+
+  <h3 class="sub">Variables</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>variable</b> is a name that refers to a value. You make one by writing the
+      name, then <code>=</code>, then the value:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> age = <span class="n">25</span>
+<span class="p">&gt;&gt;&gt;</span> age
+25</pre>
+      <p>The <code>=</code> here does <b>not</b> mean equals. It means <i>assign</i>: work
+      out the value on the right, then make the name on the left refer to it. It is an
+      instruction, not a statement of fact. This is why</p>
+<pre class="code">count = count + <span class="n">1</span></pre>
+      <p>is perfectly sensible, though as mathematics it would be nonsense. It reads: take
+      what <code>count</code> is now, add 1, and make <code>count</code> refer to that.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Reassignment</span></div>
+    <div class="body">
+      <p>A variable can be given a new value at any time, including a value of a different
+      kind. The old value is simply forgotten:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> x = <span class="n">99</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(x)
+99
+<span class="p">&gt;&gt;&gt;</span> x = <span class="s">"Take me to your leader."</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(x)
+Take me to your leader.</pre>
+      <p>Python does not object. The name is a label, not a box of a fixed size.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Naming rules</span></div>
+    <div class="body">
+      <p><b>Must:</b></p>
+      <ul class="bul">
+        <li>Start with a letter or an underscore. <b>Never</b> a digit.</li>
+        <li>Contain only letters, digits and underscores. No spaces, no hyphens.</li>
+        <li>Not be a Python keyword (<code>if</code>, <code>for</code>, <code>class</code>,
+        and the rest).</li>
+      </ul>
+      <p><b>Should:</b> be lowercase with underscores between words
+      (<code>total_score</code>), and say what it holds. A name like <code>x</code> tells
+      the reader nothing.</p>
+      <p><b>Case matters.</b> <code>age</code>, <code>Age</code> and <code>AGE</code> are
+      three different variables. This is a standing source of exam errors: a program that
+      defines <code>square</code> and calls <code>Square</code> is broken.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The four basic types</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Types</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Type</th><th>Name in Python</th><th>What it holds</th><th>Examples</th></tr>
+        <tr><td>Integer</td><td><code>int</code></td><td>Whole numbers, no decimal point</td><td><code>25</code>, <code>0</code>, <code>-7</code></td></tr>
+        <tr><td>Float</td><td><code>float</code></td><td>Numbers with a decimal point</td><td><code>3.14</code>, <code>-0.5</code>, <code>2.0</code></td></tr>
+        <tr><td>String</td><td><code>str</code></td><td>Text, in quotes</td><td><code>"Ada"</code>, <code>'x'</code>, <code>""</code></td></tr>
+        <tr><td>Boolean</td><td><code>bool</code></td><td>Truth, one of exactly two values</td><td><code>True</code>, <code>False</code></td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em"><code>True</code> and <code>False</code>
+      are capitalised and are not strings. <code>"True"</code> in quotes is a string.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">2.0 is not an int</span></div>
+    <div class="body">
+      <p><code>2</code> and <code>2.0</code> are equal in value but are different types.
+      The decimal point makes it a float, even when there is nothing after it. This decides
+      what division gives you back, as Unit 3 shows.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">type()</span></div>
+    <div class="body">
+      <p><code>type()</code> tells you what something is. When in doubt, ask:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">type</span>(<span class="n">25</span>)
+&lt;class 'int'&gt;
+<span class="p">&gt;&gt;&gt;</span> <span class="k">type</span>(<span class="n">3.14</span>)
+&lt;class 'float'&gt;
+<span class="p">&gt;&gt;&gt;</span> <span class="k">type</span>(<span class="s">"Ada"</span>)
+&lt;class 'str'&gt;
+<span class="p">&gt;&gt;&gt;</span> <span class="k">type</span>(<span class="k">True</span>)
+&lt;class 'bool'&gt;</pre>
+      <p>Read <code>&lt;class 'int'&gt;</code> as "this is an int". The word class is
+      Python's internal vocabulary for a type.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Input</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">input always gives a string</span></div>
+    <div class="body">
+      <p><code>input()</code> stops the program, waits for the user to type something and
+      press <span class="key">Enter</span>, and hands back what they typed. The text you
+      pass to it is shown as the prompt.</p>
+      <p><b>What it hands back is always a string. Always. Even when the user types
+      digits.</b></p>
+<pre class="code">age = <span class="k">input</span>(<span class="s">"How old are you? "</span>)
+<span class="k">print</span>(<span class="k">type</span>(age))</pre>
+<pre class="out">How old are you? 25
+&lt;class 'str'&gt;</pre>
+      <p>The user typed 25 and Python is holding the two characters <code>"25"</code>, not
+      the number. This single fact causes more broken exam answers than anything else in
+      the course.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">The classic</span></div>
+    <div class="body">
+      <p>Forget to convert, and arithmetic does something silently absurd rather than
+      failing:</p>
+<pre class="code">a = <span class="k">input</span>(<span class="s">"First number: "</span>)   <span class="c"># user types 5</span>
+b = <span class="k">input</span>(<span class="s">"Second number: "</span>)  <span class="c"># user types 3</span>
+<span class="k">print</span>(a + b)</pre>
+<pre class="out">First number: 5
+Second number: 3
+53</pre>
+      <p><b>53</b>, not 8. Because <code>+</code> on two strings joins them end to end. The
+      program did exactly what you asked and nothing reported an error. The fix is to
+      convert.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Converting between types</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Casting</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Function</th><th>Turns a value into</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>int()</code></td><td>an integer</td><td><code>int("25")</code></td><td><code>25</code></td></tr>
+        <tr><td><code>float()</code></td><td>a float</td><td><code>float("3.5")</code></td><td><code>3.5</code></td></tr>
+        <tr><td><code>str()</code></td><td>a string</td><td><code>str(100)</code></td><td><code>'100'</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">So the fix for the trap above, and the pattern you will
+      write hundreds of times:</p>
+<pre class="code">age = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"How old are you? "</span>))</pre>
+      <p>Read it from the inside out: <code>input</code> collects text, <code>int</code>
+      turns that text into a number, <code>=</code> stores the number.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">int() truncates</span></div>
+    <div class="body">
+      <p><code>int()</code> on a float throws the decimal part away. It does not round:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">int</span>(<span class="n">3.9</span>)
+3
+<span class="p">&gt;&gt;&gt;</span> <span class="k">int</span>(<span class="n">-3.9</span>)
+-3</pre>
+      <p>It cuts towards zero. Use <code>round()</code> if you want rounding.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">int() is fussy about strings</span></div>
+    <div class="body">
+      <p><code>int()</code> can only convert a string that is entirely a whole number. Give
+      it anything else and you get a runtime error, and the program stops:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">int</span>(<span class="s">"xyz"</span>)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: invalid literal for int() with base 10: 'xyz'</pre>
+      <p>Note that <code>int("3.5")</code> fails too, for the same reason: <code>3.5</code>
+      is not a whole number written out. Use <code>float("3.5")</code>, or
+      <code>int(float("3.5"))</code> if you truly want <code>3</code>.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Floats are not exact</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Everybody meets this once</span></div>
+    <div class="body">
+      <p>Type this at the prompt. It is not a trick:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">0.1</span> + <span class="n">0.2</span>
+0.30000000000000004</pre>
+      <p>Python is not broken and you did not make a mistake. A computer stores numbers in
+      binary, in a fixed amount of space. Some numbers that are short and exact in decimal,
+      such as 0.1, cannot be written exactly in binary at all, in the same way that 1/3
+      cannot be written exactly in decimal: 0.333... never finishes. Python stores the
+      closest value it can fit, and the tiny difference shows up when you add.</p>
+      <p>This is not a Python quirk. It is how nearly every language on nearly every
+      machine stores decimals.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Where it will bite you</span></div>
+    <div class="body">
+      <p>It hides until it does not. Watch an ordinary looking interest calculation:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> INTEREST_RATE = <span class="n">0.069</span>
+<span class="p">&gt;&gt;&gt;</span> balance = <span class="n">10000</span>
+<span class="p">&gt;&gt;&gt;</span> amount = balance * INTEREST_RATE
+<span class="p">&gt;&gt;&gt;</span> amount
+690.0000000000001</pre>
+      <p>Not <code>690.0</code>. And yet change the rate to <code>0.072</code> and it comes
+      out perfectly clean:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> INTEREST_RATE = <span class="n">0.072</span>
+<span class="p">&gt;&gt;&gt;</span> amount = balance * INTEREST_RATE
+<span class="p">&gt;&gt;&gt;</span> amount
+720.0</pre>
+      <p>Same code, same shape, one is ugly and one is clean. That is exactly what makes
+      this dangerous: you cannot predict which by looking, so you must handle it always
+      rather than when it looks likely.</p>
+      <p class="redo"><b>The rule:</b> never show a raw float to a user, and never compare
+      two floats with <code>==</code>. Format it on the way out.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The fix</span></div>
+    <div class="body">
+      <p>Format the float when you display it, and the problem disappears at the only point
+      where it mattered:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> amount = <span class="n">10000</span> * <span class="n">0.069</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">f"Interest: </span>{amount:.2f}<span class="s">"</span>)
+Interest: 690.00</pre>
+      <p>Any exam program that reports an average, a percentage or an amount of money
+      should print it through <code>:.2f</code>. It is one keystroke's worth of effort and
+      it is the difference between a professional answer and a puzzling one.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What type does <code>input()</code> return?</p>
+      <p class="q">2. The user types 5 and 3 into two <code>input()</code> calls and you
+      print <code>a + b</code>. What appears, and why?</p>
+      <p class="q">3. What is <code>int(3.9)</code>?</p>
+      <p class="q">4. Why is <code>0.1 + 0.2</code> not <code>0.3</code>?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>A string, always, even if the user typed digits.</li>
+        <li><code>53</code>. Both are strings, and <code>+</code> on strings joins them.
+        No error is reported.</li>
+        <li><code>3</code>. <code>int()</code> truncates towards zero, it does not round.</li>
+        <li>Floats are stored in binary in fixed space. 0.1 has no exact binary form, so
+        Python stores the nearest value it can, and the small error becomes visible when
+        adding. Format with <code>:.2f</code> on output.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m2u3">
+  <div class="kick">Module Two &middot; Unit 3</div>
+  <h2 class="title">Python Operators</h2>
+  <hr class="rule">
+  <p class="lead">The symbols that combine values. Two of them, <code>//</code> and
+  <code>%</code>, carry more exam marks than the rest put together.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> use every arithmetic operator,
+  predict what division returns, use <code>%</code> to test divisibility, apply precedence
+  correctly, and use comparison and logical operators.</p>
+
+  <h3 class="sub">Arithmetic</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">All seven</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>+</code></td><td>Add</td><td><code>7 + 5</code></td><td><code>12</code></td></tr>
+        <tr><td><code>-</code></td><td>Subtract</td><td><code>7 - 5</code></td><td><code>2</code></td></tr>
+        <tr><td><code>*</code></td><td>Multiply</td><td><code>7 * 5</code></td><td><code>35</code></td></tr>
+        <tr><td><code>/</code></td><td>Divide</td><td><code>7 / 5</code></td><td><code>1.4</code></td></tr>
+        <tr><td><code>//</code></td><td>Floor divide</td><td><code>7 // 5</code></td><td><code>1</code></td></tr>
+        <tr><td><code>%</code></td><td>Remainder (modulus)</td><td><code>7 % 5</code></td><td><code>2</code></td></tr>
+        <tr><td><code>**</code></td><td>Exponent (power)</td><td><code>7 ** 2</code></td><td><code>49</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">/ always gives a float</span></div>
+    <div class="body">
+      <p><code>/</code> gives a <b>float every time</b>, even when the division is exact:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">10</span> / <span class="n">2</span>
+5.0
+<span class="p">&gt;&gt;&gt;</span> <span class="n">5</span> / <span class="n">2</span>
+2.5</pre>
+      <p><code>10 / 2</code> is <code>5.0</code>, not <code>5</code>. If you need a whole
+      number, use <code>//</code> or wrap it in <code>int()</code>.</p>
+      <p><code>//</code> divides and throws away the fractional part, giving the whole
+      number of times the divisor fits:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">7</span> // <span class="n">5</span>
+1
+<span class="p">&gt;&gt;&gt;</span> <span class="n">17</span> // <span class="n">3</span>
+5</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">% is the workhorse</span></div>
+    <div class="body">
+      <p><code>%</code> gives the <b>remainder</b> after division. <code>17 % 3</code> is
+      <code>2</code>, because 3 fits into 17 five times with 2 left over.</p>
+      <p><code>//</code> and <code>%</code> are the two halves of one division:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">17</span> // <span class="n">3</span>
+5
+<span class="p">&gt;&gt;&gt;</span> <span class="n">17</span> % <span class="n">3</span>
+2</pre>
+      <p>17 divided by 3 is <b>5 remainder 2</b>. The first gives the 5, the second the 2.</p>
+      <p><b>The use that appears in this exam every year:</b> a number is divisible by
+      <code>n</code> exactly when <code>number % n == 0</code>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">10</span> % <span class="n">2</span>
+0
+<span class="p">&gt;&gt;&gt;</span> <span class="n">7</span> % <span class="n">2</span>
+1</pre>
+      <p>A remainder of 0 on division by 2 means even. A remainder of 1 means odd. Read
+      those two transcripts again: the outputs are <code>0</code> and <code>1</code>. That
+      is what Python printed.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Seconds into hours, minutes, seconds</span></div>
+    <div class="body">
+      <p>This is <code>//</code> and <code>%</code> working together, and it is the standard
+      demonstration of both. Turn 11730 seconds into hours, minutes and seconds.</p>
+      <ol class="steps">
+        <li>An hour is 3600 seconds. <b>How many whole hours fit?</b> That is floor
+        division.
+        <span class="note">11730 // 3600 gives 3</span></li>
+        <li><b>What is left over after those hours?</b> Take the remainder on 3600, then
+        ask how many whole minutes fit in it. Both steps at once: take the remainder on 60
+        of the total whole minutes.
+        <span class="note">(11730 // 60) % 60 gives 15</span></li>
+        <li><b>Seconds left over</b> is the remainder on 60.
+        <span class="note">11730 % 60 gives 30</span></li>
+      </ol>
+      <div class="codelabel">time_converter.py</div>
+<pre class="code">total_seconds = <span class="n">11730</span>
+hours   = total_seconds // <span class="n">3600</span>
+minutes = (total_seconds // <span class="n">60</span>) % <span class="n">60</span>
+seconds = total_seconds % <span class="n">60</span>
+<span class="k">print</span>(<span class="s">"Hours:"</span>, hours)
+<span class="k">print</span>(<span class="s">"Minutes:"</span>, minutes)
+<span class="k">print</span>(<span class="s">"Seconds:"</span>, seconds)</pre>
+<pre class="out">Hours: 3
+Minutes: 15
+Seconds: 30</pre>
+      <p class="redo"><b>Now you try:</b> change 11730 to 7325 and predict the three numbers
+      before running it. <span class="small">(2 hours, 2 minutes, 5 seconds.)</span></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">** is right associative</span></div>
+    <div class="body">
+      <p>Nearly every operator groups from the left. <code>**</code> groups from the
+      <b>right</b>:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">2</span> ** <span class="n">3</span> ** <span class="n">2</span>
+512</pre>
+      <p>This is <code>2 ** (3 ** 2)</code>, which is <code>2 ** 9</code>, which is 512. It
+      is <b>not</b> <code>(2 ** 3) ** 2</code>, which would be 64.</p>
+      <p><code>**</code> also does roots, because a square root is the power one half:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">9</span> ** <span class="n">0.5</span>
+3.0</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">Precedence</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Order of operations</span></div>
+    <div class="body">
+      <p>When several operators appear in one expression, Python applies them in this
+      order, highest first:</p>
+      <table class="data">
+        <tr><th>Order</th><th>Operators</th></tr>
+        <tr><td>1</td><td><code>( )</code> brackets</td></tr>
+        <tr><td>2</td><td><code>**</code></td></tr>
+        <tr><td>3</td><td><code>*</code> &nbsp; <code>/</code> &nbsp; <code>//</code> &nbsp; <code>%</code></td></tr>
+        <tr><td>4</td><td><code>+</code> &nbsp; <code>-</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">Within one row, work left to right (except <code>**</code>,
+      which goes right to left).</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="n">2</span> + <span class="n">3</span> * <span class="n">4</span>
+14
+<span class="p">&gt;&gt;&gt;</span> (<span class="n">2</span> + <span class="n">3</span>) * <span class="n">4</span>
+20</pre>
+      <p>When in doubt, add brackets. They cost nothing and they make your intention
+      unmistakable to a marker.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Comparison operators</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">These give True or False</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operator</th><th>Means</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>==</code></td><td>Equal to</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>!=</code></td><td>Not equal to</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>7 &gt; 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&lt;</code></td><td>Less than</td><td><code>4 &lt; 10</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>7 &gt;= 7</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>2 &lt;= 4</code></td><td><code>True</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">= against ==</span></div>
+    <div class="body">
+      <p><b><code>=</code> assigns. <code>==</code> asks.</b> They are unrelated, and
+      confusing them is the most common single error in this course's error-spotting
+      questions.</p>
+<pre class="code">age = <span class="n">18</span>      <span class="c"># assigns 18 to age</span>
+age == <span class="n">18</span>     <span class="c"># asks: is age 18? Gives True.</span></pre>
+      <p>Write <code>if age = 18:</code> and Python stops you with a SyntaxError, because a
+      question was expected and you gave it an instruction.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Chaining</span></div>
+    <div class="body">
+      <p>Python lets you write a range check the way mathematics does, and it means what it
+      looks like:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> bmi = <span class="n">22.4</span>
+<span class="p">&gt;&gt;&gt;</span> <span class="n">18.5</span> &lt;= bmi &lt;= <span class="n">24.9</span>
+True</pre>
+      <p>This is worth remembering: a question in this course asks for exactly this test on
+      a BMI value, and the chained form is shorter and clearer than joining two comparisons
+      with <code>and</code>.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Logical operators</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">and, or, not</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operator</th><th>True when</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>and</code></td><td><b>Both</b> sides are true</td><td><code>True and False</code></td><td><code>False</code></td></tr>
+        <tr><td><code>or</code></td><td><b>Either</b> side is true</td><td><code>True or False</code></td><td><code>True</code></td></tr>
+        <tr><td><code>not</code></td><td>The other way round</td><td><code>not True</code></td><td><code>False</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">These are English words in Python, not symbols. If you have
+      seen <code>&amp;&amp;</code> and <code>||</code> elsewhere, they do not exist here.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> n = <span class="n">15</span>
+<span class="p">&gt;&gt;&gt;</span> n % <span class="n">3</span> == <span class="n">0</span> <span class="k">and</span> n % <span class="n">5</span> == <span class="n">0</span>
+True</pre>
+      <p>Fix that line in your memory. It asks "is n divisible by both 3 and 5", and it is
+      the first test in the FizzBuzz style question this course sets.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Assignment operators</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Shorthand</span></div>
+    <div class="body">
+      <p>Changing a variable using its own current value is so common it has shorthand:</p>
+      <table class="data">
+        <tr><th>Shorthand</th><th>Means</th></tr>
+        <tr><td><code>x += 1</code></td><td><code>x = x + 1</code></td></tr>
+        <tr><td><code>x -= 1</code></td><td><code>x = x - 1</code></td></tr>
+        <tr><td><code>x *= 2</code></td><td><code>x = x * 2</code></td></tr>
+        <tr><td><code>x /= 2</code></td><td><code>x = x / 2</code></td></tr>
+      </table>
+      <p style="margin-top:.5em"><code>x += 1</code> is read "increment x". You will write
+      it in every counting loop in Module Three, and forgetting it is what makes a loop run
+      forever.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>Dry run</span><span class="tag">Trace it by hand</span></div>
+    <div class="body">
+      <p>Tracing a program by hand, one line at a time, writing down what each variable
+      holds, is the skill this course tests as "what will the following code display".
+      Practise it now on something small, so that it is automatic later.</p>
+<pre class="code">a = <span class="n">7</span>
+b = <span class="n">2</span>
+a += b
+c = a // b
+d = a % b
+<span class="k">print</span>(a, b, c, d)</pre>
+      <p>Take one line at a time and never look ahead:</p>
+      <table class="trace">
+        <tr><th>Line</th><th>a</th><th>b</th><th>c</th><th>d</th><th>Output</th></tr>
+        <tr><td>a = 7</td><td>7</td><td>-</td><td>-</td><td>-</td><td></td></tr>
+        <tr><td>b = 2</td><td>7</td><td>2</td><td>-</td><td>-</td><td></td></tr>
+        <tr><td>a += b</td><td>9</td><td>2</td><td>-</td><td>-</td><td></td></tr>
+        <tr><td>c = a // b</td><td>9</td><td>2</td><td>4</td><td>-</td><td></td></tr>
+        <tr><td>d = a % b</td><td>9</td><td>2</td><td>4</td><td>1</td><td></td></tr>
+        <tr><td>print(...)</td><td>9</td><td>2</td><td>4</td><td>1</td><td class="out">9 2 4 1</td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">A dash means the variable does not exist
+      yet. Using one before it exists is a NameError.</p>
+      <div class="codelabel">Confirmed against a real interpreter</div>
+<pre class="out">9 2 4 1</pre>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What is <code>10 / 2</code>, and what type is it?</p>
+      <p class="q">2. How do you test whether <code>n</code> is divisible by 5?</p>
+      <p class="q">3. What is <code>2 ** 3 ** 2</code>?</p>
+      <p class="q">4. What is the difference between <code>=</code> and <code>==</code>?</p>
+      <p class="q">5. What is <code>17 // 3</code> and <code>17 % 3</code>?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li><code>5.0</code>, a float. <code>/</code> always gives a float.</li>
+        <li><code>n % 5 == 0</code></li>
+        <li><code>512</code>. <code>**</code> groups from the right, so it is
+        <code>2 ** 9</code>, not <code>(2 ** 3) ** 2</code>.</li>
+        <li><code>=</code> assigns a value to a name. <code>==</code> asks whether two
+        values are equal and gives back True or False.</li>
+        <li><code>5</code> and <code>2</code>. Seventeen is three fives remainder two.</li>
+      </ol>
+    </div>
+  </div>
+</section>

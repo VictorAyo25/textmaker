@@ -5,11 +5,12 @@ src = os.path.abspath(sys.argv[1])
 out = os.path.abspath(sys.argv[2])
 url = 'file:///' + src.replace('\\', '/')
 
+# Footer carries the course and the author, and nothing else.
 FOOTER = (
     '<div style="width:100%; font-family:DejaVu Sans, sans-serif; font-size:7pt; '
     'color:#8a8f98; padding:0 18mm; display:flex; justify-content:space-between;">'
-    '<span>PHY121 · General Physics II · Victor Ayodeji</span>'
-    '<span class="pageNumber" style="color:#1e2430; font-weight:bold; font-size:8pt;"></span></div>'
+    '<span>CSC241 · Python Programming Language I · Victor Ayodeji</span>'
+    '<span class="pageNumber" style="color:#1a2332; font-weight:bold; font-size:8pt;"></span></div>'
 )
 
 # 'nofooter' mode: full-bleed page, no running footer (used for the cover)

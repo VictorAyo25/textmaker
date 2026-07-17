@@ -6,7 +6,9 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-Intake. Sources filed, exam papers transcribed. Manual not yet authored.
+**Checkpoint built, awaiting sign-off on voice and palette.** Modules One and Two are
+authored and rendered to `build/CSC241_checkpoint.pdf` (27 pages: cover plus 26).
+Modules Three to Five are not started; they begin once the checkpoint is approved.
 
 ## Sources
 
@@ -86,9 +88,34 @@ for f in sorted(glob.glob('sources/exams/*.pdf')):
 "
 ```
 
-The manual build itself runs from `build/` once authoring starts. `build/` currently
-holds the seeded pipeline copied from PHY121: `render.py`, `buildlock.py`,
-`manual.css` (PHY121 palette, to be replaced), and vendored `fonts/`.
+Build the manual itself:
+
+```bash
+cd "courses/CSC241 - Python Programming Language I/build"
+python assemble.py            # gates, then HTML, then PDF
+python assemble.py --no-pdf   # gates and HTML only, skips Chromium
+```
+
+`assemble.py` concatenates `content/*.html` in book order, runs both gates, and
+renders. The cover is full bleed with no running footer, so it is rendered on its
+own and merged in front of the body.
+
+**Both gates stop the build on failure. Neither is advisory.**
+
+- `verify_code.py` executes **every output the manual claims** against a real
+  interpreter and fails on any mismatch (72 claims at the checkpoint). This is the
+  course's analogue of PHY121's "recompute every number". It exists because the
+  source manual's own transcripts were typed rather than captured: see
+  `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the
+  gate derives the dot string from a real run and requires that exact string to be
+  present in the page, so a hand-miscounted dot fails the build.
+- `gates.py` enforces house style: no em or en dashes, no institution branding, the
+  pedagogy source unnamed, the reserved colour used only by MUST MEMORISE, and all
+  code monospace.
+
+`build/` also holds `manual.css` (the CSC241 palette and box grammar), `render.py`
+(Chromium via Playwright, footer via `footerTemplate`), `buildlock.py`, and vendored
+`fonts/`.
 
 Only one chat may build this course at a time; `build/.build.lock` enforces it.
 Stage commits with `tools/commit_course.sh` from the workspace root, never

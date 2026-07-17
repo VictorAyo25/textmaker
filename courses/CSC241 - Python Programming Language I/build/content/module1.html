@@ -1,0 +1,365 @@
+<div class="part" id="m1">
+  <div class="kicker">Module One</div>
+  <h1>Introduction to<br>Python Programming</h1>
+  <p class="blurb">What a program actually is, what the machine does with it, and how to
+  get Python running on your own computer so that every page after this one is something
+  you can try rather than something you read.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="62" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="16" fill="#306998">
+        <text x="0" y="40" opacity=".85">&gt;&gt;&gt;</text>
+        <text x="42" y="40" fill="#1a2332" opacity=".7">print(</text>
+        <text x="106" y="40" fill="#1f7a4d" opacity=".8">"hello"</text>
+        <text x="176" y="40" fill="#1a2332" opacity=".7">)</text>
+        <text x="0" y="96" fill="#1a2332" opacity=".55">hello</text>
+      </g>
+      <rect x="188" y="28" width="9" height="16" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<section id="m1u1">
+  <div class="kick">Module One &middot; Unit 1</div>
+  <h2 class="title">Overview of Python</h2>
+  <hr class="rule">
+  <p class="lead">Start here even if you have never written a line of code. This unit
+  assumes nothing.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> say what a program is, explain what
+  an interpreter does and how it differs from a compiler, state why Python is used, and
+  name the places Python is used in practice.</p>
+
+  <h3 class="sub">What a program is</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">From zero</span></div>
+    <div class="body">
+      <p>A computer does nothing on its own. It waits to be told, in exact terms, what to
+      do. A <b>program</b> is that telling: an ordered list of instructions, written down,
+      that the computer carries out one after another.</p>
+      <p>Think of a recipe. A recipe is not the cooking; it is the written instructions
+      that produce the cooking when somebody follows them. A program is not the work; it is
+      the written instructions that produce the work when the computer follows them.</p>
+      <p>Two words that follow from this, and that you will use constantly:</p>
+      <ul class="bul">
+        <li><b>Code</b> is the text you write. The instructions themselves.</li>
+        <li><b>Running</b> (or <b>executing</b>) a program means telling the computer to
+        carry out those instructions now, from the top, in order.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Why we need a language</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>The computer's own vocabulary is numbers. Nothing else. Instructions inside the
+      machine are patterns of the digits 0 and 1, called <b>machine code</b>. Writing
+      anything useful directly in 0s and 1s is possible and unbearable.</p>
+      <p>So we write in a <b>programming language</b> instead: a fixed, small, precisely
+      defined set of words and symbols that a human can read and that can be turned into
+      machine code automatically. Python is one such language.</p>
+      <p>A programming language is deliberately far stricter than English. In English,
+      "print hello" and "hello, print it" and "could you print hello" all land. A
+      programming language accepts exactly one form and rejects the rest. That strictness
+      is not the language being difficult. It is the reason the translation to machine code
+      can be done without a human guessing at your intention.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Interpreter and compiler</h3>
+
+  <p>Something must sit between your text and the machine's numbers. There are two ways to
+  build that something, and the difference is examinable.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Examinable</span></div>
+    <div class="body">
+      <p>A <b>compiler</b> reads your <i>whole</i> program, translates all of it into
+      machine code, and writes that machine code out as a new file. Nothing runs during
+      translation. You run the produced file afterwards, and it runs on its own.</p>
+      <p>An <b>interpreter</b> reads your program <i>one instruction at a time</i>, and
+      carries out each instruction as soon as it has read it. Nothing is written out. There
+      is no separate file to run afterwards. Translation and running are the same activity.</p>
+      <p><b>Python is interpreted.</b> The program that reads your Python and does what it
+      says is called <b>the Python interpreter</b>, and installing Python (Unit 2) means
+      installing it.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Compiler vs interpreter</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th></th><th>Compiler</th><th>Interpreter</th></tr>
+        <tr><td>How much it reads before acting</td><td>The whole program</td><td>One instruction</td></tr>
+        <tr><td>Produces a machine code file?</td><td>Yes</td><td>No</td></tr>
+        <tr><td>When errors surface</td><td>All at translation, before any run</td><td>When that line is reached</td></tr>
+        <tr><td>Speed of the finished program</td><td>Faster</td><td>Slower</td></tr>
+        <tr><td>Example language</td><td>C, C++</td><td><b>Python</b></td></tr>
+      </table>
+      <p class="small" style="margin-top:.5em">Marks are lost here by naming only one
+      difference. The question asks you to differentiate, so give the pair each time: what
+      it reads, and what it produces.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span></div>
+    <div class="body">
+      <p>"Interpreted means Python has no errors until it runs" is <b>half true and the
+      half that is false costs marks.</b> Python still checks that each line is
+      <i>grammatically</i> possible before running anything in that file. A missing colon
+      is caught immediately, before the first line executes. What waits until the line is
+      reached is a <i>meaning</i> error, such as dividing by zero.</p>
+      <p>You will meet this split again as SyntaxError versus runtime error in Module Two,
+      and it is worth marks on its own.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Why Python</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>It reads close to English.</b> Fewer symbols stand between your intention
+        and the page, so there is less to get wrong.</li>
+        <li><b>It is short.</b> Work that takes many lines elsewhere often takes one here.</li>
+        <li><b>It comes with a large standard library:</b> a big collection of ready made
+        code that ships with Python, so common jobs are already solved. You will use one of
+        these, <code>sqlite3</code>, in Module Five.</li>
+        <li><b>It is portable.</b> The same Python file runs on Windows, macOS and Linux.</li>
+        <li><b>It is free</b> and its interpreter is open source.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where Python is used</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Field</th><th>What Python does there</th></tr>
+        <tr><td>Web development</td><td>Runs the server behind a website</td></tr>
+        <tr><td>Data analysis</td><td>Reads large data files, summarises and charts them</td></tr>
+        <tr><td>Artificial intelligence</td><td>Builds and trains models</td></tr>
+        <tr><td>Automation and scripting</td><td>Repetitive machine work, such as renaming thousands of files</td></tr>
+        <tr><td>Scientific computing</td><td>Simulation and numerical work</td></tr>
+        <tr><td>Software testing</td><td>Automatically exercising other programs</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What is a program?</p>
+      <p class="q">2. Give the two differences between a compiler and an interpreter that
+      earn the marks.</p>
+      <p class="q">3. Is Python compiled or interpreted?</p>
+      <p class="q">4. Name three fields where Python is used.</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>An ordered list of instructions that a computer carries out, written down in a
+        language it can be made to understand.</li>
+        <li>A compiler reads the whole program and produces a machine code file. An
+        interpreter reads one instruction at a time and carries it out at once, producing
+        no file.</li>
+        <li>Interpreted.</li>
+        <li>Any three of: web development, data analysis, artificial intelligence,
+        automation, scientific computing, software testing.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m1u2">
+  <div class="kick">Module One &middot; Unit 2</div>
+  <h2 class="title">Setting Up Python</h2>
+  <hr class="rule">
+  <p class="lead">Do this once, on your own machine, before you read Module Two. Everything
+  after here is meant to be typed, not watched.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> install Python, confirm it
+  installed, use the interactive prompt, write and run a script file, and say which of the
+  two you are looking at.</p>
+
+  <h3 class="sub">Installing</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Windows</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>Open <code>python.org</code> and choose Downloads. The site offers you the
+        installer for the system you are on.</li>
+        <li>Run the installer.</li>
+        <li><b>Tick "Add Python to PATH" on the first screen.</b> This is the one step that
+        people skip and then cannot proceed. It is explained directly below.</li>
+        <li>Choose "Install Now" and wait for it to finish.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">PATH</span></div>
+    <div class="body">
+      <p><b>PATH</b> is a list your operating system keeps of the folders it will search
+      when you type a command. If Python's folder is not on that list, then typing
+      <code>python</code> gets you "command not found", even though Python is installed
+      perfectly well. The program is there; the system just does not know where to look.</p>
+      <p>If you have already installed without ticking it, run the installer again, choose
+      Modify, and add it. You do not need to uninstall anything.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">macOS and Linux</span></div>
+    <div class="body">
+      <p>Both usually ship with a Python already, but often an old one. Install the current
+      version from <code>python.org</code> in the same way. On Linux you may instead use
+      your system's package manager, for example <code>sudo apt install python3</code> on
+      Ubuntu.</p>
+      <p>On macOS and Linux the command is often <code>python3</code> rather than
+      <code>python</code>. If <code>python</code> gives you an error or a version starting
+      with 2, use <code>python3</code> everywhere in this manual.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Confirming it worked</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>Open a <b>terminal</b>, the window where you type commands to your operating
+      system rather than clicking. On Windows it is called Command Prompt or PowerShell; on
+      macOS and Linux it is called Terminal. Type this and press <span class="key">Enter</span>:</p>
+      <div class="codelabel">In the terminal, not in Python</div>
+<pre class="code">python --version</pre>
+      <p>It should answer with a version number:</p>
+<pre class="out">Python 3.13.5</pre>
+      <p>Your exact numbers will differ, and that is fine. Any version starting with
+      <b>3</b> is fine. If it starts with 2, or you get
+      "command not found", see the PATH box above, and try <code>python3 --version</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Python 2</span></div>
+    <div class="body">
+      <p>If your version starts with <b>2</b>, stop and fix it. Python 2 is a different
+      language in small, silent ways. In Python 2, <code>5 / 2</code> is <code>2</code>. In
+      Python 3 it is <code>2.5</code>. Nothing warns you; you simply get wrong answers.
+      Every page of this manual is Python 3.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The two ways to run Python</h3>
+
+  <p>This is the distinction that confuses beginners more than any other, so it gets its
+  own box. From here on, every code block in this manual is labelled as one or the other.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Prompt vs script</span></div>
+    <div class="body">
+      <p><b>1. The interactive prompt</b> (also called the REPL, or interactive mode). You
+      type one line, press <span class="key">Enter</span>, and Python answers immediately.
+      You recognise it by the three symbols <code>&gt;&gt;&gt;</code> at the left, which
+      Python prints to mean "your turn". It forgets everything when you close it.</p>
+      <p><b>2. A script.</b> You type many lines into a file, save it with a name ending in
+      <code>.py</code>, and run the whole file at once. It keeps everything, because it is
+      a file.</p>
+      <p><b>The prompt is for asking. A script is for building.</b> Your exam answers are
+      scripts.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The prompt</span></div>
+    <div class="body">
+      <p>Type <code>python</code> on its own in the terminal and press
+      <span class="key">Enter</span>. The prompt appears:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> </pre>
+      <p>Now type an instruction and press <span class="key">Enter</span>. Python answers
+      on the next line, then offers you the prompt again:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(<span class="s">"Hello, World!"</span>)
+Hello, World!
+<span class="p">&gt;&gt;&gt;</span> </pre>
+      <p>To leave the prompt and return to the terminal, type <code>exit()</code> and press
+      <span class="key">Enter</span>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Reading transcripts</span></div>
+    <div class="body">
+      <p>In every prompt transcript in this manual:</p>
+      <ul class="bul">
+        <li>Lines beginning <code>&gt;&gt;&gt;</code> are what <b>you type</b>. Do not type
+        the <code>&gt;&gt;&gt;</code> itself; Python prints that.</li>
+        <li>Lines with no <code>&gt;&gt;&gt;</code> are what <b>Python printed back</b>.</li>
+      </ul>
+      <p>So in the transcript above, you typed 21 characters and Python printed
+      <code>Hello, World!</code>. Getting this backwards is the single most common early
+      confusion, which is why the two are given different coloured edges throughout.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">A script</span></div>
+    <div class="body">
+      <p>Open any plain text editor. Notepad works. So does IDLE, which was installed
+      alongside Python: find it in your programs, then choose File, then New File.</p>
+      <p>Type these two lines:</p>
+      <div class="codelabel">hello.py</div>
+<pre class="code"><span class="k">print</span>(<span class="s">"Hello, World!"</span>)
+<span class="k">print</span>(<span class="s">"I am running from a file."</span>)</pre>
+      <p>Save it as <code>hello.py</code>. The <code>.py</code> ending is what marks a file
+      as Python. Then, in the terminal, move to the folder you saved it in and type:</p>
+      <div class="codelabel">In the terminal</div>
+<pre class="code">python hello.py</pre>
+      <p>Python reads the file from the top, carries out each line in order, prints:</p>
+<pre class="out">Hello, World!
+I am running from a file.</pre>
+      <p>and then exits. Notice there is no <code>&gt;&gt;&gt;</code> anywhere: you are not
+      having a conversation, you are handing over a finished list of instructions.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Costs marks and hours</span></div>
+    <div class="body">
+      <p>Typing <code>python hello.py</code> <i>while already at the</i>
+      <code>&gt;&gt;&gt;</code> <i>prompt</i> gives you a SyntaxError. Those are terminal
+      commands, not Python instructions. They live in different places:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> python hello.py
+  File "&lt;stdin&gt;", line 1
+    python hello.py
+           ^^^^^
+SyntaxError: invalid syntax</pre>
+      <p>If you see this, you are at the Python prompt when you meant to be at the
+      terminal. Type <code>exit()</code> first.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What does PATH do, and what goes wrong if Python is not on it?</p>
+      <p class="q">2. What do the three symbols <code>&gt;&gt;&gt;</code> tell you?</p>
+      <p class="q">3. Which ending must a Python file's name have?</p>
+      <p class="q">4. You want to keep your work and hand it in. Prompt or script?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>PATH lists the folders the operating system searches when you type a command.
+        If Python's folder is missing from it, typing <code>python</code> reports "command
+        not found" even though Python is installed.</li>
+        <li>That you are at the interactive prompt, and that Python is waiting for you to
+        type one instruction. You never type the symbols yourself.</li>
+        <li><code>.py</code></li>
+        <li>A script. The prompt forgets everything when it closes.</li>
+      </ol>
+    </div>
+  </div>
+</section>
