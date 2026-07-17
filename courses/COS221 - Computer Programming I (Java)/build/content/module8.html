@@ -1,0 +1,402 @@
+<!-- ============ MODULE EIGHT ============ -->
+
+<!-- ---------------- 8.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 8.1 · ARRAYS, PROPERLY</div>
+  <h2 class="title">What F.10 promised to finish</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to define arrays and
+  explain their uses, declare and manipulate arrays of different dimensions, use
+  array methods for sorting and searching, and carry out array operations.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Where you already are</span></div>
+    <div class="body">
+      <p>F.10 taught you an array as a fixed row of numbered boxes, indexes 0 to
+      n-1, <code>arr.length</code> with no brackets, and
+      <code>ArrayIndexOutOfBoundsException</code> when you overshoot. All of that
+      still holds and none of it is repeated here.</p>
+      <p>This module adds what F.10 promised: the formal definition, a second
+      dimension, the built-in toolkit, searching, sorting, and the techniques your
+      exam actually asks for.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · An array</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>An array is a data structure used to store multiple values of the same
+        data type in a single variable.</b> Each element is identified by an
+        <b>index</b>.</p>
+        <p>A <b>1D array</b> (linear array) is a linear collection of elements of the
+        same type, stored in <b>contiguous memory locations</b> and accessed by
+        index.</p>
+      </div>
+      <p>Two words earn their place. <b>Same data type</b>: an <code>int[]</code>
+      holds only ints, which is what makes it different from a list of anything.
+      <b>Contiguous</b>: the boxes sit next to each other in memory, which is why
+      reaching <code>arr[9000]</code> is exactly as fast as <code>arr[0]</code>. Java
+      does not walk to it; it computes where it is.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> an array is a <b>street of identical
+      houses, numbered from 0</b>. Same type of house, all in a row, and you find
+      number 40 by arithmetic, not by walking past 39 doors.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The three ways to make one</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; all three forms are run in the listing below"><span class="l">// 1. declare, then allocate, then assign  (three steps)</span><span class="l">int[] numbers;                  &lt;- DECLARATION: a name, no array yet</span><span class="l">numbers = new int[3];           &lt;- ALLOCATION: three boxes, all 0</span><span class="l">numbers[0] = 10;                &lt;- ASSIGNMENT</span><span class="l"></span><span class="l">// 2. declare and allocate together</span><span class="l">int[] numbers = new int[3];</span><span class="l"></span><span class="l">// 3. declare, allocate and fill in one line  (the usual way)</span><span class="l">int[] numbers = {10, 45, 30};   &lt;- size taken from the list</span></pre>
+      <p class="small" style="padding:0 8pt"><b>The size is fixed at allocation and
+      can never change.</b> That is the defining limitation of an array, and the
+      reason ArrayList exists. Your exam bans ArrayList, so this limitation is
+      permanent for you.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · All three, and the default values</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Declare8"><span class="l"><span class="k">import</span> java.util.Arrays;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Declare8</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// 1. three steps</span></span><span class="l">        <span class="k">int</span>[] a;</span><span class="l">        a = <span class="k">new int</span>[3];</span><span class="l">        System.out.println(<span class="s">"fresh int[3]  : "</span> + <span class="t">Arrays</span>.toString(a));</span><span class="l">        a[0] = 10; a[1] = 45; a[2] = 30;</span><span class="l">        System.out.println(<span class="s">"after filling : "</span> + <span class="t">Arrays</span>.toString(a));</span><span class="l"></span><span class="l">        <span class="c">// 2 and 3</span></span><span class="l">        <span class="k">int</span>[] b = <span class="k">new int</span>[3];</span><span class="l">        <span class="k">int</span>[] c = {10, 45, 30};</span><span class="l">        System.out.println(<span class="s">"b             : "</span> + <span class="t">Arrays</span>.toString(b));</span><span class="l">        System.out.println(<span class="s">"c             : "</span> + <span class="t">Arrays</span>.toString(c));</span><span class="l"></span><span class="l">        <span class="c">// defaults for other types (Unit 3.3)</span></span><span class="l">        System.out.println(<span class="s">"new double[2] : "</span> + <span class="t">Arrays</span>.toString(<span class="k">new double</span>[2]));</span><span class="l">        System.out.println(<span class="s">"new boolean[2]: "</span> + <span class="t">Arrays</span>.toString(<span class="k">new boolean</span>[2]));</span><span class="l">        System.out.println(<span class="s">"new String[2] : "</span> + <span class="t">Arrays</span>.toString(<span class="k">new</span> <span class="t">String</span>[2]));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>fresh int[3]  : [0, 0, 0]
+after filling : [10, 45, 30]
+b             : [0, 0, 0]
+c             : [10, 45, 30]
+new double[2] : [0.0, 0.0]
+new boolean[2]: [false, false]
+new String[2] : [null, null]</pre>
+      <p class="small" style="padding:6pt 8pt 0"><code>new int[3]</code> is not empty:
+      it is <b>three zeros</b>. Java fills every new array with its type's default
+      from Unit 3.3, which is why the <code>String[]</code> is full of
+      <code>null</code>. That last row is a NullPointerException waiting for anyone
+      who forgets to fill it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 8.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 8.2 · TWO-DIMENSIONAL ARRAYS</div>
+  <h2 class="title">An array of arrays</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · 2D arrays</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>A 2D array is an array of arrays.</b> Picture a table with rows and
+        columns. Each element needs <b>two indices</b>: one for the row, one for the
+        column.</p>
+        <p style="text-align:center"><code>int[][] matrix = new int[3][2];</code>
+        &nbsp;&nbsp; 3 rows, 2 columns</p>
+        <p><code>matrix[r][c]</code>: <b>row first, column second</b>.
+        <code>matrix.length</code> is the number of <b>rows</b>;
+        <code>matrix[0].length</code> is the number of <b>columns</b>.</p>
+      </div>
+      <p>"What is the syntax to declare and allocate a 2D array of size 3x2?" is a
+      stated in-text question, and the answer is the line in the card.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>RC, like a spreadsheet: Row then
+      Column.</b> And <code>matrix.length</code> counts rows because a 2D array
+      literally <i>is</i> an array of rows: each row is itself an array, so it has
+      its own <code>.length</code>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · A 2D array, built and walked</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="TwoD"><span class="l"><span class="k">public class</span> <span class="t">TwoD</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// declare + allocate: 3 rows, 2 columns</span></span><span class="l">        <span class="k">int</span>[][] numbers = <span class="k">new int</span>[3][2];</span><span class="l">        numbers[0][0] = 1;  numbers[0][1] = 2;</span><span class="l">        numbers[1][0] = 3;  numbers[1][1] = 4;</span><span class="l">        numbers[2][0] = 5;  numbers[2][1] = 6;</span><span class="l"></span><span class="l">        <span class="c">// or all at once</span></span><span class="l">        <span class="k">int</span>[][] grid = {{1, 2}, {3, 4}, {5, 6}};</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"rows    : "</span> + grid.length);</span><span class="l">        System.out.println(<span class="s">"columns : "</span> + grid[0].length);</span><span class="l"></span><span class="l">        <span class="c">// a nested loop: outer walks rows, inner walks columns</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> r = 0; r &lt; grid.length; r++) {</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> c = 0; c &lt; grid[r].length; c++) {</span><span class="l">                System.out.print(grid[r][c] + <span class="s">" "</span>);</span><span class="l">            }</span><span class="l">            System.out.println();          <span class="c">// end of a row</span></span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>rows    : 3
+columns : 2
+1 2
+3 4
+5 6</pre>
+      <p class="small" style="padding:6pt 8pt 0">The nested loop is the shape to
+      learn: <b>outer loop for rows, inner loop for columns, and
+      <code>println()</code> at the end of each row</b> to break the line. Note
+      <code>grid[r].length</code> rather than <code>grid[0].length</code> in the
+      inner condition: rows in Java need not all be the same length, so asking each
+      row for its own is the habit that never breaks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 8.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 8.3 · THE ARRAYS TOOLKIT</div>
+  <h2 class="title">java.util.Arrays, and what it gives you</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Operations and methods</span></div>
+    <div class="body">
+      <p>Your course draws a distinction worth keeping: an <b>array operation</b> is
+      a task you want done (sort, search, copy, compare), and an <b>array method</b>
+      is a predefined method that does it for you. The methods live in the
+      <b>Arrays</b> class, in <code>java.util</code>, so they need an import.</p>
+      <table class="data">
+        <tr><th style="width:34%">Method</th><th style="width:22%">Operation</th><th>Note</th></tr>
+        <tr><td><code>Arrays.sort(a)</code></td><td>sort</td><td>ascending, <b>in place</b>: it changes <code>a</code></td></tr>
+        <tr><td><code>Arrays.sort(a, from, to)</code></td><td>sort a range</td><td>from inclusive, to exclusive, as always</td></tr>
+        <tr><td><code>Arrays.toString(a)</code></td><td>display</td><td>gives <code>[10, 20, 30]</code>. Essential: see the trap below.</td></tr>
+        <tr><td><code>Arrays.equals(a, b)</code></td><td>compare</td><td>compares <b>contents</b>. This is the <code>.equals</code> of Module 7 again.</td></tr>
+        <tr><td><code>Arrays.copyOf(a, n)</code></td><td>copy</td><td>a new array of length n, padded or truncated</td></tr>
+        <tr><td><code>Arrays.fill(a, v)</code></td><td>fill</td><td>every element set to v</td></tr>
+        <tr><td><code>System.arraycopy(src, sp, dst, dp, n)</code></td><td>copy</td><td>note the spelling: all lower case after "array"</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Printing an array directly prints gibberish</span></div>
+    <div class="body">
+      <p><code>System.out.println(arr)</code> does not print the contents. It prints
+      something like <code>[I@4617c264</code>: the type and a hash code, because an
+      array is an object (Unit 3.3) and nobody taught it how to describe itself.</p>
+      <p><b>Always <code>Arrays.toString(arr)</code>.</b> "How do you get a string
+      representation of an array?" is a stated in-text question, and the answer is
+      that method.</p>
+      <p>The same reasoning explains <code>Arrays.equals</code>: <code>arr1 ==
+      arr2</code> compares references, exactly as with Strings, so it is false for
+      two different arrays holding identical contents.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The toolkit, run</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Toolkit"><span class="l"><span class="k">import</span> java.util.Arrays;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Toolkit</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] a = {5, 2, 9, 1, 5, 6};</span><span class="l">        <span class="t">Arrays</span>.sort(a);                        <span class="c">// in place: a itself changes</span></span><span class="l">        System.out.println(<span class="s">"sorted        : "</span> + <span class="t">Arrays</span>.toString(a));</span><span class="l"></span><span class="l">        <span class="k">int</span>[] b = {12, 7, 1, 99, 3};</span><span class="l">        <span class="t">Arrays</span>.sort(b, 0, 3);                  <span class="c">// only indexes 0,1,2</span></span><span class="l">        System.out.println(<span class="s">"first 3 sorted: "</span> + <span class="t">Arrays</span>.toString(b));</span><span class="l"></span><span class="l">        <span class="k">int</span>[] x = {10, 20, 30};</span><span class="l">        <span class="k">int</span>[] y = {10, 20, 30};</span><span class="l bad">        System.out.println(<span class="s">"x == y        : "</span> + (x == y));</span><span class="l good">        System.out.println(<span class="s">"Arrays.equals : "</span> + <span class="t">Arrays</span>.equals(x, y));</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"copyOf(x, 5)  : "</span> + <span class="t">Arrays</span>.toString(<span class="t">Arrays</span>.copyOf(x, 5)));</span><span class="l">        System.out.println(<span class="s">"copyOf(x, 2)  : "</span> + <span class="t">Arrays</span>.toString(<span class="t">Arrays</span>.copyOf(x, 2)));</span><span class="l"></span><span class="l">        <span class="k">int</span>[] dst = <span class="k">new int</span>[3];</span><span class="l">        System.arraycopy(x, 0, dst, 0, x.length);</span><span class="l">        System.out.println(<span class="s">"arraycopy     : "</span> + <span class="t">Arrays</span>.toString(dst));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>sorted        : [1, 2, 5, 5, 6, 9]
+first 3 sorted: [1, 7, 12, 99, 3]
+x == y        : false
+Arrays.equals : true
+copyOf(x, 5)  : [10, 20, 30, 0, 0]
+copyOf(x, 2)  : [10, 20]
+arraycopy     : [10, 20, 30]</pre>
+      <p class="small" style="padding:6pt 8pt 0">Three things worth staring at. The
+      range sort touched only the first three and left 99 and 3 exactly where they
+      were. <code>x == y</code> is <b>false</b> for two arrays with identical
+      contents, for precisely the reason Module 7 gave. And
+      <code>copyOf(x, 5)</code> padded with zeros while <code>copyOf(x, 2)</code>
+      silently threw the 30 away: it never complains, it just does what you asked.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Linear search, written by hand</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="LinearSearch"><span class="l"><span class="k">public class</span> <span class="t">LinearSearch</span> {</span><span class="l"></span><span class="l">    <span class="c">// returns the INDEX, or -1 if not there. -1 is the Java convention.</span></span><span class="l">    <span class="k">static int</span> search(<span class="k">int</span>[] arr, <span class="k">int</span> target) {</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; arr.length; i++) {</span><span class="l">            <span class="k">if</span> (arr[i] == target) {</span><span class="l good">                <span class="k">return</span> i;              <span class="c">// found: leave at once (Unit 4.7)</span></span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> -1;                    <span class="c">// checked every one: not here</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] data = {4, 8, 15, 16, 23, 42};</span><span class="l">        System.out.println(<span class="s">"search 15 -> index "</span> + search(data, 15));</span><span class="l">        System.out.println(<span class="s">"search 4  -> index "</span> + search(data, 4));</span><span class="l">        System.out.println(<span class="s">"search 99 -> index "</span> + search(data, 99));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>search 15 -> index 2
+search 4  -> index 0
+search 99 -> index -1</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>A linear search checks each
+      element sequentially until it finds the target.</b> Returning <code>-1</code>
+      for "absent" is a convention worth adopting: it cannot be confused with a real
+      index, because indexes start at 0. It is the same convention
+      <code>String.indexOf</code> uses (Module 7), and that consistency is not an
+      accident.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 8.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 8.4 · THE EXAM'S ARRAY TECHNIQUES</div>
+  <h2 class="title">The four patterns worth real marks</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Every array question on both papers is one of these four, or a
+  blend. Learn them as shapes and you are writing from memory rather than
+  inventing.</p>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · 1. Accumulate: sum, count, max</span><span class="tag">PAST PAPER · 24/25 Q2 D, Q5 B</span></div>
+    <div class="body">
+      <p>One pass, one running total. The whole family looks the same.</p>
+      <ol class="steps">
+        <li>Declare the accumulator <b>before</b> the loop.
+        <span class="note">Inside it, it would be reborn every pass.</span></li>
+        <li>Seed it correctly. Sum and count start at 0. <b>Max starts at
+        <code>arr[0]</code>, never at 0.</b>
+        <span class="note">Seed max at 0 and an array of negatives returns 0, which
+        is not in the array. This is a real, silent bug.</span></li>
+        <li>Update it once per element.</li>
+        <li>Use it after the loop.</li>
+      </ol>
+      <pre class="src" data-run="Accumulate"><span class="l"><span class="k">public class</span> <span class="t">Accumulate</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> countNegatives(<span class="k">int</span>[] arr) {      <span class="c">// 24/25 Q5 B, verbatim</span></span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; arr.length; i++) {</span><span class="l">            <span class="k">if</span> (arr[i] &lt; 0) count++;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> max(<span class="k">int</span>[] arr) {</span><span class="l good">        <span class="k">int</span> best = arr[0];                     <span class="c">// seed from the data</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; arr.length; i++) {  <span class="c">// start at 1: 0 is already in</span></span><span class="l">            <span class="k">if</span> (arr[i] &gt; best) best = arr[i];</span><span class="l">        }</span><span class="l">        <span class="k">return</span> best;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> sumOdd(<span class="k">int</span>[] arr) {</span><span class="l">        <span class="k">int</span> sum = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> v : arr) {                     <span class="c">// for-each: read only</span></span><span class="l">            <span class="k">if</span> (v % 2 != 0) sum += v;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> sum;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] data = {3, -4, 7, -1, 8, 5};</span><span class="l">        System.out.println(<span class="s">"negatives : "</span> + countNegatives(data));</span><span class="l">        System.out.println(<span class="s">"max       : "</span> + max(data));</span><span class="l">        System.out.println(<span class="s">"sum odd   : "</span> + sumOdd(data));</span><span class="l"></span><span class="l bad">        <span class="k">int</span>[] allNeg = {-9, -3, -17};          <span class="c">// the seed trap</span></span><span class="l">        System.out.println(<span class="s">"max of all-negatives : "</span> + max(allNeg));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>negatives : 2
+max       : 8
+sum odd   : 14
+max of all-negatives : -3</pre>
+      <p class="small" style="padding:6pt 8pt 0">The last line is the point.
+      <code>max</code> seeded from <code>arr[0]</code> returns -3, correctly. Seed it
+      at 0 and it returns 0, a number that is not in the array at all, and nothing
+      warns you.</p>
+      <p class="small" style="padding:0 8pt 6pt">And check <code>sum odd</code>
+      before you accept it: the odd values are 3, 7, <b>-1</b> and 5, totalling
+      <b>14</b>. Forget that -1 is odd and you get 15.</p>
+      <p class="small" style="padding:0 8pt 6pt">That is not a hypothetical slip. The
+      test <code>v % 2 == 1</code> looks like the obvious way to ask "is this odd",
+      and it returns <b>15</b> on this data, because <code>-1 % 2</code> is
+      <code>-1</code>, not <code>1</code>: Unit 3.6's rule that the remainder keeps
+      the sign of the left operand, arriving where nobody was looking for it. So
+      <code>% 2 == 1</code> silently skips <b>every negative odd number</b> in any
+      array you ever write.</p>
+      <p class="small" style="padding:0 8pt 6pt"><b>Always test odd with
+      <code>v % 2 != 0</code>.</b> It is right for negatives and positives alike, and
+      it is why the listing above uses it.</p>
+      <p class="redo"><b>Now redo it:</b> write <code>max</code> on paper starting
+      <code>int best = 0;</code> and trace it on <code>{-9, -3, -17}</code> to watch
+      it fail. That is how a trap becomes memorable.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The for-each loop</span></div>
+    <div class="body">
+      <p><code>for (int v : arr)</code> reads "for each int v in arr". It hands you
+      every element in turn, with no index and no chance of an off-by-one.</p>
+      <p>Its limits, which decide when you may use it: <b>no index</b> (so you cannot
+      compare with <code>arr[i-1]</code>), and <b>writing to <code>v</code> changes
+      nothing</b>, because <code>v</code> is a copy, exactly as Unit 5.4 said. Use it
+      to read; use a counted loop to write or to look sideways.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · 2. Compare with the neighbour</span><span class="tag">PAST PAPER · 25/26 Q3 A</span></div>
+    <div class="body">
+      <p>The paper: "a consecutive duplicate is any position i (i &gt;= 1) where
+      <code>saleAmounts[i] == saleAmounts[i-1]</code>", over
+      <code>{20, 20, 35, 40, 40, 40, 15, 60, 60, 25}</code>, in <b>one pass</b>. The
+      hint says it must not flag 35, 15 or 25.</p>
+      <ol class="steps">
+        <li><b>Start at 1, not 0.</b> Index 0 has no predecessor, so
+        <code>arr[-1]</code> would throw.
+        <span class="note">The question tells you this by writing i &gt;= 1. Read the
+        gift.</span></li>
+        <li>Compare <code>arr[i]</code> with <code>arr[i-1]</code>.</li>
+        <li>Count the matches.</li>
+      </ol>
+      <pre class="src" data-run="Duplicates"><span class="l"><span class="k">public class</span> <span class="t">Duplicates</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> countConsecutive(<span class="k">int</span>[] a) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l good">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; a.length; i++) {   <span class="c">// i starts at 1</span></span><span class="l">            <span class="k">if</span> (a[i] == a[i - 1]) count++;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] sales = {20, 20, 35, 40, 40, 40, 15, 60, 60, 25};</span><span class="l">        System.out.println(<span class="s">"consecutive duplicates: "</span> + countConsecutive(sales));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>consecutive duplicates: 4</pre>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · countConsecutive, every pass</span></div>
+    <div class="body">
+      <p class="small" style="margin-top:0">Cover it and trace first. Note
+      <code>{40, 40, 40}</code> contributes <b>two</b>, not one: positions 4 and 5
+      both match their predecessor.</p>
+      <table class="trace">
+        <caption>{20, 20, 35, 40, 40, 40, 15, 60, 60, 25}</caption>
+        <tr><th style="width:9%">i</th><th style="width:16%">a[i]</th><th style="width:16%">a[i-1]</th><th style="width:24%">equal?</th><th>count</th></tr>
+        <tr><td>1</td><td>20</td><td>20</td><td><b>yes</b></td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>35</td><td>20</td><td>no</td><td>1</td></tr>
+        <tr><td>3</td><td>40</td><td>35</td><td>no</td><td>1</td></tr>
+        <tr><td>4</td><td>40</td><td>40</td><td><b>yes</b></td><td class="chg">2</td></tr>
+        <tr><td>5</td><td>40</td><td>40</td><td><b>yes</b></td><td class="chg">3</td></tr>
+        <tr><td>6</td><td>15</td><td>40</td><td>no</td><td>3</td></tr>
+        <tr><td>7</td><td>60</td><td>15</td><td>no</td><td>3</td></tr>
+        <tr><td>8</td><td>60</td><td>60</td><td><b>yes</b></td><td class="chg">4</td></tr>
+        <tr><td>9</td><td>25</td><td>60</td><td>no</td><td>4</td></tr>
+        <tr><td>stop</td><td colspan="3">i = 10, not &lt; 10</td><td class="emit">returns 4</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · 3. Look both ways, and the edges</span><span class="tag">PAST PAPER · 25/26 Q3 A ii</span></div>
+    <div class="body">
+      <p>The harder half: flag every amount that equals <b>its predecessor or its
+      successor</b>. The paper is explicit about the edges: "Index 0 checks only its
+      successor; the last index checks only its predecessor."</p>
+      <p>That sentence is the whole difficulty. Ask <code>a[i-1]</code> at index 0 or
+      <code>a[i+1]</code> at the last index and you throw. The tool is Unit 3.8's
+      <b>short-circuit</b>: guard the index first, and <code>&amp;&amp;</code> never
+      evaluates the lookup.</p>
+      <pre class="src" data-run="Flagged"><span class="l"><span class="k">public class</span> <span class="t">Flagged</span> {</span><span class="l"></span><span class="l">    <span class="k">static</span> <span class="t">String</span> flagged(<span class="k">int</span>[] a) {</span><span class="l">        <span class="t">String</span> out = <span class="s">""</span>;                       <span class="c">// plain concatenation only</span></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; a.length; i++) {</span><span class="l good">            <span class="k">boolean</span> prev = (i &gt; 0)            &amp;&amp; a[i] == a[i - 1];</span><span class="l good">            <span class="k">boolean</span> next = (i &lt; a.length - 1) &amp;&amp; a[i] == a[i + 1];</span><span class="l">            <span class="k">if</span> (prev || next) {</span><span class="l">                <span class="k">if</span> (!out.isEmpty()) out = out + <span class="s">", "</span>;</span><span class="l">                out = out + a[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> out;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] sales = {20, 20, 35, 40, 40, 40, 15, 60, 60, 25};</span><span class="l">        System.out.println(<span class="s">"flagged: "</span> + flagged(sales));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>flagged: 20, 20, 40, 40, 40, 60, 60</pre>
+      <p class="small" style="padding:6pt 8pt 0">Check it against the paper's own
+      hint: <b>35, 15 and 25 are absent</b>, exactly as required. And look at the two
+      guards. At <code>i = 0</code>, <code>(i &gt; 0)</code> is false, so
+      <code>&amp;&amp;</code> stops and <code>a[-1]</code> is <b>never
+      evaluated</b>. Swap the two sides of that <code>&amp;&amp;</code> and the
+      program throws on its first line. That is short-circuiting doing real work,
+      exactly as Unit 3.8 promised.</p>
+      <p class="redo"><b>Now redo it:</b> write the two guard lines from memory, then
+      say what happens if you write <code>a[i] == a[i-1] &amp;&amp; i &gt; 0</code>
+      instead.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · 4. Parallel arrays</span><span class="tag">PAST PAPER · 25/26 Q6 B</span></div>
+    <div class="body">
+      <p>The paper: fill "two <b>parallel arrays</b> of length V", the hours parked
+      and the permit type, and it bans every collection class. Parallel arrays are
+      the answer to "I need two facts about each thing, and I may not use an
+      object or a list".</p>
+      <p><b>The idea:</b> two arrays, same length, where <b>index i means the same
+      thing in both</b>. <code>hours[3]</code> and <code>permits[3]</code> describe
+      the same vehicle.</p>
+      <pre class="src" data-run="Parallel"><span class="l"><span class="k">public class</span> <span class="t">Parallel</span> {</span><span class="l"></span><span class="l">    <span class="k">static double</span> fee(<span class="k">int</span> hours, <span class="t">String</span> permit) {</span><span class="l">        <span class="k">if</span> (permit.equals(<span class="s">"Staff"</span>)) {          <span class="c">// nested, per the paper</span></span><span class="l">            <span class="k">if</span> (hours &lt;= 2) <span class="k">return</span> 0.0;         <span class="c">// first 2 hours free</span></span><span class="l">            <span class="k">double</span> f = (hours - 2) * 1.00;</span><span class="l">            <span class="k">return</span> f &gt; 10.00 ? 10.00 : f;      <span class="c">// capped</span></span><span class="l">        } <span class="k">else</span> {                             <span class="c">// anything not Staff = Visitor</span></span><span class="l">            <span class="k">double</span> f = (hours &lt;= 3) ? 6.00 : 6.00 + (hours - 3) * 2.50;</span><span class="l">            <span class="k">return</span> f &gt; 25.00 ? 25.00 : f;</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l good">        <span class="k">int</span>[]    hours   = {1, 5, 12, 2, 20};       <span class="c">// parallel:</span></span><span class="l good">        <span class="t">String</span>[] permits = {<span class="s">"Staff"</span>, <span class="s">"Staff"</span>, <span class="s">"Staff"</span>, <span class="s">"Visitor"</span>, <span class="s">"guest"</span>};</span><span class="l"></span><span class="l">        <span class="k">double</span> total = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; hours.length; i++) {  <span class="c">// ONE index, BOTH arrays</span></span><span class="l">            <span class="k">double</span> f = fee(hours[i], permits[i]);</span><span class="l">            total += f;</span><span class="l">            System.out.printf(<span class="s">"%-8s %2dh -> %5.2f%n"</span>, permits[i], hours[i], f);</span><span class="l">        }</span><span class="l">        System.out.printf(<span class="s">"total %.2f%n"</span>, total);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Staff     1h ->  0.00
+Staff     5h ->  3.00
+Staff    12h -> 10.00
+Visitor   2h ->  6.00
+guest    20h -> 25.00
+total 44.00</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the rows against the paper's
+      rules. Staff for 1 hour is free. Staff for 5 pays for 3 of them. Staff for 12
+      would pay 10.00 and is capped at exactly 10.00. And "guest" is not exactly
+      "Staff", so it was treated as a Visitor and capped at 25.00, which is the
+      rule the paper states and the row a marker checks.</p>
+      <p><b>The discipline parallel arrays demand:</b> the two arrays must stay the
+      same length and in the same order forever. Sort one without the other and every
+      vehicle silently gets someone else's permit. That fragility is exactly why
+      objects (Module 6) exist, and why the exam banning them is an artificial
+      constraint you must simply obey.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Arrays</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>An array stores multiple values of the <span class="blank"></span> in a
+        single variable, in <span class="blank"></span> memory locations.</li>
+        <li><code>new int[3]</code> contains <span class="blank"></span>;
+        <code>new String[2]</code> contains <span class="blank"></span>.</li>
+        <li>For <code>int[][] m = new int[3][2]</code>, <code>m.length</code> is
+        <span class="blank"></span> and <code>m[0].length</code> is
+        <span class="blank"></span>.</li>
+        <li><code>System.out.println(arr)</code> prints
+        <span class="blank"></span>, so you must use
+        <span class="blank"></span> instead.</li>
+        <li>Two arrays with identical contents: <code>a == b</code> is
+        <span class="blank"></span> but <code>Arrays.equals(a, b)</code> is
+        <span class="blank"></span>.</li>
+        <li>A linear search returns <span class="blank"></span> when the target is
+        absent, because <span class="blank"></span>.</li>
+        <li>When finding a maximum, seed the accumulator with
+        <span class="blank"></span>, never <span class="blank"></span>, because
+        <span class="blank"></span>.</li>
+        <li>To check <code>a[i-1]</code> safely at every index, guard with
+        <code><span class="blank"></span> &amp;&amp; a[i] == a[i-1]</code>, which is
+        safe because of <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. same data type, contiguous &nbsp;·&nbsp; 2. <code>[0, 0,
+      0]</code>, <code>[null, null]</code> &nbsp;·&nbsp; 3. 3 (rows), 2 (columns)
+      &nbsp;·&nbsp; 4. a type and hash code like <code>[I@4617c264</code>,
+      <code>Arrays.toString(arr)</code> &nbsp;·&nbsp; 5. false, true &nbsp;·&nbsp;
+      6. -1, no real index is negative &nbsp;·&nbsp; 7. <code>arr[0]</code>, 0, an
+      all-negative array would wrongly return 0 &nbsp;·&nbsp; 8. <code>i &gt; 0</code>,
+      short-circuit evaluation</p>
+    </div>
+  </div>
+</section>
