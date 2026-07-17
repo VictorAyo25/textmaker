@@ -76,6 +76,7 @@ TypeError: 'str' object does not support item assignment</pre>
         <tr><td><code>find(sub)</code></td><td>Same, but -1 if absent</td><td><code>"Ada".find("z")</code></td><td><code>-1</code></td></tr>
         <tr><td><code>count(sub)</code></td><td>How many times</td><td><code>"banana".count("a")</code></td><td><code>3</code></td></tr>
         <tr><td><code>startswith(s)</code></td><td>True or False</td><td><code>"https://x".startswith("https")</code></td><td><code>True</code></td></tr>
+        <tr><td><code>isalpha()</code></td><td>True only if every character is a letter</td><td><code>"Ada".isalpha()</code></td><td><code>True</code></td></tr>
         <tr><td><code>join(list)</code></td><td>Glues a list into a string</td><td><code>", ".join(["a", "b"])</code></td><td><code>'a, b'</code></td></tr>
       </table>
       <p class="small" style="margin-top:.5em">A question asks you to "list and briefly
@@ -285,6 +286,37 @@ Sentence: I LIKE CODE
       <p class="redo"><b>Now you try:</b> why is the <code>continue</code> needed at all?
       <span class="small">(The paragraph ends with a full stop, so splitting leaves an empty
       final piece. Without the skip you would print a blank sentence with 0 words.)</span></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Consonants need one more idea</span></div>
+    <div class="body">
+      <p>Ask for the <b>consonants</b> instead and that loop quietly gives the wrong answer.
+      A consonant is a letter that is not a vowel, so it is tempting to flip the test to
+      <code>ch not in "aeiou"</code>. But the space is not in <code>"aeiou"</code> either,
+      and neither is the full stop, so both would be counted as consonants.</p>
+      <p>You have to ask the other half of the question: <b>is this character a letter at
+      all?</b> That is <code>isalpha()</code>, and it is true only when every character it is
+      given is a letter.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="s">"Ada"</span>.isalpha()
+True
+<span class="p">&gt;&gt;&gt;</span> <span class="s">"Ada Lovelace"</span>.isalpha()
+False
+<span class="p">&gt;&gt;&gt;</span> <span class="s">" "</span>.isalpha()
+False
+<span class="p">&gt;&gt;&gt;</span> <span class="s">"!"</span>.isalpha()
+False</pre>
+      <p>The space makes the whole of <code>"Ada Lovelace"</code> false. That is exactly the
+      behaviour you want one character at a time, so a consonant is both things at once:</p>
+<pre class="code">consonants = <span class="n">0</span>
+<span class="k">for</span> ch <span class="k">in</span> sentence.lower():
+    <span class="k">if</span> ch.isalpha() <span class="k">and</span> ch <span class="k">not</span> <span class="k">in</span> <span class="s">"aeiou"</span>:
+        consonants += <span class="n">1</span></pre>
+      <p>On <code>"Python is fun"</code> that gives <b>8</b>: the p, y, t, h, n, s, f and n.
+      Eleven letters, minus the three vowels. The <code>y</code> is counted, because the
+      question defines the vowels as a, e, i, o, u and <code>y</code> is not one of them: the
+      same rule that makes the vowel count 3 and not 4 makes the consonant count 8.</p>
     </div>
   </div>
 

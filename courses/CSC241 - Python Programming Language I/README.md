@@ -7,7 +7,7 @@ never the bare code (workspace name-and-title rule).
 ## Status
 
 **All five modules plus Mock One authored, and the Contents page built**, rendered to
-`build/CSC241_checkpoint.pdf` (101 pages: cover, Contents, and 99). Voice and palette
+`build/CSC241_checkpoint.pdf` (103 pages: cover, Contents, and 101). Voice and palette
 approved.
 
 Every one of the exam's six questions now has a home:
@@ -44,8 +44,7 @@ surfaced. Four of the six divider pages were stranding the following unit's head
 their foot, with the unit's own text overleaf. `.part` now takes `page-break-after`, so
 a divider owns its page.
 
-**Still to build:** Mock Two, and an audit that every API the manual uses has an
-in-manual reference card.
+**Still to build:** Mock Two.
 
 ## Sources
 
@@ -98,9 +97,17 @@ gates matter most for this course:
    a wrong constant. Capture output from the run, never type it by hand.
 2. **Keyword/API-before-use audit.** Zero external sources means every keyword,
    symbol, built-in, and library call is introduced before first appearance, and
-   every API the manual leans on gets an in-manual reference card. Script this as a
-   first-use table over the built HTML; do not eyeball it. The 2024/25 transcript
-   ends with the full list of idioms the exam actually requires.
+   every API the manual leans on gets an in-manual reference card. This is
+   `qa_firstuse.py`, and it is scripted rather than eyeballed for a reason: it found
+   two holes on its first run, in a manual that had been asserted clean.
+   - `.isalpha()` was used in a Mock One answer and taught nowhere in the book. It
+     was not a mock problem. The manual teaches counting **vowels**
+     (`ch in "aeiou"`, no letter test needed) while the exam asks for
+     **consonants**, which needs the one idea the book never gave: how to tell a
+     letter from a space. Module Two Unit 4 now teaches it.
+   - `.keys()` was demonstrated in Module Three Unit 4 but never named, so a reader
+     could see it work and had nothing to look up. It now has a reference row
+     beside `values()` and `items()`.
 
 ## Rebuilding
 

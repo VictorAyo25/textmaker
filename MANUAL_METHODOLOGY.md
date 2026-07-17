@@ -120,6 +120,39 @@ If only the PDF exists (no HTML/CSS):
 5. **Layout:** render every page to a grid; scan for bad box breaks / overflow.
 6. **Whole-document:** page count, TOC page numbers, footer numbering, links.
 
+## 4b. The first-use audit (script it; do not assert it)
+
+"Sufficient on its own" is the promise that is easiest to believe and hardest to
+keep, because the author already knows everything in the book. Measure it:
+walk the **assembled** HTML in reading order and record, for every keyword, API
+and method, the section where the reader first meets it. Two things must hold.
+
+1. **Nothing is used that is never named in prose.** An API that lives only
+   inside code blocks is a hole: the reader meets it, cannot look it up, and has
+   nowhere to go. Being demonstrated is not the same as being documented.
+2. **The mocks teach nothing.** A mock tests what the modules taught, so an API
+   whose first appearance in the whole book is in a mock is one the reader is
+   examined on and was never shown.
+
+Judge (2) on where the reader first **meets** the name, in prose or in code: a
+reference table that names an API has taught it, even if no example runs it.
+Judging on first *code* use instead reports every entry that a table introduced,
+which is noise.
+
+Exclude the deliberately broken code in "identify the error" questions, or the
+audit reports the planted fault as an undocumented API, which is the exact
+opposite of what the question is doing. Tag those blocks in the markup
+(`<pre class="code broken">`) rather than keeping a list of exceptions.
+
+CSC241 ran this over a manual that had been asserted clean and it found two
+holes immediately, one of them costly: the book taught counting **vowels**
+(`ch in "aeiou"`, which needs no letter test) while the exam asks for
+**consonants**, which needs `isalpha()` to tell a letter from a space. The mock's
+own answer used `isalpha()`; the manual had never mentioned it. The gap was in
+the teaching, not the mock, and no amount of rereading was going to surface it.
+**A mock answer reaching for something the modules never taught is a signal the
+modules have a hole, not a signal to rewrite the answer.**
+
 ## 5. Release rule
 
 Work-in-progress stays in that course's `build/` and `drafts/`. A finished manual

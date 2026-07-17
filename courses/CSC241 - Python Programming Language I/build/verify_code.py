@@ -329,6 +329,23 @@ val('m2u4 "python is fun" vowel count',
     'len([c for c in "python is fun" if c in "aeiou"])', '3')
 val('m2u4 y is not in aeiou', '"y" in "aeiou"', 'False')
 
+# isalpha(): the consonant box. The space is what makes the whole string false,
+# which is the point the box is making.
+val('m2u4 "Ada".isalpha()', '"Ada".isalpha()', 'True')
+val('m2u4 "Ada Lovelace".isalpha() is False because of the space',
+    '"Ada Lovelace".isalpha()', 'False')
+val('m2u4 " ".isalpha()', '" ".isalpha()', 'False')
+val('m2u4 "!".isalpha()', '"!".isalpha()', 'False')
+# The consonant count is the vowel count's mirror and fails the same way: 8, not
+# 7, because y is a consonant under the question's own definition of the vowels.
+val('m2u4 "python is fun" consonant count',
+    'len([c for c in "python is fun" if c.isalpha() and c not in "aeiou"])', '8')
+val('m2u4 "python is fun" letter count',
+    'len([c for c in "python is fun" if c.isalpha()])', '11')
+val('m2u4 the 8 consonants are exactly these',
+    '"".join(c for c in "python is fun" if c.isalpha() and c not in "aeiou")',
+    "'pythnsfn'")
+
 # ======================= MODULE THREE, UNIT 1 =======================
 check('m3u1 vote', 'age=20\nif age >= 18:\n    print("You may vote.")', 'You may vote.')
 check('m3u1 if/else odd',
@@ -465,6 +482,12 @@ val('m3u4 set dedup', 'set(["Alice","Bob","Alice","Eve","Bob"]) == {"Alice","Bob
 val('m3u4 unique count', 'len(set(["Alice","Bob","Alice","Eve","Bob"]))', '3')
 val('m3u4 sorted() is the stable form',
     'sorted(set(["Alice","Bob","Alice","Eve","Bob"]))', "['Alice', 'Bob', 'Eve']")
+
+# the dictionary methods reference table
+val('m3u4 keys() table row', 'list({"name": "John", "age": 25}.keys())',
+    "['name', 'age']")
+val('m3u4 values() table row', 'list({"name": "John", "age": 25}.values())',
+    "['John', 25]")
 
 # the three orders printed in the trap box must each be a real permutation
 _m3 = page('module3.html')

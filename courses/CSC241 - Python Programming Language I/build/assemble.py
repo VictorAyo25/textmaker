@@ -230,8 +230,13 @@ def main():
         stop('code gate failed, a claimed output is wrong.')
 
     cover_html = COVER_HEAD + read(COVER) + TAIL
-    if not run_gates(cover_html + build_body(build_contents())):
+    draft = build_body(build_contents())
+    if not run_gates(cover_html + draft):
         stop('house-style gate failed.')
+
+    import qa_firstuse
+    if not qa_firstuse.report(draft):
+        stop('first-use audit failed: the manual is not sufficient on its own.')
 
     body_path = os.path.join(HERE, 'full_manual.html')
     cover_path = os.path.join(HERE, 'cover_page.html')
