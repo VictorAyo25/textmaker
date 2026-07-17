@@ -122,9 +122,14 @@ If only the PDF exists (no HTML/CSS):
 
 ## 5. Release rule
 
-Work-in-progress stays in scratchpad/build. A finished manual goes to
-`FINAL_MANUALS/` **only when Victor says "we are done"** for that course.
-Naming: `<COURSE>_Study_Manual_vN.pdf`.
+Work-in-progress stays in that course's `build/` and `drafts/`. A finished manual
+goes to `FINAL_MANUALS/` **only when Victor says "we are done"** for that course.
+
+Naming: `<CODE> - <Course Title> - Study Manual.pdf`, with **no version suffix**.
+One current manual per course, one filename that never changes, so publishing
+replaces it in place and no link or printout goes stale. Versions (`v2`, `v4`)
+are for `drafts/` only. Record what changed in `FINAL_MANUALS/README.txt`; git
+keeps the superseded copies.
 
 ## 6. Per-course intake checklist
 

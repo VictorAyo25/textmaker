@@ -1,8 +1,13 @@
 FINAL_MANUALS — signed-off study manuals only. One per course.
 Work in progress belongs in that course's drafts/ folder, never here.
 
+Published names carry NO version suffix: one current manual per course, one
+filename that never changes, so publishing replaces it in place and no link or
+printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
+below records what changed; git holds every superseded copy.
+
 -------------------------------------------------------------------------------
-PHY121 - General Physics II - Study Manual v4.pdf   148 pp   signed off 2026-07-17
+PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.
 
@@ -11,12 +16,12 @@ S.1-S.7, mock papers M.1-M.5, reference R.1-R.4. Module 5 is Maxwell's Equations
 and Electromagnetic Waves. 55 clickable Contents links, real selectable text
 throughout including every table.
 
-What changed from v3 (150 pp): PHYSICS ERRORS.
+What changed from the previous edition (16 July, 150 pp): PHYSICS ERRORS.
 
-v3 reproduced the original manual's wording faithfully, and the original was
-wrong in places. Reproducing an error faithfully still ships the error. A full
-audit of the teaching text, the solutions, the mocks and the reference sections
-found and fixed:
+That edition reproduced the original manual's wording faithfully, and the
+original was wrong in places. Reproducing an error faithfully still ships the
+error. A full audit of the teaching text, the solutions, the mocks and the
+reference sections found and fixed:
 
   - Dipole potential energy printed U = pE cos(theta), missing its minus sign.
     As printed, an aligned dipole sits at maximum energy, contradicting the
@@ -51,8 +56,10 @@ lists, tables, figures) all above floor. Every correction was then independently
 re-checked by an adversarial pass, which caught two that had fixed the answer
 while leaving the working beneath it describing the old one.
 
-v3 and v2 were withdrawn as defective. Both remain in git history if a copy is
-ever needed (v2 at commit 2312940).
+The two preceding editions were both withdrawn as defective: the 16 July one for
+the physics errors above, and the one before it (163 pp) for missing fill-in
+blanks and dropped bold. Both remain in git history if a copy is ever needed
+(the 163 pp edition at commit 2312940).
 
 To rebuild or update:  see "courses/PHY121 - General Physics II/README.md"
                        (cd build && python assemble.py)

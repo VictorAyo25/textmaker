@@ -9,7 +9,7 @@ manual_composer/
 │                             (course-agnostic — read this first for any new course)
 ├── FINAL_MANUALS/            ← THE ONLY PUBLISHED OUTPUT. All courses. Signed off only.
 │   ├── README.txt
-│   └── PHY121 - General Physics II - Study Manual v4.pdf
+│   └── PHY121 - General Physics II - Study Manual.pdf
 └── courses/                  ← one self-contained working folder per course
     ├── PHY121 - General Physics II/
     │   ├── README.md         how to rebuild/update THIS course
@@ -26,15 +26,27 @@ manual_composer/
 1. **Every course gets its own folder under `courses/`.** All of its sources,
    code, and drafts stay inside it. Nothing course-specific ever sits at the top
    level. Starting PHY122 means creating its folder and nothing else moves.
-2. **`FINAL_MANUALS/` is central and holds only signed-off PDFs**, one per course
-   (versioned, e.g. `_v2`). Work in progress lives in that course's `drafts/`.
-   Nothing lands in `FINAL_MANUALS/` until the manual is explicitly approved.
+2. **`FINAL_MANUALS/` is central and holds only signed-off PDFs**, one per course.
+   Nothing lands there until the manual is explicitly approved.
+
+   **The published name carries no version.** There is exactly one current manual
+   per course, and its filename never changes:
+
+   ```
+   FINAL_MANUALS/PHY121 - General Physics II - Study Manual.pdf
+   ```
+
+   A version suffix (`v2`, `v4`) belongs on **drafts only**, in that course's
+   `drafts/`. Publishing replaces the file in place, so a link or a printout is
+   never stale and nobody has to work out which number is current. The history of
+   what changed lives in `FINAL_MANUALS/README.txt` and in git, which can still
+   recover any superseded copy.
 3. **Name-and-title rule.** A course folder and its produced manual both carry the
    course **code and title**, never the bare code:
 
    ```
    courses/COS221 - Computer Programming I (Java)/
-   FINAL_MANUALS/COS221 - Computer Programming I (Java) - Study Manual v1.pdf
+   FINAL_MANUALS/COS221 - Computer Programming I (Java) - Study Manual.pdf
    ```
 
    A bare code is unreadable a year later, and course titles do drift (COS221 was
