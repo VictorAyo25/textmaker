@@ -1,0 +1,429 @@
+<!-- ============ SOLVED: 2025/26 SECTION B ============ -->
+
+<section>
+  <div class="kick">S.4 &middot; 2025/26 &middot; QUESTION THREE &middot; 25 MARKS</div>
+  <h2 class="title">Question Three, worked in full</h2>
+  <hr class="rule"/>
+
+  <p class="lead">An array question that hides a second question inside it, and a file
+  question that is testing whether you read the words on the page.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 A &middot; Consecutive duplicates in a sales log</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A store records daily sales in an integer array
+      <code>saleAmounts[]</code>. A "consecutive duplicate" is any position i (i &gt;= 1)
+      where <code>saleAmounts[i] == saleAmounts[i-1]</code>. Given:</p>
+      <table class="data">
+        <tr><th style="width:16%">Index</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><th>Amount</th><td>20</td><td>20</td><td>35</td><td>40</td><td>40</td><td>40</td><td>15</td><td>60</td><td>60</td><td>25</td></tr>
+      </table>
+      <p>Write a program that (i) counts, in <b>one pass</b>, the indices i &gt;= 1 where
+      the amount equals the one before it; (ii) returns a single String listing, in
+      order and comma separated, every amount that equals its <b>predecessor or its
+      successor</b>, built with <b>plain String concatenation only</b>; (iii) displays
+      both in <b>one</b> JOptionPane dialog. The paper adds a hint: <i>it must not flag
+      35, 15, or 25.</i></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Parts i and ii count DIFFERENT things</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Part i counts positions. Part ii lists values.</b> They are not the same
+        question asked twice, and they do not give the same number.</p>
+        <p>Part i asks how many <b>boundaries</b> have a twin across them. Part ii asks
+        which <b>elements</b> are touching a twin at all.</p>
+      </div>
+      <p>Look at the three 40s. They contain <b>two</b> boundaries (index 3 to 4, and 4
+      to 5) but <b>three</b> elements. So part i counts 2 there and part ii lists 3.
+      Read the two parts as one question and you will answer one of them wrong.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>fences and posts.</b> Part i counts the
+      fences between posts, part ii counts the posts. A run of n twins has n posts and
+      n-1 fences, always.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; Both answers, by hand, before writing any code</span></div>
+    <div class="body">
+      <table class="trace">
+        <caption>saleAmounts = {20, 20, 35, 40, 40, 40, 15, 60, 60, 25}</caption>
+        <tr><th style="width:6%">i</th><th style="width:12%">amount</th><th style="width:23%">same as previous?</th><th style="width:23%">same as next?</th><th style="width:16%">part i counts?</th><th>part ii flags?</th></tr>
+        <tr><td>0</td><td>20</td><td>no predecessor</td><td class="chg">yes (20)</td><td>-</td><td class="chg">yes</td></tr>
+        <tr><td>1</td><td>20</td><td class="chg">yes (20)</td><td>no (35)</td><td class="chg">yes</td><td class="chg">yes</td></tr>
+        <tr><td>2</td><td>35</td><td>no (20)</td><td>no (40)</td><td>no</td><td>no</td></tr>
+        <tr><td>3</td><td>40</td><td>no (35)</td><td class="chg">yes (40)</td><td>no</td><td class="chg">yes</td></tr>
+        <tr><td>4</td><td>40</td><td class="chg">yes (40)</td><td class="chg">yes (40)</td><td class="chg">yes</td><td class="chg">yes</td></tr>
+        <tr><td>5</td><td>40</td><td class="chg">yes (40)</td><td>no (15)</td><td class="chg">yes</td><td class="chg">yes</td></tr>
+        <tr><td>6</td><td>15</td><td>no (40)</td><td>no (60)</td><td>no</td><td>no</td></tr>
+        <tr><td>7</td><td>60</td><td>no (15)</td><td class="chg">yes (60)</td><td>no</td><td class="chg">yes</td></tr>
+        <tr><td>8</td><td>60</td><td class="chg">yes (60)</td><td>no (25)</td><td class="chg">yes</td><td class="chg">yes</td></tr>
+        <tr><td>9</td><td>25</td><td>no (60)</td><td>no successor</td><td>no</td><td>no</td></tr>
+        <tr><td colspan="4"><b>Answers</b></td><td class="emit">4</td><td class="emit">20, 20, 40, 40, 40, 60, 60</td></tr>
+      </table>
+      <p><b>Check it against the hint.</b> The paper told you 35, 15 and 25 must not be
+      flagged, and they are the only three that are not. The examiner has handed you a
+      way to test your own trace before you write a line of code, which is exactly what
+      the hint is for.</p>
+      <p><b>And check the two answers against each other.</b> The runs are 20-20
+      (2 long), 40-40-40 (3 long) and 60-60 (2 long). Part ii flags 2 + 3 + 2 = <b>7</b>
+      values. Part i counts 1 + 2 + 1 = <b>4</b> positions. They differ by exactly
+      <b>3</b>, the number of runs, because each run loses one to the fences-and-posts
+      rule. If your two answers do not differ by the number of runs, one of them is
+      wrong.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Three, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SalesDuplicates"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SalesDuplicates</span> {</span><span class="l"></span><span class="l">    <span class="c">// Part i: ONE pass. Count every index i &gt;= 1 whose amount equals the one before.</span></span><span class="l">    <span class="k">static</span> <span class="k">int</span> countConsecutiveDuplicates(<span class="k">int</span>[] sales) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l good">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; sales.length; i++) {</span><span class="l">            <span class="k">if</span> (sales[i] == sales[i - 1]) {</span><span class="l">                count++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part ii: every amount equal to its predecessor OR its successor, in order,</span></span><span class="l">    <span class="c">// comma separated, built with plain String concatenation only.</span></span><span class="l">    <span class="k">static</span> <span class="t">String</span> flaggedAmounts(<span class="k">int</span>[] sales) {</span><span class="l">        <span class="t">String</span> result = <span class="s">""</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; sales.length; i++) {</span><span class="l good">            <span class="k">boolean</span> sameAsPrevious = (i &gt; 0) &amp;&amp; (sales[i] == sales[i - 1]);</span><span class="l good">            <span class="k">boolean</span> sameAsNext = (i &lt; sales.length - 1) &amp;&amp; (sales[i] == sales[i + 1]);</span><span class="l">            <span class="k">if</span> (sameAsPrevious || sameAsNext) {</span><span class="l">                <span class="k">if</span> (result.equals(<span class="s">""</span>)) {</span><span class="l">                    result = <span class="s">""</span> + sales[i];</span><span class="l">                } <span class="k">else</span> {</span><span class="l">                    result = result + <span class="s">", "</span> + sales[i];</span><span class="l">                }</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> result;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part iii: one dialog showing both answers.</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] saleAmounts = {20, 20, 35, 40, 40, 40, 15, 60, 60, 25};</span><span class="l"></span><span class="l">        <span class="k">int</span> duplicates = countConsecutiveDuplicates(saleAmounts);</span><span class="l">        <span class="t">String</span> flagged = flaggedAmounts(saleAmounts);</span><span class="l"></span><span class="l">        <span class="t">String</span> message = <span class="s">"Consecutive duplicate count: "</span> + duplicates</span><span class="l">                       + <span class="s">"\nFlagged amounts: "</span> + flagged;</span><span class="l">        System.out.println(message);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Consecutive duplicate count: 4
+Flagged amounts: 20, 20, 40, 40, 40, 60, 60</pre>
+      <p class="small" style="padding:6pt 8pt 0">Exactly the hand trace, including the
+      three amounts the paper told us not to flag. The dialog is a
+      <code>println</code> here so its text can be printed in this book; in the hall,
+      write <code>JOptionPane.showMessageDialog(null, message);</code> and import
+      <code>javax.swing.JOptionPane</code> (F.11).</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Three ways to lose marks on part A</span></div>
+    <div class="body">
+      <p><b>1. Starting part i's loop at 0.</b> The question says i &gt;= 1, and for a
+      reason: <code>sales[0 - 1]</code> is <code>sales[-1]</code>, which throws
+      <code>ArrayIndexOutOfBoundsException</code> (Unit 8.1). Index 0 has no
+      predecessor, so the loop starts at 1. This is where "one pass" is easiest to get
+      right and easiest to throw away.</p>
+      <p><b>2. Forgetting the boundary guards in part ii.</b> Index 0 has no
+      predecessor and the last index has no successor. The guards
+      <code>(i &gt; 0)</code> and <code>(i &lt; sales.length - 1)</code> are what stop
+      the reads from running off either end. They work because <code>&amp;&amp;</code>
+      is <b>short-circuit</b> (Unit 3.6): when <code>i &gt; 0</code> is false, Java
+      never evaluates <code>sales[i - 1]</code>, so it never throws. Swap the two sides
+      of the <code>&amp;&amp;</code> and the program crashes on the first element.</p>
+      <p><b>3. The leading comma.</b> Concatenating <code>", " + sales[i]</code> every
+      time gives <code>, 20, 20, 40...</code> with a comma stuck on the front. The test
+      <code>if (result.equals(""))</code> writes the first value bare and every later
+      value with its separator in front. Compare Strings with <code>.equals()</code>,
+      never with <code>==</code> (Unit 7.3).</p>
+      <p class="note">The question bans StringBuilder deliberately: it wants to see
+      that you can handle the separator yourself. Use StringBuilder anyway and you have
+      answered a question the paper did not ask.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.4 &middot; 2025/26 &middot; QUESTION THREE B</div>
+  <h2 class="title">The file question, and the trick in its wording</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 B &middot; Student records with basic file I/O</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> Using <b>only</b> <code>FileWriter</code>,
+      <code>FileReader</code>, <code>BufferedReader</code>, <code>BufferedWriter</code>
+      and <code>IOException</code> (<b>or its subclasses</b>), write a program that:</p>
+      <ol class="qlist">
+        <li>creates <code>input.txt</code> and writes at least three students (ID, name,
+        CGPA) into it with FileWriter, one per line, wrapped in try-catch;</li>
+        <li>reads student details from <code>output.txt</code> with FileReader and
+        prints each line exactly as it appears, handling any exception <b>including the
+        case where output.txt does not exist</b>;</li>
+        <li>has a method that takes a file name, counts the lines, and returns the
+        count, <b>handling its own exceptions internally</b>;</li>
+        <li>closes every resource, and prints a clear, specific message in every catch
+        block.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; It writes input.txt and reads output.txt</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part 1 writes <b>input.txt</b>. Part 2 reads <b>output.txt</b>. The program
+        never creates output.txt.</p>
+        <p>That is not a misprint for you to tidy up. It is the question.</p>
+      </div>
+      <p>Read part 2 again: "handle any exception that may occur while reading,
+      <b>including the case where output.txt does not exist</b>." The examiner has told
+      you, in the question itself, that the file will be missing. The marks are for the
+      <b>catch block running</b>, not for the file being read.</p>
+      <p>So do not "fix" it by reading input.txt instead. Write exactly what the paper
+      asks, and let the catch block do its job. That is the answer.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the missing file is the exam.</b> When a
+      question names a file it never created, the catch block is the thing being
+      marked.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; The five classes, and why the list is exactly these five</span></div>
+    <div class="body">
+      <p>The restriction looks arbitrary. It is not: the five are exactly what you need
+      and nothing more (Unit 10.3).</p>
+      <table class="data">
+        <tr><th style="width:24%">Class</th><th style="width:14%">Direction</th><th>What it is for</th></tr>
+        <tr><td><code>FileWriter</code></td><td>out</td><td>Writes characters to a file. On its own it writes one character at a time.</td></tr>
+        <tr><td><code>BufferedWriter</code></td><td>out</td><td>Wraps a FileWriter and collects characters, writing them in blocks. Also gives you <code>newLine()</code>.</td></tr>
+        <tr><td><code>FileReader</code></td><td>in</td><td>Reads characters from a file. On its own it reads one character at a time: it has <b>no readLine()</b>.</td></tr>
+        <tr><td><code>BufferedReader</code></td><td>in</td><td>Wraps a FileReader and gives you <b><code>readLine()</code></b>, which is the whole reason it is on the list.</td></tr>
+        <tr><td><code>IOException</code></td><td>-</td><td>The checked exception every one of the above can throw. You must catch it or declare it (Unit 10.1).</td></tr>
+      </table>
+      <p><b>The pairing is the point.</b> The question says "read using FileReader" and
+      "one student per line". A FileReader alone cannot give you a line. So you wrap
+      it: <code>new BufferedReader(new FileReader(fileName))</code>. That is why both
+      appear on the list, and it is why the list is not padding.</p>
+      <p><b>And read "or its subclasses" carefully.</b> Those three words are
+      permission. <code>FileNotFoundException</code> is a subclass of
+      <code>IOException</code>, so you are explicitly allowed to catch it separately,
+      which is exactly how you answer part 2's "including the case where output.txt does
+      not exist" with a message that says what actually happened.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Catch the child before the parent, or it will not compile</span></div>
+    <div class="body">
+      <p>When you catch both, the <b>subclass must come first</b>. Java tries catch
+      blocks top to bottom and takes the first that fits. Put <code>IOException</code>
+      first and it swallows everything, leaving the <code>FileNotFoundException</code>
+      block unreachable. Java does not let that pass:</p>
+<pre class="src" data-compile="CatchOrder" data-error="has already been caught"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileNotFoundException</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CatchOrder</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"any.txt"</span>))) {</span><span class="l">            System.out.println(in.readLine());</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"the parent is caught first"</span>);</span><span class="l bad">        } <span class="k">catch</span> (<span class="t">FileNotFoundException</span> e) {</span><span class="l">            System.out.println(<span class="s">"this line can never run"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: exception FileNotFoundException has already been caught</pre>
+      <p>This is one of Java's friendlier errors: it refuses to compile code containing
+      a block that could never run. Reverse the two catch blocks and it compiles.
+      <b>Specific first, general last</b>, every time.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Three, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="StudentRecords"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileNotFoundException</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">StudentRecords</span> {</span><span class="l"></span><span class="l">    <span class="c">// Part i: create input.txt and write three student records, one per line.</span></span><span class="l">    <span class="k">static</span> <span class="k">void</span> writeStudents(<span class="t">String</span> fileName) {</span><span class="l good">        <span class="k">try</span> (<span class="t">BufferedWriter</span> out = <span class="k">new</span> <span class="t">BufferedWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(fileName))) {</span><span class="l">            out.write(<span class="s">"STU001, Ada Bello, 4.51"</span>);</span><span class="l">            out.newLine();</span><span class="l">            out.write(<span class="s">"STU002, Femi Okonkwo, 3.78"</span>);</span><span class="l">            out.newLine();</span><span class="l">            out.write(<span class="s">"STU003, Ngozi Eze, 4.92"</span>);</span><span class="l">            out.newLine();</span><span class="l">            System.out.println(<span class="s">"Wrote 3 student records to "</span> + fileName);</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not write to "</span> + fileName + <span class="s">": "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part ii: read a file and print every line exactly as it appears.</span></span><span class="l">    <span class="k">static</span> <span class="k">void</span> printStudents(<span class="t">String</span> fileName) {</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(fileName))) {</span><span class="l">            <span class="t">String</span> line = in.readLine();</span><span class="l">            <span class="k">while</span> (line != <span class="k">null</span>) {</span><span class="l">                System.out.println(line);</span><span class="l">                line = in.readLine();</span><span class="l">            }</span><span class="l good">        } <span class="k">catch</span> (<span class="t">FileNotFoundException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Cannot read "</span> + fileName + <span class="s">": the file does not exist."</span>);</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Error while reading "</span> + fileName + <span class="s">": "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part iii: count the records in a file. Handles its own exceptions; never throws.</span></span><span class="l">    <span class="k">static</span> <span class="k">int</span> countRecords(<span class="t">String</span> fileName) {</span><span class="l">        <span class="k">int</span> lines = 0;</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(fileName))) {</span><span class="l">            <span class="k">while</span> (in.readLine() != <span class="k">null</span>) {</span><span class="l">                lines++;</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (<span class="t">FileNotFoundException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Cannot count "</span> + fileName + <span class="s">": the file does not exist."</span>);</span><span class="l good">            <span class="k">return</span> -1;</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Error while counting "</span> + fileName + <span class="s">": "</span> + e.getMessage());</span><span class="l">            <span class="k">return</span> -1;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> lines;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        writeStudents(<span class="s">"input.txt"</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"--- part ii: reading output.txt, exactly as the paper asks ---"</span>);</span><span class="l">        printStudents(<span class="s">"output.txt"</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"--- the same method on the file we did write ---"</span>);</span><span class="l">        printStudents(<span class="s">"input.txt"</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"--- part iii: counting records ---"</span>);</span><span class="l">        System.out.println(<span class="s">"input.txt holds "</span> + countRecords(<span class="s">"input.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">        System.out.println(<span class="s">"output.txt holds "</span> + countRecords(<span class="s">"output.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Wrote 3 student records to input.txt
+--- part ii: reading output.txt, exactly as the paper asks ---
+Cannot read output.txt: the file does not exist.
+--- the same method on the file we did write ---
+STU001, Ada Bello, 4.51
+STU002, Femi Okonkwo, 3.78
+STU003, Ngozi Eze, 4.92
+--- part iii: counting records ---
+input.txt holds 3 records
+Cannot count output.txt: the file does not exist.
+output.txt holds -1 records</pre>
+      <p class="small" style="padding:6pt 8pt 0">Line 3 of that output is the 13 marks.
+      The program did exactly what the paper asked, the file was not there, and the
+      catch block said so in words a human can read.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Four decisions in that program worth defending</span></div>
+    <div class="body">
+      <p><b>1. try-with-resources answers part 4 on its own.</b> Writing
+      <code>try (BufferedWriter out = ...)</code> closes the writer automatically,
+      whether the block ends normally or throws (Unit 10.2). The paper allows a
+      <code>finally</code> block instead, and it is worth knowing why the bracket form
+      is better: a <code>close()</code> inside <code>finally</code> can itself throw,
+      and if it does while an earlier exception is already travelling, the second
+      exception <b>replaces</b> the first and the real cause disappears. If you do use
+      <code>finally</code>, the close must sit inside its own try-catch, and it must
+      test for null, because the resource may have failed to open at all.</p>
+      <p><b>2. Wrapping means closing one thing, not two.</b> <code>out.close()</code>
+      on the BufferedWriter closes the FileWriter inside it. Closing the wrapper closes
+      what it wraps, so one bracket handles both.</p>
+      <p><b>3. countRecords returns -1, not 0, when it fails.</b> The method must
+      "handle its own exceptions internally", so it cannot throw, so it must return
+      something. Return 0 and the caller cannot tell a missing file from an empty one.
+      <b>-1 is impossible as a line count</b>, so it can only mean failure. A value
+      chosen because it cannot be mistaken for a real answer is called a
+      <b>sentinel</b>, and picking a good one is a real skill.</p>
+      <p><b>4. Read the last two lines of the output in the right order.</b> "Cannot
+      count output.txt" prints <b>before</b> "output.txt holds -1 records", even though
+      the second is the println that contains the first as an argument. Java
+      <b>evaluates the arguments before it calls the method</b>: countRecords runs to
+      completion, printing its own message, and only then does the outer println
+      receive -1 and print. Argument first, call second, always.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">S.5 &middot; 2025/26 &middot; QUESTION FOUR &middot; 25 MARKS</div>
+  <h2 class="title">Question Four, worked in full</h2>
+  <hr class="rule"/>
+
+  <p class="lead">The bank account system: 25 marks for the topic this course has been
+  building towards since Module 6.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 &middot; Inheritance and polymorphism</span><span class="tag">25 MARKS</span></div>
+    <div class="body">
+      <p><b>The question.</b> A bank wants a system representing different types of
+      accounts using inheritance and polymorphism.</p>
+      <p><b>Part 1, BankAccount (9 marks).</b> <b>Private</b> fields for account number,
+      holder name and balance; a constructor initialising all three; a method that adds
+      to the balance; a method that deducts if funds suffice and otherwise rejects with
+      a message; a method that displays the details.</p>
+      <p><b>Part 2, subclasses (10 marks).</b> <code>SavingAccount</code> overrides the
+      withdrawal so it is allowed only if the balance <b>after</b> the withdrawal would
+      still be &gt;= 1000. <code>CurrentAccount</code> overrides it so every
+      <b>successful</b> withdrawal adds a 50 reward afterwards.</p>
+      <p><b>Part 3, main (6 marks).</b> One of each; deposit into each; at least one
+      successful and one unsuccessful or reward-triggering withdrawal on each; details
+      before and after; and <b>demonstrate polymorphism by storing each object in a
+      BankAccount reference</b> and calling the withdrawal through it, confirming the
+      correct overridden version runs.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; The question contains a contradiction, and resolving it is the exam</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part 1 says the balance must be <b>private</b>.</p>
+        <p>Part 2 says the subclasses must <b>change the balance</b>.</p>
+        <p>A private field is invisible to a subclass. So the subclass cannot touch it.</p>
+      </div>
+      <p>This is not the examiner being careless. It is the whole of Units 6.4 and 6.6
+      arriving in one question: <b>encapsulation says the field is private, and
+      inheritance says the child must still be able to work with it</b>. The way out is
+      the only way out, and it is the answer being marked: <b>the subclass goes through
+      the parent's public methods</b>, using <code>getBalance()</code> to read and
+      <code>super.withdraw(amount)</code> or <code>deposit(amount)</code> to change.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the child knocks, it does not climb in
+      through the window.</b> <code>getBalance()</code> to look,
+      <code>super.withdraw()</code> to act.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; A subclass cannot see a private field, and it will say so</span></div>
+    <div class="body">
+      <p>The tempting move is to write the arithmetic straight into the subclass. Java
+      stops you at the compiler:</p>
+<pre class="src" data-compile="SubclassReach" data-error="has private access"><span class="l"><span class="k">class</span> <span class="t">Account</span> {</span><span class="l">    <span class="k">private</span> <span class="k">double</span> balance = 5000;</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Saving</span> <span class="k">extends</span> <span class="t">Account</span> {</span><span class="l">    <span class="k">public</span> <span class="k">boolean</span> withdraw(<span class="k">double</span> amount) {</span><span class="l bad">        balance = balance - amount;</span><span class="l">        <span class="k">return</span> <span class="k">true</span>;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SubclassReach</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">new</span> <span class="t">Saving</span>().withdraw(100);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: balance has private access in Account</pre>
+      <p><b>Private means the declaring class only</b>, and a subclass is a different
+      class. Inheritance gives <code>Saving</code> the field (every Saving object really
+      does contain a balance) but not <b>access</b> to it. The field is there and
+      untouchable, which is exactly what private is for (Unit 6.4).</p>
+      <p><b>Would <code>protected</code> fix it?</b> It would compile, and it is the
+      wrong answer <b>here</b>, because part 1 said private. Marks are for doing what
+      the question said. Beyond the exam, going through the parent's methods is better
+      anyway: every rule the parent enforces on a withdrawal keeps being enforced. Make
+      the field protected and each subclass has to remember those rules for itself,
+      which is how a bank ends up with an account that can be overdrawn down one code
+      path and not another. See the access table in Unit 6.6.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Why withdraw returns boolean</span></div>
+    <div class="body">
+      <p>The paper does not say what <code>withdraw</code> returns, and the obvious
+      choice is <code>void</code>. Then read part 2 ii again: a CurrentAccount adds the
+      reward on <b>every successful withdrawal</b>. Not on every attempt. So the
+      override has to <b>know whether the withdrawal succeeded</b>, and a
+      <code>void</code> method tells it nothing.</p>
+      <p>Making <code>withdraw</code> return <code>boolean</code> makes the override
+      three honest lines:</p>
+      <pre class="src nonum" data-nocheck="a fragment of the override; it is compiled and run as part of the BankSystem listing below"><span class="l"><span class="k">boolean</span> succeeded = <span class="k">super</span>.withdraw(amount);</span><span class="l"><span class="k">if</span> (succeeded) { deposit(50); }</span><span class="l"><span class="k">return</span> succeeded;</span></pre>
+      <p>The alternative, comparing the balance before and after, works but is worse: it
+      re-derives an answer the parent already knew and threw away. <b>When a method
+      knows something the caller needs, it should return it.</b> Notice that this
+      decision is forced by a single word in part 2 ii, which is what "read the
+      question" means in practice.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Four, complete</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="BankSystem"><span class="l"><span class="c">// ===== Part 1: the superclass =====</span></span><span class="l"><span class="k">class</span> <span class="t">BankAccount</span> {</span><span class="l good">    <span class="k">private</span> <span class="t">String</span> accountNumber;</span><span class="l good">    <span class="k">private</span> <span class="t">String</span> holderName;</span><span class="l good">    <span class="k">private</span> <span class="k">double</span> balance;</span><span class="l"></span><span class="l">    <span class="c">// Part 1 i: a constructor that initialises all three fields.</span></span><span class="l">    <span class="k">public</span> <span class="t">BankAccount</span>(<span class="t">String</span> accountNumber, <span class="t">String</span> holderName, <span class="k">double</span> balance) {</span><span class="l">        <span class="k">this</span>.accountNumber = accountNumber;</span><span class="l">        <span class="k">this</span>.holderName = holderName;</span><span class="l">        <span class="k">this</span>.balance = balance;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// The private fields are reachable only through these doors (Unit 6.4).</span></span><span class="l">    <span class="k">public</span> <span class="t">String</span> getAccountNumber() { <span class="k">return</span> accountNumber; }</span><span class="l">    <span class="k">public</span> <span class="t">String</span> getHolderName()    { <span class="k">return</span> holderName; }</span><span class="l">    <span class="k">public</span> <span class="k">double</span> getBalance()       { <span class="k">return</span> balance; }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 ii: add a given amount to the balance.</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> deposit(<span class="k">double</span> amount) {</span><span class="l">        balance = balance + amount;</span><span class="l">        System.out.println(<span class="s">"Deposit "</span> + amount + <span class="s">" -&gt; "</span> + accountNumber</span><span class="l">            + <span class="s">" balance is now "</span> + balance);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 iii: deduct if funds are sufficient, otherwise reject with a message.</span></span><span class="l">    <span class="c">// Returns whether it succeeded, which is what CurrentAccount needs to know.</span></span><span class="l">    <span class="k">public</span> <span class="k">boolean</span> withdraw(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">if</span> (amount &lt;= balance) {</span><span class="l">            balance = balance - amount;</span><span class="l">            System.out.println(<span class="s">"Withdraw "</span> + amount + <span class="s">" -&gt; "</span> + accountNumber</span><span class="l">                + <span class="s">" balance is now "</span> + balance);</span><span class="l">            <span class="k">return</span> <span class="k">true</span>;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"REJECTED: "</span> + accountNumber + <span class="s">" holds only "</span> + balance</span><span class="l">            + <span class="s">", so "</span> + amount + <span class="s">" cannot be withdrawn"</span>);</span><span class="l">        <span class="k">return</span> <span class="k">false</span>;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 iv: display the account's current details.</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> displayDetails() {</span><span class="l">        System.out.println(<span class="s">"Account "</span> + accountNumber + <span class="s">" | "</span> + holderName</span><span class="l">            + <span class="s">" | balance "</span> + balance);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// ===== Part 2 i: a saving account must never drop below 1000 =====</span></span><span class="l"><span class="k">class</span> <span class="t">SavingAccount</span> <span class="k">extends</span> <span class="t">BankAccount</span> {</span><span class="l">    <span class="k">public</span> <span class="t">SavingAccount</span>(<span class="t">String</span> accountNumber, <span class="t">String</span> holderName, <span class="k">double</span> balance) {</span><span class="l">        <span class="k">super</span>(accountNumber, holderName, balance);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">boolean</span> withdraw(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">if</span> (getBalance() - amount &lt; 1000) {</span><span class="l">            System.out.println(<span class="s">"REJECTED: a saving account must retain 1000. Withdrawing "</span></span><span class="l">                + amount + <span class="s">" from "</span> + getAccountNumber() + <span class="s">" would leave "</span></span><span class="l">                + (getBalance() - amount));</span><span class="l">            <span class="k">return</span> <span class="k">false</span>;</span><span class="l">        }</span><span class="l good">        <span class="k">return</span> <span class="k">super</span>.withdraw(amount);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// ===== Part 2 ii: every successful withdrawal earns a 50 reward =====</span></span><span class="l"><span class="k">class</span> <span class="t">CurrentAccount</span> <span class="k">extends</span> <span class="t">BankAccount</span> {</span><span class="l">    <span class="k">public</span> <span class="t">CurrentAccount</span>(<span class="t">String</span> accountNumber, <span class="t">String</span> holderName, <span class="k">double</span> balance) {</span><span class="l">        <span class="k">super</span>(accountNumber, holderName, balance);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">boolean</span> withdraw(<span class="k">double</span> amount) {</span><span class="l good">        <span class="k">boolean</span> succeeded = <span class="k">super</span>.withdraw(amount);</span><span class="l">        <span class="k">if</span> (succeeded) {</span><span class="l">            System.out.println(<span class="s">"Reward earned on "</span> + getAccountNumber() + <span class="s">":"</span>);</span><span class="l">            deposit(50);</span><span class="l">        }</span><span class="l">        <span class="k">return</span> succeeded;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// ===== Part 3: the main method =====</span></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">BankSystem</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// Part 3 i: at least one of each.</span></span><span class="l">        <span class="t">SavingAccount</span> saving   = <span class="k">new</span> <span class="t">SavingAccount</span>(<span class="s">"SA-1001"</span>, <span class="s">"Ada Bello"</span>, 5000.0);</span><span class="l">        <span class="t">CurrentAccount</span> current = <span class="k">new</span> <span class="t">CurrentAccount</span>(<span class="s">"CA-2002"</span>, <span class="s">"Femi Okonkwo"</span>, 3000.0);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"=== iv: details BEFORE the transactions ==="</span>);</span><span class="l">        saving.displayDetails();</span><span class="l">        current.displayDetails();</span><span class="l"></span><span class="l">        <span class="c">// Part 3 ii: deposit into each.</span></span><span class="l">        System.out.println(<span class="s">"=== ii: deposit into each ==="</span>);</span><span class="l">        saving.deposit(2000.0);</span><span class="l">        current.deposit(1000.0);</span><span class="l"></span><span class="l">        <span class="c">// Part 3 iii: a successful and an unsuccessful withdrawal on each.</span></span><span class="l">        System.out.println(<span class="s">"=== iii: a successful and an unsuccessful withdrawal on each ==="</span>);</span><span class="l">        saving.withdraw(4000.0);</span><span class="l">        saving.withdraw(2500.0);</span><span class="l">        current.withdraw(1000.0);</span><span class="l">        current.withdraw(999999.0);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"=== iv: details AFTER the transactions ==="</span>);</span><span class="l">        saving.displayDetails();</span><span class="l">        current.displayDetails();</span><span class="l"></span><span class="l">        <span class="c">// Part 3 v: polymorphism. Same reference type, same call, same amount.</span></span><span class="l">        System.out.println(<span class="s">"=== v: polymorphism, same reference type, same call, same amount ==="</span>);</span><span class="l good">        <span class="t">BankAccount</span> acc = <span class="k">new</span> <span class="t">SavingAccount</span>(<span class="s">"SA-3003"</span>, <span class="s">"Ngozi Eze"</span>, 1500.0);</span><span class="l">        acc.withdraw(600.0);</span><span class="l">        acc.displayDetails();</span><span class="l"></span><span class="l good">        acc = <span class="k">new</span> <span class="t">CurrentAccount</span>(<span class="s">"CA-4004"</span>, <span class="s">"Tunde Ade"</span>, 1500.0);</span><span class="l">        acc.withdraw(600.0);</span><span class="l">        acc.displayDetails();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>=== iv: details BEFORE the transactions ===
+Account SA-1001 | Ada Bello | balance 5000.0
+Account CA-2002 | Femi Okonkwo | balance 3000.0
+=== ii: deposit into each ===
+Deposit 2000.0 -&gt; SA-1001 balance is now 7000.0
+Deposit 1000.0 -&gt; CA-2002 balance is now 4000.0
+=== iii: a successful and an unsuccessful withdrawal on each ===
+Withdraw 4000.0 -&gt; SA-1001 balance is now 3000.0
+REJECTED: a saving account must retain 1000. Withdrawing 2500.0 from SA-1001 would leave 500.0
+Withdraw 1000.0 -&gt; CA-2002 balance is now 3000.0
+Reward earned on CA-2002:
+Deposit 50.0 -&gt; CA-2002 balance is now 3050.0
+REJECTED: CA-2002 holds only 3050.0, so 999999.0 cannot be withdrawn
+=== iv: details AFTER the transactions ===
+Account SA-1001 | Ada Bello | balance 3000.0
+Account CA-2002 | Femi Okonkwo | balance 3050.0
+=== v: polymorphism, same reference type, same call, same amount ===
+REJECTED: a saving account must retain 1000. Withdrawing 600.0 from SA-3003 would leave 900.0
+Account SA-3003 | Ngozi Eze | balance 1500.0
+Withdraw 600.0 -&gt; CA-4004 balance is now 900.0
+Reward earned on CA-4004:
+Deposit 50.0 -&gt; CA-4004 balance is now 950.0
+Account CA-4004 | Tunde Ade | balance 950.0</pre>
+      <p class="small" style="padding:6pt 8pt 0">All four classes live in one file
+      because only one may be <code>public</code> and that one must match the file name:
+      <code>BankSystem.java</code>. In the hall, write them as four classes exactly as
+      they are here, or as four separate files. Both are correct.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; Every balance, and why each rule fired</span></div>
+    <div class="body">
+      <table class="trace">
+        <tr><th style="width:24%">Call</th><th style="width:14%">balance before</th><th style="width:30%">which rule decided</th><th style="width:12%">allowed?</th><th>balance after</th></tr>
+        <tr><td colspan="5"><b>SA-1001, a SavingAccount, opens at 5000</b></td></tr>
+        <tr><td>deposit(2000)</td><td>5000.0</td><td>no rule: deposits always land</td><td>yes</td><td class="chg">7000.0</td></tr>
+        <tr><td>withdraw(4000)</td><td>7000.0</td><td>7000 - 4000 = 3000, and 3000 &gt;= 1000</td><td class="chg">yes</td><td class="chg">3000.0</td></tr>
+        <tr><td>withdraw(2500)</td><td>3000.0</td><td>3000 - 2500 = 500, and 500 &lt; 1000</td><td>no</td><td>3000.0</td></tr>
+        <tr><td colspan="5"><b>CA-2002, a CurrentAccount, opens at 3000</b></td></tr>
+        <tr><td>deposit(1000)</td><td>3000.0</td><td>no rule</td><td>yes</td><td class="chg">4000.0</td></tr>
+        <tr><td>withdraw(1000)</td><td>4000.0</td><td>funds suffice, so the reward fires</td><td class="chg">yes</td><td class="chg">3000.0, then +50 = 3050.0</td></tr>
+        <tr><td>withdraw(999999)</td><td>3050.0</td><td>funds do not suffice, so <b>no reward</b></td><td>no</td><td>3050.0</td></tr>
+      </table>
+      <p>The last row is the one to study. The reward sits inside
+      <code>if (succeeded)</code>, so a rejected withdrawal earns nothing. Had
+      <code>withdraw</code> returned <code>void</code>, that <code>if</code> could not
+      have been written, and CA-2002 would have been paid 50 for a transaction that
+      never happened.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; How to prove polymorphism in six lines</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part 3 v asks you to <b>confirm the correct overridden version runs</b>. A
+        proof needs a control: change <b>one</b> thing and show the behaviour changes.</p>
+        <p>So: same reference type, same method, same amount, same starting balance.
+        Only the object differs.</p>
+      </div>
+      <pre class="src nonum" data-nocheck="the polymorphism extract; it is compiled and run as part of the BankSystem listing above"><span class="l"><span class="t">BankAccount</span> acc = <span class="k">new</span> <span class="t">SavingAccount</span>(<span class="s">"SA-3003"</span>, <span class="s">"Ngozi Eze"</span>, 1500.0);</span><span class="l">acc.withdraw(600.0);        <span class="c">// rejected: would leave 900, under 1000</span></span><span class="l"></span><span class="l">acc = <span class="k">new</span> <span class="t">CurrentAccount</span>(<span class="s">"CA-4004"</span>, <span class="s">"Tunde Ade"</span>, 1500.0);</span><span class="l">acc.withdraw(600.0);        <span class="c">// allowed, and pays a 50 reward: 950</span></span></pre>
+      <p>Both variables are declared <code>BankAccount</code>. Both calls are
+      <code>acc.withdraw(600.0)</code>, character for character. Both accounts hold
+      1500.0. One is refused and one is paid a bonus.</p>
+      <p><b>That is the proof, and here is the sentence that earns the mark:</b> the
+      compiler only knew <code>acc</code> was a <code>BankAccount</code>, so the choice
+      of which <code>withdraw</code> to run could not have been made at compile time. It
+      was made at <b>run time</b>, from the object's <b>actual</b> class. That is
+      dynamic method dispatch, and it is what "polymorphism" names (Unit 6.7).</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the reference decides what you may call.
+      The object decides what actually runs.</b></p>
+      <p class="note">Compare this with the TRAP at the end of Unit 6.6, where the same
+      setup silently ran the <b>parent's</b> method because the override was really an
+      overload. Same two lines of code, opposite outcomes, and the difference was one
+      parameter type. That is why <code>@Override</code> sits on every override
+      here.</p>
+    </div>
+  </div>
+</section>

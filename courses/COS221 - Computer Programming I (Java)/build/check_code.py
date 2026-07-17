@@ -39,6 +39,14 @@ PRE_RE = re.compile(r'<pre class="src(?P<cls>[^"]*)"(?P<attrs>[^>]*)>(?P<body>.*
 OUT_RE = re.compile(r'<pre class="out"[^>]*>(?P<body>.*?)</pre>', re.S)
 ATTR_RE = re.compile(r'data-(?P<k>[a-z]+)="(?P<v>[^"]*)"')
 
+# Every <pre> in the book must be one of these three, and the reason is that this
+# gate only *sees* class="src...". Invent a fourth class and the snippet inside it
+# escapes checking completely AND renders unstyled, because manual.css only styles
+# these. Both failures are silent. It happened: a class="sig" skeleton slipped
+# through both, so the vocabulary is now closed and enforced.
+ANY_PRE_RE = re.compile(r'<pre class="(?P<cls>[^"]*)"')
+ALLOWED_PRE = {'src', 'src nonum', 'out'}
+
 
 class _Lines(HTMLParser):
     """Pull one Java source line out of each <span class="l">.
@@ -148,6 +156,15 @@ def check_file(name, results):
     doc = io.open(path, encoding='utf-8').read()
     work = tempfile.mkdtemp(prefix='cos221_')
     try:
+        for m in ANY_PRE_RE.finditer(doc):
+            cls = m.group('cls')
+            if cls not in ALLOWED_PRE:
+                where = f'{name}:{doc[:m.start()].count(chr(10)) + 1}'
+                results.append(('FAIL', where,
+                                f'<pre class="{cls}"> is not a listing class. Use "src", '
+                                f'"src nonum" or "out": any other class is invisible to '
+                                f'this gate and unstyled by manual.css.'))
+
         for m in PRE_RE.finditer(doc):
             attrs = dict((a.group('k'), htmllib.unescape(a.group('v')))
                          for a in ATTR_RE.finditer(m.group('attrs')))

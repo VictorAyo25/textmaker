@@ -519,6 +519,60 @@ Vehicle is starting</pre>
       <code>super.start()</code> reached back to the version it had replaced.</p>
     </div>
   </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX &middot; @Override</span></div>
+    <div class="body">
+      <p>Written on the line directly above a method that is meant to override one:</p>
+      <pre class="src nonum" data-nocheck="syntax skeleton; the runnable versions are the two listings below"><span class="l">@Override</span><span class="l"><span class="k">public void</span> withdraw(<span class="k">double</span> amount) { ... }</span></pre>
+      <p>It changes <b>nothing</b> about how the program runs. It is a note to the
+      <b>compiler</b>, and it asks one question: <i>does this method really override
+      something?</i> If the answer is no, the code does not compile.</p>
+      <p>Java does not require it. Overriding works without it, and the exam will not
+      fail you for leaving it out. Write it anyway. The next box shows why.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The override that silently was not one</span></div>
+    <div class="body">
+      <p>An overriding method must have the <b>same name and the same parameter
+      list</b> as the one it replaces. Change the parameter type by one word and you
+      have not overridden anything: you have written an <b>overload</b> (Unit 5.6), a
+      second, unrelated method that merely shares a name. Nothing warns you.</p>
+      <p>Here <code>Account.withdraw</code> takes a <code>double</code> and
+      <code>Saving.withdraw</code> takes an <code>int</code>:</p>
+<pre class="src" data-run="SilentOverload"><span class="l"><span class="k">class</span> <span class="t">Account</span> {</span><span class="l">    <span class="k">protected</span> <span class="k">double</span> balance = 5000;</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">void</span> withdraw(<span class="k">double</span> amount) {</span><span class="l">        balance -= amount;</span><span class="l">        System.out.println(<span class="s">"Account.withdraw ran. Balance is now "</span> + balance);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Saving</span> <span class="k">extends</span> <span class="t">Account</span> {</span><span class="l"></span><span class="l">    <span class="c">// MEANT to override Account.withdraw. Look hard at the parameter type.</span></span><span class="l bad">    <span class="k">public</span> <span class="k">void</span> withdraw(<span class="k">int</span> amount) {</span><span class="l">        System.out.println(<span class="s">"Saving.withdraw ran: the 1000 rule was applied"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SilentOverload</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Account</span> acc = <span class="k">new</span> <span class="t">Saving</span>();</span><span class="l">        acc.withdraw(600);</span><span class="l">        System.out.println(<span class="s">"Did the saving rule run? Read the line above."</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Account.withdraw ran. Balance is now 4400.0
+Did the saving rule run? Read the line above.</pre>
+      <p><b>The saving rule never ran.</b> The money left the account with no rule
+      applied, and the program printed no error, because as far as Java is concerned
+      nothing went wrong. This is the worst kind of bug: a silent one.</p>
+      <p><b>Why it happens.</b> The variable is declared <code>Account acc</code>, so
+      at <b>compile time</b> the compiler sees only the methods <code>Account</code>
+      has, and the only <code>withdraw</code> there takes a <code>double</code>. So it
+      compiles the call as <code>withdraw(double)</code>, widening the literal 600 to
+      600.0 (Unit 3.5). At <b>run time</b>, Java looks for an override of
+      <code>withdraw(double)</code> in <code>Saving</code>. There is not one:
+      <code>Saving</code> has <code>withdraw(int)</code>, which is a different method.
+      So the parent's version runs.</p>
+      <div class="card">
+        <p><b>Overloading is chosen at compile time, from the type the variable is
+        DECLARED as. Overriding is chosen at run time, from the type the object
+        ACTUALLY is.</b> Confuse the two and you get exactly this: a method that looks
+        overridden and is not.</p>
+      </div>
+      <p>Now add <code>@Override</code> to the same broken method. The compiler is
+      obliged to check the claim, and the claim is false:</p>
+<pre class="src" data-compile="OverrideCaught" data-error="does not override or implement a method from a supertype"><span class="l"><span class="k">class</span> <span class="t">Account</span> {</span><span class="l">    <span class="k">protected</span> <span class="k">double</span> balance = 5000;</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">void</span> withdraw(<span class="k">double</span> amount) {</span><span class="l">        balance -= amount;</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">class</span> <span class="t">Saving</span> <span class="k">extends</span> <span class="t">Account</span> {</span><span class="l"></span><span class="l good">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> withdraw(<span class="k">int</span> amount) {</span><span class="l">        System.out.println(<span class="s">"the 1000 rule was applied"</span>);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">OverrideCaught</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">new</span> <span class="t">Saving</span>().withdraw(600);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Compiler output</span>error: method does not override or implement a method from a supertype</pre>
+      <p>The silent runtime bug became a loud compile-time error, which is the trade
+      you always want. One word turned a bug you would have hunted for an hour into a
+      message that names the problem.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>@Override is a claim the compiler
+      checks.</b> Make the claim, and Java will tell you when you are wrong.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ---------------- 6.7 ---------------- -->

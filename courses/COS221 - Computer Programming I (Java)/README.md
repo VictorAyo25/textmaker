@@ -36,6 +36,31 @@ python assemble.py          # ~2 min: writes build/full_manual_clean.pdf
 python qa.py                # gate the rendered PDF: every count must be zero
 ```
 
+`check_code.py` compiles ~90 programs and takes a few minutes; pass a section name
+(`python check_code.py module6`) while authoring, and run it bare before a build.
+
+## Authoring a listing: write real Java, then generate the markup
+
+Do **not** hand-write the `<span class="l">` markup. Author the snippet as a real
+`.java` file, compile and run it, and let `hl.py` produce the markup:
+
+```bash
+python hl.py Foo.java --run Foo                      # a program with checked output
+python hl.py Bad.java --compile Bad --error "..."    # must FAIL to compile
+python hl.py Frag.java --frag                        # a fragment, still must compile
+python hl.py Skel.java --nocheck "why not checked"   # a skeleton
+```
+
+Mark a line by putting `/*@good*/` or `/*@bad*/` anywhere on it; the marker is
+stripped from the emitted source, and being a comment it never reaches javac either.
+
+This is not convenience, it is the fidelity rule. Generating the markup from the file
+that actually ran makes "the source in the book is the source that ran" true by
+construction rather than by care. Hand-writing it produced the same silent bug four
+times: `class="l" class="bad"` is a duplicate attribute, browsers keep the first and
+`dict(attrs)` keeps the last, so the line vanished from the compiled source and the
+listing ran minus one line with quietly different output.
+
 **Requirements:** Python 3 with `playwright` (+ `python -m playwright install
 chromium`) and `pymupdf`; a **JDK** on PATH (built against Temurin 17) for
 `check_code.py`. Fonts are vendored in `build/fonts/`, so a render never depends on
@@ -77,6 +102,27 @@ Two things worth knowing:
   every body page down by one, so each footer reads one less than the page it sits on,
   and the Contents is off by one to match. That bug shipped once here and the gate now
   catches it.
+
+## The render barrier (read before touching render.py)
+
+`render.py` waits for `document.fonts.status === 'loaded'` before taking the PDF, and
+then **verifies the faces actually loaded**. Do not weaken this to `networkidle`.
+
+Network-quiet is not fonts-loaded. Without the barrier, Chromium measures every line
+in fallback metrics, so it wraps differently and the whole book paginates differently.
+Rendering identical HTML four times gave **117, 166, 166, 166** pages. The page count
+was a lottery.
+
+The reason this is worth a section: a corrupted render **passes every gate**. It comes
+out *shorter* (fallback text is narrower), with sequential footers, no blank pages, and
+a Contents that agrees with itself. The PDF is internally consistent; it is just
+consistently wrong. `qa.py` cannot see it, because `qa.py` only asks whether the PDF
+agrees with itself. This is exactly how PHY121 v2 shipped at 64 pages instead of 148.
+
+PHY121 learned this and has the barrier. Each new course copies `render.py` from the
+last, so the fix does not propagate itself: **COS221 lost it in the port** (restored
+2026-07-17). Grep a new course's `render.py` for `fonts.status` before believing any
+page count it prints.
 
 ## Course facts
 
@@ -137,6 +183,12 @@ would skip in the hall: a question you skip is still a topic you can be examined
    | `data-nocheck="reason"` | excluded, and the reason is printed in the report |
 
    Silence is never a way out: a listing with no attribute is a failure.
+
+   The same gate closes the vocabulary of `<pre>` classes to exactly `src`,
+   `src nonum` and `out`. It only *sees* `class="src..."`, so inventing a fourth
+   class lets the snippet inside escape checking entirely **and** render unstyled,
+   because `manual.css` styles only these. Both failures are silent, and it happened
+   once (a `class="sig"` skeleton), so the set is now enforced.
 
 2. **Keyword/API before use.** The manual must be sufficient with no external sources,
    so every keyword, symbol and library call is introduced before first appearance and

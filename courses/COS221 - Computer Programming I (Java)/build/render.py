@@ -12,6 +12,23 @@ the pipeline depends on:
     only the footer template can see the page number.
 
 House rule: the footer carries the course and the author, never the institution.
+
+WAIT FOR THE FONTS. This is not a nicety, it is the difference between a book and
+a lottery ticket. 'networkidle' means the network went quiet; it does NOT mean the
+@font-face faces finished loading and the text was re-laid-out in them. Render the
+same HTML three times without waiting and Chromium returns 152, 152, then 125
+pages: every line measured in fallback metrics is the wrong width, so it wraps
+differently, so the whole book paginates differently, and the page count is
+whatever the race happened to decide.
+
+That is the exact bug that shipped a defective PHY121 v2 (images with no height,
+148 pages collapsed to 64, and every gate still green, because a short book with
+sequential footers and no blank pages looks perfectly healthy). It is invisible to
+any gate that checks the PDF for self-consistency, because the PDF *is* internally
+consistent: it is consistently wrong.
+
+So we wait for document.fonts.ready, and then we verify the faces actually loaded
+rather than trusting that the wait did anything.
 """
 import sys, os
 from playwright.sync_api import sync_playwright
@@ -32,7 +49,32 @@ NOFOOTER = len(sys.argv) > 3 and sys.argv[3] == 'nofooter'
 with sync_playwright() as p:
     b = p.chromium.launch()
     pg = b.new_page()
-    pg.goto(url, wait_until='networkidle')
+    pg.goto(url, wait_until='load')
+
+    # 1. wait for the real conditions, not for the network to go quiet. This is
+    #    PHY121's barrier, which is where this lesson was paid for; the images
+    #    clause costs nothing here (this book's diagrams are inline SVG) and keeps
+    #    the two courses honest if an <img> is ever added.
+    pg.wait_for_function(
+        """() => document.fonts.status === 'loaded'
+              && Array.from(document.images).every(i => i.complete && i.naturalHeight > 0)""",
+        timeout=120000)
+
+    # 2. trust nothing: prove the faces we paginate against are actually loaded.
+    #    document.fonts.ready resolving does not by itself mean a face succeeded;
+    #    a 404 on a .ttf also "settles" the promise, and then we would silently
+    #    paginate in Times New Roman and produce a confidently wrong book.
+    faces = pg.evaluate("""() => {
+        const want = ['DejaVu Sans', 'DejaVu Sans Mono'];
+        return want.map(f => [f, document.fonts.check('12pt "' + f + '"')]);
+    }""")
+    missing = [f for f, ok in faces if not ok]
+    if missing:
+        b.close()
+        raise SystemExit(f'render.py: these @font-face faces did not load: {missing}. '
+                         f'Pagination would be measured in fallback metrics and the '
+                         f'page count would be wrong. Refusing to render.')
+
     if NOFOOTER:
         pg.pdf(path=out, format='A4', print_background=True,
                display_header_footer=False,
