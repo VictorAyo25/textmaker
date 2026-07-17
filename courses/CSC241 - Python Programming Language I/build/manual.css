@@ -1,0 +1,188 @@
+/* ============================================================
+   PHY121 Study Manual : reconstructed stylesheet
+   Reverse-engineered from the WeasyPrint 69.0 original.
+   Renders faithfully under Chromium (Playwright) too.
+   ============================================================ */
+
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Italic.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-BoldItalic.ttf'); font-weight:bold; font-style:italic; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Oblique.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono.ttf'); font-weight:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Bold.ttf'); font-weight:bold; }
+
+:root{
+  --ink:#2b3140; --head:#1e2430; --muted:#6b7280; --faint:#8a8f98;
+  --teach:#1b2a4a;      --teach-bg:#f4f7fc;
+  --mem:#c2185b;        --mem-bg:#fdeef5;   --mem-bg2:#fbe3ee;
+  --trap:#b91c1c;       --trap-bg:#fdefef;
+  --work:#b45309;       --work-bg:#fdf6ec;
+  --recall:#4a5568;     --recall-bg:#ffffff;
+  --fill:#5b3a8e;       --fill-bg:#f4effb;
+  --formula:#0b6b5f;    --formula-bg:#f0faf7;
+  --qgroup:#4c1d95;     --qgroup-bg:#f6f2fd;
+  --rule:#d7dbe2;
+}
+
+@page{
+  size:A4;
+  margin:19mm 18mm 16mm 18mm;
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'DejaVu Serif', serif;
+  color:var(--ink);
+  font-size:9.6pt;
+  line-height:1.42;
+  margin:0;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+p{ margin:.42em 0; }
+b,strong{ font-weight:bold; }
+sub,sup{ font-size:.72em; }
+
+/* ---------- running footer via fixed positioning (Chromium repeats per page) ---------- */
+/* (In production we use Playwright footerTemplate; this is the on-page fallback.) */
+
+/* ---------- part divider ---------- */
+.part{ page-break-before:always; padding-top:32mm; min-height:248mm; }
+.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:11pt; color:var(--mem); font-weight:bold; text-transform:uppercase; }
+.part h1{ font-family:'DejaVu Serif',serif; font-size:34pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
+.part .blurb{ font-style:italic; color:var(--muted); font-size:11pt; max-width:74%; line-height:1.5; }
+.divider-motif{ margin-top:26mm; opacity:.9; }
+.divider-motif svg{ width:78%; height:auto; }
+
+/* ---------- section header ---------- */
+section{ page-break-inside:auto; }
+.kick{ font-family:'DejaVu Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-size:7.6pt; font-weight:bold; color:var(--muted); margin-top:2pt;
+  page-break-after:avoid; break-after:avoid; }
+h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:16.5pt; color:var(--head);
+  margin:.1em 0 .18em; line-height:1.12;
+  page-break-after:avoid; break-after:avoid; page-break-inside:avoid; }
+.title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
+  page-break-after:avoid; break-after:avoid; }
+.lead{ font-style:italic; color:var(--muted); font-size:9.6pt; margin:.2em 0 .7em; }
+.lo{ font-size:9pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
+
+/* ---------- generic box ---------- */
+.box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
+.box > .bar{
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
+  letter-spacing:.14em; font-size:7.7pt; color:#fff; padding:5.5pt 9pt; line-height:1.2;
+  display:flex; justify-content:flex-start; align-items:center;
+}
+.box .bar .tag{ font-size:6.8pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
+  padding:2pt 6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
+.box .body{ padding:7pt 10pt 8pt; }
+.box .body > :first-child{ margin-top:0; }
+.box .body > :last-child{ margin-bottom:0; }
+
+.teach  > .bar{ background:var(--teach); }   .teach  .body{ background:var(--teach-bg); }
+.mem    > .bar{ background:var(--mem);   }   .mem    .body{ background:var(--mem-bg); }
+.trap   > .bar{ background:var(--trap);  }   .trap   .body{ background:var(--trap-bg); }
+.work   > .bar{ background:var(--work);  }   .work   .body{ background:var(--work-bg); }
+.recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
+.fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+.formula> .bar{ background:var(--formula);}  .formula .body{ background:var(--formula-bg); }
+.qgroup > .bar{ background:var(--qgroup); }  .qgroup .body{ background:var(--qgroup-bg); }
+
+.mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* ● */
+.trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* ⚠ */
+
+/* ---------- formula ---------- */
+.eq{ text-align:center; font-size:12.5pt; margin:.5em 0; line-height:1.4; }
+.eq.big{ font-size:15pt; }
+.where{ font-size:8.7pt; color:var(--ink); margin:.3em 0 0; }
+.where div{ margin:.1em 0; }
+.hook{ margin-top:.5em; font-size:9pt; }
+.hook b{ color:var(--mem); }
+.mem .hook b{ color:var(--mem); }
+
+/* ---------- worked example ---------- */
+.steps{ list-style:none; counter-reset:step; padding:0; margin:.3em 0 0; }
+.steps > li{ position:relative; padding-left:22pt; margin:.5em 0; break-inside:avoid; }
+.steps > li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; left:0; top:0; width:15pt; height:15pt; border-radius:50%;
+  background:var(--mem); color:#fff; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  font-size:8.5pt; text-align:center; line-height:15pt;
+}
+.steps .note{ display:block; font-size:8.4pt; color:var(--muted); font-style:italic; margin-top:.15em; }
+.answerbox{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; background:#fff;
+  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5pt 8pt; margin:.5em 0; }
+.redo{ font-size:8.8pt; margin-top:.55em; }
+.redo b{ color:var(--work); }
+.qstate{ font-style:italic; }
+
+/* ---------- recall ---------- */
+.recall .q{ font-weight:bold; }
+.recall .cut{ border:0; border-top:1px dashed #b9c0cc; margin:.55em 0; }
+.recall .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); }
+
+/* ---------- fill in the gap ---------- */
+.fill .blank{ display:inline-block; min-width:60pt; border-bottom:1.2px solid var(--fill); }
+.fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
+.fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); margin-top:.4em; }
+
+/* ---------- tables ---------- */
+table.data{ border-collapse:collapse; width:100%; font-size:8.9pt; margin:.4em 0; }
+table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:7.4pt;
+  text-align:left; padding:4.5pt 7pt; }
+table.data td{ padding:4pt 7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
+table.data tr:nth-child(even) td{ background:#f7f8fa; }
+/* a sub-heading inside a section, above a box ("Resistance and Ohm's law"):
+   DejaVu Sans Bold 11.6pt in the heading ink, per the original */
+h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:11.6pt;
+  color:var(--head); margin:1.05em 0 .5em; line-height:1.25; page-break-after:avoid; }
+h3.sub:first-child{ margin-top:0; }
+
+img.tablefig{ display:block; width:100%; max-width:100%; margin:.5em 0; }
+img.figure{ display:block; width:100%; max-width:100%; margin:.5em 0; break-inside:avoid; }
+.fullpage{ page-break-before:always; line-height:0; }
+.fullpage img{ display:block; margin:0 auto; width:auto; height:auto; max-width:100%; max-height:255mm; }
+.fullpage-part{ page-break-before:always; }
+/* ---- TOC markers (invisible, searchable) ---- */
+.tocm{ font-size:2px; color:#ffffff; line-height:0; letter-spacing:0; }
+/* ---- Contents page ---- */
+.contents-page{ page-break-before:always; }
+.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:26pt; color:var(--head); margin:0 0 .1em; }
+.toc-note{ font-size:8.5pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
+.toc-part{ display:flex; align-items:baseline; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  text-transform:uppercase; letter-spacing:.06em; font-size:8.4pt; color:var(--mem); margin:.85em 0 .2em; }
+.toc-l1{ display:flex; align-items:baseline; font-size:9.5pt; color:var(--head); margin:.2em 0; }
+.toc-l2{ display:flex; align-items:baseline; font-size:9.2pt; color:var(--ink); margin:.12em 0 .12em 14pt; }
+.toc-label{ flex:0 1 auto; }
+.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5pt 3pt; min-width:12pt; }
+.toc-pg{ flex:0 0 auto; font-variant-numeric:tabular-nums; color:var(--muted); }
+.toc-part .toc-pg{ color:var(--mem); }
+.toc-link{ text-decoration:none; color:inherit; }
+.toc-link:hover .toc-label{ color:var(--mem); }
+
+/* ---------- misc ---------- */
+.bul{ margin:.3em 0 .3em 0; padding-left:0; list-style:none; }
+.bul li{ position:relative; padding-left:16pt; margin:.22em 0; }
+.bul li::before{ content:"\25B8"; position:absolute; left:2pt; color:var(--work); }
+.small{ font-size:8.5pt; color:var(--muted); }
+.callout-dark{ background:var(--head); color:#fff; padding:9pt 12pt; margin:.6em 0; break-inside:avoid; }
+.callout-dark .eq{ color:#fff; }
+figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
+figure svg{ max-width:100%; height:auto; }
+figcaption{ font-size:8.2pt; color:var(--muted); font-style:italic; margin-top:.35em; }
+.vs-wrap{ display:flex; gap:8pt; align-items:stretch; }
+.vs-wrap > div{ flex:1; }
+
+/* inline monospace (the manual sets formulas in mono inside worked examples) */
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em; }
+
+/* numbered question/gap lists (hanging indent, like the original) */
+ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
+ol.qlist li{ margin:.18em 0; padding-left:.15em; }
