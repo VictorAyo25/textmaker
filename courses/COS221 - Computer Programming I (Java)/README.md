@@ -2,8 +2,9 @@
 
 Everything needed to build or update the COS221 study manual lives here. The finished
 PDF is published to `../../FINAL_MANUALS/` as
-`COS221 - Computer Programming I (Java) - Study Manual v1.pdf`, and only on explicit
-sign-off.
+`COS221 - Computer Programming I (Java) - Study Manual.pdf`, and only on explicit
+sign-off. No version suffix: the published name never changes, so publishing
+replaces the file in place. Versions belong on drafts in `drafts/`.
 
 ```
 COS221 - Computer Programming I (Java)/
