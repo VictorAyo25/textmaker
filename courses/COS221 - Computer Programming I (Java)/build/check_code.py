@@ -117,13 +117,26 @@ def norm(s):
 
 
 def run_one(src, cls, stdin, workdir):
-    p = os.path.join(workdir, cls + '.java')
+    """Compile and run one listing in a directory of its own.
+
+    Per-listing isolation is not tidiness, it is correctness. Listings that touch
+    files must not see each other's leftovers: a file-writing listing created
+    output.txt, and a later listing whose whole point was "output.txt does not
+    exist" then found it sitting there and printed its contents instead of its
+    catch block. The book would have promised output that a reader running that
+    one program in a fresh folder could never reproduce.
+
+    Every listing in this book is a standalone program. It gets a standalone
+    world.
+    """
+    box = tempfile.mkdtemp(prefix='l_', dir=workdir)
+    p = os.path.join(box, cls + '.java')
     io.open(p, 'w', encoding='utf-8').write(src)
-    c = subprocess.run(['javac', '-nowarn', p], cwd=workdir,
+    c = subprocess.run(['javac', '-nowarn', p], cwd=box,
                        capture_output=True, text=True, timeout=120)
     if c.returncode != 0:
         return False, c.stderr.strip()
-    r = subprocess.run(['java', '-cp', workdir, cls], cwd=workdir,
+    r = subprocess.run(['java', '-cp', box, cls], cwd=box,
                        input=(stdin or ''), capture_output=True, text=True, timeout=60)
     if r.returncode != 0:
         return False, (r.stdout + r.stderr).strip()

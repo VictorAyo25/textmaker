@@ -1,0 +1,403 @@
+<!-- ============ MODULE TEN ============ -->
+
+<!-- ---------------- 10.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 10.1 · EXCEPTIONS</div>
+  <h2 class="title">What happens when the world misbehaves</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain exception
+  handling and its importance, identify types of exceptions and errors, implement
+  try, catch and finally, use throw and throws, write custom exceptions, and handle
+  file input and output.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · An exception</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>An exception is an event that disrupts the normal flow of a
+        program.</b> It is an <b>object</b> representing an error condition.</p>
+        <p>Handle them because: they <b>prevent program crashes</b>, they let you
+        give a <b>user-friendly error message</b>, and they let the program
+        <b>recover and carry on</b>.</p>
+      </div>
+      <p>"An object representing an error condition" is worth pausing on. When
+      something goes wrong, Java <i>constructs an object</i> describing it and hands
+      it to you. That is why you can call <code>e.getMessage()</code> on it: it is a
+      thing, with fields, in the sense of Module 6.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> an exception is a <b>note thrown out of a
+      burning building</b>. The method that hit trouble cannot carry on, so it writes
+      down what went wrong and throws it to whoever will catch it. If nobody catches
+      it, the building comes down: F.7's run-time error.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Checked versus unchecked</span><span class="tag">25/26 Q1 B · 3 MARKS</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:22%"></th><th style="width:38%">Checked</th><th>Unchecked</th></tr>
+          <tr><td><b>1. When</b></td><td>checked at <b>compile</b> time</td><td>occur at <b>run</b> time</td></tr>
+          <tr><td><b>2. Obligation</b></td><td><b>must</b> be caught or declared with <code>throws</code>, or it will not compile</td><td>no obligation at all</td></tr>
+          <tr><td><b>3. Cause</b></td><td>things outside your control: the file is gone, the network died</td><td>programming mistakes: a null, a bad index, /0</td></tr>
+          <tr><td>4. Examples</td><td><code>IOException</code>, <code>FileNotFoundException</code>, <code>SQLException</code>, <code>ClassNotFoundException</code></td><td><code>NullPointerException</code>, <code>ArrayIndexOutOfBoundsException</code>, <code>ArithmeticException</code>, <code>NumberFormatException</code></td></tr>
+        </table>
+      </div>
+      <p>"State three differences between checked exceptions and unchecked exceptions"
+      is <b>2025/26 Section A, Question One, part B, for three marks</b>. Give rows 1,
+      2 and 3, with an example each.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>checked = the compiler checks you have a
+      plan.</b> It is about things that can go wrong even when your code is perfect,
+      so Java forces you to think about them. Unchecked ones are your own bugs, and
+      the compiler does not make you plan for your own mistakes.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Exception versus Error</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:22%"></th><th style="width:38%">Exception</th><th>Error</th></tr>
+        <tr><td>Is</td><td>an event disrupting normal flow, which <b>can be caught and handled</b></td><td>a <b>serious problem beyond your control</b></td></tr>
+        <tr><td>Subclass of</td><td><code>java.lang.Exception</code></td><td><code>java.lang.Error</code></td></tr>
+        <tr><td>Checked?</td><td>may be checked or unchecked</td><td><b>always unchecked</b></td></tr>
+        <tr><td>Catch it?</td><td>yes, with try-catch</td><td><b>generally not</b>: it signals something serious</td></tr>
+        <tr><td>Recover?</td><td>possible to recover and continue</td><td>generally not</td></tr>
+        <tr><td>Examples</td><td><code>IOException</code>, <code>ArithmeticException</code></td><td><code>StackOverflowError</code>, <code>OutOfMemoryError</code></td></tr>
+      </table>
+      <p>You have already met an Error: Module 9's <code>StackOverflowError</code>.
+      Note it is an <b>Error</b>, not an Exception, and that its name ends in Error is
+      the clue. You <i>could</i> catch it, and you should not: the right response to
+      running out of stack is to fix the recursion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 10.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 10.2 · TRY, CATCH, FINALLY</div>
+  <h2 class="title">Saying what you will do about it</h2>
+  <hr class="rule"/>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The three blocks</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; run for real in the listings below"><span class="l">try {</span><span class="l">    // code that MIGHT throw</span><span class="l">} catch (SomeException e) {</span><span class="l">    // runs ONLY if that exception was thrown</span><span class="l">} finally {</span><span class="l">    // runs ALWAYS: exception or not, caught or not</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The five keywords</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>try</b>: defines a block that might throw.<br/>
+        <b>catch</b>: catches and handles a specific exception from that block.<br/>
+        <b>finally</b>: always executes afterwards, for cleanup such as closing
+        files.<br/>
+        <b>throw</b>: <b>actually throws</b> an exception, right now. One word, inside
+        a method.<br/>
+        <b>throws</b>: <b>declares</b> that a method might throw, in its signature. It
+        throws nothing itself; it warns the caller.</p>
+      </div>
+      <p>"What are the main keywords used in Java for handling exceptions, and how do
+      they differ?" is a stated in-text question, and the answer is that card.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>throw is an act; throws is a
+      warning.</b> The <b>s</b> is the difference between doing it and declaring you
+      might. "I throw a ball" versus "this job throws balls at you".</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · try-catch-finally, all three paths</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="TryCatch"><span class="l"><span class="k">public class</span> <span class="t">TryCatch</span> {</span><span class="l"></span><span class="l">    <span class="k">static void</span> attempt(<span class="k">int</span> a, <span class="k">int</span> b) {</span><span class="l">        <span class="k">try</span> {</span><span class="l">            System.out.println(<span class="s">"  result: "</span> + (a / b));</span><span class="l">        } <span class="k">catch</span> (ArithmeticException e) {</span><span class="l">            System.out.println(<span class="s">"  Error: Division by zero!"</span>);</span><span class="l">        } <span class="k">finally</span> {</span><span class="l good">            System.out.println(<span class="s">"  This block always runs."</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"10 / 2:"</span>);</span><span class="l">        attempt(10, 2);                <span class="c">// no exception</span></span><span class="l">        System.out.println(<span class="s">"10 / 0:"</span>);</span><span class="l">        attempt(10, 0);                <span class="c">// exception, caught</span></span><span class="l">        System.out.println(<span class="s">"done. The program did NOT crash."</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>10 / 2:
+  result: 5
+  This block always runs.
+10 / 0:
+  Error: Division by zero!
+  This block always runs.
+done. The program did NOT crash.</pre>
+      <p class="small" style="padding:6pt 8pt 0">Compare this with Unit 3.6, where the
+      identical <code>10/0</code> killed the program dead and lines 4 to 6 never ran.
+      That is the entire value of try-catch: the same fault, and the program carries
+      on. And note <code>finally</code> printed <b>both</b> times, on the happy path
+      and the failing one. That is what "always" means.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Multiple catch blocks</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="MultiCatch"><span class="l"><span class="k">public class</span> <span class="t">MultiCatch</span> {</span><span class="l"></span><span class="l">    <span class="k">static void</span> attempt(<span class="k">int</span> which) {</span><span class="l">        <span class="k">try</span> {</span><span class="l">            <span class="k">int</span>[] arr = {1, 2, 3};</span><span class="l">            <span class="k">if</span> (which == 1) System.out.println(arr[5]);       <span class="c">// bad index</span></span><span class="l">            <span class="k">if</span> (which == 2) System.out.println(10 / 0);       <span class="c">// bad maths</span></span><span class="l">            <span class="k">if</span> (which == 3) System.out.println(<span class="t">Integer</span>.parseInt(<span class="s">"abc"</span>)); <span class="c">// bad text</span></span><span class="l">        } <span class="k">catch</span> (ArrayIndexOutOfBoundsException e) {</span><span class="l">            System.out.println(<span class="s">"  Array index out of bounds!"</span>);</span><span class="l">        } <span class="k">catch</span> (ArithmeticException e) {</span><span class="l">            System.out.println(<span class="s">"  Arithmetic problem: "</span> + e.getMessage());</span><span class="l">        } <span class="k">catch</span> (Exception e) {</span><span class="l good">            System.out.println(<span class="s">"  Something else: "</span> + e.getClass().getSimpleName());</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        attempt(1); attempt(2); attempt(3);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  Array index out of bounds!
+  Arithmetic problem: / by zero
+  Something else: NumberFormatException</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Only the matching catch block
+      runs.</b> The third call was not an index or arithmetic problem, so it fell
+      through to <code>catch (Exception e)</code>, which catches everything because
+      every exception is a subclass of <code>Exception</code>: Module 6's inheritance
+      doing real work.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Order your catch blocks narrowest first</span></div>
+    <div class="body">
+      <p>Put <code>catch (Exception e)</code> <b>first</b> and the code will not
+      compile: every later catch is unreachable, because the general one already
+      caught everything. Java tells you so.</p>
+      <p>The rule follows from inheritance: <b>catch the specific before the
+      general</b>, always. A catch for a parent class shadows every child below it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · throw and throws, side by side</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="ThrowThrows"><span class="l"><span class="k">public class</span> <span class="t">ThrowThrows</span> {</span><span class="l"></span><span class="l">    <span class="c">// 'throw' ACTS: it creates and hurls an exception</span></span><span class="l">    <span class="k">static void</span> registerUser(<span class="k">int</span> age) {</span><span class="l">        <span class="k">if</span> (age &lt; 18) {</span><span class="l bad">            <span class="k">throw new</span> IllegalArgumentException(<span class="s">"Age must be 18"</span>);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"  registered, age "</span> + age);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// 'throws' DECLARES: this method might throw, caller beware</span></span><span class="l good">    <span class="k">static int</span> divide(<span class="k">int</span> a, <span class="k">int</span> b) <span class="k">throws</span> ArithmeticException {</span><span class="l">        <span class="k">if</span> (b == 0) {</span><span class="l">            <span class="k">throw new</span> ArithmeticException(<span class="s">"Cannot divide by zero."</span>);</span><span class="l">        }</span><span class="l">        <span class="k">return</span> a / b;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        registerUser(25);</span><span class="l"></span><span class="l">        <span class="k">try</span> {</span><span class="l">            registerUser(15);</span><span class="l">        } <span class="k">catch</span> (IllegalArgumentException e) {</span><span class="l">            System.out.println(<span class="s">"  caught: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="k">try</span> {</span><span class="l">            divide(10, 0);</span><span class="l">        } <span class="k">catch</span> (ArithmeticException e) {</span><span class="l">            System.out.println(<span class="s">"  Error: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  registered, age 25
+  caught: Age must be 18
+  Error: Cannot divide by zero.</pre>
+      <p class="small" style="padding:6pt 8pt 0">Your course's slide shows
+      <code>registerUser(15)</code> <b>uncaught</b>, and prints the crash:
+      <code>Exception in thread "main" java.lang.IllegalArgumentException: Age must be
+      18</code>. That is what happens with no try-catch, and it is worth seeing. Here
+      it is caught, so the program survives and prints a civil message. Same throw,
+      two fates, and the difference is entirely whether anyone was listening.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · A custom exception</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Custom"><span class="l"><span class="c">// checked: extends Exception. Callers MUST handle it.</span></span><span class="l"><span class="k">class</span> <span class="t">InvalidAgeException</span> <span class="k">extends</span> <span class="t">Exception</span> {</span><span class="l">    <span class="t">InvalidAgeException</span>(<span class="t">String</span> message) {</span><span class="l good">        <span class="k">super</span>(message);        <span class="c">// Module 6: hand it up to Exception</span></span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// unchecked: extends RuntimeException. Callers need not.</span></span><span class="l"><span class="k">class</span> <span class="t">InvalidScoreException</span> <span class="k">extends</span> <span class="t">RuntimeException</span> {</span><span class="l">    <span class="t">InvalidScoreException</span>(<span class="t">String</span> message) { <span class="k">super</span>(message); }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Custom</span> {</span><span class="l"></span><span class="l">    <span class="k">static void</span> checkAge(<span class="k">int</span> age) <span class="k">throws</span> <span class="t">InvalidAgeException</span> {</span><span class="l">        <span class="k">if</span> (age &lt; 18) <span class="k">throw new</span> <span class="t">InvalidAgeException</span>(<span class="s">"Age must be 18"</span>);</span><span class="l">        System.out.println(<span class="s">"  age "</span> + age + <span class="s">" accepted"</span>);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static void</span> checkScore(<span class="k">int</span> score) {          <span class="c">// no 'throws' needed</span></span><span class="l">        <span class="k">if</span> (score &lt; 0 || score &gt; 100) {</span><span class="l">            <span class="k">throw new</span> <span class="t">InvalidScoreException</span>(<span class="s">"Score out of range: "</span> + score);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"  score "</span> + score + <span class="s">" accepted"</span>);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">try</span> {</span><span class="l">            checkAge(25);</span><span class="l">            checkAge(15);</span><span class="l">        } <span class="k">catch</span> (<span class="t">InvalidAgeException</span> e) {</span><span class="l">            System.out.println(<span class="s">"  caught checked: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l"></span><span class="l">        checkScore(75);</span><span class="l">        <span class="k">try</span> {</span><span class="l">            checkScore(150);</span><span class="l">        } <span class="k">catch</span> (<span class="t">InvalidScoreException</span> e) {</span><span class="l">            System.out.println(<span class="s">"  caught unchecked: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  age 25 accepted
+  caught checked: Age must be 18
+  score 75 accepted
+  caught unchecked: Score out of range: 150</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>A custom exception is a
+      user-defined exception class that extends either <code>Exception</code> (for
+      checked) or <code>RuntimeException</code> (for unchecked).</b> Which parent you
+      pick <i>is</i> the decision: it decides whether every caller is forced to
+      handle it. Note <code>checkAge</code> needs <code>throws</code> in its
+      signature and <code>checkScore</code> does not: that is Unit 10.1's table,
+      enforced by the compiler.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 10.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 10.3 · FILE I/O</div>
+  <h2 class="title">Reading and writing files</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The eight classes, and which the exam allows</span></div>
+    <div class="body">
+      <p><b>File I/O refers to reading data from and writing data to files.</b> Your
+      course names four ways each direction:</p>
+      <table class="data">
+        <tr><th style="width:26%">Write</th><th style="width:26%">Read</th><th>Note</th></tr>
+        <tr><td><code>FileWriter</code></td><td><code>FileReader</code></td><td>the basic pair: one character at a time</td></tr>
+        <tr><td><code>BufferedWriter</code></td><td><code>BufferedReader</code></td><td>wraps the basic one for efficiency, and adds <code>readLine()</code></td></tr>
+        <tr><td><code>PrintWriter</code></td><td><code>Scanner</code></td><td><code>print</code>/<code>println</code>/<code>printf</code> onto a file</td></tr>
+        <tr><td><code>Files.write()</code></td><td><code>Files.readAllLines()</code></td><td>modern NIO: one line does everything</td></tr>
+      </table>
+      <p><b>Read your exam's constraint.</b> 2025/26 Question Three says "using
+      <b>only</b> <code>java.io.FileWriter</code>, <code>java.io.FileReader</code>,
+      <code>java.io.BufferedReader</code>, <code>java.io.BufferedWriter</code>, and
+      <code>java.io.IOException</code>". That bans <code>PrintWriter</code>,
+      <code>Scanner</code> and all of <code>Files</code>. The 2024/25 paper does the
+      opposite and asks about <code>PrintWriter</code> and
+      <code>Files.write()</code> by name. Know all four pairs.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The file I/O shape</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Every file operation is the same four steps:</p>
+        <p>1. <b>open</b> it (constructing the writer/reader opens the file)<br/>
+        2. <b>use</b> it<br/>
+        3. <b>close</b> it, in a <code>finally</code> or with try-with-resources<br/>
+        4. <b>handle</b> <code>IOException</code>, because you have no choice: it is
+        checked.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a file is a <b>library book</b>. Take it
+      out, read it, <b>and give it back</b>, even if you were interrupted. That last
+      clause is why <code>finally</code> exists.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · try-with-resources</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>A try-with-resources block declares the resource in brackets after
+        <code>try</code>, and closes it automatically</b>, whatever happens:</p>
+        <p style="text-align:center"><code>try (FileWriter w = new FileWriter("f.txt")) { ... }</code></p>
+        <p>No <code>finally</code>, no <code>close()</code>, no leak. It is the
+        modern way and it is what the 2025/26 paper means by "either in a finally
+        block or via try-with-resources".</p>
+      </div>
+      <p>"Define try-with-resources block" is asked outright on the 2024/25 paper.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> the resource in the brackets is <b>on
+      loan for the duration of the block</b>. When the block ends, by success or by
+      explosion, Java gives it back for you.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Writing, all four ways</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Writing"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"><span class="k">import</span> java.nio.file.*;</span><span class="l"><span class="k">import</span> java.util.*;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Writing</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> IOException {</span><span class="l"></span><span class="l">        <span class="c">// 1. FileWriter: the basic one</span></span><span class="l">        <span class="k">try</span> (<span class="t">FileWriter</span> w = <span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"test.txt"</span>)) {</span><span class="l">            w.write(<span class="s">"first line\n"</span>);</span><span class="l">            w.write(<span class="s">"second line\n"</span>);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"test.txt   -&gt; "</span> + <span class="t">Files</span>.readAllLines(<span class="t">Paths</span>.get(<span class="s">"test.txt"</span>)));</span><span class="l"></span><span class="l">        <span class="c">// 2. PrintWriter: print / println / printf onto a file</span></span><span class="l">        <span class="k">try</span> (<span class="t">PrintWriter</span> pw = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="s">"output.txt"</span>)) {</span><span class="l">            pw.print(<span class="s">"This is on the "</span>);</span><span class="l">            pw.println(<span class="s">"same line"</span>);</span><span class="l">            pw.printf(<span class="s">"The number again is %d%n"</span>, 221);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"output.txt -&gt; "</span> + <span class="t">Files</span>.readAllLines(<span class="t">Paths</span>.get(<span class="s">"output.txt"</span>)));</span><span class="l"></span><span class="l">        <span class="c">// 3. BufferedWriter: wraps a FileWriter, buffers for efficiency</span></span><span class="l">        <span class="k">try</span> (<span class="t">BufferedWriter</span> bw = <span class="k">new</span> <span class="t">BufferedWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"buffer.txt"</span>))) {</span><span class="l">            bw.write(<span class="s">"buffered text"</span>);</span><span class="l">            bw.newLine();</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"buffer.txt -&gt; "</span> + <span class="t">Files</span>.readAllLines(<span class="t">Paths</span>.get(<span class="s">"buffer.txt"</span>)));</span><span class="l"></span><span class="l">        <span class="c">// 4. NIO Files.write: creates the file if it does not exist</span></span><span class="l">        <span class="t">Files</span>.write(<span class="t">Paths</span>.get(<span class="s">"nio.txt"</span>), <span class="t">Arrays</span>.asList(<span class="s">"Hello World"</span>));</span><span class="l">        System.out.println(<span class="s">"nio.txt    -&gt; "</span> + <span class="t">Files</span>.readAllLines(<span class="t">Paths</span>.get(<span class="s">"nio.txt"</span>)));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>test.txt   -&gt; [first line, second line]
+output.txt -&gt; [This is on the same line, The number again is 221]
+buffer.txt -&gt; [buffered text]
+nio.txt    -&gt; [Hello World]</pre>
+      <p class="small" style="padding:6pt 8pt 0">Note <code>output.txt</code>: two
+      calls, <code>print</code> then <code>println</code>, produced <b>one</b> line,
+      exactly as F.6 said. This is your 2024/25 Question Three, part C, and the
+      question is asking whether you know that <code>print</code> does not break the
+      line.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · The 24/25 PrintWriter question</span><span class="tag">PAST PAPER · 24/25 Q3 C</span></div>
+    <div class="body">
+      <p>"What is the output of the data.txt file?"</p>
+      <pre class="src" data-run="DataTxt"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"><span class="k">import</span> java.nio.file.*;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">DataTxt</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> IOException {</span><span class="l">        <span class="t">PrintWriter</span> pw = <span class="k">new</span> <span class="t">PrintWriter</span>(<span class="s">"data.txt"</span>);</span><span class="l">        pw.print(<span class="s">"Age: "</span>);</span><span class="l">        pw.println(25);</span><span class="l">        pw.printf(<span class="s">"Score: %.2f"</span>, 89.456);</span><span class="l">        pw.close();</span><span class="l"></span><span class="l">        <span class="c">// now show exactly what landed in the file</span></span><span class="l">        System.out.println(<span class="s">"--- data.txt ---"</span>);</span><span class="l">        System.out.print(<span class="k">new</span> <span class="t">String</span>(<span class="t">Files</span>.readAllBytes(<span class="t">Paths</span>.get(<span class="s">"data.txt"</span>))));</span><span class="l">        System.out.println();</span><span class="l">        System.out.println(<span class="s">"--- end ---"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>--- data.txt ---
+Age: 25
+Score: 89.46
+--- end ---</pre>
+      <p>Three things earn the marks, and each is a separate fact:</p>
+      <ol class="steps">
+        <li><code>print("Age: ")</code> does <b>not</b> break the line, so 25 lands
+        beside it.</li>
+        <li><code>println(25)</code> <b>does</b> break the line, so Score starts on a
+        new one.</li>
+        <li><code>printf("%.2f", 89.456)</code> gives <b>89.46</b>, not 89.456 and not
+        89.45: <code>%.2f</code> <b>rounds</b> to two places.
+        <span class="note">Unit 3.11's table again. Bare <code>%f</code> would have
+        given 89.456000.</span></li>
+      </ol>
+      <p class="redo"><b>Now redo it:</b> cover the output and write the exact
+      contents of data.txt on paper, including where the line breaks fall. Then say
+      what changes if <code>pw.close()</code> is deleted. (The answer is worth
+      knowing: possibly nothing at all reaches the file, because the buffer is never
+      flushed.)</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Reading, all four ways</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Reading"><span class="l"><span class="k">import</span> java.io.*;</span><span class="l"><span class="k">import</span> java.nio.file.*;</span><span class="l"><span class="k">import</span> java.util.*;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">Reading</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) <span class="k">throws</span> IOException {</span><span class="l">        <span class="c">// make a file to read</span></span><span class="l">        <span class="t">Files</span>.write(<span class="t">Paths</span>.get(<span class="s">"data.txt"</span>), <span class="t">Arrays</span>.asList(<span class="s">"line one"</span>, <span class="s">"line two"</span>));</span><span class="l"></span><span class="l">        <span class="c">// 1. FileReader: one CHARACTER at a time, until read() returns -1</span></span><span class="l">        System.out.print(<span class="s">"FileReader     : "</span>);</span><span class="l">        <span class="k">try</span> (<span class="t">FileReader</span> fr = <span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"data.txt"</span>)) {</span><span class="l">            <span class="k">int</span> ch;</span><span class="l good">            <span class="k">while</span> ((ch = fr.read()) != -1) {   <span class="c">// -1 means end of file</span></span><span class="l">                System.out.print((<span class="k">char</span>) ch);      <span class="c">// cast int -> char</span></span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// 2. BufferedReader: one LINE at a time, until readLine() returns null</span></span><span class="l">        System.out.print(<span class="s">"BufferedReader : "</span>);</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> br = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"data.txt"</span>))) {</span><span class="l">            <span class="t">String</span> line;</span><span class="l good">            <span class="k">while</span> ((line = br.readLine()) != <span class="k">null</span>) {  <span class="c">// null means end</span></span><span class="l">                System.out.print(<span class="s">"["</span> + line + <span class="s">"]"</span>);</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// 3. Scanner</span></span><span class="l">        System.out.print(<span class="s">"Scanner        : "</span>);</span><span class="l">        <span class="k">try</span> (<span class="t">Scanner</span> sc = <span class="k">new</span> <span class="t">Scanner</span>(<span class="k">new</span> <span class="t">File</span>(<span class="s">"data.txt"</span>))) {</span><span class="l">            <span class="k">while</span> (sc.hasNextLine()) System.out.print(<span class="s">"["</span> + sc.nextLine() + <span class="s">"]"</span>);</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        <span class="c">// 4. Files.readAllLines: the whole file, one line of code</span></span><span class="l">        System.out.println(<span class="s">"readAllLines   : "</span> + <span class="t">Files</span>.readAllLines(<span class="t">Paths</span>.get(<span class="s">"data.txt"</span>)));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>FileReader     : line one
+line two
+BufferedReader : [line one][line two]
+Scanner        : [line one][line two]
+readAllLines   : [line one, line two]</pre>
+      <p class="small" style="padding:6pt 8pt 0">Two sentinel values to memorise, and
+      they are different: <code>read()</code> returns <b>-1</b> at the end of the
+      file, and <code>readLine()</code> returns <b>null</b>. Both loops use the same
+      trick, <code>while ((x = read()) != sentinel)</code>, which assigns and tests in
+      one breath. That idiom appears in every file-reading program you will ever
+      write.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · FileReader.read() returns an int, not a char</span></div>
+    <div class="body">
+      <p>It has to. A <code>char</code> has no spare value to mean "the file is
+      over", because every possible char is a legitimate character. So
+      <code>read()</code> widens to <code>int</code> and uses <b>-1</b>, a value no
+      character has, as the end-of-file marker. That is why the loop declares
+      <code>int ch</code> and casts <code>(char) ch</code> to print it.</p>
+      <p>Declare <code>char ch</code> and the comparison <code>!= -1</code> is never
+      true, and you loop forever on a file that has ended.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · The 25/26 file question, in full</span><span class="tag">PAST PAPER · 25/26 Q3 B · 13 MARKS</span></div>
+    <div class="body">
+      <p>The paper wants: write three students to <code>input.txt</code> with
+      FileWriter in a try-catch; read <code>output.txt</code> with FileReader and
+      handle it not existing; a method that counts the lines in a named file and
+      <b>handles its own exceptions internally</b>; every resource closed; every
+      catch printing a clear, specific message. Only the five named
+      <code>java.io</code> classes.</p>
+      <pre class="src" data-run="StudentFiles"><span class="l"><span class="k">import</span> java.io.BufferedReader;</span><span class="l"><span class="k">import</span> java.io.BufferedWriter;</span><span class="l"><span class="k">import</span> java.io.FileReader;</span><span class="l"><span class="k">import</span> java.io.FileWriter;</span><span class="l"><span class="k">import</span> java.io.IOException;</span><span class="l"></span><span class="l"><span class="k">public class</span> <span class="t">StudentFiles</span> {</span><span class="l"></span><span class="l">    <span class="c">// (i) write at least three students, one per line</span></span><span class="l">    <span class="k">static void</span> writeStudents() {</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedWriter</span> w = <span class="k">new</span> <span class="t">BufferedWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"input.txt"</span>))) {</span><span class="l">            w.write(<span class="s">"CS001, Ada Obi, 4.51"</span>);   w.newLine();</span><span class="l">            w.write(<span class="s">"CS002, Ken Bello, 3.88"</span>);  w.newLine();</span><span class="l">            w.write(<span class="s">"CS003, Lilian Uche, 4.05"</span>); w.newLine();</span><span class="l">            System.out.println(<span class="s">"wrote 3 students to input.txt"</span>);</span><span class="l">        } <span class="k">catch</span> (IOException e) {</span><span class="l good">            System.out.println(<span class="s">"Could not write input.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// (ii) read output.txt, handling the case where it does not exist</span></span><span class="l">    <span class="k">static void</span> readStudents(<span class="t">String</span> fileName) {</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> r = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(fileName))) {</span><span class="l">            <span class="t">String</span> line;</span><span class="l">            <span class="k">while</span> ((line = r.readLine()) != <span class="k">null</span>) {</span><span class="l">                System.out.println(<span class="s">"  "</span> + line);</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (IOException e) {</span><span class="l good">            System.out.println(<span class="s">"Could not read "</span> + fileName + <span class="s">": "</span> + e.getMessage());</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// (iii) count lines, handling its OWN exceptions internally</span></span><span class="l">    <span class="k">static int</span> countLines(<span class="t">String</span> fileName) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> r = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(fileName))) {</span><span class="l">            <span class="k">while</span> (r.readLine() != <span class="k">null</span>) count++;</span><span class="l">        } <span class="k">catch</span> (IOException e) {</span><span class="l good">            System.out.println(<span class="s">"Could not count "</span> + fileName + <span class="s">": "</span> + e.getMessage());</span><span class="l">            <span class="k">return</span> 0;               <span class="c">// handled internally: no throws clause</span></span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        writeStudents();</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"reading input.txt:"</span>);</span><span class="l">        readStudents(<span class="s">"input.txt"</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"reading output.txt (does not exist):"</span>);</span><span class="l bad">        readStudents(<span class="s">"output.txt"</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"input.txt has "</span> + countLines(<span class="s">"input.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">        System.out.println(<span class="s">"output.txt has "</span> + countLines(<span class="s">"output.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>wrote 3 students to input.txt
+reading input.txt:
+  CS001, Ada Obi, 4.51
+  CS002, Ken Bello, 3.88
+  CS003, Lilian Uche, 4.05
+reading output.txt (does not exist):
+Could not read output.txt: output.txt (The system cannot find the file specified)
+input.txt has 3 records
+Could not count output.txt: output.txt (The system cannot find the file specified)
+output.txt has 0 records</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>The missing file is the whole
+      question.</b> The paper asks you to read <code>output.txt</code>, a file it
+      never asked you to create, and says "including the case where output.txt does
+      not exist". That is deliberate: it wants to see your catch block actually fire.
+      Ours did, printed a clear specific message naming the file, and the program
+      carried on to count the records. Nothing crashed.</p>
+      <p class="small" style="padding:0 8pt 6pt">Every resource is in a
+      try-with-resources, so all three are closed automatically even on the failing
+      path, which satisfies "properly closed (either in a finally block or via
+      try-with-resources)". And <code>countLines</code> catches its own
+      <code>IOException</code> and returns 0 rather than declaring
+      <code>throws</code>, which is what "must handle its own exceptions internally"
+      demands.</p>
+      <p class="redo"><b>Now redo it:</b> write <code>countLines</code> from memory.
+      Then say why it does <b>not</b> have <code>throws IOException</code> in its
+      signature, and what the question would look like if it did.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Exceptions and files</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>An exception is an <span class="blank"></span> that disrupts normal flow;
+        it is an <span class="blank"></span> representing an error condition.</li>
+        <li>Checked exceptions are checked at <span class="blank"></span> time and
+        <span class="blank"></span> be caught or declared. Unchecked ones occur at
+        <span class="blank"></span> time.</li>
+        <li><code>IOException</code> is <span class="blank"></span>;
+        <code>NullPointerException</code> is <span class="blank"></span>.</li>
+        <li><code>throw</code> <span class="blank"></span>;
+        <code>throws</code> <span class="blank"></span>.</li>
+        <li>The <span class="blank"></span> block always runs, and is used for
+        <span class="blank"></span>.</li>
+        <li>Catch blocks must be ordered <span class="blank"></span> first, or the
+        code <span class="blank"></span>.</li>
+        <li>A custom exception extends <span class="blank"></span> to be checked, or
+        <span class="blank"></span> to be unchecked.</li>
+        <li><code>read()</code> signals end of file with <span class="blank"></span>;
+        <code>readLine()</code> signals it with <span class="blank"></span>.</li>
+        <li><code>StackOverflowError</code> is an <span class="blank"></span>, not an
+        exception, and you should <span class="blank"></span> catch it.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. event, object &nbsp;·&nbsp; 2. compile, must, run
+      &nbsp;·&nbsp; 3. checked, unchecked &nbsp;·&nbsp; 4. actually throws an
+      exception now, declares that a method might throw &nbsp;·&nbsp; 5.
+      <code>finally</code>, cleanup such as closing files &nbsp;·&nbsp; 6. narrowest
+      / most specific, does not compile (unreachable catch) &nbsp;·&nbsp;
+      7. <code>Exception</code>, <code>RuntimeException</code> &nbsp;·&nbsp;
+      8. <code>-1</code>, <code>null</code> &nbsp;·&nbsp; 9. Error, not (it signals
+      something you should fix, not handle)</p>
+    </div>
+  </div>
+</section>
