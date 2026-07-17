@@ -29,9 +29,11 @@ six and 25/26 says one question per section, and both are answered whole. A ques
 you skip is a topic you can be examined on next year, and the 25/26 paper proves it by
 re-asking 24/25's file I/O, inheritance and digit-loops in a new costume.
 
-Still to write: mock papers in both formats; the reference section (formula-free, but
-an API card, a keyword index, a method reference and a glossary); the keyword/API
-before-use gate (gate 2 below, still held by hand).
+All three gates are scripted and green, including the before-use audit that used to be
+held by hand: `check_code.py`, `qa.py`, `qa_firstuse.py`.
+
+Still to write: mock papers in both formats, and the reference section (formula-free,
+but an API card, a keyword index, a method reference and a glossary).
 
 ## Build it
 
