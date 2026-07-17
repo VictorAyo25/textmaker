@@ -1,0 +1,972 @@
+<!-- ============ MOCK PAPER B: SOLUTIONS ============ -->
+
+<section>
+  <div class="kick">MS.8 &middot; MOCK B SOLUTIONS &middot; SECTION A, QUESTION ONE</div>
+  <h2 class="title">Section A, Question One, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 A &middot; Define a constructor</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p>A <b>constructor</b> is a special member of a class that runs once, when an
+      object of that class is created with <code>new</code>, and whose job is to put the
+      new object's fields into a valid starting state.</p>
+      <p>The compiler tells it apart from an ordinary method by <b>two</b> facts, and
+      both are needed for the mark: its <b>name is exactly the class name</b>, and it
+      declares <b>no return type at all</b>, not even <code>void</code>. Those are not
+      two ways of saying the same thing. Write <code>void MeterAccount(...)</code> and
+      you have not written a constructor: you have written an ordinary method that
+      happens to be called <code>MeterAccount</code>, it compiles, it is never called by
+      <code>new</code>, and your fields stay at their defaults.</p>
+      <p class="small"><b>Where the marks are:</b> one for what it is for, one for how
+      it is recognised. "It has the same name as the class" alone is half the rule and
+      often half the mark.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 B &middot; Three differences: while against do-while</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p>A three-row table beats a paragraph under time pressure, and it is easier to
+      mark, which is the same thing.</p>
+      <table class="data">
+        <tr><th style="width:20%">&nbsp;</th><th style="width:40%">while</th><th>do-while</th></tr>
+        <tr>
+          <td><b>When it tests</b></td>
+          <td>Before the body: it is a <b>pre-test</b> loop.</td>
+          <td>After the body: it is a <b>post-test</b> loop.</td>
+        </tr>
+        <tr>
+          <td><b>Fewest runs</b></td>
+          <td><b>Zero.</b> If the condition is false at the start, the body never
+          runs.</td>
+          <td><b>One.</b> The body always runs at least once, whatever the
+          condition.</td>
+        </tr>
+        <tr>
+          <td><b>Syntax</b></td>
+          <td>No semicolon after the closing brace.</td>
+          <td>Ends with <code>while (condition);</code> and that
+          <b>semicolon is required</b>.</td>
+        </tr>
+      </table>
+      <p class="small"><b>Where the marks are:</b> one per row. The middle row is the
+      one that decides which to use: "must this run at least once?" is the only
+      question that matters, and it is why input validation is usually a do-while.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 C &middot; Find the errors</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p>Five errors, one per mark, and they are the <b>same five kinds</b> that both
+      real papers plant. Run the TTOIS checklist from S.1 and they fall out in about a
+      minute.</p>
+      <ol class="qlist">
+        <li><b>T for Type. Line 4:</b> <code>int[] arr</code> cannot hold
+        <code>15.0</code>. The required output is <b>93.0</b>, with a point, which is
+        the question telling you the array is <code>double[]</code>. Fix:
+        <code>double[] arr</code>.</li>
+        <li><b>T for Total. Line 5:</b> <code>int sum</code> cannot accumulate decimals.
+        Fix: <code>double sum</code>.</li>
+        <li><b>O for Off-by-one. Line 8:</b> <code>i &lt;= arr.length</code> would reach
+        <code>arr[6]</code> in an array of 6. Fix: <code>i &lt; arr.length</code>.</li>
+        <li><b>I for Inverted. Line 10:</b> <code>if (arr[j] % 3 == 0) continue;</code>
+        skips <b>exactly the multiples of 3 it was told to find</b>. Fix:
+        <code>% 3 != 0</code>.</li>
+        <li><b>S for Stop. Line 14:</b> <code>if (matches == 4)</code> stops after four,
+        and the specification says three. Fix: <code>matches == 3</code>.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> errors 1 and 2 only, as six repeats of
+      "incompatible types: possible lossy conversion from double to int". Errors 3, 4
+      and 5 are <b>not compile errors at all</b>. Fix the types and this program
+      compiles, runs, and prints a confident wrong answer. That is 3 of the 5 marks
+      sitting in code the compiler is perfectly happy with.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 C corrected, all five fixes marked</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MB1C"><span class="l"><span class="c">// JOptionPane replaced by println so the output can be printed here;</span></span><span class="l"><span class="c">// in the exam, keep the dialogs exactly as the paper has them.</span></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MB1C</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">double</span>[] arr = {15.0, 22.0, 36.0, 41.0, 54.0, 60.0};   <span class="c">// fix 1</span></span><span class="l">        <span class="k">double</span> sum = 0;                                        <span class="c">// fix 2</span></span><span class="l">        <span class="k">int</span> matches = 0;</span><span class="l">        <span class="k">boolean</span> stop = <span class="k">false</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; arr.length &amp;&amp; !stop; i++) {        <span class="c">// fix 3</span></span><span class="l">            <span class="k">for</span> (<span class="k">int</span> j = i; j &lt; arr.length; j++) {</span><span class="l">                <span class="k">if</span> (arr[j] % 3 != 0) {                         <span class="c">// fix 4</span></span><span class="l">                    <span class="k">continue</span>;</span><span class="l">                }</span><span class="l">                sum += arr[j] + 2;</span><span class="l">                matches++;</span><span class="l">                <span class="k">if</span> (matches == 3) {                            <span class="c">// fix 5</span></span><span class="l">                    stop = <span class="k">true</span>;</span><span class="l">                }</span><span class="l">                <span class="k">break</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Sum: "</span> + sum);</span><span class="l">        System.out.println(<span class="s">"Matches: "</span> + matches);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Sum: 93.0
+Matches: 3</pre>
+      <p class="small" style="padding:6pt 8pt 0">Check it by hand, because the examiner
+      gave you the answer and expects you to work back to it. The multiples of 3 are 15,
+      36, 54 and 60. Starting at i=0 the first one found is 15, giving 17. At i=1 it is
+      36, giving 38. At i=2 it is 36 again, giving 38, and that is the third match, so
+      it stops. 17 + 38 + 38 = <b>93.0</b>, and <b>3</b> matches.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D i &middot; The five outputs</span><span class="tag">10 MARKS, part one</span></div>
+    <div class="body">
+      <p>Square it, then keep as many digits off the right-hand end as the number
+      itself has, and compare.</p>
+      <table class="data">
+        <tr>
+          <th style="width:10%">n</th><th style="width:14%">digits</th>
+          <th style="width:16%">n * n</th><th style="width:20%">power = 10^digits</th>
+          <th style="width:16%">tail = square % power</th><th>output</th>
+        </tr>
+        <tr><td>5</td><td>1</td><td>25</td><td>10</td><td>25 % 10 = <b>5</b></td><td><b>AUTOMORPHIC</b></td></tr>
+        <tr><td>6</td><td>1</td><td>36</td><td>10</td><td>36 % 10 = <b>6</b></td><td><b>AUTOMORPHIC</b></td></tr>
+        <tr><td>7</td><td>1</td><td>49</td><td>10</td><td>49 % 10 = <b>9</b></td><td><b>NOT AUTOMORPHIC</b></td></tr>
+        <tr><td>25</td><td>2</td><td>625</td><td>100</td><td>625 % 100 = <b>25</b></td><td><b>AUTOMORPHIC</b></td></tr>
+        <tr><td>76</td><td>2</td><td>5776</td><td>100</td><td>5776 % 100 = <b>76</b></td><td><b>AUTOMORPHIC</b></td></tr>
+      </table>
+      <p class="small"><code>% power</code> is the whole trick: <code>% 10</code> keeps
+      the last digit, <code>% 100</code> keeps the last two. "Ends in" is a remainder,
+      and that is the idea the question is testing.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 D, the original, run for real</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="AutomorphicChecker"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AutomorphicChecker</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] numbers = {5, 6, 7, 25, 76};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> idx = 0; idx &lt; numbers.length; idx++) {</span><span class="l">            <span class="k">int</span> n = numbers[idx], digits = 0, temp = n;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) { digits++; temp /= 10; }</span><span class="l">            <span class="k">int</span> power = 1;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> p = 0; p &lt; digits; p++) power *= 10;</span><span class="l">            <span class="k">int</span> tail = (n * n) % power;</span><span class="l">            System.out.println(n + <span class="s">" -&gt; "</span> + (tail == n ? <span class="s">"AUTOMORPHIC"</span> : <span class="s">"NOT AUTOMORPHIC"</span>));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>5 -> AUTOMORPHIC
+6 -> AUTOMORPHIC
+7 -> NOT AUTOMORPHIC
+25 -> AUTOMORPHIC
+76 -> AUTOMORPHIC</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Loop conversion is mechanical. Move the three parts, change nothing else</span></div>
+    <div class="body">
+      <div class="card">
+        <p>A <code>for</code> is a <code>while</code> with its three parts collected onto
+        one line:</p>
+        <p><code>for (INIT; TEST; UPDATE) { BODY }</code></p>
+        <p>is exactly</p>
+        <p><code>INIT; while (TEST) { BODY UPDATE }</code></p>
+      </div>
+      <p>So the conversion has three moves and no thinking: <b>INIT</b> goes above the
+      loop, <b>TEST</b> stays in the brackets, <b>UPDATE</b> goes to the bottom of the
+      body. Going the other way, collect all three back onto the header line. A
+      <code>for</code> with an empty init and update, <code>for (; temp &gt; 0; )</code>,
+      is a legal and honest way to write a While as a For.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>INIT up, UPDATE down.</b> Ten marks on the
+      real paper and there is no idea in it at all, only care.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q1 D ii, converted: the For became a While, the Whiles became Fors</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="AutomorphicConverted"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AutomorphicConverted</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] numbers = {5, 6, 7, 25, 76};</span><span class="l"></span><span class="l">        <span class="c">// the outer For became a While</span></span><span class="l">        <span class="k">int</span> idx = 0;</span><span class="l">        <span class="k">while</span> (idx &lt; numbers.length) {</span><span class="l">            <span class="k">int</span> n = numbers[idx], digits = 0, temp = n;</span><span class="l"></span><span class="l">            <span class="c">// this While became a For: same init, same test, same update</span></span><span class="l">            <span class="k">for</span> (; temp &gt; 0; ) { digits++; temp /= 10; }</span><span class="l"></span><span class="l">            <span class="c">// this For became a While: the update moves down into the body</span></span><span class="l">            <span class="k">int</span> power = 1;</span><span class="l">            <span class="k">int</span> p = 0;</span><span class="l">            <span class="k">while</span> (p &lt; digits) { power *= 10; p++; }</span><span class="l"></span><span class="l">            <span class="k">int</span> tail = (n * n) % power;</span><span class="l">            System.out.println(n + <span class="s">" -&gt; "</span> + (tail == n ? <span class="s">"AUTOMORPHIC"</span> : <span class="s">"NOT AUTOMORPHIC"</span>));</span><span class="l">            idx++;</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, identical to the original</span>5 -> AUTOMORPHIC
+6 -> AUTOMORPHIC
+7 -> NOT AUTOMORPHIC
+25 -> AUTOMORPHIC
+76 -> AUTOMORPHIC</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>The output is byte for byte the
+      output of the original, and that is the entire test.</b> A conversion that changes
+      the answer is not a conversion. Both versions were run and their outputs compared,
+      which is exactly what you should do on paper: trace one line of each and check
+      they agree.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The update must survive the move, especially past a continue</span></div>
+    <div class="body">
+      <p>The commonest way to lose these ten marks is to move <code>INIT</code> up and
+      then forget <code>UPDATE</code>, leaving <code>while (idx &lt; numbers.length)</code>
+      with no <code>idx++</code> anywhere. It compiles. It hangs forever. The marker sees
+      an infinite loop where a conversion was asked for.</p>
+      <p>And there is a sharper version, worth knowing because "INIT up, UPDATE down"
+      is <b>not always safe</b>: it breaks the moment the body contains a
+      <code>continue</code>. A <code>for</code> runs its update on every way round,
+      including the ones <code>continue</code> cuts short. A <code>while</code> has no
+      update slot, so the one you moved to the bottom of the body gets
+      <b>jumped over</b>, and the loop stops advancing.</p>
+      <p>Both halves were compiled and run. This <code>for</code>, summing the odd
+      numbers below 6 by skipping the even ones with <code>continue</code>, prints
+      <b>total = 9</b>. Converted to a <code>while</code> by the rule above, with
+      <code>i++</code> at the bottom of the body, it <b>hangs forever</b>: at
+      <code>i = 0</code> the <code>continue</code> fires, <code>i++</code> is never
+      reached, and <code>i</code> is 0 for eternity.</p>
+      <p>Neither loop in this question contains a <code>continue</code>, so the rule is
+      safe here. <b>Check that before you apply it.</b> If the body does have one, the
+      update must be repeated before the <code>continue</code> as well, or the loop must
+      stay a <code>for</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q2 ---------------- -->
+<section>
+  <div class="kick">MS.9 &middot; MOCK B SOLUTIONS &middot; SECTION A, QUESTION TWO</div>
+  <h2 class="title">Section A, Question Two, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 A &middot; Define inheritance</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p><b>Model answer.</b></p>
+      <p><b>Inheritance</b> is the OOP principle by which one class, the <b>subclass</b>
+      or child, acquires the fields and methods of another, the <b>superclass</b> or
+      parent, using the <code>extends</code> keyword. The subclass gets everything the
+      superclass has that it is allowed to see, and may then <b>add</b> members of its
+      own or <b>override</b> inherited methods to behave differently.</p>
+      <p>Its purpose is to express an <b>is-a</b> relationship and to reuse code without
+      copying it: a <code>PrepaidMeter</code> <b>is a</b> <code>MeterAccount</code>, so
+      it needs no second copy of <code>topUp</code>. Because it is an is-a
+      relationship, a subclass object may be used anywhere the superclass is expected,
+      which is what makes runtime polymorphism possible.</p>
+      <p class="small"><b>Where the marks are:</b> one for the mechanism
+      (<code>extends</code>, and the subclass acquires the members), one for the point
+      of it (reuse, and the is-a relationship). Note what inheritance does <b>not</b>
+      give you: a subclass inherits a <code>private</code> field in the sense that the
+      object carries it, but it cannot name it. That distinction is Question Four.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 B &middot; Three differences: an array against a variable</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:20%">&nbsp;</th><th style="width:40%">An ordinary variable</th><th>An array</th></tr>
+        <tr>
+          <td><b>How many values</b></td>
+          <td>Exactly one, of its declared type.</td>
+          <td>Many, all of the same type, reached by index.</td>
+        </tr>
+        <tr>
+          <td><b>What the name holds</b></td>
+          <td>The <b>value</b> itself, for a primitive: <code>int x = 5</code> holds
+          5.</td>
+          <td>A <b>reference</b> to an object elsewhere in memory. Declaring
+          <code>int[] a;</code> creates no array at all, and <code>a</code> is
+          <code>null</code> until <code>new</code> makes one.</td>
+        </tr>
+        <tr>
+          <td><b>Size</b></td>
+          <td>Not a question you can ask.</td>
+          <td>Fixed at creation and readable through <code>length</code>, which is a
+          <b>field</b>, not a method: <code>a.length</code>, never
+          <code>a.length()</code>.</td>
+        </tr>
+      </table>
+      <p class="small"><b>Where the marks are:</b> one per row. The second row is the one
+      that earns respect, because it is the reason two array names can refer to the same
+      array, and the reason passing an array to a method lets that method change it
+      (Unit 5.4).</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 C &middot; Find the errors</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p>The same five kinds again. <b>TTOIS</b>: Type, Total, Off-by-one, Inverted,
+      Stop.</p>
+      <ol class="qlist">
+        <li><b>T. Line 4:</b> <code>int[] weights</code> cannot hold <code>3.5</code>.
+        The required total, <b>84.6</b>, has a point in it. Fix:
+        <code>double[] weights</code>.</li>
+        <li><b>T. Line 5:</b> <code>int total</code> cannot accumulate decimals. Fix:
+        <code>double total</code>.</li>
+        <li><b>O. Line 8:</b> <code>i &lt;= weights.length</code>. Fix:
+        <code>i &lt; weights.length</code>.</li>
+        <li><b>I. Line 9:</b> <code>if (weights[i] &gt; 5) continue;</code> skips
+        <b>exactly the parcels it was told to charge</b> and charges the ones it was
+        told to skip. Fix: <code>if (weights[i] &lt; 5) continue;</code>.</li>
+        <li><b>S. Line 15:</b> <code>if (count == 5)</code> stops after five, and the
+        specification says four. Fix: <code>count == 4</code>.</li>
+      </ol>
+      <p><b>What the compiler actually said:</b> errors 1 and 2, as six repeats of
+      "incompatible types". Once again the three interesting errors compile
+      perfectly.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 C corrected, all five fixes marked</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MB2C"><span class="l"><span class="c">// JOptionPane replaced by println so the output can be printed here;</span></span><span class="l"><span class="c">// in the exam, keep the dialogs exactly as the paper has them.</span></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MB2C</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">double</span>[] weights = {3.5, 12.0, 4.25, 20.0, 8.5, 30.0};   <span class="c">// fix 1</span></span><span class="l">        <span class="k">double</span> total = 0;                                        <span class="c">// fix 2</span></span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">boolean</span> done = <span class="k">false</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; weights.length &amp;&amp; !done; i++) {      <span class="c">// fix 3</span></span><span class="l">            <span class="k">if</span> (weights[i] &lt; 5) {                                <span class="c">// fix 4</span></span><span class="l">                <span class="k">continue</span>;</span><span class="l">            }</span><span class="l">            <span class="k">double</span> surcharge = weights[i] * 0.2;</span><span class="l">            total += weights[i] + surcharge;</span><span class="l">            count++;</span><span class="l">            <span class="k">if</span> (count == 4) {                                    <span class="c">// fix 5</span></span><span class="l">                done = <span class="k">true</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Total: "</span> + total);</span><span class="l">        System.out.println(<span class="s">"Count: "</span> + count);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Total: 84.6
+Count: 4</pre>
+      <p class="small" style="padding:6pt 8pt 0">Work back to it: the weights of 5 and
+      above are 12.0, 20.0, 8.5 and 30.0, which is four, so the stop-at-four fires on the
+      last one. With a 20% surcharge they cost 14.4, 24.0, 10.2 and 36.0, and those add
+      to <b>84.6</b>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; "Skip anything under 5" is not "continue if over 5"</span></div>
+    <div class="body">
+      <p>Error 4 is the one this lecturer plants every year, in both questions, in both
+      papers, and it is worth understanding rather than memorising. The English says
+      <b>skip the small ones</b>. The code says <code>if (weights[i] &gt; 5) continue;</code>,
+      which skips the <b>big</b> ones. It is not a typo for <code>&lt;</code>: it is the
+      condition <b>inverted</b>, and inverted code reads perfectly.</p>
+      <p>The defence is mechanical. Whenever you see <code>continue</code>, say out loud:
+      "<b>this line names the ones I am throwing away.</b>" Then check that sentence
+      against the specification. Here the specification throws away the ones under 5, so
+      the condition after <code>if</code> must be the under-5 test, and it is not.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 D i &middot; The output</span><span class="tag">10 MARKS, part one</span></div>
+    <div class="body">
+      <p><b>Prime: 10, Composite: 19, Neither: 1</b></p>
+      <p>The inner loop counts <b>divisors</b>, testing every <code>d</code> from 1 to
+      <code>num</code> inclusive, so it counts 1 and <code>num</code> themselves.</p>
+      <ul class="bul">
+        <li><b>1</b> has exactly one divisor, itself. Not 2, not more than 2, so it
+        falls to the <code>else</code>: <b>Neither: 1</b>.</li>
+        <li><b>Primes</b> up to 30 are 2, 3, 5, 7, 11, 13, 17, 19, 23, 29:
+        <b>10</b> of them.</li>
+        <li>Everything else is composite: 30 numbers, minus 1, minus 10, is
+        <b>19</b>.</li>
+      </ul>
+      <p class="small">The check that costs nothing: <b>10 + 19 + 1 = 30</b>, and the
+      loop ran 30 times. Every number landed in exactly one bucket, so no number was
+      counted twice or dropped. Do that sum in the hall.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 D, the original, run for real</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="PrimeClassifier"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">PrimeClassifier</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> primeCount = 0, compositeCount = 0, neitherCount = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> num = 1; num &lt;= 30; num++) {</span><span class="l">            <span class="k">int</span> divisors = 0;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> d = 1; d &lt;= num; d++) {</span><span class="l">                <span class="k">if</span> (num % d == 0) divisors++;</span><span class="l">            }</span><span class="l">            <span class="k">if</span> (divisors == 2) primeCount++;</span><span class="l">            <span class="k">else</span> <span class="k">if</span> (divisors &gt; 2) compositeCount++;</span><span class="l">            <span class="k">else</span> neitherCount++;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Prime: "</span> + primeCount + <span class="s">", Composite: "</span> + compositeCount</span><span class="l">            + <span class="s">", Neither: "</span> + neitherCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Prime: 10, Composite: 19, Neither: 1</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q2 D ii, both For loops converted to While loops</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="PrimeClassifierWhile"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">PrimeClassifierWhile</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> primeCount = 0, compositeCount = 0, neitherCount = 0;</span><span class="l"></span><span class="l">        <span class="c">// the outer For became a While</span></span><span class="l">        <span class="k">int</span> num = 1;</span><span class="l">        <span class="k">while</span> (num &lt;= 30) {</span><span class="l">            <span class="k">int</span> divisors = 0;</span><span class="l"></span><span class="l">            <span class="c">// the inner For became a While too</span></span><span class="l">            <span class="k">int</span> d = 1;</span><span class="l">            <span class="k">while</span> (d &lt;= num) {</span><span class="l">                <span class="k">if</span> (num % d == 0) divisors++;</span><span class="l">                d++;</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">if</span> (divisors == 2) primeCount++;</span><span class="l">            <span class="k">else</span> <span class="k">if</span> (divisors &gt; 2) compositeCount++;</span><span class="l">            <span class="k">else</span> neitherCount++;</span><span class="l">            num++;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Prime: "</span> + primeCount + <span class="s">", Composite: "</span> + compositeCount</span><span class="l">            + <span class="s">", Neither: "</span> + neitherCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, identical to the original</span>Prime: 10, Composite: 19, Neither: 1</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Both</b> loops convert, and the inner
+      one is where the marks are lost. Its <code>int d = 1</code> must be reset
+      <b>inside</b> the outer loop, once per <code>num</code>, because that is where the
+      <code>for</code> version's init lived. Hoist it above the outer loop, as people do
+      when they are converting in a hurry, and <code>d</code> keeps the value it reached
+      on the previous number. It was compiled and run: the answer becomes
+      <b>Prime: 0, Composite: 0, Neither: 30</b>. Every number falls into the same
+      bucket, because the inner loop now runs at most once and finds one divisor every
+      time. Same output as the original, or the conversion is wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q3 ---------------- -->
+<section>
+  <div class="kick">MS.10 &middot; MOCK B SOLUTIONS &middot; SECTION B, QUESTION THREE</div>
+  <h2 class="title">Section B, Question Three, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 A &middot; Read the definition before you write a line</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p>Everything here is decided by two words in the question: <b>strictly</b>, and
+      <b>both</b>. A spike beats <b>both</b> neighbours, <b>strictly</b>. Get those into
+      the condition and the program is fifteen lines.</p>
+      <p>The hint is the specification restated, and it is worth trusting: the answer
+      must not flag 12, 22, 27, 27 or 25. Work out why each is excluded <b>before</b>
+      you code, because each one is excluded for a different reason.</p>
+      <table class="data">
+        <tr>
+          <th style="width:12%">Index</th><th style="width:14%">Reading</th>
+          <th style="width:30%">Neighbours</th><th>Verdict</th>
+        </tr>
+        <tr><td>0</td><td>12</td><td>only one, on the right</td><td>never checked: an end</td></tr>
+        <tr><td>1</td><td><b>30</b></td><td>12 and 18</td><td><b>SPIKE</b>: beats both</td></tr>
+        <tr><td>2</td><td><b>18</b></td><td>30 and 22</td><td><b>DIP</b>: below both</td></tr>
+        <tr><td>3</td><td>22</td><td>18 and 41</td><td>above 18 but below 41: neither</td></tr>
+        <tr><td>4</td><td><b>41</b></td><td>22 and 27</td><td><b>SPIKE</b>: beats both</td></tr>
+        <tr><td>5</td><td>27</td><td>41 and 27</td><td>below 41, but <b>equal</b> to 27: not strictly below both</td></tr>
+        <tr><td>6</td><td>27</td><td>27 and 33</td><td><b>equal</b> to 27, below 33: neither</td></tr>
+        <tr><td>7</td><td><b>33</b></td><td>27 and 19</td><td><b>SPIKE</b>: beats both</td></tr>
+        <tr><td>8</td><td><b>19</b></td><td>33 and 25</td><td><b>DIP</b>: below both</td></tr>
+        <tr><td>9</td><td>25</td><td>only one, on the left</td><td>never checked: an end</td></tr>
+      </table>
+      <p><b>So: 3 spikes, and 5 flagged readings: 30, 18, 41, 33, 19.</b></p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Three, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="SpikeReport"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SpikeReport</span> {</span><span class="l"></span><span class="l">    <span class="c">// i. ONE pass through the array: how many readings beat both neighbours</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> countSpikes(<span class="k">int</span>[] readings) {</span><span class="l">        <span class="k">int</span> count = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; readings.length - 1; i++) {</span><span class="l">            <span class="k">if</span> (readings[i] &gt; readings[i - 1] &amp;&amp; readings[i] &gt; readings[i + 1]) {</span><span class="l">                count++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> count;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// ii. every spike or dip, in original order, comma separated, plain String</span></span><span class="l">    <span class="c">// concatenation only: no StringBuilder, no array of booleans returned</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="t">String</span> flagged(<span class="k">int</span>[] readings) {</span><span class="l">        <span class="t">String</span> out = <span class="s">""</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt; readings.length - 1; i++) {</span><span class="l">            <span class="k">boolean</span> spike = readings[i] &gt; readings[i - 1] &amp;&amp; readings[i] &gt; readings[i + 1];</span><span class="l">            <span class="k">boolean</span> dip = readings[i] &lt; readings[i - 1] &amp;&amp; readings[i] &lt; readings[i + 1];</span><span class="l">            <span class="k">if</span> (spike || dip) {</span><span class="l">                out = out.equals(<span class="s">""</span>) ? <span class="s">""</span> + readings[i] : out + <span class="s">", "</span> + readings[i];</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> out;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] readings = {12, 30, 18, 22, 41, 27, 27, 33, 19, 25};</span><span class="l"></span><span class="l">        <span class="c">// iii. one dialog carrying both answers; println here so it can be printed</span></span><span class="l">        System.out.println(<span class="s">"Spikes: "</span> + countSpikes(readings));</span><span class="l">        System.out.println(<span class="s">"Flagged: "</span> + flagged(readings));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Spikes: 3
+Flagged: 30, 18, 41, 33, 19</pre>
+      <p class="small" style="padding:6pt 8pt 0">Both methods loop
+      <code>i = 1</code> to <code>readings.length - 2</code>, and that is the whole
+      answer to "the ends are never spikes": do not test them, rather than test them and
+      guard. <code>i - 1</code> and <code>i + 1</code> are then always in bounds, by
+      construction, and no <code>ArrayIndexOutOfBoundsException</code> is possible.
+      println here so the run can be printed; in the hall it is one
+      <code>showMessageDialog</code> carrying both lines (F.11).</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The equal pair at indexes 5 and 6 is the whole question</span></div>
+    <div class="body">
+      <p>The readings 27 and 27 sit side by side, and they are there on purpose. Write
+      <code>&gt;=</code> where the question said <b>strictly</b> greater and index 6
+      becomes a spike, because 27 &gt;= 27. Write <code>&lt;=</code> for the dip and
+      index 5 becomes a dip, for the same reason. Every other reading in the array
+      answers identically either way.</p>
+      <p><b>That is what a planted equal pair is for.</b> It is the only element of the
+      array that can tell a marker whether you read the word "strictly" or skimmed past
+      it. This lecturer plants one in every array question: the 2025/26 Question Three
+      does the same with its consecutive duplicates.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Building a comma-separated string without a trailing comma</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>out = out.equals("") ? "" + value : out + ", " + value;</code></p>
+        <p>The separator goes <b>before</b> every item except the first, so ask "am I
+        first?" instead of trimming a comma off the end afterwards.</p>
+      </div>
+      <p>The obvious way, <code>out = out + value + ", ";</code>, leaves
+      <code>30, 18, 41, 33, 19, </code> with a comma and a space hanging off the end,
+      and the marker can see it. The obvious repair, chopping the last two characters
+      off, breaks when the list is empty and there are no two characters to chop.</p>
+      <p>The empty check is not decoration: it is the base case. And note
+      <code>"" + value</code>, which is how you turn an <code>int</code> into a
+      <code>String</code> with no method call at all.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the comma belongs to the item on its
+      left.</b> So the first item does not get one, and no item ever gets one it has to
+      give back.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 B &middot; The restricted API list is the answer plan</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p>The question names five classes and permits nothing else:
+      <code>FileWriter</code>, <code>FileReader</code>, <code>BufferedReader</code>,
+      <code>BufferedWriter</code>, <code>IOException</code>. Reach for
+      <code>PrintWriter</code> or <code>Files.write()</code> here and you lose marks for
+      code that works, because the restriction <b>is</b> the question.</p>
+      <p>Read part ii carefully: it says read <code>output.txt</code>, and nothing in
+      this program ever creates <code>output.txt</code>. That is not an oversight in the
+      paper. <b>The missing file is the test</b>, and your catch block firing is the
+      right answer, not a bug.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Three, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="LibraryRecords"><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">BufferedWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileReader</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">FileWriter</span>;</span><span class="l"><span class="k">import</span> java.io.<span class="t">IOException</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">LibraryRecords</span> {</span><span class="l"></span><span class="l">    <span class="c">// iii. takes a file name, counts the lines, returns the count, and handles its</span></span><span class="l">    <span class="c">// own exceptions internally: the caller is never asked to deal with them</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span> countRecords(<span class="t">String</span> fileName) {</span><span class="l">        <span class="k">int</span> lines = 0;</span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(fileName))) {</span><span class="l">            <span class="k">while</span> (in.readLine() != <span class="k">null</span>) {</span><span class="l">                lines++;</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not count "</span> + fileName + <span class="s">": it could not be opened."</span>);</span><span class="l">            <span class="k">return</span> 0;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> lines;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l"></span><span class="l">        <span class="c">// i. write three book records to input.txt, one per line</span></span><span class="l">        <span class="k">try</span> (<span class="t">BufferedWriter</span> out = <span class="k">new</span> <span class="t">BufferedWriter</span>(<span class="k">new</span> <span class="t">FileWriter</span>(<span class="s">"input.txt"</span>))) {</span><span class="l">            out.write(<span class="s">"L001,Things Fall Apart,4.80"</span>);</span><span class="l">            out.newLine();</span><span class="l">            out.write(<span class="s">"L002,The Concubine,3.95"</span>);</span><span class="l">            out.newLine();</span><span class="l">            out.write(<span class="s">"L003,Efuru,4.25"</span>);</span><span class="l">            out.newLine();</span><span class="l">            System.out.println(<span class="s">"input.txt written"</span>);</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not write input.txt: "</span> + e.getMessage());</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// ii. read output.txt and print every line exactly as it appears. The file</span></span><span class="l">        <span class="c">// does not exist, and that is the case the question asks you to handle.</span></span><span class="l">        <span class="k">try</span> (<span class="t">BufferedReader</span> in = <span class="k">new</span> <span class="t">BufferedReader</span>(<span class="k">new</span> <span class="t">FileReader</span>(<span class="s">"output.txt"</span>))) {</span><span class="l">            <span class="t">String</span> line = in.readLine();</span><span class="l">            <span class="k">while</span> (line != <span class="k">null</span>) {</span><span class="l">                System.out.println(line);</span><span class="l">                line = in.readLine();</span><span class="l">            }</span><span class="l">        } <span class="k">catch</span> (<span class="t">IOException</span> e) {</span><span class="l">            System.out.println(<span class="s">"Could not read output.txt: it does not exist yet."</span>);</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// iii. used</span></span><span class="l">        System.out.println(<span class="s">"input.txt holds "</span> + countRecords(<span class="s">"input.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">        System.out.println(<span class="s">"output.txt holds "</span> + countRecords(<span class="s">"output.txt"</span>) + <span class="s">" records"</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, run in a folder with no output.txt</span>input.txt written
+Could not read output.txt: it does not exist yet.
+input.txt holds 3 records
+Could not count output.txt: it could not be opened.
+output.txt holds 0 records</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the last two lines together. The
+      counting method met a file that does not exist, <b>handled it itself</b>, said so,
+      and returned 0. It did not throw, and <code>main</code> was never asked to have an
+      opinion. That is exactly what part iii means by "must handle its own exceptions
+      internally", and it is why the method returns an <code>int</code> and not a
+      wobble.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Do not print e.getMessage() and call it a specific message</span></div>
+    <div class="body">
+      <p>Part iv asks every catch block to print "a clear, specific message describing
+      what went wrong", and the reflex is
+      <code>System.out.println(e.getMessage())</code>. Resist it. For a missing file the
+      JVM fills that message with the <b>operating system's own words</b>: on the
+      machine this book was built on it reads
+      <code>output.txt (The system cannot find the file specified)</code>, while on a
+      different system it reads <code>output.txt (No such file or directory)</code>.</p>
+      <p>So the same program prints different text on different machines, and neither
+      sentence says what <b>your program</b> was trying to do when it failed. "Could not
+      count output.txt" does. Name the operation and the file; let the exception object
+      stay in the log where it belongs.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; try-with-resources closes it, on every path, including the one you forgot</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>try (BufferedReader in = new BufferedReader(new FileReader(f))) { ... }</code></p>
+        <p>closes <code>in</code> when the block ends, <b>whether it ends normally or by
+        throwing</b>. No <code>finally</code>, no <code>close()</code>, nothing to
+        forget.</p>
+      </div>
+      <p>Part iv accepts a <code>finally</code> block, and a <code>finally</code> is a
+      correct answer. But it is three more lines, and its own <code>close()</code> can
+      itself throw, so the honest version needs a try inside the finally. The resource
+      form is shorter <b>and</b> harder to get wrong, which is the only kind of shorter
+      worth having.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the brackets after try own the thing inside
+      them.</b> Whatever is declared there is closed when the block ends, in the reverse
+      of the order it was opened.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q4 ---------------- -->
+<section>
+  <div class="kick">MS.11 &middot; MOCK B SOLUTIONS &middot; SECTION B, QUESTION FOUR</div>
+  <h2 class="title">Section B, Question Four, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 &middot; What the three parts are really asking</span><span class="tag">25 MARKS</span></div>
+    <div class="body">
+      <p>The marks split 9 / 10 / 6, and the shape of the answer is dictated:</p>
+      <ul class="bul">
+        <li><b>Part 1 (9):</b> a superclass with <b>private</b> fields. The word
+        private is doing real work and it is examined in Part 2.</li>
+        <li><b>Part 2 (10):</b> two subclasses, each <b>overriding the same method</b>
+        differently. This is where the marks are.</li>
+        <li><b>Part 3 (6):</b> a main that <b>proves</b> the overrides run, including
+        through a superclass reference.</li>
+      </ul>
+      <p>Part 3 v is the sentence that decides your grade:
+      "<b>confirming that the correct overridden version runs</b>". A main that calls
+      <code>pre.consume(...)</code> and <code>post.consume(...)</code> directly does not
+      confirm anything: of course they run their own methods. The confirmation is calling
+      it through a <code>MeterAccount</code> reference, where the compiler cannot know
+      which one it will be.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Four, all three parts</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="MeterSystem"><span class="l"><span class="c">// Part 1: the superclass, with PRIVATE state</span></span><span class="l"><span class="k">class</span> <span class="t">MeterAccount</span> {</span><span class="l">    <span class="k">private</span> <span class="t">String</span> meterNumber;</span><span class="l">    <span class="k">private</span> <span class="t">String</span> holderName;</span><span class="l">    <span class="k">private</span> <span class="k">double</span> units;</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="t">MeterAccount</span>(<span class="t">String</span> meterNumber, <span class="t">String</span> holderName, <span class="k">double</span> units) {</span><span class="l">        <span class="k">this</span>.meterNumber = meterNumber;</span><span class="l">        <span class="k">this</span>.holderName = holderName;</span><span class="l">        <span class="k">this</span>.units = units;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// the subclasses cannot touch `units` directly, so they go through these</span></span><span class="l">    <span class="k">public</span> <span class="k">double</span> getUnits() { <span class="k">return</span> units; }</span><span class="l">    <span class="k">protected</span> <span class="k">void</span> setUnits(<span class="k">double</span> units) { <span class="k">this</span>.units = units; }</span><span class="l">    <span class="k">public</span> <span class="t">String</span> getMeterNumber() { <span class="k">return</span> meterNumber; }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 ii: add units</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> topUp(<span class="k">double</span> amount) {</span><span class="l">        units += amount;</span><span class="l">        System.out.printf(<span class="s">"%s topped up %.1f units. Balance: %.1f%n"</span>,</span><span class="l">            meterNumber, amount, units);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 iii: deduct if there are enough, otherwise reject and say so</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> consume(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">if</span> (amount &lt;= units) {</span><span class="l">            units -= amount;</span><span class="l">            System.out.printf(<span class="s">"%s used %.1f units. Balance: %.1f%n"</span>,</span><span class="l">                meterNumber, amount, units);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.printf(<span class="s">"%s REJECTED: %.1f units requested, only %.1f available.%n"</span>,</span><span class="l">                meterNumber, amount, units);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part 1 iv: display the account</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> display() {</span><span class="l">        System.out.printf(<span class="s">"Meter %s | %s | %.1f units%n"</span>, meterNumber, holderName, units);</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// Part 2 i: a prepaid meter must keep a 5.0 unit reserve</span></span><span class="l"><span class="k">class</span> <span class="t">PrepaidMeter</span> <span class="k">extends</span> <span class="t">MeterAccount</span> {</span><span class="l">    <span class="k">public</span> <span class="t">PrepaidMeter</span>(<span class="t">String</span> meterNumber, <span class="t">String</span> holderName, <span class="k">double</span> units) {</span><span class="l">        <span class="k">super</span>(meterNumber, holderName, units);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> consume(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">if</span> (getUnits() - amount &gt;= 5.0) {</span><span class="l">            <span class="k">super</span>.consume(amount);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.printf(<span class="s">"%s PREPAID REJECTED: %.1f units would leave less than "</span></span><span class="l">                + <span class="s">"the 5.0 unit reserve.%n"</span>, getMeterNumber(), amount);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="c">// Part 2 ii: a postpaid meter earns a 1.0 unit rebate on every successful use</span></span><span class="l"><span class="k">class</span> <span class="t">PostpaidMeter</span> <span class="k">extends</span> <span class="t">MeterAccount</span> {</span><span class="l">    <span class="k">public</span> <span class="t">PostpaidMeter</span>(<span class="t">String</span> meterNumber, <span class="t">String</span> holderName, <span class="k">double</span> units) {</span><span class="l">        <span class="k">super</span>(meterNumber, holderName, units);</span><span class="l">    }</span><span class="l"></span><span class="l">    @<span class="t">Override</span></span><span class="l">    <span class="k">public</span> <span class="k">void</span> consume(<span class="k">double</span> amount) {</span><span class="l">        <span class="k">double</span> before = getUnits();</span><span class="l">        <span class="k">super</span>.consume(amount);</span><span class="l">        <span class="k">if</span> (getUnits() &lt; before) {          <span class="c">// it actually went through</span></span><span class="l">            setUnits(getUnits() + 1.0);</span><span class="l">            System.out.printf(<span class="s">"%s POSTPAID rebate: 1.0 unit added. Balance: %.1f%n"</span>,</span><span class="l">                getMeterNumber(), getUnits());</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">MeterSystem</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// Part 3 i: one of each</span></span><span class="l">        <span class="t">PrepaidMeter</span> pre = <span class="k">new</span> <span class="t">PrepaidMeter</span>(<span class="s">"PRE-001"</span>, <span class="s">"Ada"</span>, 50.0);</span><span class="l">        <span class="t">PostpaidMeter</span> post = <span class="k">new</span> <span class="t">PostpaidMeter</span>(<span class="s">"POST-002"</span>, <span class="s">"Bola"</span>, 50.0);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"--- before ---"</span>);</span><span class="l">        pre.display();</span><span class="l">        post.display();</span><span class="l"></span><span class="l">        <span class="c">// Part 3 ii: deposit into each</span></span><span class="l">        pre.topUp(20.0);</span><span class="l">        post.topUp(20.0);</span><span class="l"></span><span class="l">        <span class="c">// Part 3 iii: one that works and one that does not, on each</span></span><span class="l">        System.out.println(<span class="s">"--- transactions ---"</span>);</span><span class="l">        pre.consume(30.0);      <span class="c">// leaves 40.0, comfortably above the reserve</span></span><span class="l">        pre.consume(38.0);      <span class="c">// would leave 2.0: rejected by the override</span></span><span class="l">        post.consume(30.0);     <span class="c">// works, and earns the rebate</span></span><span class="l">        post.consume(100.0);    <span class="c">// rejected by the superclass: not enough units</span></span><span class="l"></span><span class="l">        System.out.println(<span class="s">"--- after ---"</span>);</span><span class="l">        pre.display();</span><span class="l">        post.display();</span><span class="l"></span><span class="l">        <span class="c">// Part 3 v: the same call through a superclass reference. The reference is</span></span><span class="l">        <span class="c">// MeterAccount for both, so the compiler cannot know which consume() runs.</span></span><span class="l">        System.out.println(<span class="s">"--- through a MeterAccount reference ---"</span>);</span><span class="l">        <span class="t">MeterAccount</span>[] meters = {pre, post};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; meters.length; i++) {</span><span class="l">            meters[i].consume(10.0);</span><span class="l">        }</span><span class="l"></span><span class="l">        pre.display();</span><span class="l">        post.display();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>--- before ---
+Meter PRE-001 | Ada | 50.0 units
+Meter POST-002 | Bola | 50.0 units
+PRE-001 topped up 20.0 units. Balance: 70.0
+POST-002 topped up 20.0 units. Balance: 70.0
+--- transactions ---
+PRE-001 used 30.0 units. Balance: 40.0
+PRE-001 PREPAID REJECTED: 38.0 units would leave less than the 5.0 unit reserve.
+POST-002 used 30.0 units. Balance: 40.0
+POST-002 POSTPAID rebate: 1.0 unit added. Balance: 41.0
+POST-002 REJECTED: 100.0 units requested, only 41.0 available.
+--- after ---
+Meter PRE-001 | Ada | 40.0 units
+Meter POST-002 | Bola | 41.0 units
+--- through a MeterAccount reference ---
+PRE-001 used 10.0 units. Balance: 30.0
+POST-002 used 10.0 units. Balance: 31.0
+POST-002 POSTPAID rebate: 1.0 unit added. Balance: 32.0
+Meter PRE-001 | Ada | 30.0 units
+Meter POST-002 | Bola | 32.0 units</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the last block. One call site,
+      <code>meters[i].consume(10.0)</code>, inside one loop, over an array whose type is
+      <code>MeterAccount</code>. The prepaid meter checked its reserve; the postpaid
+      meter paid its rebate. The compiler could not have chosen either: <b>the objects
+      did</b>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; A subclass cannot see a private field. That is not a bug in your code</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Part 1 says <b>private</b> fields. So <code>PrepaidMeter</code> may
+        <b>not</b> write <code>units</code>. It must go through
+        <code>getUnits()</code> and <code>setUnits()</code>.</p>
+        <p>Write <code>units - amount &gt;= 5.0</code> inside the subclass and it is a
+        compile error: <code>units has private access in MeterAccount</code>.</p>
+      </div>
+      <p>The object <b>has</b> the field: a <code>PrepaidMeter</code> genuinely carries
+      its own <code>units</code>, and <code>topUp</code> changes it. The subclass simply
+      cannot <b>name</b> it. Inheritance gives you the state; it does not give you
+      permission.</p>
+      <p>This is the one place where "just make it protected" is the wrong instinct in an
+      exam: the question <b>said</b> private, so the accessor is the answer, and reaching
+      for <code>protected</code> to dodge the compiler is answering a question nobody
+      asked.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>private means private to the class, not to
+      the object.</b> The child owns the box and still cannot read the label.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The override must call super, or you have rewritten the parent badly</span></div>
+    <div class="body">
+      <p>Both overrides here do their own check and then hand the actual work to
+      <code>super.consume(amount)</code>. That is deliberate, and it is worth a mark you
+      will not see itemised.</p>
+      <p>Rewrite the deduction inside <code>PrepaidMeter</code> instead, and you now have
+      two copies of "take the units off and print the balance". They agree today. They
+      will not agree the moment anything changes, and the marker has seen that answer a
+      hundred times.</p>
+      <p><code>PostpaidMeter</code> shows the sharper reason. It has to know whether the
+      deduction <b>actually happened</b>, because a rejected one earns no rebate. It
+      cannot know that by re-checking the balance rule, because that would be a third
+      copy of it. So it reads the balance before, calls <code>super</code>, and reads it
+      after. <b>Ask the parent what it did; do not re-derive it.</b></p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">In the last block, <code>meters</code> is declared
+      <code>MeterAccount[]</code>. So why does <code>meters[1].consume(10.0)</code> pay a
+      rebate, when <code>MeterAccount.consume</code> contains no rebate at all?</p>
+      <hr class="cut"/>
+      <p><span class="alabel">Answer</span> Because the method that runs is chosen by the
+      <b>object</b>, at run time, not by the reference's type at compile time.
+      <code>meters[1]</code> refers to a <code>PostpaidMeter</code> object, so
+      <code>PostpaidMeter.consume</code> runs. The declared type
+      <code>MeterAccount</code> only decides what the compiler will <b>let</b> you
+      call; it does not decide which version answers. That is runtime polymorphism, and
+      it is the entire point of Part 3 v.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------- Q5 ---------------- -->
+<section>
+  <div class="kick">MS.12 &middot; MOCK B SOLUTIONS &middot; SECTION C, QUESTION FIVE</div>
+  <h2 class="title">Section C, Question Five, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Section C tells you which construct to use, and marks you on it</span></div>
+    <div class="body">
+      <div class="card">
+        <p>Section C does not merely ask for a working program. It <b>names the
+        construct</b>, and using a different one loses the mark even when the output is
+        right.</p>
+        <p>"Use a <code>switch</code>" &middot; "use <b>nested</b> if-else (not a
+        switch, and not independent/separate if checks)" &middot; "using a nested control
+        statement" &middot; "no arrays and no user-defined helper methods" &middot; "no
+        collection classes" &middot; "JOptionPane only" &middot; "each task must be its
+        own method".</p>
+      </div>
+      <p>And from the front page: use comments in Section B and Section C to say what
+      each block does. That is an instruction, and it is free marks.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>underline every noun that names a
+      construct</b> before you write anything. Those nouns are the marking scheme.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="CourierPricing" data-stdin="5&#10;3&#10;Gold&#10;25.0&#10;1&#10;Gold&#10;10.0&#10;2&#10;Silver&#10;30.0&#10;2&#10;Bronze&#10;5.0&#10;3&#10;Platinum&#10;5.0"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">CourierPricing</span> {</span><span class="l"></span><span class="l">    <span class="c">// Part i: a switch returning the base rate for a zone. Any other zone is illegal.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> baseRateForZone(<span class="k">int</span> zone) {</span><span class="l">        <span class="k">switch</span> (zone) {</span><span class="l">            <span class="k">case</span> 1:  <span class="k">return</span> 120.0;</span><span class="l">            <span class="k">case</span> 2:  <span class="k">return</span> 200.0;</span><span class="l">            <span class="k">case</span> 3:  <span class="k">return</span> 260.0;</span><span class="l">            <span class="k">default</span>: <span class="k">throw</span> <span class="k">new</span> <span class="t">IllegalArgumentException</span>(</span><span class="l">                         <span class="s">"Zone must be 1, 2 or 3 but was "</span> + zone);</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part ii: NESTED if-else. Weight is only examined inside a tier branch.</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> surchargePercent(<span class="t">String</span> tier, <span class="k">double</span> weightKg) {</span><span class="l">        <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {</span><span class="l">            <span class="k">if</span> (weightKg &gt; 20.0) {</span><span class="l">                <span class="k">return</span> 5.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 0.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">            <span class="k">if</span> (weightKg &gt; 20.0) {</span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 10.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            <span class="k">return</span> 25.0;</span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// Part iii: apply the surcharge, with a price CEILING of 500.0</span></span><span class="l">    <span class="k">static</span> <span class="k">double</span> applySurcharge(<span class="k">double</span> baseTotal, <span class="k">double</span> percent) {</span><span class="l">        <span class="k">double</span> charged = baseTotal + (baseTotal * percent / 100.0);</span><span class="l">        <span class="k">if</span> (charged &gt; 500.0) {</span><span class="l">            <span class="k">return</span> 500.0;</span><span class="l">        }</span><span class="l">        <span class="k">return</span> charged;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="k">int</span> parcels = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="k">double</span> totalRevenue = 0;</span><span class="l">        <span class="k">int</span> goldCount = 0, silverCount = 0, bronzeCount = 0;</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> p = 1; p &lt;= parcels; p++) {</span><span class="l">            <span class="k">int</span> zones = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">            <span class="t">String</span> tier = in.nextLine();</span><span class="l">            <span class="k">double</span> weightKg = <span class="t">Double</span>.parseDouble(in.nextLine());</span><span class="l"></span><span class="l">            <span class="k">double</span> baseTotal = 0;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> z = 1; z &lt;= zones; z++) {</span><span class="l">                baseTotal += baseRateForZone(z);</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">double</span> percent = surchargePercent(tier, weightKg);</span><span class="l">            <span class="k">double</span> finalPrice = applySurcharge(baseTotal, percent);</span><span class="l">            totalRevenue += finalPrice;</span><span class="l"></span><span class="l">            <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {</span><span class="l">                goldCount++;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">                silverCount++;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                bronzeCount++;</span><span class="l">            }</span><span class="l"></span><span class="l">            System.out.printf(<span class="s">"Parcel %d: %s, %d zone(s), %.1f kg, base %.1f, "</span></span><span class="l">                + <span class="s">"surcharge %.1f%%, pays %.2f%n"</span>,</span><span class="l">                p, tier, zones, weightKg, baseTotal, percent, finalPrice);</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"SUMMARY"</span>);</span><span class="l">        System.out.printf(<span class="s">"Total revenue: %.2f%n"</span>, totalRevenue);</span><span class="l">        System.out.println(<span class="s">"Gold: "</span> + goldCount + <span class="s">", Silver: "</span> + silverCount</span><span class="l">            + <span class="s">", Bronze: "</span> + bronzeCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for 5 parcels</span>Parcel 1: Gold, 3 zone(s), 25.0 kg, base 580.0, surcharge 5.0%, pays 500.00
+Parcel 2: Gold, 1 zone(s), 10.0 kg, base 120.0, surcharge 0.0%, pays 120.00
+Parcel 3: Silver, 2 zone(s), 30.0 kg, base 320.0, surcharge 15.0%, pays 368.00
+Parcel 4: Bronze, 2 zone(s), 5.0 kg, base 320.0, surcharge 25.0%, pays 400.00
+Parcel 5: Platinum, 3 zone(s), 5.0 kg, base 580.0, surcharge 25.0%, pays 500.00
+SUMMARY
+Total revenue: 1888.00
+Gold: 2, Silver: 1, Bronze: 2</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>The test data is chosen so every rule
+      fires visibly.</b> Parcels 1 and 5 would both have paid more than 500 and both paid
+      exactly 500.00, so the ceiling is working. Parcel 5 is "Platinum", which is not
+      Gold and not Silver: it got the 25% Bronze surcharge <b>and</b> was counted as
+      Bronze, so the two Bronze rules agree with each other. Input is a
+      <code>Scanner</code> here so the run can be printed; in the hall every prompt is
+      <code>JOptionPane.showInputDialog</code> and the summary is one
+      <code>showMessageDialog</code> (F.11).</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; If Platinum is priced as Bronze, it must be counted as Bronze</span></div>
+    <div class="body">
+      <p>The question says any tier that is not "Gold" or "Silver" is treated as Bronze.
+      That rule has to be obeyed <b>twice</b>: once when pricing, and once when counting
+      for the summary. It is easy to write the pricing branch correctly and then count
+      the tiers with a separate chain that has a <code>Platinum</code> case, or that
+      counts nothing at all for it.</p>
+      <p>Then your dialog reports Gold 2, Silver 1, Bronze 1, and four parcels in a
+      summary of five. The counts must add up to N. <b>Check that they do before you put
+      your pen down:</b> 2 + 1 + 2 = 5, and there were 5 parcels.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; A switch that returns needs no break</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>case 1: return 120.0;</code> has no <code>break</code>, and needs
+        none.</p>
+        <p><code>return</code> leaves the whole <b>method</b>, so it certainly leaves the
+        switch. There is nothing to fall through to.</p>
+      </div>
+      <p>The <code>default</code> throwing <code>IllegalArgumentException</code> is what
+      makes the method total: every zone either returns a price or raises an error, and
+      none silently returns 0. That is the question's own instruction, and it is also
+      what stops a bad zone from quietly costing nothing.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>break or return, never neither, never
+      both.</b> A switch that assigns needs breaks; a switch that returns does not.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Five, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="NoiseLog" data-stdin="999&#10;abc&#10;80&#10;82&#10;90&#10;91&#10;88&#10;70&#10;86&#10;87&#10;90&#10;92&#10;95&#10;88&#10;60&#10;90&#10;91&#10;70&#10;71&#10;72&#10;73&#10;74"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">NoiseLog</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// i. 20 prompts. Each is validated by a NESTED loop that re-prompts the SAME</span></span><span class="l">        <span class="c">// hour until a number between 0 and 140 arrives.</span></span><span class="l">        <span class="k">double</span>[] readings = <span class="k">new</span> <span class="k">double</span>[20];</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> h = 0; h &lt; readings.length; h++) {</span><span class="l">            <span class="k">boolean</span> valid = <span class="k">false</span>;</span><span class="l">            <span class="k">while</span> (!valid) {</span><span class="l">                <span class="t">String</span> entered = in.nextLine();</span><span class="l">                <span class="k">try</span> {</span><span class="l">                    <span class="k">double</span> value = <span class="t">Double</span>.parseDouble(entered);</span><span class="l">                    <span class="k">if</span> (value &gt;= 0.0 &amp;&amp; value &lt;= 140.0) {</span><span class="l">                        readings[h] = value;</span><span class="l">                        valid = <span class="k">true</span>;</span><span class="l">                    } <span class="k">else</span> {</span><span class="l">                        System.out.println(<span class="s">"Hour "</span> + h + <span class="s">": "</span> + entered</span><span class="l">                            + <span class="s">" is outside 0 to 140. Enter it again."</span>);</span><span class="l">                    }</span><span class="l">                } <span class="k">catch</span> (<span class="t">NumberFormatException</span> e) {</span><span class="l">                    System.out.println(<span class="s">"Hour "</span> + h + <span class="s">": "</span> + entered</span><span class="l">                        + <span class="s">" is not a number. Enter it again."</span>);</span><span class="l">                }</span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// ii. ONE scan, no extra arrays: count the streaks of 3 or more breach-hours</span></span><span class="l">        <span class="c">// and measure the longest streak of any length.</span></span><span class="l">        <span class="k">int</span> streaks = 0, longest = 0, run = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> h = 0; h &lt; readings.length; h++) {</span><span class="l">            <span class="k">if</span> (readings[h] &gt; 85.0) {</span><span class="l">                run++;</span><span class="l">                <span class="k">if</span> (run &gt; longest) {</span><span class="l">                    longest = run;</span><span class="l">                }</span><span class="l">                <span class="k">if</span> (run == 3) {        <span class="c">// count each qualifying streak once, as it qualifies</span></span><span class="l">                    streaks++;</span><span class="l">                }</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                run = 0;               <span class="c">// the streak is broken</span></span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// iii. nested if-else: the length is only examined once we know a streak exists</span></span><span class="l">        <span class="t">String</span> verdict;</span><span class="l">        <span class="k">if</span> (longest &gt;= 3) {</span><span class="l">            <span class="k">if</span> (longest &gt;= 6) {</span><span class="l">                verdict = <span class="s">"CRITICAL"</span>;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                verdict = <span class="s">"WARNING"</span>;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            verdict = <span class="s">"SAFE"</span>;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// iv. one dialog with all three facts</span></span><span class="l">        System.out.println(<span class="s">"Qualifying streaks (3 or more hours): "</span> + streaks);</span><span class="l">        System.out.println(<span class="s">"Longest breach streak: "</span> + longest + <span class="s">" hour(s)"</span>);</span><span class="l">        System.out.println(<span class="s">"Classification: "</span> + verdict);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for a log with two invalid entries at hour 0</span>Hour 0: 999 is outside 0 to 140. Enter it again.
+Hour 0: abc is not a number. Enter it again.
+Qualifying streaks (3 or more hours): 2
+Longest breach streak: 6 hour(s)
+Classification: CRITICAL</pre>
+      <p class="small" style="padding:6pt 8pt 0">The 20 readings after the two rejects
+      are 80, 82, 90, 91, 88, 70, 86, 87, 90, 92, 95, 88, 60, 90, 91, 70, 71, 72, 73, 74.
+      The breaches (above 85) form runs of <b>3</b> (90, 91, 88), then <b>6</b>
+      (86, 87, 90, 92, 95, 88), then <b>2</b> (90, 91). So two runs reach 3 and qualify,
+      the run of 2 does not, and the longest is 6, which is CRITICAL. Both rejects were
+      for hour <b>0</b>, and the third value became hour 0: the loop re-prompts the
+      <b>same</b> hour, which is what "re-prompt for the same hour" means.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Count a streak when it reaches the threshold, not when it ends</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>if (run == 3) streaks++;</code></p>
+        <p><b>Exactly</b> <code>== 3</code>, not <code>&gt;= 3</code>.</p>
+      </div>
+      <p>This single line is the elegant half of the question. A run of 6 passes through
+      <code>run == 3</code> once, on its third hour, and is counted once. Write
+      <code>&gt;= 3</code> and that run of 6 is counted <b>four</b> times, once for each
+      hour from the third onward, and the answer becomes 5 instead of 2.</p>
+      <p>The alternative is to wait until the run breaks and count it then, but that
+      needs a second check after the loop for a streak still running at the last hour,
+      and forgetting it is the classic bug. Counting at the threshold has no end case at
+      all.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>count it as it qualifies, not as it
+      dies.</b> The moment it crosses the line is unique; the moment it ends may never
+      come.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Validation must catch both kinds of bad input, and one of them is not a number</span></div>
+    <div class="body">
+      <p>"It must parse as a number between 0 and 140" is <b>two</b> requirements, and
+      the marks are split. <code>999</code> is a perfectly good number that is out of
+      range: an <code>if</code> catches it. <code>abc</code> is not a number at all:
+      <code>Double.parseDouble("abc")</code> <b>throws
+      <code>NumberFormatException</code></b>, and no <code>if</code> in the world catches
+      that. It needs a <code>try-catch</code>.</p>
+      <p>A solution with only the range check compiles, passes every test you would think
+      to run by hand, and dies the first time a marker types a letter. Both entries are in
+      this book's test data on purpose, and the output above shows both messages, because
+      an untested validation is a guess.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- Q6 ---------------- -->
+<section>
+  <div class="kick">MS.13 &middot; MOCK B SOLUTIONS &middot; SECTION C, QUESTION SIX</div>
+  <h2 class="title">Section C, Question Six, worked in full</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 A &middot; The constraints are half the marks</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p>Read what is forbidden: <b>no arrays</b>, <b>no helper methods</b>, everything
+      <b>inline in main</b>, the digit loop built <b>only</b> on <code>%</code> and
+      <code>/</code>, and the primality test limited to the <b>square root</b>. A
+      beautiful, well-factored answer with four private static methods scores badly here,
+      and that is not unfair: the question is testing whether you can hold a whole
+      algorithm in one scope, which is exactly what a dry run asks of you.</p>
+      <p>Both facts in step 1 come out of <b>the same single loop</b>, and step 2 rides
+      along in it too. Three answers, one pass.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN &middot; N = 1237, one row per turn of the digit loop</span></div>
+    <div class="body">
+      <table class="data">
+        <tr>
+          <th style="width:12%">temp</th><th style="width:12%">digit</th>
+          <th style="width:16%">product</th><th style="width:14%">largest</th>
+          <th style="width:24%">digit &gt; previous?</th><th>previous</th>
+        </tr>
+        <tr><td>1237</td><td>7</td><td>1 x 7 = <b>7</b></td><td>7</td><td>first digit: nothing to compare</td><td>7</td></tr>
+        <tr><td>123</td><td>3</td><td>7 x 3 = <b>21</b></td><td>7</td><td>3 &gt; 7? no</td><td>3</td></tr>
+        <tr><td>12</td><td>2</td><td>21 x 2 = <b>42</b></td><td>7</td><td>2 &gt; 3? no</td><td>2</td></tr>
+        <tr><td>1</td><td>1</td><td>42 x 1 = <b>42</b></td><td>7</td><td>1 &gt; 2? no</td><td>1</td></tr>
+        <tr><td>0</td><td colspan="5"><code>temp &gt; 0</code> is false: the loop ends. <b>product 42, largest 7, monotone stayed true</b></td></tr>
+      </table>
+      <p class="small">The loop walks <b>right to left</b>, because <code>% 10</code> can
+      only reach the last digit. So <code>previous</code> holds the digit to the
+      <b>right</b> of the one in hand, and "never decreases left to right" becomes
+      "each digit is not greater than the one to its right". Same fact, read from the end
+      you can actually reach.</p>
+      <p class="small">Then: is 42 prime? <code>d = 2</code>, and
+      <code>2 * 2 &lt;= 42</code>, and <code>42 % 2 == 0</code>, so no, immediately. N is
+      monotone but its product is not prime, so the second branch fires:
+      <b>MONOTONE</b>.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part A</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="DigitClassifier" data-stdin="1237"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">DigitClassifier</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l">        <span class="k">int</span> n = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="c">// i. ONE loop, built only on % and /, computing the digit product and the</span></span><span class="l">        <span class="c">// largest digit. ii. and, in the same loop, whether the digits never</span></span><span class="l">        <span class="c">// decrease from left to right.</span></span><span class="l">        <span class="k">int</span> product = 1;</span><span class="l">        <span class="k">int</span> largest = 0;</span><span class="l">        <span class="k">boolean</span> monotone = <span class="k">true</span>;</span><span class="l">        <span class="k">int</span> previous = -1;        <span class="c">// the digit to the RIGHT of the current one</span></span><span class="l">        <span class="k">int</span> temp = n;</span><span class="l">        <span class="k">while</span> (temp &gt; 0) {</span><span class="l">            <span class="k">int</span> digit = temp % 10;</span><span class="l">            product = product * digit;</span><span class="l">            <span class="k">if</span> (digit &gt; largest) {</span><span class="l">                largest = digit;</span><span class="l">            }</span><span class="l">            <span class="k">if</span> (previous != -1 &amp;&amp; digit &gt; previous) {</span><span class="l">                monotone = <span class="k">false</span>;</span><span class="l">            }</span><span class="l">            previous = digit;</span><span class="l">            temp = temp / 10;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// iii. is the digit product prime? Tested inline, dividing only up to the</span></span><span class="l">        <span class="c">// square root: d * d &lt;= product is the same test as d &lt;= sqrt(product),</span></span><span class="l">        <span class="c">// and it needs no Math call.</span></span><span class="l">        <span class="k">boolean</span> prime = product &gt; 1;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> d = 2; d * d &lt;= product; d++) {</span><span class="l">            <span class="k">if</span> (product % d == 0) {</span><span class="l">                prime = <span class="k">false</span>;</span><span class="l">                <span class="k">break</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// the product is 0 exactly when one of the digits is 0</span></span><span class="l">        <span class="k">boolean</span> hasZero = (product == 0);</span><span class="l"></span><span class="l">        <span class="c">// iv. classify, strictly in this priority order</span></span><span class="l">        <span class="t">String</span> verdict;</span><span class="l">        <span class="k">if</span> (monotone &amp;&amp; prime) {</span><span class="l">            verdict = <span class="s">"MONOTONE-PRIME-PRODUCT"</span>;</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (monotone) {</span><span class="l">            verdict = <span class="s">"MONOTONE"</span>;</span><span class="l">        } <span class="k">else</span> <span class="k">if</span> (hasZero) {</span><span class="l">            verdict = <span class="s">"ZERO-PRODUCT"</span>;</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            verdict = <span class="s">"STANDARD"</span>;</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// v. one dialog with everything</span></span><span class="l">        System.out.println(<span class="s">"N = "</span> + n);</span><span class="l">        System.out.println(<span class="s">"Digit product = "</span> + product);</span><span class="l">        System.out.println(<span class="s">"Largest digit = "</span> + largest);</span><span class="l">        System.out.println(<span class="s">"Classification = "</span> + verdict);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for the input 1237</span>N = 1237
+Digit product = 42
+Largest digit = 7
+Classification = MONOTONE</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; d * d &lt;= n is the square root test, and it needs no Math</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>for (int d = 2; d * d &lt;= product; d++)</code></p>
+        <p>is the same test as <code>d &lt;= sqrt(product)</code>, with no
+        <code>Math.sqrt</code>, no <code>double</code>, and no rounding to argue
+        about.</p>
+      </div>
+      <p>Why the square root at all: if <code>n</code> has a divisor bigger than its
+      square root, it must also have the matching one <b>below</b> it, because the two
+      multiply to <code>n</code>. So a divisor above the root can never be the first one
+      found, and testing past the root can never discover anything new.</p>
+      <p>Prefer <code>d * d &lt;= product</code> to
+      <code>d &lt;= Math.sqrt(product)</code>. It stays in integers, so there is no
+      question about whether the root of 49 comes back as 6.999999 and drops a
+      divisor.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>divisors come in pairs, and the root is the
+      pivot.</b> Every pair has one member on each side, so one side is enough.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Q6 A, every classification probed</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="DigitClassifierBench" data-stdin="6&#10;113&#10;1237&#10;405&#10;4821&#10;7&#10;1119"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">DigitClassifierBench</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l">        <span class="k">int</span> cases = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> c = 0; c &lt; cases; c++) {</span><span class="l">            <span class="k">int</span> n = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l"></span><span class="l">            <span class="k">int</span> product = 1;</span><span class="l">            <span class="k">int</span> largest = 0;</span><span class="l">            <span class="k">boolean</span> monotone = <span class="k">true</span>;</span><span class="l">            <span class="k">int</span> previous = -1;</span><span class="l">            <span class="k">int</span> temp = n;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) {</span><span class="l">                <span class="k">int</span> digit = temp % 10;</span><span class="l">                product = product * digit;</span><span class="l">                <span class="k">if</span> (digit &gt; largest) {</span><span class="l">                    largest = digit;</span><span class="l">                }</span><span class="l">                <span class="k">if</span> (previous != -1 &amp;&amp; digit &gt; previous) {</span><span class="l">                    monotone = <span class="k">false</span>;</span><span class="l">                }</span><span class="l">                previous = digit;</span><span class="l">                temp = temp / 10;</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">boolean</span> prime = product &gt; 1;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> d = 2; d * d &lt;= product; d++) {</span><span class="l">                <span class="k">if</span> (product % d == 0) {</span><span class="l">                    prime = <span class="k">false</span>;</span><span class="l">                    <span class="k">break</span>;</span><span class="l">                }</span><span class="l">            }</span><span class="l"></span><span class="l">            <span class="k">boolean</span> hasZero = (product == 0);</span><span class="l"></span><span class="l">            <span class="t">String</span> verdict;</span><span class="l">            <span class="k">if</span> (monotone &amp;&amp; prime) {</span><span class="l">                verdict = <span class="s">"MONOTONE-PRIME-PRODUCT"</span>;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (monotone) {</span><span class="l">                verdict = <span class="s">"MONOTONE"</span>;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (hasZero) {</span><span class="l">                verdict = <span class="s">"ZERO-PRODUCT"</span>;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                verdict = <span class="s">"STANDARD"</span>;</span><span class="l">            }</span><span class="l"></span><span class="l">            System.out.printf(<span class="s">"%-6d product %-4d largest %d  -&gt; %s%n"</span>,</span><span class="l">                n, product, largest, verdict);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>113    product 3    largest 3  -> MONOTONE-PRIME-PRODUCT
+1237   product 42   largest 7  -> MONOTONE
+405    product 0    largest 5  -> ZERO-PRODUCT
+4821   product 64   largest 8  -> STANDARD
+7      product 7    largest 7  -> MONOTONE-PRIME-PRODUCT
+1119   product 9    largest 9  -> MONOTONE</pre>
+      <p class="small" style="padding:6pt 8pt 0">Not part of the answer: this is the
+      same inline logic run over six numbers, so that <b>all four</b> classifications
+      appear and the priority order is visible. <code>7</code> is the edge worth
+      writing: a single digit, the loop runs once, and it is monotone by definition
+      because there is no pair of digits to go the wrong way. <code>1119</code> shows
+      that "never decreases" allows <b>equal</b> digits, which is why the test is
+      <code>digit &gt; previous</code> and not <code>&gt;=</code>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; The digit product starts at 1, and a zero digit is why ZERO-PRODUCT exists</span></div>
+    <div class="body">
+      <p>Two initialisation traps sit next to each other, and they pull in opposite
+      directions.</p>
+      <p><code>int product = 1;</code>, not 0. A product accumulates by multiplying, and
+      anything times 0 is 0, so starting at 0 makes every answer 0. Meanwhile
+      <code>int largest = 0;</code> is right, because a largest accumulates by comparing
+      and every digit is at least 0.</p>
+      <p>And 405 shows why the question has a ZERO-PRODUCT class at all: one 0 digit
+      drags the whole product to 0, permanently. So <code>product == 0</code> is not a
+      special case to be guarded, it is a <b>reliable test</b> for "N contains a zero",
+      and the classification uses it as one. That is the question rewarding you for
+      noticing what multiplication already knows.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE &middot; Question Six, part B</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="LibraryFines" data-stdin="6&#10;0&#10;2&#10;Student&#10;5&#10;Student&#10;20&#10;Student&#10;3&#10;Public&#10;12&#10;Public&#10;30&#10;Staff"><span class="l"><span class="k">import</span> java.util.<span class="t">Scanner</span>;</span><span class="l"></span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">LibraryFines</span> {</span><span class="l"></span><span class="l">    <span class="c">// ii. one book's fine, with the rules NESTED: the member type is decided first,</span></span><span class="l">    <span class="c">// and the days are only examined inside that branch.</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">double</span> fineFor(<span class="k">int</span> daysLate, <span class="t">String</span> memberType) {</span><span class="l">        <span class="k">double</span> fine;</span><span class="l">        <span class="k">if</span> (memberType.equals(<span class="s">"Student"</span>)) {</span><span class="l">            <span class="k">if</span> (daysLate &lt;= 3) {</span><span class="l">                fine = 0.0;                          <span class="c">// the first 3 days are free</span></span><span class="l">            } <span class="k">else</span> {</span><span class="l">                fine = (daysLate - 3) * 20.0;</span><span class="l">                <span class="k">if</span> (fine &gt; 200.0) {</span><span class="l">                    fine = 200.0;                    <span class="c">// capped</span></span><span class="l">                }</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {                                     <span class="c">// anything not exactly "Student"</span></span><span class="l">            <span class="k">if</span> (daysLate &lt;= 5) {</span><span class="l">                fine = 150.0;                        <span class="c">// a flat charge for the first 5</span></span><span class="l">            } <span class="k">else</span> {</span><span class="l">                fine = 150.0 + (daysLate - 5) * 40.0;</span><span class="l">                <span class="k">if</span> (fine &gt; 500.0) {</span><span class="l">                    fine = 500.0;                    <span class="c">// capped</span></span><span class="l">                }</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> fine;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// iii. tally the three bands and return all three counts, with no collection class</span></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">int</span>[] tallyBands(<span class="k">int</span>[] daysLate) {</span><span class="l">        <span class="k">int</span> shortBand = 0, mediumBand = 0, extendedBand = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; daysLate.length; i++) {</span><span class="l">            <span class="k">if</span> (daysLate[i] &lt;= 3) {</span><span class="l">                shortBand++;</span><span class="l">            } <span class="k">else</span> <span class="k">if</span> (daysLate[i] &lt;= 10) {</span><span class="l">                mediumBand++;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                extendedBand++;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        <span class="k">return</span> <span class="k">new</span> <span class="k">int</span>[] {shortBand, mediumBand, extendedBand};</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">Scanner</span> in = <span class="k">new</span> <span class="t">Scanner</span>(System.in);</span><span class="l"></span><span class="l">        <span class="c">// i. two PARALLEL arrays: index i is one book in both</span></span><span class="l">        <span class="k">int</span> books = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">        <span class="k">int</span>[] daysLate = <span class="k">new</span> <span class="k">int</span>[books];</span><span class="l">        <span class="t">String</span>[] memberType = <span class="k">new</span> <span class="t">String</span>[books];</span><span class="l"></span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; books; i++) {</span><span class="l">            <span class="k">int</span> days = 0;</span><span class="l">            <span class="k">boolean</span> valid = <span class="k">false</span>;</span><span class="l">            <span class="k">while</span> (!valid) {                     <span class="c">// the nested control statement</span></span><span class="l">                days = <span class="t">Integer</span>.parseInt(in.nextLine());</span><span class="l">                <span class="k">if</span> (days &gt; 0) {</span><span class="l">                    valid = <span class="k">true</span>;</span><span class="l">                } <span class="k">else</span> {</span><span class="l">                    System.out.println(<span class="s">"Book "</span> + (i + 1) + <span class="s">": "</span> + days</span><span class="l">                        + <span class="s">" is not a positive number of days. Enter it again."</span>);</span><span class="l">                }</span><span class="l">            }</span><span class="l">            daysLate[i] = days;</span><span class="l">            memberType[i] = in.nextLine();</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="c">// iv. every vehicle across both arrays, accumulating the batch total</span></span><span class="l">        <span class="k">double</span> totalFines = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; books; i++) {</span><span class="l">            <span class="k">double</span> fine = fineFor(daysLate[i], memberType[i]);</span><span class="l">            totalFines += fine;</span><span class="l">            System.out.printf(<span class="s">"Book %d: %s, %d day(s) late, fine %.2f%n"</span>,</span><span class="l">                i + 1, memberType[i], daysLate[i], fine);</span><span class="l">        }</span><span class="l"></span><span class="l">        <span class="k">int</span>[] bands = tallyBands(daysLate);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"SUMMARY"</span>);</span><span class="l">        System.out.printf(<span class="s">"Total fines: %.2f%n"</span>, totalFines);</span><span class="l">        System.out.println(<span class="s">"SHORT (1-3): "</span> + bands[0] + <span class="s">", MEDIUM (4-10): "</span> + bands[1]</span><span class="l">            + <span class="s">", EXTENDED (more than 10): "</span> + bands[2]);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output, for 6 books with one invalid entry</span>Book 1: 0 is not a positive number of days. Enter it again.
+Book 1: Student, 2 day(s) late, fine 0.00
+Book 2: Student, 5 day(s) late, fine 40.00
+Book 3: Student, 20 day(s) late, fine 200.00
+Book 4: Public, 3 day(s) late, fine 150.00
+Book 5: Public, 12 day(s) late, fine 430.00
+Book 6: Staff, 30 day(s) late, fine 500.00
+SUMMARY
+Total fines: 1320.00
+SHORT (1-3): 2, MEDIUM (4-10): 1, EXTENDED (more than 10): 3</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>Six books, and every rule fires
+      exactly once.</b> Book 1: inside the free 3 days, so 0.00. Book 2:
+      (5 - 3) x 20 = 40.00. Book 3: (20 - 3) x 20 = 340, <b>capped</b> to 200.00.
+      Book 4: inside the flat 5 days, 150.00. Book 5: 150 + (12 - 5) x 40 = 430.00.
+      Book 6: "Staff" is not "Student", so it is charged as Public,
+      150 + 25 x 40 = 1150, <b>capped</b> to 500.00. Both caps, both free periods, the
+      fallback, and the re-prompt: if your test data cannot show all of that, it cannot
+      tell you your program works.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; Returning three numbers without a collection class</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>return new int[] {shortBand, mediumBand, extendedBand};</code></p>
+        <p>A method returns <b>one</b> thing. When the question wants three and bans
+        <code>ArrayList</code>, that one thing is a small array.</p>
+      </div>
+      <p>The alternatives are worse and the marker knows all of them: three separate
+      methods each looping the array again, which is three passes for one question that
+      said one method; or three static fields quietly written as a side effect, which
+      works and is unreadable.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>one return, so box them.</b>
+      <code>new int[] {a, b, c}</code> is a whole array written inline, with no separate
+      declaration and no <code>new int[3]</code> followed by three assignments.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; Parallel arrays must be filled in the same iteration, or the pairing rots</span></div>
+    <div class="body">
+      <p><code>daysLate[i]</code> and <code>memberType[i]</code> are the same book, and
+      the only thing making that true is that they are written in the same turn of the
+      same loop. Fill them in two separate loops, or let the re-prompt loop advance
+      <code>i</code>, and index 3's days belong to index 4's member type. Nothing throws.
+      Nothing warns. Every fine is simply wrong.</p>
+      <p>Look at where <code>i</code> changes in the answer: <b>only</b> in the outer
+      <code>for</code>. The validation <code>while</code> re-reads <code>days</code> and
+      never touches <code>i</code>, which is precisely why book 1's rejected 0 does not
+      cost book 1 its place.</p>
+      <p>This is why the paper bans <code>ArrayList</code> and asks for parallel arrays:
+      not because collections are bad, but because holding two arrays in step by hand is
+      the skill it wants to see you have.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">Book 6's member type is "Staff". The fine method has no
+      <code>Staff</code> branch anywhere. Why does it charge 500.00 rather than crash, or
+      charge nothing?</p>
+      <hr class="cut"/>
+      <p><span class="alabel">Answer</span> Because the method asks only one question,
+      <code>memberType.equals("Student")</code>, and everything that is not
+      <code>Student</code> falls into the <code>else</code>, which is the Public rule.
+      There is no list of valid types to fail against. The question demanded exactly
+      this: "any member type that is not exactly Student must be treated as Public". An
+      <code>else</code> with no condition cannot miss a case, which is what makes it the
+      right shape for a catch-all rule, and it is why the answer never needs to know that
+      "Staff" exists.</p>
+    </div>
+  </div>
+</section>

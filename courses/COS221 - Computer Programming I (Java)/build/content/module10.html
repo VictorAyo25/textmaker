@@ -320,6 +320,15 @@ readAllLines   : [line one, line two]</pre>
       trick, <code>while ((x = read()) != sentinel)</code>, which assigns and tests in
       one breath. That idiom appears in every file-reading program you will ever
       write.</p>
+      <p class="small" style="padding:0 8pt 6pt"><code>Scanner</code> is the exception,
+      and that is why it reads differently. It offers
+      <code>hasNextLine()</code>, which answers <code>true</code> when there is another
+      line waiting and <code>false</code> at the end of the file, so you <b>ask before
+      you take</b> rather than taking and comparing against a sentinel. Its partner
+      <code>nextLine()</code> then hands you that line. The pair is easier to read, and
+      that is the whole of its advantage here: <code>while (sc.hasNextLine())</code>
+      says what it means, where <code>while ((line = in.readLine()) != null)</code> has
+      to be learned once and recognised forever.</p>
     </div>
   </div>
 

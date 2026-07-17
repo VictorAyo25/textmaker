@@ -646,6 +646,21 @@ square(5) = 25</pre>
       nothing and exists purely to leave early. <code>square</code> is
       <code>int</code>, so its <code>return</code> must carry a value. Module 5 is
       entirely about this.</p>
+      <p class="small" style="padding:0 8pt 6pt">The guard uses one library method
+      worth naming. <code>isEmpty()</code> is a <code>String</code> method that
+      answers <code>true</code> when the string holds <b>no characters at all</b>. So
+      <code>""</code> is empty, and <code>" "</code> is <b>not</b>: a space is a
+      character. It is the same question as <code>length() == 0</code>, written so it
+      reads like English.</p>
+      <p class="small" style="padding:0 8pt 6pt">And the <b>order</b> of the two tests
+      is not a matter of taste. <code>||</code> is <b>short-circuit</b> (Unit 3.8): if
+      <code>name == null</code> is already true, the right-hand side is never
+      evaluated at all. Swap them to
+      <code>name.isEmpty() || name == null</code> and a <code>null</code> name calls
+      <code>isEmpty()</code> on nothing, which throws
+      <code>NullPointerException</code> before the null check it was supposed to be
+      protected by ever runs. <b>Check for null first, always.</b> It compiles either
+      way.</p>
     </div>
   </div>
 

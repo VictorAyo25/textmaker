@@ -29,11 +29,16 @@ six and 25/26 says one question per section, and both are answered whole. A ques
 you skip is a topic you can be examined on next year, and the 25/26 paper proves it by
 re-asking 24/25's file I/O, inheritance and digit-loops in a new costume.
 
+**Both mock papers are set and solved**, in both shapes the course has used: Mock A is
+24/25's six-questions-attempt-four, Mock B is 25/26's three sections. Questions and
+answers live in separate parts, because a mock you can see the answer to is a worked
+example, not a mock.
+
 All three gates are scripted and green, including the before-use audit that used to be
 held by hand: `check_code.py`, `qa.py`, `qa_firstuse.py`.
 
-Still to write: mock papers in both formats, and the reference section (formula-free,
-but an API card, a keyword index, a method reference and a glossary).
+Still to write: the reference section (formula-free, but an API card, a keyword index,
+a method reference and a glossary).
 
 ## Build it
 
@@ -188,10 +193,23 @@ would skip in the hall: a question you skip is still a topic you can be examined
    | `data-run="Cls"` | compile as `Cls.java`, run, compare stdout with the box's `.out` block |
    | `data-run` + `data-stdin="..."` | as above, feeding stdin |
    | `data-compile="Cls"` | must **fail** to compile (a planted bug); `data-error="..."` asserts the message |
-   | `data-frag="1"` | a fragment: wrapped in a class + main, must still compile |
+   | `data-frag="1"` | loose statements: wrapped in a class + main, must still compile |
+   | `data-member="1"` | a method on its own: wrapped in a class **body** (Java has no nested methods, so `data-frag` would make it a syntax error rather than a check) |
+   | `data-question="MS.2"` | a mock question: it runs, but its output is **withheld**, because printing it would print the answer |
    | `data-nocheck="reason"` | excluded, and the reason is printed in the report |
 
    Silence is never a way out: a listing with no attribute is a failure.
+
+   `data-question` exists because the mocks created a case the gate could not express:
+   a listing that must run but must not show what it printed. "No output block" is
+   also what a *forgotten* output block looks like, and `data-run` with nothing to
+   compare only WARNs, so the honest case and the careless one were indistinguishable.
+   Marking questions `data-nocheck` would have been worse: the mock would become the
+   only unverified code in a book whose whole claim is that every listing ran. So
+   `data-question` runs the code **and** requires the answer to exist: every line of
+   the question must reappear, in order, inside a `data-run` listing whose output is
+   checked against a real JVM. It caught its own first mistake within a minute of
+   being written.
 
    The same gate closes the vocabulary of `<pre>` classes to exactly `src`,
    `src nonum` and `out`. It only *sees* `class="src..."`, so inventing a fourth
@@ -215,6 +233,24 @@ would skip in the hall: a question you skip is still a topic you can be examined
    It found ten real holes on first run, including `Files.write()` and
    `Integer.MAX_VALUE` used in listings but named nowhere in the prose. `data-compile`
    listings are skipped: a planted bug introduces nothing.
+
+   **A gate that passes is not a gate that looked.** Twice now this one has reported a
+   clean sweep over things it was not examining, and neither was visible from the
+   report:
+
+   - Its `.method()` pattern carried a `(?<!\w)` lookbehind, which rejects the dot in
+     `out.printf(` because `t` is a word character. So it only ever matched after a
+     bracket, and **every instance method called on a variable was invisible**:
+     `readLine`, `printf`, `newLine`, `append`, `isEmpty`. Removing the guard took the
+     audit from 100 APIs to 150 and immediately found three real holes.
+   - Exam sections were matched with `startswith('MOCK')`, but ids are the kick text
+     with the punctuation stripped, so `M.4 - MOCK A - QUESTION THREE` becomes
+     `M4MOCKA...` and every mock silently failed the test. The rule would have been
+     enforced on nothing while still printing a pass.
+
+   Both are why the report now prints **how many sections it treats as exams** and
+   fails when that is zero. A rule quietly applying to nothing must never look like a
+   rule that passed.
 
 3. **`qa.py`**: no em/en dashes, no institution or platform or methodology names, no
    marker text left behind, footer numbering, Contents accuracy, no near-blank pages,

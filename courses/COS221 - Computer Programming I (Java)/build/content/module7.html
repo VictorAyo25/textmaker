@@ -304,6 +304,13 @@ reverse        [gnimmargorP  avaJ]</pre>
       swapped the eight characters "Language" for the five "Core ", leaving the
       original space at index 13 next to the new one. It survives every later step
       and ends up in the middle of the reversed text.</p>
+      <p class="small" style="padding:0 8pt 6pt">The one call not yet named:
+      <code>insert(index, text)</code> pushes <code>text</code> in so that it
+      <b>starts at</b> <code>index</code>, sliding everything from that position
+      rightwards to make room. Nothing is overwritten, so the builder grows by exactly
+      the length of what you inserted. Contrast it with <code>replace(5, 13, "Core ")</code>
+      on the line above, which <b>removes</b> the characters between the two indexes
+      before putting the new ones in, and so can shrink the builder.</p>
       <p class="small" style="padding:0 8pt 6pt">Note also that <b>none of these
       returned anything you had to keep</b>. <code>sb.append(...)</code> changed
       <code>sb</code> itself. That is the whole difference from Unit 7.1's

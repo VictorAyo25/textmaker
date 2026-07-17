@@ -1,0 +1,477 @@
+<!-- ============ MOCK PAPER B (2025/26 shape) ============ -->
+
+<section>
+  <div class="kick">M.8 &middot; MOCK B &middot; BEFORE YOU START</div>
+  <h2 class="title">Mock Paper B, in the current shape</h2>
+  <hr class="rule"/>
+
+  <p class="lead">Three sections, one question from each, three hours. This is the
+  2025/26 shape, and it does not let you choose your topics.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE &middot; How to sit this paper</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Time allowed: 3 hours. Attempt one question from each Section.</b></p>
+        <p>Section A: 20 marks, Q1 <b>or</b> Q2<br/>
+        Section B: 25 marks, Q3 <b>or</b> Q4<br/>
+        Section C: 25 marks, Q5 <b>or</b> Q6</p>
+        <p><b>Use comments in Section B and Section C</b> to distinguish what task each
+        block of code performs. That is an instruction, not advice.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>20 + 25 + 25 = 70.</b> Section A is the
+      cheapest and the most predictable, so bank it first and fast.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP &middot; This shape removes the escape route Mock A gave you</span></div>
+    <div class="body">
+      <p>On Mock A you may drop any two topics you dislike. Here you may not. Both
+      Section C questions are long JOptionPane programs; both Section B questions are
+      25 marks of writing. If you cannot do file I/O <b>and</b> inheritance, Section B
+      has no door for you, because Q3 is the first and Q4 is the second.</p>
+      <p>That is the real reason this book answers every question on both real papers
+      rather than four of six. <b>The choice you get is between two questions, not
+      between two topics you prepared and four you did not.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- SECTION A ---------------- -->
+<section>
+  <div class="kick">M.9 &middot; MOCK B &middot; SECTION A &middot; QUESTION ONE &middot; 20 MARKS</div>
+  <h2 class="title">Section A, Question One</h2>
+  <hr class="rule"/>
+
+  <p class="lead"><b>SECTION A (20 marks).</b> Answer Question One <b>or</b> Question
+  Two.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 A</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p>Define a <b>constructor</b> in Java, and state precisely how the compiler
+      tells a constructor apart from an ordinary method.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 B</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p>State <b>three differences</b> between a <code>while</code> loop and a
+      <code>do-while</code> loop in Java.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 C</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p>This code is supposed to: loop through the array, and for each starting index
+      <code>i</code>, find the first number (from <code>i</code> onward) that is a
+      multiple of 3. Add (that number + 2) to <code>sum</code>, count it as a match,
+      stop after 3 matches, then display the sum and the match count.</p>
+      <p><b>Find the errors if the correct output should be:</b>
+      Sum: <b>93.0</b> &nbsp; Matches: <b>3</b></p>
+<pre class="src" data-compile="SnippetBroken" data-error="incompatible types"><span class="l"><span class="k">import</span> javax.swing.<span class="t">JOptionPane</span>;</span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">SnippetBroken</span> {</span><span class="l"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l"><span class="k">int</span>[] arr = {15.0, 22.0, 36.0, 41.0, 54.0, 60.0};</span><span class="l">  <span class="k">int</span> sum = 0;</span><span class="l">  <span class="k">int</span> matches = 0;</span><span class="l">  <span class="k">boolean</span> stop = <span class="k">false</span>;</span><span class="l">  <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= arr.length &amp;&amp; !stop; i++) {</span><span class="l">      <span class="k">for</span> (<span class="k">int</span> j = i; j &lt; arr.length; j++) {</span><span class="l">          <span class="k">if</span> (arr[j] % 3 == 0) {</span><span class="l">              <span class="k">continue</span>;</span><span class="l">          }</span><span class="l">          sum += arr[j] + 2;</span><span class="l">          matches++;</span><span class="l">          <span class="k">if</span> (matches == 4) {</span><span class="l">              stop = <span class="k">true</span>;</span><span class="l">          }</span><span class="l">          <span class="k">break</span>;</span><span class="l">      }</span><span class="l">  }</span><span class="l">  <span class="t">JOptionPane</span>.showMessageDialog(<span class="k">null</span>, <span class="s">"Sum: "</span> + sum);</span><span class="l">  <span class="t">JOptionPane</span>.showMessageDialog(<span class="k">null</span>, <span class="s">"Matches: "</span> + matches);</span><span class="l">  System.exit(0);</span><span class="l">}</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q1 D</span><span class="tag">10 MARKS</span></div>
+    <div class="body">
+      <p>An <b>automorphic number</b> is a positive integer whose square <b>ends in the
+      number itself</b>. For example, 25 is automorphic because 25 squared is 625,
+      which ends in 25. 6 is automorphic because 6 squared is 36, which ends in 6.</p>
+      <ol class="qlist">
+        <li>State the <b>five outputs</b> for this code. You may show your workings,
+        but make the answer bold.</li>
+        <li>Retain everything else, but change the <b>For loop to a While loop</b> and
+        the <b>While loops to For loops</b>.</li>
+      </ol>
+<pre class="src nonum" data-run="AutomorphicChecker" data-question="MS.8"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">AutomorphicChecker</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] numbers = {5, 6, 7, 25, 76};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> idx = 0; idx &lt; numbers.length; idx++) {</span><span class="l">            <span class="k">int</span> n = numbers[idx], digits = 0, temp = n;</span><span class="l">            <span class="k">while</span> (temp &gt; 0) { digits++; temp /= 10; }</span><span class="l">            <span class="k">int</span> power = 1;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> p = 0; p &lt; digits; p++) power *= 10;</span><span class="l">            <span class="k">int</span> tail = (n * n) % power;</span><span class="l">            System.out.println(n + <span class="s">" -&gt; "</span> + (tail == n ? <span class="s">"AUTOMORPHIC"</span> : <span class="s">"NOT AUTOMORPHIC"</span>));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">M.10 &middot; MOCK B &middot; SECTION A &middot; QUESTION TWO &middot; 20 MARKS</div>
+  <h2 class="title">Section A, Question Two</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 A</span><span class="tag">2 MARKS</span></div>
+    <div class="body">
+      <p>Define <b>inheritance</b> as an OOP principle.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 B</span><span class="tag">3 MARKS</span></div>
+    <div class="body">
+      <p>State <b>three differences</b> between an <b>array</b> and an ordinary
+      <b>variable</b> in Java.</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 C</span><span class="tag">5 MARKS</span></div>
+    <div class="body">
+      <p>This code is supposed to loop through an array of parcel weights, skip
+      anything under 5, apply a 20% surcharge to weights of 5 and above, add the
+      surcharged weight to the total, count it, and stop once 4 parcels have been
+      surcharged. Then it displays the total and the count.</p>
+      <p><b>Find the errors if the correct output should be:</b>
+      Total: <b>84.6</b> &nbsp; Count: <b>4</b></p>
+<pre class="src" data-compile="DiscountBroken" data-error="incompatible types"><span class="l"><span class="k">import</span> javax.swing.<span class="t">JOptionPane</span>;</span><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">DiscountBroken</span> {</span><span class="l"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l"><span class="k">int</span>[] weights = {3.5, 12.0, 4.25, 20.0, 8.5, 30.0};</span><span class="l">  <span class="k">int</span> total = 0;</span><span class="l">  <span class="k">int</span> count = 0;</span><span class="l">  <span class="k">boolean</span> done = <span class="k">false</span>;</span><span class="l">  <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt;= weights.length &amp;&amp; !done; i++) {</span><span class="l">      <span class="k">if</span> (weights[i] &gt; 5) {</span><span class="l">          <span class="k">continue</span>;</span><span class="l">      }</span><span class="l">      <span class="k">double</span> surcharge = weights[i] * 0.2;</span><span class="l">      total += weights[i] + surcharge;</span><span class="l">      count++;</span><span class="l">      <span class="k">if</span> (count == 5) {</span><span class="l">          done = <span class="k">true</span>;</span><span class="l">      }</span><span class="l">  }</span><span class="l">  <span class="t">JOptionPane</span>.showMessageDialog(<span class="k">null</span>, <span class="s">"Total: "</span> + total);</span><span class="l">  <span class="t">JOptionPane</span>.showMessageDialog(<span class="k">null</span>, <span class="s">"Count: "</span> + count);</span><span class="l">  System.exit(0);</span><span class="l">}</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q2 D</span><span class="tag">10 MARKS</span></div>
+    <div class="body">
+      <p>A <b>prime number</b> is a positive integer with exactly two distinct
+      divisors: 1 and itself. A <b>composite number</b> has more than two. The number 1
+      has exactly one divisor, so it is <b>neither</b>.</p>
+      <ol class="qlist">
+        <li>State the output for this code. No need to show workings.</li>
+        <li>Change the <b>For loops to While loops</b>.</li>
+      </ol>
+<pre class="src nonum" data-run="PrimeClassifier" data-question="MS.9"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">PrimeClassifier</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> primeCount = 0, compositeCount = 0, neitherCount = 0;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> num = 1; num &lt;= 30; num++) {</span><span class="l">            <span class="k">int</span> divisors = 0;</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> d = 1; d &lt;= num; d++) {</span><span class="l">                <span class="k">if</span> (num % d == 0) divisors++;</span><span class="l">            }</span><span class="l">            <span class="k">if</span> (divisors == 2) primeCount++;</span><span class="l">            <span class="k">else</span> <span class="k">if</span> (divisors &gt; 2) compositeCount++;</span><span class="l">            <span class="k">else</span> neitherCount++;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Prime: "</span> + primeCount + <span class="s">", Composite: "</span> + compositeCount</span><span class="l">            + <span class="s">", Neither: "</span> + neitherCount);</span><span class="l">    }</span><span class="l">}</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- SECTION B ---------------- -->
+<section>
+  <div class="kick">M.11 &middot; MOCK B &middot; SECTION B &middot; QUESTION THREE &middot; 25 MARKS</div>
+  <h2 class="title">Section B, Question Three</h2>
+  <hr class="rule"/>
+
+  <p class="lead"><b>SECTION B (25 marks).</b> Answer Question Three <b>or</b> Question
+  Four. Use comments to say what each block of code does.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 A</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p>A factory records a machine's vibration once an hour in an integer array
+      <code>readings[]</code>, in the order the readings were taken. A <b>spike</b> is
+      any position <code>i</code> that is strictly greater than <b>both</b> its
+      neighbours. A <b>dip</b> is any position <code>i</code> that is strictly less
+      than <b>both</b> its neighbours. The first and last positions have only one
+      neighbour each and are never spikes or dips.</p>
+      <p>Given the array:</p>
+      <table class="data">
+        <tr><th>Index</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><th>Reading</th><td>12</td><td>30</td><td>18</td><td>22</td><td>41</td><td>27</td><td>27</td><td>33</td><td>19</td><td>25</td></tr>
+      </table>
+      <p>Write a program that:</p>
+      <ol class="qlist">
+        <li>creates a method that makes <b>one pass</b> through the array and returns
+        the count of spikes;</li>
+        <li>creates a method that returns a single <code>String</code> listing, in
+        original order and comma separated, every reading that is <b>either</b> a spike
+        <b>or</b> a dip. Build this string using plain <code>String</code>
+        concatenation only (no <code>StringBuilder</code>, and do not return an array
+        of booleans);</li>
+        <li>using <code>JOptionPane</code>, displays <b>one</b> dialog showing (a) the
+        spike count from part 1, and (b) the flagged-readings string from part 2.</li>
+      </ol>
+      <p>[Hint: trace your algorithm by hand first. It must <b>not</b> flag 12, 22, 27,
+      27 or 25.]</p>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q3 B</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p>A library needs a program to record and review book details (book ID, title,
+      rating) using basic file I/O. Using <b>only</b> <code>java.io.FileWriter</code>,
+      <code>java.io.FileReader</code>, <code>java.io.BufferedReader</code>,
+      <code>java.io.BufferedWriter</code> and <code>java.io.IOException</code> (or its
+      subclasses), write a complete program that:</p>
+      <ol class="qlist">
+        <li>creates a file named <code>input.txt</code> and writes the details (book
+        ID, title, rating) of at least three books into it using
+        <code>FileWriter</code>, one book per line. Wrap the writing logic in a
+        try-catch block that handles any exception that may occur;</li>
+        <li>reads book details from a file named <code>output.txt</code> using
+        <code>FileReader</code> and prints each line to the console exactly as it
+        appears in the file. Handle any exception that may occur while reading,
+        <b>including the case where <code>output.txt</code> does not exist</b>;</li>
+        <li>creates a method that takes in a file name, opens the file, counts the
+        number of lines (book records) it contains, and returns that count. This method
+        must handle its own exceptions internally;</li>
+        <li>ensures every file resource opened is properly closed (either in a
+        <code>finally</code> block or via try-with-resources) and that every
+        <code>catch</code> block prints a clear, specific message describing what went
+        wrong.</li>
+      </ol>
+      <p>Console output (<code>System.out</code>) is acceptable throughout.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">M.12 &middot; MOCK B &middot; SECTION B &middot; QUESTION FOUR &middot; 25 MARKS</div>
+  <h2 class="title">Section B, Question Four</h2>
+  <hr class="rule"/>
+
+  <p>A utility company wants a system representing different types of electricity
+  meters using inheritance and polymorphism.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 &middot; Part 1: superclass MeterAccount</span><span class="tag">9 MARKS</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>create a class named <code>MeterAccount</code> with <b>private</b> fields
+        to hold the meter number, the holder's name, and the units remaining. Provide a
+        constructor to initialise all three;</li>
+        <li>create a method that adds a given number of units to the balance;</li>
+        <li>create a method that deducts a given number of units from the balance if
+        there are sufficient units; otherwise the transaction should be rejected and a
+        message displayed;</li>
+        <li>create a method that displays the meter's current details: its meter
+        number, holder's name, and units remaining.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 &middot; Part 2: subclasses</span><span class="tag">10 MARKS</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li><code>PrepaidMeter extends MeterAccount</code>. Override the deduction
+        method so that a deduction is only allowed if the balance <b>after</b> it would
+        still be at least <b>5.0 units</b>. Otherwise, reject it and display a
+        message;</li>
+        <li><code>PostpaidMeter extends MeterAccount</code>. Override the deduction
+        method so that every <b>successful</b> deduction automatically adds a
+        <b>1.0 unit</b> rebate to the balance afterwards.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q4 &middot; Part 3: main method</span><span class="tag">6 MARKS</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>creates at least one <code>PrepaidMeter</code> and one
+        <code>PostpaidMeter</code>;</li>
+        <li>adds units to each;</li>
+        <li>performs at least one successful <b>and</b> one
+        unsuccessful/rebate-triggering deduction on each;</li>
+        <li>displays each meter's details before and after the transactions;</li>
+        <li>demonstrates polymorphism by storing each object in a
+        <code>MeterAccount</code> reference and calling the deduction method through
+        it, confirming that the correct overridden version runs.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- SECTION C ---------------- -->
+<section>
+  <div class="kick">M.13 &middot; MOCK B &middot; SECTION C &middot; QUESTION FIVE &middot; 25 MARKS</div>
+  <h2 class="title">Section C, Question Five</h2>
+  <hr class="rule"/>
+
+  <p class="lead"><b>SECTION C (25 marks).</b> Answer Question Five <b>or</b> Question
+  Six. Use comments to say what each block of code does.</p>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 A &middot; Courier pricing</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p>A courier needs a program (using <code>JOptionPane</code> only, for all input
+      and output) that prices parcels across up to three delivery zones and produces a
+      sales summary. Implement the following four methods.</p>
+      <ol class="qlist">
+        <li>create a method that takes in a zone number. Use a <code>switch</code>
+        statement to return a base rate for Zone 1, Zone 2 or Zone 3 (pick any three
+        distinct rates and state them clearly). If the zone number is not 1, 2 or 3,
+        throw an <code>IllegalArgumentException</code>;</li>
+        <li>create a method that takes in a tier and a parcel weight in kg. Use
+        <b>nested</b> <code>if-else</code> statements (not a <code>switch</code>, and
+        not independent/separate <code>if</code> checks) to return a surcharge
+        percentage:
+          <ul class="bul">
+            <li>Gold, over 20 kg, 5%</li>
+            <li>Gold, 20 kg or under, 0%</li>
+            <li>Silver, over 20 kg, 15%</li>
+            <li>Silver, 20 kg or under, 10%</li>
+            <li>Bronze (any weight), 25%</li>
+            <li>any tier string that is not "Gold" or "Silver" must be treated as
+            "Bronze"</li>
+          </ul>
+          <p>The nesting must reflect that the weight is only checked <b>within</b>
+          each tier branch, not as a separate top-level check.</p>
+        </li>
+        <li>create a method that takes in a base rate total and a surcharge percentage
+        and applies the surcharge to the base total. If the surcharged amount is above
+        <b>500.0</b>, the method should return 500.0 instead (a price ceiling);</li>
+        <li><code>main()</code>
+          <ul class="bul">
+            <li>ask the user for the number of parcels N (a positive integer);</li>
+            <li>loop exactly N times. In each iteration, ask for that parcel's number
+            of zones crossed (an integer from 1 to 3, inclusive), its tier, and its
+            weight in kg. For each zone from 1 up to that parcel's zone count, call the
+            method from part (i) and add the result to that parcel's running base total
+            (a running total that starts at 0 for each new parcel). Then call the
+            method from part (ii) to get the surcharge percentage, and the method from
+            part (iii) to get that parcel's final price;</li>
+            <li>accumulate: (a) total revenue across all parcels, and (b) a running
+            count of how many parcels were Gold, Silver and Bronze;</li>
+          </ul>
+        </li>
+        <li>after the loop, show <b>one</b> summary dialog with the total revenue and
+        the three tier counts.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q5 B &middot; Noise log</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p>A factory records its shop-floor noise level once every hour, for 20 hours.
+      Write a program, using <code>JOptionPane</code> only for input and output, that
+      checks the log for sustained breaches of a safe limit. A reading is a
+      <b>breach</b> if it is <b>above 85 decibels</b>.</p>
+      <ol class="qlist">
+        <li>using a loop, prompt the user 20 times (one dialog per hour) for that
+        hour's noise level. Each input must be validated: it must parse as a number
+        between <b>0 and 140 inclusive</b>. If invalid, re-prompt for the <b>same</b>
+        hour (using a nested loop/control statement) until a valid value is entered.
+        Store all 20 valid readings in a 1-D array;</li>
+        <li>scan the 20-hour array <b>once</b> to find every maximal run of consecutive
+        breach-hours. Using only loops and conditionals (no extra arrays), determine:
+          <ul class="bul">
+            <li>the <b>total number of qualifying streaks</b>, where a qualifying
+            streak is any consecutive run of <b>3 or more</b> breach-hours;</li>
+            <li>the <b>length in hours of the single longest</b> breach streak anywhere
+            in the log;</li>
+          </ul>
+        </li>
+        <li>using nested <code>if-else</code> logic, classify the shift as exactly one
+        of:
+          <ul class="bul">
+            <li>"CRITICAL": longest streak of 6 hours or more</li>
+            <li>"WARNING": longest streak of 3 to 5 hours inclusive</li>
+            <li>"SAFE": no streak of 3 or more consecutive breach-hours occurred</li>
+          </ul>
+        </li>
+        <li>show <b>one</b> dialog stating the total number of qualifying streaks, the
+        longest streak length, and the final classification.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">M.14 &middot; MOCK B &middot; SECTION C &middot; QUESTION SIX &middot; 25 MARKS</div>
+  <h2 class="title">Section C, Question Six</h2>
+  <hr class="rule"/>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 A &middot; Digit pattern</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+      <p>Design and implement a program, using <b>JOptionPane only</b> for input and
+      output, that classifies a single user-supplied positive integer N according to
+      its digit pattern.</p>
+      <p><b>Definition.</b> A number is <b>monotone</b> if its digits never decrease
+      from left to right. For example, 1237 and 1119 are monotone; 4821 is not. The
+      <b>digit product</b> is every digit multiplied together, so the digit product of
+      1237 is 42.</p>
+      <p><b>Constraints.</b> The entire task must be implemented inside
+      <code>main()</code> only, using loops and nested/chained if-else and/or switch
+      logic. <b>No arrays and no user-defined helper methods are permitted</b>;
+      everything must be inline.</p>
+      <ol class="qlist">
+        <li>using a loop built only on the <code>%</code> and <code>/</code> operators
+        (no converting N to a String or an array), compute, <b>in the same loop</b>:
+          <ul class="bul">
+            <li>the <b>digit product</b> of N, and</li>
+            <li>the <b>largest digit</b> of N;</li>
+          </ul>
+        </li>
+        <li>determine, in that same loop, whether N is <b>monotone</b>;</li>
+        <li>inline in <code>main()</code> (not a separate method), determine whether
+        the <b>digit product</b> from step 1 is itself a <b>prime</b> number. Use a
+        loop that tests divisibility only up to the <b>square root</b> of the digit
+        product;</li>
+        <li>using nested/chained conditional logic, classify N into <b>exactly one</b>
+        of the following, checked strictly in this priority order:
+          <ul class="bul">
+            <li>"MONOTONE-PRIME-PRODUCT": N is monotone AND its digit product is
+            prime</li>
+            <li>"MONOTONE": N is monotone but its digit product is <b>not</b>
+            prime</li>
+            <li>"ZERO-PRODUCT": N is <b>not</b> monotone but contains a digit 0</li>
+            <li>"STANDARD": in every other case</li>
+          </ul>
+        </li>
+        <li>display N, its digit product, its largest digit, and its final
+        classification in a <b>single</b> <code>JOptionPane</code> message dialog.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box qgroup">
+    <div class="bar"><span>Q6 B &middot; Library fines</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+      <p>A library needs a program, using <b>JOptionPane only</b> for input and output,
+      to process a batch of overdue books returned on the same day and calculate the
+      total fines owed. The program must use clear separation of concerns: each task
+      below must be its own method. <b>No collection classes</b> (for example
+      <code>ArrayList</code>) are allowed anywhere.</p>
+      <ol class="qlist">
+        <li>prompt for the number of overdue books, V. Then, using a loop, fill two
+        <b>parallel arrays</b> of length V:
+          <ul class="bul">
+            <li>the number of days each book is late (an integer per book). A value of
+            0 or below is invalid; use a <b>nested control statement</b> to keep
+            re-prompting until a valid value is entered;</li>
+            <li>the member type for each book (a String per book, either "Student" or
+            "Public");</li>
+          </ul>
+        </li>
+        <li>create a method that takes in one book's days late and member type, and
+        computes that book's fine using <b>nested if-else</b> logic (the rules below
+        must be nested together, not checked as separate independent conditions):
+          <ul class="bul">
+            <li><b>Student</b>: the first 3 days are free; each additional day costs
+            20.00; capped at a maximum of 200.00;</li>
+            <li><b>Public</b>: no free period; the first 5 days cost a flat 150.00;
+            each day beyond 5 costs 40.00; capped at a maximum of 500.00;</li>
+            <li>any member type that is not exactly "Student" must be treated as
+            "Public";</li>
+          </ul>
+        </li>
+        <li>create a method that takes in the array of days late, loops over it and
+        tallies the books into three bands: <b>SHORT</b> (1 to 3 days),
+        <b>MEDIUM</b> (4 to 10 days), <b>EXTENDED</b> (more than 10 days). Return these
+        three counts without using any collection class;</li>
+        <li>in <code>main()</code>:
+          <ul class="bul">
+            <li>call the method from part (ii) for every book across both parallel
+            arrays to accumulate the batch's total fines;</li>
+            <li>call the method from part (iii) once;</li>
+            <li>display <b>one final</b> <code>JOptionPane</code> showing the total
+            fines and the three band counts.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH &middot; Before you turn to the answers</span></div>
+    <div class="body">
+      <p>Mark this one against the clock as well as the scheme. Section A should have
+      taken you about 35 minutes. If it took an hour, the problem is not Section A: it
+      is that Sections B and C now have 2 hours between them and they need every
+      minute.</p>
+      <p>Then compare your two papers. If Mock A scored better, it is not because the
+      old format was easier. It is because you chose four questions and this one chose
+      for you.</p>
+    </div>
+  </div>
+</section>

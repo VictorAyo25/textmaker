@@ -43,8 +43,8 @@ ORDER = [
     'part_m10', 'module10',
     'part_solutions', 'sol_2526_a', 'sol_2526_b', 'sol_2526_c',
     'sol_2425_a', 'sol_2425_b', 'sol_2425_c',
-    'part_mocks', 'mock_a',
-    'part_mock_solutions', 'mock_a_sol',
+    'part_mocks', 'mock_a', 'mock_b',
+    'part_mock_solutions', 'mock_a_sol', 'mock_b_sol',
 ]
 
 TITLE = 'COS221 · Computer Programming I (Java) · Study Manual'

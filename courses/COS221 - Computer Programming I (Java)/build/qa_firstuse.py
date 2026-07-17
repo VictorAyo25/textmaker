@@ -54,8 +54,17 @@ KEYWORDS = {
 # Not APIs the reader is owed a card for: they are this book's own example names,
 # invented on the page and explained where they are invented. `new Student` is not
 # an API the reader must look up; it is a class the listing declares four lines up.
+# A method declaration is: optional modifiers, a return type, a name, a parameter
+# list, then a brace. Matching on the modifiers alone was not enough: a
+# package-private declaration has none, so `int getArea() { return length * width; }`
+# in Unit 5.5 was not recognised as ours, and the audit demanded the book explain
+# getArea() as though it were somebody's library. Anchor on the SHAPE instead, which
+# is what actually makes it a declaration, and require the trailing `{` so that calls
+# and control-flow headers cannot pose as one.
 OWN_METHOD_RE = re.compile(
-    r'\b(?:public|private|protected|static|final)[\w\s\[\]<>,]*?\b([a-z]\w*)\s*\(')
+    r'^[ \t]*(?:(?:public|private|protected|static|final|abstract|synchronized)[ \t]+)*'
+    r'[\w.<>\[\], ]+?[ \t]+([a-z]\w*)[ \t]*\([^;{]*\)[ \t]*(?:throws[\w\s,.]+?)?\{',
+    re.M)
 OWN_CLASS_RE = re.compile(r'\b(?:class|interface|enum)\s+([A-Z]\w*)')
 
 
@@ -114,8 +123,25 @@ def apis_in(code):
     # System.out.println is spelled through a field; catch it explicitly
     for meth in re.findall(r'\bSystem\.out\.(\w+)\s*\(', code):
         found.add(f'System.out.{meth}()')
-    # .method(...) on anything else
-    for meth in re.findall(r'(?<!\w)\.(\w+)\s*\(', code):
+    # .method(...) on anything else: in.readLine(), out.printf(), sb.append().
+    #
+    # This pattern used to carry a (?<!\w) lookbehind, and that single guard silently
+    # switched off most of this audit. A dot in `out.printf(` IS preceded by a word
+    # character, so the lookbehind rejected it, and the rule only ever fired after a
+    # closing bracket, as in `sb.toString().replace(`. Every instance method called on
+    # a variable was therefore invisible: readLine, printf, newLine, append, equals,
+    # charAt, close. Those are not obscure corners, they are most of the library
+    # surface this course actually uses, and the audit reported a clean pass over them
+    # without ever looking.
+    #
+    # The lookbehind was defending against an artifact that no longer exists: unhtml()
+    # once replaced tags with spaces, turning `<span class="t">Double</span>.parseDouble(`
+    # into "Double .parseDouble(", which invented a bare .parseDouble() belonging to no
+    # type. unhtml() now breaks only at line and block boundaries, so the artifact is
+    # gone and the guard was only costing coverage. Type.method() is still captured
+    # separately above; a method appearing under both spellings is harmless, because
+    # named_in() accepts any spelling a human would write.
+    for meth in re.findall(r'\.(\w+)\s*\(', code):
         found.add(f'.{meth}()')
     # a bare constant like Math.PI, no brackets
     for typ, fld in re.findall(r'\b([A-Z]\w*)\.([A-Z_]{2,})\b', code):
@@ -143,7 +169,12 @@ def own_names(html):
         body = unhtml(m.group('body'))
         methods |= set(OWN_METHOD_RE.findall(body))
         classes |= set(OWN_CLASS_RE.findall(body))
-    return methods, classes
+    # A line reading `else if (b) {` has the exact shape of a declaration: a word, a
+    # name, a bracketed list, a brace. So the pattern above captures `if` as one of
+    # this book's methods. It is harmless today, because nothing is ever recorded as
+    # `.if()`, but a set of "our methods" containing `if` is wrong, and a filter that
+    # is wrong in a harmless way is one refactor away from being wrong in a useful one.
+    return methods - KEYWORDS, classes
 
 
 def scan(html):
