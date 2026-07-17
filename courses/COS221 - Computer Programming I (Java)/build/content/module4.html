@@ -1,0 +1,684 @@
+<!-- ============ MODULE FOUR ============ -->
+
+<!-- ---------------- 4.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.1 · WHAT CONTROL STRUCTURES ARE</div>
+  <h2 class="title">Three ways to stop running in a straight line</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to define control
+  structures and explain their purpose, identify and describe their types, and use
+  conditional statements (if, if-else, if-else-if, switch and the ternary operator)
+  to manage program flow.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Control structures</span></div>
+    <div class="body">
+      <p><b>Control structures are special instructions that manage the flow of
+      execution in a program.</b> They let it make decisions, repeat actions, or
+      choose between paths based on conditions.</p>
+      <p>By default, code executes <b>linearly, from top to bottom</b>. Every program
+      you have written so far did exactly that. A control structure is how you break
+      that line.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three categories</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>1. Selection</b> (decision making): executes different code based on
+        conditions. <code>if</code>, <code>if-else</code>, <code>switch</code>.</p>
+        <p><b>2. Iteration</b> (loops): repeats a block of code. <code>for</code>,
+        <code>while</code>, <code>do-while</code>.</p>
+        <p><b>3. Jump</b> (branching): transfers control elsewhere.
+        <code>break</code>, <code>continue</code>, <code>return</code>.</p>
+      </div>
+      <p>"What are control structures in Java, and why are they important?" is a
+      stated in-text question. Answer with the definition, then the three categories,
+      then why: they let a program make decisions, repeat actions, and control which
+      parts run.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>choose, repeat, escape.</b> Selection
+      chooses, iteration repeats, jumping escapes. Everything a program does with its
+      own flow is one of those three.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.2 · IF, IF-ELSE, AND THE LADDER</div>
+  <h2 class="title">Choosing</h2>
+  <hr class="rule"/>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The three shapes</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeletons; each is run for real in the listings that follow"><span class="l">if (condition) {                 &lt;- runs only when condition is true</span><span class="l">    // code</span><span class="l">}</span><span class="l"></span><span class="l">if (condition) {                 &lt;- one block or the other, never both</span><span class="l">    // runs if true</span><span class="l">} else {</span><span class="l">    // runs if false</span><span class="l">}</span><span class="l"></span><span class="l">if (condition1) {                &lt;- the else-if ladder: FIRST match wins</span><span class="l">    // runs if condition1</span><span class="l">} else if (condition2) {         &lt;- only tested if condition1 was false</span><span class="l">    // runs if condition2</span><span class="l">} else {</span><span class="l">    // runs if nothing above matched</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The condition is a boolean, and only a boolean</span></div>
+    <div class="body">
+      <p>Whatever is inside the brackets must evaluate to <code>true</code> or
+      <code>false</code>. That is why Unit 3.7's relational operators exist: they
+      turn numbers into the booleans that <code>if</code> eats.</p>
+      <p>If you have come from C or Python, note that Java will <b>not</b> accept a
+      number here. <code>if (5)</code> does not compile. This is a mercy: it makes
+      the classic <code>if (x = 5)</code> typo, assignment instead of comparison, a
+      compile error rather than a silent bug.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The else-if ladder</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="IfElseStatementTwo"><span class="l"><span class="k">public class</span> <span class="t">IfElseStatementTwo</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> score = 75;</span><span class="l"></span><span class="l">        <span class="k">if</span> (score &gt;= 90) {</span><span class="l">            System.out.println(<span class="s">"Your grade is A"</span>);</span><span class="l">        } <span class="k">else if</span> (score &gt;= 80) {</span><span class="l">            System.out.println(<span class="s">"Your grade is B"</span>);</span><span class="l">        } <span class="k">else if</span> (score &gt;= 70) {</span><span class="l">            System.out.println(<span class="s">"Your grade is C"</span>);</span><span class="l">        } <span class="k">else if</span> (score &gt;= 60) {</span><span class="l">            System.out.println(<span class="s">"Your grade is D"</span>);</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.println(<span class="s">"Your grade is F"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Your grade is C</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · A ladder stops at the first true</span></div>
+    <div class="body">
+      <div class="card">
+        <p>In an <code>else if</code> ladder, <b>the first condition that is true
+        wins, and nothing below it is even tested</b>. Exactly one branch runs.</p>
+      </div>
+      <p>This is why the ladder above needs no upper bounds. <code>score &gt;= 70</code>
+      would be true for 95 as well, but 95 never reaches that rung: it matched
+      <code>&gt;= 90</code> three lines earlier and the ladder stopped.</p>
+      <p>It follows that <b>order is everything</b>. Write the same ladder with
+      <code>score &gt;= 60</code> first and every score above 60 gets a D.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> a ladder is climbed from the top and you get
+      off at the first rung that holds you. <b>Put the hardest condition first.</b></p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · A ladder is not the same as separate ifs</span></div>
+    <div class="body">
+      <p>Replace every <code>else if</code> above with a plain <code>if</code> and the
+      program still compiles, still runs, and prints <b>two</b> grades for a score of
+      75: C and D. Each <code>if</code> is now an independent question, so all of them
+      get asked, and 75 answers yes to two of them.</p>
+      <p>This is not a small stylistic point. Your 2025/26 paper's Section C
+      explicitly demands <b>nested</b> if-else "not independent/separate if checks",
+      and says so twice, in two different questions. Unit 4.4 is about exactly
+      this.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The same ladder, broken into separate ifs</span></div>
+    <div class="body">
+      <pre class="src" data-run="SeparateIfs"><span class="l"><span class="k">public class</span> <span class="t">SeparateIfs</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> score = 75;</span><span class="l"></span><span class="l">        <span class="c">// every 'else' removed. Each if is now its own question.</span></span><span class="l bad">        <span class="k">if</span> (score &gt;= 90) { System.out.println(<span class="s">"A"</span>); }</span><span class="l bad">        <span class="k">if</span> (score &gt;= 80) { System.out.println(<span class="s">"B"</span>); }</span><span class="l bad">        <span class="k">if</span> (score &gt;= 70) { System.out.println(<span class="s">"C"</span>); }</span><span class="l bad">        <span class="k">if</span> (score &gt;= 60) { System.out.println(<span class="s">"D"</span>); }</span><span class="l bad">        <span class="k">else</span>            { System.out.println(<span class="s">"F"</span>); }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>C
+D</pre>
+      <p class="small" style="padding:6pt 8pt 0">Two grades for one student, and the
+      <code>else</code> now belongs only to the last <code>if</code>, so F is
+      correctly skipped but for the wrong reason. Nothing crashed. Nothing warned.
+      A logic error, in the sense of F.7, and it is exactly what the exam is guarding
+      against when it insists on nesting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.3 · THE SWITCH STATEMENT</div>
+  <h2 class="title">Many cases, one expression, and the fall-through trap</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · switch</span></div>
+    <div class="body">
+      <p><b>The switch statement streamlines multiple if-else checks by evaluating an
+      expression once and executing the block that matches the corresponding case
+      value.</b></p>
+      <p>That is the difference from a ladder, and it is the answer to the stated
+      in-text question "how does switch differ from an if-else ladder?": a ladder
+      evaluates a <b>new condition at every rung</b>; a switch evaluates <b>one
+      expression once</b> and jumps straight to the matching case.</p>
+      <p>The price is that a switch can only compare for <b>equality</b> against
+      <b>constant</b> values. You cannot write <code>case score &gt;= 90:</code>.
+      Ranges need a ladder; exact values suit a switch.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · switch</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeleton; run for real in the listings below"><span class="l">switch (expression) {            &lt;- evaluated ONCE</span><span class="l">    case value1:</span><span class="l">        // code</span><span class="l">        break;                   &lt;- jumps out of the whole switch</span><span class="l">    case value2:</span><span class="l">        // code</span><span class="l">        break;</span><span class="l">    default:                     &lt;- when nothing matched</span><span class="l">        // code</span><span class="l">        break;</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · switch on an int</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Switch1"><span class="l"><span class="k">public class</span> <span class="t">Switch1</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> category = 1;</span><span class="l">        <span class="k">switch</span> (category) {</span><span class="l">            <span class="k">case</span> 1:</span><span class="l">                System.out.println(<span class="s">"Pre-teen"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> 2:</span><span class="l">                System.out.println(<span class="s">"Teenager"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> 3:</span><span class="l">                System.out.println(<span class="s">"Adult"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">default</span>:</span><span class="l">                System.out.println(<span class="s">"Senior Adult!"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Pre-teen</pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · switch on a String</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="SwitchStringExample"><span class="l"><span class="k">public class</span> <span class="t">SwitchStringExample</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span> level = <span class="s">"intermediate"</span>;</span><span class="l">        <span class="k">switch</span> (level) {</span><span class="l">            <span class="k">case</span> <span class="s">"beginner"</span>:</span><span class="l">                System.out.println(<span class="s">"Welcome, beginner!"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> <span class="s">"intermediate"</span>:</span><span class="l">                System.out.println(<span class="s">"You're doing well!"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> <span class="s">"advanced"</span>:</span><span class="l">                System.out.println(<span class="s">"You're almost an expert!"</span>);</span><span class="l">                <span class="k">break</span>;</span><span class="l">            <span class="k">default</span>:</span><span class="l">                System.out.println(<span class="s">"Unknown level."</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>You're doing well!</pre>
+      <p class="small" style="padding:6pt 8pt 0">A switch works on
+      <code>int</code> (and the smaller integer types), <code>char</code>,
+      <code>String</code> and enums. Note the last <code>break</code> is missing here
+      and it does not matter: <code>default</code> is last, so there is nothing to
+      fall into. Write it anyway, out of habit, because the day you add a case below
+      it the habit saves you.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Fall-through</span></div>
+    <div class="body">
+      <div class="card">
+        <p><code>break</code> terminates a case, jumping immediately to the end of
+        the switch block.</p>
+        <p><b>Without a break, the program continues executing the subsequent
+        case(s)</b>, a behaviour known as <b>fall-through</b>, until it meets a break
+        or reaches the end of the switch.</p>
+      </div>
+      <p>Read that carefully, because it is stranger than it looks. Fall-through does
+      not re-test the next case. Once a case matches, execution simply <b>keeps
+      going downward through the code</b>, ignoring the case labels entirely, until
+      something stops it.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <code>case</code> is a <b>door in</b>, not a
+      box. You enter at the matching door and keep walking. <code>break</code> is the
+      way out. No break, and you walk through every room after yours.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Fall-through, seen</span><span class="tag">RUN THIS ONE TWICE</span></div>
+    <div class="body">
+      <pre class="src" data-run="FallThrough"><span class="l"><span class="k">public class</span> <span class="t">FallThrough</span> {</span><span class="l">    <span class="k">static void</span> withBreaks(<span class="k">int</span> c) {</span><span class="l">        System.out.print(<span class="s">"  with breaks, c="</span> + c + <span class="s">" -&gt; "</span>);</span><span class="l">        <span class="k">switch</span> (c) {</span><span class="l">            <span class="k">case</span> 1: System.out.print(<span class="s">"one "</span>); <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> 2: System.out.print(<span class="s">"two "</span>); <span class="k">break</span>;</span><span class="l">            <span class="k">case</span> 3: System.out.print(<span class="s">"three "</span>); <span class="k">break</span>;</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l"></span><span class="l bad">    <span class="k">static void</span> noBreaks(<span class="k">int</span> c) {          <span class="c">// every break removed</span></span><span class="l">        System.out.print(<span class="s">"  no breaks,   c="</span> + c + <span class="s">" -&gt; "</span>);</span><span class="l">        <span class="k">switch</span> (c) {</span><span class="l">            <span class="k">case</span> 1: System.out.print(<span class="s">"one "</span>);</span><span class="l">            <span class="k">case</span> 2: System.out.print(<span class="s">"two "</span>);</span><span class="l">            <span class="k">case</span> 3: System.out.print(<span class="s">"three "</span>);</span><span class="l">        }</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        withBreaks(1); withBreaks(2); withBreaks(3);</span><span class="l">        noBreaks(1);   noBreaks(2);   noBreaks(3);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>  with breaks, c=1 -&gt; one
+  with breaks, c=2 -&gt; two
+  with breaks, c=3 -&gt; three
+  no breaks,   c=1 -&gt; one two three
+  no breaks,   c=2 -&gt; two three
+  no breaks,   c=3 -&gt; three </pre>
+      <p class="small" style="padding:6pt 8pt 0">Look at <code>c=1</code> without
+      breaks: it printed "one two three". It did not test case 2 and decide 1 equals
+      2. It entered at case 1 and <b>kept walking</b>. And <code>c=3</code> printed
+      only "three", because there was nothing below to fall into. The damage depends
+      entirely on how far down the door is.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Fall-through on purpose</span></div>
+    <div class="body">
+      <p>Fall-through is a trap, not a bug: it is deliberate, and occasionally it is
+      exactly what you want. Stacking cases with no code between them is the standard
+      way to say "any of these":</p>
+      <pre class="src nonum" data-nocheck="a fragment shown for shape; the full switch technique is exercised in the solved papers"><span class="l">switch (day) {</span><span class="l">    case 6:</span><span class="l">    case 7:                          &lt;- 6 falls straight into 7</span><span class="l">        System.out.println("Weekend");</span><span class="l">        break;</span><span class="l">    default:</span><span class="l">        System.out.println("Weekday");</span><span class="l">}</span></pre>
+      <p>Case 6 has no body, so it falls into case 7, and both print "Weekend". This
+      is idiomatic and every Java programmer reads it instantly.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>RECALL AND CHECK</span></div>
+    <div class="body">
+      <p class="q">What is the purpose of the switch statement, and how does it
+      differ from an if-else ladder? Give one thing a ladder can do that a switch
+      cannot.</p>
+      <hr class="cut"/>
+      <p class="alabel">Answer</p>
+      <p>A switch streamlines multiple if-else checks by evaluating one expression
+      once and executing the block matching that value. A ladder evaluates a separate
+      condition at each rung; a switch evaluates a single expression and jumps to the
+      matching case. A ladder can test <b>ranges</b> and any boolean condition
+      (<code>score &gt;= 90</code>, <code>a &amp;&amp; b</code>); a switch can only
+      compare the expression for equality against constant values.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.4 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.4 · NESTED IF · THE ONE THE EXAM DEMANDS</div>
+  <h2 class="title">Conditions inside conditions</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Nested if</span></div>
+    <div class="body">
+      <p><b>Nested if statements occur when an if or else block contains another if or
+      else statement inside it.</b> This lets you test conditions
+      <b>hierarchically</b>: check complex conditions that depend on multiple
+      criteria, and act differently on each combination.</p>
+      <p>The word that matters is <b>hierarchically</b>. The inner question is only
+      asked when the outer one has already been answered, which means the inner
+      question can assume the outer is true.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Positive, then even or odd</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="NestedIf"><span class="l"><span class="k">public class</span> <span class="t">NestedIf</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span> number = 10;</span><span class="l"></span><span class="l">        <span class="k">if</span> (number &gt; 0) {                     <span class="c">// outer: is it positive?</span></span><span class="l">            <span class="k">if</span> (number % 2 == 0) {            <span class="c">// inner: only asked if positive</span></span><span class="l">                System.out.println(number + <span class="s">" is positive and even"</span>);</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                System.out.println(number + <span class="s">" is positive and odd"</span>);</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {</span><span class="l">            System.out.println(number + <span class="s">" is not positive"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>10 is positive and even</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Nested is not the same as combined</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>Nested:</b> the inner condition is asked <b>only inside</b> the outer
+        branch. Each branch can do something different, including doing nothing.</p>
+        <p><b>Combined with &amp;&amp;:</b> one flat question. You get one answer,
+        true or false, and you lose the ability to distinguish <i>which</i> part
+        failed.</p>
+      </div>
+      <p>Your 2025/26 paper insists on nesting in Section C, twice, and it explains
+      why in its own words: "the nesting must reflect that days attending is only
+      checked within each tier branch, not as a separate top-level check". Marks are
+      awarded for the <b>structure</b>, not just the answer.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> nesting is a <b>conversation</b>: "are you
+      Gold? Then how many days?" Combining is a <b>form</b>: "tick if Gold and three
+      days." The conversation can respond differently to each answer.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · The exam's own discount table, nested properly</span><span class="tag">PAST PAPER · 25/26 Q5 A ii</span></div>
+    <div class="body">
+      <p>The paper's rules: Gold with 3 days 25%; Gold with 1 to 2 days 15%; Silver
+      with 3 days 15%; Silver with 1 to 2 days 5%; Bronze any days 0%; and any tier
+      that is not "Gold" or "Silver" must be treated as Bronze. It demands
+      <b>nested</b> if-else, not a switch and not separate ifs.</p>
+      <ol class="steps">
+        <li>Branch on the thing the hierarchy is <i>about</i>: the tier. That is the
+        outer question.
+        <span class="note">The paper tells you this outright: days are checked within
+        each tier branch.</span></li>
+        <li>Inside each tier branch, ask about days.
+        <span class="note">Now "3 days" can mean 25% under Gold and 15% under Silver,
+        with no repetition of the tier test.</span></li>
+        <li>Make the final <code>else</code> the Bronze case.
+        <span class="note">This is how "anything that is not Gold or Silver is
+        Bronze" falls out for free, rather than being a fourth test.</span></li>
+      </ol>
+      <pre class="src" data-run="Discount"><span class="l"><span class="k">public class</span> <span class="t">Discount</span> {</span><span class="l">    <span class="k">static double</span> discountFor(<span class="t">String</span> tier, <span class="k">int</span> days) {</span><span class="l">        <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {              <span class="c">// outer: the tier</span></span><span class="l">            <span class="k">if</span> (days == 3) {                    <span class="c">// inner: only for Gold</span></span><span class="l">                <span class="k">return</span> 25.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">            <span class="k">if</span> (days == 3) {                    <span class="c">// inner: only for Silver</span></span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 5.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {                              <span class="c">// not Gold, not Silver</span></span><span class="l">            <span class="k">return</span> 0.0;                        <span class="c">// -> Bronze</span></span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span>[] tiers = {<span class="s">"Gold"</span>, <span class="s">"Gold"</span>, <span class="s">"Silver"</span>, <span class="s">"Silver"</span>, <span class="s">"Bronze"</span>, <span class="s">"platinum"</span>};</span><span class="l">        <span class="k">int</span>[] days     = {3, 2, 3, 1, 3, 3};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; tiers.length; i++) {</span><span class="l">            System.out.printf(<span class="s">"%-9s %d day(s) -&gt; %.0f%%%n"</span>,</span><span class="l">                              tiers[i], days[i], discountFor(tiers[i], days[i]));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Gold      3 day(s) -&gt; 25%
+Gold      2 day(s) -&gt; 15%
+Silver    3 day(s) -&gt; 15%
+Silver    1 day(s) -&gt; 5%
+Bronze    3 day(s) -&gt; 0%
+platinum  3 day(s) -&gt; 0%</pre>
+      <p class="small" style="padding:6pt 8pt 0">The last row is the one that earns
+      the mark: "platinum" is not Gold and not Silver, so it fell to the final
+      <code>else</code> and was treated as Bronze, exactly as the paper demands,
+      without a single line written to handle it. <b>That is what good nesting buys
+      you.</b> (<code>tier.equals(...)</code> rather than <code>==</code> is Module
+      7's rule, and it is not optional: it is the most famous bug in Java.)</p>
+      <p class="redo"><b>Now redo it:</b> cover the listing and write
+      <code>discountFor</code> from the rules alone. Then check: does your version
+      handle "platinum" without mentioning it?</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Leap year: nesting that has to be right</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="LeapYear"><span class="l"><span class="k">public class</span> <span class="t">LeapYear</span> {</span><span class="l">    <span class="k">static boolean</span> isLeap(<span class="k">int</span> year) {</span><span class="l">        <span class="k">if</span> (year % 4 == 0) {                <span class="c">// divisible by 4?</span></span><span class="l">            <span class="k">if</span> (year % 100 == 0) {          <span class="c">// ... and by 100?</span></span><span class="l">                <span class="k">return</span> year % 400 == 0;     <span class="c">// then it must also be /400</span></span><span class="l">            }</span><span class="l">            <span class="k">return</span> <span class="k">true</span>;                    <span class="c">// /4 but not /100: leap</span></span><span class="l">        }</span><span class="l">        <span class="k">return</span> <span class="k">false</span>;                       <span class="c">// not /4: never leap</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">int</span>[] years = {2024, 2023, 1900, 2000};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> y : years) {</span><span class="l">            System.out.println(y + <span class="s">" is "</span> + (isLeap(y) ? <span class="s">""</span> : <span class="s">"not "</span>) + <span class="s">"a leap year"</span>);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>2024 is a leap year
+2023 is not a leap year
+1900 is not a leap year
+2000 is a leap year</pre>
+      <p class="small" style="padding:6pt 8pt 0">Your course's slide checks only 2024.
+      The interesting years are 1900 and 2000: both divisible by 4 and by 100, and
+      only 2000 is also divisible by 400. Those two rows are what the nesting is
+      <i>for</i>, and a version that gets 2024 right can still get 1900 wrong.
+      <b>Always test the case the example avoids.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.5 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.5 · THE THREE LOOPS</div>
+  <h2 class="title">for, while, do-while</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain the purpose of
+  loops, compare and contrast for, while and do-while, and describe the branching
+  statements break, continue and return.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Loops</span></div>
+    <div class="body">
+      <p><b>Loops are used to execute a block of code repeatedly based on a
+      condition.</b> Java provides three, and they differ only in <i>when</i> they ask
+      the question.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Which loop, and when</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>for</b>: use when the <b>number of iterations is known</b>. Counting.</p>
+        <p><b>while</b>: use when the number of iterations is <b>not known in
+        advance</b> and depends on a condition. It may run <b>zero</b> times.</p>
+        <p><b>do-while</b>: like while, but the body <b>always runs at least
+        once</b>, because the condition is tested at the bottom.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>for counts, while waits, do-while
+      insists.</b> The only structural difference between while and do-while is
+      whether the question is asked at the top of the loop or the bottom, and that
+      decides whether zero is a possible number of runs.</p>
+    </div>
+  </div>
+
+  <div class="box syntax">
+    <div class="bar"><span>SYNTAX · The three, side by side</span></div>
+    <div class="body">
+      <pre class="src nonum" data-nocheck="syntax skeletons; all three are run for real below"><span class="l">for (initialization; condition; update) {     &lt;- all three parts, one line</span><span class="l">    // code</span><span class="l">}</span><span class="l"></span><span class="l">initialization;                              &lt;- outside</span><span class="l">while (condition) {                          &lt;- tested BEFORE each pass</span><span class="l">    // code</span><span class="l">    update;                                  &lt;- inside, and YOU must remember it</span><span class="l">}</span><span class="l"></span><span class="l">initialization;</span><span class="l">do {</span><span class="l">    // code                                  &lt;- runs at least once, always</span><span class="l">    update;</span><span class="l">} while (condition);                         &lt;- tested AFTER each pass. Note the ;</span></pre>
+      <p class="small" style="padding:0 8pt">The semicolon after
+      <code>while (condition)</code> in do-while is compulsory, and it is the only
+      place in Java where a <code>while</code> is followed by one. Forgetting it is a
+      compile error; adding one after an ordinary <code>while</code> is a disaster,
+      and Unit 4.7 shows why.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The same job, all three ways</span></div>
+    <div class="body">
+      <pre class="src" data-run="ThreeLoops"><span class="l"><span class="k">public class</span> <span class="t">ThreeLoops</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.print(<span class="s">"for:      "</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt;= 5; i++) {</span><span class="l">            System.out.print(i + <span class="s">" "</span>);</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.print(<span class="s">"\nwhile:    "</span>);</span><span class="l">        <span class="k">int</span> j = 1;</span><span class="l">        <span class="k">while</span> (j &lt;= 5) {</span><span class="l">            System.out.print(j + <span class="s">" "</span>);</span><span class="l">            j++;</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.print(<span class="s">"\ndo-while: "</span>);</span><span class="l">        <span class="k">int</span> k = 1;</span><span class="l">        <span class="k">do</span> {</span><span class="l">            System.out.print(k + <span class="s">" "</span>);</span><span class="l">            k++;</span><span class="l">        } <span class="k">while</span> (k &lt;= 5);</span><span class="l">        System.out.println();</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>for:      1 2 3 4 5
+while:    1 2 3 4 5
+do-while: 1 2 3 4 5 </pre>
+      <p class="small" style="padding:6pt 8pt 0">Identical output, three times. For a
+      job where the count is known, all three work and <b>the for loop is the right
+      one</b>, because it puts the counter, the test and the step on a single line
+      where you can see all three at once. Note how the while and do-while versions
+      scatter those same three parts across four lines: that is the cost, and it is
+      also exactly what Unit 4.6 makes you undo and redo.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Where while and do-while part company</span><span class="tag">THE WHOLE DIFFERENCE</span></div>
+    <div class="body">
+      <pre class="src" data-run="ZeroTimes"><span class="l"><span class="k">public class</span> <span class="t">ZeroTimes</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="c">// a condition that is false from the very start</span></span><span class="l">        <span class="k">int</span> i = 10;</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"while, i = 10, condition i &lt; 5:"</span>);</span><span class="l">        <span class="k">while</span> (i &lt; 5) {</span><span class="l">            System.out.println(<span class="s">"  ran"</span>);</span><span class="l">            i++;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"  (body ran 0 times)"</span>);</span><span class="l"></span><span class="l">        <span class="k">int</span> k = 10;</span><span class="l">        System.out.println(<span class="s">"do-while, k = 10, same condition:"</span>);</span><span class="l good">        <span class="k">do</span> {</span><span class="l">            System.out.println(<span class="s">"  ran anyway, k = "</span> + k);</span><span class="l">            k++;</span><span class="l">        } <span class="k">while</span> (k &lt; 5);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>while, i = 10, condition i &lt; 5:
+  (body ran 0 times)
+do-while, k = 10, same condition:
+  ran anyway, k = 10</pre>
+      <p class="small" style="padding:6pt 8pt 0">Identical condition, identical
+      starting value, different result. The <code>while</code> asked first and never
+      entered; the <code>do-while</code> ran the body and asked afterwards. This is
+      the entire difference between them, and it is why do-while is the right choice
+      for "keep asking until the input is valid": you must ask <b>once</b> before you
+      can have anything to validate.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The for loop's three parts</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th style="width:22%">Part</th><th style="width:26%">In <code>for (int i = 0; i &lt; 5; i++)</code></th><th>When it happens</th></tr>
+        <tr><td><b>initialization</b></td><td><code>int i = 0</code></td><td>once, before anything else</td></tr>
+        <tr><td><b>condition</b></td><td><code>i &lt; 5</code></td><td>before every pass, including the first. False means stop.</td></tr>
+        <tr><td><b>update</b></td><td><code>i++</code></td><td>after every pass, before the condition is retested</td></tr>
+      </table>
+      <p>The order matters and people guess it wrong: <b>init, test, body, update,
+      test, body, update, ...</b> The update runs <i>after</i> the body, not before,
+      which is why <code>i</code> is 0 on the first pass and not 1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.6 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.6 · CONVERTING BETWEEN LOOPS · WORTH 10 MARKS</div>
+  <h2 class="title">Turning a for into a while, and back</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Why this unit exists</span></div>
+    <div class="body">
+      <p>Both papers ask for this, by name, for real marks. The 2025/26 Section A
+      says "Retain other things but change the For Loop to While loop and the While
+      loops to For loops", inside a ten-mark question. The 2024/25 paper asks you to
+      demonstrate all three loop types.</p>
+      <p>It is worth marks precisely because it is mechanical. Learn it as a recipe
+      and it is free marks; improvise it under pressure and you will drop the update
+      or the scope.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The conversion recipe</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>for -&gt; while</b>, in three moves:<br/>
+        1. <b>initialization</b> goes <b>above</b> the loop;<br/>
+        2. <b>condition</b> goes in the <code>while ( )</code>;<br/>
+        3. <b>update</b> goes at the <b>bottom of the body</b>.</p>
+        <p><b>while -&gt; for</b>: the same three moves, backwards. Find the variable
+        being counted, its test, and where it changes, and fold all three into the
+        <code>for</code> header.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> a <code>for</code> loop is a
+      <code>while</code> loop with its three parts <b>collected onto one line</b>.
+      Converting is unpacking or repacking, nothing more.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>WORKED EXAMPLE · for to while, step by step</span></div>
+    <div class="body">
+      <p>Take the innermost loop from the 2025/26 Armstrong question:</p>
+      <pre class="src nonum" data-nocheck="the before half of a transformation; the after half is the checked listing below"><span class="l">for (int p = 0; p &lt; digits; p++) power *= d;</span></pre>
+      <ol class="steps">
+        <li>Lift the <b>initialization</b> out, above the loop:
+        <code>int p = 0;</code></li>
+        <li>Move the <b>condition</b> into the while: <code>while (p &lt; digits)</code></li>
+        <li>Push the <b>update</b> to the bottom of the body: <code>p++;</code>
+        <span class="note">This is the step people forget, and forgetting it does not
+        give a wrong answer. It gives an infinite loop.</span></li>
+        <li>Add braces, because the body now has two statements where it had one.
+        <span class="note">The original needed none: a one-statement body needs no
+        braces. Two statements without braces is a bug.</span></li>
+      </ol>
+      <p>Which gives, with everything else retained:</p>
+      <pre class="src nonum" data-nocheck="the after half; run as part of the full Armstrong conversion in the solved papers section"><span class="l">int p = 0;</span><span class="l">while (p &lt; digits) {</span><span class="l">    power *= d;</span><span class="l">    p++;</span><span class="l">}</span></pre>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Both versions, proved identical</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="Convert"><span class="l"><span class="k">public class</span> <span class="t">Convert</span> {</span><span class="l">    <span class="k">static int</span> withFor(<span class="k">int</span> d, <span class="k">int</span> digits) {</span><span class="l">        <span class="k">int</span> power = 1;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> p = 0; p &lt; digits; p++) power *= d;</span><span class="l">        <span class="k">return</span> power;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> withWhile(<span class="k">int</span> d, <span class="k">int</span> digits) {</span><span class="l">        <span class="k">int</span> power = 1;</span><span class="l">        <span class="k">int</span> p = 0;                    <span class="c">// 1. init lifted out</span></span><span class="l">        <span class="k">while</span> (p &lt; digits) {          <span class="c">// 2. condition</span></span><span class="l">            power *= d;</span><span class="l">            p++;                      <span class="c">// 3. update at the bottom</span></span><span class="l">        }</span><span class="l">        <span class="k">return</span> power;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">boolean</span> allMatch = <span class="k">true</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> d = 0; d &lt;= 9; d++) {</span><span class="l">            <span class="k">for</span> (<span class="k">int</span> n = 0; n &lt;= 4; n++) {</span><span class="l">                <span class="k">if</span> (withFor(d, n) != withWhile(d, n)) allMatch = <span class="k">false</span>;</span><span class="l">            }</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"3^0 = "</span> + withFor(3, 0) + <span class="s">" / "</span> + withWhile(3, 0));</span><span class="l">        System.out.println(<span class="s">"3^3 = "</span> + withFor(3, 3) + <span class="s">" / "</span> + withWhile(3, 3));</span><span class="l">        System.out.println(<span class="s">"identical for every d 0-9, digits 0-4: "</span> + allMatch);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>3^0 = 1 / 1
+3^3 = 27 / 27
+identical for every d 0-9, digits 0-4: true</pre>
+      <p class="small" style="padding:6pt 8pt 0">Note the last line: rather than
+      eyeballing two versions and trusting them, the program checked all fifty
+      combinations and reported. <b>That is how you verify a conversion in an
+      exam too</b>, on paper, with one or two values: convert, then trace both and
+      compare.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The two ways a conversion goes wrong</span></div>
+    <div class="body">
+      <p><b>1. The dropped update.</b> Leave out <code>p++</code> and the condition
+      never changes, so the loop runs forever. In an exam this costs you the marks;
+      on a machine it hangs.</p>
+      <p><b>2. The scope change.</b> <code>for (int p = 0; ...)</code> declares
+      <code>p</code> <i>inside</i> the loop, so it ceases to exist afterwards. Lift
+      it out and <code>p</code> now survives the loop. Usually harmless, occasionally
+      a compile error ("variable p is already defined") if you convert two loops in
+      the same method and both lift out an <code>i</code>.</p>
+      <p>Both are avoided by following the recipe rather than rewriting from
+      scratch.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Converting</span></div>
+    <div class="body">
+      <p>Convert this to a while loop, in pen, before reading on.</p>
+      <pre class="src nonum" data-nocheck="an exercise for the reader; the answer is given immediately below"><span class="l">int sum = 0;</span><span class="l">for (int i = 1; i &lt;= 10; i++) {</span><span class="l">    sum += i;</span><span class="l">}</span></pre>
+      <ol class="qlist">
+        <li>The initialization <span class="blank"></span> goes
+        <span class="blank"></span> the loop.</li>
+        <li>The condition <span class="blank"></span> goes inside
+        <code>while ( )</code>.</li>
+        <li>The update <span class="blank"></span> goes at the
+        <span class="blank"></span> of the body.</li>
+        <li>Forgetting step 3 produces <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. <code>int i = 1;</code>, above &nbsp;·&nbsp;
+      2. <code>i &lt;= 10</code> &nbsp;·&nbsp; 3. <code>i++;</code>, bottom
+      &nbsp;·&nbsp; 4. an infinite loop</p>
+      <p class="small">The whole thing: <code>int sum = 0; int i = 1; while (i &lt;= 10)
+      { sum += i; i++; }</code>, and the sum is 55.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 4.7 ---------------- -->
+<section>
+  <div class="kick">UNIT 4.7 · BRANCHING · BREAK, CONTINUE, RETURN</div>
+  <h2 class="title">Escaping</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The three branching statements</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>break</b>: exit the loop (or switch) <b>immediately</b>, even if its
+        condition is still true.</p>
+        <p><b>continue</b>: skip <b>the rest of this pass</b> and jump straight to the
+        next iteration. The loop carries on.</p>
+        <p><b>return</b>: exit the whole <b>method</b> immediately, optionally handing
+        back a value.</p>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>break leaves the building, continue
+      skips to the next floor, return quits the job.</b> Notice the scale: break and
+      continue act on the loop, return acts on the method containing it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · break and continue, side by side</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="BreakContinue"><span class="l"><span class="k">public class</span> <span class="t">BreakContinue</span> {</span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"break at i == 5:"</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt;= 8; i++) {</span><span class="l">            <span class="k">if</span> (i == 5) <span class="k">break</span>;        <span class="c">// leave the loop entirely</span></span><span class="l">            System.out.println(<span class="s">"  i = "</span> + i);</span><span class="l">        }</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"continue at i == 3:"</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 1; i &lt;= 4; i++) {</span><span class="l">            <span class="k">if</span> (i == 3) <span class="k">continue</span>;     <span class="c">// skip just this pass</span></span><span class="l">            System.out.println(<span class="s">"  i = "</span> + i);</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>break at i == 5:
+  i = 1
+  i = 2
+  i = 3
+  i = 4
+continue at i == 3:
+  i = 1
+  i = 2
+  i = 4</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the two outputs against each
+      other. <code>break</code> stopped at 4 and 5 through 8 never happened.
+      <code>continue</code> missed out 3 and <b>carried on to 4</b>. That is the
+      whole distinction, and both papers plant a bug that turns on it.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · continue in a for loop still runs the update</span></div>
+    <div class="body">
+      <p><code>continue</code> jumps to the <b>next iteration</b>, which in a
+      <code>for</code> loop means the update <code>i++</code> still happens. Fine.</p>
+      <p>In a <code>while</code> loop it means the update is <b>skipped</b>, because
+      the update is a statement in the body and you just jumped over the rest of the
+      body. So this runs forever:</p>
+      <pre class="src nonum" data-nocheck="an infinite loop shown deliberately; it cannot be run, which is the point"><span class="l">int i = 0;</span><span class="l">while (i &lt; 5) {</span><span class="l">    if (i == 3) continue;    &lt;- jumps back to the test with i STILL 3</span><span class="l">    System.out.println(i);</span><span class="l">    i++;                     &lt;- never reached when i is 3</span><span class="l">}</span></pre>
+      <p>This is the one listing in this book that is not executed for the obvious
+      reason. It matters because Unit 4.6 tells you to convert for loops into while
+      loops, and a <code>continue</code> inside one is exactly where a careless
+      conversion turns a working program into a hang.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The continue that inverts your logic</span><span class="tag">BOTH PAPERS</span></div>
+    <div class="body">
+      <p>Look at this, from the 2025/26 Section A:</p>
+      <pre class="src nonum" data-nocheck="an extract from the paper's planted-bug snippet; solved in full in the solved papers section"><span class="l">if (arr[j] % 4 == 0) {</span><span class="l">    continue;                &lt;- skips the multiples of 4</span><span class="l">}</span><span class="l">sum += arr[j] - j;           &lt;- so this only ever sees NON-multiples</span></pre>
+      <p>The question says the program should "find the first number that's a
+      multiple of 4" and add it. The code <code>continue</code>s <b>when</b> it finds
+      a multiple of 4, so it skips precisely the numbers it was supposed to collect
+      and processes precisely the ones it should have ignored. The logic is exactly
+      inverted.</p>
+      <p>The other paper plants the mirror image: <code>if (prices[i] &gt; 20)
+      continue;</code> where the spec says skip anything <b>under</b> 20.</p>
+      <p><b>The lesson:</b> <code>continue</code> means "skip this one". So the
+      condition in front of it must describe the items you want to <b>throw
+      away</b>, not the ones you want. Read every <code>continue</code> as the word
+      "unless" and the bug becomes visible.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · return: leaving early</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="ReturnDemo"><span class="l"><span class="k">public class</span> <span class="t">ReturnDemo</span> {</span><span class="l">    <span class="k">static void</span> greet(<span class="t">String</span> name) {</span><span class="l">        <span class="k">if</span> (name == <span class="k">null</span> || name.isEmpty()) {</span><span class="l">            System.out.println(<span class="s">"Invalid name."</span>);</span><span class="l">            <span class="k">return</span>;                  <span class="c">// leave greet() right now</span></span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"Hello, "</span> + name + <span class="s">"!"</span>);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> square(<span class="k">int</span> n) {</span><span class="l">        <span class="k">return</span> n * n;                <span class="c">// return WITH a value</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        greet(<span class="s">"Jumoke"</span>);</span><span class="l">        greet(<span class="s">""</span>);</span><span class="l">        System.out.println(<span class="s">"square(5) = "</span> + square(5));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Hello, Jumoke!
+Invalid name.
+square(5) = 25</pre>
+      <p class="small" style="padding:6pt 8pt 0">Two shapes of return.
+      <code>greet</code> is <code>void</code>, so its <code>return;</code> carries
+      nothing and exists purely to leave early. <code>square</code> is
+      <code>int</code>, so its <code>return</code> must carry a value. Module 5 is
+      entirely about this.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Control structures</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>The three categories of control structure are
+        <span class="blank"></span>, <span class="blank"></span> and
+        <span class="blank"></span>.</li>
+        <li>In an else-if ladder, <span class="blank"></span> condition that is true
+        wins, and the rest are <span class="blank"></span>.</li>
+        <li>Without <code>break</code>, a switch keeps executing subsequent cases.
+        This is called <span class="blank"></span>.</li>
+        <li>A <code>while</code> loop may run <span class="blank"></span> times; a
+        <code>do-while</code> always runs at least <span class="blank"></span>
+        time(s), because <span class="blank"></span>.</li>
+        <li>Converting for to while: init goes <span class="blank"></span>, condition
+        goes <span class="blank"></span>, update goes <span class="blank"></span>.
+        Forgetting the update gives <span class="blank"></span>.</li>
+        <li><code>break</code> exits the <span class="blank"></span>;
+        <code>continue</code> skips <span class="blank"></span>;
+        <code>return</code> exits the <span class="blank"></span>.</li>
+        <li>A <code>continue</code> guarded by <code>if (x)</code> processes the
+        items where x is <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. selection/decision, iteration/loops, jump/branching
+      &nbsp;·&nbsp; 2. the first, never tested &nbsp;·&nbsp; 3. fall-through
+      &nbsp;·&nbsp; 4. zero, one, the condition is tested after the body
+      &nbsp;·&nbsp; 5. above the loop, in the <code>while ( )</code>, at the bottom
+      of the body, an infinite loop &nbsp;·&nbsp; 6. loop (or switch), the rest of
+      this pass, method &nbsp;·&nbsp; 7. false</p>
+    </div>
+  </div>
+</section>
