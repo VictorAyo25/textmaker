@@ -6,6 +6,13 @@
    Reserved colour: Python yellow #ffd43b means MUST MEMORISE and
    nothing else. It never appears as decoration.
    ============================================================ */
+/* SCALE NOTE: every pt length below is a 9.6pt-base design grown by 10.5/9.6
+   (about 1.094x) for readability, so the odd-looking sizes (18.1pt, 8.4pt ...)
+   are one uniform scale, not arbitrary values. Held fixed against the scale:
+   the code specimens keep their size AND padding so a 90-column line still
+   fits (pre.code/.repl/.out, table.trace, .answerbox), the cover is a fixed
+   full-bleed design, and @page is the sheet of paper. To rescale, do not hand
+   edit: re-run the base sheet through the scale so the ratios stay coherent. */
 
 @font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif.ttf'); font-weight:normal; font-style:normal; }
 @font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Bold.ttf'); font-weight:bold; font-style:normal; }
@@ -40,7 +47,7 @@ html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 body{
   font-family:'DejaVu Serif', serif;
   color:var(--ink);
-  font-size:9.6pt;
+  font-size:10.5pt;
   line-height:1.42;
   margin:0;
   hyphens:auto; -webkit-hyphens:auto;
@@ -56,26 +63,26 @@ sub,sup{ font-size:.72em; }
    enough room for a heading to squeeze in. */
 .part{ page-break-before:always; page-break-after:always; break-after:page;
   padding-top:32mm; min-height:248mm; }
-.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:11pt;
+.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:12pt;
   color:var(--teach); font-weight:bold; text-transform:uppercase; }
-.part h1{ font-family:'DejaVu Serif',serif; font-size:34pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
-.part .blurb{ font-style:italic; color:var(--muted); font-size:11pt; max-width:74%; line-height:1.5; }
+.part h1{ font-family:'DejaVu Serif',serif; font-size:37.2pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
+.part .blurb{ font-style:italic; color:var(--muted); font-size:12pt; max-width:74%; line-height:1.5; }
 .divider-motif{ margin-top:24mm; opacity:.95; }
 .divider-motif svg{ width:82%; height:auto; }
 
 /* ---------- section header ---------- */
 section{ page-break-inside:auto; }
 .kick{ font-family:'DejaVu Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em;
-  font-size:7.6pt; font-weight:bold; color:var(--muted); margin-top:2pt;
+  font-size:8.3pt; font-weight:bold; color:var(--muted); margin-top:2.2pt;
   page-break-after:avoid; break-after:avoid; }
-h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:16.5pt; color:var(--head);
+h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:18pt; color:var(--head);
   margin:.1em 0 .18em; line-height:1.12;
   page-break-after:avoid; break-after:avoid; page-break-inside:avoid; }
 .title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
   page-break-after:avoid; break-after:avoid; }
-.lead{ font-style:italic; color:var(--muted); font-size:9.6pt; margin:.2em 0 .7em; }
-.lo{ font-size:9pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
-h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:11.6pt;
+.lead{ font-style:italic; color:var(--muted); font-size:10.5pt; margin:.2em 0 .7em; }
+.lo{ font-size:9.8pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
+h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:12.7pt;
   color:var(--head); margin:1.05em 0 .5em; line-height:1.25; page-break-after:avoid; }
 h3.sub:first-child{ margin-top:0; }
 
@@ -83,12 +90,12 @@ h3.sub:first-child{ margin-top:0; }
 .box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
 .box > .bar{
   font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
-  letter-spacing:.14em; font-size:7.7pt; color:#fff; padding:5.5pt 9pt; line-height:1.2;
+  letter-spacing:.14em; font-size:8.4pt; color:#fff; padding:6pt 9.8pt; line-height:1.2;
   display:flex; justify-content:flex-start; align-items:center;
 }
-.box .bar .tag{ font-size:6.8pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
-  padding:2pt 6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
-.box .body{ padding:7pt 10pt 8pt; }
+.box .bar .tag{ font-size:7.4pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
+  padding:2.2pt 6.6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
+.box .body{ padding:7.7pt 10.9pt 8.8pt; }
 .box .body > :first-child{ margin-top:0; }
 .box .body > :last-child{ margin-bottom:0; }
 
@@ -113,7 +120,7 @@ h3.sub:first-child{ margin-top:0; }
    is taller than a page and would be futile to keep together. Measured, that was
    wrong: it cut 30 boxes that would have fit whole and only 1 that had to split.
    avoid is best effort, so the genuinely oversized box still splits by itself. */
-.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.14em;
+.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
 .ans .marks:first-child{ margin-top:0; }
 
@@ -147,69 +154,69 @@ pre .p{ color:#8a8f98; }                           /* prompt >>> */
 pre .hl{ background:var(--mem-bg2); }              /* highlighted span */
 pre .bad{ background:#fbe0e0; }                    /* the broken bit */
 code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em;
-  background:#f3f5f7; padding:.5pt 2.5pt; border-radius:2px; }
+  background:#f3f5f7; padding:0.5pt 2.7pt; border-radius:2px; }
 .box .body code{ background:rgba(255,255,255,.7); }
 
 /* label strip above a code block */
-.codelabel{ font-family:'DejaVu Sans',sans-serif; font-size:6.9pt; letter-spacing:.16em;
+.codelabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.5pt; letter-spacing:.16em;
   text-transform:uppercase; color:var(--faint); margin:.5em 0 -.2em; }
 
 /* a keystroke, never inline text that could be mistaken for code */
-.key{ font-family:'DejaVu Sans',sans-serif; font-size:7.2pt; font-weight:bold;
+.key{ font-family:'DejaVu Sans',sans-serif; font-size:7.9pt; font-weight:bold;
   border:1px solid #b9c0cc; border-bottom-width:2px; border-radius:3px;
-  padding:.5pt 3.5pt; background:#fff; color:var(--head); white-space:nowrap; }
+  padding:0.5pt 3.8pt; background:#fff; color:var(--head); white-space:nowrap; }
 
 /* ---------- DRY RUN: the trace table ---------- */
 table.trace{ border-collapse:collapse; width:100%; font-size:8.4pt;
   font-family:'DejaVu Sans Mono',monospace; margin:.35em 0; }
 table.trace th{ background:var(--dry); color:#fff; font-family:'DejaVu Sans',sans-serif;
   font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:6.9pt;
-  text-align:left; padding:3.5pt 6pt; }
-table.trace td{ padding:2.8pt 6pt; border-bottom:1px solid #e3e7ee; vertical-align:top; }
+  text-align:left; padding:3.8pt 6.6pt; }
+table.trace td{ padding:3.1pt 6.6pt; border-bottom:1px solid #e3e7ee; vertical-align:top; }
 table.trace tr:nth-child(even) td{ background:#fff; }
 table.trace td.out{ color:var(--code); font-weight:bold; }
 
 /* ---------- worked example ---------- */
 .steps{ list-style:none; counter-reset:step; padding:0; margin:.3em 0 0; }
-.steps > li{ position:relative; padding-left:22pt; margin:.5em 0; break-inside:avoid; }
+.steps > li{ position:relative; padding-left:24.1pt; margin:.5em 0; break-inside:avoid; }
 .steps > li::before{
   counter-increment:step; content:counter(step);
-  position:absolute; left:0; top:0; width:15pt; height:15pt; border-radius:50%;
+  position:absolute; left:0; top:0; width:16.4pt; height:16.4pt; border-radius:50%;
   background:var(--work); color:#fff; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
-  font-size:8.5pt; text-align:center; line-height:15pt;
+  font-size:9.3pt; text-align:center; line-height:16.4pt;
 }
-.steps .note{ display:block; font-size:8.4pt; color:var(--muted); font-style:italic; margin-top:.15em; }
+.steps .note{ display:block; font-size:9.2pt; color:var(--muted); font-style:italic; margin-top:.15em; }
 .answerbox{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; background:#fff;
-  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5pt 8pt; margin:.5em 0; }
-.redo{ font-size:8.8pt; margin-top:.55em; }
+  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5.5pt 8.8pt; margin:.5em 0; }
+.redo{ font-size:9.6pt; margin-top:.55em; }
 .redo b{ color:var(--work); }
 
 /* ---------- recall ---------- */
 .recall .q{ font-weight:bold; }
 .recall .cut{ border:0; border-top:1px dashed #b9c0cc; margin:.55em 0; }
-.recall .alabel, .fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; letter-spacing:.16em;
+.recall .alabel, .fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.16em;
   text-transform:uppercase; color:var(--faint); }
-.fill .blank{ display:inline-block; min-width:60pt; border-bottom:1.2px solid var(--fill); }
+.fill .blank{ display:inline-block; min-width:65.6pt; border-bottom:1.2px solid var(--fill); }
 .fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
 
 /* ---------- tables ---------- */
-table.data{ border-collapse:collapse; width:100%; font-size:8.9pt; margin:.4em 0; break-inside:avoid; }
+table.data{ border-collapse:collapse; width:100%; font-size:9.7pt; margin:.4em 0; break-inside:avoid; }
 table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;
-  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:7.4pt;
-  text-align:left; padding:4.5pt 7pt; }
-table.data td{ padding:4pt 7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:8.1pt;
+  text-align:left; padding:4.9pt 7.7pt; }
+table.data td{ padding:4.4pt 7.7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
 table.data tr:nth-child(even) td{ background:#f7f8fa; }
 table.data td code, table.data th code{ background:none; padding:0; }
 
 /* ---------- misc ---------- */
 .bul{ margin:.3em 0 .3em 0; padding-left:0; list-style:none; }
-.bul li{ position:relative; padding-left:16pt; margin:.22em 0; }
-.bul li::before{ content:"\25B8"; position:absolute; left:2pt; color:var(--work); }
-.small{ font-size:8.5pt; color:var(--muted); }
-.callout-dark{ background:var(--head); color:#fff; padding:9pt 12pt; margin:.6em 0; break-inside:avoid; }
+.bul li{ position:relative; padding-left:17.5pt; margin:.22em 0; }
+.bul li::before{ content:"\25B8"; position:absolute; left:2.2pt; color:var(--work); }
+.small{ font-size:9.3pt; color:var(--muted); }
+.callout-dark{ background:var(--head); color:#fff; padding:9.8pt 13.1pt; margin:.6em 0; break-inside:avoid; }
 figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
 figure svg{ max-width:100%; height:auto; }
-figcaption{ font-size:8.2pt; color:var(--muted); font-style:italic; margin-top:.35em; }
+figcaption{ font-size:9pt; color:var(--muted); font-style:italic; margin-top:.35em; }
 ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
 ol.qlist li{ margin:.18em 0; padding-left:.15em; }
 /* The Contents links to an id on each .kick / .part .kicker, injected at build
@@ -217,14 +224,14 @@ ol.qlist li{ margin:.18em 0; padding-left:.15em; }
 
 /* ---- Contents ---- */
 .contents-page{ page-break-before:always; }
-.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:26pt; color:var(--head); margin:0 0 .1em; }
-.toc-note{ font-size:8.5pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
+.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:28.4pt; color:var(--head); margin:0 0 .1em; }
+.toc-note{ font-size:9.3pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
 .toc-part{ display:flex; align-items:baseline; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
-  text-transform:uppercase; letter-spacing:.06em; font-size:8.4pt; color:var(--teach); margin:.85em 0 .2em; }
-.toc-l1{ display:flex; align-items:baseline; font-size:9.5pt; color:var(--head); margin:.2em 0; }
-.toc-l2{ display:flex; align-items:baseline; font-size:9.2pt; color:var(--ink); margin:.12em 0 .12em 14pt; }
+  text-transform:uppercase; letter-spacing:.06em; font-size:9.2pt; color:var(--teach); margin:.85em 0 .2em; }
+.toc-l1{ display:flex; align-items:baseline; font-size:10.4pt; color:var(--head); margin:.2em 0; }
+.toc-l2{ display:flex; align-items:baseline; font-size:10.1pt; color:var(--ink); margin:.12em 0 .12em 15.3pt; }
 .toc-label{ flex:0 1 auto; }
-.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5pt 3pt; min-width:12pt; }
+.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5.5pt 3.3pt; min-width:13.1pt; }
 .toc-pg{ flex:0 0 auto; font-variant-numeric:tabular-nums; color:var(--muted); }
 .toc-part .toc-pg{ color:var(--teach); }
 .toc-link{ text-decoration:none; color:inherit; }

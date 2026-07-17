@@ -42,7 +42,7 @@ SLACK = 2.0            # pt: glyph bboxes sit a hair proud of the text edge
 
 FOOTER_TEXT = 'CSC241'
 SPARSE = 0.30          # fraction of the content height below which a page is odd
-BODY_PT = 9.6          # the body size manual.css asks for
+BODY_PT = 10.5         # the body size manual.css asks for
 BODY_TOL = 0.02        # pt: allow rounding, nothing more
 BLOCK_GAP = 6          # pt: the margin between two boxes (.55em), which the next
                        # block also needs and which no rectangle shows

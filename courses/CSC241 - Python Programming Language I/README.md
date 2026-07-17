@@ -7,7 +7,7 @@ never the bare code (workspace name-and-title rule).
 ## Status
 
 **All five modules, both mocks, and the Contents page authored**, rendered to
-`build/CSC241_checkpoint.pdf` (134 pages: cover, Contents, and 132). Voice and palette
+`build/CSC241_checkpoint.pdf` (144 pages: cover, Contents, and 142). Voice and palette
 approved. Every page has been looked at, not just gated.
 
 Every one of the exam's six questions now has a home:
@@ -56,8 +56,20 @@ shrinking every page to 96.9% of design, and Mock Two's three 104-character SQL 
 it to 87.1%: a 9.6pt body reaching the reader at 8.36pt. Fixing four lines took the book
 from 106 pages to its true 127. Nothing else caught it, and nothing else could: after the
 shrink nothing overflows, so the layout QA saw a perfect book. There are now two gates for
-it, one before the render (`gates.py`, no code line over 90 columns) and one after
-(`qa_layout.py`, the body must come back at 9.6pt).
+it, one before the render (`gates.py`, no over-long code line) and one after
+(`qa_layout.py`, the body must come back at its designed size).
+
+**The body was later grown from 9.6pt to 10.5pt** for readability, once the shrink bug was
+gone and the size the book prints at could be trusted. The stylesheet is a 9.6pt-base scale
+grown by 10.5/9.6, with the code specimens (the `pre` blocks, trace tables and answer boxes)
+held at their old size *and* padding, so a code line keeps its width. Code that sits inside a
+teaching box has a hair less room than before, because the box padding around it did grow
+with the scale, so the box-nested column limit tightened; every current line still clears it,
+and `qa_layout.py`'s panel check is the post-render proof that nothing hangs past its box.
+Prose grew, code stayed put, which also reads better: the code now sits as a distinct,
+slightly smaller register instead of nearly the same size as the prose around it. It took the
+book from 132 body pages to 142. See the SCALE NOTE at the top of `manual.css`; to rescale,
+re-run the base sheet through the scale rather than hand-editing the values.
 
 **Still to build:** nothing outstanding. Both mocks, all five modules, the Contents and
 the full gate suite are in.
@@ -165,7 +177,7 @@ repeats until a render agrees with the Contents it was built from.
 **Every gate stops the build on failure. None is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (266 claims, including every mock answer). This is the
+  interpreter and fails on any mismatch (343 claims, including every mock answer). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the
@@ -184,7 +196,7 @@ repeats until a render agrees with the Contents it was built from.
   heading, and the number the row prints must be the number that page's own footer
   prints. Checking the Contents for internal consistency is not enough, because a
   Contents can be uniformly wrong and perfectly consistent with itself.
-- `qa_layout.py` looks at every page: **the body must render at its designed 9.6pt**, no
+- `qa_layout.py` looks at every page: **the body must render at its designed 10.5pt**, no
   text outside the content box, nothing in the bottom margin but the running footer, **no
   box cut by a page break that would have fitted whole**, **no code line hanging past the
   panel drawn around it**, and no page left short without a reason (a section that must
