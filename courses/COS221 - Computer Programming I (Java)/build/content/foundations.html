@@ -919,6 +919,38 @@ CRASH: java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for lengt
   </div>
 
   <div class="box teach">
+    <div class="bar"><span>TEACH · System.exit(0), and why the exam papers end with it</span></div>
+    <div class="body">
+      <p>Look at the end of almost every JOptionPane program on both papers:</p>
+      <pre class="src nonum" data-nocheck="the last line of the paper's own snippets; JOptionPane cannot run on a printed page"><span class="l">JOptionPane.showMessageDialog(<span class="k">null</span>, <span class="s">"Sum: "</span> + sum);</span><span class="l">System.exit(0);</span></pre>
+      <p><code>System.exit(0)</code> <b>ends the whole program immediately</b>, right
+      there, whatever was going to happen next. The number is the <b>exit status</b> that
+      the program hands back to whatever started it, and the convention is older than
+      Java: <b>0 means it finished normally</b>, and anything else means it failed.
+      That is why the line is <code>System.exit(0)</code> and never
+      <code>System.exit(1)</code>.</p>
+      <p><b>Why it is there.</b> A plain <code>main</code> ends when its last line runs.
+      A program that has opened a dialog is different: showing one starts extra
+      <b>threads</b> to run the window, and those threads are not finished just because
+      <code>main</code> is. <code>System.exit(0)</code> is the author saying "we are
+      done, stop everything", instead of waiting for the window machinery to decide.</p>
+      <p><b>Now the honest part, because you will be told otherwise.</b> You will hear
+      that without <code>System.exit(0)</code> a Swing program <b>hangs forever</b>. We
+      tested it on the JDK this book is built against: after touching Swing, two
+      non-daemon threads (<code>AWT-Shutdown</code> and <code>AWT-EventQueue-0</code>)
+      are indeed still alive when <code>main</code> returns, and the program
+      <b>exited anyway</b>, cleanly. Modern Java shuts that machinery down once no window
+      is left showing. So the line is <b>insurance, not a rescue</b>.</p>
+      <p><b>Write it anyway</b>, for the reason that matters in an exam: the paper's own
+      code has it, so it is what the marker expects to see, and it costs one line. But if
+      someone tells you your dialog program will hang without it, that is a claim about a
+      Java old enough to be worth checking.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>exit(0) means "stop now, and nothing went
+      wrong."</b> Zero is success, every other number is a complaint.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
     <div class="bar"><span>TEACH · A note on practising this</span></div>
     <div class="body">
       <p><code>JOptionPane</code> opens a real window, so it cannot show its output

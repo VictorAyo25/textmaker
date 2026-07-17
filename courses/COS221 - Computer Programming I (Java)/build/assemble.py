@@ -22,7 +22,7 @@ What it does:
 The Contents is DERIVED from the headings, never hand-listed: a hand-kept list
 silently drifts from the content it claims to describe.
 """
-import fitz, io, os, re, subprocess, sys
+import fitz, html as htmllib, io, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(HERE, 'content')
@@ -62,7 +62,17 @@ def slug(text):
 
 
 def strip_tags(html):
-    return re.sub(r'<[^>]+>', '', html).strip()
+    """Heading text, with tags removed AND entities decoded.
+
+    Decoding matters more than it looks. A heading written with `&middot;` and one
+    written with a literal `·` render identically, so nothing on the page tells
+    them apart; but without unescaping, slug() sees the letters M-I-D-D-O-T and
+    builds `S4MIDDOT202526MIDDOTQUESTIONTHREEMIDDOT25MARKS`. That is bloat in an
+    id that slug() then truncates to 40 characters, so two headings that differ
+    only near the end can collide on the same marker and the Contents sends both
+    rows to one page. Decode first, and either spelling gives the same clean id.
+    """
+    return htmllib.unescape(re.sub(r'<[^>]+>', '', html)).strip()
 
 
 TOC = []   # (level, label, marker) in document order, rebuilt on every assemble

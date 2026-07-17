@@ -243,6 +243,73 @@ max + 1  = -2147483648</pre>
     </div>
   </div>
 
+  <div class="box teach">
+    <div class="bar"><span>TEACH · The wrapper classes, and the constants you should stop memorising</span></div>
+    <div class="body">
+      <p>Every primitive has a <b>class</b> that shadows it: <code>int</code> has
+      <code>Integer</code>, <code>long</code> has <code>Long</code>,
+      <code>double</code> has <code>Double</code>, <code>char</code> has
+      <code>Character</code>, <code>boolean</code> has <code>Boolean</code>. They are
+      called the <b>wrapper classes</b>, they live in <code>java.lang</code> so they
+      need no import, and each carries the useful things that a primitive, not being
+      an object, cannot carry itself.</p>
+      <p>Two of those things you have already used, and two more are worth knowing
+      now.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · What the wrappers hold</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+<pre class="src" data-run="Wrappers"><span class="l"><span class="k">public</span> <span class="k">class</span> <span class="t">Wrappers</span> {</span><span class="l">    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"Integer.MAX_VALUE = "</span> + <span class="t">Integer</span>.<span class="t">MAX_VALUE</span>);</span><span class="l">        System.out.println(<span class="s">"Integer.MIN_VALUE = "</span> + <span class="t">Integer</span>.<span class="t">MIN_VALUE</span>);</span><span class="l">        System.out.println(<span class="s">"Long.MAX_VALUE    = "</span> + <span class="t">Long</span>.<span class="t">MAX_VALUE</span>);</span><span class="l">        System.out.println(<span class="s">"Long.MIN_VALUE    = "</span> + <span class="t">Long</span>.<span class="t">MIN_VALUE</span>);</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"Integer.parseInt(\"25\") + 1 = "</span> + (<span class="t">Integer</span>.parseInt(<span class="s">"25"</span>) + 1));</span><span class="l">        System.out.println(<span class="s">"Double.parseDouble(\"3.5\") * 2 = "</span> + (<span class="t">Double</span>.parseDouble(<span class="s">"3.5"</span>) * 2));</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"Integer.toBinaryString(13) = "</span> + <span class="t">Integer</span>.toBinaryString(13));</span><span class="l"></span><span class="l">        <span class="c">// the overflow the slides got wrong, stated by the constant itself</span></span><span class="l">        System.out.println(<span class="s">"MAX_VALUE + 1     = "</span> + (<span class="t">Integer</span>.<span class="t">MAX_VALUE</span> + 1));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>Integer.MAX_VALUE = 2147483647
+Integer.MIN_VALUE = -2147483648
+Long.MAX_VALUE    = 9223372036854775807
+Long.MIN_VALUE    = -9223372036854775808
+Integer.parseInt("25") + 1 = 26
+Double.parseDouble("3.5") * 2 = 7.0
+Integer.toBinaryString(13) = 1101
+MAX_VALUE + 1     = -2147483648</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Four wrapper members you will actually use</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data">
+          <tr><th style="width:34%">Member</th><th>What it is for</th></tr>
+          <tr><td><code>Integer.MAX_VALUE</code><br/><code>Integer.MIN_VALUE</code><br/><code>Long.MAX_VALUE</code>, and so on</td><td><b>Constants</b>, so no brackets. The largest and smallest value the type can hold. You never have to remember the digits, and you must never type them out.</td></tr>
+          <tr><td><code>Integer.parseInt(s)</code></td><td>Text to <code>int</code>. F.11: every dialog hands you a String.</td></tr>
+          <tr><td><code>Double.parseDouble(s)</code></td><td>Text to <code>double</code>.</td></tr>
+          <tr><td><code>Integer.toBinaryString(n)</code></td><td>The number written in <b>binary</b>, as text. <code>13</code> gives <code>"1101"</code>.</td></tr>
+        </table>
+      </div>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>the primitive holds the value; the wrapper
+      knows about the type.</b> How big it can get, how to read one out of text, how to
+      write one in binary: that knowledge lives on the class.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · The constant is also the proof your slides are wrong</span></div>
+    <div class="body">
+      <p>Read the last line of that output. <code>Integer.MAX_VALUE + 1</code> printed
+      <b>-2147483648</b>.</p>
+      <p>Now read it beside the error three boxes above, where the course's own table
+      gives <code>int</code>'s maximum as <b>2,147,483,648</b>. That number is not a
+      near miss and it is not a typo for something harmless: <b>it is precisely the
+      value you get by overflowing the real maximum</b>. Add one to the biggest int and
+      it wraps around to the most negative one, and the digits that come out are the
+      digits the slide printed, with a minus sign the slide dropped.</p>
+      <p>So the table did not merely mistype the limit. It printed the symptom of
+      exceeding the limit and labelled it the limit.</p>
+      <p class="note">This is the whole argument for <code>Integer.MAX_VALUE</code>.
+      Type the digits and you can be wrong, as your own course was, in print, in a
+      table whose job was those digits. Write the constant and you cannot be.</p>
+    </div>
+  </div>
+
   <div class="box fill">
     <div class="bar"><span>FILL IN THE GAP · Types</span></div>
     <div class="body">

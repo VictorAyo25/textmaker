@@ -139,6 +139,16 @@ done. The program did NOT crash.</pre>
       through to <code>catch (Exception e)</code>, which catches everything because
       every exception is a subclass of <code>Exception</code>: Module 6's inheritance
       doing real work.</p>
+      <p class="small" style="padding:6pt 8pt 0">That third line printed the exception's
+      name because of <code>e.getClass().getSimpleName()</code>. Any object can be asked
+      <code>getClass()</code> for the class it belongs to, and a class can be asked
+      <code>getSimpleName()</code> for its own name with the package left off:
+      <b>NumberFormatException</b> rather than
+      <code>java.lang.NumberFormatException</code>. It is how you report <i>what</i> went
+      wrong when your <code>catch</code> is broad enough that you do not already know.
+      <code>getMessage()</code> answers a different question, the detail
+      (<code>/ by zero</code>), which is why a catch this wide is usually worth printing
+      both.</p>
     </div>
   </div>
 
@@ -310,6 +320,39 @@ readAllLines   : [line one, line two]</pre>
       trick, <code>while ((x = read()) != sentinel)</code>, which assigns and tests in
       one breath. That idiom appears in every file-reading program you will ever
       write.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The NIO one-liners, and the 24/25 question that asks for them</span></div>
+    <div class="body">
+      <div class="card">
+        <p>The four names in those two listings that are not readers or writers at
+        all:</p>
+        <table class="data">
+          <tr><th style="width:36%">Call</th><th>What it does</th></tr>
+          <tr><td><code>Paths.get("data.txt")</code></td><td>Turns a file name into a <code>Path</code>, the object the NIO methods take instead of a String.</td></tr>
+          <tr><td><code>Files.write(path, lines)</code></td><td>Writes <b>every</b> line to the file and closes it, in one call. Creates it if absent; <b>replaces</b> it if present.</td></tr>
+          <tr><td><code>Files.readAllBytes(path)</code></td><td>Reads the <b>whole</b> file into a byte array in one call. <code>new String(...)</code> around it turns those bytes into text.</td></tr>
+          <tr><td><code>Arrays.asList("a", "b")</code></td><td>Makes a fixed list out of loose values, because <code>Files.write</code> wants a collection of lines, not one String.</td></tr>
+        </table>
+      </div>
+      <p><b>Learn these because the paper asks for them by name.</b> The 24/25 paper,
+      Question Three part A, is: "Define the following: PrintWriter, <b>Files.write()
+      method</b> and try-with-resources block." Three marks for three sentences, and one
+      of them is on this table.</p>
+      <p><b>What they are for.</b> They are the whole file operation in one line, with
+      no loop and no <code>close()</code>, because the method opens, works and closes
+      before it returns. That is their appeal and also their limit: they hold the entire
+      file in memory at once, so they suit a settings file and not a five-gigabyte log.
+      The reader-and-writer way further up the page is the one that streams.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>Paths.get names it, Files does it.</b>
+      Everything in <code>java.nio.file</code> takes a Path, and
+      <code>Paths.get</code> is how a String becomes one.</p>
+      <p class="note">They are <b>not</b> allowed in the 25/26 file question, which
+      names its five permitted classes and none of these are among them. Knowing an API
+      and being allowed to use it are different things: read the restriction before you
+      reach for the shortcut.</p>
     </div>
   </div>
 

@@ -40,6 +40,7 @@ cd build
 python check_code.py        # compile + run EVERY listing        <- do this first
 python assemble.py          # ~2 min: writes build/full_manual_clean.pdf
 python qa.py                # gate the rendered PDF: every count must be zero
+python qa_firstuse.py       # gate the "no external sources" promise
 ```
 
 `check_code.py` compiles ~90 programs and takes a few minutes; pass a section name
@@ -196,10 +197,22 @@ would skip in the hall: a question you skip is still a topic you can be examined
    because `manual.css` styles only these. Both failures are silent, and it happened
    once (a `class="sig"` skeleton), so the set is now enforced.
 
-2. **Keyword/API before use.** The manual must be sufficient with no external sources,
-   so every keyword, symbol and library call is introduced before first appearance and
-   every API used gets an in-manual reference card. **Not yet scripted** (see Status);
-   currently held by hand. Script it over the built HTML before v1 ships.
+2. **Keyword/API before use** (`qa_firstuse.py`, run after `assemble.py`). The manual
+   must be sufficient with **no external sources**, and that promise is worthless
+   asserted: it is the kind of claim that silently rots as a book passes 200 pages. Two
+   rules, both measured against the *assembled* HTML, so the audit reads the book in
+   the order a reader does:
+
+   - **Nothing is used without being named.** An API that appears only inside listings
+     and is never written in the prose is a hole: the reader meets it, cannot look it
+     up, and has nowhere to go.
+   - **A mock teaches nothing.** A mock, or a solved past paper, *tests* what the
+     modules taught. So an API whose first appearance in the whole book is there is one
+     the reader is examined on and was never shown.
+
+   It found ten real holes on first run, including `Files.write()` and
+   `Integer.MAX_VALUE` used in listings but named nowhere in the prose. `data-compile`
+   listings are skipped: a planted bug introduces nothing.
 
 3. **`qa.py`**: no em/en dashes, no institution or platform or methodology names, no
    marker text left behind, footer numbering, Contents accuracy, no near-blank pages,
