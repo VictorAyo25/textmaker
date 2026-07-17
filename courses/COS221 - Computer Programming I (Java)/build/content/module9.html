@@ -1,0 +1,283 @@
+<!-- ============ MODULE NINE ============ -->
+
+<!-- ---------------- 9.1 ---------------- -->
+<section>
+  <div class="kick">UNIT 9.1 · WHAT RECURSION IS</div>
+  <h2 class="title">A method that calls itself</h2>
+  <hr class="rule"/>
+
+  <p class="lo">By the end of this unit you should be able to explain recursion,
+  write recursive methods, identify base cases and recursive cases, and recognise
+  problems where recursion is advantageous.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · Recursion</span></div>
+    <div class="body">
+      <p><b>Recursion is a programming technique in which a method calls itself in
+      order to solve a problem.</b></p>
+      <p>The problem is broken into <b>smaller sub-problems of the same type</b>,
+      solved independently until they reach a <b>base case</b>, which stops the
+      recursion.</p>
+      <p>The phrase that does the work is <b>of the same type</b>. Recursion is only
+      available when a smaller version of your problem is <i>the same problem</i>.
+      Finding 5! means finding 4! and multiplying by 5: the sub-problem is another
+      factorial, so factorial can call itself.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The two cases</span></div>
+    <div class="body">
+      <div class="card">
+        <p><b>The base case</b> is a condition that <b>stops</b> the recursion.
+        Without one, the method calls itself indefinitely and the program dies with a
+        <b>StackOverflowError</b>.</p>
+        <p><b>The recursive case</b> is where the method calls itself, on a
+        <b>smaller</b> input, moving towards the base case.</p>
+      </div>
+      <p>Every recursive method has both, and every recursive method that works has
+      a recursive case that genuinely <b>gets closer</b> to the base case. Those are
+      the only two things to check, and they are what an exam wants named.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>a staircase.</b> The recursive case is
+      "take one step down, then solve the rest". The base case is the ground: the
+      step where you stop. No ground and you fall forever; steps that do not go
+      downward and you never reach it.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Factorial, the classic</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Factorial"><span class="l"><span class="k">public class</span> <span class="t">Factorial</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> factorial(<span class="k">int</span> n) {</span><span class="l good">        <span class="k">if</span> (n == 0 || n == 1) {      <span class="c">// BASE CASE: stop here</span></span><span class="l">            <span class="k">return</span> 1;</span><span class="l">        }</span><span class="l bad">        <span class="k">return</span> n * factorial(n - 1);  <span class="c">// RECURSIVE CASE: smaller n</span></span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.println(<span class="s">"factorial(6) = "</span> + factorial(6));</span><span class="l">        System.out.println(<span class="s">"factorial(3) = "</span> + factorial(3));</span><span class="l">        System.out.println(<span class="s">"factorial(0) = "</span> + factorial(0));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>factorial(6) = 720
+factorial(3) = 6
+factorial(0) = 1</pre>
+      <p class="small" style="padding:6pt 8pt 0">Note <code>n - 1</code>: that is what
+      makes it <b>smaller</b>. Write <code>factorial(n)</code> there and you have an
+      infinite recursion, because the input never moves towards the base case.</p>
+    </div>
+  </div>
+
+  <div class="box dry">
+    <div class="bar"><span>DRY RUN · factorial(3), down and back up</span></div>
+    <div class="body">
+      <p class="small" style="margin-top:0">A recursion trace has two halves, and
+      beginners only ever draw the first. <b>Going down</b>, each call waits for the
+      one below it. <b>Coming back up</b>, each answer is multiplied on the way out.
+      Nothing is multiplied until the bottom is reached.</p>
+      <table class="trace">
+        <caption>factorial(3)</caption>
+        <tr><th style="width:12%">Depth</th><th style="width:26%">Call</th><th style="width:32%">What it says</th><th>Waiting for</th></tr>
+        <tr><td>1</td><td><code>factorial(3)</code></td><td>3 is not 0 or 1, so return 3 * factorial(2)</td><td class="chg">factorial(2)</td></tr>
+        <tr><td>2</td><td><code>factorial(2)</code></td><td>2 is not 0 or 1, so return 2 * factorial(1)</td><td class="chg">factorial(1)</td></tr>
+        <tr><td>3</td><td><code>factorial(1)</code></td><td><b>base case</b>: return 1</td><td class="emit">nothing. Turn around.</td></tr>
+      </table>
+      <table class="trace">
+        <caption>now the answers come back up</caption>
+        <tr><th style="width:12%">Depth</th><th style="width:34%">Was waiting on</th><th style="width:24%">Now becomes</th><th>Returns</th></tr>
+        <tr><td>3</td><td>-</td><td>1</td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>2 * factorial(1)</td><td>2 * 1</td><td class="chg">2</td></tr>
+        <tr><td>1</td><td>3 * factorial(2)</td><td>3 * 2</td><td class="emit">6</td></tr>
+      </table>
+      <p><b>Each recursive call adds a new frame to the call stack</b> until the base
+      case is reached. Then the values are returned back up. The stack is real
+      memory, and that is why an infinite recursion produces a
+      <code>StackOverflowError</code> rather than simply hanging: it runs out of room
+      to remember who is waiting for whom.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The stack, made visible</span><span class="tag">WATCH THE INDENTATION</span></div>
+    <div class="body">
+      <pre class="src" data-run="StackTrace"><span class="l"><span class="k">public class</span> <span class="t">StackTrace</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> fact(<span class="k">int</span> n, <span class="t">String</span> pad) {</span><span class="l">        System.out.println(pad + <span class="s">"-&gt; fact("</span> + n + <span class="s">") called"</span>);</span><span class="l">        <span class="k">if</span> (n &lt;= 1) {</span><span class="l">            System.out.println(pad + <span class="s">"   base case, returning 1"</span>);</span><span class="l">            <span class="k">return</span> 1;</span><span class="l">        }</span><span class="l">        <span class="k">int</span> smaller = fact(n - 1, pad + <span class="s">"    "</span>);</span><span class="l">        <span class="k">int</span> result = n * smaller;</span><span class="l">        System.out.println(pad + <span class="s">"&lt;- fact("</span> + n + <span class="s">") returns "</span> + n + <span class="s">" * "</span></span><span class="l">                         + smaller + <span class="s">" = "</span> + result);</span><span class="l">        <span class="k">return</span> result;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        fact(4, <span class="s">""</span>);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>-&gt; fact(4) called
+    -&gt; fact(3) called
+        -&gt; fact(2) called
+            -&gt; fact(1) called
+               base case, returning 1
+        &lt;- fact(2) returns 2 * 1 = 2
+    &lt;- fact(3) returns 3 * 2 = 6
+&lt;- fact(4) returns 4 * 6 = 24</pre>
+      <p class="small" style="padding:6pt 8pt 0"><b>The shape of the output is the
+      shape of the call stack.</b> Every arrow going right is a call going deeper,
+      and nothing returns until the innermost one hits the base case. Then the
+      answers come back out in reverse order. That V shape is what recursion looks
+      like, and if you can draw it you can trace any recursive question.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · No base case, or one you never reach</span></div>
+    <div class="body">
+      <p>Two ways to recurse forever, and both end in
+      <code>StackOverflowError</code>:</p>
+      <pre class="src nonum" data-nocheck="two infinite recursions shown deliberately; running either would crash the build, which is the point"><span class="l">static int bad1(int n) {</span><span class="l">    return n * bad1(n - 1);        &lt;- no base case at all</span><span class="l">}</span><span class="l"></span><span class="l">static int bad2(int n) {</span><span class="l">    if (n == 0) return 1;          &lt;- a base case...</span><span class="l">    return n * bad2(n);            &lt;- ...but n never changes, so never reached</span><span class="l">}</span></pre>
+      <p><code>bad2</code> is the nastier one, because it <i>looks</i> right: it has a
+      base case, so a careless reader ticks the box. The check is not "is there a
+      base case" but <b>"does every recursive call get closer to it"</b>.</p>
+      <p>And note <code>bad1(-1)</code>: even the correct factorial recurses forever on
+      a negative, because <code>n == 0 || n == 1</code> is never true going down from
+      -1. A base case must catch <b>every</b> way of arriving at the bottom.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 9.2 ---------------- -->
+<section>
+  <div class="kick">UNIT 9.2 · THE STANDARD RECURSIONS</div>
+  <h2 class="title">The four your course gives, and the pattern under them</h2>
+  <hr class="rule"/>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · The recipe for writing any recursive method</span></div>
+    <div class="body">
+      <div class="card">
+        <p>1. <b>Ask when it is trivially over.</b> That is your base case.<br/>
+        2. <b>Assume the method already works for a smaller input.</b> Do not think
+        about how.<br/>
+        3. <b>Say how to build your answer from that smaller answer.</b><br/>
+        4. <b>Check the smaller input actually moves towards the base case.</b></p>
+      </div>
+      <p>Step 2 is the leap everyone struggles with, and it is the whole trick.
+      Writing <code>factorial</code>, you do <b>not</b> trace what
+      <code>factorial(n-1)</code> does. You <b>trust</b> it, and only ask "given
+      (n-1)!, how do I get n!?". The answer is "multiply by n", and you are done.</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>trust the smaller you.</b> Recursion
+      feels impossible while you try to hold every level in your head at once. It
+      becomes easy the moment you delegate one level down and refuse to look.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · All four of your course's examples</span><span class="tag">FROM THE SLIDES</span></div>
+    <div class="body">
+      <pre class="src" data-run="Recursions"><span class="l"><span class="k">public class</span> <span class="t">Recursions</span> {</span><span class="l"></span><span class="l">    <span class="c">// 1. FIBONACCI: f(n) = f(n-1) + f(n-2). TWO base cases.</span></span><span class="l">    <span class="k">static int</span> fib(<span class="k">int</span> n) {</span><span class="l">        <span class="k">if</span> (n == 0) <span class="k">return</span> 0;</span><span class="l">        <span class="k">if</span> (n == 1) <span class="k">return</span> 1;</span><span class="l">        <span class="k">return</span> fib(n - 1) + fib(n - 2);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// 2. EXPONENTIATION: power(b, e) = b * power(b, e-1)</span></span><span class="l">    <span class="k">static int</span> power(<span class="k">int</span> base, <span class="k">int</span> exp) {</span><span class="l">        <span class="k">if</span> (exp == 0) <span class="k">return</span> 1;          <span class="c">// anything^0 is 1</span></span><span class="l">        <span class="k">return</span> base * power(base, exp - 1);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// 3. SUM OF NATURALS: sum(n) = n + sum(n-1)</span></span><span class="l">    <span class="k">static int</span> sum(<span class="k">int</span> n) {</span><span class="l">        <span class="k">if</span> (n == 1) <span class="k">return</span> 1;</span><span class="l">        <span class="k">return</span> n + sum(n - 1);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="c">// 4. SUM OF DIGITS: sumDigits(n) = (n % 10) + sumDigits(n / 10)</span></span><span class="l">    <span class="k">static int</span> sumDigits(<span class="k">int</span> n) {</span><span class="l">        <span class="k">if</span> (n == 0) <span class="k">return</span> 0;</span><span class="l">        <span class="k">return</span> (n % 10) + sumDigits(n / 10);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        System.out.print(<span class="s">"fibonacci: "</span>);</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; 8; i++) System.out.print(fib(i) + <span class="s">" "</span>);</span><span class="l">        System.out.println();</span><span class="l"></span><span class="l">        System.out.println(<span class="s">"3 raised to power 10: "</span> + power(3, 10));</span><span class="l">        System.out.println(<span class="s">"Sum of first 5 numbers: "</span> + sum(5));</span><span class="l">        System.out.println(<span class="s">"Sum of digits of 12345 is: "</span> + sumDigits(12345));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>fibonacci: 0 1 1 2 3 5 8 13
+3 raised to power 10: 59049
+Sum of first 5 numbers: 15
+Sum of digits of 12345 is: 15</pre>
+      <p class="small" style="padding:6pt 8pt 0">Look at <code>sumDigits</code>
+      against Unit 3.6. It is the <b>same</b> <code>% 10</code> and <code>/ 10</code>
+      pair that walked a number's digits in a loop, said recursively instead: peel the
+      last digit, add it to the answer for the rest. The loop and the recursion are
+      the same idea, which is exactly the point of Unit 9.3.</p>
+      <p class="small" style="padding:0 8pt 6pt">Note also that <code>fib</code> needs
+      <b>two</b> base cases, because its recursive case reaches <b>two</b> steps back.
+      A recursion needs enough base cases to catch every way of hitting the bottom.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------- 9.3 ---------------- -->
+<section>
+  <div class="kick">UNIT 9.3 · RECURSION VERSUS ITERATION</div>
+  <h2 class="title">When it helps, and when it hurts</h2>
+  <hr class="rule"/>
+
+  <div class="box teach">
+    <div class="bar"><span>TEACH · They are equivalent</span></div>
+    <div class="body">
+      <p>Anything you can write with a loop you can write recursively, and the other
+      way round. Your learning outcome asks you to "recognise problems where
+      recursion is advantageous", which means the choice is about <b>clarity and
+      cost</b>, not about possibility.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · The same job, both ways</span></div>
+    <div class="body">
+      <pre class="src" data-run="BothWays"><span class="l"><span class="k">public class</span> <span class="t">BothWays</span> {</span><span class="l"></span><span class="l">    <span class="k">static int</span> factRecursive(<span class="k">int</span> n) {</span><span class="l">        <span class="k">if</span> (n &lt;= 1) <span class="k">return</span> 1;</span><span class="l">        <span class="k">return</span> n * factRecursive(n - 1);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> factIterative(<span class="k">int</span> n) {</span><span class="l">        <span class="k">int</span> result = 1;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 2; i &lt;= n; i++) result *= i;</span><span class="l">        <span class="k">return</span> result;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">boolean</span> same = <span class="k">true</span>;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> n = 0; n &lt;= 12; n++) {</span><span class="l">            <span class="k">if</span> (factRecursive(n) != factIterative(n)) same = <span class="k">false</span>;</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"recursive(6) = "</span> + factRecursive(6));</span><span class="l">        System.out.println(<span class="s">"iterative(6) = "</span> + factIterative(6));</span><span class="l">        System.out.println(<span class="s">"identical for n = 0 to 12: "</span> + same);</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>recursive(6) = 720
+iterative(6) = 720
+identical for n = 0 to 12: true</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>MUST-MEMORISE · Which to choose</span></div>
+    <div class="body">
+      <div class="card">
+        <table class="data" style="margin:0">
+          <tr><th style="width:26%"></th><th style="width:37%">Recursion</th><th>Iteration (a loop)</th></tr>
+          <tr><td>Memory</td><td>a stack frame <b>per call</b></td><td>constant</td></tr>
+          <tr><td>Risk</td><td><b>StackOverflowError</b></td><td>an infinite loop, but no crash</td></tr>
+          <tr><td>Speed</td><td>slower (call overhead)</td><td>faster</td></tr>
+          <tr><td>Reads well for</td><td>trees, graphs, divide and conquer, anything defined in terms of itself</td><td>counting, walking an array</td></tr>
+        </table>
+      </div>
+      <p><b>Use recursion when the problem is naturally recursive</b>: your course
+      names traversing data structures such as trees and graphs. Use a loop for
+      anything you would describe with the word "repeat".</p>
+      <p class="hook"><b>MEMORY HOOK:</b> <b>recursion trades memory for
+      clarity.</b> If the clarity is not there, you paid for nothing.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>TRAP · Naive Fibonacci is catastrophically slow</span></div>
+    <div class="body">
+      <p>The <code>fib</code> in Unit 9.2 is the standard example and it is a
+      terrible program. <code>fib(n)</code> calls itself <b>twice</b> at every level,
+      so the number of calls roughly doubles with each step: <code>fib(40)</code>
+      makes over 300 million calls to compute forty numbers.</p>
+      <p>It recomputes the same values endlessly: <code>fib(5)</code> computes
+      <code>fib(3)</code> twice, <code>fib(2)</code> three times, and so on down.
+      A loop does it in forty steps.</p>
+      <p>So Fibonacci is the classic recursion <i>teaching</i> example and a classic
+      case of when <b>not</b> to use recursion in real code. Both facts are worth
+      knowing, and an exam asking "when is recursion advantageous" is asking you to
+      know the difference.</p>
+    </div>
+  </div>
+
+  <div class="box code">
+    <div class="bar"><span>CODE · Counting the waste</span><span class="tag">VERIFIED ON THE JVM</span></div>
+    <div class="body">
+      <pre class="src" data-run="FibCost"><span class="l"><span class="k">public class</span> <span class="t">FibCost</span> {</span><span class="l">    <span class="k">static int</span> calls = 0;</span><span class="l"></span><span class="l">    <span class="k">static int</span> fib(<span class="k">int</span> n) {</span><span class="l">        calls++;                        <span class="c">// count every single call</span></span><span class="l">        <span class="k">if</span> (n == 0) <span class="k">return</span> 0;</span><span class="l">        <span class="k">if</span> (n == 1) <span class="k">return</span> 1;</span><span class="l">        <span class="k">return</span> fib(n - 1) + fib(n - 2);</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">static int</span> fibLoop(<span class="k">int</span> n) {</span><span class="l">        <span class="k">int</span> a = 0, b = 1;</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; n; i++) { <span class="k">int</span> t = a + b; a = b; b = t; }</span><span class="l">        <span class="k">return</span> a;</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> n : <span class="k">new int</span>[]{5, 10, 20, 30}) {</span><span class="l">            calls = 0;</span><span class="l">            <span class="k">int</span> v = fib(n);</span><span class="l">            System.out.printf(<span class="s">"fib(%2d) = %,-8d recursive calls: %,9d   loop steps: %d%n"</span>,</span><span class="l">                              n, v, calls, n);</span><span class="l">        }</span><span class="l">        System.out.println(<span class="s">"loop agrees: "</span> + (fib(20) == fibLoop(20)));</span><span class="l">    }</span><span class="l">}</span></pre>
+      <pre class="out"><span class="olabel">Output</span>fib( 5) = 5        recursive calls:        15   loop steps: 5
+fib(10) = 55       recursive calls:       177   loop steps: 10
+fib(20) = 6,765    recursive calls:    21,891   loop steps: 20
+fib(30) = 832,040  recursive calls: 2,692,537   loop steps: 30
+loop agrees: true</pre>
+      <p class="small" style="padding:6pt 8pt 0">Read the last row. To find the 30th
+      Fibonacci number, the recursion made <b>2.7 million calls</b>. The loop took
+      <b>30 steps</b> and got the same answer. The two columns grow at completely
+      different rates, and that gap is the entire argument for knowing when
+      <i>not</i> to recurse.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>FILL IN THE GAP · Recursion</span></div>
+    <div class="body">
+      <ol class="qlist">
+        <li>Recursion is a technique where a method <span class="blank"></span> to
+        solve <span class="blank"></span> of the same type.</li>
+        <li>The <span class="blank"></span> case stops the recursion; the
+        <span class="blank"></span> case calls itself on a
+        <span class="blank"></span> input.</li>
+        <li>Without a base case, the program dies with a
+        <span class="blank"></span>, because each call adds a
+        <span class="blank"></span>.</li>
+        <li>Having a base case is not enough: every recursive call must
+        <span class="blank"></span>.</li>
+        <li><code>fib</code> needs <span class="blank"></span> base cases, because
+        its recursive case reaches <span class="blank"></span> steps back.</li>
+        <li><code>sumDigits(n) =</code> <span class="blank"></span>
+        <code>+ sumDigits(</code><span class="blank"></span><code>)</code>, and its
+        base case is <span class="blank"></span>.</li>
+        <li>Recursion costs <span class="blank"></span> and buys
+        <span class="blank"></span>. Prefer it for <span class="blank"></span>.</li>
+      </ol>
+      <p class="alabel">Answers</p>
+      <p class="small">1. calls itself, smaller sub-problems &nbsp;·&nbsp; 2. base,
+      recursive, smaller &nbsp;·&nbsp; 3. StackOverflowError, frame to the call stack
+      &nbsp;·&nbsp; 4. get closer to the base case &nbsp;·&nbsp; 5. two, two
+      &nbsp;·&nbsp; 6. <code>n % 10</code>, <code>n / 10</code>,
+      <code>n == 0</code> &nbsp;·&nbsp; 7. memory (a stack frame per call), clarity,
+      naturally recursive structures like trees and graphs</p>
+    </div>
+  </div>
+</section>
