@@ -6,12 +6,13 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**Modules One to Three authored**, rendered to `build/CSC241_checkpoint.pdf`
-(47 pages: cover plus 46). Voice and palette approved. Modules Four and Five remain.
+**Modules One to Four authored**, rendered to `build/CSC241_checkpoint.pdf`
+(62 pages: cover plus 61). Voice and palette approved. Module Five remains, plus the
+Contents, the mocks, and the reference cards.
 
-Module Three is the heaviest: it carries exam questions One (control structures) and
-Two (data structures), and it holds the two patterns that decide part (e) of every
-question, the `done` sentinel loop and the split-and-convert loop.
+Coverage against the exam: Module Three carries questions One and Two, Module Four
+carries Three and Five, Module Five will carry Six. Question Four (strings) is
+covered by Module Two, Unit 2.
 
 ## Sources
 
@@ -106,7 +107,7 @@ own and merged in front of the body.
 **Both gates stop the build on failure. Neither is advisory.**
 
 - `verify_code.py` executes **every output the manual claims** against a real
-  interpreter and fails on any mismatch (141 claims through Module Three). This is the
+  interpreter and fails on any mismatch (174 claims through Module Four). This is the
   course's analogue of PHY121's "recompute every number". It exists because the
   source manual's own transcripts were typed rather than captured: see
   `sources/extracted/manual_audit.md`. Where the manual shows spaces as dots, the

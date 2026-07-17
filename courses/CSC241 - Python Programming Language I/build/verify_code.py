@@ -60,6 +60,35 @@ def raises(label, fn, expect):
         fails.append((label, expect, got))
 
 
+def traceback_tail(label, src, expect_lines):
+    """Run src as a real script in a subprocess; compare the tail of the printed
+    traceback with expect_lines.
+
+    Needed because str(exception) is NOT what Python prints. The printer adds the
+    caret markers and the "Did you mean" suggestion, so a page showing a traceback
+    can only be checked against a real run, never against str(e). This gate learned
+    that the hard way: it reported a page as wrong when the page was right.
+    """
+    global n
+    n += 1
+    import subprocess, tempfile as _tf
+    d = _tf.mkdtemp(prefix='csc241_tb_')
+    p = os.path.join(d, 'snippet.py')
+    with open(p, 'w', encoding='utf-8') as fh:
+        fh.write(src)
+    try:
+        r = subprocess.run([sys.executable, p], capture_output=True, text=True,
+                           stdin=subprocess.DEVNULL, timeout=20)
+        got = [ln.rstrip() for ln in r.stderr.strip().split('\n')][-len(expect_lines):]
+    except Exception as e:
+        got = [f'{type(e).__name__}: {e}']
+    finally:
+        import shutil as _sh
+        _sh.rmtree(d, ignore_errors=True)
+    if got != [ln.rstrip() for ln in expect_lines]:
+        fails.append((label, '\n'.join(expect_lines), '\n'.join(got)))
+
+
 def page(name):
     with open(os.path.join(HERE, 'content', name), encoding='utf-8') as fh:
         return fh.read()
@@ -147,6 +176,14 @@ check('m2u2 interest formatted',
       'amount = 10000 * 0.069\nprint(f"Interest: {amount:.2f}")', 'Interest: 690.00')
 raises('m2u2 int("xyz") message', lambda: int("xyz"),
        "ValueError: invalid literal for int() with base 10: 'xyz'")
+
+# Module Two, Unit 1 prints this traceback verbatim, including the ~~~^~~ markers
+# that sit under the failing operator. Check it against a real run.
+traceback_tail('m2u1 ZeroDivisionError printed traceback',
+               'print("a")\nprint("b")\nprint(10 / 0)\n',
+               ['    print(10 / 0)',
+                '          ~~~^~~',
+                'ZeroDivisionError: division by zero'])
 raises('m2u2 int("3.5") fails too', lambda: int("3.5"),
        "ValueError: invalid literal for int() with base 10: '3.5'")
 
@@ -357,6 +394,197 @@ check('m3u4 nested list mutation',
       'person["skills"].append("C++")\nprint(person["skills"])',
       "['Python', 'Java', 'C++']")
 raises('m3u4 KeyError message', lambda: {"name": "John"}["height"], "KeyError: 'height'")
+
+# ======================= MODULE FOUR, UNIT 1 =======================
+check('m4u1 define and call', 'def greet():\n    print("Hello!")\n\ngreet()', 'Hello!')
+check('m4u1 parameter/argument', 'def greet(name):\n    print("Hello,", name)\n\ngreet("Ada")',
+      'Hello, Ada')
+check('m4u1 two parameters', 'def add(a, b):\n    print(a + b)\n\nadd(2, 3)', '5')
+check('m4u1 return is a value',
+      'def square(x):\n    return x * x\n\nprint(square(4))\ny = square(4) + 1\nprint(y)',
+      '16\n17')
+check('m4u1 print is not return',
+      'def shout(x):\n    print(x * 2)\n\nresult = shout(5)\nprint(result)', '10\nNone')
+check('m4u1 corrected square', 'def square(x):\n    return x * x\n\nprint(square(4))', '16')
+check('m4u1 default parameter',
+      'def greet(name="Guest"):\n    print("Hello,", name)\n\ngreet()\ngreet("Ada")',
+      'Hello, Guest\nHello, Ada')
+
+# the broken square: missing colon is a SyntaxError, so nothing runs
+n += 1
+try:
+    compile('def square(x)\n    return x * x\nprint(Square(4))', '<m>', 'exec')
+    _got = 'compiled, no error'
+except SyntaxError:
+    _got = 'SyntaxError'
+if _got != 'SyntaxError':
+    fails.append(('m4u1 def square(x) with no colon is a SyntaxError', 'SyntaxError', _got))
+
+
+# The page prints this traceback verbatim, carets and suggestion included, so it
+# must be checked against a real run rather than against str(e).
+traceback_tail('m4u1 Square(4) printed traceback',
+               'def square(x):\n    return x * x\nprint(Square(4))\n',
+               ['    print(Square(4))',
+                '          ^^^^^^',
+                "NameError: name 'Square' is not defined. Did you mean: 'square'?"])
+
+# default-before-required is a SyntaxError
+n += 1
+try:
+    compile('def f(a=1, b): pass', '<m>', 'exec')
+    _got = 'compiled, no error'
+except SyntaxError:
+    _got = 'SyntaxError'
+if _got != 'SyntaxError':
+    fails.append(('m4u1 def f(a=1, b) is a SyntaxError', 'SyntaxError', _got))
+
+HEALTH = '''def is_healthy(bmi):
+    if 18.5 <= bmi <= 24.9:
+        return "Healthy"
+    else:
+        return "Unhealthy"
+
+data = iter([("John", "22.4"), ("Ada", "17.9"), ("Bola", "24.9")])
+for i in range(3):
+    name, raw = next(data)
+    bmi = float(raw)
+    status = is_healthy(bmi)
+    print(f"Patient: {name} | BMI: {bmi} | Status: {status}")'''
+check('m4u1 health program', HEALTH,
+      'Patient: John | BMI: 22.4 | Status: Healthy\n'
+      'Patient: Ada | BMI: 17.9 | Status: Unhealthy\n'
+      'Patient: Bola | BMI: 24.9 | Status: Healthy')
+check('m4u1 is_healthy(24.95) "now you try"',
+      'def is_healthy(bmi):\n    if 18.5 <= bmi <= 24.9:\n        return "Healthy"\n'
+      '    else:\n        return "Unhealthy"\nprint(is_healthy(24.95))', 'Unhealthy')
+
+# part (e): the same function, a sentinel loop around it
+check('m4u1 health part (e)', '''def is_healthy(bmi):
+    if 18.5 <= bmi <= 24.9:
+        return "Healthy"
+    else:
+        return "Unhealthy"
+
+data = iter([("John", "22.4"), ("Ada", "17.9"), ("done", None)])
+healthy = 0
+total = 0
+while True:
+    name, raw = next(data)
+    if name == "done":
+        break
+    bmi = float(raw)
+    status = is_healthy(bmi)
+    total += 1
+    if status == "Healthy":
+        healthy += 1
+print(f"Total: {total}, Healthy: {healthy}, Unhealthy: {total - healthy}")''',
+      'Total: 2, Healthy: 1, Unhealthy: 1')
+
+# ======================= MODULE FOUR, UNIT 2 =======================
+val('m4u2 import math', '__import__("math").sqrt(16)', '4.0')
+check('m4u2 from math import sqrt', 'from math import sqrt\nprint(sqrt(16))', '4.0')
+val('m4u2 randint includes both ends',
+    'all(1 <= __import__("random").randint(1, 6) <= 6 for _ in range(200))', 'True')
+
+# ======================= MODULE FOUR, UNIT 3 =======================
+# Real files, in a throwaway directory.
+import tempfile
+
+_tmp = tempfile.mkdtemp(prefix='csc241_gate_')
+_cwd = os.getcwd()
+os.chdir(_tmp)
+try:
+    check('m4u3 write with newlines',
+          'f = open("names.txt", "w")\nf.write("Ada\\n")\nf.write("Bola\\n")\nf.close()\n'
+          'print(open("names.txt").read(), end="")', 'Ada\nBola')
+    val('m4u3 read() whole file', 'open("names.txt").read()', "'Ada\\nBola\\n'")
+    val('m4u3 readline() first line', 'open("names.txt").readline()', "'Ada\\n'")
+    val('m4u3 readlines() list', 'open("names.txt").readlines()', "['Ada\\n', 'Bola\\n']")
+    check('m4u3 loop with strip',
+          'with open("names.txt") as f:\n    for line in f:\n        print(line.strip())',
+          'Ada\nBola')
+    check('m4u3 write adds no newline',
+          'f = open("j.txt", "w")\nf.write("Ada")\nf.write("Bola")\nf.close()\n'
+          'print(open("j.txt").read())', 'AdaBola')
+    check('m4u3 with + append prints only "Done writing."',
+          'with open("example.txt", "a") as f:\n    f.write("New line added.\\n")\n\n'
+          'print("Done writing.")', 'Done writing.')
+    check('m4u3 "w" erases an existing file',
+          'open("x.txt", "w").write("first")\n'
+          'f = open("x.txt", "w")\nf.close()\n'
+          'print(repr(open("x.txt").read()))', "''")
+    check('m4u3 "a" keeps what is there',
+          'open("y.txt", "w").write("first")\n'
+          'f = open("y.txt", "a")\nf.write("second")\nf.close()\n'
+          'print(open("y.txt").read())', 'firstsecond')
+    raises('m4u3 "r" on a missing file', lambda: open("nope.txt"),
+           "FileNotFoundError: [Errno 2] No such file or directory: 'nope.txt'")
+
+    # file.close without brackets does nothing and reports nothing
+    check('m4u3 file.close (no brackets) is silent',
+          'f = open("z.txt", "w")\nf.write("hi")\nf.close\nprint("no error")', 'no error')
+
+    # the students program
+    check('m4u3 students program', '''data = iter([("John", "76"), ("Ada", "45"), ("Bola", "30"), ("done", None)])
+with open("students.txt", "w") as f:
+    while True:
+        name, raw = next(data)
+        if name == "done":
+            break
+        score = int(raw)
+        f.write(f"{name}, {score}\\n")
+
+passes = 0
+fails_ = 0
+with open("students.txt", "r") as f:
+    for line in f:
+        name, score = line.strip().split(", ")
+        score = int(score)
+        print(f"{name} scored {score}")
+        if score >= 45:
+            passes += 1
+        else:
+            fails_ += 1
+
+print(f"Passes: {passes}, Fails: {fails_}")''',
+          'John scored 76\nAda scored 45\nBola scored 30\nPasses: 2, Fails: 1')
+
+    # ======================= MODULE FOUR, UNIT 4 =======================
+    check('m4u4 try/except ValueError', '''inputs = iter(["xyz"])
+try:
+    age = int(next(inputs))
+    print("Next year you are", age + 1)
+except ValueError:
+    print("That is not a whole number.")''', 'That is not a whole number.')
+
+    check('m4u4 robust input loop', '''inputs = iter(["xyz", "3.5", "7"])
+while True:
+    try:
+        n_ = int(next(inputs))
+        break
+    except ValueError:
+        print("Not a whole number. Try again.")
+
+print("You entered", n_)''', 'Not a whole number. Try again.\n'
+                              'Not a whole number. Try again.\nYou entered 7')
+
+    check('m4u4 try/except/else/finally, file absent', '''try:
+    f = open("data.txt")
+except FileNotFoundError:
+    print("No such file.")
+else:
+    print("Opened it.")
+    f.close()
+finally:
+    print("Finished trying.")''', 'No such file.\nFinished trying.')
+finally:
+    os.chdir(_cwd)
+    import shutil
+    shutil.rmtree(_tmp, ignore_errors=True)
+
+raises('m4u4 TypeError "a" + 1', lambda: "a" + 1,
+       'TypeError: can only concatenate str (not "int") to str')
 
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')

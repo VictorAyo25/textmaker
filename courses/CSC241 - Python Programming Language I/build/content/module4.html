@@ -1,0 +1,755 @@
+<div class="part" id="m4">
+  <div class="kicker">Module Four</div>
+  <h1>Functions, Modules<br>and File Handling</h1>
+  <p class="blurb">Packaging work under a name, borrowing work somebody else has done, and
+  making data outlive the program that made it. Questions Three and Five come from here.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="62" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="16">
+        <text x="0" y="34" fill="#306998" opacity=".9">def</text>
+        <text x="38" y="34" fill="#1a2332" opacity=".7">square(x):</text>
+        <text x="28" y="60" fill="#306998" opacity=".9">return</text>
+        <text x="100" y="60" fill="#1a2332" opacity=".7">x * x</text>
+        <text x="0" y="100" fill="#1a2332" opacity=".55">print(square(</text>
+        <text x="150" y="100" fill="#b45309" opacity=".85">4</text>
+        <text x="162" y="100" fill="#1a2332" opacity=".55">))</text>
+        <text x="220" y="100" fill="#8a8f98" opacity=".8">16</text>
+      </g>
+      <rect x="248" y="88" width="9" height="16" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<section id="m4u1">
+  <div class="kick">Module Four &middot; Unit 1</div>
+  <h2 class="title">Functions in Python</h2>
+  <hr class="rule">
+  <p class="lead">Giving a piece of work a name, so you can ask for it by name.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> define and call a function, explain
+  parameters against arguments, use <code>return</code>, name the two types of user defined
+  function, use default parameters, and say why functions matter.</p>
+
+  <h3 class="sub">What a function is</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>function</b> is a block of code with a name, which runs only when you ask for
+      it. You have been using functions since page one: <code>print</code>,
+      <code>len</code>, <code>int</code> and <code>input</code> are all functions.</p>
+      <p>Now you write your own.</p>
+<pre class="code"><span class="k">def</span> greet():
+    <span class="k">print</span>(<span class="s">"Hello!"</span>)
+
+greet()</pre>
+<pre class="out">Hello!</pre>
+      <p>Two separate things happened, and keeping them apart matters:</p>
+      <ul class="bul">
+        <li><b>Defining</b> the function, with <code>def</code>. This only tells Python the
+        name and the recipe. <b>Nothing runs.</b></li>
+        <li><b>Calling</b> the function, by writing its name with brackets. <b>Now</b> the
+        block runs.</li>
+      </ul>
+      <p>Define it once, call it as many times as you like. Delete the last line above and
+      the program prints nothing at all, because a definition on its own does nothing.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Why functions matter</span></div>
+    <div class="body">
+      <p>Asked directly as "why are functions important in programming". Four reasons:</p>
+      <ul class="bul">
+        <li><b>Reuse.</b> Write it once, call it anywhere. No copying.</li>
+        <li><b>Readability.</b> A name says what a block does, so the program reads as
+        steps rather than detail.</li>
+        <li><b>Maintenance.</b> Fix a bug in one place and every caller is fixed.</li>
+        <li><b>Decomposition.</b> A large problem splits into small named pieces, each
+        testable on its own.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Built in vs user defined</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th></th><th>Built in</th><th>User defined</th></tr>
+        <tr><td>Who wrote it</td><td>Comes with Python</td><td>You did, with <code>def</code></td></tr>
+        <tr><td>Needs defining?</td><td>No, always available</td><td>Yes, before you call it</td></tr>
+        <tr><td>Examples</td><td><code>print</code>, <code>len</code>, <code>int</code>, <code>max</code>, <code>range</code></td><td><code>greet</code>, <code>square</code>, <code>is_healthy</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="sub">Parameters and arguments</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The two words</span></div>
+    <div class="body">
+      <p>A function can be handed values to work on.</p>
+<pre class="code"><span class="k">def</span> greet(name):        <span class="c"># name is a PARAMETER</span>
+    <span class="k">print</span>(<span class="s">"Hello,"</span>, name)
+
+greet(<span class="s">"Ada"</span>)            <span class="c"># "Ada" is an ARGUMENT</span></pre>
+<pre class="out">Hello, Ada</pre>
+      <p><b>A parameter is the name in the definition. An argument is the value you pass in
+      at the call.</b> Same slot, two words, depending on which side you are standing on.</p>
+      <p>Several parameters are separated by commas, and the arguments line up with them by
+      position:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">def</span> add(a, b):
+<span class="p">...</span>     <span class="k">print</span>(a + b)
+<span class="p">...</span>
+<span class="p">&gt;&gt;&gt;</span> add(<span class="n">2</span>, <span class="n">3</span>)
+5</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">return</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The two types of function</span></div>
+    <div class="body">
+      <p>This is asked in those words: <b>explain the two types of user defined function</b>.</p>
+      <p><b>1. A void function</b> does something and hands nothing back. It has no
+      <code>return</code>.</p>
+<pre class="code"><span class="k">def</span> greet(name):
+    <span class="k">print</span>(<span class="s">"Hello,"</span>, name)</pre>
+      <p><b>2. A value returning function</b> works something out and hands it back with
+      <code>return</code>.</p>
+<pre class="code"><span class="k">def</span> square(x):
+    <span class="k">return</span> x * x</pre>
+      <p>The difference is what you can do with the call. A value returning function's call
+      <i>is</i> a value, so it can go anywhere a value can:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">def</span> square(x):
+<span class="p">...</span>     <span class="k">return</span> x * x
+<span class="p">...</span>
+<span class="p">&gt;&gt;&gt;</span> square(<span class="n">4</span>)
+16
+<span class="p">&gt;&gt;&gt;</span> y = square(<span class="n">4</span>) + <span class="n">1</span>
+<span class="p">&gt;&gt;&gt;</span> y
+17</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">print is not return</span></div>
+    <div class="body">
+      <p>These look alike and are not alike at all.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">def</span> shout(x):
+<span class="p">...</span>     <span class="k">print</span>(x * <span class="n">2</span>)
+<span class="p">...</span>
+<span class="p">&gt;&gt;&gt;</span> result = shout(<span class="n">5</span>)
+10
+<span class="p">&gt;&gt;&gt;</span> <span class="k">print</span>(result)
+None</pre>
+      <p><code>shout</code> displayed 10, then handed back <b>nothing</b>. So
+      <code>result</code> is <code>None</code>.</p>
+      <p><b>A function with no <code>return</code> returns <code>None</code>.</b> Always.
+      <code>print</code> shows a value to a human; <code>return</code> gives a value back to
+      the program. If a question says "returns Healthy", it means <code>return</code>, and
+      <code>print</code> will not earn the mark.</p>
+      <p>Also: <code>return</code> ends the function at once. Anything written after it in
+      the same block never runs.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>Meant to define a function that squares a number and call it. Find the errors:</p>
+<pre class="code"><span class="k">def</span> square(x)<span class="bad"></span>
+    <span class="k">return</span> x * x
+<span class="k">print</span>(<span class="bad">Square</span>(<span class="n">4</span>))</pre>
+      <p><b>Two errors</b>, and you only ever hear about the first:</p>
+      <ul class="bul">
+        <li><b>No colon</b> after <code>def square(x)</code>. This is a SyntaxError, caught
+        while reading the file, so nothing runs.</li>
+        <li><b><code>Square</code> with a capital S</b> does not exist. The function is
+        <code>square</code>. Names are case sensitive.</li>
+      </ul>
+      <p>Fix the colon and run again, and only then do you meet the second:</p>
+<pre class="out">Traceback (most recent call last):
+  File "C:\Users\you\sq.py", line 3, in &lt;module&gt;
+    print(Square(4))
+          ^^^^^^
+NameError: name 'Square' is not defined. Did you mean: 'square'?</pre>
+      <p>That is the syntax before runtime rule from Module Two doing exactly what it
+      promised. The corrected program:</p>
+<pre class="code"><span class="k">def</span> square(x):
+    <span class="k">return</span> x * x
+
+<span class="k">print</span>(square(<span class="n">4</span>))</pre>
+<pre class="out">16</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">Default parameters</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>A parameter may be given a value to fall back on, used when the caller does not
+      supply one.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">def</span> greet(name=<span class="s">"Guest"</span>):
+<span class="p">...</span>     <span class="k">print</span>(<span class="s">"Hello,"</span>, name)
+<span class="p">...</span>
+<span class="p">&gt;&gt;&gt;</span> greet()
+Hello, Guest
+<span class="p">&gt;&gt;&gt;</span> greet(<span class="s">"Ada"</span>)
+Hello, Ada</pre>
+      <p>Called empty, <code>name</code> takes its default. Called with an argument, the
+      argument wins. Note the comma and space in the output: that is <code>print</code>
+      putting one space between its two items, not part of the string.</p>
+      <p><b>The rule:</b> parameters with defaults must come after those without. Writing
+      <code>def f(a=1, b)</code> is a SyntaxError, because Python could not tell what a
+      single argument was meant to fill.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>Define <code>is_healthy(bmi)</code> returning "Healthy" if the BMI is between 18.5
+      and 24.9, and "Unhealthy" otherwise. Read three patients and display each result as
+      <code>Patient: John | BMI: 22.4 | Status: Healthy</code>.</p>
+      <ol class="steps">
+        <li><b>Return, do not print.</b> The question says "returns", so the function hands
+        the word back and the caller displays it.
+        <span class="note">return "Healthy"</span></li>
+        <li>The range test is a chained comparison, from Module Two, Unit 3.
+        <span class="note">18.5 &lt;= bmi &lt;= 24.9</span></li>
+        <li>Loop three times with <code>range(3)</code>, reading a name and a BMI each pass.
+        BMI is a decimal, so convert with <code>float</code>, not <code>int</code>.</li>
+        <li>Display with an f-string. The vertical bars are literal text.</li>
+      </ol>
+      <div class="codelabel">health.py</div>
+<pre class="code"><span class="k">def</span> is_healthy(bmi):
+    <span class="k">if</span> <span class="n">18.5</span> &lt;= bmi &lt;= <span class="n">24.9</span>:
+        <span class="k">return</span> <span class="s">"Healthy"</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s">"Unhealthy"</span>
+
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+    name = <span class="k">input</span>(<span class="s">"Patient name: "</span>)
+    bmi = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"BMI: "</span>))
+    status = is_healthy(bmi)
+    <span class="k">print</span>(<span class="s">f"Patient: </span>{name}<span class="s"> | BMI: </span>{bmi}<span class="s"> | Status: </span>{status}<span class="s">"</span>)</pre>
+      <p>With John 22.4, Ada 17.9 and Bola 24.9:</p>
+<pre class="out">Patient: John | BMI: 22.4 | Status: Healthy
+Patient: Ada | BMI: 17.9 | Status: Unhealthy
+Patient: Bola | BMI: 24.9 | Status: Healthy</pre>
+      <p class="redo"><b>Now you try:</b> what does <code>is_healthy(24.95)</code> return,
+      and why is that worth thinking about?
+      <span class="small">("Unhealthy", because 24.95 is above 24.9. The question's own
+      boundary is 24.9, so anything between 24.9 and 25 is Unhealthy. Say the boundary you
+      used and you cannot be marked wrong.)</span></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Extending to any number: part (e)</span></div>
+    <div class="body">
+      <p>The follow up asks for any number of patients, stopping at 'done'. That is the
+      sentinel loop from Module Three, wrapped around the same function:</p>
+<pre class="code"><span class="k">def</span> is_healthy(bmi):
+    <span class="k">if</span> <span class="n">18.5</span> &lt;= bmi &lt;= <span class="n">24.9</span>:
+        <span class="k">return</span> <span class="s">"Healthy"</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s">"Unhealthy"</span>
+
+healthy = <span class="n">0</span>
+total = <span class="n">0</span>
+<span class="k">while</span> <span class="k">True</span>:
+    name = <span class="k">input</span>(<span class="s">"Patient name (or 'done'): "</span>)
+    <span class="k">if</span> name == <span class="s">"done"</span>:
+        <span class="k">break</span>
+    bmi = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"BMI: "</span>))
+    status = is_healthy(bmi)
+    total += <span class="n">1</span>
+    <span class="k">if</span> status == <span class="s">"Healthy"</span>:
+        healthy += <span class="n">1</span>
+    <span class="k">print</span>(<span class="s">f"Patient: </span>{name}<span class="s"> | BMI: </span>{bmi}<span class="s"> | Status: </span>{status}<span class="s">"</span>)
+
+<span class="k">print</span>(<span class="s">f"Total: </span>{total}<span class="s">, Healthy: </span>{healthy}<span class="s">, Unhealthy: </span>{total - healthy}<span class="s">"</span>)</pre>
+      <p>The function did not change at all. Only the loop around it did. <b>That is the
+      point of a function, and it is the point of part (e).</b></p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Difference between a parameter and an argument?</p>
+      <p class="q">2. Name the two types of user defined function.</p>
+      <p class="q">3. What does a function without <code>return</code> give back?</p>
+      <p class="q">4. Why does <code>print(Square(4))</code> fail when <code>square</code>
+      is defined?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>A parameter is the name in the definition. An argument is the value passed at
+        the call.</li>
+        <li>Void (returns nothing) and value returning (hands a value back with
+        <code>return</code>).</li>
+        <li><code>None</code>.</li>
+        <li>Names are case sensitive. <code>Square</code> and <code>square</code> are
+        different names, and only one exists, so it is a NameError.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m4u2">
+  <div class="kick">Module Four &middot; Unit 2</div>
+  <h2 class="title">Modules and Packages</h2>
+  <hr class="rule">
+  <p class="lead">Using code somebody else already wrote.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> import a module, use the two import
+  forms, and name the modules this course uses.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Module, package, library</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li>A <b>module</b> is a single file of Python code you can use from your own.</li>
+        <li>A <b>package</b> is a folder of modules grouped together.</li>
+        <li>The <b>standard library</b> is the large set of modules that ships with Python.
+        Nothing to install; it is already there.</li>
+      </ul>
+      <p>You use a module by <b>importing</b> it, and there are two forms:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">import</span> math
+<span class="p">&gt;&gt;&gt;</span> math.sqrt(<span class="n">16</span>)
+4.0</pre>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">from</span> math <span class="k">import</span> sqrt
+<span class="p">&gt;&gt;&gt;</span> sqrt(<span class="n">16</span>)
+4.0</pre>
+      <p><code>import math</code> brings in the whole module, and you reach into it with a
+      dot. <code>from math import sqrt</code> brings in that one name, which you then use
+      bare. Both give <code>4.0</code>, a float, because <code>sqrt</code> always returns a
+      float.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The ones this course uses</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Module</th><th>Gives you</th><th>Example</th></tr>
+        <tr><td><code>math</code></td><td>Mathematics</td><td><code>math.sqrt(16)</code>, <code>math.pi</code></td></tr>
+        <tr><td><code>random</code></td><td>Random numbers</td><td><code>random.randint(1, 6)</code></td></tr>
+        <tr><td><code>sqlite3</code></td><td>Databases</td><td>Module Five</td></tr>
+        <tr><td><code>tkinter</code></td><td>Windows and buttons</td><td>Module Five</td></tr>
+      </table>
+      <p><code>random.randint(a, b)</code> is worth a note: <b>both ends are included</b>,
+      unlike <code>range</code>. So <code>random.randint(1, 6)</code> can give 6.</p>
+    </div>
+  </div>
+</section>
+
+<section id="m4u3">
+  <div class="kick">Module Four &middot; Unit 3</div>
+  <h2 class="title">File Handling in Python</h2>
+  <hr class="rule">
+  <p class="lead">Making data survive the program. Everything you have stored so far
+  vanished the moment the program ended.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> name the four access modes, open,
+  write, read and close a file, explain reading against appending, use
+  <code>with</code>, and write the record keeping programs this course sets.</p>
+
+  <h3 class="sub">The three steps</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Asked in these words</span></div>
+    <div class="body">
+      <p>Using a file is always three steps, and the question "state the three steps of file
+      use" wants exactly these:</p>
+      <ol class="qlist">
+        <li><b>Open</b> the file, which connects your program to it and says what you intend
+        to do.</li>
+        <li><b>Process</b> it: read from it, or write to it.</li>
+        <li><b>Close</b> it, which finishes the job and makes sure everything you wrote is
+        actually saved.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four access modes</span></div>
+    <div class="body">
+      <p><code>open</code> takes the file name and the <b>mode</b>, a short string saying
+      what you intend.</p>
+      <table class="data">
+        <tr><th>Mode</th><th>Name</th><th>If the file exists</th><th>If it does not</th></tr>
+        <tr><td><code>"r"</code></td><td>Read</td><td>Reads it. Cannot write.</td><td><b>FileNotFoundError</b></td></tr>
+        <tr><td><code>"w"</code></td><td>Write</td><td><b>Erases it completely</b>, then writes</td><td>Creates it</td></tr>
+        <tr><td><code>"a"</code></td><td>Append</td><td>Adds to the end, keeps what is there</td><td>Creates it</td></tr>
+        <tr><td><code>"x"</code></td><td>Exclusive create</td><td><b>FileExistsError</b></td><td>Creates it</td></tr>
+      </table>
+      <p style="margin-top:.5em"><code>"r"</code> is the default, so <code>open("f.txt")</code>
+      means read.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Reading against appending</span></div>
+    <div class="body">
+      <p>Asked directly. Give the pair:</p>
+      <ul class="bul">
+        <li><b>Reading</b> (<code>"r"</code>) takes data <i>out</i> of the file and changes
+        nothing. The file must already exist.</li>
+        <li><b>Appending</b> (<code>"a"</code>) puts data <i>into</i> the file, at the end,
+        keeping everything already there. It creates the file if needed.</li>
+      </ul>
+      <p>And the distinction that actually loses data: <b><code>"w"</code> erases the whole
+      file the moment you open it</b>, before you write a single character. If you meant to
+      add to a file and opened it with <code>"w"</code>, everything in it is already gone.
+      <code>"a"</code> is the one that adds.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Writing</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+<pre class="code">f = <span class="k">open</span>(<span class="s">"note.txt"</span>, <span class="s">"w"</span>)
+f.write(<span class="s">"This is a note."</span>)
+f.close()</pre>
+      <p>Two things surprise people about <code>write</code>:</p>
+      <ul class="bul">
+        <li><b>It adds no newline.</b> <code>print</code> does; <code>write</code> does not.
+        Two writes in a row land on the same line unless you put <code>\n</code> in
+        yourself.</li>
+        <li><b>It only writes strings.</b> Passing a number is a TypeError, so convert with
+        <code>str()</code> first.</li>
+      </ul>
+<pre class="code">f = <span class="k">open</span>(<span class="s">"names.txt"</span>, <span class="s">"w"</span>)
+f.write(<span class="s">"Ada\n"</span>)
+f.write(<span class="s">"Bola\n"</span>)
+f.close()</pre>
+      <p>gives a file holding two lines. Without the <code>\n</code> it would hold
+      <code>AdaBola</code> on one line.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">This exact code has been set</span></div>
+    <div class="body">
+      <p>Meant to write a message to <code>note.txt</code>. Find the errors:</p>
+<pre class="code">file = <span class="k">open</span>(<span class="s">"note.txt"</span>, <span class="s">"w"</span>)
+file.write(<span class="s">"This is a note."</span><span class="bad"></span>
+file.close<span class="bad"></span></pre>
+      <p><b>Two errors, and the first hides the second:</b></p>
+      <ul class="bul">
+        <li>The <code>write</code> line is <b>missing its closing bracket</b>. That is a
+        SyntaxError, so the file never runs.</li>
+        <li><code>file.close</code> has <b>no brackets</b>, so it is not a call. It names
+        the method and throws it away, doing nothing. The file is never closed.</li>
+      </ul>
+      <p>The second is the nastier one, because it is silent: no error, no message, and
+      possibly no data in the file. Fixed:</p>
+<pre class="code">file = <span class="k">open</span>(<span class="s">"note.txt"</span>, <span class="s">"w"</span>)
+file.write(<span class="s">"This is a note."</span>)
+file.close()</pre>
+      <p><b>Brackets mean "do it". No brackets means "the thing itself".</b> The same rule
+      catches <code>conn.cursor</code> against <code>conn.cursor()</code> in Module Five.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">with</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The safe way</span></div>
+    <div class="body">
+      <p>Forgetting <code>close()</code> is easy, and a crash between opening and closing
+      skips it entirely. <code>with</code> closes the file for you, whatever happens.</p>
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"example.txt"</span>, <span class="s">"a"</span>) <span class="k">as</span> f:
+    f.write(<span class="s">"New line added.\n"</span>)
+
+<span class="k">print</span>(<span class="s">"Done writing."</span>)</pre>
+<pre class="out">Done writing.</pre>
+      <p>Read it as: open the file, call it <code>f</code>, and when the indented block ends
+      close it automatically. There is no <code>close()</code> to write and none to forget.</p>
+      <p><b>What this code does, if asked:</b> it opens <code>example.txt</code> in append
+      mode, creating it if absent; adds one line to the end without disturbing what is
+      already there; closes it; then prints <code>Done writing.</code> to the screen. Note
+      that <b>only</b> "Done writing." appears on screen. The written line went into the
+      file, not to the display.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Reading</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Three ways to read</span></div>
+    <div class="body">
+      <p>Given a <code>names.txt</code> holding <code>Ada</code> and <code>Bola</code> on
+      two lines:</p>
+      <table class="data">
+        <tr><th>Method</th><th>Gives</th><th>Result here</th></tr>
+        <tr><td><code>f.read()</code></td><td>The whole file as one string</td><td><code>'Ada\nBola\n'</code></td></tr>
+        <tr><td><code>f.readline()</code></td><td>The next line only, as a string</td><td><code>'Ada\n'</code></td></tr>
+        <tr><td><code>f.readlines()</code></td><td>A list of all lines</td><td><code>['Ada\n', 'Bola\n']</code></td></tr>
+      </table>
+      <p style="margin-top:.5em">The usual way is to loop over the file directly, which
+      gives one line at a time and does not load a large file into memory at once:</p>
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"names.txt"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> line <span class="k">in</span> f:
+        <span class="k">print</span>(line.strip())</pre>
+<pre class="out">Ada
+Bola</pre>
+      <p><b>Every line you read keeps its <code>\n</code> on the end.</b> That is why
+      <code>strip()</code> is there: without it you would print a blank line after each
+      name, because the line's own newline and <code>print</code>'s newline both land.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
+    <div class="body">
+      <p>Store student records (name and score) until 'done' is entered, in
+      <code>students.txt</code>, one per line as <code>Name, Score</code>. Then read it back,
+      print each record, and count passes and fails. <b>The pass mark is 45 and above.</b></p>
+      <ol class="steps">
+        <li>Sentinel loop to collect, writing as you go. Mode <code>"w"</code> because we
+        are creating the file fresh.
+        <span class="note">Test for 'done' before asking for the score</span></li>
+        <li><code>write</code> needs a string and adds no newline, so build the line with an
+        f-string and put <code>\n</code> on the end yourself.</li>
+        <li>Close, then reopen in <code>"r"</code>. The question asks for this explicitly.</li>
+        <li>Split each line at the comma, convert the score, count.
+        <span class="note">45 and above passes</span></li>
+      </ol>
+      <div class="codelabel">students.py</div>
+<pre class="code"><span class="k">with</span> <span class="k">open</span>(<span class="s">"students.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">while</span> <span class="k">True</span>:
+        name = <span class="k">input</span>(<span class="s">"Name (or 'done'): "</span>)
+        <span class="k">if</span> name == <span class="s">"done"</span>:
+            <span class="k">break</span>
+        score = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Score: "</span>))
+        f.write(<span class="s">f"</span>{name}<span class="s">, </span>{score}<span class="s">\n"</span>)
+
+passes = <span class="n">0</span>
+fails = <span class="n">0</span>
+<span class="k">with</span> <span class="k">open</span>(<span class="s">"students.txt"</span>, <span class="s">"r"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> line <span class="k">in</span> f:
+        name, score = line.strip().split(<span class="s">", "</span>)
+        score = <span class="k">int</span>(score)
+        <span class="k">print</span>(<span class="s">f"</span>{name}<span class="s"> scored </span>{score}<span class="s">"</span>)
+        <span class="k">if</span> score &gt;= <span class="n">45</span>:
+            passes += <span class="n">1</span>
+        <span class="k">else</span>:
+            fails += <span class="n">1</span>
+
+<span class="k">print</span>(<span class="s">f"Passes: </span>{passes}<span class="s">, Fails: </span>{fails}<span class="s">"</span>)</pre>
+      <p>Entering John 76, Ada 45, Bola 30, then done:</p>
+<pre class="out">John scored 76
+Ada scored 45
+Bola scored 30
+Passes: 2, Fails: 1</pre>
+      <p><b>Ada passes.</b> The mark is 45 <i>and above</i>, so the test is <code>&gt;=</code>,
+      not <code>&gt;</code>. Getting that boundary wrong is the difference between 2 passes
+      and 1.</p>
+      <p class="small"><code>name, score = ...split(", ")</code> unpacks a two item list into
+      two names at once. It works because <code>split</code> returned exactly two pieces.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">The pass mark is not printed</span></div>
+    <div class="body">
+      <p>The paper asks you to count passes and fails but <b>never states the pass mark in
+      its printed text</b>. It appears only as a handwritten note: 45 and above.</p>
+      <p>If you meet a question like this with no threshold given, <b>state the one you are
+      using</b> in a comment and in your output. A marker cannot fault an assumption you
+      declared. They can fault a number that appeared from nowhere.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Name the four access modes and what each does to an existing file.</p>
+      <p class="q">2. What does <code>"w"</code> do to a file that already has data?</p>
+      <p class="q">3. What is wrong with <code>file.close</code>?</p>
+      <p class="q">4. Why does reading a line usually need <code>strip()</code>?</p>
+      <p class="q">5. What does <code>with</code> save you from?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li><code>"r"</code> read, fails if absent. <code>"w"</code> write, erases it.
+        <code>"a"</code> append, adds to the end. <code>"x"</code> create, fails if it
+        exists.</li>
+        <li>Erases it completely, the moment it is opened, before anything is written.</li>
+        <li>No brackets, so it is not a call. Nothing happens and the file is never closed.
+        No error is reported.</li>
+        <li>Each line keeps the <code>\n</code> that ended it in the file.</li>
+        <li>Forgetting <code>close()</code>, and skipping it when something goes wrong part
+        way through.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="m4u4">
+  <div class="kick">Module Four &middot; Unit 4</div>
+  <h2 class="title">Exception Handling</h2>
+  <hr class="rule">
+  <p class="lead">Catching a runtime error instead of letting it kill the program.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> explain what an exception is, use
+  <code>try</code> and <code>except</code>, catch the right error, and use
+  <code>finally</code>.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>An <b>exception</b> is a runtime error, in the Module Two sense: the line was
+      grammatically fine, but doing it turned out to be impossible. Unhandled, it prints a
+      traceback and the program stops dead.</p>
+      <p>You met this one already:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> <span class="k">int</span>(<span class="s">"xyz"</span>)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: invalid literal for int() with base 10: 'xyz'</pre>
+      <p>In a program that asks the user for a number, that is not a bug in your code. It is
+      a user typing badly. The program should say so and carry on, not crash.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">try and except</span></div>
+    <div class="body">
+<pre class="code"><span class="k">try</span>:
+    age = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Your age: "</span>))
+    <span class="k">print</span>(<span class="s">"Next year you are"</span>, age + <span class="n">1</span>)
+<span class="k">except</span> ValueError:
+    <span class="k">print</span>(<span class="s">"That is not a whole number."</span>)</pre>
+      <p>Run it and type <code>xyz</code>:</p>
+<pre class="out">Your age: xyz
+That is not a whole number.</pre>
+      <p>No traceback, no crash. How it works:</p>
+      <ul class="bul">
+        <li>Python runs the <code>try</code> block.</li>
+        <li>If nothing goes wrong, the <code>except</code> block is skipped entirely.</li>
+        <li>If a <code>ValueError</code> happens, Python <b>abandons the rest of the
+        <code>try</code> block at once</b> and runs the <code>except</code> block instead.</li>
+      </ul>
+      <p>Note the second line inside the <code>try</code> never ran. That is why the block
+      should hold only the risky work and what depends on it.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The exceptions to know by name</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Exception</th><th>Happens when</th><th>Seen in</th></tr>
+        <tr><td><code>ValueError</code></td><td><code>int("xyz")</code></td><td>Module Two, Unit 2</td></tr>
+        <tr><td><code>ZeroDivisionError</code></td><td><code>10 / 0</code></td><td>Module Two, Unit 1</td></tr>
+        <tr><td><code>IndexError</code></td><td><code>[1,2][5]</code></td><td>Module Three, Unit 3</td></tr>
+        <tr><td><code>KeyError</code></td><td><code>d["absent"]</code></td><td>Module Three, Unit 4</td></tr>
+        <tr><td><code>TypeError</code></td><td><code>"a" + 1</code></td><td>Module Two, Unit 2</td></tr>
+        <tr><td><code>NameError</code></td><td>Using a name that does not exist</td><td>Module Four, Unit 1</td></tr>
+        <tr><td><code>FileNotFoundError</code></td><td><code>open("gone.txt")</code></td><td>Module Four, Unit 3</td></tr>
+      </table>
+      <p style="margin-top:.5em">Every one of these has appeared in this manual before this
+      page. That is the point of the table: you have met them all as accidents, and now you
+      can catch them on purpose.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Do not catch everything</span></div>
+    <div class="body">
+      <p>A bare <code>except:</code> catches every error there is, including the ones caused
+      by your own bugs, and hides them:</p>
+<pre class="code"><span class="k">try</span>:
+    age = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Age: "</span>))
+<span class="bad"><span class="k">except</span>:</span>
+    <span class="k">print</span>(<span class="s">"Something went wrong."</span>)</pre>
+      <p>Misspell a name inside that <code>try</code> and you get "Something went wrong"
+      instead of a NameError telling you exactly which line and which name. You have thrown
+      away the most useful message on the screen.</p>
+      <p><b>Name the exception you expect.</b> <code>except ValueError:</code> catches bad
+      input and leaves your own mistakes visible.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Input that will not crash</span></div>
+    <div class="body">
+      <p>The exam's programs all begin by reading a number. Combining this unit with the
+      loops from Module Three gives input that cannot be broken:</p>
+<pre class="code"><span class="k">while</span> <span class="k">True</span>:
+    <span class="k">try</span>:
+        n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Enter a whole number: "</span>))
+        <span class="k">break</span>
+    <span class="k">except</span> ValueError:
+        <span class="k">print</span>(<span class="s">"Not a whole number. Try again."</span>)
+
+<span class="k">print</span>(<span class="s">"You entered"</span>, n)</pre>
+      <p>Typing <code>xyz</code>, then <code>3.5</code>, then <code>7</code>:</p>
+<pre class="out">Enter a whole number: xyz
+Not a whole number. Try again.
+Enter a whole number: 3.5
+Not a whole number. Try again.
+Enter a whole number: 7
+You entered 7</pre>
+      <p>The <code>break</code> is <b>inside the <code>try</code>, after the conversion</b>.
+      So it is only reached when the conversion worked. Put it after the
+      <code>try</code> block and the loop would exit even on bad input.</p>
+      <p class="small">Note <code>3.5</code> is rejected: <code>int()</code> only accepts a
+      whole number written out, as Module Two, Unit 2 showed.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">else and finally</span></div>
+    <div class="body">
+      <p>Two optional extras complete the shape:</p>
+      <ul class="bul">
+        <li><code>else</code> runs <b>only if no exception happened</b>. Same idea as the
+        loop <code>else</code> from Module Three: "if nothing interrupted".</li>
+        <li><code>finally</code> runs <b>always</b>, exception or not. It is for cleaning
+        up.</li>
+      </ul>
+<pre class="code"><span class="k">try</span>:
+    f = <span class="k">open</span>(<span class="s">"data.txt"</span>)
+<span class="k">except</span> FileNotFoundError:
+    <span class="k">print</span>(<span class="s">"No such file."</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"Opened it."</span>)
+    f.close()
+<span class="k">finally</span>:
+    <span class="k">print</span>(<span class="s">"Finished trying."</span>)</pre>
+      <p>With no <code>data.txt</code> present:</p>
+<pre class="out">No such file.
+Finished trying.</pre>
+      <p><code>finally</code> is what <code>with</code> does for you automatically, which is
+      why <code>with</code> is preferred for files.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What is an exception?</p>
+      <p class="q">2. What happens to the rest of the <code>try</code> block when an
+      exception fires on its first line?</p>
+      <p class="q">3. Why is a bare <code>except:</code> a bad idea?</p>
+      <p class="q">4. When does <code>finally</code> run?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <ol class="qlist">
+        <li>A runtime error: the line was grammatically valid but could not be carried out.
+        Unhandled, it stops the program with a traceback.</li>
+        <li>It is abandoned. Python jumps straight to the matching <code>except</code>.</li>
+        <li>It catches your own bugs too and replaces their messages with yours, hiding
+        exactly the information you need.</li>
+        <li>Always, whether an exception happened or not.</li>
+      </ol>
+    </div>
+  </div>
+</section>
