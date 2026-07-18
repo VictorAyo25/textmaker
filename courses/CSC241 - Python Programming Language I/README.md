@@ -6,11 +6,12 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**SHIPPED 2026-07-18** (first edition, 144 pages). **New edition in progress**, blending
-in the real 2025/2026 paper the student supplied on 2026-07-18: a solved-in-full section,
-a third mock in the paper's new shape, and the teaching gaps it exposed now filled. Built
-to `drafts/` and gate-green; it replaces the `FINAL_MANUALS/` copy in place on the next
-explicit sign-off. All four gates green.
+**SHIPPED 2026-07-18, 182 pages**, no version suffix, at `FINAL_MANUALS/CSC241 - Python
+Programming Language I - Study Manual.pdf`. This is the second edition of the day: the
+first (144 pages) shipped in the morning, then the student supplied the real 2025/2026
+paper and it was blended in (a solved-in-full section, a third mock in the paper's new
+shape, and the teaching gaps it exposed). The 144-page render is superseded; git holds it.
+All four gates green at publish, every new and changed page looked at.
 
 Every one of the exam's six questions has a home, on both the 2024/25 and 2025/26 papers:
 

@@ -57,31 +57,45 @@ To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-CSC241 - Python Programming Language I - Study Manual.pdf   144 pp   published 2026-07-18
+CSC241 - Python Programming Language I - Study Manual.pdf   182 pp   updated 2026-07-18
 -------------------------------------------------------------------------------
 CSC241 Python Programming Language I, complete manual, Modules 1 to 5.
 
 Contents: Modules 1 to 5 (fifteen units plus a Strings unit the course lacked but
-the exam needs), self-assessment answers, and both mock examinations solved in
-full. Every one of the exam's six questions has a home in the coverage table.
-28 clickable Contents links, real selectable text throughout.
+the exam needs), self-assessment answers, the real 2025/2026 paper solved in full,
+and three mock examinations solved in full. Every one of the exam's six questions
+has a home in the coverage table, on both the 2024/25 and 2025/26 papers. 35
+clickable Contents links, real selectable text throughout.
 
 Like COS221 this manual was AUTHORED, not rebuilt: the 224-page course manual is
 the institution's, a source, so content/*.html is the book, written by hand. Every
 claimed output was produced by a real Python interpreter and captured from the run,
-never typed: 343 claims, 0 mismatches. Set-valued outputs are compared as sets, not
-by printed order, because Python randomises string hashing per process. Both mock
-papers mirror the real 24/25 shape (six questions, attempt any four, five subparts)
-with entirely fresh scenarios, and every mock answer runs through the same gate.
+never typed: 367 claims, 0 mismatches. Set-valued outputs are compared as sets, not
+by printed order, because Python randomises string hashing per process.
+
+What changed from the first render of the same day (144 pp): THE REAL 2025/2026 PAPER.
+The student supplied it (seven phone photos) after the first edition shipped, and it
+broke the shape the manual was built around. The 2024/2025 paper was rigid: five parts
+a question, each 3.5 marks, one module per question. The 2025/2026 paper varies the
+marks per part (1 to 10.5), varies the number of parts, and mixes topics inside a
+question. So the manual now teaches to the topics (unchanged) and drills both shapes:
+Mocks One and Two in the 24/25 shape, and the newly added solved real paper plus Mock
+Three in the 25/26 shape. The paper also carries a defect in its own Q6(c) sample (it
+prints 10546.90 where math.pi gives 10547.79); the solved section shows the run and
+states the true figure, the way this book treats every course-material error. Filling
+the paper's demands added SQL UPDATE/DELETE/COUNT/MAX/AVG and executemany, lists inside
+lists, the del keyword, and a fifth benefit of modularizing. The 144 pp render was
+superseded the same day; git holds it.
 
 Four scripted gates, all green at publish:
-  - verify_code.py: every claimed output diffed against a real interpreter. 343
+  - verify_code.py: every claimed output diffed against a real interpreter. 367
     claims, 0 failures.
   - gates.py: no em/en dashes, no institution or methodology-author names, the
     reserved colour used only by MUST MEMORISE, all code monospace, and no code
     line over the width that fits (a longer one shrinks every page in the book).
   - qa_firstuse.py: the "no external sources" promise, measured not asserted.
-    Nothing is used before the prose names it, and no API is first met in a mock.
+    Nothing is used before the prose names it, and no API is first met in a mock
+    (this caught executemany on its first run, which is why Module Five now teaches it).
   - qa_layout.py: the body renders at its designed size (not silently scaled to
     fit an over-wide line), nothing outside the margins, no box cut by a page break
     that would have fitted whole, the Contents links resolve to the pages they name.
