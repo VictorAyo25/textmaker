@@ -6,9 +6,10 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**All five modules, both mocks, and the Contents page authored**, rendered to
-`build/CSC241_checkpoint.pdf` (144 pages: cover, Contents, and 142). Voice and palette
-approved. Every page has been looked at, not just gated.
+**SHIPPED 2026-07-18** to `FINAL_MANUALS/CSC241 - Python Programming Language I -
+Study Manual.pdf` (144 pages: cover, Contents, and 142), no version suffix. All five
+modules, both mocks, and the Contents page authored, all four gates green at publish.
+Voice and palette approved. Every page has been looked at, not just gated.
 
 Every one of the exam's six questions now has a home:
 

@@ -45,6 +45,43 @@ To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
+CSC241 - Python Programming Language I - Study Manual.pdf   144 pp   published 2026-07-18
+-------------------------------------------------------------------------------
+CSC241 Python Programming Language I, complete manual, Modules 1 to 5.
+
+Contents: Modules 1 to 5 (fifteen units plus a Strings unit the course lacked but
+the exam needs), self-assessment answers, and both mock examinations solved in
+full. Every one of the exam's six questions has a home in the coverage table.
+28 clickable Contents links, real selectable text throughout.
+
+Like COS221 this manual was AUTHORED, not rebuilt: the 224-page course manual is
+the institution's, a source, so content/*.html is the book, written by hand. Every
+claimed output was produced by a real Python interpreter and captured from the run,
+never typed: 343 claims, 0 mismatches. Set-valued outputs are compared as sets, not
+by printed order, because Python randomises string hashing per process. Both mock
+papers mirror the real 24/25 shape (six questions, attempt any four, five subparts)
+with entirely fresh scenarios, and every mock answer runs through the same gate.
+
+Four scripted gates, all green at publish:
+  - verify_code.py: every claimed output diffed against a real interpreter. 343
+    claims, 0 failures.
+  - gates.py: no em/en dashes, no institution or methodology-author names, the
+    reserved colour used only by MUST MEMORISE, all code monospace, and no code
+    line over the width that fits (a longer one shrinks every page in the book).
+  - qa_firstuse.py: the "no external sources" promise, measured not asserted.
+    Nothing is used before the prose names it, and no API is first met in a mock.
+  - qa_layout.py: the body renders at its designed size (not silently scaled to
+    fit an over-wide line), nothing outside the margins, no box cut by a page break
+    that would have fitted whole, the Contents links resolve to the pages they name.
+
+The Contents is generated, never typed: its page numbers are read back out of the
+rendered book, so they cannot drift from it. Building it surfaced a layout fault
+that had stranded four of six module-divider pages, now fixed.
+
+To rebuild or update:  see "courses/CSC241 - Python Programming Language I/README.md"
+                       (cd build && python assemble.py)
+
+-------------------------------------------------------------------------------
 PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.
