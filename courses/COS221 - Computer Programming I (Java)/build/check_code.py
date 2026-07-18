@@ -85,6 +85,15 @@ ATTR_RE = re.compile(r'data-(?P<k>[a-z]+)="(?P<v>[^"]*)"')
 ANY_PRE_RE = re.compile(r'<pre class="(?P<cls>[^"]*)"')
 ALLOWED_PRE = {'src', 'src nonum', 'out'}
 
+# No code line may be wider than the panel it renders in. This is the cheap,
+# pre-render half of the shrink guard (MANUAL_METHODOLOGY 2b): Chromium scales the
+# WHOLE book down to fit its widest box, so one long line shrinks every page's body
+# font, silently. The rendered-size check in qa.py is the definitive backstop; this
+# one names the file and line before a render is even taken. 87 chars was measured
+# to sit inside the panel here; 88 is the ceiling, and the book shipped once at 92.9%
+# on two 99-char lines. Re-measure if the code font, margins or gutter change.
+MAX_COL = 88
+
 
 class _Lines(HTMLParser):
     """Pull one Java source line out of each <span class="l">.
@@ -245,6 +254,18 @@ def check_file(name, results, answered=None, questions=None):
             attrs = dict((a.group('k'), htmllib.unescape(a.group('v')))
                          for a in ATTR_RE.finditer(m.group('attrs')))
             where = f'{name}:{doc[:m.start()].count(chr(10)) + 1}'
+
+            # Width first, for EVERY listing including nocheck skeletons: a wide line
+            # shrinks the whole book whether or not its output is checked.
+            try:
+                for ln in source_of(m.group('body')).split('\n'):
+                    if len(ln) > MAX_COL:
+                        results.append(('FAIL', where,
+                                        f'code line is {len(ln)} chars, over the {MAX_COL}-char '
+                                        f'panel limit; it would shrink the whole book. Wrap it:\n'
+                                        f'  {ln.strip()[:80]}'))
+            except ValueError:
+                pass                              # reported below by the real check
 
             if 'nocheck' in attrs:
                 results.append(('SKIP', where, attrs['nocheck']))

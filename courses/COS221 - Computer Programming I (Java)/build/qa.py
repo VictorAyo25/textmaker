@@ -86,14 +86,77 @@ def main():
                         over.append(i + 1)
     check('text outside the margins', len(over), str(sorted(set(over))[:6]))
 
+    # A section title (16.5pt) low on the page is only ORPHANED if its first box is
+    # overleaf, which is what the docstring promises and what looks wrong. A title
+    # sitting low but WITH its first box beneath it on the same page is an ordinary
+    # heading-near-a-page-foot, and forcing it to the next page would only trade the
+    # heading for a half-empty page, a worse defect. So the test is: low AND no box
+    # begins below it here. A box is a wide filled panel (its bar or its body); the
+    # thin heading rule and a bare intro line are not, so a genuine stranding, where
+    # only the rule and maybe one line follow, still fails.
+    def box_below(pg, y):
+        for dr in pg.get_drawings():
+            if dr.get('fill') is None:
+                continue
+            r = dr['rect']
+            if r.width > 200 and r.height > 8 and r.y0 > y + 2 and r.y1 < H - 20:
+                return True
+        return False
+
     orph = []
+    for i in range(d.page_count):
+        pg = d[i]
+        for b in pg.get_text('dict')['blocks']:
+            for ln in b.get('lines', []):
+                for s in ln.get('spans', []):
+                    if 15.5 < s['size'] < 17.5 and s['bbox'][1] > H * 0.80:
+                        if not box_below(pg, s['bbox'][3]):
+                            orph.append(i + 1)
+    check('section heading orphaned', len(orph), str(sorted(set(orph))))
+
+    print('\nrender fidelity')
+    # THE SHRINK CHECK (MANUAL_METHODOLOGY 2b). Chromium scales the WHOLE document
+    # down to fit its widest box, so one over-long code line shrinks the body font of
+    # every page. It is invisible to every check above: after the shrink nothing
+    # overflows, the footers are sequential, the Contents agrees with itself. The
+    # only fingerprint is the type coming back smaller than the CSS asked for. The
+    # section title is 16.5pt in manual.css; measure what it actually rendered at.
+    # This book shipped once at 92.9% (title 15.32pt) before this check existed.
+    from collections import Counter
+    titles = Counter()
     for i in range(d.page_count):
         for b in d[i].get_text('dict')['blocks']:
             for ln in b.get('lines', []):
                 for s in ln.get('spans', []):
-                    if 15.5 < s['size'] < 17.5 and s['bbox'][1] > H * 0.80:
-                        orph.append(i + 1)
-    check('section heading orphaned', len(orph), str(sorted(set(orph))))
+                    if 14 < s['size'] < 18 and 'Serif' in s['font']:
+                        titles[round(s['size'], 2)] += 1
+    rendered = max((s for s, _ in titles.most_common(3)), default=0)
+    shrunk = 1 if rendered < 16.4 else 0
+    check('body shrunk below its design size', shrunk,
+          f'section title rendered at {rendered}pt, css asks 16.5pt '
+          f'({rendered / 16.5:.1%} of design size)')
+
+    # And the tighter of the two limits: code must stay inside its own panel, not
+    # merely inside the page. A line 88-90 chars wide clears the page margin, so it
+    # triggers no shrink and no margin-overflow, yet its tail prints outside the box
+    # drawn around it. Measure the code panel (the wide pale fill behind pre.src) and
+    # check every mono run against it.
+    spill = []
+    for i in range(d.page_count):
+        pg = d[i]
+        panels = [dr['rect'] for dr in pg.get_drawings()
+                  if dr.get('fill') and dr['rect'].width > 300 and 18 < dr['rect'].height < 800]
+        for b in pg.get_text('dict')['blocks']:
+            for ln in b.get('lines', []):
+                for s in ln.get('spans', []):
+                    if 'Mono' not in s['font']:
+                        continue
+                    for r in panels:
+                        if r.y0 - 2 <= s['bbox'][1] and s['bbox'][3] <= r.y1 + 2 and r.x0 < s['bbox'][0]:
+                            if s['bbox'][2] > r.x1 + 1.0:
+                                spill.append(i + 1)
+                            break
+    check('code spilling past its panel', len(spill), str(sorted(set(spill))[:6]))
 
     print()
     if fails:

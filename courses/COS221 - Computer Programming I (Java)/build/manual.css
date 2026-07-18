@@ -72,8 +72,12 @@ h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:16.5pt; 
   margin:.08em 0 .1em; line-height:1.15; page-break-after:avoid; }
 .title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
   page-break-after:avoid; }
-.lead{ font-style:italic; color:var(--muted); font-size:9.6pt; margin:.2em 0 .7em;
-  page-break-after:avoid; }
+/* A plain intro paragraph straight after a heading rule (the mock questions open
+   this way) must glue to the box that follows, or the heading strands at a page
+   foot with one line under it while its content flows overleaf. .lead already does
+   this; a bare <p> in that slot did not, and three mock titles orphaned once the
+   book grew to its true length. */
+.rule + p{ page-break-after:avoid; break-after:avoid; }
 .lo{ font-size:9pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em;
   page-break-after:avoid; }
 h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:11.6pt;

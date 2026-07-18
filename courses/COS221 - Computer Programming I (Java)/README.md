@@ -39,9 +39,12 @@ class, the keyword index and the glossary. No formula sheet: this is not that ki
 course.
 
 All four gates are scripted and green: `check_code.py`, `qa.py`, `qa_firstuse.py`,
-`qa_reference.py`.
+`qa_reference.py` -- now including the shrink guards (see the render sections below).
 
-The book is complete. Nothing goes to `../../FINAL_MANUALS/` until Victor says so.
+**SHIPPED 2026-07-17, 333 pp**, no suffix, in `../../FINAL_MANUALS/`. It first went out
+at 298 pp and was found the same day to be rendering at 92.9% of its design size (a
+silent Chromium shrink on two 99-character lines); the lines were wrapped, the book
+returned to its true 333 pages, guards were added, and it was re-published in place.
 
 ## Build it
 
@@ -141,6 +144,26 @@ PHY121 learned this and has the barrier. Each new course copies `render.py` from
 last, so the fix does not propagate itself: **COS221 lost it in the port** (restored
 2026-07-17). Grep a new course's `render.py` for `fonts.status` before believing any
 page count it prints.
+
+## The other silent shrink: Chromium fits the whole book to its widest box
+
+A second, unrelated way the render can lie, and this one shipped once here. Chromium's
+print path scales the **entire document** down so its widest box fits the paper, so a
+single over-long code line reduces the body font of every page. This book went to
+FINAL_MANUALS at **298 pages rendering at 92.9%** (body 8.91pt where the CSS asks 9.6pt)
+on two 99-character `System.out.println` lines. Like the font lottery, it **passes
+every self-consistency gate**: after the shrink nothing overflows.
+
+Two guards now catch it, and both must stay:
+
+- **Before the render**, `check_code.py` caps every code line at **88 characters** (the
+  measured panel width here; re-measure if the code font, margins or gutter change). It
+  names the file and line.
+- **After the render**, `qa.py` asserts the section title comes back at 16.5pt and that
+  no mono run spills past its code panel. This catches any cause, not just long lines.
+
+Wrapping the lines took the book to its true **333 pages**. See `MANUAL_METHODOLOGY.md`
+section 2b. **Measure the rendered font size before believing the page count.**
 
 ## Course facts
 

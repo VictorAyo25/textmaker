@@ -26,6 +26,28 @@ and emphasis — this playbook captures what stays constant: the *method*.
 6. **Close the loop.** Solve every classwork item and every past test question,
    then write mock papers weighted to mirror the real tests, cross-referenced
    back to the teaching section (§) that each answer tests.
+7. **Internal consistency is not correctness.** Two silent failures shipped
+   defective books from this workspace, and both passed every gate that only asks
+   whether the PDF agrees with itself: fonts measured in fallback metrics (the
+   pagination lottery, §2), and Chromium scaling the whole book down to fit its
+   widest box (the shrink, §2b, which shipped COS221 at 92.9% and PHY121 v2 at 64
+   pages instead of 148). Always measure the RENDERED artifact against the DESIGN,
+   the font size it came back at, the page count's plausibility, not just against
+   itself. And re-measure after *any* change that can move layout, including after
+   sign-off: the shrink was found in a book already in FINAL_MANUALS.
+8. **Measure every claim, not just every number** (item 4, generalised, and it
+   bites hardest on a code course). Compiler error counts, rounding, operator
+   semantics and library behaviour are all folklore-ridden. Run it. COS221 found
+   the printf half-up rounding rule, `Math.pow`'s supposed inexactness, the sign of
+   `%` on negatives, and "a Swing program hangs without `System.exit(0)`" all differ
+   from what is commonly taught and often from what the course's own slides assert.
+   A claim you did not execute is a guess wearing a fact's clothes.
+9. **A gate you have not tried to break is one you are trusting on faith.** Every
+   gate here first shipped with a blind spot found only by feeding it known-bad
+   input: the before-use audit was blind to strings, comments and `catch` clauses;
+   the reference audit would have passed a table of pure invention until it was
+   control-tested in both directions. When you write or change a gate, prove it
+   FAILS on the defect it claims to catch, not merely that it passes today.
 
 ## 0b. House style (HARD rules for every manual)
 
@@ -144,9 +166,18 @@ the page**: the column count is only a proxy for that.
 
 All three checks live in CSC241's `gates.py` and `qa_layout.py`. PHY121 is clean
 at scale 1.0000 (physics has no long code lines). COS221 was found rendering at
-**92.9%** on two 99-character lines. Any course with code, and especially SQL or
-Java, should be checked. **Measure the rendered font size of a finished manual
-before believing it is the size you designed.**
+**92.9%** on two 99-character lines, **after it had already shipped** at 298 pages:
+the shrink is invisible, so every gate then in place passed the defective render and
+it went to FINAL_MANUALS looking perfect. It was caught only because CSC241, working
+the same bug in its own book, measured COS221's render in passing and left a note.
+Fixed by wrapping every code line to <=88 chars (the panel limit here; re-measured,
+not inherited from CSC241's 87 at its own font size), which returned it to full size
+and its true **333 pages**. COS221 now carries both guards inline: a pre-render
+column cap in `check_code.py`, and a rendered-font-size plus panel-overflow check in
+`qa.py`. Any course with code, and especially SQL or Java, should be checked.
+**Measure the rendered font size of a finished manual before believing it is the
+size you designed** -- and measure it again after any change that adds a line of
+code, because a passing gate suite is exactly what a shrunk book looks like.
 
 ### 2c. The type size is pinned by the code, not chosen
 
@@ -240,6 +271,26 @@ keeps the superseded copies.
 - [ ] Decide palette + tone + which box types dominate.
 - [ ] Identify the ~dozen core ideas → Foundations + must-memorise + formula sheet.
 - [ ] List diagrams the course needs (this is where slides usually beat prose).
+
+### Before you ship (every course, every re-publish)
+
+The gates below all passed on books that shipped defective, because each failure is
+invisible to a PDF-agrees-with-itself check. Run these against the RENDERED artifact,
+and run them again after the last change you make, not just after the last gate pass.
+
+- [ ] `render.py` waits on `document.fonts.status === 'loaded'` AND verifies the
+      faces loaded (grep `fonts.status`). A new course copies `render.py` from the
+      last and can lose this in the port. §2.
+- [ ] The rendered body/title font size equals what the CSS asks (measure it; do not
+      trust the page count). A book at 92.9% looks perfect. §2b.
+- [ ] No code line exceeds the measured panel column limit (re-measure the limit per
+      course; it depends on the code font size, margins and gutter, so CSC241's 87 is
+      not COS221's 88). §2b.
+- [ ] For a code/SQL course: every listing compiled and run, every printed output
+      captured from the real engine, and every behavioural CLAIM executed (§0.8).
+- [ ] Every gate control-tested: it FAILS on the defect it claims to catch, proven by
+      feeding it a known-bad input, not merely green today (§0.9).
+- [ ] Published name carries no version suffix; versions live on `drafts/` (§5).
 
 ---
 

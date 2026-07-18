@@ -7,7 +7,7 @@ printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
 below records what changed; git holds every superseded copy.
 
 -------------------------------------------------------------------------------
-COS221 - Computer Programming I (Java) - Study Manual.pdf   298 pp   published 2026-07-17
+COS221 - Computer Programming I (Java) - Study Manual.pdf   333 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 COS221 Computer Programming I (Java), complete manual, Modules 1 to 10.
 
@@ -33,13 +33,25 @@ Four scripted gates, all green at publish:
     listings use is documented; nothing documented goes unused.
   - qa.py: no em/en dashes, no institution or platform or methodology-author names,
     footer numbering sequential, all 126 Contents links resolve, no near-blank pages,
-    nothing outside the margins, no orphaned headings.
+    nothing outside the margins, no orphaned headings, the body renders at its design
+    size (the shrink guard, below), and no code spills past its panel.
 
 Where the course's own materials were wrong, the book shows the run rather than
 repeating the error: the int-limit table that printed the overflow value as the
 limit, the printf half-up rounding folklore (disproved against 99,999 values), the
 Math.pow inexactness myth, and the "Swing hangs without System.exit" myth were each
 tested on the JVM and corrected with the measurement in view.
+
+What changed from the first render of the same day (298 pp): THE SHRINK. Chromium
+scales the whole document down to fit its widest box, so two 99-character
+System.out.println lines were forcing the render to 92.9% of its design size: the
+body came back at 8.91pt where the CSS asks 9.6pt, on every one of the 298 pages.
+Nothing overflowed after the shrink, so every gate then in place passed it. The
+over-long lines were wrapped (verified to compile and print identically), the book
+returned to full size and to its true 333 pages, and two guards were added so this
+cannot recur silently: a pre-render column cap in check_code.py that names the file
+and line, and a rendered-font-size plus panel-overflow check in qa.py that catches
+any cause. The 298 pp render was superseded the same day; git holds it.
 
 To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/README.md"
                        (cd build && python assemble.py)
