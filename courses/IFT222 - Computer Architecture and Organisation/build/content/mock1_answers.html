@@ -1,0 +1,117 @@
+<!-- ===================== MOCK ONE: ANSWERS ===================== -->
+<section>
+<div class="kick">Mock Examination One</div>
+<h2 class="title">Answers</h2>
+<hr class="rule">
+<p class="lead">Full worked solutions. Each cross-refers to the unit that teaches it, so
+a slip points you straight to the revision you need.</p>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question One</span></div>
+<div class="body">
+<p class="marks">(a) Architecture vs organization; Von Neumann vs Harvard (see M1 U1)</p>
+<p>Architecture is the programmer-visible design (instruction set, registers, addressing
+modes): what the machine does. Organization is how that is built in hardware (control
+signals, buses, memory technology): how it does it. Von Neumann uses one memory and one
+bus for instructions and data (simple, but the bus is a bottleneck); Harvard uses
+separate memories and buses (simultaneous access, faster, costlier). Draw both diagrams.</p>
+<p class="marks">(b) CPI (see M2 U2)</p>
+<p>(i) CPI = 0.45(1) + 0.25(4) + 0.15(2) + 0.15(3) = 0.45 + 1.00 + 0.30 + 0.45 =
+<b>2.20</b>. (ii) Total cycles = 2 000 000 &#215; 2.20 = <b>4 400 000</b>. (iii) With Load
+at 2 cycles: CPI = 0.45 + 0.25(2) + 0.30 + 0.45 = <b>1.70</b>. (iv) Improvement =
+(2.20 &#8722; 1.70) / 2.20 = <b>22.73%</b>.</p>
+<p class="marks">(c) 12-bit representations (see M1 U2)</p>
+<p>150 = 0000 1001 0110 (positive, so identical in all four schemes). For &#8722;95:
++95 = 0000 0101 1111.</p>
+<table class="data">
+<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>
+<tr><td>150</td><td>0000 1001 0110</td><td>0000 1001 0110</td><td>0000 1001 0110</td><td>0000 1001 0110</td></tr>
+<tr><td>&#8722;95</td><td>not representable</td><td>1000 0101 1111</td><td>1111 1010 0000</td><td>1111 1010 0001</td></tr>
+</table>
+<p class="marks">(d) IEEE-754 (see M1 U3)</p>
+<p>(i) 39.5 = 100111.1 = 1.001111 &#215; 2<sup>5</sup>. Exponent 5 + 127 = 132 =
+1000 0100. Sign 0. Mantissa 001111 padded to 23 bits. Word = 0 10000100
+00111100000000000000000 = <b>421E0000H</b>. (ii) 42480000H = 0100 0010 0100 1000&#8230;:
+sign 0, exponent 1000 0100 = 132 so e = 5, mantissa 1001&#8230;, value = 1.1001 &#215;
+2<sup>5</sup> = 110010 = <b>50.0</b>.</p>
+<p class="marks">(e) Cache fields (see M3 U3)</p>
+<p>Offset = log<sub>2</sub>32 = 5 bits; index = log<sub>2</sub>1024 = 10 bits; tag =
+32 &#8722; 10 &#8722; 5 = <b>17 bits</b>.</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
+<div class="body">
+<p class="marks">(a) Pipeline timing (see M2 U3)</p>
+<p>(i) Cycle time = slowest stage + latch = 25 + 5 = <b>30 ns</b>. (ii) Non-pipeline one
+task = 20 + 15 + 25 + 20 + 10 = <b>90 ns</b>. (iii) Pipeline for 1000 tasks =
+(5 + 999) &#215; 30 = 1004 &#215; 30 = <b>30 120 ns</b>. (iv) Sequential for 1000 =
+1000 &#215; 90 = <b>90 000 ns</b>. (v) Speedup = 90 000 / 30 120 = <b>2.99</b>.</p>
+<p class="marks">(b) Hazards (see M2 U3, M4 U2)</p>
+<p>Structural (two instructions need the same hardware: duplicate it), data (a value is
+needed before it is written back: use forwarding, and one stall for a load-use case),
+control (a branch changes the next instruction: resolve early or flush). Forwarding feeds
+a result straight from where it is produced; a load value is not ready until the memory
+stage, so the very next instruction still needs one stall.</p>
+<p class="marks">(c) Why speedup &lt; stages</p>
+<p>The pipeline must first fill (the first task still takes k cycles), and hazards insert
+stalls, so the ideal ceiling of k is never quite reached, especially for few tasks.</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
+<div class="body">
+<p class="marks">(a) Cache configuration (see M3 U3)</p>
+<p>(i) Blocks = cache / block = 64 KB / 32 B = 2<sup>16</sup> / 2<sup>5</sup> =
+<b>2048 blocks</b>. (ii) Sets = 2048 / 4 = <b>512 sets</b>. (iii) Address = 256 MB =
+2<sup>28</sup>, so 28 bits. Offset = log<sub>2</sub>32 = 5, set = log<sub>2</sub>512 = 9,
+tag = 28 &#8722; 9 &#8722; 5 = <b>14 bits</b>. Format: tag 14, set 9, offset 5.</p>
+<p class="marks">(b) AMAT (see M3 U3)</p>
+<p>Simultaneous = 0.9(3) + 0.1(60) = 2.7 + 6 = <b>8.7 ns</b>. Hierarchical =
+3 + 0.1(60) = 3 + 6 = <b>9.0 ns</b>.</p>
+<p class="marks">(c) Locality (see M3 U1)</p>
+<p>Locality of reference is the clustering of accesses in a small region over any short
+time. Temporal: a location used now is likely used again soon (so cache keeps recently
+used data). Spatial: nearby locations are likely used soon (so cache fetches whole blocks
+of neighbours).</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
+<div class="body">
+<p class="marks">(a) Y = (A + B) &#215; (C &#8722; D) in four formats (see M1 U4)</p>
+<table class="data">
+<tr><th>3-address</th><th>2-address</th><th>1-address</th><th>0-address</th></tr>
+<tr>
+<td>ADD T1,A,B<br>SUB T2,C,D<br>MUL Y,T1,T2</td>
+<td>MOV T1,A<br>ADD T1,B<br>MOV T2,C<br>SUB T2,D<br>MUL T1,T2<br>MOV Y,T1</td>
+<td>LOAD A<br>ADD B<br>STORE T1<br>LOAD C<br>SUB D<br>MUL T1<br>STORE Y</td>
+<td>PUSH A<br>PUSH B<br>ADD<br>PUSH C<br>PUSH D<br>SUB<br>MUL<br>POP Y</td>
+</tr>
+</table>
+<p class="marks">(b) Addressing modes (see M1 U4)</p>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
+<tr><td>Direct</td><td>3200</td><td>M[3200] = 1500</td></tr>
+<tr><td>Indirect</td><td>M[3200] = 1500</td><td>M[1500] = 700</td></tr>
+<tr><td>Register-indirect (R1)</td><td>R1 = 2500</td><td>M[2500] = 900</td></tr>
+<tr><td>Relative</td><td>PC + 3200 = 7200</td><td>M[7200] = 350</td></tr>
+</table>
+<p class="marks">(c) RISC vs CISC (see M4 U1)</p>
+<p>RISC: few simple fixed-length one-cycle instructions, load-store, many registers
+(example ARM or MIPS). CISC: many complex variable-length multi-cycle instructions,
+direct memory access, fewer registers (example Intel x86 or Motorola 68000).</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
+<div class="body">
+<p class="marks">(a) Amdahl's law (see M2 U2)</p>
+<p>Speedup = 1 / ((1 &#8722; f) + f / s). With f = 0.90 and s = 8:
+Speedup = 1 / (0.10 + 0.90 / 8) = 1 / (0.10 + 0.1125) = 1 / 0.2125 = <b>4.71</b>.</p>
+<p class="marks">(b) DRAM vs SRAM (see M3 U2)</p>
+<p>DRAM stores a bit as capacitor charge, needs refresh, is slower, denser and cheaper,
+and is used for <b>main memory</b>. SRAM stores a bit in a transistor latch, needs no
+refresh, is faster, less dense and dearer, and is used for <b>cache</b>. Cache needs
+speed; main memory needs cheap capacity.</p>
+<p class="marks">(c) Memory access methods (see M3 U1)</p>
+<p>Sequential (read in order, example magnetic tape), direct (jump near then search,
+example disk), random (any location in equal time, example RAM), associative (located by
+content, example a cache tag store).</p>
+</div></div>
+</section>

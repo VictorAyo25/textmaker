@@ -1,0 +1,143 @@
+<!-- ===================== M2 UNIT 2 ===================== -->
+<section>
+<div class="kick">Module Two &middot; Unit 2</div>
+<h2 class="title">CPU Performance Metrics</h2>
+<hr class="rule">
+<p class="lead">How fast a processor runs is not a mystery, it is a calculation. This
+is the most heavily weighted numeric topic on the recent papers, so every formula
+here is worth learning to reflex.</p>
+<p class="lo">By the end of this unit you can compute CPU execution time, average cycles
+per instruction from a mix, MIPS, the effect of an optimisation, and overall speedup
+by Amdahl's law. The favourite exam questions of this type are worked in full.</p>
+
+<h3 class="sub">The one performance equation</h3>
+<p>A program takes time equal to how many instructions it runs, times how many clock
+cycles each takes on average, times how long one clock cycle lasts. That is the whole
+of it.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The performance formulas</span></div>
+<div class="body"><p><b>CPU time = IC &#215; CPI &#215; T</b>, where IC is the instruction
+count, CPI is the average cycles per instruction, and T is the clock cycle time
+(seconds per cycle). Since T = 1 / clock rate:</p>
+<ul class="bul">
+<li><b>CPU time = (IC &#215; CPI) / clock rate</b></li>
+<li><b>Average CPI = &#931; (fraction of type i &#215; CPI of type i)</b></li>
+<li><b>MIPS = clock rate / (CPI &#215; 10<sup>6</sup>)</b> (millions of instructions
+per second)</li>
+<li><b>Speedup = time(old) / time(new)</b>; <b>improvement = (old &#8722; new) / old</b></li>
+</ul>
+<p><b>Memory hook:</b> "<b>I see PT</b>" for IC &#215; CPI &#215; T. Fewer
+instructions, fewer cycles each, or a shorter cycle: any of the three cuts the time.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1d</span></div>
+<div class="body"><p>A processor runs <b>1 million</b> instructions with this mix of
+addressing modes and cycle costs. (i) Average CPI. (ii) Total clock cycles. (iii) New
+CPI if indirect is optimised to 2 cycles. (iv) The performance improvement.</p>
+<table class="data">
+<tr><th>Mode</th><th>Register</th><th>Immediate</th><th>Direct</th><th>Indirect</th><th>Indexed</th><th>Relative</th></tr>
+<tr><th>Share</th><td>40%</td><td>20%</td><td>15%</td><td>10%</td><td>10%</td><td>5%</td></tr>
+<tr><th>Cycles</th><td>1</td><td>1</td><td>2</td><td>4</td><td>3</td><td>2</td></tr>
+</table>
+<ol class="steps">
+<li>Average CPI = weighted sum:
+0.40(1) + 0.20(1) + 0.15(2) + 0.10(4) + 0.10(3) + 0.05(2).
+<span class="note">= 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10.</span></li>
+<li>Average CPI = <b>1.70</b>.</li>
+<li>Total clock cycles = IC &#215; CPI = 1 000 000 &#215; 1.70 = 1 700 000 cycles.</li>
+<li>Optimise indirect from 4 to 2 cycles: its contribution falls from 0.10(4) = 0.40 to
+0.10(2) = 0.20, a drop of 0.20. New CPI = 1.70 &#8722; 0.20 = <b>1.50</b>.</li>
+<li>Improvement = (1.70 &#8722; 1.50) / 1.70 = 0.20 / 1.70 = <b>11.76%</b> faster
+(equivalently a speedup of 1.70 / 1.50 = 1.133 times).</li>
+</ol>
+<div class="answerbox">(i) CPI = 1.70. (ii) 1 700 000 cycles. (iii) New CPI = 1.50.
+(iv) Improvement = 11.76% (speedup 1.13 times).</div>
+<p class="redo"><b>Now redo it:</b> average CPI is just a weighted average. To measure an
+optimisation, recompute CPI with the one changed cost and compare. This is the cleanest
+marks on the paper.</p>
+</div></div>
+
+<h3 class="sub">When different instructions take different numbers of cycles</h3>
+<p>The same weighted-average idea handles a pipeline where some instruction types add
+penalty cycles. Start from an ideal CPI of 1 (one instruction finished per cycle) and
+add the average extra cycles each type contributes.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1b</span></div>
+<div class="body"><p>A 5-stage pipeline (IF fetch, ID decode, EX execute, MEM memory,
+WB write-back) has stage times IF 5, ID 4, EX 6, MEM 5, WB 4
+(ns) and 1 ns register overhead. Instruction mix: Arithmetic 40%, Memory 35%, Branch
+20%, Floating point 5%, over 20 million instructions. The non-pipelined clock is 25 ns.
+Find the pipelined clock, the actual CPI, the execution time, and the speedup.</p>
+<p class="small"><b>Reading the penalties (state your assumptions, the wording is
+dense):</b> ideal CPI 1; branch adds 2 extra cycles (EX takes 3); a memory access adds
+a 2-cycle penalty plus, on a 10% cache miss, 4 more (so 2 + 0.10&#215;4 = 2.4 average);
+floating point adds 4 extra; arithmetic adds none.</p>
+<ol class="steps">
+<li>Pipelined clock = slowest stage + overhead = 6 + 1 = <b>7 ns</b>.
+<span class="note">A pipeline runs at the speed of its slowest stage.</span></li>
+<li>Actual CPI = 1 + 0.20(2) + 0.35(2.4) + 0.05(4) + 0.40(0)
+= 1 + 0.40 + 0.84 + 0.20 = <b>2.44</b>.</li>
+<li>Execution time = IC &#215; CPI &#215; T = 20 000 000 &#215; 2.44 &#215; 7 ns
+= <b>341.6 ms</b> (0.3416 s).</li>
+<li>Non-pipelined time = 20 000 000 &#215; 25 ns = 500 ms (0.5 s).</li>
+<li>Speedup = 0.5 / 0.3416 = <b>1.46 times</b>.</li>
+</ol>
+<div class="answerbox">Clock = 7 ns; CPI = 2.44; execution time = 0.3416 s; speedup
+&#8776; 1.46 (under the stated reading of the penalties).</div>
+<p class="redo"><b>Now redo it:</b> the method never changes even if you read a penalty
+differently: clock = slowest stage + overhead, CPI = 1 + weighted extra cycles, time =
+IC &#215; CPI &#215; T. State how you read each penalty and you keep the method marks.</p>
+</div></div>
+
+<h3 class="sub">Amdahl's law: the limit on any speedup</h3>
+<p>If you speed up only part of a task, the untouched part limits the gain. Amdahl's law
+puts a number on it, and the exam asks it most years.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Amdahl's law</span></div>
+<div class="body"><p>If a fraction <b>f</b> of the work is sped up by a factor <b>s</b>,
+the overall speedup is</p>
+<div class="answerbox">Speedup = 1 / ( (1 &#8722; f) + f / s )</div>
+<p><b>Memory hook:</b> the part you did not speed up, (1 &#8722; f), never goes away,
+so it caps the total gain no matter how large s is.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3c &middot; PQ 23/24 Q1b</span></div>
+<div class="body"><p>A cache is 10 times faster than main memory, and the CPU finds what
+it needs in the cache <b>85%</b> of the time. Find the overall speedup by Amdahl's law.</p>
+<ol class="steps">
+<li>The sped-up fraction is f = 0.85 (the cache accesses), and the speedup factor is
+s = 10.</li>
+<li>Speedup = 1 / ((1 &#8722; 0.85) + 0.85 / 10) = 1 / (0.15 + 0.085).</li>
+<li>= 1 / 0.235 = <b>4.26</b>.</li>
+</ol>
+<div class="answerbox">Speedup = 1 / (0.15 + 0.085) = 1 / 0.235 &#8776; <b>4.26 times</b>.</div>
+<p class="redo"><b>Now redo it:</b> notice the answer is far below 10, because the 15% of
+slow accesses dominate. That is exactly the point Amdahl's law makes.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Two slips. (1) Improvement percentage is measured against the
+<b>old</b> time, (old &#8722; new) / old, not against the new one. (2) In Amdahl's law,
+<b>f</b> is the fraction of work that is sped up, and you divide only that part by s;
+the rest, (1 &#8722; f), stays at full cost.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A program runs 5 million instructions at an average CPI of
+2 on a 1 GHz clock. How long does it take?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>CPU time = IC &#215; CPI / clock rate = (5 000 000 &#215; 2) / 10<sup>9</sup> =
+10 000 000 / 10<sup>9</sup> = 0.01 s = 10 ms.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>CPU time = instruction count &#215; <span class="blank"></span> &#215; clock cycle
+time.</li>
+<li>Average CPI is the <span class="blank"></span> average of each type's cycle cost.</li>
+<li>A pipeline's clock cycle equals its <span class="blank"></span> stage time plus the
+register overhead.</li>
+<li>In Amdahl's law the term (1 &#8722; f) represents the part that is
+<span class="blank"></span>.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. CPI. &nbsp; 2. weighted. &nbsp; 3. slowest (longest). &nbsp; 4. not sped up.</p>
+</div></div>
+</section>

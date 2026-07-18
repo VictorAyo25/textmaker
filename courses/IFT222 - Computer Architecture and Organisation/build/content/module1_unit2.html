@@ -1,0 +1,339 @@
+<!-- ===================== UNIT 2 ===================== -->
+<section>
+<div class="kick">Module One &middot; Unit 2</div>
+<h2 class="title">Data Representation</h2>
+<hr class="rule">
+<p class="lead">How whole numbers, positive and negative, are stored in a fixed
+number of bits. This is the single most examined topic on the paper, and every mark
+here is a mark you can guarantee with practice.</p>
+<p class="lo">By the end of this unit you can represent any integer in unsigned,
+sign-magnitude, one's complement and two's complement form; state the range of each
+in n bits; add and subtract in binary; recognise overflow; use end-around carry; and
+size an image in memory. Every past question of these types is worked in full.</p>
+
+<h3 class="sub">Unsigned integers: the starting point</h3>
+<p>With <b>n</b> bits and no sign, you can store the whole numbers from 0 up to
+2<sup>n</sup> minus 1. Each pattern of bits is just its plain binary value. An 8-bit
+byte therefore holds 0 to 255, because 2<sup>8</sup> minus 1 is 255.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Unsigned range</span></div>
+<div class="body"><p>In <b>n</b> bits, unsigned integers run
+<b>0 to 2<sup>n</sup> &#8722; 1</b>. That is 2<sup>n</sup> different values in total.</p>
+<p><b>Memory hook:</b> n bits give 2<sup>n</sup> patterns; one of them is zero, so the
+largest is one less than 2<sup>n</sup>.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Shifting: multiply and divide by two</span></div>
+<div class="body"><p>Because each position is worth twice the one to its right, moving every
+bit <b>one place left</b> doubles a number (&#215;2) and moving it <b>one place right</b>
+halves it (&#247;2), in binary or hex alike. To halve <b>3FC</b> in hex, shift its bits
+right by one: 3FC = 0011 1111 1100, shifted right is 0001 1111 1110 = <b>1FE</b>. Check in
+decimal: 3FC = 1020, and 1020 &#247; 2 = 510 = 1FE; a left shift of 1FE returns 3FC. This
+is why shift instructions are the fastest way a processor multiplies or divides by powers
+of two.</p></div></div>
+
+<h3 class="sub">The problem: how do you store a minus sign?</h3>
+<p>A memory cell holds only 0s and 1s, with nowhere to write a "&#8722;". So we spend
+one of the bits, the leftmost, to carry the sign, and 0 means positive, 1 means
+negative. There are three ways to do it, and the exam expects all three.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three signed schemes</span></div>
+<div class="body">
+<ul class="bul">
+<li><b>Sign-magnitude:</b> the leftmost bit is the sign, the remaining bits are the
+plain size (magnitude) of the number. Simple to read, but it has two zeros
+(+0 and &#8722;0) and makes arithmetic awkward.</li>
+<li><b>One's complement:</b> to make a number negative, <b>invert every bit</b> of its
+positive form. Also has two zeros, but subtraction becomes addition (with a twist
+called end-around carry, below).</li>
+<li><b>Two's complement:</b> invert every bit and <b>add 1</b>. This is the one real
+computers use: it has a single zero, and addition and subtraction work with no
+special cases.</li>
+</ul></div></div>
+
+<p>Seeing one small number in all three side by side fixes the idea. Take
+<b>&#8722;5</b> in 4 bits. First write +5 as 0101, then apply each rule.</p>
+
+<table class="data">
+<tr><th>Value</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>
+<tr><td>+5</td><td>0101</td><td>0101</td><td>0101</td></tr>
+<tr><td>&#8722;5</td><td>1101</td><td>1010</td><td>1011</td></tr>
+<tr><td>How</td><td>flip sign bit to 1</td><td>invert all bits of +5</td><td>invert all bits, then add 1</td></tr>
+</table>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Two's complement recipe and ranges</span></div>
+<div class="body"><p><b>To negate in two's complement: invert every bit, then add 1.</b>
+The same recipe converts back, so applying it twice returns the original.</p>
+<p>Ranges in <b>n</b> bits:</p>
+<table class="data">
+<tr><th>Scheme</th><th>Range</th><th>Zeros</th></tr>
+<tr><td>Unsigned</td><td>0 to 2<sup>n</sup>&#8722;1</td><td>one</td></tr>
+<tr><td>Sign-magnitude</td><td>&#8722;(2<sup>n&#8722;1</sup>&#8722;1) to +(2<sup>n&#8722;1</sup>&#8722;1)</td><td>two</td></tr>
+<tr><td>One's complement</td><td>&#8722;(2<sup>n&#8722;1</sup>&#8722;1) to +(2<sup>n&#8722;1</sup>&#8722;1)</td><td>two</td></tr>
+<tr><td>Two's complement</td><td>&#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1)</td><td>one</td></tr>
+</table>
+<p><b>Memory hook:</b> two's complement reaches <b>one extra negative</b> value,
+because it has no wasted second zero. In 8 bits that is &#8722;128 to +127.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3b &middot; PQ 23/24 Q4b</span></div>
+<div class="body"><p>Complete the table of Unsigned, Sign-magnitude, One's complement
+and Two's complement for <b>204</b> and <b>&#8722;139</b>, using <b>12 bits</b>.</p>
+<ol class="steps">
+<li>Write 204 in 12-bit binary. 204 = 128+64+8+4, so 204 = 0000 1100 1100.
+<span class="note">Being positive, 204 looks identical in all four schemes.</span></li>
+<li>For &#8722;139, first write +139 in 12 bits: 139 = 128+8+2+1 = 0000 1000 1011.</li>
+<li>Sign-magnitude of &#8722;139: set the sign bit to 1, keep the magnitude:
+1000 1000 1011.</li>
+<li>One's complement of &#8722;139: invert every bit of 0000 1000 1011:
+1111 0111 0100.</li>
+<li>Two's complement of &#8722;139: add 1 to the one's complement:
+1111 0111 0100 + 1 = 1111 0111 0101.</li>
+</ol>
+<table class="data">
+<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>
+<tr><td>204</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td></tr>
+<tr><td>&#8722;139</td><td>not representable</td><td>1000 1000 1011</td><td>1111 0111 0100</td><td>1111 0111 0101</td></tr>
+</table>
+<p class="redo"><b>Now redo it:</b> the third row on the real paper gives a bit pattern
+and asks its value. Read back 1111 0111 0101 as two's complement: the leading 1 says
+negative, so invert and add 1 (0000 1000 1011 = 139), giving &#8722;139. That is the
+same number, proving the recipe reverses itself.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1c</span></div>
+<div class="body"><p>A telemetry system uses a <b>16-bit two's complement</b> processor.
+The values are Temperature = &#8722;182, Pressure = 487, Altitude = &#8722;1023.
+(i) Give the representable range and say whether each value fits. (ii) Represent each
+in binary and hexadecimal. (iii) Compute (&#8722;182) + 487.</p>
+<p class="marks">(i) Range</p>
+<div class="answerbox">16-bit two's complement: &#8722;2<sup>15</sup> to +(2<sup>15</sup>&#8722;1)
+= &#8722;32768 to +32767. All three values (&#8722;182, 487, &#8722;1023) fall inside
+this range, so all are representable.</div>
+<p class="marks">(ii) Binary and hex</p>
+<table class="data">
+<tr><th>Value</th><th>16-bit two's complement (binary)</th><th>Hex</th></tr>
+<tr><td>&#8722;182</td><td>1111 1111 0100 1010</td><td>FF4A</td></tr>
+<tr><td>487</td><td>0000 0001 1110 0111</td><td>01E7</td></tr>
+<tr><td>&#8722;1023</td><td>1111 1100 0000 0001</td><td>FC01</td></tr>
+</table>
+<p class="small">Method for &#8722;182: +182 = 0000 0000 1011 0110; invert to
+1111 1111 0100 1001; add 1 to get 1111 1111 0100 1010 = FF4A.</p>
+<p class="marks">(iii) (&#8722;182) + 487</p>
+<div class="answerbox">Add the 16-bit patterns of &#8722;182 (FF4A) and 487 (01E7):
+1111 1111 0100 1010 + 0000 0001 1110 0111 = 1&nbsp;0000 0001 0011 0001. The carry out
+of the 16th bit is discarded in two's complement, leaving 0000 0001 0011 0001 = 0131H
+= 305. Check: &#8722;182 + 487 = 305. Correct.</div>
+<p class="redo"><b>Now redo it:</b> this whole question is 25/26 Q1c and is worth easy
+marks. The trick is that in two's complement you just add the patterns and throw away
+the final carry.</p>
+</div></div>
+
+<h3 class="sub">Adding in binary, and when it overflows</h3>
+<p>Binary addition is column addition with carries, exactly like decimal but with
+only 0 and 1. The danger is <b>overflow</b>: when the true sum needs more bits than
+the register has, the top bit is lost and the stored answer is wrong.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5b</span></div>
+<div class="body"><p>Add <b>214 + 65</b> in an 8-bit register. Give the result in binary
+and decimal, and comment on overflow.</p>
+<ol class="steps">
+<li>Convert: 214 = 1101 0110, 65 = 0100 0001.</li>
+<li>Add the two bytes: 1101 0110 + 0100 0001 = 1 0001 0111.
+<span class="note">The result needs 9 bits.</span></li>
+<li>An 8-bit register holds only the low 8 bits, 0001 0111 = 23, and sets a carry.</li>
+</ol>
+<div class="answerbox">True sum 214 + 65 = 279. In 8 bits the register keeps 0001 0111 =
+23 and raises a carry out of the top bit. This is unsigned <b>overflow</b>: 279 will
+not fit in a byte (max 255), so the stored 23 is wrong by exactly 2<sup>8</sup> = 256.</div>
+<p class="redo"><b>Now redo it:</b> overflow is simply "the answer needed more bits
+than the box has". State the true sum, the wrapped value, and that a carry came out.</p>
+</div></div>
+
+<h3 class="sub">Subtracting by adding: end-around carry</h3>
+<p>Computers subtract by adding a negative. In <b>one's complement</b>, this needs one
+extra step: if a carry comes out of the top after the addition, you <b>add it back</b>
+into the lowest bit. That step is the <b>end-around carry</b>, and it is asked almost
+every year.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24, 24/25, tests (recurring)</span></div>
+<div class="body"><p>Use end-around carry in one's complement to compute
+<b>153 &#8722; 142</b> in a 10-bit register.</p>
+<ol class="steps">
+<li>153 &#8722; 142 becomes 153 + (&#8722;142). Write 153 in 10 bits: 00 1001 1001.</li>
+<li>Write &#8722;142 in one's complement: +142 = 00 1000 1110, invert to 11 0111 0001.</li>
+<li>Add: 00 1001 1001 + 11 0111 0001 = 1 00 0000 1010.
+<span class="note">A 1 has carried out of the 10th bit.</span></li>
+<li>End-around carry: drop that carry and add it into the lowest bit:
+00 0000 1010 + 1 = 00 0000 1011.</li>
+<li>Read the result: 00 0000 1011 = 11. Positive (leading 0), and 153 &#8722; 142 = 11.
+Correct.</li>
+</ol>
+<div class="answerbox">153 &#8722; 142 = 00 0000 1011 (one's complement, 10 bits) = 11.</div>
+<p class="redo"><b>Now redo it:</b> the signature of one's complement is that a carry out
+never vanishes, it comes back in at the bottom. If there is no carry out, there is
+nothing to add and the result is already negative.</p>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Overflow versus underflow</span></div>
+<div class="body"><p>Two words the exam likes to separate. <b>Overflow</b> is a result
+too large (too far positive, or a magnitude too big) to fit the available bits.
+<b>Underflow</b> is a result too small to represent: for integers, a value more
+negative than the smallest storable number; for floating point (Unit 3), a value so
+close to zero it rounds away to nothing. Example: in 8-bit two's complement (range
+&#8722;128 to +127), 100 + 50 = 150 overflows; &#8722;100 &#8722; 50 = &#8722;150
+underflows.</p></div></div>
+
+<h3 class="sub">Sizing an image in memory</h3>
+<p>An image is a grid of dots (pixels). Its size in memory is simply the number of
+pixels times the bits used per pixel. The number of pixels is the physical size in
+inches times the resolution in dots per inch (dpi), in each direction.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Image size</span></div>
+<div class="body"><p><b>bits = (width&#215;dpi) &#215; (height&#215;dpi) &#215; bits-per-pixel.</b>
+Then divide by 8 for bytes, by 1024 for KB, by 1024 again for MB. Unless a colour
+depth is given, this course assumes a black-and-white image at <b>1 bit per pixel</b>
+(as the lecture example does).</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24, 24/25, 25/26 Q4c (recurring)</span></div>
+<div class="body"><p>Find the memory needed for an image 17.12 inches by 9.45 inches at
+250 dpi. Give the answer in megabytes.</p>
+<ol class="steps">
+<li>Pixels across: 17.12 &#215; 250 = 4280. Pixels down: 9.45 &#215; 250 = 2362.5.
+<span class="note">The height gives a non-whole 2362.5; carry it as is, the arithmetic
+is what earns the marks.</span></li>
+<li>Total pixels: 4280 &#215; 2362.5 = 10 111 500.</li>
+<li>At 1 bit per pixel that is 10 111 500 bits. Divide by 8: 1 263 937.5 bytes.</li>
+<li>Divide by 1024 twice: 1 263 937.5 &#247; 1 048 576 = 1.205 MB (about 1.21 MB).</li>
+</ol>
+<div class="answerbox">10 111 500 pixels &#215; 1 bit = 10 111 500 bits = 1 263 937.5
+bytes &#8776; <b>1.21 MB</b> (dividing by 1024&#215;1024). If the paper divides by one
+million instead, it is about 1.26 MB: state which you used.</div>
+<p class="redo"><b>Now redo it:</b> if a colour depth were given (say 24-bit colour),
+you would multiply the pixel count by 24 before dividing. Always check whether the
+question gives bits per pixel.</p>
+</div></div>
+
+<h3 class="sub">Two ways to store a picture: bitmap and vector</h3>
+<p>The sizing above assumed a <b>bitmap</b>. There are two families of computer graphics,
+and the point the exam likes is why their sizes differ so much.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Bitmap versus vector graphics</span></div>
+<div class="body"><ul class="bul">
+<li><b>Bitmap (raster)</b> graphics store the picture as a grid of <b>pixels</b>, each
+pixel's colour held explicitly. More pixels per inch means higher <b>resolution</b> and a
+sharper image, but the size grows with the pixel count (as sized above), and enlarging a
+bitmap makes the individual pixels show. Photographs are bitmaps.</li>
+<li><b>Vector</b> graphics store the picture as <b>objects</b>, such as lines, curves and
+shapes, each described by attributes: coordinates, length and breadth, line thickness,
+colour and fill. The image is redrawn from the maths at any size with no loss, and the
+file holds a few objects rather than millions of pixels, so line art and logos are far
+smaller as vectors. A photograph, having no simple shapes, does not reduce to vectors.</li>
+</ul></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: bitmap size</span></div>
+<div class="body"><p>A black-and-white bitmap is 4 inches by 6 inches at 300 dpi. How much
+memory does it need?</p>
+<ol class="steps">
+<li>Pixels across: 4 &#215; 300 = 1200. Pixels down: 6 &#215; 300 = 1800.</li>
+<li>Total pixels: 1200 &#215; 1800 = 2 160 000.</li>
+<li>At 1 bit per pixel (black or white): 2 160 000 bits &#247; 8 = 270 000 bytes.</li>
+<li>In KB: 270 000 &#247; 1024 = <b>263.67 KB</b>.</li>
+</ol>
+<div class="answerbox">2 160 000 pixels &#215; 1 bit = 2 160 000 bits = 270 000 bytes
+&#8776; <b>263.67 KB</b>. Same method as the 17.12&#215;9.45 image, different numbers.</div>
+</div></div>
+
+<h3 class="sub">Coded decimal: BCD and Excess-3</h3>
+<p>Pure binary is not always convenient. When decimal digits must stay exact and be read
+back one digit at a time (tills, meters, calculator displays), each digit is coded on its
+own.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Binary Coded Decimal and weighted codes</span></div>
+<div class="body"><p><b>Binary Coded Decimal (BCD)</b> stores each decimal digit in its own
+4 bits, so 47 is <b>0100 0111</b>, not the pure-binary 101111. It wastes space (four bits
+can hold 0 to 15 but only 0 to 9 are used) yet keeps decimal exact. Standard BCD is a
+<b>weighted</b> code: the four positions carry the weights <b>8&nbsp;4&nbsp;2&nbsp;1</b>,
+and a digit is whichever bits sum to it. Other weightings exist; the lectures name
+<b>5421</b> and <b>4221</b>, where the same "sum the weights of the 1-bits" rule
+applies.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: encode 9.2</span></div>
+<div class="body"><p>Encode <b>9.2</b> in 8421 (standard BCD), 5421 and 4221.</p>
+<table class="data">
+<tr><th>Digit</th><th>8421</th><th>5421</th><th>4221</th></tr>
+<tr><td>9</td><td>1001 (8+1)</td><td>1100 (5+4)</td><td>1111 (4+2+2+1)</td></tr>
+<tr><td>2</td><td>0010 (2)</td><td>0010 (2)</td><td>0010 (2)</td></tr>
+</table>
+<div class="answerbox">9.2 = <b>1001.0010</b> in 8421, <b>1100.0010</b> in 5421,
+<b>1111.0010</b> in 4221. Each code splits at the point exactly where decimal does.</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Excess-3, a self-complementing code</span></div>
+<div class="body"><p><b>Excess-3</b> (XS-3) codes a digit as its 4-bit binary <b>plus 3</b>, so
+0 is 0011, 5 is 1000, 9 is 1100. It is <b>non-weighted</b> but <b>self-complementing</b>:
+the code of (9 &#8722; d) is the bit-by-bit complement of the code of d, which makes
+nine's-complement subtraction easy. For instance XS-3 of 6 is 1001 and XS-3 of 3 is 0110,
+which are exact complements.</p>
+<table class="data">
+<tr><th>Digit</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+<tr><td>XS-3</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td><td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td></tr>
+</table></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: Excess-3 both ways</span></div>
+<div class="body"><p>(i) Encode <b>24</b> in Excess-3. (ii) Decode <b>0100 0110</b> from Excess-3.</p>
+<ol class="steps">
+<li>Encode 24: digit 2 &#8594; 2+3 = 5 = 0101; digit 4 &#8594; 4+3 = 7 = 0111. So
+24 = <b>0101 0111</b>.</li>
+<li>Decode 0100 0110: 0100 = 4, minus 3 = 1; 0110 = 6, minus 3 = 3. So it reads <b>13</b>.</li>
+</ol>
+<div class="answerbox">24 in Excess-3 is <b>0101 0111</b>; the code 0100 0110 decodes to
+<b>13</b>. Going in, add 3 to each digit; coming out, subtract 3 from each nibble.</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Character codes: Morse to Unicode</span></div>
+<div class="body"><p>Text is stored by an agreed table mapping each symbol to a number.
+Historically there was <b>Morse code</b> (variable-length dots and dashes, common letters
+kept short) and <b>Hollerith code</b> (punched-card columns, the ancestor of data
+processing). In computers today:</p>
+<ul class="bul">
+<li><b>ASCII</b> uses 7 bits, so 128 codes (0 to 127). Codes 32 to 126 are printable,
+code 32 is space and code 127 is DEL; 0 to 31 are control codes. "Extended ASCII" uses the
+eighth bit for codes 128 to 255 (for example ISO 8859-1, Latin-1).</li>
+<li><b>EBCDIC</b> uses 8 bits: IBM's mainframe code, descended from punched cards.</li>
+<li><b>Unicode</b> uses up to 32 bits, one code for every writing system; its first 128
+codes are identical to ASCII.</li>
+</ul>
+<p>A few ASCII values worth carrying into the exam: 'A' = 65, 'a' = 97, '0' = 48,
+space = 32.</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Three classic slips. (1) In two's complement subtraction you
+<b>discard</b> the final carry; in one's complement you <b>add it back</b>. Do not mix
+them up. (2) Sign-magnitude and one's complement have <b>two</b> zeros; two's
+complement has <b>one</b>, which is why its range reaches one more negative value.
+(3) When negating, invert <b>all</b> the bits including leading zeros, not just the
+ones that are set.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">In n bits, what is the two's complement range, and why is
+it not symmetric about zero?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>&#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1). It is asymmetric
+because there is a single zero on the positive side of the wheel, so the negatives get
+one extra value. In 8 bits: &#8722;128 to +127.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>To negate a number in two's complement, invert every bit and then add
+<span class="blank"></span>.</li>
+<li>Unsigned n-bit integers range from 0 to <span class="blank"></span>.</li>
+<li>In one's complement subtraction, a carry out of the top is
+<span class="blank"></span> to the lowest bit.</li>
+<li>Overflow means the result needs <span class="blank"></span> bits than the register
+has.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. one. &nbsp; 2. 2<sup>n</sup>&#8722;1. &nbsp; 3. added back (end-around carry). &nbsp;
+4. more.</p>
+</div></div>
+</section>

@@ -1,0 +1,634 @@
+DECK: IFT222 - MEMORY HIERARCHY  AND CACHE MEMORY DESIGN_ODL.pptx
+==========================================================================================
+
+--- slide 1 ---
+IFT222Computer Architecture and Organization
+MEMORY HIERARCHY  AND CACHE MEMORY DESIGN
+Department of Computer and Information Sciences
+
+--- slide 2 ---
+Memory Access Methods
+Sequential =  A,B, C, D ,E  access by sequence one after other (magnetic 		       tape)
+Random =      A,B, C, D,E = all locations can be accessed at constant 			       time (RAM)
+Direct = Street   locating the vicinity (Block) A,B, C, D,E  (HDD)
+Associative =  address + content  are together = Cache 
+Computer Memory exhibits a number of xtics
+Location
+Access methods
+Performance ( transfer rate, ……)
+Capacity/size
+
+--- slide 3 ---
+LEARNING OUTCOMES
+By the end of this lecture, students should be able to:
+Explain the concept and importance of memory hierarchy 
+Describe the different levels of memory and their characteristics 
+Analyze trade-offs between speed, cost, and capacity 
+Explain the principles and operation of cache memory 
+Differentiate cache mapping techniques: 
+Direct mapping 
+Associative mapping 
+Set-associative mapping 
+Evaluate cache performance using key metrics 
+Solve practical problems involving cache organization
+3
+
+--- slide 4 ---
+INTRODUCTION
+Memory hierarchy is a structured arrangement of different storage types in a computer system, designed to optimize performance and cost.
+Memory trade-offs are a sad part of reality 
+Faster access time, greater cost per bit;  faster, the expensive 
+Greater capacity:  slower in terms of access
+Smaller cost per bit;  slower in terms of access
+Slower access time  - larger capacity
+4
+
+--- slide 5 ---
+INTRODUCTION
+Design constraints on memory can be summed up by three questions:
+How much space?
+If memory exists, applications will likely be developed to use it.
+How fast – access time?
+Best performance achieved when memory keeps up with the processor;
+i.e. as the processor execute instructions, memory should minimize pausing / waiting for instructions or operands.
+How expensive?
+Cost of memory must be reasonable in relationship to other components;
+5
+
+--- slide 6 ---
+THE WAY OUT
+The way out of this dilemma: 
+Don’t rely on a single memory; 
+Instead employ a memory hierarchy; 
+Supplement: 
+smaller, more expensive, faster memories with larger, cheaper, slower memories;
+6
+
+--- slide 7 ---
+THE WAY OUT
+As one goes down the hierarchy: 
+Decreasing cost per bit; 
+Increasing capacity; 
+Increasing access time; 
+Decreasing frequency of access of memory by processor – very key to the performance of the CPU
+7
+
+--- slide 8 ---
+Typical Memory Hierarchy (Top → Bottom)
+8
+[TABLE]
+Level | Memory Type | Speed | Cost | Capacity
+1 | Registers | Fastest | Highest | Smallest
+2 | Cache Memory | Very Fast | High | Small
+3 | Main Memory (RAM) | Moderate | Medium | Medium
+4 | Secondary Storage (SSD/HDD) | Slow | Low | Large
+5 | Tertiary Storage | Slowest | Lowest | Very Large
+
+--- slide 9 ---
+Question
+Why don’t we use only cache memory in a computer system?
+9
+
+--- slide 10 ---
+Answer
+Because cache is very expensive and has limited capacity.
+10
+
+--- slide 11 ---
+Strategies to minimize frequent accesses to slower memories
+11
+
+--- slide 12 ---
+Space and Time locality of reference principle:
+Space (Spatial):
+If we access a memory location, close by addresses will very likely be accessed; loop operation 
+ Time (Temporal):
+If we access a memory location, we will very likely access it again;
+12
+
+--- slide 13 ---
+Space and Time locality of reference principle:
+This a consequence of using iterative loops and subroutines:
+Instructions and data will be accessed multiple times;
+13
+
+--- slide 14 ---
+Example (p1)
+Suppose that the processor has access to two levels of memory:
+Level 1- L1: contains 1000 words/bytes and has an access time of 0.01µs;
+Level 2- L2: contains 100,000/words/bytes and has an access time of 0.1µs.
+Assume that:
+if word ∈ L1, then the processor accesses it directly = 0.0.1µs;
+If word ∈ L2, then word is transferred to L1 and then accessed by the processor. = 0.01 + 0.1
+14
+
+--- slide 15 ---
+Example(p2)
+For simplicity:
+ignore time required for processor to determine whether word is in L1 or L2.
+Also, let:
+• H define the fraction of all memory accesses that are found L1;
+• T1 is the access time to L1;
+• T2 is the access time to L2
+15
+
+--- slide 16 ---
+Example(p3)
+16
+Figure: Performance of accesses involving only L1
+
+--- slide 17 ---
+Explanation of the Graph on previous slide
+For high percentages of L1 access, the average total access time is much closer to that of L1 than that of L2;
+Now lets consider the following scenario:
+Suppose 95% of the memory accesses are found in L1 - 0.01µs.
+Average time to access a word is:
+(0.95)(0.01µs) + (0.05)(0.01µs + 0.1µs) = 0.0095 + 0.0055 = 0.015µs
+Average access time is much closer to 0.01µs than to 0.1µs, as desired.
+17
+
+--- slide 18 ---
+Strategy to minimize accesses should be:
+Organize data across the hierarchy such that
+% of accesses to lower levels is substantially less than that of upper levels
+i.e. L2 memory contains all program instructions and data:
+Data that is currently being used should be in L1;
+Eventually:
+Data ∈ L1 will be swapped to L2 to make room for new data;
+On average, most references will be to data contained in L1.
+18
+
+--- slide 19 ---
+Strategy to minimize accesses…
+This principle can be applied across more than two levels of memory:
+Processor registers: fastest, smallest, and most expensive type of memory
+Followed immediately by the cache: stages data movement between registers and main memory;
+Improves performance;
+Is not usually visible to the processor;
+Is not usually visible to the programmer.
+Followed by main memory:  principal internal memory system of the computer;  Each location has a unique address.
+19
+
+--- slide 20 ---
+Cache Memory
+20
+Cache memory is designed to combine:
+Cache can be 1-2 MB while Main Memory can be upto 64GB
+Memory access time of expensive, high-speed memory combined with the large memory size of less expensive, lower-speed memory
+Cache contains a copy of portions of main memory.
+
+--- slide 21 ---
+ADDRESSCELLSNIBBLE – 4BITSBYTE – 8BITSWORD = IS ONE OR MORE COMPLETE ROWS OF MMEMORY  = 1 BYTE BLOCK = A COLLECTION OF WORDS  = 2, 4, 8,BLOCK 0 = 4 WORDSBLOCK 1 = 4 WORDSBLOCK 2 = 4 WORDS 10KB
+[TABLE]
+0 | 1 | 2 | 3 | 4 | 5 | 6
+7 | 8 | 9 | 10 | 11 | 12 | 13
+14 |  |  |  |  |  | 20
+21 |  |  |  |  |  | 28
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+ |  |  |  |  |  | 
+12 x 7 = 84bits/8 memory size = 4MB4 x 2204 x 210 x 210 bytes4 x 1024 x 1024 x 8 = 33,554,432 bits10 x 1024 x 8 = 81,920 bits 10kybe
+
+--- slide 22 ---
+Cache Memory Principles
+When the processor attempts to read a word of memory:
+Check is made to determine if the word is in the cache;
+If so (Cache Hit): word is delivered to the processor.
+If the word is not in cache (Cache Miss):
+Block of main memory that contains the word is read into the cache;
+Cache delivers the Word to the processor.
+Because of the locality of reference principle (time and space):
+When a block of data is fetched into the cache...
+It is likely that there will be future references to that same memory location
+22
+
+--- slide 23 ---
+How then can we improve the Cache concept?
+23
+What if we introduce multiple levels of cache?
+• L2 cache is slower and typically larger than the L1 cache
+• L3 cache is slower and typically larger than the L2 cache
+
+--- slide 24 ---
+Main Memory – Cache Organization
+Main memory:
+Cache Memory Principles
+Consists of 2n addressable words;
+Each word has a unique n-bit address;
+Memory consists of a number of
+    fixed-length blocks of K words each;
+There are M = 2n/K blocks;
+24
+
+--- slide 25 ---
+Main Memory –Cache Organization
+Cache memory(1/2):
+Consisting of m blocks, called lines;
+Each line contains K words;
+Each line also includes control bits:
+Not shown in the figure;
+25
+
+--- slide 26 ---
+Main Memory –Cache Organization
+Cache memory (2/2): 
+If a word in a block of memory is read: 
+Block is transferred to a cache line; 
+Because m ≪ M lines: 
+Cannot permanently store a block. 
+Need to identify the block stored; 
+Info stored in the tag field;
+26
+
+--- slide 27 ---
+Cache Read Operation
+27
+
+--- slide 28 ---
+Cache Read Operation
+Processor generates read address (RA) of word to be read;
+If the word ∈ cache, it is delivered to the processor;
+Otherwise:
+Block containing that word is loaded into the cache;
+Word is delivered to the processor;
+These last two operations occurring in parallel
+28
+
+--- slide 29 ---
+Typical Cache Organization
+29
+
+--- slide 30 ---
+Explanation of Diagram
+30
+The cache:
+Connects to the processor via data, control, and address lines;
+Data and address lines also attach to data and address buffers:
+Which attach to a system bus...
+from which main memory is reached
+
+--- slide 31 ---
+What happens when a word is in Cache?
+When a cache hit occurs (word is in cache):
+the data and address buffers are disabled;
+communication is only between processor and cache;
+• no system bus traffic.
+31
+
+--- slide 32 ---
+What happens when a word is NOT in Cache?
+When a cache miss occurs (word is not in cache):
+the desired address is loaded onto the system bus;
+the data are returned through the data buffer...
+...to both the cache and the processor
+32
+
+--- slide 33 ---
+Elements of Cache Design
+33
+
+--- slide 34 ---
+Cache Addresses
+There are two types of cache addresses:
+Physical addresses:
+Actual memory addresses;
+Logical addresses:
+Virtual-memory addresses;
+34
+
+--- slide 35 ---
+Cache Addresses
+Virtual memory performs mapping between:
+Logical addresses used by a program into physical addresses.
+Why is this important?
+Main idea behind virtual memory:
+Cache Addresses
+Disregard amount of main memory available;
+35
+
+--- slide 36 ---
+Cache Addresses
+With virtual memory, cache may be placed
+36
+
+--- slide 37 ---
+What is the difference?
+Virtual cache stores data using logical addresses.
+Processor accesses the cache directly, without going through the MMU.
+Advantage:
+Faster access speed;
+Cache can respond without the need for an MMU address translation;
+Disadvantage:
+Same virtual address in two different applications refers to two different
+     physical addresses;
+Therefore cache must be flushed with each application context switch...
+...or extra bits must be added to each cache line
+to identify which virtual address space this address refers to
+37
+
+--- slide 38 ---
+Cache Size
+Cache size should be:
+Small enough so that overall:
+Average cost per bit is close to that of main memory alone;
+• Large enough so that the overall
+Average access time is close to that of the cache alone;
+The larger the cache, the more complex the addressing logic:
+Result: large caches tend to be slightly slower than small ones
+Available chip and board area also limits cache size.
+38
+
+--- slide 39 ---
+Cache Mapping Functions
+Recall that there are fewer cache lines than main memory blocks
+How should one map main memory blocks into cache lines?
+Three techniques can be used for mapping blocks into cache lines:
+Direct;
+Associative;
+Set associative
+39
+
+--- slide 40 ---
+Direct Mapping Function
+The simplest technique, known as direct mapping, maps each block of main memory into only one possible cache line. 
+The mapping is expressed as
+i = j modulo m
+where
+i = cache line number
+j = main memory block number
+m = number of lines in the cache
+40
+
+--- slide 41 ---
+Direct Mapping Function
+41
+
+--- slide 42 ---
+Direct Mapping Function
+42
+
+--- slide 43 ---
+To determine whether a block is in the cache:
+Use the line field of the memory address to index the cache line;
+Compare the tag from the memory address with the line tag;
+If both match, then Cache Hit:
+Use the line field of the memory address to index the cache line;
+Retrieve the corresponding word from the cache line;
+If both do not match, then Cache Miss:
+Use the line field of the memory address to index the cache line;
+Update the cache line (word + tag);
+43
+
+--- slide 44 ---
+Direct Mapping Function
+• Advantage: simple and inexpensive to implement;
+• Disadvantage: there is a fixed cache location for any given block;
+• if a program happens to reference words repeatedly from two different blocks that map into the same line;
+• then the blocks will be continually swapped in the cache;
+• hit ratio will be low (a.k.a. thrashing).
+44
+
+--- slide 45 ---
+Worked Examples on Direct Mapping Function
+1. Consider a direct mapped cache of size 16 KB with block size 256 bytes. The size of main memory is 128 KB. Find-
+Number of bits in tag
+Tag directory size
+Solution-
+Given-
+Cache memory size = 16 KB
+Block size = Frame size = Line size = 256 bytes
+Main memory size = 128 KB
+45
+
+--- slide 46 ---
+Worked Examples on Direct Mapping Function
+We consider that the memory is byte addressable.
+Number of Bits in Physical Address-
+We have,
+Size of main memory
+128 KB = 217 bytes
+Thus, Number of bits in physical address = 17 bits
+Number of Bits in Block Offset-
+We have,
+Block size = 256 bytes = 28 bytes
+Thus, Number of bits in block offset = 8 bits
+46
+
+--- slide 47 ---
+Worked Examples on Direct Mapping Function
+Thus, Number of bits in block offset = 8 bits
+Number of Bits in Line Number-
+Total number of lines in cache= Cache size / Line size
+= 16 KB/256 bytes
+= 214 bytes / 28 bytes= 26 lines
+Thus, Number of bits in line number = 6 bits
+47
+
+--- slide 48 ---
+Worked Examples on Direct Mapping Function
+Number of Bits in Tag-
+= Number of bits in physical address – (Number of bits in line number + Number of bits in block offset)
+= 17 bits –(6 bits + 8 bits)
+= 17 bits –14 bits = 3 bits
+Thus, Number of bits in tag = 3 bits
+48
+
+--- slide 49 ---
+Worked Examples on Direct Mapping Function
+Tag Directory Size-
+Tag directory size
+= Number of tags x Tag size = Number of lines in cache x Number of bits in tag
+= 26x 3 bits = 192 bits = 24 bytes
+Thus, size of tag directory = 24 bytes
+49
+
+--- slide 50 ---
+Associative Mapping
+Associative mapping overcomes the disadvantage of direct mapping by permitting each main memory block to be loaded into any line of the cache (Figure 4.8b). 
+In this case, the cache control logic interprets a memory address simply as a Tag and a Word field. 
+The Tag field uniquely identifies a block of main memory. To determine whether a block is in the cache, the cache control logic must simultaneously examine every line’s tag for a match.
+50
+
+--- slide 51 ---
+Associative Mapping
+51
+
+--- slide 52 ---
+Associative Mapping
+Cache interprets a memory address as a Tag and a Word field: 
+Tag: (s bits) uniquely identifies a block of main memory; 
+Word: (w bits) uniquely identifies a word within a block;
+52
+
+--- slide 53 ---
+To determine whether a block is in the cache
+simultaneously compare every line’s tag for a match:
+If a match exists, then Cache Hit:
+Use the tag field of the memory address to index the cache line;
+Retrieve the corresponding word from the cache line;
+If a match does not exist, then Cache Miss:
+Choose a cache line. How?
+Update the cache line (word + tag);
+53
+
+--- slide 54 ---
+Worked Examples on Associative Mapping
+Example 1:
+Consider a fully associative mapped cache of size 16 KB with block size 256 bytes. The size of main memory is 128 KB. Find-
+1.Number of bits in tag
+2.Tag directory size
+Solution-
+Given-
+- Cache memory size = 16 KB
+- Block size = Frame size = Line size = 256 bytes
+- Main memory size = 128 KB
+54
+
+--- slide 55 ---
+Worked Examples on Associative Mapping
+We consider that the memory is byte addressable.
+Number of Bits in Physical Address-
+We have,
+Size of main memory
+= 128 KB
+= 217bytes
+Thus, Number of bits in physical address = 17 bits
+Number of Bits in Block Offset-
+We have Block size
+= 256 bytes
+= 28 bytes
+55
+
+--- slide 56 ---
+Worked Examples on Associative Mapping
+Thus, Number of bits in block offset = 8 bits
+Number of bits in tag
+= Number of bits in physical address –Number of bits in block offset
+= 17 bits –8 bits = 9 bits
+Thus, Number of bits in tag = 9 bits
+Number of Lines in Cache-
+Total number of lines in cache
+= Cache size / Line size
+= 16 KB / 256 bytes
+= 214bytes / 28bytes = 26 lines
+56
+
+--- slide 57 ---
+Worked Examples on Associative Mapping
+Tag directory size	
+= Number of tags x Tag size
+= Number of lines in cache x Number of bits in tag
+= 26 x 9 bits
+= 576 bits= 72 bytes
+Thus, size of tag directory = 72 bytes
+57
+
+--- slide 58 ---
+Worked Examples on Associative Mapping
+Example 2:
+Consider a fully associative mapped cache with block size 4 KB. The size of main memory is 16 GB. Find the number of bits in tag. 
+
+Given- 
+-	Block size = Frame size = Line size = 4 KB 
+-	Size of main memory = 16 GB 
+We consider that the memory is byte addressable. 
+
+Number of Bits in Physical Address- 
+We have, 
+Size of main memory 
+= 16 GB 
+= 234 bytes
+58
+
+--- slide 59 ---
+Worked Examples on Associative Mapping
+Thus, Number of bits in physical address = 34 bits 
+
+Number of Bits in Block Offset- 
+We have, 
+Block size 
+= 4 KB = 212 bytes 
+Thus, Number of bits in block offset = 12 bits 
+
+Number of Bits in Tag- 
+= Number of bits in physical address – Number of bits in block offset 
+= 34 bits – 12 bits = 22 bits 
+Thus, Number of bits in tag = 22 bits
+59
+
+--- slide 60 ---
+Worked Examples on Associative Mapping
+Thus, Number of bits in physical address = 34 bits 
+
+Number of Bits in Block Offset- 
+We have, 
+Block size 
+= 4 KB = 212 bytes 
+Thus, Number of bits in block offset = 12 bits 
+
+Number of Bits in Tag- 
+= Number of bits in physical address – Number of bits in block offset 
+= 34 bits – 12 bits = 22 bits 
+Thus, Number of bits in tag = 22 bits
+60
+
+--- slide 61 ---
+Set associative mapping
+This form of mapping is an enhanced form of direct mapping where the drawbacks of direct mapping are removed. 
+Set associative addresses the problem of possible thrashing in the direct mapping method. 
+It does this by saying that instead of having exactly one line that a block can map to in the cache, we will group a few lines together creating a set. 
+Then a block in memory can map to any one of the lines of a specific set. Set-associative mapping allows that each word that is present in the cache can have two or more words in the main memory for the same index address. 
+Set associative cache mapping combines the best of direct and associative cache mapping techniques.
+61
+
+--- slide 62 ---
+Worked Examples on Set-Associative Mapping
+Example 1: 
+Consider a 2-way set associative mapped cache of size 16 KB with block size 256 bytes. The size of main memory is 128 KB. Find-
+1. Number of bits in tag
+2. Tag directory size
+Given-
+- Set size = 2
+- Cache memory size = 16 KB
+- Block size = Frame size = Line size = 256 bytes
+-Main memory size = 128 KB
+62
+
+--- slide 63 ---
+Worked Examples on Set-Associative Mapping
+We consider that the memory is byte addressable.
+Number of Bits in Physical Address-
+We have,
+Size of main memory  = 128 KB= 217 bytes
+Thus, Number of bits in physical address = 17 bits
+Number of Bits in Block Offset-
+We have,
+Block size = 256 bytes= 28bytes
+Thus, Number of bits in block offset = 8 bits
+63
+
+--- slide 64 ---
+Worked Examples on Set-Associative Mapping
+Number of Lines in Cache-
+Total number of lines in cache = Cache size / Line size
+= 16 KB / 256 bytes
+= 214 bytes / 28 bytes= 64 lines
+Thus, Number of lines in cache = 64 lines
+Number of Sets in Cache-
+Total number of sets in cache
+= Total number of lines in cache / Set size
+= 64 /2= 32 sets
+= 25 sets
+Thus, Number of bits in set number = 5 bits
+64
+
+--- slide 65 ---
+65
+End of Lesson 3
+
+(deck has 65 slides)

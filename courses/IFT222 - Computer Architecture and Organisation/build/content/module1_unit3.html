@@ -1,0 +1,200 @@
+<!-- ===================== UNIT 3 ===================== -->
+<section>
+<div class="kick">Module One &middot; Unit 3</div>
+<h2 class="title">Floating Point Representation</h2>
+<hr class="rule">
+<p class="lead">How a computer stores numbers with a fractional part, using the
+IEEE-754 standard. Convert cleanly in both directions and you own a whole exam
+question, because one appears on every paper.</p>
+<p class="lo">By the end of this unit you can lay out the IEEE-754 single-precision
+format, convert a decimal number to its 32-bit hex form, convert a hex pattern back
+to decimal, and compare stored floating-point values. Every past question of this
+type is worked in full.</p>
+
+<h3 class="sub">Why floating point, and the idea behind it</h3>
+<p>Fixed integers cannot store 3.14 or 0.001. Floating point borrows scientific
+notation: write a number as a sign, a fraction between 1 and 2 (the
+<b>mantissa</b>), and a power of two (the <b>exponent</b>), just as
+6.02 &#215; 10<sup>23</sup> does in base 10. The standard that fixes exactly how
+those three parts are packed into bits is <b>IEEE-754</b>.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">IEEE-754 single precision</span></div>
+<div class="body"><p>Single precision uses <b>32 bits</b> in three fields:</p>
+<figure>
+<svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <rect x="10" y="30" width="34" height="34" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.6"/>
+  <rect x="44" y="30" width="150" height="34" fill="#f1f5f8" stroke="#33566e" stroke-width="1.6"/>
+  <rect x="194" y="30" width="316" height="34" fill="#f0f8f2" stroke="#15803d" stroke-width="1.6"/>
+  <g text-anchor="middle" font-size="11" font-weight="bold" fill="#1e2830">
+    <text x="27" y="52">S</text><text x="119" y="52">Exponent</text><text x="352" y="52">Mantissa (fraction)</text>
+  </g>
+  <g text-anchor="middle" font-size="9.5" fill="#67707a">
+    <text x="27" y="24">1 bit</text><text x="119" y="24">8 bits</text><text x="352" y="24">23 bits</text>
+    <text x="27" y="78">bit 31</text><text x="119" y="78">bits 30 to 23</text><text x="352" y="78">bits 22 to 0</text>
+  </g>
+</svg>
+<figcaption>Sign, then an 8-bit biased exponent, then a 23-bit mantissa.</figcaption>
+</figure>
+<ul class="bul">
+<li><b>Sign (1 bit):</b> 0 for positive, 1 for negative.</li>
+<li><b>Exponent (8 bits):</b> the power of two, stored with a <b>bias of 127</b>
+added, so a true exponent of 10 is stored as 137. The bias lets negative exponents
+be stored without a second sign.</li>
+<li><b>Mantissa (23 bits):</b> the fraction after the leading 1. Because a normalised
+number always starts "1.", that 1 is not stored: it is the <b>hidden bit</b>, giving
+24 bits of precision for free.</li>
+</ul></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The recipe, decimal to IEEE</span></div>
+<div class="body"><p>Single precision is <b>1 sign, 8 exponent, 23 mantissa</b>, bias
+<b>127</b>. To convert a decimal number:</p>
+<ol class="qlist">
+<li>Sign bit: 0 if positive, 1 if negative. Work with the size only from here.</li>
+<li>Write the number in binary (integer part and fraction part).</li>
+<li>Normalise to 1.<i>m</i> &#215; 2<sup>e</sup> by moving the point.</li>
+<li>Exponent field = e + 127, in 8 bits.</li>
+<li>Mantissa = the bits of <i>m</i> after the point, filled to 23 bits.</li>
+</ol>
+<p><b>Memory hook:</b> <b>S, E, M is 1, 8, 23</b>, and the bias is
+<b>127 = 2<sup>7</sup> &#8722; 1</b>. Store exponent plus 127; read exponent minus
+127.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">TEST 1 (recurring)</span></div>
+<div class="body"><p>Represent <b>&#8722;452.25</b> in IEEE-754 single precision. This one
+terminates, so it converts exactly.</p>
+<ol class="steps">
+<li>Sign: the number is negative, so the sign bit is <b>1</b>.</li>
+<li>Binary: 452 = 111000100, and 0.25 = 0.01, so 452.25 = 111000100.01.</li>
+<li>Normalise: move the point 8 places left, 111000100.01 = 1.1100010001 &#215; 2<sup>8</sup>.
+So the true exponent is 8.</li>
+<li>Exponent field: 8 + 127 = 135 = 1000 0111.</li>
+<li>Mantissa: the bits after the point, 1100010001, padded to 23 bits:
+1100 0100 0100 0000 0000 000.</li>
+<li>Assemble sign, exponent, mantissa and group into hex:
+1 1000 0111 1100 0100 0100 0000 0000 000 = 1100 0011 1110 0010 0010 0000 0000 0000.</li>
+</ol>
+<div class="answerbox">&#8722;452.25 = 1 10000111 11000100010000000000000 = <b>C3E22000H</b>
+&nbsp;(check: converting C3E22000H back gives &#8722;452.25 exactly).</div>
+<p class="redo"><b>Now redo it:</b> the five steps never change. Sign, binary,
+normalise, exponent plus 127, mantissa to 23 bits.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q4c &middot; PQ 24/25 Q3c &middot; PQ 25/26 Q5a</span></div>
+<div class="body"><p>Represent <b>&#8722;1240.56</b> in IEEE-754 single precision. Here the
+fraction does not terminate, so we truncate the mantissa at 23 bits.</p>
+<ol class="steps">
+<li>Sign: negative, so <b>1</b>.</li>
+<li>Binary: 1240 = 100 1101 1000. The fraction 0.56 keeps going:
+0.56 = 0.10001111010111&#8230; (multiply by 2 repeatedly, taking the whole part each
+time). So 1240.56 = 10011011000.10001111010111&#8230;</li>
+<li>Normalise: 1.001101100010001111010111&#8230; &#215; 2<sup>10</sup>. True exponent
+is 10.</li>
+<li>Exponent field: 10 + 127 = 137 = 1000 1001.</li>
+<li>Mantissa: the first 23 bits after the point:
+0011 0110 0010 0011 1101 011.</li>
+</ol>
+<div class="answerbox">&#8722;1240.56 &#8776; 1 10001001 00110110001000111101011 =
+<b>C49B11EBH</b> (truncated). Rounding the last bit up instead gives C49B11ECH, which
+is what the hardware actually stores. Either is acceptable if you state your method.</div>
+<p class="redo"><b>Now redo it:</b> the only new skill is turning a non-terminating
+fraction into bits by repeated multiplication by 2, stopping once you have 23 mantissa
+bits.</p>
+</div></div>
+
+<h3 class="sub">The reverse: hex pattern back to a decimal value</h3>
+<p>Going backwards, split the 32 bits into the three fields, undo the bias, restore
+the hidden 1, and evaluate.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The recipe, IEEE to decimal</span></div>
+<div class="body"><ol class="qlist">
+<li>Expand the hex to 32 bits and split as 1, 8, 23.</li>
+<li>Sign bit gives the sign.</li>
+<li>True exponent e = (exponent field) &#8722; 127.</li>
+<li>Value = &#177; 1.<i>mantissa</i> (in binary) &#215; 2<sup>e</sup>.</li>
+</ol></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4c &middot; PQ 25/26 Q5d</span></div>
+<div class="body"><p>Find the decimal value of <b>C4F2E000H</b> under IEEE-754 single
+precision.</p>
+<ol class="steps">
+<li>Expand to 32 bits: C4F2E000 = 1100 0100 1111 0010 1110 0000 0000 0000.</li>
+<li>Split: sign = 1; exponent = 1000 1001; mantissa = 111 0010 1110 0000&#8230;
+(rest zeros).</li>
+<li>Sign 1 means negative.</li>
+<li>Exponent: 1000 1001 = 137, so e = 137 &#8722; 127 = 10.</li>
+<li>Restore the hidden 1: 1.11100101110 &#215; 2<sup>10</sup>. Move the point 10 places
+right: 11110010111.0.</li>
+<li>Evaluate 11110010111 = 1024+512+256+128+16+4+2+1 = 1943.</li>
+</ol>
+<div class="answerbox">C4F2E000H = &#8722;1.1110010111 &#215; 2<sup>10</sup> =
+&#8722;11110010111<sub>2</sub> = <b>&#8722;1943</b>.</div>
+<p class="redo"><b>Now redo it:</b> the steps that lose marks are forgetting the hidden
+1 and forgetting to subtract 127. Do both, every time.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4a &middot; PQ 24/25 Q1a &middot; PQ 23/24 Q1c</span></div>
+<div class="body"><p>Three IEEE-754 numbers are stored: <b>X = C1400000H,
+Y = 42100000H, Z = 41400000H</b>. Convert each to decimal, then test:
+(i) (Y &#8722; Z) &gt; 0, (ii) X + Z = 0, (iii) Z = X + Y. This 9-mark question recurs
+on three papers.</p>
+<p class="marks">Convert each</p>
+<table class="data">
+<tr><th>Hex</th><th>Sign / Exp field / e</th><th>1.mantissa &#215; 2<sup>e</sup></th><th>Decimal</th></tr>
+<tr><td>C1400000</td><td>1 / 130 / 3</td><td>&#8722;1.1 &#215; 2<sup>3</sup> = &#8722;1100</td><td>&#8722;12</td></tr>
+<tr><td>42100000</td><td>0 / 132 / 5</td><td>1.0001 &#215; 2<sup>5</sup> = 100100</td><td>36</td></tr>
+<tr><td>41400000</td><td>0 / 130 / 3</td><td>1.1 &#215; 2<sup>3</sup> = 1100</td><td>12</td></tr>
+</table>
+<p class="marks">Apply the tests</p>
+<div class="answerbox">X = &#8722;12, Y = 36, Z = 12.
+(i) Y &#8722; Z = 36 &#8722; 12 = 24 &gt; 0: <b>TRUE</b>.
+(ii) X + Z = &#8722;12 + 12 = 0: <b>TRUE</b>.
+(iii) X + Y = &#8722;12 + 36 = 24, which is not 12, so Z = X + Y is <b>FALSE</b>.</div>
+<p class="redo"><b>Now redo it:</b> convert all three first, then the three tests are
+one line of ordinary arithmetic each. Do not try to compare the hex directly.</p>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Double precision, and what IEEE-754 defines</span></div>
+<div class="body"><p>The same layout scaled up gives <b>double precision</b>, used wherever
+single precision's roughly seven significant digits are not enough, as in banking and
+scientific work.</p>
+<table class="data">
+<tr><th>Format</th><th>Total</th><th>Sign</th><th>Exponent (bias)</th><th>Mantissa</th><th>Approx. range</th></tr>
+<tr><td>Single</td><td>32 bits</td><td>1</td><td>8 (bias 127)</td><td>23</td><td>&#177;10<sup>38</sup></td></tr>
+<tr><td>Double</td><td>64 bits</td><td>1</td><td>11 (bias 1023)</td><td>52</td><td>&#177;10<sup>308</sup></td></tr>
+</table>
+<p>The method is identical; only the field widths and the bias change, double using
+<b>bias 1023 = 2<sup>10</sup> &#8722; 1</b>. Beyond the formats, IEEE-754 also fixes the
+<b>operations</b> every conforming machine must provide: add, subtract, multiply, divide,
+remainder and square root, conversion between decimal and binary, and the handling of
+exceptions (overflow, underflow, divide-by-zero, and invalid results such as
+0&#247;0).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>The three marks students throw away here. (1) The exponent is
+<b>biased</b>: subtract 127 when reading, add 127 when writing. (2) The leading 1 is
+<b>hidden</b>, so a mantissa of 111001&#8230; means the value 1.111001&#8230;, not
+0.111001&#8230;. (3) When the decimal fraction does not terminate, keep multiplying by
+2 until you have 23 mantissa bits, then stop; do not round the whole number off early.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">An IEEE-754 single number has exponent field 1000 0001.
+What is its true exponent, and why?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>1000 0001 = 129, and the true exponent is 129 &#8722; 127 = 2. The stored field
+always carries the bias of 127, so you subtract it to recover the real power of two.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>IEEE-754 single precision splits 32 bits as 1 sign, <span class="blank"></span>
+exponent, <span class="blank"></span> mantissa.</li>
+<li>The exponent bias in single precision is <span class="blank"></span>.</li>
+<li>The leading 1 of a normalised mantissa is not stored; it is called the
+<span class="blank"></span> bit.</li>
+<li>To read the true exponent you <span class="blank"></span> 127 from the exponent
+field.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. 8; 23. &nbsp; 2. 127. &nbsp; 3. hidden (implicit). &nbsp; 4. subtract.</p>
+</div></div>
+</section>

@@ -1,0 +1,105 @@
+<!-- ===================== MOCK TWO: ANSWERS ===================== -->
+<section>
+<div class="kick">Mock Examination Two</div>
+<h2 class="title">Answers</h2>
+<hr class="rule">
+<p class="lead">Full worked solutions, each cross-referenced to the unit that teaches it.</p>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question One</span></div>
+<div class="body">
+<p class="marks">(a) Von Neumann (see M1 U1)</p>
+<p>(i) The Von Neumann concept: a stored-program computer keeps instructions and data in
+the same memory and executes instructions sequentially. Two aspects: a single shared
+memory for code and data; sequential fetch-execute of a stored program. (ii) The
+bottleneck: the single shared bus lets only instructions or data move at a time, so the
+CPU waits on memory. Reduce it with cache and with separate instruction and data caches
+(or wider buses).</p>
+<p class="marks">(b) 16-bit two's complement (see M1 U2)</p>
+<p>(i) Range = &#8722;2<sup>15</sup> to +(2<sup>15</sup>&#8722;1) = &#8722;32768 to 32767;
+300, &#8722;200 and &#8722;5000 all fit.</p>
+<table class="data">
+<tr><th>Value</th><th>Binary (16-bit two's complement)</th><th>Hex</th></tr>
+<tr><td>300</td><td>0000 0001 0010 1100</td><td>012C</td></tr>
+<tr><td>&#8722;200</td><td>1111 1111 0011 1000</td><td>FF38</td></tr>
+<tr><td>&#8722;5000</td><td>1110 1100 0111 1000</td><td>EC78</td></tr>
+</table>
+<p>(iii) 300 + (&#8722;200): add the patterns 012C + FF38 = 1 0064, discard the carry out
+of bit 16, leaving 0064H = <b>100</b>. Check: 300 &#8722; 200 = 100.</p>
+<p class="marks">(c) IEEE-754 (see M1 U3)</p>
+<p>(i) 85.75 = 1010101.11 = 1.01010111 &#215; 2<sup>6</sup>. Exponent 6 + 127 = 133 =
+1000 0101. Mantissa 01010111 to 23 bits. Word = 0 10000101 01010111000000000000000 =
+<b>42AB8000H</b>. (ii) C2960000H: sign 1, exponent 1000 0101 = 133 so e = 6, mantissa
+0010110, value = &#8722;1.0010110 &#215; 2<sup>6</sup> = &#8722;1001011 = <b>&#8722;75.0</b>.</p>
+<p class="marks">(d) Instruction formats and bytes (see M1 U4)</p>
+<p>3-address (opcode 1, three addresses 2 each = 7 bytes each):</p>
+<pre class="code">ADD T1, A, B      ADD T2, C, D      MUL T1, T1, T2      ADD Z, T1, E</pre>
+<p>4 instructions &#215; 7 = <b>28 bytes</b>. 0-address (postfix A B + C D + &#215; E +):
+PUSH A, PUSH B, ADD, PUSH C, PUSH D, ADD, MUL, PUSH E, ADD, POP Z = 10 instructions =
+5 pushes &#215; 3 + 1 pop &#215; 3 + 4 ops &#215; 1 = <b>22 bytes</b>.</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
+<div class="body">
+<p class="marks">(a) Cache fields and block lookup (see M3 U3)</p>
+<p>(i) Offset = log<sub>2</sub>8 = 3, index = log<sub>2</sub>512 = 9, tag =
+32 &#8722; 9 &#8722; 3 = <b>20</b>. (ii) Block = (address with the low 3 offset bits
+removed) mod 512, that is (address &#247; 8) mod 512. ABCD1234H gives block <b>70</b>;
+5678FEDCH gives block <b>475</b>.</p>
+<p class="marks">(b) The three mapping functions (see M3 U3)</p>
+<p>Direct: one line per block (fast and simple, but conflict misses). Fully associative:
+a block may go anywhere (no conflict misses, but every tag must be searched, costly).
+Set associative: a block maps to one set of k lines (the compromise, fewer conflicts than
+direct at less cost than fully associative).</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
+<div class="body">
+<p class="marks">(a) 10-bit representations (see M1 U2)</p>
+<p>200 = 0011001000 (positive, same in all four). For &#8722;75: +75 = 0001001011.</p>
+<table class="data">
+<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>
+<tr><td>200</td><td>0011001000</td><td>0011001000</td><td>0011001000</td><td>0011001000</td></tr>
+<tr><td>&#8722;75</td><td>not representable</td><td>1001001011</td><td>1110110100</td><td>1110110101</td></tr>
+</table>
+<p class="marks">(b) End-around carry (see M1 U2)</p>
+<p>200 &#8722; 75 = 200 + (&#8722;75). 200 = 0011001000; &#8722;75 in one's complement =
+1110110100. Add: 0011001000 + 1110110100 = 1 0001111100, a carry out of bit 10. End-around:
+drop it and add 1 to the low bit: 0001111100 + 1 = 0001111101 = <b>125</b>. Check:
+200 &#8722; 75 = 125.</p>
+<p class="marks">(c) Image memory (see M1 U2)</p>
+<p>Pixels = (8 &#215; 200) &#215; (10 &#215; 200) = 1600 &#215; 2000 = 3 200 000. At 1 bit
+per pixel that is 3 200 000 bits = 400 000 bytes = 400 000 / 1 048 576 = <b>0.381 MB</b>
+(about 0.38 MB).</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
+<div class="body">
+<p class="marks">(a) IEEE-754 reverse (see M1 U3)</p>
+<p>43A00000H = 0100 0011 1010 0000&#8230;: sign 0, exponent 1000 0111 = 135 so e = 8,
+mantissa 0100000. Value = 1.0100000 &#215; 2<sup>8</sup> = 101000000 = <b>320.0</b>.</p>
+<p class="marks">(b) Instruction categories (see M1 U4)</p>
+<p>Data transfer (LOAD, STORE, MOVE, PUSH, POP), arithmetic and logic (ADD, SUB, MUL, AND,
+OR), control or test-and-branch (JUMP, BEQ, CALL, RETURN).</p>
+<p class="marks">(c) Addressing modes (see M1 U4)</p>
+<p>Immediate: the operand is the address field itself (a constant). Direct: the operand is
+M[address field]. Indirect: the field points to a location that holds the address, so the
+operand is M[M[address field]]. Register-indirect: a register holds the address, so the
+operand is M[register].</p>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
+<div class="body">
+<p class="marks">(a) Pipeline timing (see M2 U3)</p>
+<p>Cycle time = slowest stage + latch = 50 + 5 = <b>55 ns</b>. Pipeline time for 200 tasks
+= (4 + 199) &#215; 55 = 203 &#215; 55 = <b>11 165 ns</b>. Sequential time =
+200 &#215; (40 + 30 + 50 + 35) = 200 &#215; 155 = <b>31 000 ns</b>. Speedup =
+31 000 / 11 165 = <b>2.78</b>.</p>
+<p class="marks">(b) Memory hierarchy (see M3 U1)</p>
+<p>Registers, then cache (L1, L2, L3), then main memory (RAM), then secondary storage
+(disk, SSD), then tertiary (tape). Going down: bigger, slower and cheaper per byte. Going
+up: smaller, faster and dearer.</p>
+<p class="marks">(c) AMAT (see M3 U3)</p>
+<p>Hierarchical: AMAT = T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub> =
+4 + 0.15 &#215; 70 = 4 + 10.5 = <b>14.5 ns</b>.</p>
+</div></div>
+</section>

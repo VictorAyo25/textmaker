@@ -1,0 +1,136 @@
+<!-- ===================== MODULE FOUR (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Module Four</div>
+  <h1>Basic and Advanced<br>Processor Architectures</h1>
+  <div class="blurb">Two design philosophies, the reduced instruction set (RISC)
+  and the complex instruction set (CISC), and the ways many
+  processors are joined to work in parallel. Mostly a describing-and-comparing module,
+  which means fast, reliable marks if you know the contrasts cleanly.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 100" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+      <g fill="#33566e">
+        <rect x="60" y="30" width="150" height="40" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.4"/>
+        <text x="135" y="55" text-anchor="middle">RISC</text>
+        <rect x="310" y="30" width="150" height="40" rx="4" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.4"/>
+        <text x="385" y="55" text-anchor="middle">CISC</text>
+      </g>
+      <text x="260" y="56" text-anchor="middle" fill="#8a919b">vs</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== M4 UNIT 1 ===================== -->
+<section>
+<div class="kick">Module Four &middot; Unit 1</div>
+<h2 class="title">RISC versus CISC</h2>
+<hr class="rule">
+<p class="lead">Two philosophies of instruction-set design: keep instructions few and
+simple, or make them many and powerful. Naming the differences and example processors
+is worth easy marks every year.</p>
+<p class="lo">By the end of this unit you can give at least four differences between RISC
+and CISC and name example processors of each.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The two philosophies</span></div>
+<div class="body"><p><b>CISC (Complex Instruction Set Computer)</b> provides many
+powerful instructions, some doing a lot of work in one instruction (including direct
+memory-to-memory operations). This makes programs short but the hardware complex, and
+instructions take varying numbers of cycles.</p>
+<p><b>RISC (Reduced Instruction Set Computer)</b> provides few, simple, fixed-length
+instructions, each doing a little in (ideally) one cycle, with memory touched only by
+dedicated load and store instructions (a <b>load-store</b> architecture). Programs are
+longer but the hardware is simple and fast, and it pipelines well.</p></div></div>
+
+<table class="data">
+<tr><th>RISC</th><th>CISC</th></tr>
+<tr><td>Few, simple instructions</td><td>Many, complex instructions</td></tr>
+<tr><td>Fixed-length instructions</td><td>Variable-length instructions</td></tr>
+<tr><td>Mostly one cycle per instruction</td><td>Instructions take several cycles</td></tr>
+<tr><td>Load-store: only load/store touch memory</td><td>Many instructions access memory directly</td></tr>
+<tr><td>Many general-purpose registers</td><td>Fewer registers</td></tr>
+<tr><td>Simple hardware, easy to pipeline</td><td>Complex hardware, harder to pipeline</td></tr>
+<tr><td>Complexity handled in the compiler</td><td>Complexity handled in the hardware</td></tr>
+</table>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4a &middot; PQ 20/21 Q4b &middot; PQ 23/24 Q5c</span></div>
+<div class="body"><p>State four differences between RISC and CISC, and give two example
+processors of each.</p>
+<div class="answerbox">Four differences (any four): RISC has few simple fixed-length
+one-cycle instructions and only load/store touch memory, with many registers and simple
+pipelined hardware; CISC has many complex variable-length multi-cycle instructions, many
+of which access memory directly, with fewer registers and complex hardware. Examples:
+RISC, ARM and MIPS (also SPARC, PowerPC); CISC, Intel x86 (8086, Pentium) and the
+Motorola 68000.</div>
+<p class="redo"><b>Now redo it:</b> pick your four contrasts (instruction count,
+length, cycles, memory access) and memorise two examples each: ARM/MIPS for RISC, x86/68000 for CISC.</p>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Example processors</span></div>
+<div class="body"><p><b>RISC:</b> ARM, MIPS, SPARC, PowerPC. <b>CISC:</b> Intel x86
+(8086, Pentium), Motorola 68000.</p>
+<p><b>Memory hook:</b> the phone in your pocket is <b>ARM (RISC)</b>; the older desktop
+is <b>x86 (CISC)</b>.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">Why does RISC pipeline more easily than CISC?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>RISC instructions are fixed-length and mostly take one cycle, so the stages line up
+uniformly and hazards are easier to manage. CISC instructions vary in length and cycle
+count, which makes overlapping them much harder.</p></div></div>
+</section>
+
+<!-- ===================== M4 UNIT 2 ===================== -->
+<section>
+<div class="kick">Module Four &middot; Unit 2</div>
+<h2 class="title">Parallel Architectures and Interconnection Networks</h2>
+<hr class="rule">
+<p class="lead">When one processor is not enough, many are joined to work together. This
+unit classifies parallel machines and the networks that connect them, and completes the
+data-hazard picture from pipelining.</p>
+<p class="lo">By the end of this unit you can state Flynn's taxonomy, describe common
+interconnection networks, and name the three types of data hazard.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Flynn's taxonomy</span></div>
+<div class="body"><p>Parallel machines are classified by how many instruction streams and
+data streams they run at once:</p>
+<ul class="bul">
+<li><b>SISD:</b> Single Instruction, Single Data. The classic single processor.</li>
+<li><b>SIMD:</b> Single Instruction, Multiple Data. One instruction acts on many data
+items at once (vector and graphics processors).</li>
+<li><b>MISD:</b> Multiple Instruction, Single Data. Rare; several operations on one
+data stream (some fault-tolerant designs).</li>
+<li><b>MIMD:</b> Multiple Instruction, Multiple Data. Many processors running different
+instructions on different data (multicore CPUs, clusters).</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Interconnection networks</span></div>
+<div class="body"><p>The processors and memories must be wired together. Common schemes:
+<b>shared bus</b> (simple, but one at a time), <b>crossbar</b> (every processor to every
+memory, fast but costly), <b>mesh</b> (each node to its neighbours, scales well), and
+<b>hypercube</b> and <b>ring</b> topologies. The trade-off is always cost and wiring
+against how many transfers can happen at once.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three data hazards</span></div>
+<div class="body"><p>Completing the pipelining picture (Module Two), data hazards come in
+three types, named by the order of the clashing accesses:</p>
+<ul class="bul">
+<li><b>RAW (read after write):</b> an instruction reads a value before the earlier
+instruction has written it. The true dependency, and the common one.</li>
+<li><b>WAR (write after read):</b> an instruction writes a value before an earlier one
+has read it.</li>
+<li><b>WAW (write after write):</b> two instructions write the same location in the
+wrong order.</li>
+</ul></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1c</span></div>
+<div class="body"><p>Name the three types of data hazard.</p>
+<div class="answerbox">Read after write (RAW), write after read (WAR), and write after
+write (WAW). RAW is a true dependency; WAR and WAW are name dependencies that arise when
+instructions are reordered.</div>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A graphics processor applies the same operation to
+thousands of pixels at once. Which Flynn category is it?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>SIMD: a single instruction acting on multiple data items simultaneously.</p></div></div>
+</section>

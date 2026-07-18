@@ -1,0 +1,248 @@
+<!-- ===================== UNIT 4 ===================== -->
+<section>
+<div class="kick">Module One &middot; Unit 4</div>
+<h2 class="title">Instruction Set Architecture</h2>
+<hr class="rule">
+<p class="lead">The instruction set is the vocabulary the processor understands, and
+the boundary between hardware and software. Two exam staples live here: writing an
+expression in the 0, 1, 2 and 3 address formats, and computing an effective address.</p>
+<p class="lo">By the end of this unit you can list the parts of an instruction set
+architecture, lay out an instruction format, translate an arithmetic expression into
+the four address organisations and count their bytes, and compute the effective
+address and operand for every addressing mode.</p>
+
+<h3 class="sub">What the ISA is, and its parts</h3>
+<p>The <b>Instruction Set Architecture (ISA)</b> is the complete set of instructions a
+processor can execute, together with everything a programmer needs to use them. It is
+exactly the "architecture" of Unit 1: the programmer-visible design. Its components:</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Components of an ISA</span></div>
+<div class="body"><ul class="bul">
+<li><b>Instruction set:</b> the operations available (add, load, jump, and so on).</li>
+<li><b>Registers:</b> the small fast stores inside the CPU. General-purpose registers
+hold working values; special ones include the <b>PC</b> (program counter, address of
+the next instruction), <b>IR</b> (instruction register, the current instruction),
+<b>MAR</b> (memory address register) and <b>MDR</b> (memory data register).</li>
+<li><b>Data types:</b> the kinds of value handled (integers, floating point,
+characters, and Booleans, meaning true/false).</li>
+<li><b>Addressing modes:</b> the ways an instruction can name where its operand is.</li>
+<li><b>Instruction format:</b> how the bits of an instruction are laid out.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Instruction format</span></div>
+<div class="body"><p>An instruction is a row of bits split into fields: an
+<b>opcode</b> saying what to do, zero or more <b>operand or address</b> fields saying
+what to do it to, and sometimes a <b>mode</b> field saying how to read the address.</p>
+<figure>
+<svg viewBox="0 0 480 70" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <rect x="20" y="24" width="120" height="30" fill="#f1f5f8" stroke="#33566e" stroke-width="1.5"/>
+  <rect x="140" y="24" width="90" height="30" fill="#fdf6ec" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="230" y="24" width="150" height="30" fill="#f0f8f2" stroke="#15803d" stroke-width="1.5"/>
+  <rect x="380" y="24" width="80" height="30" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.5"/>
+  <g text-anchor="middle" font-size="11" fill="#1e2830">
+    <text x="80" y="43">Opcode</text><text x="185" y="43">Mode</text>
+    <text x="305" y="43">Address / operand</text><text x="420" y="43">...</text>
+  </g>
+  <text x="80" y="18" text-anchor="middle" font-size="9" fill="#67707a">what to do</text>
+  <text x="305" y="18" text-anchor="middle" font-size="9" fill="#67707a">what to act on</text>
+</svg>
+<figcaption>Opcode plus operands. The number of address fields names the format.</figcaption>
+</figure></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: decode the bits</span></div>
+<div class="body"><p>An instruction is just a number, so with the format you can read one
+back. Suppose a 16-bit machine uses <b>opcode 4 bits, register 4 bits, address 8 bits</b>,
+and its opcode table has 1010 = ADD.</p>
+<ol class="steps">
+<li>Decode <b>1010 0011 11001010</b>. Split 4 / 4 / 8: opcode 1010, register 0011, address
+11001010.</li>
+<li>Opcode 1010 = ADD; register 0011 = R3; address 11001010 = 128+64+8+2 = <b>202</b>.</li>
+<li>So the instruction reads <b>ADD R3, [202]</b>: add the contents of location 202 to R3.</li>
+</ol>
+<p>A 32-bit three-address machine just widens the fields. With <b>opcode 6 bits then three
+5-bit register fields</b>, the bits <b>000001 00001 00010 00011</b> split as opcode 000001,
+then R1, R2, R3, giving <b>ADD R1, R2, R3</b>.</p>
+<div class="answerbox">Reading an instruction is the reverse of building one: know the field
+widths, chop the bits, translate each field. 1010 0011 11001010 = ADD R3, [202].</div>
+</div></div>
+
+<h3 class="sub">Zero, one, two and three address formats</h3>
+<p>Processors differ in how many operands one instruction may name. Fewer addresses
+means shorter instructions but more of them. Learn the four by translating one
+expression. Take <b>X = (A + B) &#215; (C + D)</b>.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The same expression, four ways</span></div>
+<div class="body"><table class="data">
+<tr><th>3-address<br>op d,s1,s2</th><th>2-address<br>op d,s</th><th>1-address<br>accumulator</th><th>0-address<br>stack</th></tr>
+<tr>
+<td>ADD T1,A,B<br>ADD T2,C,D<br>MUL X,T1,T2</td>
+<td>MOV T1,A<br>ADD T1,B<br>MOV T2,C<br>ADD T2,D<br>MUL T1,T2<br>MOV X,T1</td>
+<td>LOAD A<br>ADD B<br>STORE T1<br>LOAD C<br>ADD D<br>MUL T1<br>STORE X</td>
+<td>PUSH A<br>PUSH B<br>ADD<br>PUSH C<br>PUSH D<br>ADD<br>MUL<br>POP X</td>
+</tr>
+<tr><td>3 instructions</td><td>6 instructions</td><td>7 instructions</td><td>8 instructions</td></tr>
+</table>
+<p>The pattern: three addresses name both sources and the destination, so each
+operation is one instruction. Two addresses reuse the destination as a source. One
+address keeps a running value in the <b>accumulator</b> and names only the other
+operand. Zero addresses take everything from a <b>stack</b>, so the expression is
+written in postfix (reverse Polish) order first.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The four formats</span></div>
+<div class="body"><p>Fewer address fields, more instructions:</p>
+<ul class="bul">
+<li><b>3-address:</b> op dest, src1, src2. Shortest programs.</li>
+<li><b>2-address:</b> op dest, src (dest is also a source).</li>
+<li><b>1-address:</b> LOAD, STORE, and ops against the single <b>accumulator</b>.</li>
+<li><b>0-address:</b> PUSH and POP a <b>stack</b>; operators take the top items. Write
+the expression in <b>postfix</b> first.</li>
+</ul>
+<p><b>Memory hook:</b> 3, 2, 1, 0 addresses map to register, register, accumulator,
+stack machines. Postfix of A op B is "A B op".</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4b &middot; PQ 24/25 Q1d</span></div>
+<div class="body"><p>Write <b>X = ((A &#215; B) + C / D) / (F &#215; G + J &#215; K)</b>
+in the 0, 1, 2 and 3 address formats, and count the bytes. Take <b>1 byte per opcode
+and 2 bytes per memory address</b> (state whatever the paper gives).</p>
+<p class="marks">Instruction counts</p>
+<table class="data">
+<tr><th>Format</th><th>Instructions</th><th>Bytes (opcode 1, address 2)</th></tr>
+<tr><td>3-address</td><td>7</td><td>7 &#215; (1 + 3&#215;2) = 7 &#215; 7 = 49</td></tr>
+<tr><td>2-address</td><td>12</td><td>12 &#215; (1 + 2&#215;2) = 12 &#215; 5 = 60</td></tr>
+<tr><td>1-address</td><td>17</td><td>17 &#215; (1 + 1&#215;2) = 17 &#215; 3 = 51</td></tr>
+<tr><td>0-address</td><td>16</td><td>8 pushes &#215; 3 + 1 pop &#215; 3 + 7 ops &#215; 1 = 34</td></tr>
+</table>
+<p class="marks">3-address program (the shortest)</p>
+<pre class="code">MUL  T1, A, B      ; T1 = A*B
+DIV  T2, C, D      ; T2 = C/D
+ADD  T1, T1, T2    ; T1 = A*B + C/D   (numerator)
+MUL  T2, F, G      ; T2 = F*G
+MUL  T3, J, K      ; T3 = J*K
+ADD  T2, T2, T3    ; T2 = F*G + J*K   (denominator)
+DIV  X,  T1, T2    ; X  = numerator / denominator</pre>
+<p class="marks">0-address program (postfix A B * C D / + F G * J K * + /)</p>
+<pre class="code">PUSH A   PUSH B   MUL          ; A*B on stack
+PUSH C   PUSH D   DIV   ADD    ; + C/D  -> numerator
+PUSH F   PUSH G   MUL          ; F*G
+PUSH J   PUSH K   MUL   ADD    ; + J*K  -> denominator
+DIV      POP X                 ; divide, store X</pre>
+<p class="redo"><b>Now redo it:</b> the marks are in the counts and one clean listing.
+Note that fewer addresses always trade shorter instructions for more of them, and the
+byte totals here are close precisely because of that trade.</p>
+</div></div>
+
+<h3 class="sub">Addressing modes: where the operand really is</h3>
+<p>An address field does not always hold the operand directly. The <b>addressing
+mode</b> says how to turn that field into the <b>effective address (EA)</b>, the actual
+location of the operand.</p>
+
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand is</th></tr>
+<tr><td>Immediate</td><td>none</td><td>the address field itself (a constant)</td></tr>
+<tr><td>Direct</td><td>EA = address field</td><td>M[address field]</td></tr>
+<tr><td>Indirect</td><td>EA = M[address field]</td><td>M[M[address field]]</td></tr>
+<tr><td>Register (direct)</td><td>none</td><td>contents of the named register</td></tr>
+<tr><td>Register indirect</td><td>EA = contents of the register</td><td>M[register]</td></tr>
+<tr><td>Relative</td><td>EA = PC + address field</td><td>M[PC + address field]</td></tr>
+<tr><td>Indexed</td><td>EA = index register + address field</td><td>M[index + address field]</td></tr>
+</table>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1e</span></div>
+<div class="body"><p>Given PC = 7000, R1 = 1500, address field = 1200, and the memory
+below, find the effective address and operand for each mode.</p>
+<table class="data">
+<tr><th>Address</th><td>7000</td><td>1200</td><td>1500</td><td>3200</td><td>4500</td><td>6000</td><td>8100</td></tr>
+<tr><th>Value</th><td>1200</td><td>4500</td><td>6000</td><td>8100</td><td>999</td><td>200</td><td>400</td></tr>
+</table>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
+<tr><td>Immediate</td><td>none</td><td>1200 (the field is the value)</td></tr>
+<tr><td>Direct</td><td>1200</td><td>M[1200] = 4500</td></tr>
+<tr><td>Indirect</td><td>M[1200] = 4500</td><td>M[4500] = 999</td></tr>
+<tr><td>Register (R1)</td><td>none</td><td>contents of R1 = 1500</td></tr>
+<tr><td>Register indirect (R1)</td><td>R1 = 1500</td><td>M[1500] = 6000</td></tr>
+<tr><td>Relative</td><td>PC + 1200 = 8200</td><td>M[8200] (outside the given table)</td></tr>
+</table>
+<p class="redo"><b>Now redo it:</b> immediate uses the field as the value; direct reads
+memory once; indirect reads it twice; register indirect uses the register as a
+pointer; relative adds the PC. That single sentence answers the whole question.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: indirect for read, add and store</span></div>
+<div class="body"><p>Indirect mode works for writing and read-modify, not only for reading.
+The address field points to a location whose <b>contents</b> are the effective address.</p>
+<ol class="steps">
+<li><b>ADD R1, (150)</b> with R1 = 10, M[150] = 250, M[250] = 5. EA = M[150] = 250; operand
+= M[250] = 5; so R1 = 10 + 5 = <b>15</b>.</li>
+<li><b>STORE R3, (500)</b> with R3 = 30, M[500] = 800. EA = M[500] = 800, so the value 30 is
+written there: M[800] = <b>30</b>.</li>
+</ol>
+<div class="answerbox">ADD R1,(150) leaves R1 = 15; STORE R3,(500) sets M[800] = 30. Indirect
+always takes the address from memory first, then reads or writes the operand at it.</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Categories of instructions</span></div>
+<div class="body"><p>Instructions fall into three families, and naming them with
+examples is a common short question:</p>
+<ul class="bul">
+<li><b>Data transfer:</b> copy data, leaving the source unchanged; only the destination
+changes. <b>LOAD</b> copies from memory into a register, <b>STORE</b> copies a register
+back to memory. MOVE, PUSH, POP move it around too.</li>
+<li><b>Arithmetic and logic:</b> compute. ADD, SUB, MUL, DIV, AND, OR, NOT, shifts.</li>
+<li><b>Control (test and branch):</b> change what runs next. JUMP, BEQ (branch if
+equal), CALL, RETURN.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Condition codes and conditional branches</span></div>
+<div class="body"><p>Test-and-branch instructions decide what runs next by reading the
+<b>condition code register</b> (also called the flags or status register). An arithmetic or
+logic operation sets flags as a side effect: <b>Z</b> (the result was zero), <b>N</b>
+(negative), <b>C</b> (a carry out), <b>V</b> (signed overflow). A conditional branch then
+tests a flag: <b>BEQ</b> branches if equal (Z set), <b>BNE</b> if not equal, <b>BMI</b> if
+minus (N set), <b>BCC</b> if carry clear, and <b>BRA</b> branches always.</p>
+<p>Branches are usually <b>relative</b>: the target is the PC plus a signed offset, so a
+<b>negative offset branches backwards</b>, which is how loops are built. For example
+<b>BNE &#8722;40</b> with PC = 1000 gives EA = 1000 &#8722; 40 = <b>960</b>, jumping back
+40 locations.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2c</span></div>
+<div class="body"><p>Write an assembly program to add two numbers and store the result.</p>
+<p>On a one-address (accumulator) machine, load the first, add the second, store the
+sum:</p>
+<pre class="code">LOAD  A       ; accumulator = A
+ADD   B       ; accumulator = A + B
+STORE C       ; C = A + B</pre>
+<p>On a three-address machine it is a single instruction: <code>ADD C, A, B</code>. Either
+is a full-mark answer; state which machine you assume.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Do not confuse <b>indirect</b> with <b>register indirect</b>.
+Plain indirect goes to memory twice (the field points to a location that holds the
+real address). Register indirect uses a <b>register</b> as the pointer, so it touches
+memory once. And <b>immediate</b> has no effective address at all: the operand is the
+number in the instruction.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">In direct mode the address field is 1200 and M[1200] = 4500.
+What are the effective address and the operand? What changes in indirect mode?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Direct: EA = 1200, operand = M[1200] = 4500. Indirect: EA = M[1200] = 4500, and the
+operand is M[4500], one further memory read.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>A 0-address machine evaluates expressions using a <span class="blank"></span>, so
+the expression is first written in <span class="blank"></span> order.</li>
+<li>The register holding the address of the next instruction is the
+<span class="blank"></span>.</li>
+<li>In immediate mode the operand is <span class="blank"></span>.</li>
+<li>In relative mode the effective address is <span class="blank"></span> plus the
+address field.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. stack; postfix (reverse Polish). &nbsp; 2. program counter (PC). &nbsp;
+3. the address field itself (a constant). &nbsp; 4. the PC.</p>
+</div></div>
+</section>

@@ -1,0 +1,318 @@
+<!-- ===================== HOW TO USE ===================== -->
+<section>
+<div class="kick">Before you start</div>
+<h2 class="title">How to use this manual</h2>
+<hr class="rule">
+<p class="lead">This book takes you from knowing nothing about how a computer is
+built to solving every past question on this course with a perfect score. Read it
+with a pen, not just your eyes.</p>
+
+<p>Computer Architecture and Organisation looks frightening because it mixes three
+things at once: a little binary arithmetic, a handful of diagrams, and a set of
+formulas for speed and memory. In truth the whole course is about a dozen ideas,
+each used over and over. This manual finds those ideas, teaches each one from
+zero, and then makes you use it on the real exam questions straight away. Nothing
+is assumed. Every number is worked out in full. Every symbol is explained before
+it appears.</p>
+
+<h3 class="sub">The one habit that makes this work</h3>
+<p>Reading feels like studying and teaches almost nothing. What moves a fact into
+your memory is pulling it back out. So all through the book you will meet a
+<b>RECALL AND CHECK</b> box: a question with the answer hidden under a dashed line.
+Cover the answer, say yours out loud or on paper, then look. When a worked example
+ends, you will see <b>Now redo it</b>: close the book and reproduce the solution on
+blank paper. If you only ever do that one thing, you will pass.</p>
+
+<h3 class="sub">The boxes, and what each is for</h3>
+<p>Every idea lives in a labelled box. You can navigate the whole book by the
+colour and shape of these boxes alone.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span></div>
+<div class="body">One idea, in plain language. This is where a concept is explained
+for the first time. Steel-blue, the colour of the datapaths and buses this course
+is about.</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">SLIDE / CLASSWORK / PQ</span></div>
+<div class="body">A full solution, one numbered step at a time, with the reason on
+every line. The chip on the right tells you where the question came from, so a chip
+that reads <b>PQ 25/26</b> is a real exam question you are being shown how to solve.
+Amber, the colour of energy and work being done.</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Memory hook</span></div>
+<div class="body">The few things you truly have to know by heart. This violet is
+<b>reserved</b>: it appears nowhere else in the book, so if you see it, commit it to
+memory. Each one comes with a hook to make it stick.</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body">The exact mistake students make on this topic every year. Read
+these twice. Losing marks here is the most avoidable way to lose them.</div></div>
+
+<div class="box dry"><div class="bar"><span>Trace</span></div>
+<div class="body">A step-by-step table that follows a value, a register, or a
+pipeline cycle by cycle, so you can see the machine change state one move at a
+time.</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">What should you do the moment you reach one of these?</p>
+<hr class="cut"><p class="alabel">Answer</p><p>Cover this line, answer from memory,
+then check. Retrieval is the whole point.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body"><p>Short cloze practice: finish the line, then check against the
+answers underneath.</p></div></div>
+
+<div class="box qpaper"><div class="bar"><span>Exam question</span><span class="tag">PQ 25/26 Q1a</span></div>
+<div class="body">A past question reproduced as it appeared on the paper. Every one
+in this book is followed by a full worked answer in a green <b>Answer</b> box, so no
+question on this course goes unanswered.</div></div>
+
+<h3 class="sub">How the book is arranged</h3>
+<p>A short <b>Foundations</b> part comes first: the number sense the rest of the
+course leans on. Then four modules follow the syllabus exactly: Fundamentals,
+Processor Design and Performance, Memory Organisation, and Advanced Architectures.
+As each topic is taught, the real past questions on it are solved right there. Two
+full <b>mock examinations</b> at the end are built in the shape of the real paper,
+answer question one and any other two, seventy marks in two hours, and both are
+worked in full.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">What the exam looks like</span></div>
+<div class="body">The paper is always the same shape. <b>Question One is compulsory
+and carries 30 marks.</b> You then choose <b>any two of the remaining questions</b>,
+20 marks each, for a total of 70 in 2 hours. Question One is where the numeric work
+concentrates: number representation, floating point, cache, pipelining and
+performance. Master Question One and you have already secured nearly half the
+paper before you choose anything.</div></div>
+</section>
+
+<!-- ===================== FOUNDATIONS (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Foundations</div>
+  <h1>The Maths You<br>Need First</h1>
+  <div class="blurb">Everything a computer does, it does with two symbols, 0 and 1.
+  Before we can talk about processors, memory or floating point, we need to be
+  completely at home moving between binary, decimal and hexadecimal. This part
+  builds that fluency from the ground up.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="DejaVu Sans Mono" font-size="20" fill="#33566e">
+        <text x="0" y="34">1010 0011</text>
+        <text x="200" y="34" fill="#8a919b">=</text>
+        <text x="240" y="34" fill="#b45309">A3</text>
+        <text x="320" y="34" fill="#8a919b">=</text>
+        <text x="360" y="34" fill="#15803d">163</text>
+      </g>
+      <rect x="0" y="52" width="520" height="1.4" fill="#c9b6f2"/>
+      <g font-family="DejaVu Sans" font-size="12" fill="#8a919b">
+        <text x="0" y="78">binary</text>
+        <text x="240" y="78">hexadecimal</text>
+        <text x="360" y="78">decimal</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== F.1 ===================== -->
+<section>
+<div class="kick">Foundations &middot; F.1</div>
+<h2 class="title">Number Systems and Positional Notation</h2>
+<hr class="rule">
+<p class="lead">A number system is just a set of symbols and one rule for reading a
+row of them. Learn the rule once and every base behaves the same way.</p>
+
+<h3 class="sub">What "base" means</h3>
+<p>You already use a number system fluently: the decimal system, base 10. It has
+ten symbols, 0 to 9. When you run out of symbols you do not invent a new one, you
+start a new column to the left. The genius of the system, invented long before
+computers, is that <b>the position of a digit tells you its value</b>. In 735 the 7
+does not mean seven, it means seven hundred, because of where it sits.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Positional notation</span></div>
+<div class="body"><p>Reading right to left, each column is worth the base raised to
+a higher power: the ones column is base<sup>0</sup>, the next is base<sup>1</sup>,
+the next base<sup>2</sup>, and so on. The value of the whole number is each digit
+multiplied by its column, all added up. In base 10:</p>
+<figure>
+<svg viewBox="0 0 460 132" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <g text-anchor="middle">
+    <rect x="60" y="20" width="100" height="44" fill="#f1f5f8" stroke="#33566e"/>
+    <rect x="180" y="20" width="100" height="44" fill="#f1f5f8" stroke="#33566e"/>
+    <rect x="300" y="20" width="100" height="44" fill="#f1f5f8" stroke="#33566e"/>
+    <text x="110" y="49" font-family="DejaVu Sans Mono" font-size="24" fill="#1e2830">7</text>
+    <text x="230" y="49" font-family="DejaVu Sans Mono" font-size="24" fill="#1e2830">3</text>
+    <text x="350" y="49" font-family="DejaVu Sans Mono" font-size="24" fill="#1e2830">5</text>
+    <text x="110" y="14" font-size="12" fill="#67707a">10&#178; = 100</text>
+    <text x="230" y="14" font-size="12" fill="#67707a">10&#185; = 10</text>
+    <text x="350" y="14" font-size="12" fill="#67707a">10&#8304; = 1</text>
+    <text x="110" y="86" font-size="13" fill="#b45309">700</text>
+    <text x="230" y="86" font-size="13" fill="#b45309">30</text>
+    <text x="350" y="86" font-size="13" fill="#b45309">5</text>
+    <text x="230" y="116" font-size="14" fill="#15803d">700 + 30 + 5 = 735</text>
+  </g>
+</svg>
+<figcaption>The same rule reads every base. Only the column values change.</figcaption>
+</figure>
+</div></div>
+
+<h3 class="sub">The four bases this course uses</h3>
+<p>Humans count in base 10. Computers are built from switches that are either on or
+off, so at heart they count in <b>base 2, binary</b>, with just two symbols, 0 and
+1. Binary numbers get long quickly, so we also use <b>base 16, hexadecimal</b> and
+occasionally <b>base 8, octal</b> as a shorthand: they pack neatly into binary, as
+F.2 will show. A single binary digit is a <b>bit</b>; eight bits make a <b>byte</b>.</p>
+
+<table class="data">
+<tr><th>System</th><th>Base</th><th>Symbols</th><th>Suffix we use</th><th>Example</th></tr>
+<tr><td>Binary</td><td>2</td><td>0 1</td><td>B, or subscript 2</td><td>1011B</td></tr>
+<tr><td>Octal</td><td>8</td><td>0 to 7</td><td>subscript 8</td><td>13&#8328;</td></tr>
+<tr><td>Decimal</td><td>10</td><td>0 to 9</td><td>D, or none</td><td>735</td></tr>
+<tr><td>Hexadecimal</td><td>16</td><td>0 to 9, A to F</td><td>H, or subscript 16</td><td>A34EH</td></tr>
+</table>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Hex letters</span></div>
+<div class="body"><p>Hexadecimal needs six extra symbols once it passes 9. Know these
+cold, both directions:</p>
+<table class="data">
+<tr><th>Hex</th><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+<tr><th>Decimal</th><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+</table>
+<p><b>Memory hook:</b> <b>A</b>fter nine comes ten, and <b>A</b> is the first letter,
+so A is 10. F is the last of the six and the largest single hex digit, 15, one less
+than the base.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Powers of two</span></div>
+<div class="body"><p>These come up in every cache, memory and address question on the
+paper. You must know them without counting on your fingers.</p>
+<table class="data">
+<tr><th>n</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><th>2&#8319;</th><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td></tr>
+</table>
+<p><b>Memory hook:</b> 2<sup>10</sup> = 1024 is "1 kilo" (K). After that they climb in
+steps of ten: 2<sup>20</sup> is 1 M (mega), 2<sup>30</sup> is 1 G (giga). So
+2<sup>16</sup> = 2<sup>10</sup> &#215; 2<sup>6</sup> = 1024 &#215; 64 = 65 536.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
+<div class="body"><p>Read the binary number 1011B into decimal.</p>
+<ol class="steps">
+<li>Write each bit over its column value, right to left: columns are 2<sup>3</sup>,
+2<sup>2</sup>, 2<sup>1</sup>, 2<sup>0</sup>, that is 8, 4, 2, 1.
+<span class="note">Bits: 1, 0, 1, 1.</span></li>
+<li>Keep only the columns with a 1 in them: 8, then 2, then 1.
+<span class="note">The 4 column has a 0, so it contributes nothing.</span></li>
+<li>Add them: 8 + 2 + 1 = 11.</li>
+</ol>
+<div class="answerbox">1011B = 8 + 2 + 1 = 11 (decimal)</div>
+<p class="redo"><b>Now redo it:</b> cover the working and convert 10110B. You should
+get 22.</p>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">In any base, what is the value of the rightmost
+column, and why is it the same for every base?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>It is always 1, because the rightmost column is base<sup>0</sup>, and any base
+raised to the power 0 is 1. That is why the last digit is called the units digit in
+every system.</p></div></div>
+</section>
+
+<!-- ===================== F.2 ===================== -->
+<section>
+<div class="kick">Foundations &middot; F.2</div>
+<h2 class="title">Converting Between Bases</h2>
+<hr class="rule">
+<p class="lead">Four conversions cover everything the exam asks: any base to decimal,
+decimal to any base, and the quick grouping trick between binary and hex or octal.</p>
+
+<h3 class="sub">Any base to decimal: multiply and add</h3>
+<p>This is just positional notation from F.1 applied in reverse. Multiply each digit
+by its column value and add. It works for any base, you only change what the columns
+are worth.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
+<div class="body"><p>Convert the hexadecimal number A34EH to decimal.</p>
+<ol class="steps">
+<li>Replace each hex letter by its value: A = 10, 3 = 3, 4 = 4, E = 14.</li>
+<li>Write the column values, right to left, as powers of 16: 16<sup>3</sup> = 4096,
+16<sup>2</sup> = 256, 16<sup>1</sup> = 16, 16<sup>0</sup> = 1.</li>
+<li>Multiply digit by column:
+<span class="note">10&#215;4096 = 40 960; 3&#215;256 = 768; 4&#215;16 = 64; 14&#215;1 = 14.</span></li>
+<li>Add: 40 960 + 768 + 64 + 14 = 41 806.</li>
+</ol>
+<div class="answerbox">A34EH = 40 960 + 768 + 64 + 14 = 41 806 (decimal)</div>
+<p class="redo"><b>Now redo it:</b> reproduce the four column values from memory before
+you multiply. That is where marks are lost, not in the adding.</p>
+</div></div>
+
+<h3 class="sub">Decimal to any base: divide and collect remainders</h3>
+<p>Go the other way by repeatedly dividing by the base and writing down the
+remainder each time. The remainders, <b>read from bottom to top</b>, are the answer.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
+<div class="body"><p>Convert decimal 13 to binary.</p>
+<table class="trace">
+<tr><th>Divide</th><th>Quotient</th><th>Remainder</th></tr>
+<tr><td>13 &#247; 2</td><td>6</td><td class="out">1</td></tr>
+<tr><td>6 &#247; 2</td><td>3</td><td class="out">0</td></tr>
+<tr><td>3 &#247; 2</td><td>1</td><td class="out">1</td></tr>
+<tr><td>1 &#247; 2</td><td>0</td><td class="out">1</td></tr>
+</table>
+<p>Read the remainders bottom to top: 1101.</p>
+<div class="answerbox">13 = 1101B&nbsp;&nbsp;&nbsp;(check: 8 + 4 + 1 = 13)</div>
+<p class="redo"><b>Now redo it:</b> convert 22 to binary. You should get 10110, and the
+check is 16 + 4 + 2 = 22.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>The remainders come out <b>least significant first</b>. If you
+read them top to bottom you get the number backwards. Always read the column of
+remainders <b>from the bottom up</b>, and sanity-check by converting back.</p></div></div>
+
+<h3 class="sub">Binary to hex, and back: group in fours</h3>
+<p>Hexadecimal exists to make binary readable, and the reason is exact:
+<b>one hex digit is worth exactly four bits</b> (because 16 = 2<sup>4</sup>). So to
+turn binary into hex you simply slice the bits into groups of four from the right
+and convert each group on its own. Octal is the same trick in groups of three,
+because 8 = 2<sup>3</sup>.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+<div class="body"><p>Convert 11010110B to hexadecimal.</p>
+<ol class="steps">
+<li>Slice into groups of four bits, starting from the right:
+<span class="note">1101 0110.</span></li>
+<li>Convert each group using the powers 8, 4, 2, 1:
+<span class="note">1101 = 8+4+1 = 13 = D; &nbsp; 0110 = 4+2 = 6.</span></li>
+<li>Write the hex digits in the same order: D6.</li>
+</ol>
+<div class="answerbox">11010110B = 1101 0110 = D6H&nbsp;&nbsp;&nbsp;(check: both equal 214)</div>
+<p class="redo"><b>Now redo it:</b> go backwards. Convert 2FH to binary by expanding
+each digit to four bits: 2 = 0010, F = 1111, giving 0010 1111.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Group from the <b>right</b>, not the left, and pad the leftmost
+group with leading zeros if it is short. Grouping 110101101011101 from the left
+would misalign every digit. From the right it is 110&nbsp;1011&nbsp;0101&nbsp;1101,
+and the short leading group 110 pads to 0110 = 6, giving 6B5DH.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>The rightmost column in base <i>b</i> is always worth <span class="blank"></span>.</li>
+<li>One hexadecimal digit is worth exactly <span class="blank"></span> bits.</li>
+<li>To convert decimal to binary you repeatedly divide by 2 and read the
+<span class="blank"></span> from bottom to top.</li>
+<li>2<sup>10</sup> = <span class="blank"></span>.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. one (b<sup>0</sup> = 1). &nbsp; 2. four. &nbsp; 3. remainders. &nbsp;
+4. 1024.</p>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">Why can binary group into hex in fours but not into
+decimal in any fixed size?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Because 16 is a whole power of 2 (16 = 2<sup>4</sup>), so four bits map exactly
+onto one hex digit with none left over. 10 is not a power of 2, so no fixed number
+of bits ever lines up cleanly with one decimal digit. This is the whole reason hex
+and octal, not decimal, are used as binary shorthand.</p></div></div>
+</section>

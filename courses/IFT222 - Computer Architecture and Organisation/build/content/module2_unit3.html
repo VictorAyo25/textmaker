@@ -1,0 +1,263 @@
+<!-- ===================== M2 UNIT 3 ===================== -->
+<section>
+<div class="kick">Module Two &middot; Unit 3</div>
+<h2 class="title">Pipelining</h2>
+<hr class="rule">
+<p class="lead">Overlapping instructions so several are in progress at once, the way a
+laundry overlaps washing, drying and folding. It speeds a processor up, and it comes
+with hazards you must handle. Both the speedup sums and the hazard diagrams are exam
+favourites.</p>
+<p class="lo">By the end of this unit you can compute a pipeline's cycle time, its time
+for n tasks, its speedup and throughput; identify structural, data and control
+hazards; and draw a timing diagram showing stalls and forwarding.</p>
+
+<h3 class="sub">The idea: overlap the stages</h3>
+<p>Split each instruction into k stages. Without a pipeline, one instruction finishes
+before the next begins. With a pipeline, as soon as an instruction leaves stage 1 the
+next enters it, so after the pipeline fills, <b>one instruction completes every clock
+cycle</b>. The clock cycle is set by the slowest stage plus the small latch delay
+between stages.</p>
+
+<figure>
+<svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10">
+  <g fill="#67707a" text-anchor="end">
+    <text x="34" y="42">I1</text><text x="34" y="66">I2</text><text x="34" y="90">I3</text><text x="34" y="114">I4</text>
+  </g>
+  <g font-size="9" fill="#8a919b" text-anchor="middle">
+    <text x="70" y="18">c1</text><text x="120" y="18">c2</text><text x="170" y="18">c3</text>
+    <text x="220" y="18">c4</text><text x="270" y="18">c5</text><text x="320" y="18">c6</text>
+    <text x="370" y="18">c7</text><text x="420" y="18">c8</text>
+  </g>
+  <g font-size="9" text-anchor="middle">
+    <!-- I1 -->
+    <rect x="45" y="30" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="70" y="43">IF</text>
+    <rect x="95" y="30" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="120" y="43">ID</text>
+    <rect x="145" y="30" width="50" height="18" fill="#fdf6ec" stroke="#b45309"/><text x="170" y="43">EX</text>
+    <rect x="195" y="30" width="50" height="18" fill="#f0f8f2" stroke="#15803d"/><text x="220" y="43">ME</text>
+    <rect x="245" y="30" width="50" height="18" fill="#ecf5f8" stroke="#0e7490"/><text x="270" y="43">WB</text>
+    <!-- I2 -->
+    <rect x="95" y="54" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="120" y="67">IF</text>
+    <rect x="145" y="54" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="170" y="67">ID</text>
+    <rect x="195" y="54" width="50" height="18" fill="#fdf6ec" stroke="#b45309"/><text x="220" y="67">EX</text>
+    <rect x="245" y="54" width="50" height="18" fill="#f0f8f2" stroke="#15803d"/><text x="270" y="67">ME</text>
+    <rect x="295" y="54" width="50" height="18" fill="#ecf5f8" stroke="#0e7490"/><text x="320" y="67">WB</text>
+    <!-- I3 -->
+    <rect x="145" y="78" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="170" y="91">IF</text>
+    <rect x="195" y="78" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="220" y="91">ID</text>
+    <rect x="245" y="78" width="50" height="18" fill="#fdf6ec" stroke="#b45309"/><text x="270" y="91">EX</text>
+    <rect x="295" y="78" width="50" height="18" fill="#f0f8f2" stroke="#15803d"/><text x="320" y="91">ME</text>
+    <rect x="345" y="78" width="50" height="18" fill="#ecf5f8" stroke="#0e7490"/><text x="370" y="91">WB</text>
+    <!-- I4 -->
+    <rect x="195" y="102" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="220" y="115">IF</text>
+    <rect x="245" y="102" width="50" height="18" fill="#f1f5f8" stroke="#33566e"/><text x="270" y="115">ID</text>
+    <rect x="295" y="102" width="50" height="18" fill="#fdf6ec" stroke="#b45309"/><text x="320" y="115">EX</text>
+    <rect x="345" y="102" width="50" height="18" fill="#f0f8f2" stroke="#15803d"/><text x="370" y="115">ME</text>
+    <rect x="395" y="102" width="50" height="18" fill="#ecf5f8" stroke="#0e7490"/><text x="420" y="115">WB</text>
+  </g>
+</svg>
+<figcaption>Four instructions overlapped in a 5-stage pipeline. After it fills, one
+finishes each cycle.</figcaption>
+</figure>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Pipeline formulas</span></div>
+<div class="body"><ul class="bul">
+<li><b>Cycle time</b> = slowest stage time + latch delay.</li>
+<li><b>Time for n tasks</b> = (k + n &#8722; 1) &#215; cycle time, for k stages.</li>
+<li><b>Non-pipelined time</b> = n &#215; (sum of all stage times).</li>
+<li><b>Speedup</b> = non-pipelined time / pipelined time. Its ceiling is k.</li>
+<li><b>Throughput</b> = n / pipelined time (tasks per second); in the steady state this
+is 1 / cycle time.</li>
+</ul>
+<p><b>Memory hook:</b> "<b>k + n &#8722; 1</b>" is k cycles to fill the pipe with the
+first task, then one more cycle for each of the remaining n &#8722; 1 tasks.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q5b &middot; PQ 24/25 Q5b</span></div>
+<div class="body"><p>A pipeline has 4 phases of duration 60, 50, 90 and 80 ns, with a
+10 ns latch delay. Find (i) the cycle time, (ii) the non-pipeline time for one task,
+(iii) the speedup ratio, (iv) the pipeline time for 500 tasks, (v) the sequential time
+for 500 tasks, (vi) the throughput.</p>
+<ol class="steps">
+<li>Cycle time = slowest phase + latch = 90 + 10 = <b>100 ns</b>.</li>
+<li>Non-pipeline time for one task = 60 + 50 + 90 + 80 = <b>280 ns</b>.</li>
+<li>Speedup ratio (ideal) = 280 / 100 = <b>2.8</b>.</li>
+<li>Pipeline time for 500 tasks = (k + n &#8722; 1) &#215; cycle = (4 + 499) &#215; 100 =
+503 &#215; 100 = <b>50 300 ns</b>.</li>
+<li>Sequential time for 500 tasks = 500 &#215; 280 = <b>140 000 ns</b>.</li>
+<li>Throughput = 500 / 50 300 ns &#8776; <b>9.94 million tasks per second</b> (in the
+steady state, 1 / 100 ns = 10 million per second). Actual speedup for 500 tasks =
+140 000 / 50 300 = 2.78.</li>
+</ol>
+<div class="answerbox">Cycle 100 ns; non-pipe 280 ns; ideal speedup 2.8; pipe(500) =
+50 300 ns; seq(500) = 140 000 ns; throughput &#8776; 9.94 M tasks/s.</div>
+<p class="redo"><b>Now redo it:</b> cycle = slowest + latch, pipe = (k + n &#8722; 1) &#215;
+cycle, and everything else falls out of those two.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1b</span></div>
+<div class="body"><p>Four operations run through a 5-stage pipeline with stage times 8,
+9, 11, 13 and 16 ns. Compare the non-pipelined and pipelined execution times and give
+the speedup.</p>
+<ol class="steps">
+<li>Non-pipelined: each operation passes through all stages, 8+9+11+13+16 = 57 ns each,
+so 4 &#215; 57 = <b>228 ns</b>.</li>
+<li>Pipelined cycle time = slowest stage = 16 ns.</li>
+<li>Pipelined time = (k + n &#8722; 1) &#215; cycle = (5 + 4 &#8722; 1) &#215; 16 =
+8 &#215; 16 = <b>128 ns</b>.</li>
+<li>Speedup = 228 / 128 = <b>1.78</b>.</li>
+</ol>
+<div class="answerbox">Non-pipelined 228 ns, pipelined 128 ns, speedup &#8776; 1.78. The
+speedup is below 5 because only 4 tasks run, so the fill time still dominates.</div>
+</div></div>
+
+<h3 class="sub">Hazards: when overlap goes wrong</h3>
+<p>Overlapping instructions can clash. There are three kinds of hazard, and the exam
+expects you to name them and say how each is handled.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three hazards</span></div>
+<div class="body"><ul class="bul">
+<li><b>Structural hazard:</b> two instructions need the same hardware at once (for
+example one memory for both a fetch and a data access). Fixed by duplicating the
+resource, such as separate instruction and data caches.</li>
+<li><b>Data hazard:</b> an instruction needs a result the previous one has not written
+back yet (a read-after-write, RAW). Reduced by <b>forwarding</b> (feeding the result
+straight from where it is produced to where it is needed) and, when that is not enough,
+by <b>stalling</b> one or more cycles.</li>
+<li><b>Control hazard:</b> a branch changes what runs next, but the pipeline has
+already fetched the following instructions. Handled by resolving the branch early,
+predicting it, or flushing the wrongly fetched instructions.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The load-use case</span></div>
+<div class="body"><p>The one data hazard forwarding cannot fully hide is <b>load-use</b>:
+a value loaded from memory is not ready until the memory stage, so an instruction that
+uses it the very next cycle must wait one cycle even with forwarding. That single
+unavoidable stall appears in the exam's RISC pipeline question.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2b</span></div>
+<div class="body"><p>A 5-stage RISC (reduced instruction set) pipeline (IF, ID, EX, MEM, WB) runs the code below,
+with forwarding available, a one-cycle stall for a load-use hazard, and a multiplier
+that occupies EX for three cycles. Identify the hazards, draw the timing diagram, and
+give the total cycles.</p>
+<pre class="code">I1: LW   R1, 0(R2)     ; load R1 from memory
+I2: ADD  R3, R1, R4    ; needs R1  -> load-use hazard with I1
+I3: SUB  R5, R3, R6    ; needs R3  (forwarded from I2)
+I4: SW   R5, 8(R2)     ; needs R5  (forwarded from I3)
+I5: BEQ  R5, R0, LABEL ; branch, resolved in EX
+I6: MUL  R7, R5, R8    ; multiply, EX takes 3 cycles</pre>
+<p class="marks">Hazards</p>
+<p>I1 to I2 is a <b>load-use data hazard</b>: R1 is not ready until I1's MEM stage, so
+I2 stalls one cycle. I2 to I3, I3 to I4, I3 to I5 and I3 to I6 are ordinary data
+hazards <b>hidden by forwarding</b>. I6's <b>multiply holds EX for three cycles</b>,
+adding two extra cycles at the end (assuming the branch is not taken).</p>
+<p class="marks">Timing diagram (each cell is the stage that instruction is in)</p>
+<table class="trace">
+<tr><th>Cycle</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>
+<tr><td>I1 LW</td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class="out">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I2 ADD</td><td></td><td>IF</td><td>ID</td><td>--</td><td>EX</td><td>ME</td><td class="out">WB</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I3 SUB</td><td></td><td></td><td>IF</td><td>--</td><td>ID</td><td>EX</td><td>ME</td><td class="out">WB</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I4 SW</td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class="out">WB</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I5 BEQ</td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class="out">WB</td><td></td><td></td><td></td></tr>
+<tr><td>I6 MUL</td><td></td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>EX</td><td>EX</td><td>ME</td><td class="out">WB</td></tr>
+</table>
+<div class="answerbox">One load-use stall (the -- in cycle 4) plus two extra EX cycles
+for the multiply give a total of <b>13 cycles</b> (a stall-free run of 6 instructions
+would take 5 + 6 &#8722; 1 = 10).</div>
+<p class="marks">Two hardware improvements that reduce stalls</p>
+<p>Add <b>forwarding paths</b> (already assumed here) and a <b>pipelined or duplicated
+multiplier</b> so a long multiply does not block EX; separate instruction and data
+memories remove structural stalls.</p>
+<p class="redo"><b>Now redo it:</b> mark the one load-use stall, let forwarding cover the
+rest, and remember a 3-cycle EX adds two cycles. Count the last WB: that cycle number
+is the total.</p>
+</div></div>
+
+<h3 class="sub">Multi-cycle execute, with and without forwarding</h3>
+<p>When some instructions hold the EX stage for several cycles, they stall the ones
+behind them, and a dependent instruction must wait for its operand. The next question
+asks you to schedule exactly this, both with forwarding and without.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3b</span></div>
+<div class="body"><p>A 5-stage pipeline (IF, ID, OF, EX, WB) takes 1 cycle per stage,
+except EX takes 1 cycle for ADD and SUB, 3 for MUL and 6 for DIV. Schedule this sequence
+and give the total cycles, with and without operand forwarding.</p>
+<pre class="code">I1: MUL R2, R0, R1     I2: DIV R5, R3, R4
+I3: ADD R2, R5, R2     I4: SUB R5, R2, R6</pre>
+<p>I3 needs R5 from I2 and R2 from I1; I4 needs R2 from I3.</p>
+<p class="marks">Stated assumptions</p>
+<p>One execution unit, in order: an instruction enters EX only when EX is free, so a long
+EX stalls those behind it (a stalled instruction repeats its stage below). Write-back is
+one cycle after EX. <b>With forwarding</b>, a result reaches a dependent instruction's EX
+the cycle after it is produced; <b>without forwarding</b>, the dependent must wait until
+the producer has written back.</p>
+<p class="marks">(i) With operand forwarding</p>
+<table class="trace">
+<tr><th>Cycle</th><th>I1 MUL</th><th>I2 DIV</th><th>I3 ADD</th><th>I4 SUB</th></tr>
+<tr><td>1</td><td>IF</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td>ID</td><td>IF</td><td></td><td></td></tr>
+<tr><td>3</td><td>OF</td><td>ID</td><td>IF</td><td></td></tr>
+<tr><td>4</td><td>EX</td><td>OF</td><td>ID</td><td>IF</td></tr>
+<tr><td>5</td><td>EX</td><td>OF</td><td>ID</td><td>IF</td></tr>
+<tr><td>6</td><td>EX</td><td>OF</td><td>ID</td><td>IF</td></tr>
+<tr><td>7</td><td class="out">WB</td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>8</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>9</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>10</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>11</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>12</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>13</td><td></td><td class="out">WB</td><td>EX</td><td>OF</td></tr>
+<tr><td>14</td><td></td><td></td><td class="out">WB</td><td>EX</td></tr>
+<tr><td>15</td><td></td><td></td><td></td><td class="out">WB</td></tr>
+</table>
+<div class="answerbox">The DIV holds EX for cycles 7 to 12; I3 forwards R5 straight from it
+into EX at cycle 13, and I4 forwards R2 from I3 at cycle 14. Total = <b>15 cycles</b>.</div>
+<p class="marks">(ii) Without operand forwarding</p>
+<p>Now I3 cannot read R5 until I2 has written back (cycle 13), so its EX slips to cycle
+14; and I4 must wait for I3's write-back (cycle 15), so its EX slips to cycle 16.</p>
+<table class="trace">
+<tr><th>Cycle</th><th>I1 MUL</th><th>I2 DIV</th><th>I3 ADD</th><th>I4 SUB</th></tr>
+<tr><td>7</td><td class="out">WB</td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>12</td><td></td><td>EX</td><td>OF</td><td>ID</td></tr>
+<tr><td>13</td><td></td><td class="out">WB</td><td>OF</td><td>ID</td></tr>
+<tr><td>14</td><td></td><td></td><td>EX</td><td>OF</td></tr>
+<tr><td>15</td><td></td><td></td><td class="out">WB</td><td>OF</td></tr>
+<tr><td>16</td><td></td><td></td><td></td><td>EX</td></tr>
+<tr><td>17</td><td></td><td></td><td></td><td class="out">WB</td></tr>
+</table>
+<div class="answerbox">I1 to I2 run exactly as above (cycles 1 to 13). Then I3 waits for
+I2's write-back and executes at cycle 14, and I4 waits for I3's and executes at cycle 16.
+Total = <b>17 cycles</b>. Forwarding saved 2 cycles here; it saves more when short
+instructions depend on each other back to back.</div>
+<p class="redo"><b>Now redo it:</b> lay out the long DIV first (it fixes everything behind
+it), then place each dependent instruction's EX one cycle after its operand is ready:
+after the producer's EX with forwarding, after its write-back without.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Forwarding removes <b>most</b> data-hazard stalls but not the
+<b>load-use</b> one: a loaded value simply is not available in time for the very next
+instruction, so exactly one stall remains. And do not forget that a multi-cycle
+execute (multiply, divide) holds the EX stage and delays everything behind it.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A 5-stage pipeline runs 100 independent instructions with
+no hazards. How many cycles, and what is the speedup over the non-pipelined version?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Cycles = k + n &#8722; 1 = 5 + 100 &#8722; 1 = 104. The non-pipelined version takes
+100 &#215; 5 = 500 stage-times, so the speedup is 500 / 104 &#8776; 4.8, close to the
+ceiling of 5.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>A k-stage pipeline finishes n tasks in <span class="blank"></span> cycles.</li>
+<li>The pipeline cycle time is set by the <span class="blank"></span> stage plus the
+latch delay.</li>
+<li>A read-after-write clash is a <span class="blank"></span> hazard, eased by
+<span class="blank"></span>.</li>
+<li>The one stall forwarding cannot remove is the <span class="blank"></span> hazard.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. k + n &#8722; 1. &nbsp; 2. slowest (longest). &nbsp; 3. data (RAW); forwarding. &nbsp;
+4. load-use.</p>
+</div></div>
+</section>

@@ -1,0 +1,258 @@
+<!-- ===================== M3 UNIT 3 ===================== -->
+<section>
+<div class="kick">Module Three &middot; Unit 3</div>
+<h2 class="title">Cache Memory Design</h2>
+<hr class="rule">
+<p class="lead">A small fast memory that holds copies of the data most likely to be
+needed, so the CPU rarely waits on slow main memory. Splitting an address into cache
+fields and finding a block are the most examined calculations on the whole course.</p>
+<p class="lo">By the end of this unit you can define hit, miss and hit ratio; compute
+average memory access time; break an address into tag, index and offset for direct,
+associative and set-associative mapping; and find which cache block an address maps to.
+Every recent cache question is worked here.</p>
+
+<h3 class="sub">Why cache works, and the vocabulary</h3>
+<p>Because of locality (Unit 1), a small store of recently used blocks satisfies most
+accesses. When the CPU needs data, it checks cache first. A <b>hit</b> means it is
+there; a <b>miss</b> means it must be fetched from main memory (and the whole
+<b>block</b> around it is brought in, for spatial locality).</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Hit ratio and access time</span></div>
+<div class="body"><p><b>Hit ratio h</b> = hits / total accesses; miss ratio = 1 &#8722; h.</p>
+<p><b>Average memory access time</b> depends on how cache and memory are arranged:</p>
+<ul class="bul">
+<li><b>Hierarchical (look-through):</b> always check cache first, go to memory only on a
+miss. AMAT = T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub>.</li>
+<li><b>Simultaneous (look-aside):</b> start cache and memory together, use whichever is
+right. AMAT = h &#215; T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub>.</li>
+</ul>
+<p><b>Memory hook:</b> a high hit ratio pulls the average toward the fast cache time;
+even a small miss rate hurts, because a miss pays the full slow memory cost.</p></div></div>
+
+<h3 class="sub">Splitting the address: tag, index, offset</h3>
+<p>Main memory is divided into blocks; cache is divided into lines the same size as a
+block. A memory address is split into fields that say which block, which line, and
+where inside the block.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three mapping functions</span></div>
+<div class="body">
+<figure>
+<svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10">
+  <g text-anchor="middle">
+    <text x="60" y="20" text-anchor="start" font-weight="bold" fill="#1e2830">Direct</text>
+    <rect x="120" y="10" width="180" height="20" fill="#f1f5f8" stroke="#33566e"/><text x="210" y="24">Tag</text>
+    <rect x="300" y="10" width="120" height="20" fill="#fdf6ec" stroke="#b45309"/><text x="360" y="24">Line (index)</text>
+    <rect x="420" y="10" width="70" height="20" fill="#f0f8f2" stroke="#15803d"/><text x="455" y="24">Offset</text>
+
+    <text x="60" y="76" text-anchor="start" font-weight="bold" fill="#1e2830">Set-assoc</text>
+    <rect x="120" y="66" width="200" height="20" fill="#f1f5f8" stroke="#33566e"/><text x="220" y="80">Tag</text>
+    <rect x="320" y="66" width="100" height="20" fill="#ecf5f8" stroke="#0e7490"/><text x="370" y="80">Set</text>
+    <rect x="420" y="66" width="70" height="20" fill="#f0f8f2" stroke="#15803d"/><text x="455" y="80">Offset</text>
+
+    <text x="60" y="132" text-anchor="start" font-weight="bold" fill="#1e2830">Assoc</text>
+    <rect x="120" y="122" width="300" height="20" fill="#f1f5f8" stroke="#33566e"/><text x="270" y="136">Tag</text>
+    <rect x="420" y="122" width="70" height="20" fill="#f0f8f2" stroke="#15803d"/><text x="455" y="136">Offset</text>
+  </g>
+</svg>
+<figcaption>All three carry an offset. Direct has a line field, set-associative a set
+field, fully associative neither.</figcaption>
+</figure>
+<ul class="bul">
+<li><b>Direct mapping:</b> each block has exactly one line it may sit in, line = (block
+number) mod (number of lines). Simple and fast, but two blocks that map to the same line
+keep evicting each other (conflict misses).</li>
+<li><b>Fully associative:</b> a block may sit in any line. No conflict misses, but every
+line's tag must be searched, which is expensive.</li>
+<li><b>Set associative (k-way):</b> the compromise. Lines are grouped into sets of k; a
+block maps to one set, set = (block number) mod (number of sets), and may sit in any of
+the k lines in it.</li>
+</ul></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Field widths</span></div>
+<div class="body"><p>Work from the block and cache sizes:</p>
+<ul class="bul">
+<li><b>Offset bits</b> = log<sub>2</sub>(bytes, or words, per block).</li>
+<li><b>Number of lines</b> = cache size / block size.</li>
+<li><b>Index bits</b> (direct) = log<sub>2</sub>(number of lines);
+<b>set bits</b> (k-way) = log<sub>2</sub>(number of sets), where sets = lines / k.</li>
+<li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits.</li>
+</ul>
+<p><b>Memory hook:</b> offset picks the byte in the block, index/set picks the slot,
+tag is everything left over to confirm the right block is there.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Tag directory size</span></div>
+<div class="body"><p>Each cache line stores a <b>tag</b> beside its data, to prove which
+block it currently holds. The storage spent on tags, the <b>tag directory</b>, is
+<b>number of lines &#215; tag bits per line</b>. It grows as the mapping gets more
+associative, because dropping the index (or shrinking the set field) lengthens the
+tag on every line.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2a</span></div>
+<div class="body"><p>A computer has 32-bit addresses. Each block holds 16 words and a
+direct-mapped cache has 256 blocks. In which cache line does each hex address fall?</p>
+<ol class="steps">
+<li>Field widths: offset = log<sub>2</sub>16 = 4 bits; index = log<sub>2</sub>256 = 8
+bits; tag = 32 &#8722; 8 &#8722; 4 = 20 bits.</li>
+<li>The shortcut in hex: the <b>last hex digit</b> is the 4-bit offset, and the
+<b>next two hex digits</b> are the 8-bit line (index). Read them straight off.</li>
+</ol>
+<table class="data">
+<tr><th>Address</th><th>Offset (last digit)</th><th>Line (next two digits)</th><th>Line in decimal</th></tr>
+<tr><td>CA2DFC12</td><td>2</td><td>C1</td><td>193</td></tr>
+<tr><td>F24F25FF</td><td>F</td><td>5F</td><td>95</td></tr>
+<tr><td>24BBABCD</td><td>D</td><td>BC</td><td>188</td></tr>
+<tr><td>C1D9EEF2</td><td>2</td><td>EF</td><td>239</td></tr>
+</table>
+<div class="answerbox">Lines: CA2DFC12 &#8594; 193, F24F25FF &#8594; 95,
+24BBABCD &#8594; 188, C1D9EEF2 &#8594; 239.</div>
+<p class="redo"><b>Now redo it:</b> once you know offset is 4 bits and index is 8 bits,
+the hex reads straight off: drop one digit, take the next two. Confirm the method on the
+tutorial address 1A2BC012, which gives line 1.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3a</span></div>
+<div class="body"><p>Main memory is 64 MB, the cache is 128 KB, and a block is 64 bytes.
+Find the number of cache lines, then the field widths for direct and 4-way set
+associative mapping.</p>
+<ol class="steps">
+<li>Address bits: 64 MB = 2<sup>26</sup> bytes, so <b>26-bit</b> addresses.</li>
+<li>Number of lines = cache / block = 128 KB / 64 B = 2<sup>17</sup> / 2<sup>6</sup> =
+2<sup>11</sup> = <b>2048 lines</b>.</li>
+<li>Offset = log<sub>2</sub>64 = 6 bits.</li>
+<li>Direct: index = log<sub>2</sub>2048 = 11 bits, so tag = 26 &#8722; 11 &#8722; 6 =
+<b>9 bits</b>.</li>
+<li>4-way: sets = 2048 / 4 = 512, so set bits = log<sub>2</sub>512 = 9, and tag =
+26 &#8722; 9 &#8722; 6 = <b>11 bits</b>.</li>
+</ol>
+<div class="answerbox">2048 lines. Direct: tag 9, index 11, offset 6. 4-way: tag 11,
+set 9, offset 6. (Grouping lines into sets moves bits from the index into the tag.)</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: tag directory across the three mappings</span></div>
+<div class="body"><p>A cache is <b>16 KB</b>, block <b>256 bytes</b>, main memory
+<b>128 KB</b>. Find the address format and the tag-directory size for direct, fully
+associative, and 2-way set-associative mapping.</p>
+<ol class="steps">
+<li>Address: 128 KB = 2<sup>17</sup>, so <b>17-bit</b> physical addresses. Offset =
+log<sub>2</sub>256 = <b>8 bits</b>. Lines = 16 KB / 256 B = <b>64</b>.</li>
+<li><b>Direct:</b> index = log<sub>2</sub>64 = 6, tag = 17 &#8722; 6 &#8722; 8 = <b>3</b>.
+Tag directory = 64 &#215; 3 = 192 bits = <b>24 bytes</b>.</li>
+<li><b>Fully associative:</b> no index, tag = 17 &#8722; 8 = <b>9</b>. Tag directory =
+64 &#215; 9 = 576 bits = <b>72 bytes</b>.</li>
+<li><b>2-way set associative:</b> sets = 64 / 2 = 32, set bits = log<sub>2</sub>32 = 5,
+tag = 17 &#8722; 5 &#8722; 8 = <b>4</b>. Tag directory = 64 &#215; 4 = 256 bits =
+<b>32 bytes</b>.</li>
+</ol>
+<div class="answerbox">Same 64 lines throughout, but the tag directory grows from
+<b>24 bytes</b> (direct) to <b>32 bytes</b> (2-way) to <b>72 bytes</b> (fully
+associative), because less indexing leaves a longer tag on every line.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2c</span></div>
+<div class="body"><p>Main memory 1 GB, cache 512 KB, block 128 bytes, 4-way set
+associative. Find (i) the number of cache blocks, (ii) the number of sets, (iii) the
+address format, (iv) the AMAT if the hit rate is 96%, cache access is 2 ns and main
+memory is 80 ns.</p>
+<ol class="steps">
+<li>Blocks (lines) = cache / block = 512 KB / 128 B = 2<sup>19</sup> / 2<sup>7</sup> =
+<b>4096 blocks</b>.</li>
+<li>Sets = blocks / 4 = 4096 / 4 = <b>1024 sets</b>.</li>
+<li>Address = 1 GB = 2<sup>30</sup> so 30 bits. Offset = log<sub>2</sub>128 = 7, set =
+log<sub>2</sub>1024 = 10, tag = 30 &#8722; 10 &#8722; 7 = 13. Format: <b>tag 13, set 10,
+offset 7</b>.</li>
+<li>AMAT (hierarchical) = T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub> =
+2 + 0.04 &#215; 80 = 2 + 3.2 = <b>5.2 ns</b>.</li>
+</ol>
+<div class="answerbox">4096 blocks; 1024 sets; address tag 13 / set 10 / offset 7;
+AMAT = 5.2 ns. Higher associativity cuts conflict misses but needs more tag comparators,
+so beyond a point it adds cost and delay for little gain.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q1d</span></div>
+<div class="body"><p>An 8-way set-associative cache has 32-bit words, 4 words per line and
+4096 sets. Find the size of each line, each set, and the whole cache.</p>
+<ol class="steps">
+<li>Line size = 4 words &#215; 32 bits = 4 &#215; 4 bytes = <b>16 bytes</b>.</li>
+<li>Set size = 8 lines &#215; 16 bytes = <b>128 bytes</b>.</li>
+<li>Cache size = 4096 sets &#215; 128 bytes = 524 288 bytes = <b>512 KB</b>.</li>
+</ol>
+<div class="answerbox">Line 16 bytes, set 128 bytes, cache 512 KB.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q1b &middot; PQ 23/24 Q3a</span></div>
+<div class="body"><p>Cache hit ratio 80%, cache access 5 ns, main memory 100 ns. Find the
+average memory access time for (i) simultaneous and (ii) hierarchical organisation.</p>
+<ol class="steps">
+<li>Simultaneous: AMAT = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> =
+0.8&#215;5 + 0.2&#215;100 = 4 + 20 = <b>24 ns</b>.</li>
+<li>Hierarchical: AMAT = T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> =
+5 + 0.2&#215;100 = 5 + 20 = <b>25 ns</b>.</li>
+</ol>
+<div class="answerbox">Simultaneous 24 ns, hierarchical 25 ns. Hierarchical pays the
+cache time on every access (even misses), so it is slightly slower here.</div>
+<p class="redo"><b>Now redo it:</b> the difference is only whether the cache time is
+always paid (hierarchical) or only on hits (simultaneous). Learn both formulas.</p>
+</div></div>
+
+<h3 class="sub">Elements of cache design</h3>
+<p>Beyond mapping, a few design decisions round out the topic and appear as short
+questions.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The cache read operation</span></div>
+<div class="body"><p>On every read the CPU puts out an address and the cache checks it.
+<b>On a hit</b>, the cache returns the word straight to the CPU and <b>no traffic goes onto
+the system bus</b> at all, which is why a hit is fast. <b>On a miss</b>, the address is
+driven onto the system bus, main memory returns the whole block, and it is delivered to the
+cache and to the CPU together (the fetch and the fill happen in parallel), so the waited-for
+word arrives as soon as it can.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Physical and logical (virtual) addresses</span></div>
+<div class="body"><p>Programs use <b>logical (virtual) addresses</b>; the hardware stores
+data at <b>physical addresses</b>. A <b>memory management unit (MMU)</b> translates one to
+the other through a page table, which is what lets each program behave as if it owns all of
+memory (<b>virtual memory</b>). A cache can be indexed by either address:</p>
+<ul class="bul">
+<li>A <b>physical cache</b> waits for the MMU to translate the address, then looks up the
+physical address. Simple and always correct.</li>
+<li>A <b>logical (virtual) cache</b> looks up the virtual address directly, in parallel with
+translation, so it is faster. The cost: different programs reuse the same virtual addresses,
+so the cache must be <b>flushed on every context switch</b>, or tagged with an
+address-space identifier, to avoid handing one program another's data.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Choosing the cache size</span></div>
+<div class="body"><p>Cache size is a balance. Too small and the hit rate falls and the CPU
+stalls; too large and it costs more, uses scarce chip or board area, and the extra
+addressing logic makes each lookup slightly slower. So cache is sized large enough for a
+good hit rate yet small enough to stay fast and affordable, which is exactly why machines
+use several small-to-large levels (L1, L2, L3) rather than one big cache.</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Two common errors. (1) Watch the <b>units</b> of the block: "16 words"
+with a 4-byte word is 64 bytes, so the offset counts words or bytes depending on how the
+address is given. (2) For set-associative, divide the lines by the associativity to get
+the <b>sets</b> before taking the log for the set bits; the extra bits move into the
+<b>tag</b>, not away.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A direct-mapped cache has 1024 lines and 32-byte blocks, on
+a 32-bit machine. How many tag, index and offset bits?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Offset = log<sub>2</sub>32 = 5, index = log<sub>2</sub>1024 = 10, tag =
+32 &#8722; 10 &#8722; 5 = 17 bits.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>The number of cache lines equals cache size divided by
+<span class="blank"></span>.</li>
+<li>In direct mapping a block maps to line number equal to block number
+<span class="blank"></span> the number of lines.</li>
+<li>Offset bits = log base 2 of the <span class="blank"></span> size.</li>
+<li>Going from direct to k-way set associative moves bits from the index into the
+<span class="blank"></span>.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. block size. &nbsp; 2. modulo (mod). &nbsp; 3. block. &nbsp; 4. tag.</p>
+</div></div>
+</section>

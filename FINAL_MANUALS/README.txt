@@ -160,6 +160,46 @@ To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
+IFT222 - Computer Architecture and Organisation - Study Manual.pdf   77 pp   updated 2026-07-18
+-------------------------------------------------------------------------------
+IFT222 Computer Architecture and Organisation, complete manual: Foundations,
+Modules 1 to 4, and a Digital Logic supplement.
+
+Contents: Foundations, Module 1 (with three further units), Module 2 (with two
+further units), Module 3 (with two further units), Module 4, a Digital Logic
+supplement, and two mock examinations solved in full. Diagram-rich (datapaths,
+memory hierarchy, addressing, number-format and logic-gate figures as inline
+SVG). Clickable Contents links and real selectable text throughout.
+
+Like the other Omega manuals this was AUTHORED, not rebuilt: IFT222 is the renamed
+CSC227, so those past papers are valid practice, and the lecture decks are sources,
+so content/*.html is the book, written by hand. A four-deck slide-coverage audit
+blended every substantive slide item the past papers did not already force into the
+teaching, so nothing examinable is left to the decks alone. The two priority papers
+(2024/25 and 2025/26) are weighted most heavily and drilled in the mocks. Every
+numeric result (base conversions, two's-complement and IEEE-754 encodings, addressing
+arithmetic, cache and performance calculations) was recomputed independently, never
+copied from a deck whose figures are unverified.
+
+Five scripted gates, all green at publish:
+  - verify_numbers.py: every number in the book recomputed and diffed, not trusted
+    as printed. 148 checks, 0 mismatches.
+  - gates.py: no em/en dashes, no institution or methodology-author names, the
+    reserved colour (electric violet) used only by MUST MEMORISE, all code monospace,
+    and no code line over the width that fits (a longer one shrinks every page).
+  - qa_firstuse_ift.py: teach before use, measured not asserted. Every notation and
+    term is introduced before the reader meets it, with a first-use audit run live
+    against the assembled book, and none is first introduced inside a mock.
+  - contents.py: the generated Contents, its page numbers read back out of the
+    rendered book so they cannot drift, every row's link resolving to the page it names.
+  - qa_layout.py: the body renders at its designed size (not silently scaled to fit
+    an over-wide line), nothing outside the margins, no box cut by a page break that
+    would have fitted whole.
+
+To rebuild or update:  see "courses/IFT222 - Computer Architecture and Organisation/"
+                       (cd build && python assemble.py)
+
+-------------------------------------------------------------------------------
 PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.

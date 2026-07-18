@@ -1,0 +1,148 @@
+<!-- ===================== MODULE TWO (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Module Two</div>
+  <h1>Processor Design<br>and Performance</h1>
+  <div class="blurb">Inside the CPU: the parts that fetch, decode and execute, and
+  then the arithmetic of speed. How fast a processor runs is a number you can
+  calculate, and this module turns clock cycles, instruction mixes and pipelines into
+  marks you can bank.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 110" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans Mono">
+      <g fill="#33566e" font-size="15">
+        <text x="0" y="30">CPU time = IC &#215; CPI &#215; T</text>
+      </g>
+      <g font-size="13" fill="#8a919b">
+        <text x="0" y="64">instructions</text>
+        <text x="150" y="64">cycles/instr</text>
+        <text x="300" y="64">seconds/cycle</text>
+      </g>
+      <rect x="0" y="80" width="520" height="1.4" fill="#c9b6f2"/>
+      <text x="0" y="102" fill="#6d28d9" font-size="13">speed is arithmetic</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== M2 UNIT 1 ===================== -->
+<section>
+<div class="kick">Module Two &middot; Unit 1</div>
+<h2 class="title">Processor Components</h2>
+<hr class="rule">
+<p class="lead">The parts inside the CPU that carry out the fetch, decode, execute
+cycle, and the buses that connect them to memory. A few of these carry number
+questions about address size and memory capacity.</p>
+<p class="lo">By the end of this unit you can name the components of a CPU and say what
+each does, describe the three system buses, and calculate address space, memory
+capacity and address width.</p>
+
+<h3 class="sub">What is inside the processor</h3>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The CPU's parts</span></div>
+<div class="body"><ul class="bul">
+<li><b>Control Unit (CU):</b> the conductor. It fetches each instruction, decodes it,
+and sends the control signals that make every other part act at the right moment.</li>
+<li><b>Arithmetic and Logic Unit (ALU):</b> the calculator. It performs arithmetic
+(add, subtract) and logic (AND, OR, NOT, compare, shift).</li>
+<li><b>Registers:</b> the CPU's own tiny, fastest memory. General-purpose registers
+hold working values; special ones are the PC, IR, MAR and MDR met in Module One, and the
+<b>stack pointer (SP)</b>, which holds the address of the top of the stack.</li>
+<li><b>Internal buses:</b> the wires that carry data between the registers, the ALU
+and the control unit.</li>
+</ul></div></div>
+
+<figure>
+<svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <rect x="20" y="30" width="200" height="140" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.6"/>
+  <text x="120" y="24" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e2830">CPU</text>
+  <rect x="36" y="46" width="168" height="26" fill="#fff" stroke="#8a919b"/>
+  <text x="120" y="63" text-anchor="middle" font-size="10.5" fill="#41505f">Control Unit</text>
+  <rect x="36" y="80" width="80" height="26" fill="#fff" stroke="#8a919b"/>
+  <text x="76" y="97" text-anchor="middle" font-size="10.5" fill="#41505f">ALU</text>
+  <rect x="124" y="80" width="80" height="26" fill="#fff" stroke="#8a919b"/>
+  <text x="164" y="97" text-anchor="middle" font-size="10.5" fill="#41505f">Registers</text>
+  <rect x="36" y="114" width="168" height="44" fill="#fff" stroke="#8a919b"/>
+  <text x="120" y="132" text-anchor="middle" font-size="9.5" fill="#67707a">PC  IR  MAR  MDR</text>
+  <text x="120" y="148" text-anchor="middle" font-size="9" fill="#8a919b">special registers</text>
+  <rect x="330" y="46" width="150" height="40" rx="4" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="405" y="70" text-anchor="middle" font-size="10.5" fill="#41505f">Main Memory</text>
+  <rect x="330" y="120" width="150" height="40" rx="4" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.5"/>
+  <text x="405" y="144" text-anchor="middle" font-size="10.5" fill="#41505f">Input / Output</text>
+  <g stroke="#b45309" stroke-width="2"><line x1="220" y1="66" x2="330" y2="66"/>
+    <line x1="220" y1="100" x2="300" y2="100"/><line x1="300" y1="100" x2="300" y2="140"/>
+    <line x1="300" y1="140" x2="330" y2="140"/></g>
+  <text x="262" y="60" text-anchor="middle" font-size="8.5" fill="#b45309">system bus</text>
+</svg>
+<figcaption>The CPU, memory and I/O joined by the system bus.</figcaption>
+</figure>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three system buses</span></div>
+<div class="body"><p>The <b>system bus</b> that joins CPU, memory and I/O is really three
+sets of wires:</p>
+<ul class="bul">
+<li><b>Address bus:</b> carries the address the CPU wants to read or write. Its width
+sets how many locations can be addressed: <b>k address lines reach
+2<sup>k</sup> locations</b>. One direction only (CPU to memory).</li>
+<li><b>Data bus:</b> carries the actual data, both directions. Its width sets how many
+bits move per transfer.</li>
+<li><b>Control bus:</b> carries the signals that say read, write, or wait.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Input/output and how the CPU handles it</span></div>
+<div class="body"><p>The third partner on the system bus is <b>input/output (I/O)</b>: the
+devices that move data between the computer and the outside world (keyboard, screen, disk,
+network). The CPU manages I/O in one of three ways:</p>
+<ul class="bul">
+<li><b>Programmed I/O (polling):</b> the CPU repeatedly checks whether a device is ready.
+Simple, but it wastes CPU time waiting.</li>
+<li><b>Interrupt-driven I/O:</b> the device raises an <b>interrupt</b> when it is ready and
+the CPU stops to service it, so it need not poll.</li>
+<li><b>Direct memory access (DMA):</b> a DMA controller moves a whole block between a device
+and memory without the CPU, interrupting it only once the transfer is done. Fastest for
+large transfers.</li>
+</ul></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Addressing capacity</span></div>
+<div class="body"><p><b>k address lines can address 2<sup>k</sup> locations.</b> Turn it
+around: to address N locations you need <b>k = log<sub>2</sub>N</b> address lines. The
+total capacity is 2<sup>k</sup> &#215; (bytes per location).</p>
+<p><b>Memory hook:</b> every extra address line <b>doubles</b> the number of locations
+you can reach.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1a</span></div>
+<div class="body"><p>A minicomputer uses <b>18 address lines</b>. Find (i) the address
+space, (ii) the largest memory in bytes if each location holds one byte, (iii) the
+length of the program counter.</p>
+<ol class="steps">
+<li>Address space = 2<sup>number of lines</sup> = 2<sup>18</sup> = 262 144 locations.
+<span class="note">2<sup>18</sup> = 2<sup>10</sup> &#215; 2<sup>8</sup> = 1024 &#215; 256.</span></li>
+<li>At one byte per location that is 262 144 bytes = 256 KB.</li>
+<li>The PC must hold any address, so it is as wide as the address bus: 18 bits.</li>
+</ol>
+<div class="answerbox">(i) 2<sup>18</sup> = 262 144 locations. (ii) 262 144 bytes = 256 KB.
+(iii) PC length = 18 bits.</div>
+<p class="redo"><b>Now redo it:</b> address space is always 2 to the power of the number
+of address lines, and the PC is always as wide as an address.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5a</span></div>
+<div class="body"><p>A computer has <b>4 GB</b> of word-addressable memory with a word
+size of <b>2 bytes</b>. How many bits are needed to address memory?</p>
+<ol class="steps">
+<li>4 GB = 4 &#215; 2<sup>30</sup> bytes = 2<sup>32</sup> bytes.</li>
+<li>Word-addressable means each address names a word, not a byte. Number of words =
+2<sup>32</sup> bytes &#247; 2 bytes = 2<sup>31</sup> words.</li>
+<li>To address 2<sup>31</sup> words needs <b>31</b> bits (because
+2<sup>31</sup> words need 31 address lines).</li>
+</ol>
+<div class="answerbox">4 GB &#247; 2-byte word = 2<sup>31</sup> words, so <b>31 address
+bits</b> are needed.</div>
+<p class="redo"><b>Now redo it:</b> the trap is word-addressable versus byte-
+addressable. Divide the total bytes by the bytes per addressable unit first, then take
+the log base 2.</p>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A machine has 20 address lines and a 1-byte cell. How much
+memory can it address?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>2<sup>20</sup> = 1 048 576 locations = 1 MB. Every address line doubles the reach,
+and 2<sup>20</sup> is exactly one mega.</p></div></div>
+</section>

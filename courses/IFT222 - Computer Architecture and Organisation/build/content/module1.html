@@ -1,0 +1,306 @@
+<!-- ===================== MODULE ONE (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Module One</div>
+  <h1>Fundamentals of<br>Computer Architecture</h1>
+  <div class="blurb">What a computer is, from the outside in: the difference between
+  what the programmer sees and how the machine is built, the two great design
+  templates every computer follows, and the fetch, decode, execute rhythm that all
+  the later modules refine.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#33566e" stroke-width="1.6" fill="none">
+        <rect x="210" y="34" width="100" height="52" rx="3" fill="#f1f5f8"/>
+        <line x1="210" y1="48" x2="188" y2="48"/><line x1="210" y1="60" x2="188" y2="60"/>
+        <line x1="210" y1="72" x2="188" y2="72"/>
+        <line x1="310" y1="48" x2="332" y2="48"/><line x1="310" y1="60" x2="332" y2="60"/>
+        <line x1="310" y1="72" x2="332" y2="72"/>
+        <line x1="240" y1="34" x2="240" y2="16"/><line x1="280" y1="34" x2="280" y2="16"/>
+        <line x1="240" y1="86" x2="240" y2="104"/><line x1="280" y1="86" x2="280" y2="104"/>
+      </g>
+      <text x="260" y="65" text-anchor="middle" font-family="DejaVu Sans" font-size="14"
+            font-weight="bold" fill="#1e2830">CPU</text>
+      <circle cx="182" cy="48" r="2.4" fill="#6d28d9"/><circle cx="182" cy="60" r="2.4" fill="#6d28d9"/>
+      <circle cx="182" cy="72" r="2.4" fill="#6d28d9"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== UNIT 1 ===================== -->
+<section>
+<div class="kick">Module One &middot; Unit 1</div>
+<h2 class="title">Architecture versus Organization</h2>
+<hr class="rule">
+<p class="lead">Two words that sound like synonyms, mean different things, and are
+worth an easy few marks on every paper if you can tell them apart cleanly.</p>
+<p class="lo">By the end of this unit you can define architecture and organization
+and give examples of each, draw and compare the Von Neumann and Harvard designs,
+explain the Von Neumann bottleneck and how to reduce it, and answer every past
+question of this type in full.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">What a computer is, and its parts</span></div>
+<div class="body"><p>A <b>computer</b> is a programmable device that stores, retrieves and
+processes data, following a stored set of instructions to turn input into output. Every
+computer, from a phone to a server, is built from the same handful of parts:</p>
+<ul class="bul">
+<li><b>CPU</b> (processor): the control unit and ALU that carry out instructions.</li>
+<li><b>Memory</b>: holds the instructions and data the CPU is working on (Module Three).</li>
+<li><b>Storage</b>: keeps data when the power is off (disk, SSD).</li>
+<li><b>Input/output devices</b>: move data in and out (keyboard, screen, network).</li>
+<li><b>The motherboard</b> (system board) and its <b>buses</b>: the circuit board that
+holds the parts and the wires that join them.</li>
+</ul>
+<p>The rest of this module looks at how those parts are organised and how the CPU steps
+through a program.</p></div></div>
+
+<h3 class="sub">The one distinction everything hangs on</h3>
+<p>Think of a car. The <b>architecture</b> is what the driver sees and uses: the
+steering wheel, the pedals, the gear positions, the promise that pressing the
+accelerator makes the car go faster. The <b>organization</b> is what is under the
+bonnet: the size of the engine, how the fuel is delivered, how the pedal is
+physically connected to the engine. Two cars can drive identically for the driver
+(same architecture) while being built completely differently inside (different
+organization).</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The core idea</span></div>
+<div class="body"><p><b>Computer architecture</b> is the set of attributes visible to
+the programmer, the things that affect how a program is written: the instruction
+set, the number and size of registers, the data types, the addressing modes, the
+way memory is addressed. It answers <b>"what does the machine do?"</b></p>
+<p><b>Computer organization</b> is how those attributes are actually realised in
+hardware, the parts hidden from the programmer: the control signals, the buses, the
+memory technology used, whether an add is done by one circuit or several. It answers
+<b>"how does the machine do it?"</b></p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Memory hook</span></div>
+<div class="body"><p><b>Architecture = what the programmer sees. Organization = how it
+is built.</b></p>
+<p><b>Memory hook:</b> <b>A</b>rchitecture is <b>A</b>bstract (the visible promise);
+<b>O</b>rganization is the <b>O</b>peration (the hidden wiring that keeps the
+promise). Same instruction set, different organization, is exactly how a cheap and
+an expensive processor can run the identical program.</p></div></div>
+
+<table class="data">
+<tr><th>Computer Architecture</th><th>Computer Organization</th></tr>
+<tr><td>Attributes visible to the programmer</td><td>Attributes hidden from the programmer</td></tr>
+<tr><td>Answers "what is done"</td><td>Answers "how it is done"</td></tr>
+<tr><td>Instruction set, data types, registers, addressing modes</td><td>Control signals, buses, memory technology, circuits</td></tr>
+<tr><td>Decided first, changes rarely</td><td>Realises the architecture, varies between models</td></tr>
+<tr><td>Example: the machine has a "multiply" instruction</td><td>Example: multiply is done by repeated addition, or by a dedicated multiplier</td></tr>
+</table>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1a(i)</span></div>
+<div class="body"><p>"Computer Systems are designed using two closely related but
+distinct concepts which are Computer Architecture and Computer Organization.
+Differentiate between these concepts." (2 marks)</p>
+<ol class="steps">
+<li>Name the viewpoint of each: architecture is the programmer's view, organization
+is the hardware's view.</li>
+<li>Give the defining question each answers, and one example, to earn both marks.</li>
+</ol>
+<div class="answerbox">Architecture is the set of attributes visible to the programmer
+(instruction set, registers, addressing modes): it defines WHAT the machine does.
+Organization is how those attributes are implemented in hardware (control signals,
+buses, memory technology): it defines HOW the machine does it. Example: architecture
+says a MULTIPLY instruction exists; organization decides whether it runs on a
+dedicated multiplier or by repeated addition.</div>
+<p class="redo"><b>Now redo it:</b> this exact question, worth 2 marks, is on the
+24/25 and 25/26 papers. Write the two sentences and one example from memory.</p>
+</div></div>
+
+<h3 class="sub">How a computer runs a program: the instruction cycle</h3>
+<p>Before we compare designs, fix the basic rhythm in your mind, because every later
+idea (pipelining, cache, performance) is a refinement of it. The processor repeats
+three steps, over and over, billions of times a second.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Fetch, decode, execute</span></div>
+<div class="body">
+<figure>
+<svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0 0 L6 3 L0 6 Z" fill="#b45309"/></marker>
+    <marker id="av" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0 0 L6 3 L0 6 Z" fill="#a78bfa"/></marker></defs>
+  <path d="M400 48 Q400 22 240 22 Q80 22 80 48" stroke="#a78bfa" stroke-width="1.5"
+        fill="none" stroke-dasharray="4 3" marker-end="url(#av)"/>
+  <text x="240" y="16" text-anchor="middle" font-size="10" fill="#a78bfa" font-style="italic">repeat for the next instruction</text>
+  <g fill="#f1f5f8" stroke="#33566e" stroke-width="1.5">
+    <rect x="20" y="50" width="120" height="40" rx="4"/>
+    <rect x="180" y="50" width="120" height="40" rx="4"/>
+    <rect x="340" y="50" width="120" height="40" rx="4"/>
+  </g>
+  <g text-anchor="middle" font-size="13" fill="#1e2830" font-weight="bold">
+    <text x="80" y="75">FETCH</text><text x="240" y="75">DECODE</text><text x="400" y="75">EXECUTE</text>
+  </g>
+  <g text-anchor="middle" font-size="10.5" fill="#67707a">
+    <text x="80" y="108">get instruction</text><text x="80" y="121">from memory</text>
+    <text x="240" y="108">work out what</text><text x="240" y="121">it means</text>
+    <text x="400" y="108">carry it out</text><text x="400" y="121">in the ALU</text>
+  </g>
+  <g stroke="#b45309" stroke-width="1.8" fill="none" marker-end="url(#ar)">
+    <line x1="140" y1="70" x2="176" y2="70"/><line x1="300" y1="70" x2="336" y2="70"/>
+  </g>
+</svg>
+<figcaption>Fetch, decode, execute, then repeat for the next instruction.</figcaption>
+</figure>
+<p><b>Fetch:</b> the control unit reads the next instruction from memory into the
+processor. <b>Decode:</b> it works out what the instruction is asking for.
+<b>Execute:</b> the arithmetic and logic unit (ALU) carries it out. Then the cycle
+starts again on the next instruction. Everything else in this course is about doing
+these steps faster or feeding them with data sooner.</p></div></div>
+
+<h3 class="sub">Two ways to wire memory to the processor</h3>
+<p>A computer must store both the <b>program</b> (the instructions) and the
+<b>data</b> those instructions work on. The two great design templates differ in one
+decision: do instructions and data share one memory and one path, or get separate
+ones?</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Von Neumann architecture</span></div>
+<div class="body"><p>In the <b>Von Neumann</b> design there is <b>one memory</b>
+holding both instructions and data, reached over <b>one shared bus</b>. This is
+elegant and cheap: the same memory stores everything, and a program can even treat
+its own instructions as data. Almost all general-purpose computers use it.</p>
+<figure>
+<svg viewBox="0 0 480 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <rect x="30" y="55" width="150" height="86" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.6"/>
+  <text x="105" y="50" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e2830">CPU</text>
+  <g fill="#fff" stroke="#8a919b" stroke-width="1">
+    <rect x="42" y="66" width="126" height="20"/><rect x="42" y="92" width="60" height="18"/>
+    <rect x="108" y="92" width="60" height="18"/><rect x="42" y="116" width="126" height="18"/>
+  </g>
+  <g text-anchor="middle" font-size="9.5" fill="#41505f">
+    <text x="105" y="79">Control Unit</text><text x="72" y="105">ALU</text>
+    <text x="138" y="105">Registers</text><text x="105" y="128">PC / IR / MAR / MDR</text>
+  </g>
+  <rect x="320" y="55" width="130" height="86" rx="4" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.6"/>
+  <text x="385" y="50" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e2830">MEMORY</text>
+  <text x="385" y="92" text-anchor="middle" font-size="10.5" fill="#41505f">instructions</text>
+  <text x="385" y="112" text-anchor="middle" font-size="10.5" fill="#41505f">and data</text>
+  <text x="385" y="128" text-anchor="middle" font-size="9" fill="#8a919b">together</text>
+  <line x1="180" y1="98" x2="320" y2="98" stroke="#b45309" stroke-width="2.4"/>
+  <text x="250" y="90" text-anchor="middle" font-size="10" fill="#b45309">single shared bus</text>
+</svg>
+<figcaption>One memory, one bus: instructions and data share the same road.</figcaption>
+</figure></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Harvard architecture</span></div>
+<div class="body"><p>In the <b>Harvard</b> design, instructions and data live in
+<b>separate memories</b> reached over <b>separate buses</b>. The processor can fetch
+an instruction and read data <b>at the same time</b>, which is faster, but it costs
+more and is less flexible. It is common in signal processors and microcontrollers,
+and inside the CPU's own caches.</p>
+<figure>
+<svg viewBox="0 0 480 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <rect x="180" y="55" width="120" height="70" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.6"/>
+  <text x="240" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e2830">CPU</text>
+  <rect x="20" y="60" width="120" height="60" rx="4" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.6"/>
+  <text x="80" y="86" text-anchor="middle" font-size="10.5" fill="#41505f">Instruction</text>
+  <text x="80" y="102" text-anchor="middle" font-size="10.5" fill="#41505f">Memory</text>
+  <rect x="340" y="60" width="120" height="60" rx="4" fill="#f0f8f2" stroke="#15803d" stroke-width="1.6"/>
+  <text x="400" y="86" text-anchor="middle" font-size="10.5" fill="#41505f">Data</text>
+  <text x="400" y="102" text-anchor="middle" font-size="10.5" fill="#41505f">Memory</text>
+  <line x1="140" y1="90" x2="180" y2="90" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="300" y1="90" x2="340" y2="90" stroke="#b45309" stroke-width="2.4"/>
+  <text x="160" y="82" text-anchor="middle" font-size="8.5" fill="#b45309">bus 1</text>
+  <text x="320" y="82" text-anchor="middle" font-size="8.5" fill="#b45309">bus 2</text>
+</svg>
+<figcaption>Two memories, two buses: an instruction and data can move at once.</figcaption>
+</figure></div></div>
+
+<table class="data">
+<tr><th>Feature</th><th>Von Neumann</th><th>Harvard</th></tr>
+<tr><td>Memory for code and data</td><td>One shared memory</td><td>Two separate memories</td></tr>
+<tr><td>Buses</td><td>One shared bus</td><td>Separate instruction and data buses</td></tr>
+<tr><td>Fetch and data access</td><td>Cannot happen at once</td><td>Can happen at the same time</td></tr>
+<tr><td>Cost and complexity</td><td>Lower, simpler</td><td>Higher, more hardware</td></tr>
+<tr><td>Typical use</td><td>General-purpose computers</td><td>Signal processors, microcontrollers, CPU caches</td></tr>
+</table>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1a(ii)</span></div>
+<div class="body"><p>"Compare Von Neumann Architecture and Harvard Architecture.
+Include a diagram for each." (3 marks)</p>
+<p class="marks">Full-mark answer</p>
+<div class="answerbox">Von Neumann uses ONE memory and ONE bus for both instructions
+and data, so it is simpler and cheaper but the single bus can carry only one of them
+at a time. Harvard uses SEPARATE memories and buses for instructions and data, so it
+can fetch an instruction and access data simultaneously (faster) at higher cost.
+Draw the two diagrams above: one CPU-to-single-memory, one CPU with two memories.</div>
+<p>Three marks means three scoring points: one shared versus two separate memories,
+the simultaneous-access difference, and the two diagrams. Give all three.</p>
+<p class="redo"><b>Now redo it:</b> draw both diagrams from memory in under two minutes.
+The diagrams alone are worth marks and are the fastest to lose under time pressure.</p>
+</div></div>
+
+<h3 class="sub">The Von Neumann bottleneck</h3>
+<p>The Von Neumann design has one famous weakness, and the exam asks about it almost
+every year, so it is worth full marks to you.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The bottleneck</span></div>
+<div class="body"><p>Because instructions and data share <b>one bus</b>, the
+processor cannot fetch an instruction and read or write data at the same instant.
+It must take turns. The single shared path between the CPU and memory therefore
+limits how fast the whole machine can go, however fast the CPU itself is. That
+limit is the <b>Von Neumann bottleneck</b>: the CPU is often left waiting on the one
+road to memory.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">How to reduce it</span></div>
+<div class="body"><p>Three standard ways to ease the bottleneck, each worth a mark:</p>
+<ul class="bul">
+<li><b>Cache memory:</b> keep a small, fast copy of the most-used instructions and
+data inside or beside the CPU, so most accesses never travel the slow bus (Module
+Three).</li>
+<li><b>Separate caches for instructions and data</b> (a Harvard-style split inside
+the chip), so the two can be fetched at once even on a Von Neumann machine.</li>
+<li><b>Wider or faster buses, and registers:</b> move more bits per trip, and keep
+frequently used values in fast CPU registers so the bus is used less often.</li>
+</ul>
+<p>Modern machines add further tricks in the same spirit: faster <b>DDR</b> memory,
+<b>prefetching</b> data into cache before it is asked for, and even
+<b>processing-in-memory (PIM)</b>, doing simple work in the memory chip itself to save
+a bus trip.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3a &middot; PQ 23/24 Q4a</span></div>
+<div class="body"><p>"(i) State the Von Neumann concept. (ii) State two significant
+aspects of it. (iii) What is the Von Neumann bottleneck?" (1 + 2 + 2 marks)</p>
+<div class="answerbox">(i) The Von Neumann concept: a computer stores its program
+(instructions) and its data together in the SAME memory, and executes instructions
+one after another by fetching them from that memory.
+(ii) Two aspects: (a) a single shared memory holds both instructions and data;
+(b) instructions are executed sequentially, one at a time, using a stored program.
+(iii) The bottleneck: because one bus is shared for instructions and data, the CPU
+cannot fetch an instruction and access data simultaneously, so the single CPU-to-
+memory path limits overall speed.</div>
+<p>This same material answers the recurring bottleneck-and-mitigations question on
+the 20/21 paper: add the three fixes above for the extra marks.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Do not say Harvard is "better" and stop there. The exam wants the
+<b>trade-off</b>: Harvard is faster because of simultaneous access, but Von Neumann
+is simpler, cheaper and more flexible, which is why general-purpose computers use
+it. A bare "Harvard is faster" leaves marks on the table.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">In one sentence each: what is the Von Neumann
+bottleneck, and what is the single most common cure for it?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>The bottleneck is that the single shared bus lets only instructions or data move
+at a time, so the CPU waits on memory. The most common cure is cache memory: a small
+fast store that keeps most accesses off the slow bus.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>Architecture describes what the <span class="blank"></span> sees; organization
+describes how it is <span class="blank"></span>.</li>
+<li>Von Neumann uses <span class="blank"></span> memory for code and data; Harvard
+uses <span class="blank"></span>.</li>
+<li>The Von Neumann bottleneck exists because the <span class="blank"></span> is
+shared between instructions and data.</li>
+<li>The three steps of the instruction cycle are fetch,
+<span class="blank"></span> and <span class="blank"></span>.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. programmer; built. &nbsp; 2. one (shared); two separate memories. &nbsp;
+3. bus. &nbsp; 4. decode; execute.</p>
+</div></div>
+</section>

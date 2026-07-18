@@ -1,0 +1,635 @@
+DECK: IFT222 -DATA REPRESENTATION.pptx
+==========================================================================================
+
+--- slide 1 ---
+IFT222Computer Architecture and Organization
+DATA REPRESENTATION
+Department of Computer and Information Sciences
+
+--- slide 2 ---
+Introduction
+Computers are built of electronic circuitry. Information is represented by currents, voltage differences, or (for permanent storage) orientation of magnetic material. A single electronic circuit or piece of magnetic material is often regarded as being in one of two states, so can be used to represent a binary digit. Thus numbers are usually represented within a computer in base 2.
+2
+
+--- slide 3 ---
+It is possible to represent an integer in any base. A digit sequence an-1 an-2 …….... a2 a1 a0
+	represents the integer 
+	an-1 * basen-1 +an-2 * basen-2 + ... + a2 * base2+ a1 * base1 + a0 * base0
+Although data is stored within the computer in binary, it is often convenient to display the information in hexadecimal (base 16), because it takes up less space on the page, and is easier to remember.
+3
+
+--- slide 4 ---
+4
+
+--- slide 5 ---
+Base Conversion
+Conversion from decimal to any base
+	To convert an integer into a digit string in a base, we repeatedly divide the number by the base. The digits correspond to the remainders of these divisions, and are generated from right to left.
+The following program sequence can be used to achieve this (next slide).
+5
+
+--- slide 6 ---
+static char toDigit( int n ) {
+	if ( n < 10 )
+return ( char ) ( n + '0' );
+	else
+return ( char ) ( n + 'a' - 10 );
+	}
+static String toBase( int n, int base ) {
+	if ( n == 0 )
+return "0";
+	else if ( n < 0 )
+return "-" + toBase( - n, base );
+	else {
+String result = "";
+	while ( n > 0 ) {
+result = toDigit( n % base ) + result;
+n = n / base;
+	}
+return result;
+	}
+}
+6
+
+--- slide 7 ---
+Example
+To convert the decimal number 13 into binary, we get
+	13 / 2 = quotient 6 remainder 1
+	6 / 2 = quotient 3 remainder 0
+	3 / 2 = quotient 1 remainder 1
+	1 / 2 = quotient 0 remainder 1
+	So writing the remainders from right to left (or bottom to top), we get 1101.
+7
+
+--- slide 8 ---
+Conversion from a base into decimal form
+To convert from a digit string in a base to an integer is like evaluating a polynomial. We just process the digits from left to right, multiply what we have so far by the base, and add the next digit
+The following program sequence can be used to achieved this
+8
+
+--- slide 9 ---
+static int fromDigit( char c ) {
+	if ( '0' <= c && c <= '9' )
+return c - '0';
+	else if ( 'a' <= c && c <= 'z' ) // Allow up to base 36
+return c - 'a' + 10;
+	else if ( 'A' <= c && c <= 'Z' )
+return c - 'A' + 10;
+	else
+throw new Error( "Invalid digit" );
+static int fromBase( String s, int base ) {
+int sign = 1;
+	if ( s.charAt( 0 ) == '-' ) {
+sign = -1;
+s = s.substring( 1 );
+	}
+int result = 0;
+	for ( int i = 0; i < s.length(); i++ )
+result = result * base + fromDigit( s.charAt( i ) );
+return sign * result;
+}
+9
+
+--- slide 10 ---
+Example
+For example, to convert the binary representation 1101 into decimal, we get
+	0 * 2 + 1 = 1
+	1 * 2 + 1 = 3
+	3 * 2 + 0 = 6
+	6 * 2 + 1 = 13
+	giving the number 13 (in decimal).
+The arithmetic in the above computations can be performed in any base you like.
+10
+
+--- slide 11 ---
+Conversion between binary and hexadecimal
+Conversion between binary and hexadecimal is almost trivial, since it amounts to grouping or ungrouping bits into sets of four. 
+For example, using our conversion table, hexadecimal 3fc is 0011 1111 1100.
+Example:
+	Find the Hexadecimal representation of 110101101011101
+                      110         1011      0101        1101
+                     6D=6H     11D=BH       5D=5H     13D=CH
+                        (110101101011101)B=(6B5C)H
+11
+
+--- slide 12 ---
+Example: 
+	(A34E)H=
+                   (A x 163)+(3 x 162)+(4 x 161)+(E x 160)=
+                            (Ax4096)+(3x 256)+(4x 16)+(E x 1)=
+                   (10x4096)+(3x 256)+(4x 16)+(14 x 1)=
+                            40960+768+64+14=4180610
+   (A34E)H = 1010 0011 0100 11102
+12
+
+--- slide 13 ---
+We can also multiply or divide a binary or hexadecimal number by 2. 
+If the number is binary, we simply shift the digits left or right by one place.
+For numbers in hexadecimal, we can decode the hexadecimal digits into binary, perform the shift, then encode them again. 
+For example, to compute 3fc / 2, we decode 3fc as 0011 1111 1100, shift the bits right by 1, to get 0001 1111 1110, and encode it again to get 1fe.
+13
+
+--- slide 14 ---
+REPRESENTATION OF SIGNED & UNSIGNED NUMBERS
+14
+
+--- slide 15 ---
+Introduction
+Computers operate on binary values (as a result of being built from transistors).
+There are 4 commonly known integer representations. All have been used at various times for various reasons.
+	   1. unsigned
+	   2. sign magnitude
+	   3. one's complement
+	   4. two's complement
+
+We shall also consider non-integer representations and others later.
+15
+
+--- slide 16 ---
+Virtually all modern computers operate based on 2's complement representation. Why?
+	   1. Hardware is faster
+	   2. Hardware is simpler (which makes it faster)
+16
+
+--- slide 17 ---
+UNSIGNED
+The standard binary encoding already given only positive values
+range:   0 to 2**n - 1, for n bits
+example:   4 bits, values 0 to 15
+	   n=4, 2**4 -1 is 15
+	   binary dec  hex     binary      dec      hex
+	   0000      0     0      	 1000           8     	 8
+	   0001      1  	  1      	 1001           9     	 9
+	   0010      2     2      	 1010          10    	 a
+	   0011      3     3     	 1011          11    	 b
+	   0100      4     4       1100           12    	 c
+	   0101      5     5      	 1101           13    	 d
+	   0110      6     6       1110           14    	 e
+	   0111      7     7       1111           15    	 f
+
+--- slide 18 ---
+Negative numbers are essential, and any computer not capable of dealing with them would not be particularly useful.  
+How can such numbers be represented?  
+Several methods can be used to represent negative numbers in Binary.  
+They include: 
+Sign-Magnitude Method
+One (1’s) Complement
+Two (2’s) Complement
+18
+NEGATIVE NUMBER REPRESENTATION
+
+--- slide 19 ---
+SIGN MAGNITUDE
+Use 1 bit of integer to represent the sign of the integer
+Sign bit of 0 for positive,  1  for negative. 
+The rest of the integer is a magnitude, using same encoding as unsigned integers
+The hardware that does arithmetic on sign magnitude integers is not fast.
+It is more complex than the hardware that does arithmetic on 1's comp. and 2's comp. integers.
+19
+
+--- slide 20 ---
+Example
+Write 74 and -43 using 8-bit register in sign-magnitude representation. 
+Solution:
+74 in binary = ????????2
+
+For  -43, first find +43 in binary and then flip the last bit (sign bit)
+38 in binary  = ????????2
+-38 in binary = 1 0 1 0 0 1 1 02
+20
+
+--- slide 21 ---
+Example:  4 bits
+	      0101   is  5
+ 	      1101   is -5 
+To get the additive inverse of a number, just flip (not, invert, complement, negate) the sign bit.
+range:   -(2**(n-1)) + 1     to    2**(n-1) -1,    where n is the number of bits
+ 
+With  4 bits,  -7 to +7
+	  n = 4, - 2**3 + 1     to    2**3 - 1
+	             -8 + 1         to     8 - 1
+21
+
+--- slide 22 ---
+Problem of Sign-Magnitude
+Because of the sign bit, there are 2 representations for 0. This is a problem for hardware. 
+0000 is 0 and so is 1000. The computer must do all calculations such that they come out correctly and the same whichever representation is used.
+Sign reversal and absolute value operations are easy using sign-magnitude representation. 
+Adding the negative of a number is not the same as subtraction in sign-magnitude. Different operations must be defined for addition and subtraction with sign-magnitude numbers.
+22
+
+--- slide 23 ---
+1’s Complement Representation
+Another method used in representing negative numbers. 
+The ones' complement form of a negative binary number is the bitwise NOT applied to it  — the "complement" of its positive counterpart.
+i.e. Negation (finding an additive inverse) is done by taking a bitwise complement of the positive representation. 
+Like sign-and-magnitude representation, ones' complement has two representations of 0:
+	   00000000 (+0) and 11111111 (−0).
+positive integers use the same representation as unsigned.
+23
+
+--- slide 24 ---
+Example
+As an example, the ones' complement form of 00101011 (4310) becomes 11010100 (−4310). 
+What number in 1’s complement is 11100?
+This must be a negative number. To find out which, find the additive inverse!  00011 is +3 by sight, so 11100 must be -3
+The range of signed numbers using ones' complement is represented by 
+	−(2N−1−1) to (2N−1−1) and ±0. 
+A conventional 8-bit range is −12710 to +12710 
+Zero is either 00000000 (+0) or 11111111 (−0).
+24
+
+--- slide 25 ---
+1’s Complement (Cont’d)
+To add two numbers represented in this system, one does a conventional binary addition, but it is then necessary to do an end-around carry: that is, add any resulting carry back into the resulting sum. 
+To see why this is necessary, consider the following example showing the case of the addition of −1 (11111110) to +2 (00000010).
+25
+
+--- slide 26 ---
+26
+In the previous example, the binary addition alone gives 00000000, which is incorrect. Only when the carry is added back in does the correct result (00000001) appear.
+
+This numeric representation system was common in older computers like the PDP-1, CDC 160 series, and UNIVAC 1100/2200 series, among many others.
+
+--- slide 27 ---
+27
+
+--- slide 28 ---
+Note:
+The system is referred to as "ones' complement" because the negation of a positive value x (represented as the bitwise NOT of x) can also be formed by subtracting x from the ones' complement representation of zero that is a long sequence of ones (−0).
+
+Note that the ones' complement representation of a negative number can be obtained from the sign-magnitude representation merely by bitwise complementing the magnitude.
+28
+1’s Complement (Cont’d)
+
+--- slide 29 ---
+Two’s Complement Representation
+This solves the problems of multiple representations of 0 and the need for the end-around carry. 
+In 2's complement, negative numbers are represented by the bit pattern which is one greater (in an unsigned sense) than the ones' complement of the positive value.
+How to find the 2’s Complement of a number: A Quick Method Suppose we want to find the two’s complement of     6-bit representation of -14.
+29
+
+--- slide 30 ---
+(1.) First, we write down the positive binary number, in this case 14 (001110)
+(2.) Now, start writing the digits from the right hand side up to and including the first 1.  In our case, just 10. 
+(3.) Then invert the rest of the digits.  So our answer becomes 110010.
+Examples:
+Two’s complement 8-bit representation of the following: 1.	+24   = 	00011000 2.	+127 =	01111111 3.	-39    =	11011001 4.	-92    =	10100100 5. 	-128  =	10000000
+30
+
+--- slide 31 ---
+EXAMPLE:
+ What decimal value does the two's complement 110011 represent?
+It must be a negative number, since the most significant bit is a 1.  Therefore, find the additive inverse:
+	     110011  (2's comp.  ?)
+	     001100  (after taking the 1's complement)
+		+ 1
+	     -----------
+	     001101  (2's comp.  +13)
+Therefore, it's additive inverse (110011) must be -13.
+31
+
+--- slide 32 ---
+MID-LECTURE QUIZ
+
+--- slide 33 ---
+ATTEMPT ALL QUESTIONS – 10 MINUTES
+1.  Briefly describe how negative integers are formed using S-M, 1’s & 2’s complement.
+
+2.  What does the value 1111001112  represent  in  S-M, 1’s and 2’s complement.
+
+3.  Perform the following unsigned operation in 2’s complement using 6 bits    47 + 35 = ?  What value will be stored in register?
+
+--- slide 34 ---
+Sometimes a value cannot be represented in the limited number of bits allowed.   
+Examples:
+For unsigned, 3 bits:   8 would require at least 4 bits (1000)
+ For S-M, 4 bits:  8 would require at least 5 bits (01000)
+When a value cannot be represented in the number of bits allowed/specified, we say that an overflow has occurred.  Overflow occurs when doing arithmetic operations.
+34
+Overflow
+
+--- slide 35 ---
+Overflow Example
+3 bit unsigned representation
+	      011 (3)
+	    +110 (6)
+	    ------------
+	    1 001 (9)     
+It would require 4 bits (1001) to represent the value 9 in unsigned representation.
+This will lead to overflow.
+35
+
+--- slide 36 ---
+Underflow
+Overflow  is a situation in which the exponent is too large to be represented in the Exponent field while Underflow is a situation in which the number is too small to be represented in the Exponent field.
+Arithmetic underflow can occur when the true result of a floating point operation is smaller in magnitude (that is, closer to zero) than the smallest value representable as a normal floating point number in the target datatype. 
+Underflow can in part be regarded as negative overflow of the exponent of the floating point value. For example, if the exponent part can represent values from −127 to 127, then a result with a value less than −127 may cause underflow.
+
+--- slide 37 ---
+Solving Overflow/Underflow Problem
+To reduce the chances of underflow/overflow, can use 64-bit Double-Precision arithmetic.
+The following slides describe some devastating effects of wrong arithmetic in computer programs.
+
+--- slide 38 ---
+
+
+--- slide 39 ---
+On June 4, 1996 an unmanned Ariane 5 rocket launched by the European Space Agency exploded just forty seconds after lift-off. The rocket was on its first voyage, after a decade of development costing $7 billion. The cause was a software error. A 64 bit floating point number relating to the horizontal velocity of the rocket wrt the platform was converted to a 16 bit signed integer. The number was larger than 32678, the largest integer storeable in a 16 bit signed integer, and thus the conversion failed.
+
+--- slide 40 ---
+Vancouver Stock Exchange
+In 1982 the Vancouver stock exchange instituted a new index initialized to a value of 1000.000. The index was updated after each transaction. Twenty two months later it had fallen to 520. The cause was that the updated value was truncated rather than rounded. The rounded calculation gave a value of 1098.892.
+
+--- slide 41 ---
+Binary Coded Decimal (BCD)
+A type of binary code used to represent a given decimal number in an equivalent binary form. 
+Main advantage:-  it allows easy conversion to decimal digits for printing or display and faster calculations. 
+3 different types:
+8 4 2 1 
+5 4 2 1 
+4 2 2 1
+41
+
+--- slide 42 ---
+42
+
+--- slide 43 ---
+The numbers 8,4,2,1 in 8421 BCD,  4, 2, 2, 1 in 4221 BCD and 5, 4, 2 and 1 in 5421 BCD represent weights of the relevant bits. 
+BCD is a weighted code, each binary digit in the four bit group representing a given decimal digit is assigned a weight, 
+Sum of the weights of those binary digits whose value is 1 is equal to the decimal digit which they represent. 
+Example:
+The 8421 BCD code for 9.2 is 1001.0010. 
+The 4221 BCD code for 9.2 is 1111.0010. 
+The 5421 BCD code for 9.2 is 1100.0010. 
+BCD code is useful for outputting to displays that are always numeric (0 to 9), such as those found in digital clocks or digital voltmeters.
+43
+
+--- slide 44 ---
+Excess-3 Code
+Excess-3, also called XS3, is a non-weighted code used to express decimal numbers.
+It is another important binary code. 
+It is particularly significant for arithmetic operations as it overcomes the shortcomings encountered while using the 8421 BCD code to add two decimal digits whose sum exceeds 9.
+ This code is used in some old computers.
+44
+
+--- slide 45 ---
+Excess-3 (Cont’d)
+The Excess-3 code for a given decimal number is determined by adding '3' to each decimal digit in the given number and then replacing each digit of the newly found decimal number by its four bit binary equivalent. 
+Example, XS3 code of 24 is obtained as 
+  2       4 
++3     +3 
+  5       7 
+0101 0111 
+Thus, XS3 code of 24 is 0101 0111.
+45
+
+--- slide 46 ---
+Excess-3 (Cont’d)
+Excess-3 code is self-complementing. 
+That is , the 1's complement of an Excess- 3 number is the Excess- 3 code for the 9's complement of the corresponding decimal number. 
+For example, the Excess- 3 code for decimal 6 is 1001. The 1's complement of 1001 is 0110, which is the Excess-3 code for decimal 3, and 3 is the 9's complement of 6. 
+This property of Excess-3 code makes it useful in some arithmetic operations. 
+Example:
+The Excess-3 code for 27 is 01011010. 
+Similarly, Excess-3 code for (597)10 and (14.57)10 is 
+(597)10 = (100011001010) 
+(14.57)10 = (01000111.10001010)
+46
+
+--- slide 47 ---
+Convert from Excess-3 to Decimal
+Example:
+To determine the decimal equivalent for the Excess-3 code 1000110. 
+First make group of 4 bits starting from radix point (LSB). 
+Subtract 0011 (3) from each group, we obtain the new number as 00010011. 
+Its decimal equivalent is 13. 
+Therefore, (1000110) Excess-3= (13)10 
+ClassWork: 1011011011sx3  = ?10
+47
+
+--- slide 48 ---
+Representation of Floating Point Numbers
+A range of very large and very small numbers can be represented with only a few digits by using scientific notation. For example:
+976,000,000,000,000   = 9.76 * 1014
+0.0000000000000976  = 9.76 * 10-14
+This same approach can be used for binary numbers. A number represented by  M*B±E   can be stored in a binary word with three fields:
+
+Mantissa
+Exponent E
+The base B is implicit and need not be stored.
+
+--- slide 49 ---
+Floating Point – Single Precision
+IEEE-754, 854 is a standard for representing FP
+Decimal point can “move” –  hence it’s “floating”
+Floating point is useful for scientific calculations 
+Can represent 
+Very large integers and
+Very small fractions
+~10±38
+49
+
+--- slide 50 ---
+50
+Floating Point – Single Precision
+
+--- slide 51 ---
+Floating Point – Double Precision
+51
+Double Precision can represent
+~10±308
+
+--- slide 52 ---
+Floating Point
+52
+The IEEE Standard requires these operations, at a minimum
+Add
+Subtract
+Multiply
+Divide
+Remainder
+Square Root
+Decimal/Binary Conversion
+Exceptions
+Underflow, Overflow, divide by 0, inexact, invalid
+
+--- slide 53 ---
+EXAMPLE: Put the decimal number 64.2 into the IEEE single precision representation.
+STEP 1: 
+get a binary representation for 64.2 
+64 is 1000000 
+.2 is :
+ .2 x 2 = 0.4 0 (msb)
+ .4 x 2 = 0.8 0 
+.8 x 2 = 1.6  1 
+.6 x 2 = 1.2  1 
+.2 x 2 = 0.4  0
+now this whole pattern (0011) repeats. 
+so the binary representation for .2 is .001100110011. . .
+Putting the halves back together again: 64.2 is 1000000.0011001100110011. . .
+
+--- slide 54 ---
+STEP 2:  normalize the binary representation(make it look like scientific notation) 		1.000000 00110011. . . x 26 
+STEP 3: 
+6 is the true exponent. 
+For the standard form, it needs to be in biased-127 form.
+6 + 127 = 133 (value of biased exponent) 
+133 in 8 bit, unsigned representation is 1000 0101 this is bit pattern used for E in the standard form. 
+STEP 4: 
+the mantissa stored (F) is to the right of the radix point in the normal form. 
+We need 23 bits of it. 000000 00110011001100110 put it all together (and include the correct sign bit)
+
+--- slide 55 ---
+S            E                                F 
+	0     10000101      00000000110011001100110 
+the values are often given in hex, so here it is 
+	 0100 0010 1000 0000 0110 0110 0110 0110 
+0x     4        2       8        0        6       6       6        6         or 
+                             42806666h
+Exercise: Represent the following in IEEE format
+10.510 
+9.999 x 101  + 1.610 x 10-1 
+.510 x  -0.437510  
+(1.10 x 1010) x (9.2 x 10-5)
+55
+
+--- slide 56 ---
+ALPHANUMERIC CODES
+Earlier computers were used only for the purpose of calculations i.e. they were only used as a calculating device. 
+Computers now represent numbers and other information such as names, addresses, item descriptions etc. 
+Such information is represented using letters and symbols. 
+Computer is a digital system and can only deal with 1's and 0’s. 
+So to deal with letters and symbols they use alphanumeric codes.
+56
+
+--- slide 57 ---
+Alphanumeric Code (Cont’d)
+Alphanumeric codes, also called character codes, are binary codes used to represent alphanumeric data.
+The codes write alphanumeric data, including letters of the alphabet, numbers, mathematical symbols and punctuation marks, in a form that is understandable and process able by a computer.
+Using these codes, we can interface input-output devices such as keyboards, monitors, printers etc. with computer. 
+Examples include:
+Morse code
+Hollerith code
+ASCII code
+EBCDIC code
+Unicode
+57
+
+--- slide 58 ---
+Morse Code
+58
+
+--- slide 59 ---
+ASCII Code
+ASCII stands for American Standard Code for Information Interchange. 
+It's a 7-bit character code where every single bit represents a unique character. 
+ASCII printable characters (character code 32-127)
+Codes 32-127 are common for all the different variations of the ASCII table, they are called printable characters, represent letters, digits, punctuation marks, and a few miscellaneous symbols.
+Character 127 represents the command DEL. 
+The extended ASCII codes (character code 128-255)
+There are several different variations of the 8-bit ASCII table e.g. ISO 8859-1, also called ISO Latin-1. Codes 129-159 contain the Microsoft® Windows Latin-1 extended characters.
+59
+
+--- slide 60 ---
+ASCII Code
+60
+
+--- slide 61 ---
+EBCDIC
+Extended Binary Coded Decimal Interchange Code (EBCDIC) is an 8-bit character encoding used mainly on IBM mainframe and IBM midrange computer operating systems.
+
+EBCDIC descended from the code used with punched cards and the corresponding 6-bit binary-coded decimal code used with most of IBM's computer peripherals of the late 1950s and early 1960s.
+61
+
+--- slide 62 ---
+ASCII & EBCDIC
+62
+
+--- slide 63 ---
+Quiz 3- Answer All Questions – 10mins
+Determine the  decimal value of the following hexadecimal value represented using IEEE Single precision format.
+				BE7BAC10h
+Represent   -82  using S-M, 1’s and 2’s Complement
+
+--- slide 64 ---
+REPRESENTATION OF GRAPHICAL OBJECTS
+
+--- slide 65 ---
+REPRESENTATION OF GRAPHICAL OBJECTS
+2 types of graphics can be represented
+Vector graphics
+Bitmap graphics
+Any graphic is made up from a series of pixels (Picture Elements). 
+Each pixel is an individual point on the screen
+65
+
+--- slide 66 ---
+BITMAP GRAPHICS
+66
+Assuming only black and white (1 or 0) for each pixel the image below would be stored as shown
+
+--- slide 67 ---
+Bitmap - Resolution
+67
+The quality of the image depends on the number of pixels
+More pixels means higher resolution and clearer image
+
+--- slide 68 ---
+Memory Storage for Graphical Object
+The image below is 4 inches x 6 inches. The resolution is 300 d.p.i. (dots per linear inch) and the image is black and white. Calculate the memory requirements
+68
+Length:    	6x300 = 1800 pixels
+Breadth:   	4x300 = 1200 pixels
+Total no pixels = 1800 x 1200
+		= 2,160,000 pixels
+ (1 or 0) means 1 bit per pixel
+Storage 	= 2,160,000 bits
+		= 270,000 bytes
+		= 263.4 KBytes
+
+--- slide 69 ---
+Vector Graphics
+Each Image is made from objects (line,rect,circle)
+Every object has ATTRIBUTES which define it
+To draw the rectangle below we need to know:
+69
+Start  X and Y coordinates
+The length
+The breadth
+The thickness and colour of the lines
+The type of line (dashed)
+The fill colour
+
+--- slide 70 ---
+70
+
+--- slide 71 ---
+Vector vs Bit-Mapped Graphics
+Advantages of vector graphics (draw packages)
+
+Images can be enlarged without losing resolution
+Objects can be edited by changing their attributes
+Objects can be layered on top/behind
+Images take up less disc space
+Ideal for drawing plans; use library of objects
+
+Advantages of bit-mapped graphics (paint packages)
+
+Each pixel can be altered
+More realistic when used for photos/real life
+71
+
+--- slide 72 ---
+HOME WORK
+Write '-89' in S-M, 1’s  and 2’s Complements representations, using an 8-bit register.
+Give the range of possible numbers which can be represented in a 16-bit register, using the S-M method. i.e. from ……. to …..… 
+What is the value of 101110112  in S-M, 1’s , 2’s Complement?
+Represent  23.510 in IEEE Single Precision format. Express your answer in Hexadecimal (base 16).
+72
+
+--- slide 73 ---
+END OF UNIT 2
+73
+
+(deck has 73 slides)

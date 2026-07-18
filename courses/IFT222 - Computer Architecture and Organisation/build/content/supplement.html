@@ -1,0 +1,109 @@
+<!-- ===================== SUPPLEMENT (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Supplement</div>
+  <h1>Digital Logic and<br>Boolean Algebra</h1>
+  <div class="blurb">The gates and algebra beneath every processor. This material is not
+  a unit of the current course outline, but older past papers set questions on it, so it
+  is taught here to a full pass in case your paper does.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans Mono" font-size="16">
+      <text x="0" y="34" fill="#33566e">F = AB + AC + BC</text>
+      <text x="270" y="34" fill="#8a919b">=</text>
+      <text x="300" y="34" fill="#6d28d9">majority(A,B,C)</text>
+      <rect x="0" y="52" width="520" height="1.4" fill="#c9b6f2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== S.1 ===================== -->
+<section>
+<div class="kick">Supplement &middot; S.1</div>
+<h2 class="title">Boolean Algebra and K-maps</h2>
+<hr class="rule">
+<p class="lead">Simplifying logic expressions, by algebra and by Karnaugh map, and turning
+them into gate circuits.</p>
+
+<div class="box trap"><div class="bar"><span>Not in the current syllabus</span></div>
+<div class="body"><p>The 2024/25 and 2025/26 papers do <b>not</b> ask Boolean algebra or
+K-maps. Older papers (2020/21, 2023/24) do. Learn this only after the graded topics are
+secure; it is here so no past question is left unanswerable.</p></div></div>
+
+<h3 class="sub">The operations and the laws</h3>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Boolean basics</span></div>
+<div class="body"><p>Three operations: <b>AND</b> (written as a product, AB, true only if
+both), <b>OR</b> (written as a sum, A+B, true if either), and <b>NOT</b> (written A' or
+A with a bar, the opposite). The useful laws for simplifying:</p>
+<ul class="bul">
+<li><b>Identity:</b> A + 0 = A, A &#183; 1 = A. &nbsp; <b>Null:</b> A + 1 = 1, A &#183; 0 = 0.</li>
+<li><b>Complement:</b> A + A' = 1, A &#183; A' = 0.</li>
+<li><b>Absorption:</b> A + AB = A, and A + A'B = A + B.</li>
+<li><b>De Morgan:</b> (AB)' = A' + B', and (A + B)' = A'B'.</li>
+</ul></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+<div class="body"><p>Simplify F = A'BC + AB'C + ABC' + ABC by algebra.</p>
+<ol class="steps">
+<li>Group the last two by AB: ABC' + ABC = AB(C' + C) = AB.</li>
+<li>Take ABC again (it can be reused) with AB'C by AC: AB'C + ABC = AC(B' + B) = AC.</li>
+<li>Take ABC again with A'BC by BC: A'BC + ABC = BC(A' + A) = BC.</li>
+<li>So F = AB + AC + BC.</li>
+</ol>
+<div class="answerbox">F = AB + AC + BC. This is the <b>majority function</b>: it is 1
+when at least two of A, B, C are 1.</div>
+<p class="redo"><b>Now redo it:</b> the trick is that a minterm may be reused in more
+than one group. That is exactly what a K-map makes visual, next.</p>
+</div></div>
+
+<h3 class="sub">The Karnaugh map</h3>
+<p>A K-map arranges the truth table so that cells differing in one variable are
+neighbours. Circle groups of 1s in powers of two (1, 2, 4, 8), as large as possible; each
+group drops the variable that changes across it. The circled groups, ORed together, are
+the simplified expression.</p>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+<div class="body"><p>Simplify the same F on a 3-variable K-map (rows A, columns BC in
+Gray-code order). F = 1 at minterms 3, 5, 6, 7.</p>
+<figure>
+<svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="11">
+  <g text-anchor="middle" fill="#67707a">
+    <text x="90" y="20">00</text><text x="140" y="20">01</text><text x="190" y="20">11</text><text x="240" y="20">10</text>
+    <text x="45" y="20">BC</text>
+    <text x="45" y="55">A=0</text><text x="45" y="105">A=1</text>
+  </g>
+  <g fill="none" stroke="#c8ccd2">
+    <rect x="65" y="30" width="50" height="40"/><rect x="115" y="30" width="50" height="40"/>
+    <rect x="165" y="30" width="50" height="40"/><rect x="215" y="30" width="50" height="40"/>
+    <rect x="65" y="80" width="50" height="40"/><rect x="115" y="80" width="50" height="40"/>
+    <rect x="165" y="80" width="50" height="40"/><rect x="215" y="80" width="50" height="40"/>
+  </g>
+  <g text-anchor="middle" font-size="13" fill="#1e2830">
+    <text x="90" y="55">0</text><text x="140" y="55">0</text><text x="190" y="55">1</text><text x="240" y="55">0</text>
+    <text x="90" y="105">0</text><text x="140" y="105">1</text><text x="190" y="105">1</text><text x="240" y="105">1</text>
+  </g>
+  <g fill="none" stroke-width="2">
+    <rect x="160" y="26" width="60" height="98" rx="8" stroke="#b45309"/>
+    <rect x="111" y="76" width="108" height="48" rx="8" stroke="#15803d"/>
+    <rect x="161" y="76" width="108" height="48" rx="8" stroke="#0e7490"/>
+  </g>
+</svg>
+<figcaption>Three pairs: BC (amber, both rows), AC (green), AB (teal). F = AB + AC + BC.</figcaption>
+</figure>
+<div class="answerbox">The three circled pairs give BC, AC and AB, so F = AB + AC + BC,
+the same answer as the algebra, reached by eye.</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">From expression to circuit</span></div>
+<div class="body"><p>To draw the logic circuit for F = AB + AC + BC: one <b>AND</b> gate
+per product term (AB, AC, BC), then one <b>OR</b> gate combining the three AND outputs
+into F. A sum-of-products expression always becomes a layer of AND gates feeding one OR
+gate. <b>Don't-care</b> outputs (marked d or X) may be treated as 0 or 1, whichever makes
+a larger group, so use them to simplify further.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">On a K-map, what does a group of two adjacent 1s tell you,
+and why circle the largest groups?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>A group of two drops the one variable that changes across it, leaving a product of the
+rest. Larger groups drop more variables, giving fewer and simpler terms, so always circle
+the biggest power-of-two groups you can.</p></div></div>
+</section>

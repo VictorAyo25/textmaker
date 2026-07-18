@@ -1,0 +1,133 @@
+<!-- ===================== MODULE THREE (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Module Three</div>
+  <h1>Computer Memory<br>Organization</h1>
+  <div class="blurb">Memory is a hierarchy: a little fast storage close to the processor,
+  a lot of slow storage far away, and the art of keeping the data you need in the fast
+  part. Cache is where this module earns its marks, and cache is all over the recent
+  papers.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="DejaVu Sans" font-size="12" fill="#33566e" text-anchor="middle">
+        <polygon points="220,14 260,14 300,90 180,90" fill="#f4f0fe" stroke="#6d28d9" stroke-width="1.4"/>
+        <text x="240" y="34">registers</text>
+        <text x="240" y="56">cache</text>
+        <text x="240" y="78">RAM</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#8a919b">
+        <text x="330" y="30">faster, smaller, costlier</text>
+        <text x="330" y="84">slower, bigger, cheaper</text>
+      </g>
+      <line x1="315" y1="14" x2="315" y2="90" stroke="#c9b6f2" stroke-width="1.2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== M3 UNIT 1 ===================== -->
+<section>
+<div class="kick">Module Three &middot; Unit 1</div>
+<h2 class="title">Computer Memory Overview</h2>
+<hr class="rule">
+<p class="lead">Why memory is built as a hierarchy, how memory is accessed, and the
+principle of locality that makes the whole scheme work.</p>
+<p class="lo">By the end of this unit you can describe the memory hierarchy and the four
+access methods, and explain locality of reference, including temporal and spatial
+locality. The recurring exam questions of this type are answered here.</p>
+
+<h3 class="sub">The memory hierarchy</h3>
+<p>No single memory is both fast and large and cheap. So computers use several,
+arranged in a hierarchy: fast, small, expensive memory near the CPU, backed by slower,
+larger, cheaper memory further away. Data moves up the hierarchy when it is needed and
+down when it is not.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The hierarchy</span></div>
+<div class="body"><p>From fastest and smallest to slowest and largest:
+<b>registers, cache (L1, L2, L3), main memory (RAM), secondary storage (disk, SSD),
+tertiary (tape).</b></p>
+<p><b>Memory hook:</b> as you go down, everything grows except speed and cost per byte:
+<b>bigger, slower, cheaper</b>. As you go up: <b>smaller, faster, dearer</b>.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Access methods</span></div>
+<div class="body"><ul class="bul">
+<li><b>Sequential:</b> read from the start in order until you reach the item (magnetic
+tape). Slow, access time depends on position.</li>
+<li><b>Direct:</b> jump near the item, then search a small region (disk: seek the
+track, then read round it).</li>
+<li><b>Random:</b> any location takes the same time to reach, by its address (RAM).</li>
+<li><b>Associative:</b> located by content, not address; all locations checked at once
+(used inside cache to find a tag). Fastest, most expensive.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Characteristics and vocabulary of memory</span></div>
+<div class="body"><p>Memory is described by four <b>characteristics</b>: its <b>location</b>
+(registers, cache, main, external), its <b>access method</b> (above), its
+<b>performance</b> (access time and transfer rate), and its <b>capacity</b>. The units of
+capacity, smallest first:</p>
+<ul class="bul">
+<li><b>Bit</b>, one 0 or 1. A <b>nibble</b> is 4 bits; a <b>byte</b> is 8 bits.</li>
+<li><b>Cell</b>, one addressable location (often a byte); an <b>address</b> names one cell.</li>
+<li><b>Word</b>, the natural unit the CPU works on (say 32 or 64 bits).</li>
+<li><b>Block</b>, the unit moved between levels (several words), the key idea for cache.</li>
+</ul>
+<p>If a memory holds 2<sup>n</sup> words with K words per block, it has
+<b>M = 2<sup>n</sup> / K</b> blocks, and needs an <b>n-bit address</b>.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: sizing a memory</span></div>
+<div class="body"><p>How many bits does a <b>4 MB</b> byte-addressable memory hold, and how
+many address lines does it need?</p>
+<ol class="steps">
+<li>4 MB = 4 &#215; 1024 &#215; 1024 = 4 194 304 bytes.</li>
+<li>Bits: 4 194 304 &#215; 8 = 33 554 432 bits &#8776; <b>33.5 million bits</b>.</li>
+<li>Address lines: 4 194 304 = 2<sup>22</sup> cells, so <b>22</b> address lines.</li>
+</ol>
+<div class="answerbox">A 4 MB memory = 4 194 304 bytes = 33 554 432 bits (&#8776; 33.5 Mbit),
+addressed by 22 lines (2<sup>22</sup> = 4 194 304).</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Locality of reference</span></div>
+<div class="body"><p>Cache works because real programs do not touch memory randomly.
+They obey the <b>principle of locality of reference</b>: over any short period, memory
+accesses cluster in a small area. It has two forms:</p>
+<ul class="bul">
+<li><b>Temporal locality:</b> a location just used is likely to be used again soon (a
+loop counter, a variable). So keep recently used data close.</li>
+<li><b>Spatial locality:</b> a location near one just used is likely to be used soon
+(the next array element, the next instruction). So fetch neighbours together, a whole
+block at a time.</li>
+</ul>
+<p>These are exactly why cache stores <b>recently used blocks</b> (temporal) and stores
+data in <b>blocks of neighbours</b> (spatial).</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q5c &middot; PQ 24/25 Q2b &middot; PQ 23/24 Q3c</span></div>
+<div class="body"><p>Explain locality of reference, and distinguish temporal from spatial
+locality.</p>
+<div class="answerbox">Locality of reference is the tendency of a program to access a
+small, predictable set of memory locations during any short period. Temporal locality:
+a location accessed now is likely to be accessed again soon (so cache keeps recently
+used items). Spatial locality: locations near one just accessed are likely to be
+accessed soon (so cache fetches a whole block of neighbouring words at once).</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: why the hierarchy pays</span></div>
+<div class="body"><p>A two-level store has a fast level (1000 words, access 0.01 &#181;s) and
+a slow level (100 000 words, access 0.1 &#181;s). If 95% of accesses are found in the fast
+level, what is the average access time?</p>
+<ol class="steps">
+<li>Hit (95%): the word is in the fast level, costing 0.01 &#181;s.</li>
+<li>Miss (5%): pay the fast level, then the slow level: 0.01 + 0.1 = 0.11 &#181;s.</li>
+<li>Average = 0.95 &#215; 0.01 + 0.05 &#215; 0.11 = 0.0095 + 0.0055 = <b>0.015 &#181;s</b>.</li>
+</ol>
+<div class="answerbox">Average access time = 0.95(0.01) + 0.05(0.11) = <b>0.015 &#181;s</b>,
+close to the fast level's 0.01 &#181;s and far below the slow level's 0.1 &#181;s. That
+gap, bought by a high hit rate, is the whole reason for the hierarchy. The same formula
+scales to any two levels (see average memory access time, AMAT, in Unit 3).</div>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A loop repeatedly reads the same counter and steps through
+an array. Which kind of locality does each show?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>The repeated counter is <b>temporal</b> locality (same location, used again and
+again). Stepping through the array is <b>spatial</b> locality (successive nearby
+locations).</p></div></div>
+</section>
