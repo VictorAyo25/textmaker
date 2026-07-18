@@ -1,0 +1,263 @@
+/* ============================================================
+   DTS224 - Data Management I : study manual stylesheet
+   Box grammar inherited from the PHY121 / CSC241 build; palette is
+   this course's own (slate + emerald, a databases theme).
+
+   Reserved colour: emerald #059669 means MUST MEMORISE and nothing
+   else. It never appears as decoration. SQL and relational-algebra
+   listings use indigo, kept clear of the reserved green.
+   ============================================================ */
+/* SCALE NOTE: every pt length below is a 9.6pt-base design grown by 10.5/9.6
+   (about 1.094x) for readability, so the odd-looking sizes (18.1pt, 8.4pt ...)
+   are one uniform scale, not arbitrary values. Held fixed against the scale:
+   the code specimens keep their size AND padding so a 90-column line still
+   fits (pre.code/.repl/.out, table.trace, .answerbox), the cover is a fixed
+   full-bleed design, and @page is the sheet of paper. To rescale, do not hand
+   edit: re-run the base sheet through the scale so the ratios stay coherent. */
+
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Italic.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-BoldItalic.ttf'); font-weight:bold; font-style:italic; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Oblique.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Oblique.ttf'); font-weight:normal; font-style:italic; }
+
+:root{
+  --ink:#263238; --head:#18232b; --muted:#5b6b73; --faint:#889098;
+  --teach:#1d4ed8;      --teach-bg:#eef3ff;
+  --code:#4338ca;       --code-bg:#f2f2fc;   --code-ink:#1e1b4b;   /* SQL / rel-algebra: indigo */
+  --work:#b45309;       --work-bg:#fdf6ec;
+  --trap:#b91c1c;       --trap-bg:#fdefef;
+  --dry:#475569;        --dry-bg:#f4f6f9;
+  --mem:#059669;        --mem-bg:#ecfdf5;    --mem-bg2:#c7f0dd;  --mem-ink:#064e3b;  /* RESERVED emerald */
+  --recall:#3f5560;     --recall-bg:#ffffff;
+  --fill:#7c3aed;       --fill-bg:#f5f0fe;
+  --qpaper:#18232b;     --qpaper-bg:#ffffff;
+  --ans:#0e7490;        --ans-bg:#eff9fb;                          /* teal, clear of the reserved green */
+  --rule:#d7dbe2;
+}
+
+@page{ size:A4; margin:19mm 18mm 16mm 18mm; }
+
+*{ box-sizing:border-box; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'DejaVu Serif', serif;
+  color:var(--ink);
+  font-size:10.5pt;
+  line-height:1.42;
+  margin:0;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+p{ margin:.42em 0; }
+b,strong{ font-weight:bold; }
+sub,sup{ font-size:.72em; }
+
+/* ---------- part / module divider ---------- */
+/* A divider owns its page. Without break-after the next unit's heading drops
+   into whatever space is left below the divider and is stranded there, its own
+   text starting overleaf. min-height alone does not prevent it: it leaves just
+   enough room for a heading to squeeze in. */
+.part{ page-break-before:always; page-break-after:always; break-after:page;
+  padding-top:32mm; min-height:248mm; }
+.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:12pt;
+  color:var(--teach); font-weight:bold; text-transform:uppercase; }
+.part h1{ font-family:'DejaVu Serif',serif; font-size:37.2pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
+.part .blurb{ font-style:italic; color:var(--muted); font-size:12pt; max-width:74%; line-height:1.5; }
+.divider-motif{ margin-top:24mm; opacity:.95; }
+.divider-motif svg{ width:82%; height:auto; }
+
+/* ---------- section header ---------- */
+section{ page-break-inside:auto; }
+.kick{ font-family:'DejaVu Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-size:8.3pt; font-weight:bold; color:var(--muted); margin-top:2.2pt;
+  page-break-after:avoid; break-after:avoid; }
+h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:18pt; color:var(--head);
+  margin:.1em 0 .18em; line-height:1.12;
+  page-break-after:avoid; break-after:avoid; page-break-inside:avoid; }
+.title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
+  page-break-after:avoid; break-after:avoid; }
+.lead{ font-style:italic; color:var(--muted); font-size:10.5pt; margin:.2em 0 .7em; }
+.lo{ font-size:9.8pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
+h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:12.7pt;
+  color:var(--head); margin:1.05em 0 .5em; line-height:1.25; page-break-after:avoid; }
+h3.sub:first-child{ margin-top:0; }
+
+/* ---------- generic box ---------- */
+.box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
+.box > .bar{
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
+  letter-spacing:.14em; font-size:8.4pt; color:#fff; padding:6pt 9.8pt; line-height:1.2;
+  display:flex; justify-content:flex-start; align-items:center;
+}
+.box .bar .tag{ font-size:7.4pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
+  padding:2.2pt 6.6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
+.box .body{ padding:7.7pt 10.9pt 8.8pt; }
+.box .body > :first-child{ margin-top:0; }
+.box .body > :last-child{ margin-bottom:0; }
+
+.teach  > .bar{ background:var(--teach); }   .teach  .body{ background:var(--teach-bg); }
+.code   > .bar{ background:var(--code);  }   .code   .body{ background:var(--code-bg); }
+.trap   > .bar{ background:var(--trap);  }   .trap   .body{ background:var(--trap-bg); }
+.work   > .bar{ background:var(--work);  }   .work   .body{ background:var(--work-bg); }
+.dry    > .bar{ background:var(--dry);   }   .dry    .body{ background:var(--dry-bg); }
+.recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
+.fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+
+/* an exam question, reproduced as a paper: plain, no teaching colour */
+.qpaper > .bar{ background:var(--qpaper); }
+.qpaper .body{ background:var(--qpaper-bg); }
+.qpaper{ border-color:#b9c0cc; }
+.qpaper .body > p{ margin:.5em 0; }
+
+/* a worked answer to an exam question */
+.ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
+/* A box is one idea, so it does not get cut across a page turn. These two used
+   to say break-inside:auto, on the theory that a whole question or a long answer
+   is taller than a page and would be futile to keep together. Measured, that was
+   wrong: it cut 30 boxes that would have fit whole and only 1 that had to split.
+   avoid is best effort, so the genuinely oversized box still splits by itself. */
+.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
+.ans .marks:first-child{ margin-top:0; }
+
+/* MUST MEMORISE: the reserved hue. Yellow needs dark ink, not white. */
+.mem    > .bar{ background:var(--mem); color:var(--mem-ink); }
+.mem    .body{ background:var(--mem-bg); }
+.mem    { border-color:#e8c53a; }
+.mem .bar .tag{ background:rgba(0,0,0,.14); color:var(--mem-ink); }
+.mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* filled circle */
+.trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* warning sign */
+
+/* ---------- code, the spine of this manual ----------
+   Every code block is monospace, always. The source manual sets some code in a
+   proportional font, which makes its column-alignment examples meaningless.
+   That is a defect we do not inherit. */
+pre.code, pre.repl, pre.out{
+  font-family:'DejaVu Sans Mono', monospace;
+  font-size:8.7pt; line-height:1.38;
+  margin:.4em 0; padding:6pt 9pt;
+  white-space:pre; overflow-wrap:normal;
+  background:#fff; border:1px solid #dbe6e0; border-left:3px solid var(--code);
+  break-inside:avoid; tab-size:4;
+}
+pre.repl{ border-left-color:var(--teach); border-color:#dae3ee; }
+pre.out{ border-left-color:var(--dry); border-color:#dfe3ea; background:#f7f8fa; color:#20262f; }
+pre .c{ color:#6b7280; font-style:italic; }        /* comment */
+pre .k{ color:#4338ca; font-weight:bold; }         /* SQL keyword: indigo */
+pre .s{ color:#a15c00; }                            /* string literal: brown (clear of green) */
+pre .n{ color:#0e7490; }                            /* number: teal */
+pre .p{ color:#8a8f98; }                           /* prompt / relation name */
+pre .t{ color:#7c3aed; font-weight:bold; }          /* table / relation identifier: violet */
+pre .hl{ background:var(--mem-bg2); }              /* highlighted span */
+pre .bad{ background:#fbe0e0; }                    /* the broken bit */
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em;
+  background:#f3f5f7; padding:0.5pt 2.7pt; border-radius:2px; }
+.box .body code{ background:rgba(255,255,255,.7); }
+
+/* provenance chip: where a worked question comes from (past paper, test, deck) */
+.prov{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; font-weight:bold;
+  letter-spacing:.07em; text-transform:uppercase; background:var(--head); color:#fff;
+  padding:1.2pt 5.2pt; border-radius:2px; white-space:nowrap; }
+/* not-in-syllabus label: on a question or a piece of content outside the syllabus.
+   Amber, deliberately clear of the reserved emerald (must-memorise). */
+.offsyl{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; font-weight:bold;
+  letter-spacing:.06em; text-transform:uppercase; background:#fde68a; color:#713f12;
+  padding:1.2pt 5.2pt; border-radius:2px; border:1px solid #eab308; white-space:nowrap; }
+
+/* label strip above a code block */
+.codelabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.5pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); margin:.5em 0 -.2em; }
+
+/* a keystroke, never inline text that could be mistaken for code */
+.key{ font-family:'DejaVu Sans',sans-serif; font-size:7.9pt; font-weight:bold;
+  border:1px solid #b9c0cc; border-bottom-width:2px; border-radius:3px;
+  padding:0.5pt 3.8pt; background:#fff; color:var(--head); white-space:nowrap; }
+
+/* ---------- DRY RUN: the trace table ---------- */
+table.trace{ border-collapse:collapse; width:100%; font-size:8.4pt;
+  font-family:'DejaVu Sans Mono',monospace; margin:.35em 0; }
+table.trace th{ background:var(--dry); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:6.9pt;
+  text-align:left; padding:3.8pt 6.6pt; }
+table.trace td{ padding:3.1pt 6.6pt; border-bottom:1px solid #e3e7ee; vertical-align:top; }
+table.trace tr:nth-child(even) td{ background:#fff; }
+table.trace td.out{ color:var(--code); font-weight:bold; }
+
+/* ---------- worked example ---------- */
+.steps{ list-style:none; counter-reset:step; padding:0; margin:.3em 0 0; }
+.steps > li{ position:relative; padding-left:24.1pt; margin:.5em 0; break-inside:avoid; }
+.steps > li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; left:0; top:0; width:16.4pt; height:16.4pt; border-radius:50%;
+  background:var(--work); color:#fff; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  font-size:9.3pt; text-align:center; line-height:16.4pt;
+}
+.steps .note{ display:block; font-size:9.2pt; color:var(--muted); font-style:italic; margin-top:.15em; }
+.answerbox{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; background:#fff;
+  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5.5pt 8.8pt; margin:.5em 0; }
+.redo{ font-size:9.6pt; margin-top:.55em; }
+.redo b{ color:var(--work); }
+
+/* ---------- recall ---------- */
+.recall .q{ font-weight:bold; }
+.recall .cut{ border:0; border-top:1px dashed #b9c0cc; margin:.55em 0; }
+.recall .alabel, .fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); }
+.fill .blank{ display:inline-block; min-width:65.6pt; border-bottom:1.2px solid var(--fill); }
+.fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
+
+/* ---------- tables ---------- */
+table.data{ border-collapse:collapse; width:100%; font-size:9.7pt; margin:.4em 0; break-inside:avoid; }
+table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:8.1pt;
+  text-align:left; padding:4.9pt 7.7pt; }
+table.data td{ padding:4.4pt 7.7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
+table.data tr:nth-child(even) td{ background:#f7f8fa; }
+table.data td code, table.data th code{ background:none; padding:0; }
+
+/* ---------- misc ---------- */
+.bul{ margin:.3em 0 .3em 0; padding-left:0; list-style:none; }
+.bul li{ position:relative; padding-left:17.5pt; margin:.22em 0; }
+.bul li::before{ content:"\25B8"; position:absolute; left:2.2pt; color:var(--work); }
+.small{ font-size:9.3pt; color:var(--muted); }
+.callout-dark{ background:var(--head); color:#fff; padding:9.8pt 13.1pt; margin:.6em 0; break-inside:avoid; }
+figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
+figure svg{ max-width:100%; height:auto; }
+figcaption{ font-size:9pt; color:var(--muted); font-style:italic; margin-top:.35em; }
+ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
+ol.qlist li{ margin:.18em 0; padding-left:.15em; }
+/* The Contents links to an id on each .kick / .part .kicker, injected at build
+   time. There is deliberately no marker element to style: see contents.py. */
+
+/* ---- Contents ---- */
+.contents-page{ page-break-before:always; }
+.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:28.4pt; color:var(--head); margin:0 0 .1em; }
+.toc-note{ font-size:9.3pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
+.toc-part{ display:flex; align-items:baseline; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  text-transform:uppercase; letter-spacing:.06em; font-size:9.2pt; color:var(--teach); margin:.85em 0 .2em; }
+.toc-l1{ display:flex; align-items:baseline; font-size:10.4pt; color:var(--head); margin:.2em 0; }
+.toc-l2{ display:flex; align-items:baseline; font-size:10.1pt; color:var(--ink); margin:.12em 0 .12em 15.3pt; }
+.toc-label{ flex:0 1 auto; }
+.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5.5pt 3.3pt; min-width:13.1pt; }
+.toc-pg{ flex:0 0 auto; font-variant-numeric:tabular-nums; color:var(--muted); }
+.toc-part .toc-pg{ color:var(--teach); }
+.toc-link{ text-decoration:none; color:inherit; }
+
+/* ---- Cover ---- */
+.cover{ width:210mm; height:297mm; margin:0; position:relative; overflow:hidden;
+  background:#0f2027; color:#fff; }
+.cover .wash{ position:absolute; inset:0;
+  background:linear-gradient(140deg,#0f2027 0%,#153b40 50%,#0e7490 100%); }
+.cover .inner{ position:absolute; inset:0; padding:34mm 24mm; display:flex; flex-direction:column; }
+.cover .code{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:13pt;
+  color:var(--mem); font-weight:bold; }
+.cover h1{ font-family:'DejaVu Serif',serif; font-size:40pt; line-height:1.04; margin:.22em 0 .1em; color:#fff; }
+.cover .sub{ font-family:'DejaVu Serif',serif; font-style:italic; font-size:14pt; color:#c8d6e4; margin:.2em 0 0; }
+.cover .rulebar{ width:38mm; height:3pt; background:var(--mem); margin:9mm 0 7mm; }
+.cover .who{ font-family:'DejaVu Sans',sans-serif; font-size:10pt; color:#dbe6f2; letter-spacing:.05em; }
+.cover .motif{ margin-top:auto; opacity:.98; }

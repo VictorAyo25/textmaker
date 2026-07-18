@@ -1,0 +1,405 @@
+<!-- ===================== MODULE THREE DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Three</div>
+  <h1>Logical Design</h1>
+  <div class="blurb">The diagram becomes tables. This module gives you the vocabulary of the
+  relational model, the keys and integrity rules that hold it together, and the exact
+  procedure for turning any ER or EER diagram into a correct set of relations.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <g stroke="#059669" stroke-width="1.5">
+        <rect x="150" y="45" width="220" height="60"/>
+        <line x1="150" y1="67" x2="370" y2="67"/>
+        <line x1="223" y1="45" x2="223" y2="105"/>
+        <line x1="296" y1="45" x2="296" y2="105"/>
+      </g>
+      <g stroke="#1d4ed8" stroke-width="1.4" stroke-dasharray="4 3">
+        <line x1="80" y1="30" x2="150" y2="55"/>
+        <line x1="440" y1="30" x2="370" y2="55"/>
+      </g>
+      <circle cx="70" cy="26" r="9" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+      <circle cx="450" cy="26" r="9" stroke="#1d4ed8" stroke-width="1.4" fill="none"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== UNIT 1: RELATIONAL MODEL ===================== -->
+<section>
+  <div class="kick">Module Three &middot; Unit 1</div>
+  <h2 class="title">The Relational Model</h2>
+  <hr class="rule">
+  <p class="lead">A relation is a table, and that is nearly the whole idea. The marks are in
+  the precise vocabulary, the several kinds of key, and the two integrity rules, all of which
+  the examiner asks for by their exact names.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> define relation, tuple, attribute,
+  domain, degree, cardinality, and schema; distinguish super, candidate, primary, alternate,
+  and foreign keys; state the entity and referential integrity rules; and list the properties
+  of a well-formed relation.</p>
+
+  <h3 class="sub">1.1 The vocabulary</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Relational terms</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Term</th><th>Meaning</th><th>In a table</th></tr>
+        <tr><td><b>Relation</b></td><td>a table of related data</td><td>the whole table</td></tr>
+        <tr><td><b>Tuple</b></td><td>one record</td><td>a row</td></tr>
+        <tr><td><b>Attribute</b></td><td>a named property</td><td>a column</td></tr>
+        <tr><td><b>Domain</b></td><td>the set of allowed values for an attribute</td><td>a column's data type and range</td></tr>
+        <tr><td><b>Degree</b></td><td>number of attributes</td><td>number of columns</td></tr>
+        <tr><td><b>Cardinality</b></td><td>number of tuples</td><td>number of rows</td></tr>
+        <tr><td><b>Schema</b></td><td>the structure: relation name plus its attributes</td><td>the heading row, once</td></tr>
+      </table>
+      <p class="small">We write a schema as <code>STAFF(staffNo, fName, lName, branchNo)</code>
+      with the primary key <u>underlined</u>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 25/26 Q4a</span> &middot; <span class="prov">PQ 24/25 Q1a</span> &middot; <span class="prov">PQ 15/16 Q4a</span></span></div>
+    <div class="body">
+      <p><b>Q. Describe the relational data model; and define relation, relational algebra,
+      data model, attribute and tuple, domain, degree and cardinality.</b></p>
+      <p>The <b>relational data model</b> represents all data as a collection of
+      <b>relations</b> (two-dimensional tables of rows and columns), where relationships
+      between data are expressed by common values, not by pointers. A <b>relation</b> is a
+      table with named columns and unordered rows. <b>Relational algebra</b> is the set of
+      operations (select, project, join, and so on) used to query relations, covered in Module
+      Five. A <b>data model</b> is a collection of concepts for describing data, its
+      relationships, and its constraints. An <b>attribute</b> is a column; a <b>tuple</b> is a
+      row. A <b>domain</b> is the set of permitted values of an attribute. <b>Degree</b> is the
+      number of attributes; <b>cardinality</b> is the number of tuples.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.2 Keys</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The five keys</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Super key:</b> any set of attributes that uniquely identifies a tuple (may
+        include extra, unnecessary attributes).</li>
+        <li><b>Candidate key:</b> a minimal super key, one with no unnecessary attribute
+        removed. A relation may have several.</li>
+        <li><b>Primary key (PK):</b> the one candidate key chosen to identify tuples. Cannot be
+        null.</li>
+        <li><b>Alternate key:</b> a candidate key not chosen as the primary key.</li>
+        <li><b>Foreign key (FK):</b> an attribute in one relation whose values must match the
+        primary key of another (or be null); this is what links tables.</li>
+      </ul>
+      <p class="small">From here on, schema listings write <b>PK</b> for the primary key and
+      <b>FK</b> for a foreign key, so a relation such as <code>ROOM(roomNo, hotelNo, price)</code>
+      is annotated <code>PK roomNo, hotelNo &middot; FK hotelNo -&gt; HOTEL</code>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q5a</span> &middot; <span class="prov">PQ 23/24 Q1a</span> &middot; <span class="prov">PQ 25/26 Q6a</span></span></div>
+    <div class="body">
+      <p><b>Q. Define: primary key, candidate key, foreign key, super key, alternate key,
+      schema, tuple.</b></p>
+      <p>All are in the boxes above. Compact model answers: a <b>super key</b> uniquely
+      identifies a row but may carry spare attributes; a <b>candidate key</b> is a super key
+      with nothing spare; the <b>primary key</b> is the chosen candidate key and is never
+      null; an <b>alternate key</b> is a candidate key not chosen; a <b>foreign key</b> matches
+      a primary key elsewhere and links the two relations; a <b>schema</b> is a relation's
+      name and its attributes; a <b>tuple</b> is one row.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 15/16 Q2a</span></span></div>
+    <div class="body">
+      <p><b>Q. What is the relationship between a candidate key and a foreign key?</b></p>
+      <p>A candidate key uniquely identifies tuples <i>within</i> its own relation. A foreign
+      key <i>refers</i> from one relation to a candidate key (in practice the primary key) of
+      another. So a foreign key's whole purpose is to point at a candidate key elsewhere: the
+      candidate key is the target, the foreign key is the pointer, and referential integrity
+      is the rule that the pointer must always find its target.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.3 The two integrity rules</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Entity and referential integrity</span></div>
+    <div class="body">
+      <p><b>Entity integrity:</b> no part of a primary key may be null. (If it were, the row
+      could not be identified.)</p>
+      <p><b>Referential integrity:</b> every foreign-key value must either match an existing
+      primary-key value in the referenced relation, or be wholly null. (No row may point at a
+      row that does not exist.)</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 15/16 Q4b</span></span></div>
+    <div class="body">
+      <p><b>Q. Given Hotel(<u>hotelNo</u>, hotelName, city), Room(<u>roomNo, hotelNo</u>, type,
+      price), Booking(<u>hotelNo, guestNo, dateFrom</u>, dateTo, roomNo), Guest(<u>guestNo</u>,
+      guestName, guestAddress): (i) identify the foreign keys; (ii) explain how entity and
+      referential integrity apply; (iii) give sample rows that observe integrity.</b></p>
+      <p class="marks">(i) Foreign keys</p>
+      <p>Room.hotelNo references Hotel.hotelNo. Booking.hotelNo references Hotel.hotelNo,
+      Booking.guestNo references Guest.guestNo, and Booking.(roomNo, hotelNo) references
+      Room.(roomNo, hotelNo).</p>
+      <p class="marks">(ii) The rules here</p>
+      <p><b>Entity integrity:</b> no Hotel may have a null hotelNo; no Booking may have a null
+      in any of hotelNo, guestNo, or dateFrom (its composite primary key). <b>Referential
+      integrity:</b> a Booking's hotelNo must be a hotel that exists, its guestNo a guest that
+      exists, and its (roomNo, hotelNo) a room that exists.</p>
+      <p class="marks">(iii) Sample rows that observe integrity</p>
+      <div class="codelabel">Hotel</div>
+<pre class="code">hotelNo  hotelName    city
+H1       Grand        London
+H2       Bayview      Glasgow</pre>
+      <div class="codelabel">Guest, Room, Booking (each FK matches a row above)</div>
+<pre class="code">Guest:   G1  John Kay  London
+Room:    R1  H1  single  60.00
+Booking: H1  G1  2026-01-10  2026-01-12  R1</pre>
+      <p class="small">The Booking is legal because H1 is a real hotel, G1 a real guest, and
+      (R1, H1) a real room. Change any one to a value not shown above and referential
+      integrity is broken.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.4 What makes a relation well-formed</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q2b</span> six properties of a good relation</span></div>
+    <div class="body">
+      <p><b>Q. List six properties that define a well-structured relation.</b></p>
+      <ol class="qlist">
+        <li>Each <b>cell holds a single value</b> (the relation is atomic, no repeating
+        groups).</li>
+        <li>Each <b>attribute has a distinct name</b>.</li>
+        <li>All values in an <b>attribute come from the same domain</b>.</li>
+        <li>The <b>order of attributes is irrelevant</b>.</li>
+        <li>The <b>order of tuples is irrelevant</b>.</li>
+        <li>Every <b>tuple is unique</b> (no two identical rows; guaranteed by the primary
+        key).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Degree vs cardinality of a relation?</p>
+      <p class="q">2. Difference between a candidate key and a super key?</p>
+      <p class="q">3. What is an alternate key?</p>
+      <p class="q">4. State the entity integrity rule.</p>
+      <p class="q">5. A foreign key value may be one of two things. Which?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Degree = number of columns; cardinality = number of rows. 2. A
+      candidate key is a super key with no spare attributes. 3. A candidate key not chosen as
+      primary. 4. No part of a primary key may be null. 5. Matching an existing primary key, or
+      wholly null.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UNIT 2: TRANSFORMING TO LOGICAL DESIGN ===================== -->
+<section>
+  <div class="kick">Module Three &middot; Unit 2</div>
+  <h2 class="title">From Conceptual to Logical Design</h2>
+  <hr class="rule">
+  <p class="lead">The mechanical step every year: an ER or EER diagram is handed to you and
+  you turn it into relations. There is a fixed set of rules; learn them and the question
+  becomes bookkeeping.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> map entities, every kind of
+  relationship, multivalued attributes, and supertype/subtype structures into relations with
+  correct primary and foreign keys.</p>
+
+  <h3 class="sub">2.1 The mapping rules</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">ER to relations</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Each strong entity</b> becomes a relation; its identifier becomes the primary
+        key.</li>
+        <li><b>A one-to-many relationship</b> puts the primary key of the "one" side into the
+        "many" side as a foreign key.</li>
+        <li><b>A many-to-many relationship</b> becomes its own relation, whose primary key is
+        the two entities' keys together, plus any relationship attributes.</li>
+        <li><b>A one-to-one relationship</b> puts the key of one side into the other as a
+        foreign key (usually on the optional side).</li>
+        <li><b>A multivalued attribute</b> becomes its own relation, keyed by the entity's key
+        plus the attribute.</li>
+        <li><b>A weak entity</b> becomes a relation whose primary key includes the identifying
+        owner's key.</li>
+        <li><b>A supertype/subtype</b> maps either to one relation with all attributes (plus a
+        type flag), or to a relation per subtype sharing the supertype's key. The common
+        choice: one relation for the supertype and one per subtype, each subtype keyed by the
+        supertype's key.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">2.2 Worked: employee, certificate, course</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 19/20 Q1c</span></span></div>
+    <div class="body">
+      <p>Transform to a relational schema showing referential integrity: EMPLOYEE (Employee
+      ID, Employee Name, Birth Date) earns, through the associative entity CERTIFICATE
+      (Certificate Number, Date Completed), a COURSE (Course ID, Course Title, Topic). An
+      employee earns many certificates; each certificate is for one course.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <p>Two strong entities become relations. CERTIFICATE is an associative entity between
+      EMPLOYEE and COURSE, so it becomes a relation carrying both foreign keys.</p>
+<pre class="code">EMPLOYEE(EmployeeID, EmployeeName, BirthDate)
+   PK EmployeeID
+
+COURSE(CourseID, CourseTitle, Topic)
+   PK CourseID
+
+CERTIFICATE(CertificateNumber, DateCompleted, EmployeeID, CourseID)
+   PK CertificateNumber
+   FK EmployeeID -> EMPLOYEE
+   FK CourseID   -> COURSE</pre>
+      <p class="small">Referential integrity: every EmployeeID and CourseID in CERTIFICATE must
+      match a real EMPLOYEE and COURSE.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.3 Worked: the bank card (an EER with subtypes)</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 24/25 Q4b</span></span></div>
+    <div class="body">
+      <p>Transform the bank-card conceptual design to a logical design. CUSTOMER (Customer ID,
+      Name, Address) holds a CARD ACCOUNT (Account ID, Exp Date, Card Type). CARD ACCOUNT is a
+      disjoint supertype over DEBIT CARD (Bank No) and CREDIT CARD (Cur Bal). A CREDIT CARD is
+      billed through CHARGES (Charge Date, Charge Time, Amount) to a MERCHANT (Merch ID, Merch
+      Addr).</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <figure>
+        <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <g stroke="#1d4ed8" stroke-width="1.2" font-size="8" text-anchor="middle" font-weight="bold" fill="#1e3a8a">
+            <rect x="20" y="20" width="80" height="26" rx="2" fill="#eef3ff"/><text x="60" y="37">CUSTOMER</text>
+            <rect x="20" y="72" width="80" height="26" rx="2" fill="#eef3ff"/><text x="60" y="89">CARD ACCT</text>
+            <rect x="200" y="130" width="70" height="26" rx="2" fill="#fff"/><text x="235" y="147">DEBIT</text>
+            <rect x="300" y="130" width="70" height="26" rx="2" fill="#fff"/><text x="335" y="147">CREDIT</text>
+            <rect x="430" y="72" width="70" height="26" rx="2" fill="#fff"/><text x="465" y="89">MERCHANT</text>
+          </g>
+          <line x1="60" y1="46" x2="60" y2="72" stroke="#18232b" stroke-width="1.2"/>
+          <line x1="60" y1="98" x2="60" y2="112" stroke="#18232b" stroke-width="1.2"/>
+          <circle cx="60" cy="120" r="8" fill="#fff" stroke="#18232b" stroke-width="1.2"/><text x="60" y="124" text-anchor="middle" font-size="7" font-weight="bold" fill="#b91c1c">d</text>
+          <path d="M60 128 v6 h175 v-4 M60 128 v6 h275 v-4" fill="none" stroke="#18232b" stroke-width="1.1"/>
+          <rect x="360" y="95" width="60" height="24" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.3"/>
+          <text x="390" y="110" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#065f46">CHARGES</text>
+          <g stroke="#18232b" stroke-width="1.1" fill="none"><line x1="360" y1="120" x2="345" y2="130"/><line x1="420" y1="100" x2="440" y2="98"/></g>
+        </svg>
+        <figcaption>Figure 3.1. The given bank-card EER, redrawn: CARD ACCOUNT is a disjoint
+        supertype over DEBIT and CREDIT; CHARGES links CREDIT CARD to MERCHANT.</figcaption>
+      </figure>
+<pre class="code">CUSTOMER(CustomerID, Name, Address)          PK CustomerID
+CARD_ACCOUNT(AccountID, ExpDate, CardType, CustomerID)
+   PK AccountID   FK CustomerID -> CUSTOMER
+DEBIT_CARD(AccountID, BankNo)                PK AccountID  FK -> CARD_ACCOUNT
+CREDIT_CARD(AccountID, CurBal)               PK AccountID  FK -> CARD_ACCOUNT
+MERCHANT(MerchID, MerchAddr)                 PK MerchID
+CHARGES(AccountID, MerchID, ChargeDate, ChargeTime, Amount)
+   PK (AccountID, MerchID, ChargeDate)
+   FK AccountID -> CREDIT_CARD   FK MerchID -> MERCHANT</pre>
+      <p class="small">Each subtype becomes a relation sharing the supertype's key (AccountID).
+      CHARGES, a many-to-many with attributes, becomes its own relation.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.4 Worked: the university dining service</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 25/26 Q2d</span></span></div>
+    <div class="body">
+      <p>Transform the University Dining Service EER to relational schemas: MENU (Menu ID,
+      Description, Type) contains many DISH (Dish ID, Name, Prep Time, and a multivalued
+      Ingredient) and is served at EVENT (Event ID, Date, Location, Time). STAFF (Emp ID, Name,
+      Salary, multivalued Skill) work a WORK SCHEDULE (Start, End, Position) at events, and a
+      staff member supervises other staff.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <p>Entities become relations; the multivalued Ingredient and Skill each become their own
+      relation; the many-to-many "contains" and "served at" become relations; "supervises" is
+      a unary one-to-many, so a supervisor foreign key goes into STAFF.</p>
+<pre class="code">MENU(MenuID, Description, Type)      PK MenuID
+DISH(DishID, Name, PrepTime)         PK DishID
+DISH_INGREDIENT(DishID, Ingredient)  PK both, FK DishID -> DISH
+MENU_DISH(MenuID, DishID)            PK both  (contains, M:N)
+EVENT(EventID, Date, Location, Time) PK EventID
+MENU_EVENT(MenuID, EventID)          PK both  (served at, M:N)
+STAFF(EmpID, Name, Salary, SupervisorID)  PK EmpID, FK SupervisorID -> STAFF
+STAFF_SKILL(EmpID, Skill)            PK both, FK EmpID -> STAFF
+WORK_SCHEDULE(EmpID, EventID, Start, End, Position)
+   PK (EmpID, EventID), FK EmpID -> STAFF, FK EventID -> EVENT</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">2.5 Worked: vacation property (subtypes) and more</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 23/24 Q4c</span> &middot; <span class="prov">PQ 23/24 Q4b</span></span></div>
+    <div class="body">
+      <p><b>Vacation Property Rentals.</b> RENTER signs a RENTAL AGREEMENT which books a
+      PROPERTY; PROPERTY is a disjoint supertype over BEACH (Blocks to Beach) and MOUNTAINS
+      (Activity), and has a unary relationship on itself.</p>
+<pre class="code">RENTER(RenterID, FirstName, MI, LastName, Address, Phone)   PK RenterID
+RENTAL_AGREEMENT(AgreementID, BeginDate, EndDate, RenterID, PropertyID)
+   PK AgreementID  FK RenterID -> RENTER  FK PropertyID -> PROPERTY
+PROPERTY(PropertyID, Street, City, State, Zip, Rooms, BaseRate, PropertyType, NearbyID)
+   PK PropertyID   FK NearbyID -> PROPERTY   (the recursive link)
+BEACH_PROPERTY(PropertyID, BlocksToBeach)      PK PropertyID  FK -> PROPERTY
+MOUNTAINS_PROPERTY(PropertyID, Activity)       PK PropertyID  FK -> PROPERTY</pre>
+      <p><b>Patient and treatment (23/24 Q4b).</b> PHYSICIAN treats PATIENT through the
+      associative PATIENT TREATMENT, which references a TREATMENT catalogue.</p>
+<pre class="code">PHYSICIAN(PhysicianID, PhysicianName)          PK PhysicianID
+PATIENT(PatientID, PatientName)                PK PatientID
+TREATMENT(TreatmentCode, Description)          PK TreatmentCode
+PATIENT_TREATMENT(PatientID, PhysicianID, TreatmentCode, PTDate, PTTime, PTResults)
+   PK (PatientID, PhysicianID, PTDate)
+   FK PatientID -> PATIENT  FK PhysicianID -> PHYSICIAN  FK TreatmentCode -> TREATMENT</pre>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 20/21 mid Q1</span> &middot; <span class="prov">PQ 15/16 Q1d</span> convert ER to tables</span></div>
+    <div class="body">
+      <p>The general recipe applies to the Project/Organisation/Employee diagrams these
+      questions give. Work top-down through the mapping rules: every entity a relation, every
+      one-to-many a foreign key on the many side, every many-to-many a link relation, every
+      subtype a relation sharing the supertype key. For example, an ORGANISATION executes many
+      PROJECTs and employs many EMPLOYEEs, with a WorksFor link and a payment history:</p>
+<pre class="code">ORGANISATION(OrgID, Name, Address, City, State)   PK OrgID
+PROJECT(ProjectID, Name, Purpose, StartDate, EndDate, OrgID)
+   PK ProjectID   FK OrgID -> ORGANISATION            (Executes, 1:M)
+EMPLOYEE(SSN, Name, DOB, Address, City)            PK SSN
+WORKS_FOR(SSN, OrgID, Cost)                         PK (SSN, OrgID)
+   FK SSN -> EMPLOYEE  FK OrgID -> ORGANISATION       (WorksFor, M:N)</pre>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Where does the foreign key go in a one-to-many relationship?</p>
+      <p class="q">2. How is a many-to-many relationship mapped?</p>
+      <p class="q">3. How is a multivalued attribute mapped?</p>
+      <p class="q">4. How is a supertype with two subtypes usually mapped?</p>
+      <p class="q">5. A unary one-to-many (staff supervises staff): how is it mapped?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Into the "many" side, as a foreign key to the "one" side. 2. As its
+      own relation keyed by both entities' keys plus any relationship attributes. 3. As its own
+      relation keyed by the entity key plus the attribute. 4. One relation for the supertype
+      and one per subtype, each subtype keyed by the supertype's key. 5. A supervisor foreign
+      key added to the same relation, referencing its own primary key.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,293 @@
+<!-- ===================== MODULE FOUR DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Four</div>
+  <h1>Functional Dependencies<br>and Normalization</h1>
+  <div class="blurb">One table crammed with everything hides errors that only surface when you
+  insert, update, or delete. Normalization is the disciplined splitting of that table into
+  well-behaved relations, and it is the single most reliable source of marks on the paper.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <rect x="40" y="45" width="150" height="50" stroke="#b91c1c" stroke-width="1.5"/>
+      <line x1="40" y1="62" x2="190" y2="62" stroke="#b91c1c" stroke-width="1.5"/>
+      <path d="M200 70 h50" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <polyline points="244,64 252,70 244,76" stroke="#94a3b8" stroke-width="1.5"/>
+      <g stroke="#059669" stroke-width="1.5">
+        <rect x="280" y="30" width="90" height="34"/><line x1="280" y1="45" x2="370" y2="45"/>
+        <rect x="390" y="76" width="90" height="34"/><line x1="390" y1="91" x2="480" y2="91"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== UNIT 1: NORMALIZATION ===================== -->
+<section>
+  <div class="kick">Module Four &middot; Unit 1</div>
+  <h2 class="title">Normalization</h2>
+  <hr class="rule">
+  <p class="lead">A procedure with a fixed set of steps. You are given a table and its
+  functional dependencies; you produce a set of relations in third normal form, or Boyce-Codd
+  normal form, showing your working. Master one worked example and the rest are the same
+  moves.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> define full, partial, and transitive
+  functional dependencies; draw a functional-dependency diagram; and normalize any given
+  table to 3NF or BCNF, stating every step and the resulting relations.</p>
+
+  <h3 class="sub">1.1 Why: the update anomalies</h3>
+  <p>Put everything in one table and three faults appear. <b>Insertion anomaly:</b> you
+  cannot record a new property until someone inspects it, because inspection data shares the
+  row. <b>Update anomaly:</b> a staff member's name, repeated on every inspection row, must be
+  changed in every one or the copies disagree. <b>Deletion anomaly:</b> deleting the last
+  inspection of a property loses the property's address too. Normalization removes all three
+  by giving each fact one home.</p>
+
+  <h3 class="sub">1.2 Functional dependencies</h3>
+  <p>An attribute B is <b>functionally dependent</b> on A, written A &rarr; B, if each value of
+  A has exactly one value of B. A is the <b>determinant</b>. Three kinds are examined by
+  name:</p>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Three functional dependencies</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Full functional dependency:</b> B depends on the <i>whole</i> of a composite
+        determinant A, not on any part of it. (propertyNo, iDate) &rarr; iTime is full: you
+        need both.</li>
+        <li><b>Partial functional dependency:</b> B depends on only <i>part</i> of a composite
+        key. With key (propertyNo, iDate), propertyNo &rarr; pAddress is partial: pAddress
+        needs only propertyNo.</li>
+        <li><b>Transitive functional dependency:</b> B depends on the key only <i>through</i>
+        another non-key attribute. (propertyNo, iDate) &rarr; staffNo &rarr; sName makes sName
+        transitively dependent.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q3b</span> &middot; <span class="prov">PQ 23/24 Q3b</span> &middot; <span class="prov">PQ 25/26 Q1b</span> (determinant)</span></div>
+    <div class="body">
+      <p><b>Q. Explain full, partial, and transitive functional dependency with examples; and
+      explain a determinant.</b></p>
+      <p>A <b>determinant</b> is the attribute (or set of attributes) on the left of a
+      functional dependency, the thing that determines another. In fd propertyNo &rarr;
+      pAddress, propertyNo is the determinant. The three dependency types are in the box above;
+      the one-line hooks are: <b>full</b> needs the whole composite key, <b>partial</b> needs
+      only part of it, <b>transitive</b> reaches the key only through a non-key attribute.
+      (For 25/26's EMPLOYEE2, the determinants are EmpID &rarr; Name, DeptName, Salary, and
+      the composite (EmpID, CourseTitle) &rarr; DateCompleted, the only full dependency.)</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.3 The normal forms</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">1NF to BCNF</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>1NF (first normal form):</b> every cell holds a single value; no repeating
+        groups.</li>
+        <li><b>2NF (second normal form):</b> in 1NF, and no <b>partial</b> dependency (every
+        non-key attribute depends on the whole key).</li>
+        <li><b>3NF (third normal form):</b> in 2NF, and no <b>transitive</b> dependency (no
+        non-key attribute depends on another non-key attribute).</li>
+        <li><b>BCNF (Boyce-Codd normal form):</b> in 3NF, and <b>every determinant is a
+        candidate key</b>. The strictest of the four.</li>
+      </ul>
+      <p class="small">The pattern is always the same: 2NF removes partial dependencies, 3NF
+      removes transitive dependencies, BCNF removes any determinant that is not a candidate
+      key.</p>
+    </div>
+  </div>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q3a</span> &middot; <span class="prov">PQ 23/24 Q3a</span></span></div>
+    <div class="body">
+      <p><b>Q. What is normalization?</b> Normalization is a step-by-step process that
+      organises the attributes of a database into well-structured relations by removing
+      redundancy and the update, insertion, and deletion anomalies it causes, using functional
+      dependencies to decide how to split the tables.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.4 Worked in full: StaffPropertyInspection to 3NF</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 25/26 Q6</span> &middot; <span class="prov">PQ 24/25 Q3c</span></span></div>
+    <div class="body">
+      <p>Given StaffPropertyInspection(propertyNo, pAddress, iDate, iTime, comments, staffNo,
+      carReg, sName) with primary key (propertyNo, iDate): draw the FD diagram, explain
+      transitive dependency, and normalize to 3NF.</p>
+      <p class="small">FDs: fd1 (propertyNo, iDate) &rarr; iTime, comments, staffNo, carReg,
+      sName; fd2 propertyNo &rarr; pAddress; fd3 staffNo &rarr; sName; fd4 (staffNo, iDate)
+      &rarr; carReg.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <p class="marks">Functional-dependency diagram</p>
+      <figure>
+        <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans Mono" font-size="8.5">
+          <g fill="#18232b" text-anchor="middle">
+            <text x="55" y="70">propertyNo</text><text x="120" y="70">iDate</text>
+            <text x="180" y="70">iTime</text><text x="240" y="70">comments</text>
+            <text x="310" y="70">staffNo</text><text x="370" y="70">carReg</text>
+            <text x="425" y="70">sName</text><text x="480" y="70">pAddress</text>
+          </g>
+          <rect x="18" y="58" width="130" height="18" fill="none" stroke="#b91c1c" stroke-width="1.3"/>
+          <text x="83" y="52" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#b91c1c">primary key (full FD)</text>
+          <!-- fd1: PK -> iTime..carReg (arcs above) -->
+          <g stroke="#1d4ed8" stroke-width="1" fill="none">
+            <path d="M83 58 q50 -30 97 0"/><path d="M83 58 q80 -40 157 0"/>
+            <path d="M83 58 q120 -48 227 0"/><path d="M83 58 q150 -52 287 0"/>
+          </g>
+          <!-- fd2 partial: propertyNo -> pAddress (arc below) -->
+          <path d="M55 76 q200 60 425 6" stroke="#b45309" stroke-width="1" fill="none"/>
+          <text x="300" y="132" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#b45309">partial: propertyNo -&gt; pAddress</text>
+          <!-- fd3 transitive: staffNo -> sName (arc below) -->
+          <path d="M310 76 q57 34 115 4" stroke="#059669" stroke-width="1.1" fill="none"/>
+          <text x="368" y="112" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#059669">transitive: staffNo -&gt; sName</text>
+        </svg>
+        <figcaption>Figure 4.1. FD diagram. Blue arcs are the full dependency on the whole
+        key; the amber arc is the partial dependency (pAddress on propertyNo alone); the green
+        arc is the transitive dependency (sName on staffNo).</figcaption>
+      </figure>
+      <p><b>Transitive dependency</b> here: (propertyNo, iDate) determines staffNo, and staffNo
+      determines sName, so sName depends on the key only through staffNo. That is what 3NF
+      removes.</p>
+      <p class="marks">Step to 2NF (remove the partial dependency)</p>
+      <p>pAddress depends on propertyNo alone (part of the key), so lift it out:</p>
+<pre class="code">Property(propertyNo, pAddress)                          PK propertyNo
+PropertyInspection(propertyNo, iDate, iTime, comments, staffNo, carReg, sName)
+   PK (propertyNo, iDate)   FK propertyNo -> Property</pre>
+      <p class="marks">Step to 3NF (remove the transitive dependency)</p>
+      <p>sName depends on non-key staffNo, so lift staffNo &rarr; sName into its own relation:</p>
+<pre class="code">Property(propertyNo, pAddress)              PK propertyNo
+Staff(staffNo, sName)                       PK staffNo
+PropertyInspection(propertyNo, iDate, iTime, comments, staffNo, carReg)
+   PK (propertyNo, iDate)  FK propertyNo -> Property  FK staffNo -> Staff</pre>
+      <p class="small">Three relations, each fact in one place. carReg stays with the
+      inspection because it is identified by that inspection (propertyNo, iDate). This is the
+      final 3NF answer.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.5 Worked in full: Patient_Appointment to BCNF</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 20/21 Q2b</span> &middot; <span class="prov">PQ 19/20 Q3</span> &middot; <span class="prov">PQ 15/16 Q3</span> &middot; <span class="prov">DECK</span></span></div>
+    <div class="body">
+      <p>Patient_Appointment(StaffNo, DentistName, PNo, PName, ADate, ATime, SurgeonNo).
+      Determine the candidate keys and normalize to Boyce-Codd normal form. FDs: (PNo, ADate)
+      &rarr; StaffNo, ATime, DentistName, SurgeonNo; PNo &rarr; PName; StaffNo &rarr;
+      DentistName; (StaffNo, ADate) &rarr; SurgeonNo; (ADate, ATime, SurgeonNo) &rarr; PNo,
+      PName, StaffNo, DentistName; (StaffNo, ADate, ATime) &rarr; PNo, PName.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <p class="marks">Candidate keys</p>
+      <p>Three sets each determine every attribute: <b>(PNo, ADate)</b> [chosen as primary
+      key], <b>(ADate, ATime, SurgeonNo)</b>, and <b>(StaffNo, ADate, ATime)</b>.</p>
+      <p class="marks">To 2NF (remove partial dependency)</p>
+      <p>PNo &rarr; PName depends on part of the key (PNo, ADate), so lift it out:</p>
+<pre class="code">Patient(PNo, PName)                          PK PNo
+Appointment(PNo, ADate, StaffNo, ATime, DentistName, SurgeonNo)
+   PK (PNo, ADate)   FK PNo -> Patient</pre>
+      <p class="marks">To 3NF (remove transitive dependencies)</p>
+      <p>StaffNo &rarr; DentistName (non-key to non-key) and (StaffNo, ADate) &rarr; SurgeonNo
+      both violate 3NF. Lift each out:</p>
+<pre class="code">Patient(PNo, PName)                          PK PNo
+Staff(StaffNo, DentistName)                  PK StaffNo
+SurgeonAssign(StaffNo, ADate, SurgeonNo)     PK (StaffNo, ADate)
+Appointment(PNo, ADate, StaffNo, ATime)
+   PK (PNo, ADate)  FK PNo -> Patient  FK StaffNo -> Staff</pre>
+      <p class="marks">To BCNF (every determinant a candidate key)</p>
+      <p>Check each relation's determinants. Patient (PNo), Staff (StaffNo), SurgeonAssign
+      (StaffNo, ADate) are each keyed by their determinant. In Appointment, both (PNo, ADate)
+      and (StaffNo, ADate, ATime) are candidate keys, and they are the only determinants, so
+      every determinant is a candidate key. The four relations above are already in BCNF.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.6 Worked: Customer_renter, and a dependency-only question</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 23/24 Q3c</span> Customer_renter to 3NF</span></div>
+    <div class="body">
+      <p>Customer_renter(Customer_No, CName, Property_No, Paddress, RentStart, RentFinish,
+      Rent, Owner_No, OName), PK (Customer_No, Property_No). FDs: Customer_No &rarr; CName
+      (partial); Property_No &rarr; Paddress, Rent, Owner_No, OName (partial); Owner_No &rarr;
+      OName (transitive).</p>
+<pre class="code">Customer(Customer_No, CName)                 PK Customer_No
+Owner(Owner_No, OName)                        PK Owner_No
+Property(Property_No, Paddress, Rent, Owner_No)
+   PK Property_No   FK Owner_No -> Owner
+Rental(Customer_No, Property_No, RentStart, RentFinish)
+   PK (Customer_No, Property_No)
+   FK Customer_No -> Customer, FK Property_No -> Property</pre>
+      <p class="small">2NF lifts the two partial dependencies (CName on Customer_No, and the
+      property attributes on Property_No); 3NF lifts the transitive Owner_No &rarr; OName into
+      Owner.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 21/22 Q2c</span> R(A,B,C,D) to BCNF</span></div>
+    <div class="body">
+      <p><b>Q. R has attributes ABCD with FDs C &rarr; D, C &rarr; A, B &rarr; C. Find the
+      candidate key, the best normal form R is in, and decompose to BCNF.</b></p>
+      <p><b>Candidate key.</b> B determines C (given), C determines A and D, so B determines
+      A, C, D, hence B determines everything: <b>B is the sole candidate key</b>.</p>
+      <p><b>Best normal form.</b> Non-key attributes are A, C, D. B &rarr; C &rarr; A and B
+      &rarr; C &rarr; D are transitive dependencies, so R is not in 3NF. There is no partial
+      dependency (the key B is a single attribute), so R <b>is in 2NF but not 3NF</b>.</p>
+      <p><b>Decompose to BCNF.</b> The offending determinant is C (not a candidate key). Split
+      it off:</p>
+<pre class="code">R1(C, A, D)    PK C     (from C -> A, C -> D)
+R2(B, C)       PK B     FK C -> R1     (from B -> C)</pre>
+      <p class="small">Now every determinant (C in R1, B in R2) is a candidate key of its
+      relation, and the join of R1 and R2 on C reconstructs R, so the decomposition is
+      lossless and dependency-preserving.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 20/21 mid Q3</span> Wellmeadows &middot; <span class="prov">TEXT M4U1</span></span></div>
+    <div class="body">
+      <p><b>Wellmeadows patient-medication form (20/21 mid).</b> Same method: from the form,
+      the FDs are patientNo &rarr; patient details; drugNo &rarr; drug name, description; and
+      (patientNo, drugNo) &rarr; the prescription details. Normalizing to 3NF gives Patient,
+      Drug, and Prescription relations, with the prescription keyed by (patientNo, drugNo).</p>
+      <p><b>The course text's normalization exercises</b> (Pine Valley INVOICE, DreamHome
+      Customer_Rental) follow the identical UNF &rarr; 1NF &rarr; 2NF &rarr; 3NF path: remove
+      repeating groups, then partial dependencies, then transitive dependencies, ending in
+      CUSTOMER, PRODUCT, ORDER, ORDER_LINE (Pine Valley) or Customer, Property, Rental, Owner
+      (DreamHome).</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Partial vs transitive</span></div>
+    <div class="body">
+      <p>The examiner's favourite snare is labelling a dependency wrongly. A <b>partial</b>
+      dependency is on <i>part of the key</i>; a <b>transitive</b> dependency is on a
+      <i>non-key attribute</i>. If the determinant is a piece of the primary key, it is
+      partial (fix in 2NF). If the determinant is an ordinary attribute, it is transitive (fix
+      in 3NF). Read the determinant, not the dependent.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Which anomaly loses data when you delete a row?</p>
+      <p class="q">2. What does 2NF remove? 3NF? BCNF?</p>
+      <p class="q">3. staffNo is not part of the key; staffNo &rarr; sName. Partial or
+      transitive?</p>
+      <p class="q">4. Give the BCNF condition in one line.</p>
+      <p class="q">5. For R(ABCD) with B &rarr; C &rarr; A, C &rarr; D, what is the candidate
+      key?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. The deletion anomaly. 2. 2NF removes partial dependencies; 3NF
+      removes transitive dependencies; BCNF removes determinants that are not candidate keys.
+      3. Transitive (the determinant is a non-key attribute). 4. Every determinant is a
+      candidate key. 5. B.</p>
+    </div>
+  </div>
+</section>

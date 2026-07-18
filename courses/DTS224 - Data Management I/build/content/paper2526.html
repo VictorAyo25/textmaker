@@ -1,0 +1,210 @@
+<!-- ===================== WORKED PAPER 2025/2026 DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Worked Paper 2025/2026</div>
+  <h1>The 2025/2026 Paper,<br>Fully Worked</h1>
+  <div class="blurb">The most recent paper, the one whose shape the examination now follows,
+  solved from end to end. Answer Question One (compulsory) and any three others. Sit it
+  closed-book first; then read the working here.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <rect x="180" y="20" width="160" height="80" rx="3" stroke="#0e7490" stroke-width="1.5"/>
+      <line x1="180" y1="42" x2="340" y2="42" stroke="#0e7490" stroke-width="1.5"/>
+      <g stroke="#059669" stroke-width="1.4"><path d="M205 62 l10 10 l20 -24"/></g>
+      <g stroke="#059669" stroke-width="1.4"><path d="M205 82 l10 10 l20 -24"/></g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== Q1 to Q3 ===================== -->
+<section>
+  <div class="kick">Worked Paper 2025/2026</div>
+  <h2 class="title">Questions One to Three</h2>
+  <hr class="rule">
+  <p class="lead">Rubric: answer Question One (compulsory, 17&frac12; marks) and any three
+  others. Two hours. Every part below is solved; where a topic has a full treatment in the
+  modules, the answer is given here in exam-length form and the module is named.</p>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (a) and (b), compulsory</span></div>
+    <div class="body">
+      <p><b>(a) EER terms.</b> <b>Super type:</b> a generic entity type with one or more
+      subtypes (EMPLOYEE over HOURLY and SALARIED). <b>Specialisation:</b> the top-down process
+      of defining subtypes of a supertype. <b>Total specialisation:</b> every supertype
+      instance must belong to at least one subtype (double line). <b>Disjoint rule:</b> a
+      supertype instance may belong to at most one subtype (circle marked d). (Module Two, Unit
+      2.)</p>
+      <p><b>(b) Determinant, from EMPLOYEE2.</b> A determinant is the attribute on the left of
+      a functional dependency. In EMPLOYEE2(<u>EmpID</u>, <u>CourseTitle</u>, Name, DeptName,
+      Salary, DateCompleted):</p>
+      <figure>
+        <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans Mono" font-size="8.5">
+          <g fill="#18232b" text-anchor="middle">
+            <text x="55" y="55">EmpID</text><text x="130" y="55">CourseTitle</text>
+            <text x="215" y="55">Name</text><text x="285" y="55">DeptName</text>
+            <text x="360" y="55">Salary</text><text x="440" y="55">DateCompleted</text>
+          </g>
+          <rect x="20" y="44" width="150" height="16" fill="none" stroke="#b91c1c" stroke-width="1.2"/>
+          <text x="95" y="38" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#b91c1c">primary key</text>
+          <g stroke="#1d4ed8" stroke-width="1" fill="none">
+            <path d="M55 44 q80 -26 160 0"/><path d="M55 44 q115 -30 230 0"/><path d="M55 44 q150 -34 305 0"/>
+          </g>
+          <path d="M95 60 q170 44 345 6" stroke="#059669" stroke-width="1.1" fill="none"/>
+          <text x="270" y="108" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#059669">full: (EmpID, CourseTitle) -&gt; DateCompleted</text>
+        </svg>
+        <figcaption>Figure P.1. EMPLOYEE2. EmpID (partial determinant) &rarr; Name, DeptName,
+        Salary. The whole key (EmpID, CourseTitle) &rarr; DateCompleted is the only full
+        dependency.</figcaption>
+      </figure>
+      <p>Determinants: <b>EmpID</b> determines Name, DeptName, Salary (a partial dependency, on
+      part of the key); the composite <b>(EmpID, CourseTitle)</b> determines DateCompleted (the
+      full dependency). This is a partial-dependency situation, so the relation is not in 2NF.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (c): SQL over BRANCH / STAFF / PROPERTYFORRENT</span></div>
+    <div class="body">
+      <p>Solved in full at Module Five, Unit 2, section 2.4. The six statements:</p>
+<pre class="code">(i)   SELECT * FROM STAFF WHERE salary &gt; 100000 ORDER BY salary DESC;
+(ii)  SELECT branch_no, COUNT(*) FROM STAFF GROUP BY branch_no;
+(iii) SELECT branch_no, AVG(salary) FROM STAFF GROUP BY branch_no;
+(iv)  SELECT * FROM PROPERTYFORRENT WHERE rooms &gt; 3 AND rent &gt; 80000;
+(v)   SELECT p.property_no, p.type, p.rent, s.fName, s.lName
+      FROM PROPERTYFORRENT p JOIN STAFF s ON p.staff_no = s.staff_no;
+(vi)  SELECT branch_no FROM BRANCH
+      WHERE branch_no NOT IN (SELECT branch_no FROM STAFF);</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
+    <div class="body">
+      <p><b>(a) Two limitations of the file-based approach.</b> Data redundancy and
+      inconsistency (the same fact is stored and updated in several files); and program-data
+      dependence (a file's structure is coded into every program). (Module One, Unit 2.1.)</p>
+      <p><b>(b) DBMS.</b> The software that lets users define, create, maintain, and control
+      access to a database (MySQL, Oracle). (Module One, Unit 2.2.)</p>
+      <p><b>(c) Data abstraction, three levels.</b> Hiding storage detail, showing each user
+      only what they need: the <b>external</b> level (per-user views), the <b>conceptual</b>
+      level (all tables and relationships), and the <b>internal</b> level (physical storage).
+      (Module One, Unit 2.5.)</p>
+      <p><b>(d) Transform the University Dining EER.</b> Solved at Module Three, Unit 2.4:
+      MENU, DISH, DISH_INGREDIENT, MENU_DISH, EVENT, MENU_EVENT, STAFF (with a SupervisorID
+      foreign key), STAFF_SKILL, and WORK_SCHEDULE.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
+    <div class="body">
+      <p><b>(a) Database vs operating-system files.</b> (i) Choose a database, because it gives
+      one shared, consistent copy with concurrency control, and enforces integrity, security,
+      and data independence centrally, none of which loose files provide. (ii) Not worth it for
+      a small, single-user, single-application task with little data and a fixed structure,
+      where a full DBMS is pure overhead. (Module One, Units 2.1 and 2.7.)</p>
+      <p><b>(b) EER for a law firm.</b> Each CASE (caseNumber, dateOpened, dateClosed,
+      judgment) is brought by one or more plaintiffs and is against one or more defendants. A
+      plaintiff or defendant is a LEGAL ENTITY (entityNumber, name, netWorth), which is either
+      a PERSON or an ORGANISATION. Since the same entity can be plaintiff in some cases and
+      defendant in others, draw two many-to-many relationships between LEGAL ENTITY and CASE.</p>
+      <figure>
+        <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <rect x="30" y="90" width="130" height="46" rx="2" fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.4"/>
+          <text x="95" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">LEGAL ENTITY</text>
+          <text x="95" y="126" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="7" text-decoration="underline" fill="#18232b">entityNumber</text>
+          <rect x="360" y="90" width="130" height="46" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1.4"/>
+          <text x="425" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">CASE</text>
+          <text x="425" y="126" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="7" text-decoration="underline" fill="#18232b">caseNumber</text>
+          <!-- brings (plaintiff) M:N, top arc -->
+          <path d="M120 90 q140 -70 268 0" stroke="#18232b" stroke-width="1.3" fill="none"/>
+          <path d="M120 90 l14 -4 M120 90 l8 -12" stroke="#18232b" stroke-width="1.2" fill="none"/>
+          <path d="M388 90 l-14 -4 M388 90 l-8 -12" stroke="#18232b" stroke-width="1.2" fill="none"/>
+          <text x="255" y="42" text-anchor="middle" font-size="8.5" font-style="italic" fill="#0e7490">brings (plaintiff, requestedJudgment)</text>
+          <!-- against (defendant) M:N, bottom arc -->
+          <path d="M120 136 q140 70 268 0" stroke="#18232b" stroke-width="1.3" fill="none"/>
+          <path d="M120 136 l14 4 M120 136 l8 12" stroke="#18232b" stroke-width="1.2" fill="none"/>
+          <path d="M388 136 l-14 4 M388 136 l-8 12" stroke="#18232b" stroke-width="1.2" fill="none"/>
+          <text x="255" y="196" text-anchor="middle" font-size="8.5" font-style="italic" fill="#0e7490">is against (defendant)</text>
+          <!-- specialization d into PERSON / ORGANISATION -->
+          <line x1="95" y1="136" x2="95" y2="150" stroke="#18232b" stroke-width="1.2"/>
+          <line x1="92" y1="136" x2="92" y2="150" stroke="#18232b" stroke-width="1.2"/>
+          <circle cx="95" cy="159" r="8" fill="#fff" stroke="#18232b" stroke-width="1.2"/><text x="95" y="163" text-anchor="middle" font-size="7" font-weight="bold" fill="#b91c1c">d</text>
+          <path d="M95 167 v6 h-40 v4 M95 167 v6 h40 v4" fill="none" stroke="#18232b" stroke-width="1.1"/>
+          <g font-weight="bold" font-size="7.5" fill="#1e3a8a" text-anchor="middle">
+            <rect x="18" y="185" width="74" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="55" y="198">PERSON</text>
+            <rect x="98" y="185" width="86" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="141" y="198">ORGANISATION</text>
+          </g>
+        </svg>
+        <figcaption>Figure P.2. Law firm. LEGAL ENTITY is a total, disjoint supertype over
+        PERSON and ORGANISATION, and relates to CASE twice: "brings" (as plaintiff, carrying
+        requestedJudgment) and "is against" (as defendant), both many-to-many.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Q4 to Q6 ===================== -->
+<section>
+  <div class="kick">Worked Paper 2025/2026</div>
+  <h2 class="title">Questions Four to Six</h2>
+  <hr class="rule">
+  <p class="lead">The remaining three, any two of which you would answer alongside Question
+  One. Full working; module references where a topic is treated at length.</p>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
+    <div class="body">
+      <p><b>(a) The relational data model.</b> It represents all data as relations (tables of
+      rows and columns), with relationships expressed by shared values rather than pointers.
+      (Module Three, Unit 1.)</p>
+      <p><b>(b) Six relational algebra operations.</b> Selection (&#963;, rows), projection
+      (&#960;, columns), union (&#8746;), set difference (&#8722;), Cartesian product (&#215;),
+      and join (&#8904;). (Module Five, Unit 1.1.)</p>
+      <p><b>(c) Relational algebra over Emp/Dept/Project/Works_on.</b> Solved at Module Five,
+      Unit 1.4: (i) Headquarters employees by a selection and join; (ii) Abuja projects by
+      joining Project, Dept, and Emp; (iii) employees on all A3/4 projects by division.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
+    <div class="body">
+      <p><b>(a) DDL vs DML vs data model.</b> The one that represents real-world information
+      is the <b>data model</b>: it is the set of concepts (entities, relationships,
+      constraints) used to describe what the data means. <b>DDL</b> defines the structure
+      (CREATE, ALTER, DROP); <b>DML</b> manipulates the data (INSERT, UPDATE, DELETE, SELECT).
+      (Module One, Unit 2.3; Module Three, Unit 1.)</p>
+      <p><b>(b) Crow's-foot EER for the technology company.</b> Solved at Module Two, Unit 2.6:
+      OFFERING is total and disjoint over PRODUCT and SERVICE; SERVICE is partial and disjoint
+      over REPAIR, MAINTENANCE, and others; a REPAIR repairs a PRODUCT.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six</span></div>
+    <div class="body">
+      <p><b>(a) Relational terms.</b> <b>Schema:</b> a relation's name and its attributes.
+      <b>Alternate key:</b> a candidate key not chosen as the primary key. <b>Tuple:</b> one
+      row of a relation. (Module Three, Unit 1.)</p>
+      <p><b>(b) StaffPropertyInspection.</b> (i) the FD diagram, (ii) transitive dependency,
+      and (iii) the normalization to 3NF are worked in full at Module Four, Unit 1.4. The final
+      3NF answer: Property(<u>propertyNo</u>, pAddress), Staff(<u>staffNo</u>, sName), and
+      PropertyInspection(<u>propertyNo, iDate</u>, iTime, comments, staffNo, carReg), with
+      staffNo and propertyNo as foreign keys.</p>
+      <p class="small">A transitive dependency here is staffNo &rarr; sName: sName depends on
+      the key only through the non-key attribute staffNo, which is why 3NF moves it into its
+      own Staff relation.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">How to spend the two hours</span></div>
+    <div class="body">
+      <p>Question One is compulsory and mixes EER terms, a functional-dependency reading, and
+      SQL, so it rewards broad preparation. For your three chosen questions, pick the ones
+      whose long parts you are surest of: the transforms (Q2d, Q5b), the algebra (Q4c), and the
+      normalization (Q6b) each carry the most marks and are the most mechanical once learned.
+      Draw every diagram large and label every cardinality; an unlabelled line scores little.</p>
+    </div>
+  </div>
+</section>

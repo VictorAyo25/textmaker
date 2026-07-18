@@ -1,0 +1,258 @@
+<!-- ===================== UNIT 2: SQL ===================== -->
+<section>
+  <div class="kick">Module Five &middot; Unit 2</div>
+  <h2 class="title">Structured Query Language (SQL)</h2>
+  <hr class="rule">
+  <p class="lead">The language you actually type. SQL both defines the tables (DDL) and works
+  with the data in them (DML). The exam gives you a schema and a list of English requests;
+  your job is to write the statement for each. Every keyword below is introduced before it is
+  used.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> create, alter, and drop tables with
+  keys and constraints; insert, update, and delete rows; and write a SELECT for any request
+  using WHERE, ORDER BY, GROUP BY, the aggregate functions, LIKE, IN, BETWEEN, joins,
+  subqueries, and views.</p>
+
+  <h3 class="sub">2.1 DDL: defining the tables</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">CREATE, ALTER, DROP</span></div>
+    <div class="body">
+<pre class="code">CREATE TABLE Branch (
+  branchNo  CHAR(4)     PRIMARY KEY,
+  city      VARCHAR(20) NOT NULL );
+
+ALTER TABLE Staff DROP COLUMN DOB;          -- remove a column
+ALTER TABLE Staff ADD prefRooms INT;        -- add a column
+DROP TABLE Branch;                          -- remove the whole table</pre>
+      <p><code>PRIMARY KEY</code> enforces entity integrity; <code>FOREIGN KEY ... REFERENCES</code>
+      enforces referential integrity; <code>NOT NULL</code>, <code>UNIQUE</code>,
+      <code>DEFAULT</code>, and <code>CHECK</code> are the other constraints.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.2 DML: changing the data</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">INSERT, UPDATE, DELETE</span></div>
+    <div class="body">
+<pre class="code">INSERT INTO Emp VALUES (101, 'Azi Esther', 40, 15000);
+UPDATE  Emp SET Salary = Salary * 1.10;          -- every row: 10% rise
+DELETE  FROM Dept WHERE Dname = 'Toy';           -- only matching rows</pre>
+      <p class="small">An <code>UPDATE</code> or <code>DELETE</code> with no
+      <code>WHERE</code> touches every row. Text values are quoted; numbers are not.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.3 SELECT: asking questions</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The clauses, in order</span></div>
+    <div class="body">
+<pre class="code">SELECT   columns (or * for all, or COUNT/SUM/AVG/MIN/MAX)
+FROM     table(s)
+WHERE    row condition   (=, &lt;, &gt;, AND, OR, LIKE, IN, BETWEEN, IS NULL)
+GROUP BY column          (one result row per group)
+HAVING   group condition
+ORDER BY column [ASC|DESC];</pre>
+      <p><code>LIKE '%London%'</code> matches any text containing London;
+      <code>IN ('a','b')</code> matches a list; <code>BETWEEN 200 AND 300</code> is an
+      inclusive range; <code>COUNT(*)</code> counts rows. A <b>join</b> combines tables on a
+      matching column; a <b>subquery</b> is a SELECT inside another; a <b>view</b> is a stored
+      SELECT (<code>CREATE VIEW</code>).</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.4 Worked: DreamHome (the compulsory 25/26 set)</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 25/26 Q1c</span></span></div>
+    <div class="body">
+      <p>BRANCH(<u>branch_no</u>, street, city, postcode); STAFF(<u>staff_no</u>, fName, lName,
+      position, sex, DOB, salary, branch_no); PROPERTYFORRENT(<u>property_no</u>, street, city,
+      postcode, type, rooms, rent, staff_no, branch_no). Write SQL: (i) staff earning over
+      100000, highest first; (ii) staff count per branch; (iii) average salary per branch;
+      (iv) properties with more than 3 rooms and rent above 80000; (v) property number, type,
+      rent, and the responsible staff member's full name; (vi) branches with no staff.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+<pre class="code">(i)   SELECT * FROM STAFF WHERE salary &gt; 100000 ORDER BY salary DESC;
+
+(ii)  SELECT branch_no, COUNT(*) AS total FROM STAFF GROUP BY branch_no;
+
+(iii) SELECT branch_no, AVG(salary) AS avg_salary FROM STAFF GROUP BY branch_no;
+
+(iv)  SELECT * FROM PROPERTYFORRENT WHERE rooms &gt; 3 AND rent &gt; 80000;
+
+(v)   SELECT p.property_no, p.type, p.rent, s.fName, s.lName
+      FROM   PROPERTYFORRENT p JOIN STAFF s ON p.staff_no = s.staff_no;
+
+(vi)  SELECT branch_no FROM BRANCH
+      WHERE  branch_no NOT IN (SELECT branch_no FROM STAFF);</pre>
+      <p class="small">(vi) is the anti-join: the branches whose number never appears in
+      STAFF. This is the one most people miss.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.5 Worked: BankInfo (create, insert, alter, view, select)</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 24/25 Q5b</span></span></div>
+    <div class="body">
+      <p>Staff(<u>staffNo</u>, fName, lName, position, sex, DOB, salary, branchNo);
+      Branch(<u>branchNo</u>, street, city, postcode); PrivateOwner(<u>ownerNo</u>, fName,
+      lName, address, telNo). (i) create Staff and Branch enforcing referential integrity;
+      (ii) insert three staff rows; (iii) drop the DOB column; (iv) create a view adhocStaff
+      of B003 staff excluding salaries; (v) owners with Glasgow in their address; (vi) branches
+      in London or Glasgow; (vii) staff earning over 10000; (viii) staff in the branch at 163
+      Main St.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+<pre class="code">(i)   CREATE TABLE Branch (
+        branchNo  CHAR(4) PRIMARY KEY,
+        street    VARCHAR(30),
+        city      VARCHAR(20),
+        postcode  VARCHAR(8) );
+      CREATE TABLE Staff (
+        staffNo   CHAR(5) PRIMARY KEY,
+        fName     VARCHAR(20),  lName    VARCHAR(20),
+        position  VARCHAR(15),  sex      CHAR(1),
+        DOB       DATE,         salary   DECIMAL(8,2),
+        branchNo  CHAR(4),
+        FOREIGN KEY (branchNo) REFERENCES Branch(branchNo) );
+
+(ii)  INSERT INTO Staff VALUES
+        ('SL21','John','White','Manager','M','1945-10-01',30000,'B005');
+      -- repeat for the second and third rows
+
+(iii) ALTER TABLE Staff DROP COLUMN DOB;
+
+(iv)  CREATE VIEW adhocStaff AS
+        SELECT staffNo, fName, lName, position, sex, branchNo
+        FROM   Staff WHERE branchNo = 'B003';
+
+(v)   SELECT * FROM PrivateOwner WHERE address LIKE '%Glasgow%';
+
+(vi)  SELECT * FROM Branch WHERE city IN ('London','Glasgow');
+
+(vii) SELECT * FROM Staff WHERE salary &gt; 10000;
+
+(viii) SELECT * FROM Staff WHERE branchNo =
+         (SELECT branchNo FROM Branch WHERE street = '163 Main St');</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">2.6 Worked: EmployeeInfo (DDL and DML together)</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 23/24 Q1b</span></span></div>
+    <div class="body">
+      <p>Emp(<u>Eid</u>, Ename, Age, Salary); Works(<u>Eid, Did</u>, per_time); Dept(<u>Did</u>,
+      Dname, Budget, managerId). Write SQL to: (i) create the relations; (ii) add a 40-year-old
+      Azi Esther, Eid 101, salary 15000; (iii) give every employee a 10% rise; (iv) delete the
+      Toy department; (v) set the Account department budget to 8 million; (vi) remove the Dept
+      relation; (vii) list Emp with Eid first.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+<pre class="code">(i)   CREATE TABLE Emp (
+        Eid INT PRIMARY KEY, Ename VARCHAR(30),
+        Age INT, Salary DECIMAL(10,2) );
+      CREATE TABLE Dept (
+        Did INT PRIMARY KEY, Dname VARCHAR(20),
+        Budget DECIMAL(12,2), managerId INT );
+      CREATE TABLE Works (
+        Eid INT, Did INT, per_time INT,
+        PRIMARY KEY (Eid, Did),
+        FOREIGN KEY (Eid) REFERENCES Emp(Eid),
+        FOREIGN KEY (Did) REFERENCES Dept(Did) );
+
+(ii)  INSERT INTO Emp VALUES (101, 'Azi Esther', 40, 15000);
+(iii) UPDATE Emp SET Salary = Salary * 1.10;
+(iv)  DELETE FROM Dept WHERE Dname = 'Toy';
+(v)   UPDATE Dept SET Budget = 8000000 WHERE Dname = 'Account';
+(vi)  DROP TABLE Dept;
+(vii) SELECT Eid, Ename, Age, Salary FROM Emp;</pre>
+      <p class="small">(vii) column order in the result is chosen by naming the columns in the
+      SELECT; changing the stored order would mean recreating the table.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.7 Worked: the Hotel schema</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 20/21</span> &middot; <span class="prov">PQ 15/16 Q5c</span></span></div>
+    <div class="body">
+      <p>Hotel(hotelNo, hotelName, city); Room(roomNo, hotelNo, type, price); Booking(hotelNo,
+      guestNo, dateFrom, dateTo, roomNo); Guest(guestNo, guestName, guestAddress).</p>
+<pre class="code">-- how many hotels
+SELECT COUNT(*) FROM Hotel;
+-- full details of all hotels in London
+SELECT * FROM Hotel WHERE city = 'London';
+-- number of rooms in each hotel
+SELECT hotelNo, COUNT(*) AS rooms FROM Room GROUP BY hotelNo;
+-- guests in London, alphabetically by name (pattern match)
+SELECT guestName, guestAddress FROM Guest
+WHERE  guestAddress LIKE '%London%' ORDER BY guestName;
+-- double or family rooms below 40 per night, cheapest first
+SELECT * FROM Room WHERE type IN ('double','family') AND price &lt; 40
+ORDER BY price;
+-- bookings with no dateTo
+SELECT * FROM Booking WHERE dateTo IS NULL;</pre>
+    </div>
+  </div>
+
+  <h3 class="sub">2.8 Worked: products, and a correlated subquery</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 19/20 Q4a</span> &middot; <span class="prov">PQ 21/22 Q1c</span></span></div>
+    <div class="body">
+      <p>Product_t(Product_ID, Product_Description, Product_Finish, Standard_Price,
+      Product_Line_ID); Customer_t(Customer_ID, Customer_Name, Customer_Address, ...);
+      Orderline_t(Order_ID, Product_ID, Order_Quantity).</p>
+<pre class="code">-- desks and tables costing more than 300
+SELECT Product_Description, Product_Finish, Standard_Price FROM Product_t
+WHERE  Product_Description IN ('Desk','Table') AND Standard_Price &gt; 300;
+-- products priced between 200 and 300
+SELECT * FROM Product_t WHERE Standard_Price BETWEEN 200 AND 300;
+-- how many different items on order 1004
+SELECT COUNT(*) FROM Orderline_t WHERE Order_ID = 1004;
+-- address of a named customer, aliasing the table as NAME
+SELECT Customer_Address FROM Customer_t AS NAME
+WHERE  Customer_Name = 'Home Furnishings';
+-- average standard price
+SELECT AVG(Standard_Price) FROM Product_t;</pre>
+      <p>The 21/22 paper adds a <b>correlated subquery</b>: find staff earning more than every
+      staff member at branch B003:</p>
+<pre class="code">SELECT * FROM Staff
+WHERE  salary &gt; ALL (SELECT salary FROM Staff WHERE branchNo = 'B003');</pre>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">NULL and COUNT</span></div>
+    <div class="body">
+      <p>To find rows with a missing value you must write <code>IS NULL</code>, never
+      <code>= NULL</code> (nothing equals NULL, not even NULL). And <code>COUNT(column)</code>
+      skips NULLs in that column, while <code>COUNT(*)</code> counts every row: choose the one
+      the question means.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Which clause filters rows? Which filters groups?</p>
+      <p class="q">2. Write the condition for "address contains Glasgow".</p>
+      <p class="q">3. How do you count rows per branch?</p>
+      <p class="q">4. What enforces referential integrity in a CREATE TABLE?</p>
+      <p class="q">5. How do you find bookings with no end date?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. WHERE filters rows; HAVING filters groups. 2.
+      <code>address LIKE '%Glasgow%'</code>. 3.
+      <code>SELECT branch, COUNT(*) FROM ... GROUP BY branch</code>. 4. A
+      <code>FOREIGN KEY ... REFERENCES</code> clause. 5.
+      <code>WHERE dateTo IS NULL</code>.</p>
+    </div>
+  </div>
+</section>

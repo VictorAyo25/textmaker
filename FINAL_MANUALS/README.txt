@@ -108,6 +108,58 @@ To rebuild or update:  see "courses/CSC241 - Python Programming Language I/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
+DTS224 - Data Management I - Study Manual.pdf       85 pp   updated 2026-07-18
+-------------------------------------------------------------------------------
+DTS224 Data Management I (a databases course), complete manual, Modules 1 to 5.
+
+Contents: How-to (box legend), Module 1 Information Management and Database Systems,
+Module 2 Conceptual Models (ER, EER, XML/JSON, worked models), Module 3 Logical
+Design (relational model, keys, integrity, ER-to-logical mapping), Module 4
+Functional Dependencies and Normalization (1NF to BCNF), Module 5 Relational Algebra
+and SQL, the real 2025/2026 paper solved in full, and three mock examinations solved
+in full. Around 30 hand-drawn inline diagrams (crow's-foot ER, EER specialization
+with the four completeness/disjointness cases, FD diagrams, schema listings, and
+architecture figures). 29 clickable Contents links, real selectable text throughout.
+
+Like CSC241 this manual was AUTHORED, not rebuilt: the 182-page course manual is the
+institution's, a source, so content/*.html is the book, written by hand. DTS224 is
+the renamed CSC214, so all seven CSC214 past papers (2015/16 through 2025/26) are
+valid practice and every one is drilled; the two priority papers (2024/25 and
+2025/26) have all six questions cited in the coverage table. Content the older "High
+Performance" papers carry but the 12-unit syllabus does not (data mining, concurrency
+and locking, ODBC, NoSQL, hash-file organisation, partitioning) is still solved and
+taught enough to pass, with both the content AND the question labelled "Not in
+syllabus". Every normalization, relational-algebra expression, and SQL result was
+worked independently, never copied from the source, whose own answers are unverified.
+
+No question escapes: every past-paper question, every test, the practice deck, and
+every in-text self-assessment is solved in the book, each carrying a provenance chip
+naming its source, and the coverage gate fails the build on any priority-paper
+question left uncited.
+
+Five scripted gates, all green at publish:
+  - gates.py: no em/en dashes, no institution or methodology-author names, the
+    reserved colour (emerald) used only by MUST MEMORISE, all code monospace, and no
+    code line over the width that fits (a longer one shrinks every page in the book).
+  - qa_coverage.py: the no-escape rule, measured not asserted. Both priority papers
+    fully cited Q1 to Q6, the book diagram-rich; control-tested to fail on a removed
+    citation.
+  - qa_firstuse.py: teach before use. Every declared notation (abbreviations like
+    PK/FK/DBMS, the relational-algebra symbols, named EER terms) is introduced before
+    the reader meets it, and none is first introduced inside a mock. This pass caught
+    two real gaps: PK/FK were used in schema listings but never spelled out, and the
+    "subtype discriminator" was promised in a unit's objectives but defined only in a
+    mock answer; both are fixed. Control-tested to fail when an introduction is removed.
+  - contents.py: the generated Contents, its page numbers read back out of the
+    rendered book so they cannot drift, every row's link resolving to the page it names.
+  - qa_layout.py: the body renders at its designed 10.5pt (not silently scaled to fit
+    an over-wide line), nothing outside the margins, no box cut by a page break that
+    would have fitted whole.
+
+To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
+                       (cd build && python assemble.py)
+
+-------------------------------------------------------------------------------
 PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.

@@ -252,6 +252,27 @@ the teaching, not the mock, and no amount of rereading was going to surface it.
 **A mock answer reaching for something the modules never taught is a signal the
 modules have a hole, not a signal to rewrite the answer.**
 
+**Make it a standing gate, not a one-off, and make it course-agnostic.** The
+first version scanned Python keywords and methods and was dead weight for a course
+whose notation is SQL, relational algebra, and ER/EER drawing, where a blanket
+all-caps sweep is pure noise (`STAFF`, `SELECT`, `SSN` are not abbreviations to
+expand). The durable form inverts the burden the way the coverage gate does: the
+author **declares** the notations the manual leans on (a `NOTATIONS` table of
+abbreviations, symbols, and named terms, each with the regex that marks its
+*introduction*), and the gate proves each is (1) introduced at all, and (2)
+introduced **outside** a mock. Enumerating the list is the forcing function.
+The two escapes this reliably catches on a non-programming course are the ones
+DTS224 actually had: an **abbreviation used but never expanded** (schema listings
+wrote `PK`/`FK` for pages with no "primary key (PK)" anywhere), and a **term
+promised in a unit's objectives but defined only in a late mock answer** (the
+"subtype discriminator", defined 2,000 lines after it was first promised). The
+intro cue must key on a real definition, never on the objectives-list mention, or
+the promise reads as the teaching. This gate is `qa_firstuse.py`, wired into
+`assemble.py` as a hard gate from DTS224 on; **a new course ports it and rewrites
+`NOTATIONS` for its own notation set** as part of standing up the pipeline. Like
+every gate here, control-test it: strip an intro and confirm it fails (proven for
+DTS224 on `PK`, `FK`, and the discriminator).
+
 ## 5. Release rule
 
 Work-in-progress stays in that course's `build/` and `drafts/`. A finished manual

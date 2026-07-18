@@ -1,0 +1,145 @@
+<section>
+  <div class="kick">Mock Examination Two</div>
+  <h2 class="title">Answers</h2>
+  <hr class="rule">
+  <p class="lead">Full solutions. Mark honestly, and revisit the named module for anything you
+  missed.</p>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One (compulsory)</span></div>
+    <div class="body">
+      <p><b>(a)</b> Generalization: bottom-up, defining a supertype from shared subtypes.
+      Specialization: top-down, defining subtypes of a supertype. Subtype discriminator: a
+      supertype attribute whose value says which subtype a row belongs to. Completeness
+      constraint: whether every supertype instance must belong to a subtype (total) or need not
+      (partial).</p>
+      <p><b>(b)</b> Determinants: matricNo &rarr; sName (partial, on part of the key);
+      courseCode &rarr; cTitle (partial); the full key (matricNo, courseCode) &rarr; grade
+      (full dependency). Both single-attribute dependencies are partial, so the relation is not
+      in 2NF.</p>
+      <p><b>(c)</b></p>
+<pre class="code">(i)   SELECT * FROM Sales WHERE amount &gt; 5000 ORDER BY amount DESC;
+(ii)  SELECT region, SUM(amount) FROM Sales GROUP BY region;
+(iii) SELECT staffID, AVG(amount) FROM Sales GROUP BY staffID;
+(iv)  SELECT * FROM Sales WHERE item = 'Laptop';
+(v)   SELECT DISTINCT staffID FROM Sales WHERE amount &gt; 20000;
+(vi)  SELECT region FROM Region
+      WHERE region NOT IN (SELECT region FROM Sales);   -- assumes a Region table</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
+    <div class="body">
+      <p><b>(a)</b> Data redundancy/inconsistency, and program-data dependence.</p>
+      <p><b>(b)</b> A DBMS is the software that defines, creates, maintains, and controls
+      access to a database. The three levels of abstraction are external (per-user views),
+      conceptual (all tables and relationships), and internal (physical storage).</p>
+      <p><b>(c)</b> The multivalued allergy and the admission each become their own relation:</p>
+<pre class="code">WARD(wardNo, name)                           PK wardNo
+PATIENT(patientNo, name)                     PK patientNo
+PATIENT_ALLERGY(patientNo, allergy)          PK both, FK patientNo -> PATIENT
+ADMISSION(patientNo, date, wardNo, bed)
+   PK (patientNo, date)  FK patientNo -> PATIENT, FK wardNo -> WARD</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
+    <div class="body">
+      <p><b>(a)</b> Yes: a database gives one shared, consistent copy with concurrency control,
+      and central integrity/security/independence. Not worth it for a tiny, single-user,
+      fixed-structure task where a DBMS is pure overhead.</p>
+      <p><b>(b)</b> MEMBER is a disjoint supertype over STUDENT and STAFF, and borrows BOOK
+      many-to-many through the associative entity LOAN:</p>
+      <figure>
+        <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <g stroke="#1d4ed8" stroke-width="1.3" font-weight="bold" font-size="9" text-anchor="middle" fill="#1e3a8a">
+            <rect x="30" y="20" width="90" height="30" rx="2" fill="#eef3ff"/><text x="75" y="39">MEMBER</text>
+            <rect x="400" y="20" width="90" height="30" rx="2" fill="#fff"/><text x="445" y="39">BOOK</text>
+          </g>
+          <rect x="205" y="16" width="110" height="38" rx="14" fill="#ecfdf5" stroke="#059669" stroke-width="1.3"/>
+          <text x="260" y="32" text-anchor="middle" font-size="9" font-weight="bold" fill="#065f46">LOAN</text>
+          <text x="260" y="45" text-anchor="middle" font-size="7" fill="#065f46">dateOut,dueDate</text>
+          <g stroke="#18232b" stroke-width="1.3" fill="none">
+            <line x1="120" y1="35" x2="205" y2="35"/><line x1="140" y1="27" x2="140" y2="43"/><path d="M187 35 L205 27 M187 35 L205 35 M187 35 L205 43"/>
+            <line x1="315" y1="35" x2="400" y2="35"/><path d="M333 27 L315 35 M333 35 L315 35 M333 43 L315 35"/><line x1="380" y1="27" x2="380" y2="43"/>
+          </g>
+          <!-- MEMBER disjoint STUDENT/STAFF -->
+          <line x1="72" y1="50" x2="72" y2="62" stroke="#18232b" stroke-width="1.2"/><line x1="78" y1="50" x2="78" y2="62" stroke="#18232b" stroke-width="1.2"/>
+          <circle cx="75" cy="71" r="8" fill="#fff" stroke="#18232b" stroke-width="1.2"/><text x="75" y="75" text-anchor="middle" font-size="7" font-weight="bold" fill="#b91c1c">d</text>
+          <path d="M75 79 v10 h-40 v8 M75 79 v10 h40 v8" fill="none" stroke="#18232b" stroke-width="1.1"/>
+          <g font-weight="bold" font-size="8" fill="#1e3a8a" text-anchor="middle">
+            <rect x="10" y="105" width="50" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="35" y="118">STUDENT</text>
+            <rect x="90" y="105" width="50" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="115" y="118">STAFF</text>
+          </g>
+        </svg>
+        <figcaption>Mock 2, Q3(b). MEMBER (disjoint over STUDENT/STAFF) borrows BOOK
+        many-to-many through LOAN.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
+    <div class="body">
+      <p><b>(a)</b> Data as relations (tables), relationships by shared values, queried by
+      relational algebra or SQL.</p>
+      <p><b>(b)</b> Selection (&#963;), projection (&#960;), union (&#8746;), set difference
+      (&#8722;), Cartesian product (&#215;), join (&#8904;), each taking relations and
+      returning a relation.</p>
+<pre class="code">(i)   &#960; name ( &#963; dName='Research' (Dept) &#8904; Emp )
+(ii)  &#963; loc='Abuja' (Dept)
+(iii) &#960; name, loc ( Emp &#8904; Dept )</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
+    <div class="body">
+      <p><b>(a)</b> The <b>data model</b> represents real-world information: it is the set of
+      concepts (entities, relationships, constraints) describing what the data means. DDL
+      defines the structure; DML manipulates the data.</p>
+      <p><b>(b)</b> CUSTOMER holds ACCOUNT one-to-many; ACCOUNT is total and disjoint over
+      SAVINGS and CURRENT:</p>
+      <figure>
+        <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <g stroke="#1d4ed8" stroke-width="1.3" font-weight="bold" font-size="9" text-anchor="middle" fill="#1e3a8a">
+            <rect x="40" y="60" width="90" height="30" rx="2" fill="#eef3ff"/><text x="85" y="79">CUSTOMER</text>
+            <rect x="215" y="60" width="90" height="30" rx="2" fill="#eef3ff"/><text x="260" y="79">ACCOUNT</text>
+          </g>
+          <g stroke="#18232b" stroke-width="1.3" fill="none">
+            <line x1="130" y1="75" x2="215" y2="75"/><line x1="150" y1="67" x2="150" y2="83"/><line x1="157" y1="67" x2="157" y2="83"/>
+            <path d="M197 75 L215 67 M197 75 L215 75 M197 75 L215 83"/>
+          </g>
+          <text x="175" y="60" text-anchor="middle" font-size="8" font-style="italic" fill="#0e7490">holds</text>
+          <line x1="257" y1="90" x2="257" y2="102" stroke="#18232b" stroke-width="1.2"/><line x1="263" y1="90" x2="263" y2="102" stroke="#18232b" stroke-width="1.2"/>
+          <circle cx="260" cy="111" r="8" fill="#fff" stroke="#18232b" stroke-width="1.2"/><text x="260" y="115" text-anchor="middle" font-size="7" font-weight="bold" fill="#b91c1c">d</text>
+          <path d="M260 119 v10 h-70 v8 M260 119 v10 h70 v8" fill="none" stroke="#18232b" stroke-width="1.1"/>
+          <g font-weight="bold" font-size="7.5" fill="#1e3a8a" text-anchor="middle">
+            <rect x="150" y="145" width="80" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="190" y="158">SAVINGS</text>
+            <rect x="290" y="145" width="80" height="20" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1"/><text x="330" y="158">CURRENT</text>
+          </g>
+        </svg>
+        <figcaption>Mock 2, Q5(b). CUSTOMER holds ACCOUNT (one-to-many); ACCOUNT is total
+        (double line) and disjoint (d) over SAVINGS and CURRENT.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question Six</span></div>
+    <div class="body">
+      <p><b>(a)</b> Relation: a table. Degree: number of attributes (columns). Cardinality:
+      number of tuples (rows).</p>
+      <p><b>(b)</b> Key (empNo, projNo). empNo &rarr; eName, deptNo and projNo &rarr; pName are
+      partial; deptNo &rarr; deptName is transitive. 2NF lifts the partials; 3NF lifts the
+      transitive:</p>
+<pre class="code">Emp(empNo, eName, deptNo)            PK empNo   FK deptNo -> Dept
+Dept(deptNo, deptName)               PK deptNo
+Proj(projNo, pName)                  PK projNo
+WorksOn(empNo, projNo, hours)        PK (empNo, projNo)
+   FK empNo -> Emp, FK projNo -> Proj</pre>
+    </div>
+  </div>
+</section>

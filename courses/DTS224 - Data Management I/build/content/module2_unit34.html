@@ -1,0 +1,244 @@
+<!-- ===================== UNIT 3: SEMI-STRUCTURED / XML / JSON ===================== -->
+<section>
+  <div class="kick">Module Two &middot; Unit 3</div>
+  <h2 class="title">Semi-Structured Models: XML and JSON</h2>
+  <hr class="rule">
+  <p class="lead">Not all data fits neatly into a table with fixed columns. Semi-structured
+  models keep some structure, tags and nesting, while letting every record differ. XML and
+  JSON are the two you must be able to read and write.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> say what semi-structured data is and
+  when it is used; read and write both XML and JSON; and explain how XML data is stored,
+  queried, and displayed.</p>
+
+  <h3 class="sub">3.1 Between rigid and formless</h3>
+  <p>A <b>structured</b> model (the relational table) has a fixed schema: every row has the
+  same columns. <b>Unstructured</b> data (a plain document, an image) has none. A
+  <b>semi-structured</b> model sits between: it carries structure through tags or keys, but
+  the structure can vary from one record to the next and change often.</p>
+  <ul class="bul">
+    <li><b>Flexible schema.</b> Two forms: <b>wide-column</b>, where the set of attributes is
+    not fixed and new ones are added as needed; and <b>sparse-column</b>, where there is a
+    fixed but huge set of possible attributes and each record fills in only the few it uses,
+    the rest left null.</li>
+    <li><b>Multivalued types.</b> An attribute may hold a set or array of values, for example
+    interests = {basketball, cooking, jazz}, which a flat table forbids.</li>
+    <li><b>Nested types.</b> An attribute may itself be structured, for example name broken
+    into first and last. The two models built on these ideas are JSON and XML.</li>
+  </ul>
+
+  <h3 class="sub">3.2 JSON and XML, side by side</h3>
+  <p>Both represent the same fact. JSON (JavaScript Object Notation) uses braces and
+  key-value pairs; XML (eXtensible Markup Language) uses paired tags in angle brackets. The
+  same staff record in each:</p>
+  <div class="codelabel">JSON</div>
+<pre class="code">{
+  "staffNo": "SG37",
+  "name": { "first": "Ann", "last": "Beech" },
+  "skills": ["admin", "sales"]
+}</pre>
+  <div class="codelabel">XML</div>
+<pre class="code">&lt;staff&gt;
+  &lt;staffNo&gt;SG37&lt;/staffNo&gt;
+  &lt;name&gt;&lt;first&gt;Ann&lt;/first&gt;&lt;last&gt;Beech&lt;/last&gt;&lt;/name&gt;
+  &lt;skills&gt;admin&lt;/skills&gt;
+  &lt;skills&gt;sales&lt;/skills&gt;
+&lt;/staff&gt;</pre>
+  <p>Both are <b>self-describing</b> (the tags or keys name the data), <b>hierarchical</b>
+  (values nest inside values), and need no fixed schema. XML tags always come in pairs,
+  <code>&lt;tag&gt;...&lt;/tag&gt;</code>, and can represent both relational rows and
+  tree-shaped documents such as a purchase order with nested line items.</p>
+
+  <h3 class="sub">3.3 Storing, querying, and displaying XML</h3>
+  <ul class="bul">
+    <li><b>Storing.</b> Three ways: <b>shredding</b> it into relational tables (each element
+    to a column, with relationship tables); a dedicated <b>XML column</b> type (optionally
+    validated against an XSD schema); or a purpose-built <b>native XML database</b>.</li>
+    <li><b>Querying.</b> <b>XPath</b> expressions locate data by a path through the tree;
+    <b>XQuery</b> is the full query language built on XPath. As the text puts it, "XQuery is
+    to XML as SQL is to relational databases".</li>
+    <li><b>Displaying.</b> A stylesheet in <b>XSL</b> (Extensible Stylesheet Language), applied
+    through <b>XSLT</b>, transforms XML into a display format such as an HTML table, so the
+    same data can render on a phone, a tablet, or a page.</li>
+  </ul>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Key features of semi-structured data</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Schema flexibility:</b> no fixed schema; fields vary per record.</li>
+        <li><b>Hierarchical structure:</b> data nests in trees or graphs.</li>
+        <li><b>Self-describing:</b> tags or keys carry the data's own metadata.</li>
+        <li><b>Partial organisation:</b> more manageable than unstructured data because the
+        tags impose some order.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M2U3</span> self-assessment</span></div>
+    <div class="body">
+      <p><b>Is XML the same as HTML? Justify.</b> No. HTML has a <i>fixed</i> set of tags with
+      a fixed meaning, and its job is to <i>display</i> content in a browser. XML lets you
+      <i>define your own</i> tags, and its job is to <i>describe and carry</i> data, not to
+      display it. HTML says how something looks; XML says what something is.</p>
+      <p><b>Explain the semi-structured data types.</b> Flexible-schema records (wide-column
+      and sparse-column), multivalued attributes (sets or arrays of values), and nested
+      attributes (structured values within values), as realised by JSON and XML.</p>
+      <p><b>Four inconveniences of semi-structured models (TMA):</b> no enforced schema so
+      data quality is harder to guarantee; querying is less mature than SQL (XQuery is not
+      widely adopted); larger storage because tags repeat on every record; and weaker support
+      for the integrity constraints a relational DBMS enforces automatically.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 21/22 Q1(iii)</span> &middot; <span class="prov">PQ 21/22 Q5a</span></span></div>
+    <div class="body">
+      <p><b>Q. Differentiate between SQL and NoSQL databases.</b></p>
+      <p>A <b>SQL (relational)</b> database stores data in tables with a fixed schema and
+      relationships enforced by keys, and is queried with SQL; it favours strong consistency
+      and structured data. A <b>NoSQL</b> database stores data in flexible forms (documents,
+      key-value pairs, wide-columns, graphs) with little or no fixed schema, and scales out
+      across many machines; it favours flexibility and horizontal scaling over strict
+      structure. Use SQL when the data is regular and integrity matters most; use NoSQL when
+      the data is varied, huge, or rapidly changing.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Give the one-line difference between XML and HTML.</p>
+      <p class="q">2. Name the three ways to store an XML document.</p>
+      <p class="q">3. XQuery is to XML as what is to relational databases?</p>
+      <p class="q">4. What does XSLT do?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. XML describes data with tags you define; HTML displays content with
+      fixed tags. 2. Shred into relational tables; an XML column; a native XML database.
+      3. SQL. 4. Transforms XML into a display format such as an HTML table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UNIT 4: WORKED CONCEPTUAL MODELS ===================== -->
+<section>
+  <div class="kick">Module Two &middot; Unit 4</div>
+  <h2 class="title">Worked Conceptual Models</h2>
+  <hr class="rule">
+  <p class="lead">Everything in this module, applied. Five everyday systems, each turned from
+  a sentence into an ER diagram. If you can do these cold, you can do any modelling question
+  the paper sets.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> read a short real-world description
+  and produce a correct conceptual (ER) model for it, and say why you would build that model
+  before touching a database.</p>
+
+  <h3 class="sub">4.1 Five systems at a glance</h3>
+  <table class="data">
+    <tr><th>System</th><th>Entities</th><th>Key relationships</th></tr>
+    <tr><td>University</td><td>STUDENT, COURSE, LECTURER, DEPARTMENT</td><td>enrols in, teaches, belongs to</td></tr>
+    <tr><td>Hospital</td><td>PATIENT, DOCTOR, APPOINTMENT, TREATMENT</td><td>consults, prescribes, undergoes</td></tr>
+    <tr><td>Online retail</td><td>CUSTOMER, PRODUCT, ORDER, PAYMENT</td><td>places, contains, makes</td></tr>
+    <tr><td>Library</td><td>BOOK, MEMBER, LIBRARIAN, LOAN</td><td>borrows, returns</td></tr>
+    <tr><td>Hotel</td><td>GUEST, ROOM, STAFF, RESERVATION</td><td>books, checks in, has type/rate</td></tr>
+  </table>
+
+  <h3 class="sub">4.2 Worked: hospital</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M2U4-SA1</span></span></div>
+    <div class="body">
+      <p><b>Q. Draw a simple ER diagram for a hospital with patients, doctors, and
+      treatments.</b></p>
+      <figure>
+        <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <g stroke="#1d4ed8" stroke-width="1.3" font-weight="bold" font-size="9" text-anchor="middle" fill="#1e3a8a">
+            <rect x="30" y="48" width="90" height="34" rx="2" fill="#fff"/><text x="75" y="69">DOCTOR</text>
+            <rect x="400" y="48" width="90" height="34" rx="2" fill="#fff"/><text x="445" y="69">PATIENT</text>
+          </g>
+          <rect x="210" y="42" width="100" height="46" rx="14" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+          <text x="260" y="62" text-anchor="middle" font-size="9" font-weight="bold" fill="#065f46">TREATMENT</text>
+          <text x="260" y="76" text-anchor="middle" font-size="7" fill="#065f46">date, diagnosis</text>
+          <g stroke="#18232b" stroke-width="1.3" fill="none">
+            <line x1="120" y1="65" x2="210" y2="65"/>
+            <line x1="140" y1="57" x2="140" y2="73"/><path d="M192 65 L210 57 M192 65 L210 65 M192 65 L210 73"/>
+            <line x1="310" y1="65" x2="400" y2="65"/>
+            <path d="M328 57 L310 65 M328 65 L310 65 M328 73 L310 65"/><line x1="380" y1="57" x2="380" y2="73"/>
+          </g>
+          <text x="165" y="40" text-anchor="middle" font-size="8" font-style="italic" fill="#0e7490">treats</text>
+          <text x="355" y="40" text-anchor="middle" font-size="8" font-style="italic" fill="#0e7490">receives</text>
+        </svg>
+        <figcaption>Figure 2.15. Hospital. DOCTOR and PATIENT are joined through the
+        associative entity TREATMENT (a doctor gives many treatments; a patient receives
+        many), which carries the treatment's own attributes.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h3 class="sub">4.3 Worked: hotel reservation</h3>
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M2U4-TMA1</span></span></div>
+    <div class="body">
+      <p><b>Q. Create a conceptual model for a hotel reservation system with guests, rooms,
+      reservations, and staff.</b></p>
+      <figure>
+        <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+          <g stroke="#1d4ed8" stroke-width="1.3" font-weight="bold" font-size="9" text-anchor="middle" fill="#1e3a8a">
+            <rect x="20" y="65" width="80" height="32" rx="2" fill="#fff"/><text x="60" y="85">GUEST</text>
+            <rect x="420" y="65" width="80" height="32" rx="2" fill="#fff"/><text x="460" y="85">ROOM</text>
+            <rect x="215" y="10" width="90" height="30" rx="2" fill="#fff"/><text x="260" y="29">STAFF</text>
+          </g>
+          <rect x="205" y="62" width="110" height="40" rx="14" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+          <text x="260" y="79" text-anchor="middle" font-size="9" font-weight="bold" fill="#065f46">RESERVATION</text>
+          <text x="260" y="92" text-anchor="middle" font-size="7" fill="#065f46">dateFrom, dateTo</text>
+          <g stroke="#18232b" stroke-width="1.3" fill="none">
+            <!-- guest makes reservation 1:M -->
+            <line x1="100" y1="81" x2="205" y2="81"/>
+            <line x1="120" y1="73" x2="120" y2="89"/><path d="M187 81 L205 73 M187 81 L205 81 M187 81 L205 89"/>
+            <!-- reservation for room M:1 -->
+            <line x1="315" y1="81" x2="420" y2="81"/>
+            <path d="M333 73 L315 81 M333 81 L315 81 M333 89 L315 81"/><line x1="400" y1="73" x2="400" y2="89"/>
+            <!-- staff handles reservation 1:M -->
+            <line x1="260" y1="40" x2="260" y2="62"/>
+            <line x1="252" y1="48" x2="268" y2="48"/>
+          </g>
+          <text x="150" y="72" text-anchor="middle" font-size="8" font-style="italic" fill="#0e7490">makes</text>
+          <text x="365" y="72" text-anchor="middle" font-size="8" font-style="italic" fill="#0e7490">for</text>
+          <text x="285" y="55" text-anchor="middle" font-size="7.5" font-style="italic" fill="#0e7490">handles</text>
+        </svg>
+        <figcaption>Figure 2.16. Hotel. A GUEST makes many RESERVATIONs; each reservation is
+        for exactly one ROOM (a room takes many over time) and is handled by one STAFF member.
+        ROOM carries type and rate; RESERVATION carries the dates.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M2U4</span> library attributes and why-model</span></div>
+    <div class="body">
+      <p><b>List four attributes for each entity in a library system (TMA2).</b> BOOK (ISBN,
+      title, author, year); MEMBER (memberID, name, address, joinDate); LIBRARIAN (staffID,
+      name, shift, desk); LOAN (loanID, dateOut, dueDate, returnDate).</p>
+      <p><b>Why create a conceptual model before building a database (TMA3)?</b> It captures
+      the business rules and the structure of the data in a form everyone can agree on,
+      before any cost is sunk in tables or code. It surfaces mistakes early (a missing
+      relationship, a wrong cardinality) when they are cheap to fix, improves communication
+      between users and developers, and gives a DBMS-independent blueprint that the logical
+      and physical designs are then derived from.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. In the hospital model, why is TREATMENT an associative entity?</p>
+      <p class="q">2. A guest makes many reservations; each reservation is for one room. What
+      is the degree and cardinality of "makes"?</p>
+      <p class="q">3. Give one reason to build a conceptual model before the database.</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Because the doctor-patient relationship is many-to-many and carries
+      its own attributes (date, diagnosis). 2. Binary, one-to-many. 3. It catches design
+      errors early and gives a shared, DBMS-independent blueprint.</p>
+    </div>
+  </div>
+</section>

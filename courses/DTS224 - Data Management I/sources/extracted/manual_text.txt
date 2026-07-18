@@ -1,0 +1,5608 @@
+
+===== PDF PAGE 1 =====
+ 
+ 
+  
+ 
+
+===== PDF PAGE 2 =====
+ 
+ 
+Table of Contents 
+Module One: Information Management Concept and 
+Introduction to Database Systems 
+1 
+Unit 1 — Foundations of Data Storage and Management 
+2 
+Unit 2 — Introduction to Database Systems and Architecture 
+8 
+Module Two: Introduction to Conceptual Models 
+22 
+Unit 1 — Introduction to Conceptual Models: ER Diagram 
+23 
+Unit 2 — Enhanced E-R Model 
+45 
+Unit 3 — Introdution to Semi-Structured Models (XML Model) 
+57 
+Unit 4 — Examples of Conceptual Models 
+66 
+Module Three: Logical Design 
+70 
+Unit 1 — Introduction to Relational Model 
+71 
+Unit 2 — Transforming Conceptual to Logical Design 
+83 
+Module Four: Functional Dependencies 
+97 
+Unit 1 — Normalization 
+98 
+Module Five: Relational Theory and Query Languages 
+121 
+Unit 1 — Relational Algebra 
+122 
+Unit 2 — Introduction to Structured Query Language and 
+Introduction to Query Processing and Optimization 
+131 
+Answers to  Self-Assessment Questions 
+167 
+Module One 
+168 
+Module Two 
+171 
+Module Three 
+174 
+Module Four 
+177 
+Module Five 
+178 
+ 
+
+===== PDF PAGE 3 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Module One: 
+Information Management 
+Concept and Introduction 
+to Database Systems 
+ 
+ 
+ 
+
+===== PDF PAGE 4 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+2 
+     
+    Unit 1 — Foundations of Data Storage and Management 
+ 
+INTRODUCTION 
+ 
+In this unit, you will be introduced to the foundational concepts of 
+information storage and management. You will also explore how 
+digital information is captured, represented, stored, retrieved, se-
+cured, and analysed. Understanding these processes is vital for 
+building and working with effective databases and information sys-
+tems. This unit also examines key performance attributes such as 
+scalability, efficiency, and effectiveness, which determine how well 
+a system handles growing data demands and serves users reliably. 
+ 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Explain the purpose and scope of information storage and re-
+trieval in database systems. 
+ Identify real-world information management applications and 
+their use cases. 
+ Understand how information is captured and represented in 
+digital form. 
+ Describe techniques for indexing, searching, and ensuring in-
+formation privacy. 
+ Define the importance of data integrity and security. 
+ Assess a system based on scalability, efficiency, and effective-
+ness. 
+ 
+ 
+
+===== PDF PAGE 5 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+3 
+ 
+  1.1.1 
+Information Storage and Retrieval 
+ 
+Information storage refers to how data is persistently stored using digital structures 
+(e.g., files, tables, documents) on physical or cloud-based storage systems. Retrieval 
+is the process of locating and accessing this stored data using queries or indexing 
+mechanisms. 
+In database systems: 
+ Data is typically stored in relations (tables) or documents (in NoSQL sys-
+tems). 
+ Structured data is stored with a schema (e.g., relational databases). 
+ Unstructured or semi-structured data (e.g., logs, XML, JSON) is handled with 
+flexible models. 
+ Query languages (like SQL) are used to retrieve data efficiently. 
+ Indexing, normalisation, and metadata improve data retrievability and or-
+ganisation. 
+ 
+  1.1.2 
+Information Management Applications 
+ 
+Information management systems help users and organisations to manage, access, 
+and safeguard data. These include: 
+ Library management systems (e.g., cataloguing books and lending his-
+tory) 
+ Healthcare information systems (e.g., patient records, treatment history) 
+ Enterprise Resource Planning (ERP) systems (e.g., HR, accounting) 
+ Customer Relationship Management (CRM) platforms (e.g., client inter-
+actions) 
+ Content management systems (e.g., websites, digital asset systems) 
+These applications are underpinned by databases that enforce consistency, privacy, 
+and availability of data. 
+ 
+  1.1.3 
+Information Capture and Representation 
+ 
+Information capture 
+Information capture refers to the process of collecting data from real-world sources. 
+This could include: 
+ Manual entry (e.g., filling forms) 
+ Sensors/IoT devices 
+
+===== PDF PAGE 6 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+4 
+ Scanners/OCR 
+ APIs from other systems 
+Data representation  
+Data representation refers to how captured data is formatted and stored: 
+ Text, numbers, images, and binary formats 
+ Use of schemas to define structure 
+ Use of data types (e.g., INT, VARCHAR, DATE) in relational databases 
+A database management system must ensure data types are enforced and suitable 
+for intended use. 
+ 
+  1.1.4 
+Analysis and Indexing 
+ 
+Once data is stored, systems must enable fast retrieval and meaningful analysis: 
+Indexing creates lookup structures to improve query speed (e.g., B-trees, hash in-
+dexes). 
+ Search mechanisms use indexing to locate relevant records quickly. 
+ Full-text search and natural language processing are used for unstructured 
+data. 
+Analysis involves summarising and extracting insights using: 
+Aggregation (SUM, COUNT, AVG) 
+ Filtering and sorting 
+ Query optimisation to ensure performance 
+ 
+  1.1.5 
+Information Privacy, Integrity, and Security 
+ 
+Privacy 
+Ensures sensitive data (e.g., medical records, financial data) is not accessed by un-
+authorised users. Involves: 
+ Access control (e.g., role-based permissions) 
+ Data anonymisation 
+ Compliance with laws (e.g., GDPR, HIPAA) 
+Integrity 
+Guarantees that data is accurate and consistent over its lifecycle: 
+
+===== PDF PAGE 7 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+5 
+ Constraints (e.g., NOT NULL, UNIQUE, CHECK). 
+ Referential integrity via foreign keys. 
+ Transaction management (ACID properties). 
+Security 
+Protects against unauthorised access, alteration, or destruction: 
+ Authentication and encryption. 
+ Firewalls and database hardening. 
+ Regular backups and disaster recovery planning. 
+ 
+  1.1.6 
+Scalability, Efficiency, and Effectiveness 
+ 
+Scalability 
+The ability of a system to handle increasing volumes of data or users. Achieved via: 
+ Vertical scaling (stronger hardware) 
+ Horizontal scaling (replication, sharding) 
+Efficiency 
+How well the system uses resources (CPU, memory, storage) to process operations. 
+Relates to: 
+ Query performance 
+ Indexing strategies 
+ Storage optimisation 
+Effectiveness:  
+Measures how well the system meets users' needs: 
+ Accuracy of search results 
+ System reliability and uptime 
+ User satisfaction 
+All three factors must be considered when designing or selecting an information 
+system. 
+ 
+  1.1.7 
+Conclusion 
+ 
+In this unit, you have explored the essential components of information storage and 
+management. From the initial stages of data capture and representation to indexing, 
+retrieval, and security, each process ensures that digital information is accessible, 
+
+===== PDF PAGE 8 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+6 
+secure, and usable. You also learned how well-designed systems are evaluated 
+based on scalability, efficiency, and effectiveness, which are key to building robust 
+database applications. 
+Summary 
+In this unit, you have learnt that information is stored digitally using various models 
+and accessed via retrieval techniques; management applications like CRMs, ERPs, 
+and library systems depend on database systems; data must be captured accurately 
+and represented appropriately to support storage and retrieval; indexing enhances 
+performance while privacy, integrity, and security protect data from misuse or cor-
+ruption; and scalability, efficiency, and effectiveness are key performance indicators 
+of any information system. 
+Self-Assessment Questions 
+1. What is the purpose of indexing in a database, and how does it improve per-
+formance? 
+2. Explain the differences between data privacy, data integrity, and data secu-
+rity. 
+3. List and describe three real-world applications of information management 
+systems. 
+Tutor-Marked Assignment 
+1. Define the term “information storage and retrieval.” Explain its relevance in 
+managing a large-scale data system 
+2. Identify any two security features implemented in modern database sys-
+tems and explain their role. 
+3. Using a hospital management system as an example, describe how infor-
+mation is captured, stored, and retrieved, ensuring both security and effi-
+ciency. 
+4. Discuss what is meant by scalability and explain one strategy used to 
+achieve it in enterprise databases 
+ 
+
+===== PDF PAGE 9 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+7 
+  
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Companies 
+(2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+
+===== PDF PAGE 10 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+8 
+     
+      Unit 2 — Introduction to Database Systems and Architecture 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn the fundamental concepts of database sys-
+tems, including what a database is, its key components, and how it 
+supports modern information systems. You will explore important 
+concepts such as data abstraction and data independence, which 
+simplify database interaction and enhance flexibility. The unit also 
+introduces the Database Management System (DBMS). Finally, you 
+will understand the importance of database security, including 
+mechanisms for protecting data from unauthorised access, corrup-
+tion, and loss. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Define what a database is and identify its key components. 
+ Explain the concepts of data abstraction and data independ-
+ence in database design. 
+ Describe the role and functions of a DBMS. 
+ Differentiate between various types of database systems (e.g., 
+hierarchical, relational, NoSQL). 
+ Understand the principles of database security and how data is 
+protected. 
+ 
+ 
+ 
+
+===== PDF PAGE 11 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+9 
+ 
+  1.2.1 
+Database 
+ 
+ A database is an extensive collection of data organised especially for rapid 
+search and retrieval. 
+ Database is a shared collection of logically related data (and a description 
+of this data), designed to meet the information needs of an organisation.  
+ System catalogue (metadata) describes data to enable program–data inde-
+pendence. 
+ 
+Figure 1.1: Components of a database system 
+ 
+Figure 1.2: Components of the database 
+ 
+Applications of database technology 
+ 
+ 
+
+===== PDF PAGE 12 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+10 
+ 
+  1.2.2 
+Definition of Terms 
+ 
+ A data model is a collection of concepts used to describe data. 
+ A schema is a description of a particular collection of data, using a given data 
+model, e.g the schema for a student database 
+ Student {matricNo, name, Address, programme, age} 
+ Database instance: The information in a database at a particular point in time 
+is called an instance of the database. 
+ Database Management System (DBMS): A software system that enables users 
+to define, create, and maintain the database and that provides controlled 
+access to this database. 
+ 
+  1.2.3 
+Functions of Database Management System (DBMS) 
+ 
+ 
+ 
+Figure 1.3: Components of DBMS 
+ 
+
+===== PDF PAGE 13 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+11 
+ 
+  1.2.4 
+Data Definition Language (DDL) 
+ 
+ It is a descriptive language that allows DBAs or users to describe and name 
+the entities required for the application, as well as the relationships that may 
+exist between different entities. 
+  DDL statements are compiled, resulting in a set of tables stored in a special 
+file called a data dictionary or data directory (also called system catalogue, 
+catalogue tables, information schema in some contexts).  
+ The data directory contains metadata (data about data). 
+ 
+  1.2.5 
+Data Manipulation Language (DML)  
+ 
+ Data Manipulation is a language that provides a set of operations to support 
+the basic data manipulation operations on the data held in the database. 
+  A DML is a language which enables users to access and manipulate data.  
+ The goal is to provide efficient human interaction with the system.  
+ A query language is a portion of DML involving information retrieval only.  
+ The terms DML and query language are often used synonymously. 
+ retrieval of information from the database. 
+ insertion of new information into the database. 
+ deletion of information in the database. 
+ modification of information in the database 
+ 
+  1.2.6 
+Database Applications 
+ 
+A database application is a set of one or more computer programs or websites that 
+serve as an intermediary between the user and the DBMS. 
+ 
+  1.2.7 
+Database Manager 
+ 
+The database manager is a program module which provides the interface between 
+the low-level data stored in the database and the application programs and queries 
+submitted to the system.  
+ Databases typically require lots of storage space (gigabytes).  
+ This must be stored on disks.  
+ Data is moved between disk and main memory (MM) as needed.  
+ The goal of the database system is to simplify and facilitate access to data 
+
+===== PDF PAGE 14 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+12 
+ 
+ 
+ 
+  1.2.8 
+Database Administrator 
+ 
+The database administrator is a person who has central control over data and pro-
+grams that access that data.   
+Duties of the database administrator include: 
+ Schema definition:  
+o the creation of the original database schema.  
+o This involves writing a set of definitions in a DDL (data storage and 
+definition language), compiled by the DDL compiler into a set of ta-
+bles stored in the data dictionary. 
+ Granting of authorisation for data access:  
+o granting different types of authorisation for data access to various 
+users 
+ Integrity constraint specification:  
+
+===== PDF PAGE 15 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+13 
+o generating integrity constraints. These are consulted by the database 
+manager module whenever updates occur 
+ Storage structure and access method definition:  
+o writing a set of definitions translated by the data storage and defini-
+tion language compiler 
+ Schema and physical organisation modification: 
+o writing a set of definitions used by the DDL compiler to generate mod-
+ifications to appropriate internal system tables (e.g. data dictionary).  
+This is done rarely, but sometimes the database schema or physical organisation 
+must be modified. 
+ 
+  1.2.9 
+Database Users 
+ 
+ 
+ 
+ These programs are called application programs. 
+ The DML pre-compiler converts DML calls (prefaced by a special character 
+like $, #, etc.) to standard procedure calls in a host language. 
+  These programs are called application programs. 
+ The DML pre-compiler converts DML calls (prefaced by a special character 
+like $, #, etc.) to standard procedure calls in a host language. 
+ The host language compiler then generates the object code. 
+ Some special types of programming languages combine Pascal-like control 
+structures with control structures for the manipulation of a database. 
+
+===== PDF PAGE 16 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+14 
+ These are sometimes called fourth-generation languages. 
+ They often include features to help generate forms and display data 
+ 
+ These users form requests by writing queries in a database query language. 
+ These are submitted to a query processor that breaks a DML statement 
+down into instructions for the database manager module 
+ 
+  1.2.10 Database Abstraction 
+ 
+ 
+  
+ These programs are called application programs. 
+ The DML pre-compiler converts DML calls (prefaced by a special character 
+like $, #, etc.) to standard procedure calls in a host language. 
+  
+ Database is composed of data and records.  
+ What we see in rows and columns is that the actual data is quite different 
+when it reaches the memory.  
+ But when they are stored in the memory like disks or tapes, they are stored 
+in the form of bits.  
+ But the user only needs a little information he may want to work with about 
+the data stored in the memory; others are not necessary.  
+ 
+Figure 1.4: Data Abstraction Levels 
+
+===== PDF PAGE 17 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+15 
+Levels of Abstraction 
+ Levels of Abstraction: External level 
+o This is the highest level in data abstraction.  
+o At this level, users see the data in the form of rows and columns.  
+o This level illustrates to the users how the data is stored in terms of 
+tables and relations.  
+o Users view full or partial data based on the business requirement.  
+o The users will have different views here, based on their levels of ac-
+cess rights.  
+o For example, a student will not have access to see the lecturer's sal-
+ary details, and an employee will not have access to see other em-
+ployees' details, unless they are a manager.  
+o At this level, one can access the data from the database and perform 
+some calculations based on the data. 
+o For example, calculate the tax from the salary of an employee, calcu-
+late the CGPA of a Student, calculate the age of a person from his 
+Date of Birth, etc. These users can be real users or any programs. 
+o Any changes/ computations done at this level will not affect other 
+levels of data.  
+o That means, if we retrieve the few columns of the STUDENT table, it 
+will not change the whole table, or if we calculate the CGPA of a Stu-
+dent, it will not change/update the table.  
+o This level of data is based on the levels below, but it will not alter the 
+data at those lower levels 
+ 
+ Levels of Abstraction: Logical/ Conceptual level 
+o This is the next level of abstraction.  
+o  It describes the actual data stored in the database in the form of ta-
+bles and relates them through mapping.  
+o This level does not have any information on what a user views at the 
+external level.  
+o This level has all the data in the database. 
+o Any changes made in this level will not affect the external or physical 
+levels of data.  
+o That is, any changes to the table structure or the relation will not 
+modify the data that the user is viewing at the external view or the 
+storage at the physical level.  
+
+===== PDF PAGE 18 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+16 
+o For example, suppose we have added a new column ‘skills’, which 
+will not modify the external view data on which the user was viewing 
+the Ages of the students.  
+o Similarly, it will have space allocated for ‘Skills’ in the physical 
+memory, but it will not modify the space or address of Date of Birth 
+(using which Age will be derived) in the memory.  
+o Hence, external and physical independence is achieved. 
+ 
+▪ Levels of Abstraction: Internal level 
+o This is one of the intermediary levels.  
+o In most cases, this level is not mentioned, and usually, it is said that 
+we have three levels of data abstraction.  
+o This level depends on the DBMS software.  
+o This level is how the database is seen from the DBMS.  
+o We can even combine the logical level and this level. 
+ 
+ Levels of Abstraction: Physical level 
+o This is the lowest level in data abstraction.  
+o This level describes how the data is actually stored in the physical 
+memory, like magnetic tapes, hard disks, etc. 
+o In this level, the file organisation methods like hashing, sequential, 
+and B+ tree come into the picture. 
+o  At this level, the developer would know the requirement, size and 
+accessing frequency of the records clearly. So, designing this level 
+will not be too complex for him. 
+ 
+Figure 1.5: Data Abstraction Levels Example 
+
+===== PDF PAGE 19 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+17 
+ 
+  1.2.11 Data Independence 
+ 
+ Data Independence is the ability to modify the schema definition at one 
+level without affecting the schema definition at the next higher level.  
+ It is the type of data transparency that matters for a centralised DBMS.  
+ It refers to the immunity of user applications to changes made in the defini-
+tion and organisation of data. 
+ The data independence and operation independence together give the fea-
+ture of data abstraction. 
+Types 
+ 
+Figure 1.6: Data Independence 
+▪ Physical Level of Data Independence 
+o Physical data independence is the ability to modify the physical 
+schema without causing application programs to be rewritten.  
+o Modifications at this level are occasionally necessary to improve per-
+formance; thus, this level deals with hiding the details of the storage 
+structure from user applications.  
+o It means the physical storage/level is changeable without affecting the 
+conceptual or external view of the data.  
+o The new changes are absorbed using mapping techniques. 
+ 
+▪ Logical Level of Data Independence 
+o Logical data independence is the ability to modify the logical schema 
+without causing the application program to be rewritten.  
+o Logical data independence is more difficult to achieve than physical 
+data independence, since application programs are heavily dependent 
+on the logical structure of the data that they access. 
+o Modifications at the logical level are necessary whenever the logical 
+structure of the database is altered (for example, when money-market 
+accounts are added to the banking system). 
+
+===== PDF PAGE 20 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+18 
+o For instance, if new columns are added or removed from a table, then 
+the user view and programs should not change. 
+o For example, consider two users A & B. Both are selecting the fields 
+"EmployeeNumber" and "EmployeeName".  
+o If user B adds a new column (e.g. salary) to his table, it will not affect 
+the external view for user A, though the internal schema of the data-
+base has been changed for both users A & B. 
+Advantage of data independence 
+ The conceptual schema can be changed at one level without affecting the 
+data at another level.  
+ The structure of a database can be changed without affecting the data re-
+quired by users and programs. This feature was not available in the file-ori-
+ented approach 
+ 
+  1.2.12 Types of Database 
+ 
+1. Personal Database System 
+o Support one application 
+o Have only a few tables 
+o Are simple in design 
+o Involve only one computer 
+o Support one user at a time 
+2. Enterprise-Level database systems 
+o Support several users simultaneously 
+o Support more than one application 
+o Involve multiple computers 
+o Are complex in design 
+o Have many tables 
+o Have many databases 
+ 
+ 
+
+===== PDF PAGE 21 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+19 
+       Figure 1.7: Enterprise-Level database systems 
+ 
+  1.2.13 Database Security 
+ 
+Database security refers to the protective measures implemented to prevent unau-
+thorised access, misuse, or breaches in a database system. 
+▪ It ensures data confidentiality, integrity, and availability. 
+Key Aspects of Database Security 
+ 
+ 
+ 
+  1.2.14 Conclusion 
+ 
+In this unit, you have been introduced to the foundational concepts of database 
+systems and architecture. You learned what a database is, explored its core compo-
+nents, and understood the role and responsibilities of a Database Management Sys-
+tem (DBMS). The unit also covered essential concepts such as data abstraction and 
+
+===== PDF PAGE 22 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+20 
+data independence, which are critical for simplifying user interaction with data and 
+maintaining system flexibility. Furthermore, you studied various types of databases, 
+the responsibilities of a database administrator, and how database security ensures 
+data confidentiality, integrity, and availability. Altogether, these topics provide a 
+comprehensive understanding of how modern database systems are structured, ac-
+cessed, and managed. 
+Self-Assessment Questions 
+1. Define a database and list at least three of its key components. 
+2. What is data abstraction, and what are the three levels involved in it? 
+3. Differentiate between physical data independence and logical data inde-
+pendence with examples. 
+4. What are the primary functions of a Database Management System (DBMS)? 
+5. Describe two types of database systems and their typical use cases. 
+6. Explain the role of the database administrator and list three key responsibil-
+ities. 
+7. What is the purpose of a Data Manipulation Language (DML)? List four com-
+mon operations 
+Tutor-Marked Assignment 
+1. What does the term data independence mean, and why is it an important 
+goal? 
+2. Perform a search on the Internet of relational DBMS vendors. Pick two com-
+peting products and discuss whether each is scalable and if it can be used 
+for a personal, workshop, departmental, enterprise, or Internet database. 
+3. One of the biggest challenges of building e-commerce sites has been the 
+ability to deliver merchandise ordered by customers over the web quickly. 
+Why do you think companies turned to database solutions to help them 
+improve their supply chain management and expedite the filling and deliv-
+ery of orders? 
+4.  Explain the difference between user views, a conceptual schema, and an in-
+ternal schema as different perspectives of the same database 
+ 
+ 
+
+===== PDF PAGE 23 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+21 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill 
+Companies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Read-
+ing, Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database manage-
+ment. Upper Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to 
+design, implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 24 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+22 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Module Two:  
+Introduction to Conceptual 
+Models 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 25 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+23 
+     
+    Unit 1 — Introduction to Conceptual Models: ER Diagram 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn about the fundamentals of data modelling, 
+the use of conceptual models (Entity-Relationship Model), and how 
+business rules shape data structures. You will explore how to model 
+entities and attributes, define relationships among entities, and un-
+derstand the role of cardinality constraints in capturing real-world 
+associations. All of these concepts are essential and useful for de-
+signing a well-structured, efficient database system. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the basic concept and purpose of data and concep-
+tual modelling. 
+ Explain the structure and use of the Entity-Relationship (ER) 
+model. 
+ Identify and define business rules that influence data models. 
+ Model entities and their attributes in an ER diagram. 
+ Model relationships between entities using appropriate nota-
+tion. 
+ Understand and apply cardinality constraints to describe rela-
+tionship rules accurately. 
+ 
+
+===== PDF PAGE 26 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+24 
+ 
+  2.1.1 
+Data Modelling 
+ 
+A conceptual model cannot be adequately understood without introducing its ba-
+sics (data modelling). Data modelling is the documentation of rules and policies that 
+determine how an organisation’s data is governed. 
+The Role of the Database Analyst in Data Modelling 
+In information system development, a database analyst performs the following du-
+ties: 
+ Identify and understand those rules that govern data 
+ Represent those rules so that they can be unambiguously understood by 
+information system developers and users 
+ Implement those rules in database technology. It is a branch of mathemat-
+ics that deals with the verification of the truth/falsity of mathematical state-
+ments/assertions 
+It is the study of valid arguments, inference (induction + deduction), proofs, proof 
+techniques, proving theorems, paradoxes, and fallacies 
+“Logic will get you from A to B. Imagination will take you everywhere.” A. Einstein 
+  Importance of Data Modelling- System Developers' View 
+1. The characteristics of data captured during data modelling are crucial in the 
+design of databases, programs, and other system components.  
+2. Data, rather than processes, are the most complex aspect of many modern 
+information systems and hence require a central role in structuring system 
+requirements. 
+3. Data tends to be more stable than the business processes that use that data 
+ 
+Benefits of Data Modelling 
+Data modelling: 
+ Facilitates communication between the designer, the application program-
+mer, and the end user. 
+ Fosters understanding of the organisation (rules) for which the data model is 
+being developed. 
+ Saves maintenance or development costs. 
+ Results in improved data quality 
+
+===== PDF PAGE 27 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+25 
+ Reduces the high costs of moving and translating data from one system to 
+another 
+ 
+  2.1.2 
+Conceptual Model 
+ 
+In general, conceptual models are high-level representations of an organisation’s 
+data and the relationships between different data elements.  
+The Entity Relationship Model  
+ The E-R model is a detailed conceptual representation of entities in the busi-
+ness environment, the relationships (or associations) among them, and the 
+attributes (or properties) of both entities and their relationships. 
+ An E-R model is usually expressed as an entity-relationship diagram (E-R di-
+agram, or ERD). 
+ The E-R model is a detailed conceptual representation of entities in the busi-
+ness environment, the relationships among those entities, and the attributes 
+of both the entities and their relationships 
+The Entity-Relationship Diagram - ERD 
+ 
+ 
+Sample E-R Diagram 
+Based on the E-R diagram in the figure: 
+ Several suppliers supply and ship different items to Pine Valley Furniture. 
+  The items are assembled into products that are sold to customers who or-
+der the products. 
+  Each customer order may include one or more lines corresponding to the 
+products appearing on that order. 
+An ERD is a 
+graphical 
+representation of 
+an entity-
+relationship model.
+It is a representation 
+of the structure and 
+constraints of a 
+database that is 
+independent of the
+database 
+management system.
+
+===== PDF PAGE 28 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+26 
+ 
+Figure 2.1: E-R Diagram 
+Meta-Data of Entities 
+In conceptual modelling, entity metadata refers to descriptive details such as entity 
+names, definitions, attributes, and identifiers that clarify the structure and meaning 
+of each entity in an ER diagram. 
+ It is essential to define each entity as metadata clearly. The metadata of the 
+E-R diagram in Figure 2.1 above is shown in Table 2.1 below. 
+ 
+Table 2.1: Meta-Data of E-R Diagram 
+Data Names 
+In an organisational data model, data objects must be named and defined before 
+they can be used unambiguously. 
+General guidelines about naming any data object should: 
+ Relate to business,  
+ Not technical characteristics 
+ Be meaningful 
+
+===== PDF PAGE 29 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+27 
+ Be unique 
+ Be repeatable 
+ Follow a standard syntax 
+ Be composed of words taken from an approved list 
+ 
+  2.1.3 
+Business Rule 
+ 
+Overview of Business Rule 
+ Business rules are the foundation of data models and are derived from poli-
+cies, procedures, events, functions, and other business objects, and they 
+state constraints on the organisation.  
+ Business rules represent the language and fundamental structure of an or
+  
+Business Rule 
+ It is intended to assert business structure or to control or influence the be-
+haviour of the business. 
+ Business rules and policies govern the creation, updating, and removal of 
+data in an information processing and storage system. 
+  Hence, they must be described along with the data to which they are re-
+lated. 
+ Business rules and policies are not universal. 
+ A business rule is also known as an Integrity constraint in the database con-
+text. 
+ 
+
+===== PDF PAGE 30 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+28 
+Gathering Business Rules? 
+These descriptions can be found in interview notes from individual and group infor-
+mation systems requirements collection sessions, organisational documents (e.g., 
+personnel manuals, policies, contracts, marketing brochures, and technical instruc-
+tions), and other sources. 
+ Rules are identified by asking questions about the who, what, when, where, 
+why, and how of the organisation. 
+ A data analyst has to be persistent in clarifying initial statements of rules 
+because initial statements may be vague or imprecise. 
+ Precise rules are formulated from an iterative inquiry process. A truth set of 
+a predicate is the set of all values of the predicate that makes the predicate 
+true. 
+You should be prepared to ask such questions as: 
+1. Is this always true? 
+2. Are there special circumstances when an alternative occurs?  
+3. Are there distinct kinds of that person?  
+4. Is there only one of those, or are there many? and  
+5. Is there a need to keep a history of those, or is the current data all that is 
+useful? 
+Characteristics of a Good Business Rule 
+A good business rule is: 
+1. Declarative 
+o statement of policy, what a process validates. 
+2. Precise 
+o have only one interpretation  
+3. Atomic 
+o no part of the rule can stand on its own  
+4. Consistent 
+o Not conflicting 
+5. Expressible 
+o Natural language, understanding 
+6. Distinct 
+o not be redundant but can refer to other rules 
+7. Business-oriented 
+
+===== PDF PAGE 31 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+29 
+o State business terms 
+ 
+  2.1.4 
+Modelling Entities and Attributes 
+ 
+E-R Model Notation 
+There is no industry-standard notation 
+ This course combines most of the desirable features of the different nota-
+tions that are commonly used in E-R drawing tools to model accurately 
+most situations that are encountered in practice. 
+ Additional notation for enhanced entity-relationship models can also be in-
+troduced. 
+ 
+Figure 2.2: Basic E-R Notations 
+Entity 
+An entity is a person, place, object, event, or concept in the user environment about 
+which the organisation wishes to maintain data. 
+ An entity has a noun name. 
+ Examples of an entity could be: 
+o Person: EMPLOYEE, STUDENT, PATIENT 
+o Place: STORE, WAREHOUSE, STATE 
+o Object: MACHINE, BUILDING, AUTOMOBILE 
+o Event: SALE, REGISTRATION, RENEWAL 
+o Concept: ACCOUNT, COURSE, WORK CENTER 
+Entity Type Versus Entity Instance 
+An entity type is a collection of entities that share common properties or character-
+istics. Each entity type in an E-R model is given a name.  
+
+===== PDF PAGE 32 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+30 
+An entity instance is a single occurrence of an entity type. An entity type is described 
+just once (using metadata) in a database, whereas many instances of that entity type 
+may be represented by data stored in the database. 
+There is one EMPLOYEE entity type in most organisations. Still, there may be hun-
+dreds (or even thousands) of instances of this entity type stored in the database, as 
+seen in Figure 2.3 below. 
+ 
+Figure 2.3: Entity Type Versus Entity Instance 
+Entity Type Versus Entity Instance 
+ Strong Entity 
+o A strong entity type is one that exists independently of other entity 
+types. 
+o Examples include STUDENT, EMPLOYEE, AUTOMOBILE, and COURSE. 
+o Instances of a strong entity type always have a unique characteristic 
+(called an identifier)— 
+o that is, an attribute or a combination of attributes that uniquely dis-
+tinguishes each occurrence of that entity. 
+o It can also be referred to as an independent entity. 
+ 
+ Weak Entity 
+o A weak entity type is an entity type whose existence depends on 
+some other entity type. 
+o  It is also referred to as a dependent entity. 
+o  A weak entity type has no business meaning in an E-R diagram with-
+out the entity on which it depends 
+o The entity types on which the weak entity type depends are called 
+the identifying owner (or simply owner for short). 
+o  A weak entity type does not typically have its own identifier. 
+
+===== PDF PAGE 33 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+31 
+o  Generally, on an E-R diagram, a weak entity type has an attribute 
+that serves as a partial identifier. 
+ 
+Figure 2.4: Strong, Weak Entity and Identifying Relationship Example 
+Attributes 
+An attribute is a property or characteristic of an entity type that is of interest to the 
+organisation. 
+ An attribute has a noun name.  
+Examples of some typical entity types and their associated attributes: 
+ Student ID, Student Name, Home Address, Phone Number, Major 
+ AUTOMOBILE Vehicle ID, Colour, Weight, Horsepower 
+ Employee ID, Employee Name, Payroll, Address, Skill. 
+Required Versus Optional Attributes 
+ An attribute that must be present for each entity instance is called a re-
+quired attribute. 
+ An attribute that may not have a value is called an optional attribute. 
+ Figure 2.5 shows two STUDENT entities (instances) with their respective at-
+tribute values. 
+ The only optional attribute for STUDENT is Major# 
+ 
+  
+
+===== PDF PAGE 34 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+32 
+ 
+Figure 2.5: Required and Optional Attribute(s) 
+Simple Versus Composite Attributes 
+ 
+Figure 2.6: Composite Attributes 
+Multi-Valued Attributes 
+Identifiers consist of letters and digits, in any order, except that the first character 
+must be a letter.  
+ A multivalued attribute is an attribute that may take on more than one 
+value for a given entity (or relationship) instance. 
+ For example, the EMPLOYEE entity type in Figure 2.7 has an attribute named 
+Skill, whose values record the skill (or skills) for that employee.  
+
+===== PDF PAGE 35 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+33 
+ Some employees may have more than one skill, such as a PHP Programmer 
+and C++ Programmer 
+ We can indicate a multivalued attribute with curly brackets around the at-
+tribute. 
+Derived Attributes 
+ A derived attribute is an attribute whose values can be calculated from re-
+lated attribute values (plus possibly data not in the database, such as to-
+day’s date, the current time, or a security code provided by a system user). 
+ A derived attribute is denoted by using square brackets around the attrib-
+ute name. 
+  
+ 
+Figure 2.7: Multivalued and Derived Attributes 
+Identifier Attributes 
+ An identifier is an attribute (or combination of attributes) whose value dis-
+tinguishes individual instances of an entity type.  
+ No two instances of an entity type may have the same value for the identi-
+fier attribute. 
+ For some entity types, there is no single (or atomic) attribute that can serve 
+as the identifier (i.e., that will ensure uniqueness).  
+ However, two (or more) attributes used in combination may serve as the 
+identifier.  
+ A composite identifier is an identifier that consists of a composite attribute. 
+
+===== PDF PAGE 36 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+34 
+ 
+Figure 2.8: Simple & Composite Identifier Attributes 
+Relationships 
+ A relationship is an association representing an interaction among the in-
+stances of one or more entity types that is of interest to the organisation. 
+o A relationship has a verb phrase name.  
+ Relationships and their characteristics (degree and cardinality) represent 
+business rules, and usually represent the most complex business rules 
+shown in an ERD. 
+Relationship Type 
+ A Relationship type is a meaningful association between (or among) entity 
+types.  
+ A relationship type is denoted by a line labelled with the name of the rela-
+tionship. 
+ Short, descriptive verb phrase that is meaningful to the user is used to 
+name a relationship. 
+Relationship Instance 
+ A relationship instance is an association between (or among) entity in-
+stances, where each relationship instance associates exactly one entity in-
+stance from each participating entity type. 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 37 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+35 
+Relationship Type and Instances Example 
+ 
+Figure 2.9: Relationship Type and Instances 
+ To track courses that have been completed by particular employees, we de-
+fine a relationship called Completes between the two entity types 
+ This is a many-to-many relationship 
+ The employee Melton has completed three courses (C++, COBOL, and Perl).  
+ The SQL course has been completed by two employees (Celko and Gosling), 
+and 
+ The Visual Basic course has not been completed by anyone. 
+Attribute on Relationship 
+ Attributes may be associated with a many-to-many or one-to-one relation-
+ship, 
+ For example, suppose the organisation wishes to record the date (month 
+and year) when an employee completes each course.  
+ This attribute is named Date Completed 
+ It is interesting to note that an attribute cannot be associated with a one-
+to-many relationship. 
+ 
+Figure 2.10: Attribute on Relationship 
+  
+
+===== PDF PAGE 38 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+36 
+Associative Entity 
+ An associative entity is an entity type that associates the instances of one or 
+more entity types and contains attributes that are peculiar to the relation-
+ship between those entity instances.  
+ The associative entity CERTIFICATE is represented with the rectangle with 
+rounded corners, as shown below. 
+ 
+Figure 2.11: Associative Entity 
+Degree of Relationships 
+ The degree of a relationship is the number of entity types that participate in 
+that relationship. 
+ The three most common relationship degrees in E-R models are unary (de-
+gree 1), binary (degree 2), and ternary (degree 3). 
+ Higher-degree relationships are possible, but they are rarely encountered in 
+practice, so we restrict our discussion to these three cases. 
+ 
+Degree of Relationships: Unary Relationship 
+ A unary relationship is a relationship between the instances of a single en-
+tity type. 
+ Unary relationships are also called recursive relationships. 
+ 
+Figure 2.12: Unary Relationship 
+Degree of Relationships: Binary Relationships 
+ A binary relationship is a relationship between the instances of two entity 
+types and is the most common type of relationship encountered in data 
+modelling. 
+
+===== PDF PAGE 39 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+37 
+ 
+Figure 2.13: Binary Relationships 
+Degree of Relationships: Ternary Relationship 
+ A ternary relationship is a simultaneous relationship among the instances of 
+three entity types. 
+ 
+Figure 2.14: Ternary Relationship 
+ 
+  2.1.5 
+Cardinality Constraints 
+ 
+ A rule that specifies the number of instances of one entity that can (or 
+must) be associated with each instance of another entity. 
+ A cardinality constraint specifies the number of instances of entity B that 
+can (or must) be associated with each instance of entity APredicates repre-
+sent properties or relations among objects A predicate P(x) assigns a value 
+true or false to each x depend 
+Minimum and Maximum Cardinality 
+Minimum Cardinality 
+ The minimum number of instances of one entity that may be associated with 
+each instance of another entity. 
+
+===== PDF PAGE 40 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+38 
+ When the minimum number of participants is zero, we say that the entity 
+type participation is optional in the relationship; otherwise, it is mandatory. 
+Maximum Cardinality 
+ The maximum number of instances of one entity that may be associated 
+with each instance of another entity. 
+ It is often indicated by the “crow’s foot” symbol. 
+ 
+Figure 2.15: Cardinality Constraint 
+In Figure 2.15 above: 
+The relationship is bidirectional; a cardinality notation appears next to the MOVIE 
+entity. 
+Each DVD of a movie must be a copy of exactly one movie.  
+Participation in a relationship may be optional or mandatory for the entities in-
+volved.  
+If the minimum cardinality is zero, participation is optional; if the minimum cardi-
+nality is one, participation is mandatory. 
+Example on Relationship and Cardinality 
+1. PATIENT has Recorded PATIENT HISTORY: 
+o Each patient has one or more patient histories. (The initial patient 
+visit is always recorded as an instance of PATIENT HISTORY.)  
+o Each instance of PATIENT HISTORY “belongs to” exactly one PATIENT 
+as seen below 
+
+===== PDF PAGE 41 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+39 
+ 
+Figure 2.16: PATIENT Has Recorded PATIENT HISTORY 
+2. EMPLOYEE is Assigned to PROJECT: 
+o Each PROJECT has at least one EMPLOYEE assigned to it. (Some pro-
+jects have more than one.)  
+o Each EMPLOYEE may or (optionally) may not be assigned to any ex-
+isting PROJECT (e.g., employee Pete) or may be assigned to one or 
+more PROJECTs. 
+ 
+Figure 2.17: EMPLOYEE Is Assigned To PROJECT 
+3. PERSON is Married to PERSON: 
+o This is an optional zero or one cardinality in both directions, because 
+a person may or may not be married at a given point in time. 
+ 
+Figure 2.18: PERSON Is Married to PERSON 
+ 
+  2.1.6 
+Example of a Business Rule for the ERD 
+ 
+ A SUPPLIER may supply many ITEMs (by “may supply,” we mean the sup-
+plier may not supply any items). Each ITEM is supplied by any number of 
+SUPPLIERS (by “is supplied,” we mean that the ITEM must be supplied by at 
+least one supplier).  
+
+===== PDF PAGE 42 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+40 
+ Each ITEM must be used in the assembly of at least one PRODUCT and may 
+be used in many products. Conversely, each PRODUCT must use at least 
+one ITEM. 
+ A SUPPLIER may send many SHIPMENTS. However, each shipment must be 
+sent by exactly one SUPPLIER. Notice that sends and supplies are separate 
+concepts. A SUPPLIER may be able to supply an item but may not yet have 
+sent any Shipments of that item. 
+ A SHIPMENT must include at least one ITEM. An ITEM may be included on 
+several SHIPMENTs. 
+ A CUSTOMER may submit any number of ORDERs. However, each ORDER 
+must be submitted by exactly one CUSTOMER. Given that a CUSTOMER 
+may not have submitted any ORDERs, some CUSTOMERs may be potential, 
+inactive, or otherwise have no related ORDERs. 
+ An ORDER must request one (or more) PRODUCTs. A given PRODUCT may 
+not be requested on any ORDER or may be requested on one or more or-
+ders 
+ 
+Figure 2.19: Example of a Business Rule for the ERD 
+ 
+  2.1.7 
+Class Activities 
+ 
+For each of the descriptions below, perform the following tasks: 
+ Identify the degree and cardinalities of the relationship. 
+ Express the relationships in each description graphically with an E-R dia-
+gram. 
+1a. A book is identified by its ISBN, and it has a title, a price, and a date of pub-
+lication. It is published by a publisher that has its own ID number and name. Each 
+book has exactly one publisher, but one publisher typically publishes multiple 
+books over time. 
+
+===== PDF PAGE 43 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+41 
+ 
+1b. A book (see 1a) is written by one or multiple authors. Each author is identified 
+by an author number and has a name and date of birth. Each author has either one 
+or multiple books; in addition, data are occasionally needed on prospective authors 
+who have not yet published any books. 
+ 
+In the context specified in 1a and 1b, better information is needed regarding the 
+relationship between a book and its authors. Specifically, it is essential to record the 
+percentage of the royalties that belongs to a specific author, whether or not a spe-
+cific author is a lead author of the book, and each author’s position in the sequence 
+of the book’s authors. 
+ 
+  
+A book (see 1a) can be part of a series, which is also identified as a book and has its 
+own ISBN. One book can belong to several sets, and a set consists of at least one 
+but potentially many books. 
+
+===== PDF PAGE 44 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+42 
+ 
+2. Look at this E-R Diagram: 
+ 
+Figure 2.20: Class Activity E-R Diagram 
+A cellular operator needs a database to track its customers, their subscription plans, 
+and the handsets (mobile phones) they use. The E-R diagram in Figure 2.20 illus-
+trates the key entities of interest to the operator and their relationships. Based on 
+the figure, answer the following questions and explain the rationale for your re-
+sponse. For each question, identify the element(s) in the E-R diagram that you used 
+to determine your answer.  
+a. Can a customer have an unlimited number of plans? 
+b. Can a customer exist without a plan? 
+c. Is it possible to create a plan without knowing who the customer is? 
+d. Does the operator want to limit the types of handsets that can be linked to a 
+specific plan type? 
+e. Is it possible to maintain data regarding a handset without connecting it to 
+a plan? 
+f. Can a handset be associated with multiple plans?  
+g. Assume a handset type exists that can utilise multiple operating systems. 
+Could this situation be accommodated within the model included in Figure 
+2-1? 
+
+===== PDF PAGE 45 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+43 
+h. Is the company able to track a manufacturer without maintaining information 
+about its handsets? 
+i. Can the same operating system be used on multiple handset types? 
+ 
+  2.1.8 
+Conclusion and Summary 
+ 
+In this unit, you have learnt about data modelling, the use of a conceptual model 
+(Entity-Relationship Model) and how business rules shape data structures. You have 
+explored how to model entities and attributes, define relationships among entities, 
+and understand the role of cardinality constraints in capturing real-world associa-
+tions. All of these concepts are essential and useful for designing a well-structured, 
+efficient database system. 
+Self-Assessment Questions 
+1. Is there a difference between data modelling and conceptual modelling? 
+Justify your answer. 
+2. What determines how data are handled? 
+3. Relationship instance and Associative entity are similar but different. Explain 
+their similarities and differences 
+Unit Activities 
+1. Read the content of Module 2, Unit 1 in the study guide. Consult the recom-
+mended texts and attempt the class activity and self-assessment questions. 
+(90 minutes) 
+2. TUTOR MARKED ASSIGNMENT: Complete the following and submit for 
+grading. (60 minutes 
+Tutor-Marked Assignment 
+1. Give four reasons why many system designers believe that data modelling 
+is important and arguably the most essential part of the systems develop-
+ment process. 
+2. Discuss why the ER model is a popular modelling tool. 
+
+===== PDF PAGE 46 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+44 
+3. Consider the situation: Faculty at a university (FACULTY entity) can also be 
+part of the Board of Studies (BOARD entity). Is there a weak entity here? 
+How? 
+4. The entity type TEACHER has the following attributes: 
+Teacher Name, Email, Phone, Age, Trainer, and Training Count.  
+Trainer represents a workshop organised by the teacher, and Training Count 
+represents the number of times the teacher has organised such workshops. 
+This implies a teacher may organise more than one workshop. Draw an ERD 
+for this situation.  
+What attribute or attributes did you designate as the identifier for the 
+TEACHER entity? Why? 
+  
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Compa-
+nies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to de-
+sign, implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 47 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+45 
+     
+      Unit 2 — Enhanced E-R Model 
+ 
+INTRODUCTION 
+ 
+ 
+In this unit, you will learn about Enhanced Entity-Relationship (E-R) 
+modelling, an extension of the basic E-R model that provides greater 
+expressiveness for representing real-world data. Enhanced E-R mod-
+els introduce concepts such as supertypes and subtypes, which al-
+low entities to be grouped into more general or more specific cate-
+gories. You will also explore the processes of specialisation and gen-
+eralisation, which help organise entities based on shared or distinct 
+characteristics. In addition, you will learn the constraints in sub-
+type/supertype relationships, subtype discriminators and super-
+type/subtype hierarchies.  
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the concept of Enhanced E-R modelling and its pur-
+pose in advanced database design. 
+ Identify and explain the use of supertypes and subtypes in rep-
+resenting entity hierarchies. 
+ Distinguish between specialisation and generalisation in mod-
+elling entity relationships. 
+ Apply completeness and disjointness constraints in subtype/su-
+pertype relationships. 
+ Understand the role of subtype discriminators in determining 
+entity categorisation. 
+ Interpret and construct supertype/subtype hierarchies in an E-
+R diagram 
+ 
+
+===== PDF PAGE 48 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+46 
+ 
+  2.2.1 
+Enhanced Entity-Relationship (EER) Model 
+ 
+Enhanced entity-relationship (EER) is used to identify the model that resulted from 
+extending the original E-R model with new modelling constructs. These extensions 
+make the EER model semantically similar to object-oriented data modelling. 
+ The most important modelling construct incorporated in the EER model is 
+supertype/subtype relationships.  
+o This facility enables the modelling of a general entity type (called the 
+supertype) and then subdivides it into several specialised entity types 
+(called subtypes) 
+o Thus, for example, the entity type CAR can be modelled as a super-
+type, with subtypes SEDAN, SPORTS CAR, COUPE, and so on.  
+o Each subtype inherits attributes from its supertype and, in addition, 
+may have special attributes and be involved in relationships of its 
+own.   
+o Adding new notation for modelling supertype/subtype relationships 
+has greatly improved the flexibility of the basic E-R model. 
+  
+  2.2.2 
+Supertypes and Subtypes 
+ 
+One of the significant challenges in data modelling is to recognise and clearly rep-
+resent entities that are almost the same, that is, entity types that share common 
+properties but also have one or more distinct properties of interest to the organisa-
+tion. 
+A subtype  
+A subgrouping of the entities in an entity type that is meaningful to the organisa-
+tion.  
+For example, STUDENT is an entity type in a university. Two subtypes of STUDENT 
+are GRADUATE STUDENT and UNDERGRADUATE STUDENT.  
+In this example, we refer to STUDENT as the supertype.  
+A supertype  
+A generic entity type that has a relationship with one or more subtypes. 
+  
+
+===== PDF PAGE 49 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+47 
+ 
+Figure 2.21 Basic Supertypes and Subtypes Notations 
+An Example of Supertypes and Subtypes 
+ Suppose that an organisation has three basic types of employees: hourly 
+employees, salaried employees, and contract consultants.  
+ The following are some of the important attributes for each of these types 
+of employees: 
+o Hourly employees: Employee Number, Employee Name, Address, 
+Date Hired, Hourly Rate. 
+o Salaried employees: Employee Number, Employee Name, Address, 
+Date Hired, Annual Salary, Stock Option. 
+o Contract consultants: Employee Number, Employee Name, Address, 
+Date Hired, Contract Number, Billing Rate. 
+o Notice that all of the employee types have several attributes in com-
+mon: Employee Number, Employee Name, Address, and Date Hired. 
+ 
+Figure 2.22: Example of Supertypes and Subtypes  
+
+===== PDF PAGE 50 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+48 
+Attribute inheritance  
+This is the property by which subtype entities inherit values of all attributes and 
+instances of all relationships of the supertype.  
+ This vital property makes it unnecessary to include supertype attributes or 
+relationships redundantly with the subtypes. 
+When to Use Supertype/Subtype Relationships 
+You should consider using subtypes when either (or both) of the following condi-
+tions are present: 
+ Some attributes apply to some (but not all) instances of an entity type.  
+ The instances of a subtype participate in a relationship unique to that sub-
+type, as seen in Figure 2.23. 
+ 
+Figure 2.23: Supertype and Subtype Relationships  
+ 
+  2.2.3 
+Specialisation and Generalisation 
+ 
+Two processes serve as mental models in developing supertype/subtype relation-
+ships. 
+1. Generalisation 
+2. Specialisation 
+  
+
+===== PDF PAGE 51 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+49 
+Generalisation  
+ In data modelling, generalisation is the process of defining a more general 
+entity type from a set of more specialised entity types, as seen in Figure 
+2.24. 
+ Generalisation is a bottom-up process. 
+ 
+Figure 2.24: Sample of Generalisation 1 
+ 
+Figure 2.24: Sample of Generalisation 2 
+  
+From the Figures above: 
+Notice that the entity type MOTORCYCLE is not included in the relationship.  
+Is this simply an omission? No.  
+ It is deliberately not included because it does not satisfy the conditions for 
+a subtype as discussed earlier.  
+
+===== PDF PAGE 52 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+50 
+ Comparing Figure 3-4 parts a and b, you will notice that the only attributes 
+of MOTORCYCLE are those that are common to all vehicles; there are no at-
+tributes specific to motorcycles.  
+ Furthermore, MOTORCYCLE does not have a relationship with another en-
+tity type. Thus, there is no need to create a MOTORCYCLE subtype. 
+Specialisation 
+Specialisation is a top-down process, the direct reverse of generalisation.  
+ Suppose that we have defined an entity type with its attributes.  
+ Specialisation is the process of defining one or more subtypes of the super-
+type and forming supertype/subtype relationships.  
+ 
+Figure 2.25: Sample of Specialisation 1 
+ 
+Figure 2.26: Sample of Specialisation 2 
+  
+
+===== PDF PAGE 53 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+51 
+ 
+  2.2.4 
+Constraints in Supertype/Subtype Relationships 
+ 
+There are additional notations to represent constraints on supertype/subtype rela-
+tionships.  
+These constraints make it possible to capture some of the important business rules 
+that apply to these relationships. 
+ The two most important types of constraints that are described in this sec-
+tion are: 
+o Completeness constraints 
+o Disjointness constraints 
+Completeness Constraints 
+ A completeness constraint addresses the question of whether an instance 
+of a supertype must also be a member of at least one subtype.  
+ The completeness constraint has two possible rules:  
+o Total specialisation  
+o Partial specialisation 
+ The Total specialisation rule specifies that each entity instance of the super-
+type must be a member of some subtype in the relationship.  
+ The Partial specialisation rule specifies that an entity instance of the super-
+type is not allowed to belong to any subtype. 
+  
+ 
+Figure 2.27: Completeness Constraints Total Specialisation Rule 
+  
+  
+
+===== PDF PAGE 54 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+52 
+ 
+Figure 2.28: Completeness Constraints Partial Specialisation Rule 
+Disjointness Constraints 
+ A disjointness constraint addresses whether an instance of a supertype may 
+simultaneously be a member of two (or more) subtypes.  
+ The disjointness constraint has two possible rules:  
+o The Disjoint rule  
+o The Overlap rule 
+ The Disjoint rule specifies that if an entity instance (of the supertype) is a 
+member of one subtype, it cannot simultaneously be a member of any 
+other subtype.  
+ The Overlap rule specifies that an entity instance can simultaneously be a 
+member of two (or more) subtypes. 
+ 
+Figure 2.29: Disjointness Constraints Disjoint Rule 
+  
+
+===== PDF PAGE 55 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+53 
+  
+  
+ 
+Figure 2.29: Disjointness Constraints Overlap Rule 
+ 
+  2.2.5 
+Subtype Discriminators 
+ 
+We need a simple mechanism to implement these rules (as outlined in section 6.0 
+above), if one is available.  
+Often this can be accomplished by using a subtype discriminator.  
+A subtype discriminator  
+ This is an attribute of a supertype whose values determine the target sub-
+type. 
+ 
+  2.2.6 
+Supertype/Subtype Hierarchies 
+ 
+This is a hierarchical arrangement of supertypes and subtypes, where each subtype 
+has only one supertype. 
+ 
+
+===== PDF PAGE 56 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+54 
+ 
+Figure 2.30: Subtype Discriminator; Disjoint 
+ 
+Figure 2.30: Subtype Discriminator; Overlap 
+Summary of Supertype/Subtype Hierarchies 
+  
+  2.2.7 
+Summary of Supertype/Subtype Hierarchies 
+ 
+ Attributes are assigned at the highest logical level that is possible in the hi-
+erarchy.  
+o For example, because SSN (i.e., Social Security Number) applies to all 
+persons, it is assigned to the root.  
+o In contrast, Date Hired applies only to employees, so it is assigned to 
+EMPLOYEE.  
+
+===== PDF PAGE 57 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+55 
+o This approach ensures that attributes can be shared by as many sub-
+types as possible. 
+ Subtypes that are lower in the hierarchy inherit attributes not only from 
+their immediate supertype, but from all supertypes higher in the hierarchy, 
+up to the root.  
+o Thus, for example, an instance of faculty has values for all of the fol-
+lowing attributes:  
+o SSN, Name, Address, Gender, and Date of Birth (from PERSON); Date 
+Hired and Salary (from EMPLOYEE); and Rank (from FACULTY). 
+ 
+  2.2.8 
+Conclusion 
+ 
+In this unit, you have learned about Enhanced Entity-Relationship (E-R) modelling, 
+supertypes and subtypes, and specialisation and generalisation, which help in or-
+ganising entities based on shared or distinct characteristics. In addition, you have 
+also learned about the constraints in subtype/supertype relationships, subtype dis-
+criminators, rules and supertype/subtype hierarchies. 
+Summary 
+In this unit, you have learned that Enhanced Entity-Relationship (E-R) modelling is 
+an extension of the basic E-R model that provides greater expressiveness for repre-
+senting real-world data. You also discovered that Enhanced E-R models introduce 
+concepts such as supertypes and subtypes, which allow entities to be grouped into 
+more general or more specific categories. You also explored the processes of spe-
+cialisation and generalisation, constraints in subtype/supertype relationships, sub-
+type discriminators and supertype/subtype hierarchies. 
+Self-Assessment Questions 
+1. The two most important types of constraints in Supertype/Subtype Relation-
+ships are? 
+2. What does the partial specialisation rule specify? How is this different from 
+the total specialisation rule? 
+3. What are the processes that serve as the mental models in developing su-
+pertype/subtype relationships? Is there a difference between data modelling 
+and conceptual modelling? Justify your answer. 
+
+===== PDF PAGE 58 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+56 
+Unit Activities 
+1. Read the content of Module 2, Unit 2 in the study guide. Consult the recom-
+mended texts and attempt the In-text and self-assessment questions. (90 
+minutes). 
+2. TUTOR MARKED ASSIGNMENT: Complete the following and submit for 
+grading. (60 minutes) 
+Tutor-Marked Assignment 
+1. Differentiate between supertype and subtype. Using a real-life example, ex-
+plain in detail the operations of each in an organisation’s database system. 
+2. When can each of these supertype and subtype Relationships be used? What 
+is their attribute inheritance? 
+  
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw Hill Compa-
+nies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. 
+Upper Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 59 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+57 
+     
+    Unit 3 — Introduction to Semi-Structured Models (XML Model) 
+ 
+INTRODUCTION 
+ 
+ 
+In this unit, you will learn about semi-structured data models, which 
+are used to represent data that does not conform to the traditional 
+tabular structure of relational databases. Unlike structured data 
+models, semi-structured data offers greater flexibility in data organ-
+isation and labelling, making it ideal for scenarios where data is ir-
+regular or evolves over time. This unit will also focus on popular 
+semi-structured formats such as JSON (JavaScript Object Notation) 
+and XML (eXtensible Markup Language). These formats use tags or 
+key-value pairs to represent complex data structures and are widely 
+used in modern web and data exchange applications. You will ex-
+plore how JSON and XML store data, how to read and write data 
+using these formats, and why they are essential in today's data-
+driven world.  
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the concept of semi-structured data models and 
+their purpose. 
+ Identify and differentiate between JSON and XML formats. 
+ Read, write, and interpret data using JSON and XML. 
+ 
+ 
+ 
+
+===== PDF PAGE 60 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+58 
+ 
+  2.3.1 
+Semi-structured 
+ 
+Semi-structured Data Models: 
+ Provides a flexible way to represent data that does not conform to the rigid 
+schema of traditional relational databases but still maintains some organi-
+sational structure. 
+ Offer a middle ground between structured and unstructured data, provid-
+ing a balance of flexibility and organisation that is particularly useful in sce-
+narios where data formats and structures are subject to change. 
+ Semi-structured data are characterised by complex data whose schema 
+changes often 
+Flexible Schema 
+Some database systems allow each tuple to have a different set of attributes; such 
+a representation is referred to as a wide-column data representation, i.e., the set of 
+attributes is not fixed; each tuple may have a different set of attributes, and new 
+attributes may be added as needed.  
+ A more restricted form of this representation is to have a fixed but huge 
+number of attributes, with each tuple using only those attributes that it 
+needs, leaving the rest with null values; such a representation is called a 
+sparse column representation. 
+Multivalued Data Types 
+Many data representations allow attributes to contain non-atomic values. Many da-
+tabases support storing sets, multisets, or arrays as attribute values. For example, an 
+application that stores a user's topics of interest and uses them to target articles or 
+advertisements to the user may store them as a set. An example of such a set may 
+be:  
+ {basketball, La Liga, cooking, anime, Jazz} 
+Nested Data types 
+Many data representations allow attributes to be structured, directly modelling 
+composite attributes in the E-R model. For example, an attribute name may have 
+component attributes firstname and lastname.  
+ There are two widely used data models that allow values to have complex 
+internal structures and that are flexible, i.e values are not forced to adhere 
+
+===== PDF PAGE 61 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+59 
+to a fixed schema. These are the JavaScript Object Notation (JSON) and the 
+Extensible Markup Language (XML). 
+ 
+  2.3.2 
+JSON 
+ 
+ 
+ 
+ 
+  2.3.3 
+eXtensible Markup Language (XML) 
+ 
+Many data representations allow attributes to be structured, directly modelling 
+composite attributes in the E-R model. For example, an attribute name may have 
+component attributes firstname and lastname 
+ XML is a widely used semi-structured data format that can be both schema-
+less (flexible) or schema-validated (strict). The way schemas interact with 
+XML affects how data is stored, validated, and processed. 
+ XML is a text-based scripting language used to describe data structures hi-
+erarchically, using HTML-like tags 
+ XML adds tags enclosed in angle brackets, < >, to markup information in a 
+textual representation. Tags are used in pairs, with <tag> and </tag> de-
+limiting the beginning and the end of the portion of the text to which the 
+tag refers 
+
+===== PDF PAGE 62 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+60 
+ For example, the title of a document can be marked up as: 
+o <title>Semi-Structured Data Models</title> 
+ Such tags can be used to represent relational data specifying relation 
+names and attribute names as tags, as shown in Figure 2.31 below:  
+ 
+ 
+Figure 2.31: XML Tags 
+ Furthermore, tags can be used to create hierarchical structures, which is not 
+possible with the relational model.  
+ Hierarchical structures are particularly important for representing business 
+objects that must be exchanged between organisations; examples include 
+bills, purchase orders and so forth. 
+ 
+Figure 2.32: Realistic Use of XML 
+The figure 2.32 above: 
+Shows how information about a purchase order can be represented in XML. It illus-
+trates a more realistic use of XML. Purchase orders are typically generated by one 
+organisation and sent to another. A purchase order contains a variety of infor-
+mation; the nested representation allows all of that data to be naturally represented 
+in a single document.  
+
+===== PDF PAGE 63 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+61 
+to be naturally represented in a single document.  
+              
+ 
+ 
+  2.3.4 
+Storing XML Documents 
+ 
+One of the biggest questions that needs to be answered as XML data becomes more 
+prevalent is “Where do we store these data?”  
+1. Store XML data in a relational database by shredding the XML document: 
+Shredding an XML document essentially means that we store each element 
+of an XML schema independently in a relational table and use other tables 
+to store the relationships among the components. Modern databases such 
+as Microsoft SQL Server and Oracle provide capabilities beyond standard 
+SQL to help store and retrieve XML data.  
+2. Store the XML document using special XML columns that are made available 
+as part of the database: These columns can be associated with an XSD, for 
+example, to ensure that the XML document that is being inserted is a valid 
+document. 
+3. Store the XML document using a native XML database: These are non-rela-
+tional databases designed specifically to store XML documents. 
+Note: the first two options are primarily used when XML is used as a data exchange 
+format between a browser and an application server. 
+The first option is used when the majority of the information being processed is 
+originally in XML format. 
+Retrieving XML Documents 
+Modern databases provide extensive support for retrieving information from data-
+bases in XML format. The key technologies behind XML data retrieval are XPath and 
+
+===== PDF PAGE 64 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+62 
+XQuery. Each of the options provides specific mechanisms by which you can retrieve 
+data in XML format: 
+ XPath: One of a set of XML technologies that supports XQuery develop-
+ment. XPath expressions are used to locate data in XML documents. 
+ XQuery: An XML transformation language that allows applications to query 
+both relational databases and XML data. Built on XPath expressions, XQuery 
+is now supported by the major relational database engines, including those 
+from IBM, Oracle, and Microsoft 
+Take a look at the XML document in Figure 2.33. Now, consider the following XQuery 
+expression that returns all product elements that have a standard price > 300.00: 
+ 
+You can see the similarities between XQuery and SQL in this example. It is often said 
+that XQuery is to XML as SQL is to relational databases. 
+ 
+Figure 2.33: Retrieval of XML Documents 
+Displaying XML Documents 
+The display of XML data on a Web browser is controlled by a stylesheet specified 
+using the Extensible Stylesheet Language (XSL).  
+
+===== PDF PAGE 65 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+63 
+Most modern browsers and programming languages provide support for XSLT. 
+Thus, the transformation of the XML can happen either at the Web server layer or 
+the application server layer. 
+One of the advantages of XSLT is that it can be used to handle the myriad devices 
+that now use the Internet. For example, smartphones and tablets have built-in 
+browsers that allow a user to access the Internet. 
+Figure 2.34 shows a sample XSLT specification for displaying Salesperson data as an 
+HTML table.  
+ 
+Figure 2.34: Sample XSLT specification 
+ 
+  2.3.5 
+Summary of Semi-Structured Data Models 
+ 
+ Unlike with a relational schema, new tags can be introduced easily. With 
+suitable names, the data are “self-documenting” in that a human can un-
+derstand or guess what a particular piece of data means based on the 
+name. 
+ The XQuery language was developed to support querying of XML data, 
+even though adoption of XQuery has been relatively limited. 
+ The SQL language itself has been extended to support XML in several ways:  
+ XML data can be stored as an XML data type.  
+
+===== PDF PAGE 66 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+64 
+o SQL queries can generate XML data from relational data. Such exten-
+sions are very useful for packaging related data into a single XML 
+document, which can then be sent to another application. The exten-
+sions allow the construction of XML representations from individual 
+rows, as well as the creation of an XML document from a collection 
+of rows by using an XMLAGG aggregate function.  
+o SQL queries can extract data from an XML data type value. For exam-
+ple, the XPath language supports “path expressions” that allow the 
+extraction of desired parts of data from an XML document. 
+ 
+  2.3.6 
+Key Features of Semi-Structured Data Models 
+ 
+1. Schema Flexibility:  
+▪ 
+No fixed schema is required upfront  
+▪ 
+Fields can vary per record 
+2. Hierarchical Structure 
+▪ 
+Data is often nested (e.g., trees, graphs) rather than flat (like tables). 
+3. Self-Describing 
+▪ 
+Metadata (e.g., tags, keys, or attributes) describes the data. 
+4. Partial Organisation: While it doesn't fit neatly into tables, semi-structured 
+data includes organisational elements like tags or metadata, making it more 
+manageable than unstructured data. 
+ 
+  2.3.7 
+Conclusion 
+ 
+In this unit, you have learned about semi-structured data model, JSON (JavaScript 
+Object Notation) and XML (eXtensible Markup Language). You have also explored 
+how JSON and XML store data, how to read and write data using these formats, and 
+why they are important in today's data-driven world. 
+Summary 
+In this unit, you have learned about semi-structured data models, which are used to 
+represent data that does not conform to the traditional tabular structure of rela-
+tional databases. You also learned popular semi-structured formats such as JSON 
+(JavaScript Object Notation) and XML (eXtensible Markup Language). 
+
+===== PDF PAGE 67 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+65 
+Self-Assessment Questions 
+1. Is XML the same as HTML? Justify your answer. 
+2. Explain the Semi-Structured Data types. 
+Unit Activities 
+1. Read the content of Unit 1 in the study guide. Consult the recommended 
+texts and research more information on the internet. (90 minutes) 
+2. Complete the self-introductory forum. Original post by Thursday. (10 
+minutes). Complete replies to 2 of your classmates by Sunday at 11:59 p.m. 
+(10 minutes) 
+3. TUTOR MARKED ASSIGNMENT: Complete the following and submit for 
+grading. (60 minutes)) 
+Tutor-Marked Assignment 
+1. Identify and write out four (4) inconveniences of using semi-structured data 
+models 
+2. What advantage do semi-structured data models have over models with 
+rigid organisation? 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Companies 
+(2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ Rosen, K. H. (2019). Discrete Mathematics    
+
+===== PDF PAGE 68 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+66 
+ 
+     Unit 4 — Examples of Conceptual Models 
+ 
+INTRODUCTION 
+ 
+ 
+ 
+ 
+In this unit, you will explore real-life examples of conceptual data 
+models. You’ll see how we use the Entity-Relationship (E-R) model 
+to represent key elements such as entities (things), attributes (de-
+tails about those things), and relationships (how the things are con-
+nected) in simple and practical ways. This unit brings theory to life 
+through relatable examples from everyday systems such as schools, 
+hospitals, and online stores.  
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Read and create basic E-R diagrams based on everyday scenar-
+ios. 
+ Apply conceptual modelling techniques to real-world case 
+studies. 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 69 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+67 
+ 
+  2.4.1 
+Examples of Conceptual Models 
+ 
+University Database 
+Imagine a system that tracks a university's students, courses, lecturers, and depart-
+ments. Each student enrols in courses. Lecturers teach the courses. Courses belong 
+to departments. Each of these (Student, Course, Lecturer, Department) would be an 
+entity, and we’d use an E-R diagram to show how they’re connected. 
+Hospital Management System  
+In a hospital, we have patients, doctors, appointments, and treatments. A patient 
+consults a doctor, receives treatment, and schedules appointments. These elements 
+become our entities, and we draw relationships like “consults,” “prescribes,” and 
+“undergoes” to connect them. 
+Online Retail Store  
+Think of a shopping app. There are customers, products, orders, and payments. Cus-
+tomers place orders. Orders contain products. Customers also make payments. 
+These real-world relationships are captured visually in the conceptual model. 
+Library System  
+A library keeps records of books, members, librarians, and loans. Members borrow 
+books. Librarians manage book loans. This typical example shows how data flows in 
+a library and helps us practice modelling relationships like "borrows" or "returns." 
+Hotel Reservation System 
+In a hotel, guests book rooms, staff manage reservations, and each room includes 
+details such as type and rate. This system helps us show bookings, check-ins, and 
+staff roles in a way that captures all essential data elements and their relationships. 
+ 
+  2.4.2 
+Conclusion 
+ 
+In this unit, you’ve seen how conceptual models apply to everyday systems like 
+schools, hospitals, and stores. This step is essential for building a functional and 
+efficient database. 
+
+===== PDF PAGE 70 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+68 
+Summary 
+In this unit, you have learned about semi-structured data models, which are used to 
+represent data that does not conform to the traditional tabular structure of rela-
+tional databases. You also learnt popular semi-structured formats such as JSON (Ja-
+vaScript Object Notation) and XML (eXtensible Markup Language). 
+Self-Assessment Questions 
+1. Draw a simple E-R diagram for a hospital with patients, doctors, and treat-
+ments. 
+Unit Activities 
+1. Read the content of Unit 1 in the study guide. Consult the recommended 
+texts and research more information on the internet. (90 minutes) 
+2. Complete the self-introductory forum. Original post by Thursday. (10 
+minutes). Complete replies to 2 of your classmates by Sunday at 11:59 p.m. 
+(10 minutes) 
+3. TUTOR MARKED ASSIGNMENT: Complete the following and submit for 
+grading. (60 minutes)) 
+Tutor-Marked Assignment 
+1. Create a conceptual model for a hotel reservation system. Include guests, 
+rooms, reservations, and staff. 
+2. List four attributes for each entity in a library management system. 
+3. Explain why creating a conceptual model is essential before building a da-
+tabase. 
+ 
+ 
+
+===== PDF PAGE 71 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+69 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill 
+Companies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). 
+Reading, Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database manage-
+ment. Upper Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to 
+design, implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 72 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+70 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Module Three:  
+Logical Design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 73 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+71 
+     
+    Unit 1 — Introduction to Relational Model 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn about the foundational principles of data-
+base design, including the rules and specifications that guide how a 
+database should be appropriately structured and implemented. You 
+will be introduced to the relational data model, which organises data 
+into tables (relations) and ensures logical consistency through 
+clearly defined relationships. This unit will also cover the concept of 
+relational keys, such as primary and foreign keys, which are used to 
+uniquely identify records and maintain connections between tables. 
+You’ll learn how to remove multivalued attributes from relations to 
+ensure each table holds atomic data values, in line with relational 
+model rules. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Define and identify various types of sets, including empty, sin-
+gleton, finite, infinite, equal, and equivalent sets. 
+ Apply set-theoretic notation and understand set membership 
+using symbols like ∈, ∉, ⊆, ⊂, and P(A). 
+ Perform basic and advanced set operations such as union, in-
+tersection, difference, symmetric difference, and complement, 
+with appropriate use of Venn diagrams. 
+ Describe relationships between sets and determine subset, 
+proper subset, and disjoint set conditions with examples 
+ 
+ 
+ 
+
+===== PDF PAGE 74 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+72 
+ 
+  3.1.1 
+Database Design (Logical Database Design) 
+ 
+Database design involves transforming the requirements developed during data-
+base analysis into specifications to guide database implementation.  
+Specifications that Guide Database Implementation 
+1. Logical specifications 
+It maps the conceptual requirements into the data model associated with a 
+specific database management system. 
+2. Physical specifications 
+It specifies all the parameters for data storage, which are then used as input 
+for database implementation.  
+During this phase, a database is defined using a data definition language 
+(DDL). 
+Logical Database Design 
+Logical database design is the process of transforming a conceptual data model 
+into a logical data model that is consistent with and compatible with a specific type 
+of database technology. 
+ 
+  3.1.2 
+Relational Data Model 
+ 
+ The Relational Data model was first introduced by E. F. Codd around the 
+1970s. 
+  Two early research projects were launched to prove the feasibility of the re-
+lational model and to develop prototype systems.  
+ The first of these, at IBM’s San Jose Research Laboratory, led to the develop-
+ment of System R (a prototype relational DBMS [RDBMS]) during the late 
+1970s.  
+ The second, at the University of California at Berkeley, led to the development 
+of Ingres, an academically oriented RDBMS. 
+ Commercial RDBMS products from numerous vendors started to appear 
+about 1980. 
+ The relational data model represents data in the form of tables. 
+  The relational model is based on mathematical theory 
+ The relational data model consists of three (3) components: 
+a. Data structure: Data are organised in the form of tables, with rows 
+and columns. 
+
+===== PDF PAGE 75 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+73 
+b. Data manipulation: Powerful operations (typically implemented us-
+ing the SQL language) are used to manipulate data stored in the rela-
+tions. 
+c. Data integrity: The model includes mechanisms to specify business 
+rules that maintain the integrity of data when they are manipulated. 
+ 
+Figure 3.1: Relation EMPLOYEE1 consisting of four attributes (columns) and tuples 
+(rows) 
+Relational Data Structure 
+ A relation is a named, two-dimensional table of data. 
+ Each relation (or table) consists of a set of named columns and an arbitrary 
+number of unnamed rows.  
+ An attribute is a named column of a relation. 
+ Each row of a relation corresponds to a record that contains data (attribute) 
+values for a single entity.  
+ In Figure 3.1, EMPLOYEE1 contains the following attributes describing em-
+ployees: 
+ EmpID, Name, DeptName, and Salary.  
+ The five rows of the table correspond to five employees.  
+Short Hand Notation Denoting a Relation 
+ We can express the structure of a relation by using a shorthand notation in 
+which the name of the relation is followed (in parentheses) by the names of 
+the attributes in that relation.  
+ For EMPLOYEE1, we would have: 
+o EMPLOYEE1(EmpID, Name, DeptName, Salary) 
+Relational Keys 
+ We must be able to store and retrieve a row of data in a relation, based on 
+the data values stored in that row.  
+
+===== PDF PAGE 76 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+74 
+ To achieve this goal, every relation must have a primary key. 
+ A primary key is an attribute or a combination of attributes that uniquely 
+identifies each row in a relation. 
+ We designate a primary key by underlining the attribute name(s).  
+ For example, the primary key for the relation EMPLOYEE1 is EmpID. 
+ Notice that this attribute is underlined in Figure 3.1.  
+ In shorthand notation, we express this relation as follows: 
+o EMPLOYEE1(EmpID, Name, DeptName, Salary).  
+ A composite key is a primary key that consists of more than one attribute.  
+ For example, the primary key for a relation DEPENDENT would likely consist 
+of the combination EmpID and DependentName.  
+ Often, we must represent the relationship between two tables or relations.  
+ This is accomplished through the use of foreign keys.  
+ A foreign key is an attribute in a relation that serves as the primary key 
+of another relation in the same database. 
+ For example, consider the relations EMPLOYEE1 and DEPARTMENT: 
+ 
+ 
+ The attribute DeptName is a foreign key in EMPLOYEE1. 
+ It allows a user to associate any employee with the department to which they 
+are assigned.  
+ 
+ 
+ 
+Properties of a Relation 
+1. Each relation (or table) in a database has a unique name. 
+2. An entry at the intersection of each row and column is atomic (or single val-
+ued). 
+3. Each row is unique; no two rows in a relation can be identical. 
+4. Each attribute (or column) within a table has a unique name. 
+5. The sequence of columns (left to right) is insignificant. 
+o The order of the columns in a relation can be changed without chang-
+ing the meaning of the relation. 
+6. The sequence of rows (top to bottom) is insignificant.  
+o As with columns, the order of the rows of a relation may be changed 
+or stored in any sequence. 
+
+===== PDF PAGE 77 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+75 
+Removing Multivalued Attributes from a Relation 
+ Figure 3.2 below shows the employee data from the EMPLOYEE1 relation 
+extended to include courses that those employees have taken. 
+ A given employee may have taken more than one course; CourseTitle and 
+DateCompleted are multivalued attributes.  
+ For example, the employee with EmpID100 has taken two courses; there-
+fore, there are two values of both CourseTitle (SPSS and Surveys) and Date-
+Completed (6/9/2015 and 10/7/2015) associated with one value of EmpID 
+(100). 
+ However, as you will see, this new relation in Figure 3.2 has some undesira-
+ble properties. 
+o The primary key column EmpID no longer uniquely identifies each of 
+the rows. 
+ If an employee has not taken any courses, the CourseTitle and DateCom-
+pleted attribute values are null.  
+ Check the employee with EmpID 190 for an example  
+  
+Figure 3.2: Removing Multivalued Attributes from a Relation 
+Sample Database 
+ A relational database may consist of any number of relations.  
+ The structure of the database is described through the use of a schema, 
+which is a description of the overall logical structure of the database. 
+ Common Methods for Expressing a Schema 
+ Short text statements: each relation is named, and the names of its attrib-
+utes follow in parentheses.  
+
+===== PDF PAGE 78 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+76 
+ A graphical representation: each relation is represented by a rectangle con-
+taining the attributes for the relation. 
+ Text statements have the advantage of simplicity. However, a graphical rep-
+resentation provides a better means of expressing referential integrity con-
+straints. 
+ A schema for four relations at Pine Valley Furniture Company is shown in 
+Fig. 3 .3.  
+ The four relations shown in this figure are CUSTOMER, ORDER, ORDERLINE, 
+and PRODUCT. 
+ The key attributes for these relations are underlined, and other important 
+attributes are included in each relation 
+ 
+Figure 3.3: Text Description of Relation/ Schema for four relations 
+Text Description of Relations 
+ Notice that the primary key for ORDER LINE in Fig 2.1 is a composite key 
+consisting of the attributes OrderID and ProductID.  
+ Also, CustomerID is a foreign key in the ORDER relation; this allows the user 
+to associate an order with the customer who submitted the order.  
+ ORDER LINE has two foreign keys: OrderID and ProductID. 
+ 
+Figure 3.4: Graphical Representation of Relation 
+ 
+
+===== PDF PAGE 79 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+77 
+ 
+  3.1.3 
+Integrity Constraint 
+ 
+ The relational data model includes several types of constraints, or rules lim-
+iting acceptable values and actions, whose purpose is to facilitate maintain-
+ing the accuracy and integrity of data in the database.   
+ The major types of integrity constraints are: 
+o domain constraints 
+o entity integrity, and 
+o  referential integrity 
+Domain Constraint 
+ A domain is the set of values that may be assigned to an attribute.  
+ A domain definition usually consists of the following components: domain 
+name, meaning, data type, size (or length), and allowable values or allowa-
+ble range (if applicable).  
+ All of the values that appear in a column of a relation must be from the 
+same domain.  
+ 
+Figure 3.5: Domain Definition  
+Entity Integrity 
+ The entity integrity rule is designed to ensure that every relation has a pri-
+mary key and that the data values for that primary key are all valid. 
+ In particular, it guarantees that every primary key attribute is non-null. 
+ In some cases, a particular attribute cannot be assigned a data value.  
+ Either there is no applicable data value or the applicable data value is not 
+known when values are assigned.  
+  
+
+===== PDF PAGE 80 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+78 
+Referential Integrity Constraint 
+ A referential integrity constraint is a rule that maintains consistency among 
+the rows of two relations.  
+ The rule states that if there is a foreign key in one relation, either each for-
+eign key value must match a primary key value in another relation or the 
+foreign key value must be null in the same database. 
+ 
+Figure 3.6: Referential Integrity Constraint 
+  
+Null Constraints 
+ A null is a value that may be assigned to an attribute when no other value 
+applies or when the applicable value is unknown.  
+ In reality, a null is not a value, but rather it indicates the absence of a value. 
+ For example, it is not the same as a numeric zero or a string of blanks.  
+ The inclusion of nulls in the relational model is somewhat controversial, be-
+cause it sometimes leads to anomalous results. 
+ 
+  3.1.4 
+A Well-Structured Relation 
+ 
+ A well-structured relation contains minimal redundancy and allows users to 
+insert, modify, and delete the rows in a table without errors or inconsisten-
+cies.  
+ EMPLOYEE1 (Figure 3.7) is such a relation.  
+ Each row of the table contains data describing one employee, and any 
+modification to an employee’s data (such as a change in salary) is confined 
+to one row of the table.   
+
+===== PDF PAGE 81 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+79 
+ 
+Figure 3.7: Well-Structured Relation  
+ 
+  3.1.5 
+NOT- Well-Structured Relation 
+ 
+ In contrast, EMPLOYEE2 (Figure 3.8) is not a well-structured relation. If you 
+examine the sample data in the table, you will notice considerable redun-
+dancy.  
+ For example, values for EmpID, Name, DeptName, and Salary appear in two 
+separate rows for employees 100, 110, and 150. 
+ Consequently, if the salary for employee 100 changes, we must record this 
+fact in two rows. 
+ Redundancies in a table may result in errors or inconsistencies (called 
+anomalies) when a user attempts to update the data in the table.  
+ 
+Figure 3.8: NOT-Well-Structured Relation 
+ 
+  3.1.6 
+Anomaly  
+ 
+ An anomaly is an error or inconsistency that may occur when a user at-
+tempts to update a table containing redundant data.  
+ The three types of anomalies are: 
+o insertion  
+o deletion  
+o modification anomalies. 
+
+===== PDF PAGE 82 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+80 
+Insertion Anomaly 
+ Suppose that we need to add a new employee to EMPLOYEE2. 
+ The primary key for this relation is the combination of EmpID and Course-
+Title (See Figure 3.8).  
+ Therefore, to insert a new row, the user must supply values for both EmpID 
+and CourseTitle (because primary key values cannot be null or nonexistent). 
+ This is an anomaly because the user should be able to enter employee data 
+without supplying course data.  
+  
+Figure 3.9: Emp-Course Relation  
+Deletion Anomaly 
+ Suppose that the data for employee number 140 are deleted from the table 
+in Figure 3.9. 
+ This will result in losing the information that this employee completed a 
+course (Tax Acc) on 12/8/2015.  
+ In fact, it results in losing the information that this course had an offering 
+that completed on that date. 
+Modification Anomaly 
+ Suppose that employee number 100 gets a salary increase. 
+ We must record the increase in each of the rows for that employee (two oc-
+currences in Figure 3.8); otherwise, the data will be inconsistent. 
+ 
+  3.1.7 
+Conclusion 
+ 
+In this unit, you have learned about the essential components of database design, 
+including the specifications that guide database implementation and the structure 
+of the relational data model. You also explored key concepts such as relational keys, 
+integrity constraints, and handling multivalued attributes. Additionally, you learned 
+how to identify well-structured and poorly structured relations, as well as how to 
+
+===== PDF PAGE 83 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+81 
+avoid common data anomalies. All of these elements contribute to building efficient, 
+reliable, and logically sound database systems. 
+Summary 
+In this unit, you have learnt that database design involves organising data in a way 
+that ensures accuracy, consistency, and efficiency. You explored how the relational 
+data model structures data into tables using relational keys to maintain relation-
+ships. You also learnt how to remove multivalued attributes, apply integrity con-
+straints, and recognise the difference between well-structured and not-well-struc-
+tured relations. Finally, you examined how poor design can lead to data anomalies 
+and how to prevent them through careful planning and normalisation 
+Self-Assessment Questions 
+1. What is the purpose of the relational keys? 
+2. What are integrity constraints? Explain them 
+Tutor-Marked Assignment 
+4. Describe the primary differences between the conceptual and logical data 
+models. 
+5. List the three components of the relational data model. 
+6. What is a schema? Discuss two common methods of expressing a schema 
+ 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Companies 
+(2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+
+===== PDF PAGE 84 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+82 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 85 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+83 
+     
+     Unit 2 — Transforming Conceptual to Logical Design 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn how to transform a conceptual data model 
+into a logical design, which is a more detailed and structured repre-
+sentation of data suitable for implementation in a relational data-
+base system. This process involves converting high-level entities, at-
+tributes, and relationships (usually represented in an Entity-Rela-
+tionship (ER) diagram) into relational tables with defined keys and 
+constraints. You will also explore how to transform regular entities 
+from the conceptual model into relations, assigning appropriate pri-
+mary keys and ensuring data is represented in a normalised and con-
+sistent manner. This step is crucial for preparing a database design 
+that is ready for implementation while preserving the semantics of 
+the original conceptual model. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the purpose of transforming a conceptual model 
+into a logical design. 
+ Convert regular entities from an ER diagram into relational ta-
+bles. 
+ Assign appropriate primary keys and attributes during the trans-
+formation process. 
+ Ensure that the logical design maintains the integrity and struc-
+ture of the original conceptual model. 
+ 
+ 
+ 
+
+===== PDF PAGE 86 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+84 
+ 
+  3.2.1 
+Introduction to Transformation 
+ 
+ During logical design, E-R (and EER) diagrams are transformed into relational 
+database schemas.  
+ The inputs to this process are the entity-relationship (and enhanced E-R) di-
+agrams, while the outputs are the relational schemas. 
+ Transforming (or mapping) EER diagrams into relations is a relatively straight-
+forward process with a well-defined set of rules.  
+ Many CASE tools can automatically perform many of the conversion steps. 
+ However, it is vital that you understand the steps in this process. 
+ 
+  3.2.2 
+Transforming Regular Entities 
+ 
+ Regular entities are entities that have an independent existence and generally 
+represent real-world objects, such as persons and products. 
+ Regular entity types are represented by rectangles with a single line. 
+ 
+Figure 3.10: Transforming Regular Entities (with simple attributes) 
+  
+Transforming Regular Entities (with composite attributes) 
+ When a regular entity type has a composite attribute, only the simple com-
+ponents of the composite attribute are included in the new relation as its 
+attributes 
+ Customer Address is represented as a composite attribute with components 
+Street, City, and State in Figure 3.11 
+ This entity is mapped to the CUSTOMER relation, which contains the simple 
+address attributes. 
+  
+
+===== PDF PAGE 87 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+85 
+ 
+ 
+Transforming Regular Entities (with multivalued attributes) 
+ When the regular entity type contains a multivalued attribute, two new rela-
+tions are created.  
+ The first relation contains all of the attributes of the entity type except the 
+multivalued attribute.  
+ The second relation contains two attributes that form the primary key of the 
+second relation.  
+ The first of these attributes is the primary key from the first relation, which 
+becomes a foreign key in the second relation, while the second is the multi-
+valued attribute.  
+ The name of the second relation should capture the meaning of the mul-
+tivalued attribute (Check Figure 3.12 for example). 
+  
+ 
+Figure 3.12: Transforming entity with multivalued attributes 
+  
+
+===== PDF PAGE 88 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+86 
+Transforming EER-D (with weak entity) 
+ For each weak entity type, create a new relation and include all of the simple 
+attributes (or simple components of composite attributes) as attributes of 
+this relation. 
+ Then include the primary key of the identifying relation as a foreign key at-
+tribute in this new relation.  
+ The primary key of the new relation is the combination of this primary key of 
+the identifying relation and the partial identifier of the weak entity type. 
+  
+ 
+Figure 3.13: Transforming EER-D with a weak entity 
+ 
+ In practice, an alternative approach is often used to simplify the primary key 
+of the DEPENDENT relation: Create a new attribute (called DependentID), 
+which will be used as a surrogate primary key in Figure 3.13. 
+ With this approach, the relation DEPENDENT has the following attributes: 
+ 
+  
+Transforming Binary One-to-many (1:M) Relationships 
+ First, create a relation for each of the two entity types participating in the 
+relationship. 
+ Include the primary key attribute (or attributes) of the entity on the one side 
+of the relationship as a foreign key in the relation that is on the many side of 
+the relationship.  
+ Hint: The primary key migrates to the many side. 
+  
+
+===== PDF PAGE 89 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+87 
+ 
+Figure 3.14: Transforming (1:M) binary Relationship 
+Transforming Binary Many-to-Many (M:N) Relationships 
+ Suppose that there is a binary many-to-many (M:N) relationship between 
+two entity types, A and B.  
+ For such a relationship, create a new relation, C. 
+  Include as foreign key attributes in C the primary key for each of the two 
+participating entity types.  
+ These attributes together become the primary key (Composite key) of C. 
+  Any non-key attributes that are associated with the M:N relationship are 
+included with the relation C. 
+  
+ 
+Figure 3.14: Transforming Binary Many-to-Many (M:N) Relationships 
+  
+
+===== PDF PAGE 90 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+88 
+ 
+  3.2.3 
+Transforming Binary one-to-one (1:1) Relationships 
+ 
+ Binary one-to-one relationships can be viewed as a special case of one-to-
+many relationships.  
+ The process of mapping such a relationship to relations requires two steps.  
+ First, two relations are created, one for each of the participating entity types.  
+ Second, the primary key of one of the relations is included as a foreign key 
+in the other relation. 
+ Note: include in the relation on the optional side of the relationship a foreign 
+key referencing the primary key of the entity type that has the mandatory 
+participation in the 1:1 relationship. 
+  
+ 
+Figure 3.15: Transforming a Binary one-to-one (1:1) Relationship 
+ 
+  3.2.4 
+Transforming Binary one-to-one (1:1) Relationships 
+ 
+ The first step is to create three relations: one for each of the two participating 
+entity types and a third for the associative entity.  
+ The relation formed from the associative entity is called the associative re-
+lation.  
+ The second step then depends on whether an identifier was assigned to the 
+associative entity in the E-R diagram. 
+ Note: include in the relation on the optional side of the relationship a foreign 
+key referencing the primary key of the entity type that has the mandatory 
+participation in the 1:1 relationship. 
+ 
+ 
+
+===== PDF PAGE 91 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+89 
+ 
+  3.2.5 
+Mapping Associative Entity Type (with no identifier) 
+ 
+ 
+ 
+Figure 3.16: Mapping Associative Entity Type with NO identifier 
+ 
+Mapping Associative Entity Type (with identifier) 
+  
+ 
+Figure 3.17: Mapping Associative Entity Type WITH identifier 
+ 
+  3.2.6 
+ Mapping Unary Relationships 
+ 
+ A unary relationship is a relationship between the instances of a single entity 
+type. 
+ Unary relationships are also called recursive relationships.  
+ The two most important cases of unary relationships are one-to-many and 
+many-to-many relationships.  
+
+===== PDF PAGE 92 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+90 
+Unary one-to-many Relationship 
+ The entity type in the unary relationship is mapped to a relation. 
+ Next, a foreign key attribute is added to the same relation; this attribute ref-
+erences the primary key values in the same relation. (This foreign key must 
+have the same domain as the primary key.) 
+ This type of foreign key is called a recursive foreign key. 
+ A recursive foreign key is a foreign key in a relation that references the pri-
+mary key values of the same relation. 
+ 
+ 
+Figure 3.18: Unary one-to-many Relationship 
+Unary many-to-many Relationship 
+ With this type of relationship, two relations are created: one to represent the 
+entity type in the relationship and an associative relation to represent the 
+M:N relationship itself. 
+ The primary key of the associative relation consists of two attributes.  
+ These attributes (which need not have the same name) both take their values 
+from the primary key of the other relation.  
+ Any non-key attribute of the relationship is included in the associative rela-
+tion. 
+
+===== PDF PAGE 93 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+91 
+ 
+Figure 3.19: Unary many-to-many Relationship 
+ 
+ In Figure 3.19, the ITEM relation is mapped directly from the same entity type. 
+ COMPONENT is an associative relation whose primary key consists of two 
+attributes that are arbitrarily named ItemNo and ComponentNo.  
+ The attribute Quantity is a non-key attribute of this relation that, for a given 
+item, records the quantity of a particular component item used in that item. 
+ Notice that both ItemNo and ComponentNo reference the primary key 
+(ItemNo) of the ITEM relation.  
+ It is not unusual to give this relation a surrogate key to avoid any practical 
+complexities related to the composite key. 
+ These attributes then act in the role of foreign keys that reference the indi-
+vidual primary keys of the participating entity types. 
+ Any attributes of the associative entity type become attributes of the new 
+relation. 
+ 
+  3.2.7 
+ Map Ternary (and n-ary) Relationships 
+ 
+ It is recommended that you convert a ternary relationship to an associative 
+entity to represent participation constraints more accurately. 
+ To map an associative entity, type that links three regular entity types, cre-
+ate a new associative relation.  
+ The default primary key of this relation consists of the three primary key at-
+tributes for the participating entity types. (In some cases, additional attrib-
+utes are required to form a unique primary key.)  
+  
+
+===== PDF PAGE 94 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+92 
+ 
+Figure 3.20: Mapping Ternary Relationships 
+ 
+ Although this primary key is technically correct, it is complex, difficult to 
+manage, and prone to errors.  
+ A better approach is to introduce a surrogate key, such as PTreatmentID, 
+that is, a serial number that uniquely identifies each treatment. 
+ 
+Map Supertype/Subtype Relationships 
+A commonly employed strategy to support the supertype/subtype relationship is: 
+1. Create a separate relation for the supertype and for each of its subtypes. 
+2. Assign to the relation created for the supertype the attributes that are com-
+mon to all members of the supertype, including the primary key. 
+3. Assign to the relation for each subtype the primary key of the supertype and 
+only those attributes that are unique to that subtype. 
+4. Assign one (or more) attributes of the supertype to function as the subtype 
+discriminator. 
+An example of applying this strategy is shown in Figure 3:21 
+ Supertype:  
+o EMPLOYEE  
+ Subtypes: 
+o HOURLY EMPLOYEE,  
+o SALARIED EMPLOYEE,  
+
+===== PDF PAGE 95 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+93 
+o CONSULTANT. 
+ The primary key of EMPLOYEE is Employee Number, and the attribute Em-
+ployee Type is the subtype discriminator. 
+  
+ 
+Figure 3.21: Subtype/Supertype Relationship 
+ 
+ The result of mapping the diagram in Figure 3.21 to relations using these 
+rules is shown in Figure 3.21.  
+ There is one relation for the supertype (EMPLOYEE) and one for each of the 
+three subtypes.  
+ The primary key for each of the four relations is Employee Number. 
+ A prefix is used to distinguish the name of the primary key for each sub-
+type. 
+  
+ 
+Figure 3.22: Mapping supertype/subtype Relationship 
+ 
+ For example, SemployeeNumber is the name for the primary key of the re-
+lation SALARIED EMPLOYEE.  
+
+===== PDF PAGE 96 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+94 
+ Each of these attributes is a foreign key that references the supertype pri-
+mary key, as indicated by the arrows in the diagram.  
+ Each subtype relation contains only those attributes unique to the subtype.  
+ 
+  3.2.8 
+ Class Activities 
+ 
+1. Figure 3.22 shows an EER diagram for a simplified credit card environment. 
+There are two types of card accounts: debit cards and credit cards. Credit 
+card accounts accumulate charges with merchants. Each charge is identified 
+by the date and time of the charge, as well as the merchant and credit card 
+primary keys. 
+o Develop a relational schema. 
+  
+ 
+Figure 3.22: EER diagram for bank cards 
+ 
+  
+2. Figure 3.23 shows an EER diagram for Vacation Property Rentals. This organ-
+isation rents preferred properties in several states. As shown in the figure, 
+there are two basic types of properties: beach and mountain. 
+ Transform the EER diagram to a set of relations and develop a relational 
+schema. 
+  
+
+===== PDF PAGE 97 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+95 
+ 
+Figure 3.23: EER diagram for Vacation Property Rental 
+ 
+ 
+  3.2.9 
+Conclusion 
+ 
+In this unit, you have learned how to transform a conceptual data model into a 
+logical design suitable for implementation in a relational database. You explored 
+how to convert regular entities into relational tables, assign keys, and maintain data 
+structure and relationships. This transformation process ensures that the database 
+design is both practical and faithful to the original business requirements. 
+Summary 
+In this unit, you have learnt that transforming a conceptual model into a logical 
+design is a key step in database development. It involves converting entities, attrib-
+utes, and relationships from an ER diagram into relational tables with well-defined 
+structures. You also learnt how regular entities are transformed by identifying ap-
+propriate primary keys and organising data into a logical format that preserves the 
+meaning and integrity of the original model. 
+Self-Assessment Questions 
+1. What is the difference between a conceptual model and a logical model in 
+database design? 
+2. Explain how a regular entity with a composite attribute is transformed into 
+a relational table. 
+
+===== PDF PAGE 98 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+96 
+3. How are multivalued attributes handled during the transformation process? 
+4. What is the purpose of using a surrogate key in complex relationships? 
+5. Describe the steps involved in transforming a binary many-to-many (M:N) 
+relationship. 
+6. How is a unary one-to-many relationship represented in a relational 
+schema? 
+7. Explain how to transform a supertype/subtype relationship into relational 
+tables 
+Tutor-Marked Assignment 
+1. What is the difference between a conceptual model and a logical model in 
+database design? 
+2. Explain how a regular entity with a composite attribute is transformed into 
+a relational table. 
+3. How are multivalued attributes handled during the transformation process? 
+4. What is the purpose of using a surrogate key in complex relationships? 
+5. Describe the steps involved in transforming a binary many-to-many (M:N) 
+relationship. 
+6. How is a unary one-to-many relationship represented in a relational 
+schema? 
+7. Explain how to transform a supertype/subtype relationship into relational 
+tables. 
+ 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Compa-
+nies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. 
+Upper Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+
+===== PDF PAGE 99 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+97 
+ 
+. 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+Module Four:  
+Functional Dependencies 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 100 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+98 
+     
+     Unit 1 — Normalisation 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn about the principles and process of data-
+base normalisation. You will be introduced to standard forms, start-
+ing from the First Normal Form (1NF) and progressing to higher-or-
+der forms such as 2NF, 3NF, and Boyce-Codd Normal Form (BCNF). 
+This unit also covers the concepts of functional dependency and de-
+terminants, which are essential for identifying relationships be-
+tween attributes and for correctly structuring tables. Additionally, 
+you will explore the role of relational keys in enforcing data integrity. 
+The unit will also explain how data models are used during normal-
+isation and outline the step-by-step process for transforming unnor-
+malised relations into normalised structures. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the purpose and importance of normalisation in 
+database design. 
+ Identify and explain different normal forms (1NF, 2NF, 3NF, 
+BCNF). 
+ Understand the concepts of functional dependency and deter-
+minants. 
+ Recognise and apply different types of relational keys in normal-
+isation. 
+ Use data models to guide the normalisation process. 
+ 
+ 
+
+===== PDF PAGE 101 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+99 
+ 
+  4.1.1 
+Introduction to Normalisation 
+ 
+ Normalisation is the process of decomposing relations with anomalies to 
+produce smaller, well-structured relations. 
+ It is a formal process for deciding which attributes should be grouped to-
+gether in a relation so that all anomalies are removed. 
+ Normalisation is based on normal forms and functional dependencies, 
+which define business rules, not data usage.  
+ Normalisation is a logical data-modelling technique used to ensure that 
+data are well-structured from an organisation-wide perspective. 
+ There are two major occasions during the overall database development 
+process when you can usually benefit from using normalisation: 
+o During logical database design, you should use normalisation con-
+cepts to verify the quality of the relations that are obtained from 
+mapping E-R diagrams. 
+o When reverse-engineering older systems, Many of the tables and 
+user views for older systems are redundant and subject to anomalies. 
+  
+Goals of Normalisation 
+1. Minimise data redundancy to avoid anomalies and conserve storage space. 
+2. Simplify the enforcement of referential integrity constraints. 
+3. Make it easier to maintain data (insert, update, and delete). 
+4. Provide a better design that is an improved representation of the real world 
+and a stronger basis for future growth. 
+Steps in Normalisation 
+ Normalisation can be accomplished and understood in stages, each of 
+which corresponds to a normal form. 
+ A normal form is a state of a relation that requires that certain rules regard-
+ing relationships between attributes (or functional dependencies) are satis-
+fied.  
+Normal Forms 
+1. First normal form: any multivalued attributes (also called repeating groups) 
+have been removed, so there is a single value (possibly null) at the intersec-
+tion of each row and column of the table 
+2. Second normal form: any partial functional dependencies have been re-
+moved (i.e., nonkey attributes are identified by the whole primary key). 
+
+===== PDF PAGE 102 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+100 
+3. Third normal form: any transitive dependencies have been removed (i.e., 
+non-key attributes are identified by only the primary key). 
+4. Boyce-Codd normal form: Any remaining anomalies that result from func-
+tional dependencies have been removed (because there was more than one 
+possible primary key for the same non-keys). 
+Functional Dependencies 
+ Normalisation is based on the analysis of functional dependencies.  
+ A functional dependency is a constraint between two attributes in which the 
+value of one attribute is determined by the value of another attribute. 
+ Functional dependency could be full, partial or transitive. 
+ For any relation R, attribute B is functionally dependent on attribute A if, for 
+every valid instance of A, that value of A uniquely determines the value of B. 
+  The functional dependency of B on A is represented by an arrow, as fol-
+lows: A → B. 
+  
+ 
+ 
+Characteristics of functional dependencies used in normalisation 
+ Have a 1:1 relationship between attribute(s) on left and right-hand side of a 
+dependency; 
+ Hold for all time; 
+ Are nontrivial. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 103 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+101 
+Types of functional dependencies  
+ 
+ 
+ 
+Figure 4.1: Functional dependency diagram for INVOICE 
+For the relation EMPLOYEE2, EmpID does not uniquely identify a row in the relation. 
+For example, there are two rows in Table 4.1 for EmpID 100. There are two types of 
+functional dependencies in this relation: 
+EmpID → Name, DeptName, Salary 
+EmpID, CourseTitle → DateCompleted 
+
+===== PDF PAGE 104 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+102 
+  
+ 
+Figure 4.1a: Functional dependencies sample1 
+ 
+EmpID → Name, DeptName, Salary 
+ 
+Figure 4.1b: Functional dependencies sample1 
+ An attribute may be functionally dependent on a combination of two (or more) 
+attributes rather than on a single attribute.  
+For example, consider this relation:  
+EMPCOURSE (EmpID, CourseTitle, DateCompleted) 
+
+===== PDF PAGE 105 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+103 
+ 
+Figure 4.2: EMP-COURSE Relation 
+ We represent the functional dependency in this relation (in Figure 4.2) as 
+follows: 
+ 
+ The comma between EmpID and CourseTitle stands for the logical AND op-
+erator, because DateCompleted is functionally dependent on EmpID and 
+CourseTitle in combination. 
+ The functional dependencies (in Figure 4.3) indicate that the combination of 
+EmpID and CourseTitle is the only candidate key (and therefore the primary 
+key) for EMPLOYEE2. 
+ In other words, the primary key of EMPLOYEE2 is a composite key. 
+ Neither EmpID nor CourseTitle uniquely identifies a row in this relation and 
+therefore (according to property 1) cannot by itself be a candidate key. 
+ 
+Figure 4.3: Functional Dependencies in EMPLOYEE2 
+  
+
+===== PDF PAGE 106 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+104 
+ 
+Examples of functional dependencies 
+1. SSN → Name, Address, Birthdate  
+A person’s name, address, and birth date are functionally dependent on 
+that person’s Social Security number (in other words, there can be only one 
+Name, one Address, and one Birthdate for each SSN). 
+2. VIN → Make, Model, Colour 
+The make, model, and original colour of a vehicle are functionally dependent 
+on the vehicle identification number (as above, there can be only one value 
+of Make, Model, and Colour associated with each VIN). 
+3. ISBN → Title, FirstAuthorName, Publisher  
+The title of a book, the name of the first author, and the publisher are func-
+tionally dependent on the book’s international standard book number (ISBN). 
+Determinants 
+The attribute on the left side of the arrow in a functional dependency is called a 
+determinant.  
+SSN, VIN, and ISBN are determinants in the previous three examples. 
+In the EMP COURSE relation, the combination of EmpID and CourseTitle is a deter-
+minant. 
+ 
+  
+  
+
+===== PDF PAGE 107 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+105 
+ 
+  4.1.2 
+Relational Keys 
+ 
+One or more attributes that determine other attributes are called the key attributes. 
+Keys may be Single or Composite (composed of several key attributes). 
+1. Superkey /Primary Key 
+2. Candidate Key/Composite Key 
+ A primary key that contains more than one attribute of which no 
+proper subset is a super key within the relation.  
+ Uniqueness: In each tuple of R, values of K uniquely identify that tuple 
+ Irreducibility: no proper subset of K has the uniqueness property  
+3. Alternate Keys 
+ Candidate keys/Composite keys that are not selected to be the pri-
+mary key. 
+4. Foreign Key 
+An attribute in a relation of a database that serves as the primary key of an-
+other relation in the same database. 
+  
+Candidate Keys 
+A candidate key is an attribute, or combination of attributes, that uniquely identifies 
+a row in a relation. A candidate key must satisfy the following properties, which are 
+a subset of the six properties of a relation. 
+ Unique identification: For every row, the value of the key must uniquely 
+identify that row. This property implies that each non-key attribute is 
+functionally dependent on that key. 
+ Non-redundancy: No attribute in the key can be deleted without de-
+stroying the property of unique identification. 
+Relationship between Candidate Key and Determinant 
+ A candidate key is always a determinant, whereas a determinant may or 
+may not be a candidate key.  
+ For example, in EMPLOYEE2, EmpID is a determinant but not a candidate 
+key.  
+ A candidate key is a determinant that uniquely identifies the remaining 
+(nonkey) attributes in a relation.  
+ A determinant may be  
+
+===== PDF PAGE 108 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+106 
+ a candidate key (such as EmpID in EMPLOYEE1),  
+ part of a composite candidate key (such as EmpID in EMPLOYEE2), or  
+a nonkey attribute. 
+ 
+  4.1.3 
+Data Models for Normalisation 
+ 
+If an EER data model has been transformed into a comprehensive set of rela-
+tions for the database, then each of these relations needs to be normalised. In 
+other cases in which the logical data model is being derived from user inter-
+faces, such as screens, forms, and reports, you will want to create relations for 
+each user interface and normalise those relations. 
+Check out the Invoice (PineValley Furniture Company) below. 
+ 
+Figure 4.4: Customer invoice from Pine Valley Furniture Company 
+The process of Normalisation 
+ Formal technique for analysing a relation based on its primary key and func-
+tional dependencies between its attributes.  
+ Often executed as a series of steps.   
+ Each step corresponds to a specific normal form, which has known proper-
+ties. 
+ As normalisation proceeds, relations become progressively more restricted 
+(stronger) in format and also less vulnerable to update anomalies. 
+
+===== PDF PAGE 109 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+107 
+Unormalised Form (UNF) 
+A table that contains one or more repeating groups. To create an unnormalized 
+table: transform data from an information source (e.g., a form) into a table format 
+with columns and rows. 
+ 
+ 
+  4.1.4 
+Steps in Normalising a data model 
+ 
+Step 0 
+ The first step (preliminary to normalisation) is to represent the user view (in 
+this case, an invoice) as a single table, or relation, with the attributes rec-
+orded as column headings.  
+ Sample data should be recorded in the rows of the table, including any re-
+peating groups that are present in the data. 
+ 
+Figure 4.5: Outcome of step 0 (using the invoice from Pine Valley Furniture 
+Company) 
+Convert to First Normal Form: Step 1 
+ A relation is in first normal form (1NF) if the following two constraints both 
+apply: 
+o There are no repeating groups in the relation 
+o There is a single fact at the intersection of each row and column of the 
+table. 
+o A primary key has been defined, which uniquely identifies each row in 
+the relation. 
+  
+
+===== PDF PAGE 110 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+108 
+ 
+Figure 4.6: Outcome of step 1 (using the invoice relation (1NF) from Pine Val-
+ley Furniture Company) 
+First Normal Form 
+Remove Repeating Groups  
+ As you can see, the invoice data contains a repeating group for each prod-
+uct that appears on a particular order. 
+ Thus, OrderID 1006 contains three repeating groups, corresponding to the 
+three products on that order. 
+Select the Primary Key  
+ There are four determinants in INVOICE, and their functional dependencies 
+are the following: 
+o OrderID → OrderDate, CustomerID, CustomerName, Cus-
+tomerAddress 
+o CustomerID → CustomerName, CustomerAddress 
+o ProductID → ProductDescription, ProductFinish, ProductStandard-
+Price 
+o OrderID, ProductID → OrderedQuantity 
+  
+Anomalies in 1NF 
+ Although repeating groups have been removed, the data still contain con-
+siderable redundancy. 
+ For example, CustomerID, CustomerName, and CustomerAddress for Value 
+Furniture are recorded in three rows (at least) in the table.  
+
+===== PDF PAGE 111 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+109 
+ As a result of these redundancies, manipulating the data in the table can 
+lead to insertion, deletion and update anomalies.  
+1. Insertion anomaly 
+ Example: The Pine Valley Furniture Company cannot introduce a new 
+product (say, Breakfast Table with ProductID 8) and add it to the da-
+tabase before it is ordered for the first time: No entries can be added 
+to the table without both ProductID and OrderID.  
+ Another example is, if a customer calls and requests that another 
+product be added to his OrderID 1007, a new row must be inserted 
+in which the order date and all of the customer information must be 
+repeated. 
+ This leads to data replication and potential data entry errors (e.g., the 
+customer name may be entered as “Valley Furniture”). 
+2. Deletion Anomaly 
+ If a customer calls and requests that the Dining Table be deleted from 
+her OrderID 1006, this row must be deleted from the relation, and we 
+lose the information concerning this item’s finish (Natural Ash) and 
+price ($800.00). 
+ Update Anomaly 
+ If Pine Valley Furniture (as part of a price adjustment) increases the 
+price of the Entertainment Center (ProductID 4) to $750.00, this 
+change must be recorded in all rows containing that item.  
+Second Normal Form; Step 2 
+ Step 2: Convert to Second Normal Form 
+ A relation is in second normal form (2NF) if it is in first normal form and 
+contains no partial functional dependencies.  
+ A partial functional dependency exists when a non-key attribute is function-
+ally dependent on part (but not all) of the primary key. 
+ The following partial dependencies exist in the INVOICE data for (Pine Val-
+ley Furniture Company): 
+o OrderID → OrderDate, CustomerID, CustomerName, Cus-
+tomerAddress 
+o ProductID → ProductDescription, ProductFinish, ProductStandard-
+Price 
+ The first of these partial dependencies (for example) states that the date on 
+an order is uniquely determined by the order number and has nothing to 
+do with the ProductID. 
+
+===== PDF PAGE 112 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+110 
+ To convert a relation with partial dependencies to second normal form, the 
+following steps are required: 
+1. Create a new relation for each primary key attribute (or combination 
+of attributes) that is a determinant in a partial dependency.  
+2. That attribute is the primary key in the new relation. 
+3. Move the non-key attributes that are only dependent on this primary 
+key attribute (or attributes) from the old relation to the new relation. 
+4. Removal of the partial dependencies results in the formation of two 
+new relations: PRODUCT and CUSTOMER ORDER.  
+5. The INVOICE relation is now left with just the primary key attributes 
+(OrderID and ProductID) and OrderedQuantity, which is functionally 
+dependent on the whole key. 
+6. We rename this relation ORDER LINE, because each row in this table 
+represents one line item on an order. 
+  
+ 
+Figure 4.7: Outcome of step 2 (using the invoice relation (2NF, 3NF) from 
+Pine Valley Furniture Company) 
+As indicated in Figure 4.7, the relations ORDER LINE and PRODUCT are in third nor-
+mal form.  
+However, CUSTOMER ORDER contains transitive dependencies and therefore (alt-
+hough in second normal form) is not yet in third normal form. 
+ A relation that is in first normal form will be in second normal form if any 
+one of the following conditions applies: 
+ The primary key consists of only one attribute (e.g., the attribute ProductID 
+in the PRODUCT relation in Figure k).  
+
+===== PDF PAGE 113 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+111 
+o By definition, there cannot be a partial dependency in such a rela-
+tion. 
+o No nonkey attributes exist in the relation (thus all of the attributes in 
+the relation are components of the primary key).  
+o There are no functional dependencies in such a relation. 
+ Every non-key attribute is functionally dependent on the full set of primary 
+key attributes (e.g., the attribute OrderedQuantity in the ORDER LINE rela-
+tion in Figure k). 
+Towards Third Normal Form; Step 3 
+ Step 3: Convert to Third Normal Form 
+ A relation is in third normal form (3NF) if it is in second normal form and no 
+transitive dependencies exist.  
+ A transitive dependency in a relation is a functional dependency between 
+the primary key and one or more non-key attributes that are dependent on 
+the primary key via another non-key attribute. 
+ For example, there are two transitive dependencies in the CUSTOMER OR-
+DER relation shown in Figure 4.7: 
+o OrderID → CustomerID → CustomerName 
+o OrderID → CustomerID → CustomerAddress 
+ In other words, both customer name and address are uniquely identified by 
+CustomerID, but CustomerID is not part of the primary key (as we noted 
+earlier). 
+ Transitive dependencies create unnecessary redundancy that may lead to 
+the type of anomalies discussed earlier. 
+Removing Transitive Dependencies 
+You can easily remove transitive dependencies from a relation by means of a three-
+step procedure: 
+ For each nonkey attribute (or set of attributes) that is a determinant in a re-
+lation, create a new relation.  
+o That attribute (or set of attributes) becomes the primary key of the 
+new relation. 
+o Move all of the attributes that are functionally dependent only on 
+the primary key of the new relation from the old to the new relation. 
+o Leave the attribute that serves as a primary key in the new relation in 
+the old relation to serve as a foreign key that allows you to associate 
+the two relations. 
+ 
+
+===== PDF PAGE 114 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+112 
+ The results of applying these steps to the relation CUSTOMER ORDER are 
+shown in Figure 4.9. 
+ A new relation named CUSTOMER has been created to receive the compo-
+nents of the transitive dependency.  
+ The determinant CustomerID becomes the primary key of this relation, and 
+the attributes CustomerName and CustomerAddress are moved to the rela-
+tion.  
+ 
+Figure 4.8: Customer Order Relation in 2NF 
+ 
+Figure 4.9: Customer Order Relation in 2NF 
+CUSTOMER ORDER is renamed ORDER, and the attribute CustomerID remains as a 
+foreign key in that relation.  
+ This allows us to associate an order with the customer who submitted the 
+order.  
+ As indicated in Figure 4.9, these relations are now in third normal form. 
+  
+Relational schema for INVOICE data 
+Normalising the data in the INVOICE view has resulted in the creation of four rela-
+tions in third normal form: CUSTOMER, PRODUCT, ORDER, and ORDER LINE. 
+
+===== PDF PAGE 115 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+113 
+ 
+Figure 4.10: Relational schema for INVOICE data 
+Boyce–Codd Normal Form (BCNF) 
+Based on functional dependencies that take into account all candidate keys in a 
+relation, BCNF also imposes additional constraints beyond the general definition of 
+3NF. 
+Normalising 3NF to BCNF 
+ A relation is in BCNF if and only if every determinant is a candidate key.  
+ Note: The attribute on the left side of the arrow in a functional dependence 
+is called the determinant. 
+ The difference between 3NF and BCNF is that for a functional dependency 
+ 
+A ® B,  
+ 3NF allows this dependency in a relation if B is a primary-key attribute and A 
+is not a candidate key. 
+ Whereas BCNF insists that for this dependency to remain in a relation, A must 
+be a candidate key.  
+ To test whether a relation is in BCNF, we identify all the determinants and 
+make sure that they are candidate keys. Recall that a determinant is an at-
+tribute, or a group of attributes, on which some other attribute is fully func-
+tionally dependent. 
+ 
+Higher Order Normal forms 
+ Fourth normal form: Any multivalued dependencies have been removed. 
+ Fifth normal form: Any remaining anomalies have been removed. 
+  
+
+===== PDF PAGE 116 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+114 
+ 
+Figure 4.11: Dream Home Customer Detail form 
+  
+Table 3.1:  Unnormalised Customer Rental Relation 
+ 
+Note:  
+ There are multiple values at intersection of certain rows and columns. 
+ To transform an unnormalised table to 1NF, we must ensure that there is a 
+single value at the intersection of each row and column. 
+ So, 1NF is achieved as shown in the next table 2. 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 117 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+115 
+Table 3.2:  1st Normal Form(1NF) Customer Rental Relation 
+ 
+  
+ We identify the three candidate keys for the Customer Rental Relation as 
+being composite keys comprising:    
+o (Customer_No, Property_No),  
+o (Customer_No, RentStart),   
+o (Property_No, RentStart) 
+ Among these, we select (Customer_No, Property_No) as the Primary Key for 
+the relation. 
+ To normalise this relation to the 2nd Normal form, we need to identify the 
+functional dependencies. 
+ 
+Figure 4.11: Dependency diagram for Custormer_Rental relation 
+Functional dependencies of the Customer_Rental relation with Customer_No, Prop-
+erty_No as the primary key 
+ fd1: Customer_No, Property_No ® RentStart, RentFinish  (Pk) 
+ fd2: Customer_No ® CName  (Pd)      
+ fd3: Property_No ® Paddress ,Rent ,Owner_No, OName  (Pd) 
+ fd4: Owner_No® OName  (Td) 
+
+===== PDF PAGE 118 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+116 
+ fd5: Customer_No , RentStart ® Property_No, Paddress, Rent , Owner_No, 
+OName  (Ck) 
+ fd6:  
+Property_No, RentStart ® Customer_No, CName, RentFinish (Ck) 
+So, to decompose the customer_Rental relation to 2nd Normal form all the partial 
+dependencies have to be removed on separate tables.  
+So as to have all non-key attribute to be fully dependent on their determinant key. 
+  
+Table 4.3: 2nd Normal Form(2NF) Customer Rental Relation 
+  
+ To transform the decomposed relation to 3rd Normal form, we have to 
+identify transitive dependency(ies), if there exit in any of the three decom-
+posed relations. 
+ All the relations are in 3rd Normal form except property_Owner relation 
+which consist of transitive dependency by considering fd4,  
+o fd4: Owner_No® OName  (Td) 
+ So, to decompose property_Owner  to 3rd Normal form the transitive de-
+pendency attribute has to be removed as a separate relation with a copy of 
+Owners_No as the Primary Key, to have: 
+o Customer (Customer_No, Cname) 
+o Rental (Customer_No , Property_No , RentStart,  RentFinish) 
+o Property_for _Rent (Property_No , Paddress, Rent, Owner_No) 
+o  Owner (Owner_No, Oname) 
+ 
+ 
+
+===== PDF PAGE 119 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+117 
+Table 4.4:  3rd Normal form (3NF) decomposed relations 
+ 
+ To transform the decomposed relation to Boyce Codd Normal form, we 
+have to identify if there is any case where a determinant is not a candidate 
+key Table 3.4. 
+ Table 4.4 reveals that all decomposed relation are in 3rd Normal form and 
+non-violate Boyce Codd condition: 
+ fd1: Customer_No, Property_No ® RentStart, RentFinish  (Pk) 
+ fd5: Customer_No , RentStart ® Property_No, Paddress, Rent , Owner_No, 
+OName  (Ck) 
+ fd6: Property_No, RentStart ® Customer_No, CName, RentFinish (Ck) 
+ As the three determinants of the Rental relation are also candidate keys, the 
+Rental relation is also already in BCNF. Violation of BCNF is quite rare. 
+ 
+  
+  4.1.5 
+Class Activities 
+ 
+Using the property inspection report below, generate the UNF, INF, 2NF and BCNF. 
+requirements. 
+
+===== PDF PAGE 120 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+118 
+ 
+ 
+  4.1.6 
+Conclusion 
+ 
+In this unit, you have learned how to transform a conceptual data model into a 
+logical design. In this unit, you have learned how normalisation helps improve the 
+structure and quality of a database by reducing redundancy and organising data 
+into well-defined tables. You explored various normal forms, understood the role of 
+functional dependencies and relational keys, and followed practical steps to nor-
+malise data. 
+Summary 
+In this unit, you have learned that normalisation is a key technique in database de-
+sign used to organise data efficiently and reduce redundancy. You explored different 
+normal forms, from 1NF to higher-order forms, and learned how they help create 
+clean, consistent tables. You also learnt about functional dependencies, determi-
+nants, and the role of relational keys in ensuring data integrity. By following the 
+steps of normalisation, you can transform poorly structured data into well-organ-
+ised relations that support reliable and efficient database systems. 
+Self-Assessment Questions 
+1. What is normalisation, and why is it important in relational database design? 
+2. Differentiate between First Normal Form (1NF) and Third Normal Form 
+(3NF). 
+3. Explain the concept of functional dependency and how it is used in the nor-
+malisation process 
+
+===== PDF PAGE 121 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+119 
+Tutor-Marked Assignment 
+1. For each of the following ER diagrams; 
+ Transform the diagram to a relational schema that shows referential 
+integrity constraints. 
+ For each relation, diagram the functional dependencies. 
+ If any of the relations are not in 3NF, transform them to 3NF. What is 
+the difference between a conceptual model and a logical model in 
+database design? 
+  
+2. For each of the following relations, indicate the normal form for that relation. 
+If the relation is not in third normal form, decompose it into 3NF relations. 
+Functional dependencies (other than those implied by the primary key) are 
+shown where appropriate. 
+a. EMPLOYEE(EmployeeNo, ProjectNo) 
+b. EMPLOYEE(EmployeeNo, ProjectNo, Location) 
+c. EMPLOYEE(EmployeeNo, ProjectNo, Location, Allowance)  
+d. [FD: Location → Allowance] 
+e. EMPLOYEE(EmployeeNo, ProjectNo, Duration, Location, Allowance)  
+f. [FD: Location → Allowance; FD: ProjectNo → Duration 
+ 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw Hill Compa-
+nies (2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. 
+Upper Saddle River, N.J: Pearson/ Prentice Hall.  
+
+===== PDF PAGE 122 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+120 
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+
+===== PDF PAGE 123 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+121 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Module Five: 
+Relational Theory and 
+Query Languages 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 124 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+122 
+     
+    Unit 1 — Relational Algebra 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn about the relational model, which is the 
+foundation of modern relational databases. You will be introduced 
+to the structure of the relational model, where data is organised into 
+tables (relations) with clearly defined rows and columns. This unit 
+will also cover relational algebra and the key operations of relational 
+algebra. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand the purpose and structure of the relational model 
+in database systems. 
+ Identify the components of a relation, including attributes, tu-
+ples, and keys. 
+ Explain the basic principles of relational algebra as a query lan-
+guage. 
+ Apply key relational algebra operations such as selection, pro-
+jection, union, and join. 
+ Use relational algebra to express and solve database queries. 
+ 
+ 
+
+===== PDF PAGE 125 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+123 
+ 
+  5.1.1 
+Relational Model 
+ 
+ The Relational Model (RM) remains the primary data model for commercial 
+data-processing applications. 
+ The RM consists of a collection of tables, each of which is assigned a unique 
+name.   
+ In a Relational Model, the term relation is used to refer to a table, while the 
+term tuple is used to refer to a row. Similarly, the term attribute refers to a 
+column of a table. 
+For example, consider this course table: 
+ 
+Table 5.1:  Course Table 
+ 
+ This table has four attributes that store information about courses, consist-
+ing of a course ID, title, department name and credits, for each course. 
+ The relationship between ‘BIO-101’ and ‘4’ is that BIO-101 is the course 
+code and that 4 is the total credits obtainable in the course. 
+ Each tuple (row) contains and explains the relationship between the fields in 
+the table. 
+ BIO-101 and 4 are ‘relations’ in the course table. 
+ 
+  5.1.2 
+Relational Algebra 
+ 
+ The relational algebra consists of a set of operations that take one or two 
+relations as input and produce a new relation as their result. 
+ Some of the operations could be unary: select, project, rename 
+
+===== PDF PAGE 126 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+124 
+ Or they could be binary: union, Cartesian product, set difference 
+ The Relational Algebra is a functional query language that forms the theo-
+retical basis of the SQL query language. 
+What are these Relational Algebra Operations, and how do they work? 
+Recall that relational algebra takes one or two relations, acts on them and produces 
+a new relation.  
+ The first operation is “Select”: The select operation selects tuples (rows) that 
+satisfy a given predicate (a particular condition). 
+For instance, in a CU course registration relation, the HoD might select all 
+male students, which can be output into another relation (table) entirely. 
+ 
+ 
+Select Operation Example 
+Consider this instructor relation in Table 3.2, which consists of four columns (attrib-
+utes) - lecturerID, lecturerName, lecturerDept and lecturerSalary; 
+Table 5.2: Instructor relation 
+ 
+
+===== PDF PAGE 127 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+125 
+Using the select operation, find all lecturers with a salary below 50,000: 
+σsalary<50000 (instructor) 
+ 
+ 
+Quick Classwork 
+1. Write a select statement to find all courses taken by the Computer Science 
+department 
+                          
+                           
+2. Write a select statement to find all instructors with a salary greater than 
+50,000 but less than 70,000.  
+ 
+
+===== PDF PAGE 128 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+126 
+ The second operation is “Project”: The Project operation is a unary opera-
+tion (because it acts on only one relation) that returns its argument relation 
+(table), with some attributes left out.  
+o Still using the example of the course registration relation, attributes 
+we can find are: (…). Assume we wish to get only the names, matric 
+and reg. no. of all students, we use the Project operation to produce 
+the output. 
+o Project operation works on attributes. 
+ 
+ 
+Quick Classwork 
+1. Write a projection statement to find the course codes and their correspond-
+ing units 
+ 
+ The third operation is “Cartesian-Product”: The Cartesian-Product opera-
+tion, denoted by a cross (×), allows us to combine information from any 
+two relations. We write the Cartesian product of relations as where refers to 
+the original relations. The steps are: 
+
+===== PDF PAGE 129 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+127 
+ Combine all attributes in both relations 
+ Multiply the tuples in both relations, forming all possible outcomes 
+ Represent the result of each multiplication as a single tuple. 
+Table 5.3:  Teaches relation 
+ 
+Since the same attribute name may appear in the schemas of both, we need to 
+devise a naming schema to distinguish between these attributes. We do so here by 
+attaching to an attribute the name of the relation from which the attribute originally 
+came. For example, the relation schema for  is:  
+ 
+(instructor.ID, 
+instructor.name, 
+instructor.deptname, 
+instructor. 
+salary, 
+teaches.ID, teaches.courseid, teaches.secid, teaches.semester, teaches.year) 
+Table 5.4:  Instructor × teaches relation schema 
+ 
+
+===== PDF PAGE 130 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+128 
+ 
+ 
+ The fourth operation is “Assignment”: The assignment operation, denoted 
+by ←, works like an assignment operator in a programming language. It is a 
+convenient way to express complex queries as it assigns parts of the query 
+to temporary relation variables that can later be reused.  
+Note that the evaluation of an assignment does not result in any rela-
+tion (table) being displayed to the user.  
+ 
+ 
+5. The fifth operation is “Join”: The join operation allows us to combine a selection and 
+a Cartesian product into a single operation. 
+
+===== PDF PAGE 131 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+129 
+ The most common type is the Natural Join, which joins tuples based on 
+equality of attributes with the same name in both relations. The duplicate 
+attribute is usually eliminated in the result. 
+ The notation for a Natural Join of R and S is nd S is
+. 
+ 
+ 
+  5.1.3 
+Conclusion 
+ 
+In this unit, you have learned about the relational model, which provides the foun-
+dation for how data is structured and managed in modern relational databases. You 
+explored the structure of relations. Additionally, you were introduced to relational 
+algebra, the formal language for querying and manipulating relational data. You 
+also examined the primary operations of relational algebra, such as selection, pro-
+jection, and joins, and saw how they are applied to retrieve and combine data from 
+multiple relations. 
+Summary 
+In this unit, you have learnt that the relational model organises data into tables 
+(relations), each made up of rows and columns, to ensure structured and efficient 
+data storage. You also explored the structure of a relation, including its key compo-
+nents such as attributes, tuples, and keys. In addition, you were introduced to rela-
+tional algebra, a formal query language used to manipulate relational data. You 
+learned about core relational algebra operations and how these operations are used 
+to extract meaningful information from one or more tables in a database system. 
+Self-Assessment Questions 
+1. Explain how the select and project operations in relational algebra work, and 
+provide an example of each. 
+2. What is the purpose of the Cartesian product and join operations, and how 
+do they differ in terms of output and use cases? 
+Tutor-Marked Assignment 
+Create your own relation and perform the following RA operations on it: 
+
+===== PDF PAGE 132 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+130 
+ Select Operation 
+ Projection Operation 
+ Cartesian-Product Operation 
+ 
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Companies 
+(2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+ 
+
+===== PDF PAGE 133 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+131 
+     
+    Unit 2 — Introduction to Structured Query Language and Introduction to Query 
+Processing and Optimisation 
+ 
+INTRODUCTION 
+ 
+In this unit, you will learn about two key categories of SQL com-
+mands: Data Definition Language (DDL) and Data Manipulation Lan-
+guage (DML). You will explore the CREATE command, which is used 
+to build new database structures. You will also focus on the core 
+DML operations: INSERT for adding data, SELECT for retrieving data, 
+and UPDATE for modifying existing data. These commands are es-
+sential for interacting with and managing data within a database sys-
+tem. Practical examples will guide you in understanding how to use 
+these SQL statements effectively. 
+ 
+ 
+ 
+LEARNING 
+OUTCOMES 
+At the end of this unit, you should be able to: 
+ Understand DDL commands and use the CREATE, ALTER and 
+DROP commands efficiently 
+ Manipulate a given database practically using DML commands 
+such as SELECT. 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 134 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+132 
+ 
+  5.2.1 
+DDL, DML, DCL, and the Database Development Process 
+ 
+  
+Figure 5.1:  DDL, DML, DCL, and the database development process 
+ 
+  5.2.2 
+Database Creation in MySQL 
+ 
+ A database can be created with the SQL statement: 
+ 
+ 
+CREATE DATABASE databasename; 
+ However, always check if a database already exists in the MySQLserver with 
+the query: 
+ 
+ 
+ 
+SHOW DATABASES; 
+ You must select a database to work with from the server with the query: 
+ 
+ 
+        USE nameofdatabase; 
+ 
+  5.2.3 
+Datatypes in MySQL Environment 
+ 
+ 
+Figure 5.2:  ISO SQL Data Types 
+  
+
+===== PDF PAGE 135 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+133 
+SQL (Relational Model Terms) 
+ Table as Relation 
+ Row as Tuple 
+ Column as Attribute  
+ 
+  5.2.4 
+Data Definition Language (DDL) 
+ 
+The main SQL command for data definition: 
+ CREATE statement 
+ create schemas, tables (relations), and domains (as well as other con-
+structs such as views, indexes, assertions, and triggers). 
+Main SQL DDL 
+ CREATE SCHEMA  
+ 
+DROP SCHEMA 
+ CREATE/ALTER DOMAIN  
+DROP DOMAIN 
+ CREATE/ALTER TABLE 
+ 
+DROP TABLE 
+ CREATE VIEW 
+ 
+ 
+DROP VIEW 
+ Many DBMSs also provide: CREATE INDEX 
+DROP INDEX 
+Environment  
+ DBMS 
+Catalog 
+ a named collection of schemas in an SQL environment. 
+ Schema  
+ Domain  
+Objects in a schema 
+ Tables, Views, Domains, assertions, etc 
+ All have same owner 
+  
+CREATE Schema 
+ CREATE SCHEMA Name_of_Schema; 
+ DROP SCHEMA Name_of_schema [RESTRICT | CASCADE ]; 
+ Example 1 
+ CREATE SCHEMA COMPANY; 
+
+===== PDF PAGE 136 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+134 
+  
+CREATE Table 
+  
+ Creates a table with one or more columns of the specified dataType.  
+ With NOT NULL, the system rejects any attempt to insert a null in the col-
+umn. 
+ Can specify a DEFAULT value for the column. 
+ Primary keys should always be specified as NOT NULL.  
+ FOREIGN KEY clause specifies FK along with the referential action. 
+ Example: 
+ 
+To Rename a Table 
+ RENAME TABLE Old_Table_Name to New_Table_Name; 
+ Example: To rename the table EMPLOYEE in the previous slide to WORKER, 
+use: 
+ RENAME TABLE EMPLOYEE to WORKER; 
+  
+
+===== PDF PAGE 137 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+135 
+Dropping a Table 
+ To drop a table, use: 
+DROP TABLE table_name; 
+ Example:  
+DROP TABLE EMPLOYEE; 
+To alter a table ( Add a new column) 
+To alter a table use: 
+ALTER TABLE table_name ADD name_of_newColumn DATATYPE(size); 
+ 
+Quick Task for You: Add a new column /attribute to the WORKER TABLE.  
+ New attribute should be named email with datatype VARCHAR(50). 
+Modifying the datatype of a column 
+ ALTER TABLE table_name MODIFY COLUMN column_name DATATYPE(size); 
+Quick Task for You: Modify the datatype of the column email from VARCHAR(50) TO 
+VARCHAR(100). 
+Changing the position of a column 
+ To move the position of a column, use: 
+ALTER TABLE table_name MODIFY column_name_to_be_moved  
+DATATYPE(size) AFTER target_column; 
+ Example: 
+Change the position of the column ssn in the employee table to become 
+the first attribute in Table 5.5. 
+Table 5.5: Alter Table, repositioning SSN 
+  
+
+===== PDF PAGE 138 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+136 
+Solution 
+Use the query. 
+ALTER TABLE employee 
+MODIFY COLUMN ssn char(9) FIRST; 
+The query results are shown in Table 5.6. 
+ Table 5.6: Modified Table, repositioning SSN as the first attribute 
+ 
+Dropping a column 
+ To drop a column use:  
+ALTER TABLE table_name 
+ DROP column name_of_column_tobedropped; 
+ Example 
+ Drop the column Dno in the employee table. 
+  
+Table 5.7: Dropping column 
+ 
+Solution 
+Use the query. 
+ALTER TABLE employee 
+DROP COLUMN Dno; 
+
+===== PDF PAGE 139 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+137 
+Result: The column Dno has been dropped from the table employee 
+  
+Table 5.8: Dropped column Dno 
+ 
+Unique Constraint 
+ Example: 
+  
+ If you forgot to include the unique constraint at the point of creating a ta-
+ble, you can add it by using: 
+ALTER TABLE table_name 
+ADD CONSTRAINT UNIQUE(attribute_to_be_unique); 
+NOT NULL Constraint 
+ To include the NOT NULL constraint to an attribute on a table that has al-
+ready been created, use the query: 
+ALTER TABLE table_name 
+MODIFY column_Inview datatype (size) NOT NULL 
+  
+Check Constraint 
+ A check constraint is a rule that specifies the allowable values in the column 
+of every row of the base table. 
+
+===== PDF PAGE 140 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+138 
+ Example: create a check constraint on the EMPLOYEES table to ensure that 
+the minimum salary of employees is 10000. 
+  
+ 
+ To add a check constraint to a table that already exists, use the query: 
+ALTER TABLE table_name 
+ADD CONSTRAINT constraint_name CHECK(logical condition); 
+Default Constraint 
+ The DEFAULT CONSTRAINT is used to set a default value for a specified col-
+umn in a table. 
+ Example: Create a table named SKILL with attributes Skill_Id INT, ssn char(9), 
+Skill_Type varchar(50), Number_of_Skill INT.  Set the default Skill_Type as 
+Coding. 
+CREATE TABLE SKILL(skill_Id INT PRIMARY KEY NOT NULL, 
+Ssn char(9), 
+skill_Type varchar(20) DEFAULT "Coding", 
+Number_of_Skill INT); 
+Insert Values into a Table with DEFAULT Constraint 
+ The columns must be specified after the insert into table_name clause; oth-
+erwise, the default constraint won’t take effect. 
+ Example: 
+Insert into Skill(skill_Id, ssn, Number_of_Skill) 
+Values (010, 3, 9), 
+ 
+ (011, 9, 2), 
+ 
+ (012, 6, 12); 
+
+===== PDF PAGE 141 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+139 
+ 
+Quick Exercise 
+1. Insert a row into the skill table with the value of ssn as 3: 
+a) query the table skill to display its content 
+b) Apply the unique constraint on the column ssn (state your observation) 
+c) delete the record where the skill_Id is 010 and repeat the step in (b) 
+d) Try to insert a new record with ssn value of 3 again and interpret the out-
+come.  
+Timestamp using default Date and Time 
+ Timestamp datatype is an 8-byte value representing a date and time value 
+in the format: YYYY-MM-DD and HH:MM:SS. 
+ Example: Create a transaction table with attributes Transaction_no INT pri-
+mary key Not Null, Product varchar(50), Amount decimal(9,2), DateTime De-
+fault Now(). 
+Solution 
+ 
+  
+Inserting Multi Rows to Transaction Table 
+ 
+ Result of Query Using Timestamp 
+Table 5.9: Transaction Table showing the default Timestamp for each transaction 
+
+===== PDF PAGE 142 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+140 
+  
+Auto_Increment Constraint 
+ Auto_Increment constraint is used to automatically increment the value of 
+the column it is applied to. 
+ It works only for KEY ATTRIBUTES 
+ Example: Create a customer table consisting of attributes: customer_Id of 
+type integer, Fname of type varchar(30), Lname of type Varchar(30) and Ad-
+dress of type varchar(200). 
+ The customer_Id should be the primary key and set to auto_Increment. 
+  
+Solution 
+ 
+ 
+
+===== PDF PAGE 143 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+141 
+ Result of query 
+  
+Table 5.10: Result of Auto_Increment constraint query 
+ 
+Foreign Key Constraint 
+ MySQL supports foreign key constraints, which permit cross-referencing re-
+lated data across tables and foreign key constraints, which help keep the 
+related data. 
+ A foreign key relationship involves a base table that holds the initial column 
+values, and a child table with column values that reference the base column 
+values. 
+ Example: 
+ Create a transaction table with attributes: Transaction_no INT, Product var-
+char(50), Amount decimal(9,2), Transaction_Date DateTime Default Now(), 
+customer_ID INT. 
+o The primary key should be Transaction_no. and it should accept no 
+null values 
+o Specify the customer_ID attribute as the foreign key 
+o The attribute Transaction_Date should be set to DEFAULT 
+  
+Solution 
+ 
+
+===== PDF PAGE 144 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+142 
+Let’s insert values into the transaction table 
+ 
+ Result of query 
+  
+Table 5.11: Result of foreign key constraint query 
+Primary-Foreign Key Relationship 
+  
+Table 5.12: Primary-foreign key relationship 
+ 
+Applying a Foreign Key to a Table that Already existed 
+ To apply a FK constraint to a table that already existed, use the query: 
+ ALTER TABLE TableName 
+ ADD CONSTRAINT constraintname FOREIGN KEY (TargetAttribute) REF-
+ERENCES basetable (TargetAttribute); 
+  
+Dropping a Foreign Key (FK) 
+ To drop a FK, use the query: 
+ALTER TABLE TableName 
+DROP FOREIGN KEY Name_of_FK; 
+
+===== PDF PAGE 145 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+143 
+ 
+  5.2.5 
+Data Manipulation Language (DML) 
+ 
+Inserting rows into a table 
+ To insert rows into a table, use: 
+INSERT into table_name 
+VALUES (values separated by comma); 
+  
+Updating data in a table 
+ To update data in a table, use: 
+UPDATE table_name 
+SET  column_to_update = newValue 
+WHERE identifier=value; 
+Join 
+ A join is a clause used to combine rows from two or more tables based on a 
+related column between them. 
+ Joins can be: 
+o Inner join 
+o Left join and 
+o Right join 
+ 
+Inner join on Table customers and Transactions 
+SELECT * FROM 
+customer INNER JOIN transactions  
+ON customer.customer_Id= Transaction.customer_Id; 
+ Result from Inner Join 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 146 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+144 
+Table 5.13: Inner Join 
+ 
+Left join on Table customer and Transaction 
+SELECT * From 
+customer LEFT JOIN transaction  
+ON customer.customer_Id= transaction.customer_Id; 
+  
+ Result from Left Join 
+  
+Table 5.14: Left Join 
+ 
+Right join on Table customer and Transaction 
+SELECT * FROM 
+customer RIGHT JOIN transaction  
+ON customer.customer_Id= transaction.customer_Id; 
+● Result from Right Join 
+
+===== PDF PAGE 147 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+145 
+Table 5.15: Right Join 
+ 
+More Concepts on DML 
+ Support the basic data manipulation operations on the data held in the da-
+tabase.  
+ Enables users to access and manipulate data 
+ Goal is to provide efficient human interaction with the system. 
+ Query language. 
+ 
+  5.2.6 
+Writing SQL Commands 
+ 
+ SQL statement consists of reserved words and user-defined words. 
+ Reserved words are a fixed part of SQL and must be spelt exactly as re-
+quired and cannot be split across lines.  
+ User-defined words are made up by the user and represent names of vari-
+ous database objects, such as relations, columns, and views. 
+ Most components of an SQL statement are case insensitive, except for lit-
+eral character data. 
+ More readable with indentation and lineation:  
+o Each clause should begin on a new line. 
+o Start of a clause should line up with the start of other clauses. 
+o If a clause has several parts, each should appear on a separate line 
+and be indented under the start of the clause. 
+  
+  5.2.7 
+Literals 
+ 
+ Literals are constants used in SQL statements. 
+ All non-numeric literals must be enclosed in single quotes (e.g. ‘London’). 
+ All numeric literals must not be enclosed in quotes (e.g. 650.00). 
+
+===== PDF PAGE 148 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+146 
+SELECT Statement 
+ 
+ 
+Example 1 (All Columns, All Rows): 
+List full details of all customers. 
+SELECT customer_Id, Fname, Lname, Address FROM customers; 
+ Can use * as an abbreviation for ‘all columns’: 
+SELECT * FROM customers; 
+  
+Table 5.16: All column and All rows from table customers 
+ 
+Example 2 (Specific Columns, All Rows): 
+Produce a list of addresses for all customers, showing only customer_Id, Fname and 
+address. 
+
+===== PDF PAGE 149 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+147 
+SELECT, customer_Id, Fname, address  
+FROM customers; 
+Table 5.17: Specific column and All rows from table customers 
+ 
+Example 3: Use of DISTINCT 
+ List the address of all everyone that is a customer. 
+SELECT address  
+FROM customers; 
+Table 5.18a: Use of distinct 
+ 
+ Use DISTINCT to eliminate duplicates: 
+SELECT DISTINCT address  
+FROM customers; 
+ 
+ 
+ 
+ 
+
+===== PDF PAGE 150 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+148 
+Table 5.18b: Use of distinct 
+ 
+SELECT Statement - Aggregates 
+ ISO standard defines five aggregate functions: 
+COUNT returns the number of values in the specified column. 
+SUM 
+returns the sum of values in the specified column. 
+AVG 
+returns the average of values in the specified column. 
+MIN 
+returns the smallest value in the specified column. 
+MAX 
+returns the largest value in the specified column. 
+  
+ COUNT(*) counts all rows of a table, regardless of whether nulls or dupli-
+cate values occur. 
+Can use DISTINCT before column name to eliminate duplicates.  
+ DISTINCT has no effect with MIN/MAX, but may have with SUM/AVG. 
+Example 1: Use of COUNT(*) 
+How many properties cost more than $350 per month to rent? 
+ 
+SELECT COUNT(*) AS count 
+ 
+FROM PropertyForRent 
+ 
+WHERE rent > 350; 
+ 
+  
+Example 2: Use of COUNT(DISTINCT) 
+
+===== PDF PAGE 151 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+149 
+How many different properties were viewed in May ‘04? 
+ 
+SELECT COUNT (DISTINCT propertyNo) AS count 
+ 
+FROM Viewing 
+ 
+WHERE viewDate BETWEEN ‘1-May-04’ AND ‘31-May-04’; 
+ 
+Example 3: Use of COUNT and SUM 
+Find the number of Managers and the sum of their salaries. 
+ 
+ SELECT COUNT(staffNo) AS count,  
+ 
+ 
+ 
+SUM(salary) AS sum 
+ 
+FROM Staff 
+ 
+WHERE position = ‘Manager’; 
+ 
+Example 4: Use of MIN, MAX, AVG 
+Find the minimum, maximum, and average staff salary. 
+ 
+SELECT MIN(salary) AS min,  
+ 
+ 
+MAX(salary) AS max, 
+ 
+ 
+ AVG(salary) AS avg 
+ 
+FROM Staff; 
+
+===== PDF PAGE 152 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+150 
+ 
+SELECT Statement – Grouping 
+ Use the GROUP BY clause to get sub-totals. 
+ SELECT and GROUP BY are closely integrated: each item in the SELECT list 
+must be single-valued per group, and the SELECT clause may only contain: 
+o column names 
+o aggregate functions  
+o constants 
+o expression involving combinations of the above. 
+ All column names in the SELECT list must appear in the GROUP BY clause 
+unless the name is used only in an aggregate function.  
+ If WHERE is used with GROUP BY, WHERE is applied first, then groups are 
+formed from the remaining rows satisfying the predicate. 
+ ISO considers two nulls to be equal for purposes of GROUP BY. 
+  
+Example 1: Use of GROUP BY 
+Find the number of staff in each branch and their total salaries. 
+SELECT branchNo,  
+     COUNT(staffNo) AS count, 
+ 
+SUM(salary) AS sum 
+FROM Staff 
+GROUP BY branchNo 
+ORDER BY branchNo; 
+ 
+
+===== PDF PAGE 153 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+151 
+  
+Restricted Groupings – HAVING clause 
+ HAVING clause is designed for use with GROUP BY to restrict groups that 
+appear in final result table. 
+ Similar to WHERE, but WHERE filters individual rows whereas HAVING filters 
+groups. 
+ Column names in HAVING clause must also appear in the GROUP BY list or 
+be contained within an aggregate function. 
+Example 1: Use of HAVING 
+For each branch with more than 1 member of staff, find number of staff in each 
+branch and sum of their salaries. 
+SELECT branchNo,  
+    COUNT(staffNo) AS count, 
+  
+ SUM(salary) AS sum 
+FROM Staff 
+GROUP BY branchNo 
+HAVING COUNT(staffNo) > 1 
+ORDER BY branchNo; 
+  
+ 
+Subqueries 
+ Some SQL statements can have a SELECT embedded within them. 
+ A subselect can be used in WHERE and HAVING clauses of an outer SELECT, 
+where it is called a subquery or nested query.  
+ Subselects may also appear in INSERT, UPDATE, and DELETE statements. 
+  
+Example 1: Subquery with Equality 
+
+===== PDF PAGE 154 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+152 
+List staff who work in the branch at ‘163 Main St’. 
+SELECT staffNo, fName, lName, position 
+ 
+FROM Staff 
+ 
+WHERE branchNo = 
+ 
+ 
+(SELECT branchNo 
+ 
+ 
+FROM Branch 
+ 
+ 
+WHERE street = ‘163 Main St’); 
+  
+ Inner SELECT finds branch number for branch at ‘163 Main St’ (‘B003’).  
+ Outer SELECT then retrieves details of all staff who work at this branch.  
+ Outer SELECT then becomes: 
+ 
+SELECT staffNo, fName, lName, position 
+FROM Staff 
+WHERE branchNo = ‘B003’; 
+ 
+Example 2: Subquery with Aggregate 
+List all staff whose salary is greater than the average salary, and show by how much. 
+SELECT staffNo, fName, lName, position,  
+salary – (SELECT AVG(salary) FROM Staff) As SalDiff 
+FROM Staff 
+WHERE salary > 
+ 
+(SELECT AVG(salary) 
+ 
+FROM Staff); 
+ Cannot write ‘WHERE salary > AVG(salary)’ 
+
+===== PDF PAGE 155 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+153 
+ Instead, use a subquery to find the average salary (17000), and then use an 
+outer SELECT to find those staff with a salary greater than this: 
+SELECT staffNo, fName, lName, position,  
+     salary – 17000 As salDiff 
+FROM Staff 
+WHERE salary > 17000; 
+ 
+Subquery Rules 
+ ORDER BY clause may not be used in a subquery (although it may be used 
+in outermost SELECT). 
+ Subquery SELECT list must consist of a single column name or expression, 
+except for subqueries that use EXISTS. 
+ When subquery is an operand in a comparison, the subquery must appear 
+on the right-hand side. 
+  
+Example 1: Nested subquery: use of IN 
+List properties handled by staff at ‘163 Main St’. 
+SELECT propertyNo, street, city, postcode, type, rooms, rent 
+FROM PropertyForRent 
+WHERE staffNo IN 
+(SELECT staffNo 
+ FROM Staff 
+ WHERE branchNo = 
+ 
+ 
+(SELECT branchNo 
+ 
+ 
+ FROM Branch 
+ 
+ 
+ WHERE street = ‘163 Main St’)); 
+
+===== PDF PAGE 156 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+154 
+ 
+Example 2: Create Horizontal View 
+Create a view so that the manager at branch B003 can only see details for staff who 
+work in the manager’s office. 
+ 
+CREATE VIEW Manager3Staff 
+ 
+AS 
+SELECT * 
+ 
+ 
+FROM Staff 
+ 
+ 
+WHERE branchNo = ‘B003’; 
+ 
+ 
+Example 3: Create Vertical View 
+Create view of staff details for branch B003, excluding salaries. 
+ 
+  CREATE VIEW Staff3  
+AS SELECT staffNo, fName, lName, position, sex 
+ 
+ 
+FROM Staff 
+ 
+ 
+WHERE branchNo = ‘B003’; 
+ 
+ 
+
+===== PDF PAGE 157 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+155 
+ 
+  5.2.8 
+Writing SQL Commands More Practice Examples on SQL Queries 
+ 
+ Our SQL queries shall be based on the relations below. 
+ 
+Table 5.19: Instance of the DreamHome rental database 
+ 
+  
+Example 1 (Calculated Fields) 
+ Produce a list of monthly salaries for all staff, showing staff number, first 
+and last names, and salary details. 
+SELECT staffNo, fName, lName, salary/12  
+FROM Staff; 
+ 
+ To name a column, use the AS clause: 
+ 
+SELECT staffNo, fName, lName, salary/12  
+ 
+ 
+ 
+ 
+AS monthlySalary 
+ 
+ 
+ 
+ 
+FROM Staff; 
+
+===== PDF PAGE 158 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+156 
+Example 2 (Comparison Search Condition) 
+ List all staff with a salary greater than 10,000. 
+SELECT staffNo, fName, lName, position, salary 
+FROM Staff WHERE salary > 10000; 
+ 
+  
+9.0.1 Example 3 (Compound Comparison Search Condition) 
+● List addresses of all branch offices in London or Glasgow. 
+SELECT * 
+FROM Branch 
+WHERE city = “London” OR city = “Glasgow”; 
+  
+ 
+  
+Example 4 (Range Search Condition) 
+ List all staff with a salary between 20,000 and 30,000. 
+SELECT staffNo, fName, lName, position, salary 
+FROM Staff 
+WHERE salary BETWEEN 20000 AND 30000; 
+ BETWEEN test includes the endpoints of the range. 
+
+===== PDF PAGE 159 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+157 
+ 
+ Also a negated version NOT BETWEEN. 
+ BETWEEN does not add much to SQL’s expressive power. Could also write: 
+SELECT staffNo, fName, lName, position, salary 
+FROM Staff 
+WHERE salary>=20000 AND salary <= 30000; 
+ Useful, though, for a range of values. 
+  
+9.0.2 Example 5 (Set Membership) 
+ List all managers and supervisors. 
+SELECT staffNo, fName, lName, position 
+FROM Staff 
+WHERE position IN (‘Manager’, ‘Supervisor’); 
+ 
+ There is a negated version (NOT IN).  
+  IN does not add much to SQL’s expressive power. 
+  Could have expressed this as: 
+    SELECT staffNo, fName, lName, position 
+ 
+FROM Staff 
+    WHERE position=‘Manager’ OR 
+                position=‘Supervisor’; 
+  
+Example 6 (Pattern Matching) 
+ Find all owners with the string ‘Glasgow’ in their address. 
+SELECT clientNo, fName, lName, address, telNo 
+FROM PrivateOwner 
+WHERE address LIKE ‘%Glasgow%’; 
+
+===== PDF PAGE 160 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+158 
+ 
+ SQL has two special pattern-matching symbols: 
+ LIKE ‘%Glasgow%’ means a sequence of characters of any length containing 
+‘Glasgow’. 
+  
+NOTE: PRACTICE MORE EXAMPLES ON THE POWERPOINT SLIDES 
+Class Activity 2 (Database Tables) 
+ 
+  5.2.9 
+Class Activity 2 (Database Tables) 
+ 
+ 
+  
+ 
+1. Which products have a standard price of less than 275? 
+
+===== PDF PAGE 161 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+159 
+Solution 
+ 
+  
+2. What is the address of the customer named Home Furnishings? Use an alias 
+NAME for the customer. 
+SELECT CUSTOMER_NAME AS NAME, CUSTOMER_ADDRESS 
+FROM CUSTOMER_t 
+WHERE  CUSTOMER_NAME =‘Home Furnishings’; 
+Solution 
+ 
+3. List the unit price, product name and product ID for all products in the prod-
+uct table. 
+
+===== PDF PAGE 162 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+160 
+Solution 
+  
+4. What is the average standard price for the product in inventory? 
+ 
+  
+5. How many different items were ordered on order number 1004 
+ 
+6. Which orders have been placed since 10/24/2006 
+ 
+7. What furniture does Pine Valley carry that isn’t made of cherry? 
+
+===== PDF PAGE 163 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+161 
+ 
+8. List products, finish, and unit price for all desks and all tables that cost more 
+than 300 in the PRODUCT view. 
+Solution 
+ 
+9. Which products in the PRODUCT view have a standard price between 200 
+and 300? 
+ 
+10. Count the number of customers with an address in each state to which we 
+ship 
+
+===== PDF PAGE 164 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+162 
+ 
+  
+11. Find only states with more than one customer 
+ 
+12. List the product finish and average standard price for cherry, natural ash, nat-
+ural maple and white ash, where the average standard price is less than 750. 
+ 
+ 
+  5.2.10 Exercises 
+ 
+Write a database description for each of the relations given. Assume the following 
+attribute data types. 
+ StudentID(integer, primary key) 
+ StudentName(25 characters) 
+ FacultyID(integer, primary key) 
+
+===== PDF PAGE 165 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+163 
+ FacultyName(25 characters) 
+ CourseID(8 characters, primary key) 
+ CourseName(15 characters) 
+ DateQualified(date) 
+ SectionNo(integer, primary key) 
+ Semester(7 characters) 
+ 
+ 
+  5.2.11 Conclusion 
+ 
+In this unit, you have explored the fundamental SQL command categories: Data 
+Definition Language (DDL) and Data Manipulation Language (DML). You learned 
+how the CREATE command is used to define new database structures, and how es-
+sential DML commands like INSERT, SELECT, and UPDATE allow for adding, retriev-
+ing, and modifying data, respectively. Together, these SQL operations form the 
+foundation of effective database interaction and management. Through practical 
+examples, you also gained insight into how these commands are applied in real-
+world scenarios to support data-driven applications. 
+
+===== PDF PAGE 166 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+164 
+Summary 
+In this unit, you have learned that SQL commands are grouped into two main cate-
+gories: Data Definition Language (DDL) and Data Manipulation Language (DML). 
+The CREATE DDL command is used to define new database objects, such as tables. 
+DML commands, INSERT, SELECT, and UPDATE, are essential for handling data within 
+those objects. These operations allow you to populate, retrieve, and modify data in 
+a structured and controlled manner. Together, DDL and DML form the basis for how 
+databases are created and used in practical applications. 
+  
+ 
+   References/Further Readings 
+ 
+Ramakrishnan, R., Gehrke, J.: Database Management Systems. USA: McGraw-Hill Companies 
+(2000)  
+Elmasri, R., & Navathe, S. (2000). Fundamentals of database systems (3rd ed.). Reading, 
+Mass.: Addison-Wesley.  
+Hoffer, J. A., Prescott, M. B., & McFadden, F. R. (2005). Modern database management. Up-
+per Saddle River, N.J: Pearson/ Prentice Hall.  
+Connolly, T. M., & Begg, C. E. (2002). Database systems: A practical approach to design, 
+implementation, and management. Harlow, England: Addison-Wesley 
+http://pages.cs.wisc.edu/~dbbook/openAccess/thirdEdition/solutions/ans3ed-
+oddonly.pdf 
+https://gyires.inf.unideb.hu/GyBITT/03/ 
+ 
+ 
+  5.2.12 Extra 
+ 
+SQL Server Data Types 
+ 
+String Data Types 
+
+===== PDF PAGE 167 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+165 
+ 
+  
+Number Data Types 
+  
+ 
+ 
+
+===== PDF PAGE 168 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+166 
+Date Data Type 
+  
+ 
+ 
+
+===== PDF PAGE 169 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+167 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+. 
+ 
+Answers to  
+Self-Assessment 
+Questions 
+ 
+ 
+
+===== PDF PAGE 170 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+168 
+ 
+    Module One 
+ 
+ 
+  6.1.1 
+Unit 1: Answers to Self-Assessment Questions 
+ 
+Q1: What is the purpose of indexing in a database, and how does it improve 
+performance? 
+Indexing creates lookup structures to improve query speed. It enhances perfor-
+mance by allowing the database to quickly locate relevant records without scanning 
+the entire dataset. Techniques like B-trees and hash indexes are used to build index 
+structures. Search mechanisms utilise these indices to accelerate retrieval, especially 
+in large datasets.  
+Q2: Explain the differences between data privacy, data integrity, and data 
+security. 
+1. Data Privacy ensures that sensitive data, such as medical or financial records, 
+is not accessed by unauthorised individuals. It is enforced using access con-
+trol (e.g., role-based permissions), data anonymization, and compliance with 
+privacy laws like GDPR or HIPAA. 
+2. Data Integrity ensures that the data remains accurate and consistent 
+throughout its lifecycle. This is achieved through constraints (e.g., NOT 
+NULL, UNIQUE, CHECK), referential integrity (via foreign keys), and transac-
+tion management using the ACID properties. 
+3. Data Security protects the database against unauthorised access, tampering, 
+or destruction. Measures include authentication, encryption, firewalls, data-
+base hardening, regular backups, and disaster recovery planning.accumula-
+tion. 
+
+===== PDF PAGE 171 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+169 
+ 
+  6.1.2 
+Unit 2: Answers to Self-Assessment Questions 
+ 
+Q1: Define a database and list at least three of its key components. 
+A database is an extensive collection of data organised especially for rapid search 
+and retrieval. It is a shared collection of logically related data (and its description), 
+designed to meet an organisation's information needs. 
+Three key components of a database include: 
+ Tables (relations) that store data. 
+ Metadata or system catalogue describing data 
+ Application programs that interact with the data 
+Q2: What is data abstraction, and what are the three levels involved in it? 
+Data abstraction is the process of hiding the complexity of data representation from 
+the user while allowing interaction with only the necessary information. 
+The three levels of abstraction are: 
+ External level – the highest level; users see data in forms like tables and 
+rows. 
+ Logical/Conceptual level – describes actual data stored and the relation-
+ships. 
+ Physical level – the lowest level that defines how data is stored on hardware 
+devices. 
+Q3: Differentiate between physical data independence and logical data 
+independence with examples. 
+ Physical Data Independence is the ability to modify the physical schema 
+without affecting application programs. 
+ Example: Changing from a sequential file to a B+ tree file structure does not 
+require changes to the logical schema or application programs. 
+ Logical Data Independence is the ability to change the logical schema with-
+out requiring changes to the external schema or applications. 
+
+===== PDF PAGE 172 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+170 
+Example: Adding a new column, such as ‘skills’, to a student table will not 
+affect views that only display names and ages. 
+Q4: What are the primary functions of a Database Management System 
+(DBMS)?  
+The primary functions of a DBMS include: 
+ Defining data structures through DDL 
+ Manipulating data through DML 
+ Managing storage and access paths 
+ Controlling concurrent data access 
+ Enforcing integrity constraints 
+ Ensuring data security and recovery 
+ 
+Q5: Describe two types of database systems and their typical use cases 
+ Personal Database Systems – Support one user and application, involve 
+few tables, and operate on a single computer. 
+Use Case: A personal expense tracker or standalone desktop application. 
+  Enterprise-Level Database Systems – Support multiple users and applica-
+tions across various systems with complex designs. 
+Use Case: Company-wide ERP systems managing finance, HR, and opera-
+tions. 
+Q6: Explain the role of the database administrator and list three key 
+responsibilities 
+The database administrator (DBA) is a person with central control over data and the 
+programs that access it. 
+Three key responsibilities are: 
+ Schema definition and modification using DDL 
+ Granting authorisation for data access 
+
+===== PDF PAGE 173 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+171 
+ Specifying integrity constraints to maintain accuracyThe primary functions 
+of a DBMS include: 
+Q6: What is the purpose of a Data Manipulation Language (DML)? List four 
+common operations. 
+A Data Manipulation Language (DML) provides a set of operations for accessing and 
+manipulating data in a database. Its purpose is to enable efficient human interaction 
+with the system. 
+Four common DML operations include: 
+ Retrieval of information from the database 
+ Insertion of new information 
+ Deletion of existing information 
+ Modification of existing information 
+ 
+ 
+ 
+     Module Two 
+ 
+ 
+  6.2.1 
+Unit 1: Answers to Self-Assessment Questions 
+ 
+Q1. Is there a difference between data modelling and conceptual modelling? 
+Justify your answer. 
+Yes, there is a difference. 
+ Data modelling is a broad term that refers to the process of defining and 
+analysing data requirements to support business processes. 
+ Conceptual modelling, on the other hand, is a specific type of data model-
+ling that focuses on representing the high-level structure of organisational 
+data using diagrams like the Entity-Relationship Diagram (ERD). 
+ While data modelling includes conceptual, logical, and physical levels, con-
+ceptual modelling is limited to the initial phase where entities, attributes, 
+and relationships are identified without concern for physical implementa-
+tion. 
+
+===== PDF PAGE 174 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+172 
+Q2. What determines how data are handled? 
+Data handling is determined by business rules, data modelling decisions, and sys-
+tem design choices. 
+ Business rules define how data is created, updated, and deleted. 
+ Data models represent the organisation’s rules, policies, and data relation-
+ships. 
+ Conceptual models like the ER diagram ensure that entities and relation-
+ships reflect real-world business logic, including constraints such as cardi-
+nality, attribute requirements, and data integrity..  
+Q3. Relationship instance and Associative entity are similar but different.  
+Similarities: 
+ Both represent associations between entity instances in a database system. 
+ Both are essential in modelling many-to-many relationships. 
+Differences: 
+ A relationship instance is a specific occurrence of a relationship between 
+two or more entities (e.g., an EMPLOYEE completing a COURSE). 
+ An associative entity is an entity type that exists to represent a many-to-
+many relationship and may contain attributes specific to that relationship 
+(e.g., CERTIFICATE with DateCompleted). 
+ Associative entities are used when relationships have their own properties, 
+while relationship instances do not contain additional attributes. 
+ 
+ 
+  6.2.2 
+Unit 2: Answers to Self-Assessment Questions 
+ 
+Q1. The two most important types of constraints in Supertype/Subtype 
+Relationships are? 
+The two most important types of constraints in Supertype/Subtype Relationships 
+are: 
+ Completeness constraints 
+ Disjointness constraint 
+
+===== PDF PAGE 175 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+173 
+Q2. What does the partial specialisation rule specify? How is it different from 
+the total specialisation rule? 
+ The partial specialisation rule specifies that an entity instance of the super-
+type is allowed not to belong to any subtype. 
+ In contrast, the total specialisation rule specifies that each entity instance of 
+the supertype must be a member of some subtype in the relationship. 
+Q3. What are the processes that serve as the mental models in developing 
+supertype/subtype relationships? 
+The processes that serve as mental models in developing supertype/subtype rela-
+tionships are: 
+ Generalization 
+ Specialization 
+ 
+ 
+  6.2.3 
+Unit 3: Answers to Self-Assessment Questions 
+ 
+Q1. Is XML the same as HTML? Justify your answer. 
+No, XML is not the same as HTML. 
+   XML (eXtensible Markup Language) is used to describe and store data 
+with a focus on structure and meaning. It allows users to define their own 
+custom tags and is both machine-readable and human-readable. 
+ HTML (HyperText Markup Language) is used to display data on web pages. 
+It has a predefined set of tags and focuses on content presentation. 
+ XML is used for data transport and representation, while HTML is for for-
+matting and displaying content in browsers.ℎ𝑟 
+ What mass will remain after 10 hours? 
+Q2. Explain the Semi-Structured Data types. 
+Semi-structured data types include: 
+
+===== PDF PAGE 176 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+174 
+ Flexible Schema: Each record can have different fields or attributes, allowing 
+easy schema evolution. Examples include wide-column or sparse-column 
+representations. 
+ Multivalued Data Types: Attributes can hold collections like sets or arrays. 
+For example: {basketball, La Liga, cooking}. 
+ Nested Data Types: Attributes can themselves be composite, containing 
+sub-elements or sub-attributes. This allows hierarchical data representation, 
+such as in JSON or XML. 
+These types support non-tabular, hierarchical, and self-describing data 
+models, ideal for modern data exchange and web applications. 
+ 
+ 
+ 
+ 
+    Module Three 
+ 
+ 
+  6.3.1 
+Unit 1: Answers to Self-Assessment Questions 
+ 
+Q1. What is the purpose of the relational keys? 
+Relational keys are used to ensure logical consistency and uniqueness within data-
+base tables. 
+ A primary key is an attribute or combination of attributes that uniquely 
+identifies each row in a relation. 
+ A composite key is a primary key made up of more than one attribute. 
+ A foreign key is an attribute in one relation that serves as the primary key of 
+another relation, enabling relationships between tables. 
+ Their purpose is to maintain connections between tables, prevent duplicate 
+rows, and ensure that each record can be accurately retrieved and refer-
+enced. 
+Q2. What are integrity constraints? Explain them. 
+Integrity constraints are rules applied to ensure the accuracy, consistency, and va-
+lidity of data in a relational database. There are three major types: 
+
+===== PDF PAGE 177 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+175 
+ Domain Constraint: specifies the permissible values for an attribute, includ-
+ing data type, length, and value range. 
+ Entity Integrity: ensures that every table has a primary key and that none of 
+its values is null. This guarantees that each record can be uniquely identi-
+fied. 
+ Referential Integrity: ensures that foreign key values in one table must ei-
+ther match a primary key in another table or be null, maintaining con-
+sistency across related tables 
+ 
+ 
+  6.3.2 
+Unit 2: Answers to Self-Assessment Questions 
+ 
+Q1. What is the difference between a conceptual model and a logical model 
+in database design? 
+ A conceptual model focuses on high-level data requirements using ER or 
+EER diagrams, representing entities, relationships, and attributes without 
+concern for how data will be stored. 
+ A logical model, on the other hand, translates the conceptual model into 
+relational tables, defining primary keys, foreign keys, and constraints to en-
+sure consistency and implementation feasibility in a relational DBMS. 
+Q2. Explain how a regular entity with a composite attribute is transformed 
+into a relational table 
+Only the simple components of the composite attribute are included as columns in 
+the relation. For example, a composite attribute like Address with components 
+Street, City, and State is transformed into separate attributes: Street, City, and State 
+in the relational table. 
+Q3. How are multivalued attributes handled during the transformation 
+process? 
+ Two separate relations are created: 
+o One for the entity excluding the multivalued attribute. 
+
+===== PDF PAGE 178 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+176 
+o Another that includes the multivalued attribute and the primary key 
+of the first relation (as a foreign key). 
+ The combination of these two attributes forms the composite primary key 
+of the second relation 
+ 
+Q4. What is the purpose of using a surrogate key in complex relationships? 
+ A surrogate key is a system-generated unique identifier used to simplify 
+primary key structures, especially when natural keys are long or composite. 
+ It improves efficiency, ensures uniqueness, and reduces complexity in 
+many-to-many or ternary relationships. 
+Q5. Describe the steps involved in transforming a binary many-to-many 
+(M:N) relationship. 
+ Create a new relation for the M:N relationship. 
+ Include the primary keys from both participating entities as foreign keys in 
+this new relation. 
+ These foreign keys together form a composite primary key. 
+ Add any attributes associated with the relationship to this new relation. 
+Q6. How is a unary one-to-many relationship represented in a relational 
+schema? 
+ Add a recursive foreign key to the relation that references its own primary 
+key. 
+ This foreign key links a row in the table to another row in the same table, 
+modelling the one-to-many relationship within a single entity. 
+Q7. Explain how to transform a supertype/subtype relationship into 
+relational tables. 
+ Create a separate relation for the supertype with common attributes and a 
+unique primary key. 
+
+===== PDF PAGE 179 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+177 
+ For each subtype, create a relation that includes: 
+ The primary key from the supertype (as both a primary and foreign key). 
+ Any attributes unique to that subtype. 
+ Optionally, include a discriminator attribute in the supertype to indicate the 
+subtype classification. 
+ 
+ 
+ 
+ 
+     Module Four 
+  
+ 
+  6.4.1 
+Unit 1: Answers to Self-Assessment Questions 
+Q1. What is normalisation, and why is it important in relational database 
+design? 
+ Normalisation is the process of decomposing relations with anomalies into 
+smaller, well-structured relations. 
+ It ensures that data are logically structured, reduces data redundancy, and 
+eliminates update, insertion, and deletion anomalies. 
+ It simplifies the enforcement of referential integrity constraints, ensures 
+better data integrity, and provides a stronger foundation for future data-
+base growth. 
+ Normalisation is a key part of logical database design and helps represent 
+real-world entities more accurately.  
+Q2  Differentiate between First Normal Form (1NF) and Third Normal Form 
+(3NF). 
+ A relation is in First Normal Form (1NF) if: 
+o All repeating groups have been removed. 
+o Each column contains atomic values (single facts). 
+o A primary key uniquely identifies each row. 
+ A relation is in Third Normal Form (3NF) if: 
+o It is already in Second Normal Form (2NF). 
+
+===== PDF PAGE 180 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+178 
+o It contains no transitive dependencies—i.e., non-key attributes are 
+only dependent on the primary key, not on other non-key attributes. 
+ 3NF ensures a higher level of data integrity than 1NF by removing both 
+partial and transitive dependenciesIntegrating both sides of the equation 
+gives. 
+Q2  Explain the concept of functional dependency and how it is used in the 
+normalisation process 
+ A functional dependency is a constraint between two attributes such that 
+the value of one attribute (A) uniquely determines the value of another at-
+tribute (B), written as A → B. 
+ Functional dependencies help identify how attributes relate to one another 
+in a table and are the foundation for defining normal forms. 
+ During normalisation, identifying functional dependencies allows us to de-
+tect and eliminate partial and transitive dependencies, leading to better-
+structured and anomaly-free tables.  
+ 
+ 
+ 
+     Module Five 
+  
+ 
+  6.5.1 
+Unit 1: Answers to Self-Assessment Questions 
+Explain the concept of functional dependency and how it is used in the 
+normalisation process 
+ The select operation (σ) retrieves tuples (rows) from a relation that satisfy a 
+specified condition or predicate. 
+o Example: To select instructors with a salary below 50,000 from the in-
+structor relation: σsalary < 50000 (instructor) 
+ 
+ The project operation (π) retrieves specific attributes (columns) from a rela-
+tion, effectively filtering out unwanted columns. 
+o Example: To display only courseid and credits from a course relation: 
+πcourseid, credits (course) 
+ While select filters rows, project filters columns. 
+
+===== PDF PAGE 181 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+179 
+Q2. What is the purpose of the Cartesian product and join operations, and 
+how do they differ in terms of output and use cases? 
+ The Cartesian product (×) combines every tuple of one relation with every 
+tuple of another, generating all possible combinations. It is used to merge 
+relations when no explicit condition is given, typically as a precursor to a 
+join. 
+ The JOIN operation (⋈) combines related tuples from two relations based 
+on a common attribute or condition. The natural JOIN merges relations us-
+ing attributes with the same name and eliminates duplicate columns.  
+Key Differences: 
+ Output: Cartesian product returns all combinations (may be large and irrel-
+evant), while join returns only meaningful combinations based on matching 
+attributes. 
+ Use Case: Cartesian product is rarely used directly; join is preferred when 
+combining logically related data from multiple tables. 
+ 
+ 
+
+===== PDF PAGE 182 =====
+ 
+DTS 224 | DATA MANAGEMENT I 
+ 
+180 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,668 @@
+<!-- ===================== MODULE ONE DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module One</div>
+  <h1>Information Management<br>and Database Systems</h1>
+  <div class="blurb">Where data comes from, why a pile of files is not a database, and the
+  one idea, keeping the data and the programs that use it apart, that the rest of this book
+  is built on.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- three stacked "disks" becoming a clean table: the module's arc -->
+      <g stroke="#0e7490" stroke-width="1.5">
+        <ellipse cx="70" cy="40" rx="46" ry="14"/>
+        <path d="M24 40 v40 a46 14 0 0 0 92 0 v-40"/>
+        <path d="M24 60 a46 14 0 0 0 92 0"/>
+      </g>
+      <path d="M140 75 h60" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <polyline points="196,69 204,75 196,81" stroke="#94a3b8" stroke-width="1.5"/>
+      <g stroke="#059669" stroke-width="1.5">
+        <rect x="230" y="44" width="120" height="62"/>
+        <line x1="230" y1="64" x2="350" y2="64"/>
+        <line x1="270" y1="44" x2="270" y2="106"/>
+        <line x1="310" y1="44" x2="310" y2="106"/>
+      </g>
+      <path d="M374 75 h60" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <polyline points="430,69 438,75 430,81" stroke="#94a3b8" stroke-width="1.5"/>
+      <g stroke="#1d4ed8" stroke-width="1.5">
+        <circle cx="474" cy="52" r="10"/>
+        <circle cx="474" cy="98" r="10"/>
+        <line x1="474" y1="62" x2="474" y2="88"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== UNIT 1 ===================== -->
+<section>
+  <div class="kick">Module One &middot; Unit 1</div>
+  <h2 class="title">Foundations of Data Management</h2>
+  <hr class="rule">
+  <p class="lead">Before a single table is drawn, three questions: what is data, what do we
+  actually do with it, and what makes a system that holds it good rather than merely
+  large.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> tell data from information; describe
+  how data is captured, represented, stored, and retrieved; explain the difference between
+  privacy, integrity, and security; and judge a system by its scalability, efficiency, and
+  effectiveness.</p>
+
+  <h3 class="sub">1.1 Data, and information</h3>
+  <p>A single value, <code>08:00</code>, or <code>Glasgow</code>, or <code>350</code>, is
+  <b>data</b>: a raw fact with no context. On its own it tells you nothing. The moment you
+  put it in context, "the 08:00 inspection of property PG4 in Glasgow was priced at 350",
+  it becomes <b>information</b>: data that has been organised so a person can act on it.</p>
+  <p>Everything in this course is machinery for turning the first thing into the second
+  reliably, for many users at once, without the facts contradicting each other. That is
+  what "data management" means.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Data vs information</span></div>
+    <div class="body">
+      <p><b>Data</b> is raw, unprocessed facts. <b>Information</b> is data processed and
+      placed in a context that gives it meaning. Data is the input; information is the
+      output you can make a decision with.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.2 The information lifecycle: capture, represent, store, retrieve</h3>
+  <p>Data enters a system, is put into a form a computer can hold, is kept safely, and is
+  fetched again on demand. Four stages, in order:</p>
+
+  <figure>
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+      <g fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.3">
+        <rect x="4" y="30" width="110" height="40" rx="3"/>
+        <rect x="140" y="30" width="110" height="40" rx="3"/>
+        <rect x="276" y="30" width="110" height="40" rx="3"/>
+        <rect x="410" y="30" width="106" height="40" rx="3"/>
+      </g>
+      <g font-size="11" fill="#18232b" text-anchor="middle" font-weight="bold">
+        <text x="59" y="47">Capture</text>
+        <text x="195" y="47">Represent</text>
+        <text x="331" y="47">Store</text>
+        <text x="463" y="47">Retrieve</text>
+      </g>
+      <g font-size="8" fill="#5b6b73" text-anchor="middle">
+        <text x="59" y="61">entry, sensors, API</text>
+        <text x="195" y="61">data types, schema</text>
+        <text x="331" y="61">tables, indexes</text>
+        <text x="463" y="61">queries</text>
+      </g>
+      <g stroke="#94a3b8" stroke-width="1.4">
+        <line x1="114" y1="50" x2="138" y2="50"/><polyline points="132,45 140,50 132,55" fill="none"/>
+        <line x1="250" y1="50" x2="274" y2="50"/><polyline points="268,45 276,50 268,55" fill="none"/>
+        <line x1="386" y1="50" x2="408" y2="50"/><polyline points="402,45 410,50 402,55" fill="none"/>
+      </g>
+    </svg>
+    <figcaption>Figure 1.1  The information lifecycle. Data is captured, given a
+    representation (a type and a place in a schema), stored, and later retrieved.</figcaption>
+  </figure>
+
+  <p><b>Capture</b> is how data is collected from the real world: manual entry on a form,
+  sensors and IoT devices, scanners and OCR, or an API pulling from another system.
+  <b>Representation</b> is the form it is stored in: every value is given a <b>data
+  type</b> that fixes what it may hold and how much space it takes.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Data types you will use all year</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Type</th><th>Holds</th><th>Example value</th></tr>
+        <tr><td><code>INT</code> (INTEGER)</td><td>whole numbers</td><td><code>350</code></td></tr>
+        <tr><td><code>VARCHAR(n)</code></td><td>text up to n characters</td><td><code>'Glasgow'</code></td></tr>
+        <tr><td><code>CHAR(n)</code></td><td>fixed-length text</td><td><code>'M231 JGR'</code></td></tr>
+        <tr><td><code>DATE</code></td><td>a calendar date</td><td><code>'2004-10-18'</code></td></tr>
+        <tr><td><code>DECIMAL(p,s)</code></td><td>exact numbers with decimals</td><td><code>80000.00</code></td></tr>
+      </table>
+      <p class="small">You will meet these again the moment you write your first
+      <code>CREATE TABLE</code> in Module Five. Text values go in single quotes; numbers do
+      not.</p>
+    </div>
+  </div>
+
+  <p><b>Storing</b> data well means being able to find it again quickly, which is the job of
+  an <b>index</b>, and <b>retrieval</b> is fetching it with a query. Indexing earns its own
+  question on the paper, so it earns a worked answer here.</p>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M1U1</span> Self-Assessment 1</span></div>
+    <div class="body">
+      <p><b>Q. What is the purpose of indexing in a database, and how does it improve
+      performance?</b></p>
+      <ol class="steps">
+        <li>Say what an index is. An index is a separate lookup structure that maps the
+        values of a column to the locations of the rows that hold them, in the way the index
+        at the back of a book maps a topic to its page numbers.</li>
+        <li>Say what it replaces. Without an index, finding every row where
+        <code>city = 'Glasgow'</code> means reading every row in the table, a <b>full table
+        scan</b>. On a million-row table that is a million reads.</li>
+        <li>Say how it helps. With an index on <code>city</code>, the system jumps straight
+        to the matching entries (using a structure such as a B-tree or a hash index) and
+        reads only those rows. Search, sorting, and joining all get faster.</li>
+        <li>State the cost, because a complete answer names the trade-off. An index takes
+        extra storage and must be updated on every insert, update, and delete, so indexing
+        every column would slow writing down. You index the columns you search on.</li>
+      </ol>
+      <div class="redo"><b>Now you try:</b> in one sentence each, give one column in a
+      <code>STAFF(staffNo, fName, lName, branchNo)</code> table you <i>would</i> index and
+      one you would not, and why.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">1.3 Three things people confuse: privacy, integrity, security</h3>
+  <p>These three words are used loosely in ordinary speech and precisely in this course. The
+  examiner asks you to separate them, so separate them.</p>
+
+  <figure>
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+      <g stroke-width="1.4">
+        <rect x="6" y="20" width="160" height="112" rx="4" fill="#eff9fb" stroke="#0e7490"/>
+        <rect x="180" y="20" width="160" height="112" rx="4" fill="#ecfdf5" stroke="#059669"/>
+        <rect x="354" y="20" width="160" height="112" rx="4" fill="#fdefef" stroke="#b91c1c"/>
+      </g>
+      <g text-anchor="middle" font-weight="bold" font-size="12">
+        <text x="86" y="42" fill="#0e7490">PRIVACY</text>
+        <text x="260" y="42" fill="#059669">INTEGRITY</text>
+        <text x="434" y="42" fill="#b91c1c">SECURITY</text>
+      </g>
+      <g text-anchor="middle" font-size="8.5" fill="#334155">
+        <text x="86" y="64">WHO may see it</text>
+        <text x="86" y="86">access control,</text>
+        <text x="86" y="100">anonymisation,</text>
+        <text x="86" y="114">legal compliance</text>
+        <text x="260" y="64">Is it CORRECT</text>
+        <text x="260" y="86">constraints,</text>
+        <text x="260" y="100">foreign keys,</text>
+        <text x="260" y="114">transactions (ACID)</text>
+        <text x="434" y="64">Keeping ATTACKERS out</text>
+        <text x="434" y="86">authentication,</text>
+        <text x="434" y="100">encryption,</text>
+        <text x="434" y="114">backups</text>
+      </g>
+    </svg>
+    <figcaption>Figure 1.2  Privacy is about who is allowed to see data; integrity is about
+    whether the data is correct and consistent; security is about keeping intruders out.
+    They overlap in practice but answer three different questions.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">TEXT M1U1</span> Self-Assessment 2</span></div>
+    <div class="body">
+      <p><b>Q. Explain the differences between data privacy, data integrity, and data
+      security.</b></p>
+      <p><b>Data privacy</b> concerns <i>who is permitted to access</i> which data. It is
+      enforced with access control (role-based permissions), anonymisation of sensitive
+      fields, and compliance with data-protection law. Example: an ordinary student may see
+      their own results but not a lecturer's salary.</p>
+      <p><b>Data integrity</b> concerns whether the data is <i>accurate and consistent</i>.
+      It is enforced with constraints (<code>NOT NULL</code>, <code>UNIQUE</code>,
+      <code>CHECK</code>), referential integrity (foreign keys that must match a real row),
+      and transaction management so a half-finished update never leaves the data in a broken
+      state. Example: a booking cannot reference a guest number that does not exist.</p>
+      <p><b>Data security</b> concerns protection against <i>unauthorised access and
+      attack</i>. It is enforced with authentication, encryption, firewalls, database
+      hardening, and backups for disaster recovery. Example: passwords are stored encrypted,
+      not in plain text.</p>
+      <p class="small">One-line hook to remember them: privacy = <i>who</i> may see it,
+      integrity = is it <i>correct</i>, security = keeping <i>attackers</i> out.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">ACID</span></div>
+    <div class="body">
+      <p>Integrity leans on the transaction, and a good transaction has four properties,
+      <b>ACID</b>: <b>Atomicity</b> (all of it happens or none of it does), <b>Consistency</b>
+      (it moves the database from one valid state to another), <b>Isolation</b> (concurrent
+      transactions do not tread on each other), <b>Durability</b> (once committed, it
+      survives a crash). Learn the word and what each letter means.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.4 Judging a system: scalability, efficiency, effectiveness</h3>
+  <p>Three attributes decide whether a data system is any good. They sound similar and are
+  not.</p>
+  <ul class="bul">
+    <li><b>Scalability</b> is the ability to keep working as data and users grow. You scale
+    <b>vertically</b> by giving one machine more power (more CPU, memory, disk), or
+    <b>horizontally</b> by spreading the load across many machines (replication, sharding).</li>
+    <li><b>Efficiency</b> is how little resource the work costs: CPU, memory, storage, and
+    query time. Good indexing and storage design buy efficiency.</li>
+    <li><b>Effectiveness</b> is whether the system actually meets the users' needs: accurate
+    results, reliable uptime, and user satisfaction.</li>
+  </ul>
+  <p>The distinction between the last two is a favourite short question, so here it is,
+  answered.</p>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 19/20 Q6a</span></span></div>
+    <div class="body">
+      <p><b>Q. Differentiate between Information Efficiency and Information Effectiveness.</b>
+      <span class="offsyl">Not in syllabus</span> (phrased in the older wording; the ideas
+      are the efficiency/effectiveness pair above, so you can still answer it fully.)</p>
+      <p><b>Information efficiency</b> is about <i>doing the thing right</i>: producing the
+      required information with the least resource and time, cost per query, storage used,
+      response time. A report that is generated in one second using little memory is
+      efficient.</p>
+      <p><b>Information effectiveness</b> is about <i>doing the right thing</i>: producing
+      information that actually serves the user's purpose, that is accurate, relevant, timely
+      and complete enough to decide on. A report delivered instantly but showing the wrong
+      figures is efficient yet not effective.</p>
+      <p class="small">Hook: efficiency = doing it right (cheaply, quickly); effectiveness =
+      doing the right thing (usefully, correctly).</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Give one sentence separating data from information.</p>
+      <p class="q">2. Name the four stages of the information lifecycle in order.</p>
+      <p class="q">3. Which of privacy, integrity, security does a foreign key serve?</p>
+      <p class="q">4. What is the difference between vertical and horizontal scaling?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Data is raw facts; information is data given context so it can be
+      acted on. 2. Capture, represent, store, retrieve. 3. Integrity (it keeps references
+      correct). 4. Vertical = one bigger machine; horizontal = more machines sharing the
+      load.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UNIT 2 ===================== -->
+<section>
+  <div class="kick">Module One &middot; Unit 2</div>
+  <h2 class="title">Database Systems and Architecture</h2>
+  <hr class="rule">
+  <p class="lead">Why organisations abandoned loose files for databases, what a DBMS is and
+  what sits inside it, and the layered architecture that lets the data and the programs
+  change independently.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> list the limitations of the
+  file-based approach and the advantages of the database approach; define a database, a
+  DBMS, a schema, and an instance; separate DDL from DML; explain the three levels of data
+  abstraction and the two kinds of data independence; and tell a personal database from an
+  enterprise one.</p>
+
+  <h3 class="sub">2.1 The file-based approach, and why it failed</h3>
+  <p>Before databases, each part of an organisation kept its own files and wrote its own
+  programs to read them. The sales department had a sales file; accounts had an accounts
+  file; each with its own copy of the customer list. This is the <b>file-based approach</b>,
+  and it fails in ways the examiner returns to every year.</p>
+
+  <figure>
+    <svg viewBox="0 0 520 176" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+      <text x="130" y="12" text-anchor="middle" font-size="9" font-weight="bold" fill="#b91c1c">FILE-BASED APPROACH</text>
+      <text x="392" y="12" text-anchor="middle" font-size="9" font-weight="bold" fill="#059669">DATABASE APPROACH</text>
+      <!-- file-based: three apps each with own file -->
+      <g font-size="8" text-anchor="middle">
+        <g fill="#fdefef" stroke="#b91c1c" stroke-width="1.1">
+          <rect x="14" y="24" width="66" height="26" rx="2"/>
+          <rect x="14" y="74" width="66" height="26" rx="2"/>
+          <rect x="14" y="124" width="66" height="26" rx="2"/>
+        </g>
+        <g fill="#18232b"><text x="47" y="40">Sales</text><text x="47" y="90">Accounts</text><text x="47" y="140">Payroll</text></g>
+        <g fill="#fff" stroke="#b91c1c" stroke-width="1.1">
+          <rect x="150" y="24" width="70" height="26" rx="2"/>
+          <rect x="150" y="74" width="70" height="26" rx="2"/>
+          <rect x="150" y="124" width="70" height="26" rx="2"/>
+        </g>
+        <g fill="#7f1d1d"><text x="185" y="40">customers</text><text x="185" y="90">customers</text><text x="185" y="140">customers</text></g>
+        <g stroke="#b91c1c" stroke-width="1.2">
+          <line x1="80" y1="37" x2="148" y2="37"/><line x1="80" y1="87" x2="148" y2="87"/><line x1="80" y1="137" x2="148" y2="137"/>
+        </g>
+      </g>
+      <text x="130" y="170" text-anchor="middle" font-size="7.5" fill="#7f1d1d">same customer list copied three times</text>
+      <!-- database: three apps share one DB via DBMS -->
+      <g font-size="8" text-anchor="middle">
+        <g fill="#ecfdf5" stroke="#059669" stroke-width="1.1">
+          <rect x="300" y="24" width="60" height="24" rx="2"/>
+          <rect x="300" y="70" width="60" height="24" rx="2"/>
+          <rect x="300" y="116" width="60" height="24" rx="2"/>
+        </g>
+        <g fill="#18232b"><text x="330" y="39">Sales</text><text x="330" y="85">Accounts</text><text x="330" y="131">Payroll</text></g>
+        <rect x="392" y="58" width="42" height="48" rx="2" fill="#059669"/>
+        <text x="413" y="79" fill="#fff" font-weight="bold">DB</text><text x="413" y="92" fill="#fff" font-weight="bold">MS</text>
+        <g stroke="#059669" stroke-width="1.2">
+          <line x1="360" y1="36" x2="392" y2="70"/><line x1="360" y1="82" x2="392" y2="82"/><line x1="360" y1="128" x2="392" y2="94"/>
+        </g>
+        <g stroke="#059669" stroke-width="1.3">
+          <ellipse cx="474" cy="66" rx="30" ry="9" fill="#fff"/>
+          <path d="M444 66 v34 a30 9 0 0 0 60 0 v-34" fill="#fff"/>
+          <path d="M444 82 a30 9 0 0 0 60 0" fill="none"/>
+        </g>
+        <line x1="434" y1="82" x2="444" y2="82" stroke="#059669" stroke-width="1.2"/>
+        <text x="474" y="120" fill="#065f46" font-size="7.5">one shared database</text>
+      </g>
+    </svg>
+    <figcaption>Figure 1.3  Left: every application owns its own files, so the customer list
+    is duplicated and can disagree. Right: every application shares one database through the
+    DBMS, so there is a single, consistent copy.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Limitations of the file-based approach</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Data redundancy.</b> The same fact (a customer's address) is stored in
+        several files.</li>
+        <li><b>Data inconsistency.</b> Update it in one file and not another, and the copies
+        now disagree.</li>
+        <li><b>Data isolation.</b> Data is scattered across files in different formats, so
+        writing a program to combine it is hard.</li>
+        <li><b>Program-data dependence.</b> The file's structure is written into every
+        program, so changing the structure means rewriting the programs.</li>
+        <li><b>Difficult concurrent access.</b> Letting many users write at once safely is
+        left to each program to solve, and mostly it is not solved.</li>
+        <li><b>Weak security and integrity.</b> Rules live in program code, applied
+        unevenly, easy to bypass.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 25/26 Q2a</span> &middot; also <span class="prov">PQ 20/21 Q1a</span>, <span class="prov">PQ 15/16 Q1c</span></span></div>
+    <div class="body">
+      <p><b>Q. Explain two limitations of the file-based approach to data processing.</b>
+      (25/26 asks for two; 20/21 asks for three; 15/16 asks for five. One answer, scaled to
+      the marks.)</p>
+      <p class="marks">Model answer (two, stated then explained)</p>
+      <p><b>1. Data redundancy and inconsistency.</b> Because each program keeps its own
+      files, the same data is duplicated across them. When one copy is updated and another
+      is not, the files disagree, and there is no single correct version.</p>
+      <p><b>2. Program-data dependence.</b> The physical structure of a file (its fields and
+      their order) is embedded in the code of every program that reads it. A change as small
+      as widening a field forces a change to every one of those programs.</p>
+      <p class="small">For three, add <b>data isolation</b> (data scattered in incompatible
+      formats is hard to combine). For five, add <b>difficulty of concurrent access</b> and
+      <b>weak security and integrity control</b>. Naming the limitation and then explaining
+      it in a sentence is what earns the mark; a bare list does not.</p>
+      <div class="redo"><b>Now you try:</b> the database approach fixes each of these. For
+      redundancy and for program-data dependence, name the database feature that removes it.
+      (Answers appear in 2.4 and 2.5 below.)</div>
+    </div>
+  </div>
+
+  <h3 class="sub">2.2 Database, DBMS, schema, instance</h3>
+  <p>Four definitions the examiner asks for by name. Learn them in these words.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four core definitions</span></div>
+    <div class="body">
+      <p><b>Database:</b> a shared collection of logically related data (and a description of
+      that data), designed to meet the information needs of an organisation.</p>
+      <p><b>DBMS (Database Management System):</b> the software that lets users define,
+      create, maintain, and control access to the database. Examples: MySQL, Oracle,
+      PostgreSQL, Microsoft SQL Server.</p>
+      <p><b>Schema:</b> the description of the data using a given data model, that is, the
+      structure. It changes rarely. Example:
+      <code>Student{matricNo, name, address, programme, age}</code>.</p>
+      <p><b>Instance (database instance):</b> the actual data in the database at a particular
+      moment. It changes constantly, on every insert, update, and delete.</p>
+      <p class="small">Schema is to instance as the empty form is to the filled-in form: the
+      form's layout is the schema, today's stack of completed forms is the instance.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q4c</span> &middot; <span class="prov">PQ 19/20 Q2c</span></span></div>
+    <div class="body">
+      <p><b>Q. With two examples, describe a Database Management System. (24/25 Q4c) And
+      define: data model, database instance, DBMS. (19/20 Q2c)</b></p>
+      <p>A <b>DBMS</b> is the software layer between the users and the stored data. It lets
+      them define the structure (through a data-definition language), put data in and take
+      it out (through a data-manipulation language), and it controls access, enforces
+      integrity, and manages concurrency and recovery, so the applications do not each have
+      to. Two examples: <b>MySQL</b> and <b>Oracle Database</b> (also acceptable: PostgreSQL,
+      Microsoft SQL Server, IBM Db2).</p>
+      <p>A <b>data model</b> is a collection of concepts used to describe the structure of a
+      database, that is, the data, the relationships between it, and the constraints on it.
+      The relational model (tables) is the one this course centres on.</p>
+      <p>A <b>database instance</b> is the information held in the database at a particular
+      point in time, a snapshot of its current contents.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.3 Two languages inside the DBMS: DDL and DML</h3>
+  <p>You talk to a database in two registers. One defines the structure; the other moves the
+  data around.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">DDL vs DML</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th></th><th>DDL (Data Definition Language)</th><th>DML (Data Manipulation Language)</th></tr>
+        <tr><td><b>Defines</b></td><td>the structure: entities, attributes, relationships, constraints</td><td>the data: the rows themselves</td></tr>
+        <tr><td><b>Acts on</b></td><td>the schema</td><td>the instance</td></tr>
+        <tr><td><b>Statements</b></td><td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code></td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>SELECT</code></td></tr>
+        <tr><td><b>Compiles into</b></td><td>tables stored in the <b>data dictionary</b> (system catalogue: metadata, "data about data")</td><td>changes to the stored rows</td></tr>
+      </table>
+      <p class="small">The retrieval-only part of DML (the <code>SELECT</code>) is called a
+      <b>query language</b>. The four DML operations are retrieval, insertion, deletion, and
+      modification.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 24/25 Q4d</span> &middot; <span class="prov">PQ 25/26 Q5a</span></span></div>
+    <div class="body">
+      <p><b>Q. Differentiate between data definition language (DDL) and data manipulation
+      language (DML).</b></p>
+      <p><b>DDL</b> is the part of a database language used to <i>define and change the
+      structure</i> of the database: creating tables, altering columns, dropping objects,
+      and stating constraints. Its statements are <code>CREATE</code>, <code>ALTER</code>,
+      and <code>DROP</code>, and their effect is recorded in the data dictionary.</p>
+      <p><b>DML</b> is the part used to <i>work with the data itself</i>: inserting new rows,
+      updating and deleting existing ones, and retrieving them. Its statements are
+      <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>SELECT</code>.</p>
+      <p>In short: DDL changes the container, DML changes the contents.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.4 Inside the DBMS: its components and its people</h3>
+  <p>A DBMS is not one program but several parts working together, and it is run by people
+  with defined roles. Two roles are regularly confused on the paper.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Components a DBMS provides</span></div>
+    <div class="body">
+      <p>Asked to "list components of a DBMS", name from this set: the <b>DDL compiler</b>,
+      the <b>DML compiler / query language processor</b>, the <b>query processor</b> (breaks
+      a request into steps), the <b>database manager</b> (moves data between disk and
+      memory), the <b>file manager</b>, the <b>data dictionary / system catalogue</b>, the
+      <b>DML pre-compiler</b>, the <b>authorisation and integrity manager</b>, the
+      <b>transaction manager</b>, and the <b>recovery / backup manager</b>. The
+      <b>database manager</b> is the module that interfaces between the low-level stored data
+      and the application programs and queries.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 19/20 Q4b</span> &middot; <span class="prov">PQ 21/22 Q5a(i)</span></span></div>
+    <div class="body">
+      <p><b>Q. Explain the Database Manager and its responsibilities, and differentiate it
+      from the Database Administrator.</b></p>
+      <p>The <b>Database Manager</b> is a <i>software module</i> inside the DBMS. It is the
+      interface between the low-level data stored on disk and the application programs and
+      queries that ask for it. Its responsibilities are moving data between disk and main
+      memory, and enforcing, at run time, the integrity and access controls the database is
+      set up with. It is a program.</p>
+      <p>The <b>Database Administrator (DBA)</b> is a <i>person</i> with central control over
+      the data and the programs that access it. Their responsibilities are: defining the
+      schema, granting authorisation for data access, specifying integrity constraints,
+      defining storage structures and access methods, and modifying the schema or physical
+      organisation as needs change.</p>
+      <p class="small">The one-line separation: the Database Manager is a <b>program</b>
+      inside the DBMS; the Database Administrator is a <b>person</b> who runs the database.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.5 The layered architecture: three levels of data abstraction</h3>
+  <p>This is the central idea of the whole unit, and the answer to the "program-data
+  dependence" problem from 2.1. A database hides its physical storage behind layers, so that
+  a user sees only what they need and a change at one layer does not ripple up to the next.
+  The classic picture is the <b>three-schema architecture</b>, also called the three levels
+  of data abstraction.</p>
+
+  <figure>
+    <svg viewBox="0 0 520 214" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+      <!-- external level: several views -->
+      <g fill="#eff9fb" stroke="#0e7490" stroke-width="1.3">
+        <rect x="40" y="16" width="100" height="30" rx="3"/>
+        <rect x="210" y="16" width="100" height="30" rx="3"/>
+        <rect x="380" y="16" width="100" height="30" rx="3"/>
+      </g>
+      <g text-anchor="middle" font-size="9" fill="#155e75">
+        <text x="90" y="35">View: Student</text>
+        <text x="260" y="35">View: Bursar</text>
+        <text x="430" y="35">View: Lecturer</text>
+      </g>
+      <text x="10" y="35" font-size="8.5" font-weight="bold" fill="#0e7490" transform="rotate(-90 10 35)" text-anchor="middle">EXTERNAL</text>
+      <!-- conceptual level -->
+      <rect x="40" y="80" width="440" height="40" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+      <text x="260" y="99" text-anchor="middle" font-size="10" font-weight="bold" fill="#065f46">Conceptual (logical) schema</text>
+      <text x="260" y="113" text-anchor="middle" font-size="8" fill="#047857">all the data, as tables and their relationships</text>
+      <text x="10" y="100" font-size="8.5" font-weight="bold" fill="#059669" transform="rotate(-90 10 100)" text-anchor="middle">CONCEPTUAL</text>
+      <!-- internal / physical level -->
+      <rect x="40" y="154" width="440" height="44" rx="3" fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.4"/>
+      <text x="260" y="173" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">Internal (physical) schema</text>
+      <text x="260" y="187" text-anchor="middle" font-size="8" fill="#1d4ed8">how bytes are actually stored: files, indexes, B+ trees, hashing</text>
+      <text x="10" y="176" font-size="8.5" font-weight="bold" fill="#1d4ed8" transform="rotate(-90 10 176)" text-anchor="middle">INTERNAL</text>
+      <!-- mapping arrows -->
+      <g stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="3 3">
+        <line x1="90" y1="46" x2="150" y2="80"/><line x1="260" y1="46" x2="260" y2="80"/><line x1="430" y1="46" x2="370" y2="80"/>
+        <line x1="260" y1="120" x2="260" y2="154"/>
+      </g>
+    </svg>
+    <figcaption>Figure 1.4  The three-schema architecture. Many external views sit on one
+    conceptual schema, which sits on one internal schema. The dashed lines are mappings the
+    DBMS maintains, and they are what make the levels independent.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The three levels</span></div>
+    <div class="body">
+      <p><b>External level (view level):</b> the highest. Each user or program sees only the
+      slice of data relevant to it, as rows and columns, tailored to its access rights. A
+      student's view can compute a CGPA or an age without ever seeing a lecturer's salary.
+      Many different external views can exist over the same data.</p>
+      <p><b>Conceptual level (logical level):</b> the middle. It describes <i>all</i> the
+      data in the database as tables and the relationships between them, without any concern
+      for how it is stored. This is the level the database designer works at.</p>
+      <p><b>Internal level (physical level):</b> the lowest. It describes <i>how</i> the data
+      is actually stored: the file organisation, the indexes, whether hashing or a B+ tree is
+      used. (Some texts name a separate physical level below the internal one; the exam
+      wants the three: external, conceptual, internal.)</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 25/26 Q2c</span> &middot; <span class="prov">PQ 19/20 Q1b</span></span></div>
+    <div class="body">
+      <p><b>Q. What is meant by data abstraction? Explain the three levels of data
+      abstraction with examples. (25/26 Q2c) Equivalently: explain the differences between
+      user views, a conceptual schema, and an internal schema as different perspectives of
+      the same database. (19/20 Q1b)</b></p>
+      <p><b>Data abstraction</b> is the hiding of the complex details of how data is stored,
+      showing each user only what they need. It is what lets a user work with a table without
+      knowing anything about disks or files.</p>
+      <ol class="steps">
+        <li><b>External level (user views).</b> What one user or program sees: a customised
+        subset of the data. Example: the "Student" view shows a student their courses and
+        results but not other students' records, and not any salary data.</li>
+        <li><b>Conceptual level (conceptual schema).</b> The community view: every table and
+        relationship in the database, described independently of storage. Example: the whole
+        university schema, STUDENT, COURSE, LECTURER, DEPARTMENT, and how they relate.</li>
+        <li><b>Internal level (internal schema).</b> The storage view: how those tables are
+        physically held, which files, which indexes, which access method. Example: STUDENT is
+        stored as an indexed file with a B+ tree index on matricNo.</li>
+      </ol>
+      <p>They are three perspectives on one database: the same STUDENT data, seen as a
+      tailored view, as a logical table, and as bytes in an indexed file.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.6 Why the layers matter: data independence</h3>
+  <p>The layers are not decoration. They deliver <b>data independence</b>: the ability to
+  change the schema at one level without having to change the level above it. This is the
+  precise cure for the file-based approach's program-data dependence.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Two kinds of data independence</span></div>
+    <div class="body">
+      <p><b>Physical data independence:</b> the ability to change the internal (physical)
+      schema, adding an index, changing the file organisation, without changing the
+      conceptual schema or rewriting any application program. Comparatively easy to achieve.</p>
+      <p><b>Logical data independence:</b> the ability to change the conceptual schema,
+      adding a column or a table, without changing the external views or rewriting programs
+      that do not use the change. Harder to achieve, because programs depend closely on the
+      logical structure.</p>
+      <p class="small">Example of logical independence: users A and B both read
+      EmployeeNumber and EmployeeName. B adds a Salary column to the schema. A's view and A's
+      programs are untouched.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2.7 Two sizes of database: personal and enterprise</h3>
+  <div class="box teach">
+    <div class="bar"><span>Teach</span></div>
+    <div class="body">
+      <p>A <b>personal database system</b> supports a single application with a few tables,
+      on one computer, for one user: simple. An <b>enterprise-level database system</b>
+      supports many users at once and multiple applications, across many computers, with many
+      tables and often many databases: complex. The difference the examiner wants is number
+      of users, number of applications, and complexity.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 25/26 Q3a</span></span></div>
+    <div class="body">
+      <p><b>Q(i). Would you choose a database system instead of simply storing data in
+      operating-system files? Justify with two points. Q(ii). When would it make sense not
+      to use a database system?</b></p>
+      <p class="marks">(i) Yes, choose a database, because:</p>
+      <p><b>1. Controlled, consistent, shared access.</b> A DBMS gives one shared copy of the
+      data with concurrency control, so many users can read and write at once without
+      corrupting it or duplicating it, which loose OS files cannot do safely.</p>
+      <p><b>2. Integrity, security, and independence built in.</b> Constraints and access
+      control are enforced centrally, and the layered architecture gives data independence,
+      so the structure can change without rewriting every program. With OS files, all of this
+      is left to hand-written code.</p>
+      <p class="marks">(ii) When not to use one</p>
+      <p>A database system carries cost and overhead (licensing, hardware, expertise, and
+      slower simple access). For a small, single-user, single-application task with little
+      data, few or no concurrency needs, and a fixed structure, plain files are cheaper and
+      simpler, and a full DBMS is not worth its overhead. Real-time systems with very tight
+      timing, or purely temporary data, are other cases where files can be preferable.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Two limitations of the file-based approach.</p>
+      <p class="q">2. Which language creates a table, DDL or DML? Which inserts a row?</p>
+      <p class="q">3. Name the three levels of data abstraction, highest first.</p>
+      <p class="q">4. Which is harder to achieve, physical or logical data independence?</p>
+      <p class="q">5. Database Manager or DBA: which one is a person?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Any two of: redundancy, inconsistency, isolation, program-data
+      dependence, poor concurrency, weak security/integrity. 2. DDL creates the table
+      (<code>CREATE</code>); DML inserts the row (<code>INSERT</code>). 3. External,
+      conceptual, internal. 4. Logical. 5. The DBA is the person; the Database Manager is a
+      software module.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where this goes next</span></div>
+    <div class="body">
+      <p>You now have the vocabulary: data and information, DBMS, schema and instance, DDL
+      and DML, the three levels, data independence. Module Two turns to the conceptual level
+      and how you design it: the entity-relationship diagram, where a business description in
+      English becomes a picture, and then, in Module Three, a set of tables. That picture is
+      the single most drawn thing on the examination paper, so that is where we go next.</p>
+    </div>
+  </div>
+</section>

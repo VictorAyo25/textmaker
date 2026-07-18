@@ -1,0 +1,180 @@
+<!-- ===================== MODULE FIVE DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Five</div>
+  <h1>Relational Theory<br>and Query Languages</h1>
+  <div class="blurb">Now you ask the database questions. First in the pure notation of
+  relational algebra, the theory the exam still tests, then in SQL, the language you actually
+  type. Both come down to the same handful of operations.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <g font-family="DejaVu Sans" font-size="32" font-weight="bold" fill="#4338ca">
+        <text x="60" y="80">&#963;</text><text x="130" y="80">&#960;</text><text x="200" y="80">&#8904;</text>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="17" fill="#0e7490">
+        <text x="290" y="60">SELECT</text><text x="290" y="90">WHERE</text>
+      </g>
+      <line x1="255" y1="65" x2="285" y2="65" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== UNIT 1: RELATIONAL ALGEBRA ===================== -->
+<section>
+  <div class="kick">Module Five &middot; Unit 1</div>
+  <h2 class="title">Relational Algebra</h2>
+  <hr class="rule">
+  <p class="lead">A small set of operations that each take one or two relations and produce a
+  new relation. Chain them and you can express any query. The exam asks you to define the
+  operations and to write expressions, so this unit does both.</p>
+  <p class="lo"><b>By the end of this unit you can:</b> define the six core operations with
+  their symbols, and write a relational-algebra expression for any query over a given
+  schema.</p>
+
+  <h3 class="sub">1.1 The operations and their symbols</h3>
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Six operations, plus two</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operation</th><th>Symbol</th><th>Does</th></tr>
+        <tr><td><b>Selection</b></td><td>&#963; (sigma)</td><td>picks <i>rows</i> that meet a condition: &#963;<sub>price&lt;40</sub>(Room)</td></tr>
+        <tr><td><b>Projection</b></td><td>&#960; (pi)</td><td>picks <i>columns</i>: &#960;<sub>name,city</sub>(Hotel)</td></tr>
+        <tr><td><b>Union</b></td><td>&#8746;</td><td>all rows in either relation (same columns), duplicates removed</td></tr>
+        <tr><td><b>Set difference</b></td><td>&#8722;</td><td>rows in the first relation but not the second</td></tr>
+        <tr><td><b>Cartesian product</b></td><td>&#215;</td><td>every row of one paired with every row of the other</td></tr>
+        <tr><td><b>Join</b></td><td>&#8904; (bowtie)</td><td>a product kept only where a matching condition holds</td></tr>
+      </table>
+      <p class="small">Two more you will use: <b>rename</b> &#961; (rho), which gives a
+      relation or its columns a new name, and <b>division</b> &#247;, which finds rows
+      associated with <i>all</i> rows of another relation ("works on all projects").</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 25/26 Q4b</span> &middot; <span class="prov">PQ 15/16 Q5a</span></span></div>
+    <div class="body">
+      <p><b>Q. Explain six relational algebra operations with examples (15/16 asks for the
+      three basic ones).</b></p>
+      <p>The three <b>basic</b> ones the older paper wants are <b>selection</b> (&#963;, choose
+      rows), <b>projection</b> (&#960;, choose columns), and <b>join</b> (&#8904;, combine two
+      relations on a match). The full six add <b>union</b> (&#8746;, combine two
+      union-compatible relations), <b>set difference</b> (&#8722;, rows in one but not the
+      other), and <b>Cartesian product</b> (&#215;, all pairings). Each takes relations and
+      returns a relation, which is why they chain.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.2 Worked: College, Student, Apply</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 24/25 Q1b</span></span></div>
+    <div class="body">
+      <p>College(<u>C_Name</u>, State, Enrollment); Student(<u>S_ID</u>, S_Name, CGPA,
+      HighSch_Size); Apply(<u>S_ID</u>, College_Name, Course, Decision). Write in relational
+      algebra: (i) students with CGPA &gt; 4.5; (ii) with CGPA &gt; 4.5 and high-school size
+      &lt; 50; (iii) names of students who applied to CST for Computer Science; (iv) names and
+      CGPA of students with high-school size &gt; 1000 who applied for Computer Science at a
+      college with enrollment &gt; 20000 and were rejected.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+<pre class="code">(i)   &#963; CGPA &gt; 4.5 (Student)
+
+(ii)  &#963; CGPA &gt; 4.5 &#8743; HighSch_Size &lt; 50 (Student)
+
+(iii) &#960; S_Name ( Student &#8904; &#963; College_Name='CST' &#8743; Course='Computer Science' (Apply) )
+
+(iv)  &#960; S_Name, CGPA (
+        &#963; HighSch_Size &gt; 1000 (Student)
+        &#8904; &#963; Course='Computer Science' &#8743; Decision='Reject' (Apply)
+        &#8904; &#963; Enrollment &gt; 20000 (&#961; College_Name &#8592; C_Name (College)) )</pre>
+      <p class="small">The joins in (iii) and (iv) match on S_ID (Student to Apply) and on the
+      college name; the rename in (iv) lines up College's C_Name with Apply's College_Name so
+      the join has a common attribute. &#8743; is "and".</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.3 Worked: Cartesian product and rename</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 24/25 Q1c</span></span></div>
+    <div class="body">
+      <p>Boys(Name, State) = {(Adamu, Kogi), (Obi, Imo)}. Girls(Name, State) = {(Kemi, Kwara),
+      (Hadiza, Kaduna), (Chioma, Rivers)}. (i) Perform the Cartesian product; (ii) rename the
+      result as people.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+      <p>(i) Boys &#215; Girls pairs every boy row with every girl row, so 2 &#215; 3 = 6 rows,
+      each with four columns (renamed to avoid the clash on Name and State):</p>
+<pre class="code">B.Name  B.State  G.Name   G.State
+Adamu   Kogi     Kemi     Kwara
+Adamu   Kogi     Hadiza   Kaduna
+Adamu   Kogi     Chioma   Rivers
+Obi     Imo      Kemi     Kwara
+Obi     Imo      Hadiza   Kaduna
+Obi     Imo      Chioma   Rivers</pre>
+      <p>(ii) Rename the whole result: &nbsp; people &#8592; &#961; (Boys &#215; Girls).</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1.4 Worked: employees, departments, projects (with division)</h3>
+  <div class="box qpaper">
+    <div class="bar"><span>Exam question</span><span class="tag"><span class="prov">PQ 25/26 Q4c</span></span></div>
+    <div class="body">
+      <p>Emp(Fname, Lname, SSN, Dno); Dept(DName, DNum, Mgr_SSN); D_Loc(DNo, Location);
+      Project(PName, PNo, DNo, P_Loc); Works_on(ESSN, PNo, Hours). Write: (i) names of all
+      employees who work for the Headquarters department; (ii) for every project located in
+      Abuja, the project number, controlling department, and manager's name; (iii) names of
+      employees who work on all projects controlled by DNo = A3/4.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span></div>
+    <div class="body">
+<pre class="code">(i)   &#960; Fname, Lname (
+        Emp &#8904; Dno=DNum &#963; DName='Headquarters' (Dept) )
+
+(ii)  &#960; PNo, DName, Fname, Lname (
+        &#963; P_Loc='Abuja' (Project)
+        &#8904; DNo=DNum Dept
+        &#8904; Mgr_SSN=SSN Emp )
+
+(iii) Works on ALL projects of A3/4 is a DIVISION:
+        A34   &#8592; &#960; PNo ( &#963; DNo='A3/4' (Project) )
+        EP    &#8592; &#960; ESSN, PNo ( Works_on )
+        Result &#8592; &#960; Fname, Lname ( (EP &#247; A34) &#8904; ESSN=SSN Emp )</pre>
+      <p class="small">Division is the "for all" operator: EP &#247; A34 returns the ESSNs that
+      appear with <i>every</i> PNo in A34, that is, the employees working on all of that
+      department's projects.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag"><span class="prov">PQ 15/16 Q5b</span> Hotel algebra</span></div>
+    <div class="body">
+      <p><b>Over Hotel(hotelNo, hotelName, city), Room(roomNo, hotelNo, type, price),
+      Guest(guestNo, guestName, guestAddress): (i) list all hotels; (ii) single rooms below
+      2000 per night; (iii) names and addresses of all guests.</b></p>
+<pre class="code">(i)   Hotel
+(ii)  &#963; type='single' &#8743; price &lt; 2000 (Room)
+(iii) &#960; guestName, guestAddress (Guest)</pre>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Which operation chooses rows? Which chooses columns?</p>
+      <p class="q">2. What symbol is a join? A selection?</p>
+      <p class="q">3. When do you reach for division?</p>
+      <p class="q">4. Boys has 2 rows, Girls has 3. How many rows in Boys &#215; Girls?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p class="small">1. Selection (&#963;) chooses rows; projection (&#960;) chooses columns.
+      2. Join is &#8904;; selection is &#963;. 3. For "works on all / for every" queries.
+      4. 6 (2 &#215; 3).</p>
+    </div>
+  </div>
+</section>
