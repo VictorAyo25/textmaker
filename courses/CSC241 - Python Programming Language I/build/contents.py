@@ -66,6 +66,11 @@ TOC = [
     (2, 'Unit 1 · Python and Databases', 'Module Five &middot; Unit 1', 'Python and Databases'),
     (2, 'Unit 2 · Python GUI Programming', 'Module Five &middot; Unit 2', 'Python GUI Programming'),
 
+    (0, 'Past Paper 2025/2026', 'Past Paper 2025/2026', 'The Paper They<br>Actually Set'),
+    (2, 'How the Paper Changed', 'Past Paper 2025/2026', 'How the Paper Changed'),
+    (2, 'Questions One to Three, Worked', 'Past Paper 2025/2026', 'Questions One to Three, Worked'),
+    (2, 'Questions Four to Six, Worked', 'Past Paper 2025/2026', 'Questions Four to Six, Worked'),
+
     (0, 'Mock Examination One', 'Mock Examination One', 'Sit This Paper<br>Under Exam Conditions'),
     (2, 'Question Paper', 'Mock Examination One', 'Question Paper'),
     (2, 'Answers', 'Mock Examination One', 'Answers'),
@@ -73,6 +78,10 @@ TOC = [
     (0, 'Mock Examination Two', 'Mock Examination Two', 'Sit This One<br>After the First'),
     (2, 'Question Paper', 'Mock Examination Two', 'Question Paper'),
     (2, 'Answers', 'Mock Examination Two', 'Answers'),
+
+    (0, 'Mock Examination Three', 'Mock Examination Three', 'Sit It In<br>The New Shape'),
+    (2, 'Question Paper', 'Mock Examination Three', 'Question Paper'),
+    (2, 'Answers', 'Mock Examination Three', 'Answers'),
 ]
 
 ANCHOR = 'sec-'
@@ -82,7 +91,7 @@ ANCHOR = 'sec-'
 # The page before one of these is short by design, which is something the layout
 # QA has to know or it reports the gap as a fault every time it runs.
 FORCED_BREAK = {'BEFOREYOUSTARTHOWTOUSETHISMANUAL', 'MOCKEXAMINATIONONEANSWERS',
-                'MOCKEXAMINATIONTWOANSWERS'}
+                'MOCKEXAMINATIONTWOANSWERS', 'MOCKEXAMINATIONTHREEANSWERS'}
 
 
 def forced_ids():

@@ -29,8 +29,10 @@
   <p class="lead">A file holds data. A database organises it, so you can ask questions of
   it.</p>
   <p class="lo"><b>By the end of this unit you can:</b> say what a database is and why it is
-  used, explain what <code>sqlite3</code> does, name the three SQL commands this course
-  wants, and write the contact program it sets.</p>
+  used, explain what <code>sqlite3</code> does, name the SQL commands the course wants,
+  filter rows with <code>WHERE</code>, change them with <code>UPDATE</code> and
+  <code>DELETE</code>, summarise a column with <code>COUNT</code>, <code>MAX</code> and
+  <code>AVG</code>, and write the programs it sets.</p>
 
   <h3 class="sub">What a database is</h3>
 
@@ -265,6 +267,94 @@ cursor.execute(sql)</span></pre>
     </div>
   </div>
 
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">executemany for a list of rows</span></div>
+    <div class="body">
+      <p>When you have several rows ready in a list, <code>execute</code> in a loop works, but
+      <b><code>executemany</code></b> inserts them all in one call. You give it the SQL with
+      placeholders and a <b>list of tuples</b>, one tuple per row:</p>
+<pre class="code">rows = [(<span class="n">101</span>, <span class="s">"Ada"</span>, <span class="n">78</span>),
+        (<span class="n">102</span>, <span class="s">"Bola"</span>, <span class="n">85</span>)]
+cursor.executemany(<span class="s">"INSERT INTO student VALUES (?, ?, ?)"</span>, rows)
+conn.commit()</pre>
+      <p>It runs the same insert once for each tuple in the list, so two tuples add two rows.
+      Use <code>executemany</code> when the data is already gathered into a list, and the
+      <code>for</code> loop with <code>execute</code> when you are reading rows one at a time
+      from the user. Both still need one <code>commit</code> at the end.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Filtering, changing and summarising</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">WHERE picks the rows</span></div>
+    <div class="body">
+      <p><code>SELECT * FROM student</code> gives every row. To ask for <b>some</b> rows,
+      add a <code>WHERE</code>, and pass the value as a placeholder exactly as an insert
+      does. Say the table holds five students in classes SS1 to SS3:</p>
+<pre class="code">cursor.execute(<span class="s">"SELECT * FROM student WHERE Class = ?"</span>, (<span class="s">"SS2"</span>,))
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(row)</pre>
+<pre class="out">(102, 'Mary Johnson', 'SS2', 85.0)
+(105, 'Esther Ade', 'SS2', 74.0)</pre>
+      <p>Only the SS2 rows come back. <code>WHERE</code> is the same idea as an
+      <code>if</code>: it keeps the rows the condition is true for. Note the comma in
+      <code>("SS2",)</code>, because one value still needs a tuple.</p>
+      <p><b>Why the scores read 85.0 and not 85:</b> the column is <code>REAL</code>, so
+      SQLite hands every score back as a float. That is the column type doing its job,
+      from the primary-key box above.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">UPDATE changes, DELETE removes</span></div>
+    <div class="body">
+      <p>Two commands act on rows that already exist. Both take a <code>WHERE</code> that
+      says <b>which</b> rows, and both need a <code>commit</code>, because both change the
+      data.</p>
+      <p><b><code>UPDATE</code></b> sets new values on the rows the <code>WHERE</code>
+      picks:</p>
+<pre class="code">cursor.execute(<span class="s">"UPDATE student SET Score = ? WHERE StudentName = ?"</span>,
+               (<span class="n">75</span>, <span class="s">"Peter Okoro"</span>))
+conn.commit()</pre>
+      <p>Peter's score is now 75.0. <b>The <code>WHERE</code> is not optional in
+      practice:</b> leave it off and <code>UPDATE student SET Score = 75</code> sets
+      <i>every</i> student to 75.</p>
+      <p><b><code>DELETE</code></b> removes the rows the <code>WHERE</code> picks:</p>
+<pre class="code">cursor.execute(<span class="s">"DELETE FROM student WHERE StudentID = ?"</span>, (<span class="n">105</span>,))
+conn.commit()</pre>
+      <p>Row 105 is gone. <b><code>DELETE FROM student</code> with no <code>WHERE</code>
+      empties the whole table</b>, silently and at once. Write the <code>WHERE</code>
+      first, then run the command, every time.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">COUNT, MAX, AVG</span></div>
+    <div class="body">
+      <p>A database can summarise a column for you, so you never loop in Python to add the
+      scores up. These go where the column names go, inside the <code>SELECT</code>:</p>
+      <table class="data">
+        <tr><th>Function</th><th>Gives</th></tr>
+        <tr><td><code>COUNT(*)</code></td><td>how many rows</td></tr>
+        <tr><td><code>MAX(Score)</code></td><td>the largest value in that column</td></tr>
+        <tr><td><code>MIN(Score)</code></td><td>the smallest</td></tr>
+        <tr><td><code>AVG(Score)</code></td><td>the average</td></tr>
+        <tr><td><code>SUM(Score)</code></td><td>the total</td></tr>
+      </table>
+      <p style="margin-top:.5em">Ask for several at once, and read them back from the one
+      row with <code>fetchone</code>:</p>
+<pre class="code">cursor.execute(<span class="s">"SELECT COUNT(*), MAX(Score), AVG(Score) FROM student"</span>)
+total, highest, average = cursor.fetchone()
+<span class="k">print</span>(total, highest, average)</pre>
+<pre class="out">5 92.0 79.2</pre>
+      <p><b>One row, three columns.</b> A summary always comes back as a single row, so
+      <code>fetchone</code> is the right fetch, and it unpacks straight into three names
+      like any tuple. That is Question Four's "total number of students, highest score
+      and average score" in one line of SQL.</p>
+    </div>
+  </div>
+
   <div class="box work">
     <div class="bar"><span>Worked</span><span class="tag">The question this course sets</span></div>
     <div class="body">
@@ -356,6 +446,8 @@ conn.close()</pre>
       <p class="q">3. Name three SQL commands and their functions.</p>
       <p class="q">4. What happens if you forget <code>conn.commit()</code>?</p>
       <p class="q">5. What does a row from <code>fetchall()</code> come back as?</p>
+      <p class="q">6. How do you fetch only the SS2 rows, change one student's score, remove
+      one student, and count all rows?</p>
       <hr class="cut">
       <p class="alabel">Answers</p>
       <ol class="qlist">
@@ -370,6 +462,12 @@ conn.close()</pre>
         <li>Your changes are silently discarded when the program ends. No error is
         reported.</li>
         <li>A tuple, with the columns in table order.</li>
+        <li><code>SELECT * FROM student WHERE Class = ?</code> for the SS2 rows;
+        <code>UPDATE student SET Score = ? WHERE ...</code> to change one;
+        <code>DELETE FROM student WHERE ...</code> to remove one;
+        <code>SELECT COUNT(*) FROM student</code> to count. <code>UPDATE</code> and
+        <code>DELETE</code> each need a <code>commit</code>; the two <code>SELECT</code>s do
+        not.</li>
       </ol>
     </div>
   </div>

@@ -1629,6 +1629,268 @@ finally:
     os.chdir(_cwdP)
     shutil.rmtree(_tmpP, ignore_errors=True)
 
+# ================= Past Paper 2025/2026, solved in full =================
+# Every printed output in paper2526.html, reproduced with the sample inputs the
+# section states. The programs are the same ones the page shows, with input()
+# replaced by the fixed values named beside each answer.
+
+check('p2526 Q1c corrected dict',
+      '''person = {"name": "John Doe", "age": 30,
+          "city": "New York", "Email": "john.doe@example.com"}
+print("Name:", person["name"])
+print("Age:", person["age"])
+print("City:", person["city"])
+print("Email:", person["Email"])
+person["age"] = "35"
+person["phone"] = "123-456-7890"
+del person["Email"]
+print("Updated Person Dictionary:")
+print(person)''',
+      '''Name: John Doe
+Age: 30
+City: New York
+Email: john.doe@example.com
+Updated Person Dictionary:
+{'name': 'John Doe', 'age': '35', 'city': 'New York', 'phone': '123-456-7890'}''')
+
+check('p2526 Q1d BMI 72/1.75',
+      '''w, h = 72, 1.75
+bmi = w / h ** 2
+if bmi < 18.5: c = "Underweight"
+elif bmi < 25: c = "Normal weight"
+elif bmi < 30: c = "Overweight"
+else: c = "Obese"
+print(f"BMI = {bmi:.2f}")
+print("Class:", c)''',
+      'BMI = 23.51\nClass: Normal weight')
+
+check('p2526 Q1e compound interest',
+      '''P, r, nn, t = 100000, 0.05, 4, 3
+A = P * (1 + r / nn) ** (nn * t)
+print(f"Future value (A): {A:.2f}")
+print(f"Interest earned: {A - P:.2f}")''',
+      'Future value (A): 116075.45\nInterest earned: 16075.45')
+
+check('p2526 Q2c corrected string',
+      '''my_string = "Serve Jesus Now"
+print("Original String:", my_string)
+print("First Character:", my_string[0])
+print("Last Character:", my_string[-1])
+print("Substring:", my_string[6:11])
+greeting = "Hi"; name = "Alice"
+print("Message:", greeting + ", " + name + "!")
+print("Length of the String:", len(my_string))
+print("Count of 'e':", my_string.count("e"))''',
+      '''Original String: Serve Jesus Now
+First Character: S
+Last Character: w
+Substring: Jesus
+Message: Hi, Alice!
+Length of the String: 15
+Count of 'e': 3''')
+
+check('p2526 Q3c list ops',
+      'l1 = [1, 2] * 2\nl2 = [3]\nl2 += l1\nprint("list1 =", l1)\nprint("list2 =", l2)',
+      'list1 = [1, 2, 1, 2]\nlist2 = [3, 1, 2, 1, 2]')
+
+check('p2526 Q3d collections set difference',
+      '''registered = {"Esther","John","Paula","Paul","Peter","Ada","Mary"}
+details = ("Python Programming Workshop","Room 204","Monday",30)
+attended = {"Esther","John","Mercy","Paul","Paula"}
+scores = {"Esther":72,"John":55,"Paula":68,"Paul":40,"Peter":91,"Ada":59,"Mary":83}
+print("Workshop details:", details)
+print("Registered:", sorted(registered))
+print("Attended:", sorted(attended))
+print("Registered, did not attend:", sorted(registered - attended))
+print("Attended, not registered:", sorted(attended - registered))
+print("Scored 60+:", sorted(nm for nm, s in scores.items() if s >= 60))''',
+      '''Workshop details: ('Python Programming Workshop', 'Room 204', 'Monday', 30)
+Registered: ['Ada', 'Esther', 'John', 'Mary', 'Paul', 'Paula', 'Peter']
+Attended: ['Esther', 'John', 'Mercy', 'Paul', 'Paula']
+Registered, did not attend: ['Ada', 'Mary', 'Peter']
+Attended, not registered: ['Mercy']
+Scored 60+: ['Esther', 'Mary', 'Paula', 'Peter']''')
+
+val('p2526 Q4b cube(4)', '(lambda n: n*n*n)(4)', '64')
+
+check('p2526 Q4c SQLite all, SS2, stats',
+      '''import sqlite3
+c = sqlite3.connect(":memory:"); cur = c.cursor()
+cur.execute("CREATE TABLE student (StudentID INTEGER PRIMARY KEY, "
+            "StudentName TEXT, Class TEXT, Score REAL)")
+cur.executemany("INSERT INTO student VALUES (?,?,?,?)",
+  [(101,"David James","SS1",78),(102,"Mary Johnson","SS2",85),
+   (103,"Peter Okoro","SS1",67),(104,"Grace Bello","SS3",92),
+   (105,"Esther Ade","SS2",74)])
+print("All students:")
+for r in cur.execute("SELECT * FROM student").fetchall(): print(r)
+print("SS2 students:")
+for r in cur.execute("SELECT * FROM student WHERE Class = ?", ("SS2",)).fetchall():
+    print(r)
+cur.execute("SELECT COUNT(*), MAX(Score), AVG(Score) FROM student")
+total, highest, average = cur.fetchone()
+print("Total:", total, " Highest:", highest, " Average:", average)''',
+      '''All students:
+(101, 'David James', 'SS1', 78.0)
+(102, 'Mary Johnson', 'SS2', 85.0)
+(103, 'Peter Okoro', 'SS1', 67.0)
+(104, 'Grace Bello', 'SS3', 92.0)
+(105, 'Esther Ade', 'SS2', 74.0)
+SS2 students:
+(102, 'Mary Johnson', 'SS2', 85.0)
+(105, 'Esther Ade', 'SS2', 74.0)
+Total: 5  Highest: 92.0  Average: 79.2''')
+
+check('p2526 Q6a nested indexing',
+      '''nl = [[1,2,3],[4,5,6],[7,8,9],[10,11,12,13],
+      [14,[15,16,17],18],[19,[20,[21,22,23],24]]]
+print(nl[3][2]); print(len(nl[4])); print(nl[5][1][1][0])''',
+      '12\n3\n21')
+
+check('p2526 Q6b void step summary',
+      '''def display_achievement_summary(user_name, actual_total, target_total):
+    print(f"--- Progress Report for {user_name} ---")
+    print("Total Steps:", actual_total)
+    if actual_total >= target_total: print("Milestone Achieved!!")
+    else: print("Milestone Not Achieved.")
+total_steps = sum([12000, 9000, 11000])
+display_achievement_summary("Alice", total_steps, 10000 * 3)''',
+      '--- Progress Report for Alice ---\nTotal Steps: 32000\nMilestone Achieved!!')
+
+# Q6c: the paper prints 10546.90; a real run gives 10547.79. Prove the true figure,
+# and prove the paper's is not what math.pi yields, so the defect box is accurate.
+val('p2526 Q6c the true area', 'round(__import__("math").pi * 12 ** 2, 10)',
+    '452.3893421169')
+val('p2526 Q6c the true total to 2dp',
+    'round(__import__("math").pi * 12 ** 2 * 20 + 1500, 2)', '10547.79')
+
+# ================= Mock Examination Three =================
+check('mock3 Q1c book dict',
+      '''book = {"title":"Things Fall Apart","author":"Achebe",
+        "year":1958,"Genre":"Fiction"}
+print("Title:", book["title"])
+print("Author:", book["author"])
+print("Genre:", book["Genre"])
+book["year"] = 1959
+book["pages"] = 209
+del book["Genre"]
+print("Updated Book:")
+print(book)''',
+      '''Title: Things Fall Apart
+Author: Achebe
+Genre: Fiction
+Updated Book:
+{'title': 'Things Fall Apart', 'author': 'Achebe', 'year': 1959, 'pages': 209}''')
+
+check('mock3 Q1d simple interest',
+      '''P, R, T = 50000, 8, 3
+interest = P * R * T / 100
+print(f"Interest: {interest:.2f}")
+print(f"Total amount: {P + interest:.2f}")''',
+      'Interest: 12000.00\nTotal amount: 62000.00')
+
+check('mock3 Q1e temperature band',
+      '''C = 25
+F = C * 9 / 5 + 32
+if F <= 32: band = "Freezing"
+elif F < 60: band = "Cold"
+elif F < 85: band = "Warm"
+else: band = "Hot"
+print(f"Fahrenheit: {F:.1f}")
+print("Band:", band)''',
+      'Fahrenheit: 77.0\nBand: Warm')
+
+check('mock3 Q2c evens corrected',
+      '''total = 0
+for i in range(1, 11):
+    if i % 2 == 0: total += i
+print("Sum of evens:", total)''',
+      'Sum of evens: 30')
+
+check('mock3 Q2d average',
+      '''total = 0; count = 0
+for n2 in [20, 40, 60]:
+    total += n2; count += 1
+print(f"Average: {total / count:.2f}")''',
+      'Average: 40.00')
+
+check('mock3 Q3c list trace',
+      '''a = [0] * 3
+b = [1, 2, 3]
+b.append([4, 5])
+print("a =", a)
+print("b =", b)
+print("len(b) =", len(b))''',
+      'a = [0, 0, 0]\nb = [1, 2, 3, [4, 5]]\nlen(b) = 4')
+
+check('mock3 Q3d club collections',
+      '''enrolled = {"Ada","Ben","Chidi","Dami","Efe","Femi"}
+details = ("Coding Club","Lab 3","Friday",25)
+present = {"Ada","Ben","Grace","Femi","Chidi"}
+points = {"Ada":88,"Ben":54,"Chidi":72,"Dami":45,"Efe":63,"Femi":91}
+print("Club info:", details)
+print("Enrolled:", sorted(enrolled))
+print("Enrolled, absent:", sorted(enrolled - present))
+print("Present, not enrolled:", sorted(present - enrolled))
+print("Points 60+:", sorted(nm for nm, p in points.items() if p >= 60))''',
+      '''Club info: ('Coding Club', 'Lab 3', 'Friday', 25)
+Enrolled: ['Ada', 'Ben', 'Chidi', 'Dami', 'Efe', 'Femi']
+Enrolled, absent: ['Dami', 'Efe']
+Present, not enrolled: ['Grace']
+Points 60+: ['Ada', 'Chidi', 'Efe', 'Femi']''')
+
+val('mock3 Q4b half(10)', '(lambda n: n / 2)(10)', '5.0')
+
+check('mock3 Q4c library all, Achebe, stats',
+      '''import sqlite3
+c = sqlite3.connect(":memory:"); cur = c.cursor()
+cur.execute("CREATE TABLE book (BookID INTEGER PRIMARY KEY, Title TEXT, "
+            "Author TEXT, Copies INTEGER)")
+cur.executemany("INSERT INTO book VALUES (?,?,?,?)",
+  [(1,"Half of a Yellow Sun","Adichie",4),(2,"Things Fall Apart","Achebe",7),
+   (3,"The Joys of Motherhood","Emecheta",3),(4,"Arrow of God","Achebe",5),
+   (5,"Efuru","Nwapa",2)])
+print("All books:")
+for r in cur.execute("SELECT * FROM book").fetchall(): print(r)
+print("By Achebe:")
+for r in cur.execute("SELECT * FROM book WHERE Author = ?", ("Achebe",)).fetchall():
+    print(r)
+cur.execute("SELECT COUNT(*), MAX(Copies), AVG(Copies) FROM book")
+titles, most, average = cur.fetchone()
+print("Titles:", titles, " Most:", most, " Average:", average)''',
+      '''All books:
+(1, 'Half of a Yellow Sun', 'Adichie', 4)
+(2, 'Things Fall Apart', 'Achebe', 7)
+(3, 'The Joys of Motherhood', 'Emecheta', 3)
+(4, 'Arrow of God', 'Achebe', 5)
+(5, 'Efuru', 'Nwapa', 2)
+By Achebe:
+(2, 'Things Fall Apart', 'Achebe', 7)
+(4, 'Arrow of God', 'Achebe', 5)
+Titles: 5  Most: 7  Average: 4.2''')
+
+check('mock3 Q6a nested indexing',
+      '''data = [[100,200],[300,[400,500,600]],[[700,800],900],["a","b","c"]]
+print(data[1][1][2]); print(len(data[1])); print(data[2][0][1])''',
+      '600\n2\n800')
+
+check('mock3 Q6b void result summary',
+      '''def print_result_summary(student, total_score, pass_mark):
+    print(f"=== Result for {student} ===")
+    print("Total Score:", total_score)
+    if total_score >= pass_mark: print("Result: PASS")
+    else: print("Result: FAIL")
+print_result_summary("Bola", sum([70, 65, 80, 55, 70]), 250)''',
+      '=== Result for Bola ===\nTotal Score: 340\nResult: PASS')
+
+check('mock3 Q6c cylinder volume',
+      '''import math
+def volume(r, h): return math.pi * r ** 2 * h
+v = volume(7, 10)
+print(f"Volume: {v:.2f}")
+print("Large tank" if v > 1000 else "Small tank")''',
+      'Volume: 1539.38\nLarge tank')
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:

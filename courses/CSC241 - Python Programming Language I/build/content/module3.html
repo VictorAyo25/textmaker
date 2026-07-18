@@ -632,6 +632,48 @@ ValueError: list.remove(x): x not in list</pre>
       <p>Both appear in "what is the output" questions. Note <code>[1, 2] * 2</code> is
       <code>[1, 2, 1, 2]</code>, not <code>[2, 4]</code>: it repeats the list, it does not
       multiply the numbers.</p>
+      <p><b><code>+=</code> extends a list in place.</b> <code>list2 += list1</code> means
+      <code>list2 = list2 + list1</code>, so it tacks every item of <code>list1</code> onto
+      the end of <code>list2</code>:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> list2 = [<span class="n">3</span>]
+<span class="p">&gt;&gt;&gt;</span> list2 += [<span class="n">1</span>, <span class="n">2</span>, <span class="n">1</span>, <span class="n">2</span>]
+<span class="p">&gt;&gt;&gt;</span> list2
+[3, 1, 2, 1, 2]</pre>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Lists inside lists</span></div>
+    <div class="body">
+      <p>A list item can itself be a list, so you can build a grid, a table, or a tree. To
+      reach inside, put one pair of brackets after another: the first picks the row, the
+      second picks within it.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> table = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>], [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>]]
+<span class="p">&gt;&gt;&gt;</span> table[<span class="n">0</span>]
+[1, 2, 3]
+<span class="p">&gt;&gt;&gt;</span> table[<span class="n">0</span>][<span class="n">2</span>]
+3
+<span class="p">&gt;&gt;&gt;</span> table[<span class="n">2</span>][<span class="n">0</span>]
+7
+<span class="p">&gt;&gt;&gt;</span> <span class="k">len</span>(table[<span class="n">0</span>])
+3</pre>
+      <p>Read <code>table[0][2]</code> left to right: <code>table[0]</code> is the list
+      <code>[1, 2, 3]</code>, and <code>[2]</code> then takes item 2 <b>of that list</b>,
+      which is 3. Note <code>len(table)</code> is 3, the number of rows, while
+      <code>len(table[0])</code> is 3, the length of the first row: <code>len</code> counts
+      only the top level it is given.</p>
+      <p><b>The nesting can go deeper</b>, and you follow it one bracket per level:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> deep = [<span class="n">10</span>, [<span class="n">20</span>, [<span class="n">30</span>, <span class="n">40</span>]]]
+<span class="p">&gt;&gt;&gt;</span> deep[<span class="n">1</span>]
+[20, [30, 40]]
+<span class="p">&gt;&gt;&gt;</span> deep[<span class="n">1</span>][<span class="n">1</span>]
+[30, 40]
+<span class="p">&gt;&gt;&gt;</span> deep[<span class="n">1</span>][<span class="n">1</span>][<span class="n">0</span>]
+30</pre>
+      <p>Each bracket peels off one layer. <code>deep[1]</code> is a list, so it can take
+      another <code>[1]</code>, which is again a list, so it can take a <code>[0]</code>.
+      Work strictly left to right and write down what each step gives, and a chain like
+      <code>[5][1][1][0]</code> holds no fear.</p>
     </div>
   </div>
 
@@ -841,6 +883,29 @@ unique_students = <span class="k">set</span>(students)
 Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 KeyError: 'height'</pre>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">del removes a key</span></div>
+    <div class="body">
+      <p><b><code>del</code></b> is a keyword, not a method, and it removes a key and its
+      value from the dictionary:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> person = {<span class="s">"name"</span>: <span class="s">"John"</span>, <span class="s">"age"</span>: <span class="n">26</span>, <span class="s">"city"</span>: <span class="s">"Lagos"</span>}
+<span class="p">&gt;&gt;&gt;</span> <span class="k">del</span> person[<span class="s">"city"</span>]
+<span class="p">&gt;&gt;&gt;</span> person
+{'name': 'John', 'age': 26}</pre>
+      <p>You write <code>del</code> in front, then the same <code>name[key]</code> you would
+      use to read it. <b>Deleting a key that is not there is the same <code>KeyError</code></b>
+      as reading one that is not there, so the case must match exactly:
+      <code>del person["Email"]</code> and <code>del person["email"]</code> are not the same
+      request. That trap is set directly on your paper.</p>
+      <p><code>del</code> also removes a list item by index, and here it shifts the rest
+      left, exactly as <code>pop</code> does but without handing the value back:</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> nums = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>]
+<span class="p">&gt;&gt;&gt;</span> <span class="k">del</span> nums[<span class="n">1</span>]
+<span class="p">&gt;&gt;&gt;</span> nums
+[10, 30, 40]</pre>
     </div>
   </div>
 

@@ -6,27 +6,41 @@ never the bare code (workspace name-and-title rule).
 
 ## Status
 
-**SHIPPED 2026-07-18** to `FINAL_MANUALS/CSC241 - Python Programming Language I -
-Study Manual.pdf` (144 pages: cover, Contents, and 142), no version suffix. All five
-modules, both mocks, and the Contents page authored, all four gates green at publish.
-Voice and palette approved. Every page has been looked at, not just gated.
+**SHIPPED 2026-07-18** (first edition, 144 pages). **New edition in progress**, blending
+in the real 2025/2026 paper the student supplied on 2026-07-18: a solved-in-full section,
+a third mock in the paper's new shape, and the teaching gaps it exposed now filled. Built
+to `drafts/` and gate-green; it replaces the `FINAL_MANUALS/` copy in place on the next
+explicit sign-off. All four gates green.
 
-Every one of the exam's six questions now has a home:
+Every one of the exam's six questions has a home, on both the 2024/25 and 2025/26 papers:
 
-| Exam question | Topic | Covered by |
-| --- | --- | --- |
-| One | Control structures | Module Three, Units 1 to 2 |
-| Two | Data structures | Module Three, Units 3 to 4 |
-| Three | Functions | Module Four, Unit 1 |
-| Four | Strings | Module Two, Unit 4 |
-| Five | File handling | Module Four, Unit 3 |
-| Six | Databases, sqlite3 | Module Five, Unit 1 |
+| 24/25 question | 25/26 question | Topic | Covered by |
+| --- | --- | --- | --- |
+| One | Two | Control structures | Module Three, Units 1 to 2 |
+| Two | Three (c,d) | Data structures, collections | Module Three, Units 3 to 4 |
+| Three | Three (a,b), Six | Functions | Module Four, Unit 1 |
+| Four | One, Two | Strings | Module Two, Unit 4 |
+| Five | Five | File handling | Module Four, Unit 3 |
+| Six | Four | Databases, sqlite3 | Module Five, Unit 1 |
 
 Note that **Module Two, Unit 4 (Working with Strings) is ours, not the source's**.
-The source manual has no strings unit at all, yet question Four is entirely strings,
-so the coverage table above would have had a hole in it. It is slotted into Module
-Two after Operators, because it needs indexing and slicing from Module Three, Unit 3
-only by analogy, not by dependency.
+The source manual has no strings unit at all, yet strings are examined heavily, so the
+coverage table above would have had a hole in it. It is slotted into Module Two after
+Operators, because it needs indexing and slicing from Module Three, Unit 3 only by
+analogy, not by dependency.
+
+**The template evolved between the two papers, and the manual now carries both shapes.**
+The 2024/2025 paper was rigid: every question five parts, each 3.5 marks, one module per
+question. The 2025/2026 paper varies the marks per part (1 to 10.5), varies the number of
+parts, and mixes topics inside a question. Neither shape is safe to assume, so the book
+teaches to the topics (which did not change) and drills both shapes: Mocks One and Two in
+the 24/25 shape, the solved real paper and Mock Three in the 25/26 shape.
+
+**Past Paper 2025/2026, solved in full** is the newest real examination worked end to end,
+placed after the modules as the clearest picture of what the question writer now wants.
+Every output was captured from a run. It also documents a defect in the paper's own Q6(c)
+sample (it prints 10546.90 where `math.pi` gives 10547.79), shown the same way this book
+treats every course-material error: run it, show the true figure, state yours.
 
 **Mock One** mirrors the 24/25 paper exactly in shape (six questions, attempt any
 four, five subparts at 3.5 marks) with entirely fresh scenarios, so it is practice
@@ -34,7 +48,7 @@ rather than a re-read of the real paper. Every answer is executed by the gate: a
 with a wrong answer is worse than no mock, because it teaches the wrong thing to
 somebody with no way to check.
 
-**The Contents** is generated, never typed: 25 rows, every one a working link. Page
+**The Contents** is generated, never typed: 35 rows, every one a working link. Page
 numbers are read back out of the rendered book, so they cannot drift from it. See
 `build/contents.py`, which carries the reasoning, including why the obvious
 implementation is wrong.
@@ -45,11 +59,14 @@ surfaced. Four of the six divider pages were stranding the following unit's head
 their foot, with the unit's own text overleaf. `.part` now takes `page-break-after`, so
 a divider owns its page.
 
-**Mock Two** mirrors the same rigid shape with fresh problems throughout, and asks the
+**Mock Two** mirrors the same 24/25 shape with fresh problems throughout, and asks the
 parts that caught you in Mock One from the other side: where Mock One's Q1(c) broke the
-loop so the `else` was skipped, Mock Two's does not, so it runs. Its closing box teaches
-the structure of both papers back, because underneath sixty parts there are four
-patterns.
+loop so the `else` was skipped, Mock Two's does not, so it runs.
+
+**Mock Three** is the first mock in the 2025/2026 shape: marks that vary from part to
+part, questions that stop at (c), and one question that mixes topics. Fresh scenarios
+throughout (a book catalogue, a coding club, a library database, a cylinder-tank sizer),
+every answer executed by the gate. It is the practice companion to the solved real paper.
 
 **The whole book had been rendering at the wrong size.** Chromium's print path scales the
 entire document to fit its widest box, so one 93-character line in Module Five had been
@@ -72,8 +89,8 @@ slightly smaller register instead of nearly the same size as the prose around it
 book from 132 body pages to 142. See the SCALE NOTE at the top of `manual.css`; to rescale,
 re-run the base sheet through the scale rather than hand-editing the values.
 
-**Still to build:** nothing outstanding. Both mocks, all five modules, the Contents and
-the full gate suite are in.
+**Still to build:** nothing outstanding. Five modules, the solved 2025/2026 paper, three
+mocks, the Contents and the full gate suite are in.
 
 ## Sources
 
@@ -82,11 +99,13 @@ Everything under `sources/` is raw input. Nothing here is ours.
 | Path | What it is |
 | --- | --- |
 | `sources/course_manual/` | The institution's official 224-page course manual (`COV-CSC241`). Five modules, 15 units, self-assessment answers, glossary. |
-| `sources/exams/` | Nine past papers, sessions 2014/15 through 2024/25, renamed `exam_<session>.pdf`. |
+| `sources/exams/` | Ten past papers, sessions 2014/15 through 2025/26, renamed `exam_<session>.pdf`. The 2025/26 paper's raw phone photos are kept under `sources/exams/2025_26_source_photos/`. |
 | `sources/extracted/` | Derived and regenerable. See below. |
 
 There are **no lecturer slide decks** for this course. The course manual plus the
-nine papers are the entire source base, so the manual's 15 units define scope.
+ten papers are the entire source base, so the manual's 15 units define scope. The
+2025/2026 paper arrived last (2026-07-18, seven phone photos from the student) and is
+the newest and most predictive of the set.
 
 ### Derived artefacts (`sources/extracted/`)
 
@@ -94,9 +113,9 @@ nine papers are the entire source base, so the manual's 15 units define scope.
   snippet in "Rebuilding" below.
 - `exam_text/<session>.txt` - raw text layer, for the four papers that have one
   (2015/16, 2020/21, 2021/22, 2022/23).
-- `exam_text/<session>_transcript.md` - verified Markdown transcripts. **Five of the
-  nine papers are scans with no text layer** (2014/15, 2018/19, 2019/20, 2023/24,
-  2024/25) and were transcribed by reading the page images.
+- `exam_text/<session>_transcript.md` - verified Markdown transcripts. **Six of the
+  ten papers are scans with no text layer** (2014/15, 2018/19, 2019/20, 2023/24,
+  2024/25, 2025/26) and were transcribed by reading the page images.
 - `exam_analysis.md` - cross-year question-shape analysis. This drives authoring.
 
 ## This manual is AUTHORED, not rebuilt
@@ -192,7 +211,7 @@ repeats until a render agrees with the Contents it was built from.
   monospace, and **no code line over 87 columns**. There are two limits and the smaller
   one governs: 90 is where Chromium shrinks the book (see above), but 87 is where a line
   starts hanging over the teaching box it sits in, and almost all code sits in a box.
-- The **Contents gate** (in `assemble.py`) follows all 25 links and checks each against
+- The **Contents gate** (in `assemble.py`) follows all 35 links and checks each against
   the book rather than against itself: the page it lands on must carry that section's
   heading, and the number the row prints must be the number that page's own footer
   prints. Checking the Contents for internal consistency is not enough, because a

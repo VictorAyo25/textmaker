@@ -1,0 +1,505 @@
+<section id="mock3-answers" style="page-break-before:always;">
+  <div class="kick">Mock Examination Three</div>
+  <h2 class="title">Answers</h2>
+  <hr class="rule">
+  <p class="lead">Every output below was produced by running the code, not by reading it.
+  Sit the paper first, then mark yourself honestly against these.</p>
+
+  <h3 class="sub">Question One</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (a) the or operator</span></div>
+    <div class="body">
+      <p><b><code>or</code></b> is a boolean operator that joins two conditions and is true
+      when <b>at least one</b> of them is true. It is false only when both are false, the
+      mirror of <code>and</code>.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> age = <span class="n">15</span>
+<span class="p">&gt;&gt;&gt;</span> age &lt; <span class="n">13</span> <span class="k">or</span> age &gt; <span class="n">65</span>
+False
+<span class="p">&gt;&gt;&gt;</span> age &lt; <span class="n">18</span> <span class="k">or</span> age &gt; <span class="n">65</span>
+True</pre>
+      <p>Like <code>and</code>, it short-circuits: if the left is already true, Python does not
+      bother looking at the right, because the answer is settled.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (b) strings and methods</span></div>
+    <div class="body">
+      <p>A <b>string</b> is an ordered, immutable sequence of characters in quotes. Four
+      methods, each returning a new string:</p>
+      <table class="data">
+        <tr><th>Method</th><th>Does</th><th>Example</th><th>Gives</th></tr>
+        <tr><td><code>upper()</code></td><td>Capitals</td><td><code>"go".upper()</code></td><td><code>'GO'</code></td></tr>
+        <tr><td><code>strip()</code></td><td>Trims ends</td><td><code>" hi ".strip()</code></td><td><code>'hi'</code></td></tr>
+        <tr><td><code>split()</code></td><td>Splits to a list</td><td><code>"a b".split()</code></td><td><code>['a', 'b']</code></td></tr>
+        <tr><td><code>count(x)</code></td><td>Counts x</td><td><code>"aba".count("a")</code></td><td><code>2</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (c) the book dictionary</span></div>
+    <div class="body">
+      <p>The keys are <code>'title'</code>, <code>'author'</code>, <code>'year'</code> and
+      <code>'Genre'</code>. The faults are all case mismatches:</p>
+      <ul class="bul">
+        <li><code>book['Title']</code> and <code>book['Author']</code>: the keys are lower
+        case. <code>KeyError</code>, and <code>'Title'</code> stops the program first.</li>
+        <li><code>book['genre']</code> twice (line 5 and the <code>del</code>): the key is
+        <code>'Genre'</code> with a capital G.</li>
+        <li><code>book['Year'] = 1959</code> makes a new key <code>'Year'</code> instead of
+        updating <code>'year'</code>. Silent, and wrong.</li>
+      </ul>
+      <p>Corrected so the case matches, it prints:</p>
+<pre class="out">Title: Things Fall Apart
+Author: Achebe
+Genre: Fiction
+Updated Book:
+{'title': 'Things Fall Apart', 'author': 'Achebe', 'year': 1959, 'pages': 209}</pre>
+      <p><code>'year'</code> is updated to 1959, <code>'pages'</code> is added, and
+      <code>'Genre'</code> is deleted.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (d) simple interest</span></div>
+    <div class="body">
+<pre class="code">P = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Principal: "</span>))
+R = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Rate (%): "</span>))
+T = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Time (years): "</span>))
+
+interest = P * R * T / <span class="n">100</span>
+
+<span class="k">print</span>(<span class="s">f"Interest: </span>{interest:.2f}<span class="s">"</span>)
+<span class="k">print</span>(<span class="s">f"Total amount: </span>{P + interest:.2f}<span class="s">"</span>)</pre>
+      <p>For 50000 at 8% over 3 years:</p>
+<pre class="out">Interest: 12000.00
+Total amount: 62000.00</pre>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q1 (e) temperature band</span></div>
+    <div class="body">
+<pre class="code">C = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Celsius: "</span>))
+F = C * <span class="n">9</span> / <span class="n">5</span> + <span class="n">32</span>
+
+<span class="k">if</span> F &lt;= <span class="n">32</span>:
+    band = <span class="s">"Freezing"</span>
+<span class="k">elif</span> F &lt; <span class="n">60</span>:
+    band = <span class="s">"Cold"</span>
+<span class="k">elif</span> F &lt; <span class="n">85</span>:
+    band = <span class="s">"Warm"</span>
+<span class="k">else</span>:
+    band = <span class="s">"Hot"</span>
+
+<span class="k">print</span>(<span class="s">f"Fahrenheit: </span>{F:.1f}<span class="s">"</span>)
+<span class="k">print</span>(<span class="s">"Band:"</span>, band)</pre>
+      <p>For 25 degrees Celsius:</p>
+<pre class="out">Fahrenheit: 77.0
+Band: Warm</pre>
+      <p>77 is below 85 but not below 60, so the ladder lands on Warm. The order high-to-low
+      is what makes the bare bounds work.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Two</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (a) condition-controlled loop</span></div>
+    <div class="body">
+      <p>A <b>condition-controlled loop</b> runs an unknown number of times, repeating as long
+      as a condition stays true and stopping when it turns false. In Python it is the
+      <code>while</code> loop. You use it when you do not know in advance how many passes are
+      needed, such as reading until a sentinel.</p>
+<pre class="code">total = <span class="n">0</span>
+<span class="k">while</span> total &lt; <span class="n">100</span>:
+    total += <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Add: "</span>))</pre>
+      <p>It contrasts with a count-controlled <code>for</code> loop, which runs a known,
+      fixed number of times.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (b) control structures</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><b>Sequence:</b> statements run in order, top to bottom.
+        <span class="note">x = 1; y = 2; print(x + y)</span></li>
+        <li><b>Selection:</b> a choice with <code>if</code>/<code>elif</code>/<code>else</code>.
+        <span class="note">if age &gt;= 18: print("Adult")</span></li>
+        <li><b>Repetition:</b> a block many times, with <code>for</code> or <code>while</code>.
+        <span class="note">while n &gt; 0: n -= 1</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (c) the evens loop</span></div>
+    <div class="body">
+      <p>Four errors, three of them syntax:</p>
+      <ol class="steps">
+        <li><b>No colon</b> after the <code>for</code> line.</li>
+        <li><code>if i % 2 = 0</code> uses <code>=</code> (assignment) where it needs
+        <code>==</code> (comparison).</li>
+        <li><code>total + i</code> computes and throws the result away; it should be
+        <code>total += i</code>.</li>
+        <li><code>print("Sum of evens:" total)</code> is missing the comma between its two
+        arguments. And <code>range(1, 10)</code> stops at 9, so 10 is missed: use
+        <code>range(1, 11)</code>.</li>
+      </ol>
+      <div class="codelabel">fixed</div>
+<pre class="code">total = <span class="n">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">1</span>, <span class="n">11</span>):
+    <span class="k">if</span> i % <span class="n">2</span> == <span class="n">0</span>:
+        total += i
+<span class="k">print</span>(<span class="s">"Sum of evens:"</span>, total)</pre>
+<pre class="out">Sum of evens: 30</pre>
+      <p>The evens 2, 4, 6, 8, 10 add to 30. Answer 20 and you kept the off-by-one in the
+      range.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q2 (d) the PIN program</span></div>
+    <div class="body">
+      <div class="codelabel">system.py</div>
+<pre class="code"><span class="k">while</span> <span class="k">True</span>:
+    pin = <span class="k">input</span>(<span class="s">"PIN: "</span>)
+    <span class="k">if</span> pin == <span class="s">"2468"</span>:
+        <span class="k">print</span>(<span class="s">"PIN Accepted"</span>)
+        <span class="k">break</span>
+    <span class="k">print</span>(<span class="s">"Wrong PIN"</span>)
+
+age = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Age: "</span>))
+<span class="k">if</span> age &lt; <span class="n">0</span> <span class="k">or</span> age &gt; <span class="n">120</span>:
+    <span class="k">print</span>(<span class="s">"Error: age must be 0 to 120"</span>)
+<span class="k">else</span>:
+    <span class="k">if</span> age &lt; <span class="n">13</span>:
+        <span class="k">print</span>(<span class="s">"Child"</span>)
+    <span class="k">elif</span> age &lt; <span class="n">20</span>:
+        <span class="k">print</span>(<span class="s">"Teenager"</span>)
+    <span class="k">elif</span> age &lt; <span class="n">65</span>:
+        <span class="k">print</span>(<span class="s">"Adult"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"Senior"</span>)
+
+start = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Count down from: "</span>))
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(start, <span class="n">0</span>, -<span class="n">1</span>):
+    <span class="k">print</span>(i)
+<span class="k">print</span>(<span class="s">"Liftoff!"</span>)
+
+total = <span class="n">0</span>
+count = <span class="n">0</span>
+<span class="k">while</span> <span class="k">True</span>:
+    n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Number (-1 to stop): "</span>))
+    <span class="k">if</span> n == -<span class="n">1</span>:
+        <span class="k">break</span>
+    total += n
+    count += <span class="n">1</span>
+<span class="k">print</span>(<span class="s">f"Average: </span>{total / count:.2f}<span class="s">"</span>)</pre>
+      <p>PIN 1111, then 9999, then 2468 gives "Wrong PIN" twice then "PIN Accepted". Age 30
+      is an Adult; age 200 gives the error. A countdown from 5 prints 5 4 3 2 1 then
+      "Liftoff!". Numbers 20, 40, 60, then -1 give:</p>
+<pre class="out">Average: 40.00</pre>
+      <p><code>range(start, 0, -1)</code> counts down and stops before 0, so it ends at 1.
+      The step of -1 is what reverses it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Three</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (a) five benefits</span></div>
+    <div class="body">
+      <p>Reuse; readability; maintenance; decomposition into small testable pieces; and
+      abstraction, using a function by what it does rather than how. A sixth if needed:
+      collaboration, since a team can split the functions between them.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (b) functions, parameter vs argument</span></div>
+    <div class="body">
+      <p>A <b>function</b> is a named block of code that runs when called. Functions matter for
+      reuse, readability, maintenance and decomposition.</p>
+      <p>A <b>parameter</b> is the name in the definition; an <b>argument</b> is the actual
+      value you pass when you call. In <code>def greet(name)</code>, <code>name</code> is the
+      parameter; in <code>greet("Ada")</code>, <code>"Ada"</code> is the argument. Parameter
+      is the empty slot, argument is what you drop into it.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (c) the list trace</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><code>[0] * 3</code> repeats the list, so <code>a</code> is
+        <code>[0, 0, 0]</code>.</li>
+        <li><code>b.append([4, 5])</code> adds the list <code>[4, 5]</code> as a
+        <b>single</b> item, so <code>b</code> is <code>[1, 2, 3, [4, 5]]</code>.</li>
+        <li><code>len(b)</code> is 4: three numbers and one inner list, which counts as one.</li>
+      </ul>
+<pre class="out">a = [0, 0, 0]
+b = [1, 2, 3, [4, 5]]
+len(b) = 4</pre>
+      <p>The trap is expecting <code>append</code> to spread <code>[4, 5]</code> into two
+      items. It does not: it appends the list whole. That is why <code>len(b)</code> is 4,
+      not 5. To spread, you would use <code>b += [4, 5]</code> or <code>b.extend([4, 5])</code>.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q3 (d) the collections program</span></div>
+    <div class="body">
+      <p>A set for the enrolled (unique, unordered), a tuple for the fixed club details, a set
+      for attendance, a dictionary for points. The two "absent" and "not enrolled" questions
+      are set difference both ways.</p>
+      <div class="codelabel">club.py</div>
+<pre class="code">enrolled = {<span class="s">"Ada"</span>, <span class="s">"Ben"</span>, <span class="s">"Chidi"</span>, <span class="s">"Dami"</span>, <span class="s">"Efe"</span>, <span class="s">"Femi"</span>}
+details = (<span class="s">"Coding Club"</span>, <span class="s">"Lab 3"</span>, <span class="s">"Friday"</span>, <span class="n">25</span>)
+present = {<span class="s">"Ada"</span>, <span class="s">"Ben"</span>, <span class="s">"Grace"</span>, <span class="s">"Femi"</span>, <span class="s">"Chidi"</span>}
+points = {<span class="s">"Ada"</span>: <span class="n">88</span>, <span class="s">"Ben"</span>: <span class="n">54</span>, <span class="s">"Chidi"</span>: <span class="n">72</span>,
+          <span class="s">"Dami"</span>: <span class="n">45</span>, <span class="s">"Efe"</span>: <span class="n">63</span>, <span class="s">"Femi"</span>: <span class="n">91</span>}
+
+<span class="k">print</span>(<span class="s">"Club info:"</span>, details)
+<span class="k">print</span>(<span class="s">"Enrolled:"</span>, <span class="k">sorted</span>(enrolled))
+<span class="k">print</span>(<span class="s">"Enrolled, absent:"</span>, <span class="k">sorted</span>(enrolled - present))
+<span class="k">print</span>(<span class="s">"Present, not enrolled:"</span>, <span class="k">sorted</span>(present - enrolled))
+<span class="k">print</span>(<span class="s">"Points 60+:"</span>, <span class="k">sorted</span>(nm <span class="k">for</span> nm, p <span class="k">in</span> points.items() <span class="k">if</span> p &gt;= <span class="n">60</span>))</pre>
+<pre class="out">Club info: ('Coding Club', 'Lab 3', 'Friday', 25)
+Enrolled: ['Ada', 'Ben', 'Chidi', 'Dami', 'Efe', 'Femi']
+Enrolled, absent: ['Dami', 'Efe']
+Present, not enrolled: ['Grace']
+Points 60+: ['Ada', 'Chidi', 'Efe', 'Femi']</pre>
+      <p>Dami and Efe are enrolled but were absent; Grace turned up without enrolling.
+      <code>sorted</code> around each set makes the printed order stable and markable.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Four</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (a) lists are mutable</span></div>
+    <div class="body">
+      <p><b>Mutable</b> means a list can be changed in place after it is made: you can reassign
+      an item, add one, or remove one, and it is still the same list.</p>
+<pre class="repl"><span class="p">&gt;&gt;&gt;</span> nums = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+<span class="p">&gt;&gt;&gt;</span> nums[<span class="n">0</span>] = <span class="n">99</span>
+<span class="p">&gt;&gt;&gt;</span> nums
+[99, 20, 30]</pre>
+      <p><b>The reason it matters:</b> a string is immutable and refuses
+      <code>s[0] = "x"</code> with a <code>TypeError</code>, while a list allows it. So a list
+      is the structure you reach for when the data must change as the program runs.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (b) the half function</span></div>
+    <div class="body">
+      <p>(i) <code>result = half(10)</code>. (ii) <code>half(10)</code> returns
+      <code>10 / 2</code>, and <code>/</code> always gives a float, so:</p>
+<pre class="out">result = 5.0</pre>
+      <p>Note <code>5.0</code>, not <code>5</code>: true division <code>/</code> returns a
+      float even when the result is whole. That decimal point is worth a mark.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q4 (c) the library database</span></div>
+    <div class="body">
+      <div class="codelabel">library.py</div>
+<pre class="code"><span class="k">import</span> sqlite3
+
+conn = sqlite3.connect(<span class="s">"library.db"</span>)
+cursor = conn.cursor()
+cursor.execute(<span class="s">"""CREATE TABLE IF NOT EXISTS book
+                  (BookID INTEGER PRIMARY KEY, Title TEXT,
+                   Author TEXT, Copies INTEGER)"""</span>)
+
+books = [(<span class="n">1</span>, <span class="s">"Half of a Yellow Sun"</span>, <span class="s">"Adichie"</span>, <span class="n">4</span>),
+         (<span class="n">2</span>, <span class="s">"Things Fall Apart"</span>, <span class="s">"Achebe"</span>, <span class="n">7</span>),
+         (<span class="n">3</span>, <span class="s">"The Joys of Motherhood"</span>, <span class="s">"Emecheta"</span>, <span class="n">3</span>),
+         (<span class="n">4</span>, <span class="s">"Arrow of God"</span>, <span class="s">"Achebe"</span>, <span class="n">5</span>),
+         (<span class="n">5</span>, <span class="s">"Efuru"</span>, <span class="s">"Nwapa"</span>, <span class="n">2</span>)]
+cursor.executemany(<span class="s">"INSERT INTO book VALUES (?, ?, ?, ?)"</span>, books)
+conn.commit()
+
+<span class="k">print</span>(<span class="s">"All books:"</span>)
+cursor.execute(<span class="s">"SELECT * FROM book"</span>)
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(row)
+
+<span class="k">print</span>(<span class="s">"By Achebe:"</span>)
+cursor.execute(<span class="s">"SELECT * FROM book WHERE Author = ?"</span>, (<span class="s">"Achebe"</span>,))
+<span class="k">for</span> row <span class="k">in</span> cursor.fetchall():
+    <span class="k">print</span>(row)
+
+cursor.execute(<span class="s">"SELECT COUNT(*), MAX(Copies), AVG(Copies) FROM book"</span>)
+titles, most, average = cursor.fetchone()
+<span class="k">print</span>(<span class="s">"Titles:"</span>, titles, <span class="s">" Most:"</span>, most, <span class="s">" Average:"</span>, average)
+
+cursor.execute(<span class="s">"UPDATE book SET Copies = ? WHERE Title = ?"</span>, (<span class="n">6</span>, <span class="s">"Efuru"</span>))
+conn.commit()
+cursor.execute(<span class="s">"DELETE FROM book WHERE BookID = ?"</span>, (<span class="n">3</span>,))
+conn.commit()
+conn.close()</pre>
+<pre class="out">All books:
+(1, 'Half of a Yellow Sun', 'Adichie', 4)
+(2, 'Things Fall Apart', 'Achebe', 7)
+(3, 'The Joys of Motherhood', 'Emecheta', 3)
+(4, 'Arrow of God', 'Achebe', 5)
+(5, 'Efuru', 'Nwapa', 2)
+By Achebe:
+(2, 'Things Fall Apart', 'Achebe', 7)
+(4, 'Arrow of God', 'Achebe', 5)
+Titles: 5  Most: 7  Average: 4.2</pre>
+      <p>Copies is <code>INTEGER</code>, so the rows show 4 and 7, not 4.0. The average, 4.2,
+      is a real number because an average can be fractional even when the column is whole.
+      After the update Efuru holds 6, and after the delete BookID 3 is gone.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Five</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (a), (b), (c)</span></div>
+    <div class="body">
+      <p><b>(a)</b> File handling is reading from and writing to files on disk, so data lasts
+      after the program ends, using <code>open()</code>, the read and write methods, and
+      <code>close()</code>.</p>
+      <p><b>(b)</b> Four modes:</p>
+      <table class="data">
+        <tr><th>Mode</th><th>Means</th><th>Exists</th><th>Missing</th></tr>
+        <tr><td><code>"r"</code></td><td>Read</td><td>Reads</td><td><code>FileNotFoundError</code></td></tr>
+        <tr><td><code>"w"</code></td><td>Write</td><td>Erased first</td><td>Created</td></tr>
+        <tr><td><code>"a"</code></td><td>Append</td><td>Adds at end</td><td>Created</td></tr>
+        <tr><td><code>"r+"</code></td><td>Read and write</td><td>Both, no erase</td><td><code>FileNotFoundError</code></td></tr>
+      </table>
+      <p style="margin-top:.5em"><b>(c)</b> Reading takes data out and changes nothing.
+      Writing (<code>"w"</code>) puts data in and <b>erases</b> whatever was there first. One
+      looks, the other replaces.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q5 (d) the inventory file</span></div>
+    <div class="body">
+      <div class="codelabel">inventory.py</div>
+<pre class="code">filename = <span class="s">"inventory.txt"</span>
+
+<span class="k">with</span> <span class="k">open</span>(filename, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">3</span>):
+        name = <span class="k">input</span>(<span class="s">"Item: "</span>)
+        code = <span class="k">input</span>(<span class="s">"Code: "</span>)
+        qty = <span class="k">input</span>(<span class="s">"Quantity: "</span>)
+        f.write(<span class="s">f"Item: </span>{name}<span class="s">, Code: </span>{code}<span class="s">, Quantity: </span>{qty}<span class="s">\n"</span>)
+
+<span class="k">with</span> <span class="k">open</span>(filename, <span class="s">"a"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="n">2</span>):
+        name = <span class="k">input</span>(<span class="s">"Item: "</span>)
+        code = <span class="k">input</span>(<span class="s">"Code: "</span>)
+        qty = <span class="k">input</span>(<span class="s">"Quantity: "</span>)
+        f.write(<span class="s">f"Item: </span>{name}<span class="s">, Code: </span>{code}<span class="s">, Quantity: </span>{qty}<span class="s">\n"</span>)
+
+<span class="k">print</span>(<span class="s">"All items:"</span>)
+<span class="k">with</span> <span class="k">open</span>(filename, <span class="s">"r"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> line <span class="k">in</span> f:
+        <span class="k">print</span>(line.strip())
+
+<span class="k">print</span>(<span class="s">"First two:"</span>)
+<span class="k">with</span> <span class="k">open</span>(filename, <span class="s">"r"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i, line <span class="k">in</span> <span class="k">enumerate</span>(f):
+        <span class="k">if</span> i &gt;= <span class="n">2</span>:
+            <span class="k">break</span>
+        <span class="k">print</span>(line.strip())</pre>
+      <p>Entering Pencil/P01/120, Eraser/E01/75, Ruler/R01/60, then two more, the reads give:</p>
+<pre class="out">All items:
+Item: Pencil, Code: P01, Quantity: 120
+Item: Eraser, Code: E01, Quantity: 75
+Item: Ruler, Code: R01, Quantity: 60
+First two:
+Item: Pencil, Code: P01, Quantity: 120
+Item: Eraser, Code: E01, Quantity: 75</pre>
+      <p>The append opens with <code>"a"</code>, so the first three survive. Had it opened with
+      <code>"w"</code>, the file would have been wiped before the extra items were added.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Six</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (a) nested indexing</span></div>
+    <div class="body">
+      <ul class="bul">
+        <li><code>data[1][1][2]</code>: <code>data[1]</code> is
+        <code>[300, [400, 500, 600]]</code>, its <code>[1]</code> is
+        <code>[400, 500, 600]</code>, and <code>[2]</code> of that is <code>600</code>.</li>
+        <li><code>len(data[1])</code>: <code>data[1]</code> holds two items, so <code>2</code>.</li>
+        <li><code>data[2][0][1]</code>: <code>data[2]</code> is
+        <code>[[700, 800], 900]</code>, its <code>[0]</code> is <code>[700, 800]</code>, and
+        <code>[1]</code> of that is <code>800</code>.</li>
+      </ul>
+<pre class="out">600
+2
+800</pre>
+      <p>Follow the brackets strictly left to right, writing down each layer as you peel it.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (b) the void summary</span></div>
+    <div class="body">
+      <div class="codelabel">results.py</div>
+<pre class="code"><span class="k">def</span> print_result_summary(student, total_score, pass_mark):
+    <span class="k">print</span>(<span class="s">f"=== Result for </span>{student}<span class="s"> ==="</span>)
+    <span class="k">print</span>(<span class="s">"Total Score:"</span>, total_score)
+    <span class="k">if</span> total_score &gt;= pass_mark:
+        <span class="k">print</span>(<span class="s">"Result: PASS"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"Result: FAIL"</span>)
+
+name = <span class="k">input</span>(<span class="s">"Student name: "</span>)
+subjects = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Number of subjects: "</span>))
+total_score = <span class="n">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(subjects):
+    total_score += <span class="k">int</span>(<span class="k">input</span>(<span class="s">f"Score for subject </span>{i + <span class="n">1</span>}<span class="s">: "</span>))
+
+print_result_summary(name, total_score, <span class="n">250</span>)</pre>
+      <p>For Bola with five scores 70, 65, 80, 55, 70 (total 340):</p>
+<pre class="out">=== Result for Bola ===
+Total Score: 340
+Result: PASS</pre>
+      <p>340 clears the 250 pass mark. The function only prints and returns nothing, which is
+      what "void" means: called for its effect, not for a value.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Q6 (c) the cylinder tank</span></div>
+    <div class="body">
+      <div class="codelabel">tank.py</div>
+<pre class="code"><span class="k">import</span> math
+
+<span class="k">def</span> volume(r, h):
+    <span class="k">return</span> math.pi * r ** <span class="n">2</span> * h
+
+radius = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Radius: "</span>))
+height = <span class="k">float</span>(<span class="k">input</span>(<span class="s">"Height: "</span>))
+
+v = volume(radius, height)
+<span class="k">print</span>(<span class="s">f"Volume: </span>{v:.2f}<span class="s">"</span>)
+<span class="k">if</span> v &gt; <span class="n">1000</span>:
+    <span class="k">print</span>(<span class="s">"Large tank"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">"Small tank"</span>)</pre>
+      <p>For radius 7 and height 10:</p>
+<pre class="out">Volume: 1539.38
+Large tank</pre>
+      <p><code>math.pi * 7 ** 2 * 10</code> is <code>math.pi * 49 * 10 = 1539.38</code>. The
+      <code>** 2</code> binds before the multiplications, so the radius is squared first, no
+      brackets needed. 1539.38 exceeds 1000, so it is a large tank.</p>
+    </div>
+  </div>
+</section>
