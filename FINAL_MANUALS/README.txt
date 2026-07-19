@@ -7,6 +7,57 @@ printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
 below records what changed; git holds every superseded copy.
 
 -------------------------------------------------------------------------------
+TMC221 - Personal Development and Capacity Building - Study Manual.pdf   89 pp   updated 2026-07-19
+-------------------------------------------------------------------------------
+TMC221 Personal Development and Capacity Building, complete manual across the
+four lecture decks: Goal Setting, Positive Thinking and Creative Problem-Solving
+(the W.I.S.E. Model), Personal Branding and Strategic Positioning, and Systems
+for Sustainable Success (the seven Kits).
+
+This is a non-computational RECALL course, so the manual is a drill bank. Brief
+from Victor: cover every single idea, concept, acronym and datum from the decks,
+and test every area of every slide in any style except plain theory. The five
+drill boxes mirror the real computer-based test exactly: Fill in the Gap,
+Match-up, Pick (single and multiple response), True or False, and Cloze scenario.
+
+Contents: How-to + course-at-a-glance, Modules One to Four (teach every slide
+fact, then drill it), the real 30-question TMC test solved in full, three mock
+examinations (20 questions each, all five styles, weighted across the four
+lectures, fully answered), and a Master Cram Sheet. About 110 practice questions
+plus hundreds of inline drills. 29 clickable Contents links, real selectable text.
+
+AUTHORED, not rebuilt: the decks are a source, content/*.html is the book,
+written by hand. The two image-only decks were read slide by slide from rendered
+images; the exam format and verified answer key were transcribed from the real
+test screenshots.
+
+Six scripted gates, all green at publish:
+  - gates.py: no em/en dashes, no institution/platform/lecturer names (the book
+    authors Oyedepo, Leaf, Peale, de Bono, Young are subject matter and kept),
+    the reserved gold reserved to MUST-MEMORISE only.
+  - qa_coverage.py: no slide left behind. Every content-bearing slide of all four
+    decks (69 of them) must be cited by a provenance chip; control-tested.
+  - qa_firstuse.py: teach before use. Every declared acronym (SMART+ER, OKR, KR,
+    WOOP, WISE, SWITCH, Po, Mindshare and more) is introduced before use and never
+    first inside a mock.
+  - contents.py + assemble.py: all 29 Contents links resolve to the right page and
+    the printed number matches that page's footer.
+  - qa_layout.py: body renders at its design size (10.50 pt, no Chromium shrink),
+    footer numbering sequential, no near-blank pages, nothing outside the margins,
+    no box cut by a page break that could have fitted whole.
+  - qa_content.py: every one of the 208 drill options is actually painted in the
+    rendered PDF (measured against the artifact, not the HTML), and no tofu glyphs.
+
+Palette: forest green (growth) with a reserved gold for MUST-MEMORISE. Two render
+bugs were found and fixed before publish: the key emoji used on every gold hook is
+absent from DejaVu and printed as tofu (replaced with a diamond), and the option
+markers were refactored off page-boundary-fragile absolute positioning onto flow
+layout. The content gate above was added to catch either class automatically.
+
+To rebuild or update:  cd "courses/TMC221 - Personal Development and Capacity
+                       Building/build" && python assemble.py
+
+-------------------------------------------------------------------------------
 COS221 - Computer Programming I (Java) - Study Manual.pdf   333 pp   updated 2026-07-17
 -------------------------------------------------------------------------------
 COS221 Computer Programming I (Java), complete manual, Modules 1 to 10.
