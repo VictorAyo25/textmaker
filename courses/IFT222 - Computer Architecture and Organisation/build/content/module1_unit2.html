@@ -19,6 +19,11 @@ byte therefore holds 0 to 255, because 2<sup>8</sup> minus 1 is 255.</p>
 <div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Unsigned range</span></div>
 <div class="body"><p>In <b>n</b> bits, unsigned integers run
 <b>0 to 2<sup>n</sup> &#8722; 1</b>. That is 2<sup>n</sup> different values in total.</p>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = the number of bits in the register or field (8 for a byte, 12 or 16 if the
+question says so) &middot; <b>2<sup>n</sup></b> = how many different bit patterns those
+n bits can make &middot; the <b>&#8722; 1</b> is there because one pattern is used up
+by zero</div>
 <p><b>Memory hook:</b> n bits give 2<sup>n</sup> patterns; one of them is zero, so the
 largest is one less than 2<sup>n</sup>.</p></div></div>
 
@@ -71,12 +76,27 @@ The same recipe converts back, so applying it twice returns the original.</p>
 <tr><td>One's complement</td><td>&#8722;(2<sup>n&#8722;1</sup>&#8722;1) to +(2<sup>n&#8722;1</sup>&#8722;1)</td><td>two</td></tr>
 <tr><td>Two's complement</td><td>&#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1)</td><td>one</td></tr>
 </table>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = the total number of bits, <i>including</i> the sign bit &middot;
+<b>n &#8722; 1</b> = the bits left for the magnitude once the sign bit is spent &middot;
+so 2<sup>n&#8722;1</sup> is the largest magnitude the remaining bits can hold</div>
 <p><b>Memory hook:</b> two's complement reaches <b>one extra negative</b> value,
 because it has no wasted second zero. In 8 bits that is &#8722;128 to +127.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3b &middot; PQ 23/24 Q4b</span></div>
 <div class="body"><p>Complete the table of Unsigned, Sign-magnitude, One's complement
 and Two's complement for <b>204</b> and <b>&#8722;139</b>, using <b>12 bits</b>.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> values = 204 and &#8722;139 &middot;
+n = 12 bits &middot; four schemes required</div>
+<div class="prow"><span class="plab">Find</span> each value's bit pattern in every scheme</div>
+<div class="prow"><span class="plab">Formula</span> sign-magnitude: sign bit + magnitude
+&middot; one's complement: invert all n bits &middot; two's complement: invert, then add 1</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = 12, the total bits <i>including</i> the sign bit &middot; a <b>positive</b>
+value looks identical in all four schemes, so only the negative needs work &middot;
+"invert all n bits" includes the leading zeros</div>
 <ol class="steps">
 <li>Write 204 in 12-bit binary. 204 = 128+64+8+4, so 204 = 0000 1100 1100.
 <span class="note">Being positive, 204 looks identical in all four schemes.</span></li>
@@ -104,6 +124,19 @@ same number, proving the recipe reverses itself.</p>
 The values are Temperature = &#8722;182, Pressure = 487, Altitude = &#8722;1023.
 (i) Give the representable range and say whether each value fits. (ii) Represent each
 in binary and hexadecimal. (iii) Compute (&#8722;182) + 487.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> n = 16 bits &middot; scheme = two's
+complement &middot; values: Temperature = &#8722;182, Pressure = 487, Altitude = &#8722;1023</div>
+<div class="prow"><span class="plab">Find</span> (i) the range and whether each fits,
+(ii) each in binary and hex, (iii) the sum (&#8722;182) + 487</div>
+<div class="prow"><span class="plab">Formula</span> range = &#8722;2<sup>n&#8722;1</sup> to
++(2<sup>n&#8722;1</sup> &#8722; 1) &middot; negate by invert-and-add-1 &middot; add the
+patterns and <b>discard</b> the final carry</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = 16, so n &#8722; 1 = 15 bits of magnitude &middot; <b>2<sup>15</sup></b> =
+32768, which is why the range is &#8722;32768 to +32767 &middot; the discarded carry is
+the signature of two's complement (one's complement would add it back)</div>
 <p class="marks">(i) Range</p>
 <div class="answerbox">16-bit two's complement: &#8722;2<sup>15</sup> to +(2<sup>15</sup>&#8722;1)
 = &#8722;32768 to +32767. All three values (&#8722;182, 487, &#8722;1023) fall inside
@@ -135,6 +168,19 @@ the register has, the top bit is lost and the stored answer is wrong.</p>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5b</span></div>
 <div class="body"><p>Add <b>214 + 65</b> in an 8-bit register. Give the result in binary
 and decimal, and comment on overflow.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> operands = 214 and 65 &middot; n = 8 bits
+&middot; unsigned</div>
+<div class="prow"><span class="plab">Find</span> the stored result in binary and decimal,
+and whether it overflows</div>
+<div class="prow"><span class="plab">Formula</span> unsigned capacity = 2<sup>n</sup>
+&#8722; 1 &middot; a register keeps only the low n bits, so the stored value is the true
+sum mod 2<sup>n</sup></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = 8, so the register holds 0 to 255 &middot; <b>mod 2<sup>n</sup></b> means the
+true sum wraps by exactly 256 &middot; <b>overflow</b> = the true answer needed more bits
+than the register has, signalled by a carry out of the top</div>
 <ol class="steps">
 <li>Convert: 214 = 1101 0110, 65 = 0100 0001.</li>
 <li>Add the two bytes: 1101 0110 + 0100 0001 = 1 0001 0111.
@@ -157,6 +203,19 @@ every year.</p>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24, 24/25, tests (recurring)</span></div>
 <div class="body"><p>Use end-around carry in one's complement to compute
 <b>153 &#8722; 142</b> in a 10-bit register.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> minuend = 153 &middot; subtrahend = 142
+&middot; n = 10 bits &middot; scheme = one's complement</div>
+<div class="prow"><span class="plab">Find</span> the difference, as a 10-bit pattern and in
+decimal</div>
+<div class="prow"><span class="plab">Formula</span> a &#8722; b = a + (&#8722;b), where
+&#8722;b is the bitwise inversion of b; then if a carry leaves the top, <b>add it back</b>
+into the lowest bit</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = 10, the register width, so every pattern is written to 10 bits &middot;
+<b>end-around carry</b> = that add-it-back step, and it happens <i>only</i> in one's
+complement &middot; no carry out means no correction, and the result is negative</div>
 <ol class="steps">
 <li>153 &#8722; 142 becomes 153 + (&#8722;142). Write 153 in 10 bits: 00 1001 1001.</li>
 <li>Write &#8722;142 in one's complement: +142 = 00 1000 1110, invert to 11 0111 0001.</li>
@@ -191,11 +250,29 @@ inches times the resolution in dots per inch (dpi), in each direction.</p>
 <div class="body"><p><b>bits = (width&#215;dpi) &#215; (height&#215;dpi) &#215; bits-per-pixel.</b>
 Then divide by 8 for bytes, by 1024 for KB, by 1024 again for MB. Unless a colour
 depth is given, this course assumes a black-and-white image at <b>1 bit per pixel</b>
-(as the lecture example does).</p></div></div>
+(as the lecture example does).</p>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>width</b>, <b>height</b> = the physical size of the image in <i>inches</i> &middot;
+<b>dpi</b> = dots (pixels) per inch, the resolution &middot; so (width&#215;dpi) is the
+number of pixels across and (height&#215;dpi) the number down &middot;
+<b>bits-per-pixel</b> = the colour depth (1 for black and white, 8 for 256 greys,
+24 for full colour)</div></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24, 24/25, 25/26 Q4c (recurring)</span></div>
 <div class="body"><p>Find the memory needed for an image 17.12 inches by 9.45 inches at
 250 dpi. Give the answer in megabytes.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> width = 17.12 in &middot; height = 9.45 in
+&middot; resolution = 250 dpi &middot; colour depth = 1 bit per pixel (black and white,
+not stated so assumed)</div>
+<div class="prow"><span class="plab">Find</span> the memory required, in megabytes</div>
+<div class="prow"><span class="plab">Formula</span> bits = (w&#215;dpi) &#215;
+(h&#215;dpi) &#215; bpp, then &#247;8 for bytes, &#247;1024 for KB, &#247;1024 for MB</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>w</b>, <b>h</b> = the physical size in inches &middot; <b>dpi</b> = pixels per inch, so
+w&#215;dpi is the pixel count across &middot; <b>bpp</b> = bits per pixel &middot; the two
+divisions by 1024 are what turn bytes into MB</div>
 <ol class="steps">
 <li>Pixels across: 17.12 &#215; 250 = 4280. Pixels down: 9.45 &#215; 250 = 2362.5.
 <span class="note">The height gives a non-whole 2362.5; carry it as is, the arithmetic
@@ -232,6 +309,16 @@ smaller as vectors. A photograph, having no simple shapes, does not reduce to ve
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: bitmap size</span></div>
 <div class="body"><p>A black-and-white bitmap is 4 inches by 6 inches at 300 dpi. How much
 memory does it need?</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> width = 4 in &middot; height = 6 in
+&middot; resolution = 300 dpi &middot; colour depth = 1 bit per pixel (black and white)</div>
+<div class="prow"><span class="plab">Find</span> the memory required, in KB</div>
+<div class="prow"><span class="plab">Formula</span> bits = (w&#215;dpi) &#215;
+(h&#215;dpi) &#215; bpp, then &#247;8 for bytes and &#247;1024 for KB</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>w</b>, <b>h</b> = inches &middot; <b>dpi</b> = pixels per inch &middot; <b>bpp</b> = 1
+here, because black-and-white needs only one bit to say which of two colours a pixel is</div>
 <ol class="steps">
 <li>Pixels across: 4 &#215; 300 = 1200. Pixels down: 6 &#215; 300 = 1800.</li>
 <li>Total pixels: 1200 &#215; 1800 = 2 160 000.</li>
@@ -258,6 +345,17 @@ applies.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: encode 9.2</span></div>
 <div class="body"><p>Encode <b>9.2</b> in 8421 (standard BCD), 5421 and 4221.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> value = 9.2 &middot; codes = 8421, 5421,
+4221 &middot; all are weighted 4-bit codes</div>
+<div class="prow"><span class="plab">Find</span> the coded form of 9.2 in each</div>
+<div class="prow"><span class="plab">Formula</span> code each decimal digit on its own in
+4 bits; in a weighted code the digit is the <b>sum of the weights of the bits set to 1</b></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+the code's name <i>is</i> its weights: <b>8421</b> means the four positions are worth
+8, 4, 2, 1 &middot; <b>5421</b> means 5, 4, 2, 1 &middot; <b>4221</b> means 4, 2, 2, 1
+&middot; the decimal point simply separates the digit codes, exactly as in decimal</div>
 <table class="data">
 <tr><th>Digit</th><th>8421</th><th>5421</th><th>4221</th></tr>
 <tr><td>9</td><td>1001 (8+1)</td><td>1100 (5+4)</td><td>1111 (4+2+2+1)</td></tr>
@@ -280,6 +378,18 @@ which are exact complements.</p>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: Excess-3 both ways</span></div>
 <div class="body"><p>(i) Encode <b>24</b> in Excess-3. (ii) Decode <b>0100 0110</b> from Excess-3.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> (i) decimal 24 &middot; (ii) the code
+0100 0110 &middot; code = Excess-3, 4 bits per decimal digit</div>
+<div class="prow"><span class="plab">Find</span> (i) the Excess-3 code of 24, (ii) the
+decimal the given code stands for</div>
+<div class="prow"><span class="plab">Formula</span> to encode: each digit + 3, written in
+4 bits &middot; to decode: read each nibble as a number, then &#8722; 3</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>nibble</b> = one group of 4 bits, holding exactly one decimal digit &middot; the
+<b>+3</b> is the "excess" the code is named for &middot; every valid Excess-3 nibble lies
+between 0011 (for 0) and 1100 (for 9)</div>
 <ol class="steps">
 <li>Encode 24: digit 2 &#8594; 2+3 = 5 = 0101; digit 4 &#8594; 4+3 = 7 = 0111. So
 24 = <b>0101 0111</b>.</li>

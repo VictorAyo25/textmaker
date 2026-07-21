@@ -83,6 +83,20 @@ TOC = [
     (2, 'S.1 · Boolean Algebra and K-maps',
         'Supplement &middot; S.1', 'Boolean Algebra and K-maps'),
 
+    (0, 'Reference · Formulas, Notation and Exam Craft',
+        'Reference', 'Formulas, Notation<br>and Exam Craft'),
+    (2, 'R.1 · Formula and Notation Reference',
+        'Reference &middot; R.1', 'Formula and Notation Reference'),
+    (2, 'R.2 · Exam Day Strategy',
+        'Reference &middot; R.2', 'Exam Day Strategy'),
+    (2, 'R.3 · Trap Index and Cram Sheet',
+        'Reference &middot; R.3', 'Trap Index and Cram Sheet'),
+
+    (0, 'Past Papers · Solved in Full', 'Past Papers',
+        'The Two Favourite<br>Papers, Solved in Full'),
+    (2, '2024/2025 Solved in Full', 'Past Paper', '2024/2025 Solved in Full'),
+    (2, '2025/2026 Solved in Full', 'Past Paper', '2025/2026 Solved in Full'),
+
     (0, 'Mock Examination One', 'Mock Examination One',
         'Sit This Paper<br>Under Exam Conditions'),
     (2, 'Question Paper', 'Mock Examination One', 'Question Paper'),
@@ -92,6 +106,11 @@ TOC = [
         'Sit This One<br>After the First'),
     (2, 'Question Paper', 'Mock Examination Two', 'Question Paper'),
     (2, 'Answers', 'Mock Examination Two', 'Answers'),
+
+    (0, 'Mock Examination Three', 'Mock Examination Three',
+        'The Hardest of<br>the Three'),
+    (2, 'Question Paper', 'Mock Examination Three', 'Question Paper'),
+    (2, 'Answers', 'Mock Examination Three', 'Answers'),
 ]
 
 ANCHOR = 'sec-'
@@ -99,7 +118,8 @@ ANCHOR = 'sec-'
 # Sections that begin on a fresh page whatever is above them. Every module
 # divider does (.part in manual.css). The page before one of these is short by
 # design, which the layout QA has to know or it reports the gap as a fault.
-FORCED_BREAK = {'MOCKEXAMINATIONONEANSWERS', 'MOCKEXAMINATIONTWOANSWERS'}
+FORCED_BREAK = {'MOCKEXAMINATIONONEANSWERS', 'MOCKEXAMINATIONTWOANSWERS',
+                'MOCKEXAMINATIONTHREEANSWERS'}
 
 
 def forced_ids():

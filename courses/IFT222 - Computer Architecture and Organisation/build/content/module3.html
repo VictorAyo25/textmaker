@@ -70,11 +70,28 @@ capacity, smallest first:</p>
 <li><b>Block</b>, the unit moved between levels (several words), the key idea for cache.</li>
 </ul>
 <p>If a memory holds 2<sup>n</sup> words with K words per block, it has
-<b>M = 2<sup>n</sup> / K</b> blocks, and needs an <b>n-bit address</b>.</p></div></div>
+<b>M = 2<sup>n</sup> / K</b> blocks, and needs an <b>n-bit address</b>.</p>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>n</b> = the number of address bits, so <b>2<sup>n</sup></b> is the total number of
+addressable words &middot; <b>K</b> = how many words are in one block (the unit moved
+between levels) &middot; <b>M</b> = the resulting number of blocks in main memory (this
+M is a block count; the M of Module One Unit 3 was the IEEE mantissa)</div></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: sizing a memory</span></div>
 <div class="body"><p>How many bits does a <b>4 MB</b> byte-addressable memory hold, and how
 many address lines does it need?</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> capacity = 4 MB &middot; addressing =
+byte-addressable, so one cell is 1 byte = 8 bits</div>
+<div class="prow"><span class="plab">Find</span> the total number of bits, and the number
+of address lines</div>
+<div class="prow"><span class="plab">Formula</span> bytes = MB &#215; 1024 &#215; 1024
+&middot; bits = bytes &#215; 8 &middot; address lines k = log<sub>2</sub>(number of cells)</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>MB</b> = 1024 &#215; 1024 bytes, not a round million &middot; <b>byte-addressable</b> =
+each address names one byte, so cells = bytes &middot; <b>k</b> = address lines, and
+because 4 194 304 = 2<sup>22</sup>, k is just that exponent</div>
 <ol class="steps">
 <li>4 MB = 4 &#215; 1024 &#215; 1024 = 4 194 304 bytes.</li>
 <li>Bits: 4 194 304 &#215; 8 = 33 554 432 bits &#8776; <b>33.5 million bits</b>.</li>
@@ -85,9 +102,19 @@ addressed by 22 lines (2<sup>22</sup> = 4 194 304).</div>
 </div></div>
 
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Locality of reference</span></div>
-<div class="body"><p>Cache works because real programs do not touch memory randomly.
-They obey the <b>principle of locality of reference</b>: over any short period, memory
-accesses cluster in a small area. It has two forms:</p>
+<div class="body"><p>Cache works because real programs do not touch memory randomly.</p>
+<div class="lawstate"><span class="wlab">The principle, stated</span>
+<p><span class="lawname">The principle of locality of reference.</span> Over any short
+interval of its execution, a program references only a small and predictable subset of its
+address space, rather than spreading its accesses evenly across the whole of it.</p>
+<p>It takes two forms, and a full answer names both: <b>temporal locality</b>, that a
+location referenced now is likely to be referenced again soon; and <b>spatial locality</b>,
+that locations near one just referenced are likely to be referenced soon.</p>
+<p><b>Consequence:</b> a small fast memory holding recently used blocks will satisfy the
+large majority of accesses. Locality is the assumption the entire memory hierarchy rests
+on: without it, caching would give no benefit at all.</p>
+</div>
+<p>Taking the two forms in turn:</p>
 <ul class="bul">
 <li><b>Temporal locality:</b> a location just used is likely to be used again soon (a
 loop counter, a variable). So keep recently used data close.</li>
@@ -112,6 +139,22 @@ accessed soon (so cache fetches a whole block of neighbouring words at once).</d
 <div class="body"><p>A two-level store has a fast level (1000 words, access 0.01 &#181;s) and
 a slow level (100 000 words, access 0.1 &#181;s). If 95% of accesses are found in the fast
 level, what is the average access time?</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> fast level: 1000 words at
+T<sub>1</sub> = 0.01 &#181;s &middot; slow level: 100 000 words at T<sub>2</sub> = 0.1
+&#181;s &middot; H = 0.95</div>
+<div class="prow"><span class="plab">Find</span> the average access time of the pair</div>
+<div class="prow"><span class="plab">Formula</span> average = H&#215;T<sub>1</sub> +
+(1 &#8722; H)&#215;(T<sub>1</sub> + T<sub>2</sub>)</div>
+</div>
+<div class="wheredef"><span class="wlab">the formula, symbol by symbol</span>
+<b>average = H&#215;T<sub>1</sub> + (1 &#8722; H)&#215;(T<sub>1</sub> + T<sub>2</sub>)</b>.
+Here <b>H</b> = the hit ratio at the fast level, 0.95 &middot; <b>T<sub>1</sub></b> = the
+fast level's access time, 0.01 &#181;s &middot; <b>T<sub>2</sub></b> = the slow level's
+access time, 0.1 &#181;s &middot; the miss term adds <b>both</b> times because you look in
+the fast level first and only then go to the slow one &middot; the capacities (1000 and
+100 000 words) do not enter the arithmetic at all, they only explain why the hit ratio is
+what it is</div>
 <ol class="steps">
 <li>Hit (95%): the word is in the fast level, costing 0.01 &#181;s.</li>
 <li>Miss (5%): pay the fast level, then the slow level: 0.01 + 0.1 = 0.11 &#181;s.</li>

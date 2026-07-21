@@ -1,0 +1,21 @@
+=== PQ2425-Q1c: 24-bit addr, 16 words/block, direct 256 blocks ===
+offset=log2(16)=4  index=log2(256)=8  tag=24-8-4=12
+  1A2BC0: offset=0  line=(>>4)&FF = 0xBC = 188
+  FFFF00: offset=0  line=(>>4)&FF = 0xF0 = 240
+  123456: offset=6  line=(>>4)&FF = 0x45 = 69
+  C109D5: offset=5  line=(>>4)&FF = 0x9D = 157
+
+=== PQ2425-Q2a: cache 1KB, block 16B, MM 64KB, 16-bit addr ===
+lines = 1024/16 = 64   offset = log2(16) = 4
+direct: index=log2(64)=6  tag=16-6-4=6  dir=64x6=384 bits = 48 B
+fully : tag=16-4=12                 dir=64x12=768 bits = 96 B
+2-way : sets=32 setbits=5 tag=16-5-4=7  dir=64x7=448 bits = 56 B
+
+=== PQ2425-Q5c: -421.55 -> IEEE SP (mantissa truncated after 12 bits) ===
+421 = 110100101  ; normalise -> 1.m x 2^8; E = 8+127 = 135 = 10000111
+full 23 mantissa bits: 10100101100011001100110
+first 12 kept, rest 0 : 10100101100000000000000
+pattern = 11000011110100101100000000000000
+hex     = C3D2C000
+(true IEEE of -421.55 = C3D2C666)
+truncated pattern reads back as -421.5

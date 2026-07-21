@@ -68,6 +68,15 @@ finishes each cycle.</figcaption>
 <li><b>Throughput</b> = n / pipelined time (tasks per second); in the steady state this
 is 1 / cycle time.</li>
 </ul>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = the number of pipeline <i>stages</i> (here k means stages, not the address
+lines of Module Two Unit 1 nor the ways of a set-associative cache) &middot;
+<b>n</b> = the number of tasks or instructions pushed through the pipeline (here n means
+tasks, not the bit-width n of Module One) &middot;
+<b>cycle time</b> = the clock period the pipeline runs at, set by the slowest stage plus
+the latch delay &middot;
+<b>latch delay</b> = the small extra time to write each stage's result into the register
+between stages</div>
 <p><b>Memory hook:</b> "<b>k + n &#8722; 1</b>" is k cycles to fill the pipe with the
 first task, then one more cycle for each of the remaining n &#8722; 1 tasks.</p></div></div>
 
@@ -76,6 +85,20 @@ first task, then one more cycle for each of the remaining n &#8722; 1 tasks.</p>
 10 ns latch delay. Find (i) the cycle time, (ii) the non-pipeline time for one task,
 (iii) the speedup ratio, (iv) the pipeline time for 500 tasks, (v) the sequential time
 for 500 tasks, (vi) the throughput.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 4 stages &middot; stage times = 60,
+50, 90, 80 ns &middot; latch delay = 10 ns &middot; n = 500 tasks for parts (iv) and (v)</div>
+<div class="prow"><span class="plab">Find</span> cycle time, non-pipelined time for one
+task, speedup, pipelined and sequential time for 500 tasks, and throughput</div>
+<div class="prow"><span class="plab">Formula</span> cycle = slowest stage + latch &middot;
+pipelined = (k + n &#8722; 1) &#215; cycle &middot; sequential = n &#215; &#931;(stage
+times) &middot; speedup = sequential / pipelined &middot; throughput = n / pipelined time</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 4, the number of <i>stages</i> (not address lines, not cache ways) &middot;
+<b>n</b> = 500, the number of <i>tasks</i> (not a bit width) &middot; <b>slowest
+stage</b> = 90 ns, which alone sets the clock &middot; <b>latch delay</b> = the 10 ns
+added to every cycle to store each stage's result</div>
 <ol class="steps">
 <li>Cycle time = slowest phase + latch = 90 + 10 = <b>100 ns</b>.</li>
 <li>Non-pipeline time for one task = 60 + 50 + 90 + 80 = <b>280 ns</b>.</li>
@@ -97,6 +120,19 @@ cycle, and everything else falls out of those two.</p>
 <div class="body"><p>Four operations run through a 5-stage pipeline with stage times 8,
 9, 11, 13 and 16 ns. Compare the non-pipelined and pipelined execution times and give
 the speedup.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 5 stages &middot; stage times = 8, 9,
+11, 13, 16 ns &middot; n = 4 operations &middot; no latch delay stated, so take it as 0</div>
+<div class="prow"><span class="plab">Find</span> the non-pipelined time, the pipelined
+time, and the speedup</div>
+<div class="prow"><span class="plab">Formula</span> cycle = slowest stage &middot;
+non-pipelined = n &#215; &#931;(stage times) &middot; pipelined = (k + n &#8722; 1)
+&#215; cycle &middot; speedup = non-pipelined / pipelined</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 5 stages &middot; <b>n</b> = 4 operations &middot; <b>&#931;(stage times)</b> =
+8+9+11+13+16 = 57 ns, the full journey one operation makes without a pipeline &middot;
+<b>cycle</b> = 16 ns, the slowest stage, because every stage must be given that long</div>
 <ol class="steps">
 <li>Non-pipelined: each operation passes through all stages, 8+9+11+13+16 = 57 ns each,
 so 4 &#215; 57 = <b>228 ns</b>.</li>
@@ -138,6 +174,22 @@ unavoidable stall appears in the exam's RISC pipeline question.</p></div></div>
 with forwarding available, a one-cycle stall for a load-use hazard, and a multiplier
 that occupies EX for three cycles. Identify the hazards, draw the timing diagram, and
 give the total cycles.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 5 stages (IF, ID, EX, MEM, WB)
+&middot; n = 6 instructions &middot; forwarding available &middot; load-use costs 1 stall
+&middot; MUL holds EX for 3 cycles</div>
+<div class="prow"><span class="plab">Find</span> the hazards present, the timing diagram,
+and the total cycle count</div>
+<div class="prow"><span class="plab">Formula</span> ideal = (k + n &#8722; 1) cycles, then
+<b>add</b> every stall: 1 per load-use, and (EX cycles &#8722; 1) for each multi-cycle
+execute</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 5 stages &middot; <b>n</b> = 6 instructions &middot; <b>forwarding</b> = a
+result is passed straight from one stage to the next instruction, removing most data
+stalls &middot; <b>load-use</b> = the one hazard forwarding cannot remove, because the
+value is still being fetched &middot; a <b>3-cycle EX</b> adds 3 &#8722; 1 = 2 extra
+cycles</div>
 <pre class="code">I1: LW   R1, 0(R2)     ; load R1 from memory
 I2: ADD  R3, R1, R4    ; needs R1  -> load-use hazard with I1
 I3: SUB  R5, R3, R6    ; needs R3  (forwarded from I2)
@@ -180,6 +232,22 @@ asks you to schedule exactly this, both with forwarding and without.</p>
 <div class="body"><p>A 5-stage pipeline (IF, ID, OF, EX, WB) takes 1 cycle per stage,
 except EX takes 1 cycle for ADD and SUB, 3 for MUL and 6 for DIV. Schedule this sequence
 and give the total cycles, with and without operand forwarding.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 5 stages (IF, ID, OF, EX, WB)
+&middot; n = 4 instructions &middot; 1 cycle per stage, except EX = 1 (ADD, SUB), 3 (MUL),
+6 (DIV) &middot; dependencies: I3 needs R5 from I2 and R2 from I1; I4 needs R2 from I3</div>
+<div class="prow"><span class="plab">Find</span> the schedule and the total cycles, both
+with and without operand forwarding</div>
+<div class="prow"><span class="plab">Formula</span> no single formula fits a multi-cycle
+EX: build the cycle diagram row by row under the stated assumptions, then read the total
+off the last write-back</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 5 stages &middot; <b>n</b> = 4 instructions &middot; <b>OF</b> = operand fetch
+&middot; a <b>multi-cycle EX</b> means the stage is occupied for that many cycles, so the
+instruction behind it cannot enter EX &middot; <b>forwarding</b> lets a result reach the
+next instruction's EX without waiting for write-back &middot; the (k + n &#8722; 1)
+shortcut does <b>not</b> apply once stages take unequal time</div>
 <pre class="code">I1: MUL R2, R0, R1     I2: DIV R5, R3, R4
 I3: ADD R2, R5, R2     I4: SUB R5, R2, R6</pre>
 <p>I3 needs R5 from I2 and R2 from I1; I4 needs R2 from I3.</p>

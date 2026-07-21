@@ -102,8 +102,16 @@ direct memory access, fewer registers (example Intel x86 or Motorola 68000).</p>
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
 <div class="body">
 <p class="marks">(a) Amdahl's law (see M2 U2)</p>
-<p>Speedup = 1 / ((1 &#8722; f) + f / s). With f = 0.90 and s = 8:
-Speedup = 1 / (0.10 + 0.90 / 8) = 1 / (0.10 + 0.1125) = 1 / 0.2125 = <b>4.71</b>.</p>
+<p><b>Stating it</b> (the question says "state", so a formula alone does not answer it):
+<i>the gain in overall performance from improving one part of a system is limited by the
+fraction of the total time that part accounts for.</i> If a fraction f of the execution
+time is made s times faster and the rest is unchanged, the overall speedup is
+S = 1 / ((1 &#8722; f) + f/s); and as s grows without bound S tends to 1 / (1 &#8722; f),
+which is the ceiling no improvement to that part can pass.</p>
+<p><b>Applying it.</b> With f = 0.90 and s = 8:
+Speedup = 1 / (0.10 + 0.90 / 8) = 1 / (0.10 + 0.1125) = 1 / 0.2125 = <b>4.71</b>.
+Sanity check against the ceiling: 1 / (1 &#8722; 0.90) = 10, and 4.71 is below it, as it
+must be.</p>
 <p class="marks">(b) DRAM vs SRAM (see M3 U2)</p>
 <p>DRAM stores a bit as capacitor charge, needs refresh, is slower, denser and cheaper,
 and is used for <b>main memory</b>. SRAM stores a bit in a transistor latch, needs no

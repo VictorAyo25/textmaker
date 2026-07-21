@@ -26,6 +26,14 @@ count, CPI is the average cycles per instruction, and T is the clock cycle time
 per second)</li>
 <li><b>Speedup = time(old) / time(new)</b>; <b>improvement = (old &#8722; new) / old</b></li>
 </ul>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>IC</b> = instruction count, how many instructions the program actually executes
+(not how many lines of source) &middot;
+<b>CPI</b> = average clock cycles per instruction &middot;
+<b>T</b> = clock cycle time, the seconds one cycle takes, and T = 1 / clock rate &middot;
+<b>clock rate</b> = cycles per second in Hz (a 2 GHz clock is 2&#215;10<sup>9</sup> Hz) &middot;
+<b>fraction of type i</b> = the share of the instruction mix that is of type i, so the
+fractions add to 1 &middot; <b>CPI of type i</b> = cycles one instruction of that type costs</div>
 <p><b>Memory hook:</b> "<b>I see PT</b>" for IC &#215; CPI &#215; T. Fewer
 instructions, fewer cycles each, or a shorter cycle: any of the three cuts the time.</p></div></div>
 
@@ -33,6 +41,21 @@ instructions, fewer cycles each, or a shorter cycle: any of the three cuts the t
 <div class="body"><p>A processor runs <b>1 million</b> instructions with this mix of
 addressing modes and cycle costs. (i) Average CPI. (ii) Total clock cycles. (iii) New
 CPI if indirect is optimised to 2 cycles. (iv) The performance improvement.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> IC = 1 000 000 instructions &middot; the
+mix and the cycle cost of each mode, tabulated below &middot; for (iii), indirect falls
+from 4 cycles to 2</div>
+<div class="prow"><span class="plab">Find</span> (i) average CPI, (ii) total cycles,
+(iii) the new average CPI, (iv) the percentage improvement</div>
+<div class="prow"><span class="plab">Formula</span> average CPI = &#931;
+(fraction<sub>i</sub> &#215; CPI<sub>i</sub>) &middot; total cycles = IC &#215; CPI
+&middot; improvement = (old &#8722; new) / old</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>IC</b> = instruction count &middot; <b>fraction<sub>i</sub></b> = the share of the mix
+that is mode i, as a decimal, and the shares must total 1 &middot; <b>CPI<sub>i</sub></b>
+= cycles one instruction of that mode costs &middot; improvement is measured against the
+<b>old</b> CPI, not the new one</div>
 <table class="data">
 <tr><th>Mode</th><th>Register</th><th>Immediate</th><th>Direct</th><th>Indirect</th><th>Indexed</th><th>Relative</th></tr>
 <tr><th>Share</th><td>40%</td><td>20%</td><td>15%</td><td>10%</td><td>10%</td><td>5%</td></tr>
@@ -67,6 +90,24 @@ WB write-back) has stage times IF 5, ID 4, EX 6, MEM 5, WB 4
 (ns) and 1 ns register overhead. Instruction mix: Arithmetic 40%, Memory 35%, Branch
 20%, Floating point 5%, over 20 million instructions. The non-pipelined clock is 25 ns.
 Find the pipelined clock, the actual CPI, the execution time, and the speedup.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> stages = 5 (IF, ID, EX, MEM, WB)
+&middot; stage times = 5, 4, 6, 5, 4 ns &middot; register overhead = 1 ns &middot;
+IC = 20 000 000 &middot; mix: arithmetic 40%, memory 35%, branch 20%, floating point 5%
+&middot; non-pipelined clock = 25 ns</div>
+<div class="prow"><span class="plab">Find</span> the pipelined clock period, the actual
+CPI, the execution time, and the speedup over the non-pipelined machine</div>
+<div class="prow"><span class="plab">Formula</span> clock = slowest stage + overhead
+&middot; actual CPI = ideal CPI + &#931; (fraction<sub>i</sub> &#215;
+penalty<sub>i</sub>) &middot; time = IC &#215; CPI &#215; T &middot; speedup =
+time(non-pipelined) / time(pipelined)</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>slowest stage</b> = 6 ns (EX), because a pipeline can go no faster than its slowest
+stage &middot; <b>overhead</b> = the latch time added to every cycle &middot; <b>ideal
+CPI</b> = 1, one instruction finishing per cycle once the pipe is full &middot;
+<b>penalty<sub>i</sub></b> = the extra cycles that class of instruction costs &middot;
+<b>T</b> = the clock period just computed</div>
 <p class="small"><b>Reading the penalties (state your assumptions, the wording is
 dense):</b> ideal CPI 1; branch adds 2 extra cycles (EX takes 3); a memory access adds
 a 2-cycle penalty plus, on a 10% cache miss, 4 more (so 2 + 0.10&#215;4 = 2.4 average);
@@ -93,15 +134,44 @@ IC &#215; CPI &#215; T. State how you read each penalty and you keep the method 
 puts a number on it, and the exam asks it most years.</p>
 
 <div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Amdahl's law</span></div>
-<div class="body"><p>If a fraction <b>f</b> of the work is sped up by a factor <b>s</b>,
-the overall speedup is</p>
-<div class="answerbox">Speedup = 1 / ( (1 &#8722; f) + f / s )</div>
+<div class="body">
+<div class="lawstate"><span class="wlab">The law, stated</span>
+<p><span class="lawname">Amdahl's law.</span> The gain in overall performance from
+improving one part of a system is limited by the fraction of the total time that part
+accounts for.</p>
+<p><b>Formally:</b> let <b>f</b> be the fraction of the execution time spent in the part
+being improved, where 0 &#8804; f &#8804; 1, and let that part be made <b>s</b> times
+faster while the rest of the work is unchanged. Then the overall speedup <b>S</b> is</p>
+<div class="answerbox">S = 1 / ( (1 &#8722; f) + f / s )</div>
+<p><b>In the limit</b>, as s grows without bound, f/s tends to 0 and so
+<b>S tends to 1 / (1 &#8722; f)</b>.</p>
+<p><b>Consequence:</b> however much faster the improved part becomes, the whole task can
+never be sped up by more than <b>1 / (1 &#8722; f)</b>. With f = 0.85 that ceiling is
+1 / 0.15 = <b>6.67</b>, so even an infinitely fast cache could not make the machine more
+than 6.67 times faster.</p>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>f</b> = the fraction of the total work that the improvement actually speeds up,
+written as a decimal between 0 and 1 (85% is f = 0.85) &middot;
+<b>s</b> = how many times faster that fraction becomes &middot;
+<b>(1 &#8722; f)</b> = the untouched part, which still takes its original time &middot;
+<b>f / s</b> = the sped-up part's new, shorter time</div>
 <p><b>Memory hook:</b> the part you did not speed up, (1 &#8722; f), never goes away,
 so it caps the total gain no matter how large s is.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3c &middot; PQ 23/24 Q1b</span></div>
 <div class="body"><p>A cache is 10 times faster than main memory, and the CPU finds what
 it needs in the cache <b>85%</b> of the time. Find the overall speedup by Amdahl's law.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> f = 0.85 (the 85% of accesses served by
+cache) &middot; s = 10 (cache is ten times faster than main memory)</div>
+<div class="prow"><span class="plab">Find</span> the overall speedup of the machine</div>
+<div class="prow"><span class="plab">Formula</span> speedup = 1 / ((1 &#8722; f) + f/s)</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>f</b> = the fraction of the work the improvement touches, here the cache hits &middot;
+<b>s</b> = how many times faster that fraction runs &middot; <b>(1 &#8722; f)</b> = the
+15% still going to main memory at full cost, which is what caps the answer well below 10</div>
 <ol class="steps">
 <li>The sped-up fraction is f = 0.85 (the cache accesses), and the speedup factor is
 s = 10.</li>

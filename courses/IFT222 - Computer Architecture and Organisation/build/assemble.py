@@ -30,9 +30,11 @@ BODY_PARTS = ['front.html', 'module1.html', 'module1_unit2.html',
               'module1_unit3.html', 'module1_unit4.html',
               'module2.html', 'module2_unit2.html', 'module2_unit3.html',
               'module3.html', 'module3_unit2.html', 'module3_unit3.html',
-              'module4.html', 'supplement.html',
+              'module4.html', 'supplement.html', 'reference.html',
+              'papers.html',
               'mock1.html', 'mock1_answers.html',
-              'mock2.html', 'mock2_answers.html']
+              'mock2.html', 'mock2_answers.html',
+              'mock3.html', 'mock3_answers.html']
 
 MAX_PASSES = 5
 
@@ -237,6 +239,14 @@ def main():
         r = subprocess.run([sys.executable, ng])
         if r.returncode != 0:
             stop('numeric gate failed, a worked answer disagrees with a recompute.')
+
+    # ---- formula gate: no formula appears without saying what its symbols mean.
+    #      Reads content/, so it runs before anything is assembled. ----
+    fg = os.path.join(HERE, 'qa_formulas.py')
+    if os.path.exists(fg):
+        r = subprocess.run([sys.executable, fg])
+        if r.returncode != 0:
+            stop('formula gate failed: a formula is stated without defining its symbols.')
 
     cover_html = COVER_HEAD + read(COVER) + TAIL
     draft = build_body(build_contents())

@@ -151,6 +151,14 @@ multiplied by its column, all added up. In base 10:</p>
 </svg>
 <figcaption>The same rule reads every base. Only the column values change.</figcaption>
 </figure>
+<p>Written as a formula, a number whose digits are <i>d</i> in base <i>b</i> has</p>
+<div class="answerbox">value = d<sub>n&#8722;1</sub>&#215;b<sup>n&#8722;1</sup> + ... +
+d<sub>1</sub>&#215;b<sup>1</sup> + d<sub>0</sub>&#215;b<sup>0</sup></div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>b</b> = the base (2 binary, 8 octal, 10 decimal, 16 hexadecimal) &middot;
+<b>d<sub>i</sub></b> = the digit sitting in column <i>i</i> &middot;
+<b>i</b> = the column number, counted from 0 at the rightmost digit &middot;
+<b>n</b> = how many digits the number has</div>
 </div></div>
 
 <h3 class="sub">The four bases this course uses</h3>
@@ -192,6 +200,13 @@ steps of ten: 2<sup>20</sup> is 1 M (mega), 2<sup>30</sup> is 1 G (giga). So
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
 <div class="body"><p>Read the binary number 1011B into decimal.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> number = 1011 &middot; source base b = 2 &middot; target base = 10</div>
+<div class="prow"><span class="plab">Find</span> its decimal value</div>
+<div class="prow"><span class="plab">Formula</span> value = &#931; d<sub>i</sub> &#215; b<sup>i</sup>, i counted from 0 at the right</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>b</b> = 2, the base you are reading from &middot; <b>d<sub>i</sub></b> = the bit in column i &middot; <b>i</b> = 0 for the rightmost bit, so the columns are worth 1, 2, 4, 8</div>
 <ol class="steps">
 <li>Write each bit over its column value, right to left: columns are 2<sup>3</sup>,
 2<sup>2</sup>, 2<sup>1</sup>, 2<sup>0</sup>, that is 8, 4, 2, 1.
@@ -229,6 +244,13 @@ are worth.</p>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
 <div class="body"><p>Convert the hexadecimal number A34EH to decimal.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> number = A34E &middot; source base b = 16 &middot; target base = 10</div>
+<div class="prow"><span class="plab">Find</span> its decimal value</div>
+<div class="prow"><span class="plab">Formula</span> value = &#931; d<sub>i</sub> &#215; 16<sup>i</sup></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>b</b> = 16 &middot; <b>d<sub>i</sub></b> = the digit in column i, with the letters standing for numbers (A = 10 up to F = 15) &middot; the columns are worth 1, 16, 256, 4096</div>
 <ol class="steps">
 <li>Replace each hex letter by its value: A = 10, 3 = 3, 4 = 4, E = 14.</li>
 <li>Write the column values, right to left, as powers of 16: 16<sup>3</sup> = 4096,
@@ -248,6 +270,13 @@ remainder each time. The remainders, <b>read from bottom to top</b>, are the ans
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide</span></div>
 <div class="body"><p>Convert decimal 13 to binary.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> number = 13 &middot; source base = 10 &middot; target base b = 2</div>
+<div class="prow"><span class="plab">Find</span> its binary form</div>
+<div class="prow"><span class="plab">Formula</span> divide repeatedly by b, keeping each remainder; read the remainders <b>bottom-up</b></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>b</b> = 2, the base you are converting <i>into</i>, so it is what you divide by &middot; each <b>remainder</b> is one digit of the answer &middot; the remainders come out least significant first, which is why the column is read upwards</div>
 <table class="trace">
 <tr><th>Divide</th><th>Quotient</th><th>Remainder</th></tr>
 <tr><td>13 &#247; 2</td><td>6</td><td class="out">1</td></tr>
@@ -275,6 +304,13 @@ because 8 = 2<sup>3</sup>.</p>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
 <div class="body"><p>Convert 11010110B to hexadecimal.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> number = 11010110 &middot; source base = 2 &middot; target base = 16</div>
+<div class="prow"><span class="plab">Find</span> its hexadecimal form</div>
+<div class="prow"><span class="plab">Formula</span> group the bits in fours <b>from the right</b>; each group of 4 bits is one hex digit</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+grouping works because <b>16 = 2<sup>4</sup></b>, so exactly four bits carry one hex digit &middot; group <b>from the right</b>, and pad a short leftmost group with leading zeros</div>
 <ol class="steps">
 <li>Slice into groups of four bits, starting from the right:
 <span class="note">1101 0110.</span></li>

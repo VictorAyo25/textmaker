@@ -103,6 +103,13 @@ large transfers.</li>
 <div class="body"><p><b>k address lines can address 2<sup>k</sup> locations.</b> Turn it
 around: to address N locations you need <b>k = log<sub>2</sub>N</b> address lines. The
 total capacity is 2<sup>k</sup> &#215; (bytes per location).</p>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = the number of address lines, that is the width of the address bus in bits
+(here it means address lines; the same letter means pipeline <i>stages</i> in Module Two
+Unit 3 and <i>ways</i> in a set-associative cache) &middot;
+<b>N</b> = how many separate locations you need to reach &middot;
+<b>bytes per location</b> = 1 if the memory is byte-addressable, or the word size in
+bytes if it is word-addressable</div>
 <p><b>Memory hook:</b> every extra address line <b>doubles</b> the number of locations
 you can reach.</p></div></div>
 
@@ -110,6 +117,18 @@ you can reach.</p></div></div>
 <div class="body"><p>A minicomputer uses <b>18 address lines</b>. Find (i) the address
 space, (ii) the largest memory in bytes if each location holds one byte, (iii) the
 length of the program counter.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 18 address lines &middot; 1 byte per
+location</div>
+<div class="prow"><span class="plab">Find</span> (i) the address space, (ii) the maximum
+memory in bytes, (iii) the width of the PC</div>
+<div class="prow"><span class="plab">Formula</span> address space = 2<sup>k</sup> &middot;
+capacity = 2<sup>k</sup> &#215; bytes per location &middot; PC width = k</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = the number of address lines, that is the address-bus width in bits &middot;
+<b>2<sup>k</sup></b> = how many distinct locations those lines can name &middot; the
+<b>PC</b> must be able to hold any address, so it is exactly k bits wide</div>
 <ol class="steps">
 <li>Address space = 2<sup>number of lines</sup> = 2<sup>18</sup> = 262 144 locations.
 <span class="note">2<sup>18</sup> = 2<sup>10</sup> &#215; 2<sup>8</sup> = 1024 &#215; 256.</span></li>
@@ -125,6 +144,17 @@ of address lines, and the PC is always as wide as an address.</p>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5a</span></div>
 <div class="body"><p>A computer has <b>4 GB</b> of word-addressable memory with a word
 size of <b>2 bytes</b>. How many bits are needed to address memory?</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> memory = 4 GB &middot; word size = 2 bytes
+&middot; addressing = word-addressable (each address names a word, not a byte)</div>
+<div class="prow"><span class="plab">Find</span> k, the number of address bits needed</div>
+<div class="prow"><span class="plab">Formula</span> N = total bytes / bytes per addressable
+unit, then k = log<sub>2</sub>N</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>N</b> = the number of addressable units, here <i>words</i> not bytes &middot;
+<b>k</b> = address bits &middot; the phrase <b>word-addressable</b> is the whole
+question: divide the byte total by the word size <i>before</i> taking the log</div>
 <ol class="steps">
 <li>4 GB = 4 &#215; 2<sup>30</sup> bytes = 2<sup>32</sup> bytes.</li>
 <li>Word-addressable means each address names a word, not a byte. Number of words =

@@ -1,0 +1,403 @@
+<!-- ===================== MOCK THREE: ANSWERS ===================== -->
+<section>
+<div class="kick">Mock Examination Three</div>
+<h2 class="title">Answers</h2>
+<hr class="rule">
+<p class="lead">Full worked solutions, every number recomputed. Each part names the unit
+that teaches it, so a slip points you straight at the revision you need.</p>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question One</span></div>
+<div class="body">
+
+<p class="marks">(a) Architecture versus organization (2 marks) &nbsp;[M1 U1]</p>
+<p>Architecture is the set of attributes visible to the programmer (instruction set,
+registers, addressing modes): <b>what</b> the machine does. Organization is how those are
+realised in hardware (control signals, buses, memory technology): <b>how</b> it does it.
+Example: the architecture says a MULTIPLY instruction exists; the organization decides
+whether a dedicated multiplier or repeated addition carries it out.</p>
+
+<p class="marks">(b) 178 and &#8722;92 in 11 bits (6 marks) &nbsp;[M1 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> values 178 and &#8722;92 &middot; n = 11
+bits &middot; four schemes</div>
+<div class="prow"><span class="plab">Find</span> each value in each scheme, plus the
+two's complement range</div>
+<div class="prow"><span class="plab">Formula</span> sign-magnitude = sign bit + magnitude
+&middot; one's complement = invert all n bits &middot; two's complement = invert then add
+1 &middot; range = &#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1)</div>
+</div>
+<ol class="steps">
+<li>178 = 128+32+16+2, so in 11 bits 178 = 000 1011 0010. Positive, so identical in all
+four schemes.</li>
+<li>For &#8722;92, first write +92 = 64+16+8+4 = 000 0101 1100.</li>
+<li>Sign-magnitude: set the sign bit, keep the magnitude: 100 0101 1100.</li>
+<li>One's complement: invert all 11 bits of +92: 111 1010 0011.</li>
+<li>Two's complement: add 1 to that: 111 1010 0100.</li>
+</ol>
+<table class="data">
+<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>
+<tr><td>178</td><td>000 1011 0010</td><td>000 1011 0010</td><td>000 1011 0010</td><td>000 1011 0010</td></tr>
+<tr><td>&#8722;92</td><td>not representable</td><td>100 0101 1100</td><td>111 1010 0011</td><td>111 1010 0100</td></tr>
+</table>
+<div class="answerbox">11-bit two's complement range = &#8722;2<sup>10</sup> to
++(2<sup>10</sup>&#8722;1) = <b>&#8722;1024 to 1023</b>. Both 178 and &#8722;92 fall well
+inside it, so both are representable.</div>
+
+<p class="marks">(c) 92.375 in IEEE-754 single precision (5 marks) &nbsp;[M1 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> value = 92.375 &middot; IEEE-754 single
+precision &middot; bias 127</div>
+<div class="prow"><span class="plab">Find</span> the 32-bit pattern, in binary and hex</div>
+<div class="prow"><span class="plab">Formula</span> normalise to 1.<i>m</i> &#215;
+2<sup>e</sup>, then E = e + 127</div>
+</div>
+<ol class="steps">
+<li>Sign: positive, so <b>0</b>.</li>
+<li>Binary: 92 = 1011100 and 0.375 = 0.011, so 92.375 = 1011100.011.</li>
+<li>Normalise: move the point 6 places left, 1.011100011 &#215; 2<sup>6</sup>, so e = 6.
+<span class="note">This one terminates, so it is exact.</span></li>
+<li>Exponent field: 6 + 127 = 133 = 1000 0101.</li>
+<li>Mantissa: 011100011 padded to 23 bits = 0111 0001 1000 0000 0000 000.</li>
+</ol>
+<div class="answerbox">92.375 = <b>0 10000101 01110001100000000000000</b>
+= 0100 0010 1011 1000 1100 0000 0000 0000 = <b>42B8C000H</b>. Converting back gives
+92.375 exactly, which is the check to write down.</div>
+
+<p class="marks">(d) CPI over 2 500 000 instructions (6 marks) &nbsp;[M2 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> IC = 2 500 000 &middot; A 35% at 1,
+B 25% at 2, C 20% at 3, D 12% at 4, E 8% at 5 &middot; for (iii), class D falls to 2
+cycles</div>
+<div class="prow"><span class="plab">Find</span> average CPI, total cycles, new CPI,
+percentage improvement</div>
+<div class="prow"><span class="plab">Formula</span> CPI = &#931;(fraction<sub>i</sub>
+&#215; CPI<sub>i</sub>) &middot; cycles = IC &#215; CPI &middot; improvement = (old
+&#8722; new)/old</div>
+</div>
+<ol class="steps">
+<li>CPI = 0.35(1) + 0.25(2) + 0.20(3) + 0.12(4) + 0.08(5)
+= 0.35 + 0.50 + 0.60 + 0.48 + 0.40 = <b>2.33</b>.</li>
+<li>Total cycles = 2 500 000 &#215; 2.33 = <b>5 825 000</b>.</li>
+<li>Class D from 4 to 2 cycles: CPI = 2.33 &#8722; 0.12(4) + 0.12(2)
+= 2.33 &#8722; 0.48 + 0.24 = <b>2.09</b>.</li>
+<li>Improvement = (2.33 &#8722; 2.09) / 2.33 = 0.24 / 2.33 = <b>10.30%</b>.</li>
+</ol>
+<div class="answerbox">CPI 2.33; 5 825 000 cycles; new CPI 2.09; improvement 10.30%.
+Note the improvement is measured against the <b>old</b> CPI.</div>
+
+<p class="marks">(e) 24-bit address, 32-byte block, 512-line direct-mapped cache (6 marks)
+&nbsp;[M3 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> address = 24 bits &middot; block = 32
+bytes &middot; 512 lines &middot; direct mapped</div>
+<div class="prow"><span class="plab">Find</span> the address format and the line each
+address maps to</div>
+<div class="prow"><span class="plab">Formula</span> offset = log<sub>2</sub>(block)
+&middot; index = log<sub>2</sub>(lines) &middot; tag = address &#8722; index &#8722;
+offset &middot; the index field is the line number</div>
+</div>
+<ol class="steps">
+<li>Offset = log<sub>2</sub>32 = <b>5</b> bits. Index = log<sub>2</sub>512 = <b>9</b>
+bits. Tag = 24 &#8722; 9 &#8722; 5 = <b>10</b> bits.</li>
+<li>Line = (address &#247; 32) mod 512, that is shift right 5 and keep the low 9 bits.</li>
+<li>A5C3E7 = 10 863 591. Shift right 5: 339 487. mod 512 = <b>31</b>.</li>
+<li>7F0044 = 8 323 140. Shift right 5: 260 098. mod 512 = <b>2</b>.</li>
+<li>C0FFEE = 12 648 430. Shift right 5: 395 263. mod 512 = <b>511</b>.</li>
+</ol>
+<div class="answerbox">Format: <b>tag 10 / line 9 / offset 5</b>. Lines: A5C3E7 &#8594;
+<b>31</b>, 7F0044 &#8594; <b>2</b>, C0FFEE &#8594; <b>511</b>.
+<span class="note">Here the fields do not fall on hex-digit boundaries (9 index bits is
+not a whole number of hex digits), so convert to decimal and divide rather than reading
+digits off, which is the trap this part sets.</span></div>
+
+<p class="marks">(f) Effective addresses (5 marks) &nbsp;[M1 U4]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> PC = 4000 &middot; R2 = 2600 &middot;
+address field = 900 &middot; M[900] = 3100, M[2600] = 4900, M[3100] = 750, M[4900] = 88</div>
+<div class="prow"><span class="plab">Find</span> the effective address and operand in each
+mode</div>
+<div class="prow"><span class="plab">Formula</span> immediate: operand = the field
+&middot; direct: EA = field &middot; indirect: EA = M[field] &middot; register indirect:
+EA = register &middot; relative: EA = PC + field</div>
+</div>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
+<tr><td>Immediate</td><td>none</td><td>900, the field itself</td></tr>
+<tr><td>Direct</td><td>900</td><td>M[900] = 3100</td></tr>
+<tr><td>Indirect</td><td>M[900] = 3100</td><td>M[3100] = 750</td></tr>
+<tr><td>Register indirect (R2)</td><td>R2 = 2600</td><td>M[2600] = 4900</td></tr>
+<tr><td>Relative</td><td>PC + 900 = 4900</td><td>M[4900] = 88</td></tr>
+</table>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
+<div class="body">
+<p class="marks">(a) Pipeline timing (10 marks) &nbsp;[M2 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 5 stages &middot; stage times 40,
+55, 45, 60, 50 ns &middot; latch = 5 ns &middot; n = 800 tasks</div>
+<div class="prow"><span class="plab">Find</span> cycle time, one-task non-pipelined time,
+ideal speedup, 800-task pipelined and sequential times, throughput</div>
+<div class="prow"><span class="plab">Formula</span> cycle = slowest stage + latch &middot;
+pipelined = (k + n &#8722; 1) &#215; cycle &middot; sequential = n &#215; &#931;(stage
+times) &middot; speedup = sequential / pipelined &middot; throughput = 1 / cycle in the
+steady state</div>
+</div>
+<ol class="steps">
+<li>Cycle time = slowest stage + latch = 60 + 5 = <b>65 ns</b>.</li>
+<li>Non-pipelined, one task = 40+55+45+60+50 = <b>250 ns</b>.</li>
+<li>Ideal speedup = 250 / 65 = <b>3.85</b> (its ceiling is k = 5; the latch and the uneven
+stages cost the rest).</li>
+<li>800 tasks pipelined = (5 + 800 &#8722; 1) &#215; 65 = 804 &#215; 65 =
+<b>52 260 ns</b>.</li>
+<li>800 tasks sequentially = 800 &#215; 250 = <b>200 000 ns</b>, so the realised speedup
+is 200 000 / 52 260 = <b>3.83</b>.</li>
+<li>Throughput = 800 / 52 260 ns = <b>15.31 million tasks per second</b>; in the steady
+state this is one task per cycle, 1 / 65 ns = 15.38 million per second.</li>
+</ol>
+<div class="answerbox">Cycle 65 ns; one task 250 ns; ideal speedup 3.85; 800 tasks
+52 260 ns pipelined against 200 000 ns sequential, a speedup of 3.83; throughput about
+15.31 million tasks per second.</div>
+
+<p class="marks">(b) The three hazards (4 marks) &nbsp;[M2 U3]</p>
+<div class="answerbox"><b>Structural:</b> two instructions need the same hardware in the
+same cycle (one memory serving a fetch and a data access); cured by duplicating the
+resource, as with separate instruction and data memories. <b>Data:</b> an instruction
+needs a result the one ahead has not produced yet (read after write); mostly cured by
+<b>forwarding</b>. <b>Control:</b> a branch changes what runs next after the pipeline has
+already fetched the following instructions; cured by resolving the branch early,
+predicting it, or flushing. Forwarding <b>cannot</b> remove the <b>load-use</b> data
+hazard: the loaded value is still being fetched from memory, so exactly one stall
+remains.</div>
+
+<p class="marks">(c) Amdahl's law (6 marks) &nbsp;[M2 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> f = 0.75 &middot; s = 8</div>
+<div class="prow"><span class="plab">Find</span> the overall speedup, and why it is not 8</div>
+<div class="prow"><span class="plab">Formula</span> speedup = 1 / ((1 &#8722; f) + f/s)</div>
+</div>
+<ol class="steps">
+<li>Untouched part: 1 &#8722; f = 0.25, still at full cost.</li>
+<li>Sped-up part: f / s = 0.75 / 8 = 0.09375.</li>
+<li>Speedup = 1 / (0.25 + 0.09375) = 1 / 0.34375 = <b>2.91</b>.</li>
+</ol>
+<div class="answerbox">Overall speedup <b>2.91</b>, not 8. The 25% that was not improved
+still takes its original time, and it alone caps the total gain at 1/0.25 = 4 even if the
+other 75% were made infinitely fast. That ceiling is the whole content of Amdahl's
+law.</div>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
+<div class="body">
+<p class="marks">(a) 8-way set-associative cache design (10 marks) &nbsp;[M3 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> cache = 32 KB &middot; block = 64 bytes
+&middot; main memory = 16 MB &middot; k = 8 ways</div>
+<div class="prow"><span class="plab">Find</span> lines, sets, address format, tag directory
+size</div>
+<div class="prow"><span class="plab">Formula</span> address bits =
+log<sub>2</sub>(memory) &middot; lines = cache / block &middot; sets = lines / k &middot;
+offset = log<sub>2</sub>(block) &middot; tag = address &#8722; set &#8722; offset &middot;
+tag directory = lines &#215; tag bits</div>
+</div>
+<ol class="steps">
+<li>Address: 16 MB = 2<sup>24</sup>, so <b>24-bit</b> addresses.</li>
+<li>Lines = 32 KB / 64 B = 32768 / 64 = <b>512</b>.</li>
+<li>Sets = 512 / 8 = <b>64</b>.</li>
+<li>Offset = log<sub>2</sub>64 = <b>6</b>. Set field = log<sub>2</sub>64 = <b>6</b>.
+Tag = 24 &#8722; 6 &#8722; 6 = <b>12</b>.</li>
+<li>Tag directory = 512 lines &#215; 12 bits = 6144 bits = <b>768 bytes</b>.</li>
+</ol>
+<div class="answerbox">512 lines in 64 sets of 8. Format <b>tag 12 / set 6 / offset 6</b>.
+Tag directory <b>768 bytes</b>, which is the storage overhead the cache pays on top of its
+32 KB of data.</div>
+
+<p class="marks">(b) AMAT both ways (6 marks) &nbsp;[M3 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> h = 0.92 &middot; T<sub>c</sub> = 3 ns
+&middot; T<sub>m</sub> = 70 ns</div>
+<div class="prow"><span class="plab">Find</span> AMAT under hierarchical and simultaneous
+organisation</div>
+<div class="prow"><span class="plab">Formula</span> hierarchical = T<sub>c</sub> +
+(1&#8722;h)&#215;T<sub>m</sub> &middot; simultaneous = h&#215;T<sub>c</sub> +
+(1&#8722;h)&#215;T<sub>m</sub></div>
+</div>
+<ol class="steps">
+<li>Miss ratio = 1 &#8722; 0.92 = 0.08.</li>
+<li>Hierarchical = 3 + 0.08(70) = 3 + 5.6 = <b>8.6 ns</b>.</li>
+<li>Simultaneous = 0.92(3) + 0.08(70) = 2.76 + 5.6 = <b>8.36 ns</b>.</li>
+</ol>
+<div class="answerbox">Hierarchical <b>8.6 ns</b>, simultaneous <b>8.36 ns</b>. The
+difference is only whether the cache time is paid on every access or only on hits; say
+which organisation you assumed and you cannot lose the mark.</div>
+
+<p class="marks">(c) Locality of reference (4 marks) &nbsp;[M3 U1]</p>
+<div class="answerbox">Locality of reference is the tendency of a program to concentrate
+its memory accesses in a small, predictable set of locations during any short period.
+<b>Temporal locality:</b> a location used now is likely to be used again soon, for example
+a loop counter read on every iteration, which is why cache keeps recently used data.
+<b>Spatial locality:</b> locations near one just used are likely to be used soon, for
+example successive elements of an array, which is why cache fetches a whole block of
+neighbouring words rather than a single one.</div>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
+<div class="body">
+<p class="marks">(a) 245 &#8722; 178 by end-around carry (6 marks) &nbsp;[M1 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> 245 &#8722; 178 &middot; n = 10 bits
+&middot; one's complement</div>
+<div class="prow"><span class="plab">Find</span> the difference as a pattern and in decimal</div>
+<div class="prow"><span class="plab">Formula</span> a &#8722; b = a + (&#8722;b) with
+&#8722;b the bitwise inversion; a carry out of the top is <b>added back</b> into the
+lowest bit</div>
+</div>
+<ol class="steps">
+<li>245 in 10 bits: 245 = 128+64+32+16+4+1 = 00 1111 0101.</li>
+<li>178 in 10 bits: 178 = 128+32+16+2 = 00 1011 0010.</li>
+<li>&#8722;178 in one's complement: invert every bit: 11 0100 1101.</li>
+<li>Add: 00 1111 0101 + 11 0100 1101 = 1 00 0100 0010.
+<span class="note">A 1 has carried out of the 10th bit.</span></li>
+<li>End-around carry: drop it and add it into the lowest bit:
+00 0100 0010 + 1 = 00 0100 0011.</li>
+<li>Read back: 00 0100 0011 = 64 + 2 + 1 = <b>67</b>, and 245 &#8722; 178 = 67. Correct.</li>
+</ol>
+<div class="answerbox">245 &#8722; 178 = <b>00 0100 0011 = 67</b>. The signature of one's
+complement is that the carry never vanishes, it comes back in at the bottom.</div>
+
+<p class="marks">(b) Excess-3 (4 marks) &nbsp;[M1 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> (i) 507 to encode, (ii) 0111 1001 0110
+to decode &middot; code = Excess-3, 4 bits per digit</div>
+<div class="prow"><span class="plab">Find</span> the code, the decimal, and the
+self-complementing property</div>
+<div class="prow"><span class="plab">Formula</span> encode: digit + 3 in 4 bits &middot;
+decode: nibble value &#8722; 3</div>
+</div>
+<ol class="steps">
+<li>507: 5+3 = 8 = 1000; 0+3 = 3 = 0011; 7+3 = 10 = 1010. So 507 =
+<b>1000 0011 1010</b>.</li>
+<li>Decode 0111 1001 0110: 0111 = 7, minus 3 = 4; 1001 = 9, minus 3 = 6; 0110 = 6, minus
+3 = 3. So it reads <b>463</b>.</li>
+</ol>
+<div class="answerbox">507 &#8594; <b>1000 0011 1010</b>; 0111 1001 0110 &#8594;
+<b>463</b>. (iii) Excess-3 is <b>self-complementing</b>: the code of (9 &#8722; d) is the
+bit-by-bit complement of the code of d. For example 4 is 0111 and 5 is 1000, which are
+exact complements, so taking the nine's complement of a digit is just inverting its bits.
+That is what made the code attractive for decimal subtraction hardware.</div>
+
+<p class="marks">(c) Y = (P + Q) &#215; (R &#8722; S) / T in four formats (10 marks)
+&nbsp;[M1 U4]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> Y = (P + Q) &#215; (R &#8722; S) / T
+&middot; opcode = 1 byte &middot; each address = 2 bytes</div>
+<div class="prow"><span class="plab">Find</span> the four programs and their byte totals</div>
+<div class="prow"><span class="plab">Formula</span> bytes per instruction = opcode bytes +
+(address fields &#215; bytes per address); total = instruction count &#215; that</div>
+</div>
+<table class="data">
+<tr><th>3-address<br>op d,s1,s2</th><th>2-address<br>op d,s</th><th>1-address<br>accumulator</th><th>0-address<br>stack</th></tr>
+<tr>
+<td>ADD T1,P,Q<br>SUB T2,R,S<br>MUL T1,T1,T2<br>DIV Y,T1,T</td>
+<td>MOV T1,P<br>ADD T1,Q<br>MOV T2,R<br>SUB T2,S<br>MUL T1,T2<br>DIV T1,T<br>MOV Y,T1</td>
+<td>LOAD P<br>ADD Q<br>STORE T1<br>LOAD R<br>SUB S<br>MUL T1<br>DIV T<br>STORE Y</td>
+<td>PUSH P<br>PUSH Q<br>ADD<br>PUSH R<br>PUSH S<br>SUB<br>MUL<br>PUSH T<br>DIV<br>POP Y</td>
+</tr>
+<tr><td>4 instructions</td><td>7 instructions</td><td>8 instructions</td><td>10 instructions</td></tr>
+</table>
+<table class="data">
+<tr><th>Format</th><th>Bytes per instruction</th><th>Total</th></tr>
+<tr><td>3-address</td><td>1 + 3&#215;2 = 7</td><td>4 &#215; 7 = <b>28</b></td></tr>
+<tr><td>2-address</td><td>1 + 2&#215;2 = 5</td><td>7 &#215; 5 = <b>35</b></td></tr>
+<tr><td>1-address</td><td>1 + 1&#215;2 = 3</td><td>8 &#215; 3 = <b>24</b></td></tr>
+<tr><td>0-address</td><td>3 for PUSH/POP, 1 for an operator</td><td>5&#215;3 + 1&#215;3 + 4&#215;1 = <b>22</b></td></tr>
+</table>
+<div class="answerbox">Totals: <b>28, 35, 24 and 22 bytes</b> for 3, 2, 1 and 0 address.
+The postfix form for the stack machine is <b>P Q + R S &#8722; &#215; T /</b>. Note the
+0-address machine wins here on bytes: its five PUSHes and one POP carry addresses, but its
+four operators carry none.</div>
+</div></div>
+
+<div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
+<div class="body">
+<p class="marks">(a) C2C60000H in IEEE-754 single precision (6 marks) &nbsp;[M1 U3]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> pattern = C2C60000H &middot; IEEE-754
+single precision &middot; bias 127</div>
+<div class="prow"><span class="plab">Find</span> the decimal value</div>
+<div class="prow"><span class="plab">Formula</span> value = &#177;1.M &#215;
+2<sup>(E &#8722; 127)</sup></div>
+</div>
+<ol class="steps">
+<li>Expand: C2C60000 = 1100 0010 1100 0110 0000 0000 0000 0000.</li>
+<li>Split 1 / 8 / 23: sign = 1; E = 1000 0101; M = 100 0110 0000... (rest zeros).</li>
+<li>Sign 1 means negative.</li>
+<li>E = 1000 0101 = 133, so e = 133 &#8722; 127 = 6.</li>
+<li>Restore the hidden 1: 1.1000110 &#215; 2<sup>6</sup>. Move the point 6 places right:
+1100011.0.</li>
+<li>Evaluate 1100011 = 64 + 32 + 2 + 1 = 99.</li>
+</ol>
+<div class="answerbox">C2C60000H = <b>&#8722;99</b>. The two marks most often dropped here
+are forgetting the hidden 1 and forgetting to subtract the bias. Do both, every time.</div>
+
+<p class="marks">(b) 21 address lines, 4-byte words (5 marks) &nbsp;[M2 U1]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 21 address lines &middot; word = 4
+bytes &middot; word-addressable</div>
+<div class="prow"><span class="plab">Find</span> address space, total memory in MB, PC
+width</div>
+<div class="prow"><span class="plab">Formula</span> address space = 2<sup>k</sup> &middot;
+capacity = 2<sup>k</sup> &#215; bytes per location &middot; PC width = k</div>
+</div>
+<ol class="steps">
+<li>Address space = 2<sup>21</sup> = <b>2 097 152</b> locations (words).</li>
+<li>Each word is 4 bytes, so capacity = 2 097 152 &#215; 4 = 8 388 608 bytes.</li>
+<li>8 388 608 &#247; 1024 &#247; 1024 = <b>8 MB</b>.</li>
+<li>The PC must hold any address, so it is <b>21 bits</b> wide.</li>
+</ol>
+<div class="answerbox">2 097 152 words, <b>8 MB</b> in total, PC <b>21 bits</b>. Because
+the machine is word-addressable, each address names a 4-byte word, so the byte capacity is
+four times the number of locations.</div>
+
+<p class="marks">(c) Image size (4 marks) &nbsp;[M1 U2]</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> 8.5 in &#215; 11 in &middot; 200 dpi
+&middot; black and white, 1 bit per pixel</div>
+<div class="prow"><span class="plab">Find</span> the memory required, in KB</div>
+<div class="prow"><span class="plab">Formula</span> bits = (w&#215;dpi) &#215;
+(h&#215;dpi) &#215; bpp, then &#247;8 for bytes and &#247;1024 for KB</div>
+</div>
+<ol class="steps">
+<li>Pixels across: 8.5 &#215; 200 = 1700. Pixels down: 11 &#215; 200 = 2200.</li>
+<li>Total pixels = 1700 &#215; 2200 = <b>3 740 000</b>.</li>
+<li>At 1 bit per pixel: 3 740 000 bits &#247; 8 = <b>467 500</b> bytes.</li>
+<li>467 500 &#247; 1024 = <b>456.54 KB</b>.</li>
+</ol>
+<div class="answerbox">3 740 000 pixels = 467 500 bytes &#8776; <b>456.54 KB</b>. Had a
+colour depth been given, say 24-bit, you would multiply the pixel count by 24 before
+dividing by 8.</div>
+
+<p class="marks">(d) RISC versus CISC (5 marks) &nbsp;[M4 U1]</p>
+<table class="data">
+<tr><th>RISC</th><th>CISC</th></tr>
+<tr><td>Few, simple, fixed-length instructions</td><td>Many, complex, variable-length instructions</td></tr>
+<tr><td>Mostly one cycle per instruction</td><td>An instruction may take many cycles</td></tr>
+<tr><td>Load/store: only those instructions touch memory</td><td>Arithmetic may act directly on memory</td></tr>
+<tr><td>Many registers, hardwired control, easy to pipeline</td><td>Fewer registers, microcoded control, harder to pipeline</td></tr>
+</table>
+<div class="answerbox">Examples: RISC, <b>ARM</b> and <b>MIPS</b> (also SPARC, RISC-V).
+CISC, <b>Intel x86</b> and <b>Motorola 68000</b> (also VAX). The compiler does more work on
+a RISC machine; the hardware does more on a CISC one.</div>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">In Question One (e) you could not read the cache line off
+the hex digits, though you could in the past papers. Why, and what is the general rule?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Reading fields off hex digits only works when each field is a whole number of hex
+digits, that is a multiple of <b>4 bits</b>. There the offset was 5 bits and the index 9,
+neither a multiple of 4, so the fields straddle hex-digit boundaries. The general rule:
+convert to decimal (or to full binary) and use line = (address &#247; block size) mod
+number of lines. Use the hex shortcut only when the offset and index are multiples of
+4 bits, as they were with a 16-word block and 256 lines.</p></div></div>
+</section>

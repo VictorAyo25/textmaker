@@ -170,6 +170,11 @@ def is_ignorable(tok):
         return True                       # Boolean product / register, e.g. AB, ABC
     if re.fullmatch(r'R\d+', tok):
         return True                       # a register operand in an example, e.g. R1
+    if re.fullmatch(r'[QI]\d+', tok):
+        # A label, not an acronym. "Q1(a)" and "I2 (forwarding covers this)" both match
+        # the ACRO(expansion) typography by accident: Q numbers a question and I numbers
+        # an instruction in a pipeline listing. Neither is a term anyone must define.
+        return True
     return False
 
 

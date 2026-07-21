@@ -26,6 +26,13 @@ miss. AMAT = T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub>.</li>
 <li><b>Simultaneous (look-aside):</b> start cache and memory together, use whichever is
 right. AMAT = h &#215; T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub>.</li>
 </ul>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>h</b> = the hit ratio, the fraction of accesses found in cache, a decimal from 0 to 1
+(96% is h = 0.96) &middot; <b>1 &#8722; h</b> = the miss ratio &middot;
+<b>T<sub>cache</sub></b> (also written T<sub>c</sub>) = the time for one cache access &middot;
+<b>T<sub>memory</sub></b> (T<sub>m</sub>) = the time for one main-memory access &middot;
+both times in the same unit, usually nanoseconds &middot; note this <b>T</b> is an access
+time, not the clock cycle time T of the CPU-performance formula</div>
 <p><b>Memory hook:</b> a high hit ratio pulls the average toward the fast cache time;
 even a small miss rate hurts, because a miss pays the full slow memory cost.</p></div></div>
 
@@ -77,6 +84,15 @@ the k lines in it.</li>
 <b>set bits</b> (k-way) = log<sub>2</sub>(number of sets), where sets = lines / k.</li>
 <li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits.</li>
 </ul>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>address bits</b> = the width of a memory address, from the main-memory size
+(1 GB = 2<sup>30</sup>, so 30 bits) &middot;
+<b>block size</b> = bytes (or words) in one block, which equals one cache line &middot;
+<b>number of lines</b> = how many blocks the cache can hold at once &middot;
+<b>k</b> = the associativity, the number of ways or lines per set (here k means ways, not
+pipeline stages or address lines) &middot;
+<b>sets</b> = lines / k &middot; <b>log<sub>2</sub></b> of a power of two is just the
+exponent, so log<sub>2</sub>1024 = 10</div>
 <p><b>Memory hook:</b> offset picks the byte in the block, index/set picks the slot,
 tag is everything left over to confirm the right block is there.</p></div></div>
 
@@ -85,11 +101,29 @@ tag is everything left over to confirm the right block is there.</p></div></div>
 block it currently holds. The storage spent on tags, the <b>tag directory</b>, is
 <b>number of lines &#215; tag bits per line</b>. It grows as the mapping gets more
 associative, because dropping the index (or shrinking the set field) lengthens the
-tag on every line.</p></div></div>
+tag on every line.</p>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>number of lines</b> = cache size / block size, and it does <i>not</i> change with the
+mapping &middot; <b>tag bits per line</b> = the tag width you worked out for that mapping
+&middot; the product is in <b>bits</b>, so divide by 8 for bytes</div></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2a</span></div>
 <div class="body"><p>A computer has 32-bit addresses. Each block holds 16 words and a
 direct-mapped cache has 256 blocks. In which cache line does each hex address fall?</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> address = 32 bits &middot; block = 16
+words &middot; cache = 256 blocks (lines) &middot; mapping = direct &middot; four hex
+addresses to place</div>
+<div class="prow"><span class="plab">Find</span> the cache line each address maps to</div>
+<div class="prow"><span class="plab">Formula</span> offset = log<sub>2</sub>(words per
+block) &middot; index = log<sub>2</sub>(lines) &middot; tag = address bits &#8722; index
+&#8722; offset &middot; the index field <b>is</b> the line number</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>offset</b> = 4 bits, picking one of the 16 words inside the block &middot;
+<b>index</b> = 8 bits, naming one of the 256 lines &middot; <b>tag</b> = the remaining 20
+bits &middot; because 4 bits is exactly one hex digit, the last hex digit is the offset
+and the next two are the line, which is why this can be read straight off the hex</div>
 <ol class="steps">
 <li>Field widths: offset = log<sub>2</sub>16 = 4 bits; index = log<sub>2</sub>256 = 8
 bits; tag = 32 &#8722; 8 &#8722; 4 = 20 bits.</li>
@@ -114,6 +148,22 @@ tutorial address 1A2BC012, which gives line 1.</p>
 <div class="body"><p>Main memory is 64 MB, the cache is 128 KB, and a block is 64 bytes.
 Find the number of cache lines, then the field widths for direct and 4-way set
 associative mapping.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> main memory = 64 MB &middot; cache = 128
+KB &middot; block = 64 bytes &middot; mappings = direct, and 4-way set associative
+(k = 4)</div>
+<div class="prow"><span class="plab">Find</span> the number of lines, and the tag / index
+(or set) / offset widths for both mappings</div>
+<div class="prow"><span class="plab">Formula</span> address bits =
+log<sub>2</sub>(memory) &middot; lines = cache / block &middot; offset =
+log<sub>2</sub>(block) &middot; sets = lines / k &middot; tag = address &#8722; index (or
+set) &#8722; offset</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 4, the associativity or ways per set &middot; <b>lines</b> = how many blocks
+the cache holds, unchanged by the mapping &middot; <b>sets</b> = groups of k lines, so a
+4-way cache has a quarter as many sets as lines &middot; every bit taken off the index
+lands in the <b>tag</b></div>
 <ol class="steps">
 <li>Address bits: 64 MB = 2<sup>26</sup> bytes, so <b>26-bit</b> addresses.</li>
 <li>Number of lines = cache / block = 128 KB / 64 B = 2<sup>17</sup> / 2<sup>6</sup> =
@@ -132,6 +182,21 @@ set 9, offset 6. (Grouping lines into sets moves bits from the index into the ta
 <div class="body"><p>A cache is <b>16 KB</b>, block <b>256 bytes</b>, main memory
 <b>128 KB</b>. Find the address format and the tag-directory size for direct, fully
 associative, and 2-way set-associative mapping.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> cache = 16 KB &middot; block = 256 bytes
+&middot; main memory = 128 KB &middot; mappings = direct, fully associative, 2-way
+(k = 2)</div>
+<div class="prow"><span class="plab">Find</span> the address format and the tag-directory
+size under each mapping</div>
+<div class="prow"><span class="plab">Formula</span> lines = cache / block &middot; offset =
+log<sub>2</sub>(block) &middot; tag = address &#8722; index (or set) &#8722; offset
+&middot; tag directory = lines &#215; tag bits</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>lines</b> = 64, and this is the same for all three mappings &middot; <b>fully
+associative</b> has no index at all, so its tag is the widest &middot; <b>tag
+directory</b> comes out in <b>bits</b>, so divide by 8 to answer in bytes &middot; the
+directory grows with associativity even though the data capacity does not change</div>
 <ol class="steps">
 <li>Address: 128 KB = 2<sup>17</sup>, so <b>17-bit</b> physical addresses. Offset =
 log<sub>2</sub>256 = <b>8 bits</b>. Lines = 16 KB / 256 B = <b>64</b>.</li>
@@ -153,6 +218,21 @@ associative), because less indexing leaves a longer tag on every line.</div>
 associative. Find (i) the number of cache blocks, (ii) the number of sets, (iii) the
 address format, (iv) the AMAT if the hit rate is 96%, cache access is 2 ns and main
 memory is 80 ns.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> main memory = 1 GB &middot; cache = 512
+KB &middot; block = 128 bytes &middot; k = 4 (4-way) &middot; h = 0.96 &middot;
+T<sub>c</sub> = 2 ns &middot; T<sub>m</sub> = 80 ns</div>
+<div class="prow"><span class="plab">Find</span> (i) blocks, (ii) sets, (iii) the address
+format, (iv) the AMAT</div>
+<div class="prow"><span class="plab">Formula</span> blocks = cache / block &middot; sets =
+blocks / k &middot; tag = address &#8722; set &#8722; offset &middot; AMAT
+(hierarchical) = T<sub>c</sub> + (1 &#8722; h) &#215; T<sub>m</sub></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>h</b> = 0.96, so the miss ratio (1 &#8722; h) = 0.04 &middot; <b>T<sub>c</sub></b> =
+cache access time &middot; <b>T<sub>m</sub></b> = main-memory access time &middot;
+<b>hierarchical</b> means cache is searched first, so its 2 ns is paid on <i>every</i>
+access, hit or miss &middot; answer carries the unit of T, here ns</div>
 <ol class="steps">
 <li>Blocks (lines) = cache / block = 512 KB / 128 B = 2<sup>19</sup> / 2<sup>7</sup> =
 <b>4096 blocks</b>.</li>
@@ -171,6 +251,18 @@ so beyond a point it adds cost and delay for little gain.</div>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q1d</span></div>
 <div class="body"><p>An 8-way set-associative cache has 32-bit words, 4 words per line and
 4096 sets. Find the size of each line, each set, and the whole cache.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 8 (8-way) &middot; word = 32 bits =
+4 bytes &middot; 4 words per line &middot; 4096 sets</div>
+<div class="prow"><span class="plab">Find</span> the size of a line, of a set, and of the
+whole cache</div>
+<div class="prow"><span class="plab">Formula</span> line = words per line &#215; word size
+&middot; set = k &#215; line size &middot; cache = sets &#215; set size</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 8, the lines per set &middot; a <b>32-bit word</b> is 4 bytes, and mixing the
+two units is the classic slip here &middot; build it up in order, line then set then
+cache, and the arithmetic stays trivial</div>
 <ol class="steps">
 <li>Line size = 4 words &#215; 32 bits = 4 &#215; 4 bytes = <b>16 bytes</b>.</li>
 <li>Set size = 8 lines &#215; 16 bytes = <b>128 bytes</b>.</li>
@@ -182,6 +274,20 @@ so beyond a point it adds cost and delay for little gain.</div>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q1b &middot; PQ 23/24 Q3a</span></div>
 <div class="body"><p>Cache hit ratio 80%, cache access 5 ns, main memory 100 ns. Find the
 average memory access time for (i) simultaneous and (ii) hierarchical organisation.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> h = 0.80 &middot; T<sub>c</sub> = 5 ns
+&middot; T<sub>m</sub> = 100 ns &middot; both organisations required</div>
+<div class="prow"><span class="plab">Find</span> the AMAT under (i) simultaneous and
+(ii) hierarchical organisation</div>
+<div class="prow"><span class="plab">Formula</span> simultaneous = h&#215;T<sub>c</sub> +
+(1&#8722;h)&#215;T<sub>m</sub> &middot; hierarchical = T<sub>c</sub> +
+(1&#8722;h)&#215;T<sub>m</sub></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>h</b> = hit ratio &middot; <b>T<sub>c</sub></b>, <b>T<sub>m</sub></b> = cache and
+main-memory access times &middot; the <i>only</i> difference between the two formulas is
+whether the cache time is weighted by h (simultaneous, both started at once) or paid in
+full every time (hierarchical, cache searched first)</div>
 <ol class="steps">
 <li>Simultaneous: AMAT = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> =
 0.8&#215;5 + 0.2&#215;100 = 4 + 20 = <b>24 ns</b>.</li>

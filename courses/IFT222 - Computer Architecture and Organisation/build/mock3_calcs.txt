@@ -1,0 +1,47 @@
+=== MOCK THREE ===
+Q1b: 178 and -92 in 11 bits
+  178 unsigned/all = 00010110010
+  -92 sign-mag  = 10001011100
+  -92 ones      = 11110100011
+  -92 twos      = 11110100100
+  11-bit twos range: -1024 to 1023
+Q1c: 92.375 -> IEEE SP
+  92 = 1011100, .375 = .011 ; 92.375 = 1011100.011
+  normalise 1.011100011 x 2^6 ; E = 6+127 = 133 = 10000101
+  hex = 42B8C000   check back = 92.375
+Q1d: CPI mix, 2.5M instructions
+  avg CPI = 2.33   total cycles = 5825000
+  new CPI (4->2 cycles class) = 2.09   improvement = 10.3%
+Q1e: 24-bit addr, block 32 B, direct 512 lines
+  offset=log2(32)=5 index=log2(512)=9 tag=24-9-5=10
+  A5C3E7: line = (>>5) & 1FF = 31
+  7F0044: line = (>>5) & 1FF = 2
+  C0FFEE: line = (>>5) & 1FF = 511
+Q2a: 5 stages 40/55/45/60/50 ns, latch 5, n=800
+  cycle = 60+5 = 65 ns ; non-pipelined one task = 250 ns
+  speedup(ideal, 1 task basis) = 250/65 = 3.85
+  800 tasks pipelined = (5+800-1)x65 = 52260 ns ; sequential = 800x250 = 200000 ns
+  speedup(800) = 200000/52260 = 3.83
+  throughput = 800/52260 ns = 0.0153 tasks/ns = 15.31 M tasks/s
+Q2c: Amdahl f=0.75 s=8
+  speedup = 1/((1-0.75)+0.75/8) = 2.91
+Q3a: cache 32KB, block 64B, MM 16MB, 8-way
+  addr bits = log2(16MB) = 24 ; lines = 32KB/64B = 512 ; sets = 512/8 = 64
+  offset=6 setbits=log2(64)=6 tag=24-6-6=12
+  tag directory = 512 x 12 = 6144 bits = 768 bytes
+Q3b: AMAT h=0.92 Tc=3 Tm=70
+  hierarchical = 3 + 0.08*70 = 8.6 ns
+  simultaneous = 0.92*3 + 0.08*70 = 8.36 ns
+Q4a: 245 - 178 in 10-bit ones complement
+  245 = 0011110101 ; 178 = 0010110010 ; -178 ones = 1101001101
+  sum = 10001000010 (11 bits) -> carry out, end-around
+  end-around: 0001000010 + 1 = 0001000011 = 67  (245-178=67)
+Q4b: Excess-3 of 507, and decode 0111 1001 0110
+  507: 5+3=8=1000, 0+3=3=0011, 7+3=10=1010 -> 1000 0011 1010
+  decode 0111 1001 0110: 7-3=4, 9-3=6, 6-3=3 -> 463
+Q5a: C2C60000 -> decimal
+  = -99.0
+Q5b: 21 address lines, 4-byte words
+  locations = 2^21 = 2097152 ; capacity = 2097152x4 = 8388608 bytes = 8 MB ; PC = 21 bits
+Q5c: image 8.5 x 11 in @200dpi 1bpp
+  1700 x 2200 = 3740000 px ; bits=3740000 ; bytes=467500 ; KB=456.54

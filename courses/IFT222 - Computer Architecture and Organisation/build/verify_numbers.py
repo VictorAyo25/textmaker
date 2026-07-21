@@ -245,6 +245,113 @@ add('tagdir 2way bits', 64 * (17 - 5 - 8), '256')
 add('tagdir 2way bytes', 64 * (17 - 5 - 8) // 8, '32 bytes')
 
 
+# ---- Amdahl ceilings: the limit the law states, as s grows without bound ----
+add('Amdahl ceiling f=0.85', round(1 / (1 - 0.85), 2), '6.67')
+add('Amdahl ceiling f=0.90', int(round(1 / (1 - 0.90))), '10')
+add('Amdahl ceiling f=0.75', int(round(1 / (1 - 0.75))), '4')
+
+# ---- Past papers solved in full: numbers not worked anywhere else ----
+# 24/25 Q1c: 24-bit address, 16 words/block, direct-mapped 256 blocks
+add('2425 Q1c tag', 24 - 8 - 4, '12')
+for _h, _shown in [('1A2BC0', '188'), ('FFFF00', '240'),
+                   ('123456', '69'), ('C109D5', '157')]:
+    add(f'2425 Q1c {_h}', (int(_h, 16) >> 4) & 0xFF, _shown)
+# 24/25 Q2a: cache 1 KB, block 16 B, MM 64 KB, 16-bit address
+_lines = 1024 // 16
+add('2425 Q2a lines', _lines, '64')
+add('2425 Q2a direct tag', 16 - 6 - 4, '6')
+add('2425 Q2a direct dir', _lines * (16 - 6 - 4), '384')
+add('2425 Q2a direct bytes', _lines * (16 - 6 - 4) // 8, '48 bytes')
+add('2425 Q2a fully tag', 16 - 4, '12')
+add('2425 Q2a fully dir', _lines * (16 - 4), '768')
+add('2425 Q2a fully bytes', _lines * (16 - 4) // 8, '96 bytes')
+add('2425 Q2a 2way tag', 16 - 5 - 4, '7')
+add('2425 Q2a 2way dir', _lines * (16 - 5 - 4), '448')
+add('2425 Q2a 2way bytes', _lines * (16 - 5 - 4) // 8, '56 bytes')
+# 24/25 Q5c: -421.55 with the mantissa truncated after 12 bits
+
+
+def _trunc_ieee(x, keep):
+    """Sign|exponent|mantissa with only the first `keep` mantissa bits retained."""
+    sign = '1' if x < 0 else '0'
+    x = abs(x)
+    e = 0
+    while x >= 2:
+        x /= 2
+        e += 1
+    while x < 1:
+        x *= 2
+        e -= 1
+    frac, bits = x - 1, ''
+    for _ in range(23):
+        frac *= 2
+        bits += str(int(frac))
+        frac -= int(frac)
+    return sign + format(e + 127, '08b') + bits[:keep] + '0' * (23 - keep)
+
+
+_q5c = _trunc_ieee(-421.55, 12)
+add('2425 Q5c exponent', 8 + 127, '135')
+add('2425 Q5c mantissa', _q5c[9:], '1010 0101 1000 0000 0000 000')
+add('2425 Q5c hex', format(int(_q5c, 2), '08X'), 'C3D2C000')
+
+# ---- Mock Three (all fresh, all recomputed) ----
+add('MC 178 in 11b', format(178, '011b'), '000 1011 0010')
+add('MC -92 sign-mag', sign_mag(-92, 11), '100 0101 1100')
+add('MC -92 ones', ones(-92, 11), '111 1010 0011')
+add('MC -92 twos', twos(-92, 11), '111 1010 0100')
+add('MC 11b range low', -(2**10), '-1024')
+add('MC 11b range high', 2**10 - 1, '1023')
+add('MC 92.375 hex', to_hex_f(92.375), '42B8C000')
+add('MC 92.375 exponent', 6 + 127, '133')
+_mcmix = [(0.35, 1), (0.25, 2), (0.20, 3), (0.12, 4), (0.08, 5)]
+_mccpi = round(sum(f * c for f, c in _mcmix), 2)
+add('MC avg CPI', _mccpi, '2.33')
+add('MC total cycles', int(_mccpi * 2_500_000), '5 825 000')
+add('MC new CPI', round(_mccpi - 0.12 * 4 + 0.12 * 2, 2), '2.09')
+add('MC improvement', round((_mccpi - 2.09) / _mccpi * 100, 2), '10.30')
+add('MC Q1e tag', 24 - 9 - 5, '10')
+for _h, _shown in [('A5C3E7', '31'), ('7F0044', '2'), ('C0FFEE', '511')]:
+    add(f'MC Q1e {_h}', (int(_h, 16) >> 5) & 0x1FF, _shown)
+add('MC Q1e A5C3E7 dec', int('A5C3E7', 16), '10 863 591')
+add('MC Q1e 7F0044 dec', int('7F0044', 16), '8 323 140')
+add('MC Q1e C0FFEE dec', int('C0FFEE', 16), '12 648 430')
+_st = [40, 55, 45, 60, 50]
+add('MC pipe cycle', max(_st) + 5, '65 ns')
+add('MC pipe one task', sum(_st), '250 ns')
+add('MC pipe ideal speedup', round(sum(_st) / (max(_st) + 5), 2), '3.85')
+add('MC pipe 800', (5 + 800 - 1) * (max(_st) + 5), '52 260')
+add('MC seq 800', 800 * sum(_st), '200 000')
+add('MC pipe speedup 800', round(800 * sum(_st) / ((5 + 800 - 1) * 65), 2), '3.83')
+add('MC throughput', round(800 / ((5 + 799) * 65) * 1e9 / 1e6, 2), '15.31')
+add('MC Amdahl', round(1 / ((1 - 0.75) + 0.75 / 8), 2), '2.91')
+add('MC Q3a lines', 32 * 1024 // 64, '512')
+add('MC Q3a sets', (32 * 1024 // 64) // 8, '64')
+add('MC Q3a tag', 24 - 6 - 6, '12')
+add('MC Q3a dir bits', (32 * 1024 // 64) * 12, '6144')
+add('MC Q3a dir bytes', (32 * 1024 // 64) * 12 // 8, '768 bytes')
+add('MC AMAT hier', round(3 + 0.08 * 70, 2), '8.6')
+add('MC AMAT sim', round(0.92 * 3 + 0.08 * 70, 2), '8.36')
+add('MC Q4a result', 245 - 178, '67')
+add('MC Q4a 245 bin', format(245, '010b'), '00 1111 0101')
+add('MC Q4a 178 bin', format(178, '010b'), '00 1011 0010')
+add('MC Q4a -178 ones', ones(-178, 10), '11 0100 1101')
+add('MC XS3 507', ''.join(format(d + 3, '04b') for d in (5, 0, 7)), '1000 0011 1010')
+add('MC XS3 decode', ''.join(str(int(n, 2) - 3) for n in ('0111', '1001', '0110')), '463')
+add('MC 3addr bytes', 4 * (1 + 3 * 2), '28')
+add('MC 2addr bytes', 7 * (1 + 2 * 2), '35')
+add('MC 1addr bytes', 8 * (1 + 1 * 2), '24')
+add('MC 0addr bytes', 5 * 3 + 1 * 3 + 4 * 1, '22')
+add('MC C2C60000 dec', int(from_hex_f('C2C60000')), '-99')
+add('MC addr space', 2**21, '2 097 152')
+add('MC capacity MB', 2**21 * 4 // 1024 // 1024, '8 MB')
+add('MC img across', int(8.5 * 200), '1700')
+add('MC img down', 11 * 200, '2200')
+add('MC img px', int(8.5 * 200) * 11 * 200, '3 740 000')
+add('MC img bytes', int(8.5 * 200) * 11 * 200 // 8, '467 500')
+add('MC img KB', round(int(8.5 * 200) * 11 * 200 / 8 / 1024, 2), '456.54')
+
+
 def norm(s):
     return str(s).replace(' ', '').replace(',', '')
 

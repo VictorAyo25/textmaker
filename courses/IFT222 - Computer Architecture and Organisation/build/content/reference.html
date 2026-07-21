@@ -1,0 +1,539 @@
+<!-- ===================== REFERENCE (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Reference</div>
+  <h1>Formulas, Notation<br>and Exam Craft</h1>
+  <div class="blurb">Everything the modules taught, compressed into what you actually
+  carry into the hall: every formula with every symbol spelled out, the letters this
+  course reuses for different jobs, a plan for the two hours, and the mistakes that cost
+  marks. Read this part last, and read it again the night before.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+      <g font-family="DejaVu Sans Mono" font-size="15" fill="#33566e">
+        <text x="0" y="26">CPU time = IC &#215; CPI &#215; T</text>
+        <text x="0" y="66">AMAT = Tc + (1 &#8722; h) &#215; Tm</text>
+        <text x="0" y="106">time = (k + n &#8722; 1) &#215; cycle</text>
+        <text x="0" y="146">tag = addr &#8722; index &#8722; offset</text>
+        <text x="0" y="186">speedup = 1 / ((1&#8722;f) + f/s)</text>
+      </g>
+      <g font-size="10.5" fill="#8a919b">
+        <text x="300" y="26">instructions, cycles each, seconds per cycle</text>
+        <text x="300" y="66">hit ratio, cache time, memory time</text>
+        <text x="300" y="106">stages, tasks, clock period</text>
+        <text x="300" y="146">address width, slot field, byte in block</text>
+        <text x="300" y="186">fraction sped up, and by how much</text>
+      </g>
+      <g stroke="#e2e8ee" stroke-width="1">
+        <line x1="0" y1="38" x2="520" y2="38"/><line x1="0" y1="78" x2="520" y2="78"/>
+        <line x1="0" y1="118" x2="520" y2="118"/><line x1="0" y1="158" x2="520" y2="158"/>
+      </g>
+      <rect x="0" y="206" width="520" height="1.6" fill="#c9b6f2"/>
+      <text x="0" y="234" fill="#6d28d9" font-size="14">not one letter left unexplained</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== R.1 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.1</div>
+<h2 class="title">Formula and Notation Reference</h2>
+<hr class="rule">
+<p class="lead">Every formula this course uses, in one place, with what each letter in it
+stands for. The modules teach these where they are needed; this section is for revision
+and for the moment in the exam when you know the method but want the symbols confirmed.</p>
+<p class="lo">By the end of this section you can state any formula on the syllabus from
+memory, say what each of its symbols means and in what units, tell apart the letters this
+course reuses for different jobs, and pick the right formula from the wording of a
+question.</p>
+
+<h3 class="sub">What every symbol means</h3>
+<p>Read these three tables once, slowly. Most lost marks in the numeric questions come
+from substituting a number into the right formula in the wrong place.</p>
+
+<p class="small"><b>Numbers, bits and floating point</b></p>
+<table class="data">
+<tr><th>Symbol</th><th>What it means</th><th>Units or form</th><th>Used in</th></tr>
+<tr><td><b>b</b></td><td>the base of a number system</td><td>2, 8, 10 or 16</td><td>Number systems</td></tr>
+<tr><td><b>d<sub>i</sub></b></td><td>the digit sitting in column i, counting from 0 at the right</td><td>a digit</td><td>Positional notation</td></tr>
+<tr><td><b>n</b></td><td>number of bits in a register or field</td><td>bits</td><td>Integer ranges</td></tr>
+<tr><td><b>S</b></td><td>the sign bit, 0 positive and 1 negative</td><td>1 bit</td><td>IEEE-754</td></tr>
+<tr><td><b>E</b></td><td>the stored exponent field, the bits actually written</td><td>8 or 11 bits</td><td>IEEE-754</td></tr>
+<tr><td><b>e</b></td><td>the true exponent, the real power of two</td><td>a signed integer</td><td>IEEE-754</td></tr>
+<tr><td><b>M</b></td><td>the mantissa field, the fraction after the hidden 1</td><td>23 or 52 bits</td><td>IEEE-754</td></tr>
+<tr><td><b>bias</b></td><td>the constant added to the exponent before storing</td><td>127 single, 1023 double</td><td>IEEE-754</td></tr>
+</table>
+
+<p class="small"><b>Processors, performance and pipelines</b></p>
+<table class="data">
+<tr><th>Symbol</th><th>What it means</th><th>Units or form</th><th>Used in</th></tr>
+<tr><td><b>k</b></td><td>number of address lines, the width of the address bus</td><td>bits</td><td>Address space</td></tr>
+<tr><td><b>N</b></td><td>how many separate locations must be reachable</td><td>a count</td><td>Address space</td></tr>
+<tr><td><b>IC</b></td><td>instruction count, instructions actually executed</td><td>a count</td><td>CPU performance</td></tr>
+<tr><td><b>CPI</b></td><td>average clock cycles per instruction</td><td>cycles per instruction</td><td>CPU performance</td></tr>
+<tr><td><b>T</b></td><td>clock cycle time, the length of one cycle</td><td>seconds (often ns)</td><td>CPU performance</td></tr>
+<tr><td><b>clock rate</b></td><td>cycles per second, T = 1 / clock rate</td><td>Hz (GHz = 10<sup>9</sup>)</td><td>CPU performance</td></tr>
+<tr><td><b>f</b></td><td>fraction of the work that the improvement speeds up</td><td>0 to 1</td><td>Amdahl's law</td></tr>
+<tr><td><b>s</b></td><td>how many times faster that fraction becomes</td><td>a multiplier</td><td>Amdahl's law</td></tr>
+<tr><td><b>k</b></td><td>number of pipeline stages</td><td>a count</td><td>Pipelining</td></tr>
+<tr><td><b>n</b></td><td>number of tasks or instructions fed through a pipeline</td><td>a count</td><td>Pipelining</td></tr>
+</table>
+
+<p class="small"><b>Memory, cache and images</b></p>
+<table class="data">
+<tr><th>Symbol</th><th>What it means</th><th>Units or form</th><th>Used in</th></tr>
+<tr><td><b>k</b></td><td>associativity, the ways or lines per set</td><td>a count</td><td>Cache</td></tr>
+<tr><td><b>h</b> (or H)</td><td>hit ratio, the share of accesses found in cache</td><td>0 to 1</td><td>Cache</td></tr>
+<tr><td><b>T<sub>c</sub></b></td><td>time for one cache access</td><td>ns</td><td>Cache</td></tr>
+<tr><td><b>T<sub>m</sub></b></td><td>time for one main-memory access</td><td>ns</td><td>Cache</td></tr>
+<tr><td><b>M</b></td><td>the number of blocks main memory holds</td><td>a count</td><td>Memory, cache</td></tr>
+<tr><td><b>K</b></td><td>the number of words in one block</td><td>words</td><td>Memory, cache</td></tr>
+<tr><td><b>EA</b></td><td>effective address, where the operand really is</td><td>an address</td><td>Addressing modes</td></tr>
+<tr><td><b>dpi</b></td><td>dots (pixels) per inch, the resolution</td><td>pixels per inch</td><td>Image sizing</td></tr>
+<tr><td><b>bits-per-pixel</b></td><td>colour depth: 1 black and white, 24 full colour</td><td>bits</td><td>Image sizing</td></tr>
+</table>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>This course reuses four letters for completely different jobs, and the
+formulas sit only a few pages apart. Fix these now:</p>
+<ul class="bul">
+<li><b>k</b> is <b>address lines</b> in address space (2<sup>k</sup> locations),
+<b>pipeline stages</b> in (k + n &#8722; 1), and <b>ways per set</b> in a
+set-associative cache. Three meanings, three topics.</li>
+<li><b>n</b> is a <b>bit width</b> in every integer-range formula, but the <b>number of
+tasks</b> in the pipeline formula. In (k + n &#8722; 1), n is not a bit count.</li>
+<li><b>M</b> is the <b>mantissa</b> in IEEE-754 but the <b>number of memory blocks</b> in
+the cache formulas.</li>
+<li><b>T</b> alone is the <b>clock cycle time</b> in CPU performance, but
+T<sub>c</sub> and T<sub>m</sub> are <b>memory access times</b> in cache. Different
+quantities, both in the same units.</li>
+<li><b>e</b> is the <b>true</b> exponent and <b>E</b> the <b>stored</b> one. They differ
+by the bias, which is the whole point of the field.</li>
+</ul>
+<p>When a question hands you a letter, name the topic first, then the meaning.</p></div></div>
+
+<h3 class="sub">Number systems and integer representation</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>value = &#931; d<sub>i</sub> &#215; b<sup>i</sup></td>
+    <td>b the base, d<sub>i</sub> the digit in column i, i counted from 0 at the right</td>
+    <td>Converting any base into decimal</td></tr>
+<tr><td>divide by b, read remainders bottom-up</td>
+    <td>b the target base; the remainders are the digits</td>
+    <td>Converting decimal into any base</td></tr>
+<tr><td>group bits in fours from the right</td>
+    <td>each group of 4 bits is one hex digit; pad the leftmost group</td>
+    <td>Binary to or from hexadecimal</td></tr>
+<tr><td>left shift = &#215;2, right shift = &#247;2</td>
+    <td>one place per doubling or halving</td>
+    <td>Fast multiply or divide by a power of two</td></tr>
+<tr><td>unsigned: 0 to 2<sup>n</sup> &#8722; 1</td>
+    <td>n the total bits available</td><td>No sign bit is used</td></tr>
+<tr><td>sign-magnitude and one's complement:<br>
+        &#8722;(2<sup>n&#8722;1</sup>&#8722;1) to +(2<sup>n&#8722;1</sup>&#8722;1)</td>
+    <td>n the total bits including the sign bit; both have <b>two</b> zeros</td>
+    <td>Stating the range of these schemes</td></tr>
+<tr><td>two's complement:<br>
+        &#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1)</td>
+    <td>n total bits; <b>one</b> zero, so one extra negative value</td>
+    <td>Stating the range, or spotting overflow</td></tr>
+<tr><td>negate: invert every bit, add 1</td>
+    <td>applies to all n bits, leading zeros included</td>
+    <td>Making a two's complement negative</td></tr>
+<tr><td>end-around carry</td>
+    <td>a carry out of the top is added back into the lowest bit</td>
+    <td>One's complement subtraction only</td></tr>
+<tr><td>BCD: 4 bits per digit, weights 8 4 2 1<br>Excess-3 = digit + 3</td>
+    <td>each decimal digit coded separately, not the whole number</td>
+    <td>Coded-decimal questions</td></tr>
+<tr><td>bits = (w&#215;dpi) &#215; (h&#215;dpi) &#215; bpp</td>
+    <td>w, h in inches; dpi the resolution; bpp the colour depth</td>
+    <td>Sizing an image, then &#247;8, &#247;1024, &#247;1024</td></tr>
+</table>
+
+<h3 class="sub">Floating point (IEEE-754)</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>single = 1 + 8 + 23 bits, bias 127<br>double = 1 + 11 + 52 bits, bias 1023</td>
+    <td>sign S, stored exponent E, mantissa M</td><td>Laying out the format</td></tr>
+<tr><td>E = e + bias</td>
+    <td>e the true exponent you found by normalising; E what you write</td>
+    <td>Going decimal to IEEE</td></tr>
+<tr><td>value = &#177;1.M &#215; 2<sup>(E &#8722; bias)</sup></td>
+    <td>the leading 1 is hidden and must be put back</td>
+    <td>Going IEEE to decimal</td></tr>
+</table>
+
+<h3 class="sub">Instruction sets and addressing</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>bytes per instruction = opcode bytes<br>+ (address fields &#215; bytes per address)</td>
+    <td>address fields is 3, 2, 1 or 0, which names the format</td>
+    <td>Counting program size across formats</td></tr>
+<tr><td>immediate: operand = the address field</td><td>no EA at all</td><td>The value is in the instruction</td></tr>
+<tr><td>direct: EA = address field</td><td>one memory read</td><td>The field is the address</td></tr>
+<tr><td>indirect: EA = M[address field]</td><td>two memory reads</td><td>The field points to the address</td></tr>
+<tr><td>register indirect: EA = contents of register</td><td>the register is the pointer</td><td>One memory read</td></tr>
+<tr><td>relative: EA = PC + address field</td><td>a negative offset branches backwards</td><td>Branches and loops</td></tr>
+<tr><td>indexed: EA = index register + address field</td><td>stepping through an array</td><td>Indexed access</td></tr>
+</table>
+
+<h3 class="sub">Processor performance</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>CPU time = IC &#215; CPI &#215; T</td>
+    <td>IC instructions executed, CPI cycles each, T seconds per cycle</td>
+    <td>Any "how long does it take" question</td></tr>
+<tr><td>CPU time = (IC &#215; CPI) / clock rate</td>
+    <td>same, when the clock is given as a rate not a period</td>
+    <td>The clock is in Hz or GHz</td></tr>
+<tr><td>average CPI = &#931; (fraction<sub>i</sub> &#215; CPI<sub>i</sub>)</td>
+    <td>fraction<sub>i</sub> the share of the mix (they sum to 1)</td>
+    <td>An instruction mix table is given</td></tr>
+<tr><td>MIPS = clock rate / (CPI &#215; 10<sup>6</sup>)</td>
+    <td>millions of instructions per second</td><td>Asked for MIPS</td></tr>
+<tr><td>speedup = time(old) / time(new)<br>
+        improvement = (old &#8722; new) / old</td>
+    <td>improvement is measured against the <b>old</b> time</td>
+    <td>"How much faster", "percentage improvement"</td></tr>
+<tr><td>Amdahl: speedup = 1 / ((1&#8722;f) + f/s)</td>
+    <td>f the fraction sped up, s the factor it is sped up by</td>
+    <td>Only part of the program is improved</td></tr>
+<tr><td>address space = 2<sup>k</sup>, k = log<sub>2</sub>N</td>
+    <td>k address lines, N locations; PC width equals k</td>
+    <td>Address lines, memory capacity, PC width</td></tr>
+</table>
+
+<h3 class="sub">Pipelining</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>cycle time = slowest stage + latch delay</td>
+    <td>the pipeline runs at the pace of its slowest stage</td>
+    <td>Before any other pipeline sum</td></tr>
+<tr><td>pipelined time = (k + n &#8722; 1) &#215; cycle time</td>
+    <td>k stages, n tasks; k cycles to fill, then one per remaining task</td>
+    <td>Time for n instructions</td></tr>
+<tr><td>non-pipelined time = n &#215; (sum of stage times)</td>
+    <td>every task pays every stage in full</td>
+    <td>The comparison baseline</td></tr>
+<tr><td>speedup = non-pipelined / pipelined</td>
+    <td>its ceiling is k, the number of stages</td>
+    <td>"How much does pipelining gain"</td></tr>
+<tr><td>throughput = n / pipelined time</td>
+    <td>in the steady state this is 1 / cycle time</td>
+    <td>Tasks per second</td></tr>
+</table>
+
+<h3 class="sub">Memory and cache</h3>
+<table class="data">
+<tr><th>Formula</th><th>What each symbol is</th><th>Use it when</th></tr>
+<tr><td>M = 2<sup>n</sup> / K</td>
+    <td>n address bits, K words per block, M resulting blocks</td>
+    <td>Counting blocks in main memory</td></tr>
+<tr><td>miss ratio = 1 &#8722; h</td><td>h the hit ratio as a decimal</td><td>Always, before an AMAT</td></tr>
+<tr><td>AMAT (hierarchical) = T<sub>c</sub> + (1&#8722;h) &#215; T<sub>m</sub></td>
+    <td>cache is checked first, so its time is always paid</td>
+    <td>Look-through, the usual default</td></tr>
+<tr><td>AMAT (simultaneous) = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub></td>
+    <td>cache and memory start together</td><td>Look-aside, when stated</td></tr>
+<tr><td>two-level = H&#215;T<sub>1</sub> + (1&#8722;H)&#215;(T<sub>1</sub>+T<sub>2</sub>)</td>
+    <td>a miss pays <b>both</b> levels</td><td>A fast and a slow level are given</td></tr>
+<tr><td>lines = cache size / block size</td>
+    <td>a line holds exactly one block</td><td>First step of every mapping question</td></tr>
+<tr><td>offset bits = log<sub>2</sub>(block size)</td>
+    <td>picks the word or byte inside the block</td><td>Every mapping</td></tr>
+<tr><td>index bits = log<sub>2</sub>(lines)<br>
+        sets = lines / k, set bits = log<sub>2</sub>(sets)</td>
+    <td>k the associativity; fully associative has neither field</td>
+    <td>Direct and set-associative</td></tr>
+<tr><td>tag bits = address bits &#8722; index (or set) &#8722; offset</td>
+    <td>whatever is left over confirms the block</td><td>Every mapping</td></tr>
+<tr><td>direct: line = block number mod lines<br>
+        set-assoc: set = block number mod sets</td>
+    <td>which slot a block is allowed to occupy</td><td>"Which line does address X map to"</td></tr>
+<tr><td>tag directory = lines &#215; tag bits</td>
+    <td>answer in bits; divide by 8 for bytes</td><td>Cost of the tags themselves</td></tr>
+</table>
+
+<h3 class="sub">The named laws, stated</h3>
+<p>A paper may ask you to <b>state</b> a law rather than use it, and a formula on its own
+does not answer that. Each of these is stated as a law should be: the claim in words, the
+conditions it holds under, the formula, and what it implies.</p>
+
+<div class="lawstate"><span class="wlab">The laws, stated</span>
+<p><span class="lawname">Amdahl's law.</span> The gain in overall performance from
+improving one part of a system is limited by the fraction of the total time that part
+accounts for. If a fraction <b>f</b> of the execution time is made <b>s</b> times faster
+and the rest is unchanged, the overall speedup is
+<b>S = 1 / ((1 &#8722; f) + f/s)</b>; as s grows without bound, <b>S tends to
+1 / (1 &#8722; f)</b>, a ceiling no improvement to that part can pass.</p>
+<p><span class="lawname">The principle of locality of reference.</span> Over any short
+interval of its execution, a program references only a small and predictable subset of its
+address space. It has two forms: <b>temporal</b> (a location used now is likely to be used
+again soon) and <b>spatial</b> (locations near one just used are likely to be used soon).
+It is the assumption the whole memory hierarchy rests on.</p>
+<p><span class="lawname">De Morgan's laws.</span> The complement of a product is the sum of
+the complements, and the complement of a sum is the product of the complements:
+<b>(A &#183; B)' = A' + B'</b> and <b>(A + B)' = A' &#183; B'</b>. Breaking a bar over a
+group flips the operator underneath it.</p>
+<p><span class="lawname">The complement law.</span> A variable ORed with its complement is
+always 1, and ANDed with its complement is always 0: <b>A + A' = 1</b>,
+<b>A &#183; A' = 0</b>.</p>
+</div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Which formula does this question want?</span></div>
+<div class="body"><p>Exam wording maps onto formulas fairly reliably. Learn the tells:</p>
+<table class="data">
+<tr><th>If the question says</th><th>Reach for</th></tr>
+<tr><td>"address lines", "address space", "how wide is the PC"</td><td>2<sup>k</sup>, k = log<sub>2</sub>N</td></tr>
+<tr><td>an instruction mix table with percentages</td><td>average CPI = &#931; f<sub>i</sub>CPI<sub>i</sub>, then CPU time</td></tr>
+<tr><td>"percentage improvement", "how much faster"</td><td>speedup and (old &#8722; new)/old</td></tr>
+<tr><td>"a fraction of the program", "enhanced portion"</td><td>Amdahl's law</td></tr>
+<tr><td>"n instructions", "k stages", "throughput"</td><td>(k + n &#8722; 1) &#215; cycle time</td></tr>
+<tr><td>"which block or line does this address map to"</td><td>split the address: tag / index / offset</td></tr>
+<tr><td>"hit ratio", "average access time"</td><td>AMAT, and say which organisation you assumed</td></tr>
+<tr><td>"represent &#8722;X", "state the range"</td><td>the signed-scheme ranges</td></tr>
+<tr><td>a hex pattern and "IEEE-754"</td><td>bias and the hidden bit</td></tr>
+<tr><td>inches and dpi</td><td>(w&#215;dpi)(h&#215;dpi)&#215;bpp</td></tr>
+</table></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">A question gives you k = 4 and n = 100. What are k and n, and
+which formula is this?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>It depends on the topic, which is exactly the trap. If the question is about a
+<b>pipeline</b>, k is 4 <b>stages</b> and n is 100 <b>tasks</b>, so the time is
+(4 + 100 &#8722; 1) = 103 cycle times. If it is about a <b>cache</b>, k = 4 would be the
+<b>associativity</b> (4-way). If it is about the <b>address bus</b>, k = 4 lines would
+reach only 2<sup>4</sup> = 16 locations. Name the topic before you name the letter.</p></div></div>
+</section>
+
+<!-- ===================== R.2 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.2</div>
+<h2 class="title">Exam Day Strategy</h2>
+<hr class="rule">
+<p class="lead">Knowing the material and scoring the material are different skills. This
+section is the second one: how to spend the two hours, which questions to take, and how
+to write an answer so that every mark it has earned is actually given.</p>
+<p class="lo">By the end of this section you can budget the paper by the minute, choose
+your optional questions on evidence rather than instinct, structure an answer so partial
+credit is unavoidable, and recognise the time sinks that cost students the most.</p>
+
+<h3 class="sub">The shape of the paper</h3>
+<p>The paper runs <b>2 hours</b> for <b>70 marks</b>. <b>Question 1 is compulsory and
+carries 30 marks.</b> You then <b>answer any two</b> of the remaining questions, each
+worth <b>20 marks</b>. Question 1 is the broad one, usually several short parts spread
+across the whole syllabus; the optional questions go deeper on fewer topics.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The two-hour budget</span></div>
+<div class="body"><p>70 marks in 120 minutes is about <b>1.7 minutes per mark</b>. Do not
+spend it evenly; spend it deliberately:</p>
+<table class="data">
+<tr><th>Minutes</th><th>Spend it on</th><th>Why</th></tr>
+<tr><td>0 to 5</td><td>Read the whole paper. Mark every part you can definitely do.</td>
+    <td>You cannot choose your best two questions without seeing all of them.</td></tr>
+<tr><td>5 to 55</td><td><b>Question 1</b> (30 marks, about 50 minutes).</td>
+    <td>Compulsory and broad, so it is where marks are most spread out and most certain.</td></tr>
+<tr><td>55 to 85</td><td><b>First optional</b> (20 marks, 30 minutes).</td>
+    <td>Take the stronger of your two choices first, while you are fresh.</td></tr>
+<tr><td>85 to 115</td><td><b>Second optional</b> (20 marks, 30 minutes).</td>
+    <td>Keep to the clock even if unfinished; a started part scores, a skipped one cannot.</td></tr>
+<tr><td>115 to 120</td><td>Check: units, carries, and that you answered <b>exactly two</b> optionals.</td>
+    <td>The cheapest marks on the paper are the ones you already earned and lost.</td></tr>
+</table>
+<p>If a part is costing more than double its mark value in minutes, leave a gap and move
+on. Come back only if time remains.</p></div></div>
+
+<h3 class="sub">Choosing your two optional questions</h3>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Choose on evidence, not on the topic name</span></div>
+<div class="body"><p>Students pick the question whose <i>topic</i> feels familiar, then
+discover part (c) is the one they cannot do. Choose like this instead:</p>
+<ul class="bul">
+<li>For each candidate question, read <b>every part</b> and tally the marks you are
+<b>confident</b> of. Not the marks you might get: the ones you are sure of.</li>
+<li>Take the two questions with the highest confident tallies, even if the topics feel
+less comfortable.</li>
+<li>Prefer questions whose parts are <b>numeric with a stated method</b> (cache fields,
+CPI, IEEE, pipeline timing). These are self-checking, so you know when you are right.</li>
+<li>Beware a question with one huge part: a single 12-mark part you stall on is far more
+dangerous than four 5-mark parts.</li>
+</ul>
+<p><b>Answer exactly two.</b> Writing a third wastes minutes you needed elsewhere, and
+you cannot rely on the best two being the ones marked.</p></div></div>
+
+<h3 class="sub">Writing an answer that collects its marks</h3>
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The four-line answer</span></div>
+<div class="body"><p>For <b>every</b> numeric part, write these four things, in this order.
+Each is worth marks on its own, even when the final number is wrong:</p>
+<ol class="qlist">
+<li><b>The formula</b>, stated in symbols before any number goes into it.</li>
+<li><b>The substitution</b>, showing each number in the place of its symbol.</li>
+<li><b>The arithmetic</b>, in steps a marker can follow.</li>
+<li><b>The answer with its units</b>, and a sentence saying what it means.</li>
+</ol>
+<p><b>Memory hook:</b> <b>formula, substitute, work, units</b>. A wrong final number with
+the first three shown usually keeps most of the marks; a bare correct number with none of
+them can still lose some.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Marks are scoring points, so count them</span></div>
+<div class="body"><p>The mark allocation tells you how many distinct things to say. Treat
+it as a checklist, not a suggestion:</p>
+<ul class="bul">
+<li><b>2 marks, "differentiate X and Y":</b> one sentence on each, ideally with the
+question each answers. Two points, two marks.</li>
+<li><b>3 marks, "compare, include a diagram":</b> two differences <b>and</b> the diagram.
+The diagram is a scoring point; students skip it under time pressure and lose it.</li>
+<li><b>"State two aspects":</b> write exactly two, clearly numbered. A vague paragraph
+containing both may be read as one.</li>
+<li><b>"Explain" versus "state":</b> "state" wants the fact, "explain" wants the fact
+<b>and</b> the reason. If the verb is "explain", write a "because".</li>
+</ul>
+<p>When a part is worth more marks than you have points, you are missing something: look
+for an example, a diagram, or a consequence to add.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">When you are stuck</span></div>
+<div class="body"><ul class="bul">
+<li><b>State your assumption and continue.</b> If a question is ambiguous (which AMAT
+organisation, whether the block is in words or bytes), write "assuming look-through" and
+solve it. A clearly stated assumption is usually accepted; a blank is never.</li>
+<li><b>Do the parts out of order.</b> Nothing requires part (a) first. Bank (c) if (c) is
+the one you can do.</li>
+<li><b>If a later part needs an earlier answer you could not get</b>, invent a plausible
+value, say "taking X = ... from (a)", and carry it through. Method marks still apply.</li>
+<li><b>Convert everything to one unit first.</b> Most stalls in cache and performance
+questions are unit confusion, not ignorance: KB against bytes, ns against s, words
+against bytes.</li>
+</ul></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>The four most expensive habits in this paper. (1) Answering <b>three</b>
+optional questions and running out of time on all of them. (2) Doing arithmetic in your
+head and writing only the final number, so a slip costs the whole part instead of one
+mark. (3) Skipping the <b>diagram</b> when a question says "include a diagram", which is
+a guaranteed mark left behind. (4) Giving a number with <b>no units</b>: 5.2 is not an
+answer, 5.2 ns is.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">You have 12 minutes left, one 8-mark part untouched, and a
+4-mark part you rushed. What do you do?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Start the 8-mark part. Write its formula, substitute, and take the arithmetic as far as
+you can: an untouched part scores zero, while a started one collects method marks almost
+immediately. Only if it collapses should you return to polish the 4-mark part.</p></div></div>
+</section>
+
+<!-- ===================== R.3 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.3</div>
+<h2 class="title">Trap Index and Cram Sheet</h2>
+<hr class="rule">
+<p class="lead">Every trap in this manual, gathered in one place, and then the shortest
+possible list of things to be able to reproduce cold. This is the last thing to read
+before the exam.</p>
+<p class="lo">By the end of this section you can name the classic error in each topic and
+the correction for it, and reproduce the whole formula spine from memory.</p>
+
+<h3 class="sub">The trap index</h3>
+<p>Each of these cost marks on a real paper. The fix is in the right-hand column.</p>
+
+<table class="data">
+<tr><th>Topic</th><th>The trap</th><th>The fix</th></tr>
+<tr><td>Base conversion</td><td>Reading the remainders top-down</td>
+    <td>Read the remainder column <b>bottom-up</b>, then convert back to check</td></tr>
+<tr><td>Binary to hex</td><td>Grouping the bits from the left</td>
+    <td>Group in fours <b>from the right</b>, pad the leftmost group with zeros</td></tr>
+<tr><td>Signed numbers</td><td>Mixing up the two carry rules</td>
+    <td>Two's complement <b>discards</b> the final carry; one's complement <b>adds it
+    back</b> (end-around)</td></tr>
+<tr><td>Signed numbers</td><td>Forgetting the second zero</td>
+    <td>Sign-magnitude and one's complement have <b>two</b> zeros; two's complement has
+    <b>one</b>, so it reaches one more negative</td></tr>
+<tr><td>Negating</td><td>Inverting only the set bits</td>
+    <td>Invert <b>all</b> n bits, leading zeros included, then add 1</td></tr>
+<tr><td>IEEE-754</td><td>Forgetting the bias, or the hidden 1</td>
+    <td><b>Subtract</b> 127 when reading, <b>add</b> 127 when writing; a mantissa of
+    111... means 1.111..., not 0.111...</td></tr>
+<tr><td>IEEE-754</td><td>Rounding a non-terminating fraction early</td>
+    <td>Keep multiplying by 2 until you have <b>23</b> mantissa bits, then stop</td></tr>
+<tr><td>Addressing modes</td><td>Confusing indirect with register indirect</td>
+    <td>Indirect touches memory <b>twice</b>; register indirect <b>once</b>; immediate has
+    <b>no</b> EA at all</td></tr>
+<tr><td>Performance</td><td>Measuring improvement against the new time</td>
+    <td>Improvement is <b>(old &#8722; new) / old</b></td></tr>
+<tr><td>Amdahl</td><td>Dividing the whole program by s</td>
+    <td>Only <b>f</b> is divided by s; <b>(1 &#8722; f)</b> stays at full cost and caps
+    the gain</td></tr>
+<tr><td>Pipelining</td><td>Expecting forwarding to fix everything</td>
+    <td>Forwarding cannot fix the <b>load-use</b> hazard: exactly one stall remains. A
+    multi-cycle execute also holds the EX stage</td></tr>
+<tr><td>Cache</td><td>Ignoring the units of the block</td>
+    <td>"16 words" with a 4-byte word is <b>64 bytes</b>; check whether the address counts
+    words or bytes</td></tr>
+<tr><td>Cache</td><td>Taking the log of the lines for a set-associative cache</td>
+    <td>Divide lines by <b>k</b> to get <b>sets</b> first; the freed bits move into the
+    <b>tag</b></td></tr>
+<tr><td>Architecture</td><td>Saying only "Harvard is faster"</td>
+    <td>Give the <b>trade-off</b>: Harvard is faster, Von Neumann is simpler, cheaper and
+    more flexible</td></tr>
+<tr><td>Notation</td><td>Assuming a letter means what it meant last topic</td>
+    <td><b>k</b>, <b>n</b>, <b>M</b> and <b>T</b> each have two or three jobs: name the
+    topic first (R.1)</td></tr>
+</table>
+
+<h3 class="sub">The cram sheet</h3>
+<p>If you can reproduce this page from memory, you can attempt every numeric question on
+any past paper. Cover the right-hand side and recite.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">The whole spine, on one page</span></div>
+<div class="body">
+<table class="data">
+<tr><th>Ask yourself</th><th>The answer</th></tr>
+<tr><td>Unsigned range in n bits</td><td>0 to 2<sup>n</sup> &#8722; 1</td></tr>
+<tr><td>Two's complement range</td><td>&#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup> &#8722; 1)</td></tr>
+<tr><td>How to negate</td><td>Invert every bit, add 1</td></tr>
+<tr><td>One's complement subtraction</td><td>Add, then end-around carry</td></tr>
+<tr><td>IEEE single layout and bias</td><td>1, 8, 23 and bias 127 (double: 1, 11, 52, bias 1023)</td></tr>
+<tr><td>IEEE decode</td><td>&#177;1.M &#215; 2<sup>(E &#8722; 127)</sup></td></tr>
+<tr><td>Address space</td><td>2<sup>k</sup> locations from k lines; PC is k bits wide</td></tr>
+<tr><td>CPU time</td><td>IC &#215; CPI &#215; T</td></tr>
+<tr><td>Average CPI</td><td>&#931; (fraction<sub>i</sub> &#215; CPI<sub>i</sub>)</td></tr>
+<tr><td>Improvement</td><td>(old &#8722; new) / old</td></tr>
+<tr><td>Amdahl</td><td>1 / ((1 &#8722; f) + f/s)</td></tr>
+<tr><td>Pipeline cycle time</td><td>Slowest stage + latch delay</td></tr>
+<tr><td>Pipeline time for n tasks</td><td>(k + n &#8722; 1) &#215; cycle time</td></tr>
+<tr><td>Cache lines</td><td>Cache size / block size</td></tr>
+<tr><td>Address split</td><td>tag | index (or set) | offset, offset = log<sub>2</sub>(block)</td></tr>
+<tr><td>Tag bits</td><td>address bits &#8722; index (or set) &#8722; offset</td></tr>
+<tr><td>AMAT, look-through</td><td>T<sub>c</sub> + (1 &#8722; h) &#215; T<sub>m</sub></td></tr>
+<tr><td>Tag directory</td><td>lines &#215; tag bits (in bits)</td></tr>
+<tr><td>Image size</td><td>(w&#215;dpi)(h&#215;dpi)&#215;bpp bits</td></tr>
+</table>
+<div class="wheredef"><span class="wlab">the letters, one last time</span>
+<b>n</b> bits (but tasks in the pipeline row) &middot; <b>k</b> address lines (but stages
+in the pipeline row, and ways in a cache) &middot; <b>IC</b> instruction count &middot;
+<b>CPI</b> cycles per instruction &middot; <b>T</b> clock cycle time &middot; <b>f</b>
+fraction sped up &middot; <b>s</b> its speedup factor &middot; <b>h</b> hit ratio &middot;
+<b>T<sub>c</sub></b>, <b>T<sub>m</sub></b> cache and memory access times &middot;
+<b>E</b> stored exponent, <b>M</b> mantissa &middot; <b>w</b>, <b>h</b> inches and
+<b>bpp</b> bits per pixel in the image row</div>
+<p><b>Memory hook:</b> four families, in order: <b>represent</b> a number, <b>decode</b> a
+float, <b>time</b> a processor, <b>place</b> a block in cache. Every numeric question on
+the paper is one of those four.</p></div></div>
+
+<div class="box fill"><div class="bar"><span>Fill in the gap</span></div>
+<div class="body">
+<ol class="qlist">
+<li>In (k + n &#8722; 1), k is the number of <span class="blank"></span> and n is the
+number of <span class="blank"></span>.</li>
+<li>Improvement is measured against the <span class="blank"></span> time.</li>
+<li>Tag bits = address bits minus <span class="blank"></span> minus
+<span class="blank"></span>.</li>
+<li>The IEEE single-precision bias is <span class="blank"></span>, and the leading 1 is
+<span class="blank"></span>.</li>
+<li>For a set-associative cache you divide the lines by <span class="blank"></span>
+before taking the log.</li>
+</ol>
+<hr class="cut"><p class="alabel">Answers</p>
+<p>1. pipeline stages; tasks (instructions). &nbsp; 2. old. &nbsp; 3. index (or set);
+offset. &nbsp; 4. 127; hidden (implicit). &nbsp; 5. the associativity k.</p>
+</div></div>
+</section>

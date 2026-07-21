@@ -55,6 +55,12 @@ number always starts "1.", that 1 is not stored: it is the <b>hidden bit</b>, gi
 <li>Exponent field = e + 127, in 8 bits.</li>
 <li>Mantissa = the bits of <i>m</i> after the point, filled to 23 bits.</li>
 </ol>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>S</b> = the sign bit (0 positive, 1 negative) &middot;
+<b>E</b> = the <i>stored</i> exponent field, the number actually written in the bits &middot;
+<b>e</b> = the <i>true</i> exponent, the real power of two, so E = e + bias &middot;
+<b>M</b> = the mantissa field, the fraction bits that follow the hidden leading 1 &middot;
+<b>bias</b> = 127 for single precision (1023 for double)</div>
 <p><b>Memory hook:</b> <b>S, E, M is 1, 8, 23</b>, and the bias is
 <b>127 = 2<sup>7</sup> &#8722; 1</b>. Store exponent plus 127; read exponent minus
 127.</p></div></div>
@@ -62,6 +68,17 @@ number always starts "1.", that 1 is not stored: it is the <b>hidden bit</b>, gi
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">TEST 1 (recurring)</span></div>
 <div class="body"><p>Represent <b>&#8722;452.25</b> in IEEE-754 single precision. This one
 terminates, so it converts exactly.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> value = &#8722;452.25 &middot; format =
+IEEE-754 single precision &middot; layout S=1, E=8, M=23 bits &middot; bias = 127</div>
+<div class="prow"><span class="plab">Find</span> the 32-bit stored pattern, written in hex</div>
+<div class="prow"><span class="plab">Formula</span> normalise to 1.<i>m</i> &#215;
+2<sup>e</sup>, then E = e + bias, and the stored bits are S | E | M</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>S</b> = sign bit &middot; <b>e</b> = the true exponent found by normalising &middot;
+<b>E</b> = the stored exponent field, e + 127 &middot; <b>M</b> = the 23 bits after the
+hidden leading 1 &middot; <b>bias</b> = 127</div>
 <ol class="steps">
 <li>Sign: the number is negative, so the sign bit is <b>1</b>.</li>
 <li>Binary: 452 = 111000100, and 0.25 = 0.01, so 452.25 = 111000100.01.</li>
@@ -82,6 +99,18 @@ normalise, exponent plus 127, mantissa to 23 bits.</p>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q4c &middot; PQ 24/25 Q3c &middot; PQ 25/26 Q5a</span></div>
 <div class="body"><p>Represent <b>&#8722;1240.56</b> in IEEE-754 single precision. Here the
 fraction does not terminate, so we truncate the mantissa at 23 bits.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> value = &#8722;1240.56 &middot; format =
+IEEE-754 single precision &middot; bias = 127 &middot; mantissa limited to 23 bits</div>
+<div class="prow"><span class="plab">Find</span> the 32-bit stored pattern, in hex</div>
+<div class="prow"><span class="plab">Formula</span> normalise to 1.<i>m</i> &#215;
+2<sup>e</sup>, then E = e + bias; the fraction .56 is converted by repeated
+&#215;2</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>e</b> = true exponent &middot; <b>E</b> = stored exponent, e + 127 &middot; <b>M</b> =
+first 23 fraction bits after the hidden 1 &middot; <b>repeated &#215;2</b> = the method
+for a decimal fraction: multiply by 2, write down the whole part, keep the rest</div>
 <ol class="steps">
 <li>Sign: negative, so <b>1</b>.</li>
 <li>Binary: 1240 = 100 1101 1000. The fraction 0.56 keeps going:
@@ -111,11 +140,27 @@ the hidden 1, and evaluate.</p>
 <li>Sign bit gives the sign.</li>
 <li>True exponent e = (exponent field) &#8722; 127.</li>
 <li>Value = &#177; 1.<i>mantissa</i> (in binary) &#215; 2<sup>e</sup>.</li>
-</ol></div></div>
+</ol>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>e</b> = the true exponent, recovered as (stored field E) &#8722; bias &middot;
+<b>1.<i>mantissa</i></b> = the hidden leading 1 put back in front of the stored fraction
+bits &middot; <b>&#177;</b> = the sign taken from bit S &middot; <b>bias</b> = 127 single,
+1023 double</div></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4c &middot; PQ 25/26 Q5d</span></div>
 <div class="body"><p>Find the decimal value of <b>C4F2E000H</b> under IEEE-754 single
 precision.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> stored pattern = C4F2E000H (32 bits)
+&middot; format = IEEE-754 single precision &middot; bias = 127</div>
+<div class="prow"><span class="plab">Find</span> the decimal value it represents</div>
+<div class="prow"><span class="plab">Formula</span> value = &#177;1.M &#215;
+2<sup>(E &#8722; 127)</sup></div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>E</b> = the 8-bit stored exponent read straight off the pattern &middot; <b>M</b> = the
+23 mantissa bits &middot; <b>1.M</b> = the hidden leading 1 restored in front of them
+&middot; the <b>&#177;</b> comes from bit S</div>
 <ol class="steps">
 <li>Expand to 32 bits: C4F2E000 = 1100 0100 1111 0010 1110 0000 0000 0000.</li>
 <li>Split: sign = 1; exponent = 1000 1001; mantissa = 111 0010 1110 0000&#8230;
@@ -137,6 +182,18 @@ right: 11110010111.0.</li>
 Y = 42100000H, Z = 41400000H</b>. Convert each to decimal, then test:
 (i) (Y &#8722; Z) &gt; 0, (ii) X + Z = 0, (iii) Z = X + Y. This 9-mark question recurs
 on three papers.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> X = C1400000H &middot; Y = 42100000H
+&middot; Z = 41400000H &middot; all IEEE-754 single precision, bias 127</div>
+<div class="prow"><span class="plab">Find</span> the decimal value of each, then the truth
+of the three statements</div>
+<div class="prow"><span class="plab">Formula</span> value = &#177;1.M &#215;
+2<sup>(E &#8722; 127)</sup>, then ordinary arithmetic on the decimals</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>E</b> = stored exponent field of that pattern &middot; <b>M</b> = its mantissa bits
+&middot; convert <b>first</b>, compare <b>second</b>: the hex patterns cannot be compared
+directly</div>
 <p class="marks">Convert each</p>
 <table class="data">
 <tr><th>Hex</th><th>Sign / Exp field / e</th><th>1.mantissa &#215; 2<sup>e</sup></th><th>Decimal</th></tr>

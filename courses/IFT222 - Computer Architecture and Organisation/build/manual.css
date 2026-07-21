@@ -216,6 +216,33 @@ table.data td code, table.data th code{ background:none; padding:0; }
 .bul li{ position:relative; padding-left:17.5pt; margin:.22em 0; }
 .bul li::before{ content:"\25B8"; position:absolute; left:2.2pt; color:var(--work); }
 .small{ font-size:9.3pt; color:var(--muted); }
+/* A named law is stated the way a law should be stated: the claim in words first, then
+   the conditions it holds under, then the formula, then its limiting case. A formula
+   alone is a recipe, not a law, and "state the law" is a question the paper asks.
+   qa_formulas.py enforces that every named law carries one of these. */
+.lawstate{ border:1px solid #dfe5ec; border-left:3px solid var(--teach); background:#fbfcfd;
+  padding:6pt 10pt; margin:.5em 0; break-inside:avoid; }
+.lawstate .wlab{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--faint); display:block; margin-bottom:.25em; }
+.lawstate .lawname{ font-weight:bold; }
+.lawstate p{ margin:.3em 0; }
+
+/* Every numeric worked example opens the way a physics solution does: the parameters
+   you were given, what you are asked to find, and the formula that joins them, before
+   a single number is substituted. qa_formulas.py enforces this too. */
+.params{ font-size:9.5pt; background:#fbfcfd; border:1px solid #e2e8ee;
+  border-left:2.6px solid var(--work); padding:5.2pt 9pt; margin:.5em 0; break-inside:avoid; }
+.params .prow{ margin:.2em 0; padding-left:56pt; text-indent:-56pt; }
+.params .plab{ display:inline-block; width:52pt; text-indent:0; font-family:'DejaVu Sans',sans-serif;
+  font-size:7.7pt; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); }
+
+/* Every formula states what each of its symbols means, right where it is used.
+   qa_formulas.py enforces this: a formula box without a .wheredef stops the build. */
+.wheredef{ font-size:9.3pt; background:#f6f8fa; border-left:2.6px solid var(--teach);
+  padding:4.4pt 8.8pt; margin:.45em 0; break-inside:avoid; }
+.wheredef .wlab{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--faint); display:block; margin-bottom:.15em; }
+.wheredef b{ color:#1e2830; }
 .callout-dark{ background:var(--head); color:#fff; padding:9.8pt 13.1pt; margin:.6em 0; break-inside:avoid; }
 figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
 figure svg{ max-width:100%; height:auto; }

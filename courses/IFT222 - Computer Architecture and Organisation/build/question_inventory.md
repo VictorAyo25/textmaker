@@ -1,5 +1,34 @@
 # IFT222 — Master Question Inventory (coverage gate)
 
+> **READER-FEEDBACK PASS (2026-07-21, 108pp).** A reader asked that every formula spell
+> out what each constituent means, physics-style: list the given parameters and the
+> unknown, then the formula, then "where this = this". Implemented and GATED:
+> - `.params` block (**Given / Find / Formula**) now opens all **39** numeric worked
+>   examples; the other 9 worked examples are definition/comparison questions, named
+>   individually in `qa_formulas.NON_NUMERIC_WORK`.
+> - `.wheredef` block (**what each symbol means**) at all **16** formula sites plus every
+>   must-memorise formula box: **54** in total.
+> - **NEW GATE #6, `qa_formulas.py`**: registry half (16 known formulas must still exist
+>   AND carry a nearby breakdown) + discovery half (any new must-memorise formula box or
+>   numeric worked example without one fails the build). Control-tested by deleting the
+>   Amdahl breakdown: both halves fired.
+> - **NEW Reference part** (R.1 Formula and Notation Reference, R.2 Exam Day Strategy,
+>   R.3 Trap Index and Cram Sheet), including the reused-letter trap table
+>   (**k** = address lines / pipeline stages / cache ways; **n** = bits / tasks;
+>   **M** = mantissa / memory blocks; **T** = clock period vs access time; **e** vs **E**).
+>
+> **BUILT 2026-07-21 (134pp, six gates green, 218 numeric checks):**
+> - **Past Papers part**: 24/25 and 25/26 solved END TO END, every part answered in paper
+>   order, in the Given/Find/Formula style. New numbers worked for the first time here:
+>   24/25 Q1c (24-bit, blocks 188/240/69/157), 24/25 Q2a (1 KB cache: tag directories
+>   48/96/56 bytes across the three mappings), 24/25 Q5c (-421.55 truncated at 12 mantissa
+>   bits = C3D2C000H, which reads back as -421.5 exactly).
+> - **Mock Three**: hardest of the three, all-fresh numbers, every syllabus numeric type.
+>   Deliberate teaching trap in Q1(e): 5-bit offset and 9-bit index are NOT multiples of
+>   4, so the hex-digit shortcut fails and you must divide (A5C3E7 -> line 31).
+> - Note: qa_firstuse_ift now exempts `[QI]\d+`, because "Q1(a)" and "I2 (forwarding...)"
+>   accidentally match the ACRO(expansion) typography; they are labels, not acronyms.
+
 > **SLIDE-COVERAGE BLEND (2026-07-18): after a four-deck audit, every substantive teaching
 > item from the lecturer slides is now in the manual (77pp).** Added: bit-shift x2/div2;
 > BCD weighted codes (8421/5421/4221) + Excess-3 both ways; character codes (Morse,

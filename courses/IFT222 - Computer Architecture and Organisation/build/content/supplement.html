@@ -38,10 +38,40 @@ A with a bar, the opposite). The useful laws for simplifying:</p>
 <li><b>Complement:</b> A + A' = 1, A &#183; A' = 0.</li>
 <li><b>Absorption:</b> A + AB = A, and A + A'B = A + B.</li>
 <li><b>De Morgan:</b> (AB)' = A' + B', and (A + B)' = A'B'.</li>
-</ul></div></div>
+</ul>
+<p>Each of those is a law, and a paper may ask you to <b>state</b> one rather than use it.
+Stated in words:</p>
+<div class="lawstate"><span class="wlab">The laws, stated</span>
+<p><span class="lawname">De Morgan's laws.</span> The complement of a product is the sum of
+the complements, and the complement of a sum is the product of the complements. Formally,
+for any Boolean variables A and B: <b>(A &#183; B)' = A' + B'</b> and
+<b>(A + B)' = A' &#183; B'</b>. In words: breaking a bar over a group flips the operator
+underneath it, AND becoming OR and OR becoming AND.</p>
+<p><span class="lawname">The complement law.</span> A variable ORed with its own complement
+is always 1, and ANDed with its own complement is always 0: <b>A + A' = 1</b>,
+<b>A &#183; A' = 0</b>. This is the law that does the work in most simplifications,
+because it lets a variable and its opposite cancel out of a pair of terms.</p>
+<p><span class="lawname">The identity and null laws.</span> ORing with 0 and ANDing with 1
+leave a variable unchanged (<b>A + 0 = A</b>, <b>A &#183; 1 = A</b>); ORing with 1 forces
+1 and ANDing with 0 forces 0 (<b>A + 1 = 1</b>, <b>A &#183; 0 = 0</b>).</p>
+<p><span class="lawname">The absorption law.</span> A term already implied by a simpler one
+adds nothing: <b>A + AB = A</b>. A related form removes a redundant complement:
+<b>A + A'B = A + B</b>.</p>
+</div></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
 <div class="body"><p>Simplify F = A'BC + AB'C + ABC' + ABC by algebra.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> F = A'BC + AB'C + ABC' + ABC &middot;
+three variables A, B, C</div>
+<div class="prow"><span class="plab">Find</span> the simplest equivalent expression</div>
+<div class="prow"><span class="plab">Formula</span> X + X' = 1 &middot; X &#215; 1 = X
+&middot; X + X = X (a term may be reused), then factor common pairs</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>A'</b> = NOT A, the complement &middot; writing two letters together (<b>AB</b>) means
+AND &middot; <b>+</b> means OR &middot; <b>X + X' = 1</b> is the law doing all the work:
+a variable and its complement together cover both cases, so the variable drops out</div>
 <ol class="steps">
 <li>Group the last two by AB: ABC' + ABC = AB(C' + C) = AB.</li>
 <li>Take ABC again (it can be reused) with AB'C by AC: AB'C + ABC = AC(B' + B) = AC.</li>
@@ -63,6 +93,20 @@ the simplified expression.</p>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
 <div class="body"><p>Simplify the same F on a 3-variable K-map (rows A, columns BC in
 Gray-code order). F = 1 at minterms 3, 5, 6, 7.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> the same F &middot; 3 variables &middot;
+F = 1 at minterms 3, 5, 6, 7 &middot; map = rows A, columns BC in Gray-code order</div>
+<div class="prow"><span class="plab">Find</span> the simplified expression, by grouping</div>
+<div class="prow"><span class="plab">Formula</span> circle the largest groups of adjacent
+1s in powers of two (1, 2, 4, 8); each group drops the variable that changes across it;
+OR the surviving groups together</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>minterm</b> = the decimal number of one input combination, so minterm 3 is A=0, B=1,
+C=1 &middot; <b>Gray-code order</b> = columns run 00, 01, 11, 10 so that neighbours differ
+by one bit, which is what makes adjacency mean simplification &middot; groups <b>may
+overlap</b>, and a variable that is 0 in part of a group and 1 in the rest is the one that
+cancels</div>
 <figure>
 <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="11">
   <g text-anchor="middle" fill="#67707a">
