@@ -330,7 +330,30 @@ So every past question is a three-part unit: **AS PRINTED, then BREAK IT DOWN,
 then the answer.** The existing Given/Find/Formula block is part 3's opening, not
 a substitute for part 2.
 
-**The gate needs THREE directions, not two.** Both obvious directions work from the
+**The gate needs FOUR directions.** Two is the obvious design and it is not enough.
+Directions 1 and 2 are paraphrase (everything the book quotes is in the transcript)
+and coverage (every question in the transcript is quoted somewhere). Directions 3
+and 4 are the ones nobody designs in from the start, and COS221 and IFT222 arrived
+at each of them independently, from opposite directions, which is the strongest
+evidence available that they are not local quirks.
+
+**Direction 4: a quoted LISTING keeps the paper's line structure.** Directions 1 to
+3 all compare whitespace-collapsed text, so all three are blind to a listing whose
+lines were joined or re-split: every word is still present and still in order. The
+reader is not blind to it. Where a paper NUMBERS the lines of a snippet and asks
+which line is wrong, as both COS221 papers do, a joined line silently renumbers the
+answer the student is meant to give. Require each quoted line to appear in order and
+adjacent in the transcript's line sequence. Control-test by joining two adjacent
+lines with every word left intact.
+
+Two traps in writing direction 4 against span-marked listings, both of which report
+phantom failures first: a non-greedy `<span class="l">(.*?)</span>` stops at the
+first NESTED close-span, so every "line" becomes its first token (this reported 0 of
+15 listings matching); and a line carrying a modifier class (`class="l bad"`) is
+missed by an exact-string match (this reported 8 of 15). The true answer was 15 of
+15. If a structural check reports near-total failure, suspect the check.
+
+**Direction 3 detail.** Both obvious directions work from the
 AS PRINTED boxes, so both are structurally blind to a module that cites a past
 question while teaching, which has no such box. COS221 published with two misquotes
 of exactly that kind (one dropped "(from i onward)" from inside quotation marks,
@@ -371,12 +394,58 @@ typographic quotes), and that every question in the transcript appears in the
 book. Both directions, like the reference audit: one direction catches
 paraphrase, the other catches quietly dropped parts.
 
+**Transcribing the paper (the step every other check depends on).**
+
+- **Reject any OCR text layer, even when one exists.** IFT222's 23/24 scan carried
+  one, and it read "1½mks" as "12mks", turned truth-table cells into Korean, and
+  scrambled the reading order. Render the pages to images and read them yourself.
+  An OCR-seeded transcript is the paraphrase defect wearing a gate's clothes.
+- **Zoom before trusting a glyph.** Count hex digits at high magnification. To tell
+  a hyphen from an en dash, measure it against a known hyphen on the same line.
+  Photographs may be rotated.
+- **Never straighten the paper's own line breaks**, in prose or in listings.
+- **THE TRANSCRIPT IS THE LAST HOLE, and no other check can reach it.** Every
+  direction proves the book agrees with the transcript; none proves the transcript
+  agrees with the photograph. A flattened transcript is a gate that blesses the
+  error forever. COS221 flattened superscripts to `^3`, dropped a degree sign and
+  split a hyphenated word by rewrapping; IFT222 typed true subscripts (X₁ X₀ Y₃) as
+  X1 X0 Y3. COS221 caught its four ONLY because the quotes happened to be right and
+  the transcript wrong; the other way round, the gate would have passed them.
+  Mechanical guard where the source PDF has a text layer: collect the meaningful
+  glyphs in it (sub/superscripts U+2070-209F, plus ° µ ± ¼ ½ ¾); if the layer holds
+  one and the transcript holds none of that character anywhere, FAIL and make a
+  human look at the photograph. The layer can be useless for words and still be a
+  reliable locator for glyphs. Give it a per-paper allowlist for "I looked, the OCR
+  hallucinated it". Where there is no text layer at all (COS221), this guard is
+  unavailable and slow re-reading against the image is the only defence.
+- **Two encoding traps in the harness itself:** reconfigure stdout to UTF-8, and
+  capture gate output into a StringIO rather than a devnull handle. A failure
+  message names the very glyph that was flattened, and a cp1252 console cannot
+  encode it, so the gate crashes while reporting the defect and hides it.
+
+**Scope the house-style dash exemption by masking, not by disabling.** The quoted
+paper may contain dashes our prose may not. Blank the declared quote regions
+(replace with spaces so error offsets still line up), run the dash checks on what
+remains, and print the exempt count every run. Branding stays global: a paper's
+institution identity block may be transcribed for provenance, never reproduced in
+the book.
+
+**CSS trap for the AS PRINTED box.** A hanging-indent label (`padding-left` plus a
+negative `text-indent`) needs `text-indent:0` on the inline-block label itself.
+`text-indent` inherits, and an inline-block is a block container, so the label takes
+the negative indent twice and renders outside the page margin.
+
 Transcription is by eye from photographs (the papers are `.jpg` scans), so it is
 the one input here that cannot be machine-verified. Do it slowly, re-read the
 image against the transcript once, and never "tidy" while typing. **A transcript
 you paraphrased into is a gate that certifies your paraphrase**, which is the
 whole defect wearing a gate's clothes. Control-test it: alter one word in a
 quoted question and confirm the gate fails.
+
+**Expect the page count to GROW**, and treat a shrink as the shrink. Verbatim quotes
+are longer than paraphrases. How much longer depends on how much of the book is past
+papers: IFT222 went 138 to 185 pages (+34%), COS221 333 to 347 (+4%). Page FILL
+should hold or improve, never worsen. If the count FELL, that is §2b, not a saving.
 
 **Run the width gate AFTER the quotes go in, not before.** Proven on COS221, which
 had every guard from 2b already in place and still shipped a render at 90.9%: the
