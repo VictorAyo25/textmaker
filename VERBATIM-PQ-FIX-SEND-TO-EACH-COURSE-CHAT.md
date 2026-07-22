@@ -4,8 +4,8 @@ Copy everything below the line into each course's chat, one at a time.
 
 **Send to (tick as you go):**
 
-- [x] CSC242 Discrete Structures  <-- SENT 2026-07-22
-- [x] IFT222 Computer Architecture and Organisation  (101 sites, worst affected)  <-- SENT 2026-07-22
+- [x] CSC242 Discrete Structures  <-- SENT 2026-07-22 (original + updated)
+- [x] IFT222 Computer Architecture and Organisation  <-- SENT 2026-07-22 (original + updated); RETROFIT DONE, 138pp -> 184pp. Its lessons are folded in below.
 - [ ] TMC221 Personal Development and Capacity Building  (60 sites)
 - [ ] CSC241 Python Programming Language I  (59 sites)
 - [ ] DTS224 Data Management I  (15 sites)
