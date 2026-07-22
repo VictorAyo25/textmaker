@@ -157,9 +157,44 @@ To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-CSC241 - Python Programming Language I - Study Manual.pdf   182 pp   updated 2026-07-18
+CSC241 - Python Programming Language I - Study Manual.pdf   200 pp   updated 2026-07-22
 -------------------------------------------------------------------------------
 CSC241 Python Programming Language I, complete manual, Modules 1 to 5.
+
+What changed from the 182 pp edition (18 July): PAST QUESTIONS ARE NOW QUOTED.
+
+A reader reported the defect across every manual here. This book restated each
+real examination question in our own compressed words while presenting it as the
+paper, and in the solved 2025/2026 section it was worse: the question was never
+shown at all, only an "Answer" box with a summarising chip. A student revising
+from it was training on a question that does not exist, with the comprehension
+half already done for them, and the paper's own errors quietly tidied away.
+
+Every one of the 24 sites is now a three-part unit: AS PRINTED (the examiner's
+exact words, in a box marked as a quotation), BREAK IT DOWN (what is given, what
+is actually asked, what the marks say about expected depth, where the trap sits),
+then the worked answer. 23 sites are the 2025/2026 paper; the 24th is a Module
+Four teaching box citing the 2024/2025 paper. The three mocks are ours, so they
+carry no AS PRINTED box and say "same shape as" rather than implying they are the
+paper's wording.
+
+The paper's defects are preserved as evidence, each flagged in a note AFTER the
+quote and never silently repaired: the singular "[3.5 mark]" where every other
+part says marks, "Strings are Immutable. Explain and with reasons.", a part
+printed without its question mark, a listing that opens with a double quote and
+closes with a single one, and a Sample Interaction that prints 10546.90 where
+math.pi gives 10547.79.
+
+The transcripts in sources/exams/transcripts/ are the authority, read by eye from
+the seven photographs (the 2024/2025 scan carries no text layer at all, so there
+was no OCR to reject). qa_verbatim.py proves the book matches them in three
+directions, each control-tested to fail on its own: paraphrase, dropped part, and
+prose citation. The third is the one the other two are structurally blind to,
+since both work from AS PRINTED boxes and a citing teaching box has none.
+
+Page fill held at 74.8% against 75.7%, and the body still renders at its designed
+10.50pt: the column gate was re-run AFTER the quoted listings went in, not before.
+The 182 pp render was superseded; git holds it.
 
 Contents: Modules 1 to 5 (fifteen units plus a Strings unit the course lacked but
 the exam needs), self-assessment answers, the real 2025/2026 paper solved in full,
@@ -260,10 +295,44 @@ To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-IFT222 - Computer Architecture and Organisation - Study Manual.pdf   77 pp   updated 2026-07-18
+IFT222 - Computer Architecture and Organisation - Study Manual.pdf   185 pp   updated 2026-07-22
 -------------------------------------------------------------------------------
 IFT222 Computer Architecture and Organisation, complete manual: Foundations,
-Modules 1 to 4, and a Digital Logic supplement.
+Modules 1 to 4, a Digital Logic supplement, a Reference part, both priority past
+papers solved in full, and three mock examinations.
+
+VERBATIM PAST-QUESTION EDITION (2026-07-22). A reader reported that every manual
+we had shipped restated each real past question in the author's compressed words
+while presenting it as the paper, and this book was the worst affected of the
+five. A restatement strips the examiner's phrasing habits, the real part
+numbering, the exact mark text and the ambiguity a student must resolve under
+time pressure, and it launders the paper's own mistakes into clean prose, so the
+student ends up revising against a question that does not exist.
+
+All four papers were first transcribed by eye from the photographs into
+sources/exams/transcripts/. The 2023/24 scan carries an OCR text layer; it was
+rejected, not used, because it reads "1 1/2mks" as "12mks" and turns truth-table
+cells into Korean characters, and a transcript seeded from it would simply have
+certified the paraphrase. Every past question in the book is now a three-part
+unit: AS PRINTED (the examiner's exact words, in a paper-toned box), BREAK IT
+DOWN (what is given, what is actually asked, what the marks imply, where the
+trap is), then the answer. 68 sites, 77 quoted questions; the 2024/25 and
+2025/26 papers are quoted and answered in full, question by question.
+
+The papers' own defects are preserved as evidence and flagged in a note beneath
+each quote, never silently repaired. Among them: "Special Locality" in one year
+and "Spacial Locality" in another, neither of which is spatial; "Use 12 bits"
+printed above a row holding only 11; "State Amdahl's law'" with a stray
+apostrophe in two separate years, so it is copied forward; a pipeline question
+naming a "PO stage" that is not one of the five stages its own sentence defines,
+struck through in pen to EX on the sheet; and a data-hazard pair whose two
+instructions share no register at all, so that as printed it shows no hazard
+though its position makes WAW the evident intention. The three mock papers are
+author-written, carry no AS PRINTED bar, and now say so explicitly.
+
+Page count rose from 77 to 185 across this and the two earlier passes; verbatim
+quotes are longer than restatements, and the growth is content, with median page
+fill improving from 80.1% to 81.8%.
 
 Contents: Foundations, Module 1 (with three further units), Module 2 (with two
 further units), Module 3 (with two further units), Module 4, a Digital Logic
@@ -281,9 +350,21 @@ numeric result (base conversions, two's-complement and IEEE-754 encodings, addre
 arithmetic, cache and performance calculations) was recomputed independently, never
 copied from a deck whose figures are unverified.
 
-Five scripted gates, all green at publish:
+Seven scripted gates, all green at publish:
   - verify_numbers.py: every number in the book recomputed and diffed, not trusted
-    as printed. 148 checks, 0 mismatches.
+    as printed. 221 checks, 0 mismatches.
+  - qa_verbatim.py: a past question is quoted as the examiner printed it, or not at
+    all. Five mechanisms, each control-tested by feeding it a known-bad book and
+    requiring it to fail: no reworded quote, no dropped part of a paper presented as
+    solved in full, no teaching site left citing a paper it does not quote, no
+    quoted listing re-wrapped away from the paper's own line breaks, and no
+    misquotation inside our own commentary beside a correct quote. The last of those
+    was added after comparing notes with the COS221 retrofit, which shipped with a
+    narrower gate and still carried two misquotes in its teaching prose; the same
+    check found eight here, mostly a silently capitalised first letter.
+  - qa_formulas.py: no formula appears without saying what each of its symbols
+    means, every numeric worked example opens with Given / Find / Formula, and every
+    named law is stated as a law, with its conditions and its limiting case.
   - gates.py: no em/en dashes, no institution or methodology-author names, the
     reserved colour (electric violet) used only by MUST MEMORISE, all code monospace,
     and no code line over the width that fits (a longer one shrinks every page).

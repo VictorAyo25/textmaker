@@ -4,11 +4,12 @@ Study manual for CSC241, Omega semester, 3 credit units.
 Course title on every artefact is the full "CSC241 - Python Programming Language I",
 never the bare code (workspace name-and-title rule).
 
-## Status: VERBATIM RETROFIT complete, awaiting sign-off
+## Status: SHIPPED 2026-07-22, 200 pages, VERBATIM edition
 
-**200 pages**, in `drafts/...DRAFT verbatim retrofit (200pp).pdf`. All five gates
-green. `FINAL_MANUALS/` still holds the 182pp edition and is NOT replaced until an
-explicit sign-off.
+**200 pages**, no version suffix, at `FINAL_MANUALS/CSC241 - Python Programming
+Language I - Study Manual.pdf`. All five gates green at publish. This is the third
+edition: 144pp and 182pp both shipped on 18 July, and this one adds the verbatim
+past-question retrofit. The 182pp render is superseded; git holds it.
 
 Every real past question in the book is now a three-part unit: **AS PRINTED** (the
 examiner's exact words, quoted), **BREAK IT DOWN** (what is given, what is actually
