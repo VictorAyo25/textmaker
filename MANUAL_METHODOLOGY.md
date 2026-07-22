@@ -345,6 +345,28 @@ you paraphrased into is a gate that certifies your paraphrase**, which is the
 whole defect wearing a gate's clothes. Control-test it: alter one word in a
 quoted question and confirm the gate fails.
 
+**Run the width gate AFTER the quotes go in, not before.** Proven on COS221, which
+had every guard from 2b already in place and still shipped a render at 90.9%: the
+column check was run before the last batch of quoted listings was inserted, so a
+123-char line reached the renderer and scaled the whole book from 347 pages down
+to 248. Every other gate passed, because a shrunk book is internally consistent
+(0.7). Quoted listings are the sharpest case of this, because they are new code
+entering the book that you are NOT free to reflow. When one is too wide, **wrap it
+where the paper wraps it**: on COS221 the offending line was one the paper itself
+breaks across two printed lines, so quoting it faithfully and curing the shrink
+were the same edit. Never straighten the paper's own wrapping while transcribing.
+
+**Two fidelity traps that live in the code, not the prose.** Both were found only
+by quoting COS221 part by part, and both had passed every gate for months:
+- **Renamed classes.** Five listings had a `Broken` suffix bolted on
+  (`SquareCalc` -> `SquareCalcBroken`, `Main` -> `MiddleValueBroken`) to dodge a
+  filename clash that cannot occur, since every listing compiles in its own temp
+  directory. A renamed class inside a quotation is a paraphrase in code.
+- **Our wrapper quoted as the paper's.** One question printed a bare fragment with
+  no class and no `main`; the book had wrapped it so it would compile, and the
+  wrapper ended up inside the quotation. Quote the fragment; keep the wrapper in
+  the answer, labelled as yours.
+
 **Mocks are different.** A mock question the author invented has no transcript,
 so it is not quoted and needs no AS PRINTED box; it is our question. Only mark
 something AS PRINTED if it genuinely is. Mark author-written questions clearly as
@@ -388,7 +410,9 @@ and run them again after the last change you make, not just after the last gate 
       trust the page count). A book at 92.9% looks perfect. §2b.
 - [ ] No code line exceeds the measured panel column limit (re-measure the limit per
       course; it depends on the code font size, margins and gutter, so CSC241's 87 is
-      not COS221's 88). §2b.
+      not COS221's 88). §2b. **Run this check LAST, after the final content edit.**
+      Running it before one more listing goes in is how COS221 rendered at 90.9%
+      with the guard already written and passing. §4c.
 - [ ] For a code/SQL course: every listing compiled and run, every printed output
       captured from the real engine, and every behavioural CLAIM executed (§0.8).
 - [ ] Every gate control-tested: it FAILS on the defect it claims to catch, proven by

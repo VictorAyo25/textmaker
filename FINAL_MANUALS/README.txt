@@ -58,7 +58,7 @@ To rebuild or update:  cd "courses/TMC221 - Personal Development and Capacity
                        Building/build" && python assemble.py
 
 -------------------------------------------------------------------------------
-COS221 - Computer Programming I (Java) - Study Manual.pdf   333 pp   updated 2026-07-17
+COS221 - Computer Programming I (Java) - Study Manual.pdf   347 pp   updated 2026-07-22
 -------------------------------------------------------------------------------
 COS221 Computer Programming I (Java), complete manual, Modules 1 to 10.
 
@@ -69,15 +69,21 @@ both of those shapes (Mock A and Mock B) with solutions, and reference R.1-R.4
 Contents links, real selectable text throughout.
 
 Unlike PHY121 this manual was AUTHORED, not rebuilt: there was no prior manual of
-ours to reproduce, so content/*.html is the book, written by hand. Every one of the
-216 code listings was compiled and run on a real JVM (Temurin 17), and every printed
-output was captured from that JVM, never typed. Withheld-answer listings on the mock
+ours to reproduce, so content/*.html is the book, written by hand. Of the 225 code
+listings, all 183 that are runnable programs were compiled and run on a real JVM
+(Temurin 17), and every printed output was captured from that JVM, never typed. The
+other 42 are deliberate non-programs: syntax skeletons, fragments, code quoted from
+the papers, and loops that would never terminate. Each carries a written reason. Withheld-answer listings on the mock
 papers still run: the gate proves each one's answer exists and matches, elsewhere in
 the book.
 
-Four scripted gates, all green at publish:
+Five scripted gates, all green at publish:
   - check_code.py: every listing compiles and runs; every claimed output diffed
-    against the JVM. 216 listings, 0 failures.
+    against the JVM. 225 listings, 0 failures. Also caps every listing's line
+    width before the render, which is the shrink guard below.
+  - qa_verbatim.py: every past question quoted in the book is the examiner's exact
+    words, held against an eye-typed transcript of the real paper. Fails in both
+    directions, on a paraphrase and on a quietly dropped part.
   - qa_firstuse.py: the "no external sources" promise, measured not asserted. Nothing
     is used before the prose names it, and no API is first met inside an exam.
   - qa_reference.py: the reference and the book agree both ways. Everything the
@@ -103,6 +109,38 @@ returned to full size and to its true 333 pages, and two guards were added so th
 cannot recur silently: a pre-render column cap in check_code.py that names the file
 and line, and a rendered-font-size plus panel-overflow check in qa.py that catches
 any cause. The 298 pp render was superseded the same day; git holds it.
+
+What changed on 2026-07-22 (333 pp -> 347 pp): PAST QUESTIONS ARE NOW QUOTED, NOT
+RESTATED. A reader pointed out that the solved papers presented each question in a
+compressed restatement in the author's voice, formatted as though it were the
+paper. All 40 question parts across both papers are now a three-part unit: AS
+PRINTED (the examiner's exact words, including the paper's own typos and its one
+self-contradicting example), then BREAK IT DOWN (what is given, what is actually
+being asked, what the marks imply, where the trap is, which unit teaches it), then
+the answer. Both papers were transcribed by eye from the scans into
+sources/exams/transcripts/, since the exam PDFs carry no text layer.
+
+Three fidelity faults surfaced while doing it, none of them visible before: 21
+answer-box restatements had drifted from the paper (one read "above 8 degrees C"
+where the paper prints 8C, another invented a mark allocation the paper puts
+elsewhere); five listings had been quietly renamed (SquareCalc to
+SquareCalcBroken, Main to MiddleValueBroken) to dodge a filename clash that cannot
+happen; and one question quoted the book's own class wrapper around what the paper
+prints as a bare fragment. All corrected.
+
+A new gate, qa_verbatim.py, holds every quotation against the transcripts in both
+directions (paraphrase, and quietly dropped parts) and runs as a pre-flight inside
+assemble.py. It is control-tested both ways, and it caught four of the
+transcriber's own shortcuts: superscripts flattened to ^3, a dropped degree sign,
+and a hyphenated word split by line wrapping. Those were fixed in the transcript
+against the scans, never in the quotes.
+
+THE SHRINK RECURRED, and was caught: a 123-character line in a newly quoted
+listing took the render to 248 pages at 90.9% of design size. The guards added on
+2026-07-17 did their job; the mistake was running the column check before the last
+listings went in. The paper itself wraps that line, so quoting it faithfully and
+curing the shrink turned out to be the same edit. The methodology now says to run
+that check last, after the final content edit.
 
 To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/README.md"
                        (cd build && python assemble.py)
