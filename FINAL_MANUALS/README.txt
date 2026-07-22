@@ -142,6 +142,17 @@ listings went in. The paper itself wraps that line, so quoting it faithfully and
 curing the shrink turned out to be the same edit. The methodology now says to run
 that check last, after the final content edit.
 
+Republished the same day, still 347 pp: the two-direction gate above turned out to
+have a blind spot, and it was found by comparing notes with the IFT222 retrofit.
+Both directions work from the AS PRINTED boxes, so neither can see a module that
+cites a past question while TEACHING, which has no such box. Two such misquotes
+were sitting in the modules: one dropped "(from i onward)" from inside quotation
+marks, and one lowercased the paper's own quoted term and swallowed its internal
+quotes. Both corrected, and qa_verbatim.py gained a third direction: inside any box
+whose provenance chip cites a paper, every run in quotation marks must be verbatim.
+Control-tested on its own. Quotation marks are a promise, and the gate now keeps it
+everywhere in the book, not only in the solved papers.
+
 To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/README.md"
                        (cd build && python assemble.py)
 

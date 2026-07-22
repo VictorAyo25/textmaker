@@ -330,6 +330,24 @@ So every past question is a three-part unit: **AS PRINTED, then BREAK IT DOWN,
 then the answer.** The existing Given/Find/Formula block is part 3's opening, not
 a substitute for part 2.
 
+**The gate needs THREE directions, not two.** Both obvious directions work from the
+AS PRINTED boxes, so both are structurally blind to a module that cites a past
+question while teaching, which has no such box. COS221 published with two misquotes
+of exactly that kind (one dropped "(from i onward)" from inside quotation marks,
+one lowercased the paper's own quoted term) and had to republish; IFT222 hit the
+same gap from the other side, where a teaching site lost its quote while the
+solved-papers section still covered the question. So add a third: in any box whose
+provenance chip cites a paper, every run inside quotation marks must be verbatim
+too (COS221's form), or every worked example whose chip cites a paper must carry a
+quote (IFT222's form). Pick whichever suits the book, but do not ship with two.
+
+Two mechanical warnings on that third check. **Quote pairing:** a regex like
+`"([^"]+)"` pairs the CLOSING quote of one quotation with the OPENING quote of the
+next and reports the prose between as a misquote, which produced five phantoms out
+of seven reports on COS221. Split on the quote character and take odd-indexed runs.
+**Code is not quotation:** strip `<pre>` and `<table>` first, or every Java string
+literal in a listing is read as a claim about the paper.
+
 **The gate: `qa_verbatim.py`.** Transcribe each paper once into
 `sources/exams/transcripts/<paper>.txt`, a plain-text faithful copy, and treat it
 as the authority. The gate then proves every quoted question in the book appears

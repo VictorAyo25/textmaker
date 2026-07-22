@@ -307,8 +307,10 @@ D</pre>
         <span class="note">Now "3 days" can mean 25% under Gold and 15% under Silver,
         with no repetition of the tier test.</span></li>
         <li>Make the final <code>else</code> the Bronze case.
-        <span class="note">This is how "anything that is not Gold or Silver is
-        Bronze" falls out for free, rather than being a fourth test.</span></li>
+        <span class="note">This is how the paper's rule, "Any tier string that is
+        not &quot;Gold&quot; or &quot;Silver&quot; must be treated as
+        &quot;Bronze&quot;", falls out for free, rather than being a fourth
+        test.</span></li>
       </ol>
       <pre class="src" data-run="Discount"><span class="l"><span class="k">public class</span> <span class="t">Discount</span> {</span><span class="l">    <span class="k">static double</span> discountFor(<span class="t">String</span> tier, <span class="k">int</span> days) {</span><span class="l">        <span class="k">if</span> (tier.equals(<span class="s">"Gold"</span>)) {              <span class="c">// outer: the tier</span></span><span class="l">            <span class="k">if</span> (days == 3) {                    <span class="c">// inner: only for Gold</span></span><span class="l">                <span class="k">return</span> 25.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else if</span> (tier.equals(<span class="s">"Silver"</span>)) {</span><span class="l">            <span class="k">if</span> (days == 3) {                    <span class="c">// inner: only for Silver</span></span><span class="l">                <span class="k">return</span> 15.0;</span><span class="l">            } <span class="k">else</span> {</span><span class="l">                <span class="k">return</span> 5.0;</span><span class="l">            }</span><span class="l">        } <span class="k">else</span> {                              <span class="c">// not Gold, not Silver</span></span><span class="l">            <span class="k">return</span> 0.0;                        <span class="c">// -> Bronze</span></span><span class="l">        }</span><span class="l">    }</span><span class="l"></span><span class="l">    <span class="k">public static void</span> main(<span class="t">String</span>[] args) {</span><span class="l">        <span class="t">String</span>[] tiers = {<span class="s">"Gold"</span>, <span class="s">"Gold"</span>, <span class="s">"Silver"</span>, <span class="s">"Silver"</span>, <span class="s">"Bronze"</span>, <span class="s">"platinum"</span>};</span><span class="l">        <span class="k">int</span>[] days     = {3, 2, 3, 1, 3, 3};</span><span class="l">        <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; tiers.length; i++) {</span><span class="l">            System.out.printf(<span class="s">"%-9s %d day(s) -&gt; %.0f%%%n"</span>,</span><span class="l">                              tiers[i], days[i], discountFor(tiers[i], days[i]));</span><span class="l">        }</span><span class="l">    }</span><span class="l">}</span></pre>
       <pre class="out"><span class="olabel">Output</span>Gold      3 day(s) -&gt; 25%
@@ -620,8 +622,8 @@ continue at i == 3:
     <div class="body">
       <p>Look at this, from the 2025/26 Section A:</p>
       <pre class="src nonum" data-nocheck="an extract from the paper's planted-bug snippet; solved in full in the solved papers section"><span class="l">if (arr[j] % 4 == 0) {</span><span class="l">    continue;                &lt;- skips the multiples of 4</span><span class="l">}</span><span class="l">sum += arr[j] - j;           &lt;- so this only ever sees NON-multiples</span></pre>
-      <p>The question says the program should "find the first number that's a
-      multiple of 4" and add it. The code <code>continue</code>s <b>when</b> it finds
+      <p>The question says the program should "find the first number (from i
+      onward) that's a multiple of 4" and add it. The code <code>continue</code>s <b>when</b> it finds
       a multiple of 4, so it skips precisely the numbers it was supposed to collect
       and processes precisely the ones it should have ignored. The logic is exactly
       inverted.</p>

@@ -164,6 +164,53 @@ def transcript_parts(raw):
     return [p for p in parts if len(p) >= MIN_LEN and verb.search(p)]
 
 
+# A teaching box that cites a specific paper question in its provenance chip.
+CITES_RE = re.compile(r'class="tag">(?P<chip>[^<]*(?:PAST PAPER|BOTH PAPERS|\d\d/\d\d)[^<]*)</span>')
+# Inside such a box, a run in double quotes is a claim about the paper's wording.
+# Quoted runs are found by ALTERNATION, not by a regex pairing each " with the
+# next one. A regex pairs the closing quote of one quotation with the opening
+# quote of the following quotation and reports the ordinary prose between them as
+# a misquote; that produced five phantom failures on COS221 out of seven reports.
+# Splitting on the quote character puts real quotations at odd indices.
+def quoted_runs(text, lo=16, hi=220):
+    parts = text.split('"')
+    return [p.strip() for p in parts[1::2] if lo <= len(p.strip()) <= hi]
+# Code is not a quotation: listings and tables carry string literals of their own.
+NOT_PROSE_RE = re.compile(r'<pre\b.*?</pre>|<table\b.*?</table>', re.S)
+
+
+def collect_citations():
+    """Prose quotations inside teaching boxes that cite a paper.
+
+    The third direction, and the one two directions cannot reach. A module that
+    teaches a technique and says "the paper asks for X" is referencing a past
+    question outside the solved-papers section, so 4c applies to it, but neither
+    the paraphrase check nor the coverage check looks there: both work from AS
+    PRINTED boxes, and these sites have none. COS221 shipped with two misquotes
+    of exactly this kind, dropping "(from i onward)" from inside quotation marks
+    and lowercasing the paper's own quoted term.
+
+    A <code> span routinely interrupts a quoted run ("the ", <code>x</code>, "
+    method"), which would split one quotation into two spurious halves, so the
+    text is rebuilt with code spans left in place before quotes are matched.
+    """
+    out = []
+    for fn in sorted(os.listdir(CONTENT)):
+        if not fn.endswith('.html') or fn.startswith('sol_'):
+            continue
+        doc = io.open(os.path.join(CONTENT, fn), encoding='utf-8', errors='replace').read()
+        for m in CITES_RE.finditer(doc):
+            b = doc.rfind('<div class="box', 0, m.start())
+            e = doc.find('\n  <div class="box', m.end())
+            seg = doc[b:e if e > 0 else m.end() + 4000]
+            seg = NOT_PROSE_RE.sub(' ', seg)
+            line_no = doc[:b].count('\n') + 1
+            chip = norm(m.group('chip'))
+            for q in quoted_runs(norm(seg)):
+                out.append((f'{fn[:-5]}:{line_no}', chip, q.rstrip('.,;:')))
+    return out
+
+
 def collect_quotes():
     """Every .qtext line in every AS PRINTED box, with where it came from."""
     quotes = []
@@ -184,7 +231,7 @@ def collect_quotes():
 
 
 def main():
-    fails, notes = [], []
+    fails, notes, misquotes = [], [], []
     trans = load_transcripts()
     if not trans:
         print('FAIL: no transcripts in ' + TRANSCRIPTS)
@@ -218,11 +265,20 @@ def main():
             if head not in qblob:
                 notes.append((paper, p))
 
+    # ---- direction 3: prose that cites a paper must quote it accurately too -----
+    # Directions 1 and 2 both work from AS PRINTED boxes, so neither can see a
+    # module that cites a past question while teaching. 4c covers those sites too.
+    cites = collect_citations()
+    for where, chip, q in cites:
+        if not any(q in b for b in blob.values()):
+            misquotes.append((where, chip, q))
+
     print('=' * 72)
     print('qa_verbatim: quoted past questions vs the transcripts of the real papers')
     print('=' * 72)
     print(f'transcripts   : {", ".join(sorted(trans))}')
     print(f'quoted lines  : {len(quotes)} in AS PRINTED boxes')
+    print(f'cited in prose: {len(cites)} quotation(s) in teaching boxes citing a paper')
     print()
 
     if fails:
@@ -245,8 +301,20 @@ def main():
         print('PASS: every instruction line in every transcript is quoted in the book.')
 
     print()
-    bad = len(fails) + len(notes)
-    print(f'{"FAIL" if bad else "OK"}: {len(fails)} paraphrased, {len(notes)} dropped.')
+    if misquotes:
+        print(f'FAIL: {len(misquotes)} prose quotation(s) misquote the paper they cite.')
+        print('      These sit outside the AS PRINTED boxes, in teaching prose that')
+        print('      attributes words to a paper. Quotation marks are a promise.')
+        for where, chip, q in misquotes[:40]:
+            print(f'  [{where}] {chip}')
+            print(f'      "{q[:140]}"')
+    else:
+        print('PASS: every prose quotation of a cited paper is verbatim.')
+
+    print()
+    bad = len(fails) + len(notes) + len(misquotes)
+    print(f'{"FAIL" if bad else "OK"}: {len(fails)} paraphrased, {len(notes)} dropped, '
+          f'{len(misquotes)} misquoted in prose.')
     return 1 if bad else 0
 
 
