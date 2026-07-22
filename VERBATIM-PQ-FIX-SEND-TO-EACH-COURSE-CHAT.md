@@ -7,12 +7,12 @@ Copy everything below the line into each course's chat, one at a time.
 - [x] CSC242 Discrete Structures  <-- SENT, and re-sent with the third gate direction. Up to date, no further send needed.
 - [x] IFT222 Computer Architecture and Organisation  <-- SENT, and re-sent with the third gate direction. RETROFIT DONE, 138pp -> 185pp, seven gates. Its lessons are folded in below.
 - [x] COS221 Computer Programming I (Java)  <-- DONE in this chat. 333pp -> 347pp, published, three gate directions.
-- [ ] TMC221 Personal Development and Capacity Building  (60 sites)  <-- OUTSTANDING
+- [x] TMC221 Personal Development and Capacity Building  <-- NOT APPLICABLE (Victor, 2026-07-22). Does not need it; do not send.
 - [x] CSC241 Python Programming Language I  <-- SENT 2026-07-22
 - [ ] DTS224 Data Management I  (15 sites)  <-- OUTSTANDING, and the only unpublished course: doing it before it ships saves a republish
 - [x] PHY121 General Physics II  <-- NOT APPLICABLE (Victor, 2026-07-22). Does not need it; do not send.
 
-Delete this file once the last one is sent.
+ONLY DTS224 IS LEFT. Delete this file once it is sent.
 
 ---
 
