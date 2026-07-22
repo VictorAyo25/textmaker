@@ -48,6 +48,9 @@ and emphasis — this playbook captures what stays constant: the *method*.
    the reference audit would have passed a table of pure invention until it was
    control-tested in both directions. When you write or change a gate, prove it
    FAILS on the defect it claims to catch, not merely that it passes today.
+10. **A past question is QUOTED, never restated.** Wherever a real exam question
+    appears, anywhere in the book, it is reproduced in the examiner's exact words
+    and then broken down before it is answered. See §4c, which is binding.
 
 ## 0b. House style (HARD rules for every manual)
 
@@ -273,6 +276,81 @@ the promise reads as the teaching. This gate is `qa_firstuse.py`, wired into
 every gate here, control-test it: strip an intro and confirm it fails (proven for
 DTS224 on `PK`, `FK`, and the discriminator).
 
+## 4c. Past questions are QUOTED VERBATIM, then broken down (BINDING)
+
+Added 2026-07-22 after a reader reported it across every shipped manual. Five
+books were affected: IFT222 (101 sites), TMC221 (60), CSC241 (59), DTS224 (15),
+COS221 (its own markup). It is now a hard rule and a gate.
+
+**The defect.** Solved papers and mocks presented a *compressed restatement* of
+each question in the author's voice, formatted as though it were the paper. The
+2024/25 IFT222 Q1(a) really reads:
+
+> Consider three (3) floating point numbers X, Y and Z stored in registers based
+> on the IEEE 754 Single precision floating point format. X = C1400000h,
+> Y = 42100000h, Z = 41400000h. Convert X, Y and Z to decimal numbers and
+> determine which of the following is true. **9mks**
+
+The book said: "X = C1400000H, Y = 42100000H, Z = 41400000H are stored in
+IEEE-754 single precision. Convert each to decimal and test (i)...". Same
+substance, different sentence. That is not the paper, but the student reads it
+as the paper, and revises against a question that does not exist.
+
+**Why it matters more than it looks.** The student is training pattern
+recognition for the hall. Restating strips exactly what they must learn to read:
+the examiner's phrasing habits, the real numbering, whether marks sit per-part or
+per-question, the padding words, the ambiguity they will have to resolve under
+time pressure. A paraphrase is the author having already done the hardest half of
+the work (comprehension) and handing over only the arithmetic. It also silently
+launders the paper's own errors and oddities into clean prose, destroying the
+evidence the student needs.
+
+**The rule.** Anywhere a real past question is referenced, ANYWHERE (solved
+papers, mocks built from real questions, worked tests, cram sheets, a module
+citing "this was asked in 24/25"):
+
+1. **Quote it verbatim.** The examiner's exact words, exact part numbering
+   (`a.`, `i.`, `ii.`), exact symbols and casing (`C1400000h`, not `C1400000H`),
+   exact mark text (`9mks`, not "(9 marks)"), exact line breaks where meaningful.
+   House style yields here: the paper's own dashes and phrasing stay, because
+   this is a quotation of an external document, not our prose. (Transcribe the
+   character; do not import a literal em dash if the paper's glyph is a hyphen.)
+2. **Mark it visibly as the examiner's words**, in a dedicated box (`box paper`)
+   with an "AS PRINTED" bar, so it cannot be confused with commentary. Any typo,
+   contradiction or ambiguity in the original stays IN, with a note *after* the
+   quote flagging it. Never silently repair a paper. (COS221's 24/25 Q6 D
+   contradicts itself; that contradiction is now evidence, not a bug to fix.)
+3. **Break it down before answering.** Between the quote and the solution, a
+   BREAK IT DOWN step in the student's shoes: what am I given, what is actually
+   being asked (the instruction verb, "determine which is true" is not
+   "convert"), what do the marks tell me about expected depth, which unit teaches
+   it, and where the trap sits. Only then the worked answer.
+
+So every past question is a three-part unit: **AS PRINTED, then BREAK IT DOWN,
+then the answer.** The existing Given/Find/Formula block is part 3's opening, not
+a substitute for part 2.
+
+**The gate: `qa_verbatim.py`.** Transcribe each paper once into
+`sources/exams/transcripts/<paper>.txt`, a plain-text faithful copy, and treat it
+as the authority. The gate then proves every quoted question in the book appears
+in the transcript character-for-character (normalising only whitespace and
+typographic quotes), and that every question in the transcript appears in the
+book. Both directions, like the reference audit: one direction catches
+paraphrase, the other catches quietly dropped parts.
+
+Transcription is by eye from photographs (the papers are `.jpg` scans), so it is
+the one input here that cannot be machine-verified. Do it slowly, re-read the
+image against the transcript once, and never "tidy" while typing. **A transcript
+you paraphrased into is a gate that certifies your paraphrase**, which is the
+whole defect wearing a gate's clothes. Control-test it: alter one word in a
+quoted question and confirm the gate fails.
+
+**Mocks are different.** A mock question the author invented has no transcript,
+so it is not quoted and needs no AS PRINTED box; it is our question. Only mark
+something AS PRINTED if it genuinely is. Mark author-written questions clearly as
+practice, and where a mock deliberately mirrors a real question's shape, say so
+and cite the paper rather than implying it is that paper's wording.
+
 ## 5. Release rule
 
 Work-in-progress stays in that course's `build/` and `drafts/`. A finished manual
@@ -292,6 +370,10 @@ keeps the superseded copies.
 - [ ] Decide palette + tone + which box types dominate.
 - [ ] Identify the ~dozen core ideas → Foundations + must-memorise + formula sheet.
 - [ ] List diagrams the course needs (this is where slides usually beat prose).
+- [ ] **Transcribe every past paper verbatim** into
+      `sources/exams/transcripts/<paper>.txt` BEFORE writing any solution, so the
+      quote is the thing you solve from, not something reconstructed afterwards
+      from your own summary. §4c.
 
 ### Before you ship (every course, every re-publish)
 
@@ -311,6 +393,9 @@ and run them again after the last change you make, not just after the last gate 
       captured from the real engine, and every behavioural CLAIM executed (§0.8).
 - [ ] Every gate control-tested: it FAILS on the defect it claims to catch, proven by
       feeding it a known-bad input, not merely green today (§0.9).
+- [ ] **Every past question quoted verbatim, marked AS PRINTED, and broken down
+      before it is answered**, with `qa_verbatim.py` green in both directions
+      (no paraphrase, no dropped part). §4c.
 - [ ] Published name carries no version suffix; versions live on `drafts/` (§5).
 
 ---
