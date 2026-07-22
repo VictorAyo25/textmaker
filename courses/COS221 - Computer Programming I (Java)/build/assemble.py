@@ -174,6 +174,14 @@ if __name__ == '__main__':
     with build_lock('assemble.py'):
         fp = os.path.join(HERE, 'full_manual.pdf')
 
+        # Pre-flight: every quoted past question must really be the examiner's
+        # words (MANUAL_METHODOLOGY 4c). This runs in under a second, and a
+        # paraphrase is invisible in the rendered PDF, so there is no reason for
+        # it to be a manual step the way the slower gates are.
+        print('gate: qa_verbatim (quoted past questions vs the real papers)...')
+        if subprocess.run([sys.executable, 'qa_verbatim.py'], cwd=HERE).returncode:
+            raise SystemExit('qa_verbatim FAILED: see above. Nothing rendered.')
+
         print('pass 1: assemble + render to locate sections...')
         assemble('')
         entries = list(TOC)

@@ -1,0 +1,292 @@
+TRANSCRIPT OF exam_2024_25.pdf, 5 pages, scanned (no text layer).
+Typed by eye from a 200dpi render. This file is the AUTHORITY for every question
+quoted in the manual. Do not tidy, correct, reflow or modernise anything here.
+Errors, inconsistencies and odd spacing in the original are reproduced deliberately.
+
+Conventions used in this transcript:
+  [[page N]]        marks a page break in the original
+  <<...>>           transcriber's note, NOT part of the paper
+  Code listings are indented as printed, preserving the original's own bugs.
+
+================================ PAGE 1 ================================
+[[page 1]]
+
+COVENANT UNIVERSITY
+CANAANLAND, KM 10, IDIROKO ROAD
+P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+B.Sc. DEGREE EXAMINATION
+
+COLLEGE: Science & Technology
+SESSION: 2024/2025
+COURSE CODE: COS 221
+COURSE TITLE: Object-Oriented Programming (Java)
+INSTRUCTIONS: Attempt any four (4) questions
+
+DEPARTMENT: Computer & Info. Science
+SEMESTER: Omega
+CREDIT UNIT: 3
+TIME: 3 HOURS
+
+Question One                                                        17.5 Marks
+
+A. Define Method signature, Method overloading and Void Method.      [3 marks]
+
+B. Debug this code snippet, list and correct the errors.             [3 marks]
+
+        public class SquareCalc {
+            public static void main(String[] ) {
+                int num = 5;
+                double result = square(num)
+                System.out.println("Square is: " + result);
+        }
+
+            public static int square(int) {
+                return n * n;
+
+<<the listing ends here as printed: the closing braces of square() and of the
+class are absent from the paper>>
+
+C. Dry run this code snippet with the following values: 3,4,5,7.     [4 marks]
+
+        public static int sumSeries(int i) {
+            int sum = 0;
+            for (int j = 1; j <= i; j++) {
+                sum += j / (j + 1);
+            }
+            return sum;
+        }
+
+D. Write a program that overloads a method named area to compute:    [7.5 marks]
+        i.    The area of a circle
+        ii.   The area of a rectangle
+        iii.  The area of a triangle.
+        Call these methods and print out their values in the main method.
+
+Question Two                                                        17.5 Marks
+
+A. Define the following: Dynamic array initialisation, the length property of
+   arrays, and the out-of-bounds exception in arrays               [3 marks]
+
+================================ PAGE 2 ================================
+[[page 2]]
+
+B. Debug this code snippet, list and correct the errors.             [3 marks]
+
+        public class CopyArray {
+            public static void main(String[] args) {
+                int[] a = {2, 4, 6, 8};
+                int b;
+                System.arrayCopy(a, 0, b, 0, a.length);
+                for(int i = 0; i <= b.length; i) {
+                    System.out.println(b[i]);
+                }
+            }
+        }
+
+C. Dry run this code. State the output for each iteration and state the final
+   output                                                            [4 marks]
+
+        public class Array {
+            public static void main(String[] args) {
+                int[] nums = {2, 4, 6, 8};
+                int x = nums[0];
+                for (int i = 1; i < nums.length; i++) {
+                    x = x - nums[i];
+                }
+                System.out.println(x);
+            }
+        }
+
+D. Write a program that does the following:                        [7.5 marks]
+        i.    Prompts the user to input 10 values into an array
+        ii.   Implement two methods
+                a.  A method to find, count and display the number of even
+                b.  Another method to sum and display the odd numbers.
+        iii.  In the main method, use a for loop to find and display the maximum
+              number.
+
+Question Three                                                      17.5 Marks
+
+A. Define the following: PrintWriter, Files.write() method and try-with-resources
+   block.                                                            [3 marks]
+B. Debug this code snippet, list and correct the errors.             [3 marks]
+
+        java.io.FileWriter;
+
+        public class FileTest {
+            public static void main(String[] args) {
+                FileWriter writer = FileWriter("note.txt");
+                writer.write("Hello from Java!");
+                writer.close
+            }
+        }
+
+================================ PAGE 3 ================================
+[[page 3]]
+
+C. What is the output of the data.txt file?                          [4 marks]
+
+        import java.io.*;
+
+        public class PrintWriterExample {
+            public static void main(String[] args) throws IOException {
+                PrintWriter pw = new PrintWriter("data.txt");
+                pw.print("Age: ");
+                pw.println(25);
+                pw.printf("Score: %.2f", 89.456);
+                pw.close();
+            }
+        }
+
+D. Write a program that does the following:                        [7.5 marks]
+        i.    Create a file named students.txt if it does not exist.
+        ii.   Uses PrintWriter to write the following student records to the file
+              in a formatted table
+
+                Name    Age   GPA
+                John    20    3.75
+                Lilian  21    3.95
+                Ken     19    3.65
+
+        iii.  Use printf() for proper column alignment
+        iv.   Ensure the file is appended to if it already exists.
+        v.    Handle possible exceptions properly
+
+Question Four                                                       17.5 Marks
+
+A. Describe the following statements: Decision-making, Looping and Branching.
+                                                                     [3 marks]
+B. Debug this code snippet, list and correct the errors.             [3 marks]
+
+        int count = 1
+        float output = "";
+
+        while(count <=5); {
+            output = output + count + " ";
+            Count
+        }
+
+        System.out.println(output);
+
+C. State the output of each iteration and the final sum.             [4 marks]
+
+================================ PAGE 4 ================================
+[[page 4]]
+
+        int sum = 0;
+        int[] inputs = {3, 4, -1, 2};
+
+        for(int i = 0; i < inputs.length; i++) {
+            if(inputs[i] < 0)
+                break;
+            sum += inputs[i];
+        }
+        System.out.println("Sum = " + sum);
+
+D. Write a program to define a class called TemperatureCheck with the following
+   specifications:                                                 [7.5 marks]
+
+        i.    Data field (state): double temperature.
+        ii.   A constructor method to set the temperature
+        iii.  A method called evaluateTemperature() that uses if-else statements
+              to output:
+                a.  "Too Cold" if temperature < 15
+                b.  "Normal" if the temperature is between 15 and 30 (inclusive)
+                c.  "Too Hot" if temperature > 30.
+        iv.   In your main method, prompt the user to enter a temperature value,
+              create an object of the class, and display the evaluation result.
+              Use JOptionPane to accept inputs.
+
+Question Five                                                       17.5 Marks
+
+A. Describe the following statements: Inheritance, Polymorphism, and Method
+   Overriding.                                                       [3 marks]
+B. Write a method called countNegatives that accepts a single-dimensional array
+   of integers and returns the number of negative values in the array. You do not
+   need to write the full class or main method, just the method definition.
+                                                                     [3 marks]
+
+C. Identify the errors in this code snippet and state the final output after
+   correction.                                                       [4 marks]
+
+        public class Main {
+            public static void main(String[] args) {
+                int nums = {10, 20, 30};
+                System.out.println("Middle value is: " + nums[3]);
+                int sum = 0;
+                for(int i = 0; i <= nums.length; i) {
+                    sum += nums[i];
+                }
+                System.out.println("Sum is: " + );
+            }
+        }
+
+D. Write a program using inheritance and method overriding as follows:
+                                                                   [7.5 marks]
+        i.    Create a superclass called Vehicle with the following:
+                a.  An instance variable speed (int)
+                b.  A constructor that initialises speed
+                c.  A method displayInfo() that prints "Vehicle speed: <speed> km/h"
+
+================================ PAGE 5 ================================
+[[page 5]]
+
+        ii.   Create a subclass called Bicycle that overrides the displayInfo()
+              method to print: "Bicycle speed: <speed> km/h. This is an
+              eco-friendly ride."
+        iii.  In the main method:
+                a.  Create an object of class Vehicle with a speed of 80
+                b.  Create an object of class Bicycle with a speed of 25
+                c.  Call displayInfo() on both objects to demonstrate polymorphism.
+
+Question Six                                                        17.5 Marks
+
+A. Write a code snippet to demonstrate the following loop types:     [3 marks]
+        i.    A for loop that prints numbers 1 to 5
+        ii.   A while loop that prints numbers from 5 to 1
+        iii.  A do-while loop that prints only the number 10 once.
+
+B. What will be the return value of compute(13)? Show the steps to explain your
+   answer.                                                           [3 marks]
+
+        public static int compute(int x) {
+            int count = 0;
+            while (x > 0) {
+                if (x % 2 == 1) count++;
+                x = x / 2;
+            }
+            return count;
+        }
+
+C. Debug this code snippet. List the errors and state the correct output.
+                                                                     [4 marks]
+
+        public class EvenFinder {
+            public static void main(String args) {
+                printEven(10.0)
+            }
+
+            public static void printEven(int) {
+                for (int i = 0; i <= n; i++);
+                    if (i % 2 == 0)
+                        System.out.print(i + " ");
+            }
+        }
+
+D. Write a program that includes a method called hasEqualAdjacentPairs(int n)
+   which:                                                          [7.5 marks]
+        i.    Returns true if the number n (a positive integer) contains at least
+              two pairs of equal adjacent digits.
+        ii.   Returns false otherwise.
+        iii.  You must:
+                a.  Write the method hasEqualAdjacentPairs(int n)
+                b.  Write the main() method to test at least two cases
+              Example
+                *  112233 - true (pairs: 11, 22, 33). More than two adjacent pairs.
+                *  1223 - true (pairs: 22). Only one pair - return false
+
+<<The Q6 D example above is self-contradictory as printed: it labels 1223 "true"
+and then says "return false". Reproduced exactly. The manual flags this AFTER the
+quote; it is not silently repaired.>>
+
+<<END OF PAPER>>

@@ -8,12 +8,29 @@
   <p class="lead">An array question that hides a second question inside it, and a file
   question that is testing whether you read the words on the page.</p>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Three A</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(12 marks)</span>A. A store records daily sales in an integer array saleAmounts[], in the order the sales happened. A "consecutive duplicate" is any position i (i &gt;= 1) where saleAmounts[i] == saleAmounts[i-1].</p><p class="qtext">Given the array:</p><table class="data" style="width:auto;margin:.3em 0 .3em 14pt"><tr><th>Index</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr><tr><th>Amount</th><td>20</td><td>20</td><td>35</td><td>40</td><td>40</td><td>40</td><td>15</td><td>60</td><td>60</td><td>25</td></tr></table><p class="qtext">Write a program that:</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Create a method that makes one pass through the array and returns the count of indices i &gt;= 1 where saleAmounts[i] == saleAmounts[i-1].</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Create a method that returns a single String listing, in original order and comma-separated, every sale amount that equals its predecessor or its successor in the array. Build this string using plain String concatenation only (no StringBuilder, no array of booleans returned). Index 0 checks only its successor; the last index checks only its predecessor.</p><p class="qtext ind">iii.&nbsp;&nbsp;Using JOptionPane, display one dialog showing (a) the total consecutive-duplicate count from part 1, and (b) the flagged-amounts string from part 2.</p><p class="qtext ind">[Hint: To aid your flow trace your algorithm by hand first: it must not flag 35, 15, or 25.]</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Three A</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A ten-element array, a precise definition, and a hint that doubles as a test case.</td></tr>
+      <tr><td class="lab">Asked for</td><td>Two methods and a dialog. Parts i and ii count <b>different things</b>: i counts positions, ii lists amounts.</td></tr>
+      <tr><td class="lab">The marks</td><td>12 marks. Part ii carries most of them and has the most constraints attached.</td></tr>
+      <tr><td class="lab">Watch</td><td>Part ii bans <code>StringBuilder</code> and forbids returning a boolean array, and it spells out the two edge cases (first and last index). The hint tells you the answer must exclude 35, 15 and 25, so you can check yourself before you hand in.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 6.3 to 6.6, 5.4 and F.11.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q3 A &middot; Consecutive duplicates in a sales log</span><span class="tag">12 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> A store records daily sales in an integer array
-      <code>saleAmounts[]</code>. A "consecutive duplicate" is any position i (i &gt;= 1)
-      where <code>saleAmounts[i] == saleAmounts[i-1]</code>. Given:</p>
       <table class="data">
         <tr><th style="width:16%">Index</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
         <tr><th>Amount</th><td>20</td><td>20</td><td>35</td><td>40</td><td>40</td><td>40</td><td>15</td><td>60</td><td>60</td><td>25</td></tr>
@@ -122,12 +139,29 @@ Flagged amounts: 20, 20, 40, 40, 40, 60, 60</pre>
   <h2 class="title">The file question, and the trick in its wording</h2>
   <hr class="rule"/>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Three B</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(13 marks)</span>B. A college admin office needs a program to record and review student details (ID, name, CGPA) using basic file I/O. Using only java.io.FileWriter, java.io.FileReader, java.io.BufferedReader, java.io.BufferedWriter, and java.io.IOException (or its subclasses), write a complete program that does the following:</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Create a file named input.txt and write the details (student ID, name, CGPA) of at least three students into it using FileWriter, one student per line. Wrap the writing logic in a try-catch block that handles any exception that may occur.</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Read student details from a file named output.txt using FileReader and print each line to the console exactly as it appears in the file. Handle any exception that may occur while reading, including the case where output.txt does not exist.</p><p class="qtext ind">iii.&nbsp;&nbsp;Create a method that takes in a file name, opens the file, counts the number of lines (student records) it contains, and returns that count. This method must handle its own exceptions internally.</p><p class="qtext ind">iv.&nbsp;&nbsp;Ensure every file resource opened is properly closed (either in a finally block or via try-with-resources) and that every catch block prints a clear, specific message describing what went wrong.</p><p class="qtext">Console output (System.out) is acceptable throughout.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Three B</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A closed list of classes you are allowed to use.</td></tr>
+      <tr><td class="lab">Asked for</td><td>A complete program, four numbered requirements, each mark-bearing.</td></tr>
+      <tr><td class="lab">The marks</td><td>13 marks. Requirement iv applies to <b>all</b> of the code above it, not just to part iii.</td></tr>
+      <tr><td class="lab">Watch</td><td>It writes <b>input.txt</b> and reads <b>output.txt</b>. Those are different files, and part ii explicitly wants the "does not exist" case handled, so the mismatch is deliberate. Do not quietly read back the file you just wrote.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 10.2 to 10.7 and 9.2 to 9.5.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q3 B &middot; Student records with basic file I/O</span><span class="tag">13 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> Using <b>only</b> <code>FileWriter</code>,
-      <code>FileReader</code>, <code>BufferedReader</code>, <code>BufferedWriter</code>
-      and <code>IOException</code> (<b>or its subclasses</b>), write a program that:</p>
       <ol class="qlist">
         <li>creates <code>input.txt</code> and writes at least three students (ID, name,
         CGPA) into it with FileWriter, one per line, wrapped in try-catch;</li>
@@ -262,11 +296,29 @@ output.txt holds -1 records</pre>
   <p class="lead">The bank account system: 25 marks for the topic this course has been
   building towards since Module 6.</p>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Four</span><span class="tag">25 MARKS</span></div>
+    <div class="body">
+<p class="qtext">A bank wants a system representing different types of accounts using inheritance and polymorphism.</p><p class="qtext"><span class="qmk">(9 marks)</span><b>Part 1: Superclass BankAccount</b></p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Create a class named BankAccount with private fields to hold the account number, the account holder's name, and the balance. Provide a constructor to initialise all three.</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Create a method that adds a given amount to the balance.</p><p class="qtext ind">iii.&nbsp;&nbsp;Create a method that deducts a given amount from the balance if there are sufficient funds; otherwise, the transaction should be rejected and a message displayed.</p><p class="qtext ind">iv.&nbsp;&nbsp;Create a method that displays the account's current details: its account number, holder's name, and balance.</p><p class="qtext"><span class="qmk">(10 marks)</span><b>Part 2: Subclasses</b></p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;SavingAccount extends BankAccount. Override the withdrawal method so a withdrawal is only allowed if the balance after the withdrawal would still be &gt;= &#8358;1,000. Otherwise, reject and display a message.</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;CurrentAccount extends BankAccount. Override the withdrawal method so that every successful withdrawal automatically adds a &#8358;50 reward to the balance afterward. (6 marks)</p><p class="qtext"><b>Part 3: Main Method</b></p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Creates at least one SavingAccount and one CurrentAccount;</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Deposits money into each;</p><p class="qtext ind">iii.&nbsp;&nbsp;Performs at least one successful and one unsuccessful/reward-triggering withdrawal on each;</p><p class="qtext ind">iv.&nbsp;&nbsp;Displays each account's details before and after the transactions;</p><p class="qtext ind">v.&nbsp;&nbsp;&nbsp;Demonstrates polymorphism by storing each object in a BankAccount reference and calling the withdrawal method through it, confirming that the correct overridden version runs.</p><p class="sic">The mark allocations are printed as shown: Part 1 is 9, Part 2 is 10, and a further "(6 marks)" is printed against Part 2 item ii. Part 3 carries no printed allocation. Reproduced as it appears.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Four</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A full three-part specification with the class names dictated.</td></tr>
+      <tr><td class="lab">Asked for</td><td>Three classes and a main that <b>proves</b> polymorphism, not merely uses inheritance.</td></tr>
+      <tr><td class="lab">The marks</td><td>25 marks, the whole question. Part 3 v is the one that separates answers: it names the technique and tells you exactly how to demonstrate it.</td></tr>
+      <tr><td class="lab">Watch</td><td>Both subclasses override <b>the same withdrawal method</b>, in opposite directions: one restricts it, one rewards it. Write the superclass method so both overrides have something to call, and hold the objects in <code>BankAccount</code> references in main.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 8.1 to 8.6 and 7.2 to 7.6.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q4 &middot; Inheritance and polymorphism</span><span class="tag">25 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> A bank wants a system representing different types of
-      accounts using inheritance and polymorphism.</p>
       <p><b>Part 1, BankAccount (9 marks).</b> <b>Private</b> fields for account number,
       holder name and balance; a constructor initialising all three; a method that adds
       to the balance; a method that deducts if funds suffice and otherwise rejects with

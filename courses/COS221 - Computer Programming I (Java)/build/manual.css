@@ -34,6 +34,8 @@
   --fill:#5b3a8e;       --fill-bg:#f4effb;
   --syntax:#0b6b5f;     --syntax-bg:#f0faf7;
   --qgroup:#334155;     --qgroup-bg:#f5f7fa;
+  --paper:#1f2937;      --paper-bg:#ffffff;  --paper-edge:#9aa3ae;
+  --brk:#7c5c11;        --brk-bg:#fbf7ec;
   --rule:#d9dde3;
   --gutter:#aeb6c0;
 }
@@ -107,9 +109,37 @@ h3.sub:first-child{ margin-top:0; }
 .fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
 .syntax > .bar{ background:var(--syntax);}   .syntax .body{ background:var(--syntax-bg); }
 .qgroup > .bar{ background:var(--qgroup); }  .qgroup .body{ background:var(--qgroup-bg); }
+.paper  > .bar{ background:var(--paper); }   .paper  .body{ background:var(--paper-bg); }
+.brk    > .bar{ background:var(--brk);   }   .brk    .body{ background:var(--brk-bg); }
 
 .mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* filled circle */
 .trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* warning sign */
+
+/* ---------- AS PRINTED box (the examiner's own words) ----------
+   Rule 4c: a past question is QUOTED, never restated. This box is the quotation,
+   and it must not be mistakable for our prose, so it is set apart on three axes:
+   a serif face at the reading size, a heavy left edge like a block quote, and a
+   white body while every neighbouring box is tinted. Anything inside here came
+   off the paper, typos included. Our commentary always lives OUTSIDE it. */
+.paper .body{ border-left:2.5pt solid var(--paper-edge); padding-left:9pt; }
+.paper .qtext{ font-family:"DejaVu Serif",Georgia,serif; font-size:9.4pt;
+  line-height:1.42; margin:.18em 0; }
+.paper .qtext.ind{ padding-left:14pt; }
+.paper .qtext.ind2{ padding-left:28pt; }
+.paper .qmk{ float:right; font-weight:700; font-size:8.6pt; margin-left:8pt; }
+.paper .sic{ font-family:"DejaVu Serif",Georgia,serif; font-style:italic;
+  font-size:8.2pt; color:#6b7280; }
+.paper .bar span:first-child::before{ content:"\201C\00A0"; }    /* open quote */
+
+/* ---------- BREAK IT DOWN box ----------
+   Sits between the quote and the answer. Reading the question IS half the exam,
+   so this is where that half is taught: what is given, what is actually asked,
+   what the marks imply, where the trap is. */
+.brk .body{ font-size:9.2pt; }
+.brk table.bd{ width:100%; border-collapse:collapse; margin:.2em 0; }
+.brk table.bd td{ vertical-align:top; padding:2.2pt 4pt 2.2pt 0; }
+.brk table.bd td.lab{ width:74pt; font-weight:700; font-size:8.2pt;
+  letter-spacing:.03em; text-transform:uppercase; color:var(--brk); }
 
 /* ---------- CODE box ----------
    A real listing. Line numbers come from a CSS counter in a gutter, so the

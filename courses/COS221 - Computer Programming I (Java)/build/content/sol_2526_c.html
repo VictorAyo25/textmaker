@@ -27,11 +27,29 @@
     </div>
   </div>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Five A</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(12 marks)</span>A. A conference organiser needs a program (using JOptionPane only, for all input/output) that prices tickets for a 3-day conference and produces a sales summary. Implement the following four methods.</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Create a method that takes in a day number. Use a switch statement to return a base ticket price for Day 1, Day 2, or Day 3 (pick any three distinct prices and state them clearly). If the day number is not 1, 2, or 3, throw an IllegalArgumentException.</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Create a method that takes in a tier and a number of days attending. Use nested if-else statements (not a switch, and not independent/separate if checks) to return a discount percentage:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Gold, attending all 3 days -&gt; 25%</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Gold, attending 1-2 days -&gt; 15%</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Silver, attending all 3 days -&gt; 15%</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Silver, attending 1-2 days -&gt; 5%</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Bronze (any days) -&gt; 0%</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Any tier string that is not "Gold" or "Silver" must be treated as "Bronze"</p><p class="qtext ind">The nesting must reflect that "days attending" is only checked within each tier branch, not as a separate top-level check.</p><p class="qtext ind">iii.&nbsp;&nbsp;Create a method that takes in a base price total and a discount percentage and applies the discount to the base price total. If the discounted amount is below 50.0, the method should return 50.0 instead (a price floor).</p><p class="qtext ind">iv.&nbsp;&nbsp;main()</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Ask the user for the number of attendees N (a positive integer).</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Loop exactly N times. In each iteration, ask for that attendee's number of days attending (an integer from 1 to 3, inclusive) and tier. For each day from 1 up to that attendee's days attending, call the method from part (i) and add the result to that attendee's running base price total (a running total that starts at 0 for each new attendee). Then call the method from part (ii) to get the discount percentage, and the method from part (iii) to get that attendee's final price.</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Accumulate: (a) total revenue across all attendees, and (b) a running count of how many attendees were Gold, Silver, and Bronze.</p><p class="qtext ind">v.&nbsp;&nbsp;&nbsp;After the loop, show one summary dialog with total revenue and the three tier counts.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Five A</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A complete pricing specification and the structure of the four methods.</td></tr>
+      <tr><td class="lab">Asked for</td><td>Four methods plus a main, with the control structure of each <b>dictated</b>: switch in part i, nested if-else in part ii.</td></tr>
+      <tr><td class="lab">The marks</td><td>12 marks. The structural constraints are marked, so a correct answer written the wrong way loses marks.</td></tr>
+      <tr><td class="lab">Watch</td><td>Part ii spells out the nesting it wants and then repeats it in a separate sentence, which is the examiner telling you where the marks are. Tier is the outer test, days the inner. Anything not "Gold" or "Silver" falls to Bronze, so that is the else branch, not a third named case.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 4.2, 4.3, 5.4, 9.4 and F.11.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q5 A &middot; Conference ticket pricing</span><span class="tag">12 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> Using JOptionPane only, price tickets for a 3-day
-      conference and produce a sales summary, with four methods:</p>
       <ol class="qlist">
         <li>takes a day number, uses a <b>switch</b> to return a base price for Day 1,
         2 or 3 (<b>pick any three distinct prices and state them clearly</b>); any other
@@ -153,12 +171,29 @@ Gold: 2, Silver: 1, Bronze: 2</pre>
   <h2 class="title">The cold-storage log, and the streak that ends at midnight</h2>
   <hr class="rule"/>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Five B</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(13 marks)</span>B. A cold-storage warehouse records its internal temperature once every hour, for 24 hours. Write a program, using JOptionPane only for input/output, that checks the day's temperature log for sustained breaches of a safe limit. A reading is a breach if it is above 8&#176;C.</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Using a loop, prompt the user 24 times (one dialog per hour) for that hour's temperature. Each input must be validated: it must parse as a number between -20 and 50 inclusive. If invalid, re-prompt for the same hour (using a nested loop/control statement) until a valid value is entered. Store all 24 valid readings in a 1-D array.</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Scan the 24-hour array once to find every maximal run of consecutive breach-hours (temperature &gt; 8&#176;C). Using only loops and conditionals (no extra arrays), determine:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the total number of qualifying streaks, where a qualifying streak is any consecutive run of 3 or more breach-hours;</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the length (in hours) of the single longest breach streak anywhere in the log.</p><p class="qtext ind">iii.&nbsp;&nbsp;Using nested if-else logic, classify the day as exactly one of:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"CRITICAL": longest streak &gt;= 6 hours</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"WARNING": longest streak is 3-5 hours (inclusive)</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"SAFE": no streak of 3 or more consecutive breach-hours occurred</p><p class="qtext ind">iv.&nbsp;&nbsp;Show one JOptionPane dialog stating: the total number of qualifying streaks, the longest streak length, and the final classification.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Five B</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A 24-hour log, a breach threshold, and three classifications.</td></tr>
+      <tr><td class="lab">Asked for</td><td>Validated input, a single scan, a classification, and one dialog.</td></tr>
+      <tr><td class="lab">The marks</td><td>13 marks.</td></tr>
+      <tr><td class="lab">Watch</td><td>Two constraints do the real work: <b>"scan once"</b> and <b>"no extra arrays"</b>, which together forbid the obvious approach of collecting streak lengths into a list. Track the current run and the best run as you go. Note also that a breach is strictly <i>above</i> 8, so exactly 8 is safe.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 4.2 to 4.6, 6.3 and F.11.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q5 B &middot; Sustained breaches of a safe limit</span><span class="tag">13 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> A warehouse records its temperature once an hour for 24
-      hours. A reading is a <b>breach</b> if it is <b>above 8 degrees C</b>. Using
-      JOptionPane only:</p>
       <ol class="qlist">
         <li>prompt 24 times, one dialog per hour. Each input must parse as a number
         <b>between -20 and 50 inclusive</b>; if invalid, re-prompt for the <b>same</b>
@@ -265,13 +300,29 @@ Classification: CRITICAL</pre>
   <h2 class="title">Question Six, worked in full</h2>
   <hr class="rule"/>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Six A</span><span class="tag">12 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(12 marks)</span>A. Design and implement a program, using JOptionPane only for input and output, that classifies a single user-supplied positive integer N according to its digit pattern (Palindrome).</p><p class="qtext">Definition: A number is a palindrome if it reads the same forwards and backwards (i.e. it is equal to its own digit-reversed value). For example, 4884 and 7 are palindromes; 4821 is not.</p><p class="qtext">Constraints: The entire task must be implemented inside main() only, using loops and nested/chained if-else and/or switch logic. No arrays and no user-defined helper methods are permitted; everything must be inline.</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Using a loop built only on the % and / operators (no converting N to a String or array), compute, in the same loop:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the digit sum of N, and</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the value of N with its digits reversed (e.g. for N = 4821, the reversed value is 1284).</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Determine whether N is a palindrome by comparing N directly to the reversed value computed in step 1.</p><p class="qtext ind">iii.&nbsp;&nbsp;Inline in main() (not a separate method), determine whether the digit sum from step 1 is itself a prime number. Use a loop that tests divisibility only up to the square root of the digit sum.</p><p class="qtext ind">iv.&nbsp;&nbsp;Using nested/chained conditional logic, classify N into exactly one of the following categories, checked strictly in this priority order:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"PALINDROME-PRIME-SUM": if N is a palindrome AND its digit sum is prime</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"PALINDROME": if N is a palindrome but its digit sum is not prime</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"HARSHAD": if N is not a palindrome but N is exactly divisible by its own digit sum</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;"STANDARD": in every other case</p><p class="qtext ind">v.&nbsp;&nbsp;&nbsp;Display N, its digit sum, its reversed value, and its final classification in a single JOptionPane message dialog.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Six A</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>A definition, worked examples, and a hard set of constraints.</td></tr>
+      <tr><td class="lab">Asked for</td><td>One inline program. <b>No helper methods and no arrays</b>, which is unusual and deliberate.</td></tr>
+      <tr><td class="lab">The marks</td><td>12 marks.</td></tr>
+      <tr><td class="lab">Watch</td><td>Part i says compute both values <b>in the same loop</b>, so one pass produces the digit sum and the reversal together. Part iv says <b>"checked strictly in this priority order"</b>: an if-else chain in that exact order, because a number can satisfy two categories at once.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 3.6, 4.2 to 4.5 and F.11.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q6 A &middot; Classify a number by its digit pattern</span><span class="tag">12 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> Using JOptionPane only, classify one positive integer N.
-      <b>Constraints:</b> everything inside <code>main()</code>, using loops and
-      nested/chained if-else and/or switch. <b>No arrays and no user-defined helper
-      methods.</b> Everything inline.</p>
       <ol class="qlist">
         <li>in <b>one loop</b>, built only on <code>%</code> and <code>/</code> (no
         converting N to a String or array), compute <b>both</b> the digit sum of N and
@@ -403,12 +454,29 @@ Classification: PALINDROME</pre>
   <h2 class="title">The parking garage, and three counts from one method</h2>
   <hr class="rule"/>
 
+  <div class="box paper">
+    <div class="bar"><span>AS PRINTED &middot; 2025/26 Question Six B</span><span class="tag">13 MARKS</span></div>
+    <div class="body">
+<p class="qtext"><span class="qmk">(13 marks)</span>B. A university parking garage needs a program, using JOptionPane only for input/output, to process a batch of vehicles exiting on the same day and calculate the total fees owed. The program must use clear separation of concerns; each task below must be its own method. No collection classes (e.g. ArrayList) are allowed anywhere.</p><p class="qtext ind">i.&nbsp;&nbsp;&nbsp;&nbsp;Prompt for the number of exiting vehicles, V. Then, using a loop, fill two parallel arrays of length V:</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the number of hours each vehicle was parked (an integer per vehicle). A value &lt;= 0 is invalid; use a nested control statement to keep re-prompting until a valid value is entered.</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;the permit type for each vehicle (a String per vehicle, either "Staff" or "Visitor").</p><p class="qtext ind">ii.&nbsp;&nbsp;&nbsp;Create a method that takes in one vehicle's hours parked and permit type, and computes one vehicle's fee using nested if-else logic (the rules below must be nested together, not checked as separate independent conditions):</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Staff: first 2 hours free; each additional hour costs 1.00; capped at a maximum of 10.00/day.</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Visitor: no free period; first 3 hours cost a flat 6.00; each hour beyond 3 costs 2.50; capped at a maximum of 25.00/day.</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;Any permit type that is not exactly "Staff" must be treated as "Visitor".</p><p class="qtext ind">iii.&nbsp;&nbsp;Create a method that takes in the array of hours parked, loops over the array and tallies vehicles into three categories: SHORT-STAY (1-2 hrs), STANDARD (3-6 hrs), EXTENDED (&gt;6 hrs). Return these three counts without using any collection class.</p><p class="qtext ind">iv.&nbsp;&nbsp;In main(),</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;call the method from part (ii) for every vehicle across both parallel arrays to accumulate the batch's total revenue</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;call the method from part (iii) once</p><p class="qtext ind2">&#8226;&nbsp;&nbsp;display one final JOptionPane showing the total revenue and the three category counts.</p>
+    </div>
+  </div>
+
+  <div class="box brk">
+    <div class="bar"><span>BREAK IT DOWN &middot; 2025/26 Question Six B</span></div>
+    <div class="body">
+    <table class="bd">
+      <tr><td class="lab">Given</td><td>Two fee schedules and three stay categories.</td></tr>
+      <tr><td class="lab">Asked for</td><td>Parallel arrays, one fee method, one tally method, and a main that calls them.</td></tr>
+      <tr><td class="lab">The marks</td><td>13 marks.</td></tr>
+      <tr><td class="lab">Watch</td><td>Part iii asks one method to <b>return three counts</b> with no collection class allowed, which is the real puzzle: an <code>int[]</code> of three is the intended way out. Note also the caps are on the fee, not the hours, so compute then clamp.</td></tr>
+      <tr><td class="lab">Taught in</td><td>Units 6.3 to 6.6, 5.4, 4.2 and F.11.</td></tr>
+    </table>
+    </div>
+  </div>
+
   <div class="box qgroup">
     <div class="bar"><span>Q6 B &middot; Parking fees for a batch of vehicles</span><span class="tag">13 MARKS</span></div>
     <div class="body">
-      <p><b>The question.</b> Using JOptionPane only, process vehicles exiting on one
-      day and total the fees. <b>Clear separation of concerns: each task must be its own
-      method. No collection classes (e.g. ArrayList) anywhere.</b></p>
       <ol class="qlist">
         <li>prompt for the number of vehicles V, then fill two <b>parallel arrays</b> of
         length V: hours parked (int per vehicle; a value &lt;= 0 is invalid, so use a
