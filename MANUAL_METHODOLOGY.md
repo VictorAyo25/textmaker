@@ -348,6 +348,21 @@ of seven reports on COS221. Split on the quote character and take odd-indexed ru
 **Code is not quotation:** strip `<pre>` and `<table>` first, or every Java string
 literal in a listing is read as a claim about the paper.
 
+A third, found on CSC241 (2026-07-22): **attribution**. Being inside a box that
+cites a paper is not enough to make a quotation a claim about that paper. We also
+write `"strictly less than"` and `"and we got all the way through"`, which are our
+own words in quotation marks; checking those against the transcript reports
+misquotes that are not misquotes, and a gate that cries wolf stops being read.
+Require an attribution cue in the prose immediately before the run (the paper,
+the examiner, printed, reads, states, asks) and skip the rest. Exclude bare
+"read": `Read < as "strictly less than"` instructs the student, it does not quote
+an examiner, and it was the last false positive standing. Scoping this way is what
+turned CSC241's direction 3 from 3 phantom reports into a check that finds real
+defects, but note it also made the direction **vacuous** until a genuine
+attributed quotation existed in the book, and a gate that cannot fail is worse
+than no gate: add one real quotation and control-test it, do not leave it green
+and empty.
+
 **The gate: `qa_verbatim.py`.** Transcribe each paper once into
 `sources/exams/transcripts/<paper>.txt`, a plain-text faithful copy, and treat it
 as the authority. The gate then proves every quoted question in the book appears

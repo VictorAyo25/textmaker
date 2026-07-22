@@ -59,19 +59,51 @@ def _strip_tags(html):
     return re.sub(r'<[^>]+>', ' ', html)
 
 
+PAPER_BOX = re.compile(r'<div class="box paper">.*?\n  </div>', re.S)
+
+
+def mask_quotes(html):
+    """Blank out AS PRINTED regions, preserving length and line structure.
+
+    The house rule bans em and en dashes from OUR prose. A quoted examination
+    paper is not our prose: the 2025/2026 paper writes its grading bands as
+    "70 – 100" with an en dash and its record bullets with an em dash, and
+    MANUAL_METHODOLOGY 4c says the quotation keeps them.
+
+    The exemption is scoped by MASKING, never by disabling the check: every
+    masked character is replaced by a space, so offsets and therefore every
+    error message's context still line up, and a dash one character outside a
+    quote is still caught. Branding is NOT masked: that rule is global, and a
+    paper's institution block may be transcribed for provenance but must never
+    reach the book.
+    """
+    out, n = [], 0
+    last = 0
+    for m in PAPER_BOX.finditer(html):
+        out.append(html[last:m.start()])
+        out.append(re.sub(r'[^\n]', ' ', m.group(0)))
+        last = m.end()
+        n += 1
+    out.append(html[last:])
+    return ''.join(out), n
+
+
 def run_gates(html):
     fails = []
     text = _strip_tags(html)
+    prose, n_quoted = mask_quotes(html)     # dashes only: see mask_quotes
+    print(f'  . {n_quoted} AS PRINTED quote regions masked for the dash check '
+          f'(the paper keeps its own dashes; our prose may not)')
 
-    # ---- 1. dashes ----
+    # ---- 1. dashes (OUR prose only: quoted paper regions masked above) ----
     for ch, name in BANNED_CHARS.items():
-        for m in re.finditer(re.escape(ch), html):
-            ctx = html[max(0, m.start() - 45):m.start() + 45].replace('\n', ' ')
+        for m in re.finditer(re.escape(ch), prose):
+            ctx = prose[max(0, m.start() - 45):m.start() + 45].replace('\n', ' ')
             fails.append(f'{name} (U+{ord(ch):04X}) found: ...{ctx}...')
     for ent in BANNED_ENTITIES:
-        if ent in html:
-            i = html.index(ent)
-            ctx = html[max(0, i - 45):i + 45].replace('\n', ' ')
+        if ent in prose:
+            i = prose.index(ent)
+            ctx = prose[max(0, i - 45):i + 45].replace('\n', ' ')
             fails.append(f'dash entity {ent} found: ...{ctx}...')
 
     # ---- 2. branding / pedagogy source ----

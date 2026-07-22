@@ -37,6 +37,8 @@
   --fill:#5b3a8e;       --fill-bg:#f4effb;
   --qpaper:#1a2332;     --qpaper-bg:#ffffff;
   --ans:#0f766e;        --ans-bg:#f0faf8;
+  --paper:#3f3a34;      --paper-bg:#faf7f1;  --paper-edge:#cfc6b6;
+  --unpack:#6d28d9;     --unpack-bg:#f6f2fd;
   --rule:#d7dbe2;
 }
 
@@ -112,6 +114,46 @@ h3.sub:first-child{ margin-top:0; }
 .qpaper .body{ background:var(--qpaper-bg); }
 .qpaper{ border-color:#b9c0cc; }
 .qpaper .body > p{ margin:.5em 0; }
+
+/* AS PRINTED: the examiner's own words, quoted verbatim from the paper.
+   Deliberately unlike every teaching box. Warm paper tint, no teaching hue, so
+   it cannot be mistaken for our commentary. Nothing in here is ours: the
+   paper's typos, its odd spacing and its dashes all stay, and qa_verbatim.py
+   proves character for character that they do. See MANUAL_METHODOLOGY 4c. */
+.paper  > .bar{ background:var(--paper); }
+.paper  .body{ background:var(--paper-bg); }
+.paper  { border-color:var(--paper-edge); }
+.paper  .body > p{ margin:.5em 0; }
+.paper  .qtext{ font-style:italic; }
+/* the paper's own part numbering, hanging so the text aligns under itself */
+.paper  .qparts{ list-style:none; padding:0 0 0 20pt; margin:.35em 0; }
+.paper  .qparts > li{ position:relative; margin:.28em 0; }
+.paper  .qparts > li > .rn{ position:absolute; left:-20pt; width:16pt;
+  font-style:normal; color:var(--muted); text-align:right; }
+/* TRAP (methodology 4c): a hanging indent made with padding-left plus a
+   negative text-indent needs text-indent:0 on the inline-block label, because
+   text-indent inherits and an inline-block is a block container, so the label
+   takes the negative indent a SECOND time and lands outside the page margin.
+   This build sidesteps it with absolute positioning, but the reset stays as a
+   guard in case the markup is ever changed back. */
+.paper  .qparts > li > .rn, .paper .marks{ text-indent:0; }
+.paper  .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt;
+  letter-spacing:.1em; color:var(--paper); font-weight:bold; font-style:normal; }
+/* a listing quoted from the paper: the paper's own line breaks, never reflowed */
+pre.asprinted{ font-family:'DejaVu Sans Mono',monospace; font-size:8.4pt;
+  line-height:1.45; background:#fffdf8; border:1px solid var(--paper-edge);
+  padding:6pt 9pt; margin:.45em 0; white-space:pre; overflow-wrap:normal; }
+
+/* BREAK IT DOWN: reading the question in the student's shoes, before any
+   answering. What am I given, what is actually asked, what do the marks say
+   about depth, which unit teaches it, where the trap sits. */
+.unpack > .bar{ background:var(--unpack); }
+.unpack .body{ background:var(--unpack-bg); }
+.unpack .body > p{ margin:.42em 0; }
+.unpack .qlab{ font-family:'DejaVu Sans',sans-serif; font-size:7.4pt;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--unpack);
+  font-weight:bold; display:block; margin:.5em 0 .1em; }
+.unpack .qlab:first-child{ margin-top:0; }
 
 /* a worked answer to an exam question */
 .ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }

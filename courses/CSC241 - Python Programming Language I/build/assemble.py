@@ -241,6 +241,10 @@ def main():
     if not qa_firstuse.report(draft):
         stop('first-use audit failed: the manual is not sufficient on its own.')
 
+    import qa_verbatim
+    if not qa_verbatim.report(draft):
+        stop('verbatim gate failed: a past question is not quoted as printed.')
+
     body_path = os.path.join(HERE, 'full_manual.html')
     cover_path = os.path.join(HERE, 'cover_page.html')
     write(cover_path, cover_html)

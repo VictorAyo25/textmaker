@@ -4,7 +4,24 @@ Study manual for CSC241, Omega semester, 3 credit units.
 Course title on every artefact is the full "CSC241 - Python Programming Language I",
 never the bare code (workspace name-and-title rule).
 
-## Status
+## Status: VERBATIM RETROFIT complete, awaiting sign-off
+
+**200 pages**, in `drafts/...DRAFT verbatim retrofit (200pp).pdf`. All five gates
+green. `FINAL_MANUALS/` still holds the 182pp edition and is NOT replaced until an
+explicit sign-off.
+
+Every real past question in the book is now a three-part unit: **AS PRINTED** (the
+examiner's exact words, quoted), **BREAK IT DOWN** (what is given, what is actually
+asked, what the marks say, where the trap sits), then the answer. 24 sites: the 23
+questions of the 2025/2026 paper, plus one teaching box in Module Four that cites
+the 2024/2025 paper. The mocks are ours, carry no AS PRINTED box, and say "same
+shape as" rather than implying they are the paper's wording.
+
+The authority is `sources/exams/transcripts/`, read by eye from the photographs.
+`qa_verbatim.py` proves the book matches it. See "QA gates" below and
+MANUAL_METHODOLOGY 4c.
+
+## Status (previous edition)
 
 **SHIPPED 2026-07-18, 182 pages**, no version suffix, at `FINAL_MANUALS/CSC241 - Python
 Programming Language I - Study Manual.pdf`. This is the second edition of the day: the
@@ -233,6 +250,34 @@ repeats until a render agrees with the Contents it was built from.
     whole to save 1 that had to split. They now inherit `avoid`, which the engine
     overrides by itself for the one genuinely oversized box. It cost 7 pages of white
     space and is worth it: a box is one idea.
+
+- `qa_verbatim.py` is the verbatim gate (MANUAL_METHODOLOGY 4c). The transcripts in
+  `sources/exams/transcripts/` are the authority; the gate proves the book matches
+  them in **three** directions, and each was control-tested to fail on its own:
+  - **paraphrase**: every quoted run in an AS PRINTED box is in a transcript
+    character for character (whitespace and typographic quotes normalised, never
+    words and never dashes, because the paper's en dash is evidence).
+  - **dropped part**: every question in a transcript marked `SCOPE: FULL` is quoted
+    somewhere in the book. A `SCOPE: PARTIAL` transcript (the 2024/2025 one, which
+    holds only the fragment the book cites) is deliberately exempt from this
+    direction: demanding the rest be reproduced would be wrong.
+  - **prose citation**: in a box that is not AS PRINTED but cites a paper, any
+    quotation **attributed** to the paper must be verbatim too. Both other
+    directions work from AS PRINTED boxes and are structurally blind to this.
+  - Two mechanical traps are guarded in code: quote **pairing** (split on the quote
+    character and take odd runs, or the prose between two quotations is reported as
+    a misquote), and **code is not quotation** (strip `<pre>` and `<table>` first).
+    A third was found here: attribution. Being inside a citing box is not enough,
+    because we also write "strictly less than" in quotation marks, which is our own
+    phrase and no claim about any paper. Only runs preceded by an attribution
+    ("the paper asks", "it reads") are checked. Bare "read" is excluded: "Read `<`
+    as ..." instructs the student, it does not quote an examiner.
+- `gates.py` masks the AS PRINTED regions before the dash check, replacing them with
+  spaces so error offsets still line up. The paper writes "70 – 100" with an en dash
+  and our prose may not, so the exemption is **scoped by masking, never by disabling**,
+  and the count of masked regions is printed every run. Branding is not masked: that
+  rule is global, and a paper's institution block may be transcribed into
+  `sources/` for provenance but must never reach the book.
 
 `build/` also holds `manual.css` (the CSC241 palette and box grammar), `render.py`
 (Chromium via Playwright, footer via `footerTemplate`), `contents.py`, `buildlock.py`,
