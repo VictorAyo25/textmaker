@@ -211,6 +211,38 @@ def collect_citations():
     return out
 
 
+LISTING_RE = re.compile(r'<pre class="src[^"]*"[^>]*>(?P<body>.*?)</pre>', re.S)
+# A rendered code line starts at a <span class="l">; the class may carry a modifier
+# ("l bad" marks a fault), so match the prefix, not the exact string.
+CODE_LINE_RE = re.compile(r'<span class="l[^"]*">')
+
+
+def listing_lines(body):
+    """The rendered lines of a quoted listing, in order."""
+    body = CODE_LINE_RE.sub('\x00', body)
+    body = TAG_RE.sub('', body)
+    return [htmllib.unescape(x).strip() for x in body.split('\x00') if x.strip()]
+
+
+def collect_listings():
+    """Every listing quoted inside an AS PRINTED box, as its sequence of lines."""
+    out = []
+    for fn in sorted(os.listdir(CONTENT)):
+        if not fn.endswith('.html'):
+            continue
+        doc = io.open(os.path.join(CONTENT, fn), encoding='utf-8', errors='replace').read()
+        for box in PAPER_BOX_RE.finditer(doc):
+            seg = box.group('body')
+            bar = BAR_RE.search(seg)
+            title = norm(bar.group('t')) if bar else '?'
+            line_no = doc[:box.start()].count('\n') + 1
+            for pre in LISTING_RE.finditer(seg):
+                lines = listing_lines(pre.group('body'))
+                if lines:
+                    out.append((f'{fn[:-5]}:{line_no}', title, lines))
+    return out
+
+
 def collect_quotes():
     """Every .qtext line in every AS PRINTED box, with where it came from."""
     quotes = []
@@ -231,7 +263,7 @@ def collect_quotes():
 
 
 def main():
-    fails, notes, misquotes = [], [], []
+    fails, notes, misquotes, joined = [], [], [], []
     trans = load_transcripts()
     if not trans:
         print('FAIL: no transcripts in ' + TRANSCRIPTS)
@@ -273,6 +305,26 @@ def main():
         if not any(q in b for b in blob.values()):
             misquotes.append((where, chip, q))
 
+    # ---- direction 4: a quoted listing keeps the paper's LINE STRUCTURE ---------
+    # Every other direction compares whitespace-collapsed text, so all of them are
+    # blind to a listing whose lines were joined or re-split: the words are all
+    # still present and in order. The reader is not blind to it. Two of these
+    # papers NUMBER the lines of their snippets and ask which line is wrong, so a
+    # joined line silently renumbers the answer the student is meant to give.
+    tlines = {k: [l.strip() for l in v.splitlines() if l.strip()]
+              for k, v in trans.items()}
+    for where, title, lines in collect_listings():
+        found = False
+        for tls in tlines.values():
+            for i in range(len(tls)):
+                if tls[i:i + len(lines)] == lines:
+                    found = True
+                    break
+            if found:
+                break
+        if not found:
+            joined.append((where, title, lines))
+
     print('=' * 72)
     print('qa_verbatim: quoted past questions vs the transcripts of the real papers')
     print('=' * 72)
@@ -312,9 +364,21 @@ def main():
         print('PASS: every prose quotation of a cited paper is verbatim.')
 
     print()
-    bad = len(fails) + len(notes) + len(misquotes)
+    if joined:
+        print(f'FAIL: {len(joined)} quoted listing(s) do not match the paper line for line.')
+        print('      The words may all be there; the LINE BREAKS are not. Where the')
+        print('      paper numbers its lines, this renumbers the answer expected.')
+        for where, title, lines in joined[:12]:
+            print(f'  [{where}] {title} ({len(lines)} lines)')
+            for l in lines[:3]:
+                print(f'      {l[:110]}')
+    else:
+        print('PASS: every quoted listing matches the paper line for line.')
+
+    print()
+    bad = len(fails) + len(notes) + len(misquotes) + len(joined)
     print(f'{"FAIL" if bad else "OK"}: {len(fails)} paraphrased, {len(notes)} dropped, '
-          f'{len(misquotes)} misquoted in prose.')
+          f'{len(misquotes)} misquoted in prose, {len(joined)} listings re-lined.')
     return 1 if bad else 0
 
 
