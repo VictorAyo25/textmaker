@@ -1,0 +1,273 @@
+<section>
+  <div class="kick">Part Four &middot; 4.3</div>
+  <h2 class="title">Composition and Inverse Functions</h2>
+  <hr class="rule">
+  <p class="lead">Feeding one function's output into another is composition, and
+  the exam asks for the same worked pair on two different papers.</p>
+  <p class="lo">By the end of this section you will be able to compose two
+  functions in either order, explain why order matters, state when an inverse
+  exists, and answer the conditions question on commuting linear functions.</p>
+
+  <h3 class="sub">Composition</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Composition</span></div>
+    <div class="body">
+      <p>For f : B &#8594; C and g : A &#8594; B, the <b>composition</b>
+      f &#8728; g is the function from A to C given by</p>
+      <p style="margin-left:12pt"><b>(f &#8728; g)(x) = f(g(x))</b></p>
+      <div class="wheredef"><span class="sym">g</span> runs first, on x.
+      <span class="sym">f</span> runs second, on whatever g produced.
+      <span class="sym">&#8728;</span> is read "composed with", or "after".</div>
+      <p class="hook"><b>Memory hook:</b> <b>read it right to left.</b> In
+      f &#8728; g the letter nearest the x is the one that goes first. Say it as
+      "f after g" and the order stops being confusing.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">The order is not decoration</span></div>
+    <div class="body">
+      <p>f &#8728; g and g &#8728; f are usually <b>different functions</b>, and
+      the exam asks for both precisely to see whether you noticed.</p>
+      <p>Everyday version: putting on socks then shoes is not the same as shoes
+      then socks. Composition, like getting dressed, is not commutative.</p>
+      <p>So compute each one separately, from its own definition. Never compute
+      one and assume the other.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The question that appears twice</h3>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q3c">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q3(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Find f &#8728; g and g &#8728; f, where f(x) = x&#178; + 1 and g(x) = x + 2, are functions from R to R.
+      State if f &#8728; g = g &#8728; f. <span class="mk">(3&#189; marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q2b">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q2 b(iii)</span></div>
+    <div class="body">
+      <p class="q">iii. &nbsp; &nbsp; Find f &#8728; g and g &#8728; f , where f(x) = x&#178; + 1 and g(x) = x + 2, are functions from R to R <span class="mk">2 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The same question on two papers, one year apart, with the same functions. The
+  only differences: 2023/2024 adds "State if f &#8728; g = g &#8728; f" and pays
+  3&#189; marks, while 2024/2025 pays 2 and does not ask for the comparison. Both
+  print "are functions from R to R", which reads oddly because the subject of the
+  sentence is f and g. Answer both with the same working, and add the comparison
+  line either way: it costs one sentence and 2023/2024 pays for it.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>f(x) = x&#178; + 1 and g(x) = x + 2, both from the reals
+      to the reals.</dd>
+      <dt>Asked</dt><dd><b>Find</b> both compositions, then <b>state</b> whether
+      they are equal. Two computations and one verdict.</dd>
+      <dt>Marks say</dt><dd>3.5 marks: roughly 1.5 per composition and 0.5 for
+      the comparison. Show the substitution step; that is where the method mark
+      sits.</dd>
+      <dt>Teaches</dt><dd>This section, 4.3.</dd>
+      <dt>Trap</dt><dd>Expanding (x + 2)&#178; as x&#178; + 4. It is
+      x&#178; + 4x + 4. That single slip loses both the answer and the
+      comparison.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q3(c) &middot; PQ 24/25 Q2 b(iii)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>f(x) = x&#178; + 1, g(x) = x + 2, both &#8477; to &#8477;.</dd>
+        <dt>Find</dt><dd>f &#8728; g, g &#8728; f, and whether they are equal.</dd>
+        <dt>Rule</dt><dd>(f &#8728; g)(x) = f(g(x)): g first, then f.</dd>
+      </dl>
+
+      <p class="marks">f &#8728; g</p>
+      <p>Apply g first, then feed the result into f.</p>
+      <p style="margin-left:12pt">(f &#8728; g)(x) = f(g(x))<br>
+      = f(x + 2) &nbsp; &nbsp; &nbsp; [g has run]<br>
+      = (x + 2)&#178; + 1 &nbsp; &nbsp; &nbsp; [put x + 2 wherever f has x]<br>
+      = x&#178; + 4x + 4 + 1<br>
+      = <b>x&#178; + 4x + 5</b></p>
+
+      <p class="marks">g &#8728; f</p>
+      <p>Now the other order: f first, then g.</p>
+      <p style="margin-left:12pt">(g &#8728; f)(x) = g(f(x))<br>
+      = g(x&#178; + 1) &nbsp; &nbsp; &nbsp; [f has run]<br>
+      = (x&#178; + 1) + 2 &nbsp; &nbsp; &nbsp; [g adds 2 to whatever it is given]<br>
+      = <b>x&#178; + 3</b></p>
+
+      <p class="marks">Are they equal?</p>
+      <p>No. x&#178; + 4x + 5 and x&#178; + 3 are different functions.</p>
+      <p>Saying so is enough for the mark, but naming a witness is better and
+      costs one line. At x = 0:</p>
+      <p style="margin-left:12pt">(f &#8728; g)(0) = 0 + 0 + 5 = 5,
+      &nbsp; &nbsp; (g &#8728; f)(0) = 0 + 3 = 3.</p>
+      <p>Since 5 &#8800; 3, the two compositions differ, so
+      <b>f &#8728; g &#8800; g &#8728; f</b>.</p>
+      <p>They agree only where x&#178; + 4x + 5 = x&#178; + 3, that is
+      4x = &#8722;2, so at the single point x = &#8722;&#189;. Agreeing at one
+      point is not being the same function.</p>
+      <p class="redo"><b>Now redo it:</b> compose the same f with h(x) = 3x. You
+      should get (f &#8728; h)(x) = 9x&#178; + 1 and
+      (h &#8728; f)(x) = 3x&#178; + 3.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">When do two functions commute?</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q2bi">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q2 b(i)</span></div>
+    <div class="body">
+      <p class="q">bi. &nbsp; &nbsp; Let f(x) = ax + b and g(x) = cx + d, where a, b, c and d are constants. Determine necessary and
+      sufficient conditions on the constants a, b, c and d so that f &#8728; g = g &#8728; f. <span class="mk">2 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The label is printed "bi.", welding part b to its first roman numeral. The
+  phrase "necessary and sufficient" is section F.2's vocabulary: it means find the
+  condition that holds <b>exactly</b> when the two compositions agree, so the
+  argument must run both ways, not just one.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2 b(i)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>f(x) = ax + b, g(x) = cx + d, with a, b, c, d constant.</dd>
+        <dt>Find</dt><dd>The condition on a, b, c, d that holds exactly when
+        f &#8728; g = g &#8728; f.</dd>
+        <dt>Rule</dt><dd>Compose both ways, then compare coefficients.</dd>
+      </dl>
+      <p><b>Step 1. Compose both ways.</b></p>
+      <p style="margin-left:12pt">(f &#8728; g)(x) = f(cx + d) = a(cx + d) + b
+      = acx + ad + b<br>
+      (g &#8728; f)(x) = g(ax + b) = c(ax + b) + d = acx + cb + d</p>
+      <p><b>Step 2. Compare.</b> Both have the same coefficient of x, namely ac,
+      so the x terms always agree whatever the constants are. The two functions
+      are equal exactly when the constant terms agree:</p>
+      <p style="margin-left:12pt"><b>ad + b = cb + d</b></p>
+      <p><b>Step 3. Say why this is both necessary and sufficient.</b> If
+      ad + b = cb + d then the two expressions are identical, so the compositions
+      agree everywhere: the condition is <b>sufficient</b>. Conversely, if the
+      compositions agree everywhere then they agree at x = 0, where they take the
+      values ad + b and cb + d, so those must be equal: the condition is
+      <b>necessary</b>. Hence it is exactly the right condition.</p>
+      <p><b>A tidier form,</b> worth a line: rearranging gives
+      ad &#8722; d = cb &#8722; b, that is <b>d(a &#8722; 1) = b(c &#8722; 1)</b>.
+      In that shape it is easy to read off the familiar special cases: if
+      a = c = 1 both sides are 0, so any two translations commute; and if
+      b = d = 0 both sides are 0, so any two functions through the origin
+      commute.</p>
+      <p class="redo"><b>Now redo it:</b> check the earlier example. There
+      f(x) = x&#178; + 1 is not linear, so this condition does not apply; but for
+      f(x) = 2x + 3 and g(x) = 4x + 1, is d(a&#8722;1) = b(c&#8722;1)? Here
+      1 &#215; 1 = 1 and 3 &#215; 3 = 9, so no, and the two do not commute.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q2bii">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q2 b(ii)</span></div>
+    <div class="body">
+      <p class="q">ii. &nbsp; &nbsp; If f and f &#8728; g are one-to-one, does it follow that g is one-to-one? Justify your answer. <span class="mk">2 marks</span></p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2 b(ii)</span></div>
+    <div class="body">
+      <p><b>Answer: yes, g must be one-to-one.</b></p>
+      <p><b>Proof.</b> Suppose g(a) = g(b) for some a and b in the domain of g.
+      Applying f to both sides gives f(g(a)) = f(g(b)), that is
+      (f &#8728; g)(a) = (f &#8728; g)(b). But f &#8728; g is one-to-one, so
+      a = b. Since g(a) = g(b) forced a = b, g is one-to-one.</p>
+      <p><b>Notice what was not needed.</b> The hypothesis that f is one-to-one
+      was never used. Only the injectivity of the composition mattered. Saying
+      that shows the marker you followed the logic rather than pattern-matching,
+      and it is true: f &#8728; g one-to-one alone forces g one-to-one.</p>
+      <p><b>The converse fails</b>, which is worth one more line. If g is
+      one-to-one, f &#8728; g need not be: take g(x) = x on {1, 2} and f sending
+      both 1 and 2 to the same value. Then g is one-to-one and f &#8728; g is
+      not.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Inverse functions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Inverse</span></div>
+    <div class="body">
+      <p>A function f : A &#8594; B has an <b>inverse</b> f<sup>&#8722;1</sup> :
+      B &#8594; A exactly when f is a <b>bijection</b>, that is, one-to-one
+      <i>and</i> onto.</p>
+      <p>The inverse undoes f: f<sup>&#8722;1</sup>(f(a)) = a for every a in A,
+      and f(f<sup>&#8722;1</sup>(b)) = b for every b in B.</p>
+      <p><b>Why both conditions are needed.</b> If f is not one-to-one, two
+      inputs share an output and the inverse would not know which to return, so it
+      would not be single-valued. If f is not onto, some b has no pre-image and
+      the inverse would be undefined there, so it would not be total. Those are
+      exactly the two conditions of section 4.1.</p>
+      <p class="hook"><b>Memory hook:</b> only a perfect pairing can be run
+      backwards. Collisions break single-valuedness, gaps break totality.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+    <div class="body">
+      <p><b>Find the inverse of f : &#8477; &#8594; &#8477;, f(x) = 2x + 1.</b></p>
+      <p>Section 4.2 showed this f is a bijection, so an inverse exists.</p>
+      <p>Write y = 2x + 1 and solve for x:</p>
+      <p style="margin-left:12pt">y = 2x + 1 &nbsp; &#8658; &nbsp;
+      y &#8722; 1 = 2x &nbsp; &#8658; &nbsp; x = (y &#8722; 1)/2</p>
+      <p>So <b>f<sup>&#8722;1</sup>(y) = (y &#8722; 1)/2</b>, usually rewritten
+      with x as the variable: f<sup>&#8722;1</sup>(x) = (x &#8722; 1)/2.</p>
+      <p><b>Check it, always.</b> f<sup>&#8722;1</sup>(f(x)) =
+      ((2x + 1) &#8722; 1)/2 = 2x/2 = x. Correct.</p>
+      <p>By contrast f(x) = x&#178; on the reals has no inverse: it is neither
+      one-to-one nor onto, and "the square root" cannot decide between 2 and
+      &#8722;2.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. In f &#8728; g, which function acts first?</p>
+      <p class="q">2. With f(x) = x + 1 and g(x) = 3x, find both compositions.</p>
+      <p class="q">3. What must be true of f for f<sup>&#8722;1</sup> to exist?</p>
+      <p class="q">4. Is composition commutative?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. g, the one written nearest x.<br>
+      2. (f &#8728; g)(x) = 3x + 1 and (g &#8728; f)(x) = 3(x + 1) = 3x + 3.<br>
+      3. f must be a bijection: one-to-one and onto.<br>
+      4. No. f &#8728; g and g &#8728; f generally differ.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>(f &#8728; g)(x) means <span class="blank"></span>.</li>
+        <li>Composition is read from <span class="blank"></span> to
+        <span class="blank"></span>.</li>
+        <li>An inverse exists exactly when the function is a
+        <span class="blank"></span>.</li>
+        <li>For f(x) = x&#178; + 1 and g(x) = x + 2, (f &#8728; g)(x) =
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. f(g(x)). 2. right, left. 3. bijection. 4. x&#178; + 4x + 5.</p>
+    </div>
+  </div>
+
+</section>

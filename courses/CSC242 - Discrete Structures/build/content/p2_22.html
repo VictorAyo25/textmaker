@@ -1,0 +1,348 @@
+<section>
+  <div class="kick">Part Two &middot; 2.2</div>
+  <h2 class="title">Set Operations and Venn Diagrams</h2>
+  <hr class="rule">
+  <p class="lead">Five operations, each with a picture. Draw the picture and the
+  answer is usually obvious; skip the picture and the same question becomes a
+  guessing game.</p>
+  <p class="lo">By the end of this section you will be able to compute union,
+  intersection, difference, symmetric difference and complement, draw and read a
+  Venn diagram, and state De Morgan's laws for sets.</p>
+
+  <h3 class="sub">The five operations</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The five operations</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operation</th><th>Symbol</th><th>Definition</th><th>In words</th></tr>
+        <tr><td>Union</td><td>A &#8746; B</td><td>{x | x &#8712; A <b>or</b> x &#8712; B}</td><td>everything in either, counted once</td></tr>
+        <tr><td>Intersection</td><td>A &#8745; B</td><td>{x | x &#8712; A <b>and</b> x &#8712; B}</td><td>only what is in both</td></tr>
+        <tr><td>Difference</td><td>A &#8722; B</td><td>{x | x &#8712; A <b>and</b> x &#8713; B}</td><td>in A but not in B</td></tr>
+        <tr><td>Symmetric difference</td><td>A &#9651; B</td><td>(A &#8722; B) &#8746; (B &#8722; A)</td><td>in one or the other, not in both</td></tr>
+        <tr><td>Complement</td><td>A&#8242; or A&#772;</td><td>{x | x &#8712; U and x &#8713; A}</td><td>everything outside A</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> &#8746; is a <b>u</b>p-cup that holds
+      everything, so it is <b>u</b>nion. &#8745; points down and only what is
+      caught in both bowls stays. The complement needs a universal set to be
+      meaningful at all, so U must always be stated.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The pictures</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Venn diagrams</span></div>
+    <div class="body">
+      <p>A <b>Venn diagram</b> draws each set as a circle inside a rectangle,
+      where the rectangle is the universal set U. Overlapping circles create
+      regions, and every element of U lives in exactly one region.</p>
+      <p>Shade the region the operation describes, and the answer becomes
+      something you can read off rather than compute.</p>
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <!-- Union -->
+        <g>
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <path d="M 50 68 m -30,0 a 30,30 0 1,0 60,0 a 30,30 0 1,0 -60,0" fill="#283593" fill-opacity=".30"/>
+          <path d="M 92 68 m -30,0 a 30,30 0 1,0 60,0 a 30,30 0 1,0 -60,0" fill="#283593" fill-opacity=".30"/>
+          <circle cx="50" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <circle cx="92" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <text x="30" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="106" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">B</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">A &#8746; B  union</text>
+        </g>
+        <!-- Intersection -->
+        <g transform="translate(180,0)">
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <clipPath id="clipA"><circle cx="50" cy="68" r="30"/></clipPath>
+          <circle cx="92" cy="68" r="30" fill="#283593" fill-opacity=".42" clip-path="url(#clipA)"/>
+          <circle cx="50" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <circle cx="92" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <text x="30" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="106" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">B</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">A &#8745; B  intersection</text>
+        </g>
+        <!-- Difference -->
+        <g transform="translate(360,0)">
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <clipPath id="clipNotB"><rect x="8" y="16" width="150" height="104"/></clipPath>
+          <mask id="maskB">
+            <rect x="8" y="16" width="150" height="104" fill="#fff"/>
+            <circle cx="92" cy="68" r="30" fill="#000"/>
+          </mask>
+          <circle cx="50" cy="68" r="30" fill="#283593" fill-opacity=".38" mask="url(#maskB)"/>
+          <circle cx="50" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <circle cx="92" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <text x="30" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="106" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">B</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">A &#8722; B  difference</text>
+        </g>
+        <!-- Symmetric difference -->
+        <g transform="translate(0,180)">
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <mask id="maskB2">
+            <rect x="8" y="16" width="150" height="104" fill="#fff"/>
+            <circle cx="92" cy="68" r="30" fill="#000"/>
+          </mask>
+          <mask id="maskA2">
+            <rect x="8" y="16" width="150" height="104" fill="#fff"/>
+            <circle cx="50" cy="68" r="30" fill="#000"/>
+          </mask>
+          <circle cx="50" cy="68" r="30" fill="#be123c" fill-opacity=".32" mask="url(#maskB2)"/>
+          <circle cx="92" cy="68" r="30" fill="#be123c" fill-opacity=".32" mask="url(#maskA2)"/>
+          <circle cx="50" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <circle cx="92" cy="68" r="30" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <text x="30" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="106" y="42" font-family="DejaVu Serif" font-size="12" fill="#283593">B</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">A &#9651; B  symmetric difference</text>
+        </g>
+        <!-- Complement -->
+        <g transform="translate(180,180)">
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <mask id="maskA3">
+            <rect x="8" y="16" width="150" height="104" fill="#fff"/>
+            <circle cx="71" cy="68" r="32" fill="#000"/>
+          </mask>
+          <rect x="8" y="16" width="150" height="104" fill="#283593" fill-opacity=".30" mask="url(#maskA3)"/>
+          <circle cx="71" cy="68" r="32" fill="none" stroke="#283593" stroke-width="1.4"/>
+          <text x="66" y="72" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">A&#8242;  complement</text>
+        </g>
+        <!-- Disjoint -->
+        <g transform="translate(360,180)">
+          <rect x="8" y="16" width="150" height="104" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <circle cx="46" cy="68" r="27" fill="#283593" fill-opacity=".18" stroke="#283593" stroke-width="1.4"/>
+          <circle cx="112" cy="68" r="27" fill="#283593" fill-opacity=".18" stroke="#283593" stroke-width="1.4"/>
+          <text x="42" y="72" font-family="DejaVu Serif" font-size="12" fill="#283593">A</text>
+          <text x="108" y="72" font-family="DejaVu Serif" font-size="12" fill="#283593">B</text>
+          <text x="14" y="112" font-family="DejaVu Sans" font-size="9" fill="#67707a">U</text>
+          <text x="8" y="136" font-family="DejaVu Sans" font-size="11" fill="#232a31">disjoint: A &#8745; B = &#8709;</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>U = {1, 2, 3, 4, 5, 6, 7, 8}, A = {1, 2, 3, 4},
+        B = {3, 4, 5, 6}.</dd>
+        <dt>Find</dt><dd>All five operations.</dd>
+      </dl>
+      <p><b>A &#8746; B</b> = everything in either = {1, 2, 3, 4, 5, 6}. Note 3
+      and 4 appear once, not twice.</p>
+      <p><b>A &#8745; B</b> = what is in both = {3, 4}.</p>
+      <p><b>A &#8722; B</b> = in A, not in B = {1, 2}.</p>
+      <p><b>B &#8722; A</b> = in B, not in A = {5, 6}. Note this differs from
+      A &#8722; B, so the order of the two sets matters.</p>
+      <p><b>A &#9651; B</b> = (A &#8722; B) &#8746; (B &#8722; A) =
+      {1, 2} &#8746; {5, 6} = {1, 2, 5, 6}. It is the union minus the
+      intersection.</p>
+      <p><b>A&#8242;</b> = everything in U outside A = {5, 6, 7, 8}.</p>
+      <p><b>Check.</b> n(A) = 4, n(B) = 4, n(A &#8745; B) = 2, and
+      n(A &#8746; B) = 4 + 4 &#8722; 2 = 6, which matches the six elements listed.
+      Always run that check; it catches a dropped element instantly.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The real question</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q1c">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q1(c)</span></div>
+    <div class="body">
+      <p class="q">(c) &nbsp; A= {11,12,13,14}</p>
+      <p class="q">B = {13, 14, 15, 16}</p>
+      <p class="q">From the two sets above, calculate:</p>
+      <p class="qi">i) &nbsp; &nbsp; &nbsp; Intersection set <span class="mk">(&#189; mark)</span></p>
+      <p class="qi">ii) &nbsp; &nbsp; &nbsp; Difference (A &#8722; B) <span class="mk">(1 mark)</span></p>
+      <p class="qi">iii) &nbsp; &nbsp; &nbsp; Difference (B &#8722; A). <span class="mk">(1 mark)</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A = {11, 12, 13, 14} and B = {13, 14, 15, 16}, which
+      overlap in two elements.</dd>
+      <dt>Asked</dt><dd><b>Calculate</b> three sets. Answers are sets, so write
+      them in braces.</dd>
+      <dt>Marks say</dt><dd>2.5 marks total and one line each. This is a gift
+      question: take it, check it, move on.</dd>
+      <dt>Teaches</dt><dd>This section, 2.2.</dd>
+      <dt>Trap</dt><dd>Parts ii and iii are asked separately <i>because</i> they
+      differ. Writing the same answer twice, or writing the symmetric difference
+      for both, throws away two of the 2.5 marks.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1(c)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A = {11, 12, 13, 14}, B = {13, 14, 15, 16}.</dd>
+        <dt>Find</dt><dd>A &#8745; B, A &#8722; B, B &#8722; A.</dd>
+        <dt>Rule</dt><dd>Intersection keeps what is in both; A &#8722; B keeps
+        what is in A and not in B.</dd>
+      </dl>
+      <p><b>(i) Intersection.</b> Go through A one element at a time and ask
+      whether it is in B. 11: no. 12: no. 13: yes. 14: yes.</p>
+      <p style="margin-left:12pt"><b>A &#8745; B = {13, 14}</b></p>
+      <p><b>(ii) A &#8722; B.</b> Elements of A that are <i>not</i> in B, which is
+      the two that just failed the test.</p>
+      <p style="margin-left:12pt"><b>A &#8722; B = {11, 12}</b></p>
+      <p><b>(iii) B &#8722; A.</b> Now start from B. 13: in A, drop it. 14: in A,
+      drop it. 15: not in A, keep. 16: not in A, keep.</p>
+      <p style="margin-left:12pt"><b>B &#8722; A = {15, 16}</b></p>
+      <p><b>Check.</b> The three answers should partition the union:
+      {11, 12} &#8746; {13, 14} &#8746; {15, 16} = {11, 12, 13, 14, 15, 16},
+      which is A &#8746; B, with 6 elements. And 4 + 4 &#8722; 2 = 6. Consistent.</p>
+      <p class="redo"><b>Now redo it:</b> add A &#9651; B and A&#8242; taking
+      U = {10, 11, ..., 18}. Answers: {11, 12, 15, 16} and
+      {10, 15, 16, 17, 18}.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">De Morgan's laws for sets</h3>
+
+  <div class="lawstate">
+    <div class="lawname">De Morgan's laws (set form)</div>
+    <p><b>The claim.</b> The complement of an intersection is the union of the
+    complements, and the complement of a union is the intersection of the
+    complements. Complementing flips the operation.</p>
+    <p><b>In symbols.</b><br>
+    (A &#8745; B)&#8242; = A&#8242; &#8746; B&#8242;<br>
+    (A &#8746; B)&#8242; = A&#8242; &#8745; B&#8242;</p>
+    <p class="cond"><b>Conditions.</b> A and B must be subsets of a stated
+    universal set U, since complement is meaningless without one.</p>
+    <p class="cond"><b>The limiting case.</b> Take B = U. Then B&#8242; is the
+    empty set, and the first law reads (A &#8745; U)&#8242; = A&#8242; &#8746;
+    &#8709;, which is A&#8242; = A&#8242;: true, and empty of content. The law
+    only says something when both sets are proper parts of U, and it says most
+    when they overlap. The same collapse happens at A = B, where it reduces to
+    A&#8242; = A&#8242; again. A worked answer that lands on one of these has
+    almost certainly lost a term somewhere.</p>
+    <p class="cond"><b>Why it is the same law as in logic.</b> Membership in an
+    intersection is a conjunction ("x is in A <i>and</i> x is in B") and
+    membership in a union is a disjunction. Complement is negation. So the set
+    law is the logic law of section 1.3, read through the definition of
+    membership. That is exactly the proof the 2024/2025 paper asks for.</p>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q3c">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q3(c)</span></div>
+    <div class="body">
+      <p class="q">c. &nbsp; &nbsp; &nbsp; Use set builder notation and logical equivalences to establish the first De Morgan law A &#8745; B&#772; - A&#772; &#8746; B&#772; <span class="mk">3 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Two typesetting faults in one line. The overbar sits above <b>B</b> alone when
+  the law needs it above the whole of <b>A &#8745; B</b>, and the relation symbol
+  images as a short dash where an equals sign belongs. The law being asked for is
+  unambiguous from its name: the complement of an intersection equals the union
+  of the complements. Answer that, and note the misprint in one line so the
+  marker knows you read it rather than copied it.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>The name of the law and a garbled rendering of it.</dd>
+      <dt>Asked</dt><dd><b>Establish</b> it, using <b>set builder notation and
+      logical equivalences</b>. The method is prescribed: translate membership
+      into logic, apply the logic law, translate back. A Venn diagram alone will
+      not answer this question.</dd>
+      <dt>Marks say</dt><dd>3 marks for about five lines of derivation, one mark
+      per genuine step.</dd>
+      <dt>Teaches</dt><dd>This section, plus 1.3 for the logical form.</dd>
+      <dt>Trap</dt><dd>Drawing two Venn diagrams and asserting they match. That
+      illustrates the law, it does not establish it, and the question named the
+      method it wants.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3(c)</span></div>
+    <div class="body">
+      <p><b>To prove:</b> (A &#8745; B)&#8242; = A&#8242; &#8746; B&#8242;.</p>
+      <p>Two sets are equal when they have exactly the same elements, so take an
+      arbitrary element x and show that belonging to the left is equivalent to
+      belonging to the right, step by step.</p>
+      <table class="data">
+        <tr><th>Line</th><th>Statement</th><th>Reason</th></tr>
+        <tr><td>1</td><td>(A &#8745; B)&#8242; = {x | x &#8713; (A &#8745; B)}</td><td>definition of complement</td></tr>
+        <tr><td>2</td><td>= {x | &#172;(x &#8712; A &#8745; B)}</td><td>meaning of &#8713;</td></tr>
+        <tr><td>3</td><td>= {x | &#172;(x &#8712; A &#8743; x &#8712; B)}</td><td>definition of intersection</td></tr>
+        <tr><td>4</td><td>= {x | &#172;(x &#8712; A) &#8744; &#172;(x &#8712; B)}</td><td><b>De Morgan's law for logic</b></td></tr>
+        <tr><td>5</td><td>= {x | x &#8713; A &#8744; x &#8713; B}</td><td>meaning of &#8713;</td></tr>
+        <tr><td>6</td><td>= {x | x &#8712; A&#8242; &#8744; x &#8712; B&#8242;}</td><td>definition of complement</td></tr>
+        <tr><td>7</td><td>= A&#8242; &#8746; B&#8242;</td><td>definition of union</td></tr>
+      </table>
+      <p>Line 4 is the only real step; everything else is unpacking a definition.
+      That is worth saying out loud in your answer, because it shows you know
+      where the content is.</p>
+      <p><b>The other law, for completeness:</b> the same seven lines with
+      &#8745; and &#8746; exchanged, and &#8743; and &#8744; exchanged, give
+      (A &#8746; B)&#8242; = A&#8242; &#8745; B&#8242;.</p>
+      <p class="redo"><b>Now redo it:</b> write the seven lines for the second
+      law from memory, naming the reason on each.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The counting formula</span></div>
+    <div class="body">
+      <p>For any two finite sets,</p>
+      <p style="margin-left:12pt"><b>n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B)</b></p>
+      <div class="wheredef"><span class="sym">n(A)</span> the number of elements
+      in A. <span class="sym">n(A &#8746; B)</span> the number in the union.
+      <span class="sym">n(A &#8745; B)</span> the number in both, subtracted
+      because adding n(A) and n(B) counts those elements twice.</div>
+      <p>This is the two-set case of the inclusion and exclusion principle, which
+      Part Five develops for three sets and more. It is worth 7 marks on the
+      2025/2026 paper by itself.</p>
+      <p class="hook"><b>Memory hook:</b> add both, then pay back the overlap you
+      counted twice.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. With A = {1,2,3}, B = {3,4}, find A &#9651; B.</p>
+      <p class="q">2. Is A &#8722; B the same as B &#8722; A?</p>
+      <p class="q">3. State (A &#8746; B)&#8242; in terms of A&#8242; and B&#8242;.</p>
+      <p class="q">4. n(A) = 20, n(B) = 15, n(A &#8745; B) = 6. Find n(A &#8746; B).</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. {1, 2, 4}. The 3 is in both, so it is excluded.<br>
+      2. No. A &#8722; B = {1,2} but B &#8722; A = {4}.<br>
+      3. A&#8242; &#8745; B&#8242;.<br>
+      4. 20 + 15 &#8722; 6 = 29.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A &#8745; B is the set of elements in <span class="blank"></span>
+        A and B.</li>
+        <li>A &#9651; B equals (A &#8722; B) <span class="blank"></span>
+        (B &#8722; A).</li>
+        <li>(A &#8745; B)&#8242; = <span class="blank"></span>.</li>
+        <li>n(A &#8746; B) = n(A) + n(B) <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. both. 2. &#8746; (union). 3. A&#8242; &#8746; B&#8242;.
+      4. &#8722; n(A &#8745; B).</p>
+    </div>
+  </div>
+
+</section>

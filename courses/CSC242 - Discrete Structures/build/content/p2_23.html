@@ -1,0 +1,448 @@
+<section>
+  <div class="kick">Part Two &middot; 2.3</div>
+  <h2 class="title">Bit Strings, Power Sets and Cartesian Products</h2>
+  <hr class="rule">
+  <p class="lead">Three ways of building something new out of a set. Each one is
+  asked about directly, and the bit-string representation is how a computer
+  actually stores a set.</p>
+  <p class="lo">By the end of this section you will be able to write any subset of
+  a universal set as a bit string and compute unions, intersections and
+  complements by bitwise operations, list a power set without missing a subset,
+  and form a Cartesian product and count its size.</p>
+
+  <h3 class="sub">Bit strings</h3>
+
+  <div class="gapchip"><b>Not in the course text</b><br>
+  The official 161-page text never mentions bit strings, yet the 2023/2024 and
+  2024/2025 papers together spend more than 15 marks on them. Everything you need
+  is here.</div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Storing a set as a row of bits</span></div>
+    <div class="body">
+      <p>Fix a universal set U and write its elements in a definite order, usually
+      increasing. A subset A of U can then be described by a string of 0s and 1s
+      with one position per element of U:</p>
+      <p style="margin-left:12pt">put <b>1</b> in position i if the i-th element
+      of U is in A,<br>
+      put <b>0</b> in position i if it is not.</p>
+      <p>That string is the <b>bit string</b> (or characteristic vector) of A.
+      With U = {1, 2, ..., 10} there are ten positions, so every subset is ten
+      bits, and a computer can hold it in a single machine word.</p>
+      <p>This is not a classroom curiosity. It is how set types are implemented,
+      and it is why testing membership is one machine instruction rather than a
+      search.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Sets as bit strings</span></div>
+    <div class="body">
+      <p>With U ordered, the subset A has bit string b<sub>1</sub>b<sub>2</sub>
+      ... b<sub>n</sub> where b<sub>i</sub> = 1 exactly when the i-th element of
+      U is in A.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">U</span> is the universal set, <b>listed in a fixed
+      order</b> that is agreed before anything is encoded. Change the order and
+      every bit string changes.
+      <span class="sym">n</span> is the number of elements in U, so every bit
+      string for that U is exactly n bits long.
+      <span class="sym">b<sub>i</sub></span> is the bit in position i, reading
+      left to right from i = 1.</div>
+      <p>The operations then become <b>bitwise</b>:</p>
+      <table class="data">
+        <tr><th>Set operation</th><th>Bit operation</th><th>Rule per position</th></tr>
+        <tr><td>A &#8746; B</td><td>bitwise OR</td><td>1 if either bit is 1</td></tr>
+        <tr><td>A &#8745; B</td><td>bitwise AND</td><td>1 only if both bits are 1</td></tr>
+        <tr><td>A&#8242;</td><td>bitwise NOT</td><td>flip every bit</td></tr>
+        <tr><td>A &#9651; B</td><td>bitwise XOR</td><td>1 if the bits differ</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> union is or, intersection is and,
+      complement is not. The set operations and the logic connectives are the same
+      operations wearing different clothes, which is exactly what section 1.3 and
+      2.2 kept saying.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10} in increasing
+        order, A = {1, 3, 5, 7, 9}.</dd>
+        <dt>Find</dt><dd>The bit string of A.</dd>
+        <dt>Rule</dt><dd>1 where the position's element is in A, 0 otherwise.</dd>
+      </dl>
+      <p>Walk the positions in order. Position 1 holds the element 1, which is in
+      A, so 1. Position 2 holds 2, not in A, so 0. Continuing:</p>
+      <table class="data">
+        <tr><th>position</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>element</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>in A?</th><td>yes</td><td>no</td><td>yes</td><td>no</td><td>yes</td><td>no</td><td>yes</td><td>no</td><td>yes</td><td>no</td></tr>
+        <tr><th>bit</th><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+      </table>
+      <p>So the bit string is <b>1010101010</b>, which the papers group in fours
+      from the left as <b>10 1010 1010</b>. The grouping is only for legibility,
+      like spaces in a phone number.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q3a">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q3(a)</span></div>
+    <div class="body">
+      <p class="q">3. (a) Suppose that a universal set, U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}. Express the following sets with bit strings where the i&#7511;&#688; bit in the string is 1 if i is in the set and 0 otherwise.</p>
+      <p class="qi">(i) {3, 4, 5} <span class="mk">(1 marks)</span></p>
+      <p class="qi">(ii) {1, 3, 6, 10} <span class="mk">(1 marks)</span></p>
+      <p class="qi">(iii) {2, 3, 4, 7, 8, 9} <span class="mk">(1 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "(1 marks)" is printed three times: singular value, plural noun. Harmless. The
+  question helpfully defines the convention itself, so use exactly the ordering it
+  gives, with position i holding the element i.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>U = {1, ..., 10}, and the convention that bit i is 1 when
+      i is in the set.</dd>
+      <dt>Asked</dt><dd><b>Express</b> three sets as bit strings. Ten bits each,
+      no working needed.</dd>
+      <dt>Marks say</dt><dd>1 mark each, so speed matters more than presentation.
+      Write the ten bits and move on.</dd>
+      <dt>Teaches</dt><dd>This section, 2.3.</dd>
+      <dt>Trap</dt><dd>Producing nine or eleven bits. Count them before moving
+      on; the length must equal n(U) every time.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q3(a)</span></div>
+    <div class="body">
+      <p><b>(i) {3, 4, 5}.</b> Ones in positions 3, 4, 5, zeros elsewhere.</p>
+      <p style="margin-left:12pt"><b>0011100000</b> &nbsp; (grouped: 00 1110 0000)</p>
+      <p><b>(ii) {1, 3, 6, 10}.</b> Ones in positions 1, 3, 6, 10.</p>
+      <p style="margin-left:12pt"><b>1010010001</b> &nbsp; (grouped: 10 1001 0001)</p>
+      <p><b>(iii) {2, 3, 4, 7, 8, 9}.</b> Ones in positions 2, 3, 4, 7, 8, 9.</p>
+      <p style="margin-left:12pt"><b>0111001110</b> &nbsp; (grouped: 01 1100 1110)</p>
+      <p><b>Check every time:</b> count the 1s and compare with the size of the
+      set. Three, four and six ones respectively, matching n = 3, 4, 6. Then count
+      the total length: ten in each. Two checks, three seconds, and they catch
+      every slip this question can produce.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q3d">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q3(d)</span></div>
+    <div class="body">
+      <p class="q">d. &nbsp; &nbsp; &nbsp; The bit string for the set {1, 3, 5, 7, 9} with universal set {1, 2, 3, 4, 5, 6, 7, 8, 9,10)) is 10 1010 1010.</p>
+      <p class="qi">i. &nbsp; &nbsp; &nbsp; What is the bit string for the complement of this set? <span class="mk">2.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The universal set closes with two round brackets instead of a brace, and there
+  is no space before the 10. Both are typing slips and change nothing: U is
+  {1, 2, ..., 10}.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3(d)(i)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The bit string 1010101010 for {1, 3, 5, 7, 9} over
+        U = {1, ..., 10}.</dd>
+        <dt>Find</dt><dd>The bit string of the complement.</dd>
+        <dt>Rule</dt><dd>Complement is bitwise NOT: flip every bit.</dd>
+      </dl>
+      <p>Flipping 1010101010 gives <b>0101010101</b>, grouped as
+      <b>01 0101 0101</b>.</p>
+      <p><b>Reading it back as a set</b>, the 1s now sit in positions
+      2, 4, 6, 8, 10, so the complement is {2, 4, 6, 8, 10}, the even numbers up
+      to 10. That is exactly right, since the original held the odd ones.</p>
+      <p>Always convert back and sanity-check the meaning. It takes five seconds
+      and turns a mechanical answer into one you know is correct.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q3e">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q3(d)(ii)</span></div>
+    <div class="body">
+      <p class="q">ii. &nbsp; &nbsp; &nbsp; The bit strings for the sets {1, 2, 3, 4, 5} and {1, 3, 5, 7, 9} are 11 1110 0000 and 10 1010 1010, respectively. Use bit strings to find the union and intersection of these sets. <span class="mk">2.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Two ten-bit strings, already computed for you.</dd>
+      <dt>Asked</dt><dd>Find the union and intersection, and the method is
+      prescribed: <b>use bit strings</b>. So do the bitwise work and show it.</dd>
+      <dt>Marks say</dt><dd>2.5 marks for two operations. Show the two strings
+      lined up and the result underneath; that layout is the working.</dd>
+      <dt>Teaches</dt><dd>This section, 2.3.</dd>
+      <dt>Trap</dt><dd>Converting to sets, doing the union there, and converting
+      back. That gets the right answer by the wrong method and risks losing the
+      method marks, since the question named the method.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3(d)(ii)</span></div>
+    <div class="body">
+      <p>Line the strings up in columns and apply the rule position by position.</p>
+      <table class="data">
+        <tr><th>position</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>{1,2,3,4,5}</th><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><th>{1,3,5,7,9}</th><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>OR (union)</th><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>AND (meet)</th><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      </table>
+      <p><b>Union</b> = 1111101010, grouped <b>11 1110 1010</b>. Reading the 1s
+      back: positions 1, 2, 3, 4, 5, 7, 9, so the union is
+      <b>{1, 2, 3, 4, 5, 7, 9}</b>.</p>
+      <p><b>Intersection</b> = 1010100000, grouped <b>10 1010 0000</b>. The 1s sit
+      at 1, 3, 5, so the intersection is <b>{1, 3, 5}</b>.</p>
+      <p><b>Check.</b> n(union) = 7, n(first) = 5, n(second) = 5,
+      n(intersection) = 3, and 5 + 5 &#8722; 3 = 7. The counting formula from 2.2
+      agrees.</p>
+      <p class="redo"><b>Now redo it:</b> compute the symmetric difference of the
+      same two sets by XOR. You should get 01 0100 1010, that is
+      {2, 4, 7, 9}.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The power set</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Power set</span></div>
+    <div class="body">
+      <p>The <b>power set</b> of A, written <b>P(A)</b>, is the set of <i>all</i>
+      subsets of A, including the empty set and A itself.</p>
+      <p>If n(A) = n then <b>n(P(A)) = 2<sup>n</sup></b>.</p>
+      <div class="wheredef"><span class="sym">n</span> the number of elements in
+      A. <span class="sym">2<sup>n</sup></span> the number of subsets, because
+      each element is independently either in or out, giving two choices repeated
+      n times.</div>
+      <p class="hook"><b>Memory hook:</b> the power set is one binary decision per
+      element, in or out. That is why its size is 2<sup>n</sup>, and why bit
+      strings and power sets are the same idea: <b>every subset is a bit
+      string</b>, so the number of subsets is the number of n-bit strings.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method, and the 24/25 output order</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A = {1, 2, 3}.</dd>
+        <dt>Find</dt><dd>P(A).</dd>
+        <dt>Rule</dt><dd>2&#179; = 8 subsets. List by size so none is missed.</dd>
+      </dl>
+      <p><b>Listing by size</b> is the safe method, because you can count each
+      row against the binomial coefficients of Part Five.</p>
+      <table class="data">
+        <tr><th>Size</th><th>Subsets</th><th>How many</th></tr>
+        <tr><td>0</td><td>&#8709;</td><td>1</td></tr>
+        <tr><td>1</td><td>{1}, {2}, {3}</td><td>3</td></tr>
+        <tr><td>2</td><td>{1,2}, {1,3}, {2,3}</td><td>3</td></tr>
+        <tr><td>3</td><td>{1,2,3}</td><td>1</td></tr>
+      </table>
+      <p>Total 1 + 3 + 3 + 1 = 8 = 2&#179;. Correct.</p>
+      <p><b>Listing by bit pattern</b> is the method a program uses, and it
+      explains the order the 2024/2025 paper prints. Count from 000 to 111 in
+      binary, reading each pattern as "which elements are in":</p>
+      <table class="data">
+        <tr><th>Count</th><th>Bits (for 3,2,1)</th><th>Subset</th></tr>
+        <tr><td>0</td><td>000</td><td>{ }</td></tr>
+        <tr><td>1</td><td>001</td><td>{1}</td></tr>
+        <tr><td>2</td><td>010</td><td>{2}</td></tr>
+        <tr><td>3</td><td>011</td><td>{1, 2}</td></tr>
+        <tr><td>4</td><td>100</td><td>{3}</td></tr>
+        <tr><td>5</td><td>101</td><td>{1, 3}</td></tr>
+        <tr><td>6</td><td>110</td><td>{2, 3}</td></tr>
+        <tr><td>7</td><td>111</td><td>{1, 2, 3}</td></tr>
+      </table>
+      <p>That is exactly the order printed in 2024/2025 Q3(b), and knowing why
+      makes the program in Part Eleven write itself.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Do not forget the two free subsets</span></div>
+    <div class="body">
+      <p>Every power set contains &#8709; and the whole set A. They are the two
+      most commonly forgotten, and forgetting either makes the count wrong, which
+      is the first thing a marker checks.</p>
+      <p>Count first, then list. If you expect 2<sup>n</sup> and you have written
+      2<sup>n</sup> &#8722; 1, you know exactly what is missing before you hand
+      it in.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The Cartesian product</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Cartesian product</span></div>
+    <div class="body">
+      <p>The <b>Cartesian product</b> of A and B, written <b>A &#215; B</b>, is
+      the set of all <b>ordered pairs</b> whose first entry comes from A and
+      second from B:</p>
+      <p style="margin-left:12pt">A &#215; B = {(a, b) | a &#8712; A and b &#8712; B}</p>
+      <p><b>n(A &#215; B) = n(A) &#215; n(B)</b>.</p>
+      <div class="wheredef"><span class="sym">(a, b)</span> an ordered pair:
+      round brackets, and the order matters, so (1, 2) &#8800; (2, 1).
+      <span class="sym">n(A) &#215; n(B)</span> the count, by the product rule of
+      Part Five: n(A) choices for the first entry, and for each of them n(B)
+      choices for the second.</div>
+      <p class="hook"><b>Memory hook:</b> braces for a set, where order does not
+      matter; round brackets for a pair, where it does. A &#215; B is every way of
+      picking one from each, so it is a grid, and a grid's area is the product of
+      its sides.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q2b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q2(b)</span></div>
+    <div class="body">
+      <p class="q">(b) A university has the set of students:</p>
+      <p class="qi">S= {John, Mary, Peter} and the set of courses:</p>
+      <p class="qi">C= {CSC701, CSC702}</p>
+      <p class="qi">Find the Cartesian product S&#215;C <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>S with 3 students, C with 2 courses.</dd>
+      <dt>Asked</dt><dd><b>Find</b> S &#215; C. Note the order: students first,
+      courses second, because it says S&#215;C and not C&#215;S.</dd>
+      <dt>Marks say</dt><dd>2 marks for six pairs. List them all; a formula with
+      no list does not answer "find".</dd>
+      <dt>Teaches</dt><dd>This section, 2.3.</dd>
+      <dt>Trap</dt><dd>Writing the pairs with braces instead of round brackets, or
+      writing them in the order (course, student). Both are marked wrong because
+      the pair is ordered and the question fixed the order.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>S = {John, Mary, Peter}, C = {CSC701, CSC702}.</dd>
+        <dt>Find</dt><dd>S &#215; C.</dd>
+        <dt>Rule</dt><dd>Every ordered pair with the student first. Expect
+        n(S) &#215; n(C) = 3 &#215; 2 = 6 pairs.</dd>
+      </dl>
+      <p>Take each student in turn and pair with every course. Working
+      systematically is what stops a pair going missing.</p>
+      <p style="margin-left:12pt"><b>S &#215; C = {(John, CSC701), (John, CSC702),
+      (Mary, CSC701), (Mary, CSC702), (Peter, CSC701), (Peter, CSC702)}</b></p>
+      <p>Six pairs, matching 3 &#215; 2. It is a grid: three rows of students,
+      two columns of courses.</p>
+      <p><b>What it means here:</b> S &#215; C is every possible student and
+      course combination, that is, every enrolment that <i>could</i> exist. The
+      enrolments that actually exist form a subset of it, and a subset of a
+      Cartesian product is precisely what Part Three calls a <b>relation</b>. That
+      single sentence is the bridge from sets to relations, and it is worth writing
+      in your answer.</p>
+      <p class="redo"><b>Now redo it:</b> write C &#215; S and confirm it is a
+      different set with the same six students and courses. That difference is why
+      the product is not commutative.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q3a">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q3(a)</span></div>
+    <div class="body">
+      <p class="q">a. &nbsp; Explain why (A &#215; B) &#215; (C &#215; D) and A &#215; (B &#215; C) &#215; D are not the same. <span class="mk">3.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Two ways of bracketing a product of four sets.</dd>
+      <dt>Asked</dt><dd><b>Explain why</b> they differ. This is an argument about
+      the <i>shape</i> of the elements, not a calculation.</dd>
+      <dt>Marks say</dt><dd>3.5 marks for a short explanation, so they want the
+      structure spelled out, ideally with a small concrete example.</dd>
+      <dt>Teaches</dt><dd>This section, 2.3.</dd>
+      <dt>Trap</dt><dd>Answering "because the Cartesian product is not
+      associative" and stopping. That names the fact without explaining it. The
+      marks are in showing what a typical element of each side looks like.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3(a)</span></div>
+    <div class="body">
+      <p><b>The point: an ordered pair has exactly two slots, and what sits in
+      each slot is decided by the brackets.</b></p>
+      <p><b>Left side, (A &#215; B) &#215; (C &#215; D).</b> This is a product of
+      two things: the set A &#215; B, and the set C &#215; D. So a typical element
+      is an ordered pair whose first entry is itself a pair from A &#215; B and
+      whose second entry is a pair from C &#215; D:</p>
+      <p style="margin-left:12pt"><b>((a, b), (c, d))</b></p>
+      <p>Two slots at the top level, each holding a pair.</p>
+      <p><b>Right side, A &#215; (B &#215; C) &#215; D.</b> This is a product of
+      three things: A, then B &#215; C, then D. A typical element is an ordered
+      <i>triple</i>:</p>
+      <p style="margin-left:12pt"><b>(a, (b, c), d)</b></p>
+      <p>Three slots at the top level, with the middle one holding a pair.</p>
+      <p><b>Why that settles it.</b> An element of the left is a pair; an element
+      of the right is a triple. A pair is never equal to a triple, whatever is
+      inside them, so the two sets share no elements at all and cannot be equal.
+      The Cartesian product is <b>not associative</b>.</p>
+      <p><b>A concrete example seals the marks.</b> Take
+      A = B = C = D = {1}. Then</p>
+      <p style="margin-left:12pt">(A &#215; B) &#215; (C &#215; D) = {((1,1), (1,1))}<br>
+      A &#215; (B &#215; C) &#215; D = {(1, (1,1), 1)}</p>
+      <p>Both sets have exactly one element, so they are <i>equivalent</i>, but
+      those elements are differently shaped, so the sets are not <i>equal</i>.
+      Section 2.1's distinction between equal and equivalent is doing real work
+      here, and saying so is worth a mark.</p>
+      <p><b>Worth adding:</b> because the counts multiply the same way either
+      side, n of both is n(A)n(B)n(C)n(D). Equal size, different structure. That
+      is why people expect them to be the same and why they are not.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Write the bit string of {2, 5} over U = {1, 2, 3, 4, 5}.</p>
+      <p class="q">2. How many elements are in P(A) when n(A) = 6?</p>
+      <p class="q">3. n(A) = 4 and n(B) = 7. Find n(A &#215; B).</p>
+      <p class="q">4. Which bitwise operation gives the intersection?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. 01001.<br>
+      2. 2&#8310; = 64.<br>
+      3. 4 &#215; 7 = 28.<br>
+      4. AND.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>In a bit string, position i holds a 1 when the i-th element of
+        <span class="blank"></span> is in the set.</li>
+        <li>The power set of A is the set of all <span class="blank"></span> of A,
+        and it has <span class="blank"></span> elements.</li>
+        <li>A &#215; B is the set of all <span class="blank"></span> (a, b).</li>
+        <li>Union corresponds to the bitwise <span class="blank"></span>
+        operation.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. the universal set U. 2. subsets, 2<sup>n</sup>. 3. ordered pairs.
+      4. OR.</p>
+    </div>
+  </div>
+
+</section>

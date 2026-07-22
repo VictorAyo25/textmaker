@@ -1,0 +1,315 @@
+<section>
+  <div class="kick">Part Three &middot; 3.3</div>
+  <h2 class="title">Equivalence Relations and Partitions</h2>
+  <hr class="rule">
+  <p class="lead">Three properties together make the most useful relation in
+  mathematics: one that behaves like equality without being equality.</p>
+  <p class="lo">By the end of this section you will be able to define an
+  equivalence relation, test one in the order that finds a failure fastest, and
+  explain the partition it creates.</p>
+
+  <h3 class="sub">The definition</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Equivalence relation</span></div>
+    <div class="body">
+      <p>A relation R on a set A is an <b>equivalence relation</b> when it is all
+      three of:</p>
+      <p style="margin-left:12pt"><b>reflexive</b>: (a, a) &#8712; R for every a<br>
+      <b>symmetric</b>: (a, b) &#8712; R forces (b, a) &#8712; R<br>
+      <b>transitive</b>: (a, b) and (b, c) in R force (a, c) &#8712; R</p>
+      <p>All three, with no exceptions. Failing any one means it is not an
+      equivalence relation, however close it looks.</p>
+      <p class="hook"><b>Memory hook:</b> <b>R</b>eflexive, <b>S</b>ymmetric,
+      <b>T</b>ransitive: <b>RST</b>. Say it out loud before every answer, and
+      check them in that order.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What it is for</span></div>
+    <div class="body">
+      <p>An equivalence relation is "sameness in some respect". Ordinary equality
+      is the strictest example, but most useful ones are looser.</p>
+      <p>"Has the same remainder when divided by 3" is an equivalence relation on
+      the integers. So is "was born in the same year", "has the same absolute
+      value", and "computes the same output". None of these is equality, yet each
+      lets you treat different things as interchangeable for a purpose.</p>
+      <p>That is why it matters in computing: two states of a machine that behave
+      identically can be merged, two expressions that always evaluate the same can
+      be swapped, and a cache can return one answer for many requests. Every one
+      of those is an equivalence relation being exploited.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Testing in the fastest order</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Check reflexive first, always</span></div>
+    <div class="body">
+      <p>Reflexivity is the cheapest to test and the most commonly broken. It
+      needs one glance at the diagonal, and a single missing loop settles the
+      whole question.</p>
+      <p>So the efficient order is:</p>
+      <p><b>1. Reflexive?</b> Scan the diagonal. If one loop is missing, stop:
+      the answer is no, and you have your counterexample.<br>
+      <b>2. Symmetric?</b> Compare each pair with its reverse. One unmatched pair
+      settles it.<br>
+      <b>3. Transitive?</b> The expensive one, so do it last, and only if the
+      first two passed.</p>
+      <p>Under exam time this ordering routinely saves several minutes on a
+      four-mark question.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The real questions</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q2c">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q2(c)</span></div>
+    <div class="body">
+      <p class="q">(c) A social networking platform records users who can view their own profiles. The relation
+      is defined as:</p>
+      <p class="qi">R={(1,1),(2,2),(3,3),(4,4),(1,2),(2,3)} <span class="mk">(2 marks)</span></p>
+      <p class="qi">Determine whether R is reflexive. Justify your answer.</p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The mark text is printed <i>above</i> the instruction rather than after it,
+  which is only a layout quirk. Note that the underlying set is not stated
+  explicitly; it is implied to be {1, 2, 3, 4} by the pairs present. Say that you
+  are taking A = {1, 2, 3, 4} in your answer, because the verdict depends on it:
+  if the platform had a fifth user, R would not be reflexive.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Six pairs, four of them loops, on an implied set
+      {1, 2, 3, 4}.</dd>
+      <dt>Asked</dt><dd><b>Determine whether</b> R is reflexive, and
+      <b>justify</b>. The justification is explicitly demanded, so a bare "yes" is
+      half an answer at best.</dd>
+      <dt>Marks say</dt><dd>2 marks: one for the verdict, one for the reason.
+      Name the loops.</dd>
+      <dt>Teaches</dt><dd>3.2 for the property, this section for the context.</dd>
+      <dt>Trap</dt><dd>Being distracted by (1,2) and (2,3). Reflexivity is only
+      about loops; the other pairs are irrelevant to this question. Also, state
+      the set: an unstated domain is where this question hides its difficulty.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2(c)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>R = {(1,1), (2,2), (3,3), (4,4), (1,2), (2,3)}, on the
+        set A = {1, 2, 3, 4} implied by the elements appearing.</dd>
+        <dt>Find</dt><dd>Whether R is reflexive, with justification.</dd>
+        <dt>Rule</dt><dd>R is reflexive when (a, a) &#8712; R for every a in A.</dd>
+      </dl>
+      <p><b>Step 1. Fix the set.</b> The elements mentioned are 1, 2, 3 and 4, so
+      A = {1, 2, 3, 4}.</p>
+      <p><b>Step 2. Check each element for its loop.</b></p>
+      <table class="data">
+        <tr><th>a</th><th>is (a, a) in R?</th></tr>
+        <tr><td>1</td><td>yes, (1,1) is listed</td></tr>
+        <tr><td>2</td><td>yes, (2,2) is listed</td></tr>
+        <tr><td>3</td><td>yes, (3,3) is listed</td></tr>
+        <tr><td>4</td><td>yes, (4,4) is listed</td></tr>
+      </table>
+      <p><b>Step 3. Verdict and justification.</b></p>
+      <p><b>Yes, R is reflexive.</b> Every element of A = {1, 2, 3, 4} is related
+      to itself, because all four pairs (1,1), (2,2), (3,3) and (4,4) are present
+      in R. The remaining pairs (1,2) and (2,3) do not affect reflexivity, which
+      depends only on the loops.</p>
+      <p><b>Worth one extra line, and it is free:</b> R is <i>not</i> symmetric,
+      since (1,2) is in R but (2,1) is not, and it is not transitive, since (1,2)
+      and (2,3) are in R but (1,3) is not. So R is reflexive but not an
+      equivalence relation. In context that says every user can view their own
+      profile, but viewing is not mutual and does not chain.</p>
+      <p class="redo"><b>Now redo it:</b> what single pair would you add to make R
+      symmetric? And what would you then need for transitivity?</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q2d">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q2(d)</span></div>
+    <div class="body">
+      <p class="q">(d) Let A = {1,2,3,4} and let R = {(1,1),(2,2),(3,3),(4,4),(1,3),(3,1),(2,4),(4,2)}.
+      Determine whether R is an equivalence relation. Provide detailed explanations. <span class="mk">(4 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A = {1, 2, 3, 4} explicitly, and eight pairs: four loops
+      and two mutual pairs.</dd>
+      <dt>Asked</dt><dd><b>Determine whether</b> R is an equivalence relation, with
+      <b>detailed explanations</b>. So all three properties must be checked
+      individually and the reasoning shown.</dd>
+      <dt>Marks say</dt><dd>4 marks: roughly one per property plus one for the
+      conclusion. Structure the answer under three headings and the marks fall
+      out.</dd>
+      <dt>Teaches</dt><dd>This section, 3.3.</dd>
+      <dt>Trap</dt><dd>Transitivity looks fiddly with eight pairs. Work it
+      systematically: list every two-step path and check its shortcut. Do not
+      eyeball it and assert.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2(d)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A = {1,2,3,4}, R = {(1,1),(2,2),(3,3),(4,4),(1,3),(3,1),(2,4),(4,2)}.</dd>
+        <dt>Find</dt><dd>Whether R is reflexive, symmetric and transitive, hence
+        whether it is an equivalence relation.</dd>
+        <dt>Rule</dt><dd>All three properties must hold. Test in the order
+        reflexive, symmetric, transitive.</dd>
+      </dl>
+      <p>The matrix makes all three visible at once:</p>
+      <table class="data">
+        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>2</th><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><th>3</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>4</th><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+      </table>
+
+      <p class="marks">1. Reflexive</p>
+      <p>The diagonal reads 1, 1, 1, 1. All four pairs (1,1), (2,2), (3,3), (4,4)
+      are present, so every element relates to itself.
+      <b>R is reflexive.</b></p>
+
+      <p class="marks">2. Symmetric</p>
+      <p>Take each non-loop pair and look for its reverse.</p>
+      <table class="data">
+        <tr><th>pair in R</th><th>reverse needed</th><th>present?</th></tr>
+        <tr><td>(1,3)</td><td>(3,1)</td><td>yes</td></tr>
+        <tr><td>(3,1)</td><td>(1,3)</td><td>yes</td></tr>
+        <tr><td>(2,4)</td><td>(4,2)</td><td>yes</td></tr>
+        <tr><td>(4,2)</td><td>(2,4)</td><td>yes</td></tr>
+      </table>
+      <p>The loops are their own reverses, so they hold automatically. The matrix
+      is its own mirror image across the diagonal.
+      <b>R is symmetric.</b></p>
+
+      <p class="marks">3. Transitive</p>
+      <p>Every two-step path must have its one-step shortcut. Ignoring paths where
+      one step is a loop, since those give back a pair already present, the
+      genuine two-step paths are:</p>
+      <table class="data">
+        <tr><th>first step</th><th>second step</th><th>shortcut needed</th><th>present?</th></tr>
+        <tr><td>(1,3)</td><td>(3,1)</td><td>(1,1)</td><td>yes</td></tr>
+        <tr><td>(3,1)</td><td>(1,3)</td><td>(3,3)</td><td>yes</td></tr>
+        <tr><td>(2,4)</td><td>(4,2)</td><td>(2,2)</td><td>yes</td></tr>
+        <tr><td>(4,2)</td><td>(2,4)</td><td>(4,4)</td><td>yes</td></tr>
+      </table>
+      <p>There is no path from the {1,3} side to the {2,4} side, because no pair
+      joins them, so no further check is needed.
+      <b>R is transitive.</b></p>
+
+      <p class="marks">Conclusion</p>
+      <p><b>R is reflexive, symmetric and transitive, so R IS an equivalence
+      relation on A.</b></p>
+
+      <p><b>The detail that earns the last mark.</b> An equivalence relation cuts
+      its set into groups, and this one is easy to see. Element 1 is related to 1
+      and 3; element 2 is related to 2 and 4. So A splits into</p>
+      <p style="margin-left:12pt"><b>{1, 3} and {2, 4}</b></p>
+      <p>Those are the <b>equivalence classes</b>. Every element lies in exactly
+      one, none is empty, and together they make up all of A. Here the relation is
+      "has the same parity", since 1 and 3 are odd while 2 and 4 are even, which
+      is why it behaves so neatly.</p>
+      <p class="redo"><b>Now redo it:</b> remove (2,4) and (4,2) from R and
+      re-test. It stays an equivalence relation, but the classes become
+      {1,3}, {2}, {4}.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Equivalence classes and partitions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Classes and partitions</span></div>
+    <div class="body">
+      <p>Given an equivalence relation R on A, the <b>equivalence class</b> of a,
+      written [a], is the set of everything related to a:</p>
+      <p style="margin-left:12pt">[a] = {x &#8712; A | (a, x) &#8712; R}</p>
+      <p>A <b>partition</b> of A is a collection of non-empty subsets that are
+      pairwise disjoint and whose union is all of A. Every element is in exactly
+      one piece.</p>
+      <p><b>The fundamental fact:</b> the equivalence classes of an equivalence
+      relation always form a partition of A, and conversely every partition
+      defines an equivalence relation ("lies in the same piece").</p>
+      <p class="hook"><b>Memory hook:</b> an equivalence relation and a partition
+      are the same information written two ways. Sorting things into boxes and
+      declaring things equivalent are one act.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The picture</span></div>
+    <div class="body">
+      <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <rect x="4" y="10" width="230" height="104" fill="#f7f8fc" stroke="#9aa0b8"/>
+        <text x="10" y="26" font-family="DejaVu Sans" font-size="10" fill="#67707a">A, partitioned by R</text>
+        <ellipse cx="72" cy="70" rx="52" ry="30" fill="#283593" fill-opacity=".14" stroke="#283593" stroke-width="1.3"/>
+        <ellipse cx="172" cy="70" rx="46" ry="30" fill="#be123c" fill-opacity=".12" stroke="#be123c" stroke-width="1.3"/>
+        <g font-family="DejaVu Sans" font-size="12" fill="#232a31" text-anchor="middle">
+          <text x="56" y="74">1</text><text x="90" y="74">3</text>
+          <text x="158" y="74">2</text><text x="188" y="74">4</text>
+        </g>
+        <text x="42" y="112" font-family="DejaVu Sans" font-size="10" fill="#283593">[1] = [3] = {1,3}</text>
+        <text x="140" y="112" font-family="DejaVu Sans" font-size="10" fill="#be123c">[2] = [4] = {2,4}</text>
+        <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+          <text x="256" y="34">Every element sits in exactly one class.</text>
+          <text x="256" y="54">No class is empty.</text>
+          <text x="256" y="74">The classes together make up all of A.</text>
+          <text x="256" y="98" font-style="italic" fill="#67707a">That is precisely a partition.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Name the three properties an equivalence relation must have.</p>
+      <p class="q">2. Which property should you test first, and why?</p>
+      <p class="q">3. Is "is less than or equal to" on the integers an equivalence relation?</p>
+      <p class="q">4. What are the equivalence classes of "same remainder on division by 3" over the integers?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Reflexive, symmetric, transitive.<br>
+      2. Reflexive: it is the cheapest to check and the most often broken, and one
+      missing loop ends the question.<br>
+      3. No. It is reflexive and transitive but not symmetric, since 1 &#8804; 2
+      while 2 &#8804; 1 is false. It is a partial order instead, which is section
+      3.4.<br>
+      4. Three classes: the multiples of 3, those leaving remainder 1, and those
+      leaving remainder 2.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>An equivalence relation is reflexive, <span class="blank"></span> and
+        <span class="blank"></span>.</li>
+        <li>The set of everything related to a is called the
+        <span class="blank"></span> of a.</li>
+        <li>The equivalence classes of an equivalence relation form a
+        <span class="blank"></span> of the set.</li>
+        <li>In a partition, every element lies in <span class="blank"></span>
+        piece.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. symmetric, transitive. 2. equivalence class. 3. partition.
+      4. exactly one.</p>
+    </div>
+  </div>
+
+</section>

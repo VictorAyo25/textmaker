@@ -1,0 +1,410 @@
+<section>
+  <div class="kick">Part Nine &middot; 9.3</div>
+  <h2 class="title">Sequences, Series and Progressions</h2>
+  <hr class="rule">
+  <p class="lead">A sequence is an ordered list with a rule behind it. Two rules
+  cover almost everything this course does with them: keep adding the same
+  amount, or keep multiplying by the same amount. Getting the indexing right is
+  where the marks actually go.</p>
+  <p class="lo">By the end of this section you will be able to define a
+  sequence and a term, tell an arithmetic progression from a geometric one,
+  write the general term and the sum of each, read a rule off a printed
+  sequence, use sigma notation and the four standard sums, and state which
+  indexing convention you are using so that an off-by-one cannot cost you.</p>
+
+  <h3 class="sub">Sequences</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Sequence, term, finite and infinite</span></div>
+    <div class="body">
+      <p>A <b>sequence</b> is a function from a subset of the integers, usually
+      {0, 1, 2, &#8230;} or {1, 2, 3, &#8230;}, to a set S. The image of the
+      integer n is written a<sub>n</sub> and is called a <b>term</b> of the
+      sequence. The whole sequence is written {a<sub>n</sub>}.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the <b>index</b>, an integer, and it says
+      the position of the term, not its value.
+      <span class="sym">a<sub>n</sub></span> is the <b>term at position n</b>:
+      one number, not the whole list. The subscript is not multiplication.
+      <span class="sym">{a<sub>n</sub>}</span> in braces is the <b>sequence
+      itself</b>, the entire ordered list.
+      <span class="sym">S</span> is the set the terms are drawn from, usually
+      the real numbers on this course.</div>
+      <p><b>Calling it a function is the useful part.</b> Section 4.1 defined a
+      function as a rule assigning exactly one output to each input; a sequence
+      is that rule with the inputs restricted to integers. So each position has
+      exactly one term, which is why "the third term" is a well-formed
+      phrase.</p>
+      <p><b>Finite and infinite.</b> A <b>finite</b> sequence has a last term
+      and its <b>length</b> is the number of terms. An <b>infinite</b> sequence
+      runs on without end.</p>
+      <table class="data">
+        <tr><th>Sequence</th><th>Kind</th><th>The rule behind it</th></tr>
+        <tr><td>2, 4, 6, 8, &#8230;, 20</td><td>finite, length 10</td><td>add 2 to the previous term</td></tr>
+        <tr><td>10, 6, 2, &#8722;2, &#8230;</td><td>infinite</td><td>subtract 4 from the previous term</td></tr>
+        <tr><td>1, 1, 2, 3, 5, 8, 13, &#8230;</td><td>infinite</td><td>add the previous two terms</td></tr>
+      </table>
+      <p><b>A progression</b> is a sequence whose terms can be described by a
+      formula. The third row above is the <b>Fibonacci sequence</b>, in which
+      each term is the sum of the two before it; section 9.4 solves it
+      properly.</p>
+      <p class="hook"><b>Memory hook:</b> <b>the index is the seat number, the
+      term is who is sitting in it.</b></p>
+    </div>
+  </div>
+
+  <h3 class="sub">Arithmetic progressions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Arithmetic progression</span></div>
+    <div class="body">
+      <p>An <b>arithmetic progression</b> is a sequence in which each term is
+      the previous term plus a fixed amount:</p>
+      <p style="margin-left:12pt">a, &nbsp; a + d, &nbsp; a + 2d, &nbsp;
+      a + 3d, &nbsp; &#8230;</p>
+      <p>The general term and the sum of the first n terms are</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> = a + (n &#8722; 1)d</b>
+      &nbsp; &nbsp; and &nbsp; &nbsp;
+      <b>S<sub>n</sub> = n(a + a<sub>n</sub>) / 2 =
+      n(2a + (n &#8722; 1)d) / 2</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">a</span> is the <b>first term</b>, the one at position
+      1.
+      <span class="sym">d</span> is the <b>common difference</b>, the fixed
+      amount added each time; it may be negative, which makes the sequence
+      decrease, and it is found as any term minus the one before it.
+      <span class="sym">n</span> is the <b>position</b> of the term you want,
+      counting the first term as position 1.
+      <span class="sym">a<sub>n</sub></span> is the <b>n-th term</b>.
+      <span class="sym">S<sub>n</sub></span> is the <b>sum</b> of the first n
+      terms, also called the arithmetic <b>series</b>.
+      <span class="sym">(n &#8722; 1)</span> is the number of <b>steps taken</b>
+      to get from the first term to the n-th, which is one fewer than the number
+      of terms. That subtraction is the single most common error in this
+      topic.</div>
+      <p><b>Why the sum formula looks like that.</b> Write the sum forwards and
+      backwards under itself and add column by column. Each column gives
+      a + a<sub>n</sub>, and there are n columns, so twice the sum is
+      n(a + a<sub>n</sub>). It is the first term plus the last, times how many
+      pairs there are. The n = 1 to 100 case of section 9.2 is exactly this
+      trick.</p>
+      <p class="hook"><b>Memory hook:</b> <b>arithmetic adds, and the n-th term
+      has taken n minus one steps.</b></p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Two indexing conventions, one sequence</span></div>
+    <div class="body">
+      <p>The definition above starts counting at 1, so a<sub>1</sub> = a and
+      a<sub>n</sub> = a + (n &#8722; 1)d. The official course text writes the
+      same progression as</p>
+      <p style="margin-left:12pt">a, &nbsp; a + d, &nbsp; a + 2d, &nbsp;
+      &#8230;, &nbsp; a + nd</p>
+      <p>which counts from 0, so that its a<sub>n</sub> = a + nd and its first
+      term is a<sub>0</sub>. <b>Neither is wrong.</b> They describe the same
+      list of numbers and disagree only about what to call the positions.</p>
+      <p><b>The danger is mixing them inside one answer</b>, which produces an
+      answer exactly one term out. So do two things:</p>
+      <ul class="bul">
+        <li><b>Say which you are using</b>, in five words: "counting the first
+        term as a<sub>1</sub>".</li>
+        <li><b>Answer the question in the words it asked.</b> "Find the 10th
+        term" means the tenth number in the list, whatever you have chosen to
+        call its index. Count the list if you are unsure; ten numbers is not
+        many.</li>
+      </ul>
+      <p>This is the same discipline as the Foundations convention box on
+      whether &#8469; contains 0, and for the same reason: a stated convention
+      cannot be marked wrong.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; the arithmetic sequence 7, 12, 17, 22</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The sequence 7, 12, 17, 22, &#8230;</dd>
+        <dt>Find</dt><dd>(a) the 10th term, (b) a general formula for the n-th
+        term, and (c) the sum of the first 10 terms.</dd>
+        <dt>Formula</dt><dd>a<sub>n</sub> = a + (n &#8722; 1)d and
+        S<sub>n</sub> = n(a + a<sub>n</sub>) / 2, counting the first term as
+        a<sub>1</sub>.</dd>
+      </dl>
+      <p><b>Identify it first.</b> The differences are
+      12 &#8722; 7 = 5, 17 &#8722; 12 = 5, 22 &#8722; 17 = 5. Constant, so this
+      is an arithmetic progression with a = 7 and d = 5.</p>
+      <p class="marks">(a) The 10th term</p>
+      <p style="margin-left:12pt">a<sub>10</sub> = a + (10 &#8722; 1)d
+      = 7 + 9 &#215; 5 = 7 + 45 = <b>52</b></p>
+      <p><b>Check by listing,</b> which is cheap and catches an off-by-one at
+      once: 7, 12, 17, 22, 27, 32, 37, 42, 47, <b>52</b>. Ten numbers, and the
+      tenth is 52.</p>
+      <p class="marks">(b) The general term</p>
+      <p style="margin-left:12pt">a<sub>n</sub> = 7 + (n &#8722; 1) &#215; 5
+      = 7 + 5n &#8722; 5 = <b>5n + 2</b></p>
+      <p><b>Test it at both ends:</b> n = 1 gives 7, and n = 10 gives
+      50 + 2 = 52. Both agree.</p>
+      <p class="marks">(c) The sum of the first 10 terms</p>
+      <p style="margin-left:12pt">S<sub>10</sub> =
+      10 &#215; (7 + 52) / 2 = 10 &#215; 59 / 2 = <b>295</b></p>
+      <p class="redo"><b>Now redo it:</b> for 2, 4, 6, &#8230;, 20, we have
+      a = 2, d = 2 and 10 terms, so the sum is
+      10 &#215; (2 + 20) / 2 = <b>110</b>.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Geometric progressions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Geometric progression</span></div>
+    <div class="body">
+      <p>A <b>geometric progression</b> is a sequence in which each term is the
+      previous term times a fixed amount:</p>
+      <p style="margin-left:12pt">a, &nbsp; ar, &nbsp; ar<sup>2</sup>, &nbsp;
+      ar<sup>3</sup>, &nbsp; &#8230;</p>
+      <p>The general term and the sum of the first n terms are</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      ar<sup>n&#8722;1</sup></b> &nbsp; &nbsp; and &nbsp; &nbsp;
+      <b>S<sub>n</sub> = a(r<sup>n</sup> &#8722; 1) / (r &#8722; 1)</b>
+      &nbsp; for r &#8800; 1</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">a</span> is the <b>first term</b>.
+      <span class="sym">r</span> is the <b>common ratio</b>, the fixed
+      multiplier, found as any term divided by the one before it. It may be a
+      fraction, which makes the terms shrink, and it may be negative, which
+      makes the signs alternate.
+      <span class="sym">n &#8722; 1</span> is again the number of
+      <b>multiplications performed</b> to reach position n from position 1.
+      <span class="sym">r &#8800; 1</span> is required because at r = 1 the
+      formula divides by zero; that case is just n copies of a, so
+      S<sub>n</sub> = na.</div>
+      <p><b>The infinite sum.</b> If the ratio is small enough that the terms
+      shrink, that is if r lies strictly between &#8722;1 and 1, the infinite
+      series has a finite total:</p>
+      <p style="margin-left:12pt"><b>S = a / (1 &#8722; r)</b></p>
+      <p>Outside that range the terms do not shrink and the sum has no finite
+      value.</p>
+      <p class="hook"><b>Memory hook:</b> <b>arithmetic adds d, geometric times
+      by r.</b> To tell which one a printed sequence is: take differences, and
+      if they are not constant, take ratios.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; reading a rule off a sequence</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>(a) 4, 8, 16, 32, &#8230; &nbsp; (b) 1, 1/3, 1/9,
+        1/27, &#8230; &nbsp; (c) 1, 3, 5, 7, 9, &#8230;</dd>
+        <dt>Find</dt><dd>The rule and the general term of each, plus one sum.</dd>
+        <dt>Formula</dt><dd>Differences first; if they are not constant, ratios.
+        Then a<sub>n</sub> = a + (n &#8722; 1)d or
+        a<sub>n</sub> = ar<sup>n&#8722;1</sup>.</dd>
+      </dl>
+      <p class="marks">(a) 4, 8, 16, 32</p>
+      <p><b>Differences</b> are 4, 8, 16: not constant. <b>Ratios</b> are
+      8 / 4 = 2, 16 / 8 = 2, 32 / 16 = 2: constant. So it is geometric with
+      a = 4 and r = 2, and</p>
+      <p style="margin-left:12pt">a<sub>n</sub> =
+      4 &#215; 2<sup>n&#8722;1</sup></p>
+      <p><b>A neater equivalent form,</b> worth writing beside it:
+      4 &#215; 2<sup>n&#8722;1</sup> = 2<sup>2</sup> &#215;
+      2<sup>n&#8722;1</sup> = <b>2<sup>n+1</sup></b>. Check at n = 1:
+      2<sup>2</sup> = 4. At n = 4: 2<sup>5</sup> = 32.</p>
+      <p><b>The 10th term</b> is 2<sup>11</sup> = <b>2048</b>, and the sum of
+      the first 10 terms is</p>
+      <p style="margin-left:12pt">S<sub>10</sub> =
+      4(2<sup>10</sup> &#8722; 1) / (2 &#8722; 1) =
+      4 &#215; 1023 = <b>4092</b></p>
+      <p class="marks">(b) 1, 1/3, 1/9, 1/27</p>
+      <p>The denominators are powers of 3, so the ratio is 1/3 and the first
+      term is 1:</p>
+      <p style="margin-left:12pt">a<sub>n</sub> =
+      (1/3)<sup>n&#8722;1</sup></p>
+      <p><b>Here the infinite sum exists,</b> because 1/3 lies between
+      &#8722;1 and 1:</p>
+      <p style="margin-left:12pt">S = a / (1 &#8722; r) =
+      1 / (1 &#8722; 1/3) = 1 / (2/3) = <b>3/2</b></p>
+      <p>So adding infinitely many terms gives 1.5 exactly, not something
+      unbounded. That is worth one sentence of comment in an exam, because it
+      is the point of the formula.</p>
+      <p class="marks">(c) 1, 3, 5, 7, 9</p>
+      <p>Differences are all 2, so it is arithmetic with a = 1, d = 2, and</p>
+      <p style="margin-left:12pt">a<sub>n</sub> =
+      1 + (n &#8722; 1) &#215; 2 = <b>2n &#8722; 1</b></p>
+      <p>which is the sequence of odd numbers, exactly the one section 9.2
+      summed to n<sup>2</sup>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; when neither differences nor ratios are constant</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The sequence 1, 5, 17, 53, 161, 485.</dd>
+        <dt>Find</dt><dd>The rule that generates it.</dd>
+        <dt>Formula</dt><dd>None applies directly: the two standard tests, a
+        constant difference and a constant ratio, both fail, so the rule has to
+        be found by comparing each term with the one before it.</dd>
+      </dl>
+      <p><b>Find the rule behind 1, 5, 17, 53, 161, 485.</b></p>
+      <p><b>Differences:</b> 4, 12, 36, 108, 324. Not constant, so it is not
+      arithmetic. <b>Ratios:</b> 5, 3.4, about 3.12, about 3.04, about 3.01.
+      Not constant, so it is not geometric either. But the ratios are creeping
+      towards 3, which is the hint.</p>
+      <p><b>Try "times 3 plus something".</b></p>
+      <table class="data">
+        <tr><th>Term</th><th>3 &#215; previous</th><th>Actual</th><th>Difference</th></tr>
+        <tr><td>a<sub>2</sub></td><td>3 &#215; 1 = 3</td><td>5</td><td>2</td></tr>
+        <tr><td>a<sub>3</sub></td><td>3 &#215; 5 = 15</td><td>17</td><td>2</td></tr>
+        <tr><td>a<sub>4</sub></td><td>3 &#215; 17 = 51</td><td>53</td><td>2</td></tr>
+        <tr><td>a<sub>5</sub></td><td>3 &#215; 53 = 159</td><td>161</td><td>2</td></tr>
+        <tr><td>a<sub>6</sub></td><td>3 &#215; 161 = 483</td><td>485</td><td>2</td></tr>
+      </table>
+      <p>The extra is 2 every time, so the rule is</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      3a<sub>n&#8722;1</sub> + 2</b>, &nbsp; with &nbsp;
+      a<sub>1</sub> = 1</p>
+      <p><b>That is a recurrence relation,</b> a rule that defines each term
+      from earlier ones rather than from n directly. Section 9.4 takes this
+      exact sequence and produces a closed formula for a<sub>n</sub> that needs
+      no earlier terms at all.</p>
+      <p><b>The general procedure,</b> when a sequence resists both standard
+      shapes:</p>
+      <ol class="steps">
+        <li><b>Take differences.</b> Constant means arithmetic.</li>
+        <li><b>Take ratios.</b> Constant means geometric.</li>
+        <li><b>Take second differences.</b> Constant means the terms follow a
+        quadratic in n.</li>
+        <li><b>Compare each term with a multiple of its predecessor.</b> A
+        constant leftover means a recurrence of the form
+        a<sub>n</sub> = ca<sub>n&#8722;1</sub> + b.</li>
+        <li><b>Try the sum of the previous two.</b> That is Fibonacci.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 class="sub">Sigma notation and the standard sums</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Four sums worth knowing by heart</span></div>
+    <div class="body">
+      <p>Summation notation was introduced in Foundations; here are the four
+      closed forms this course expects, each valid for n &#8805; 1.</p>
+      <table class="data">
+        <tr><th>Sum</th><th>Closed form</th><th>Check at n = 5</th></tr>
+        <tr><td>1 + 2 + &#8230; + n</td><td>n(n + 1) / 2</td><td>5 &#215; 6 / 2 = 15</td></tr>
+        <tr><td>1<sup>2</sup> + 2<sup>2</sup> + &#8230; + n<sup>2</sup></td><td>n(n + 1)(2n + 1) / 6</td><td>5 &#215; 6 &#215; 11 / 6 = 55</td></tr>
+        <tr><td>1<sup>3</sup> + 2<sup>3</sup> + &#8230; + n<sup>3</sup></td><td>(n(n + 1) / 2)<sup>2</sup></td><td>15<sup>2</sup> = 225</td></tr>
+        <tr><td>1 + r + r<sup>2</sup> + &#8230; + r<sup>n</sup></td><td>(r<sup>n+1</sup> &#8722; 1) / (r &#8722; 1)</td><td>at r = 2: 2<sup>6</sup> &#8722; 1 = 63</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">&#8721;</span> is the <b>summation sign</b>: the letter
+      below it is the index, the value below it is where the index starts, the
+      value above it is where it stops, and the expression after it is what to
+      add.
+      <span class="sym">n</span> is the <b>last index</b>, so these sums have n
+      terms when they start at 1 and n + 1 terms when they start at 0. The
+      geometric row starts at r<sup>0</sup> = 1, which is why its exponent is
+      n + 1.
+      <span class="sym">r</span> is the <b>common ratio</b> as above, and
+      r &#8800; 1.</div>
+      <p><b>The third one is the square of the first,</b> which is a memorable
+      accident worth using: the sum of the first n cubes equals the square of
+      the sum of the first n numbers.</p>
+      <p><b>Two rules that let you take a sum apart,</b> and they are used
+      constantly:</p>
+      <p style="margin-left:12pt">&#8721; (x<sub>k</sub> + y<sub>k</sub>) =
+      &#8721; x<sub>k</sub> + &#8721; y<sub>k</sub><br>
+      &#8721; c x<sub>k</sub> = c &#8721; x<sub>k</sub>, for a constant c</p>
+      <p class="hook"><b>Memory hook:</b> <b>squares over six, cubes are the
+      square of the first sum.</b> And every one of these four can be proved by
+      induction, which is section 9.2 and a fair exam question.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; evaluating a sum</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The sum of k<sup>2</sup> for k running from 1 to
+        10.</dd>
+        <dt>Find</dt><dd>Its value, and the value of the sum of
+        (3k + 2) over the same range.</dd>
+        <dt>Formula</dt><dd>&#8721; k<sup>2</sup> = n(n + 1)(2n + 1) / 6 and
+        &#8721; k = n(n + 1) / 2, with the two splitting rules above.</dd>
+      </dl>
+      <p><b>The squares,</b> at n = 10:</p>
+      <p style="margin-left:12pt">10 &#215; 11 &#215; 21 / 6 =
+      2310 / 6 = <b>385</b></p>
+      <p><b>The linear one.</b> Split it first, which is where the rules earn
+      their place:</p>
+      <p style="margin-left:12pt">&#8721; (3k + 2) = 3 &#8721; k +
+      &#8721; 2<br>
+      = 3 &#215; (10 &#215; 11 / 2) + 10 &#215; 2<br>
+      = 3 &#215; 55 + 20<br>
+      = 165 + 20 = <b>185</b></p>
+      <p><b>Note the second term.</b> Summing the constant 2 ten times gives 20,
+      not 2. Forgetting that a constant inside a sum still gets added once per
+      index is the standard slip here.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a sequence, and say what a term is.</p>
+      <p class="q">2. What distinguishes an arithmetic progression from a
+      geometric one? Give one example of each.</p>
+      <p class="q">3. Write the n-th term of an arithmetic progression and say
+      what every letter means.</p>
+      <p class="q">4. Write the sum of the first n terms of a geometric
+      progression, and state its condition.</p>
+      <p class="q">5. Find the rule behind 4, 8, 16, 32 and give its 10th
+      term.</p>
+      <p class="q">6. Evaluate the sum of the first 5 cubes.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A function from a subset of the integers to a set; a term
+      a<sub>n</sub> is the image of the index n, that is the number in position
+      n.<br>
+      2. Arithmetic <b>adds</b> a constant difference d, geometric
+      <b>multiplies</b> by a constant ratio r. For example 7, 12, 17, 22 with
+      d = 5, and 4, 8, 16, 32 with r = 2.<br>
+      3. a<sub>n</sub> = a + (n &#8722; 1)d: a is the first term, d the common
+      difference, n the position, and n &#8722; 1 the number of steps taken.<br>
+      4. S<sub>n</sub> = a(r<sup>n</sup> &#8722; 1) / (r &#8722; 1), valid for
+      r &#8800; 1; at r = 1 the sum is na.<br>
+      5. Geometric, a = 4, r = 2, so a<sub>n</sub> =
+      4 &#215; 2<sup>n&#8722;1</sup> = 2<sup>n+1</sup>, and a<sub>10</sub> =
+      2048.<br>
+      6. (5 &#215; 6 / 2)<sup>2</sup> = 15<sup>2</sup> = 225.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>In an arithmetic progression the fixed amount added is the common
+        <span class="blank"></span>.</li>
+        <li>In a geometric progression the fixed multiplier is the common
+        <span class="blank"></span>.</li>
+        <li>The n-th term of a geometric progression is
+        <span class="blank"></span>.</li>
+        <li>An infinite geometric series has a finite sum only when r lies
+        between <span class="blank"></span> and <span class="blank"></span>.</li>
+        <li>The sum of the first n squares is <span class="blank"></span>.</li>
+        <li>1, 5, 17, 53, 161, 485 follows the rule a<sub>n</sub> =
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. difference. 2. ratio. 3. ar<sup>n&#8722;1</sup>. 4. &#8722;1, 1.
+      5. n(n + 1)(2n + 1) / 6. 6. 3a<sub>n&#8722;1</sub> + 2, with
+      a<sub>1</sub> = 1.</p>
+    </div>
+  </div>
+
+</section>

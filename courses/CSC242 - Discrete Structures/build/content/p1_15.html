@@ -1,0 +1,254 @@
+<section>
+  <div class="kick">Part One &middot; 1.5</div>
+  <h2 class="title">Rules of Inference and Valid Arguments</h2>
+  <hr class="rule">
+  <p class="lead">An argument moves from things you accept to something new. The
+  rules below are the moves that are always safe, and the two famous ones that
+  are not.</p>
+  <p class="lo">By the end of this section you will be able to say what makes an
+  argument valid, name and apply the standard rules of inference, spot the two
+  classic fallacies, and construct acceptable logic statements leading to a
+  conclusion, which the 2025/2026 paper asks for directly.</p>
+
+  <h3 class="sub">What "valid" means</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Validity is about shape, not truth</span></div>
+    <div class="body">
+      <p>An <b>argument</b> is a list of propositions called <b>premises</b>,
+      followed by one called the <b>conclusion</b>.</p>
+      <p>An argument is <b>valid</b> when the conclusion is true in every case
+      where all the premises are true. Equivalently, the conjunction of the
+      premises implies the conclusion, and that implication is a tautology.</p>
+      <p>Validity says nothing about whether the premises are actually true. A
+      valid argument from false premises can reach a false conclusion. What
+      validity guarantees is that the <i>step</i> is safe.</p>
+      <p class="hook"><b>Memory hook:</b> valid means the wiring is sound. Sound
+      means the wiring is good <i>and</i> the input is true. An exam asks about
+      the wiring.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">A valid argument with a false conclusion</span></div>
+    <div class="body">
+      <p>Premise 1: If it is a bird, it can fly.<br>
+      Premise 2: A penguin is a bird.<br>
+      Conclusion: A penguin can fly.</p>
+      <p>The conclusion is false, yet the argument is <b>valid</b>: the shape is
+      the safest one there is. The fault lies in premise 1, which is false. That
+      is the distinction the word "valid" exists to make.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The rules of inference</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The standard rules</span></div>
+    <div class="body">
+      <p>Each rule reads: given the premises above the line, you may write the
+      conclusion below it.</p>
+      <table class="data">
+        <tr><th>Name</th><th>Premises</th><th>Conclusion</th><th>In words</th></tr>
+        <tr><td>Modus ponens</td><td>p &#8594; q, and p</td><td>q</td><td>The rule fired, so the result follows.</td></tr>
+        <tr><td>Modus tollens</td><td>p &#8594; q, and &#172;q</td><td>&#172;p</td><td>The result did not happen, so the cause did not.</td></tr>
+        <tr><td>Hypothetical syllogism</td><td>p &#8594; q, and q &#8594; r</td><td>p &#8594; r</td><td>Chain two implications.</td></tr>
+        <tr><td>Disjunctive syllogism</td><td>p &#8744; q, and &#172;p</td><td>q</td><td>One of two, and not the first, so the second.</td></tr>
+        <tr><td>Addition</td><td>p</td><td>p &#8744; q</td><td>If p is true, "p or anything" is true.</td></tr>
+        <tr><td>Simplification</td><td>p &#8743; q</td><td>p</td><td>If both, then certainly one.</td></tr>
+        <tr><td>Conjunction</td><td>p, and q</td><td>p &#8743; q</td><td>Two separate facts combine.</td></tr>
+        <tr><td>Resolution</td><td>p &#8744; q, and &#172;p &#8744; r</td><td>q &#8744; r</td><td>The rule automated theorem provers run on.</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <i>ponens</i> is Latin for affirming and
+      <i>tollens</i> for denying. Modus ponens affirms the hypothesis; modus
+      tollens denies the conclusion. Those two carry most of the marks.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Modus tollens is the contrapositive at work</span></div>
+    <div class="body">
+      <p>Modus tollens says: from p &#8594; q and &#172;q, conclude &#172;p.</p>
+      <p>That is nothing more than section 1.2 in action. Since p &#8594; q is
+      equivalent to its contrapositive &#172;q &#8594; &#172;p, and you have
+      &#172;q, modus ponens on the contrapositive gives &#172;p.</p>
+      <p>So the two rules are the same rule, seen from either end of an
+      implication. Saying that in an answer shows the marker you understand the
+      structure rather than having memorised a table.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The two fallacies</h3>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">The two invalid moves that look valid</span></div>
+    <div class="body">
+      <p><b>Affirming the consequent.</b> From p &#8594; q and q, concluding p.
+      This is invalid, and it is the converse mistake from 1.2 wearing a
+      different hat.</p>
+      <p style="margin-left:12pt">If it is raining, the ground is wet. The ground
+      is wet. Therefore it is raining.</p>
+      <p>No: a burst pipe would do it. The wet ground is consistent with rain but
+      does not establish it.</p>
+      <p><b>Denying the antecedent.</b> From p &#8594; q and &#172;p, concluding
+      &#172;q. Also invalid, and it is the inverse mistake.</p>
+      <p style="margin-left:12pt">If it is raining, the ground is wet. It is not
+      raining. Therefore the ground is not wet.</p>
+      <p>No: the pipe again.</p>
+      <p>Both fallacies come from treating p &#8594; q as if it ran both ways.
+      Only the contrapositive runs the other way, which is precisely why 1.2
+      matters here.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The question the newest paper asks</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q4c">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q4(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Develop three good examples of acceptable logic statements leading to a conclusion. <span class="mk">(3 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The wording is loose. "Acceptable logic statements leading to a conclusion"
+  means <b>valid arguments</b>: premises followed by a conclusion that genuinely
+  follows. It does not mean three true sentences. Answer it as "give three valid
+  arguments, naming the rule of inference each uses", which is what earns the
+  marks, and say in one line that this is how you are reading it.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing but the instruction. You supply the content.</dd>
+      <dt>Asked</dt><dd><b>Develop</b> three examples, each being premises plus a
+      conclusion that follows. Since you choose them, choose ones you can name.</dd>
+      <dt>Marks say</dt><dd>3 marks, one per example. Each needs premises, a
+      conclusion, and the name of the rule; a bare pair of sentences is half an
+      answer.</dd>
+      <dt>Teaches</dt><dd>This section, 1.5.</dd>
+      <dt>Trap</dt><dd>Offering an argument that is not actually valid, most
+      often by affirming the consequent. Stick to modus ponens, modus tollens and
+      hypothetical syllogism, which are impossible to get wrong.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(c)</span></div>
+    <div class="body">
+      <p>Reading the question as asking for three valid arguments, each named.</p>
+
+      <p><b>Example 1, modus ponens.</b><br>
+      Premise 1: If a program compiles without errors, then it produces an
+      executable file.<br>
+      Premise 2: This program compiles without errors.<br>
+      Conclusion: Therefore it produces an executable file.</p>
+      <p style="margin-left:12pt">Form: p &#8594; q, p, therefore q. Valid,
+      because the only row where p &#8594; q and p are both true also has q
+      true.</p>
+
+      <p><b>Example 2, modus tollens.</b><br>
+      Premise 1: If a set has 5 elements, then it has 32 subsets.<br>
+      Premise 2: This set does not have 32 subsets.<br>
+      Conclusion: Therefore this set does not have 5 elements.</p>
+      <p style="margin-left:12pt">Form: p &#8594; q, &#172;q, therefore
+      &#172;p. Valid. (Section 2.1 established the premise: a set of n elements
+      has 2<sup>n</sup> subsets, and 2<sup>5</sup> = 32.)</p>
+
+      <p><b>Example 3, hypothetical syllogism.</b><br>
+      Premise 1: If a student passes the practical, then the student qualifies
+      for the project.<br>
+      Premise 2: If a student qualifies for the project, then the student
+      graduates.<br>
+      Conclusion: Therefore if a student passes the practical, that student
+      graduates.</p>
+      <p style="margin-left:12pt">Form: p &#8594; q, q &#8594; r, therefore
+      p &#8594; r. Valid, by chaining.</p>
+
+      <p><b>Finish with one line that earns the last mark:</b> in each case the
+      conclusion is true in every situation where the premises are both true,
+      which is the definition of a valid argument.</p>
+      <p class="redo"><b>Now redo it:</b> write three more of your own, one of
+      them using disjunctive syllogism, and check each against the rules table.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Logic in computing</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q4b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q4(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Discuss the place of Logic in Computer Science highlighting practical areas of relevance? <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Printed with a question mark on a command, which is a habit of this examiner
+  and carries no meaning. Two marks means two or three sentences with named
+  areas, not an essay.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(b)</span></div>
+    <div class="body">
+      <p>Logic is the formal language in which computer science states precise
+      conditions and reasons about them, and it appears at every level of the
+      subject.</p>
+      <p><b>Hardware.</b> Every digital circuit is a Boolean expression made
+      physical: AND, OR and NOT gates implement the connectives directly, so
+      simplifying an expression means using fewer components. Part Eight is this.</p>
+      <p><b>Programming.</b> Every condition in an <span
+      style="font-family:'DejaVu Sans Mono',monospace">if</span> or <span
+      style="font-family:'DejaVu Sans Mono',monospace">while</span> is a
+      proposition, and the compiler applies De Morgan's laws and the implication
+      law to optimise them.</p>
+      <p><b>Databases.</b> A query is a predicate; the engine uses quantifiers and
+      logical equivalence to rewrite it into a faster but equivalent form.</p>
+      <p><b>Verification.</b> Proving that a program meets its specification, and
+      automated theorem proving, both run on the rules of inference, with
+      resolution as the workhorse.</p>
+      <p><b>Artificial intelligence.</b> Knowledge representation and rule-based
+      reasoning are predicate logic with an inference engine attached.</p>
+      <p>For two marks, three of these named with a one-line reason each is a
+      full answer.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State modus ponens and modus tollens.</p>
+      <p class="q">2. Name the fallacy: "if p then q; q; therefore p".</p>
+      <p class="q">3. Can a valid argument have a false conclusion?</p>
+      <p class="q">4. From "p &#8744; q" and "&#172;p", what follows and by which rule?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Modus ponens: from p &#8594; q and p, conclude q. Modus tollens: from
+      p &#8594; q and &#172;q, conclude &#172;p.<br>
+      2. Affirming the consequent. It is invalid.<br>
+      3. Yes, if a premise is false. Validity constrains the step, not the
+      inputs.<br>
+      4. q, by disjunctive syllogism.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>An argument is <span class="blank"></span> when the conclusion is
+        true in every case where all premises are true.</li>
+        <li>From p &#8594; q and &#172;q we conclude <span class="blank"></span>,
+        by <span class="blank"></span>.</li>
+        <li>Concluding &#172;q from p &#8594; q and &#172;p is the fallacy of
+        <span class="blank"></span>.</li>
+        <li>Chaining p &#8594; q with q &#8594; r to get p &#8594; r is called
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. valid. 2. &#172;p, modus tollens. 3. denying the antecedent.
+      4. hypothetical syllogism.</p>
+    </div>
+  </div>
+
+</section>

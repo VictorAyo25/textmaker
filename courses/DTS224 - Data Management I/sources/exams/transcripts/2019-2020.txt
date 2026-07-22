@@ -1,0 +1,204 @@
+TRANSCRIPT: CSC 214, 2019/2020, Alpha semester. (DTS224 is the renamed CSC214.)
+Source: PQ/2019-2020.pdf, a 3-page image-only scan.
+Transcribed BY EYE from the pages rasterised at 2.0x. The PDF carries NO text layer
+at all (0 characters), so nothing was OCR'd. Read twice. An earlier attempt at this
+paper by an assistant returned text belonging to the 2023/2024 paper; every line
+below was checked against the pixels.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]] marker, [Figure ...] my description, [note: ...] my aside,
+  --- a ruled line; everything after the first one below the questions is mine.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  COVENANT UNIVERSITY
+  CANAANLAND, KM 10, IDIROKO ROAD
+  P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+  TITLE OF EXAMINATION: B.Sc EXAMINATION
+  COLLEGE: SCIENCE AND TECHNOLOGY
+  SCHOOL: NATURAL AND APPLIED SCIENCES
+  DEPARTMENT: COMPUTER & INFORMATION SCIENCES
+  SESSION: 2019/2020            SEMESTER: ALPHA
+  COURSE CODE: CSC 214          CREDIT UNIT: 3
+  COURSE TITLE: HIGH PERFORMANCE AND DATABASE MANAGEMENT SYSTEM
+  INSTRUCTION: ANSWER ANY FOUR QUESTIONS
+  TIME: 2½HOURS
+
+=====================================================================
+
+[[Q1a]]
+1(a) Explain (5) five costs or risks associated with database approach.      [5 Marks]
+
+[[Q1b]]
+1(b) Explain (3) differences between user views, a conceptual schema, and an internal schema as
+different perspectives of the same database                                  [6Marks]
+
+[[Q1c]]
+1(c) Transform the diagram below to a relational schema that shows referential integrity constraints.
+                                                                             [6.5Marks]
+
+[Figure: three boxes in a row. EMPLOYEE (Employee ID, Employee Name, Birth Date),
+then a relationship line labelled A to CERTIFICATE (Certificate Number, Date
+Completed), drawn with a rounded/associative outline, then a line labelled B to
+COURSE (Course ID, Course Title, {Topic}).]
+
+=====================================================================
+
+[[Q2a]]
+2 (a)   Explain the following; (i) Candidate key (ii) Foreign keys           [2 Marks]
+
+[[Q2b]]
+2 (b)   Use the following business rules to create the ERD for a small consulting company named
+        ConsultCo. Show all entities, relationships, optionalities and cardinalities.
+ A client can contract many projects, but each project is contracted by one client. Some clients in
+the company client list have not (yet) contracted any project(s). A project may have many
+(consulting company) employees assigned to it, and each employee may be assigned to many
+projects. Some employees are not assigned to any project. One employee leads each project. An
+employee may lead more than one project at a time. One employee coordinates each project. An
+employee may coordinate more than one project at a time. Some employees never lead or
+coordinate projects. Many of the consulting company employees have multiple job skills that are
+applicable to the consulting work. Each job description- system analyst, database designer,
+accountant and so on- can fit many employees. Some job descriptions are not yet filled.  Some
+employees do not have a specific job classification.                         [12.5 Marks]
+
+[[Q2c]]
+2 (c)   Define the following terms; (i) Data Model (ii) Database Instance (iii) DBMS
+                                                                             [3 Marks]
+
+=====================================================================
+
+[[Q3a]]
+3 (a)  Given the  Patient _Appointment Table below
+                Candidate keys:
+                  PNo, ADate                    (Primary key)
+                  ADate, Atime, SurgeonNo
+                  StaffNo, ADate, Atime
+        (i)     Draw the Functional dependency diagram.                      [3 Marks]
+        (ii)    Normalizing the table below to Boyce-Codd Normal form and Show the final
+                decomposed relations with the data.                          [12 Marks]
+
+        Table 1:        Patient _Appointment Table
+
+        StaffNo | DentistName  | PNo  | PName       | Appointment          | SurgeonNo
+                |              |      |             | Date       | Time    |
+        S011    | Tony Smith   | P100 | James White | 12-Sep-08  | 10.00   | S15
+                |              | P105 | Jill Bell   | 12-Sep-08  | 12.00   | S15
+        S024    | Hellen Chris | P108 | Tom Fred    | 12-Sep-08  | 10.00   | S10
+                |              | P108 | Tom Fred    | 14-Sep-98  | 14.00   | S10
+        S032    | Rose Kelvin  | P105 | Jill Bell   | 14-Sep-98  | 16.00   | S15
+                |              | P110 | John Stone  | 15-Sep-08  | 18.00   | S13
+
+        Functional dependency
+
+        PNo, ADate,  &#8594; StaffNo , ATime, DentistName, SurgeonNo    (pk)
+        PNo &#8594; PName   (pd)
+        StaffNo &#8594; DentistName  Td
+        StaffNo , ADate &#8594; SurgeonNo
+        Date, ATime, SurgeonNo &#8594; PNo , PName, StaffNo, DentistName   (ck)
+        StaffNo, ADate, ATime &#8594; PNo , PName   (ck)
+
+[[Q3b]]
+3 (b) Compare the Database approach and the File based approach to data management
+                                                                             [2.5 Marks]
+
+=====================================================================
+
+[[Q4a]]
+4. (a)  Given the following relations;
+        Customer_t(Customer_ID,Customer_Name,Customer_Address, City, State, Postal_Code)
+        Orderline_t(Order_ID,Product_ID,Order_Quantity)
+        Order_t(Order_ID,Order_Date, Customer_ID)
+        Product_t(Product_ID, Product_Description,Product_Finish, Standard_Price,Product_Line_ID)
+
+        Write the SQL statements to answer the following queries
+
+        i. List products, finish, and unit price for all desks and all tables that cost more than 300 in
+        the PRODUCT view
+        ii. Which products in the PRODUCT view have a standard price between 200 and 300.
+        iii. How many different items were ordered on order number 1004
+        iv. Which products have a standard price  of less than 275.
+        v. What is the address of the customer named Home Furnishings. Use an alias NAME for
+        customer.
+        vi. List the unit price, product name and product ID for all products in the product table.
+        vii. What is the average standard price for  product in inventory     [14 Marks]
+
+[note: the four relation lines are set in italic.]
+
+[[Q4b]]
+4 (b) Explain Database Manager and its Responsibilities                      [3.5 Marks]
+
+=====================================================================
+
+[[Q5a]]
+5 (a) Define five types of semantic object.                                  [5 Marks]
+
+[[Q5b]]
+5 (b) List 10 components of a DBMS and Explain 5 of them                     [10 Marks]
+
+[[Q5c]]
+5 (c) Draw the ER diagram to represent the following business rules.
+        A vendor builds multiple types of tablet computers. Each has a type identification number
+        and a name. The key specifications for each type include amount of storage space and
+        display type. The company uses multiple processor types, exactly one of which is used for
+        specific tablet computer type; obviously, the same processor can be used in multiple types of
+        tablets. Each processor has a manufacturer and a manufacturer's unique code that
+        identifies it.                                                       [2.5 Marks]
+
+=====================================================================
+
+[[Q6a]]
+6 (a) Differentiate between Information Efficiency and Information Effectiveness    [3 Marks]
+
+[[Q6b]]
+6 (b) Explain the 6 stages of Information life cycle                         [6 Marks]
+
+[[Q6c]]
+6 (c) Briefly Explain the Database Life cycle                                [4.5 Marks]
+
+[[Q6d]]
+6 (d) At a weekend retreat, the entity type PERSON has three subtypes: CAMPER, BIKER, and
+RUNNER. Draw a separate EER diagram segment for each of the following situations: (6marks)
+
+        (i)     At a given time, a person must be exactly one of these subtypes.
+        (ii)    A person may or may not be one of these subtypes. However, a person who is one of
+                these subtypes cannot at the same time be one of the other subtypes.
+        (iii)   A person may or may not be one of these subtypes. On the other hand, a person may be
+                any two ( or even three f these subtypes at the same time.
+        (iv)    At a given time, a person must be at least one of these subtype    [4 Marks]
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. Q3(a) Table 1 dates: two rows read "14-Sep-98", where every other row reads
+   "-08". A 1998 appointment sitting between 2008 ones is almost certainly a
+   typing slip in the paper, but it is printed and is left standing; it does not
+   change the normalisation.
+
+2. Q3(a) fifth dependency begins "Date, ATime, SurgeonNo" where every other line
+   says "ADate". There is no attribute called Date. Also, the candidate keys listed
+   above the table spell it "Atime" while the dependencies spell it "ATime".
+
+3. Q3(a) prints "StaffNo &#8594; DentistName  Td" with the tag unbracketed where the
+   others are "(pk)", "(pd)", "(ck)", and the fourth dependency carries no tag.
+
+4. Q6(d) states its own marks TWICE and contradicts itself: "(6marks)" in the stem
+   and "[4 Marks]" after part (iv). The paper totals only if it is 4, since
+   3 + 6 + 4.5 + 4 = 17.5.
+
+5. Q6(d)(iii) prints "any two ( or even three f these subtypes": an unclosed
+   bracket and "f" for "of". Reproduced exactly.
+
+6. Q6(d)(iv) ends "one of these subtype", singular.
+
+7. Q1(a) prints "(5) five" and Q1(b) "(3) three" style duplication of the number.
+
+8. The mark text alternates between a space and none: "[6Marks]", "[6.5Marks]" but
+   "[5 Marks]", "[3 Marks]".
+
+9. Q5(a) (semantic objects), Q6(a) and Q6(b) (information efficiency/effectiveness,
+   information life cycle) are outside the DTS224 syllabus; they belong to the older
+   "High Performance AND Database Management System" title this paper carries.
+
+10. The same ConsultCo business-rule narrative appears as 2(b) here and as 2(b) in
+    the 2015/2016 paper. The wording differs by one phrase: this paper asks for
+    "entities, relationships, optionalities and cardinalities", where 2015/2016 asks
+    for "entities, relationships, optionalities, connectivities and cardinalities".

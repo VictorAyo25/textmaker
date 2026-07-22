@@ -3,8 +3,8 @@
   <div class="kicker">Worked Paper 2025/2026</div>
   <h1>The 2025/2026 Paper,<br>Fully Worked</h1>
   <div class="blurb">The most recent paper, the one whose shape the examination now follows,
-  solved from end to end. Answer Question One (compulsory) and any three others. Sit it
-  closed-book first; then read the working here.</div>
+  solved from end to end. Every question below is first reproduced exactly as the examiner
+  printed it, then read apart, then answered. Sit it closed-book first; then read the working.</div>
   <div class="divider-motif">
     <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" fill="none">
       <rect x="180" y="20" width="160" height="80" rx="3" stroke="#0e7490" stroke-width="1.5"/>
@@ -20,22 +20,74 @@
   <div class="kick">Worked Paper 2025/2026</div>
   <h2 class="title">Questions One to Three</h2>
   <hr class="rule">
-  <p class="lead">Rubric: answer Question One (compulsory, 17&frac12; marks) and any three
-  others. Two hours. Every part below is solved; where a topic has a full treatment in the
-  modules, the answer is given here in exam-length form and the module is named.</p>
+  <p class="lead">Rubric as printed: <b>Attempt QUESTION ONE and any three (3) questions</b>,
+  in <b>3 hours</b>. Question One is compulsory and carries 17&frac12; marks, as does every
+  other question. Each question below appears three times over: the examiner's words, a
+  reading of them, then the answer.</p>
 
-  <div class="box ans">
-    <div class="bar"><span>Answer</span><span class="tag">Question One (a) and (b), compulsory</span></div>
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question One, compulsory</span></div>
     <div class="body">
-      <p><b>(a) EER terms.</b> <b>Super type:</b> a generic entity type with one or more
-      subtypes (EMPLOYEE over HOURLY and SALARIED). <b>Specialisation:</b> the top-down process
-      of defining subtypes of a supertype. <b>Total specialisation:</b> every supertype
-      instance must belong to at least one subtype (double line). <b>Disjoint rule:</b> a
-      supertype instance may belong to at most one subtype (circle marked d). (Module Two, Unit
-      2.)</p>
-      <p><b>(b) Determinant, from EMPLOYEE2.</b> A determinant is the attribute on the left of
-      a functional dependency. In EMPLOYEE2(<u>EmpID</u>, <u>CourseTitle</u>, Name, DeptName,
-      Salary, DateCompleted):</p>
+    <div class="asprinted" data-src="2025-2026:Q1a">a. Briefly explain the following with symbolic examples:
+
+   (i)  Super type
+   (ii) Specialisation
+   (iii)Total specialisation
+   (iv) Disjoint rule                                        (4 mks)</div>
+    <p class="src">DTS224 2025/2026, Question One (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q1b">b. Use Figure 1 to explain the concept of determinant in the context of normalization. Show all
+   possible determinants, the corresponding attributes and the type of functional dependency
+   involved.                                                 (2½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question One (b).</p>
+    <div class="asprinted" data-src="2025-2026:Q1c">c. Consider the relational schema and write the SQL queries to answer the business questions
+   labelled (i-vi) with standard SQL syntax.
+
+   BRANCH (branch_no, street, city, postcode)
+   STAFF (staff_no, fName, lName, position, sex, DOB, salary, branch_no)
+   PROPERTYFORRENT (property_no, street, city, postcode, type, rooms, rent, staff_no,
+   branch_no).
+
+   (i)  List all staff members whose salary is greater than ₦100,000, ordered from highest salary
+        to lowest salary.                                    (1½ mks)
+   (ii) Display the total number of staff working in each branch. Include the branch number and
+        total staff count.                                   (2 mks)
+   (iii)Find the average salary of staff in each branch. Display branch number and average
+        salary.                                              (1½ mks)
+   (iv) Display the details of all properties having more than 3 rooms and a monthly rent above
+        ₦80,000.                                             (2 mks)
+   (v)  Show the property number, property type, rent, and the full name of the staff member
+        responsible for each property.                       (2 mks)
+   (vi) Display all branches that currently have no staff assigned to them.   (2 mks)
+
+
+QUESTION TWO                                                (17 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question One (c).</p>
+      <p class="flag">Two things to notice before you answer. The paper spells the marks four different ways in this question alone, and part (c) prices salaries in Naira: it asks for salary greater than &#8358;100,000, not 100000. Quote the figure the examiner used. Figure 1 is printed as a bare row of attribute boxes with arrows beneath it; the arrows ARE the functional dependencies you are being asked to read.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question One</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> four EER terms; Figure 1, the EMPLOYEE2 relation with EmpID and CourseTitle underlined as a composite key; and a three-relation schema (BRANCH, STAFF, PROPERTYFORRENT).</p>
+      <p class="row"><b class="lab">Asked</b> to <b>explain with symbolic examples</b> (not merely define, so each term needs a worked instance); to <b>show all possible determinants</b> and name the <b>type</b> of each dependency; and to write six SQL queries.</p>
+      <p class="row"><b class="lab">Marks</b> 4 + 2&frac12; + 11 = 17&frac12;. The SQL is worth nearly two thirds of a compulsory question, so it is the part to practise, not the definitions.</p>
+      <p class="row"><b class="lab">Taught</b> Module Two Unit 2 (EER terms), Module Four Unit 1 (determinants), Module Five Unit 2 (SQL).</p>
+      <p class="row"><b class="lab">Trap</b> in (b) the marks are only 2&frac12;, yet "show ALL possible determinants" means both EmpID alone and the composite. Naming one earns half. In (c)(vi) "no staff assigned" is an anti-join: NOT IN or a LEFT JOIN with IS NULL, never a plain join.</p>
+    </div>
+  </div>
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Question One</span></div>
+    <div class="body">
+      <p><b>(a) EER terms, with symbolic examples.</b> <b>Super type:</b> a generic entity
+      type holding the attributes common to its subtypes, for example EMPLOYEE over HOURLY and
+      SALARIED. <b>Specialisation:</b> the top-down process of defining subtypes of a
+      supertype (EMPLOYEE specialised into HOURLY and SALARIED). <b>Total specialisation:</b>
+      every supertype instance must belong to at least one subtype, drawn as a double line.
+      <b>Disjoint rule:</b> an instance may belong to at most one subtype, drawn as a circle
+      marked d. (Module Two, Unit 2.)</p>
+      <p><b>(b) Determinants in EMPLOYEE2.</b> A determinant is the attribute, or set of
+      attributes, on the left of a functional dependency. In
+      EMPLOYEE2(<u>EmpID</u>, <u>CourseTitle</u>, Name, DeptName, Salary, DateCompleted):</p>
       <figure>
         <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans Mono" font-size="8.5">
           <g fill="#18232b" text-anchor="middle">
@@ -51,20 +103,15 @@
           <path d="M95 60 q170 44 345 6" stroke="#059669" stroke-width="1.1" fill="none"/>
           <text x="270" y="108" text-anchor="middle" font-family="DejaVu Sans" font-size="7" fill="#059669">full: (EmpID, CourseTitle) -&gt; DateCompleted</text>
         </svg>
-        <figcaption>Figure P.1. EMPLOYEE2. EmpID (partial determinant) &rarr; Name, DeptName,
+        <figcaption>Figure P.1. EMPLOYEE2. EmpID (a partial determinant) &rarr; Name, DeptName,
         Salary. The whole key (EmpID, CourseTitle) &rarr; DateCompleted is the only full
         dependency.</figcaption>
       </figure>
-      <p>Determinants: <b>EmpID</b> determines Name, DeptName, Salary (a partial dependency, on
-      part of the key); the composite <b>(EmpID, CourseTitle)</b> determines DateCompleted (the
-      full dependency). This is a partial-dependency situation, so the relation is not in 2NF.</p>
-    </div>
-  </div>
-
-  <div class="box ans">
-    <div class="bar"><span>Answer</span><span class="tag">Question One (c): SQL over BRANCH / STAFF / PROPERTYFORRENT</span></div>
-    <div class="body">
-      <p>Solved in full at Module Five, Unit 2, section 2.4. The six statements:</p>
+      <p><b>EmpID</b> determines Name, DeptName and Salary: a <b>partial</b> dependency, since
+      EmpID is only part of the key. The composite <b>(EmpID, CourseTitle)</b> determines
+      DateCompleted: a <b>full</b> functional dependency. Because a partial dependency exists,
+      the relation is in 1NF but not 2NF.</p>
+      <p><b>(c) The six SQL queries.</b> Solved at length in Module Five, Unit 2.4.</p>
 <pre class="code">(i)   SELECT * FROM STAFF WHERE salary &gt; 100000 ORDER BY salary DESC;
 (ii)  SELECT branch_no, COUNT(*) FROM STAFF GROUP BY branch_no;
 (iii) SELECT branch_no, AVG(salary) FROM STAFF GROUP BY branch_no;
@@ -73,40 +120,118 @@
       FROM PROPERTYFORRENT p JOIN STAFF s ON p.staff_no = s.staff_no;
 (vi)  SELECT branch_no FROM BRANCH
       WHERE branch_no NOT IN (SELECT branch_no FROM STAFF);</pre>
+      <p class="small">The amounts are written 100000 and 80000 in SQL because the Naira sign
+      and the thousands commas are presentation, not data; say so in one line under your
+      answer and you have shown you read the question rather than ignored the currency.</p>
     </div>
   </div>
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question Two</span></div>
+    <div class="body">
+    <div class="asprinted" data-src="2025-2026:Q2a">a. Explain two (2) limitations of the file-based approach to data processing.   (2 mks)</div>
+    <p class="src">DTS224 2025/2026, Question Two (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q2b">b. What is a Database Management System (DBMS).                                 (2 mks)</div>
+    <p class="src">DTS224 2025/2026, Question Two (b).</p>
+    <div class="asprinted" data-src="2025-2026:Q2c">c. What is meant by data abstraction? Explain the three (3) levels of data abstraction with
+   examples.                                                 (5 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Two (c).</p>
+    <div class="asprinted" data-src="2025-2026:Q2d">d. Transform the EER for a University Dining Service in Figure 2 into a set of relational
+   schemas. Show the prim (Use the short text notation).      (8 mks)
 
+
+
+QUESTION THREE                                              (17 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Two (d).</p>
+      <p class="flag">Part (d) carries a deletion the setter left standing. The paper prints "Show the prim" struck through, mid-sentence, exactly as reproduced above. It appears to be the start of a deleted instruction (<span class="notpaper">show the primary keys</span>) that survived typesetting. Answer what remains, and show the primary keys anyway: it costs one line and it is plainly what was intended. Note too that (b) ends in a full stop rather than a question mark.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question Two</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> nothing but definitions for (a) to (c); for (d), Figure 2, a crow's-foot EER for a University Dining Service with five entity types.</p>
+      <p class="row"><b class="lab">Asked</b> to <b>explain</b>, then to <b>transform</b> a diagram into relational schemas. "Transform" means produce the relations, not describe how you would.</p>
+      <p class="row"><b class="lab">Marks</b> 2 + 2 + 5&frac12; + 8 = 17&frac12;. Part (d) alone is worth more than (a), (b) and (c) together, and it is the only part that cannot be bluffed.</p>
+      <p class="row"><b class="lab">Taught</b> Module One Units 2.1 to 2.5 (file-based limits, DBMS, abstraction); Module Three Unit 2.4 (the transform).</p>
+      <p class="row"><b class="lab">Trap</b> the multivalued attributes in Figure 2 are printed in braces, {Ingredient} and {Skill}. Each becomes its OWN relation, not a column. Miss that and the transform loses several marks even though the rest is right.</p>
+    </div>
+  </div>
   <div class="box ans">
     <div class="bar"><span>Answer</span><span class="tag">Question Two</span></div>
     <div class="body">
       <p><b>(a) Two limitations of the file-based approach.</b> Data redundancy and
-      inconsistency (the same fact is stored and updated in several files); and program-data
-      dependence (a file's structure is coded into every program). (Module One, Unit 2.1.)</p>
-      <p><b>(b) DBMS.</b> The software that lets users define, create, maintain, and control
-      access to a database (MySQL, Oracle). (Module One, Unit 2.2.)</p>
-      <p><b>(c) Data abstraction, three levels.</b> Hiding storage detail, showing each user
+      inconsistency, since the same fact is stored and updated in several files; and
+      program-data dependence, since a file's structure is coded into every program that
+      reads it. (Module One, Unit 2.1.)</p>
+      <p><b>(b) A DBMS.</b> The software that lets users define, create, maintain and control
+      access to a database, for example MySQL or Oracle. (Module One, Unit 2.2.)</p>
+      <p><b>(c) Data abstraction, three levels.</b> Hiding storage detail so each user sees
       only what they need: the <b>external</b> level (per-user views), the <b>conceptual</b>
       level (all tables and relationships), and the <b>internal</b> level (physical storage).
       (Module One, Unit 2.5.)</p>
-      <p><b>(d) Transform the University Dining EER.</b> Solved at Module Three, Unit 2.4:
-      MENU, DISH, DISH_INGREDIENT, MENU_DISH, EVENT, MENU_EVENT, STAFF (with a SupervisorID
-      foreign key), STAFF_SKILL, and WORK_SCHEDULE.</p>
+      <p><b>(d) The University Dining transform.</b> Worked in full at Module Three, Unit 2.4.
+      Each multivalued attribute becomes its own relation, and each many-to-many becomes a
+      link relation:</p>
+<pre class="code">MENU(menuID, menuDescription, menuType)          PK menuID
+DISH(dishID, dishName, prepTime)                 PK dishID
+DISH_INGREDIENT(dishID, ingredient)              PK (dishID, ingredient)
+MENU_DISH(menuID, dishID)                        PK (menuID, dishID)
+EVENT(eventID, eventDate, eventLocation, eventTime)   PK eventID
+MENU_EVENT(menuID, eventID)                      PK (menuID, eventID)
+STAFF(empID, name, salary, supervisorID)         PK empID  FK supervisorID -&gt; STAFF
+STAFF_SKILL(empID, skill)                        PK (empID, skill)
+WORK_SCHEDULE(empID, eventID, startTime, endTime, position)
+   PK (empID, eventID)</pre>
     </div>
   </div>
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question Three</span></div>
+    <div class="body">
+    <div class="asprinted" data-src="2025-2026:Q3a">a. (i)    Would you choose a database system instead of simply storing data in operating
+          system files? Justify your answer with two points.        (5 marks)
+   (ii)   When would it make sense not to use a database system?    (2.5 marks)</div>
+    <p class="src">DTS224 2025/2026, Question Three (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q3b">b. Draw an EER diagram for the following description of a law firm:
 
+   Each case handled by the firm has a unique case number; a date opened, date closed, and
+   judgment description are also kept on each case. A case is brought by one or more plaintiffs,
+   and the same plaintiff may be involved in many cases. A plaintiff has a requested judgment
+   characteristic. A case is against one or more defendants, and the same defendant may be
+   involved in many cases. A plaintiff or defendant may be a person or an organisation. Over
+   time, the same person or organisation may be a defendant or a plaintiff in cases. In either
+   situation, such legal entities are identified by an entity number, and other attributes are name
+   and net worth.                                            (10 marks)
+
+
+QUESTION FOUR                                               (17 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Three (b).</p>
+      <p class="flag">Question Three is the one place in this paper where the examiner writes "marks" instead of "mks" and uses a decimal, "2.5 marks", instead of the vulgar fraction used everywhere else. It is the same 17&frac12; total. Do not read 2.5 as 25 and spend half your time here.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question Three</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> a judgement call in (a), and in (b) a narrative description of a law firm.</p>
+      <p class="row"><b class="lab">Asked</b> (a) asks "<b>Would you choose</b> ... <b>Justify</b> with two points", so an unjustified yes scores nothing; (a)(ii) asks when it would make sense <b>not</b> to, the word printed in italics because it inverts the question. (b) asks you to <b>draw</b>.</p>
+      <p class="row"><b class="lab">Marks</b> 5 + 2.5 + 10 = 17&frac12;. The diagram is worth ten, so budget accordingly.</p>
+      <p class="row"><b class="lab">Taught</b> Module One Units 2.1 and 2.7; Module Two Unit 2 (EER).</p>
+      <p class="row"><b class="lab">Trap</b> the same person or organisation may be a plaintiff in one case and a defendant in another. That is <b>two</b> many-to-many relationships between the same pair of entity types, not one. Drawing a single "involved in" line is the error the question is built to catch.</p>
+    </div>
+  </div>
   <div class="box ans">
     <div class="bar"><span>Answer</span><span class="tag">Question Three</span></div>
     <div class="body">
-      <p><b>(a) Database vs operating-system files.</b> (i) Choose a database, because it gives
-      one shared, consistent copy with concurrency control, and enforces integrity, security,
-      and data independence centrally, none of which loose files provide. (ii) Not worth it for
-      a small, single-user, single-application task with little data and a fixed structure,
-      where a full DBMS is pure overhead. (Module One, Units 2.1 and 2.7.)</p>
-      <p><b>(b) EER for a law firm.</b> Each CASE (caseNumber, dateOpened, dateClosed,
-      judgment) is brought by one or more plaintiffs and is against one or more defendants. A
-      plaintiff or defendant is a LEGAL ENTITY (entityNumber, name, netWorth), which is either
-      a PERSON or an ORGANISATION. Since the same entity can be plaintiff in some cases and
-      defendant in others, draw two many-to-many relationships between LEGAL ENTITY and CASE.</p>
+      <p><b>(a) Database or operating-system files.</b> (i) Choose a database: it gives one
+      shared, consistent copy with concurrency control, and enforces integrity, security and
+      data independence centrally, none of which loose files provide. (ii) It would not be
+      worth it for a small, single-user, single-application task with little data and a fixed
+      structure, where a full DBMS is pure overhead. (Module One, Units 2.1 and 2.7.)</p>
+      <p><b>(b) EER for the law firm.</b> Each CASE (caseNumber, dateOpened, dateClosed,
+      judgmentDescription) is brought by one or more plaintiffs and is against one or more
+      defendants. A plaintiff or defendant is a LEGAL ENTITY (entityNumber, name, netWorth),
+      which is either a PERSON or an ORGANISATION. Because the same entity can be plaintiff in
+      some cases and defendant in others, draw <b>two</b> many-to-many relationships between
+      LEGAL ENTITY and CASE. requestedJudgment is a property of the plaintiff relationship,
+      not of the entity, so it sits on that relationship.</p>
       <figure>
         <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
           <rect x="30" y="90" width="130" height="46" rx="2" fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.4"/>
@@ -115,17 +240,14 @@
           <rect x="360" y="90" width="130" height="46" rx="2" fill="#fff" stroke="#1d4ed8" stroke-width="1.4"/>
           <text x="425" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">CASE</text>
           <text x="425" y="126" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="7" text-decoration="underline" fill="#18232b">caseNumber</text>
-          <!-- brings (plaintiff) M:N, top arc -->
           <path d="M120 90 q140 -70 268 0" stroke="#18232b" stroke-width="1.3" fill="none"/>
           <path d="M120 90 l14 -4 M120 90 l8 -12" stroke="#18232b" stroke-width="1.2" fill="none"/>
           <path d="M388 90 l-14 -4 M388 90 l-8 -12" stroke="#18232b" stroke-width="1.2" fill="none"/>
           <text x="255" y="42" text-anchor="middle" font-size="8.5" font-style="italic" fill="#0e7490">brings (plaintiff, requestedJudgment)</text>
-          <!-- against (defendant) M:N, bottom arc -->
           <path d="M120 136 q140 70 268 0" stroke="#18232b" stroke-width="1.3" fill="none"/>
           <path d="M120 136 l14 4 M120 136 l8 12" stroke="#18232b" stroke-width="1.2" fill="none"/>
           <path d="M388 136 l-14 4 M388 136 l-8 12" stroke="#18232b" stroke-width="1.2" fill="none"/>
           <text x="255" y="196" text-anchor="middle" font-size="8.5" font-style="italic" fill="#0e7490">is against (defendant)</text>
-          <!-- specialization d into PERSON / ORGANISATION -->
           <line x1="95" y1="136" x2="95" y2="150" stroke="#18232b" stroke-width="1.2"/>
           <line x1="92" y1="136" x2="92" y2="150" stroke="#18232b" stroke-width="1.2"/>
           <circle cx="95" cy="159" r="8" fill="#fff" stroke="#18232b" stroke-width="1.2"/><text x="95" y="163" text-anchor="middle" font-size="7" font-weight="bold" fill="#b91c1c">d</text>
@@ -149,62 +271,229 @@
   <h2 class="title">Questions Four to Six</h2>
   <hr class="rule">
   <p class="lead">The remaining three, any two of which you would answer alongside Question
-  One. Full working; module references where a topic is treated at length.</p>
+  One. Full working, with the module named where a topic is treated at length.</p>
 
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question Four</span></div>
+    <div class="body">
+    <div class="asprinted" data-src="2025-2026:Q4a">a. Describe the relational Data model.                       (2 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Four (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q4b">b. Explain six (6) Relational Algebra operations with examples.    (6 mks)</div>
+    <p class="src">DTS224 2025/2026, Question Four (b).</p>
+    <div class="asprinted" data-src="2025-2026:Q4c">c. Consider the following relational schemas and write the relation algebra for the following tasks
+   (i-iii).                                                  (9 mks)
+        Emp (Fname, Lname, SSN, Dno)
+        Dept (DName, DNum, Mgr_SSN)
+        D_Loc (DNo, Location)
+        Project (PName, PNo, DNo, P_Loc)
+        Works_on (ESSN, PNo, Hours)
+   (i)  Retrieve the names of all employees who work for the 'Headquarters' Department.
+   (ii) For every project located in 'Abuja', list the project number, controlling department and
+        the manager's name.
+   (iii)Find the names of the employees who work on all the projects controlled by DNo =
+        A314.
+
+
+QUESTION FIVE                                               (17 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Four (c).</p>
+      <p class="flag">The paper writes "relation algebra" in (c) where (b) writes "Relational Algebra"; both mean the same thing. In (c)(iii) the department is printed as "DNo = A314", in italics, though A314 is not a number and the schema declares DNum on Dept and DNo on D_Loc. Answer it as the department whose identifier is A314 and say in one line which attribute you took it to be.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question Four</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> five relation schemas: Emp, Dept, D_Loc, Project and Works_on.</p>
+      <p class="row"><b class="lab">Asked</b> to <b>describe</b>, to <b>explain six operations with examples</b> (six, and each needs an example), and to <b>write the relation algebra</b>, meaning expressions in symbols, not English and not SQL.</p>
+      <p class="row"><b class="lab">Marks</b> 2&frac12; + 6 + 9 = 17&frac12;. Six operations for six marks is one mark each with an example; do not write an essay on selection and run out of time.</p>
+      <p class="row"><b class="lab">Taught</b> Module Three Unit 1 (the model); Module Five Unit 1 (algebra, all eight operations and their symbols).</p>
+      <p class="row"><b class="lab">Trap</b> (iii) says "work on <b>all</b> the projects controlled by" a department. "All" is the signature of <b>division</b> (&#247;). A join and a count will not do it and is the commonest wrong answer.</p>
+    </div>
+  </div>
   <div class="box ans">
     <div class="bar"><span>Answer</span><span class="tag">Question Four</span></div>
     <div class="body">
-      <p><b>(a) The relational data model.</b> It represents all data as relations (tables of
-      rows and columns), with relationships expressed by shared values rather than pointers.
+      <p><b>(a) The relational data model.</b> It represents all data as relations, that is
+      two-dimensional tables of rows and columns, with relationships between them expressed by
+      shared values rather than by pointers, and it is manipulated by relational algebra.
       (Module Three, Unit 1.)</p>
-      <p><b>(b) Six relational algebra operations.</b> Selection (&#963;, rows), projection
-      (&#960;, columns), union (&#8746;), set difference (&#8722;), Cartesian product (&#215;),
-      and join (&#8904;). (Module Five, Unit 1.1.)</p>
-      <p><b>(c) Relational algebra over Emp/Dept/Project/Works_on.</b> Solved at Module Five,
-      Unit 1.4: (i) Headquarters employees by a selection and join; (ii) Abuja projects by
-      joining Project, Dept, and Emp; (iii) employees on all A3/4 projects by division.</p>
+      <p><b>(b) Six operations, with examples.</b> Selection (&#963;, choose rows:
+      &#963;<sub>rent&lt;500</sub>(PROPERTY)); projection (&#960;, choose columns:
+      &#960;<sub>fName,lName</sub>(STAFF)); union (&#8746;, all rows of either); set difference
+      (&#8722;, rows of one not in the other); Cartesian product (&#215;, every pairing); and
+      join (&#8904;, a product kept only where a condition holds). (Module Five, Unit 1.1.)</p>
+      <p><b>(c) The three algebra expressions.</b> Worked at Module Five, Unit 1.4.</p>
+<pre class="code">(i)   HQ     &#8592; &#963; DName='Headquarters' (Dept)
+      Result &#8592; &#960; Fname, Lname ( Emp &#8904; Dno=DNum HQ )
+
+(ii)  Abuja  &#8592; &#963; P_Loc='Abuja' (Project)
+      Result &#8592; &#960; PNo, DNo, Mgr_SSN ( Abuja &#8904; DNo=DNum Dept )
+
+(iii) A314   &#8592; &#960; PNo ( &#963; DNo='A314' (Project) )
+      Result &#8592; &#960; Fname, Lname ( ( &#960; ESSN,PNo (Works_on) &#247; A314 ) &#8904; ESSN=SSN Emp )</pre>
+      <p class="small">In (ii) the manager's name needs one more join, Dept to Emp on
+      Mgr_SSN = SSN, if the examiner wants the name rather than the SSN. Say which you read it
+      as. In (iii) the division is what "all the projects" demands.</p>
     </div>
   </div>
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question Five</span></div>
+    <div class="body">
+    <div class="asprinted" data-src="2025-2026:Q5a">a. Given the following database concept in (I-III), answer question (i-ii):
+      I.   The data definition language.
+      II.  The data manipulation language.
+      III. The data model.
+      (i)  Which of the following enumerations (I) to (III) plays an important role in representing
+           information about the real world in a database?          (½ mk)
+      (ii) Explain each concept briefly; your explanation should reflect the answer for your
+           choice.                                                  (6 mks)</div>
+    <p class="src">DTS224 2025/2026, Question Five (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q5b">b. Develop an EER model for the following situation, using the crowfoot notation.   (11 mks)
 
+   A technology company provides offerings to its customers. Offerings are of two separate types:
+   products and services. Offerings are identified by an offering ID and an attribute of description. In
+   addition, products are described by product name, standard price, and date of first release; services
+   are described by name of the company's unit responsible for the service and conditions of service.
+   There are repair, maintenance, and other types of services. A repair service has a cost and is the repair
+   of some product; a maintenance service has an hourly rate. Fortunately, some products never require
+   repair. However, there are many potential repair services for a product.
+
+   A customer may purchase an offering, and the company needs to keep track of when the offering was
+   purchased and the contact person for that offering with the customer. Unfortunately, not all offerings
+   are purchased. Customers are identified by customer ID and have descriptive data of name, address,
+   and phone number. When a service is performed, that service is billed to some customer. Because
+   some customers purchase offerings for their clients, a customer may be billed for services he or she
+   did not purchase, as well as for ones that were purchased. When a customer is billed for a service
+   (although some may never require a service of any type), the company needs to keep track of the date
+   the service was performed, the date the bill is due, and the amount due.
+
+
+QUESTION SIX                                                (17 ½ mks)</div>
+    <p class="src">DTS224 2025/2026, Question Five (b).</p>
+      <p class="flag">Part (a)(i) asks which of I to III "plays an important role in representing information about the real world", and is worth half a mark: it wants one word, not a paragraph. The six marks are in (ii), which asks you to explain each concept and says the explanation "should reflect the answer for your choice", so the three explanations must argue for the one you picked.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question Five</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> three enumerated concepts (DDL, DML, data model); and a long narrative about a technology company's offerings.</p>
+      <p class="row"><b class="lab">Asked</b> to <b>choose</b> then <b>explain</b>; and to <b>develop an EER model</b> <b>using the crowfoot notation</b>. The notation is specified, so a Chen diagram scores badly however correct.</p>
+      <p class="row"><b class="lab">Marks</b> &frac12; + 6 + 11 = 17&frac12;. The model is worth eleven, nearly two thirds.</p>
+      <p class="row"><b class="lab">Taught</b> Module One Unit 2.3 and Module Three Unit 1 (DDL/DML); Module Two Unit 2.6 (this exact EER, worked).</p>
+      <p class="row"><b class="lab">Trap</b> read the completeness constraints out of the words. "Offerings are of two separate types" is total and disjoint; but "There are repair, maintenance, and <b>other</b> types of services" makes SERVICE only <b>partial</b>. And "some products never require repair" plus "many potential repair services for a product" fixes the optionality and the cardinality of that relationship.</p>
+    </div>
+  </div>
   <div class="box ans">
     <div class="bar"><span>Answer</span><span class="tag">Question Five</span></div>
     <div class="body">
-      <p><b>(a) DDL vs DML vs data model.</b> The one that represents real-world information
-      is the <b>data model</b>: it is the set of concepts (entities, relationships,
-      constraints) used to describe what the data means. <b>DDL</b> defines the structure
-      (CREATE, ALTER, DROP); <b>DML</b> manipulates the data (INSERT, UPDATE, DELETE, SELECT).
-      (Module One, Unit 2.3; Module Three, Unit 1.)</p>
-      <p><b>(b) Crow's-foot EER for the technology company.</b> Solved at Module Two, Unit 2.6:
-      OFFERING is total and disjoint over PRODUCT and SERVICE; SERVICE is partial and disjoint
-      over REPAIR, MAINTENANCE, and others; a REPAIR repairs a PRODUCT.</p>
+      <p><b>(a) The choice and the three concepts.</b> (i) The <b>data model</b>. (ii) A
+      <b>data model</b> is the set of concepts (entities, relationships, attributes and
+      constraints) used to describe the structure and meaning of data, so it is the one that
+      represents information about the real world. The <b>data definition language</b> defines
+      that structure to the DBMS (CREATE, ALTER, DROP), and the <b>data manipulation
+      language</b> operates on the data held in it (SELECT, INSERT, UPDATE, DELETE). Neither
+      language models reality; they realise and query a model. (Module One, Unit 2.3.)</p>
+      <p><b>(b) Crow's-foot EER for the technology company.</b> Worked in full at Module Two,
+      Unit 2.6. OFFERING (offeringID, description) is <b>total and disjoint</b> over PRODUCT
+      (productName, standardPrice, dateOfFirstRelease) and SERVICE (unitName,
+      conditionsOfService). SERVICE is <b>partial and disjoint</b> over REPAIR (cost) and
+      MAINTENANCE (hourlyRate), because the paper allows "other types of services". A REPAIR
+      <i>repairs</i> a PRODUCT: optional on the product side (some products never require
+      repair), many on the repair side (many potential repair services for a product).
+      CUSTOMER (customerID, name, address, phoneNumber) <i>purchases</i> OFFERING, an optional
+      many-to-many carrying purchaseDate and contactPerson; and a SERVICE performed is
+      <i>billed to</i> a CUSTOMER, carrying datePerformed, dateDue and amountDue, which is a
+      separate relationship from the purchase because a customer may be billed for a service
+      they did not purchase.</p>
     </div>
   </div>
+  <div class="box paper">
+    <div class="bar"><span>As printed</span><span class="tag">Question Six</span></div>
+    <div class="body">
+    <div class="asprinted" data-src="2025-2026:Q6a">a. Explain the following relational terms briefly:                  (3 mks)
+      (i)   Schema
+      (ii)  Alternate key
+      (iii) Tuple</div>
+    <p class="src">DTS224 2025/2026, Question Six (a).</p>
+    <div class="asprinted" data-src="2025-2026:Q6b">b. Given the StaffPropertyInspection Relation, answer the following questions:
 
+   (i)  Draw the functional dependency diagram for the relation.            (2½mks)
+   (ii) Briefly explain the concept of transitive Functional dependency.    (2 mk)
+   (iii)Normalise the relation to the 3rd Normal Forms. The primary keys are: (propertyNo, iDate)
+   Note: All actions involved in the normalization process should be well stated. The output relations
+   and the tables should be presented clearly with identified primary key                  (10 mk)
+
+   Table 1: StaffPropertyInspection
+
+   propertyNo | pAddress              | iDate     | iTime | comments                   | staffNo | carReg   | staffName
+   PG4        | 6 Lawrence St,        | 18-Oct-03 | 10.00 | Need to replace            | SG37    | M231 JGR | Kaifa
+              | Glasgow.              |           |       | crockery.                  |         |          |
+              |                       | 22-Apr-04 | 09.00 | In good order.             | SG14    | M533 HDR | Damilola
+   PG16       | 5 Novar Dr,           | 22-Apr-04 | 13.00 | Replace living room        | SG14    | M533 HDR | Damilola
+              | Glasgow.              |           |       | carpet.                    |         |          |
+              |                       | 24-Oct-04 | 14.00 | Good condition.            | SG37    | N721 HFR | Kaifa
+
+
+
+   Functional dependencies:
+   fd1 propertyNo, iDate → iTime, comments, staffNo, sName, carReg (Primary key)
+   fd2 propertyNo → pAddress                                       (Partial dependency)
+   fd3 staffNo → sName                                             (Transitive dependency)
+   fd4 staffNo, iDate → carReg                                     (Transitive dependency)
+   fd5 carReg, iDate, iTime → propertyNo, pAddress, comments, staffNo, sName  (Candidate key)
+   fd6 staffNo, iDate, iTime → propertyNo, pAddress, comments      (Candidate key)</div>
+    <p class="src">DTS224 2025/2026, Question Six (b).</p>
+      <p class="flag">Table 1 heads its last column <b>staffName</b>, but every functional dependency beneath it calls that attribute <b>sName</b>. The question therefore names one attribute two ways, and it is not a transcription slip: it is printed. Say in one line which you are using and use it consistently. Note also that the paper labels fd3 and fd4 both "(Transitive dependency)" and fd2 "(Partial dependency)"; those labels are the examiner's, and part (ii) asks you to explain transitive dependency, so quote fd3 as your example and let fd4 alone.</p>
+    </div>
+  </div>
+  <div class="box unpack">
+    <div class="bar"><span>Break it down</span><span class="tag">Question Six</span></div>
+    <div class="body">
+      <p class="row"><b class="lab">Given</b> three relational terms; and StaffPropertyInspection with four data rows, six named functional dependencies and the primary key stated as (propertyNo, iDate).</p>
+      <p class="row"><b class="lab">Asked</b> to <b>draw</b> the FD diagram, to <b>briefly explain</b> transitive dependency (so two or three sentences, not a page), and to <b>normalise to 3NF</b> with <b>all actions well stated</b> and the output tables presented with their primary keys identified. The Note is itself worth marks.</p>
+      <p class="row"><b class="lab">Marks</b> 3 + 2&frac12; + 2 + 10 = 17&frac12;. The normalisation is ten, and the Note tells you those ten are for the <b>working</b>, not just the final tables.</p>
+      <p class="row"><b class="lab">Taught</b> Module Three Unit 1 (the terms); Module Four Unit 1.4, where this exact relation is normalised step by step.</p>
+      <p class="row"><b class="lab">Trap</b> the key is given, so do not spend time deriving it. Work 1NF to 2NF to 3NF in named steps and show the relation you split off at each one; a correct final answer with no working cannot score ten.</p>
+    </div>
+  </div>
   <div class="box ans">
     <div class="bar"><span>Answer</span><span class="tag">Question Six</span></div>
     <div class="body">
-      <p><b>(a) Relational terms.</b> <b>Schema:</b> a relation's name and its attributes.
-      <b>Alternate key:</b> a candidate key not chosen as the primary key. <b>Tuple:</b> one
-      row of a relation. (Module Three, Unit 1.)</p>
-      <p><b>(b) StaffPropertyInspection.</b> (i) the FD diagram, (ii) transitive dependency,
-      and (iii) the normalization to 3NF are worked in full at Module Four, Unit 1.4. The final
-      3NF answer: Property(<u>propertyNo</u>, pAddress), Staff(<u>staffNo</u>, sName), and
-      PropertyInspection(<u>propertyNo, iDate</u>, iTime, comments, staffNo, carReg), with
-      staffNo and propertyNo as foreign keys.</p>
-      <p class="small">A transitive dependency here is staffNo &rarr; sName: sName depends on
-      the key only through the non-key attribute staffNo, which is why 3NF moves it into its
-      own Staff relation.</p>
+      <p><b>(a) The three terms.</b> <b>Schema:</b> the structure of a relation, its name
+      together with its attributes, for example STAFF(staffNo, fName, lName, branchNo).
+      <b>Alternate key:</b> a candidate key that was not chosen as the primary key.
+      <b>Tuple:</b> one row of a relation, one complete record. (Module Three, Unit 1.)</p>
+      <p><b>(b)(i) and (iii) are worked step by step at Module Four, Unit 1.4.</b> Taking the
+      attribute as sName throughout, and the key as (propertyNo, iDate):</p>
+      <p><b>(ii) Transitive dependency.</b> A non-key attribute depends on the key only
+      through another non-key attribute. Here staffNo &rarr; sName: sName is determined by
+      staffNo, and staffNo is itself determined by the key, so sName reaches the key only via
+      staffNo. That is what 3NF removes, by moving sName into a relation of its own keyed on
+      staffNo.</p>
+      <p><b>The 3NF result:</b></p>
+<pre class="code">Property(propertyNo, pAddress)                   PK propertyNo
+Staff(staffNo, sName)                            PK staffNo
+PropertyInspection(propertyNo, iDate, iTime, comments, staffNo, carReg)
+   PK (propertyNo, iDate)   FK propertyNo -&gt; Property, FK staffNo -&gt; Staff</pre>
+      <p class="small">Steps to state: 1NF, the table already holds single values, so it
+      qualifies once the repeating property address is understood as belonging to the
+      property. 2NF, remove the partial dependency fd2 (propertyNo &rarr; pAddress) into
+      Property. 3NF, remove the transitive dependency fd3 (staffNo &rarr; sName) into Staff.
+      carReg is left on the inspection because fd4 makes it depend on staffNo together with
+      iDate, which is not a determinant available in either split relation.</p>
     </div>
   </div>
-
   <div class="box teach">
-    <div class="bar"><span>Teach</span><span class="tag">How to spend the two hours</span></div>
+    <div class="bar"><span>Teach</span><span class="tag">How to spend the three hours</span></div>
     <div class="body">
-      <p>Question One is compulsory and mixes EER terms, a functional-dependency reading, and
+      <p>Question One is compulsory and mixes EER terms, a functional-dependency reading and
       SQL, so it rewards broad preparation. For your three chosen questions, pick the ones
-      whose long parts you are surest of: the transforms (Q2d, Q5b), the algebra (Q4c), and the
-      normalization (Q6b) each carry the most marks and are the most mechanical once learned.
+      whose long parts you are surest of: the transforms (Q2d, Q5b), the algebra (Q4c) and the
+      normalisation (Q6b) each carry the most marks and are the most mechanical once learned.
       Draw every diagram large and label every cardinality; an unlabelled line scores little.</p>
+      <p class="small">Watch the mark text as you triage. This paper does not write marks the
+      same way twice: most parts read "mks", Question Three alone reads "marks" and prints
+      2.5 as a decimal, and Question Six drops to the singular "mk". None of that changes what
+      a part is worth, but a candidate skimming for the big numbers can misread 2.5 as 25.</p>
     </div>
   </div>
 </section>

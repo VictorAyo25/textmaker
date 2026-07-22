@@ -1,0 +1,317 @@
+<section class="part">
+  <div class="kicker">Part Ten</div>
+  <h1>Descriptive Statistics<br>and Discrete Probability</h1>
+  <div class="blurb">Two topics named on the syllabus that no past paper has
+  yet asked about. This part is short by design and complete by obligation: it
+  covers them properly, so that a first appearance cannot cost you, and it shows
+  how probability is simply the counting of Part Five divided through by a
+  total.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#dfe3f2" stroke="#6f78b0" stroke-width="1.2">
+        <rect x="34" y="86" width="20" height="30"/>
+        <rect x="62" y="64" width="20" height="52"/>
+        <rect x="90" y="44" width="20" height="72"/>
+        <rect x="118" y="70" width="20" height="46"/>
+        <rect x="146" y="94" width="20" height="22"/>
+      </g>
+      <path d="M28 116 L178 116" stroke="#8891c9" stroke-width="1.2" fill="none"/>
+      <path d="M28 78 L178 78" stroke="#be123c" stroke-width="1.1" fill="none" stroke-dasharray="4 3"/>
+      <text x="184" y="82" font-family="DejaVu Sans" font-size="10" fill="#be123c">the mean</text>
+      <g stroke="#5b6480" stroke-width="1.3" fill="#fbfcfd">
+        <rect x="300" y="52" width="52" height="52" rx="7"/>
+        <rect x="366" y="52" width="52" height="52" rx="7"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="326" cy="78" r="4"/>
+        <circle cx="380" cy="66" r="4"/><circle cx="404" cy="66" r="4"/>
+        <circle cx="380" cy="90" r="4"/><circle cx="404" cy="90" r="4"/>
+      </g>
+      <text x="300" y="124" font-family="DejaVu Sans" font-size="10" fill="#5b6480">every face equally likely</text>
+      <text x="440" y="78" font-family="DejaVu Sans" font-size="13" fill="#be123c">1/6</text>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Ten &middot; 10.1</div>
+  <h2 class="title">Descriptive Statistics</h2>
+  <hr class="rule">
+  <p class="lead">Given a list of numbers, describe it in one or two numbers.
+  Where is the middle, and how spread out is it? Five measures answer both
+  questions, and each is a formula you can compute by hand in under a
+  minute.</p>
+  <p class="lo">By the end of this section you will be able to compute the mean,
+  median, mode, range, variance and standard deviation of a data set, choose
+  between the mean and the median when the data is skewed, work from a
+  frequency table, and say what each measure does and does not tell you.</p>
+
+  <div class="gapchip"><b>Named on the syllabus, missing from the course
+  text</b><br>
+  The course outline lists a module called Descriptive Statistics. Its unit
+  contains no statistics: it is propositional logic from the first line to the
+  last, the same material this manual teaches in Part One. Probed against the
+  whole text, the words <span class="mention">median</span>,
+  <span class="mention">variance</span>,
+  <span class="mention">standard deviation</span>,
+  <span class="mention">quartile</span>,
+  <span class="mention">arithmetic mean</span>,
+  <span class="mention">frequency distribution</span> and
+  <span class="mention">histogram</span> occur <b>zero</b> times between them.
+  No past paper in the five available sessions has asked a statistics question
+  either. So the risk is small but not nil: the topic is named, and a named
+  topic can appear. This section teaches it from zero and keeps it short, which
+  is the honest proportion.</div>
+
+  <h3 class="sub">Measures of the middle</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Mean, median, mode</span></div>
+    <div class="body">
+      <p>Three answers to "where is the centre", and they can disagree
+      violently on the same data.</p>
+      <table class="data">
+        <tr><th>Measure</th><th>How to compute it</th><th>What it is</th></tr>
+        <tr><td><b>Mean</b></td><td>add every value, divide by how many there are</td><td>the balance point</td></tr>
+        <tr><td><b>Median</b></td><td>sort, then take the middle value; with an even count take the mean of the middle two</td><td>the halfway mark by position</td></tr>
+        <tr><td><b>Mode</b></td><td>the value occurring most often</td><td>the most popular value</td></tr>
+      </table>
+      <p>In symbols, for values x<sub>1</sub>, x<sub>2</sub>, &#8230;,
+      x<sub>n</sub>:</p>
+      <p style="margin-left:12pt"><b>x&#772; = (&#8721; x<sub>i</sub>) /
+      n</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">x<sub>i</sub></span> is the <b>i-th data value</b>, so
+      the subscript is a position in the list, as with a sequence in section
+      9.3.
+      <span class="sym">n</span> is the <b>number of values</b> in the set, not
+      the largest of them.
+      <span class="sym">&#8721; x<sub>i</sub></span> is the <b>total</b> of all
+      the values, the summation of section 9.3 with i running from 1 to n.
+      <span class="sym">x&#772;</span> is written x with a bar above it and is
+      read <b>"x bar"</b>. It is the standard symbol for the mean of a
+      sample.</div>
+      <p><b>The mode may not be unique,</b> and it may not exist in any useful
+      sense: a set where every value occurs once has no mode, and a set with two
+      equally popular values has two. Say so rather than picking one.</p>
+      <p><b>The median needs the data sorted first.</b> Taking the middle of an
+      unsorted list is the most common error in this topic, and it produces a
+      number that means nothing.</p>
+      <p class="hook"><b>Memory hook:</b> <b>mean is the average, median is the
+      middle, mode is the most.</b> All three start with m, and so do average,
+      middle and most, in the same order.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Measures of spread</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Range, variance, standard deviation</span></div>
+    <div class="body">
+      <p>The centre alone hides everything. The sets 19, 20, 21 and 0, 20, 40
+      have the same mean and nothing else in common.</p>
+      <p style="margin-left:12pt"><b>range = largest value &#8722; smallest
+      value</b><br>
+      <b>&#963;<sup>2</sup> = (&#8721; (x<sub>i</sub> &#8722;
+      x&#772;)<sup>2</sup>) / n</b><br>
+      <b>&#963; = &#8730;(&#963;<sup>2</sup>)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">x<sub>i</sub> &#8722; x&#772;</span> is a
+      <b>deviation</b>: how far one value sits from the mean. Deviations are
+      positive above the mean and negative below it.
+      <span class="sym">the square</span> is there because the deviations always
+      add to exactly zero, so they must be made positive before summing;
+      squaring does that and also weights the far-out values more heavily.
+      <span class="sym">&#963;<sup>2</sup></span> is the <b>variance</b>, the
+      mean of the squared deviations. Its units are the square of the data's
+      units, which is why it is rarely quoted on its own.
+      <span class="sym">&#963;</span> is the <b>standard deviation</b>, the
+      square root of the variance, back in the same units as the data. The
+      symbol is a lower-case Greek sigma, and it is not the summation sign,
+      which is the capital.
+      <span class="sym">n</span> is the number of values.</div>
+      <p><b>Dividing by n or by n &#8722; 1.</b> The formula above divides by n
+      and describes the data set you have. If the data is a <b>sample</b> drawn
+      from a larger population and you want to estimate that population's
+      spread, divide by n &#8722; 1 instead and write s<sup>2</sup> and s. Both
+      are correct answers to different questions, so <b>state which you are
+      computing</b>; this is the same discipline as the indexing convention in
+      section 9.3.</p>
+      <p class="hook"><b>Memory hook:</b> <b>square the distances, average them,
+      then take the root to come home.</b> The root is only there to undo the
+      squaring.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; all six measures on one data set</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Ten test scores: 21, 15, 33, 12, 21, 18, 24, 15, 20,
+        21.</dd>
+        <dt>Find</dt><dd>Mean, median, mode, range, variance and standard
+        deviation.</dd>
+        <dt>Formula</dt><dd>x&#772; = (&#8721; x<sub>i</sub>) / n and
+        &#963;<sup>2</sup> = (&#8721; (x<sub>i</sub> &#8722;
+        x&#772;)<sup>2</sup>) / n, with n = 10.</dd>
+      </dl>
+      <p><b>Step 1. Sort the data,</b> because three of the six measures need
+      it and none of them is harmed by it:</p>
+      <p style="margin-left:12pt">12, 15, 15, 18, 20, 21, 21, 21, 24, 33</p>
+      <p><b>Step 2. The mean.</b></p>
+      <p style="margin-left:12pt">&#8721; x<sub>i</sub> =
+      12 + 15 + 15 + 18 + 20 + 21 + 21 + 21 + 24 + 33 = <b>200</b><br>
+      x&#772; = 200 / 10 = <b>20</b></p>
+      <p><b>Step 3. The median.</b> There are 10 values, an even count, so the
+      middle two are the 5th and 6th: 20 and 21.</p>
+      <p style="margin-left:12pt">median = (20 + 21) / 2 = <b>20.5</b></p>
+      <p><b>Step 4. The mode.</b> Counting occurrences: 12 once, 15 twice, 18
+      once, 20 once, 21 three times, 24 once, 33 once.</p>
+      <p style="margin-left:12pt">mode = <b>21</b></p>
+      <p><b>Step 5. The range.</b></p>
+      <p style="margin-left:12pt">range = 33 &#8722; 12 = <b>21</b></p>
+      <p><b>Step 6. The variance.</b> Tabulate the deviations, because doing
+      this in your head is how arithmetic errors happen.</p>
+      <table class="data">
+        <tr><th>x<sub>i</sub></th><th>x<sub>i</sub> &#8722; 20</th><th>(x<sub>i</sub> &#8722; 20)<sup>2</sup></th></tr>
+        <tr><td>12</td><td>&#8722;8</td><td>64</td></tr>
+        <tr><td>15</td><td>&#8722;5</td><td>25</td></tr>
+        <tr><td>15</td><td>&#8722;5</td><td>25</td></tr>
+        <tr><td>18</td><td>&#8722;2</td><td>4</td></tr>
+        <tr><td>20</td><td>0</td><td>0</td></tr>
+        <tr><td>21</td><td>1</td><td>1</td></tr>
+        <tr><td>21</td><td>1</td><td>1</td></tr>
+        <tr><td>21</td><td>1</td><td>1</td></tr>
+        <tr><td>24</td><td>4</td><td>16</td></tr>
+        <tr><td>33</td><td>13</td><td>169</td></tr>
+        <tr><td><b>Total</b></td><td><b>0</b></td><td><b>306</b></td></tr>
+      </table>
+      <p><b>Check the middle column adds to zero</b> before going on. It always
+      does, and if yours does not, the mean is wrong and everything after it
+      would be too.</p>
+      <p style="margin-left:12pt">&#963;<sup>2</sup> = 306 / 10 =
+      <b>30.6</b></p>
+      <p><b>Step 7. The standard deviation.</b></p>
+      <p style="margin-left:12pt">&#963; = &#8730;30.6 &#8776; <b>5.53</b></p>
+      <p><b>If the sample form is wanted instead,</b> divide by n &#8722; 1 = 9:
+      s<sup>2</sup> = 306 / 9 = <b>34</b> and s = &#8730;34 &#8776;
+      <b>5.83</b>. State which one you have given.</p>
+      <p><b>Reading the answer back.</b> Scores centre on about 20 and typically
+      sit within about 5.5 of it. The one score of 33 is more than two standard
+      deviations out, which is what pulls the mean above the median. Saying that
+      sentence is what turns six numbers into a description.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">When the mean is the wrong answer</span></div>
+    <div class="body">
+      <p>In the data above the mean is 20 and the median 20.5. They are close
+      because one outlier is mild. Change the 33 to 133 and watch:</p>
+      <p style="margin-left:12pt">new total = 300, so the mean becomes
+      <b>30</b><br>
+      the median is unchanged at <b>20.5</b>, because the middle two values did
+      not move</p>
+      <p>The mean has left the data: nine of the ten scores are now below it.
+      <b>The median is resistant to outliers and the mean is not.</b> That is
+      the single most useful fact in this section, and the reason incomes and
+      house prices are reported as medians.</p>
+      <p><b>What to write in an exam.</b> If a data set has an extreme value,
+      say which measure you are quoting and why. "The median is quoted here
+      because the value 133 distorts the mean" earns the mark that "average =
+      30" does not.</p>
+      <p><b>The mode's own trap:</b> it is the only one of the three that works
+      on data with no numeric order at all. The most common programming language
+      in a class has a mode, but no mean.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; from a frequency table</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The number of programming errors found in each of 20
+        submitted assignments, as a frequency table.</dd>
+        <dt>Find</dt><dd>The mean, median and mode.</dd>
+        <dt>Formula</dt><dd>x&#772; = (&#8721; f<sub>i</sub>x<sub>i</sub>) /
+        (&#8721; f<sub>i</sub>), where f<sub>i</sub> is the frequency of the
+        value x<sub>i</sub>.</dd>
+      </dl>
+      <table class="data">
+        <tr><th>Errors x<sub>i</sub></th><th>Frequency f<sub>i</sub></th><th>f<sub>i</sub>x<sub>i</sub></th><th>Running count</th></tr>
+        <tr><td>0</td><td>3</td><td>0</td><td>3</td></tr>
+        <tr><td>1</td><td>5</td><td>5</td><td>8</td></tr>
+        <tr><td>2</td><td>7</td><td>14</td><td>15</td></tr>
+        <tr><td>3</td><td>3</td><td>9</td><td>18</td></tr>
+        <tr><td>4</td><td>2</td><td>8</td><td>20</td></tr>
+        <tr><td><b>Total</b></td><td><b>20</b></td><td><b>36</b></td><td></td></tr>
+      </table>
+      <p><b>The mean.</b></p>
+      <p style="margin-left:12pt">x&#772; = 36 / 20 = <b>1.8</b> errors per
+      assignment</p>
+      <p><b>The median.</b> With 20 values the middle two are the 10th and 11th.
+      The running count reaches 8 after the value 1 and 15 after the value 2, so
+      both the 10th and the 11th value are 2.</p>
+      <p style="margin-left:12pt">median = <b>2</b></p>
+      <p><b>The mode</b> is the value with the largest frequency, which is
+      <b>2</b>, occurring 7 times.</p>
+      <p><b>Note what the frequency column saves you.</b> Writing out all twenty
+      values and adding them would give the same 36; the table is the same
+      arithmetic with the repetitions collected, exactly as the arrangements
+      formula of section 5.2 collects repeated letters.</p>
+      <p><b>A mean need not be a possible value.</b> No assignment had 1.8
+      errors. The mean describes the set, not any member of it, and saying so
+      pre-empts the marker's follow-up question.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define the mean, the median and the mode.</p>
+      <p class="q">2. What must you do to the data before finding the
+      median?</p>
+      <p class="q">3. Why are deviations squared before they are averaged?</p>
+      <p class="q">4. What is the difference between the variance and the
+      standard deviation?</p>
+      <p class="q">5. Which measure of centre resists an outlier?</p>
+      <p class="q">6. For 12, 15, 15, 18, 20, 21, 21, 21, 24, 33, give the mean,
+      median, mode and range.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Mean: the total divided by the count. Median: the middle value once
+      sorted, or the mean of the middle two when the count is even. Mode: the
+      most frequent value.<br>
+      2. Sort it.<br>
+      3. Because the deviations sum to zero, so they must be made positive
+      first; squaring does that and weights the extremes more.<br>
+      4. The standard deviation is the square root of the variance, so it is in
+      the same units as the data.<br>
+      5. The median.<br>
+      6. Mean 20, median 20.5, mode 21, range 21.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The <span class="blank"></span> is the total divided by the
+        count.</li>
+        <li>With an even number of values, the median is the mean of the
+        <span class="blank"></span>.</li>
+        <li>The sum of all deviations from the mean is always
+        <span class="blank"></span>.</li>
+        <li>The standard deviation is the <span class="blank"></span> of the
+        variance.</li>
+        <li>Range = <span class="blank"></span> &#8722;
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. mean. 2. middle two. 3. zero. 4. square root. 5. largest value,
+      smallest value.</p>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,410 @@
+<section>
+  <div class="kick">Part Six &middot; 6.6</div>
+  <h2 class="title">Isomorphism, Euler and Hamilton</h2>
+  <hr class="rule">
+  <p class="lead">Three questions about the same drawing: is this the same graph
+  as that one, can I walk every edge once, and can I visit every vertex once.
+  Only the middle one has an easy test, and knowing that is half the marks.</p>
+  <p class="lo">By the end of this section you will be able to define graph
+  isomorphism and use invariants to disprove it, define Euler paths and circuits
+  and apply Euler's test, define Hamilton paths and circuits and say why no
+  simple test exists, and answer both short notes and the isomorphism part of
+  2024/2025 Question Five.</p>
+
+  <h3 class="sub">Isomorphism</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Graph isomorphism</span></div>
+    <div class="body">
+      <p>Two graphs G and H are <b>isomorphic</b>, written G &#8773; H, when there
+      is a <b>bijection</b> f from the vertices of G to the vertices of H such
+      that</p>
+      <p style="margin-left:12pt"><b>u and v are adjacent in G exactly when f(u)
+      and f(v) are adjacent in H.</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">f</span> is a bijection, that is, one-to-one and onto, as
+      defined in section 4.2. So G and H must have the same number of vertices
+      before anything else can be checked.
+      <span class="sym">"exactly when"</span> is two conditions in one: f must
+      carry edges to edges <b>and</b> non-edges to non-edges.
+      <span class="sym">&#8773;</span> is read "is isomorphic to".</div>
+      <p><b>In plain words:</b> the two graphs are the same graph with the
+      vertices renamed and the picture redrawn. Nothing about position, length or
+      crossing matters; only which vertices are joined.</p>
+      <p class="hook"><b>Memory hook:</b> <b>same structure, different
+      labels.</b> An isomorphism is a relabelling that preserves every join and
+      every non-join.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Invariants: how to disprove isomorphism</span></div>
+    <div class="body">
+      <p>An <b>invariant</b> is a property that isomorphic graphs must share. If
+      two graphs differ on any invariant, they are <b>not</b> isomorphic, and
+      naming the invariant is a complete proof.</p>
+      <ul class="bul">
+        <li>the number of vertices;</li>
+        <li>the number of edges;</li>
+        <li>the <b>degree sequence</b>, that is, the list of all degrees in
+        order;</li>
+        <li>the number of components, and whether the graph is connected;</li>
+        <li>the length of the shortest cycle, and whether any cycle exists at
+        all;</li>
+        <li>whether the graph is bipartite.</li>
+      </ul>
+      <p class="small">Section 6.7 adds one more to this list once it has the
+      vocabulary for it.</p>
+      <p><b>The asymmetry that the exam rewards.</b> Invariants can only ever
+      <b>disprove</b>. Two graphs agreeing on every invariant in the list above
+      may still fail to be isomorphic, so to <b>prove</b> isomorphism you must
+      exhibit the bijection itself and check it. Say that sentence in any answer
+      about isomorphism; it is the difference between knowing the definition and
+      understanding it.</p>
+      <p class="hook"><b>Memory hook:</b> <b>invariants say no, only a mapping
+      says yes.</b> Count vertices, count edges, sort the degrees. If any of the
+      three differ, stop and write the answer.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" style="width:92%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M50 40 L130 40"/><path d="M130 40 L130 120"/>
+        <path d="M130 120 L50 120"/><path d="M50 120 L50 40"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="50" cy="40" r="6"/><circle cx="130" cy="40" r="6"/>
+        <circle cx="130" cy="120" r="6"/><circle cx="50" cy="120" r="6"/>
+      </g>
+      <g font-family="DejaVu Serif" font-size="12.5" fill="#232a31">
+        <text x="38" y="30">a</text><text x="140" y="30">b</text>
+        <text x="140" y="142">c</text><text x="36" y="142">d</text>
+      </g>
+      <text x="56" y="170" font-family="DejaVu Sans" font-size="10.5" fill="#67707a">G: a square</text>
+
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M240 80 L300 32"/><path d="M300 32 L360 80"/>
+        <path d="M360 80 L300 128"/><path d="M300 128 L240 80"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="240" cy="80" r="6"/><circle cx="300" cy="32" r="6"/>
+        <circle cx="360" cy="80" r="6"/><circle cx="300" cy="128" r="6"/>
+      </g>
+      <g font-family="DejaVu Serif" font-size="12.5" fill="#232a31">
+        <text x="224" y="76">w</text><text x="294" y="22">x</text>
+        <text x="370" y="76">y</text><text x="294" y="150">z</text>
+      </g>
+      <text x="238" y="170" font-family="DejaVu Sans" font-size="10.5" fill="#67707a">H: a diamond</text>
+
+      <g font-family="DejaVu Sans" font-size="10.5" fill="#283593">
+        <text x="400" y="46">G &#8773; H</text>
+        <text x="400" y="66">a to w</text>
+        <text x="400" y="84">b to x</text>
+        <text x="400" y="102">c to y</text>
+        <text x="400" y="120">d to z</text>
+      </g>
+      <text x="392" y="170" font-family="DejaVu Sans" font-size="10" fill="#67707a">same graph, redrawn</text>
+    </svg>
+    <figcaption>Two drawings, one graph. Both are C&#8324;: four vertices, four
+    edges, every degree 2, and the named bijection carries every edge to an
+    edge.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q5(g) &middot; PQ 25/26 Q4(a)(iv)</span></div>
+    <div class="body">
+      <p><b>The two questions</b> are quoted in full in sections 6.3 and 6.1:
+      2024/2025 Q5(g) asks you to "Explain what it means for two graphs G and H to
+      be isomorphic" for 1.5 marks, and 2025/2026 Q4(a)(iv) asks for a short note
+      on "Graph isomorphism" with a relevant example for 2 marks. One answer
+      serves both; give the example either way.</p>
+      <p><b>The explanation.</b> Two graphs G and H are isomorphic when there is a
+      one-to-one and onto function f from the vertices of G to the vertices of H
+      such that two vertices u and v are adjacent in G if and only if f(u) and
+      f(v) are adjacent in H. Informally, H is G with its vertices renamed and its
+      picture redrawn: the two are the same graph in every respect except the
+      labels and the geometry.</p>
+      <p><b>What must match, and what need not.</b> The number of vertices, the
+      number of edges and the degree of every corresponding vertex must match. The
+      positions of the vertices on the page, the lengths of the edges and whether
+      the edges cross need not: none of those is part of what a graph is.</p>
+      <p><b>The example.</b> The square a, b, c, d and the diamond w, x, y, z
+      above are isomorphic under a to w, b to x, c to y, d to z. Check it edge by
+      edge: ab goes to wx, bc to xy, cd to yz, da to zw, and all four are edges of
+      H. The two drawings look different and are the same graph.</p>
+      <p><b>The extra line for the full 1.5 marks:</b> to disprove isomorphism it
+      is enough to find one invariant on which the graphs differ, such as the
+      degree sequence; but to prove it, the bijection must actually be exhibited,
+      because agreeing on every standard invariant is not sufficient.</p>
+      <p class="redo"><b>Now redo it:</b> are a 4-cycle and a path on 4 vertices
+      isomorphic? No. Both have 4 vertices, but the cycle has 4 edges and degree
+      sequence 2, 2, 2, 2, while the path has 3 edges and degree sequence 1, 2, 2,
+      1. Either invariant settles it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Euler paths and circuits</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Euler path and Euler circuit</span></div>
+    <div class="body">
+      <p>An <b>Euler path</b> is a walk that uses <b>every edge of the graph
+      exactly once</b>. An <b>Euler circuit</b> is an Euler path that finishes
+      where it started.</p>
+      <p>A graph that has an Euler circuit is called an <b>Eulerian graph</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">every edge exactly once</span> is the condition. Vertices
+      may be revisited as often as you like; it is the <b>edges</b> that are
+      rationed.
+      <span class="sym">circuit</span> means the walk returns to its starting
+      vertex; a path need not.</div>
+      <p class="hook"><b>Memory hook:</b> <b>Euler is about edges, Hamilton is
+      about vertices.</b> Both names begin with a letter that helps: <b>E</b>uler
+      for <b>e</b>dges. Get that one association right and neither definition can
+      be confused again.</p>
+    </div>
+  </div>
+
+  <div class="lawstate">
+    <div class="lawname">Euler's theorem on circuits and paths</div>
+    <p><b>The claim.</b> Whether a graph can be traced without lifting the pen or
+    repeating an edge depends only on how many of its vertices have odd degree,
+    and on nothing else.</p>
+    <p><b>In symbols.</b><br>
+    A connected graph has an <b>Euler circuit</b> exactly when <b>every</b> vertex
+    has even degree.<br>
+    A connected graph has an <b>Euler path but no circuit</b> exactly when it has
+    <b>exactly two</b> vertices of odd degree, and any such path must start at one
+    of them and finish at the other.</p>
+    <p class="cond"><b>Conditions.</b> The graph must be <b>connected</b>, apart
+    from isolated vertices, which no walk needs to reach. Loops and parallel edges
+    are allowed. Note that "exactly one odd vertex" never arises: by the
+    Handshaking corollary of section 6.3, the number of odd-degree vertices is
+    always even.</p>
+    <p class="cond"><b>Why the degree condition is the right one.</b> Every time
+    a walk passes through a vertex it uses one edge to arrive and one to leave, so
+    it consumes edges there in pairs. A vertex of odd degree therefore cannot be
+    passed through cleanly: the walk must either start or finish there. With no
+    odd vertices the walk can close up into a circuit; with two it runs between
+    them; with four or more it cannot be a single walk at all.</p>
+    <p class="cond"><b>The limiting case.</b> A graph with no edges satisfies the
+    condition vacuously and has an empty Euler circuit, which is true and of no
+    use. The theorem earns its keep in the negative direction: the seven bridges
+    of Königsberg form a graph with <b>four</b> odd vertices, so no walk crosses
+    every bridge once, and that impossibility is the result the whole subject
+    grew from.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg" style="width:92%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M40 100 L100 40"/><path d="M100 40 L160 100"/>
+        <path d="M160 100 L100 150"/><path d="M100 150 L40 100"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="40" cy="100" r="5.5"/><circle cx="100" cy="40" r="5.5"/>
+        <circle cx="160" cy="100" r="5.5"/><circle cx="100" cy="150" r="5.5"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+        <text x="14" y="26">all degrees 2, all even</text>
+        <text x="14" y="174" fill="#283593">Euler circuit exists</text>
+      </g>
+
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M230 100 L290 40"/><path d="M290 40 L350 100"/>
+        <path d="M350 100 L290 150"/><path d="M290 150 L230 100"/>
+        <path d="M290 40 L290 150"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="230" cy="100" r="5.5"/><circle cx="350" cy="100" r="5.5"/>
+      </g>
+      <g fill="#be123c">
+        <circle cx="290" cy="40" r="5.5"/><circle cx="290" cy="150" r="5.5"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+        <text x="204" y="26">two odd vertices, in crimson</text>
+        <text x="204" y="174" fill="#283593">Euler path only, between them</text>
+      </g>
+
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M400 70 C 430 40, 470 40, 496 68"/>
+        <path d="M400 76 C 430 96, 470 96, 496 76"/>
+        <path d="M400 84 C 424 124, 470 124, 494 84"/>
+        <path d="M400 70 L400 130"/><path d="M496 70 L496 130"/>
+        <path d="M400 130 L448 156"/><path d="M496 130 L448 156"/>
+      </g>
+      <g fill="#be123c">
+        <circle cx="400" cy="72" r="5.5"/><circle cx="496" cy="72" r="5.5"/>
+        <circle cx="400" cy="130" r="5.5"/><circle cx="496" cy="130" r="5.5"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+        <text x="382" y="26">four odd vertices</text>
+        <text x="382" y="174" fill="#be123c">neither path nor circuit</text>
+      </g>
+    </svg>
+    <figcaption>The whole theorem in three pictures. Count the odd-degree
+    vertices: none, two, or more than two.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(a)(v)</span></div>
+    <div class="body">
+      <p><b>The question</b> is quoted in full in section 6.1: "(v) Eulerian
+      graph", 2 marks, wanting a short note with a relevant example.</p>
+      <p><b>Definition.</b> A connected graph is <b>Eulerian</b> when it contains
+      an Euler circuit, that is, a closed walk using every edge of the graph
+      exactly once. By Euler's theorem a connected graph is Eulerian exactly when
+      every one of its vertices has even degree.</p>
+      <p><b>Example 1, Eulerian.</b> The 4-cycle drawn above: every vertex has
+      degree 2, which is even, so the circuit a to b to c to d to a uses all four
+      edges once and returns to the start.</p>
+      <p><b>Example 2, not Eulerian.</b> The seven bridges of Königsberg, the
+      problem Euler solved in 1736 and the origin of the whole subject. Four land
+      masses joined by seven bridges give a graph whose four vertices all have odd
+      degree (3, 3, 3 and 5), so no walk crosses every bridge exactly once. The
+      townspeople had been trying; Euler proved it could not be done.</p>
+      <p><b>The distinction worth adding for the second mark:</b> a graph with
+      exactly two odd vertices has an Euler <b>path</b> but no circuit, and is
+      therefore <b>not</b> Eulerian. Only the all-even case earns the name.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Hamilton paths and circuits</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Hamilton path and circuit</span></div>
+    <div class="body">
+      <p>A <b>Hamilton path</b> is a walk that visits <b>every vertex of the
+      graph exactly once</b>. A <b>Hamilton circuit</b> is a Hamilton path that
+      returns to its starting vertex.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">every vertex exactly once</span> is the condition, so
+      here it is the <b>vertices</b> that are rationed and edges may be left
+      unused entirely.
+      <span class="sym">the starting vertex</span> of a circuit is visited twice
+      in the sense that the walk returns to it, which is not counted as a repeat
+      visit.</div>
+      <p><b>There is no easy test, and saying so is part of the answer.</b> Euler
+      circuits are settled by counting degrees. For Hamilton circuits <b>no
+      such simple criterion is known</b>, and deciding whether one exists is one
+      of the classic computationally hard problems. Only sufficient conditions
+      exist, such as Dirac's: a simple graph on n &#8805; 3 vertices in which
+      every vertex has degree at least n/2 has a Hamilton circuit. That is a
+      one-way test, so a graph failing it may still have one.</p>
+      <p class="hook"><b>Memory hook:</b> <b>Euler counts degrees, Hamilton
+      counts on luck.</b> If an exam question asks you to find a Hamilton circuit,
+      you are expected to find it by inspection; if it asks whether one exists in
+      general, the answer involves saying there is no efficient test.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Euler and Hamilton are easy to swap</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th></th><th>Euler</th><th>Hamilton</th></tr>
+        <tr><td>Uses each</td><td><b>edge</b> exactly once</td><td><b>vertex</b>
+        exactly once</td></tr>
+        <tr><td>May repeat</td><td>vertices</td><td>nothing, and may skip
+        edges</td></tr>
+        <tr><td>Test</td><td>count odd-degree vertices</td><td>none known; only
+        sufficient conditions</td></tr>
+        <tr><td>Everyday version</td><td>a postal round covering every
+        street</td><td>a delivery visiting every house</td></tr>
+      </table>
+      <p>The travelling salesman question of section 6.8 is a Hamilton circuit
+      question with weights attached: visit every city once, return home, and do
+      it as cheaply as possible. That is why it has no quick method either.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; deciding both for one graph</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The four-vertex graph of section 6.5: vertices 1, 2, 3,
+        4 with edges 1-2, 1-3, 2-3 and 3-4.</dd>
+        <dt>Find</dt><dd>Whether it has an Euler circuit, an Euler path, and a
+        Hamilton path or circuit.</dd>
+        <dt>Rule</dt><dd>Euler by counting odd degrees; Hamilton by
+        inspection.</dd>
+      </dl>
+      <p><b>Step 1. The degrees,</b> read off the adjacency matrix row sums in
+      section 6.5: deg(1) = 2, deg(2) = 2, deg(3) = 3, deg(4) = 1.</p>
+      <p><b>Step 2. Count the odd ones.</b> Vertices 3 and 4 have odd degree, and
+      the other two are even. That is <b>exactly two</b> odd vertices.</p>
+      <p><b>Step 3. Apply Euler's theorem.</b> Exactly two odd vertices means
+      <b>no Euler circuit, but an Euler path exists</b>, and it must run between
+      the two odd vertices, that is, between 3 and 4. One such path:</p>
+      <p style="margin-left:12pt">4 to 3 to 1 to 2 to 3</p>
+      <p>Check it: the edges used are 34, 31, 12, 23. That is all four edges, each
+      once. Vertex 3 is visited twice, which an Euler path is allowed to do.</p>
+      <p><b>Step 4. Hamilton, by inspection.</b> A Hamilton path must touch each
+      of 1, 2, 3, 4 exactly once. Try 4 to 3 to 1 to 2: every vertex once, so
+      <b>a Hamilton path exists</b>.</p>
+      <p>A Hamilton <b>circuit</b> would have to return from 2 to 4, and there is
+      no edge 2-4. In fact vertex 4 has degree 1, and a circuit must both enter
+      and leave every vertex, needing degree at least 2. So <b>no Hamilton
+      circuit exists</b>, and the pendant vertex is the whole reason.</p>
+      <p><b>That last observation generalises</b> and is worth remembering: a
+      graph with any vertex of degree 1 can never have a Hamilton circuit.</p>
+      <p class="redo"><b>Now redo it:</b> add the edge 2-4. Degrees become 2, 3,
+      3, 2, so still exactly two odd vertices and still an Euler path but no
+      circuit. Now 1 to 2 to 4 to 3 to 1 is a Hamilton circuit, so the answers to
+      the two questions moved independently.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define graph isomorphism.</p>
+      <p class="q">2. Name three invariants, and say what invariants can and
+      cannot prove.</p>
+      <p class="q">3. State Euler's condition for a circuit and for a path.</p>
+      <p class="q">4. What is an Eulerian graph?</p>
+      <p class="q">5. What is the difference between an Euler circuit and a
+      Hamilton circuit?</p>
+      <p class="q">6. Why can a graph with a pendant vertex have no Hamilton
+      circuit?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A bijection between the vertex sets under which two vertices are
+      adjacent in one graph exactly when their images are adjacent in the
+      other.<br>
+      2. Vertex count, edge count, degree sequence (also connectedness, shortest
+      cycle, bipartiteness). They can disprove isomorphism but never prove it;
+      only exhibiting the bijection proves it.<br>
+      3. A connected graph has an Euler circuit exactly when every degree is
+      even, and an Euler path but no circuit exactly when exactly two degrees are
+      odd.<br>
+      4. A connected graph that has an Euler circuit, equivalently one whose
+      every vertex has even degree.<br>
+      5. Euler uses every edge once and may repeat vertices; Hamilton visits
+      every vertex once and may skip edges.<br>
+      6. A circuit must enter and leave every vertex it visits, which needs degree
+      at least 2.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Isomorphic graphs must have the same
+        <span class="blank"></span> sequence.</li>
+        <li>An Euler circuit exists exactly when every vertex has
+        <span class="blank"></span> degree.</li>
+        <li>Euler is about <span class="blank"></span>; Hamilton is about
+        <span class="blank"></span>.</li>
+        <li>The Königsberg graph has <span class="blank"></span> odd vertices, so
+        no such walk exists.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. degree. 2. even. 3. edges, vertices. 4. four.</p>
+    </div>
+  </div>
+
+</section>

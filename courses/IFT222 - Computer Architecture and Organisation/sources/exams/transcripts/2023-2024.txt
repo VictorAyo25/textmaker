@@ -1,0 +1,196 @@
+CSC227 - 2023/2024 Omega semester - VERBATIM TRANSCRIPT
+Source: sources/exams/2023-2024.pdf (a scan; pages rendered to image and read by
+eye). The PDF carries an OCR text layer. THAT LAYER WAS REJECTED, not used: it
+misreads "1½mks" as "12mks", Q3a's marks as "42mks"/"3½mks", the truth-table
+cells as Korean characters, and it scrambles reading order. Everything below was
+read from the page images.
+Transcribed by eye 2026-07-22. Re-read against the images once after typing.
+
+TRANSCRIPTION RULES: as in 2024-2025.txt. Every character as printed, typos
+included; [[Qxx]] markers are scaffolding the gate strips; apostrophes typed
+straight; UTF-8 holds the paper's real glyphs.
+
+SUBSCRIPTS ARE REAL AND ARE KEPT. Q2(b) sets its variables as X and Y with
+TRUE SUBSCRIPT digits, both in the sentence and in the Table 1 header:
+X₁ X₀ Y₃ Y₂ Y₁ Y₀. An earlier pass of this file flattened them to X1, X0, Y3 ...
+which is the same defect as rewording a sentence, only quieter: qa_verbatim.py
+compares the BOOK against THIS FILE, so a flattened transcript would have been
+blessed rather than caught. Re-checked at 300dpi 2026-07-22 and restored.
+Checked at the same time and confirmed NOT subscripted, so left as full-size
+digits: Q5(a)'s "T1 to T4 as well as F1 and F2" in the question text (the
+FIGURE's labels are subscripted, but the figure is a drawing, not quoted text),
+and the 20/21 paper's "stage1= 8ns ... stage5 =16ns".
+
+Page 1 of the scan also carries a faded, separately printed CSC227 TEST 1 sheet
+overlapping the exam header. It is a different assessment, not part of this
+paper, and is transcribed at the end under TEST 1 rather than mixed in.
+
+--- PAGE 1 identity block (provenance only, not quoted in the manual) ---
+COVENANT UNIVERSITY
+CANAANLAND, KM 10, IDIROKO ROAD
+P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+B.Sc DEGREE  EXAMINATION
+COLLEGE:  SCIENCE AND TECHNOLOGY          DEPARTMENT: CIS
+SESSION:  2023/2024                       SEMESTER: OMEGA
+COURSE CODE: CSC227                       CREDIT UNIT: 2
+COURSE TITLE: COMPUTER ARCH AND ORGANIZATION I    TIME: 2 HOURS
+  (this paper's title ends in " I"; the 24/25 and 25/26 papers' do not)
+
+--- rubric ---
+INSTRUCTION: ANSWER QUESTION ONE AND ANY OTHER TWO QUESTIONS
+
+============================== QUESTION ONE ==============================
+Question One (30 marks)
+
+[[Q1a]]
+a.	A 5-stage pipelined processor has Instruction fetch (IF), Instruction decode (ID), Operand Fetch (OF), Execute (EX) and Write Back (WB) stages. The IF, ID, OF and WB stages take 1 clock cycle each for any instruction. The EX stage takes 1 cycle for ADD and SUB instructions, 3 clock cycles for MUL instruction and 6 clock cycles for DIV instruction respectively.
+Draw the cycle diagram and determine the number of cycles needed to execute the following sequence of instructions
+i.	With Operand forwarding	4½mks
+ii.	Without Operand forwarding	5½mks
+I1	MUL R2, R0, R1	; R2 ← R0 X R1
+I2	DIV R5, R3, R4	; R5 ← R3/R4
+I3	ADD R2, R5, R2	; R2 ← R5 + R2
+I4	SUB R5, R2, R6	; R5 ← R2 – R6
+
+[[Q1b]]
+b.	i) State Amdahl's law'	2½mks
+ii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.	2mks
+
+[[Q1c]]
+c.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.
+X = C1400000h,	Y = 42100000h,	Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true or false	9mks
+i.	(Y-Z)>0
+ii.	X + Z = 0
+iii.	Z= X + Y
+
+[[Q1d]]
+d.	If an 8-way set association cache is made up of 32 bits words, 4 words per line and 4096 sets.
+i)	Size of each line of the cache	1mk
+ii)	Size of each set of the cache	1mk
+iii)	Size of the cache itself	1mk
+iv)	Sketch the structure of the cache	1½mks
+
+[[Q1e]]
+e.	Describe how cache memory improves the performance of a computer system	2mks
+
+============================== QUESTION TWO ==============================
+Question Two (20 marks)
+
+[[Q2a]]
+a.	What is Boolean Algebra?	2mks
+
+[[Q2b]]
+b.	Design a code converter with two inputs (X₁ and X₀) and four outputs (Y₃, Y₂, Y₁, and Y₀). The truth table is presented in Table 1.
+Table 1: Truth Table
+X₁ | X₀ | Y₃ | Y₂ | Y₁ | Y₀
+0 | 0 | 1 | 1 | 1 | 0
+0 | 1 | 1 | 1 | 0 | 1
+1 | 0 | 1 | 0 | 1 | 1
+1 | 1 | 0 | 1 | 1 | 1
+i). Derive the simplified Boolean Expression for each Output using 2-input k-map.  4mks
+ii). Draw the full logic circuit of the converter using basic logic gates. Label all inputs and outputs.	4mks
+
+[[Q2c]]
+c.	Design a combinational circuit with three inputs X,Y, and Z, and the three outputs, A,B, and C. When the binary input is 0,1,2 or 3, the binary output is one greater than the input. When the binary input is 4,5,6, or 7, the binary output is one less than the input.
+i.	Derive the truth table for the given problem	2mks
+ii.	Obtain simplified Boolean expressions using K-map	4½mks
+iii.	Draw the corresponding logic expression	3½mks
+
+============================== QUESTION THREE ==============================
+Question Three (20 marks)
+
+[[Q3a]]
+a.	Determine the average memory access time for a machine with a cache hit rate of 80% and cache access time of 5 ns and main memory access time of 100 ns when.
+i.  Simultaneous access memory organization is used.	2½mks
+ii. Hierarchical access memory organization is used.	2½mks
+iii.Draw the diagrams representing the two scenarios	3mks
+
+[[Q3b]]
+b.	A computer system uses 16-bit memory addresses. It has a 2K-byte cache organized in a direct-mapped manner with 64 bytes per cache block. Assume that the size of each memory word is 1 byte. Calculate the number of bits in each of the Tag, Index, and Offset fields of the memory address.	3mks
+
+[[Q3c]]
+c.	Explain the following	4½mks
+i)	Locality of reference
+ii)	Temporal locality
+iii)	Spacial Locality
+
+[[Q3d]]
+d.	Simplify the Boolean expression with Boolean algebra laws and show that	4½ mks
+(AB'. (A+C))' + A'B. (A+B'+C')' = A'+B
+
+============================== QUESTION FOUR ==============================
+Question Four (20 marks)
+
+[[Q4a]]
+a.	i) What do you understand by Von Neumann Concept?	1mk
+ii) Mention any 2 significant aspects of Von Neumann Architecture	2mks
+iii) Describe the Von Neumann architecture bottleneck	2mks
+
+[[Q4b]]
+b.	i) Complete the table below. Show all necessary work done to arrive at the answer. Use 12bits.	6mks
+Value | Unsigned | S-M | 1's Complement | 2's Complement
+204
+-139
+1101 00110 11
+ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte	3mks
+
+[[Q4c]]
+c.	Represent the following -1240.56 using Single Precision IEEE format for floating point numbers.	6mks
+
+============================== QUESTION FIVE ==============================
+Question Five (20 marks)
+
+[[Q5a]]
+a.	Consider the combinational circuit shown in Figure 1
+i.  Derive the Boolean expression for T1 through T4 and evaluate the outputs of F1 and F2 as functions of the four inputs.	5mks
+ii. List the truth table with 16 binary combinations of the four inputs variables.
+The truth table should also include values for T1 to T4 as well as F1 and F2.	4mks
+[Figure 1: a hand-drawn combinational circuit. Inputs A, B, C, D on the left.
+B and C feed an inverter into an AND gate giving T1; a second inverter and AND
+gate give T2; A and T1 feed an OR gate giving T3; T2 and D feed a gate giving
+T4; T3 and T4 feed an OR gate giving F1; a lower OR gate gives F2. The figure
+is a drawing, not text, and is reproduced in the manual as a redrawn diagram.]
+
+[[Q5b]]
+b.	Compare Von Neumann Architecture and Harvard Architecture. Include diagram for each.	4mk
+
+[[Q5c]]
+c.	Mention any 3 clear differences between RISC and CISC. Give two examples of processors in each category.	3mks
+
+[[Q5d]]
+d.	Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in a 10-bit register.	4mks
+
+============================== TEST 1 (separate sheet) ==============================
+The faded sheet overlapping page 1. Not part of the 23/24 exam paper.
+CSC227 TEST 1	TIME: 45 MINS
+ATTEMPT ALL
+1.	Compare Von Neumann Architecture and Harvard Architecture. Include diagram for each.	3mks
+2.	Represent -452.25 as a floating-Point number using the Single Precision IEEE format. Leave your answer in hexadecimal form.	5mks
+3.	What do you understand by Overflow and Underflow in Data Representation?	3mks
+4.	Describe end-around carry in 1's complement. Illustrate this using 125-123 for 8-bit register.	4mks
+5.	Express 111101111011110011 10 in Octal and Hexadecimal form	3mks
+6.	Explain why it is better to have new type of memory that is based on more transfer rate than more memory size.	2mks
+  (item 5's binary string is faint on the scan; the digit grouping shown is the
+   best reading of it and it is NOT quoted in the manual for that reason)
+
+--- NOTES ON THE PAPER'S OWN DEFECTS (observations, not corrections) ---
+1. Q1b reads "State Amdahl's law'" with a stray closing apostrophe. The 25/26
+   paper reproduces the same stray apostrophe, so it is copied forward between
+   years rather than a scanning artefact.
+2. Q1c asks which of the claims "is true or false". The 24/25 paper sets the
+   identical question but asks only which "is true". The instruction verb
+   differs between the two years even though the data are identical.
+3. Q1d: "8-way set association cache" (association, not associative), and the
+   sentence is a fragment with no question in it; the four sub-items supply it.
+4. Q3a ends "...main memory access time of 100 ns when." with a full stop where
+   the list needs a colon.
+5. Q3c(iii) reads "Spacial Locality". The 24/25 paper writes the same term as
+   "Special Locality". Neither is "spatial".
+6. Q4b says "Use 12bits." (no space) and the third table row "1101 00110 11" is
+   11 bits. The 24/25 paper repeats the same row with the same shortfall, so the
+   defect is copied forward.
+7. Q5b is worth "4mk", singular.
+8. Q5d and 24/25 Q4b(i) are the same question; both use an en dash in
+   "153 – 142". The 20/21 paper's version reads "in an 10-bit register".

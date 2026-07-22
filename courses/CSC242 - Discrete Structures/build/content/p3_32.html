@@ -1,0 +1,348 @@
+<section>
+  <div class="kick">Part Three &middot; 3.2</div>
+  <h2 class="title">The Five Properties of a Relation</h2>
+  <hr class="rule">
+  <p class="lead">Reflexive, symmetric, antisymmetric, transitive and irreflexive.
+  Three of the five papers we hold ask you to classify a list of relations against
+  these, so this is the highest-value page in Part Three.</p>
+  <p class="lo">By the end of this section you will be able to state each property
+  precisely, test any relation against all five quickly and reliably, spot each
+  one in a matrix at a glance, and produce the counterexample that proves a
+  property fails.</p>
+
+  <h3 class="sub">The five definitions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The five properties</span></div>
+    <div class="body">
+      <p>Throughout, R is a relation on a set A.</p>
+      <table class="data">
+        <tr><th>Property</th><th>Definition</th><th>In plain words</th></tr>
+        <tr><td><b>Reflexive</b></td><td>(a, a) &#8712; R for <b>every</b> a &#8712; A</td><td>everything relates to itself, with no exceptions</td></tr>
+        <tr><td><b>Irreflexive</b></td><td>(a, a) &#8713; R for every a &#8712; A</td><td>nothing relates to itself</td></tr>
+        <tr><td><b>Symmetric</b></td><td>whenever (a, b) &#8712; R, also (b, a) &#8712; R</td><td>every arrow has a matching return arrow</td></tr>
+        <tr><td><b>Antisymmetric</b></td><td>whenever (a, b) &#8712; R and (b, a) &#8712; R, then a = b</td><td>no two <i>different</i> elements point both ways</td></tr>
+        <tr><td><b>Transitive</b></td><td>whenever (a, b) &#8712; R and (b, c) &#8712; R, also (a, c) &#8712; R</td><td>any two-step path has a one-step shortcut</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> reflexive looks in a mirror, symmetric
+      goes both ways, antisymmetric forbids both ways unless it is the same thing
+      twice, transitive takes shortcuts.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Antisymmetric is NOT the opposite of symmetric</span></div>
+    <div class="body">
+      <p>This is the mistake that costs the most marks in this whole part.</p>
+      <p>A relation can be <b>both</b> symmetric and antisymmetric. Take
+      R = {(1,1), (2,2)} on {1, 2, 3}. Every arrow has its return arrow, since
+      each is its own return, so it is symmetric. And no two <i>different</i>
+      elements point both ways, so it is antisymmetric too.</p>
+      <p>A relation can also be <b>neither</b>. Take R = {(1,2), (2,1), (2,3)}.
+      It fails symmetry, because (2,3) has no (3,2). It fails antisymmetry,
+      because (1,2) and (2,1) are both in with 1 &#8800; 2.</p>
+      <p>The four combinations all occur. So test the two properties
+      <b>separately</b> and never infer one from the other.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Reflexive needs EVERY element</span></div>
+    <div class="body">
+      <p>R = {(1,1), (2,2), (3,3)} on A = {1, 2, 3, 4} is <b>not</b> reflexive,
+      because (4,4) is missing. Three out of four is a fail.</p>
+      <p>This is exactly the trap in 2025/2026 Q2(c), and it is why "determine
+      whether R is reflexive" is worth two marks rather than one: the mark is for
+      naming the missing pair, not for the verdict.</p>
+      <p>Also note that <b>not reflexive</b> and <b>irreflexive</b> are different.
+      R = {(1,1), (2,3)} on {1,2,3} is not reflexive (2 and 3 lack loops) and not
+      irreflexive either (1 has one). Most relations are neither.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Seeing the properties in the matrix</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The fastest reliable method</span></div>
+    <div class="body">
+      <p>Write the matrix and every property becomes something you can see. This
+      is far quicker than checking pairs one at a time, and much harder to get
+      wrong.</p>
+      <table class="data">
+        <tr><th>Property</th><th>What to look at</th><th>Passes when</th></tr>
+        <tr><td>Reflexive</td><td>the main diagonal</td><td>every diagonal entry is 1</td></tr>
+        <tr><td>Irreflexive</td><td>the main diagonal</td><td>every diagonal entry is 0</td></tr>
+        <tr><td>Symmetric</td><td>the matrix versus its mirror image in the diagonal</td><td>M<sub>ij</sub> = M<sub>ji</sub> everywhere</td></tr>
+        <tr><td>Antisymmetric</td><td>each off-diagonal pair of positions</td><td>never both M<sub>ij</sub> and M<sub>ji</sub> equal to 1 when i &#8800; j</td></tr>
+        <tr><td>Transitive</td><td>every two-step path</td><td>M<sub>ij</sub> = M<sub>jk</sub> = 1 forces M<sub>ik</sub> = 1</td></tr>
+      </table>
+      <svg viewBox="0 0 520 145" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <!-- reflexive -->
+        <text x="0" y="14" font-family="DejaVu Sans" font-size="10" font-weight="bold" fill="#283593">Reflexive: diagonal all 1</text>
+        <g font-family="DejaVu Sans Mono" font-size="13" fill="#232a31">
+          <text x="14" y="42">1 0 1</text><text x="14" y="62">0 1 0</text><text x="14" y="82">1 1 1</text>
+        </g>
+        <g fill="none" stroke="#be123c" stroke-width="1.6">
+          <rect x="10" y="30" width="15" height="16"/><rect x="34" y="50" width="15" height="16"/><rect x="58" y="70" width="15" height="16"/>
+        </g>
+        <!-- symmetric -->
+        <text x="150" y="14" font-family="DejaVu Sans" font-size="10" font-weight="bold" fill="#283593">Symmetric: mirror across diagonal</text>
+        <g font-family="DejaVu Sans Mono" font-size="13" fill="#232a31">
+          <text x="164" y="42">1 1 0</text><text x="164" y="62">1 0 1</text><text x="164" y="82">0 1 1</text>
+        </g>
+        <line x1="160" y1="28" x2="226" y2="88" stroke="#8891c9" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <g fill="none" stroke="#be123c" stroke-width="1.4">
+          <circle cx="191" cy="37" r="8"/><circle cx="167" cy="57" r="8"/>
+        </g>
+        <!-- transitive -->
+        <text x="330" y="14" font-family="DejaVu Sans" font-size="10" font-weight="bold" fill="#283593">Transitive: shortcut must exist</text>
+        <g font-family="DejaVu Sans" font-size="11" fill="#232a31">
+          <text x="336" y="46">a &#8594; b and b &#8594; c</text>
+          <text x="336" y="66">forces a &#8594; c</text>
+        </g>
+        <g>
+          <circle cx="352" cy="96" r="10" fill="#eef0fa" stroke="#283593" stroke-width="1.2"/>
+          <circle cx="412" cy="96" r="10" fill="#eef0fa" stroke="#283593" stroke-width="1.2"/>
+          <circle cx="472" cy="96" r="10" fill="#eef0fa" stroke="#283593" stroke-width="1.2"/>
+          <g font-family="DejaVu Sans" font-size="10" text-anchor="middle" fill="#232a31">
+            <text x="352" y="100">a</text><text x="412" y="100">b</text><text x="472" y="100">c</text>
+          </g>
+          <line x1="363" y1="96" x2="399" y2="96" stroke="#283593" stroke-width="1.2" marker-end="url(#ah3)"/>
+          <line x1="423" y1="96" x2="459" y2="96" stroke="#283593" stroke-width="1.2" marker-end="url(#ah3)"/>
+          <path d="M 352,108 Q 412,134 472,108" fill="none" stroke="#be123c" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#ah4)"/>
+        </g>
+        <defs>
+          <marker id="ah3" markerWidth="7" markerHeight="7" refX="6" refY="2.4" orient="auto"><path d="M0,0 L6,2.4 L0,4.8 z" fill="#283593"/></marker>
+          <marker id="ah4" markerWidth="7" markerHeight="7" refX="6" refY="2.4" orient="auto"><path d="M0,0 L6,2.4 L0,4.8 z" fill="#be123c"/></marker>
+        </defs>
+        <text x="336" y="138" font-family="DejaVu Sans" font-size="9" fill="#67707a">the dashed arrow must be present</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">How to disprove each property</span></div>
+    <div class="body">
+      <p>Every one of these properties is a "for all" statement, so a
+      <b>single counterexample</b> disproves it, and quoting that counterexample
+      is what earns the mark. Never write "R is not transitive" alone.</p>
+      <table class="data">
+        <tr><th>To show R is not ...</th><th>Produce</th></tr>
+        <tr><td>reflexive</td><td>one element a with (a, a) &#8713; R</td></tr>
+        <tr><td>symmetric</td><td>one pair (a, b) &#8712; R with (b, a) &#8713; R</td></tr>
+        <tr><td>antisymmetric</td><td>a pair (a, b) and (b, a) both in R with a &#8800; b</td></tr>
+        <tr><td>transitive</td><td>(a, b) and (b, c) in R with (a, c) &#8713; R</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> one bad case kills a "for all". Find it,
+      write it, move on.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The repeated question</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q4b">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q4(b)</span></div>
+    <div class="body">
+      <p class="q">b. &nbsp; &nbsp; &nbsp; Consider the following relations on {1, 2, 3, 4}:</p>
+      <p class="qi">R1 = {(1, 1), (1, 2), (2, 1), (2, 2), (3, 4), (4, 1), (4, 4)},</p>
+      <p class="qi">R2 = {(1, 1), (1, 2), (2, 1)},</p>
+      <p class="qi">R3 = {(1, 1), (1, 2), (1, 4), (2, 1), (2, 2), (3, 3), (4, 1), (4, 4)},</p>
+      <p class="qi">R4 = {(2, 1), (3, 1), (3, 2), (4, 1), (4, 2), (4, 3)},</p>
+      <p class="qi">R5 = {(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)},</p>
+      <p class="qi">R6 = {(3, 4)}.</p>
+      <p class="qi">i. &nbsp; &nbsp; &nbsp; Which of these relations are reflexive?</p>
+      <p class="qi">ii. &nbsp; &nbsp; &nbsp; Which of these relations are symmetric?</p>
+      <p class="qi">iii. &nbsp; &nbsp; &nbsp; Which of these relations are antisymmetric?</p>
+      <p class="qi">iv. &nbsp; &nbsp; &nbsp; Which of these relations are transitive?</p>
+      <p class="qi">v. &nbsp; &nbsp; &nbsp; Which of these relations are reflexive? <span class="mk">7.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>Parts i and v are the same question.</b> Both read "Which of these relations
+  are reflexive?" Since ii, iii and iv cover symmetric, antisymmetric and
+  transitive, part v was almost certainly meant to be <b>irreflexive</b> or
+  <b>asymmetric</b>. Answer what is printed: give the reflexive answer again, and
+  add one line noting the apparent duplication and supplying the irreflexive
+  answer as well. That covers you whichever was intended, and costs three lines.
+  Never silently answer a question the paper did not ask.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Six relations on {1, 2, 3, 4}, listed as sets of pairs.</dd>
+      <dt>Asked</dt><dd><b>Which of these relations are</b> [property]. A list of
+      names is the answer. Reasons are not demanded, but one short reason per
+      failure is cheap insurance and shows method.</dd>
+      <dt>Marks say</dt><dd>7.5 marks over five parts is 1.5 each, so about six
+      verdicts per part. That is a lot of checking for the time, which is why the
+      matrix method matters.</dd>
+      <dt>Teaches</dt><dd>This section, 3.2.</dd>
+      <dt>Trap</dt><dd>Confusing symmetric with antisymmetric, and forgetting
+      that a relation can be both or neither. Also: R6 = {(3,4)} is a single pair,
+      and single-pair relations are vacuously symmetric-free, antisymmetric and
+      transitive. Vacuous cases are where marks go missing.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4(b)</span></div>
+    <div class="body">
+      <p><b>Method.</b> Build the matrix of each relation first. Then read the
+      diagonal for reflexive, compare with the mirror for symmetric and
+      antisymmetric, and check two-step paths for transitive.</p>
+
+      <p><b>The six matrices</b> (rows and columns in the order 1, 2, 3, 4):</p>
+      <table class="data">
+        <tr><th>R1</th><th>1</th><th>2</th><th>3</th><th>4</th><th></th><th>R2</th><th>1</th><th>2</th><th>3</th><th>4</th><th></th><th>R3</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>1</td><td>1</td><td>0</td><td>0</td><td></td><th>1</th><td>1</td><td>1</td><td>0</td><td>0</td><td></td><th>1</th><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><th>2</th><td>1</td><td>1</td><td>0</td><td>0</td><td></td><th>2</th><td>1</td><td>0</td><td>0</td><td>0</td><td></td><th>2</th><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><th>3</th><td>0</td><td>0</td><td>0</td><td>1</td><td></td><th>3</th><td>0</td><td>0</td><td>0</td><td>0</td><td></td><th>3</th><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>4</th><td>1</td><td>0</td><td>0</td><td>1</td><td></td><th>4</th><td>0</td><td>0</td><td>0</td><td>0</td><td></td><th>4</th><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+      </table>
+      <table class="data">
+        <tr><th>R4</th><th>1</th><th>2</th><th>3</th><th>4</th><th></th><th>R5</th><th>1</th><th>2</th><th>3</th><th>4</th><th></th><th>R6</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>0</td><td>0</td><td>0</td><td>0</td><td></td><th>1</th><td>1</td><td>1</td><td>1</td><td>1</td><td></td><th>1</th><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><th>2</th><td>1</td><td>0</td><td>0</td><td>0</td><td></td><th>2</th><td>0</td><td>1</td><td>1</td><td>1</td><td></td><th>2</th><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><th>3</th><td>1</td><td>1</td><td>0</td><td>0</td><td></td><th>3</th><td>0</td><td>0</td><td>1</td><td>1</td><td></td><th>3</th><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><th>4</th><td>1</td><td>1</td><td>1</td><td>0</td><td></td><th>4</th><td>0</td><td>0</td><td>0</td><td>1</td><td></td><th>4</th><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      </table>
+
+      <p class="marks">(i) Which are reflexive?</p>
+      <p>Read each diagonal and require all four 1s.</p>
+      <table class="data">
+        <tr><th>R</th><th>diagonal</th><th>reflexive?</th></tr>
+        <tr><td>R1</td><td>1, 1, 0, 1</td><td>no, (3,3) missing</td></tr>
+        <tr><td>R2</td><td>1, 0, 0, 0</td><td>no, (2,2), (3,3), (4,4) missing</td></tr>
+        <tr><td>R3</td><td>1, 1, 1, 1</td><td><b>yes</b></td></tr>
+        <tr><td>R4</td><td>0, 0, 0, 0</td><td>no, and in fact irreflexive</td></tr>
+        <tr><td>R5</td><td>1, 1, 1, 1</td><td><b>yes</b></td></tr>
+        <tr><td>R6</td><td>0, 0, 0, 0</td><td>no, and irreflexive</td></tr>
+      </table>
+      <p><b>Answer: R3 and R5.</b></p>
+
+      <p class="marks">(ii) Which are symmetric?</p>
+      <p>Check M<sub>ij</sub> = M<sub>ji</sub> for every off-diagonal position.</p>
+      <table class="data">
+        <tr><th>R</th><th>test</th><th>symmetric?</th></tr>
+        <tr><td>R1</td><td>(3,4) is in but (4,3) is not</td><td>no</td></tr>
+        <tr><td>R2</td><td>(1,2) and (2,1) both in; no other off-diagonal pairs</td><td><b>yes</b></td></tr>
+        <tr><td>R3</td><td>(1,4) and (4,1) both in, (1,2) and (2,1) both in</td><td><b>yes</b></td></tr>
+        <tr><td>R4</td><td>(2,1) is in but (1,2) is not</td><td>no</td></tr>
+        <tr><td>R5</td><td>(1,2) is in but (2,1) is not</td><td>no</td></tr>
+        <tr><td>R6</td><td>(3,4) is in but (4,3) is not</td><td>no</td></tr>
+      </table>
+      <p><b>Answer: R2 and R3.</b></p>
+
+      <p class="marks">(iii) Which are antisymmetric?</p>
+      <p>Look for any off-diagonal position where both M<sub>ij</sub> and
+      M<sub>ji</sub> are 1. One such pair kills it.</p>
+      <table class="data">
+        <tr><th>R</th><th>test</th><th>antisymmetric?</th></tr>
+        <tr><td>R1</td><td>(1,2) and (2,1) both in, 1 &#8800; 2</td><td>no</td></tr>
+        <tr><td>R2</td><td>(1,2) and (2,1) both in</td><td>no</td></tr>
+        <tr><td>R3</td><td>(1,2) and (2,1) both in</td><td>no</td></tr>
+        <tr><td>R4</td><td>no returning pair anywhere</td><td><b>yes</b></td></tr>
+        <tr><td>R5</td><td>no returning pair anywhere</td><td><b>yes</b></td></tr>
+        <tr><td>R6</td><td>only one pair, so nothing to return</td><td><b>yes</b>, vacuously</td></tr>
+      </table>
+      <p><b>Answer: R4, R5 and R6.</b></p>
+
+      <p class="marks">(iv) Which are transitive?</p>
+      <p>For each, hunt for a two-step path with no shortcut.</p>
+      <table class="data">
+        <tr><th>R</th><th>test</th><th>transitive?</th></tr>
+        <tr><td>R1</td><td>(4,1) and (1,2) are in, but (4,2) is not</td><td>no</td></tr>
+        <tr><td>R2</td><td>(2,1) and (1,2) are in, but (2,2) is not</td><td>no</td></tr>
+        <tr><td>R3</td><td>(4,1) and (1,2) are in, but (4,2) is not</td><td>no</td></tr>
+        <tr><td>R4</td><td>(4,3) and (3,1) are in, and (4,1) is in; (4,3) and (3,2) in, and (4,2) in; (3,2) and (2,1) in, and (3,1) in. All paths close.</td><td><b>yes</b></td></tr>
+        <tr><td>R5</td><td>every path closes; it is the relation a &#8804; b</td><td><b>yes</b></td></tr>
+        <tr><td>R6</td><td>only (3,4); no two-step path exists</td><td><b>yes</b>, vacuously</td></tr>
+      </table>
+      <p><b>Answer: R4, R5 and R6.</b></p>
+
+      <p class="marks">(v) Which are reflexive? (as printed, repeating part i)</p>
+      <p><b>Answer: R3 and R5</b>, as in part (i).</p>
+      <p><b>Note for the marker:</b> parts (i) and (v) are identically worded on
+      the paper. If (v) was intended as <b>irreflexive</b>, the answer is
+      <b>R4 and R6</b>, since those are the two whose diagonals are entirely 0.</p>
+
+      <p><b>Summary table</b>, which is what you should transcribe into the answer
+      book:</p>
+      <table class="data">
+        <tr><th></th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th></tr>
+        <tr><th>Reflexive</th><td>no</td><td>no</td><td><b>yes</b></td><td>no</td><td><b>yes</b></td><td>no</td></tr>
+        <tr><th>Symmetric</th><td>no</td><td><b>yes</b></td><td><b>yes</b></td><td>no</td><td>no</td><td>no</td></tr>
+        <tr><th>Antisymmetric</th><td>no</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><th>Transitive</th><td>no</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><th>Irreflexive</th><td>no</td><td>no</td><td>no</td><td><b>yes</b></td><td>no</td><td><b>yes</b></td></tr>
+      </table>
+      <p class="redo"><b>Now redo it:</b> cover everything and rebuild the
+      summary table from the six lists of pairs. Twelve minutes is a realistic
+      target, which tells you how much of the 44 minutes this question would
+      consume.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5(c)(ii)</span></div>
+    <div class="body">
+      <p>The same skill on the infinite relations from 3.1, where you cannot
+      write a matrix and must argue instead.</p>
+      <table class="data">
+        <tr><th>R</th><th>Reflexive?</th><th>Symmetric?</th><th>Transitive?</th></tr>
+        <tr><td>R1: a &#8804; b</td><td><b>yes</b>, a &#8804; a always</td><td>no, 1 &#8804; 2 but not 2 &#8804; 1</td><td><b>yes</b>, a&#8804;b and b&#8804;c give a&#8804;c</td></tr>
+        <tr><td>R2: a &gt; b</td><td>no, a &gt; a is never true</td><td>no, 2&gt;1 but not 1&gt;2</td><td><b>yes</b>, a&gt;b and b&gt;c give a&gt;c</td></tr>
+        <tr><td>R3: a = b or a = &#8722;b</td><td><b>yes</b>, a = a always</td><td><b>yes</b>, the rule is unchanged by swapping</td><td><b>yes</b>, see below</td></tr>
+        <tr><td>R4: a = b</td><td><b>yes</b></td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><td>R5: a = b + 1</td><td>no, a = a + 1 is impossible</td><td>no, 2 = 1+1 but 1 &#8800; 2+1</td><td>no, (3,2) and (2,1) in but 3 &#8800; 1 + 1</td></tr>
+        <tr><td>R6: a + b &#8804; 3</td><td>no, take a = 2: 2 + 2 = 4 &gt; 3</td><td><b>yes</b>, a + b = b + a</td><td>no, (3,0) and (0,3) in but 3 + 3 = 6 &gt; 3</td></tr>
+      </table>
+      <p><b>Why R3 is transitive.</b> a R3 b means |a| = |b|, since a = b or
+      a = &#8722;b is exactly the statement that they have the same absolute
+      value. So if |a| = |b| and |b| = |c| then |a| = |c|. Rewriting the rule in
+      terms of absolute value turns a fiddly case check into one line, and R3 is
+      then visibly reflexive, symmetric and transitive all at once, which is the
+      combination section 3.3 takes up.</p>
+      <p class="redo"><b>Now redo it:</b> decide antisymmetry for all six. You
+      should find R1, R2, R4 and R5 antisymmetric, and R3, R6 not.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Give a relation that is both symmetric and antisymmetric.</p>
+      <p class="q">2. What single pair would you name to show {(1,2),(2,3)} is not transitive?</p>
+      <p class="q">3. Is the empty relation on {1,2} transitive?</p>
+      <p class="q">4. Where do you look in a matrix to test reflexivity?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. {(1,1)} on {1}, or any relation consisting only of loops.<br>
+      2. (1,3) is missing, although (1,2) and (2,3) are present.<br>
+      3. Yes, vacuously: there is no two-step path to fail. It is also symmetric
+      and antisymmetric, and not reflexive.<br>
+      4. The main diagonal; it must be all 1s.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>R is reflexive when (a, a) &#8712; R for <span class="blank"></span>
+        a in A.</li>
+        <li>R is <span class="blank"></span> when (a,b) and (b,a) in R forces
+        a = b.</li>
+        <li>To disprove transitivity, produce (a,b) and (b,c) in R with
+        <span class="blank"></span> not in R.</li>
+        <li>In the matrix, symmetry means M<sub>ij</sub> =
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. every. 2. antisymmetric. 3. (a, c). 4. M<sub>ji</sub>.</p>
+    </div>
+  </div>
+
+</section>

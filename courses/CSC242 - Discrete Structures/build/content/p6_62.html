@@ -1,0 +1,479 @@
+<section>
+  <div class="kick">Part Six &middot; 6.2</div>
+  <h2 class="title">The Types of Undirected Graph</h2>
+  <hr class="rule">
+  <p class="lead">This is the single most repeated question in the whole set. It
+  has appeared on three of the five papers we hold, worth 12, 12 and 9 marks, and
+  it is always phrased the same way.</p>
+  <p class="lo">By the end of this section you will be able to name and draw every
+  standard type of undirected graph, count the edges of a complete graph, decide
+  which type a given drawing is, and answer the types question and the
+  communication-links questions in full.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why this section pays</span></div>
+    <div class="body">
+      <p>Three papers, one question:</p>
+      <table class="data">
+        <tr><th>Paper</th><th>As asked</th><th>Marks</th></tr>
+        <tr><td>2020/2021 Q1(a)</td><td>with the aid of relevant examples</td><td>12</td></tr>
+        <tr><td>2021/2022 Q1(c)</td><td>with diagrammatical illustrations</td><td>12</td></tr>
+        <tr><td>2023/2024 Q4(a)</td><td>in details, and with diagrammatic illustration</td><td>9</td></tr>
+      </table>
+      <p>That is 33 marks across three papers for one prepared answer. Every
+      version demands <b>drawings</b>, so an answer in words alone throws away
+      most of the marks however correct it is. Learn the list, and practise
+      sketching all of it in under ten minutes.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The types</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The families by what edges are allowed</span></div>
+    <div class="body">
+      <p>The first three types are told apart by one question: <b>what kinds of
+      edge does the graph permit?</b></p>
+      <table class="data">
+        <tr><th>Type</th><th>Loops?</th><th>Parallel edges?</th><th>In one line</th></tr>
+        <tr><td><b>Simple graph</b></td><td>no</td><td>no</td><td>at most one
+        edge between any two vertices, and none from a vertex to itself</td></tr>
+        <tr><td><b>Multigraph</b></td><td>no</td><td>yes</td><td>a simple graph
+        that also allows repeated edges between the same pair</td></tr>
+        <tr><td><b>Pseudograph</b></td><td>yes</td><td>yes</td><td>anything
+        goes: the most general undirected graph</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">loop</span> is an edge from a vertex to itself, defined
+      in section 6.1.
+      <span class="sym">parallel edges</span> are two or more edges joining the
+      same pair, also from 6.1.
+      <span class="sym">the nesting</span> matters: every simple graph is a
+      multigraph, and every multigraph is a pseudograph. The families contain one
+      another, they do not exclude one another.</div>
+      <p class="hook"><b>Memory hook:</b> <b>simple, multi, pseudo.</b> Simple
+      forbids both, multi allows repeats, pseudo allows repeats and self-loops.
+      Say them in that order and the permissions only ever grow.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The named shapes</span></div>
+    <div class="body">
+      <p>The remaining types are told apart by <b>shape</b> rather than by
+      permission.</p>
+      <table class="data">
+        <tr><th>Type</th><th>Definition</th><th>Symbol</th></tr>
+        <tr><td><b>Null (empty) graph</b></td><td>Has vertices but no edges at
+        all. Every vertex is isolated.</td><td>N<sub>n</sub></td></tr>
+        <tr><td><b>Trivial graph</b></td><td>Has exactly one vertex and no
+        edges. The smallest graph there is.</td><td>K<sub>1</sub></td></tr>
+        <tr><td><b>Complete graph</b></td><td>Simple, and <i>every</i> pair of
+        distinct vertices is joined by an edge.</td><td>K<sub>n</sub></td></tr>
+        <tr><td><b>Regular graph</b></td><td>Every vertex has the same degree. If
+        that degree is k it is <b>k-regular</b>.</td><td></td></tr>
+        <tr><td><b>Cycle graph</b></td><td>n vertices joined in a single closed
+        ring; 2-regular.</td><td>C<sub>n</sub></td></tr>
+        <tr><td><b>Path graph</b></td><td>n vertices in a line, not closed
+        up.</td><td>P<sub>n</sub></td></tr>
+        <tr><td><b>Wheel graph</b></td><td>A cycle C<sub>n</sub> plus one extra
+        vertex joined to every vertex of the cycle.</td><td>W<sub>n</sub></td></tr>
+        <tr><td><b>Bipartite graph</b></td><td>The vertices split into two sets
+        so that every edge runs between the sets and none inside
+        either.</td><td></td></tr>
+        <tr><td><b>Complete bipartite</b></td><td>Bipartite, and every vertex of
+        one set is joined to every vertex of the
+        other.</td><td>K<sub>m,n</sub></td></tr>
+        <tr><td><b>Connected graph</b></td><td>There is a route between every
+        pair of vertices. Otherwise <b>disconnected</b>, and it falls into
+        <b>components</b>.</td><td></td></tr>
+        <tr><td><b>Weighted graph</b></td><td>Every edge carries a number: a
+        distance, a cost, a capacity.</td><td></td></tr>
+        <tr><td><b>Subgraph</b></td><td>A graph made from some of another
+        graph's vertices and some of its edges.</td><td>H &#8838; G</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>K for complete, C for cycle, P for
+      path, W for wheel, N for null.</b> The subscript is always the number of
+      vertices, except in K<sub>m,n</sub> where it is the two side sizes.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M40 40 L100 40"/><path d="M100 40 L70 90"/><path d="M70 90 L40 40"/>
+      </g>
+      <g fill="#283593"><circle cx="40" cy="40" r="4.6"/><circle cx="100" cy="40" r="4.6"/><circle cx="70" cy="90" r="4.6"/></g>
+      <text x="26" y="112" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Simple</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M180 40 C 205 22, 235 22, 260 40"/>
+        <path d="M180 40 C 205 58, 235 58, 260 40"/>
+        <path d="M260 40 L220 90"/>
+      </g>
+      <g fill="#283593"><circle cx="180" cy="40" r="4.6"/><circle cx="260" cy="40" r="4.6"/><circle cx="220" cy="90" r="4.6"/></g>
+      <text x="166" y="112" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Multigraph</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M340 40 C 365 22, 395 22, 420 40"/>
+        <path d="M340 40 C 365 58, 395 58, 420 40"/>
+        <path d="M340 40 C 300 14, 292 62, 332 52"/>
+      </g>
+      <g fill="#283593"><circle cx="340" cy="40" r="4.6"/><circle cx="420" cy="40" r="4.6"/></g>
+      <text x="326" y="112" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Pseudograph</text>
+
+      <g fill="#283593"><circle cx="40" cy="160" r="4.6"/><circle cx="80" cy="160" r="4.6"/><circle cx="60" cy="196" r="4.6"/></g>
+      <text x="26" y="222" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Null N&#8323;</text>
+
+      <g fill="#283593"><circle cx="200" cy="176" r="4.6"/></g>
+      <text x="166" y="222" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Trivial K&#8321;</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M340 150 L420 150"/><path d="M340 150 L340 200"/><path d="M420 150 L420 200"/>
+        <path d="M340 200 L420 200"/><path d="M340 150 L420 200"/><path d="M420 150 L340 200"/>
+      </g>
+      <g fill="#283593"><circle cx="340" cy="150" r="4.6"/><circle cx="420" cy="150" r="4.6"/><circle cx="340" cy="200" r="4.6"/><circle cx="420" cy="200" r="4.6"/></g>
+      <text x="326" y="222" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Complete K&#8324;</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M40 270 L92 270"/><path d="M92 270 L106 318"/><path d="M106 318 L66 348"/>
+        <path d="M66 348 L26 318"/><path d="M26 318 L40 270"/>
+      </g>
+      <g fill="#283593"><circle cx="40" cy="270" r="4.6"/><circle cx="92" cy="270" r="4.6"/><circle cx="106" cy="318" r="4.6"/><circle cx="66" cy="348" r="4.6"/><circle cx="26" cy="318" r="4.6"/></g>
+      <text x="26" y="372" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Cycle C&#8325;</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M170 280 L206 280"/><path d="M206 280 L242 280"/><path d="M242 280 L278 280"/>
+        <path d="M176 330 L206 302"/><path d="M206 330 L236 302"/>
+        <path d="M170 340 L206 340"/><path d="M206 340 L242 340"/>
+      </g>
+      <g fill="#283593"><circle cx="170" cy="280" r="4.6"/><circle cx="206" cy="280" r="4.6"/><circle cx="242" cy="280" r="4.6"/><circle cx="278" cy="280" r="4.6"/></g>
+      <text x="166" y="264" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Path P&#8324;</text>
+      <g fill="#283593"><circle cx="170" cy="340" r="4.6"/><circle cx="206" cy="340" r="4.6"/><circle cx="242" cy="340" r="4.6"/></g>
+      <g fill="#be123c"><circle cx="188" cy="308" r="4.6"/><circle cx="224" cy="308" r="4.6"/></g>
+      <g stroke="#be123c" stroke-width="1.2" fill="none">
+        <path d="M188 308 L170 340"/><path d="M188 308 L206 340"/><path d="M188 308 L242 340"/>
+        <path d="M224 308 L170 340"/><path d="M224 308 L206 340"/><path d="M224 308 L242 340"/>
+      </g>
+      <text x="166" y="372" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Complete bipartite K&#8322;,&#8323;</text>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M348 280 L400 280"/><path d="M400 280 L416 328"/><path d="M416 328 L374 356"/>
+        <path d="M374 356 L332 328"/><path d="M332 328 L348 280"/>
+        <path d="M374 316 L348 280"/><path d="M374 316 L400 280"/><path d="M374 316 L416 328"/>
+        <path d="M374 316 L374 356"/><path d="M374 316 L332 328"/>
+      </g>
+      <g fill="#283593"><circle cx="348" cy="280" r="4.6"/><circle cx="400" cy="280" r="4.6"/><circle cx="416" cy="328" r="4.6"/><circle cx="374" cy="356" r="4.6"/><circle cx="332" cy="328" r="4.6"/></g>
+      <circle cx="374" cy="316" r="4.6" fill="#be123c"/>
+      <text x="326" y="372" font-family="DejaVu Sans" font-size="10.5" fill="#232a31">Wheel W&#8325;</text>
+    </svg>
+    <figcaption>Nine of the types at a glance. Crimson marks the vertex or the
+    side that makes each shape what it is: the hub of the wheel, the two sides of
+    the bipartite graph.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Edges of a complete graph</span></div>
+    <div class="body">
+      <p>The complete graph on n vertices, K<sub>n</sub>, has</p>
+      <p style="margin-left:12pt"><b>C(n, 2) = n(n &#8722; 1) / 2</b> edges,</p>
+      <p>and every vertex has degree <b>n &#8722; 1</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the number of vertices.
+      <span class="sym">C(n, 2)</span> is the combination count of section 5.2:
+      an edge is an unordered pair of distinct vertices, and order does not
+      matter because an edge from a to b is the same edge as one from b to a.
+      <span class="sym">n &#8722; 1</span> is the degree because each vertex is
+      joined to every other vertex, that is, to all but itself.</div>
+      <p><b>The values you will need:</b></p>
+      <table class="data">
+        <tr><th>n</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><th>edges of K<sub>n</sub></th><td>1</td><td>3</td><td>6</td><td>10</td><td>15</td><td>21</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>every pair, counted once.</b> The
+      "counted once" is the divide by 2, and forgetting it is the standard error:
+      n(n &#8722; 1) counts each edge from both ends.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The question that appears three times</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q1a">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q1(a)</span></div>
+    <div class="body">
+      <p class="q">1.  (a) Explain, with the aid of relevant examples, the types of undirected graph. <span class="mk">(12marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q1c">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q1(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Explain the types of undirected graph, with diagrammatical illustrations. <span class="mk">(12marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q4a">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q4(a)</span></div>
+    <div class="body">
+      <p class="q">(a) Explain in details (and with diagrammatic illustration) the types of undirected graph. <span class="mk">(9 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The same question three times, differing only in wording and marks. The
+  2023/2024 version has no question number printed above it: the scan runs
+  straight from Q3(d) into "(a) Explain in details ...", which is plainly
+  Question 4 but is nowhere labelled as such. The phrase "Explain in details" is
+  not standard English but its meaning is not in doubt. All three demand
+  pictures.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. This is a recall question with no data.</dd>
+      <dt>Asked</dt><dd><b>Explain</b> the types, <b>with examples</b> or
+      <b>with diagrams</b>. Two things per type: what it is, and a drawing of
+      one.</dd>
+      <dt>Marks say</dt><dd>12, 12 and 9. At roughly 1 to 1.5 marks per type,
+      aim for <b>eight to ten types</b> on the 12-mark versions and six or seven
+      on the 9-mark version. More types briefly beats three types at length.</dd>
+      <dt>Teaches</dt><dd>This section, 6.2.</dd>
+      <dt>Trap</dt><dd>Two. Writing prose with no drawings, when the instruction
+      names them. And drifting into <b>directed</b> graphs: the question says
+      undirected, so digraphs and the two directional degrees earn nothing here.
+      They are section 6.4 and a different question.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1(a) &middot; PQ 21/22 Q1(c) &middot; PQ 23/24 Q4(a)</span></div>
+    <div class="body">
+      <p><b>How to lay the answer out.</b> One short paragraph per type, each with
+      a small sketch beside it. Open with a single framing sentence, then work
+      down the list. The framing sentence is worth writing because it shows the
+      list is organised rather than remembered:</p>
+      <p style="margin-left:12pt"><i>"An undirected graph is one whose edges have
+      no direction. The types divide first by which edges are permitted, and then
+      by the shape the edges make."</i></p>
+
+      <p class="marks">Group 1: told apart by what edges are allowed</p>
+      <ol class="qlist">
+        <li><b>Simple graph.</b> No loops and no parallel edges, so at most one
+        edge between any two vertices. <i>Example:</i> a triangle on a, b, c.</li>
+        <li><b>Multigraph.</b> Parallel edges are allowed, loops are not.
+        <i>Example:</i> two towns joined by two separate roads.</li>
+        <li><b>Pseudograph.</b> Both loops and parallel edges are allowed; the
+        most general undirected graph. <i>Example:</i> a network where a router
+        also has a cable looping back to itself for testing.</li>
+      </ol>
+
+      <p class="marks">Group 2: told apart by shape</p>
+      <ol class="qlist">
+        <li><b>Null or empty graph N<sub>n</sub>.</b> Vertices but no edges;
+        every vertex is isolated. <i>Example:</i> three computers with no cables
+        between them.</li>
+        <li><b>Trivial graph K<sub>1</sub>.</b> One vertex, no edges. The
+        smallest graph there is, and a special case of the null graph.</li>
+        <li><b>Complete graph K<sub>n</sub>.</b> Simple, with every pair of
+        distinct vertices joined. It has n(n &#8722; 1)/2 edges and every vertex
+        has degree n &#8722; 1. <i>Example:</i> K<sub>4</sub>, four vertices and
+        six edges.</li>
+        <li><b>Regular graph.</b> Every vertex has the same degree; k-regular if
+        that degree is k. <i>Example:</i> a cycle is 2-regular, and
+        K<sub>n</sub> is (n &#8722; 1)-regular.</li>
+        <li><b>Cycle graph C<sub>n</sub>.</b> The vertices form one closed ring.
+        <i>Example:</i> C<sub>5</sub>, a pentagon.</li>
+        <li><b>Path graph P<sub>n</sub>.</b> The vertices in a line, the ring
+        left open. Its two end vertices are pendant.</li>
+        <li><b>Wheel graph W<sub>n</sub>.</b> A cycle plus a hub joined to every
+        vertex on it. <i>Example:</i> a bicycle wheel, rim and spokes.</li>
+        <li><b>Bipartite graph.</b> The vertices split into two sets with every
+        edge running between the sets and none inside either. <i>Example:</i>
+        students on one side, courses on the other, an edge for each enrolment.
+        If every cross pair is joined it is <b>complete bipartite</b>,
+        K<sub>m,n</sub>.</li>
+        <li><b>Connected and disconnected graphs.</b> Connected means a route
+        exists between every pair of vertices. A disconnected graph falls into
+        separate <b>components</b>. <i>Example:</i> the figure in section 6.1 is
+        disconnected, because vertex 4 is joined to nothing.</li>
+        <li><b>Weighted graph.</b> Each edge carries a number such as a distance
+        or a cost. <i>Example:</i> the five-city map of section 6.8, whose edges
+        are labelled with mileages.</li>
+        <li><b>Subgraph.</b> A graph formed from some of the vertices and some of
+        the edges of another. <i>Example:</i> a triangle inside K<sub>4</sub>.</li>
+      </ol>
+      <p><b>Close with one sentence on the nesting,</b> which few candidates
+      write and which shows real understanding: <i>every simple graph is a
+      multigraph, and every multigraph is a pseudograph, so the three families
+      contain one another rather than exclude one another. The shape-based types
+      cut across all three.</i></p>
+      <p class="redo"><b>Now redo it:</b> which type is a single square with its
+      two diagonals drawn in? Four vertices, every pair joined, no loops or
+      repeats: it is the complete graph K<sub>4</sub>, and it is also 3-regular.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Counting the possible links</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q1b">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q1(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Assuming you are required to set up a simple communication link between CSIS, CST
+      Lab, CLR, CUCRID and Senate Building, how many of such simple communication links are
+      possible? Support your answer with a diagrammatical illustration. <span class="mk">(6&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q2b">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q2(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Assuming CU has contracted you to help set up simple communication links between the
+      SENATE Building, CUCRID, CLR &amp; CSIS NOC. How many of such simple communication
+      links are possible? Support your answer with a diagrammatical illustration. <span class="mk">(7&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  These two look identical and are not. <b>Count the buildings.</b> The 2020/2021
+  version names <b>five</b> (CSIS, CST Lab, CLR, CUCRID, Senate Building) and the
+  2021/2022 version names <b>four</b> (SENATE Building, CUCRID, CLR, CSIS NOC).
+  Five gives 10 links and four gives 6. Copying the answer across from one paper
+  to the other is the fastest way to lose 6.5 marks, and it is exactly what a
+  candidate who has memorised "the answer is 10" will do.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A list of named buildings, and the word <b>simple</b>,
+      which is doing real work: no building links to itself, and no pair is
+      linked twice.</dd>
+      <dt>Asked</dt><dd><b>How many such links are possible</b>, plus a
+      <b>diagrammatical illustration</b>.</dd>
+      <dt>Marks say</dt><dd>6.5 and 7.5, which is far more than one combination
+      is worth. The marks are in the modelling and the drawing: say that
+      buildings are vertices and links are edges, name the complete graph, give
+      the formula, then draw it with every edge shown.</dd>
+      <dt>Teaches</dt><dd>This section, 6.2, using C(n, 2) from section 5.2.</dd>
+      <dt>Trap</dt><dd>Answering n(n &#8722; 1) instead of n(n &#8722; 1)/2. A
+      link between CLR and CUCRID is the same link as one between CUCRID and CLR,
+      so each pair must be counted once.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1(b) &middot; PQ 21/22 Q2(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Five buildings in the 2020/2021 version, four in the
+        2021/2022 version. Links are simple: no self-links, no repeats.</dd>
+        <dt>Find</dt><dd>The number of possible links, and a diagram.</dd>
+        <dt>Formula</dt><dd>Links = C(n, 2) = n(n &#8722; 1)/2, the edge count of
+        the complete graph K<sub>n</sub>.</dd>
+      </dl>
+      <p><b>Step 1. Model it.</b> Let each building be a <b>vertex</b> and each
+      possible communication link an <b>edge</b>. "How many links are possible"
+      asks for the case where every pair is joined, which is the <b>complete
+      graph</b> K<sub>n</sub>.</p>
+      <p><b>Step 2. Count for five buildings (2020/2021).</b></p>
+      <p style="margin-left:12pt">links = C(5, 2) = 5 &#215; 4 / 2 = 20 / 2 =
+      <b>10</b></p>
+      <p>List them once to show the count is right: CSIS to each of the other
+      four is 4 links; CST Lab to the three not yet used is 3; CLR to the two
+      remaining is 2; CUCRID to Senate is 1. Then
+      4 + 3 + 2 + 1 = 10, and no pair is repeated because each building only
+      reaches forward down the list.</p>
+      <p><b>Step 3. Count for four buildings (2021/2022).</b></p>
+      <p style="margin-left:12pt">links = C(4, 2) = 4 &#215; 3 / 2 = 12 / 2 =
+      <b>6</b></p>
+      <p>By the same listing, 3 + 2 + 1 = 6.</p>
+      <figure>
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:92%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.3" fill="none">
+            <path d="M110 30 L172 76"/><path d="M110 30 L148 148"/><path d="M110 30 L72 148"/><path d="M110 30 L48 76"/>
+            <path d="M172 76 L148 148"/><path d="M172 76 L72 148"/><path d="M172 76 L48 76"/>
+            <path d="M148 148 L72 148"/><path d="M148 148 L48 76"/><path d="M72 148 L48 76"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="110" cy="30" r="5"/><circle cx="172" cy="76" r="5"/>
+            <circle cx="148" cy="148" r="5"/><circle cx="72" cy="148" r="5"/><circle cx="48" cy="76" r="5"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.5" fill="#232a31">
+            <text x="90" y="20">CSIS</text><text x="180" y="72">CST Lab</text>
+            <text x="140" y="168">CLR</text><text x="46" y="168">CUCRID</text><text x="2" y="72">Senate</text>
+          </g>
+          <text x="66" y="192" font-family="DejaVu Sans" font-size="10.5" fill="#283593">K&#8325;: 5 &#215; 4 / 2 = 10 links</text>
+
+          <g stroke="#5b6480" stroke-width="1.3" fill="none">
+            <path d="M320 46 L420 46"/><path d="M320 46 L320 136"/><path d="M420 46 L420 136"/>
+            <path d="M320 136 L420 136"/><path d="M320 46 L420 136"/><path d="M420 46 L320 136"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="320" cy="46" r="5"/><circle cx="420" cy="46" r="5"/>
+            <circle cx="320" cy="136" r="5"/><circle cx="420" cy="136" r="5"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.5" fill="#232a31">
+            <text x="292" y="36">SENATE</text><text x="414" y="36">CUCRID</text>
+            <text x="304" y="158">CLR</text><text x="406" y="158">CSIS NOC</text>
+          </g>
+          <text x="304" y="192" font-family="DejaVu Sans" font-size="10.5" fill="#283593">K&#8324;: 4 &#215; 3 / 2 = 6 links</text>
+        </svg>
+        <figcaption>Both answers drawn. Five buildings give ten links; four give
+        six. Draw every edge, and label the vertices with the names the question
+        used.</figcaption>
+      </figure>
+      <p><b>The sentence that ties it together:</b> "Since every pair of
+      buildings may be linked and a link has no direction, the possible links are
+      the edges of the complete graph on the buildings, so there are
+      n(n &#8722; 1)/2 of them."</p>
+      <p class="redo"><b>Now redo it:</b> with six buildings, how many links?
+      C(6, 2) = 6 &#215; 5 / 2 = 15.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What separates a simple graph, a multigraph and a
+      pseudograph?</p>
+      <p class="q">2. How many edges has K<sub>7</sub>, and what is the degree of
+      each vertex?</p>
+      <p class="q">3. What is a regular graph? Give two examples.</p>
+      <p class="q">4. Define a bipartite graph.</p>
+      <p class="q">5. Name the type: five vertices in a closed ring, nothing
+      else.</p>
+      <p class="q">6. A graph on 8 vertices has no edges. Name it.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. What edges are allowed: simple forbids loops and parallel edges;
+      multigraph allows parallel edges but no loops; pseudograph allows both.<br>
+      2. 7 &#215; 6 / 2 = 21 edges, each vertex of degree 6.<br>
+      3. Every vertex has the same degree. A cycle is 2-regular; K<sub>4</sub> is
+      3-regular.<br>
+      4. Its vertices split into two sets with every edge running between the
+      sets and none inside either.<br>
+      5. The cycle graph C<sub>5</sub>.<br>
+      6. The null or empty graph N<sub>8</sub>.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A graph that allows loops and parallel edges is a
+        <span class="blank"></span>.</li>
+        <li>K<sub>n</sub> has <span class="blank"></span> edges and every vertex
+        has degree <span class="blank"></span>.</li>
+        <li>Five buildings can be joined by <span class="blank"></span> simple
+        links; four buildings by <span class="blank"></span>.</li>
+        <li>A graph with vertices but no edges is the
+        <span class="blank"></span> graph.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. pseudograph. 2. n(n &#8722; 1)/2, n &#8722; 1. 3. 10, 6. 4. null or
+      empty.</p>
+    </div>
+  </div>
+
+</section>

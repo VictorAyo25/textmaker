@@ -114,6 +114,48 @@ h3.sub:first-child{ margin-top:0; }
 .qpaper{ border-color:#b9c0cc; }
 .qpaper .body > p{ margin:.5em 0; }
 
+/* ---- AS PRINTED: the examiner's own words (methodology 4c, binding) ----
+   A quoted past question must not be able to be mistaken for our prose, so it
+   gets its own graphite bar, a warm paper tint nothing else in the book uses,
+   and a rule down the left the way a block quotation is set.
+   white-space:pre-wrap is load-bearing, not decoration: the paper's own line
+   breaks carry meaning (a numbered listing, a table row, where a part ends), and
+   qa_verbatim.py check 4 compares the book's line structure against the
+   transcript's. Reflowing a quote here would be the same class of edit as
+   rewording it. */
+.paper > .bar{ background:#3f3f46; }
+.paper .body{ background:#fbfaf7; }
+.paper{ border-color:#c9c2b6; }
+.asprinted{
+  white-space:pre-wrap; font-family:'DejaVu Serif',serif; font-size:9.6pt;
+  line-height:1.34; color:#1b1b1f;
+  border-left:2.5pt solid #a8a29a; padding-left:8.4pt; margin:.15em 0;
+}
+/* Our note UNDER a quote, flagging a typo or contradiction we must never repair
+   silently. Every quotation inside one is a claim about the paper, and
+   qa_verbatim.py check 3 holds it to the transcript. */
+.paper .flag{
+  font-size:9.1pt; color:#6b6257; margin:.55em 0 0; padding-top:.45em;
+  border-top:1px dotted #c9c2b6;
+}
+/* A run we deliberately show as NOT the paper's words. Named so the exemption is
+   visible and counted, never silent. */
+.notpaper{ font-style:italic; color:#8a5a2b; }
+
+/* ---- BREAK IT DOWN: read the question before answering it ---- */
+.unpack > .bar{ background:#7c3aed; }
+.unpack .body{ background:#f7f4ff; }
+.unpack{ border-color:#d6c9f5; }
+.unpack .body > p{ margin:.34em 0; }
+/* Hanging indent for the "Given:" / "Asked:" labels. text-indent INHERITS, and an
+   inline-block is a block container, so without the reset the label takes the
+   negative indent a second time and hangs outside the page margin. */
+.unpack p.row{ padding-left:5.6em; text-indent:-5.6em; }
+.unpack p.row > b.lab{
+  display:inline-block; min-width:5.2em; text-indent:0;
+  color:#5b21b6; font-size:8.6pt; letter-spacing:.06em; text-transform:uppercase;
+}
+
 /* a worked answer to an exam question */
 .ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
 /* A box is one idea, so it does not get cut across a page turn. These two used

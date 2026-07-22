@@ -1,0 +1,224 @@
+IFT222/CSC227 - 2025/2026 Omega semester - VERBATIM TRANSCRIPT
+Source images: sources/exams/25_26/1.jpg, 2.jpg, 3.jpg, 4.jpg (photographed
+rotated 90 degrees; rotated upright before reading).
+Transcribed by eye 2026-07-22. Re-read against the images once after typing.
+
+TRANSCRIPTION RULES USED HERE: identical to 2024-2025.txt. Every character as
+printed, typos included; [[Qxx]] markers are scaffolding and are stripped by the
+gate; apostrophes typed straight; UTF-8 holds the paper's real glyphs.
+
+THIS PAPER CARRIES HANDWRITTEN ALTERATIONS made on the printed sheet. They are
+recorded as {{hand: ...}} annotations placed immediately after the printed text
+they affect. The printed text itself is transcribed unchanged, exactly as set,
+including the words that were struck out. The gate strips {{hand: ...}}.
+
+--- PAGE 1 identity block (provenance only, not quoted in the manual) ---
+COVENANT UNIVERSITY
+CANAANLAND, KM 10, IDIROKO ROAD
+P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+TITLE OF EXAINATION: B.Sc DEGREE  EXAMINATION
+COLLEGE:              SCIENCE AND TECHNOLOGY
+DEPARTMENT:           COMPUTER AND INFORMATION SCIENCES
+SESSION:              2025/2026                SEMESTER: OMEGA
+COURSE CODE:          IFT222/CSC227            CREDIT UNIT: 2
+COURSE TITLE: COMPUTER ARCH AND ORGANIZATION   TIME: 2 HOURS
+  (the header reads "TITLE OF EXAINATION", missing the M)
+
+--- rubric ---
+INSTRUCTION: ANSWER QUESTION ONE AND ANY OTHER TWO QUESTIONS
+
+============================== QUESTION ONE ==============================
+Question One (30 Marks)
+
+[[Q1a]]
+a.	i) Computer Systems are designed using two closely related but distinct concepts which are Computer Architecture and Computer Organization. Differentiate between these concepts.
+	2mks
+ii) Compare Von Neumann Architecture and Harvard Architecture. Include a diagram for each.
+	3mks
+
+[[Q1b]]
+b.	A computer manufacturer is evaluating whether to replace a non-pipelined processor with a five-stage pipelined processor. The processor executes the following instruction mix: Arithmetic – 40%, Memory Access – 35%, Branch – 20%, Floating Point – 5%. The Non-pipelined processor clock cycle is 25ns.  Pipelined processor stage times are:  IF – 5ns, ID – 4ns, EX – 6ns, MEM – 5ns and WB – 4ns. Furthermore, Pipeline register overhead is 1 ns. Branch instructions incur a two-cycle penalty, Floating-point instructions has three cycles for EX stage, Memory accesses experience cache misses 10% of the time, adding four extra cycles. The program contains 20 million instructions.
+i) Determine the pipelined clock cycle.	1mk
+ii) Calculate the actual CPI.	2mks
+iii) Determine the actual execution time.	1mk
+iv) Compute the speedup over the non-pipelined processor.	1mk
+v) Explain why the speedup differs from the theoretical maximum.	1mk
+
+[[Q1c]]
+c.	A spacecraft telemetry system uses a 16-bit processor to transmit environmental measurements. The following values are to be stored - Temperature = -182; Pressure = 487;
+Altitude = -1023. The processor uses 2's complement representation for signed integers.
+i) Determine the range of values representable in a 16-bit two's complement system.
+Indicate whether the given numbers fall within the range of value	2mks
+ii) Represent each value in: Binary and Hexadecimal	3mks
+iii) Demonstrate how the processor uses two's complement to compute	2mks
+(−182) + 487
+
+[[Q1d]]
+d.	A processor executes one million(1M) instructions distributed as follows.
+Addressing Mode | Percentage | Cycles
+Register | 40% | 1
+Immediate | 20% | 1
+Direct | 15% | 2
+Indirect | 10% | 4
+Indexed | 10% | 3
+Relative | 5% | 2
+i) Compute the average CPI	2mks
+ii) Determine total clock cycles.	1mk
+iii) If indirect addressing is optimized to 2 cycles, compute the new CPI.	1mk
+iv) Evaluate the performance improvement.	2mks
+
+[[Q1e]]
+e.	A processor contains the following information: PC = 7000;  R1 = 1500;
+Memory Contents
+Address	Value
+7000	1200
+1200	4500
+1500	6000
+3200	8100
+4500	999
+6000	200
+8100	400
+Assume an instruction contains address field 1200.
+Determine the Effective Address (EA) and operand for the following addressing modes:
+i) Immediate addressing mode	1mk
+ii) Direct addressing mode	1mk
+iii) Indirect addressing mode	1mk
+iv) Register addressing mode	1mk
+v) Register Indirect (R1) addressing mode	1mk
+vi) Relative addressing mode	1mk
+
+============================== QUESTION TWO ==============================
+Question Two (20 Marks)
+
+[[Q2a]]
+a.	Assume a computer has 32-bit addresses.  Each block stores 16 words.  A direct-mapped cache has 256 blocks.  In which block (line) of the cache (decimal value) would you look for each of the following addresses? Addresses are given in hexadecimal for convenience.  4mks
+i.	CA2DFC12
+ii.	F24F25FF
+iii.	24BBABCD
+iv.	C1D9EEF2
+
+[[Q2b]]
+b.	Consider the following code segment executed on a classic five-stage RISC processor.
+I1: LW   R1,0(R2)
+I2: ADD  R3,R1,R4
+I3: SUB  R5,R3,R6
+I4: SW   R5,8(R2)
+I5: BEQ  R5,R0,LABEL
+I6: MUL  R7,R5,R8
+Assume:
+•	forwarding is available
+•	branch resolved in EX stage
+•	load-use hazards require one stall
+•	multiplier occupies EX for three cycles
+•	separate instruction and data caches
+i) Identify and explain every pipeline hazard.	5mks
+ii) Draw the pipeline timing diagram	2mks
+iii) Determine the total execution cycles	1mk
+iv) Suggest any two hardware improvements that would reduce stalls.	1mk
+
+[[Q2c]]
+c.	A processor has the following configuration: Main memory is 1 GB; Cache is 512 KB; Block size is 128 bytes and it is a 4-way Set Associative cache.
+i) Determine the total number of cache blocks.	1mk
+ii) Determine the number of sets.	1mk
+iii) Construct the complete address format.	1mk
+iv) If the hit rate is 96%, cache access time is 2 ns, and main memory access time is 80 ns, calculate the Average Memory Access Time (AMAT).	2mks
+v) Discuss how increasing associativity beyond four ways might affect performance. 2mks
+
+============================== QUESTION THREE ==============================
+Question Three (20 Marks)
+
+[[Q3a]]
+a.	A computer system has the following characteristics:
+•	Main memory = 64 MB
+•	Cache memory = 128 KB
+•	Block size = 64 bytes
+i) Determine the number of cache lines	1½mks
+ii) For Direct Mapping, determine: Number of index bits; Number of tag bits; Number of offset bits	1½mks
+iii) For a 4-way Set Associative Cache, determine: Number of sets; Number of set index bits; Number of tag bits	1½mks
+iv) Explain why fully associative mapping eliminates conflict misses but introduces another performance challenge.	1½mks
+
+[[Q3b]]
+b.	A 5-stage pipelined processor has instruction fetch (IF), Instruction decode (ID), Operand Fetch (OF), Execute (Ex) and Write Back (WB) stages. The IF, ID, OF and WB stages take 1 clock cycle each for any instruction. The PO stage take 1 cycle for ADD and SUB instructions, 3 clock cycles for MUL instruction and 6 clock cycles for DIV instruction respectively. Operand forwarding is used in the pipeline.
+{{hand: the printed word "PO" is struck through in pen and "EX" is written
+beneath it. "WB" earlier in the same sentence has its B overwritten in pen.}}
+
+Draw the cycle diagram and determine the number of cycles needed to execute the following sequence of instructions:
+
+i.	When Operand forwarding is used	4½mks
+ii.	When Operand forwarding is not used	5½mks
+
+I1	MUL R2, R0, R1	; R2 ← R0 X R1
+I2	DIV R5, R3, R4	; R5 ← R3/R4
+I3	ADD R2, R5, R2	; R2 ← R5 + R2
+I4	SUB R5, R2, R6	; R5 ← R2 – R6
+
+[[Q3c]]
+c.	i) State Amdahl's law'	2mks
+ii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.
+	2mks
+
+============================== QUESTION FOUR ==============================
+Question Four (20 Marks)
+
+[[Q4a]]
+a.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.
+X = C1400000h,	Y = 42100000h,	Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true.	9mks
+i.	(Y-Z)>0
+ii.	X + Z = 0
+iii.	Z= X + Y
+
+[[Q4b]]
+b.	Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.
+{{hand: "For each format determine the number of bytes required." is struck
+through in pen, and a short handwritten word stands beside it. The word is not
+crisply legible; it reads most nearly as "Dont".}}
+X = ((A * B) +C/D)/(F*G+J*K)	8mks
+
+[[Q4c]]
+c.	Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte	3mks
+
+============================== QUESTION FIVE ==============================
+Question Five (20 Marks)
+
+[[Q5a]]
+a.	Represent the following -1240.56 using Single Precision IEEE format for floating point numbers.	6mks
+
+[[Q5b]]
+b.	Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate-
+i.	Pipeline cycle time	1mk
+ii.	Non-pipeline execution time	1mk
+iii.	Speed up ratio	1mk
+iv.	Pipeline time for 500 tasks	1mk
+v.	Sequential time for 500 tasks	1mk
+
+[[Q5c]]
+c.	Explain the following terms	3mks
+i.	Locality of reference
+ii.	Temporal locality
+
+[[Q5d]]
+d.	By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h	6mks
+
+--- NOTES ON THE PAPER'S OWN DEFECTS (observations, not corrections) ---
+1. The header reads "TITLE OF EXAINATION" (missing M).
+2. Q1b: "Floating-point instructions has three cycles" (has/have).
+3. Q1b uses spaced EN DASHES to mean "equals" throughout the instruction mix
+   ("Arithmetic – 40%", "IF – 5ns"). Q1c uses a spaced HYPHEN for the same job
+   ("are to be stored - Temperature"). Both are transcribed as printed.
+4. Q3b prints "The PO stage", corrected in pen to EX. PO is not one of the five
+   stage names the same sentence just defined (IF, ID, OF, Ex, WB).
+5. Q3b's instruction list uses "X" for multiply in the comment "R2 ← R0 X R1"
+   but "/" for divide, and an en dash for subtract in "R5 ← R2 – R6".
+6. Q3c(i) reads "State Amdahl's law'" with a stray closing apostrophe.
+7. Q4a is word-for-word the 24/25 Question One (a), same three hex values, same
+   three claims, same 9mks. Q4b is 24/25 Q1(d) with its last sentence struck
+   out. Q4c is 24/25 Q3b(ii) minus the full stop after "Megabyte". Q5a is
+   24/25 Q3(c). Q5d is 24/25 Q4(c). This paper is substantially a re-issue of
+   the 24/25 paper's second half.
+8. Q5b drops "vi. Throughput", which the identical 24/25 Q5(b) includes. The
+   printed marks for Q5b are five 1mk annotations set one line lower than the
+   items they belong to.
+9. Q5c is headed "Explain the following terms" with no colon and lists only two
+   of the three terms the 24/25 paper's matching part lists.

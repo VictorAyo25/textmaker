@@ -40,6 +40,10 @@
   --fill:#0e7490;       --fill-bg:#ecf5f8;
   --qpaper:#1e2830;     --qpaper-bg:#ffffff;
   --ans:#15803d;        --ans-bg:#f0f8f2;
+  /* AS PRINTED quotes an external document, so it gets a paper tone and a near
+     black bar: it must never read as one of our own coloured teaching boxes. */
+  --paper:#111827;      --paper-bg:#f7f7f4;
+  --unpack:#0f766e;     --unpack-bg:#eef6f5;
   --rule:#d5dae0;
 }
 
@@ -109,6 +113,51 @@ h3.sub:first-child{ margin-top:0; }
 .dry    > .bar{ background:var(--dry);   }   .dry    .body{ background:var(--dry-bg); }
 .recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
 .fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+.paper  > .bar{ background:var(--paper); }   .paper  .body{ background:var(--paper-bg); }
+.unpack > .bar{ background:var(--unpack);}   .unpack .body{ background:var(--unpack-bg); }
+
+/* ---------- AS PRINTED: a verbatim quotation of the examiner's paper ----------
+   Nothing in here is ours. The rule (methodology 4c) is that a past question is
+   reproduced in the examiner's exact words, exact part numbering, exact casing
+   and exact mark text, with the paper's own typos and contradictions left in.
+   So this box is styled as a quoted document, not as a teaching box: paper tone,
+   a ruled left margin like a quotation, and the setter's own line breaks kept.
+   The .flag line underneath is OURS and says so, which is why it sits outside
+   the quoted region and is styled differently. */
+.asprinted{
+  white-space:pre-wrap;                 /* the paper's own line breaks survive */
+  font-family:'DejaVu Serif',Georgia,serif; font-size:9.6pt; line-height:1.42;
+  border-left:2.6px solid #9aa3ad; padding:1pt 0 1pt 9pt; margin:0;
+}
+.asprinted .qmark{ font-weight:bold; }   /* the paper's own mark annotation */
+.paper .src{
+  font-family:'DejaVu Sans',sans-serif; font-size:7.6pt; letter-spacing:.06em;
+  text-transform:uppercase; color:#6b7280; margin:0 0 5pt;
+}
+.paper .flag{
+  font-size:9pt; background:#fdefef; border-left:2.6px solid var(--trap);
+  padding:4.4pt 8.8pt; margin:.55em 0 0; }
+.paper .flag b{ color:var(--trap); }
+/* A run shown in quotation marks that is deliberately NOT the paper's words:
+   a bad restatement, or a mark format the paper does not use. Italic so a reader
+   can see it is not a quotation, and qa_verbatim exempts it by this class name. */
+.notpaper{ font-style:italic; }
+
+/* ---------- BREAK IT DOWN: reading the question before answering it ---------- */
+.unpack .body{ font-size:9.6pt; }
+.unpack .urow{ margin:.28em 0; padding-left:60pt; text-indent:-60pt; }
+.unpack .ulab{
+  /* text-indent:0 is load-bearing, not tidying. The row above sets a hanging
+     indent (padding-left with a matching negative text-indent). text-indent is
+     inherited, and an inline-block is a block container, so without this reset
+     the label's own first line takes the -60pt a SECOND time and the word is
+     drawn outside the page margin. .params .plab carries the same reset for the
+     same reason. */
+  display:inline-block; width:56pt; text-indent:0; white-space:nowrap;
+  font-family:'DejaVu Sans',sans-serif;
+  font-size:7.8pt; font-weight:bold; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--unpack); vertical-align:baseline;
+}
 
 /* an exam question, reproduced as a paper: plain, no teaching colour */
 .qpaper > .bar{ background:var(--qpaper); }

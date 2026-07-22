@@ -47,9 +47,41 @@ to it.</p>
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question One (compulsory, 30 marks)</span></div>
 <div class="body">
 
-<p class="marks">Q1(a) X = C1400000H, Y = 42100000H, Z = 41400000H are stored in IEEE-754
-single precision. Convert each to decimal and test (i) (Y &#8722; Z) &gt; 0,
-(ii) X + Z = 0, (iii) Z = X + Y. (9 marks) &nbsp;[see M1 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q1(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q1a">a.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.  X = C1400000h,	Y = 42100000h,
+Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true.	<span class="qmark">9mks</span>
+i.	(Y-Z)&gt;0
+ii.	X + Z = 0
+iii.	Z= X + Y</div>
+<p class="flag"><b>Read it again.</b> The paper writes the values with a lower case
+<b>h</b> for hex, not <b>H</b>, and marks the part <b>9mks</b>, not "<span class="notpaper">(9 marks)</span>".
+The three claims are numbered <b>i. ii. iii.</b> and sit under the instruction, not
+inside it. None of that changes the arithmetic; all of it is what the page in front
+of you will actually look like.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> three 32-bit hex words, and the
+statement that they are IEEE 754 <i>single</i> precision. That fixes the split as
+1 sign bit, 8 exponent bits, 23 mantissa bits, and the bias as 127.</div>
+<div class="urow"><span class="ulab">Asked</span> two things, not one. First
+<i>convert</i> all three to decimal. Then <i>determine which of the following is
+true</i>. The second verb is the one that earns the marks: a script that converts
+correctly and stops has answered half the question.</div>
+<div class="urow"><span class="ulab">Marks</span> 9 for the part, and there are three
+conversions plus three tests. Read that as roughly 2 marks per conversion and 1 per
+verdict, so the conversions carry the weight and must be shown, not asserted.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> the question says "which of the
+following is true", singular in feel, and a reader in a hurry stops at the first
+true claim. Two of the three are true here. Test all three and say so for each.</div>
+</div></div>
+
 <div class="params">
 <div class="prow"><span class="plab">Given</span> X = C1400000H, Y = 42100000H,
 Z = 41400000H &middot; IEEE-754 single precision &middot; bias 127</div>
@@ -69,9 +101,24 @@ of the three statements</div>
 (ii) X + Z = &#8722;12 + 12 = 0, so <b>TRUE</b>.
 (iii) X + Y = &#8722;12 + 36 = 24, and Z = 12, so <b>FALSE</b>.</div>
 
-<p class="marks">Q1(b) Cache hit ratio 80%, cache access 5 ns, main memory 100 ns. Find
-the average memory access time for simultaneous and for hierarchical organisation, with
-a diagram of each. &nbsp;[see M3 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q1(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q1b">b.	Determine the average memory access time for a machine with a cache hit rate of 80% and cache access time of 5 ns and main memory access time of 100 ns when:
+i.  Simultaneous access memory organization is used.	<span class="qmark">2mks</span>
+ii. Hierarchical access memory organization is used.	<span class="qmark">2mks</span>
+iii.Draw the diagrams representing the two scenarios	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> The paper sets <b>iii.Draw</b> with no space after the numeral, and it splits the 7 marks 2, 2 and 3, so the two drawings are worth more than either calculation. It also names the two schemes "Simultaneous access memory organization" and "Hierarchical access memory organization", not parallel and serial, so answer in the paper's own words.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a cache hit rate of 80%, a cache access time of 5 ns and a main memory access time of 100 ns. Nothing else, so the miss rate 20% is yours to derive.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>determine</i> the average access time twice, once under each organisation, and then <i>draw</i> both. Three separate deliverables under one part.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 2 + 3 = 7. The 3 sits on the diagrams, which is the largest single share, so a part answered with numbers only throws away nearly half of it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> using one formula for both. Simultaneous access starts cache and main memory together, so the cache time is not paid twice; hierarchical pays the cache time on every access and the memory time again on a miss. The answers differ by 1 ns, and a copied formula scores zero on one of the two.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> h = 0.80 &middot; T<sub>c</sub> = 5 ns
 &middot; T<sub>m</sub> = 100 ns</div>
@@ -86,9 +133,25 @@ Diagrams: simultaneous shows the CPU addressing cache and main memory in paralle
 hierarchical shows the CPU reaching main memory only through the cache. Hierarchical is
 1 ns slower here because the cache time is paid on every access, hit or miss.</div>
 
-<p class="marks">Q1(c) A 24-bit address, 16 words per block, direct-mapped cache of 256
-blocks. Which cache block does each address map to: 1A2BC0, FFFF00, 123456, C109D5?
-(6 marks) &nbsp;[method as M3 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q1(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q1c">c.	Assume a computer has 24-bit addresses. Each block stores 16 words.  A direct-mapped cache has 256 blocks.  In which block (line) of the cache would you look for each of the following addresses?  (Addresses are given in hexadecimal for convenience).	<span class="qmark">6mks</span>
+a. 1A2BC0
+b. FFFF00
+c. 123456
+d. C109D5</div>
+<p class="flag"><b>Read it again.</b> The four addresses are labelled <b>a. b. c. d.</b>, which collide with Question One's own top-level parts a. b. c. d.: two different things on the page are both called "c.". The paper also closes with "(Addresses are given in hexadecimal for convenience)." and puts the full stop outside the bracket, and it never says whether it wants the line number in decimal or in hex.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a 24-bit address, 16 words per block, a direct-mapped cache of 256 blocks, and four addresses written in hexadecimal.</div>
+<div class="urow"><span class="ulab">Asked</span> in which block (line) each address lands. One number per address, four numbers in all.</div>
+<div class="urow"><span class="ulab">Marks</span> 6 for four addresses, so roughly 1½ each with the remainder for showing the field split once. Do the split once, then apply it four times.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> counting bits when you could count hex digits. 4 offset bits are exactly one hex digit and 8 index bits are exactly two, so the line is the two digits before the last. Also give the answer in decimal and say so, since the paper leaves the base of the answer open.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> address = 24 bits &middot; block = 16
 words &middot; cache = 256 blocks &middot; mapping = direct</div>
@@ -111,9 +174,22 @@ So in a 6-digit address, drop the last digit and the next two digits are the lin
 123456 &#8594; <b>69</b>, C109D5 &#8594; <b>157</b>. Address format: tag 12, line 8,
 offset 4.</div>
 
-<p class="marks">Q1(d) Write X = ((A &#215; B) + C/D) / (F &#215; G + J &#215; K) in the
-0, 1, 2 and 3 address formats and count the bytes, taking 1 byte per opcode and 2 bytes
-per address. (8 marks) &nbsp;[see M1 U4]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q1(d)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q1d">d.	Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.	<span class="qmark">8mks</span>
+X = ((A * B) +C/D)/(F*G+J*K)</div>
+<p class="flag"><b>Read it again.</b> The expression is printed <b>X = ((A * B) +C/D)/(F*G+J*K)</b>, with a star for multiply and no space after the plus. The paper names the machine, a Pentium 4, so the answer is x86 style assembly, not pseudocode. The same question reappears as 25/26 Q4(b), there with its byte-count sentence struck through in pen.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one arithmetic expression and four instruction formats to write it in. The paper does not state the opcode or address field sizes, so you state them yourself: 1 byte per opcode and 2 bytes per address is the usual convention and the one used here.</div>
+<div class="urow"><span class="ulab">Asked</span> two things joined by "For each format": <i>write</i> the program segment, and <i>determine</i> the byte count. Four programs and four totals.</div>
+<div class="urow"><span class="ulab">Marks</span> 8, which is 2 per format. A format with a listing and no byte count is half answered.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div>
+<div class="urow"><span class="ulab">Trap</span> assuming fewer address fields always means fewer bytes. It does not: 1-address needs 51 bytes against 2-address at 60 but 3-address at only 49, because shortening each instruction lengthens the program. Count instructions first, then multiply.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> the expression &middot; opcode = 1 byte
 &middot; each address = 2 bytes</div>
@@ -136,9 +212,28 @@ close.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Two (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q2(a) A cache of 1 KB with 16-byte blocks backs a 64 KB main memory on a
-16-bit address. Design the cache for direct, fully associative and 2-way set-associative
-mapping, and give an advantage and a disadvantage of each. (8 marks)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q2(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q2a">a.	i) Describe how cache memory improves the performance of a computer system.	<span class="qmark">2mks</span>
+ii) Using the specifications below, design a cache system for each of Direct, Fully Associative and 2-way Set Associative Mapping.
+iii) State one advantage and one disadvantage of each method.	<span class="qmark">8mks</span>
+specifications:
+-	Cache size: 1 KB = 1024 bytes
+-	Block size: 16 bytes
+-	Main memory size: 64 KB = 65,536 bytes
+-	Address size: 16 bits</div>
+<p class="flag"><b>Read it again.</b> Only two mark annotations are printed, <b>2mks</b> against (i) and <b>8mks</b> against (iii), so the 8 has to cover (ii) and (iii) together and the design work is not separately priced. The specifications are printed <i>below</i> all three instructions, so a reader working top to bottom meets "design a cache system" before meeting a single number.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> cache 1 KB, block 16 bytes, main memory 64 KB, address 16 bits, and three mapping schemes to apply them to.</div>
+<div class="urow"><span class="ulab">Asked</span> three verbs. <i>Describe</i> how cache improves performance, <i>design</i> the cache under each of three mappings, and <i>state</i> one advantage and one disadvantage of each. Nine separate statements in the last part alone.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 8 = 10, half of Question Two. The design and the trade offs share 8, so budget roughly 5 for the three address formats and 3 for the six verdicts.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> recomputing the line count for each mapping. It is 1 KB / 16 B = 64 lines under all three; only the way those lines are addressed changes. The other trap is answering "design" with prose: the mark is for a tag, index and offset split in bits.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> cache = 1 KB &middot; block = 16 bytes
 &middot; main memory = 64 KB &middot; address = 16 bits</div>
@@ -165,8 +260,25 @@ every line's tag must be compared at once, which is expensive and slow, and the 
 directory doubles to 96 bytes. <b>2-way:</b> the compromise, most conflict misses removed
 for only two comparators and a modest tag growth to 56 bytes.</div>
 
-<p class="marks">Q2(b) (i) What is locality of reference, and distinguish temporal from
-spatial locality? (ii) What happens on a cache miss? &nbsp;[see M3 U1]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q2(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q2b">b.	i) Explain the following terms:	<span class="qmark">4½mks</span>
+1.	Locality of reference
+2.	Temporal locality
+3.	Special Locality
+ii) What happens when there is a Cache Miss?	<span class="qmark">1½ mks</span></div>
+<p class="flag"><b>Read it again.</b> Term 3 is printed <b>Special Locality</b>. The word the examiner wants is <i>spatial</i>, and the same setter misspelled it differently on the 23/24 paper, so this is a habit and not a one off. Note also that the marks are set inconsistently: <b>4½mks</b> closed up, <b>1½ mks</b> with a space.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing numeric. This is a definitions part, four terms in all if you count the cache miss.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>explain</i>, not merely name, three terms, then say what <i>happens</i> on a cache miss. The second verb wants a sequence of events, not a definition.</div>
+<div class="urow"><span class="ulab">Marks</span> 4½ + 1½ = 6, so 1½ per term in (i). That is two or three sentences each, with an example, not one line.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 1, Computer Memory Overview.</div>
+<div class="urow"><span class="ulab">Trap</span> correcting the paper. Answer the third term as spatial locality, but keep the examiner's numbering and do not waste a line pointing out the spelling. The other trap is defining temporal and spatial without first defining locality of reference, which is the term the other two are special cases of.</div>
+</div></div>
 <div class="answerbox">(i) Locality of reference is the tendency of a program to access a
 small, predictable set of memory locations during any short period. <b>Temporal:</b> a
 location used now is likely to be used again soon, so cache keeps recently used items.
@@ -176,8 +288,21 @@ address goes onto the system bus, main memory returns the <b>whole block</b> con
 it, that block is loaded into a cache line (evicting one if necessary), and the required
 word is delivered to the CPU at the same time.</div>
 
-<p class="marks">Q2(c) Write an assembly program to add two numbers and store the result.
-(4 marks) &nbsp;[see M1 U4]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q2(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q2c">c.	Provide an assembly language program to add two numbers and store the result.	<span class="qmark">4mks</span></div>
+<p class="flag"><b>Read it again.</b> Fourteen words for 4 marks, and no machine is named. The paper does not say one address, two address or three address, and it does not name a processor, so any consistent instruction set earns the marks provided you say which one you are writing for.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing at all. Two numbers exist only as names you choose.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>provide</i> a program: three operations, load, add, store. "store the result" is a separate demand from "add", so an answer that ends at ADD is incomplete.</div>
+<div class="urow"><span class="ulab">Marks</span> 4, which for three instructions means roughly one per instruction plus one for the assumption you state.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div>
+<div class="urow"><span class="ulab">Trap</span> leaving the machine unstated. Write the accumulator assumption on the line above the code and the same three lines become unambiguous. Comment each line: comments cost nothing and show the marker you know what the accumulator holds.</div>
+</div></div>
 <div class="answerbox">On a one-address (accumulator) machine:
 <br>LOAD A &nbsp;&nbsp;; accumulator = A
 <br>ADD&nbsp; B &nbsp;&nbsp;; accumulator = A + B
@@ -188,8 +313,23 @@ full marks provided you state which machine you assume.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Three (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q3(a) State the Von Neumann concept (1), two significant aspects of it
-(2), and the Von Neumann bottleneck (2). &nbsp;[see M1 U1]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q3(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q3a">a.	i) What do you understand by Von Neumann Concept?	<span class="qmark">1mk</span>
+ii) Mention any 2 significant aspects of Von Neumann Architecture.	<span class="qmark">2mks</span>
+iii) Describe the Von Neumann architecture bottleneck.	<span class="qmark">2mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (i) is annotated <b>1mk</b>, singular, where the rest of the paper writes "mks". The paper capitalises "Von Neumann Concept" as a proper noun in (i) but writes "Von Neumann architecture bottleneck" in lower case in (iii), and it asks for "any 2" aspects with a numeral rather than a word.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing but the name of the architecture. This is a recall part from end to end.</div>
+<div class="urow"><span class="ulab">Asked</span> three different verbs on the same topic: what you <i>understand</i> by the concept, <i>mention</i> two aspects, and <i>describe</i> the bottleneck. Mention wants a list, describe wants a mechanism.</div>
+<div class="urow"><span class="ulab">Marks</span> 1 + 2 + 2 = 5. The single mark on (i) tells you one sentence is enough there; the two marks on (iii) tell you a bare phrase is not.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 1, Architecture versus Organization.</div>
+<div class="urow"><span class="ulab">Trap</span> describing the bottleneck as "the CPU is faster than memory". That is a different problem. The bottleneck named here is the single shared path that instructions and data must both travel, so no instruction fetch and data access can happen in the same instant.</div>
+</div></div>
 <div class="answerbox">The Von Neumann concept: a computer stores its program
 (instructions) and its data together in the <b>same</b> memory, and executes instructions
 one after another by fetching them from that memory. Two aspects: (a) a single shared
@@ -198,9 +338,26 @@ time, under the stored-program idea. The bottleneck: because one bus is shared b
 instructions and data, the CPU cannot fetch an instruction and access data at the same
 instant, so that single path limits overall speed however fast the CPU is.</div>
 
-<p class="marks">Q3(b)(i) Complete a table of Unsigned, Sign-magnitude, One's complement
-and Two's complement for 204 and &#8722;139 in 12 bits, and read back the given pattern.
-(6 marks) &nbsp;[see M1 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q3(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q3b">b.	i) Complete table 1. Show all necessary work done to arrive at the answer. Use 12 bits.	<span class="qmark">6mks</span>
+Value | Unsigned | S-M | 1's Complement | 2's Complement
+204
+-139
+1101 00110 11
+ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte.	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> The instruction says <b>Use 12 bits</b>, but the third row of the table, <b>1101 00110 11</b>, is only 11 bits long, and it is grouped 4, 5, 2 rather than in fours. The paper also calls it "table 1" although no caption prints anywhere on the page, and it never says which scheme the third row is already written in, so the row wants reading four ways. Decide in the hall and write your decision down.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> two decimal values, 204 and -139, one bit pattern, four representation schemes and a width of 12 bits.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>complete</i> the table and "Show all necessary work done to arrive at the answer", which is an explicit instruction that a filled grid with no working will not score. Part (ii) then switches subject entirely to an image size calculation.</div>
+<div class="urow"><span class="ulab">Marks</span> 6 + 3 = 9. The 6 covers eight or more cells plus the working, so a cell is worth well under a mark: speed matters more than elegance here.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 2, Data Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> writing "not representable" and moving on. Unsigned genuinely cannot hold -139, and saying so earns the mark, but every other cell must still be filled. The second trap is the 11-bit row: pad it to 12 on the left, state that you have done so, and read it in all four schemes.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> values 204 and &#8722;139 &middot;
 n = 12 bits &middot; four schemes</div>
@@ -218,8 +375,21 @@ add 1</div>
 negative, so invert and add 1, giving 0000 1000 1011 = 139, so the value is
 <b>&#8722;139</b>. The recipe reverses itself, which is the check to write down.</div>
 
-<p class="marks">Q3(b)(ii) Find the memory needed for a 17.12 by 9.45 inch image at 250
-dpi, in MB. (3 marks) &nbsp;[see M1 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q3(b)(ii)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q3b">ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte.	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> This half of part (b) has nothing to do with the table above it: a data representation question turns into an image size calculation mid part. The paper says "Express your answer in Megabyte", singular, and gives no bit depth, so the pixel size is yours to assume and to declare. It reappears untouched as 25/26 Q4(c).</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> 17.12 inches by 9.45 inches at 250 dots per inch. No colour depth, which is the number you need and are not given.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>calculate</i> the memory requirement and <i>express</i> it in megabytes. Two instructions, and the second one is a unit conversion that carries its own mark.</div>
+<div class="urow"><span class="ulab">Marks</span> 3. One for the pixel count, one for the conversion to bytes, one for reaching megabytes.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 2, Data Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the silent choice of 1 MB. Dividing by 1024 twice gives about 1.21 MB; dividing by one million gives about 1.26 MB. Both are defensible, neither is safe unstated, so name your convention on the page.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> 17.12 in &#215; 9.45 in &middot; 250 dpi
 &middot; 1 bit per pixel (black and white, not stated so assumed)</div>
@@ -231,8 +401,21 @@ then &#247;8, &#247;1024, &#247;1024</div>
 bits = 1 263 937.5 bytes &#8776; <b>1.21 MB</b> (dividing by 1024 twice). State your
 convention: dividing by one million instead gives about 1.26 MB.</div>
 
-<p class="marks">Q3(c) Represent &#8722;1240.56 in IEEE-754 single precision. (6 marks)
-&nbsp;[see M1 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q3(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q3c">c.	Represent the following -1240.56 using Single Precision IEEE format for floating point numbers.	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> The paper writes "Represent the following -1240.56" with the sign closed up against the digits and no colon between the instruction and the number. Unlike Q5(c) on the same paper it gives <i>no</i> truncation rule, so the mantissa runs to its full 23 bits here. It is reprinted word for word as 25/26 Q5(a).</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one decimal value, -1240.56, and the target format, IEEE single precision.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>represent</i> it. The verb wants the 32-bit pattern, and by convention the hexadecimal equivalent alongside it.</div>
+<div class="urow"><span class="ulab">Marks</span> 6, which is the whole of a five part question's third part. Expect a mark each for the sign, the integer part in binary, the fraction in binary, the normalisation, the biased exponent and the assembled pattern.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the fraction. 0.56 never terminates in binary, so it must be expanded by repeated doubling until the mantissa is full, and then rounded or truncated. Say which you did: the last hex digit changes.</div>
+</div></div>
 <div class="answerbox">Sign 1. 1240 = 100 1101 1000 and 0.56 = 0.10001111010111...
 Normalising gives 1.001101100010001111010111... &#215; 2<sup>10</sup>, so E = 10 + 127 =
 137 = 1000 1001, and the first 23 mantissa bits are 0011 0110 0010 0011 1101 011.
@@ -243,9 +426,22 @@ state the method.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Four (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q4(a)(i) Compare Von Neumann and Harvard architecture, with a diagram of
-each. (3) &nbsp;(ii) State four differences between RISC and CISC and give two example
-processors of each. (4) &nbsp;[see M1 U1, M4 U1]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q4(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q4a">a.	i) Compare Von Neumann Architecture and Harvard Architecture. Include diagram for each.	<span class="qmark">3mk</span>
+ii) Mention any four (4) clear differences between RISC and CISC. Give two (2) examples of processors in each category.	<span class="qmark">4mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (i) is annotated <b>3mk</b>, singular, the only such annotation on the paper. It also says "Include diagram for each" with no article. Part (ii) asks for "any four (4) <i>clear</i> differences", so four vague ones will not do, and the two example processors per family are a separate demand inside the same 4 marks.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> four architecture names and nothing numeric.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>compare</i> two architectures with diagrams, then <i>mention</i> four differences and <i>give</i> four example processors. Three verbs, and the diagrams are compulsory, not decoration.</div>
+<div class="urow"><span class="ulab">Marks</span> 3 + 4 = 7. In part (ii) that is four differences plus four processors for 4 marks, so half a mark a line: write in a two column table, not prose.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 1 for the architectures, Module Four Unit 1 for RISC and CISC.</div>
+<div class="urow"><span class="ulab">Trap</span> forgetting the diagrams. They are explicitly asked for and carry their own marks, and a compare answered as prose alone cannot score full marks however good the prose is. The second trap is naming processors nobody can check: ARM and MIPS against x86 and 68000 are safe.</div>
+</div></div>
 <div class="answerbox">(i) Von Neumann uses <b>one</b> memory and <b>one</b> bus for
 instructions and data, so it is simpler and cheaper but the shared bus carries only one at
 a time. Harvard uses <b>separate</b> memories and buses, so an instruction fetch and a
@@ -261,9 +457,22 @@ diagrams; they carry marks of their own.</div>
 <div class="answerbox">Examples: RISC, ARM and MIPS (also SPARC, RISC-V). CISC, Intel x86
 and Motorola 68000 (also VAX).</div>
 
-<p class="marks">Q4(b)(i) Use end-around carry in one's complement to compute
-153 &#8722; 142 in a 10-bit register. (4) &nbsp;(ii) Distinguish overflow from underflow,
-with one example each. (3) &nbsp;[see M1 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q4(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q4b">b.	i) Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in a 10-bit register.	<span class="qmark">4mks</span>
+ii) What do you understand by Overflow and Underflow in data representation? Give one example for each.	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (i) is written as a command and then ends in a <b>question mark</b>. The dash between the two numbers is an en dash on the page, measurably longer than the hyphen in "10-bit" on the same line, and the paper writes "1's Complement" with the digit and the apostrophe.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> 153 and 142, a 10-bit register, and one's complement arithmetic. Part (ii) is given nothing at all.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>describe</i> end-around carry and then <i>illustrate</i> it, so a worked subtraction with no explanation, or an explanation with no subtraction, each lose half. Part (ii) wants two definitions and one example each, four items.</div>
+<div class="urow"><span class="ulab">Marks</span> 4 + 3 = 7. The example in (ii) is worth as much as the definition, so never skip it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 2, Data Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> discarding the carry. In one's complement the carry out of the top bit is added back into the lowest bit, and that end-around step is the entire point of the question; in two's complement the same carry is thrown away. Mixing the two rules gives an answer one short.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> 153 &#8722; 142 &middot; n = 10 bits
 &middot; one's complement</div>
@@ -281,8 +490,21 @@ small to represent: for integers more negative than the smallest storable value
 (&#8722;100 &#8722; 50 = &#8722;150 below &#8722;128), and for floating point a value so
 close to zero it rounds away to nothing.</div>
 
-<p class="marks">Q4(c) Find the decimal value of C4F2E000H in IEEE-754 single precision.
-(6 marks) &nbsp;[see M1 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q4(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q4c">c.	By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> The value is printed <b>C4F2E000h</b> with a lower case h. The phrase "By using the reverse of the IEEE Single Precision procedure" names the method you must show, so a correct number with no procedure is not a full answer. It is reprinted word for word as 25/26 Q5(d).</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one 32-bit hexadecimal word and the statement that it is IEEE single precision.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>determine</i> the base 10 value, by running the conversion procedure backwards. The words "Base 10" and "base 16" are spelled out so that no answer in binary or hex will do.</div>
+<div class="urow"><span class="ulab">Marks</span> 6. Roughly one each for the sign, the exponent field, the unbiased exponent, restoring the hidden 1, the shifted binary value and the decimal total.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> forgetting the hidden bit. The stored mantissa is the fraction after an implied leading 1, so 1.11100101110 is what you shift, not 0.11100101110. Miss it and the answer halves.</div>
+</div></div>
 <div class="answerbox">C4F2E000 = 1100 0100 1111 0010 1110 0000 0000 0000. Sign 1, so
 negative. E = 1000 1001 = 137, so e = 137 &#8722; 127 = 10. Restoring the hidden 1 gives
 1.11100101110 &#215; 2<sup>10</sup> = 11110010111<sub>2</sub> = 1024+512+256+128+16+4+2+1
@@ -291,9 +513,22 @@ negative. E = 1000 1001 = 137, so e = 137 &#8722; 127 = 10. Restoring the hidden
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q5(a)(i) State the three categories of instructions with two examples
-each. (ii) Describe memory characteristics by access method, with an example each. (4)
-&nbsp;[see M1 U4, M3 U1]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q5(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q5a">a.	i) Describe three (3) categories of Instructions that we have. Give two (2) examples for each.	<span class="qmark">4½mks</span>
+ii) Discuss the characteristics of computer memory based on Access Methods. Give one example for each method.	<span class="qmark">4mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (i) capitalises "Instructions" mid sentence and asks for "three (3) categories ... that we have", the setter's phrasing rather than a textbook one. Part (ii) says "based on Access Methods", which pins the classification: not by technology, not by position in the hierarchy, by how a location is reached.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing numeric. Two recall parts.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>describe</i> three instruction categories and <i>give</i> two examples of each, six examples in all, then <i>discuss</i> memory by access method with <i>one</i> example each.</div>
+<div class="urow"><span class="ulab">Marks</span> 4½ + 4 = 8½, the largest recall block on the paper. That is 1½ per instruction category, so a name with two examples and a sentence of description.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 4 for the instruction categories, Module Three Unit 1 for the access methods.</div>
+<div class="urow"><span class="ulab">Trap</span> answering (ii) with RAM, ROM and cache. Those are technologies. The access methods are sequential, direct, random and associative, and each wants its own example device.</div>
+</div></div>
 <div class="answerbox">(i) <b>Data transfer:</b> LOAD, STORE (also MOVE, PUSH, POP).
 <b>Arithmetic and logic:</b> ADD, AND (also SUB, MUL, OR, NOT, shifts).
 <b>Control (test and branch):</b> JUMP, BEQ (also CALL, RETURN).
@@ -303,9 +538,27 @@ disk. <b>Random:</b> every location takes the same time via its address, as in R
 <b>Associative:</b> located by content rather than address, all locations compared at
 once, as in a cache tag search.</div>
 
-<p class="marks">Q5(b) A pipeline has 4 phases of 60, 50, 90 and 80 ns with a 10 ns latch
-delay. Find the cycle time, the non-pipeline time for one task, the speedup, the pipeline
-and sequential times for 500 tasks, and the throughput. (6 marks) &nbsp;[see M2 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q5(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q5b">b.	Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate-
+i.	Pipeline cycle time	<span class="qmark">1mk</span>
+ii.	Non-pipeline execution time	<span class="qmark">1mk</span>
+iii.	Speed up ratio	<span class="qmark">1mk</span>
+iv.	Pipeline time for 500 tasks	<span class="qmark">1mk</span>
+v.	Sequential time for 500 tasks	<span class="qmark">1mk</span>
+vi.	Throughput	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> The stem ends "Calculate-" with a trailing hyphen and no colon, and every one of the six items is annotated <b>1mk</b>, singular. Six equal marks means no single item is worth a long derivation. The same question reappears as 25/26 Q5(b) with item vi. Throughput dropped.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> four stage durations, 60, 50, 90 and 80 ns, a latch delay of 10 ns, and 500 tasks.</div>
+<div class="urow"><span class="ulab">Asked</span> six numbers, in the paper's order. Nothing here asks for explanation, so every mark is a figure with its unit.</div>
+<div class="urow"><span class="ulab">Marks</span> 6, one per item. Answer all six even if one is guessed: an omitted line cannot score, a wrong line costs only itself.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 3, Pipelining.</div>
+<div class="urow"><span class="ulab">Trap</span> leaving the latch out of the cycle time. The cycle is the slowest stage <i>plus</i> the latch, 90 + 10 = 100 ns, and every later item depends on it, so one omission poisons five answers. The second trap is the k + n - 1 formula: 500 tasks through 4 stages take 503 cycles, not 504.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> k = 4 stages &middot; 60, 50, 90, 80 ns
 &middot; latch = 10 ns &middot; n = 500 tasks</div>
@@ -321,8 +574,21 @@ pipelined = (4 + 499) &#215; 100 = <b>50 300 ns</b>; sequential = 500 &#215; 280
 <b>140 000 ns</b>. Throughput = 500 / 50 300 ns, which in the steady state is one task per
 cycle, that is 1/100 ns = 10 million tasks per second.</div>
 
-<p class="marks">Q5(c) Represent &#8722;421.55 in IEEE-754 single precision, with all
-mantissa bits after the first 12 set to zero. Give the answer in binary. (5.5 marks)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q5(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q5c">c.	Perform the calculation below in using Single Precision IEEE format. All bits after the first 12 bits of the Mantissa should be 0.  -421.55 (all operations must be done in binary).	<span class="qmark">5½mks</span></div>
+<p class="flag"><b>Read it again.</b> The stem reads "Perform the calculation below <b>in using</b> Single Precision IEEE format", which is the paper's own wording, and there is no calculation to perform: it is a conversion. The instruction that matters is the one about the mantissa, and the bracket "(all operations must be done in binary)" rules out working the fraction in decimal and converting at the end.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> the value -421.55, the single precision format, and a truncation rule: everything after the first 12 mantissa bits is zero.</div>
+<div class="urow"><span class="ulab">Asked</span> the 32-bit pattern, in binary, with the mantissa truncated as instructed. The truncation is not a simplification you are being offered, it is a requirement you are being marked on.</div>
+<div class="urow"><span class="ulab">Marks</span> 5½. Sign, integer part, fraction, normalisation, exponent field and the truncated assembly, so about a mark each with a half for the unit of the answer.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> truncating at the wrong place. "the first 12 bits of the Mantissa" means the 23-bit stored fraction, not the 24 bits including the hidden 1, so you keep 12 fraction bits and set the remaining 11 to zero. Say what the truncated pattern now reads back as: that is what the question is testing.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> value = &#8722;421.55 &middot; IEEE-754
 single precision &middot; keep only the first <b>12</b> mantissa bits, rest zero</div>
@@ -359,8 +625,24 @@ prediction of what you will meet.</p>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question One (compulsory, 30 marks)</span></div>
 <div class="body">
-<p class="marks">Q1(a)(i) Differentiate computer architecture from computer organization.
-(2) &nbsp;(ii) Compare Von Neumann and Harvard, with a diagram of each. (3) &nbsp;[M1 U1]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1a">a.	i) Computer Systems are designed using two closely related but distinct concepts which are Computer Architecture and Computer Organization. Differentiate between these concepts.
+	<span class="qmark">2mks</span>
+ii) Compare Von Neumann Architecture and Harvard Architecture. Include a diagram for each.
+	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> The mark annotations are set on their own line under each part rather than at the end of it, so the 2mks belongs to (i) and the 3mks to (ii). Part (ii) is 24/25 Q4(a)(i) again, this time reading "a diagram for each" where the older paper read "diagram for each". The rest is identical.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing numeric. The stem itself tells you the two concepts are "closely related but distinct", which is the shape your answer must take.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>differentiate</i>, then <i>compare</i> with diagrams. Differentiate wants the contrast made explicit, so a paragraph on each with no comparison drawn between them does not answer it.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 3 = 5. The 3 on (ii) covers two diagrams and the comparison, so the drawings are about a mark of it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 1, Architecture versus Organization.</div>
+<div class="urow"><span class="ulab">Trap</span> answering with definitions and no example. One concrete pair, such as the instruction set saying a multiply exists while the hardware decides whether a multiplier or repeated addition performs it, is worth more than two abstract sentences.</div>
+</div></div>
 <div class="answerbox">(i) Architecture is the set of attributes visible to the programmer
 (instruction set, registers, addressing modes): it defines <b>what</b> the machine does.
 Organization is how those attributes are implemented in hardware (control signals, buses,
@@ -370,10 +652,26 @@ addition performs it. (ii) Von Neumann: one memory, one bus, simpler and cheaper
 a bottleneck. Harvard: separate memories and buses, simultaneous fetch and data access,
 faster but costlier. Both diagrams are worth marks; draw them.</div>
 
-<p class="marks">Q1(b) A 5-stage pipeline (IF 5, ID 4, EX 6, MEM 5, WB 4 ns) has 1 ns
-register overhead. Mix: arithmetic 40%, memory 35%, branch 20%, floating point 5%, over
-20 million instructions; the non-pipelined clock is 25 ns. Find the pipelined clock, the
-actual CPI, the execution time and the speedup. (6) &nbsp;[see M2 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1b">b.	A computer manufacturer is evaluating whether to replace a non-pipelined processor with a five-stage pipelined processor. The processor executes the following instruction mix: Arithmetic – 40%, Memory Access – 35%, Branch – 20%, Floating Point – 5%. The Non-pipelined processor clock cycle is 25ns.  Pipelined processor stage times are:  IF – 5ns, ID – 4ns, EX – 6ns, MEM – 5ns and WB – 4ns. Furthermore, Pipeline register overhead is 1 ns. Branch instructions incur a two-cycle penalty, Floating-point instructions has three cycles for EX stage, Memory accesses experience cache misses 10% of the time, adding four extra cycles. The program contains 20 million instructions.
+i) Determine the pipelined clock cycle.	<span class="qmark">1mk</span>
+ii) Calculate the actual CPI.	<span class="qmark">2mks</span>
+iii) Determine the actual execution time.	<span class="qmark">1mk</span>
+iv) Compute the speedup over the non-pipelined processor.	<span class="qmark">1mk</span>
+v) Explain why the speedup differs from the theoretical maximum.	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> The paper uses a spaced dash to mean "equals" throughout the instruction mix and the stage times, so the dash after "Arithmetic" is not a minus sign. "Floating-point instructions has three cycles" is the paper's grammar. Every penalty is buried in a prose sentence <i>after</i> the stage times rather than tabulated, which is where a rushed reader loses them.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> five stage times, a register overhead, an instruction mix in four classes, penalties for three of those classes, a non-pipelined clock and an instruction count. Nine numbers, and the mix percentages sum to 100.</div>
+<div class="urow"><span class="ulab">Asked</span> five things, four numeric and one written. Part (v) asks you to <i>explain</i>, so it cannot be answered with a figure.</div>
+<div class="urow"><span class="ulab">Marks</span> 1 + 2 + 1 + 1 + 1 = 6. The CPI carries 2, twice any other item, because every later answer depends on it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 2, CPU Performance Metrics.</div>
+<div class="urow"><span class="ulab">Trap</span> taking the clock from the sum of the stages. The pipelined clock is the <i>slowest</i> stage plus the overhead, 6 + 1 = 7 ns, not 24 + 1. The second trap is the memory penalty: only 10% of memory accesses miss, so the four extra cycles are weighted by 0.10 before they are weighted by the 35%.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> stages 5, 4, 6, 5, 4 ns &middot;
 overhead 1 ns &middot; IC = 20 000 000 &middot; the mix above &middot; non-pipelined clock
@@ -391,10 +689,27 @@ CPI = 1 + 0.20(2) + 0.35(2 + 0.10&#215;4) + 0.05(4) = <b>2.44</b>. Non-pipelined
 &#215; 7 ns = 0.3416 s, a speedup of about 1.46. It falls short of the ideal 5 because
 stalls raise CPI above 1 and the latch overhead lengthens every cycle.</div>
 
-<p class="marks">Q1(c) A 16-bit two's complement system stores Temperature = &#8722;182,
-Pressure = 487, Altitude = &#8722;1023. (i) Give the range and say whether each fits. (2)
-(ii) Represent each in binary and hex. (3) (iii) Compute (&#8722;182) + 487. (2)
-&nbsp;[see M1 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1c">c.	A spacecraft telemetry system uses a 16-bit processor to transmit environmental measurements. The following values are to be stored - Temperature = -182; Pressure = 487;
+Altitude = -1023. The processor uses 2's complement representation for signed integers.
+i) Determine the range of values representable in a 16-bit two's complement system.
+Indicate whether the given numbers fall within the range of value	<span class="qmark">2mks</span>
+ii) Represent each value in: Binary and Hexadecimal	<span class="qmark">3mks</span>
+iii) Demonstrate how the processor uses two's complement to compute	<span class="qmark">2mks</span>
+(−182) + 487</div>
+<p class="flag"><b>Read it again.</b> Part (i) ends "fall within the range of value" with no full stop and a singular "value". Part (iii) breaks across the mark annotation: the expression (&#8722;182) + 487 is printed <i>after</i> the 2mks, on its own line, and its sign is a true minus sign where "Temperature = -182" three lines above uses a plain hyphen.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a 16-bit two's complement processor and three values, one positive and two negative.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>determine</i> a range and judge three values against it, <i>represent</i> each in two bases, then <i>demonstrate</i> an addition. Demonstrate means show the machine doing it in binary, not compute 305 in decimal.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 3 + 2 = 7. Part (ii) at 3 covers six answers, three binary and three hexadecimal, so half a mark each.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 2, Data Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the asymmetry of the range. It is -32768 to +32767, not -32767 to +32767, because zero sits on the positive side. The other trap is the carry out of bit 16 in part (iii): in two's complement it is discarded, and keeping it turns 305 into a 17-bit number.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> n = 16 &middot; two's complement
 &middot; the three values</div>
@@ -414,9 +729,32 @@ so all are representable. (iii) FF4A + 01E7 = 1 0000 0001 0011 0001; discard the
 of bit 16, leaving 0000 0001 0011 0001 = 0131H = <b>305</b>, and indeed
 &#8722;182 + 487 = 305.</div>
 
-<p class="marks">Q1(d) A processor runs 1 million instructions with a given addressing-mode
-mix. Find (i) average CPI, (ii) total cycles, (iii) the new CPI if indirect is optimised
-from 4 to 2 cycles, (iv) the improvement. (6) &nbsp;[see M2 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(d)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1d">d.	A processor executes one million(1M) instructions distributed as follows.
+Addressing Mode | Percentage | Cycles
+Register | 40% | 1
+Immediate | 20% | 1
+Direct | 15% | 2
+Indirect | 10% | 4
+Indexed | 10% | 3
+Relative | 5% | 2
+i) Compute the average CPI	<span class="qmark">2mks</span>
+ii) Determine total clock cycles.	<span class="qmark">1mk</span>
+iii) If indirect addressing is optimized to 2 cycles, compute the new CPI.	<span class="qmark">1mk</span>
+iv) Evaluate the performance improvement.	<span class="qmark">2mks</span></div>
+<p class="flag"><b>Read it again.</b> "one million(1M)" is set with no space before the bracket. Six addressing modes are tabulated with percentages and cycle counts; the paper never says the percentages total 100, so check that yourself before you weight anything. Part (iv) says "Evaluate", which is a different demand from "compute".</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> an instruction count of one million and a six row table of modes, percentages and cycles per instruction.</div>
+<div class="urow"><span class="ulab">Asked</span> three computations and one evaluation. Part (iii) changes one row of the table and asks for the new average, so it is the same sum with one term altered.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 1 + 1 + 2 = 6. Parts (i) and (iv) carry 2 each, so the average CPI wants its six products written out and the evaluation wants a percentage with a sentence, not a bare number.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 2, CPU Performance Metrics.</div>
+<div class="urow"><span class="ulab">Trap</span> recomputing the whole sum in part (iii). Only the indirect term changes, so subtract its old contribution and add the new one. The trap in (iv) is quoting the CPI drop as the improvement: performance improvement is measured against the old value, which is where the 11.76% comes from.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> IC = 1 000 000 &middot; register 40% at
 1, immediate 20% at 1, direct 15% at 2, indirect 10% at 4, indexed 10% at 3, relative 5%
@@ -432,9 +770,38 @@ new)/old</div>
 &#215; 1.70 = <b>1 700 000</b>. (iii) With indirect at 2: CPI = 1.70 &#8722; 0.10(4) +
 0.10(2) = <b>1.50</b>. (iv) Improvement = (1.70 &#8722; 1.50)/1.70 = <b>11.76%</b>.</div>
 
-<p class="marks">Q1(e) With PC = 7000, R1 = 1500, address field 1200 and the memory table
-given, find the effective address and operand for immediate, direct, indirect, register
-indirect and relative addressing. (6) &nbsp;[see M1 U4]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(e)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1e">e.	A processor contains the following information: PC = 7000;  R1 = 1500;
+Memory Contents
+Address	Value
+7000	1200
+1200	4500
+1500	6000
+3200	8100
+4500	999
+6000	200
+8100	400
+Assume an instruction contains address field 1200.
+Determine the Effective Address (EA) and operand for the following addressing modes:
+i) Immediate addressing mode	<span class="qmark">1mk</span>
+ii) Direct addressing mode	<span class="qmark">1mk</span>
+iii) Indirect addressing mode	<span class="qmark">1mk</span>
+iv) Register addressing mode	<span class="qmark">1mk</span>
+v) Register Indirect (R1) addressing mode	<span class="qmark">1mk</span>
+vi) Relative addressing mode	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> The memory table lists address 3200 holding 8100, which no mode in the list ever reaches: it is there to be ignored. Part (iv) asks for the effective address under <b>register</b> addressing, where there is no effective address at all, and saying so is the mark. The stem gives R1 = 1500 but never names a register for part (iv).</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> PC = 7000, R1 = 1500, an address field of 1200, and a seven row memory table.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>determine</i> two things for each of six modes, the effective address and the operand. Twelve answers, not six.</div>
+<div class="urow"><span class="ulab">Marks</span> 6, one per mode, so each mark buys both the address and the operand. Tabulate.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div>
+<div class="urow"><span class="ulab">Trap</span> one dereference too many or too few. Direct reads memory once, indirect reads it twice, immediate reads it not at all and the operand is the field 1200 itself. Register indirect uses R1 as the pointer, so the effective address is 1500 and the operand is what sits there.</div>
+</div></div>
 <table class="data">
 <tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
 <tr><td>Immediate</td><td>none</td><td>1200, the field itself</td></tr>
@@ -450,17 +817,60 @@ register as a pointer, and relative adds the PC.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Two (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q2(a) 32-bit addresses, 16 words per block, direct-mapped cache of 256
-blocks. Which block does each of CA2DFC12, F24F25FF, 24BBABCD, C1D9EEF2 map to?
-&nbsp;[see M3 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q2a">a.	Assume a computer has 32-bit addresses.  Each block stores 16 words.  A direct-mapped cache has 256 blocks.  In which block (line) of the cache (decimal value) would you look for each of the following addresses? Addresses are given in hexadecimal for convenience.  <span class="qmark">4mks</span>
+i.	CA2DFC12
+ii.	F24F25FF
+iii.	24BBABCD
+iv.	C1D9EEF2</div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Q1(c) with the address width changed from 24 to 32 bits, four new addresses, the words "(decimal value)" added so the base of the answer is now fixed, and the marks cut from 6 to 4. The sub-items are numbered <b>i. ii. iii. iv.</b> here where the older paper used a. b. c. d.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a 32-bit address, 16 words per block, 256 cache blocks, four hexadecimal addresses.</div>
+<div class="urow"><span class="ulab">Asked</span> the block (line) number for each, "(decimal value)", which the older version of this question left open and this one closes.</div>
+<div class="urow"><span class="ulab">Marks</span> 4 for four addresses, one each. There is no mark for the field split on its own, so do it once, briefly, and spend the time on the four answers.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> letting the wider address change the answer. Offset and index depend only on the block size and the number of blocks, so they are still 4 and 8 bits; only the tag grows, from 12 bits to 20. The line is still the two hex digits before the last.</div>
+</div></div>
 <div class="answerbox">Offset 4 bits, index 8 bits, tag 20 bits. Reading the hex: drop the
 last digit, take the next two. CA2DFC12 &#8594; C1 = <b>193</b>; F24F25FF &#8594; 5F =
 <b>95</b>; 24BBABCD &#8594; BC = <b>188</b>; C1D9EEF2 &#8594; EF = <b>239</b>.</div>
 
-<p class="marks">Q2(b) A 5-stage RISC pipeline runs I1 LW, I2 ADD, I3 SUB, I4 SW, I5 BEQ,
-I6 MUL, with forwarding, one stall for load-use, and a 3-cycle EX for MUL. Identify the
-hazards, draw the timing diagram, give the total cycles, and suggest two hardware
-improvements. &nbsp;[see M2 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q2b">b.	Consider the following code segment executed on a classic five-stage RISC processor.
+I1: LW   R1,0(R2)
+I2: ADD  R3,R1,R4
+I3: SUB  R5,R3,R6
+I4: SW   R5,8(R2)
+I5: BEQ  R5,R0,LABEL
+I6: MUL  R7,R5,R8
+Assume:
+•	forwarding is available
+•	branch resolved in EX stage
+•	load-use hazards require one stall
+•	multiplier occupies EX for three cycles
+•	separate instruction and data caches
+i) Identify and explain every pipeline hazard.	<span class="qmark">5mks</span>
+ii) Draw the pipeline timing diagram	<span class="qmark">2mks</span>
+iii) Determine the total execution cycles	<span class="qmark">1mk</span>
+iv) Suggest any two hardware improvements that would reduce stalls.	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> The five assumptions are printed as bullets <i>after</i> the code, and they are what the whole question turns on: "separate instruction and data caches" rules structural memory hazards out by fiat, and "branch resolved in EX stage" fixes the control penalty. Part (ii) "Draw the pipeline timing diagram" ends with no full stop, and neither does (iii), where (i) and (iv) both do.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> six instructions with real register operands, and five assumptions that between them fix every penalty in the question.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>identify and explain</i> every hazard, <i>draw</i> the diagram, <i>determine</i> the cycle count, <i>suggest</i> two improvements. Four verbs, and "every" in the first one means an incomplete list is marked as wrong, not short.</div>
+<div class="urow"><span class="ulab">Marks</span> 5 + 2 + 1 + 1 = 9, and 5 of the 9 sit on naming and explaining the hazards. Spend the time there, not on the drawing.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 3, Pipelining.</div>
+<div class="urow"><span class="ulab">Trap</span> calling the I2 to I3 dependency a stall. Forwarding covers it. The only stall forwarding cannot cover is the load-use hazard from I1 to I2, because the value is not out of memory until the end of MEM. Miss that distinction and the cycle count is wrong by exactly one.</div>
+</div></div>
 <div class="answerbox">Hazards: a <b>load-use data hazard</b> between I1 and I2 (forwarding
 cannot fix it, so exactly one stall); <b>data hazards</b> I2 to I3 and I3 to I4, both
 covered by forwarding; a <b>control hazard</b> at I5, the branch resolved in EX; and a
@@ -470,9 +880,26 @@ multiply, giving <b>13 cycles</b>. Two improvements: add a <b>dedicated multipli
 a long multiply does not block EX, and use <b>separate instruction and data memories</b>
 (or split caches) to remove structural stalls.</div>
 
-<p class="marks">Q2(c) Main memory 1 GB, cache 512 KB, block 128 bytes, 4-way set
-associative. Find the blocks, the sets, the address format, and the AMAT at 96% hit,
-2 ns cache and 80 ns memory. &nbsp;[see M3 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q2c">c.	A processor has the following configuration: Main memory is 1 GB; Cache is 512 KB; Block size is 128 bytes and it is a 4-way Set Associative cache.
+i) Determine the total number of cache blocks.	<span class="qmark">1mk</span>
+ii) Determine the number of sets.	<span class="qmark">1mk</span>
+iii) Construct the complete address format.	<span class="qmark">1mk</span>
+iv) If the hit rate is 96%, cache access time is 2 ns, and main memory access time is 80 ns, calculate the Average Memory Access Time (AMAT).	<span class="qmark">2mks</span>
+v) Discuss how increasing associativity beyond four ways might affect performance. <span class="qmark">2mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (v) carries its <b>2mks</b> inline on the same line as the sentence, where every other item on the page sets the marks out at the margin. The address width is never stated: it follows from a main memory of 1 GB, which the paper leaves you to notice.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> main memory 1 GB, cache 512 KB, block 128 bytes, 4-way set associative, and later a hit rate, a cache time and a memory time.</div>
+<div class="urow"><span class="ulab">Asked</span> three structural numbers, then one address format, then one AMAT, then a discussion. The last part asks you to <i>discuss</i>, so it wants a trade off argued, not a number.</div>
+<div class="urow"><span class="ulab">Marks</span> 1 + 1 + 1 + 2 + 2 = 7. The discussion is worth as much as the AMAT calculation, which is the part most students leave blank.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> the set count. Blocks are 512 KB / 128 B = 4096, but a 4-way cache has 4096 / 4 = 1024 <i>sets</i>, and it is the set count, not the block count, that sizes the index field. The second trap is which AMAT formula: with a stated cache access time and a stated memory time this is the hierarchical form.</div>
+</div></div>
 <div class="answerbox">Blocks = 512 KB / 128 B = <b>4096</b>. Sets = 4096 / 4 =
 <b>1024</b>. Address = 30 bits, offset = log<sub>2</sub>128 = 7, set = log<sub>2</sub>1024
 = 10, tag = 30 &#8722; 10 &#8722; 7 = 13, so the format is <b>tag 13 / set 10 / offset
@@ -483,9 +910,28 @@ saves.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Three (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q3(a) Main memory 64 MB, cache 128 KB, block 64 bytes. Find the number of
-lines, the direct-mapped fields, the 4-way fields, and say why fully associative removes
-conflict misses but adds a challenge. &nbsp;[see M3 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q3(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q3a">a.	A computer system has the following characteristics:
+•	Main memory = 64 MB
+•	Cache memory = 128 KB
+•	Block size = 64 bytes
+i) Determine the number of cache lines	<span class="qmark">1½mks</span>
+ii) For Direct Mapping, determine: Number of index bits; Number of tag bits; Number of offset bits	<span class="qmark">1½mks</span>
+iii) For a 4-way Set Associative Cache, determine: Number of sets; Number of set index bits; Number of tag bits	<span class="qmark">1½mks</span>
+iv) Explain why fully associative mapping eliminates conflict misses but introduces another performance challenge.	<span class="qmark">1½mks</span></div>
+<p class="flag"><b>Read it again.</b> All four parts are annotated <b>1½mks</b>, so the part is worth 6 and every sub-part the same. That is generous on (i), which is one division, and tight on (ii) and (iii), which each ask for three separate numbers. The address width is not given; it follows from a 64 MB main memory.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> main memory 64 MB, cache 128 KB, block 64 bytes. Three numbers, and everything else is derived.</div>
+<div class="urow"><span class="ulab">Asked</span> a line count, then two full field splits, then an explanation. Part (iv) is the only one that wants prose, and it asks for a challenge <i>introduced</i>, so naming the benefit is only half of it.</div>
+<div class="urow"><span class="ulab">Marks</span> 1½ four times, 6 in all. Parts (ii) and (iii) buy three numbers each for 1½, so half a mark a number: tabulate and move on.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 3, Cache Memory Design.</div>
+<div class="urow"><span class="ulab">Trap</span> using the main memory size as the address width without converting. 64 MB is 2 to the 26, so addresses are 26 bits, and every tag figure on the page depends on that one step. The second trap in (iv) is stopping at "no conflict misses": the challenge asked for is the comparator per line that full associativity costs.</div>
+</div></div>
 <div class="answerbox">64 MB = 2<sup>26</sup>, so <b>26-bit</b> addresses. Lines = 128 KB /
 64 B = <b>2048</b>. Offset = log<sub>2</sub>64 = 6. <b>Direct:</b> index =
 log<sub>2</sub>2048 = 11, tag = 26 &#8722; 11 &#8722; 6 = <b>9</b>. <b>4-way:</b> sets =
@@ -495,9 +941,31 @@ vanish; the challenge is that every line's tag must then be compared simultaneou
 needing one comparator per line, which is expensive in area and power and slows the
 lookup.</div>
 
-<p class="marks">Q3(b) A 5-stage pipeline (IF, ID, OF, EX, WB), one cycle per stage except
-EX which takes 1 for ADD/SUB, 3 for MUL and 6 for DIV, runs I1 MUL, I2 DIV, I3 ADD,
-I4 SUB. Give the total cycles with and without operand forwarding. &nbsp;[see M2 U3]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q3(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q3b">b.	A 5-stage pipelined processor has instruction fetch (IF), Instruction decode (ID), Operand Fetch (OF), Execute (Ex) and Write Back (WB) stages. The IF, ID, OF and WB stages take 1 clock cycle each for any instruction. The PO stage take 1 cycle for ADD and SUB instructions, 3 clock cycles for MUL instruction and 6 clock cycles for DIV instruction respectively. Operand forwarding is used in the pipeline.
+
+Draw the cycle diagram and determine the number of cycles needed to execute the following sequence of instructions:
+
+i.	When Operand forwarding is used	<span class="qmark">4½mks</span>
+ii.	When Operand forwarding is not used	<span class="qmark">5½mks</span>
+
+I1	MUL R2, R0, R1	; R2 ← R0 X R1
+I2	DIV R5, R3, R4	; R5 ← R3/R4
+I3	ADD R2, R5, R2	; R2 ← R5 + R2
+I4	SUB R5, R2, R6	; R5 ← R2 – R6</div>
+<p class="flag"><b>Read it again.</b> The stem names five stages, IF, ID, OF, Ex and WB, and then says "The <b>PO</b> stage take 1 cycle", which is not one of them. On the physical paper PO is struck through in pen with EX written beneath it, and the B of WB earlier in the same sentence is overwritten in pen, so the room was told to read PO as EX. The stem also states that operand forwarding <i>is</i> used and then part (ii) asks for the case where it is not.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> five stages, a cycle cost per stage, three different EX costs by instruction type, and four instructions with real dependencies.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>draw</i> the cycle diagram and <i>determine</i> the number of cycles, twice, once with forwarding and once without. The diagram is asked for first, so it is the working, not an afterthought.</div>
+<div class="urow"><span class="ulab">Marks</span> 4½ + 5½ = 10, half of Question Three. The no-forwarding case is worth more because it stalls more, so do not run out of time before it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 3, Pipelining.</div>
+<div class="urow"><span class="ulab">Trap</span> answering without stating your model. One execution unit or several, write-back one cycle after EX or in the same cycle, forwarding into EX or into OF: each choice changes the total. Write the assumptions down first, then the marks follow the reasoning even if your number differs from the marking scheme.</div>
+</div></div>
 <div class="answerbox">Under the stated assumptions (one in-order execution unit, so an
 instruction enters EX only when EX is free; write-back one cycle after EX; forwarding
 delivers a result to the next instruction's EX in the following cycle), the schedule
@@ -505,8 +973,23 @@ gives <b>15 cycles with forwarding</b> and <b>17 cycles without</b>. The full cy
 diagram for both cases is worked in Module Two Unit 3. State your assumptions: this
 question is ambiguous without them, and the marks follow the reasoning.</div>
 
-<p class="marks">Q3(c) A cache is 10 times faster than main memory and serves 85% of
-accesses. Find the overall speedup by Amdahl's law. (4) &nbsp;[see M2 U2]</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q3(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q3c">c.	i) State Amdahl's law'	<span class="qmark">2mks</span>
+ii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.
+	<span class="qmark">2mks</span></div>
+<p class="flag"><b>Read it again.</b> Part (i) reads "State Amdahl's law'" with a stray closing apostrophe after "law". Part (ii) says "Assume in hypothetical system" with the article missing, and sets its <b>2mks</b> on the line below. Two marks for stating the law means the statement is worth exactly as much as the calculation.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> for (ii): a cache 10 times faster than main memory, and 85% of accesses served by it. Part (i) is given nothing.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>state</i> the law, then <i>use</i> it. State means give the law and its formula, and the limiting case is what makes it a law worth stating.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 2 = 4. Half the marks are for a statement you can write from memory in twenty seconds, so never skip part (i) to buy time for part (ii).</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 2, CPU Performance Metrics.</div>
+<div class="urow"><span class="ulab">Trap</span> reading "10 times faster" as the overall speedup. It is the speedup of the improved fraction only, and the 15% that still goes to main memory at full cost caps the whole system at about 4.26. That gap between 10 and 4.26 is the law.</div>
+</div></div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> f = 0.85 &middot; s = 10</div>
 <div class="prow"><span class="plab">Find</span> the overall speedup</div>
@@ -519,42 +1002,151 @@ the point of Amdahl's law.</div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Four (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q4(a) X = C1400000H, Y = 42100000H, Z = 41400000H: convert and test
-(Y &#8722; Z) &gt; 0, X + Z = 0, Z = X + Y. (9)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q4(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q4a">a.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.
+X = C1400000h,	Y = 42100000h,	Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true.	<span class="qmark">9mks</span>
+i.	(Y-Z)&gt;0
+ii.	X + Z = 0
+iii.	Z= X + Y</div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Question One (a) reprinted word for word: the same three hexadecimal values, the same three claims, the same <b>9mks</b>. Only the layout moved, all three values now sitting on one line. The question has now appeared on three papers, which makes it the single most repeated item in the course.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> three 32-bit hexadecimal words and the statement that they are IEEE 754 single precision, which fixes 1 sign bit, 8 exponent bits, 23 mantissa bits and a bias of 127.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>convert</i> all three, then <i>determine which</i> of the three claims are true. The second verb carries the part.</div>
+<div class="urow"><span class="ulab">Marks</span> 9, the largest single part on the paper. Three conversions and three verdicts, so show every conversion.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> stopping at the first true claim. Two of the three are true. Test all three and write a verdict for each.</div>
+</div></div>
 <div class="answerbox">Identical to 2024/25 Q1(a): X = <b>&#8722;12</b>, Y = <b>36</b>,
 Z = <b>12</b>; (i) TRUE, (ii) TRUE, (iii) FALSE. This question has now appeared on three
 papers (23/24 Q1c, 24/25 Q1a, 25/26 Q4a). Learn it cold.</div>
 
-<p class="marks">Q4(b) Write X = ((A &#215; B) + C/D)/(F &#215; G + J &#215; K) in the 0,
-1, 2 and 3 address formats and count the bytes. (8)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q4(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q4b">b.	Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.
+X = ((A * B) +C/D)/(F*G+J*K)	<span class="qmark">8mks</span></div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Q1(d) reprinted, with the <b>8mks</b> moved to the end of the expression line. On the physical paper the sentence "For each format determine the number of bytes required." is struck through in pen and a short handwritten word stands beside it, not crisply legible but reading most nearly as "Dont", so the byte count was cancelled in the hall. The printed sentence is quoted here because that is what the paper prints.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> the same expression as the earlier paper, and four instruction formats. Opcode and address field sizes are again unstated, so 1 byte and 2 bytes are assumed and declared.</div>
+<div class="urow"><span class="ulab">Asked</span> as printed, <i>write</i> the four program segments and <i>determine</i> four byte counts. If the strike-out is repeated in your hall, only the listings are wanted, but write the totals anyway: they cost four lines and cannot lose marks.</div>
+<div class="urow"><span class="ulab">Marks</span> 8, which is 2 per format.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div>
+<div class="urow"><span class="ulab">Trap</span> the stack format. Zero address means every operand is pushed and popped, so the instruction count rises even as each instruction shrinks, and the byte total lands between the 3-address and 2-address cases rather than below both.</div>
+</div></div>
 <div class="answerbox">As 2024/25 Q1(d): <b>49, 60, 51 and 34 bytes</b> for 3, 2, 1 and 0
 address respectively, from 7, 12, 17 and 16 instructions. Full listings in Module One
 Unit 4.</div>
 
-<p class="marks">Q4(c) Find the memory for a 17.12 by 9.45 inch image at 250 dpi. (3)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q4(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q4c">c.	Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Q3(b)(ii) reprinted, minus the full stop after "Megabyte". There it was buried as the second half of a data representation part; here it stands on its own as a whole part of Question Four. Same numbers, same 3mks, same missing bit depth.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> 17.12 inches by 9.45 inches at 250 dots per inch, and no colour depth.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>calculate</i> the requirement and <i>express</i> it in megabytes. The unit is part of the instruction, so an answer in bits is not finished.</div>
+<div class="urow"><span class="ulab">Marks</span> 3: pixel count, byte count, megabyte conversion.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 2, Data Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the megabyte convention. Dividing twice by 1024 gives about 1.21 MB and dividing by one million gives about 1.26 MB, so name the convention you used on the page and the marker cannot mark you down for the other one.</div>
+</div></div>
 <div class="answerbox">10 111 500 pixels &#215; 1 bit = 1 263 937.5 bytes &#8776;
 <b>1.21 MB</b>.</div>
 </div></div>
 
 <div class="box ans"><div class="bar"><span>Answer</span><span class="tag">Question Five (20 marks)</span></div>
 <div class="body">
-<p class="marks">Q5(a) Represent &#8722;1240.56 in IEEE-754 single precision. (6)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5a">a.	Represent the following -1240.56 using Single Precision IEEE format for floating point numbers.	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> Identical to 24/25 Q3(c), down to "Represent the following" and the <b>6mks</b>. Note what is <i>not</i> here: no truncation rule, unlike 24/25 Q5(c), so the mantissa runs to its full 23 bits.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> the value -1240.56 and the single precision format.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>represent</i> it, which means the 32-bit pattern, and the hex equivalent is the natural way to present it.</div>
+<div class="urow"><span class="ulab">Marks</span> 6, of the 20 for Question Five.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the recurring fraction. 0.56 does not terminate in binary, so the mantissa has to be filled to 23 bits and then rounded or truncated, and the last hex digit differs between the two choices. State which you used.</div>
+</div></div>
 <div class="answerbox">1 10001001 00110110001000111101011 = <b>C49B11EBH</b> truncated
 (C49B11ECH if rounded). Working as 2024/25 Q3(c).</div>
 
-<p class="marks">Q5(b) A pipeline of 4 phases 60, 50, 90, 80 ns with 10 ns latch: cycle
-time, non-pipeline time, speedup, and the 500-task times. (5)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5b">b.	Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate-
+i.	Pipeline cycle time	<span class="qmark">1mk</span>
+ii.	Non-pipeline execution time	<span class="qmark">1mk</span>
+iii.	Speed up ratio	<span class="qmark">1mk</span>
+iv.	Pipeline time for 500 tasks	<span class="qmark">1mk</span>
+v.	Sequential time for 500 tasks	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Q5(b) with item <b>vi. Throughput</b> dropped, so five items and 5 marks where the older paper had six and 6. The five 1mk annotations are printed one line lower than the items they belong to, which makes the page look as though the first item carries no marks.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> stage durations 60, 50, 90 and 80 ns, a latch delay of 10 ns, and 500 tasks. The same numbers as the earlier paper.</div>
+<div class="urow"><span class="ulab">Asked</span> five figures, in order. No explanation is asked for anywhere, so every mark is a number with a unit.</div>
+<div class="urow"><span class="ulab">Marks</span> 5, one per item. Throughput is not asked for here, so do not spend time on it.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Two Unit 3, Pipelining.</div>
+<div class="urow"><span class="ulab">Trap</span> the same one as on the older paper: the cycle time is the slowest stage plus the latch, 100 ns and not 90, and four of the five answers are built on it. For 500 tasks the count is k + n - 1 = 503 cycles, not 504.</div>
+</div></div>
 <div class="answerbox">Cycle <b>100 ns</b>; non-pipelined one task <b>280 ns</b>; speedup
 <b>2.8</b>; 500 tasks pipelined <b>50 300 ns</b> against sequential <b>140 000 ns</b>.</div>
 
-<p class="marks">Q5(c) Explain locality of reference and temporal locality. (3)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5c">c.	Explain the following terms	<span class="qmark">3mks</span>
+i.	Locality of reference
+ii.	Temporal locality</div>
+<p class="flag"><b>Read it again.</b> The stem is "Explain the following terms" with no colon, and it lists only <b>two</b> terms where the matching 24/25 part listed three. The third term there was the misspelled "Special Locality", and it has quietly gone. Three marks for two terms means 1½ each, the same rate as the older paper.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing numeric. A pure definitions part.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>explain</i>, not name. At 1½ marks a term that is a definition, a reason and an example.</div>
+<div class="urow"><span class="ulab">Marks</span> 3 for two terms.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module Three Unit 1, Computer Memory Overview.</div>
+<div class="urow"><span class="ulab">Trap</span> defining temporal locality without first defining locality of reference, which is the general principle temporal locality is one case of. Define the parent term, then the special case, then say what the cache does about it. Spatial locality is not asked for here, but one sentence naming it as the other case shows you know the pair.</div>
+</div></div>
 <div class="answerbox">Locality of reference is the tendency of a program to concentrate
 its accesses in a small, predictable set of locations over any short period. <b>Temporal
 locality</b> is the form where a location just accessed is likely to be accessed again
 soon, as a loop counter is, which is why a cache keeps recently used data rather than
 discarding it.</div>
 
-<p class="marks">Q5(d) Find the decimal value of C4F2E000H in IEEE-754 single precision. (6)</p>
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(d)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5d">d.	By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> This is 24/25 Q4(c) reprinted exactly: the same hexadecimal value, the same lower case h, the same <b>6mks</b>, the same instruction to use "the reverse of the IEEE Single Precision procedure". Paired with Q5(a) on the same page, Question Five asks you to run the conversion in both directions.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one 32-bit hexadecimal word, stated to be IEEE single precision.</div>
+<div class="urow"><span class="ulab">Asked</span> <i>determine</i> the base 10 value by reversing the procedure, so the working is part of the answer.</div>
+<div class="urow"><span class="ulab">Marks</span> 6.</div>
+<div class="urow"><span class="ulab">Taught in</span> Module One Unit 3, Floating Point Representation.</div>
+<div class="urow"><span class="ulab">Trap</span> the hidden bit and the bias, in that order. Subtract 127 from the stored exponent field to get the true exponent, then restore the implied leading 1 before shifting. Skipping either step is the difference between -1943 and a number nowhere near it.</div>
+</div></div>
 <div class="answerbox">Sign 1; E = 137 so e = 10; restoring the hidden 1 gives
 1.11100101110 &#215; 2<sup>10</sup> = 11110010111<sub>2</sub> = 1943. Value =
 <b>&#8722;1943</b>.</div>

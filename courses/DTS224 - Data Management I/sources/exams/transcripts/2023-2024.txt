@@ -1,0 +1,247 @@
+TRANSCRIPT: CSC 214, 2023/2024, Alpha semester. (DTS224 is the renamed CSC214.)
+Source: PQ/2023-2024.pdf, a 4-page image-only scan.
+Transcribed BY EYE from the pages rasterised at 2.2x. The PDF carries NO text
+layer at all, so nothing was OCR'd. Read twice.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]]        marker cutting the paper into parts. Not printed.
+  [Figure ...]   my description of a printed drawing. Not printed.
+  {{hand: ...}}  something written on the paper in pen. Not printed.
+  [note: ...]    my aside about how something is SET. Not printed.
+  ---            a ruled line of mine; everything after the first one below the
+                 questions is my commentary, not the paper.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  COVENANT UNIVERSITY
+  CANAANLAND, KM 10, IDIROKO ROAD
+  P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+  B.Sc. DEGREE EXAMINATION
+  COLLEGE: Science & Technology   DEPARTMENT: Computer & Info. Science
+  SESSION: 2023/2024              SEMESTER: Alpha
+  COURSE CODE: CSC 214            CREDIT UNIT: 3
+  COURSE TITLE: High Performance Computing & Database Mgt.   TIME: 3 HOURS
+  INSTRUCTIONS: Attempt any four (4) questions and write legibly.
+
+=====================================================================
+Question 1
+
+[[Q1a]]
+(a) Define the following relational concepts:
+    (i)     Superkey                                                 (1 mark)
+    (ii)    Primary key                                              (1 mark)
+    (iii)   Foreign key                                              (1 mark)
+    (iv)    Candidate key                                            (1 mark)
+
+[[Q1b]]
+(b) Use the EmployeeInfo relational database schema to answer questions (i-vii)
+    EmployeeInfo  Schema
+        Emp (Eid, Ename, Age, Salary)
+        Works (Eid, Did, per_time)
+        Dept (Did, Dname, Budget, managerid)
+    (i)     Write an SQL statement to create the relations in the EmployeeInfo schema (4½ marks)
+    (ii)    Write an SQL statement to add a 40 years Azi Esther whose employee_Id is101,
+            and with salary of 15000.                                (1½marks)
+    (iii)   Write an SQL statement to give every employee a 10 percent salary increase. (1½ marks)
+    (iv)    Write an SQL statement to delete the Toy department.     (1½mark)
+    (v)     Write an SQL query to increment the budget of the account department to 8 million.
+                                                                     (1½marks)
+    (vi)    Write an SQL statement to remove the Dept relation completely from the EmployeeInfo
+            Database                                                 (1½marks)
+    (vii)   Write an SQL statement to make the column Eid come first when the Emp relation is
+            queried.                                                 (1½marks)
+
+[note: in the printed schema the identifiers are underlined and italic: Eid in Emp, Eid and Did in Works, Did in Dept.]
+
+=====================================================================
+Question Two
+
+[[Q2a]]
+(a) Differentiate between the following relational concepts with Example
+    (i)     Strong and weak entity                                   (2½marks)
+    (ii)    Disjoint and Overlap participation                       (2½marks)
+
+[[Q2b]]
+(b) Business rule is important in data modelling, as it represent an organisation operation interaction
+    among the stakeholders and the data flow. As a database administrator you have been asked by the
+    management of Alex & Suite legal firm to come up with a standard business rule that will capture
+    their organisation operation interaction and data flow. Explain Four important qualities you will
+    need to consider in making your delivery.                        (4marks)
+
+[[Q2c]]
+(c) Each case handled by Alex & Suite firm has a unique case number; a date opened, date closed,
+    and judgment description are also kept on each case. A case is brought by one or more plaintiffs,
+    and the same plaintiff is involved in at least one case. A plaintiff has a requested judgment
+    characteristic. A case is against one or more defendants, and the same defendant is usually
+    involved in one or many cases. A plaintiff or defendant may be a person or an organization
+    usually referred to as a legal entity. Over time, the same person or organization may be a
+    defendant or a plaintiff in cases. In either situation, such legal entities are identified by an entity
+    number, and other attributes are name and net worth.
+    Develop an ERD/EERD for the business rule follow good data naming guidelines and
+    constraints.                                                     (8½marks)
+
+=====================================================================
+Question Three
+
+[[Q3a]]
+(a) What is Normalization                                            (1½marks)
+
+[[Q3b]]
+(b) Explain the following Terms with example
+    (i)  Full Functional Dependency                                  (1½marks)
+    (ii) Partial Functional Dependency                               (1½marks)
+    (iii) Transitive functional Dependency                           (1½marks)
+
+[[Q3c]]
+(c) Given the Customer_renter Relation and the information below answer the following question
+    (i)  Draw the functional dependency diagram for the relation     (2marks)
+    (ii) Normalize the relation to 3rd Normal forms. The primary key is Customer_No, Property_No.
+                                                                     (9½marks)
+
+    Customer_renter Relation
+
+    Customer_No | CName | Property_No | Paddress            | RentStart | RentFinish | Rent | Owner_No | OName
+    CR76        | John  | PG4         | 6,Lawrence          | 1-Jul-04  | 31-Aug-06  | 350  | CO40     | Tina
+                | Kay   |             | St. Ikoyi           |           |            |      |          | Murphy
+                |       | PG16        |                     | 1-Sep-06  | 1-Sep-08   | 450  | CO93     |
+                |       |             | 5, Novar St,        |           |            |      |          | Tony Shaw
+                |       |             | Oshodi              |           |            |      |          |
+    CR56        | Fred  | PG4         | 6,Lawrence          | 1-Sep 02  | 10-Jun-04  | 350  | CO40     | Tina
+                | Wey   | PG36        | St. Ikoyi           | 10-Oct-04 | 1-Dec-06   | 375  | CO93     | Murphy
+                |       | PG16        | 2, Fred St.         | 1-Jan-06  | 10-Aug-06  | 450  | CO93     | Tony Shaw
+                |       |             | Apapa               |           |            |      |          | Tony Shaw
+                |       |             | 5, Novar St,        |           |            |      |          |
+                |       |             | Oshodi              |           |            |      |          |
+
+    Functional dependencies:
+    fd1: Customer_No, Property_No →RentStart, RentFinish  (Pk)
+    fd2: Customer_No →CName (Pd)
+    fd3: Property_No→Paddress,Rent ,Owner_No, OName (Pd)
+    fd4: Owner_No→OName (Td)
+    fd5: Customer_No , RentStart →Property_No, Paddress, Rent , Owner_No, OName (Ck)
+    fd6: Property_No, RentStart →Customer_No, CName, RentFinish (Ck)
+
+=====================================================================
+Question Four
+
+[[Q4a]]
+(a) Briefly differentiate the following pair of concepts with example
+    (i) Supertypes and subtypes                                      (2½marks)
+    (ii) Generalization and specialization                           (2½marks)
+
+[[Q4b]]
+(b) Transform the conceptual design for patient and treatment in Figure1 into a logical design
+                                                                     (6marks)
+
+[Figure 1: a photocopied crow's-foot conceptual design. PHYSICIAN (Physician ID,
+Physician Name) connects down to PATIENT TREATMENT (PTreatment Date, PTreatment Time,
+PTreatment Results), which sits between PATIENT (Patient ID, Patient Name) on the left
+and TREATMENT (Treatment Code, Treatment Description) on the right. Captioned
+"Figure 1: Patient_treatment conceptual design".]
+
+[[Q4c]]
+(c) Giving an EER diagram for Vacation Property Rentals in Figure 2 Transform the EER diagram to
+    a set of relations and develop its relational/logical schema.    (6½marks)
+
+[Figure 2: a photocopied EER diagram. RENTER (Renter ID underlined, First Name, Middle
+Initial, Last Name, Address, Phone Number) "Signs" RENTAL AGREEMENT (Agreement ID
+underlined, Begin Date, End Date, Rental Agreement). "Books" runs from PROPERTY up to
+RENTAL AGREEMENT. PROPERTY (PK Property ID, Street Address, City, Zip, State, Number of
+Rooms, Base Rate, Property Type) carries a specialization circle marked d, labelled
+"Property Type =", splitting into BEACH PROPERTY (Blocks to Beach) tagged "B" and
+MOUNTAINS PROPERTY ({Activity}) tagged "M". Captioned "Figure 2: EER diagram for
+Vacation Property Rentals".]
+
+=====================================================================
+Question Five
+
+[[Q5a]]
+(a) State four justifications for organizations to adopt the conversion from the traditional file
+    processing system to the database approach.                      (2marks)
+
+[[Q5b]]
+(b) Explain two (2) costs and risks of adopting the database approach in managing data for a business
+    that previously used a traditional file processing system.       (2marks)
+
+[[Q5c]]
+(c) State and describe three integrity controls to be considered in designing a data field. (4½marks)
+
+[[Q5d]]
+(d) Define Vertical and horizontal partitioning                      (3 marks)
+
+[[Q5e]]
+(e) Explain four benefits horizontal partitioning                    (4 marks)
+
+[[Q5f]]
+(f) Define the following terms under Hash file organization          (2 marks)
+    (i)     Hash Index Table
+    (ii)    Pointer
+    (iii)   Hashed file organization
+    (iv)    Hashing algorithm
+
+=====================================================================
+Question Six
+
+[[Q6a]]
+(a) What is an attribute? Explain four different types of attributes with example.
+                                                                     (4½marks)
+
+[[Q6b]]
+(b) Based on the Figure 3, answer the following questions and explain the rationale
+    for your response. For each question, identify the element(s)  in the E-R diagram
+    that you used to determine your answer .                         (13marks)
+
+[Figure 3: a photocopied E-R diagram. Customer carries a self-relationship labelled
+"Family member". Customer relates to Plan by two separate relationships, labelled
+"Is responsible to" and "Belongs". Plan relates to Plan Type, and to Handset by
+"Includes". Manufacturer relates to Handset Type, Handset Type to Operating System,
+and Handset to Handset Type. Captioned "Figure 3: Customer Design".]
+
+    (i)     Can a customer have an unlimited number of plans?
+    (ii)    Can a customer exist without a plan?
+    (iii)   Is it possible to create a plan without knowing who the customer is?
+    (iv)    Does the operator want to limit the types of hand   sets that can be linked to a specific
+            plan type?
+    (v)     Is it possible to maintain data regarding a hand   set without connecting it to a plan?
+    (vi)    Can a handset be associated with multiple plans?
+    (vii)   Assume a handset type exists that can utilize multiple operating systems. Could this
+            situation be accommodated within the model included in Figure 3?
+    (viii)  Is the company able to track a manufacturer without maintaining information about its
+            handsets?
+    (ix)    Can the same operating system be used on multiple handset types?
+    (x)     There are two relationships between Customer and Plan. Explain how they differ.
+    (xi)    Characterize the degree and the cardinalities of the relationship that connects Customer
+            to itself. Explain its meaning.
+    (xii)   Is it possible to link a handset to a specific customer in a plan with multiple customers?
+    (xiii)  Can the company track a handset without identifying its operating system?
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. Q1(b)(ii) prints "whose employee_Id is101" with no space between "is" and the
+   number. Left as printed.
+
+2. Q1(b)(iv) prints "(1½mark)", singular, where its neighbours print "(1½marks)".
+
+3. Q3(a) "What is Normalization" and Q3(c)(i) "Draw the functional dependency
+   diagram for the relation" both end without a full stop or question mark.
+
+4. Q3(c) fd3 and fd5 print stray spaces before commas: "Paddress,Rent ,Owner_No"
+   and "Customer_No , RentStart" and "Rent , Owner_No". Reproduced as printed.
+
+5. Q3(c) table row CR56 prints its first rent start as "1-Sep 02", with a space
+   where every other date in the table has a hyphen, and a two-digit year where
+   the rest are two-digit as well but hyphenated. Left as printed.
+
+6. Q4(b) prints "Figure1" closed up, where Q4(c) prints "Figure 2" spaced.
+
+7. Q5(e) prints "Explain four benefits horizontal partitioning", missing an "of".
+
+8. Q6(b)(iv) and (v) print "hand   sets" and "hand   set" with the word broken by
+   wide internal spacing, an artefact of the paper's justification. Reproduced.
+
+9. Q6(b)(vii) refers to "Figure 3"; on this copy the digit has been overwritten in
+   pen. The printed digit under the ink reads 3, which is also the only figure the
+   question can mean.
+
+10. The paper is CSC 214, the former code for this course. Semester is Alpha here,
+    where the 24/25 and 25/26 papers are Omega.

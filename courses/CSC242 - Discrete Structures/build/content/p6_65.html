@@ -1,0 +1,425 @@
+<section>
+  <div class="kick">Part Six &middot; 6.5</div>
+  <h2 class="title">Adjacency, Path and Relation Matrices</h2>
+  <hr class="rule">
+  <p class="lead">A graph can be stored as a grid of ones and zeros. Once it is,
+  questions about routes become questions about multiplying the grid by itself,
+  and the newest paper gives 6.5 marks to how a computer holds it.</p>
+  <p class="lo">By the end of this section you will be able to write the adjacency
+  matrix of a graph or digraph, read degrees off it, build the path matrix from
+  powers of the adjacency matrix, tell a logical matrix from a relation matrix,
+  and answer the four matrix questions on the 2025/2026 paper.</p>
+
+  <h3 class="sub">The adjacency matrix</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Adjacency matrix</span></div>
+    <div class="body">
+      <p>Number the vertices 1 to n in a fixed order. The <b>adjacency matrix</b>
+      A of the graph is the n by n grid whose entry in row i, column j is</p>
+      <p style="margin-left:12pt"><b>a<sub>ij</sub></b> = the number of edges from
+      vertex i to vertex j, which for a simple graph is <b>1</b> if they are
+      joined and <b>0</b> if they are not.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the order of the graph, so A is always square
+      and always n by n.
+      <span class="sym">the vertex order</span> must be fixed and stated first.
+      Re-number the vertices and you get a different-looking matrix for the same
+      graph.
+      <span class="sym">a<sub>ii</sub></span>, on the leading diagonal, records
+      loops at vertex i.</div>
+      <p><b>Three properties to state whenever you are asked to explain one.</b></p>
+      <ol class="qlist">
+        <li>For an <b>undirected</b> graph, A is <b>symmetric</b>:
+        a<sub>ij</sub> = a<sub>ji</sub>, because an edge joining i and j joins j
+        and i. For a <b>digraph</b> it usually is not, since an arc has a
+        direction.</li>
+        <li><b>The row sum is the degree.</b> Adding across row i gives deg(i)
+        for an undirected simple graph, and deg<sup>+</sup>(i) for a digraph;
+        the column sum gives deg<sup>&#8722;</sup>(i).</li>
+        <li>A <b>simple</b> graph has zeros all along the leading diagonal,
+        because a simple graph has no loops.</li>
+      </ol>
+      <p class="hook"><b>Memory hook:</b> <b>row to column, tail to head.</b> Read
+      a<sub>ij</sub> as "from i to j". For an undirected graph the direction does
+      not matter and the matrix comes out symmetric, which is itself the proof
+      that the graph is undirected.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:90%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.4" fill="none">
+        <path d="M70 46 L170 46"/><path d="M170 46 L170 130"/>
+        <path d="M170 130 L70 46"/><path d="M170 130 L110 178"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="70" cy="46" r="6"/><circle cx="170" cy="46" r="6"/>
+        <circle cx="170" cy="130" r="6"/><circle cx="110" cy="178" r="6"/>
+      </g>
+      <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+        <text x="56" y="36">1</text><text x="182" y="36">2</text>
+        <text x="184" y="134">3</text><text x="96" y="194">4</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#67707a">
+        <text x="238" y="30">to:</text>
+        <text x="284" y="30">1</text><text x="314" y="30">2</text><text x="344" y="30">3</text><text x="374" y="30">4</text>
+        <text x="238" y="54">from 1</text><text x="238" y="78">from 2</text>
+        <text x="238" y="102">from 3</text><text x="238" y="126">from 4</text>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="12" fill="#232a31">
+        <text x="284" y="54">0</text><text x="314" y="54">1</text><text x="344" y="54">1</text><text x="374" y="54">0</text>
+        <text x="284" y="78">1</text><text x="314" y="78">0</text><text x="344" y="78">1</text><text x="374" y="78">0</text>
+        <text x="284" y="102">1</text><text x="314" y="102">1</text><text x="344" y="102">0</text><text x="374" y="102">1</text>
+        <text x="284" y="126">0</text><text x="314" y="126">0</text><text x="344" y="126">1</text><text x="374" y="126">0</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10.5" fill="#283593">
+        <text x="410" y="54">deg 2</text><text x="410" y="78">deg 2</text>
+        <text x="410" y="102">deg 3</text><text x="410" y="126">deg 1</text>
+      </g>
+      <text x="238" y="156" font-family="DejaVu Sans" font-size="10" fill="#67707a">symmetric, zero diagonal, row sums are the degrees</text>
+      <text x="238" y="176" font-family="DejaVu Sans" font-size="10" fill="#67707a">degree sum 8 = 2 &#215; 4 edges</text>
+    </svg>
+    <figcaption>A graph and its adjacency matrix. Everything you can say about the
+    graph can be read off the grid, which is the point of building it.</figcaption>
+  </figure>
+
+  <h3 class="sub">The path matrix</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Walks, and the path matrix</span></div>
+    <div class="body">
+      <p><b>The key fact.</b> If A is the adjacency matrix, then the entry in row
+      i, column j of <b>A<sup>k</sup></b> is the number of <b>walks of length
+      exactly k</b> from vertex i to vertex j.</p>
+      <p>The <b>path matrix</b> (also called the reachability matrix) P records
+      only whether a route exists at all:</p>
+      <p style="margin-left:12pt"><b>p<sub>ij</sub> = 1</b> if there is a path
+      from i to j, and <b>0</b> if there is none.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">a walk of length k</span> is a sequence of k edges
+      followed end to end; vertices and edges may repeat.
+      <span class="sym">A<sup>k</sup></span> is A multiplied by itself k times,
+      using ordinary arithmetic.
+      <span class="sym">P</span> is built from A + A<sup>2</sup> + &#8230; +
+      A<sup>n&#8722;1</sup> by replacing every non-zero entry with 1. Nothing
+      longer than n &#8722; 1 edges is needed: a path that visits no vertex twice
+      cannot use more.</div>
+      <p><b>The difference the exam asks about, in one line:</b> the
+      <b>adjacency</b> matrix answers "can I get there in <b>one</b> step?"; the
+      <b>path</b> matrix answers "can I get there <b>at all</b>?"</p>
+      <p class="hook"><b>Memory hook:</b> <b>adjacency is one hop, path is any
+      number of hops.</b> Powers of A count the routes of each exact length;
+      flattening the sum to ones and zeros forgets how many and remembers only
+      whether.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; from adjacency to path matrix</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The graph in the figure above: vertices 1, 2, 3, 4 with
+        edges 1-2, 1-3, 2-3 and 3-4.</dd>
+        <dt>Find</dt><dd>A, then A<sup>2</sup>, then the path matrix P.</dd>
+        <dt>Rule</dt><dd>The (i, j) entry of A<sup>k</sup> counts walks of length
+        k; P flattens the sum of the powers to ones and zeros.</dd>
+      </dl>
+      <p><b>Step 1. Write A,</b> stating the vertex order 1, 2, 3, 4.</p>
+      <table class="data">
+        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><th>2</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>3</th><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><th>4</th><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+      </table>
+      <p><b>Step 2. Square it.</b> Entry (i, j) of A<sup>2</sup> is row i of A
+      dotted with column j of A. For instance entry (1, 1):</p>
+      <p style="margin-left:12pt">(0 &#215; 0) + (1 &#215; 1) + (1 &#215; 1) +
+      (0 &#215; 0) = <b>2</b></p>
+      <p>and there are indeed two walks of length 2 from vertex 1 back to itself,
+      namely 1 to 2 to 1 and 1 to 3 to 1.</p>
+      <table class="data">
+        <tr><th>A<sup>2</sup></th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>2</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><th>2</th><td>1</td><td>2</td><td>1</td><td>1</td></tr>
+        <tr><th>3</th><td>1</td><td>1</td><td>3</td><td>0</td></tr>
+        <tr><th>4</th><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+      </table>
+      <p><b>Read one entry aloud to prove you understand it.</b> Entry (3, 3) is
+      3, so there are three walks of length 2 from vertex 3 to itself: out and
+      back along each of its three edges, to 1, to 2 and to 4. Entry (3, 4) is 0,
+      because there is no walk of exactly two edges from 3 to 4, only the direct
+      one of length 1.</p>
+      <p><b>Step 3. Build the path matrix.</b> Add A, A<sup>2</sup> and
+      A<sup>3</sup>, then replace every non-zero by 1. Every entry comes out
+      non-zero, so</p>
+      <table class="data">
+        <tr><th>P</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><th>2</th><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><th>3</th><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><th>4</th><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      </table>
+      <p><b>What P tells you at a glance:</b> every vertex reaches every other,
+      so <b>the graph is connected</b>. A path matrix with a block of zeros in one
+      corner is the signature of a disconnected graph, and that is the usual
+      reason for computing it.</p>
+      <p class="redo"><b>Now redo it:</b> delete the edge 3-4. Vertex 4 then
+      reaches nothing, so row 4 and column 4 of P become all zero apart from the
+      diagonal, and the graph is disconnected.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Adjacency against path matrix</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1 a) iv)</span></div>
+    <div class="body">
+      <p><b>The question</b> is quoted in full in section 6.1: "iv) Adjacency and
+      Path Matrice", 2 marks, wanting the difference <b>with two examples
+      each</b>. The paper's "Matrice" is a slip for "Matrix" or "Matrices".</p>
+      <table class="data">
+        <tr><th></th><th>Adjacency matrix</th><th>Path matrix</th></tr>
+        <tr><td>Records</td><td>direct connection, one edge</td><td>reachability,
+        any number of edges</td></tr>
+        <tr><td>Entry a<sub>ij</sub> or p<sub>ij</sub></td><td>1 if i and j are
+        joined by an edge</td><td>1 if some path runs from i to j</td></tr>
+        <tr><td>Obtained from</td><td>the drawing directly</td><td>A,
+        A<sup>2</sup>, &#8230; summed and flattened to 1s and 0s</td></tr>
+        <tr><td>Answers</td><td>"is there a road between these two towns?"</td>
+        <td>"can I drive from this town to that one?"</td></tr>
+      </table>
+      <p><b>Two examples for the adjacency matrix.</b> (1) In the graph above,
+      a<sub>12</sub> = 1 because 1 and 2 are joined; a<sub>14</sub> = 0 because
+      they are not. (2) In K<sub>3</sub>, every off-diagonal entry is 1 and every
+      diagonal entry is 0.</p>
+      <p><b>Two examples for the path matrix.</b> (1) In the same graph
+      p<sub>14</sub> = 1, because 1 to 3 to 4 is a path, even though
+      a<sub>14</sub> = 0. That single pair is the clearest possible illustration
+      of the difference and is worth writing down. (2) In a graph of two separate
+      triangles, P has ones inside each triangle's block and zeros between the
+      blocks, showing at once that the graph is disconnected.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Logical matrix against relation matrix</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Logical and relation matrices</span></div>
+    <div class="body">
+      <p>A <b>logical matrix</b> (also called a Boolean or binary matrix) is any
+      matrix whose entries are all 0 or 1, where the entries are read as
+      <b>false</b> and <b>true</b> rather than as numbers.</p>
+      <p>A <b>relation matrix</b> is the particular logical matrix that records a
+      relation R from a set A to a set B, as defined in section 3.1:</p>
+      <p style="margin-left:12pt"><b>m<sub>ij</sub> = 1</b> exactly when
+      (a<sub>i</sub>, b<sub>j</sub>) is in R, and <b>0</b> otherwise.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">a<sub>i</sub></span> is the i-th element of A in a fixed
+      listed order, giving the rows.
+      <span class="sym">b<sub>j</sub></span> is the j-th element of B, giving the
+      columns. For a relation on one set, A and B are the same and the matrix is
+      square.
+      <span class="sym">m<sub>ij</sub></span> is 1 or 0, and it is a
+      <b>truth value</b>, not a count.</div>
+      <p><b>The relationship between the three terms,</b> which is what a
+      "differentiate between" question is really asking for:</p>
+      <ul class="bul">
+        <li>Every relation matrix <b>is</b> a logical matrix. The reverse does
+        not hold: a logical matrix is only a relation matrix once you say which
+        sets index its rows and columns.</li>
+        <li>An adjacency matrix of a <b>simple</b> graph is also a logical
+        matrix, and it is exactly the relation matrix of the relation "is joined
+        to". A multigraph's adjacency matrix is <b>not</b> logical, because its
+        entries count parallel edges and may exceed 1.</li>
+      </ul>
+      <p class="hook"><b>Memory hook:</b> <b>logical says what the entries are,
+      relation says what they mean.</b> The first is a description of the
+      contents; the second is a description of the job.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1 a) v)</span></div>
+    <div class="body">
+      <p><b>The question</b> is quoted in full in section 6.1: "v) A logical
+      matrix and relation matrix", printed "(2marks)" with no space.</p>
+      <p><b>The distinction.</b> A logical matrix is any matrix all of whose
+      entries are 0 or 1, read as false and true. A relation matrix is a logical
+      matrix whose rows are labelled by the elements of one set and whose columns
+      are labelled by the elements of another, with a 1 marking exactly the pairs
+      that belong to the relation. So every relation matrix is a logical matrix
+      given a job to do; not every logical matrix has been given that job.</p>
+      <p><b>Two examples of a logical matrix.</b> (1) The 2 by 2 grid with rows
+      (1, 0) and (0, 1) is logical, and until its rows and columns are labelled it
+      records nothing in particular. (2) The truth table of a two-variable
+      connective, written as a grid of Ts and Fs, is a logical matrix in disguise.</p>
+      <p><b>Two examples of a relation matrix.</b> (1) On A = {1, 2, 3} the
+      relation "is less than" has 1 exactly above the diagonal:</p>
+      <table class="data">
+        <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+        <tr><th>1</th><td>0</td><td>1</td><td>1</td></tr>
+        <tr><th>2</th><td>0</td><td>0</td><td>1</td></tr>
+        <tr><th>3</th><td>0</td><td>0</td><td>0</td></tr>
+      </table>
+      <p>(2) The adjacency matrix of the simple graph drawn above is the relation
+      matrix of "is joined to" on {1, 2, 3, 4}.</p>
+      <p><b>The line that earns the second mark:</b> section 3.2 showed that the
+      properties of a relation can be read straight off its matrix, the diagonal
+      for reflexive and the mirror image for symmetric. That is only possible
+      because the rows and columns are labelled, which is precisely what makes it
+      a relation matrix rather than a bare logical one.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Explaining the adjacency matrix, and its memory cost</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q6a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q6(a)</span></div>
+    <div class="body">
+      <p class="q">(a) i.      Clearly explain Adjacency matrix <span class="mk">(2&#189; marks)</span></p>
+      <p class="qi">ii.     Discuss memory management in Adjacency matrix <span class="mk">(4 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Part (ii) is the most unusual question on any of the five papers: it is a
+  <b>systems</b> question wearing a discrete maths hat, and at 4 marks it is worth
+  more than part (i). "Memory management" here means how the matrix is stored,
+  what it costs, and when a different structure is the better choice. A candidate
+  who only defines the matrix again cannot score it.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. Both parts are explanation.</dd>
+      <dt>Asked</dt><dd>(i) <b>Clearly explain</b> the adjacency matrix. (ii)
+      <b>Discuss</b> memory management in it. "Discuss" invites several points,
+      not one.</dd>
+      <dt>Marks say</dt><dd>2.5 and 4. Part (ii) wants roughly four distinct
+      points, one per mark: the cost, why it is that cost, when it is wasteful,
+      and what to do instead.</dd>
+      <dt>Teaches</dt><dd>This section, 6.5.</dd>
+      <dt>Trap</dt><dd>Answering (ii) by repeating (i). They are different
+      questions and the marker is looking for storage, not definition.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q6(a)</span></div>
+    <div class="body">
+      <p class="marks">i. Clearly explain the adjacency matrix</p>
+      <p><b>Definition.</b> Fix an order on the n vertices of a graph. The
+      adjacency matrix A is the n by n matrix whose entry a<sub>ij</sub> is the
+      number of edges from vertex i to vertex j, which is 1 or 0 for a simple
+      graph.</p>
+      <p><b>What it is for.</b> It turns a drawing into data. A picture cannot be
+      given to a program; a grid of numbers can, and every graph algorithm in
+      computing starts from a representation of this kind.</p>
+      <p><b>Its properties,</b> which is where the half marks live: it is square;
+      it is symmetric exactly when the graph is undirected; its diagonal is zero
+      exactly when there are no loops; its row sums are the degrees; and the
+      entries of A<sup>k</sup> count the walks of length k.</p>
+      <p><b>An example.</b> Give the four-vertex matrix drawn above, with its
+      vertex order stated, and point at one entry: a<sub>34</sub> = 1 because
+      vertices 3 and 4 are joined, while a<sub>14</sub> = 0 because they are not.</p>
+
+      <p class="marks">ii. Memory management in the adjacency matrix</p>
+      <p>Four points, one per mark.</p>
+      <ol class="qlist">
+        <li><b>The cost is n<sup>2</sup>, whatever the graph.</b> An adjacency
+        matrix stores an entry for every ordered pair of vertices, so a graph of
+        n vertices needs n<sup>2</sup> cells regardless of how many edges it
+        actually has. A graph on 1000 vertices needs 1000000 cells even if it has
+        only 5 edges. The storage depends on the <b>order</b>, never on the
+        <b>size</b>.</li>
+        <li><b>It is wasteful on sparse graphs, and most real graphs are
+        sparse.</b> A graph is <b>sparse</b> when its edge count is far below the
+        n(n &#8722; 1)/2 maximum, and <b>dense</b> when it is near it. Road
+        networks, social graphs and computer networks are all sparse: a city has
+        millions of junctions and each meets three or four roads. For these the
+        matrix is almost entirely zeros, and storing zeros costs exactly as much
+        as storing ones.</li>
+        <li><b>Two savings are available without changing structure.</b> First,
+        an undirected graph's matrix is symmetric, so only the upper triangle
+        need be held, roughly halving the space to n(n &#8722; 1)/2 cells.
+        Second, a simple graph's entries are single bits, so 64 of them pack into
+        one machine word instead of one integer each; that is a factor of 32 or
+        64 on the same data.</li>
+        <li><b>The alternative is an adjacency list.</b> Store, for each vertex,
+        only the list of its neighbours. That costs about n + 2|E| for an
+        undirected graph rather than n<sup>2</sup>, which is dramatically less
+        when |E| is small. The trade-off is the point to state: the matrix answers
+        "are i and j adjacent?" in constant time by one lookup, while the list
+        must scan a neighbour list; but the list walks all the neighbours of a
+        vertex in time proportional to their number, while the matrix must scan a
+        whole row of n cells to find them.</li>
+      </ol>
+      <p><b>The closing sentence that makes it a discussion rather than a
+      list:</b> choose the adjacency matrix for small or dense graphs and for
+      algorithms that ask "is this pair joined?" repeatedly; choose the adjacency
+      list for large sparse graphs and for algorithms that walk neighbours, which
+      is most traversal and shortest-path work.</p>
+      <table class="data">
+        <tr><th></th><th>Adjacency matrix</th><th>Adjacency list</th></tr>
+        <tr><td>Space</td><td>n<sup>2</sup></td><td>about n + 2|E|</td></tr>
+        <tr><td>"Are i and j joined?"</td><td>one lookup</td><td>scan i's
+        list</td></tr>
+        <tr><td>"List the neighbours of i"</td><td>scan n cells</td><td>read the
+        list, deg(i) items</td></tr>
+        <tr><td>Best for</td><td>small or dense graphs</td><td>large sparse
+        graphs</td></tr>
+      </table>
+      <p class="redo"><b>Now redo it:</b> a graph has 500 vertices and 800 edges.
+      The matrix needs 500<sup>2</sup> = 250000 cells; the list needs about
+      500 + 1600 = 2100. The list is the right choice by a factor of over a
+      hundred.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What does a<sub>ij</sub> record, and what must be fixed
+      before you can write A at all?</p>
+      <p class="q">2. Why is the adjacency matrix of an undirected graph
+      symmetric?</p>
+      <p class="q">3. What do the entries of A<sup>2</sup> count?</p>
+      <p class="q">4. Give the one-line difference between an adjacency matrix
+      and a path matrix.</p>
+      <p class="q">5. How much space does an adjacency matrix need, and how much
+      does an adjacency list need?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. The number of edges from vertex i to vertex j. The order of the
+      vertices must be fixed and stated.<br>
+      2. An edge joining i and j also joins j and i, so a<sub>ij</sub> =
+      a<sub>ji</sub>.<br>
+      3. The number of walks of length exactly 2 between each pair.<br>
+      4. Adjacency records one-step connection; the path matrix records whether
+      any route exists at all.<br>
+      5. n<sup>2</sup> cells for the matrix, about n + 2|E| for the list.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The row sums of an adjacency matrix are the
+        <span class="blank"></span>.</li>
+        <li>The entries of A<sup>k</sup> count the
+        <span class="blank"></span> of length <span class="blank"></span>.</li>
+        <li>Every relation matrix is a <span class="blank"></span> matrix, but
+        not conversely.</li>
+        <li>An adjacency matrix costs <span class="blank"></span> cells whatever
+        the number of edges.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. degrees. 2. walks, k. 3. logical. 4. n<sup>2</sup>.</p>
+    </div>
+  </div>
+
+</section>

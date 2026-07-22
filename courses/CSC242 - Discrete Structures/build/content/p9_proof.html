@@ -1,0 +1,565 @@
+<section class="part">
+  <div class="kicker">Part Nine</div>
+  <h1>Proof, Induction<br>and Recursion</h1>
+  <div class="blurb">Everywhere else in this book you were asked what something
+  is. Here you are asked to show that it must be so. Six strategies cover every
+  proof this course sets, and one of them, induction, is the ladder that climbs
+  forever from a single rung.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.4" fill="#eef0f8">
+        <rect x="30" y="86" width="9" height="34" transform="rotate(-52 34 120)"/>
+        <rect x="66" y="82" width="9" height="38" transform="rotate(-38 70 120)"/>
+        <rect x="104" y="80" width="9" height="40" transform="rotate(-22 108 120)"/>
+        <rect x="142" y="78" width="9" height="42" transform="rotate(-10 146 120)"/>
+      </g>
+      <g stroke="#be123c" stroke-width="1.4" fill="#fdeef1">
+        <rect x="180" y="78" width="9" height="42"/>
+        <rect x="212" y="78" width="9" height="42"/>
+        <rect x="244" y="78" width="9" height="42"/>
+      </g>
+      <g stroke="#8891c9" stroke-width="1.2" fill="none">
+        <path d="M300 120 L300 34"/><path d="M336 120 L336 34"/>
+        <path d="M300 106 L336 106"/><path d="M300 88 L336 88"/>
+        <path d="M300 70 L336 70"/><path d="M300 52 L336 52"/>
+        <path d="M300 38 L336 38" stroke-dasharray="3 4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10.5" fill="#5b6480">
+        <text x="34" y="24">P(1) falls</text>
+        <text x="180" y="24">P(k) &#8658; P(k + 1)</text>
+        <text x="360" y="60">so every rung</text>
+        <text x="360" y="78">is reachable</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Nine &middot; 9.1</div>
+  <h2 class="title">Proof Techniques</h2>
+  <hr class="rule">
+  <p class="lead">A proof is not a feeling that something is true. It is a chain
+  of steps from things already agreed to the thing claimed, where every link can
+  be checked by someone who does not trust you. This section gives you the six
+  chains this course uses, and the vocabulary the examiner uses to ask for
+  them.</p>
+  <p class="lo">By the end of this section you will be able to say what a
+  theorem, lemma, corollary, proposition, conjecture and axiom each are; write a
+  trivial, vacuous, direct, contrapositive, contradiction or cases proof and
+  choose between them; use the definitions of even, odd, rational and divides
+  fluently; and lay a proof out so a marker can follow it line by line.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What is being asked for</span></div>
+    <div class="body">
+      <p>When a question says <b>prove</b>, <b>show that</b>, <b>establish</b>
+      or <b>demonstrate</b>, it wants an argument that holds for <b>every</b>
+      case covered by the claim, not one example. One example proves nothing
+      except an existence claim.</p>
+      <p>The mirror image matters just as much. To <b>disprove</b> a claim about
+      all cases you need exactly <b>one</b> counterexample, and no more. Section
+      3.2 already used this: a single pair (1, 2) with (2, 1) missing kills
+      symmetry outright.</p>
+      <table class="data">
+        <tr><th>The claim says</th><th>To prove it</th><th>To disprove it</th></tr>
+        <tr><td>For all x, P(x)</td><td>an argument about an arbitrary x</td><td>one counterexample</td></tr>
+        <tr><td>There exists x with P(x)</td><td>one example (a witness)</td><td>an argument about an arbitrary x</td></tr>
+      </table>
+      <p>That table is just the quantifier negation of section 1.4 read as
+      advice: the negation of "for all" is "there exists ... not", so disproving
+      a universal claim is proving an existential one, and finding a witness is
+      the whole job.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The vocabulary of provable things</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Theorem, lemma, corollary and the rest</span></div>
+    <div class="body">
+      <p>These words are not interchangeable, and a question that asks you to
+      "differentiate" between them wants the distinction, not a definition of
+      each in isolation.</p>
+      <table class="data">
+        <tr><th>Word</th><th>What it is</th><th>The distinguishing feature</th></tr>
+        <tr><td><b>Axiom</b></td><td>a statement taken as true without proof</td><td>the starting point; nothing is behind it</td></tr>
+        <tr><td><b>Theorem</b></td><td>a statement shown to be true</td><td>important in its own right</td></tr>
+        <tr><td><b>Proposition</b></td><td>a statement shown to be true</td><td>true, proved, but of lesser importance</td></tr>
+        <tr><td><b>Lemma</b></td><td>a statement proved in order to prove something else</td><td>a helper; it exists to serve a later proof</td></tr>
+        <tr><td><b>Corollary</b></td><td>a statement that follows at once from a theorem</td><td>comes after, and costs almost no extra work</td></tr>
+        <tr><td><b>Conjecture</b></td><td>a statement believed true but not yet proved</td><td>no proof exists yet; it may still be false</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>a lemma comes before, a corollary
+      comes after, and a conjecture has not arrived at all.</b> The theorem is
+      the thing in the middle that everyone remembers.</p>
+      <p><b>Worth one line in an answer.</b> A conjecture that is proved becomes
+      a theorem; a conjecture that is disproved becomes nothing at all. The word
+      records the state of our knowledge, not a property of the statement.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The definitions every proof in this course leans on</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Even, odd, rational, divides</span></div>
+    <div class="body">
+      <p>Almost every proof set on this course is unlocked by writing one of
+      these four definitions down. If you are stuck, the move is nearly always
+      "replace the word by its definition".</p>
+      <table class="data">
+        <tr><th>Word</th><th>Definition</th></tr>
+        <tr><td>m is <b>even</b></td><td>m = 2k for some integer k</td></tr>
+        <tr><td>n is <b>odd</b></td><td>n = 2k + 1 for some integer k</td></tr>
+        <tr><td>n is <b>rational</b></td><td>n = p / q for some integers p and q with q &#8800; 0</td></tr>
+        <tr><td>a <b>divides</b> b, written a | b</td><td>b = ka for some integer k</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">k, p, q</span> are <b>integers</b>, and the phrase
+      "for some integer k" is doing real work: it says such a k exists, and the
+      proof's next move is always to name it and use it.
+      <span class="sym">a | b</span> is read "a divides b", and it points the
+      opposite way to a fraction: a | b means b is the multiple, a is the
+      divisor. The bar is not a division sign and the statement is not a number,
+      it is either true or false.
+      <span class="sym">&#8800;</span> means "is not equal to"; q &#8800; 0
+      because division by zero has no value.</div>
+      <p><b>An integer is either even or odd, never both and never neither.</b>
+      That sentence is what makes a proof by cases on parity exhaustive, and it
+      is worth stating explicitly when you use it.</p>
+      <p class="hook"><b>Memory hook:</b> <b>write the definition, then do
+      algebra.</b> Nine proofs in ten on this course are that and nothing
+      more.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The six strategies</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Six ways to prove p &#8594; q</span></div>
+    <div class="body">
+      <p>Every strategy below proves the same shape of statement, the
+      conditional p &#8594; q of section 1.2. They differ in what you assume at
+      the start.</p>
+      <table class="data">
+        <tr><th>Strategy</th><th>You assume</th><th>You derive</th><th>Use it when</th></tr>
+        <tr><td><b>Trivial</b></td><td>nothing</td><td>q is true on its own</td><td>the conclusion is already known true</td></tr>
+        <tr><td><b>Vacuous</b></td><td>nothing</td><td>p is false</td><td>the hypothesis cannot hold</td></tr>
+        <tr><td><b>Direct</b></td><td>p</td><td>q</td><td>the default; always try this first</td></tr>
+        <tr><td><b>Contrapositive</b></td><td>&#172;q</td><td>&#172;p</td><td>the negations are easier to work with</td></tr>
+        <tr><td><b>Contradiction</b></td><td>p and &#172;q</td><td>r &#8743; &#172;r</td><td>nothing to build from; the claim is a denial</td></tr>
+        <tr><td><b>Cases</b></td><td>p as p<sub>1</sub> &#8744; ... &#8744; p<sub>n</sub></td><td>q from each p<sub>i</sub> separately</td><td>the hypothesis splits naturally, such as odd or even</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">p</span> is the <b>hypothesis</b>, also called the
+      premise or antecedent: what you are given.
+      <span class="sym">q</span> is the <b>conclusion</b>, also called the
+      consequent: what you must reach.
+      <span class="sym">&#172;q</span> is the negation of q, from section 1.1.
+      <span class="sym">r &#8743; &#172;r</span> is a <b>contradiction</b>: some
+      statement r and its own negation, both derived. Section 1.3 showed that is
+      false in every row of its table, which is exactly why deriving one
+      destroys the assumption that produced it.</div>
+      <p class="hook"><b>Memory hook:</b> <b>direct goes forwards,
+      contrapositive goes backwards, contradiction goes nowhere and shows the
+      alternative is impossible.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why contrapositive and contradiction are allowed</span></div>
+    <div class="body">
+      <p>Neither is a trick. Both rest on a logical equivalence proved back in
+      section 1.3, and quoting that equivalence by name is worth a mark.</p>
+      <p><b>Contrapositive.</b> p &#8594; q &#8801; &#172;q &#8594; &#172;p. The
+      two have identical truth tables, so proving either one proves the other.
+      Section 1.2 built that table and 2024/2025 Q1(c)(ii) asked you to prove
+      it; the proof lives there, and this section is where you spend it.</p>
+      <p><b>Contradiction.</b> If assuming p &#8743; &#172;q leads to something
+      false, then p &#8743; &#172;q is itself false, so its negation
+      &#172;p &#8744; q is true, and that is exactly p &#8594; q written the
+      other way (section 1.3, the implication law).</p>
+      <p><b>Contrapositive is a special case of contradiction,</b> which is why
+      the two are so often confused. If you assume &#172;q and reach &#172;p
+      while p was also assumed, you have p &#8743; &#172;p, a contradiction. The
+      practical difference is in the writing: a contrapositive proof is short and
+      clean, a contradiction proof carries an extra assumption all the way
+      through. <b>Prefer the contrapositive when it is available.</b></p>
+      <figure>
+        <svg viewBox="0 0 500 152" xmlns="http://www.w3.org/2000/svg" style="width:94%;height:auto">
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="6" y="20" font-weight="bold" fill="#283593">Direct</text>
+            <text x="6" y="72" font-weight="bold" fill="#283593">Contrapositive</text>
+            <text x="6" y="124" font-weight="bold" fill="#be123c">Contradiction</text>
+          </g>
+          <g stroke="#283593" stroke-width="1.4" fill="none">
+            <path d="M150 16 L232 16"/><path d="M226 11 L232 16 L226 21"/>
+            <path d="M150 68 L232 68"/><path d="M226 63 L232 68 L226 73"/>
+          </g>
+          <g stroke="#be123c" stroke-width="1.4" fill="none">
+            <path d="M180 120 L262 120"/><path d="M256 115 L262 120 L256 125"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="11" fill="#232a31">
+            <text x="118" y="20">p</text><text x="240" y="20">q</text>
+            <text x="112" y="72">&#172;q</text><text x="240" y="72">&#172;p</text>
+            <text x="126" y="124">p &#8743; &#172;q</text>
+            <text x="270" y="124">r &#8743; &#172;r</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.5" fill="#67707a">
+            <text x="300" y="20">assume the given, reach the goal</text>
+            <text x="300" y="72">flip both, then go forwards</text>
+            <text x="360" y="124">an impossibility</text>
+            <text x="300" y="142">so the assumption was wrong</text>
+          </g>
+        </svg>
+        <figcaption>The three arrows worth drawing in the margin of a proof
+        question before you start writing.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h3 class="sub">Direct proofs, worked</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; three direct proofs</span></div>
+    <div class="body">
+      <p><b>1. The sum of two odd integers is even.</b></p>
+      <p><b>Proof.</b> Let m and n be arbitrary odd integers. By the definition
+      of odd there are integers a and b with</p>
+      <p style="margin-left:12pt">m = 2a + 1 &nbsp; and &nbsp; n = 2b + 1</p>
+      <p>Then</p>
+      <p style="margin-left:12pt">m + n = (2a + 1) + (2b + 1)<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; = 2a + 2b + 2<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; = 2(a + b + 1)</p>
+      <p>Since a + b + 1 is an integer, m + n is twice an integer, so m + n is
+      even. &#9633;</p>
+      <p><b>2. If n is even then n<sup>2</sup> is even.</b></p>
+      <p><b>Proof.</b> Let n be an arbitrary integer and suppose n is even. Then
+      n = 2k for some integer k, so</p>
+      <p style="margin-left:12pt">n<sup>2</sup> = (2k)<sup>2</sup> =
+      4k<sup>2</sup> = 2(2k<sup>2</sup>)</p>
+      <p>and 2k<sup>2</sup> is an integer, so n<sup>2</sup> is even.
+      &#9633;</p>
+      <p><b>3. Divisibility is transitive: if a | b and b | c then a | c.</b></p>
+      <p><b>Proof.</b> Let a, b, c be integers and assume a | b and b | c. By the
+      definition of divides there are integers k and j with</p>
+      <p style="margin-left:12pt">b = ka &nbsp; and &nbsp; c = jb</p>
+      <p>Substituting the first into the second, c = j(ka) = (jk)a. Since jk is
+      an integer, a | c. &#9633;</p>
+      <p><b>Notice the shape all three share.</b> Assume, replace each word by
+      its definition, do ordinary algebra, then read the definition backwards to
+      name what you have reached. That is the entire method, and the last
+      sentence, "since ... is an integer", is the one candidates leave out.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Two integers, two letters</span></div>
+    <div class="body">
+      <p>Writing m = 2a + 1 and n = 2a + 1 with the <b>same</b> letter says m
+      and n are the same number. The proof then only covers the case m = n and
+      is worth almost nothing. Two independent objects get two independent
+      letters, every time.</p>
+      <p>The same slip in reverse: proving something for "an arbitrary even
+      integer n = 2k" and then later writing k = 3 to check. Checking is fine,
+      but say you are checking. A proof that fixes its arbitrary letter to a
+      number has stopped being a proof.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Contrapositive, worked</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; contrapositive</span></div>
+    <div class="body">
+      <p><b>1. If mn is even, then m is even or n is even.</b></p>
+      <p><b>Why not direct?</b> Assuming mn = 2k tells you almost nothing about
+      m and n separately. But the negation of the conclusion is clean: "m is
+      not even and n is not even" means both are odd, and odd numbers have a
+      formula. That is the signal to flip.</p>
+      <p><b>The contrapositive.</b> If m is odd and n is odd, then mn is
+      odd. Note that negating "m is even or n is even" gives "m is odd
+      <b>and</b> n is odd", by De Morgan's law of section 1.3. Getting that
+      "and" is where the mark is.</p>
+      <p><b>Proof.</b> Suppose m and n are both odd, so m = 2a + 1 and
+      n = 2b + 1 for some integers a and b. Then</p>
+      <p style="margin-left:12pt">mn = (2a + 1)(2b + 1)<br>
+      &nbsp; &nbsp; &nbsp; = 4ab + 2a + 2b + 1<br>
+      &nbsp; &nbsp; &nbsp; = 2(2ab + a + b) + 1</p>
+      <p>and 2ab + a + b is an integer, so mn is odd. The contrapositive holds,
+      therefore the original statement holds. &#9633;</p>
+      <p><b>2. If x<sup>3</sup> &#8722; 7x<sup>2</sup> + x &#8722; 7 = 0, then
+      x &#8800; 10.</b></p>
+      <p><b>The contrapositive.</b> If x = 10, then
+      x<sup>3</sup> &#8722; 7x<sup>2</sup> + x &#8722; 7 &#8800; 0.</p>
+      <p><b>Proof.</b> Substitute x = 10:</p>
+      <p style="margin-left:12pt">10<sup>3</sup> &#8722;
+      7 &#215; 10<sup>2</sup> + 10 &#8722; 7 = 1000 &#8722; 700 + 10 &#8722; 7
+      = <b>303</b></p>
+      <p>and 303 &#8800; 0. &#9633;</p>
+      <p><b>Worth an extra line.</b> The expression factorises as
+      x<sup>2</sup>(x &#8722; 7) + (x &#8722; 7) =
+      (x<sup>2</sup> + 1)(x &#8722; 7), and x<sup>2</sup> + 1 is never zero for
+      real x, so the only real solution is x = 7. Saying so shows you understood
+      the question rather than only answered it.</p>
+      <p><b>3. If 5a + 25b = 156, then a or b is not an integer.</b></p>
+      <p><b>The contrapositive.</b> If a and b are both integers, then
+      5a + 25b &#8800; 156.</p>
+      <p><b>Proof.</b> Suppose a and b are integers. Then</p>
+      <p style="margin-left:12pt">5a + 25b = 5(a + 5b)</p>
+      <p>and a + 5b is an integer, so 5a + 25b is a multiple of 5. But
+      156 = 5 &#215; 31 + 1 leaves remainder 1, so 156 is not a multiple of 5.
+      Hence 5a + 25b &#8800; 156. &#9633;</p>
+      <p class="redo"><b>Now redo it:</b> show that if 6a + 9b = 100 then a or b
+      is not an integer. Same move: 6a + 9b = 3(2a + 3b) is a multiple of 3, and
+      100 = 3 &#215; 33 + 1 is not.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Contradiction, worked</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; contradiction</span></div>
+    <div class="body">
+      <p><b>1. There is no largest integer.</b></p>
+      <p><b>Why contradiction?</b> The claim is a denial: it says a thing does
+      not exist. There is nothing to build forwards from, so assume the thing
+      does exist and watch it break.</p>
+      <p><b>Proof.</b> Suppose, for contradiction, that there is a largest
+      integer, and call it N. Then N + 1 is also an integer, and
+      N + 1 &gt; N, so N is not the largest after all. That contradicts the
+      assumption, which must therefore be false. There is no largest integer.
+      &#9633;</p>
+      <p><b>2. &#8730;2 is irrational.</b> This is the classic, and it is worth
+      knowing by heart because every part of it is a technique you have already
+      met.</p>
+      <p><b>Proof.</b> Suppose, for contradiction, that &#8730;2 is rational.
+      Then by the definition of rational there are integers p and q with
+      q &#8800; 0 and</p>
+      <p style="margin-left:12pt">&#8730;2 = p / q</p>
+      <p>and we may take the fraction in <b>lowest terms</b>, so that p and q
+      have no common factor other than 1. Squaring and multiplying by
+      q<sup>2</sup>:</p>
+      <p style="margin-left:12pt">2 = p<sup>2</sup> / q<sup>2</sup>,
+      &nbsp; so &nbsp; p<sup>2</sup> = 2q<sup>2</sup></p>
+      <p>So p<sup>2</sup> is even. By the contrapositive of worked example 2
+      above, if p were odd then p<sup>2</sup> would be odd, so <b>p is
+      even</b>, say p = 2k. Substituting:</p>
+      <p style="margin-left:12pt">(2k)<sup>2</sup> = 2q<sup>2</sup>,
+      &nbsp; so &nbsp; 4k<sup>2</sup> = 2q<sup>2</sup>,
+      &nbsp; so &nbsp; q<sup>2</sup> = 2k<sup>2</sup></p>
+      <p>By the same argument <b>q is even</b>. But then p and q are both even
+      and share the factor 2, contradicting "lowest terms". The assumption was
+      false, so &#8730;2 is irrational. &#9633;</p>
+      <p><b>Where each technique appeared.</b> The definition of rational opened
+      it, a contrapositive supplied the step from p<sup>2</sup> even to p even,
+      and the contradiction closed it. Proofs at this level are almost always
+      built from the smaller ones.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Cases, worked</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; proof by cases</span></div>
+    <div class="body">
+      <p><b>For every integer n, the number n<sup>3</sup> &#8722; n is
+      even.</b></p>
+      <p><b>Why cases?</b> Nothing is given about n at all, so there is no
+      definition to unfold. But every integer is even or odd, and each of those
+      does come with a formula. Two cases, and they are exhaustive.</p>
+      <p><b>The rule that makes it legal,</b> which is worth quoting:</p>
+      <p style="margin-left:12pt">(p<sub>1</sub> &#8744; p<sub>2</sub> &#8744;
+      &#8230; &#8744; p<sub>n</sub>) &#8594; q &#8801;
+      (p<sub>1</sub> &#8594; q) &#8743; (p<sub>2</sub> &#8594; q) &#8743;
+      &#8230; &#8743; (p<sub>n</sub> &#8594; q)</p>
+      <p>which is another equivalence from section 1.3: proving each case
+      separately is exactly proving the whole.</p>
+      <p><b>Case 1: n is even,</b> so n = 2k for some integer k.</p>
+      <p style="margin-left:12pt">n<sup>3</sup> &#8722; n =
+      (2k)<sup>3</sup> &#8722; 2k = 8k<sup>3</sup> &#8722; 2k =
+      2(4k<sup>3</sup> &#8722; k)</p>
+      <p>and 4k<sup>3</sup> &#8722; k is an integer, so n<sup>3</sup> &#8722; n
+      is even.</p>
+      <p><b>Case 2: n is odd,</b> so n = 2k + 1 for some integer k. Expanding
+      the cube by the binomial theorem of section 5.4:</p>
+      <p style="margin-left:12pt">(2k + 1)<sup>3</sup> =
+      8k<sup>3</sup> + 12k<sup>2</sup> + 6k + 1</p>
+      <p>so</p>
+      <p style="margin-left:12pt">n<sup>3</sup> &#8722; n =
+      8k<sup>3</sup> + 12k<sup>2</sup> + 6k + 1 &#8722; (2k + 1)<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 8k<sup>3</sup> + 12k<sup>2</sup> + 4k<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 2(4k<sup>3</sup> + 6k<sup>2</sup> + 2k)</p>
+      <p>and 4k<sup>3</sup> + 6k<sup>2</sup> + 2k is an integer, so
+      n<sup>3</sup> &#8722; n is even.</p>
+      <p><b>Both cases are covered and both give the same conclusion,</b> so
+      n<sup>3</sup> &#8722; n is even for every integer n. &#9633;</p>
+      <p><b>A one-line check before you trust the algebra:</b> n = 3 gives
+      27 &#8722; 3 = 24, and n = 4 gives 64 &#8722; 4 = 60. Both even. A check
+      is not a proof, but a failed check saves you from writing out a proof of
+      something false.</p>
+      <p><b>The slicker argument,</b> worth adding after the marks are safe:
+      n<sup>3</sup> &#8722; n = n(n &#8722; 1)(n + 1) is a product of three
+      consecutive integers, and among any two consecutive integers one is even.
+      One line, no cases.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Two arithmetic slips in a printed proof</span></div>
+    <div class="body">
+      <p>The official course text works this same example and drops two errors
+      into the algebra. They are worth knowing because a reader who copies them
+      into an exam loses the marks, and because spotting them is exactly the
+      skill a proof question is testing.</p>
+      <p><b>First,</b> in the even case it writes
+      8k<sup>3</sup> &#8722; 2k = 2(4k<sup>2</sup> &#8722; k). The bracket
+      should be 4k<sup>3</sup> &#8722; k: dividing 8k<sup>3</sup> by 2 gives
+      4k<sup>3</sup>, and the cube does not become a square.</p>
+      <p><b>Second,</b> in the odd case it expands
+      (2k + 1)<sup>3</sup> as 8k<sup>3</sup> + 6k<sup>2</sup> + 6k + 1. The
+      correct expansion is 8k<sup>3</sup> + 12k<sup>2</sup> + 6k + 1; the
+      squared term is 3 &#215; (2k)<sup>2</sup> &#215; 1 = 12k<sup>2</sup>, not
+      6k<sup>2</sup>. The same line also prints the cube as a square, writing
+      (2k + 1)<sup>2</sup> where it means (2k + 1)<sup>3</sup>.</p>
+      <p><b>Why the conclusion survives anyway,</b> which is the interesting
+      part: both wrong brackets still come out as 2 &#215; (an integer), so the
+      final claim "n<sup>3</sup> &#8722; n is even" is still true. A proof can
+      reach a true conclusion through false steps, and that is precisely why
+      every line has to be checked rather than the answer alone.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Trivial and vacuous proofs</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The two one-line proofs</span></div>
+    <div class="body">
+      <p>Both come straight off the conditional's truth table in section 1.2,
+      which is false in one row only, when p is true and q is false.</p>
+      <p><b>Trivial proof: q is already true,</b> so no row can make
+      p &#8594; q false, whatever p says.</p>
+      <p style="margin-left:12pt"><i>If it is raining, then 1 = 1.</i><br>
+      Proof: 1 = 1 is true, so the conditional is true regardless of the
+      weather. &#9633;</p>
+      <p><b>Vacuous proof: p is false,</b> so the one false row is never
+      reached.</p>
+      <p style="margin-left:12pt"><i>If the door is both open and closed, then
+      2 + 2 = 5.</i><br>
+      Proof: a door cannot be both open and closed, so the hypothesis is a
+      contradiction and is false. The conditional is therefore true. &#9633;</p>
+      <p><b>These are not jokes, and they matter in computing.</b> A loop body
+      that never runs satisfies every claim about what it does; a specification
+      that says "for all x in the empty list, ..." is vacuously true. Section
+      1.4 made the same point about a universal quantifier over an empty
+      domain.</p>
+      <p><b>In an exam,</b> a trivial or vacuous proof is normally the answer to
+      "explain why this is true", not to "prove". If you find yourself writing
+      one for a serious-looking question, re-read it: you have probably
+      misidentified p or q.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Choosing a strategy, and one worked mistake</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The decision order</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Write the claim as p &#8594; q.</b> Name p and name q in plain
+        words. Half of all failed proof attempts are a claim never written
+        down.</li>
+        <li><b>Try direct.</b> Replace every word in p by its definition and see
+        how close the algebra takes you to q.</li>
+        <li><b>If p gives you nothing, negate q.</b> If &#172;q has a usable
+        formula where p did not, do the contrapositive. "Or" in the conclusion
+        is a strong signal, because its negation is an "and".</li>
+        <li><b>If the claim denies existence, use contradiction.</b> Words like
+        "no", "never", "cannot", "irrational", "infinitely many" all point
+        here.</li>
+        <li><b>If p splits, use cases.</b> Odd or even, positive or negative or
+        zero, and any hypothesis containing "or".</li>
+        <li><b>Say which one you used, in the first line.</b> "We prove the
+        contrapositive" costs six words and tells the marker how to read
+        everything that follows.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">When the convention changes the answer</span></div>
+    <div class="body">
+      <p>Consider the claim <b>"there is a natural number n for which
+      n<sup>2</sup> + 3n + 2 is prime"</b>.</p>
+      <p>Section 2.1 defined a <b>prime</b> as a number with exactly two
+      positive divisors, itself and 1. A whole number above 1 that is not prime
+      is <b>composite</b>: it can be written as a product of two smaller whole
+      numbers, each at least 2.</p>
+      <p><b>If &#8469; starts at 1,</b> the claim is false, and there is a
+      one-line proof: n<sup>2</sup> + 3n + 2 = (n + 1)(n + 2), a product of two
+      integers both at least 2, so it is composite for every n &#8805; 1. Check:
+      n = 1 gives 6, n = 2 gives 12, n = 3 gives 20.</p>
+      <p><b>If &#8469; starts at 0,</b> which is the convention this manual
+      declared in Foundations, the claim is <b>true</b>: n = 0 gives
+      0 + 0 + 2 = <b>2</b>, and 2 is prime. One witness settles an existence
+      claim, and the whole argument collapses.</p>
+      <p>The Foundations trap box said "say which convention you are using".
+      This is the case that shows why: the convention is not a matter of taste
+      here, it decides the truth value. <b>State it in the first line of the
+      answer and you cannot be marked wrong either way.</b></p>
+      <p><b>Also note the better proof.</b> The factorisation
+      (n + 1)(n + 2) does in one line what a proof by cases on the parity of n
+      does in fifteen. When a polynomial factorises, factorise it.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Distinguish a lemma from a corollary.</p>
+      <p class="q">2. Write the definitions of even, odd and "a divides b".</p>
+      <p class="q">3. What do you assume, and what do you derive, in a proof by
+      contrapositive?</p>
+      <p class="q">4. What do you assume in a proof by contradiction?</p>
+      <p class="q">5. How many counterexamples disprove a statement about all
+      x?</p>
+      <p class="q">6. Prove that the product of two odd integers is odd.</p>
+      <p class="q">7. Why is "if the door is open and closed then 2 + 2 = 5"
+      true?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A lemma is proved <b>before</b> and in order to prove a theorem; a
+      corollary follows <b>after</b> a theorem with little extra work.<br>
+      2. m even: m = 2k for some integer k. n odd: n = 2k + 1 for some integer
+      k. a | b: b = ka for some integer k.<br>
+      3. Assume &#172;q, derive &#172;p.<br>
+      4. Both p and &#172;q, then derive a statement and its own negation.<br>
+      5. One.<br>
+      6. (2a + 1)(2b + 1) = 2(2ab + a + b) + 1, which is odd.<br>
+      7. The hypothesis is false, so the conditional is vacuously true.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A statement believed true but not yet proved is a
+        <span class="blank"></span>.</li>
+        <li>To prove p &#8594; q by contrapositive, assume
+        <span class="blank"></span> and derive <span class="blank"></span>.</li>
+        <li>An integer n is odd when n = <span class="blank"></span> for some
+        integer k.</li>
+        <li>A proof by <span class="blank"></span> splits the hypothesis into
+        exhaustive alternatives.</li>
+        <li>The negation of "m is even or n is even" is "m is odd
+        <span class="blank"></span> n is odd".</li>
+        <li>&#8730;2 is proved irrational by <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. conjecture. 2. &#172;q, &#172;p. 3. 2k + 1. 4. cases. 5. and.
+      6. contradiction.</p>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,446 @@
+<section>
+  <div class="kick">Part Five &middot; 5.3</div>
+  <h2 class="title">Inclusion, Exclusion and the Pigeonhole Principle</h2>
+  <hr class="rule">
+  <p class="lead">When two groups overlap, adding their sizes counts the overlap
+  twice. Subtracting it once is the whole of inclusion and exclusion, and it is
+  worth seven marks on the newest paper.</p>
+  <p class="lo">By the end of this section you will be able to state and apply the
+  inclusion and exclusion principle for two and three sets, read the overlap off a
+  Venn diagram, state the pigeonhole principle in both its forms, and answer the
+  Ibibio and Efik question and the class-size question in full.</p>
+
+  <h3 class="sub">Why adding is wrong</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The double count</span></div>
+    <div class="body">
+      <p>The sum rule of section 5.1 came with a condition: <b>no outcome may
+      count under two alternatives</b>. Sets of people almost always break that
+      condition, because a person can be in both.</p>
+      <p>Suppose 30 students take Maths and 25 take Physics. Adding gives 55. But
+      if 10 take both, those 10 were counted once in the 30 and again in the 25,
+      so 55 overstates the class by exactly 10. The true total is 45.</p>
+      <p>That is the entire idea. Add the parts, then take the overlap back out
+      once, because it went in twice.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Inclusion and exclusion, two sets</span></div>
+    <div class="body">
+      <p class="small">Section 2.2 introduced this as the counting formula, where
+      it belonged with the set operations. Here it is again, this time with the
+      rearrangements the exam actually asks for.</p>
+      <p>For any two finite sets A and B,</p>
+      <p style="margin-left:12pt"><b>n(A &#8746; B) = n(A) + n(B) &#8722;
+      n(A &#8745; B)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n(A)</span> is the cardinality of A, the number of things
+      in it, as defined in section 2.1.
+      <span class="sym">A &#8746; B</span> is the union: everything in A or in B
+      or in both.
+      <span class="sym">A &#8745; B</span> is the intersection: the things in
+      both, which is the overlap that was counted twice.</div>
+      <p><b>The rearrangements you will actually use.</b> Exam questions give you
+      three of the four quantities and ask for the fourth, so learn all three
+      forms, not just the first:</p>
+      <p style="margin-left:12pt">n(A &#8745; B) = n(A) + n(B) &#8722;
+      n(A &#8746; B) &nbsp; &nbsp; [find the overlap]<br>
+      n(A only) = n(A) &#8722; n(A &#8745; B) &nbsp; &nbsp; [strip the overlap
+      out of A]<br>
+      n(B only) = n(B) &#8722; n(A &#8745; B)</p>
+      <p class="hook"><b>Memory hook:</b> <b>in, in, out.</b> Put A in, put B in,
+      take the middle out. And a completed answer always satisfies
+      A only + both + B only = n(A &#8746; B).</p>
+    </div>
+  </div>
+
+  <div class="lawstate">
+    <div class="lawname">The principle of inclusion and exclusion</div>
+    <p><b>The claim.</b> The size of a union is found by adding the sizes of the
+    sets and then removing every overlap that the addition counted more than
+    once. For two sets that means subtracting the single overlap; for more sets
+    the corrections alternate in sign.</p>
+    <p><b>In symbols.</b><br>
+    n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B)<br>
+    n(A &#8746; B &#8746; C) = n(A) + n(B) + n(C) &#8722; n(A &#8745; B) &#8722;
+    n(A &#8745; C) &#8722; n(B &#8745; C) + n(A &#8745; B &#8745; C)</p>
+    <p class="cond"><b>Conditions.</b> The sets must be <b>finite</b>, or the
+    counts do not exist to be added. Nothing else is required: the sets may
+    overlap in any way at all, which is precisely the point of the principle.</p>
+    <p class="cond"><b>The limiting case.</b> When the sets are disjoint, every
+    overlap term is 0 and the principle collapses to the sum rule of section 5.1:
+    n(A &#8746; B) = n(A) + n(B). So the sum rule is not a separate law but the
+    special case of this one where nothing is shared.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" style="width:88%;height:auto">
+      <rect x="10" y="14" width="330" height="164" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+      <defs><clipPath id="ieClipA"><circle cx="140" cy="96" r="72"/></clipPath></defs>
+      <circle cx="140" cy="96" r="72" fill="#283593" fill-opacity=".16"/>
+      <circle cx="222" cy="96" r="72" fill="#be123c" fill-opacity=".14"/>
+      <circle cx="222" cy="96" r="72" fill="#5b4b9e" fill-opacity=".34" clip-path="url(#ieClipA)"/>
+      <circle cx="140" cy="96" r="72" fill="none" stroke="#283593" stroke-width="1.5"/>
+      <circle cx="222" cy="96" r="72" fill="none" stroke="#be123c" stroke-width="1.5"/>
+      <text x="86" y="40" font-family="DejaVu Serif" font-size="14" fill="#283593">A</text>
+      <text x="268" y="40" font-family="DejaVu Serif" font-size="14" fill="#be123c">B</text>
+      <text x="18" y="170" font-family="DejaVu Sans" font-size="10" fill="#67707a">U</text>
+      <text x="82" y="102" font-family="DejaVu Sans" font-size="11" fill="#232a31">A only</text>
+      <text x="160" y="102" font-family="DejaVu Sans" font-size="11" fill="#232a31">both</text>
+      <text x="246" y="102" font-family="DejaVu Sans" font-size="11" fill="#232a31">B only</text>
+      <g font-family="DejaVu Sans" font-size="11.5" fill="#232a31">
+        <text x="358" y="52">n(A) counts</text>
+        <text x="358" y="70">A only + both</text>
+        <text x="358" y="100">n(B) counts</text>
+        <text x="358" y="118">B only + both</text>
+        <text x="358" y="150" fill="#be123c">so "both" is in</text>
+        <text x="358" y="168" fill="#be123c">the sum twice</text>
+      </g>
+    </svg>
+    <figcaption>Three regions, not two. Adding n(A) and n(B) covers the middle
+    region twice, so it is subtracted once.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Inclusion and exclusion, three sets</span></div>
+    <div class="body">
+      <p>For three finite sets A, B and C,</p>
+      <p style="margin-left:12pt"><b>n(A &#8746; B &#8746; C) = n(A) + n(B) +
+      n(C) &#8722; n(A &#8745; B) &#8722; n(A &#8745; C) &#8722; n(B &#8745; C) +
+      n(A &#8745; B &#8745; C)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n(A), n(B), n(C)</span> are the sizes of the three sets
+      on their own, each counted with no regard to the others.
+      <span class="sym">n(A &#8745; B)</span> and the other two pair terms are
+      the sizes of each two-way overlap, subtracted because each was counted in
+      two of the singles.
+      <span class="sym">n(A &#8745; B &#8745; C)</span> is the size of the
+      three-way overlap, added back because the singles put it in three times and
+      the pairs took it out three times.</div>
+      <p><b>Read the pattern rather than memorising the letters:</b> add the
+      singles, subtract the pairs, add the triple. Signs alternate, and the number
+      of sets in each term goes up by one.</p>
+      <p>The final term is added back because the elements in all three sets were
+      added three times by the singles and then subtracted three times by the
+      pairs, leaving them counted zero times. One addition restores them.</p>
+      <p class="hook"><b>Memory hook:</b> <b>plus singles, minus pairs, plus
+      triple.</b> Odd-sized groups are added, even-sized groups are subtracted.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The Ibibio and Efik question</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q3a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q3(a)</span></div>
+    <div class="body">
+      <p class="q">(a) In a group of 100 students, 72 students can speak Ibibio and 43 students can speak Ibibio.
+      Based on these data, answer the following questions:</p>
+      <p class="qi">(i)     Find the number of students who can speak both Ibibio and Efik. <span class="mk">(3 marks)</span></p>
+      <p class="qi">(ii)    Find the number of students who can speak Ibibio only. <span class="mk">(2 marks)</span></p>
+      <p class="qi">(iii)   Find the number of students who can speak Efik only. <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>This question contradicts itself, and it is the most important defect on the
+  paper.</b> The opening sentence names the same language twice: "72 students can
+  speak Ibibio and 43 students can speak Ibibio". Parts (i) to (iii) then ask
+  about Ibibio <b>and Efik</b>, so the second figure must have been meant as Efik.
+  Read literally, the data mention Efik nowhere and 7 marks are unanswerable.
+  <br><br>
+  <b>What to do in the hall.</b> Do not stall and do not silently rewrite the
+  question. Write one line: <i>"The second figure is taken as 43 students who can
+  speak Efik, since parts (i) to (iii) ask about Efik and the question is
+  otherwise unanswerable."</i> Then answer on that reading. A stated assumption
+  that is obviously the intended one is normal mathematical practice and protects
+  every mark; a silent one does not.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>100 students in the group. 72 speak Ibibio. 43 speak Efik,
+      on the stated reading.</dd>
+      <dt>Asked</dt><dd>(i) <b>both</b> languages, (ii) <b>Ibibio only</b>,
+      (iii) <b>Efik only</b>. Three different regions of the same diagram.</dd>
+      <dt>Hidden assumption</dt><dd>That every one of the 100 speaks at least one
+      of the two, so n(A &#8746; B) = 100. The question does not say so, but
+      without it the three parts have no unique answer. State this too.</dd>
+      <dt>Marks say</dt><dd>3, 2 and 2. Part (i) is worth more because the other
+      two follow from it in one subtraction each. Get (i) right and the rest are
+      free.</dd>
+      <dt>Teaches</dt><dd>This section, 5.3.</dd>
+      <dt>Trap</dt><dd>Answering (ii) with 72. That is everyone who speaks Ibibio,
+      including those who also speak Efik. "Only" means the overlap must come
+      out.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3(a)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>n(U) = 100, n(I) = 72 speak Ibibio, n(E) = 43 speak
+        Efik.</dd>
+        <dt>Find</dt><dd>n(I &#8745; E), then n(I only) and n(E only).</dd>
+        <dt>Formula</dt><dd>n(I &#8746; E) = n(I) + n(E) &#8722; n(I &#8745; E).</dd>
+      </dl>
+      <p><b>Step 0. State the two readings you are working under.</b></p>
+      <ol class="qlist">
+        <li>The second figure of 43 refers to Efik, not Ibibio.</li>
+        <li>Every student speaks at least one of the two languages, so
+        n(I &#8746; E) = 100.</li>
+      </ol>
+      <p>Assumption 2 is forced by the arithmetic as well as by common sense:
+      72 + 43 = 115, which is 15 more than the group, so at least 15 students must
+      be in both. If some students spoke neither, the overlap would be even
+      larger, and the question gives no way to know how many.</p>
+
+      <p class="marks">i. Students who speak both</p>
+      <p>Rearrange the two-set formula to make the overlap the subject:</p>
+      <p style="margin-left:12pt">n(I &#8745; E) = n(I) + n(E) &#8722;
+      n(I &#8746; E)<br>
+      = 72 + 43 &#8722; 100<br>
+      = 115 &#8722; 100<br>
+      = <b>15</b></p>
+      <p><b>Answer: 15 students speak both Ibibio and Efik.</b></p>
+
+      <p class="marks">ii. Students who speak Ibibio only</p>
+      <p>The 72 Ibibio speakers include the 15 who also speak Efik. Strip them
+      out:</p>
+      <p style="margin-left:12pt">n(I only) = n(I) &#8722; n(I &#8745; E)
+      = 72 &#8722; 15 = <b>57</b></p>
+
+      <p class="marks">iii. Students who speak Efik only</p>
+      <p style="margin-left:12pt">n(E only) = n(E) &#8722; n(I &#8745; E)
+      = 43 &#8722; 15 = <b>28</b></p>
+
+      <p><b>Check, and write the check down.</b> The three regions must fill the
+      group exactly:</p>
+      <p style="margin-left:12pt">57 + 15 + 28 = 100 &nbsp; &#10003;</p>
+      <figure>
+        <svg viewBox="0 0 470 190" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:auto">
+          <rect x="8" y="10" width="330" height="160" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+          <defs><clipPath id="ieClipI"><circle cx="138" cy="92" r="70"/></clipPath></defs>
+          <circle cx="138" cy="92" r="70" fill="#283593" fill-opacity=".16"/>
+          <circle cx="218" cy="92" r="70" fill="#be123c" fill-opacity=".14"/>
+          <circle cx="218" cy="92" r="70" fill="#5b4b9e" fill-opacity=".34" clip-path="url(#ieClipI)"/>
+          <circle cx="138" cy="92" r="70" fill="none" stroke="#283593" stroke-width="1.5"/>
+          <circle cx="218" cy="92" r="70" fill="none" stroke="#be123c" stroke-width="1.5"/>
+          <text x="72" y="36" font-family="DejaVu Serif" font-size="13" fill="#283593">Ibibio</text>
+          <text x="252" y="36" font-family="DejaVu Serif" font-size="13" fill="#be123c">Efik</text>
+          <text x="16" y="162" font-family="DejaVu Sans" font-size="10" fill="#67707a">100 students</text>
+          <g font-family="DejaVu Sans" font-size="15" fill="#232a31">
+            <text x="88" y="98">57</text>
+            <text x="168" y="98">15</text>
+            <text x="248" y="98">28</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="11" fill="#67707a">
+            <text x="356" y="60">57 + 15 = 72</text>
+            <text x="356" y="82">28 + 15 = 43</text>
+            <text x="356" y="112">57 + 15 + 28</text>
+            <text x="356" y="130">= 100</text>
+          </g>
+        </svg>
+        <figcaption>The finished diagram. Every given number can be read back off
+        it, which is what makes it a check and not a decoration.</figcaption>
+      </figure>
+      <p>Drawing this diagram is worth doing even when the question does not ask
+      for it. It takes twenty seconds and it catches the "only" trap
+      automatically.</p>
+      <p class="redo"><b>Now redo it:</b> in a group of 80, 50 speak Yoruba and 45
+      speak Hausa, everyone speaking at least one. Both: 50 + 45 &#8722; 80 = 15.
+      Yoruba only: 35. Hausa only: 30. Check: 35 + 15 + 30 = 80.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The class-size question</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q5b">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q5(b)</span></div>
+    <div class="body">
+      <p class="q">(b) In a discrete structures' class, every student is a major in either Computer Science or Maths
+      or both. There of 25 students who major in Computer, while 13 in Maths. If 8 students major
+      in both Computing Science &amp; Maths, how many students are in the entire class? <span class="mk">(4marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "There of 25 students" is a typing slip for "There are 25 students", and the
+  subject is called "Computer Science" in one clause, "Computer" in the next and
+  "Computing Science" in the third. All three name the same set. The sentence that
+  saves the question is the first one: <b>every student majors in Computer Science
+  or Maths or both</b>, which states outright the assumption that the Ibibio
+  question left you to supply. So here n(A &#8746; B) is the class, and it is what
+  you are asked for.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>n(C) = 25 major in Computer Science, n(M) = 13 major in
+      Maths, n(C &#8745; M) = 8 major in both, and nobody majors in neither.</dd>
+      <dt>Asked</dt><dd><b>How many students are in the entire class</b>, which is
+      n(C &#8746; M).</dd>
+      <dt>Marks say</dt><dd>4 marks for one formula. Write the principle, then
+      substitute, then evaluate, then answer in a sentence. A bare 30 earns
+      less.</dd>
+      <dt>Teaches</dt><dd>This section, 5.3.</dd>
+      <dt>Trap</dt><dd>Answering 25 + 13 = 38, forgetting the 8 who were counted
+      in both figures.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 21/22 Q5(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>n(C) = 25, n(M) = 13, n(C &#8745; M) = 8, every student
+        in at least one.</dd>
+        <dt>Find</dt><dd>n(C &#8746; M), the size of the class.</dd>
+        <dt>Formula</dt><dd>n(C &#8746; M) = n(C) + n(M) &#8722; n(C &#8745; M).</dd>
+      </dl>
+      <p>Because every student majors in one subject or the other or both, the
+      class <i>is</i> the union, so the union is what to compute:</p>
+      <p style="margin-left:12pt">n(C &#8746; M) = 25 + 13 &#8722; 8<br>
+      = 38 &#8722; 8<br>
+      = <b>30</b></p>
+      <p><b>Answer: there are 30 students in the entire class.</b></p>
+      <p><b>Break it into regions as a check:</b> Computer Science only is
+      25 &#8722; 8 = 17, Maths only is 13 &#8722; 8 = 5, and both is 8. Then
+      17 + 5 + 8 = 30, which agrees.</p>
+      <p><b>One ambiguity worth a line on the script.</b> The sentence "There of
+      25 students who major in Computer" could be misread as saying the class has
+      25 students in total. It cannot mean that: 8 of them major in both, and 13
+      major in Maths, so Maths-only alone would need 5 more students than a
+      25-strong class has room for once the 25 Computer Science majors are placed.
+      The reading above is the only consistent one.</p>
+      <p class="redo"><b>Now redo it:</b> if instead 30 major in Computer Science,
+      20 in Maths and 12 in both, the class has 30 + 20 &#8722; 12 = 38
+      students.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The pigeonhole principle</h3>
+
+  <div class="lawstate">
+    <div class="lawname">The pigeonhole principle</div>
+    <p><b>The claim.</b> If more objects are placed into boxes than there are
+    boxes, then some box must hold more than one object. Nothing about the
+    objects, the boxes or the way they are placed can prevent it.</p>
+    <p><b>In symbols.</b><br>
+    If k + 1 or more objects go into k boxes, some box holds at least 2.<br>
+    If N objects go into k boxes, some box holds at least &#8968;N / k&#8969;.</p>
+    <p class="cond"><b>Conditions.</b> The number of boxes must be finite, and
+    every object must go into some box. It says nothing about <b>which</b> box is
+    crowded, and it cannot: that is a feature, since it lets you prove something
+    exists without being able to find it.</p>
+    <p class="cond"><b>The limiting case.</b> When N = k the principle promises
+    only &#8968;k / k&#8969; = 1, which is no information at all, and correctly
+    so: k objects can sit one to a box with nothing shared. The principle bites
+    from N = k + 1 onward, and that single extra object is the whole of it.</p>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Pigeonhole principle</span></div>
+    <div class="body">
+      <p><b>If k + 1 or more objects are placed into k boxes, then at least one
+      box contains two or more objects.</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">k</span> is the number of boxes, sometimes called
+      pigeonholes.
+      <span class="sym">objects</span> are whatever is being sorted into them:
+      people, numbers, letters, socks.</div>
+      <p><b>The generalised form,</b> which is the one that answers real
+      questions: if N objects are placed into k boxes, then at least one box
+      contains at least</p>
+      <p style="margin-left:12pt"><b>&#8968;N / k&#8969;</b> objects,</p>
+      <p>where <b>&#8968;x&#8969;</b> is the <b>ceiling</b> of x: the smallest
+      whole number that is not less than x. So &#8968;7 / 3&#8969; = &#8968;2.33
+      &#8969; = 3.</p>
+      <p class="hook"><b>Memory hook:</b> <b>more pigeons than holes means
+      sharing.</b> The principle never tells you <i>which</i> box is crowded, only
+      that one of them is. That is exactly why it is useful: it proves something
+      exists without finding it.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Using it</span></div>
+    <div class="body">
+      <p>Every pigeonhole argument has the same three steps, and the marks are in
+      step 2.</p>
+      <div class="steps">
+        <ol>
+          <li><b>Name the objects.</b> What is being placed?</li>
+          <li><b>Name the boxes.</b> This is the creative step. The boxes are
+          usually the possible <i>values</i> of something, not physical
+          containers.</li>
+          <li><b>Compare the counts</b> and apply the principle.</li>
+        </ol>
+      </div>
+      <p><b>Example.</b> Among any 13 people, at least two were born in the same
+      month. Objects: the 13 people. Boxes: the 12 months. Since 13 &gt; 12, two
+      people share a box, that is, a birth month.</p>
+      <p><b>Example, generalised form.</b> Among 100 people, at least
+      &#8968;100 / 12&#8969; = &#8968;8.33&#8969; = 9 share a birth month.</p>
+      <p><b>Example with an unobvious box.</b> In any group of 8 people, two have
+      the same number of friends within the group. Objects: 8 people. Boxes: the
+      possible friend counts, 0 to 7, which is 8 boxes, so the counting alone is
+      not enough. The extra step: nobody can have 0 friends and somebody else have
+      7 at the same time, because a person with 7 friends is friends with
+      everyone, including the supposed loner. So only 7 of the 8 boxes can be
+      occupied, and 8 people into 7 boxes forces a repeat.</p>
+      <p class="small">Where this stands on the papers: none of the five papers we
+      hold has set a pigeonhole question outright. It is in the official course
+      text, it takes two minutes to learn, and the 2023/2024 paper does ask a
+      closely related impossibility question about five cities that is settled by
+      a counting argument in Part Six. Learn the statement and the three steps;
+      that is the whole of the return on it.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State the inclusion and exclusion principle for two
+      sets.</p>
+      <p class="q">2. 40 students take Maths, 30 take Physics, 12 take both and
+      everyone takes at least one. How many students are there?</p>
+      <p class="q">3. In the same group, how many take Maths only?</p>
+      <p class="q">4. Write the three-set formula from the pattern, without
+      looking.</p>
+      <p class="q">5. State the pigeonhole principle, and say what
+      &#8968;17 / 5&#8969; is.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B).<br>
+      2. 40 + 30 &#8722; 12 = 58.<br>
+      3. 40 &#8722; 12 = 28.<br>
+      4. Add the three singles, subtract the three pairs, add the triple.<br>
+      5. If k + 1 or more objects go into k boxes, some box holds two or more.
+      &#8968;17 / 5&#8969; = &#8968;3.4&#8969; = 4.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>n(A &#8746; B) = n(A) + n(B) &#8722; <span class="blank"></span>.</li>
+        <li>The number who speak Ibibio only is 72 minus
+        <span class="blank"></span>, giving <span class="blank"></span>.</li>
+        <li>In the three-set formula the pairs are
+        <span class="blank"></span> and the triple is
+        <span class="blank"></span>.</li>
+        <li>Placing 10 objects into 3 boxes forces some box to hold at least
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. n(A &#8745; B). 2. 15, 57. 3. subtracted, added.
+      4. &#8968;10 / 3&#8969; = 4.</p>
+    </div>
+  </div>
+
+</section>

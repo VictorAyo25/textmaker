@@ -251,6 +251,13 @@ def main():
     if not qa_firstuse.report(draft):
         stop('teach-before-use gate failed: a notation is used before it is introduced.')
 
+    # ---- verbatim gate (methodology 4c, binding): a past question is quoted as the
+    # examiner printed it, or not at all. Four directions plus discovery; it reads
+    # content/ and the transcripts directly, not the assembled draft. ----
+    import qa_verbatim
+    if not qa_verbatim.report():
+        stop('verbatim gate failed: a past question is not as the examiner printed it.')
+
     body_path = os.path.join(HERE, 'full_manual.html')
     cover_path = os.path.join(HERE, 'cover_page.html')
     write(cover_path, cover_html)

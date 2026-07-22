@@ -59,19 +59,52 @@ def _strip_tags(html):
     return re.sub(r'<[^>]+>', ' ', html)
 
 
+# A verbatim quotation of an exam paper is not our prose, so the no-dash rule does
+# not reach inside it (methodology 4c: "House style yields here"). The 24/25 paper
+# really does print an en dash in "153 - 142", and reproducing it as a hyphen would
+# be a silent edit to a document we are quoting.
+#
+# THE EXEMPTION IS DELIBERATELY NARROW. It applies only between the tags of a
+# <div class="asprinted" data-src="..."> element, which qa_verbatim.py separately
+# proves is a character-for-character copy of a transcript. It does not apply to
+# the flag note under the quote, to the break-it-down box, or to anything else on
+# the page: all of that is ours and is still fully policed. The count of exempted
+# regions is printed on every run so the exempt area cannot grow unnoticed.
+QUOTE_RE = re.compile(
+    r'(<div class="asprinted"[^>]*\bdata-src="[^"]*"[^>]*>)(.*?)(</div>)', re.S)
+
+
+def _mask_quotes(html):
+    """Blank the inside of every declared verbatim quote. Returns (html, count).
+
+    The quoted text is replaced by spaces rather than deleted so that every
+    character offset in the remaining document is unchanged and the context
+    snippets in failure messages still point at the right place.
+    """
+    n = 0
+
+    def blank(m):
+        nonlocal n
+        n += 1
+        return m.group(1) + (' ' * len(m.group(2))) + m.group(3)
+
+    return QUOTE_RE.sub(blank, html), n
+
+
 def run_gates(html):
     fails = []
     text = _strip_tags(html)
+    ours, n_quotes = _mask_quotes(html)
 
-    # ---- 1. dashes ----
+    # ---- 1. dashes (our prose only; declared quotes are masked out above) ----
     for ch, name in BANNED_CHARS.items():
-        for m in re.finditer(re.escape(ch), html):
-            ctx = html[max(0, m.start() - 45):m.start() + 45].replace('\n', ' ')
+        for m in re.finditer(re.escape(ch), ours):
+            ctx = ours[max(0, m.start() - 45):m.start() + 45].replace('\n', ' ')
             fails.append(f'{name} (U+{ord(ch):04X}) found: ...{ctx}...')
     for ent in BANNED_ENTITIES:
-        if ent in html:
-            i = html.index(ent)
-            ctx = html[max(0, i - 45):i + 45].replace('\n', ' ')
+        if ent in ours:
+            i = ours.index(ent)
+            ctx = ours[max(0, i - 45):i + 45].replace('\n', ' ')
             fails.append(f'dash entity {ent} found: ...{ctx}...')
 
     # ---- 2. branding / pedagogy source ----
@@ -104,8 +137,10 @@ def run_gates(html):
 
     # ---- report ----
     checks = [
-        'no em/en dashes',
-        'no institution branding or pedagogy source named',
+        f'no em/en dashes in our prose ({n_quotes} verbatim paper quotes exempt, '
+        f'each proved a true copy by qa_verbatim.py)',
+        'no institution branding or pedagogy source named (quotes included: the '
+        'identity block of a paper is never reproduced)',
         'reserved colour reserved',
         'all code monospace',
         f'no code line over {MAX_CODE_COLS} columns',

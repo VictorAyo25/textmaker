@@ -122,8 +122,7 @@ sources/exams/transcripts/, since the exam PDFs carry no text layer.
 
 Three fidelity faults surfaced while doing it, none of them visible before: 21
 answer-box restatements had drifted from the paper (one read "above 8 degrees C"
-where the paper prints 8C, another invented a mark allocation the paper puts
-elsewhere); five listings had been quietly renamed (SquareCalc to
+where the paper prints 8C); five listings had been quietly renamed (SquareCalc to
 SquareCalcBroken, Main to MiddleValueBroken) to dodge a filename clash that cannot
 happen; and one question quoted the book's own class wrapper around what the paper
 prints as a bare fragment. All corrected.
@@ -243,7 +242,7 @@ To rebuild or update:  see "courses/CSC241 - Python Programming Language I/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-DTS224 - Data Management I - Study Manual.pdf       85 pp   updated 2026-07-18
+DTS224 - Data Management I - Study Manual.pdf      119 pp   updated 2026-07-22
 -------------------------------------------------------------------------------
 DTS224 Data Management I (a databases course), complete manual, Modules 1 to 5.
 
@@ -290,6 +289,49 @@ Five scripted gates, all green at publish:
   - qa_layout.py: the body renders at its designed 10.5pt (not silently scaled to fit
     an over-wide line), nothing outside the margins, no box cut by a page break that
     would have fitted whole.
+
+What changed on 2026-07-22 (85 pp -> 119 pp): PAST QUESTIONS ARE NOW QUOTED, NOT
+RESTATED. A reader reported that the solved paper and the module teaching boxes
+presented each past question as a compressed restatement in the author's voice,
+formatted as though it were the paper. All SEVEN past papers (2015/16 through
+2025/26, 114 question parts) were transcribed by eye into
+sources/exams/transcripts/ and every one of the 64 sites that cites a real question
+is now a three-part unit: AS PRINTED (the examiner's exact words, line breaks, part
+numbering and mark text), then BREAK IT DOWN on the fully worked 2025/2026 paper,
+then the answer. 93 quoted questions in all. The quotes are generated FROM the
+transcripts, never retyped, so no hand-typing can drift.
+
+None of the seven papers had a usable text layer: three are image-only scans and
+four are photographs, and the three PDFs that DO carry a layer are OCR of a scan
+(one renders the paper's own "COURSE TITLE" as "COURSE TrTLE"). Every line was read
+off the pixels, twice.
+
+Quoting them exposed real errors this manual had been teaching:
+  - 25/26 Q6(b) prints SIX functional dependencies; the book showed four and had
+    reordered fd1's targets. The two dropped ones are the candidate keys.
+  - 25/26 Q1(c) prices salaries in Naira; the book had dropped the currency.
+  - The book told the reader the paper is "Two hours". It prints TIME: 3 HOURS.
+The papers' own defects are now preserved as evidence rather than tidied away: the
+struck-through "Show the prim" in 25/26 Q2(d), 24/25 Q5(b) promising "(i-vii)" and
+printing eight parts, its Table 1 having no sName column though three of its FDs
+determine sName, 21/22 Q2(c) declaring four attributes ABCD then depending on F,
+and 15/16 labelling two consecutive parts "(a)". Each carries a note AFTER the
+quote saying so.
+
+A sixth gate, qa_verbatim.py, now enforces this in FOUR directions, every one
+control-tested to fail on its own defect and on nothing else:
+  - paraphrase: reword one word of a quote and it fails;
+  - dropped part: delete the only copy of a question and it fails;
+  - prose citation: reword a quotation attributed to the examiner in a note;
+  - line structure: join two lines of a quoted listing, leaving every word intact
+    and in order, and it still fails. The first three compare whitespace-collapsed
+    text and are all blind to that.
+Plus discovery: a box that cites a paper but shows no quote is a failure, which is
+what caught the 48 module sites. Two bugs were found by control-testing rather than
+by reading: a scaffolding regex that silently ate the papers' own indented
+sub-parts (and which the gate would have blessed, since book and transcript were
+sliced by the same rule), and an entity double-escape that printed "&#8594;" where
+the paper prints an arrow.
 
 To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)

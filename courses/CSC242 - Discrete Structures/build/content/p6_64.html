@@ -1,0 +1,383 @@
+<section>
+  <div class="kick">Part Six &middot; 6.4</div>
+  <h2 class="title">Directed Graphs, In-degree and Out-degree</h2>
+  <hr class="rule">
+  <p class="lead">Put an arrowhead on every edge and the degree splits in two:
+  arrows coming in, and arrows going out. Two papers set the same tabulation
+  question on a hand-drawn figure.</p>
+  <p class="lo">By the end of this section you will be able to define a directed
+  graph, compute in-degree and out-degree, state the directed form of the
+  Handshaking theorem, tabulate a digraph vertex by vertex, and answer both
+  tabulation questions and the short note on in-degree and out-degree.</p>
+
+  <h3 class="sub">Directed graphs</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Digraph, arc, in-degree, out-degree</span></div>
+    <div class="body">
+      <p>A <b>directed graph</b>, or <b>digraph</b>, is a graph in which every
+      edge has a direction. A directed edge is called an <b>arc</b>, and it is
+      written as an <b>ordered</b> pair (u, v), drawn as an arrow from u to v.</p>
+      <p>For a vertex v:</p>
+      <p style="margin-left:12pt">the <b>in-degree</b> deg<sup>&#8722;</sup>(v)
+      is the number of arcs pointing <b>into</b> v;<br>
+      the <b>out-degree</b> deg<sup>+</sup>(v) is the number of arcs pointing
+      <b>out of</b> v.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">(u, v)</span> is an ordered pair, so (u, v) and (v, u) are
+      <b>different arcs</b>. This is the whole difference from section 6.1, where
+      an edge joining u and v was one thing however you named it.
+      <span class="sym">deg<sup>&#8722;</sup>(v)</span> counts arrowheads landing
+      on v.
+      <span class="sym">deg<sup>+</sup>(v)</span> counts arrow tails leaving v.
+      <span class="sym">a loop</span> at v adds 1 to each, since it both leaves v
+      and arrives at v.</div>
+      <p class="hook"><b>Memory hook:</b> <b>minus is in, plus is out.</b> The
+      superscript minus looks like an arrow flattened as it arrives; the plus is
+      the vertex sending traffic outward. And a mnemonic that never fails: the
+      <b>in</b>-degree counts the arrow<b>heads</b>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Handshaking for digraphs</span></div>
+    <div class="body">
+      <p>In any directed graph,</p>
+      <p style="margin-left:12pt"><b>&#931; deg<sup>&#8722;</sup>(v) =
+      &#931; deg<sup>+</sup>(v) = |E|</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">|E|</span> is the number of arcs.
+      <span class="sym">the two sums</span> are each equal to |E|, <b>not</b> to
+      2|E|: every arc has exactly one tail and exactly one head, so it is counted
+      once in each sum rather than twice in one.</div>
+      <p><b>How this differs from section 6.3,</b> which is the point most often
+      lost: in an undirected graph the degrees sum to 2|E|; in a digraph the
+      in-degrees sum to |E| and the out-degrees sum to |E|, and adding the two
+      sums together recovers the 2|E|.</p>
+      <p class="hook"><b>Memory hook:</b> <b>one tail and one head per arc.</b>
+      Both column totals of your table must equal the arc count. That is a free
+      check, and it catches a misread arrowhead immediately.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="width:86%;height:auto">
+      <defs><marker id="ah6" markerWidth="8" markerHeight="8" refX="7" refY="2.8" orient="auto">
+        <path d="M0,0 L7,2.8 L0,5.6 z" fill="#5b6480"/></marker></defs>
+      <g stroke="#5b6480" stroke-width="1.4" fill="none" marker-end="url(#ah6)">
+        <path d="M76 48 L166 48"/>
+        <path d="M172 60 L172 132"/>
+        <path d="M162 142 L82 142"/>
+        <path d="M70 130 L70 60"/>
+        <path d="M80 56 L162 134"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="70" cy="46" r="6"/><circle cx="172" cy="46" r="6"/>
+        <circle cx="172" cy="142" r="6"/><circle cx="70" cy="142" r="6"/>
+      </g>
+      <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+        <text x="58" y="36">p</text><text x="180" y="36">q</text>
+        <text x="180" y="164">r</text><text x="58" y="164">s</text>
+      </g>
+      <text x="60" y="192" font-family="DejaVu Sans" font-size="10" fill="#67707a">5 arcs</text>
+      <g font-family="DejaVu Sans" font-size="11" fill="#232a31">
+        <text x="240" y="40">vertex</text><text x="316" y="40">in</text><text x="376" y="40">out</text>
+        <text x="240" y="62">p</text><text x="320" y="62">1</text><text x="380" y="62">2</text>
+        <text x="240" y="84">q</text><text x="320" y="84">1</text><text x="380" y="84">1</text>
+        <text x="240" y="106">r</text><text x="320" y="106">2</text><text x="380" y="106">1</text>
+        <text x="240" y="128">s</text><text x="320" y="128">1</text><text x="380" y="128">1</text>
+      </g>
+      <line x1="236" y1="138" x2="410" y2="138" stroke="#9aa0b8" stroke-width="1"/>
+      <g font-family="DejaVu Sans" font-size="11" fill="#283593">
+        <text x="240" y="156">total</text><text x="320" y="156">5</text><text x="380" y="156">5</text>
+      </g>
+      <text x="236" y="182" font-family="DejaVu Sans" font-size="10" fill="#67707a">both totals equal the arc count</text>
+    </svg>
+    <figcaption>A digraph and its table. The arcs are p to q, q to r, r to s,
+    s to p, and p to r. Both column totals come to 5, which is the check.</figcaption>
+  </figure>
+
+  <h3 class="sub">The short note</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(a)(iii)</span></div>
+    <div class="body">
+      <p><b>The question</b> is quoted in full in section 6.1: "(iii) In-degree
+      and Out-degree of a vertex", 2 marks, wanting short notes with relevant
+      examples.</p>
+      <p><b>Definition.</b> In a directed graph, the in-degree of a vertex v,
+      written deg<sup>&#8722;</sup>(v), is the number of arcs whose arrowhead
+      lands on v. The out-degree, deg<sup>+</sup>(v), is the number of arcs whose
+      tail leaves v. A loop at v adds 1 to each.</p>
+      <p><b>Example 1.</b> In the figure above, vertex p has one arc arriving
+      (from s) and two leaving (to q and to r), so
+      deg<sup>&#8722;</sup>(p) = 1 and deg<sup>+</sup>(p) = 2.</p>
+      <p><b>Example 2.</b> On a web link graph, a page's in-degree is the number
+      of pages linking <i>to</i> it and its out-degree the number it links
+      <i>out</i> to. Search engines rank on the first and not the second, which
+      is a one-line way of showing you understand the difference matters.</p>
+      <p><b>The line worth adding:</b> &#931; deg<sup>&#8722;</sup>(v) =
+      &#931; deg<sup>+</sup>(v) = |E|, because every arc has exactly one head and
+      one tail.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Tabulating a digraph</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q1b">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q1(b)</span></div>
+    <div class="body">
+      <p class="q">(b) In the Graph diagram below, present in tabular form the following: <span class="mk">(6&#189;marks)</span></p>
+      <p class="qi">(i)   The number of Vertices</p>
+      <p class="qi">(ii)  The number of edges</p>
+      <p class="qi">(iii) The total number of In-degree &amp; Out-degree from all the vertices.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q5c">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q5(c)</span></div>
+    <div class="body">
+      <p class="q">(c) In the Graph diagram below, present in tabular form the following:</p>
+      <p class="qi">(i)  Identify each vertex and state the total number of vertices. <span class="mk">(1 marks)</span></p>
+      <p class="qi">(ii) Identify each edge per vertex and state total number of edges. <span class="mk">(1 marks)</span></p>
+      <p class="qi">(iii) Identify each vertex's in-degree and state the total number of the in-degrees. <span class="mk">(2 marks)</span></p>
+      <p class="qi">(iv) Identify each vertex's out-degree and state the total number of the out-degrees. <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper, and on both figures</b><br>
+  The same question twice, expanded from three parts to four. 2023/2024 prints
+  "(1 marks)" twice, a singular value with a plural noun.
+  <br><br>
+  <b>Neither figure can be fully read from the scans we hold, and this manual
+  will not pretend otherwise.</b> Both are small directed graphs on four labelled
+  vertices with a fifth vertex sitting alone and joined to nothing, drawn with
+  several curved arcs between the same pairs and with arrowheads a couple of
+  pixels across.
+  <br><br>
+  For 2021/2022 Q1(b) the arc count and the arc directions are <b>not</b>
+  recoverable at the resolution available, so no reading of it is given here at
+  all. For 2023/2024 Q5(c) the multi-arc bundles are clear but the two crossing
+  diagonals in the middle are not; that reading is given below, flagged, with the
+  arithmetic that lets you re-do it in seconds once you have read the arrowheads
+  off your own copy.
+  <br><br>
+  <b>The marks are for the method, not for the figure.</b> Both questions pay for
+  a table laid out correctly with totals that reconcile. Learn the layout, and
+  fill it from whatever your own copy shows.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A directed graph drawn on the paper, with labelled
+      vertices, several arcs, and at least one vertex joined to nothing.</dd>
+      <dt>Asked</dt><dd><b>Present in tabular form</b>: the vertices and their
+      count, the edges and their count, then each vertex's in-degree and
+      out-degree with totals. The instruction "in tabular form" is explicit, so a
+      paragraph loses marks even if every number in it is right.</dd>
+      <dt>Marks say</dt><dd>6.5 and 6 respectively, split roughly evenly across
+      the parts. In-degree and out-degree carry 2 marks each on 2023/2024, which
+      is where the care belongs.</dd>
+      <dt>Teaches</dt><dd>This section, 6.4.</dd>
+      <dt>Trap</dt><dd>Three. Forgetting the isolated vertex, which must still
+      appear in the table with 0 and 0. Counting a two-arc bundle as one edge.
+      And giving a single "degree" column instead of two.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; how to tabulate any digraph</span></div>
+    <div class="body">
+      <p><b>The method, in four steps.</b> It works on any figure, including the
+      one on your own paper.</p>
+      <div class="steps">
+        <ol>
+          <li><b>List the vertices first,</b> reading the labels off the drawing
+          and including any vertex with no arcs. Write the count.</li>
+          <li><b>Walk the arcs one bundle at a time,</b> writing each as an
+          ordered pair (tail, head). Where several curves join the same pair,
+          count the curves, not the pairs. Write the count.</li>
+          <li><b>Build a row per vertex</b> with three columns: arcs out, arcs
+          in, and the two degrees. Fill it from the list in step 2, not from the
+          drawing, so each arc is used exactly once.</li>
+          <li><b>Total both degree columns.</b> Each total must equal the arc
+          count from step 2. If they do not, an arc was missed or double
+          counted.</li>
+        </ol>
+      </div>
+      <p><b>Worked on a clearly drawn example,</b> so the method is visible
+      without an unreadable figure in the way. <i>This figure is mine, not the
+      paper's.</i></p>
+      <figure>
+        <svg viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="width:84%;height:auto">
+          <defs><marker id="ah7" markerWidth="8" markerHeight="8" refX="7" refY="2.8" orient="auto">
+            <path d="M0,0 L7,2.8 L0,5.6 z" fill="#5b6480"/></marker></defs>
+          <g stroke="#5b6480" stroke-width="1.4" fill="none" marker-end="url(#ah7)">
+            <path d="M78 44 C 116 24, 150 24, 186 42"/>
+            <path d="M186 56 C 150 74, 116 74, 80 58"/>
+            <path d="M192 60 L192 128"/>
+            <path d="M182 140 L84 140"/>
+            <path d="M84 146 C 120 168, 158 168, 182 150"/>
+            <path d="M84 54 L182 132"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="70" cy="48" r="6.5"/><circle cx="192" cy="48" r="6.5"/>
+            <circle cx="192" cy="140" r="6.5"/><circle cx="70" cy="140" r="6.5"/>
+          </g>
+          <circle cx="272" cy="176" r="6.5" fill="#be123c"/>
+          <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+            <text x="56" y="38">a</text><text x="202" y="38">b</text>
+            <text x="202" y="164">c</text><text x="54" y="164">d</text>
+            <text x="284" y="172">e</text>
+          </g>
+          <text x="230" y="196" font-family="DejaVu Sans" font-size="10" fill="#be123c">e is isolated</text>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#67707a">
+            <text x="112" y="20">a to b</text><text x="112" y="90">b to a</text>
+            <text x="200" y="100">b to c</text><text x="112" y="132">c to d</text>
+            <text x="112" y="186">d to c</text><text x="88" y="112">a to c</text>
+          </g>
+        </svg>
+        <figcaption>Six arcs on five vertices, one of them isolated. Every
+        arrowhead is unambiguous, which is the point of drawing it again.</figcaption>
+      </figure>
+      <p><b>Step 1. Vertices:</b> a, b, c, d, e. <b>Total vertices = 5.</b> Note
+      e, joined to nothing.</p>
+      <p><b>Step 2. Arcs</b> as ordered pairs: (a, b), (b, a), (b, c), (c, d),
+      (d, c), (a, c). <b>Total arcs = 6.</b></p>
+      <p><b>Step 3 and 4. The table.</b></p>
+      <table class="data">
+        <tr><th>Vertex</th><th>Arcs out</th><th>Out-degree</th><th>Arcs in</th><th>In-degree</th></tr>
+        <tr><td>a</td><td>(a, b), (a, c)</td><td>2</td><td>(b, a)</td><td>1</td></tr>
+        <tr><td>b</td><td>(b, a), (b, c)</td><td>2</td><td>(a, b)</td><td>1</td></tr>
+        <tr><td>c</td><td>(c, d)</td><td>1</td><td>(b, c), (a, c), (d, c)</td><td>3</td></tr>
+        <tr><td>d</td><td>(d, c)</td><td>1</td><td>(c, d)</td><td>1</td></tr>
+        <tr><td>e</td><td>none</td><td>0</td><td>none</td><td>0</td></tr>
+        <tr><td><b>Total</b></td><td></td><td><b>6</b></td><td></td><td><b>6</b></td></tr>
+      </table>
+      <p><b>The check.</b> Both totals are 6, which is the arc count from step 2.
+      That is &#931; deg<sup>+</sup>(v) = &#931; deg<sup>&#8722;</sup>(v) = |E|,
+      and it is the only verification available in the exam hall. Do it every
+      time.</p>
+      <p class="redo"><b>Now redo it:</b> add an arc (e, a) to the figure. Then
+      |E| = 7, deg<sup>+</sup>(e) = 1, deg<sup>&#8722;</sup>(a) = 2, and both
+      totals become 7.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q5(c) &middot; on the stated reading</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A digraph on vertices a, b, c, d and an isolated vertex
+        e. Bundles read from the scan: one arc b to a; two arcs a to b; two arcs
+        d to a; two arcs b to c; three arcs d to c. The two crossing diagonals
+        are read as two arcs a to c and one arc b to d.</dd>
+        <dt>Find</dt><dd>The vertices and their count, the arcs and their count,
+        each in-degree with its total, each out-degree with its total.</dd>
+        <dt>Rule</dt><dd>&#931; deg<sup>&#8722;</sup>(v) =
+        &#931; deg<sup>+</sup>(v) = |E|.</dd>
+      </dl>
+      <p><b>Flag first, then answer.</b> Write this line before the table:
+      <i>"The two crossing diagonals are taken as two arcs from a to c and one
+      from b to d; the remaining bundles are unambiguous."</i> An examiner
+      marking a hand-drawn figure will accept a stated reading; a wrong reading
+      presented as certain earns nothing.</p>
+      <p><b>(i) Vertices.</b> a, b, c, d, e. <b>Total = 5.</b> Vertex e carries
+      no arcs at all and must still be listed.</p>
+      <p><b>(ii) Arcs, per vertex of origin.</b></p>
+      <table class="data">
+        <tr><th>Bundle</th><th>Arcs</th></tr>
+        <tr><td>b to a</td><td>1</td></tr>
+        <tr><td>a to b</td><td>2</td></tr>
+        <tr><td>d to a</td><td>2</td></tr>
+        <tr><td>b to c</td><td>2</td></tr>
+        <tr><td>d to c</td><td>3</td></tr>
+        <tr><td>a to c</td><td>2 &nbsp; <i>(stated reading)</i></td></tr>
+        <tr><td>b to d</td><td>1 &nbsp; <i>(stated reading)</i></td></tr>
+        <tr><td><b>Total edges</b></td><td><b>13</b></td></tr>
+      </table>
+      <p><b>(iii) and (iv) In-degree and out-degree.</b></p>
+      <table class="data">
+        <tr><th>Vertex</th><th>Out-degree</th><th>From</th><th>In-degree</th><th>From</th></tr>
+        <tr><td>a</td><td>4</td><td>2 to b, 2 to c</td><td>3</td><td>1 from b, 2 from d</td></tr>
+        <tr><td>b</td><td>4</td><td>1 to a, 2 to c, 1 to d</td><td>2</td><td>2 from a</td></tr>
+        <tr><td>c</td><td>0</td><td>none</td><td>7</td><td>2 from b, 3 from d, 2 from a</td></tr>
+        <tr><td>d</td><td>5</td><td>2 to a, 3 to c</td><td>1</td><td>1 from b</td></tr>
+        <tr><td>e</td><td>0</td><td>none</td><td>0</td><td>none</td></tr>
+        <tr><td><b>Total</b></td><td><b>13</b></td><td></td><td><b>13</b></td><td></td></tr>
+      </table>
+      <p><b>The check passes:</b> both totals are 13, which equals the arc count.
+      Note also that c is a <b>sink</b>, with arcs arriving and none leaving, and
+      that e is isolated in both directions.</p>
+      <p><b>If your copy reads the diagonals the other way,</b> say one arc each
+      way, then |E| = 13 still holds only if the count of diagonal arcs is
+      unchanged; with two arcs a to c replaced by one a to c and one c to a, the
+      arc total stays 13, deg<sup>+</sup>(a) falls to 3, deg<sup>+</sup>(c) rises
+      to 1 and deg<sup>&#8722;</sup>(c) falls to 6, while
+      deg<sup>&#8722;</sup>(a) rises to 4. Redo the two affected rows and check
+      the totals again. Nothing else changes.</p>
+      <p><b>For the 2021/2022 version,</b> whose figure is not readable at all
+      from the scan, use the four-step method above on your own copy. Its part
+      (iii) asks only for "the total number of In-degree &amp; Out-degree from all
+      the vertices", which is the pair of column totals, and by the digraph
+      Handshaking rule both of them equal the number of arcs. If you can count
+      the arcs you can answer part (iii) even if you misread an arrowhead.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Never present an unreadable figure as read</span></div>
+    <div class="body">
+      <p>Both of these questions are drawn by hand and scanned. If an arrowhead
+      is genuinely ambiguous on your copy, the professional move is the same one
+      this manual has used: <b>state the reading you are working under, then
+      answer under it</b>. One sentence protects the whole table.</p>
+      <p>What loses marks is silence. A table with no stated reading and a
+      misread arc looks like a candidate who cannot count, rather than one
+      working from a poor photocopy.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What makes a digraph different from an undirected
+      graph?</p>
+      <p class="q">2. Define in-degree and out-degree.</p>
+      <p class="q">3. What do the in-degrees sum to, and what do the degrees of
+      an undirected graph sum to?</p>
+      <p class="q">4. How much does a loop add to each of the two degrees in a
+      digraph?</p>
+      <p class="q">5. A digraph has 13 arcs. What must each of your two column
+      totals be?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Every edge has a direction, so an arc is an ordered pair and (u, v)
+      differs from (v, u).<br>
+      2. In-degree counts arcs arriving at the vertex; out-degree counts arcs
+      leaving it.<br>
+      3. In-degrees sum to |E|. Undirected degrees sum to 2|E|.<br>
+      4. One to each, since it both leaves and arrives at that vertex.<br>
+      5. 13 each. If either differs, an arc has been missed or counted
+      twice.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A directed edge is called an <span class="blank"></span> and is
+        written as an <span class="blank"></span> pair.</li>
+        <li>deg<sup>&#8722;</sup>(v) is the <span class="blank"></span>-degree.</li>
+        <li>&#931; deg<sup>+</sup>(v) = <span class="blank"></span>.</li>
+        <li>A vertex with arcs arriving and none leaving is a
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. arc, ordered. 2. in. 3. |E|. 4. sink.</p>
+    </div>
+  </div>
+
+</section>

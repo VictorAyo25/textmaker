@@ -1,0 +1,313 @@
+<section class="part">
+  <div class="kicker">Part Two</div>
+  <h1>Sets and Their<br>Operations</h1>
+  <div class="blurb">A set is the simplest idea in this course and the one
+  everything else is built from. Relations are sets, functions are sets, graphs
+  are sets, and a database table is a set with a nice interface.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="180" cy="72" r="62" fill="#283593" fill-opacity=".16" stroke="#5560a8" stroke-width="1.6"/>
+      <circle cx="268" cy="72" r="62" fill="#be123c" fill-opacity=".13" stroke="#be123c" stroke-width="1.6" stroke-opacity=".65"/>
+      <text x="140" y="78" font-family="DejaVu Serif" font-size="20" fill="#5560a8">A</text>
+      <text x="298" y="78" font-family="DejaVu Serif" font-size="20" fill="#be123c">B</text>
+      <text x="215" y="78" font-family="DejaVu Sans" font-size="15" fill="#3a4270">A&#8745;B</text>
+      <text x="0" y="140" font-family="DejaVu Sans" font-size="14" fill="#6f78b0">n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B)</text>
+      <text x="360" y="46" font-family="DejaVu Sans" font-size="15" fill="#8891c9">&#8746; &#8745; &#8709;</text>
+      <text x="360" y="76" font-family="DejaVu Sans" font-size="15" fill="#8891c9">&#8838; &#8834; &#215;</text>
+      <text x="360" y="106" font-family="DejaVu Sans" font-size="15" fill="#8891c9">&#8712; &#8713; &#8710;</text>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Two &middot; 2.1</div>
+  <h2 class="title">Sets, Membership and the Nine Types</h2>
+  <hr class="rule">
+  <p class="lead">The 2025/2026 paper asks you to discuss nine types of set with
+  an example of each. Here they are, with the vocabulary that surrounds them.</p>
+  <p class="lo">By the end of this section you will be able to define a set, state
+  its cardinality, name and give an example of each of the nine standard types,
+  and use the subset symbols correctly.</p>
+
+  <h3 class="sub">The definition and the vocabulary</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Set, element, cardinality</span></div>
+    <div class="body">
+      <p>A <b>set</b> is a well-defined collection of distinct objects. The
+      objects are its <b>elements</b> or <b>members</b>.</p>
+      <p><b>Well-defined</b> is doing real work: for any object it must be
+      unambiguous whether it belongs. "The set of tall students" is not a set
+      until "tall" is pinned down. "The set of students over 1.8 m" is.</p>
+      <p>The number of elements in a set A is its <b>cardinality</b>, written
+      <b>n(A)</b> or <b>|A|</b>. So if A = {2, 4, 6} then n(A) = 3.</p>
+      <p class="hook"><b>Memory hook:</b> distinct and well-defined. Repeats do
+      not count twice, and "maybe" is not an answer to whether something is in.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The nine types of set</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The nine types, with examples</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Type</th><th>Definition</th><th>Example</th></tr>
+        <tr><td><b>Empty</b> (null, void)</td><td>Contains no elements at all. Written &#8709; or { }.</td><td>{x | x &#8712; &#8477;, x&#178; = &#8722;1} = &#8709;</td></tr>
+        <tr><td><b>Singleton</b> (unit)</td><td>Contains exactly one element.</td><td>{5}, or the set of even prime numbers {2}</td></tr>
+        <tr><td><b>Finite</b></td><td>Its elements can be counted and the count ends.</td><td>{a, e, i, o, u}, n = 5</td></tr>
+        <tr><td><b>Infinite</b></td><td>Counting its elements never ends.</td><td>&#8469;, the natural numbers</td></tr>
+        <tr><td><b>Equal</b></td><td>Two sets with exactly the same elements. Order and repeats are irrelevant.</td><td>{1, 2, 3} = {3, 2, 1, 1}</td></tr>
+        <tr><td><b>Equivalent</b></td><td>Two sets with the same cardinality, whatever their elements.</td><td>{a, b, c} and {1, 2, 3}</td></tr>
+        <tr><td><b>Subset</b></td><td>Every element of A is also in B. Written A &#8838; B.</td><td>{1, 2} &#8838; {1, 2, 3}</td></tr>
+        <tr><td><b>Universal</b></td><td>The set containing everything under discussion. Written U.</td><td>U = {1, 2, ..., 10} in a question about single digits</td></tr>
+        <tr><td><b>Disjoint</b></td><td>Two sets with no element in common, so A &#8745; B = &#8709;.</td><td>{1, 3, 5} and {2, 4, 6}</td></tr>
+      </table>
+      <p>Two more you should be able to name if pressed, since some books count
+      them among the nine: a <b>proper subset</b> (A &#8834; B, a subset that is
+      not the whole of B) and the <b>power set</b> (the set of all subsets,
+      covered in 2.3).</p>
+      <p class="hook"><b>Memory hook:</b> group them in threes. By <i>size</i>:
+      empty, singleton, finite/infinite. By <i>comparison</i>: equal, equivalent,
+      subset. By <i>role</i>: universal, disjoint, power set.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Equal versus equivalent</span></div>
+    <div class="body">
+      <p>These two words are close in English and precise in mathematics, and the
+      examiner knows it.</p>
+      <p><b>Equal</b> sets have the same <i>elements</i>: {1, 2, 3} = {3, 2, 1}.</p>
+      <p><b>Equivalent</b> sets have the same <i>number</i> of elements:
+      {a, b, c} and {1, 2, 3} are equivalent but very much not equal.</p>
+      <p>Every pair of equal sets is equivalent. The reverse fails constantly.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">&#8709; is not {&#8709;}</span></div>
+    <div class="body">
+      <p>&#8709; is the empty set: it has nothing in it, so n(&#8709;) = 0.</p>
+      <p>{&#8709;} is a set containing one thing, and that thing happens to be the
+      empty set. So n({&#8709;}) = 1. It is a singleton, not an empty set.</p>
+      <p>Think of &#8709; as an empty box and {&#8709;} as a box with an empty box
+      inside it. The second is not empty.</p>
+      <p>Also: never write {&#8709;} meaning "the empty set", and never write
+      "&#8709; = { }" with anything between the braces. Both cost marks in the
+      power-set questions of 2.3.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Subsets</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">&#8838; and &#8834;</span></div>
+    <div class="body">
+      <p><b>A &#8838; B</b> ("A is a subset of B") means every element of A is
+      also an element of B. A may equal B.</p>
+      <p><b>A &#8834; B</b> ("A is a proper subset of B") means A &#8838; B and
+      A &#8800; B, so B has at least one element A lacks.</p>
+      <p>Standard facts, all worth knowing on sight:</p>
+      <p>&#8709; &#8838; A for every set A. The empty set is a subset of
+      everything, because it has no element that could fail to be in A.<br>
+      A &#8838; A for every set A.<br>
+      If A &#8838; B and B &#8838; C then A &#8838; C, so subsethood carries
+      through a chain.<br>
+      A set with n elements has <b>2<sup>n</sup></b> subsets.</p>
+      <p class="hook"><b>Memory hook:</b> &#8838; is to sets what &#8804; is to
+      numbers, and &#8834; is what &lt; is. The extra line means "or equal".</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">&#8712; and &#8838; are not interchangeable</span></div>
+    <div class="body">
+      <p>Let A = {1, 2, 3}.</p>
+      <p><b>1 &#8712; A</b> is true. The number 1 is an element.<br>
+      <b>{1} &#8838; A</b> is true. The <i>set</i> {1} is a subset.<br>
+      <b>1 &#8838; A</b> is nonsense. The number 1 is not a set, so it cannot be
+      a subset.<br>
+      <b>{1} &#8712; A</b> is false. The elements of A are numbers, not sets, so
+      the set {1} is not among them.</p>
+      <p>The rule: <b>&#8712; relates an element to a set, &#8838; relates a set
+      to a set.</b> Check which side of the symbol each object belongs on before
+      you write it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Listing the members of a described set</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q1a">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q1(a)</span></div>
+    <div class="body">
+      <p class="q">1.  (a) List the members of the following sets. <span class="mk">(5marks)</span></p>
+      <p class="qi">(i)   {x | x is a real number such that x&#178; = 1}</p>
+      <p class="qi">(ii)  {x | x is a positive prime number less than 20}</p>
+      <p class="qi">(iii) {x | x is a perfect square and x &lt; 100}</p>
+      <p class="qi">(iv)  {x | x is an integer such that x&#178; = 2}</p>
+      <p class="qi">(v)   {x | x is an integer such that 2x = x}</p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The marks are printed <i>before</i> the five items, on the instruction line,
+  which is why the quote above carries them there.
+  <br><br>
+  <b>Item (iii) is genuinely ambiguous and you should say so.</b> It reads
+  "{x | x is a perfect square and x &lt; 100}" without saying that x is a
+  positive integer. Read strictly, 0 qualifies, and so do non-integer squares
+  such as 0.25, which would make the set infinite. The intended answer is the
+  perfect squares of whole numbers below 100. State the reading you use and give
+  the set; a stated assumption protects the mark, a silent one does not.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Five sets in set-builder notation.</dd>
+      <dt>Asked</dt><dd><b>List the members</b>, that is, convert each from
+      set-builder to roster form.</dd>
+      <dt>Marks say</dt><dd>5 marks, one per item. Each is one line. Do not
+      explain; just list, with braces.</dd>
+      <dt>Teaches</dt><dd>This section, 2.1, and section F.1 for the notation.</dd>
+      <dt>Trap</dt><dd>Two items have <b>fewer</b> members than they look.
+      Item (iv) is empty, and item (v) has exactly one member. Writing "no
+      solution" instead of the empty set loses the mark: the answer to "list the
+      members" is always a set.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 21/22 Q1(a)</span></div>
+    <div class="body">
+      <p class="marks">(i) {x | x is a real number such that x&#178; = 1}</p>
+      <p>x&#178; = 1 gives x = 1 or x = &#8722;1, and both are real.</p>
+      <p style="margin-left:12pt"><b>{1, &#8722;1}</b></p>
+      <p class="marks">(ii) {x | x is a positive prime number less than 20}</p>
+      <p>A prime has exactly two positive divisors, itself and 1, so 1 is not
+      prime.</p>
+      <p style="margin-left:12pt"><b>{2, 3, 5, 7, 11, 13, 17, 19}</b>, eight
+      members.</p>
+      <p class="marks">(iii) {x | x is a perfect square and x &lt; 100}</p>
+      <p><i>Reading used: x is a whole number that is the square of a whole
+      number.</i> Then 0&#178; = 0 up to 9&#178; = 81 qualify, and
+      10&#178; = 100 does not, because the condition is strictly less than
+      100.</p>
+      <p style="margin-left:12pt"><b>{0, 1, 4, 9, 16, 25, 36, 49, 64, 81}</b>,
+      ten members.</p>
+      <p>If your reading excludes 0, say so and give the same set without it,
+      which is nine members. Either is defensible; leaving the reading unstated
+      is not.</p>
+      <p class="marks">(iv) {x | x is an integer such that x&#178; = 2}</p>
+      <p>x&#178; = 2 gives x = &#8730;2 or x = &#8722;&#8730;2, and neither is an
+      integer. No integer qualifies, so the set is empty.</p>
+      <p style="margin-left:12pt"><b>&#8709;</b>, also written { }.</p>
+      <p><b>Do not write { &#8709; }.</b> That is the set <i>containing</i> the
+      empty set, which has one member and is not empty at all.</p>
+      <p class="marks">(v) {x | x is an integer such that 2x = x}</p>
+      <p>2x = x gives x = 0, which is an integer, so exactly one value
+      qualifies.</p>
+      <p style="margin-left:12pt"><b>{0}</b>, a singleton set.</p>
+      <p><b>Note the contrast between (iv) and (v),</b> which is almost certainly
+      why the examiner set them next to each other: one is the empty set with no
+      members, the other is a singleton whose single member happens to be 0.
+      &#8709; and {0} are different sets, and confusing them is the standard slip
+      here.</p>
+      <p class="redo"><b>Now redo it:</b> list {x | x is an integer such that
+      x&#178; &lt; 5}. The answer is {&#8722;2, &#8722;1, 0, 1, 2}, five
+      members.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The real question</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q1b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q1(b)</span></div>
+    <div class="body">
+      <p class="q">b) &nbsp; i) Discuss nine (9) types of sets, giving an example of each. <span class="mk">(3 marks)</span></p>
+      <p class="q">ii) List two mathematical ways to describe a set. <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. Both parts are pure recall.</dd>
+      <dt>Asked</dt><dd>Part i: <b>discuss</b> nine types <b>giving an example of
+      each</b>. The example is compulsory and carries marks. Part ii: <b>list</b>
+      two ways to describe a set.</dd>
+      <dt>Marks say</dt><dd>3 marks for nine types is a third of a mark each, so
+      a table with one line and one example per row is exactly right. Do not
+      write paragraphs. Part ii is 2 marks for two named methods, so name them
+      <i>and</i> show one line of each.</dd>
+      <dt>Teaches</dt><dd>This section for the types, F.1 for the two
+      descriptions.</dd>
+      <dt>Trap</dt><dd>Giving nine types but forgetting the examples throws away
+      half the marks, because "giving an example of each" is part of the
+      instruction.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1(b)</span></div>
+    <div class="body">
+      <p><b>(i) Nine types of set.</b> Answer as a table; it is faster to write
+      and easier to mark.</p>
+      <table class="data">
+        <tr><th>Type</th><th>Meaning</th><th>Example</th></tr>
+        <tr><td>Empty set</td><td>has no elements</td><td>&#8709; = { }</td></tr>
+        <tr><td>Singleton set</td><td>has exactly one element</td><td>{7}</td></tr>
+        <tr><td>Finite set</td><td>has a countable, ending number of elements</td><td>{a, e, i, o, u}</td></tr>
+        <tr><td>Infinite set</td><td>counting never ends</td><td>&#8469; = {0, 1, 2, ...}</td></tr>
+        <tr><td>Equal sets</td><td>same elements</td><td>{1, 2, 3} and {3, 1, 2}</td></tr>
+        <tr><td>Equivalent sets</td><td>same number of elements</td><td>{a, b} and {9, 4}</td></tr>
+        <tr><td>Subset</td><td>every element of one lies in the other</td><td>{1, 2} &#8838; {1, 2, 3}</td></tr>
+        <tr><td>Universal set</td><td>contains everything under discussion</td><td>U = {1, 2, ..., 10}</td></tr>
+        <tr><td>Disjoint sets</td><td>no element in common</td><td>{1, 3} and {2, 4}</td></tr>
+      </table>
+      <p><b>(ii) Two mathematical ways to describe a set.</b></p>
+      <p><b>1. The roster (listing or tabular) method:</b> write the elements
+      between braces. Example: A = {2, 4, 6, 8}.</p>
+      <p><b>2. Set-builder (rule) notation:</b> state the property membership
+      requires. Example: A = {x | x is even and 0 &lt; x &lt; 10}, read "the set
+      of all x such that x is even and x lies between 0 and 10".</p>
+      <p class="redo"><b>Now redo it:</b> cover the table and write all nine
+      types with fresh examples of your own. Three minutes.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What is n({&#8709;})?</p>
+      <p class="q">2. Give two sets that are equivalent but not equal.</p>
+      <p class="q">3. How many subsets does {a, b, c, d} have?</p>
+      <p class="q">4. True or false: {2} &#8712; {1, 2, 3}.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. 1. It is a singleton whose only element is the empty set.<br>
+      2. {a, b, c} and {1, 2, 3}, for instance. Same size, different
+      elements.<br>
+      3. 2&#8308; = 16.<br>
+      4. False. {2} is a subset, not an element: {2} &#8838; {1, 2, 3} is the
+      true statement.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The number of elements in a set is its <span class="blank"></span>.</li>
+        <li>Two sets with no element in common are <span class="blank"></span>.</li>
+        <li>A set with n elements has <span class="blank"></span> subsets.</li>
+        <li>Sets with the same elements are <span class="blank"></span>; sets
+        with the same number of elements are <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. cardinality. 2. disjoint. 3. 2<sup>n</sup>. 4. equal, equivalent.</p>
+    </div>
+  </div>
+
+</section>

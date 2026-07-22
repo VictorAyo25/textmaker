@@ -1,0 +1,199 @@
+TRANSCRIPT: CSC 214, 2015/2016, Alpha semester. (DTS224 is the renamed CSC214.)
+Source: PQ/2015-2016.pdf, 3 pages.
+Transcribed BY EYE from the pages rasterised at 2.0x. The PDF does carry a text
+layer, but it is OCR of a scan and is NOT trusted or used (the 2021/2022 file in
+this same set OCRs "TITLE" as "TrTLE"); the layer was consulted only afterwards as
+a spell-check on my own typing. Read twice.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]] marker, [Figure ...] my description, [note: ...] my aside,
+  --- a ruled line; everything after the first one below the questions is mine.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  COVENANT UNIVERSITY
+  CANAANLAND, KM 10, IDIROKO ROAD
+  P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+  TITLE OF EXAMINATION: B.Sc EXAMINATION
+  COLLEGE: SCIENCE AND TECHNOLOGY
+  SCHOOL: NATURAL AND APPLIED SCIENCES
+  DEPARTMENT: COMPUTER & INFORMATION SCIENCES
+  SESSION: 2015/2016            SEMESTER: ALPHA
+  COURSE CODE: CSC 214          CREDIT UNIT: 3
+  COURSE TITLE: HIGH PERFORMANCE AND DATABASE MANAGEMENT SYSTEM
+  INSTRUCTION: ANSWER QUESTION ONE AND ANY OTHER THREE QUESTIONS
+  TIME: 3HOURS
+
+=====================================================================
+
+[[Q1a]]
+1(a)    State in maximum of  10 short sentences the step by step process of connecting SQL Server
+        Database Management System to Visual Studio programming languages environment.
+                                                                            (5marks)
+
+[[Q1b]]
+1(b)    Show the Functional dependency diagram  for Table 1: Patient _Appointment Table in
+        question (3)                                                        (5marks)
+
+[[Q1c]]
+1(c)    Explain five limitation of file-Based Approach                       (5marks)
+
+[[Q1d]]
+1(d)    Convert the following ER diagram into a set of tables.               (10marks)
+
+[Figure: a Chen-notation ER diagram. Project (ProjectID underlined, Title, Purpose,
+EndDate, StartDate, Cost) "Executes" N:1 to Organisation (OrgID underlined, Name,
+Address, City, State), which is 1:N "WorksFor" to Employee (SSN underlined, Name,
+City, Address, DOB, Payment, State). Project is N:1 "ReportFor" to StatusRepor
+(Comment, MoneySpent, ReportDate). Organisation carries a specialization circle
+marked d over LocalGovt (OrgLevel, Population), College (NoOfStudent, NoOfFaculty)
+and SmallBusiness (CorpStatus, DateofInc).]
+
+=====================================================================
+
+[[Q2a]]
+2(a)    What is the relationship between Candidate key and Foreign keys      (5marks)
+
+[[Q2b]]
+2 (b)   Use the following business rules to create the ERD for a small consulting company named
+        ConsultCo. Show all entities, relationships, optionalities, connectivities and
+        cardinalities.
+ A client can contract many projects, but each project is contracted by one client. Some clients in
+the company client list have not (yet) contracted any project(s). A project may have many
+(consulting company) employees assigned to it, and each employee may be assigned to many
+projects. Some employees are not assigned to any project. One employee leads each project. An
+employee may lead more than one project at a time. One employee coordinates each project. An
+employee may coordinate more than one project at a time. Some employees never lead or
+coordinate projects. Many of the consulting company employees have multiple job skills that are
+applicable to the consulting work. Each job description- system analyst, database designer,
+accountant and so on- can fit many employees. Some job descriptions are not yet filled.  Some
+employees do not have a specific job classification.                        10marks)
+
+=====================================================================
+
+[[Q3]]
+3 .     Given the  Patient _Appointment Table below
+
+        (i)     Determine the candidate keys for the table                   (3marks)
+        (ii)    Normalizing the table below to Boyce-Codd Normal form and Show the final
+                decomposed relations with the data.                          (12marks)
+
+        Table 1:        Patient _Appointment Table
+
+        Functional dependency
+
+        PNo, ADate,  &#8594; StaffNo , ATime, DentistName, SurgeonNo     (pk)
+        PNo &#8594; PName   (pd)
+        StaffNo &#8594; DentistName  Td
+        StaffNo , ADate &#8594; SurgeonNo
+        Date, ATime, SurgeonNo &#8594; PNo , PName, StaffNo, DentistName    (ck)
+        StaffNo, ADate, ATime &#8594; PNo , PName    (ck)
+
+[note: the printed page leaves the body of Table 1 blank. The caption and the
+functional dependencies are printed, but no data rows appear between them.]
+
+=====================================================================
+
+[[Q4a]]
+4. (a)  Discuss each of the following concepts in the context of the relational data model
+        (i)     attribute and turple
+        (ii)    domain
+        (iii)   degree and cardinality.                                      (5marks)
+
+[[Q4b]]
+    (b) Hotel (hotelNo, hotelName, City)
+        Room (roomNo, hotelNo, type, price)
+        Booking (hotelNo, guestNo, dateFrom, dateTo, roomNo)
+        Guest (questNo, guestName,questAddress)
+
+    Using the schema above to answer the following questions:
+    (i)     Identify the foreign keys in this schema                         (2marks)
+    (ii)     Explain how the entity integrity and referential integrity rules apply to these relations
+                                                                             (4marks)
+    (iii) Produce some sample tables for these relations that observe the relational integrity.
+                                                                             (4marks)
+
+[note: the four schema lines are set in italic, and the identifiers are underlined: hotelNo; roomNo and hotelNo; hotelNo, guestNo and dateFrom; questNo.]
+
+=====================================================================
+
+[[Q5a]]
+5. (a)  Define the 3 basic relational algebra operation                      (4marks)
+
+[[Q5a2]]
+    (a) Using the schema in 4(c), generate the relational Algebra for the following queries:
+        (i)     List all hotels
+        (ii)    List all single rooms with a price below N2000 per night
+        (iii)   List the names and Address of all quests
+                                                                             (3maks)
+
+[[Q5b]]
+      (b) Using the schema in 4(c), generates  SQL statement for the following queries:
+                                                                             (8marks)
+        (i)     How many hotels are there?
+        (ii)    List full details of all hotels in London
+        (iii)   List number of rooms in each hotel
+        (iv)    List the names and address of all quests living in London, alphabetically ordered by
+                name. use  pattern matching operator.
+
+=====================================================================
+
+[[Q6a]]
+6(a)    What is data mining? (3marks)
+
+[[Q6b]]
+ (b)    With diagram representation show data mining as the core component of knowledge
+        discovery process. (3marks)
+
+[[Q6c]]
+(c)     What is concurrency control (3marks)
+
+[[Q6d]]
+(d)     Explain some of the potential problems caused by concurrency (4.5marks)
+
+[[Q6e]]
+(e)     What is dead lock? (1.5marks)
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. This paper is marked out of 70, not 17.5 a question: Question One is 25 marks
+   (5+5+5+10) and every other question is 15. The rubric is "ANSWER QUESTION ONE
+   AND ANY OTHER THREE", so 25 + 3x15 = 70.
+
+2. Q2(b) closes its marks as "10marks)" with the opening bracket missing.
+
+3. Q4(a)(i) prints "turple" for "tuple".
+
+4. Q4(b) prints the Guest relation as "Guest (questNo, guestName,questAddress)":
+   "quest" for "guest" twice, and no space after the comma. Q5 then asks twice for
+   "quests" and "all quests". The paper means guests throughout. Left as printed.
+
+5. Q5 labels TWO consecutive parts "(a)": "5. (a) Define the 3 basic relational
+   algebra operation" and then "(a) Using the schema in 4(c)...". The second is
+   plainly (b) and the third, labelled "(b)", is plainly (c). Reproduced as printed,
+   and given the ids Q5a, Q5a2 and Q5b here so each can be quoted separately.
+
+6. Q5 twice refers to "the schema in 4(c)", but the schema is printed at 4(b).
+   There is no 4(c) on the paper.
+
+7. Q5(a2)(iii) closes "(3maks)", missing the "r".
+
+8. Q5(a2)(ii) prices a room "below N2000 per night", writing the Naira as a plain
+   capital N. The 2025/2026 paper uses the true sign. Left as printed.
+
+9. Q3's Table 1 is captioned but its body is EMPTY on the printed page: there are no
+   data rows. Only the functional dependencies below it are printed. Q1(b) then asks
+   the candidate to draw the FD diagram "for Table 1 ... in question (3)". The
+   dependencies are enough to answer both, but the table the question names does not
+   exist on the paper.
+
+10. Q3's fifth dependency begins "Date, ATime, SurgeonNo", where every other line
+    uses "ADate". "Date" is not an attribute named anywhere else in the question.
+
+11. Q3 prints "StaffNo &#8594; DentistName  Td" with the tag unbracketed, where the
+    others are bracketed "(pk)", "(pd)", "(ck)". The fourth dependency
+    "StaffNo , ADate &#8594; SurgeonNo" carries no tag at all.
+
+12. Q1(a) and Q6 are outside the DTS224 syllabus (SQL Server to Visual Studio
+    connection; data mining; concurrency control and deadlock). They belong to the
+    older "High Performance AND Database Management System" title this paper carries.

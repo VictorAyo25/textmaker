@@ -1,0 +1,261 @@
+<section>
+  <div class="kick">Part One &middot; 1.3</div>
+  <h2 class="title">Logical Equivalence and the Laws</h2>
+  <hr class="rule">
+  <p class="lead">Two statements that always agree can be swapped freely. That is
+  what lets you simplify a condition, redesign a circuit, or rewrite a database
+  query without changing what it does.</p>
+  <p class="lo">By the end of this section you will be able to test two
+  propositions for equivalence with a truth table, state De Morgan's laws
+  properly as laws, and use the standard laws to transform one expression into
+  another.</p>
+
+  <h3 class="sub">What equivalence means</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Definition</span></div>
+    <div class="body">
+      <p>Two compound propositions are <b>logically equivalent</b> when they have
+      the same truth value for every possible assignment of truth values to their
+      variables. We write <b>P &#8801; Q</b>.</p>
+      <p>Equivalently: P &#8801; Q exactly when the biconditional P &#8596; Q is a
+      <b>tautology</b>.</p>
+      <p class="hook"><b>Memory hook:</b> &#8801; is the equals sign with an extra
+      bar, meaning "equal in every row, not just this one". It is a claim
+      <i>about</i> two propositions, so it is not itself a connective.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">How to show two things are equivalent</span></div>
+    <div class="body">
+      <p>There are two accepted methods, and the question usually tells you which
+      it wants.</p>
+      <p><b>Method 1: truth table.</b> Build a column for each side and check
+      they match row for row. Always works, never elegant, and cannot fail
+      through a wrong step. Use it when the question says "show that" or
+      "construct a truth table".</p>
+      <p><b>Method 2: a chain of known laws.</b> Rewrite one side step by step
+      until it becomes the other, naming the law at every step. Shorter when it
+      works, and it is what "using logical equivalences" means when a paper says
+      so, as 2024/2025 Q3(c) does.</p>
+      <p>The naming is not decoration. In a law-chain proof the marks are for the
+      justifications, so a chain of correct lines with no names attached scores
+      poorly.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">De Morgan's laws</h3>
+
+  <div class="lawstate">
+    <div class="lawname">De Morgan's laws</div>
+    <p><b>The claim.</b> Negating a conjunction turns it into the disjunction of
+    the negations, and negating a disjunction turns it into the conjunction of
+    the negations. In words: <i>not (both) is the same as (not one) or (not the
+    other)</i>, and <i>not (either) is the same as (not one) and (not the
+    other)</i>.</p>
+    <p><b>In symbols.</b><br>
+    &#172;(p &#8743; q) &#8801; &#172;p &#8744; &#172;q<br>
+    &#172;(p &#8744; q) &#8801; &#172;p &#8743; &#172;q</p>
+    <p class="cond"><b>Conditions.</b> None beyond p and q being propositions.
+    The laws hold universally, which is what makes them safe to apply anywhere.</p>
+    <p class="cond"><b>The limiting case, and why the wrong version survives.</b>
+    The common error is to write &#172;(p &#8743; q) as &#172;p &#8743; &#172;q,
+    keeping the connective instead of flipping it. Those two agree in exactly the
+    rows where p and q have the <b>same</b> truth value, and differ in the other
+    two. So a student who checks only the TT and FF rows sees the wrong law
+    confirmed. Check a row where p and q disagree, and the error appears at
+    once.</p>
+    <p class="cond"><b>The same laws for sets.</b> Replacing "and" by
+    intersection, "or" by union and "not" by complement gives the set forms,
+    which Part Two uses:<br>
+    the complement of (A &#8745; B) = (complement of A) &#8746; (complement of B)<br>
+    the complement of (A &#8746; B) = (complement of A) &#8745; (complement of B)</p>
+    <p class="cond"><b>Consequence.</b> A negation can always be pushed inwards
+    until it sits on single variables. That is why every Boolean expression can
+    be simplified mechanically, and why a compiler can rewrite your <span
+    style="font-family:'DejaVu Sans Mono',monospace">if</span> conditions.</p>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why it is obviously true</span></div>
+    <div class="body">
+      <p>Say it about breakfast. "It is not the case that I had both tea and
+      toast" means "I did not have tea, or I did not have toast" (at least one of
+      them was missing). It does <b>not</b> mean I had neither.</p>
+      <p>"It is not the case that I had either tea or toast" is the stronger one:
+      it means I had no tea <b>and</b> no toast.</p>
+      <p>So negation flips the connective as it moves inside. Forgetting to flip
+      it is the mistake De Morgan exists to prevent.</p>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>p &#8743; q</th><th>&#172;(p &#8743; q)</th><th>&#172;p</th><th>&#172;q</th><th>&#172;p &#8744; &#172;q</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      </table>
+      <p>Columns four and seven are both F, T, T, T. The law is proved.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The full list of laws</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The laws of logic</span></div>
+    <div class="body">
+      <p>Here <b>T</b> means a tautology (always true) and <b>F</b> a
+      contradiction (always false).</p>
+      <table class="data">
+        <tr><th>Name</th><th>Law</th></tr>
+        <tr><td>Identity</td><td>p &#8743; T &#8801; p &nbsp; &nbsp; p &#8744; F &#8801; p</td></tr>
+        <tr><td>Domination</td><td>p &#8744; T &#8801; T &nbsp; &nbsp; p &#8743; F &#8801; F</td></tr>
+        <tr><td>Idempotent</td><td>p &#8744; p &#8801; p &nbsp; &nbsp; p &#8743; p &#8801; p</td></tr>
+        <tr><td>Double negation</td><td>&#172;(&#172;p) &#8801; p</td></tr>
+        <tr><td>Commutative</td><td>p &#8744; q &#8801; q &#8744; p &nbsp; &nbsp; p &#8743; q &#8801; q &#8743; p</td></tr>
+        <tr><td>Associative</td><td>(p &#8744; q) &#8744; r &#8801; p &#8744; (q &#8744; r)</td></tr>
+        <tr><td>Distributive</td><td>p &#8744; (q &#8743; r) &#8801; (p &#8744; q) &#8743; (p &#8744; r)</td></tr>
+        <tr><td>De Morgan</td><td>&#172;(p &#8743; q) &#8801; &#172;p &#8744; &#172;q &nbsp; &nbsp; &#172;(p &#8744; q) &#8801; &#172;p &#8743; &#172;q</td></tr>
+        <tr><td>Absorption</td><td>p &#8744; (p &#8743; q) &#8801; p &nbsp; &nbsp; p &#8743; (p &#8744; q) &#8801; p</td></tr>
+        <tr><td>Negation</td><td>p &#8744; &#172;p &#8801; T &nbsp; &nbsp; p &#8743; &#172;p &#8801; F</td></tr>
+        <tr><td>Implication</td><td>p &#8594; q &#8801; &#172;p &#8744; q</td></tr>
+        <tr><td>Contrapositive</td><td>p &#8594; q &#8801; &#172;q &#8594; &#172;p</td></tr>
+        <tr><td>Biconditional</td><td>p &#8596; q &#8801; (p &#8594; q) &#8743; (q &#8594; p)</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> the one that unlocks most problems is
+      <b>implication</b>: p &#8594; q &#8801; &#172;p &#8744; q. An arrow is
+      hard to manipulate; an "or" is easy. Turn every arrow into an or as your
+      first move, and most chains fall out.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">A real question</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q4c">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q4(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Show that the following are logically equivalent</p>
+      <p class="qi">(i) (p &#8594; q) &#8743; (p &#8594; r) and p &#8594; (q &#8743; r). <span class="mk">(3marks)</span></p>
+      <p class="qi">(ii) p &#8596; q and (p &#8743; q) &#8744; (&#172;p &#8743; &#172;q) <span class="mk">(3marks)</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Two pairs of compound propositions, the first on three
+      letters and the second on two.</dd>
+      <dt>Asked</dt><dd><b>Show that</b> each pair is equivalent. A truth table
+      is a complete answer, and is safer than a law chain under time pressure.</dd>
+      <dt>Marks say</dt><dd>3 marks each. Part (i) has three letters so its table
+      is 8 rows; part (ii) has two letters and 4 rows. Both are quick if the
+      columns are set out before you start filling.</dd>
+      <dt>Teaches</dt><dd>This section for equivalence, 1.1 for building the
+      table.</dd>
+      <dt>Trap</dt><dd>Part (i) needs 8 rows, and the temptation is to do 4.
+      Count the distinct letters, not the brackets.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q4(c)(i)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>(p &#8594; q) &#8743; (p &#8594; r) and p &#8594; (q &#8743; r).</dd>
+        <dt>Find</dt><dd>Whether the two columns agree in every row.</dd>
+        <dt>Rule</dt><dd>Three letters, so 2&#179; = 8 rows.</dd>
+      </dl>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>r</th><th>p&#8594;q</th><th>p&#8594;r</th><th>(p&#8594;q)&#8743;(p&#8594;r)</th><th>q&#8743;r</th><th>p&#8594;(q&#8743;r)</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+        <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+      </table>
+      <p>Column 6 reads T, F, F, F, T, T, T, T. Column 8 reads
+      T, F, F, F, T, T, T, T. Identical in all eight rows, so
+      <b>(p &#8594; q) &#8743; (p &#8594; r) &#8801; p &#8594; (q &#8743; r)</b>.</p>
+      <p>Sanity check in words: promising q and promising r separately, on the
+      same condition p, is the same as promising both together on that
+      condition. It should feel obvious, and the table is why it is certain.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q4(c)(ii)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>p &#8596; q and (p &#8743; q) &#8744; (&#172;p &#8743; &#172;q).</dd>
+        <dt>Find</dt><dd>Whether the two agree in every row.</dd>
+        <dt>Rule</dt><dd>Two letters, 4 rows.</dd>
+      </dl>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>p&#8596;q</th><th>p&#8743;q</th><th>&#172;p</th><th>&#172;q</th><th>&#172;p&#8743;&#172;q</th><th>(p&#8743;q)&#8744;(&#172;p&#8743;&#172;q)</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      </table>
+      <p>Column 3 is T, F, F, T and column 8 is T, F, F, T. Equivalent.</p>
+      <p>In words: "p and q agree" is the same as "either both are true, or both
+      are false". That is exactly what the biconditional means, so the right-hand
+      side is really the definition written out.</p>
+      <p class="redo"><b>Now redo it:</b> on blank paper, show that
+      p &#8594; q &#8801; &#172;p &#8744; q with a truth table. It is the law you
+      will lean on most.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Equivalent is not "similar"</span></div>
+    <div class="body">
+      <p>Equivalence needs agreement in <b>every</b> row. Two propositions that
+      match in three rows out of four are not "nearly equivalent", they are
+      simply different, and the one row where they differ is the counterexample
+      you should quote.</p>
+      <p>When a question asks you to show two things are <b>not</b> equivalent, do
+      not build the whole table and say "they differ". Name the row: "take p true
+      and q false; then the first is F and the second is T". One row, fully
+      specified, is a complete disproof.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State both of De Morgan's laws.</p>
+      <p class="q">2. Rewrite p &#8594; q without using the arrow.</p>
+      <p class="q">3. Simplify p &#8744; (p &#8743; q).</p>
+      <p class="q">4. How many rows are needed to test an equivalence on four letters?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. &#172;(p &#8743; q) &#8801; &#172;p &#8744; &#172;q and
+      &#172;(p &#8744; q) &#8801; &#172;p &#8743; &#172;q.<br>
+      2. &#172;p &#8744; q.<br>
+      3. p, by the absorption law.<br>
+      4. 2&#8308; = 16.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>P &#8801; Q means the two have the same truth value for
+        <span class="blank"></span> assignment.</li>
+        <li>&#172;(p &#8744; q) &#8801; <span class="blank"></span>.</li>
+        <li>The implication law says p &#8594; q &#8801;
+        <span class="blank"></span>.</li>
+        <li>p &#8743; &#172;p &#8801; <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. every. 2. &#172;p &#8743; &#172;q. 3. &#172;p &#8744; q.
+      4. F (a contradiction).</p>
+    </div>
+  </div>
+
+</section>

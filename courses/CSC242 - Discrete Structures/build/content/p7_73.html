@@ -1,0 +1,454 @@
+<section>
+  <div class="kick">Part Seven &middot; 7.3</div>
+  <h2 class="title">Traversals and Expression Trees</h2>
+  <hr class="rule">
+  <p class="lead">Three ways to walk a tree, and each one writes an arithmetic
+  expression in a different notation. The 2024/2025 paper gives 6 marks to the
+  walks and 6 more to the notations.</p>
+  <p class="lo">By the end of this section you will be able to traverse an
+  ordered rooted tree in preorder, inorder and postorder, build the expression
+  tree of an arithmetic expression, read prefix and postfix notation off that
+  tree, and answer both traversal questions on the 2024/2025 paper in full.</p>
+
+  <h3 class="sub">The three traversals</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Preorder, inorder, postorder</span></div>
+    <div class="body">
+      <p>Let T be an ordered rooted tree with root r and subtrees
+      T<sub>1</sub>, T<sub>2</sub>, &#8230;, T<sub>k</sub> hanging from r, taken
+      left to right. Each traversal is defined by where the root goes.</p>
+      <p><b>Preorder:</b> visit <b>r first</b>, then traverse
+      T<sub>1</sub>, &#8230;, T<sub>k</sub> in preorder.</p>
+      <p><b>Inorder:</b> traverse T<sub>1</sub> in inorder, then visit
+      <b>r</b>, then traverse T<sub>2</sub>, &#8230;, T<sub>k</sub> in
+      inorder.</p>
+      <p><b>Postorder:</b> traverse T<sub>1</sub>, &#8230;, T<sub>k</sub> in
+      postorder, then visit <b>r last</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">ordered</span> means the children of every vertex have a
+      fixed left-to-right order. Without it none of the three is defined, which
+      is why section 7.1 named ordered rooted trees separately.
+      <span class="sym">T<sub>1</sub></span> is the <b>leftmost</b> subtree, and
+      inorder treats it differently from all the others.
+      <span class="sym">a single vertex</span> is its own traversal in all three
+      orders: the recursion stops there.</div>
+      <p><b>The names say it.</b> "Pre", "in" and "post" describe where the
+      <b>root</b> is visited relative to its subtrees: before them, in among
+      them, or after them. Nothing else differs.</p>
+      <p class="hook"><b>Memory hook:</b> <b>the prefix tells you when the root
+      is visited.</b> Pre-order: root first. Post-order: root last. In-order:
+      root in the middle, after the leftmost subtree only.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">How to do it without losing your place</span></div>
+    <div class="body">
+      <p>The reliable method by hand is the <b>tracing</b> method. Draw a curve
+      that starts at the root, hugs the outside of the whole tree anticlockwise,
+      and returns to the root. Every vertex is passed <b>three</b> times: on its
+      left, underneath it, and on its right.</p>
+      <ul class="bul">
+        <li><b>Preorder:</b> list each vertex the <b>first</b> time the curve
+        passes it, on the left.</li>
+        <li><b>Inorder:</b> list each vertex the <b>second</b> time, from
+        below.</li>
+        <li><b>Postorder:</b> list each vertex the <b>third</b> time, on the
+        right.</li>
+      </ul>
+      <p>One curve gives all three lists, which matters when a question asks for
+      all three of the same tree, as 2024/2025 Q6(a) does.</p>
+      <p><b>The check that catches nearly every slip:</b> each list must contain
+      <b>every vertex exactly once</b>, so its length equals the number of
+      vertices. In preorder the <b>root comes first</b>; in postorder the
+      <b>root comes last</b>. If either of those fails, stop and redo it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The traversal question</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q6a">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q6(a)</span></div>
+    <div class="body">
+      <p class="qi">i.   List the vertices in the order that you would visit them if you traversed the tree in preorder. <span class="mk">2 marks</span></p>
+      <p class="qi">ii.  List the vertices in the order that you would visit them if you traversed the tree in inorder. <span class="mk">2 marks</span></p>
+      <p class="qi">iii. List the vertices in the order that you would visit them if you traversed the tree in postorder. <span class="mk">2 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper, and on the figure</b><br>
+  The part opens with the line "a.  Consider the following tree" and then prints
+  the figure, with the three numbered parts below it. The quote above starts at
+  part i for that reason: splicing the lead line onto part i would join text the
+  paper separates with a whole diagram.
+  <br><br>
+  The tree is a drawing, so its structure is read off the picture. It has 17
+  vertices, and it is <b>not</b> binary: the root has 2 children but two other
+  vertices have 3 each, which matters because the inorder rule treats the
+  leftmost subtree differently from the rest. The structure read from the scan
+  is:
+  <br><br>
+  a is the root with children b and c; b has children d, e, f; e has children j
+  and k; k has children n and o; c has children g, h, i; h has children l and m;
+  m has children p and q. The leaves are d, f, j, n, o, g, l, p, q and i.
+  <br><br>
+  One label is worth flagging: the vertex between d and f is blurred and could be
+  misread as "c", but c is already the root's other child and the run of labels
+  reads d, e, f, g, so it is <b>e</b>. Everything else on the figure is
+  unambiguous.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>An ordered rooted tree of 17 vertices, drawn on the
+      paper.</dd>
+      <dt>Asked</dt><dd><b>List the vertices</b> in each of the three orders.
+      Three lists, nothing else. No explanation is asked for and none is
+      needed.</dd>
+      <dt>Marks say</dt><dd>2 each. That is one mark for the method and one for
+      getting all seventeen right, so accuracy is the whole game. Draw the
+      tracing curve once and read all three off it.</dd>
+      <dt>Teaches</dt><dd>This section, 7.3.</dd>
+      <dt>Trap</dt><dd>Applying the <b>binary</b> inorder rule, "left subtree,
+      root, right subtree", to vertices that have three children. The general
+      rule is: leftmost subtree, then the root, then <b>all</b> the remaining
+      subtrees in order. For b, with children d, e, f, that gives d, then b, then
+      e's subtree, then f.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q6(a)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The 17-vertex ordered rooted tree drawn below, read
+        off the paper's figure.</dd>
+        <dt>Find</dt><dd>The preorder, inorder and postorder lists.</dd>
+        <dt>Rule</dt><dd>Preorder visits the root first, inorder after the
+        leftmost subtree, postorder last.</dd>
+      </dl>
+      <figure>
+        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" style="width:98%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.2" fill="none">
+            <path d="M250 24 L140 66"/><path d="M250 24 L360 66"/>
+            <path d="M140 66 L70 110"/><path d="M140 66 L140 110"/><path d="M140 66 L206 110"/>
+            <path d="M140 110 L106 154"/><path d="M140 110 L172 154"/>
+            <path d="M172 154 L146 198"/><path d="M172 154 L200 198"/>
+            <path d="M360 66 L294 110"/><path d="M360 66 L360 110"/><path d="M360 66 L428 110"/>
+            <path d="M360 110 L326 154"/><path d="M360 110 L394 154"/>
+            <path d="M394 154 L368 198"/><path d="M394 154 L422 198"/>
+          </g>
+          <circle cx="250" cy="24" r="6" fill="#be123c"/>
+          <g fill="#283593">
+            <circle cx="140" cy="66" r="5.4"/><circle cx="360" cy="66" r="5.4"/>
+            <circle cx="140" cy="110" r="5.4"/><circle cx="360" cy="110" r="5.4"/>
+            <circle cx="172" cy="154" r="5.4"/><circle cx="394" cy="154" r="5.4"/>
+          </g>
+          <g fill="#67707a">
+            <circle cx="70" cy="110" r="4.8"/><circle cx="206" cy="110" r="4.8"/>
+            <circle cx="106" cy="154" r="4.8"/>
+            <circle cx="146" cy="198" r="4.8"/><circle cx="200" cy="198" r="4.8"/>
+            <circle cx="294" cy="110" r="4.8"/><circle cx="428" cy="110" r="4.8"/>
+            <circle cx="326" cy="154" r="4.8"/>
+            <circle cx="368" cy="198" r="4.8"/><circle cx="422" cy="198" r="4.8"/>
+          </g>
+          <g font-family="DejaVu Serif" font-size="12" fill="#232a31">
+            <text x="244" y="14">a</text>
+            <text x="128" y="58">b</text><text x="368" y="58">c</text>
+            <text x="58" y="106">d</text><text x="146" y="102">e</text><text x="212" y="106">f</text>
+            <text x="94" y="150">j</text><text x="178" y="148">k</text>
+            <text x="134" y="216">n</text><text x="196" y="216">o</text>
+            <text x="282" y="106">g</text><text x="366" y="102">h</text><text x="434" y="106">i</text>
+            <text x="314" y="150">l</text><text x="400" y="148">m</text>
+            <text x="356" y="216">p</text><text x="418" y="216">q</text>
+          </g>
+          <text x="20" y="240" font-family="DejaVu Sans" font-size="9.6" fill="#67707a">17 vertices, 16 edges. Crimson is the root; indigo the internal vertices; grey the ten leaves.</text>
+        </svg>
+        <figcaption>The tree as read from the paper. Note that b and c each have
+        three children, so this is not a binary tree.</figcaption>
+      </figure>
+
+      <p class="marks">i. Preorder</p>
+      <p>Root first, then each subtree in turn. Take a, then everything under b,
+      then everything under c.</p>
+      <p style="margin-left:12pt">under b: b, then d, then e's subtree, then f<br>
+      e's subtree: e, then j, then k's subtree, which is k, n, o<br>
+      so under b: b, d, e, j, k, n, o, f<br>
+      under c: c, g, then h's subtree, then i<br>
+      h's subtree: h, l, then m's subtree, which is m, p, q<br>
+      so under c: c, g, h, l, m, p, q, i</p>
+      <p style="margin-left:12pt"><b>a, b, d, e, j, k, n, o, f, c, g, h, l, m, p,
+      q, i</b></p>
+
+      <p class="marks">ii. Inorder</p>
+      <p>Leftmost subtree, then the root, then the rest. At a: everything under
+      b, then a, then everything under c.</p>
+      <p style="margin-left:12pt">at b, children d, e, f: inorder(d), b,
+      inorder(e), inorder(f)<br>
+      at e, children j, k: j, e, inorder(k); at k, children n, o: n, k, o<br>
+      so inorder(e) = j, e, n, k, o, and under b: d, b, j, e, n, k, o, f<br>
+      at c, children g, h, i: g, c, inorder(h), i<br>
+      at h, children l, m: l, h, inorder(m); at m: p, m, q<br>
+      so inorder(h) = l, h, p, m, q, and under c: g, c, l, h, p, m, q, i</p>
+      <p style="margin-left:12pt"><b>d, b, j, e, n, k, o, f, a, g, c, l, h, p, m,
+      q, i</b></p>
+
+      <p class="marks">iii. Postorder</p>
+      <p>All the subtrees first, root last.</p>
+      <p style="margin-left:12pt">under b: d, then postorder(e), then f, then b<br>
+      postorder(e) = j, then postorder(k) = n, o, k, then e, giving j, n, o, k, e<br>
+      so under b: d, j, n, o, k, e, f, b<br>
+      under c: g, then postorder(h), then i, then c<br>
+      postorder(h) = l, then p, q, m, then h, giving l, p, q, m, h<br>
+      so under c: g, l, p, q, m, h, i, c</p>
+      <p style="margin-left:12pt"><b>d, j, n, o, k, e, f, b, g, l, p, q, m, h, i,
+      c, a</b></p>
+
+      <p><b>Check all three.</b> Each list has 17 entries and each contains every
+      vertex exactly once. Preorder starts with a; postorder ends with a; inorder
+      has a in the middle, right after the whole of b's subtree. All four
+      conditions hold.</p>
+      <p class="redo"><b>Now redo it:</b> traverse just the subtree at k, whose
+      children are n and o. Preorder k, n, o. Inorder n, k, o. Postorder n, o,
+      k.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Expression trees</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Expression tree, prefix and postfix</span></div>
+    <div class="body">
+      <p>An <b>expression tree</b> represents an arithmetic expression: each
+      <b>leaf</b> is a number, and each <b>internal vertex</b> is an operator
+      whose children are the things it acts on, in order.</p>
+      <p>Traversing that tree gives the three standard notations:</p>
+      <table class="data">
+        <tr><th>Traversal</th><th>Notation</th><th>Also called</th><th>Operator sits</th></tr>
+        <tr><td>preorder</td><td><b>prefix notation</b></td><td>Polish notation</td><td>before its operands</td></tr>
+        <tr><td>inorder</td><td>infix notation</td><td>ordinary algebra</td><td>between its operands</td></tr>
+        <tr><td>postorder</td><td><b>postfix notation</b></td><td>reverse Polish</td><td>after its operands</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">the tree</span> records the grouping, so the brackets of
+      the original expression are built into its shape.
+      <span class="sym">prefix and postfix</span> need <b>no brackets at all</b>
+      and are never ambiguous, which is exactly why compilers and calculators use
+      them.
+      <span class="sym">infix</span> is the notation people write, and it is the
+      only one of the three that needs brackets and precedence rules.</div>
+      <p><b>Building the tree:</b> find the operator that is applied
+      <b>last</b>, which is the one <i>least</i> tightly bound. That becomes the
+      root. Its two sides become its subtrees, and the same rule is applied to
+      each of them.</p>
+      <p class="hook"><b>Memory hook:</b> <b>the root is the last operation
+      performed.</b> Work out what you would compute last, put it at the top, and
+      recurse.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The expression question</h3>
+
+  <div class="aspnote"><b>The question</b><br>
+  2024/2025 Q6(b) is quoted in full in section 7.2, where its parts vi and vii
+  are answered. Its parts i, iv and v are answered here: draw the rooted tree of
+  the expression, then write it in prefix and in postfix notation, 2 marks each.
+  <br><br>
+  <b>The expression carries two characters that could not be read.</b> As
+  recorded in 7.2, a single superscript follows each of the two closing brackets
+  and neither is legible at any resolution available, including in the PDF's own
+  text layer. They are not guessed. The answer below solves the <b>plain
+  reading</b>, in which those characters are absent, and then says exactly what
+  changes if they turn out to be exponents.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>The expression (3 &#8722; 4 &#183; 2) &#8722; (5 + (5
+      &#8722; 2)) on the plain reading, where &#183; is multiplication.</dd>
+      <dt>Asked</dt><dd>(i) <b>Draw</b> the rooted tree. (iv) <b>Write</b> it in
+      prefix notation. (v) <b>Write</b> it in postfix notation.</dd>
+      <dt>Marks say</dt><dd>2 each. Parts iv and v are read straight off the tree
+      from part i, so the tree is worth getting right first: one drawing earns
+      all 6 marks.</dd>
+      <dt>Teaches</dt><dd>This section, 7.3.</dd>
+      <dt>Trap</dt><dd>Putting the wrong operator at the root. Inside the first
+      bracket, multiplication binds tighter than subtraction, so the
+      <b>subtraction</b> is done last and is the root of that subtree, not the
+      multiplication. Getting the root wrong makes all three answers wrong
+      together.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q6(b) i, iv and v</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>(3 &#8722; 4 &#183; 2) &#8722; (5 + (5 &#8722; 2)),
+        the plain reading of the printed expression.</dd>
+        <dt>Find</dt><dd>The expression tree, then the prefix and postfix
+        forms.</dd>
+        <dt>Rule</dt><dd>The last operation performed is the root. Preorder gives
+        prefix, postorder gives postfix.</dd>
+      </dl>
+
+      <p class="marks">i. The rooted tree</p>
+      <p><b>Find the root.</b> The whole expression is (something) &#8722;
+      (something), and that outer subtraction is what you would do last. So the
+      root is &#8722;.</p>
+      <p><b>Left subtree, 3 &#8722; 4 &#183; 2.</b> Multiplication binds tighter
+      than subtraction, so 4 &#183; 2 is computed first and the subtraction last.
+      Its root is &#8722;, with children 3 and the subtree 4 &#183; 2.</p>
+      <p><b>Right subtree, 5 + (5 &#8722; 2).</b> The bracket is computed first,
+      so the addition is last. Its root is +, with children 5 and the subtree
+      5 &#8722; 2.</p>
+      <figure>
+        <svg viewBox="0 0 500 230" xmlns="http://www.w3.org/2000/svg" style="width:88%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.2" fill="none">
+            <path d="M250 26 L150 74"/><path d="M250 26 L350 74"/>
+            <path d="M150 74 L96 126"/><path d="M150 74 L204 126"/>
+            <path d="M204 126 L166 180"/><path d="M204 126 L242 180"/>
+            <path d="M350 74 L296 126"/><path d="M350 74 L404 126"/>
+            <path d="M404 126 L366 180"/><path d="M404 126 L442 180"/>
+          </g>
+          <circle cx="250" cy="26" r="12" fill="#be123c"/>
+          <g fill="#283593">
+            <circle cx="150" cy="74" r="11"/><circle cx="204" cy="126" r="11"/>
+            <circle cx="350" cy="74" r="11"/><circle cx="404" cy="126" r="11"/>
+          </g>
+          <g fill="#67707a">
+            <circle cx="96" cy="126" r="10"/><circle cx="166" cy="180" r="10"/><circle cx="242" cy="180" r="10"/>
+            <circle cx="296" cy="126" r="10"/><circle cx="366" cy="180" r="10"/><circle cx="442" cy="180" r="10"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="13" fill="#fff" text-anchor="middle">
+            <text x="250" y="31">&#8722;</text>
+            <text x="150" y="79">&#8722;</text><text x="204" y="131">&#183;</text>
+            <text x="350" y="79">+</text><text x="404" y="131">&#8722;</text>
+            <text x="96" y="131">3</text><text x="166" y="185">4</text><text x="242" y="185">2</text>
+            <text x="296" y="131">5</text><text x="366" y="185">5</text><text x="442" y="185">2</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.6" fill="#67707a">
+            <text x="270" y="22">root: the outer subtraction, done last</text>
+            <text x="20" y="212">left subtree: 3 &#8722; 4 &#183; 2</text>
+            <text x="300" y="212">right subtree: 5 + (5 &#8722; 2)</text>
+          </g>
+        </svg>
+        <figcaption>The expression tree. Operators at the internal vertices,
+        numbers at the leaves, and no brackets anywhere: the shape holds the
+        grouping.</figcaption>
+      </figure>
+
+      <p class="marks">iv. Prefix notation</p>
+      <p>Read the tree in <b>preorder</b>: root, then left subtree, then
+      right.</p>
+      <p style="margin-left:12pt">root &#8722;, then the left subtree
+      (&#8722; 3 &#183; 4 2), then the right subtree (+ 5 &#8722; 5 2)</p>
+      <p style="margin-left:12pt"><b>&#8722; &#8722; 3 &#183; 4 2 + 5 &#8722; 5
+      2</b></p>
+
+      <p class="marks">v. Postfix notation</p>
+      <p>Read the tree in <b>postorder</b>: left subtree, right subtree, then
+      root.</p>
+      <p style="margin-left:12pt">left subtree (3 4 2 &#183; &#8722;), then the
+      right subtree (5 5 2 &#8722; +), then the root &#8722;</p>
+      <p style="margin-left:12pt"><b>3 4 2 &#183; &#8722; 5 5 2 &#8722; +
+      &#8722;</b></p>
+
+      <p><b>Check by evaluating the postfix form,</b> which costs four lines and
+      proves the tree is right. Read left to right, pushing numbers and applying
+      each operator to the two most recent values:</p>
+      <table class="data">
+        <tr><th>Read</th><th>Stack afterwards</th></tr>
+        <tr><td>3, 4, 2</td><td>3, 4, 2</td></tr>
+        <tr><td>&#183;</td><td>3, 8 &nbsp; (4 &#215; 2)</td></tr>
+        <tr><td>&#8722;</td><td>&#8722;5 &nbsp; (3 &#8722; 8)</td></tr>
+        <tr><td>5, 5, 2</td><td>&#8722;5, 5, 5, 2</td></tr>
+        <tr><td>&#8722;</td><td>&#8722;5, 5, 3 &nbsp; (5 &#8722; 2)</td></tr>
+        <tr><td>+</td><td>&#8722;5, 8 &nbsp; (5 + 3)</td></tr>
+        <tr><td>&#8722;</td><td>&#8722;13 &nbsp; (&#8722;5 &#8722; 8)</td></tr>
+      </table>
+      <p>Directly: (3 &#8722; 8) &#8722; (5 + 3) = &#8722;5 &#8722; 8 =
+      <b>&#8722;13</b>. The two agree, so the tree, the postfix form and the
+      arithmetic are all consistent.</p>
+
+      <p><b>If the two unreadable characters are exponents.</b> Say this in one
+      line on the script rather than leaving it unaddressed. Each would become an
+      extra internal vertex, an exponentiation operator, sitting above the
+      bracket it follows: the left subtree would become
+      (3 &#8722; 4 &#183; 2) raised to that power, and the inner
+      (5 &#8722; 2) likewise. The tree gains two vertices, the root and the
+      overall shape are unchanged, and both notations gain the two operators in
+      the corresponding places. Nothing about the method changes.</p>
+      <p class="redo"><b>Now redo it:</b> give the prefix and postfix forms of
+      (2 + 3) &#183; 4. The root is &#183;, so prefix is
+      &#183; + 2 3 4 and postfix is 2 3 + 4 &#183;.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Prefix is not "the expression backwards"</span></div>
+    <div class="body">
+      <p>Postfix is not the reverse of prefix, and neither is produced by moving
+      the operators about by eye. Both are read off the <b>tree</b>, and the tree
+      is where the grouping lives. Compare:</p>
+      <table class="data">
+        <tr><th>Infix</th><th>Prefix</th><th>Postfix</th></tr>
+        <tr><td>3 &#8722; 4 &#183; 2</td><td>&#8722; 3 &#183; 4 2</td><td>3 4 2 &#183; &#8722;</td></tr>
+        <tr><td>(3 &#8722; 4) &#183; 2</td><td>&#183; &#8722; 3 4 2</td><td>3 4 &#8722; 2 &#183;</td></tr>
+      </table>
+      <p>Those two infix expressions differ only by a pair of brackets and they
+      have different values, &#8722;5 and &#8722;2. Their prefix and postfix
+      forms use the same five symbols in different orders, with <b>no brackets at
+      all</b>. That is the property that makes these notations worth having, and
+      it only works if the tree was built correctly.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define preorder, inorder and postorder in one line
+      each.</p>
+      <p class="q">2. Which traversal gives prefix notation, and which gives
+      postfix?</p>
+      <p class="q">3. In the 17-vertex tree, which vertex comes first in
+      preorder and which comes last in postorder?</p>
+      <p class="q">4. How do you find the root of an expression tree?</p>
+      <p class="q">5. Why do prefix and postfix need no brackets?</p>
+      <p class="q">6. Give the postfix form of (2 + 3) &#183; 4.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Preorder visits the root before its subtrees; postorder after them;
+      inorder after the leftmost subtree and before the rest.<br>
+      2. Preorder gives prefix; postorder gives postfix.<br>
+      3. a in both cases: the root is first in preorder and last in
+      postorder.<br>
+      4. It is the operator applied last, the most loosely bound one.<br>
+      5. The order of the symbols already records the grouping, so no
+      punctuation is needed to disambiguate it.<br>
+      6. 2 3 + 4 &#183;</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Preorder visits the root <span class="blank"></span>; postorder
+        visits it <span class="blank"></span>.</li>
+        <li>Prefix notation is also called <span class="blank"></span>
+        notation.</li>
+        <li>The root of an expression tree is the operator applied
+        <span class="blank"></span>.</li>
+        <li>The postfix form of (3 &#8722; 4 &#183; 2) &#8722; (5 + (5 &#8722; 2))
+        is <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. first, last. 2. Polish. 3. last. 4. 3 4 2 &#183; &#8722; 5 5 2
+      &#8722; + &#8722;</p>
+    </div>
+  </div>
+
+</section>

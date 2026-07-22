@@ -248,6 +248,17 @@ def main():
         if r.returncode != 0:
             stop('formula gate failed: a formula is stated without defining its symbols.')
 
+    # ---- verbatim gate: a past question is quoted as the examiner printed it, or
+    #      not at all. Compares content/ against the by-eye transcripts in
+    #      sources/exams/transcripts/, both directions: no paraphrase, no dropped
+    #      part. Runs before the renders because it reads content/. ----
+    vg = os.path.join(HERE, 'qa_verbatim.py')
+    if os.path.exists(vg):
+        r = subprocess.run([sys.executable, vg])
+        if r.returncode != 0:
+            stop('verbatim gate failed: a past question is restated rather than '
+                 'quoted, or a part of a paper solved in full has been dropped.')
+
     cover_html = COVER_HEAD + read(COVER) + TAIL
     draft = build_body(build_contents())
     if not run_gates(cover_html + draft):

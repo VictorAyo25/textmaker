@@ -1,0 +1,451 @@
+<section>
+  <div class="kick">Part Nine &middot; 9.4</div>
+  <h2 class="title">Recurrence Relations</h2>
+  <hr class="rule">
+  <p class="lead">A recurrence defines each term from the terms before it. That
+  is how a recursive program describes its own running time, how the chain
+  letter of section 7.2 grows, and how Fibonacci is written down. Solving one
+  means replacing "look back" with a formula that answers straight away.</p>
+  <p class="lo">By the end of this section you will be able to define a
+  recurrence relation and its order, state initial conditions and say why they
+  are needed, generate terms from a relation, solve a first-order relation by
+  iteration, solve a homogeneous second-order relation with the characteristic
+  equation in both the distinct-root and repeated-root cases, and recognise a
+  non-homogeneous one.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Recurrence relation, order, initial conditions</span></div>
+    <div class="body">
+      <p>A <b>recurrence relation</b> for a sequence {a<sub>n</sub>} is an
+      equation expressing a<sub>n</sub> in terms of one or more of the previous
+      terms:</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      f(a<sub>n&#8722;1</sub>, a<sub>n&#8722;2</sub>, &#8230;,
+      a<sub>n&#8722;k</sub>)</b></p>
+      <p>The <b>initial conditions</b> are the terms given outright, before the
+      relation takes effect. A sequence is a <b>solution</b> of the relation if
+      its terms satisfy it.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">a<sub>n</sub></span> is the term being defined, and
+      <span class="sym">a<sub>n&#8722;1</sub></span> and its neighbours are the
+      terms already known.
+      <span class="sym">f</span> is any rule at all: it need not be linear and
+      need not involve every previous term.
+      <span class="sym">k</span> is the <b>order</b> of the relation, the number
+      of steps back it reaches. First order looks back one term, second order
+      two.
+      <span class="sym">the initial conditions</span> are k values supplied
+      separately, and there must be exactly as many of them as the order,
+      because the relation cannot start without them.</div>
+      <p><b>Why the initial conditions are not optional.</b> The relation
+      a<sub>n</sub> = 2a<sub>n&#8722;1</sub> describes 1, 2, 4, 8, 16, &#8230;
+      and equally describes 5, 10, 20, 40, &#8230; and 0, 0, 0, 0, &#8230;. The
+      relation fixes the <b>shape</b>; the initial conditions pick out which
+      sequence of that shape you actually have. A question that gives a
+      recurrence and no initial condition has not specified a sequence.</p>
+      <p><b>Solving</b> a recurrence means finding a <b>closed form</b>: a
+      formula for a<sub>n</sub> in terms of n alone, needing no earlier terms.
+      The point is cost. Computing a<sub>1000</sub> from a first-order relation
+      takes a thousand steps; from a closed form it takes one.</p>
+      <p class="hook"><b>Memory hook:</b> <b>the relation gives the shape, the
+      initial conditions choose the sequence, and solving removes the looking
+      back.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Reading the order off a relation</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Relation</th><th>Order</th><th>Why</th></tr>
+        <tr><td>a<sub>n</sub> = 3a<sub>n&#8722;1</sub> + 2</td><td>first</td><td>reaches back one term</td></tr>
+        <tr><td>F<sub>n</sub> = F<sub>n&#8722;1</sub> + F<sub>n&#8722;2</sub></td><td>second</td><td>reaches back two, so it needs two initial values</td></tr>
+        <tr><td>T<sub>n</sub> = T<sub>n&#8722;1</sub> + T<sub>n&#8722;3</sub></td><td>third</td><td>the furthest reach is three, even though T<sub>n&#8722;2</sub> is absent</td></tr>
+        <tr><td>S<sub>n</sub> = S<sub>n/2</sub> + 1</td><td>no finite order</td><td>the distance back grows with n, so no fixed k covers it</td></tr>
+      </table>
+      <p><b>The order is the furthest reach, not the number of terms
+      mentioned.</b> The third row skips a<sub>n&#8722;2</sub> entirely and is
+      still third order, and it still needs three initial values.</p>
+      <p><b>The last row is worth knowing</b> because it is the shape of a
+      divide-and-conquer algorithm: halve the problem, do one unit of work. The
+      binary search that section 11.2 writes in C++ has exactly that
+      recurrence, and it is why halving is so much faster than stepping.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Generating terms, and solving by iteration</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; the Tower of Hanoi</span></div>
+    <div class="body">
+      <p>Three pegs and n discs of different sizes, stacked smallest on top.
+      Move the whole stack to another peg, one disc at a time, never placing a
+      larger disc on a smaller one. How many moves does it take?</p>
+      <dl class="params">
+        <dt>Given</dt><dd>H<sub>n</sub> = the least number of moves for n discs.
+        Moving n discs means: move the top n &#8722; 1 to the spare peg, move
+        the largest one across, then move the n &#8722; 1 back on top.</dd>
+        <dt>Find</dt><dd>The recurrence, the first few terms, and a closed
+        form.</dd>
+        <dt>Formula</dt><dd>H<sub>n</sub> = 2H<sub>n&#8722;1</sub> + 1, with
+        H<sub>1</sub> = 1.</dd>
+      </dl>
+      <p><b>Generate the terms</b> before trying to be clever:</p>
+      <table class="data">
+        <tr><th>n</th><th>H<sub>n</sub> = 2H<sub>n&#8722;1</sub> + 1</th><th>Value</th><th>Compare with 2<sup>n</sup></th></tr>
+        <tr><td>1</td><td>given</td><td>1</td><td>2 &#8722; 1</td></tr>
+        <tr><td>2</td><td>2 &#215; 1 + 1</td><td>3</td><td>4 &#8722; 1</td></tr>
+        <tr><td>3</td><td>2 &#215; 3 + 1</td><td>7</td><td>8 &#8722; 1</td></tr>
+        <tr><td>4</td><td>2 &#215; 7 + 1</td><td>15</td><td>16 &#8722; 1</td></tr>
+        <tr><td>5</td><td>2 &#215; 15 + 1</td><td>31</td><td>32 &#8722; 1</td></tr>
+      </table>
+      <p>The pattern is unmistakable, so the conjecture is</p>
+      <p style="margin-left:12pt"><b>H<sub>n</sub> = 2<sup>n</sup> &#8722;
+      1</b></p>
+      <p><b>Now prove it,</b> because a pattern spotted in five rows is a
+      conjecture, not a theorem. Induction, by section 9.2.</p>
+      <p><b>Base case,</b> n = 1: the formula gives
+      2<sup>1</sup> &#8722; 1 = 1, which matches H<sub>1</sub> = 1.</p>
+      <p><b>Hypothesis:</b> H<sub>k</sub> = 2<sup>k</sup> &#8722; 1.</p>
+      <p><b>Step:</b> H<sub>k+1</sub> = 2H<sub>k</sub> + 1 =
+      2(2<sup>k</sup> &#8722; 1) + 1 =
+      2<sup>k+1</sup> &#8722; 2 + 1 = 2<sup>k+1</sup> &#8722; 1, which is the
+      formula at k + 1. &#9633;</p>
+      <p><b>The method just used has a name: solving by iteration.</b> Write out
+      terms until the pattern is visible, conjecture the closed form, then prove
+      it by induction. For a first-order relation it is usually the fastest
+      route, and the induction is what turns a guess into an answer.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; solving a first-order relation with a constant added</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>a<sub>n</sub> = 3a<sub>n&#8722;1</sub> + 2 with
+        a<sub>1</sub> = 1, the sequence 1, 5, 17, 53, 161, 485 of section
+        9.3.</dd>
+        <dt>Find</dt><dd>A closed form for a<sub>n</sub>.</dd>
+        <dt>Formula</dt><dd>Iteration, with one substitution that turns the
+        relation into a plain geometric progression.</dd>
+      </dl>
+      <p><b>The trick worth learning.</b> The "+ 2" is what stops this being
+      geometric. Add 1 to both sides and watch it disappear:</p>
+      <p style="margin-left:12pt">a<sub>n</sub> + 1 =
+      3a<sub>n&#8722;1</sub> + 3 = 3(a<sub>n&#8722;1</sub> + 1)</p>
+      <p>So the sequence b<sub>n</sub> = a<sub>n</sub> + 1 satisfies
+      b<sub>n</sub> = 3b<sub>n&#8722;1</sub>, which is geometric with ratio 3
+      and first term b<sub>1</sub> = a<sub>1</sub> + 1 = 2. By section 9.3,</p>
+      <p style="margin-left:12pt">b<sub>n</sub> =
+      2 &#215; 3<sup>n&#8722;1</sup></p>
+      <p>and therefore</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      2 &#215; 3<sup>n&#8722;1</sup> &#8722; 1</b></p>
+      <p><b>Check every printed term,</b> which takes four lines and is worth
+      every one:</p>
+      <table class="data">
+        <tr><th>n</th><th>2 &#215; 3<sup>n&#8722;1</sup> &#8722; 1</th><th>Value</th><th>The sequence says</th></tr>
+        <tr><td>1</td><td>2 &#215; 1 &#8722; 1</td><td>1</td><td>1</td></tr>
+        <tr><td>2</td><td>2 &#215; 3 &#8722; 1</td><td>5</td><td>5</td></tr>
+        <tr><td>3</td><td>2 &#215; 9 &#8722; 1</td><td>17</td><td>17</td></tr>
+        <tr><td>4</td><td>2 &#215; 27 &#8722; 1</td><td>53</td><td>53</td></tr>
+        <tr><td>5</td><td>2 &#215; 81 &#8722; 1</td><td>161</td><td>161</td></tr>
+        <tr><td>6</td><td>2 &#215; 243 &#8722; 1</td><td>485</td><td>485</td></tr>
+      </table>
+      <p><b>Note the shape of the trick.</b> Tower of Hanoi was
+      H<sub>n</sub> = 2H<sub>n&#8722;1</sub> + 1 and the same substitution works
+      there: H<sub>n</sub> + 1 = 2(H<sub>n&#8722;1</sub> + 1), giving
+      H<sub>n</sub> + 1 = 2<sup>n</sup> and H<sub>n</sub> =
+      2<sup>n</sup> &#8722; 1 with no induction needed at all. Any relation
+      a<sub>n</sub> = ca<sub>n&#8722;1</sub> + b with c &#8800; 1 yields to it:
+      add b / (c &#8722; 1) to both sides.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Linear homogeneous relations with constant coefficients</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The characteristic equation method</span></div>
+    <div class="body">
+      <p>A relation is <b>linear</b> with <b>constant coefficients</b> and
+      <b>homogeneous</b> of order k when it can be written</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      c<sub>1</sub>a<sub>n&#8722;1</sub> +
+      c<sub>2</sub>a<sub>n&#8722;2</sub> + &#8230; +
+      c<sub>k</sub>a<sub>n&#8722;k</sub></b></p>
+      <p>Its <b>characteristic equation</b> is obtained by replacing
+      a<sub>n&#8722;i</sub> with x<sup>k&#8722;i</sup> and moving everything to
+      one side:</p>
+      <p style="margin-left:12pt"><b>x<sup>k</sup> &#8722;
+      c<sub>1</sub>x<sup>k&#8722;1</sup> &#8722; &#8230; &#8722;
+      c<sub>k</sub> = 0</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">linear</span> means every a term appears to the first
+      power on its own: no squares, no products of two terms, no a<sub>n</sub>
+      inside a function.
+      <span class="sym">constant coefficients</span> means each
+      c<sub>i</sub> is a fixed number, not something depending on n.
+      <span class="sym">homogeneous</span> means there is no extra term that
+      does not involve the sequence; a stray "+ 2" makes it
+      non-homogeneous.
+      <span class="sym">x</span> is an ordinary unknown, and the roots of the
+      characteristic equation are called the <b>characteristic roots</b>.
+      <span class="sym">k</span> is the order, so the characteristic equation
+      has degree k and the general solution carries k constants, fixed by the k
+      initial conditions.</div>
+      <p><b>The two cases you will meet at order 2.</b> Solve
+      x<sup>2</sup> &#8722; c<sub>1</sub>x &#8722; c<sub>2</sub> = 0 and look at
+      its roots:</p>
+      <table class="data">
+        <tr><th>Roots</th><th>General solution</th></tr>
+        <tr><td>two distinct roots x<sub>1</sub>, x<sub>2</sub></td><td>a<sub>n</sub> = A x<sub>1</sub><sup>n</sup> + B x<sub>2</sub><sup>n</sup></td></tr>
+        <tr><td>one repeated root x<sub>1</sub></td><td>a<sub>n</sub> = (A + Bn) x<sub>1</sub><sup>n</sup></td></tr>
+      </table>
+      <p><b>Then find A and B</b> by substituting the two initial conditions and
+      solving the resulting pair of simultaneous equations.</p>
+      <p><b>Why powers of a root work at all,</b> which is worth one line in an
+      answer: trying a<sub>n</sub> = x<sup>n</sup> in the relation and dividing
+      through by x<sup>n&#8722;k</sup> gives exactly the characteristic
+      equation. So the guess "a power of something" is not a rabbit out of a
+      hat; the characteristic equation is precisely the condition that makes it
+      work.</p>
+      <p class="hook"><b>Memory hook:</b> <b>degree equals order, roots give
+      powers, and a repeated root buys an extra n.</b></p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; distinct roots</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>a<sub>n</sub> = 5a<sub>n&#8722;1</sub> &#8722;
+        6a<sub>n&#8722;2</sub>, with a<sub>0</sub> = 1 and a<sub>1</sub> =
+        4.</dd>
+        <dt>Find</dt><dd>A closed form for a<sub>n</sub>.</dd>
+        <dt>Formula</dt><dd>Characteristic equation
+        x<sup>2</sup> &#8722; 5x + 6 = 0, then
+        a<sub>n</sub> = A x<sub>1</sub><sup>n</sup> +
+        B x<sub>2</sub><sup>n</sup>.</dd>
+      </dl>
+      <p class="marks">Step 1. Write the characteristic equation</p>
+      <p style="margin-left:12pt">x<sup>2</sup> &#8722; 5x + 6 = 0</p>
+      <p><b>Watch the signs.</b> The relation subtracts 6a<sub>n&#8722;2</sub>,
+      so moving it across makes the constant term + 6.</p>
+      <p class="marks">Step 2. Find the roots</p>
+      <p style="margin-left:12pt">(x &#8722; 3)(x &#8722; 2) = 0,
+      &nbsp; so &nbsp; x<sub>1</sub> = 3 and x<sub>2</sub> = 2</p>
+      <p>Two real, distinct roots, so this is the first case.</p>
+      <p class="marks">Step 3. Write the general solution</p>
+      <p style="margin-left:12pt">a<sub>n</sub> = A &#215; 3<sup>n</sup> +
+      B &#215; 2<sup>n</sup></p>
+      <p class="marks">Step 4. Use the initial conditions</p>
+      <p style="margin-left:12pt">n = 0: &nbsp; A + B = 1<br>
+      n = 1: &nbsp; 3A + 2B = 4</p>
+      <p>From the first, B = 1 &#8722; A. Substituting into the second:
+      3A + 2(1 &#8722; A) = 4, so A + 2 = 4 and <b>A = 2</b>, hence
+      <b>B = &#8722;1</b>.</p>
+      <p class="marks">Step 5. The answer</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      2 &#215; 3<sup>n</sup> &#8722; 2<sup>n</sup></b></p>
+      <p><b>Check it against the relation,</b> which is the only way to know the
+      signs came out right:</p>
+      <table class="data">
+        <tr><th>n</th><th>From the relation</th><th>From the formula</th></tr>
+        <tr><td>0</td><td>given, 1</td><td>2 &#8722; 1 = 1</td></tr>
+        <tr><td>1</td><td>given, 4</td><td>6 &#8722; 2 = 4</td></tr>
+        <tr><td>2</td><td>5 &#215; 4 &#8722; 6 &#215; 1 = 14</td><td>18 &#8722; 4 = 14</td></tr>
+        <tr><td>3</td><td>5 &#215; 14 &#8722; 6 &#215; 4 = 46</td><td>54 &#8722; 8 = 46</td></tr>
+        <tr><td>4</td><td>5 &#215; 46 &#8722; 6 &#215; 14 = 146</td><td>162 &#8722; 16 = 146</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; a repeated root</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>a<sub>n</sub> = 10a<sub>n&#8722;1</sub> &#8722;
+        25a<sub>n&#8722;2</sub>, with a<sub>0</sub> = 3 and a<sub>1</sub> =
+        17.</dd>
+        <dt>Find</dt><dd>A closed form for a<sub>n</sub>.</dd>
+        <dt>Formula</dt><dd>Characteristic equation
+        x<sup>2</sup> &#8722; 10x + 25 = 0, then
+        a<sub>n</sub> = (A + Bn)x<sub>1</sub><sup>n</sup>.</dd>
+      </dl>
+      <p><b>The characteristic equation</b> is
+      x<sup>2</sup> &#8722; 10x + 25 = 0, that is
+      (x &#8722; 5)<sup>2</sup> = 0, so there is a <b>single</b> root
+      x<sub>1</sub> = 5, repeated.</p>
+      <p><b>Why the general solution needs the extra n.</b> With only one root
+      there is only one power to build from, so A &#215; 5<sup>n</sup> carries
+      just one constant and cannot satisfy two initial conditions in general.
+      The second independent solution is n &#215; 5<sup>n</sup>, so</p>
+      <p style="margin-left:12pt">a<sub>n</sub> = (A + Bn) &#215;
+      5<sup>n</sup></p>
+      <p><b>Fit the constants.</b></p>
+      <p style="margin-left:12pt">n = 0: &nbsp; A = 3<br>
+      n = 1: &nbsp; (A + B) &#215; 5 = 17, &nbsp; so &nbsp; A + B = 17 / 5,
+      &nbsp; so &nbsp; B = 17/5 &#8722; 3 = <b>2/5</b></p>
+      <p><b>The answer,</b> written twice because the second form is tidier and
+      markers accept either:</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> =
+      (3 + (2/5)n) &#215; 5<sup>n</sup> =
+      3 &#215; 5<sup>n</sup> + 2n &#215; 5<sup>n&#8722;1</sup></b></p>
+      <p><b>Check.</b></p>
+      <table class="data">
+        <tr><th>n</th><th>From the relation</th><th>From the formula</th></tr>
+        <tr><td>0</td><td>given, 3</td><td>3 &#215; 1 = 3</td></tr>
+        <tr><td>1</td><td>given, 17</td><td>15 + 2 = 17</td></tr>
+        <tr><td>2</td><td>10 &#215; 17 &#8722; 25 &#215; 3 = 95</td><td>75 + 20 = 95</td></tr>
+        <tr><td>3</td><td>10 &#215; 95 &#8722; 25 &#215; 17 = 525</td><td>375 + 150 = 525</td></tr>
+      </table>
+      <p><b>Do not be alarmed by a fractional constant.</b> A and B are whatever
+      the initial conditions force them to be; 2/5 is a perfectly good answer,
+      and the check above confirms it produces integers throughout.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Fibonacci, solved</span></div>
+    <div class="body">
+      <p>The Fibonacci sequence is F<sub>n</sub> = F<sub>n&#8722;1</sub> +
+      F<sub>n&#8722;2</sub>. The official course text takes F<sub>0</sub> = 1
+      and F<sub>1</sub> = 1, giving</p>
+      <p style="margin-left:12pt">1, 1, 2, 3, 5, 8, 13, 21, 34, 55, &#8230;</p>
+      <p>Other books start F<sub>0</sub> = 0, F<sub>1</sub> = 1, which shifts
+      every index by one. As always: <b>say which you are using.</b></p>
+      <p><b>The characteristic equation</b> is
+      x<sup>2</sup> &#8722; x &#8722; 1 = 0. This one does not factorise into
+      whole numbers, so use the <b>quadratic formula</b>: the solutions of
+      ax<sup>2</sup> + bx + c = 0 are</p>
+      <p style="margin-left:12pt">x = (&#8722;b &#177;
+      &#8730;(b<sup>2</sup> &#8722; 4ac)) / 2a</p>
+      <p>Here a = 1, b = &#8722;1 and c = &#8722;1, so
+      b<sup>2</sup> &#8722; 4ac = 1 + 4 = 5 and</p>
+      <p style="margin-left:12pt">x = (1 &#177; &#8730;5) / 2</p>
+      <p>The larger of them, about 1.618, is the golden ratio, and it is why
+      Fibonacci numbers grow at roughly 1.618 times per step: the ratio
+      13 / 8 = 1.625 and 34 / 21 is about 1.619.</p>
+      <p><b>The point for this course</b> is not the closed form, which is
+      unpleasant, but the two structural facts: the relation is <b>second
+      order</b>, so it needs <b>two</b> initial conditions, and irrational
+      characteristic roots can produce a sequence of whole numbers. Both are
+      fair short-answer questions.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Non-homogeneous relations</span></div>
+    <div class="body">
+      <p>A relation is <b>non-homogeneous</b> when it carries an extra term that
+      does not involve the sequence:</p>
+      <p style="margin-left:12pt">a<sub>n</sub> =
+      c<sub>1</sub>a<sub>n&#8722;1</sub> + &#8230; +
+      c<sub>k</sub>a<sub>n&#8722;k</sub> + f(n)</p>
+      <p>Its solution has two parts added together:</p>
+      <ul class="bul">
+        <li>the solution of the <b>associated homogeneous</b> relation, the same
+        relation with f(n) removed, found by the characteristic equation
+        above;</li>
+        <li>a <b>particular solution</b>, any one sequence that satisfies the
+        full relation, found by trying a form that matches f(n): a constant for
+        a constant f, a linear expression for a linear f, a multiple of
+        t<sup>n</sup> for f(n) = t<sup>n</sup>.</li>
+      </ul>
+      <p><b>You have already done one.</b> a<sub>n</sub> =
+      3a<sub>n&#8722;1</sub> + 2 is non-homogeneous with f(n) = 2. Its
+      associated homogeneous relation a<sub>n</sub> = 3a<sub>n&#8722;1</sub> has
+      solution A &#215; 3<sup>n</sup>, and a constant particular solution
+      a<sub>n</sub> = p requires p = 3p + 2, so p = &#8722;1. The general
+      solution is A &#215; 3<sup>n</sup> &#8722; 1, and a<sub>1</sub> = 1 gives
+      3A &#8722; 1 = 1, so A = 2/3 and a<sub>n</sub> =
+      (2/3) &#215; 3<sup>n</sup> &#8722; 1 =
+      <b>2 &#215; 3<sup>n&#8722;1</sup> &#8722; 1</b>, exactly the answer the
+      substitution trick gave.</p>
+      <p><b>Two routes, one answer.</b> That agreement is the sort of check
+      worth showing: it costs three lines and demonstrates the method rather
+      than the memory.</p>
+      <p><b>One caution on trial solutions.</b> If the form you try is already a
+      solution of the homogeneous relation, it cannot also fix the extra term,
+      and you must multiply the trial by n. That is the same phenomenon as the
+      repeated root above, and for the same reason.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where recurrences show up in this book</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Situation</th><th>Recurrence</th><th>Section</th></tr>
+        <tr><td>People at level n of the chain letter</td><td>s<sub>n</sub> = 4s<sub>n&#8722;1</sub>, s<sub>0</sub> = 1</td><td>7.2</td></tr>
+        <tr><td>Leaves of a full m-ary tree by level</td><td>l<sub>n</sub> = m l<sub>n&#8722;1</sub></td><td>7.2</td></tr>
+        <tr><td>Subsets of an n-element set</td><td>p<sub>n</sub> = 2p<sub>n&#8722;1</sub>, p<sub>0</sub> = 1</td><td>2.1</td></tr>
+        <tr><td>Rows in a truth table with n letters</td><td>r<sub>n</sub> = 2r<sub>n&#8722;1</sub>, r<sub>0</sub> = 1</td><td>1.1</td></tr>
+        <tr><td>Comparisons made by binary search</td><td>T<sub>n</sub> = T<sub>n/2</sub> + 1</td><td>11.2</td></tr>
+      </table>
+      <p><b>Four of those five are the same relation with a different letter,</b>
+      and each solves to a power: 4<sup>n</sup>, m<sup>n</sup>,
+      2<sup>n</sup>, 2<sup>n</sup>. Noticing that a counting problem is a
+      first-order geometric recurrence is often faster than the counting
+      argument, and it is a good sentence to write when a question asks you to
+      justify a formula you already know.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a recurrence relation.</p>
+      <p class="q">2. What are initial conditions, and why does a relation need
+      them?</p>
+      <p class="q">3. How many initial conditions does a relation of order k
+      need?</p>
+      <p class="q">4. What does it mean to solve a recurrence relation?</p>
+      <p class="q">5. Write the characteristic equation of a<sub>n</sub> =
+      5a<sub>n&#8722;1</sub> &#8722; 6a<sub>n&#8722;2</sub> and give its
+      roots.</p>
+      <p class="q">6. What changes in the general solution when the
+      characteristic equation has a repeated root?</p>
+      <p class="q">7. Distinguish a homogeneous relation from a
+      non-homogeneous one.</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. An equation expressing a<sub>n</sub> in terms of one or more earlier
+      terms of the same sequence.<br>
+      2. The terms given outright before the relation applies. Without them the
+      relation fixes only the shape of the sequence, and infinitely many
+      sequences share that shape.<br>
+      3. Exactly k.<br>
+      4. Finding a closed form: a formula for a<sub>n</sub> in terms of n alone,
+      requiring no earlier terms.<br>
+      5. x<sup>2</sup> &#8722; 5x + 6 = 0, with roots 3 and 2.<br>
+      6. The solution becomes (A + Bn)x<sub>1</sub><sup>n</sup>: the repeated
+      root buys a factor of n on the second constant.<br>
+      7. A homogeneous relation involves only terms of the sequence; a
+      non-homogeneous one carries an extra term f(n) that does not.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The number of steps a relation reaches back is its
+        <span class="blank"></span>.</li>
+        <li>The Tower of Hanoi with n discs takes <span class="blank"></span>
+        moves.</li>
+        <li>The characteristic equation of a<sub>n</sub> =
+        10a<sub>n&#8722;1</sub> &#8722; 25a<sub>n&#8722;2</sub> has the single
+        root <span class="blank"></span>.</li>
+        <li>Fibonacci is a relation of order <span class="blank"></span>.</li>
+        <li>a<sub>n</sub> = 3a<sub>n&#8722;1</sub> + 2 with a<sub>1</sub> = 1
+        solves to <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. order. 2. 2<sup>n</sup> &#8722; 1. 3. 5. 4. two.
+      5. 2 &#215; 3<sup>n&#8722;1</sup> &#8722; 1.</p>
+    </div>
+  </div>
+
+</section>

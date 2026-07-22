@@ -1,0 +1,582 @@
+<section class="part">
+  <div class="kicker">Part Six</div>
+  <h1>Graph Theory:<br>Vertices and Edges</h1>
+  <div class="blurb">The heaviest part of the exam and the emptiest part of the
+  course text. Every paper we hold gives graphs at least a third of its marks,
+  and the official text does not define a
+  <span class="mention">vertex</span>. Everything here is taught from
+  zero.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.3" fill="none">
+        <path d="M60 30 L150 30"/><path d="M60 30 L60 100"/><path d="M150 30 L150 100"/>
+        <path d="M60 100 L150 100"/><path d="M60 30 L150 100"/><path d="M150 30 L60 100"/>
+        <path d="M150 30 L215 65"/><path d="M215 65 L150 100"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="60" cy="30" r="5.4"/><circle cx="150" cy="30" r="5.4"/>
+        <circle cx="60" cy="100" r="5.4"/><circle cx="150" cy="100" r="5.4"/>
+      </g>
+      <circle cx="215" cy="65" r="5.4" fill="#be123c"/>
+      <g font-family="DejaVu Sans" font-size="13" fill="#8891c9">
+        <text x="266" y="30">deg(v)</text>
+        <text x="266" y="58">&#931; deg = 2e</text>
+        <text x="266" y="86">v &#8722; e + f = 2</text>
+        <text x="266" y="114">K&#8325;, K&#8323;,&#8323;</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#a4abcd">
+        <text x="360" y="30">degree of a vertex</text>
+        <text x="360" y="58">handshaking</text>
+        <text x="360" y="86">planarity</text>
+        <text x="360" y="114">the non-planar pair</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Six &middot; 6.1</div>
+  <h2 class="title">Graphs, Vertices, Edges and Degree</h2>
+  <hr class="rule">
+  <p class="lead">A graph is dots and lines. Almost every mark in this part comes
+  from naming the dots and lines precisely, so the vocabulary is the subject, not
+  the preamble.</p>
+  <p class="lo">By the end of this section you will be able to define a graph, a
+  vertex and an edge, count the order and the size of a graph, compute the degree
+  of a vertex, say what incidence and adjacency mean, name loops, parallel edges,
+  pendant and isolated vertices, and answer the incidence and short-notes
+  questions in full.</p>
+
+  <div class="gapchip"><b>Not in the course text</b><br>
+  The official 161-page text contains no graph theory at all. It never uses the
+  word <span class="mention">vertex</span>, never defines an
+  <span class="mention">edge</span>, and never states the
+  <span class="mention">Handshaking theorem</span>. Meanwhile 2025/2026 gives
+  graphs roughly 30 of its marks, 2024/2025 gives a whole 17.5-mark question to
+  one graph, and 2020/2021, 2021/2022 and 2023/2024 each build two questions on
+  them. This part is your only source, so nothing here assumes you have seen a
+  graph before.</div>
+
+  <h3 class="sub">What a graph is</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Graph, vertex, edge</span></div>
+    <div class="body">
+      <p>A <b>graph</b> G = (V, E) consists of a set V of <b>vertices</b> and a
+      set E of <b>edges</b>.</p>
+      <p>A <b>vertex</b> (plural <b>vertices</b>) is a point, drawn as a dot or a
+      small circle, standing for an object: a city, a computer, a person, a
+      state of a program. A vertex is also called a <b>node</b>.</p>
+      <p>An <b>edge</b> is a line that joins two vertices, standing for a
+      relationship between the objects: a road, a cable, a friendship, a
+      transition.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">V</span> is the vertex set, and it must not be empty: a
+      graph has at least one vertex.
+      <span class="sym">E</span> is the edge set, and it may be empty. A graph
+      with no edges is still a graph.
+      <span class="sym">G = (V, E)</span> is the standard way of naming a graph
+      by its two parts, and it is worth writing out in an answer.</div>
+      <p class="hook"><b>Memory hook:</b> <b>dots and lines, objects and
+      relationships.</b> The picture is not the graph. Two very different-looking
+      drawings can be the same graph, because only which dots are joined
+      matters, never where they sit on the page.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Order and size</span></div>
+    <div class="body">
+      <p>The <b>order</b> of a graph is the number of vertices, written
+      <b>|V|</b> or n.</p>
+      <p>The <b>size</b> of a graph is the number of edges, written <b>|E|</b>
+      or e.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">|V|</span> and <span class="sym">|E|</span> are
+      cardinalities, the same bars used for set size in section 2.1.
+      <span class="sym">order</span> counts dots.
+      <span class="sym">size</span> counts lines. The two words are not
+      interchangeable, and 2025/2026 Q4(a) pays 2 marks for knowing which is
+      which.</div>
+      <p class="hook"><b>Memory hook:</b> <b>order counts the objects, size
+      counts the connections.</b> Everyday English suggests "size" should mean
+      how big the graph is; in graph theory it means how many edges it has.
+      Learn it against your instinct.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Degree, and the words that go with it</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Degree and valency</span></div>
+    <div class="body">
+      <p>The <b>degree of a vertex</b> v, written <b>deg(v)</b>, is the number of
+      edges meeting v, with a loop counted twice.</p>
+      <p><b>Valency</b> is another word for exactly the same thing. Some papers
+      use one word, some the other, and 2025/2026 asks you to tell them apart.
+      They are the same quantity under two names.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">deg(v)</span> is a whole number, 0 or more.
+      <span class="sym">a loop</span> at v counts <b>2</b>, because both of its
+      ends meet v.
+      <span class="sym">parallel edges</span> each count separately: two edges
+      between the same pair contribute 2 to each endpoint.</div>
+      <p class="hook"><b>Memory hook:</b> <b>count the line-ends touching the
+      dot, not the neighbours.</b> A vertex joined to one neighbour by three
+      parallel edges has degree 3, not 1.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The rest of the vocabulary</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Term</th><th>Meaning</th><th>Test for it</th></tr>
+        <tr><td><b>incident</b></td><td>A vertex is incident to an edge when the
+        edge has that vertex as one of its two ends.</td><td>Does the line touch
+        the dot?</td></tr>
+        <tr><td><b>adjacent</b></td><td>Two vertices are adjacent when an edge
+        joins them.</td><td>Is there a line between the two dots?</td></tr>
+        <tr><td><b>loop</b></td><td>An edge whose two ends are the same
+        vertex.</td><td>Does the line start and finish at one dot?</td></tr>
+        <tr><td><b>parallel edges</b></td><td>Two or more edges joining the same
+        pair of vertices. Also called multiple edges.</td><td>More than one line
+        between the same two dots?</td></tr>
+        <tr><td><b>pendant vertex</b></td><td>A vertex of degree 1. Also called a
+        leaf or an end vertex.</td><td>Exactly one line touches it?</td></tr>
+        <tr><td><b>isolated vertex</b></td><td>A vertex of degree 0.</td><td>No
+        line touches it at all?</td></tr>
+      </table>
+      <p><b>Incidence and adjacency are not the same relation,</b> and the exam
+      asks about incidence specifically. <b>Incidence relates a vertex to an
+      edge</b>; <b>adjacency relates a vertex to another vertex</b>. Saying "the
+      vertices are incident" is wrong, and so is "the vertex is adjacent to the
+      edge".</p>
+      <figure>
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:88%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.5" fill="none">
+            <path d="M70 60 L180 60"/>
+            <path d="M180 60 C 235 20, 300 20, 340 60"/>
+            <path d="M180 60 C 235 100, 300 100, 340 60"/>
+            <path d="M340 60 C 390 30, 400 90, 352 76"/>
+            <path d="M70 60 L120 140"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="70" cy="60" r="6"/><circle cx="180" cy="60" r="6"/>
+            <circle cx="340" cy="60" r="6"/><circle cx="120" cy="140" r="6"/>
+          </g>
+          <circle cx="430" cy="150" r="6" fill="#be123c"/>
+          <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+            <text x="60" y="46">a</text><text x="174" y="46">b</text>
+            <text x="336" y="46">c</text><text x="112" y="162">d</text>
+            <text x="424" y="140">e</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#67707a">
+            <text x="106" y="54">one edge</text>
+            <text x="228" y="18">parallel edges</text>
+            <text x="376" y="102">loop at c</text>
+            <text x="52" y="182">d is a pendant vertex, deg(d) = 1</text>
+            <text x="330" y="176" fill="#be123c">e is isolated, deg(e) = 0</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#283593">
+            <text x="196" y="196">deg(a) = 2 &#160; deg(b) = 3 &#160; deg(c) = 4 (the loop counts twice)</text>
+          </g>
+        </svg>
+        <figcaption>Every term at once. Note that c has degree 4: two parallel
+        edges to b, plus a loop worth two.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h3 class="sub">Degree and valency, told apart</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q1a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q1 a)</span></div>
+    <div class="body">
+      <p class="q">a)  With the aid of two examples each, differentiate between the following:</p>
+      <p class="qi">i)      Degree and Valency of a node in a graph <span class="mk">(2 marks)</span></p>
+      <p class="qi">ii)     Predicate Logic and Prepositional logic <span class="mk">(2 marks)</span></p>
+      <p class="qi">iii)    Universal Quantifier and Existential Quantifier <span class="mk">(2 marks)</span></p>
+      <p class="qi">iv)     Adjacency and Path Matrice <span class="mk">(2 marks)</span></p>
+      <p class="qi">v)      A logical matrix and relation matrix <span class="mk">(2marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Three defects, all harmless once seen. Item ii) prints "Prepositional logic";
+  the word is <b>propositional</b>, since a preposition is a part of speech and
+  has nothing to do with logic. Item iv) prints "Path Matrice", a slip for "Path
+  Matrix" or "Path Matrices". Item v) prints "(2marks)" closed up, unlike the
+  four above it. Quote them as printed and answer the intended questions.
+  <br><br>
+  This section answers i). Item ii) is section 1.4, item iii) is section 1.4, and
+  items iv) and v) are section 6.5. The 10 marks are spread across three parts of
+  this book, which is worth knowing before you start writing.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Five pairs of terms, 2 marks each.</dd>
+      <dt>Asked</dt><dd><b>Differentiate</b>, <b>with the aid of two examples
+      each</b>. The examples are not optional decoration: they are named in the
+      instruction, so an answer without them cannot score full marks.</dd>
+      <dt>Marks say</dt><dd>2 marks per pair. Read as roughly 1 for the
+      distinction and 1 for the two examples. Keep each answer to four or five
+      lines and move on; there are ten items on this question.</dd>
+      <dt>Teaches</dt><dd>Item i) here in 6.1. See 1.4 for ii) and iii), and 6.5
+      for iv) and v).</dd>
+      <dt>Trap</dt><dd>Item i) is a trick in the sense that there is <b>no</b>
+      numerical difference between degree and valency. Saying so confidently, and
+      explaining where each word comes from, is the answer. Inventing a
+      difference loses the marks.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1 a) i)</span></div>
+    <div class="body">
+      <p><b>Degree and valency of a node in a graph.</b></p>
+      <p><b>The distinction, stated plainly.</b> They are two names for one
+      quantity: the number of edges meeting the node, a loop counting twice.
+      There is no graph and no node for which the degree and the valency differ.
+      The difference is one of usage, not of value:</p>
+      <table class="data">
+        <tr><th></th><th>Degree</th><th>Valency</th></tr>
+        <tr><td>Where the word comes from</td><td>graph theory and
+        mathematics</td><td>chemistry, where an atom's valency is the number of
+        bonds it forms</td></tr>
+        <tr><td>How it is written</td><td>deg(v), or d(v)</td><td>usually written
+        out in words</td></tr>
+        <tr><td>Where you will meet it</td><td>the Handshaking theorem, degree
+        sequences, most textbooks</td><td>older texts, chemical graph theory,
+        and this course's own papers</td></tr>
+      </table>
+      <p><b>Two examples, as the question demands.</b></p>
+      <ol class="qlist">
+        <li>In the figure above, vertex b is met by one edge to a and two
+        parallel edges to c. So <b>deg(b) = 3</b>, and equally the
+        <b>valency of b is 3</b>.</li>
+        <li>Vertex c carries two parallel edges to b and one loop. The loop
+        contributes 2, so <b>deg(c) = 2 + 2 = 4</b>, and the
+        <b>valency of c is 4</b>. Both words give the same 4, and both would give
+        the same 4 for any vertex you choose.</li>
+      </ol>
+      <p><b>The sentence that earns the mark:</b> "Degree and valency are
+      synonyms for the number of edge-ends at a vertex; the terms differ only in
+      origin, degree being the graph-theoretic word and valency the term borrowed
+      from chemistry."</p>
+      <p class="redo"><b>Now redo it:</b> what are the degree and the valency of
+      the pendant vertex d? Both are 1, and both would be 0 for the isolated
+      vertex e.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Short notes: size, valency, and the rest</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q4a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q4(a)</span></div>
+    <div class="body">
+      <p class="q">(a) With relevant examples, write short notes on the following</p>
+      <p class="qi">(i) Size of a graph <span class="mk">(2 marks)</span></p>
+      <p class="qi">(ii) The valency of a vertex in a graph <span class="mk">(2 marks)</span></p>
+      <p class="qi">(iii) In-degree and Out-degree of a vertex <span class="mk">(2 marks)</span></p>
+      <p class="qi">(iv) Graph isomorphism <span class="mk">(2 marks)</span></p>
+      <p class="qi">(v) Eulerian graph <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Ten marks in five two-mark notes, and they run right across this part: (i) and
+  (ii) belong here, (iii) is section 6.4, and (iv) and (v) are section 6.6. Each
+  answer wants a definition plus a relevant example, and two marks buys about
+  four lines. Items (i) and (ii) are answered below; the other three are answered
+  where they are taught, and cross-referenced back here.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(a)(i) and (ii)</span></div>
+    <div class="body">
+      <p class="marks">(i) Size of a graph</p>
+      <p><b>Definition.</b> The size of a graph G = (V, E) is the number of edges
+      it has, written |E|. It is not the number of vertices; that is the
+      <b>order</b>, |V|.</p>
+      <p><b>Example 1.</b> The graph in the figure above has edges ab, bc, bc
+      again, the loop at c, and ad. That is five edges, so its size is 5. Its
+      order is 5 as well, since it has vertices a, b, c, d and e, and the
+      coincidence is worth pointing out precisely because it shows the two counts
+      are different questions.</p>
+      <p><b>Example 2.</b> A graph on 4 vertices with every pair joined has
+      C(4, 2) = 6 edges, so its size is 6 and its order is 4.</p>
+      <p class="marks">(ii) The valency of a vertex in a graph</p>
+      <p><b>Definition.</b> The valency of a vertex is the number of edges
+      incident to it, a loop counting twice. It is the same quantity as the
+      degree, deg(v).</p>
+      <p><b>Example 1.</b> In a triangle, every vertex is joined to the other
+      two, so every vertex has valency 2.</p>
+      <p><b>Example 2.</b> In a star with one centre joined to four outer
+      vertices, the centre has valency 4 and each outer vertex has valency 1, so
+      each outer vertex is a pendant vertex.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Incidence</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q1c">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q1(c)</span></div>
+    <div class="body">
+      <p class="q">(c) When is a Vertex said to be Incident to an Edge? Identify all the edges each of the vertices
+      is incident to in the diagram below. <span class="mk">(5marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q5c">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q5(c)</span></div>
+    <div class="body">
+      <p class="q">(c) When is a Vertex said to be Incident to an Edge? Show an example <span class="mk">(3&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper, and on the figure</b><br>
+  The same question on two papers, one wanting a worked figure for 5 marks and
+  the other an example for 3.5. The definition is identical; only the second half
+  changes.
+  <br><br>
+  <b>The 2020/2021 figure cannot be fully read.</b> It shows four vertices
+  numbered 1 to 4 and six edges labelled e1 to e6. Vertices 1, 2 and 3 and the
+  edges e1 to e5 are clear, including that e1 and e2 are parallel, as are e4 and
+  e5. The sixth edge, e6, is drawn as a long curve on the right passing around
+  vertex 4, and at the resolution we hold it cannot be settled whether it is a
+  loop at vertex 2 or a second path from 2 to 3. Vertex 4 is joined to nothing
+  either way, which is plainly the point the question is testing. The answer
+  below states the reading it uses, tabulates on that reading, and shows what
+  changes under the other. <b>Read the arrowless curve on your own copy before
+  committing.</b></div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A graph with vertices 1, 2, 3, 4 and edges e1 to e6.</dd>
+      <dt>Asked</dt><dd>Two things. <b>When</b> a vertex is said to be incident
+      to an edge, which is a definition; and <b>identify all the edges each
+      vertex is incident to</b>, which is a table with one row per vertex.</dd>
+      <dt>Marks say</dt><dd>5 marks: about 1.5 for the definition and 3.5 for the
+      four rows. Do not answer only the first half; it is worth under a third of
+      the marks.</dd>
+      <dt>Teaches</dt><dd>This section, 6.1.</dd>
+      <dt>Trap</dt><dd>Skipping vertex 4 because nothing touches it. Its row is
+      the one the examiner is watching for: it is incident to <b>no</b> edges, so
+      it is an isolated vertex, and saying so is worth a mark on its own.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q1(c) &middot; PQ 21/22 Q5(c)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Vertices 1, 2, 3, 4. Edges e1 and e2 both joining 1 and
+        2; e3 joining 1 and 3; e4 and e5 both joining 2 and 3; e6 a loop at 2 on
+        the reading used here.</dd>
+        <dt>Find</dt><dd>The definition of incidence, then every edge at every
+        vertex.</dd>
+        <dt>Rule</dt><dd>A vertex is incident to an edge exactly when it is one
+        of that edge's two endpoints.</dd>
+      </dl>
+      <p><b>Part 1: the definition.</b> A vertex v is said to be <b>incident</b>
+      to an edge e when v is one of the two endpoints of e; equivalently, when e
+      touches v in the drawing. The relation runs both ways in speech: we say
+      that e is incident to v, and that v is incident to e. For a loop, the
+      single vertex is incident to the edge, and the edge contributes 2 to that
+      vertex's degree.</p>
+      <p><b>Part 2: the table.</b> State the reading first, then tabulate.</p>
+      <p><i>Reading used: e6 is a loop at vertex 2.</i></p>
+      <figure>
+        <svg viewBox="0 0 470 210" xmlns="http://www.w3.org/2000/svg" style="width:82%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.5" fill="none">
+            <path d="M80 50 C 140 22, 200 22, 260 50"/>
+            <path d="M80 50 C 140 76, 200 76, 260 50"/>
+            <path d="M80 50 L160 150"/>
+            <path d="M260 50 C 232 88, 200 118, 168 150"/>
+            <path d="M260 50 C 250 100, 216 132, 176 158"/>
+            <path d="M260 50 C 322 18, 350 82, 288 72"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="80" cy="50" r="6.5"/><circle cx="260" cy="50" r="6.5"/>
+            <circle cx="163" cy="152" r="6.5"/>
+          </g>
+          <circle cx="370" cy="150" r="6.5" fill="#be123c"/>
+          <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+            <text x="62" y="40">1</text><text x="272" y="40">2</text>
+            <text x="152" y="176">3</text><text x="382" y="146">4</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#67707a">
+            <text x="150" y="20">e1</text><text x="152" y="88">e2</text>
+            <text x="98" y="112">e3</text><text x="204" y="112">e4</text>
+            <text x="240" y="132">e5</text><text x="316" y="42">e6</text>
+            <text x="330" y="176" fill="#be123c">isolated</text>
+          </g>
+        </svg>
+        <figcaption>The figure as read, with e6 taken as a loop at vertex 2 and
+        vertex 4 joined to nothing.</figcaption>
+      </figure>
+      <table class="data">
+        <tr><th>Vertex</th><th>Edges it is incident to</th><th>Degree</th></tr>
+        <tr><td>1</td><td>e1, e2, e3</td><td>3</td></tr>
+        <tr><td>2</td><td>e1, e2, e4, e5, e6 (the loop, twice)</td><td>6</td></tr>
+        <tr><td>3</td><td>e3, e4, e5</td><td>3</td></tr>
+        <tr><td>4</td><td>none; vertex 4 is an <b>isolated vertex</b></td><td>0</td></tr>
+      </table>
+      <p><b>Check the total.</b> The degrees add to 3 + 6 + 3 + 0 = 12, which is
+      twice the six edges. That is the Handshaking theorem of section 6.3, and it
+      is the fastest way to catch a miscounted table.</p>
+      <p><b>Under the other reading,</b> where e6 joins 2 to 3 rather than
+      looping, vertex 2 is incident to e1, e2, e4, e5, e6 with degree 5 and
+      vertex 3 to e3, e4, e5, e6 with degree 4. The degrees then add to
+      3 + 5 + 4 + 0 = 12, still twice six, so the check passes either way. Only
+      the two middle rows change.</p>
+      <p><b>For the 2021/2022 version,</b> which asks only to "Show an example",
+      one edge and its two vertices is enough: draw an edge e joining u and v, and
+      write "u is incident to e and v is incident to e; u and v are adjacent". Add
+      a loop as a second example to show you know it counts twice.</p>
+      <p class="redo"><b>Now redo it:</b> in a triangle with vertices x, y, z and
+      edges f1 = xy, f2 = yz, f3 = zx, which edges is y incident to? f1 and f2,
+      so deg(y) = 2.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Where graphs are used</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q2b">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q2(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Highlight, with two relevant examples each, four real-life scenarios where graph models are
+      applicable. <span class="mk">(6marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q3c">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q3(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Highlight, with a relevant example each, four application areas in computing where graph
+      models are applicable. <span class="mk">(8marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q3b">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q3(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Highlight, with two relevant examples each, four real-life scenarios where graph models are
+      applicable. <span class="mk">(6marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q5a">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q5(a)</span></div>
+    <div class="body">
+      <p class="q">(a) Highlight, with a relevant example each, four computing domains where graph models are
+      applicable. <span class="mk">(6marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  One question in three costumes, worth 6, 8 and 6 marks, and 2021/2022 Q3(b)
+  repeats the first of them word for word. Two things change between them and
+  both change your answer. <b>Real-life</b> versus <b>computing</b>: the first
+  wants roads and social networks, the second wants compilers and routing tables.
+  And <b>two examples each</b> versus <b>a relevant example each</b>: 2020/2021
+  Q2(b) asks for eight examples in total, the others for four. Count them before
+  you start writing.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q2(b) &middot; PQ 20/21 Q3(c) &middot; PQ 21/22 Q5(a) &middot; PQ 21/22 Q3(b)</span></div>
+    <div class="body">
+      <p><b>Answer every version from one table,</b> taking the top half for the
+      real-life question and the bottom half for the computing one. In each case
+      say what the vertices are and what the edges are; that is the modelling
+      step, and it is what separates a full answer from a list of words.</p>
+      <p class="marks">Four real-life scenarios, with two examples each</p>
+      <table class="data">
+        <tr><th>Scenario</th><th>Vertices</th><th>Edges</th><th>Two examples</th></tr>
+        <tr><td><b>Transport networks</b></td><td>towns, junctions, stations</td>
+        <td>roads, rail lines, flight routes</td><td>a road map used to find the
+        shortest drive; an airline route map used to plan connections</td></tr>
+        <tr><td><b>Social networks</b></td><td>people</td><td>friendships,
+        follows, calls</td><td>a friend graph used to suggest people you may
+        know; a call graph used to spot a fraud ring</td></tr>
+        <tr><td><b>Utility distribution</b></td><td>substations, reservoirs,
+        junctions</td><td>power lines, pipes</td><td>an electricity grid checked
+        for a route that survives one cable failing; a water network sized to
+        reach every district</td></tr>
+        <tr><td><b>Scheduling and allocation</b></td><td>tasks, exams,
+        rooms</td><td>a conflict between two of them</td><td>an examination
+        timetable where joined exams may not share a slot; radio frequencies
+        assigned so neighbouring masts differ</td></tr>
+      </table>
+      <p class="marks">Four computing application areas, with an example each</p>
+      <table class="data">
+        <tr><th>Area</th><th>Vertices</th><th>Edges</th><th>Example</th></tr>
+        <tr><td><b>Computer networks</b></td><td>routers and hosts</td><td>links
+        between them</td><td>a routing table computed as shortest paths across
+        the link graph</td></tr>
+        <tr><td><b>Compilers</b></td><td>basic blocks of a program</td><td>a jump
+        or fall-through from one block to another</td><td>the control-flow graph
+        a compiler walks to decide which code is unreachable</td></tr>
+        <tr><td><b>Databases and the web</b></td><td>pages, records,
+        entities</td><td>hyperlinks, foreign keys</td><td>a search engine ranking
+        pages by how the link graph points at them</td></tr>
+        <tr><td><b>Artificial intelligence and search</b></td><td>states of a
+        problem</td><td>a legal move from one state to the next</td><td>a route
+        planner or a game solver searching the state graph for a goal</td></tr>
+      </table>
+      <p><b>One closing line worth writing,</b> because it shows why the topic
+      exists rather than just listing where it appears: in every one of these,
+      the objects and the connections are all that matter, and the geometry of
+      the drawing is irrelevant. That is precisely what a graph abstracts.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a graph, a vertex and an edge.</p>
+      <p class="q">2. What is the difference between the order and the size of a
+      graph?</p>
+      <p class="q">3. How much does a loop add to a vertex's degree, and why?</p>
+      <p class="q">4. When is a vertex incident to an edge?</p>
+      <p class="q">5. What is a pendant vertex, and what is an isolated
+      vertex?</p>
+      <p class="q">6. Is there any graph in which a vertex's degree and its
+      valency differ?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A graph G = (V, E) is a set V of vertices, which are points standing
+      for objects, together with a set E of edges, each joining two vertices and
+      standing for a relationship.<br>
+      2. Order is the number of vertices, |V|. Size is the number of edges,
+      |E|.<br>
+      3. Two, because both of its ends meet that vertex.<br>
+      4. When the vertex is one of the edge's two endpoints.<br>
+      5. A pendant vertex has degree 1; an isolated vertex has degree 0.<br>
+      6. No. They are two names for the same number.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A graph is written G = (<span class="blank"></span>,
+        <span class="blank"></span>).</li>
+        <li>The number of edges is the <span class="blank"></span> of the
+        graph.</li>
+        <li>A vertex of degree 1 is called a <span class="blank"></span>
+        vertex.</li>
+        <li>Two vertices joined by an edge are <span class="blank"></span>; a
+        vertex at the end of an edge is <span class="blank"></span> to it.</li>
+        <li>Valency is another word for <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. V, E. 2. size. 3. pendant. 4. adjacent, incident. 5. degree.</p>
+    </div>
+  </div>
+
+</section>

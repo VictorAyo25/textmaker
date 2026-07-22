@@ -1,0 +1,490 @@
+<section>
+  <div class="kick">Part Five &middot; 5.2</div>
+  <h2 class="title">Permutations and Combinations</h2>
+  <hr class="rule">
+  <p class="lead">One question decides which formula you need: does the order of
+  the chosen objects change the answer? If it does, you are permuting. If it does
+  not, you are combining.</p>
+  <p class="lo">By the end of this section you will be able to compute factorials,
+  use the permutation and combination formulas, count arrangements of a word with
+  repeated letters, handle "at least one" selections, and answer the SCHOOL, the
+  six boys and four girls, and the prayer partners questions in full.</p>
+
+  <h3 class="sub">Factorial notation</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Factorial</span></div>
+    <div class="body">
+      <p class="small">Section F.1 introduced this notation. It is restated here
+      because every formula in this part is built from it, and you should not
+      have to turn back mid-question.</p>
+      <p>For a positive integer n, <b>n factorial</b>, written <b>n!</b>, is the
+      product of every positive integer from n down to 1:</p>
+      <p style="margin-left:12pt"><b>n! = n &#215; (n &#8722; 1) &#215;
+      (n &#8722; 2) &#215; &#8230; &#215; 2 &#215; 1</b></p>
+      <p>and by definition</p>
+      <p style="margin-left:12pt"><b>0! = 1</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is a whole number that is not negative.
+      <span class="sym">!</span> is read "factorial", so 5! is read "five
+      factorial". It is not an exclamation mark and never punctuation.</div>
+      <p class="hook"><b>Memory hook:</b> <b>count down and multiply.</b> And
+      0! = 1 is not a trick: there is exactly one way to arrange nothing, namely
+      do nothing, so the count is 1, not 0.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The values you should know by sight</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>n</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>10</td></tr>
+        <tr><th>n!</th><td>1</td><td>1</td><td>2</td><td>6</td><td>24</td><td>120</td><td>720</td><td>5040</td><td>40320</td><td>3628800</td></tr>
+      </table>
+      <p>Factorials grow violently. That is the reason counting questions ask for
+      an expression as often as a number: 20! has nineteen digits and no examiner
+      wants it written out.</p>
+      <p><b>The cancelling trick,</b> which you will use constantly. Because
+      n! = n &#215; (n &#8722; 1)!, a ratio of factorials collapses:</p>
+      <p style="margin-left:12pt">10! / 7! =
+      (10 &#215; 9 &#215; 8 &#215; 7!) / 7! = 10 &#215; 9 &#215; 8 = 720</p>
+      <p>Never compute 10! and 7! separately and divide. Cancel first, always.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Permutations: order matters</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Permutation</span></div>
+    <div class="body">
+      <p>A <b>permutation</b> is an arrangement of objects <b>in a definite
+      order</b>. An <b>r-permutation</b> of n distinct objects is an ordered
+      selection of r of them, and the number of these is</p>
+      <p style="margin-left:12pt"><b>P(n, r) = n! / (n &#8722; r)!</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is how many distinct objects are available.
+      <span class="sym">r</span> is how many are being chosen and arranged, with
+      0 &#8804; r &#8804; n.
+      <span class="sym">P(n, r)</span> is also written <b>nPr</b> or
+      <sup>n</sup>P<sub>r</sub>, which is the label printed on most
+      calculators.</div>
+      <p><b>The special case r = n:</b> arranging all n objects gives
+      P(n, n) = n! / 0! = <b>n!</b>. Every permutation question about "all of
+      them" is just a factorial.</p>
+      <p class="hook"><b>Memory hook:</b> <b>P for position.</b> A permutation
+      cares where each object lands, so AB and BA are two different answers.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where the formula comes from</span></div>
+    <div class="body">
+      <p>You already have this from the product rule. To fill r ordered positions
+      from n objects with no repeats:</p>
+      <p style="margin-left:12pt">position 1: n ways<br>
+      position 2: n &#8722; 1 ways, since one object is used up<br>
+      position 3: n &#8722; 2 ways<br>
+      &#8230;<br>
+      position r: n &#8722; r + 1 ways</p>
+      <p>Multiplying gives
+      n &#215; (n &#8722; 1) &#215; &#8230; &#215; (n &#8722; r + 1), which is r
+      factors counting down from n. Writing that as a ratio of factorials:</p>
+      <p style="margin-left:12pt">n &#215; (n &#8722; 1) &#215; &#8230; &#215;
+      (n &#8722; r + 1) = n! / (n &#8722; r)!</p>
+      <p>because dividing by (n &#8722; r)! cancels exactly the tail of the
+      product that we stopped short of. So P(n, r) is not a new idea; it is the
+      product rule packaged.</p>
+      <p><b>Worked:</b> P(6, 4) = 6! / 2! = 720 / 2 = 360, and by the
+      counting-down form 6 &#215; 5 &#215; 4 &#215; 3 = 360. The two agree, as
+      they must.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Combinations: order does not matter</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Combination</span></div>
+    <div class="body">
+      <p>A <b>combination</b> is a selection of objects <b>without regard to
+      order</b>. The number of ways of choosing r objects from n distinct objects
+      is</p>
+      <p style="margin-left:12pt"><b>C(n, r) = n! / (r! (n &#8722; r)!)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is how many objects are available.
+      <span class="sym">r</span> is how many are chosen, with
+      0 &#8804; r &#8804; n.
+      <span class="sym">C(n, r)</span> is also written <b>nCr</b> or
+      <sup>n</sup>C<sub>r</sub>.</div>
+      <p><b>Why the extra r!</b> Each unordered selection of r objects can be
+      arranged in r! different orders, and P(n, r) counts every one of those
+      orders separately. Dividing by r! collapses them back into one:</p>
+      <p style="margin-left:12pt">C(n, r) = P(n, r) / r!</p>
+      <p class="hook"><b>Memory hook:</b> <b>C for committee.</b> A committee of
+      three is the same committee however you read out the names, so order is
+      thrown away and you divide by r!.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 235" xmlns="http://www.w3.org/2000/svg" style="width:96%;height:auto">
+      <rect x="6" y="6" width="248" height="222" fill="#f7f8fc" stroke="#9aa0b8" stroke-width="1"/>
+      <rect x="266" y="6" width="248" height="222" fill="#fdf3f5" stroke="#d79aab" stroke-width="1"/>
+      <text x="20" y="28" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" fill="#283593">PERMUTATION: order matters</text>
+      <text x="280" y="28" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" fill="#be123c">COMBINATION: order does not</text>
+      <text x="20" y="48" font-family="DejaVu Sans" font-size="10" fill="#67707a">Choose 2 of A, B, C and line them up</text>
+      <text x="280" y="48" font-family="DejaVu Sans" font-size="10" fill="#67707a">Choose 2 of A, B, C as a set</text>
+      <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+        <text x="26" y="78">A B</text><text x="98" y="78">B A</text>
+        <text x="26" y="106">A C</text><text x="98" y="106">C A</text>
+        <text x="26" y="134">B C</text><text x="98" y="134">C B</text>
+      </g>
+      <g stroke="#be123c" stroke-width="1.1">
+        <line x1="292" y1="74" x2="332" y2="74"/>
+        <line x1="292" y1="102" x2="332" y2="102"/>
+        <line x1="292" y1="130" x2="332" y2="130"/>
+      </g>
+      <g font-family="DejaVu Serif" font-size="13" fill="#232a31">
+        <text x="342" y="79">{A, B}</text>
+        <text x="342" y="107">{A, C}</text>
+        <text x="342" y="135">{B, C}</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#283593">
+        <text x="26" y="168">P(3, 2) = 3! / 1! = 6</text>
+        <text x="26" y="188">six ordered pairs</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#be123c">
+        <text x="280" y="168">C(3, 2) = 3! / (2! 1!) = 3</text>
+        <text x="280" y="188">three sets</text>
+      </g>
+      <text x="26" y="214" font-family="DejaVu Sans" font-size="10" fill="#67707a">A B and B A are different</text>
+      <text x="280" y="214" font-family="DejaVu Sans" font-size="10" fill="#67707a">each set collapses 2! orders into one</text>
+    </svg>
+    <figcaption>The same three objects, the same r = 2, and two different
+    answers. Six divided by 2! is three.</figcaption>
+  </figure>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Deciding which one you need</span></div>
+    <div class="body">
+      <p>Ask the question in this exact form: <b>if I swap two of the chosen
+      objects, is that a different answer?</b></p>
+      <table class="data">
+        <tr><th>Task</th><th>Swap changes it?</th><th>Use</th></tr>
+        <tr><td>Arranging letters into a word</td><td>yes, TAB is not BAT</td><td>permutation</td></tr>
+        <tr><td>Filling the posts of chair and secretary</td><td>yes, the two
+        people swap jobs</td><td>permutation</td></tr>
+        <tr><td>Picking 4 students for a team</td><td>no, the same four
+        people</td><td>combination</td></tr>
+        <tr><td>Choosing a subset of a set</td><td>no, a set has no order</td><td>combination</td></tr>
+      </table>
+      <p>The wording that gives it away: <b>arrange, order, line up, rank, first
+      and second</b> point to a permutation; <b>select, choose, pick, committee,
+      team, subset, group</b> point to a combination.</p>
+      <p>One warning about that list. It is a guide, not a law. Read the task, not
+      the verb: a question that says "select" and then gives the chosen people
+      different jobs is a permutation despite the word.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Arranging a word with repeated letters</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Arrangements with repeats</span></div>
+    <div class="body">
+      <p>The number of distinct arrangements of n objects, of which one kind
+      repeats n<sub>1</sub> times, another n<sub>2</sub> times, and so on, is</p>
+      <p style="margin-left:12pt"><b>n! / (n<sub>1</sub>! &#215; n<sub>2</sub>!
+      &#215; &#8230; &#215; n<sub>k</sub>!)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the total number of objects, letters counted
+      as often as they appear.
+      <span class="sym">n<sub>i</sub></span> is how many times the i-th repeated
+      object occurs. Objects appearing once contribute 1! = 1 and can be left
+      out.</div>
+      <p><b>Why divide.</b> Pretend the repeats are distinguishable for a moment,
+      say O<sub>1</sub> and O<sub>2</sub>. Then all n objects are distinct and
+      there are n! arrangements. But swapping O<sub>1</sub> and O<sub>2</sub>
+      produces a word that looks identical, so every genuine word has been counted
+      2! times. Divide by 2! to correct it.</p>
+      <p class="hook"><b>Memory hook:</b> <b>divide out what you cannot tell
+      apart.</b> One factorial on the bottom for each repeated letter, using how
+      many times it repeats.</p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q4d">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q4(d)</span></div>
+    <div class="body">
+      <p class="q">(d) Find out the number of ways that the letters of the word "SCHOOL" can be arranged?
+      <span class="mk">(2&#189; marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  A command punctuated as a question, which this paper does in several places.
+  Nothing else is wrong with it, and the quotation marks around the word are the
+  paper's own. The word is the whole difficulty: SCHOOL has six letters and the
+  letter O appears twice.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>The six letters of the word SCHOOL: S, C, H, O, O, L.</dd>
+      <dt>Asked</dt><dd><b>The number of ways</b> they can be arranged. Arranged
+      means ordered, so this is a permutation.</dd>
+      <dt>Marks say</dt><dd>2.5 marks. That is enough for the formula, the
+      substitution and the answer, and not enough to list 360 words. Do not list
+      them.</dd>
+      <dt>Teaches</dt><dd>This section, 5.2.</dd>
+      <dt>Trap</dt><dd>Answering 6! = 720. The two O's are identical, so half of
+      those 720 orderings spell the same word twice over. The answer is 360.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4(d)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>The letters S, C, H, O, O, L. Total n = 6, with the
+        letter O repeated twice.</dd>
+        <dt>Find</dt><dd>The number of distinct arrangements.</dd>
+        <dt>Formula</dt><dd>n! divided by the factorial of each repeat count.</dd>
+      </dl>
+      <p><b>Step 1. Count the letters and the repeats.</b></p>
+      <table class="data">
+        <tr><th>Letter</th><td>S</td><td>C</td><td>H</td><td>O</td><td>L</td></tr>
+        <tr><th>Times it occurs</th><td>1</td><td>1</td><td>1</td><td>2</td><td>1</td></tr>
+      </table>
+      <p>Total letters n = 1 + 1 + 1 + 2 + 1 = 6. One letter repeats, namely O,
+      and it repeats twice.</p>
+      <p><b>Step 2. Apply the formula.</b></p>
+      <p style="margin-left:12pt">arrangements = 6! / 2!<br>
+      = 720 / 2<br>
+      = <b>360</b></p>
+      <p><b>Answer: the letters of SCHOOL can be arranged in 360 ways.</b></p>
+      <p><b>State the reasoning in one line for the marker:</b> if the six letters
+      were all different there would be 6! = 720 arrangements, but swapping the
+      two O's changes nothing visible, so every distinct word has been counted 2!
+      times and 720 must be halved.</p>
+      <p class="redo"><b>Now redo it:</b> how many arrangements has the word
+      LEVEL? Five letters with L twice and E twice, so 5! / (2! 2!) = 120 / 4 =
+      30.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Selecting with a condition</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q3b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q3(b)</span></div>
+    <div class="body">
+      <p class="q">(b) In a group of students, there are 6 boys and 4 girls. Out of 10 students, 4 students have to be
+      selected. Find out how many different ways the students can be selected such that at least one
+      boy should be selected. <span class="mk">(5 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "Out of 10 students" restates what the first sentence already said, since
+  6 + 4 = 10. That is a helpful redundancy rather than a defect: it confirms the
+  ten students are the whole pool. The phrase to act on is "at least one boy",
+  which is the subtraction rule of section 5.1 in a combination setting.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>6 boys and 4 girls, 10 students in all. Four are to be
+      selected.</dd>
+      <dt>Asked</dt><dd><b>How many different ways</b> the selection can be made
+      with <b>at least one boy</b> among the four.</dd>
+      <dt>Order</dt><dd>A group of four is selected, with no jobs or ranking
+      attached, so order does not matter. This is a combination.</dd>
+      <dt>Marks say</dt><dd>5 marks. Enough for the total, the excluded case, the
+      subtraction and a check. Showing the case-by-case method as a verification
+      is worth doing if time allows.</dd>
+      <dt>Teaches</dt><dd>This section, 5.2, using the subtraction rule from 5.1.</dd>
+      <dt>Trap</dt><dd>Reading "at least one boy" as "exactly one boy" and
+      answering C(6, 1) &#215; C(4, 3) = 24. At least one means one, two, three or
+      four.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>6 boys, 4 girls, 10 students; choose 4.</dd>
+        <dt>Find</dt><dd>The number of selections containing at least one boy.</dd>
+        <dt>Formula</dt><dd>C(n, r) = n! / (r! (n &#8722; r)!), with the
+        subtraction rule for "at least one".</dd>
+      </dl>
+      <p><b>Step 1. Count all selections of four, ignoring the condition.</b></p>
+      <p style="margin-left:12pt">C(10, 4) = 10! / (4! &#215; 6!)<br>
+      = (10 &#215; 9 &#215; 8 &#215; 7) / (4 &#215; 3 &#215; 2 &#215; 1)<br>
+      = 5040 / 24<br>
+      = <b>210</b></p>
+      <p><b>Step 2. Count the selections that break the condition.</b> A selection
+      fails only when it contains <b>no boy</b>, that is, when all four chosen are
+      girls. There are exactly 4 girls, so all four must be taken:</p>
+      <p style="margin-left:12pt">C(4, 4) = 4! / (4! &#215; 0!) = 1</p>
+      <p>Note 0! = 1 here; that definition is doing real work.</p>
+      <p><b>Step 3. Subtract.</b></p>
+      <p style="margin-left:12pt">at least one boy = 210 &#8722; 1 = <b>209</b></p>
+      <p><b>Answer: 209 different selections contain at least one boy.</b></p>
+      <p><b>Verification by cases,</b> which is the long way and a good check:</p>
+      <table class="data">
+        <tr><th>Boys</th><th>Girls</th><th>Ways</th><th>Value</th></tr>
+        <tr><td>1</td><td>3</td><td>C(6, 1) &#215; C(4, 3)</td><td>6 &#215; 4 = 24</td></tr>
+        <tr><td>2</td><td>2</td><td>C(6, 2) &#215; C(4, 2)</td><td>15 &#215; 6 = 90</td></tr>
+        <tr><td>3</td><td>1</td><td>C(6, 3) &#215; C(4, 1)</td><td>20 &#215; 4 = 80</td></tr>
+        <tr><td>4</td><td>0</td><td>C(6, 4) &#215; C(4, 0)</td><td>15 &#215; 1 = 15</td></tr>
+      </table>
+      <p style="margin-left:12pt">24 + 90 + 80 + 15 = <b>209</b>. The two methods
+      agree.</p>
+      <p>The case table also shows why subtracting is the better exam move: four
+      combinations and three additions, against one subtraction.</p>
+      <p class="redo"><b>Now redo it:</b> how many selections of four contain at
+      least one girl? Total 210, minus the all-boy selections C(6, 4) = 15, gives
+      195.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The prayer partners</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q3c">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q3(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Suppose 10 male and 10 female students needs to pray with one another in a one male-one female
+      order:</p>
+      <p class="qi">(i)     How many Prayer sessions will there be? <span class="mk">(1 mark)</span></p>
+      <p class="qi">(ii)    How many prayer units are generated here? <span class="mk">(1&#189; marks)</span></p>
+      <p class="qi">(iii)   Calculate the choice of prayer partners. <span class="mk">(3 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Two things to flag. First, "students needs" does not agree in number, and
+  "Prayer" is capitalised in (i) but not in (ii). Those are harmless. Second, and
+  this one matters: the paper never says what a <b>session</b> is or what a
+  <b>unit</b> is, so parts (i) and (ii) can be read more than one way. The answer
+  below states the reading it uses before computing anything, gives the numbers
+  that reading produces, and then gives the other reading's numbers too. Part
+  (iii) is unambiguous and carries the most marks.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>10 male and 10 female students. They pray in pairs, each
+      pair being one male and one female.</dd>
+      <dt>Asked</dt><dd>(i) the number of <b>sessions</b>, (ii) the number of
+      <b>units</b>, (iii) <b>calculate</b> the choice of prayer partners.</dd>
+      <dt>Marks say</dt><dd>1, 1.5 and 3. The weight is on (iii), which is a full
+      permutation, so budget your time there. Parts (i) and (ii) are one line
+      each.</dd>
+      <dt>Teaches</dt><dd>This section, 5.2, with the product rule from 5.1.</dd>
+      <dt>Trap</dt><dd>Answering (iii) with 10 &#215; 10 = 100. That counts the
+      possible pairs, which is part (ii). The <b>choice of partners</b> means
+      assigning every male a different female at once, and that is 10!.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3(c)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>10 males, 10 females, praying one male with one female.</dd>
+        <dt>Find</dt><dd>Sessions, units, and the number of ways to choose
+        partners.</dd>
+        <dt>Rule</dt><dd>Product rule for the pairs, permutation for the
+        assignment.</dd>
+      </dl>
+
+      <p><b>Step 0. State the reading.</b> Write this on the script before
+      answering, because the paper does not supply it:</p>
+      <p style="margin-left:12pt"><i>A prayer unit is one male paired with one
+      female. A session is one round in which all twenty students are paired at
+      the same time, giving ten units per session. Every male is to pray with
+      every female.</i></p>
+
+      <p class="marks">i. How many prayer sessions</p>
+      <p>In one session each of the 10 males prays with one female, so a session
+      uses up 10 of the possible male-female pairings. Every male must eventually
+      meet all 10 females, so each male needs 10 turns:</p>
+      <p style="margin-left:12pt">number of sessions = <b>10</b></p>
+
+      <p class="marks">ii. How many prayer units</p>
+      <p>A unit is one male with one female. Choosing the male is 10 ways and
+      choosing the female is 10 ways, and both choices must be made, so the
+      product rule gives</p>
+      <p style="margin-left:12pt">units = 10 &#215; 10 = <b>100</b></p>
+      <p>Consistency check: 10 sessions with 10 units in each is 100 units, which
+      matches. The two answers agree, which is exactly why stating the reading
+      first was worth a line.</p>
+
+      <p class="marks">iii. Calculate the choice of prayer partners</p>
+      <p>Now the real work. In a single session, every male is given a different
+      female. Line the males up in a fixed order and hand out the females:</p>
+      <p style="margin-left:12pt">male 1: 10 choices of partner<br>
+      male 2: 9 choices, since one female is taken<br>
+      male 3: 8 choices<br>
+      &#8230;<br>
+      male 10: 1 choice</p>
+      <p>All ten choices must be made, so the product rule applies:</p>
+      <p style="margin-left:12pt">choices = 10 &#215; 9 &#215; 8 &#215; &#8230;
+      &#215; 2 &#215; 1 = 10! = <b>3628800</b></p>
+      <p>In the language of this section, the ten females are being arranged among
+      the ten males, so the count is P(10, 10) = 10! / 0! = 10!.</p>
+      <p><b>Answer: 3628800 ways</b>, or 3 628 800 with separators.</p>
+
+      <p><b>The other reading, for safety.</b> If instead a "session" means a
+      single male-female meeting, then there are 100 sessions and 10 units in each
+      round. Whichever reading a marker has in mind, the two numbers on the table
+      are 10 and 100, and part (iii) is 10! = 3628800 either way. Writing your
+      reading down protects the marks.</p>
+      <p class="redo"><b>Now redo it:</b> with 5 males and 5 females, the units
+      are 5 &#215; 5 = 25 and the choice of partners is 5! = 120.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State the formulas for P(n, r) and C(n, r).</p>
+      <p class="q">2. What is 0!, and why?</p>
+      <p class="q">3. Which is larger, P(8, 3) or C(8, 3), and by what factor?</p>
+      <p class="q">4. How many arrangements has the word SCHOOL, and why is it not
+      720?</p>
+      <p class="q">5. Four students are picked from ten for a team. Permutation or
+      combination?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. P(n, r) = n! / (n &#8722; r)! and C(n, r) = n! / (r! (n &#8722; r)!).<br>
+      2. 0! = 1, because there is exactly one way to arrange nothing.<br>
+      3. P(8, 3) is larger, by a factor of 3! = 6: P(8, 3) = 336 and
+      C(8, 3) = 56.<br>
+      4. 360. The two O's are identical, so 6! counts every word twice and must be
+      divided by 2!.<br>
+      5. A combination: the team is the same team however the names are ordered.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>An arrangement in a definite order is a
+        <span class="blank"></span>.</li>
+        <li>A selection with no regard to order is a
+        <span class="blank"></span>.</li>
+        <li>C(n, r) is P(n, r) divided by <span class="blank"></span>.</li>
+        <li>Choosing 4 from 10 can be done in <span class="blank"></span>
+        ways.</li>
+        <li>Ten males paired with ten females can be partnered in
+        <span class="blank"></span> ways.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. permutation. 2. combination. 3. r!. 4. 210. 5. 3628800.</p>
+    </div>
+  </div>
+
+</section>

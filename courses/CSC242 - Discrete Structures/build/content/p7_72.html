@@ -1,0 +1,665 @@
+<section>
+  <div class="kick">Part Seven &middot; 7.2</div>
+  <h2 class="title">m-ary and Balanced Trees</h2>
+  <hr class="rule">
+  <p class="lead">Two formulas answer almost every tree counting question on
+  these papers, and the chain-letter problem they solve has appeared on three of
+  the five in three different costumes.</p>
+  <p class="lo">By the end of this section you will be able to define m-ary, full
+  m-ary, binary and balanced trees, use the two counting formulas to find the
+  vertices, leaves or internal vertices of a full m-ary tree, prove the height
+  bound on leaves, and answer the balanced-tree, chain-letter, quinary and
+  playoff questions in full.</p>
+
+  <h3 class="sub">The families</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">m-ary, full and binary</span></div>
+    <div class="body">
+      <p>A rooted tree is <b>m-ary</b> when every internal vertex has <b>at
+      most</b> m children.</p>
+      <p>It is a <b>full m-ary tree</b> when every internal vertex has
+      <b>exactly</b> m children.</p>
+      <p>An m-ary tree with m = 2 is a <b>binary tree</b>; with m = 3 a
+      <b>ternary</b> tree; with m = 5 a <b>quinary</b> tree, which is the word
+      the 2024/2025 paper uses.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">m</span> is a positive whole number, the branching
+      factor.
+      <span class="sym">at most m</span> is the m-ary condition;
+      <span class="sym">exactly m</span> is the <b>full</b> condition, and the
+      difference between them decides whether the counting formulas below apply
+      at all.
+      <span class="sym">a leaf</span> has no children, so the condition is only
+      ever about internal vertices.</div>
+      <p class="hook"><b>Memory hook:</b> <b>m-ary caps the branching, full
+      fixes it.</b> Every full m-ary tree is m-ary; the reverse is not true, and
+      the formulas need <i>full</i>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Balanced tree</span></div>
+    <div class="body">
+      <p>An m-ary tree of height h is <b>balanced</b> when every leaf lies at
+      level h or at level h &#8722; 1.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">h</span> is the height, the deepest level any vertex
+      reaches, from section 7.1.
+      <span class="sym">h or h &#8722; 1</span> is the whole condition: the
+      leaves sit on the bottom two levels and nowhere higher. No leaf may dangle
+      near the top while another branch runs deep.</div>
+      <p><b>Why balance is worth having.</b> A balanced tree of n vertices has
+      height about log<sub>m</sub> n, which is as small as it can be. Since
+      searching costs one comparison per level, a balanced tree is what makes a
+      search structure fast: an unbalanced tree can degenerate into a single long
+      chain, at which point searching it is no better than reading a list.</p>
+      <p class="hook"><b>Memory hook:</b> <b>all the leaves on the bottom two
+      shelves.</b> If any leaf is higher than that, the tree is not balanced.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="width:96%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.2" fill="none">
+        <path d="M80 30 L40 84"/><path d="M80 30 L80 84"/><path d="M80 30 L120 84"/>
+        <path d="M40 84 L18 140"/><path d="M40 84 L40 140"/><path d="M40 84 L62 140"/>
+      </g>
+      <circle cx="80" cy="30" r="5.5" fill="#be123c"/>
+      <g fill="#283593"><circle cx="40" cy="84" r="5"/></g>
+      <g fill="#67707a">
+        <circle cx="80" cy="84" r="4.6"/><circle cx="120" cy="84" r="4.6"/>
+        <circle cx="18" cy="140" r="4.6"/><circle cx="40" cy="140" r="4.6"/><circle cx="62" cy="140" r="4.6"/>
+      </g>
+      <text x="14" y="170" font-family="DejaVu Sans" font-size="10" fill="#232a31">Full ternary, balanced</text>
+      <text x="14" y="186" font-family="DejaVu Sans" font-size="9.5" fill="#67707a">every internal vertex has exactly 3</text>
+      <text x="14" y="200" font-family="DejaVu Sans" font-size="9.5" fill="#67707a">leaves on levels 1 and 2 only</text>
+
+      <g stroke="#5b6480" stroke-width="1.2" fill="none">
+        <path d="M230 30 L196 84"/><path d="M230 30 L264 84"/>
+        <path d="M196 84 L174 140"/><path d="M196 84 L218 140"/>
+      </g>
+      <circle cx="230" cy="30" r="5.5" fill="#be123c"/>
+      <g fill="#283593"><circle cx="196" cy="84" r="5"/></g>
+      <g fill="#67707a">
+        <circle cx="264" cy="84" r="4.6"/>
+        <circle cx="174" cy="140" r="4.6"/><circle cx="218" cy="140" r="4.6"/>
+      </g>
+      <text x="164" y="170" font-family="DejaVu Sans" font-size="10" fill="#232a31">Full binary, balanced</text>
+      <text x="164" y="186" font-family="DejaVu Sans" font-size="9.5" fill="#67707a">leaves at levels 1 and 2</text>
+
+      <g stroke="#5b6480" stroke-width="1.2" fill="none">
+        <path d="M400 30 L370 76"/><path d="M400 30 L430 76"/>
+        <path d="M370 76 L346 122"/><path d="M370 76 L394 122"/>
+        <path d="M346 122 L330 168"/><path d="M346 122 L364 168"/>
+      </g>
+      <circle cx="400" cy="30" r="5.5" fill="#be123c"/>
+      <g fill="#283593"><circle cx="370" cy="76" r="5"/><circle cx="346" cy="122" r="5"/></g>
+      <g fill="#be123c"><circle cx="430" cy="76" r="4.6"/></g>
+      <g fill="#67707a">
+        <circle cx="394" cy="122" r="4.6"/>
+        <circle cx="330" cy="168" r="4.6"/><circle cx="364" cy="168" r="4.6"/>
+      </g>
+      <text x="316" y="192" font-family="DejaVu Sans" font-size="10" fill="#232a31">Full binary, NOT balanced</text>
+      <text x="316" y="206" font-family="DejaVu Sans" font-size="9.5" fill="#be123c">a leaf at level 1, height 3</text>
+    </svg>
+    <figcaption>All three are full: every internal vertex has exactly m children.
+    Only the first two are balanced. The crimson leaf on the right sits far above
+    the bottom two levels, which is what breaks it.</figcaption>
+  </figure>
+
+  <h3 class="sub">The two counting formulas</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Counting a full m-ary tree</span></div>
+    <div class="body">
+      <p>In a <b>full</b> m-ary tree with <b>i</b> internal vertices:</p>
+      <p style="margin-left:12pt"><b>n = mi + 1</b> &nbsp; &nbsp; (total
+      vertices)<br>
+      <b>l = n &#8722; i = (m &#8722; 1)i + 1</b> &nbsp; &nbsp; (leaves)</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">m</span> is the branching factor: every internal vertex
+      has exactly m children.
+      <span class="sym">i</span> is the number of <b>internal</b> vertices, the
+      ones that do have children.
+      <span class="sym">n</span> is the total number of vertices and
+      <span class="sym">l</span> the number of leaves, so n = i + l always.</div>
+      <p><b>Where n = mi + 1 comes from.</b> Every vertex except the root is the
+      child of exactly one internal vertex. Each of the i internal vertices
+      supplies exactly m children, so there are mi non-root vertices, and adding
+      the root gives mi + 1.</p>
+      <p><b>Then the leaves follow</b> with no new idea: l = n &#8722; i =
+      (mi + 1) &#8722; i = (m &#8722; 1)i + 1.</p>
+      <p><b>Rearranged for the exam,</b> because questions usually give you the
+      leaves and want the rest:</p>
+      <p style="margin-left:12pt">i = (l &#8722; 1) / (m &#8722; 1) &nbsp; &nbsp;
+      and then &nbsp; &nbsp; n = mi + 1</p>
+      <p class="hook"><b>Memory hook:</b> <b>every vertex but the root is
+      somebody's child.</b> That one sentence gives n = mi + 1, and everything
+      else in this box is algebra on it.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The height bound</span></div>
+    <div class="body">
+      <p>An m-ary tree of height h has <b>at most m<sup>h</sup> leaves</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">h</span> is the height, from section 7.1.
+      <span class="sym">m<sup>h</sup></span> is m multiplied by itself h times.
+      <span class="sym">at most</span> is exact: equality holds precisely when
+      the tree is full <b>and</b> every leaf is at level h.</div>
+      <p><b>Why.</b> Level 0 holds the root alone. Each vertex has at most m
+      children, so level 1 holds at most m vertices, level 2 at most
+      m &#215; m = m<sup>2</sup>, and level k at most m<sup>k</sup>. Every leaf
+      lies at some level no deeper than h, and the deepest level can hold at most
+      m<sup>h</sup> of them.</p>
+      <p class="hook"><b>Memory hook:</b> <b>each level multiplies by m.</b> The
+      product rule of section 5.1 applied h times: h independent choices of which
+      child to descend to, m ways each.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The balanced m-ary tree question</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q3a">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q3(a)</span></div>
+    <div class="body">
+      <p class="q">3.  (a) Explain, with examples, what a Balanced M-ary Tree means? <span class="mk">(7&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q4b">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q4(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Explain, with examples, what a Balanced M-ary Tree means. <span class="mk">(8&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The same question twice, worth 7.5 and 8.5 marks, differing only in the final
+  punctuation: 2020/2021 ends a command with a question mark, 2021/2022 with a
+  full stop. Sixteen marks across the set for one prepared answer. "With
+  examples" is in the instruction, so drawings are required, and the plural means
+  more than one.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. Recall with illustration.</dd>
+      <dt>Asked</dt><dd><b>Explain</b> what a balanced m-ary tree means, <b>with
+      examples</b>. Two ideas are bundled in the phrase, and both need defining:
+      <i>m-ary</i> and <i>balanced</i>.</dd>
+      <dt>Marks say</dt><dd>7.5 and 8.5, which is a lot for one definition. The
+      marks are for unpacking it: define m-ary, define full, define height and
+      level, define balanced, then give a balanced example <b>and</b> an
+      unbalanced one, and say why balance matters.</dd>
+      <dt>Teaches</dt><dd>This section, 7.2, with the vocabulary of 7.1.</dd>
+      <dt>Trap</dt><dd>Defining "balanced" and stopping. The term has two words
+      in it, and an answer that never says what m-ary means has answered half the
+      question. The second trap is giving only a balanced example: the
+      <b>counter</b>example is what shows you know where the boundary is.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q3(a) &middot; PQ 21/22 Q4(b)</span></div>
+    <div class="body">
+      <p><b>Build the answer in four layers,</b> each earning its own marks.</p>
+      <p class="marks">1. m-ary</p>
+      <p>A rooted tree is m-ary when every internal vertex has at most m
+      children. It is <b>full</b> m-ary when every internal vertex has exactly m
+      children. For m = 2 it is called binary, for m = 3 ternary, for m = 5
+      quinary.</p>
+      <p class="marks">2. Level and height</p>
+      <p>The level of a vertex is the number of edges from the root to it, the
+      root being at level 0. The height of the tree is the largest level any
+      vertex reaches.</p>
+      <p class="marks">3. Balanced</p>
+      <p>An m-ary tree of height h is <b>balanced</b> when every leaf is at level
+      h or at level h &#8722; 1: all the leaves lie on the bottom two levels.
+      Putting the two words together, a <b>balanced m-ary tree</b> is a rooted
+      tree in which no internal vertex has more than m children and every leaf
+      sits on one of the two deepest levels.</p>
+      <p class="marks">4. The examples, drawn</p>
+      <p>Refer to the three trees drawn above. The first is a full ternary tree
+      of height 2 whose leaves lie at levels 1 and 2, so it is balanced. The
+      second is a full binary tree of height 2 with leaves at levels 1 and 2,
+      also balanced. The third is a full binary tree of height 3 with one leaf at
+      level 1, which is two levels above the bottom, so it is <b>not</b>
+      balanced even though it is full.</p>
+      <p><b>That third example is the one that earns marks,</b> because it shows
+      that full and balanced are independent: a tree can be one without the
+      other.</p>
+      <p class="marks">5. Why it matters, for the last mark</p>
+      <p>A balanced m-ary tree with n vertices has height roughly
+      log<sub>m</sub> n, the smallest a tree of that size can have. Search cost
+      is proportional to height, so balance is what keeps a search structure
+      fast; an unbalanced tree can stretch into a chain and lose the advantage
+      entirely.</p>
+      <p class="redo"><b>Now redo it:</b> is a full binary tree with leaves at
+      levels 2, 3 and 3 balanced? Its height is 3, so leaves are allowed at
+      levels 3 and 2. Yes, it is balanced.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The chain letter, in three costumes</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q3b">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q3(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Suppose that someone starts a chain letter. Each person who receives the letter is asked to
+      send it on to four other people. Some people do this, but others do not send any letters. How
+      many people have seen the letter, including the first person, if no one receives more than one
+      letter and if the chain letter ends after there have been 100 people who read it but did not send
+      it out? How many people sent out the letter? <span class="mk">(8marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q3a">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q3(a)</span></div>
+    <div class="body">
+      <p class="q">3.  (a) Suppose CU sends out convocation invitation cards to graduating students, each student
+      who receives the cards is asked to send them on to four other students. While some students
+      did send out the cards, others did not. If no one receives more than one card and if the card
+      circulation ends after there have been 100 people who read it but did not send it out.</p>
+      <p class="qi">(i) How many people have seen the card, including the first person? <span class="mk">(5marks)</span></p>
+      <p class="qi">(ii) How many people sent out the card? <span class="mk">(5marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q5d">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q5(d)</span></div>
+    <div class="body">
+      <p class="q">(d) Suppose CU sends out convocation invitation cards to graduating students, each student who receives
+      the cards is asked to send them on to four (4) other students. While some students did send out the cards,
+      others did not. If no one receives more than one card and if the card circulation ends after there have been
+      100 people who read it but did not send it out.</p>
+      <p class="qi">(i) How many people have seen the card, including the first person? <span class="mk">(6 marks)</span></p>
+      <p class="qi">(ii) How many people sent out the card? <span class="mk">(3&#189; marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>One problem, three papers, 22.5 marks.</b> 2020/2021 tells it as a chain
+  letter and asks both questions in one run-on sentence for 8 marks; the two
+  later papers tell it as convocation invitation cards and split it into (i) and
+  (ii) for 10 and 9.5 marks. The numbers are identical every time: four
+  recipients each, 100 people who did not pass it on.
+  <br><br>
+  Both card versions end with "If no one receives more than one card and if the
+  card circulation ends after there have been 100 people who read it but did not
+  send it out." That is a subordinate clause with no main clause, so the sentence
+  never finishes. The numbered parts supply the question. Nothing is missing from
+  the data.
+  <br><br>
+  The sentence doing the mathematical work is <b>"no one receives more than one
+  card"</b>. That is what makes the picture a <b>tree</b>: one parent per person,
+  and no cycles.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Each sender sends to exactly 4 others. Nobody receives
+      twice. 100 people received it and did not send it on.</dd>
+      <dt>Asked</dt><dd>(i) how many have <b>seen</b> it, including the first
+      person; (ii) how many <b>sent it out</b>.</dd>
+      <dt>Model</dt><dd>A <b>full 4-ary tree</b>. Vertices are people. The root
+      is the first person. A person's children are the four they sent to. Senders
+      are the <b>internal</b> vertices; the 100 who did not send are the
+      <b>leaves</b>.</dd>
+      <dt>Marks say</dt><dd>8, 10 and 9.5 across the papers, far more than two
+      formulas are worth. The marks are for the modelling: say what the vertices
+      are, why it is a tree, why it is full, and which quantity is which.</dd>
+      <dt>Teaches</dt><dd>This section, 7.2.</dd>
+      <dt>Trap</dt><dd>Answering (i) with 100, or with 400. And getting the two
+      questions the wrong way round: "seen it" is <b>all</b> the vertices n,
+      "sent it out" is the <b>internal</b> vertices i.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q3(b) &middot; PQ 21/22 Q3(a) &middot; PQ 23/24 Q5(d)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>m = 4 recipients per sender; l = 100 people who read it
+        but did not send it on; nobody receives it twice.</dd>
+        <dt>Find</dt><dd>n, the number who have seen it, and i, the number who
+        sent it out.</dd>
+        <dt>Formula</dt><dd>For a full m-ary tree, l = (m &#8722; 1)i + 1 and
+        n = mi + 1.</dd>
+      </dl>
+      <p><b>Step 1. Model it, and say so.</b> Draw each person as a vertex and
+      each sending as an edge from sender to recipient. Because <b>no one
+      receives more than one letter</b>, every person other than the first has
+      exactly one parent, so the picture is a <b>rooted tree</b> with the first
+      person at the root. Because everyone who sends, sends to <b>exactly
+      four</b>, every internal vertex has exactly four children, so it is a
+      <b>full 4-ary tree</b>.</p>
+      <p style="margin-left:12pt">senders = internal vertices = i<br>
+      people who read but did not send = leaves = l = 100<br>
+      people who have seen it = all vertices = n</p>
+      <p><b>Step 2. Find the internal vertices from the leaves.</b></p>
+      <p style="margin-left:12pt">l = (m &#8722; 1)i + 1<br>
+      100 = (4 &#8722; 1)i + 1<br>
+      100 = 3i + 1<br>
+      99 = 3i<br>
+      i = <b>33</b></p>
+      <p><b>Step 3. Find the total.</b></p>
+      <p style="margin-left:12pt">n = mi + 1 = 4 &#215; 33 + 1 = 132 + 1 =
+      <b>133</b></p>
+      <p><b>Answers.</b></p>
+      <p style="margin-left:12pt"><b>(i) 133 people have seen the letter,
+      including the first person.</b><br>
+      <b>(ii) 33 people sent it out.</b></p>
+      <p><b>Check, and write the check down.</b> The vertices split into senders
+      and non-senders with nothing left over:</p>
+      <p style="margin-left:12pt">i + l = 33 + 100 = 133 = n &nbsp; &#10003;</p>
+      <p>And count the edges: 33 senders each sending 4 gives 132 letters sent,
+      which is exactly the 132 people other than the first. That is
+      e = v &#8722; 1 from section 7.1, so the tree arithmetic closes twice
+      over.</p>
+      <p><b>For the 2020/2021 version,</b> which asks both questions in one
+      sentence and pays 8 marks, give the same working and end with both numbers
+      named: 133 have seen it, 33 sent it out.</p>
+      <p class="redo"><b>Now redo it:</b> same problem with each person sending
+      to three others. Then 100 = 2i + 1 gives i = 49.5, which is not a whole
+      number, so <b>no such chain exists</b>: with m = 3 the leaf count is always
+      odd. Saying that is the answer, and it is the same style of impossibility
+      argument as section 6.3.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The quinary tree</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q6b">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q6(b)</span></div>
+    <div class="body">
+      <p class="q">b.  Consider the expression: (3 &#8722; 4 &#183; 2)[UNRESOLVED] &#8722; (5 + (5 &#8722; 2)[UNRESOLVED])</p>
+      <p class="qi">i.   Draw the rooted tree representing this computation <span class="mk">2 marks</span></p>
+      <p class="qi">iv.  Write this expression in prefix notation <span class="mk">2 marks</span></p>
+      <p class="qi">v.   Write this expression in postfix notation. <span class="mk">2 marks</span></p>
+      <p class="qi">vi.  A quinary tree has the height of 3. Find the total number of leaves present on it. <span class="mk">2.5 marks</span></p>
+      <p class="qi">vii. Prove that a quinary tree is an m-ary tree of height 3 has at most m&#688; leaves. <span class="mk">3 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper, and on the two marks in grey</b><br>
+  <b>The numbering skips.</b> The parts run i, then iv, v, vi, vii. There is no
+  ii and no iii. The marks still total 17.5 for the question, so nothing is
+  missing from the paper; only the labels are wrong.
+  <br><br>
+  <b><span class="unread">[UNRESOLVED]</span> is not printed on the paper.</b> It
+  is this manual's marker, shown in the quote as plain text, for a character that
+  could not be read. The expression carries a single superscript
+  after each of the two closing brackets, roughly two pixels tall in the source
+  photograph. Re-rendered at 900 dpi they are still unreadable, and the PDF's own
+  text layer dropped them too, returning "(3-4.2)- (5+ (5-2))". <b>They have not
+  been guessed.</b> Section 7.3 solves the plain reading and says what changes if
+  they turn out to be exponents.
+  <br><br>
+  <b>Part vii is not grammatical:</b> "Prove that a quinary tree is an m-ary tree
+  of height 3 has at most m<sup>h</sup> leaves" has two verbs where one belongs.
+  The claim being asked for is the general one: an m-ary tree of height h has at
+  most m<sup>h</sup> leaves. Note also that the paper writes the exponent as a
+  small raised h while the height in the sentence is fixed at 3, which is part of
+  the same confusion. Prove the general statement and then apply it at m = 5,
+  h = 3; that answers both readings.
+  <br><br>
+  Parts i, iv and v are answered in section 7.3, where expression trees are
+  taught. Parts vi and vii are answered below.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A quinary tree, that is m = 5, of height h = 3.</dd>
+      <dt>Asked</dt><dd>(vi) <b>Find</b> the total number of leaves. (vii)
+      <b>Prove</b> the bound. One computation and one proof.</dd>
+      <dt>Marks say</dt><dd>2.5 and 3. Part vii is a proof, so induction or a
+      level-by-level argument is expected, not an example.</dd>
+      <dt>Teaches</dt><dd>This section, 7.2.</dd>
+      <dt>Trap</dt><dd>Part vi says "the total number of leaves" as though it
+      were determined, but a quinary tree of height 3 could have as few as 3
+      leaves. What is determined is the <b>maximum</b>, and that is what part vii
+      is about. Say so, then give 5<sup>3</sup> = 125.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q6(b) vi and vii</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>m = 5 (quinary), h = 3.</dd>
+        <dt>Find</dt><dd>The number of leaves, and a proof of the general
+        bound.</dd>
+        <dt>Formula</dt><dd>An m-ary tree of height h has at most
+        m<sup>h</sup> leaves.</dd>
+      </dl>
+
+      <p class="marks">vi. The number of leaves</p>
+      <p><b>Say what is determined.</b> A quinary tree of height 3 need not have
+      any particular number of leaves; the quantity fixed by m and h is the
+      <b>maximum</b>, reached when the tree is full and every leaf sits at level
+      3. So:</p>
+      <p style="margin-left:12pt">leaves = m<sup>h</sup> = 5<sup>3</sup> =
+      5 &#215; 5 &#215; 5 = <b>125</b></p>
+      <p><b>Answer: at most 125 leaves, and exactly 125 for the full quinary tree
+      of height 3.</b></p>
+      <p><b>Check it against the other formula,</b> which is worth a line. The
+      full quinary tree of height 3 has internal vertices at levels 0, 1 and 2,
+      that is</p>
+      <p style="margin-left:12pt">i = 1 + 5 + 25 = 31</p>
+      <p>and then l = (m &#8722; 1)i + 1 = 4 &#215; 31 + 1 = <b>125</b>. The two
+      formulas agree, as they must, and n = mi + 1 = 5 &#215; 31 + 1 = 156 total
+      vertices.</p>
+
+      <p class="marks">vii. Prove the bound</p>
+      <p><b>To prove:</b> an m-ary tree of height h has at most m<sup>h</sup>
+      leaves.</p>
+      <p><b>The method, in two sentences, before it is used.</b> This is a proof
+      by <b>mathematical induction</b>: show the claim holds at the smallest
+      value of h, then show that whenever it holds at one height it must also
+      hold at the next, and those two facts together carry it to every height.
+      Section 9.2 sets the method out in full, with the reasons it works and
+      several more examples; everything needed for this proof is in the sentence
+      you have just read.</p>
+      <p><b>Proof, by induction on the height h.</b></p>
+      <p><b>Base case, h = 0.</b> A tree of height 0 is a single vertex, which is
+      the root and also a leaf. It has 1 leaf, and m<sup>0</sup> = 1. So the
+      claim holds.</p>
+      <p><b>Inductive step.</b> Suppose the claim holds for every m-ary tree of
+      height h &#8722; 1, for some h &#8805; 1. Let T be an m-ary tree of height
+      h. Remove the root. What remains is at most m subtrees, one for each child
+      of the root, since T is m-ary. Each subtree has height at most
+      h &#8722; 1, so by the inductive hypothesis each has at most
+      m<sup>h&#8722;1</sup> leaves.</p>
+      <p>Every leaf of T lies in one of those subtrees, so</p>
+      <p style="margin-left:12pt">leaves of T &#8804; m &#215;
+      m<sup>h&#8722;1</sup> = m<sup>h</sup></p>
+      <p>By induction the claim holds for every h &#8805; 0. &#9633;</p>
+      <p><b>When is the bound attained?</b> Exactly when the root has all m
+      children, every subtree attains its own bound, and no leaf sits above level
+      h; that is, when the tree is <b>full</b> and all leaves are at level h.
+      Adding that sentence shows the bound is sharp rather than merely true.</p>
+      <p><b>Applying it at m = 5, h = 3</b> gives 5<sup>3</sup> = 125, which is
+      part vi.</p>
+      <p class="redo"><b>Now redo it:</b> what is the greatest number of leaves a
+      binary tree of height 4 can have? m<sup>h</sup> = 2<sup>4</sup> = 16.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The playoff tree</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q4a">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q4(a)</span></div>
+    <div class="body">
+      <p class="q">4.  (a) Playoff between two teams consists of at most five games. The first team that wins three games
+      wins the playoff.</p>
+      <p class="qi">(i) Construct a tree diagram for five games. <span class="mk">(4marks)</span></p>
+      <p class="qi">(ii) In how many different ways can the playoff occur? <span class="mk">(3&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "Playoff between two teams" is missing its article; it should read "A playoff".
+  More importantly, part (i) says "Construct a tree diagram for five games", but
+  the playoff can finish in three or four games as well: the tree must show
+  <b>every way the series can end</b>, and its branches are of different lengths.
+  Drawing exactly five levels everywhere would be wrong, because once a team has
+  three wins no further game is played.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Two teams. At most five games. The first to three wins
+      takes the playoff.</dd>
+      <dt>Asked</dt><dd>(i) <b>Construct</b> the tree diagram. (ii) <b>In how
+      many different ways</b> the playoff can occur.</dd>
+      <dt>Model</dt><dd>A <b>binary</b> tree. Each vertex is a state of the
+      series; the two children are "team A wins the next game" and "team B wins
+      it". A branch stops as soon as either team reaches three wins, so the
+      leaves are exactly the possible outcomes.</dd>
+      <dt>Marks say</dt><dd>4 for the diagram, 3.5 for the count. The count is
+      the number of <b>leaves</b>, so drawing the tree carefully answers both
+      parts at once.</dd>
+      <dt>Teaches</dt><dd>This section, 7.2, with the combinations of 5.2.</dd>
+      <dt>Trap</dt><dd>Drawing all 2<sup>5</sup> = 32 sequences of five games.
+      Most of them are impossible, because the series stops the moment a team
+      reaches three wins. The answer is 20, not 32.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q4(a)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Two teams, first to 3 wins, at most 5 games.</dd>
+        <dt>Find</dt><dd>The tree of possible series, and the number of ways the
+        playoff can occur.</dd>
+        <dt>Rule</dt><dd>Each game branches two ways; a branch stops at 3 wins.
+        The outcomes are the leaves.</dd>
+      </dl>
+      <p><b>Part (i): the tree.</b> Label each vertex with the score so far as
+      (wins for A, wins for B). The root is (0, 0). From any vertex, the left
+      child adds a win for A and the right child a win for B. Stop as soon as
+      either count reaches 3.</p>
+      <figure>
+        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" style="width:98%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.1" fill="none">
+            <path d="M60 24 L36 66"/><path d="M60 24 L84 66"/>
+            <path d="M36 66 L20 108"/><path d="M36 66 L52 108"/>
+            <path d="M84 66 L68 108"/><path d="M84 66 L100 108"/>
+            <path d="M20 108 L10 150"/><path d="M20 108 L30 150"/>
+            <path d="M52 108 L44 150"/><path d="M52 108 L60 150"/>
+            <path d="M68 108 L76 150"/><path d="M68 108 L92 150"/>
+            <path d="M100 108 L108 150"/><path d="M100 108 L124 150"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="60" cy="24" r="3.6"/><circle cx="36" cy="66" r="3.2"/><circle cx="84" cy="66" r="3.2"/>
+            <circle cx="20" cy="108" r="3.2"/><circle cx="52" cy="108" r="3.2"/>
+            <circle cx="68" cy="108" r="3.2"/><circle cx="100" cy="108" r="3.2"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="8.4" fill="#232a31">
+            <text x="66" y="20">0,0</text>
+            <text x="14" y="62">1,0</text><text x="88" y="62">0,1</text>
+            <text x="0" y="104">2,0</text><text x="40" y="104">1,1</text>
+            <text x="58" y="104">1,1</text><text x="104" y="104">0,2</text>
+          </g>
+          <text x="4" y="176" font-family="DejaVu Sans" font-size="9" fill="#67707a">the first three levels: each game branches two ways</text>
+          <text x="4" y="192" font-family="DejaVu Sans" font-size="9" fill="#67707a">a branch stops the moment a team reaches 3 wins,</text>
+          <text x="4" y="208" font-family="DejaVu Sans" font-size="9" fill="#67707a">so branches have different lengths</text>
+
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="230" y="24">Series ending in</text>
+            <text x="352" y="24">A wins</text><text x="420" y="24">B wins</text>
+            <text x="230" y="48">3 games</text><text x="366" y="48">1</text><text x="434" y="48">1</text>
+            <text x="230" y="72">4 games</text><text x="366" y="72">3</text><text x="434" y="72">3</text>
+            <text x="230" y="96">5 games</text><text x="366" y="96">6</text><text x="434" y="96">6</text>
+          </g>
+          <line x1="226" y1="106" x2="466" y2="106" stroke="#9aa0b8" stroke-width="1"/>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#283593">
+            <text x="230" y="126">total</text><text x="362" y="126">10</text><text x="430" y="126">10</text>
+          </g>
+          <text x="230" y="152" font-family="DejaVu Sans" font-size="11" fill="#be123c">20 leaves in all</text>
+          <g font-family="DejaVu Sans" font-size="9.5" fill="#67707a">
+            <text x="230" y="180">A winning in 4 games: the last game</text>
+            <text x="230" y="194">must be A's third win, so choose which</text>
+            <text x="230" y="208">2 of the first 3 A also won: C(3, 2) = 3</text>
+          </g>
+        </svg>
+        <figcaption>The top of the tree, and the leaf count worked out by
+        length. Every leaf is one possible series, so counting leaves answers
+        part (ii).</figcaption>
+      </figure>
+      <p><b>Part (ii): how many ways.</b> Count the leaves by how long the series
+      runs. Take team A winning first.</p>
+      <ul class="bul">
+        <li><b>A wins in 3 games.</b> Only AAA, so <b>1</b> way.</li>
+        <li><b>A wins in 4 games.</b> The fourth game must be A's third win, so A
+        won exactly 2 of the first 3. Choosing which 2: C(3, 2) = <b>3</b>.</li>
+        <li><b>A wins in 5 games.</b> The fifth game is A's third win, so A won
+        exactly 2 of the first 4: C(4, 2) = <b>6</b>.</li>
+      </ul>
+      <p style="margin-left:12pt">A wins in 1 + 3 + 6 = 10 ways.</p>
+      <p>By symmetry B also wins in 10 ways, and the two cases cannot both
+      happen, so the sum rule of section 5.1 gives</p>
+      <p style="margin-left:12pt">total = 10 + 10 = <b>20</b></p>
+      <p><b>Answer: the playoff can occur in 20 different ways.</b></p>
+      <p><b>Why the last game must be the decider,</b> which is the step most
+      answers skip: if A had already won three games earlier, the series would
+      have stopped there and the later games would never be played. So in any
+      series of exactly k games, the k-th is the winner's third win.</p>
+      <p class="redo"><b>Now redo it:</b> best of three, first to two wins. A
+      wins in 2 games: 1 way; in 3 games: C(2, 1) = 2 ways. So A wins in 3 ways,
+      B in 3, total 6.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What is the difference between an m-ary and a full m-ary
+      tree?</p>
+      <p class="q">2. When is an m-ary tree balanced?</p>
+      <p class="q">3. State the two counting formulas for a full m-ary tree.</p>
+      <p class="q">4. A full 4-ary tree has 100 leaves. How many vertices in
+      total, and how many are internal?</p>
+      <p class="q">5. What is the greatest number of leaves a quinary tree of
+      height 3 can have?</p>
+      <p class="q">6. In the playoff question, why is the answer not
+      2<sup>5</sup> = 32?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. m-ary means every internal vertex has at most m children; full m-ary
+      means exactly m.<br>
+      2. When every leaf is at level h or h &#8722; 1, where h is the height.<br>
+      3. n = mi + 1 and l = (m &#8722; 1)i + 1.<br>
+      4. i = (100 &#8722; 1)/3 = 33 internal, and n = 4 &#215; 33 + 1 = 133 in
+      total.<br>
+      5. 5<sup>3</sup> = 125.<br>
+      6. The series stops as soon as a team reaches three wins, so most
+      five-game sequences never occur. The answer is 20.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>In a full m-ary tree with i internal vertices,
+        n = <span class="blank"></span> and l = <span class="blank"></span>.</li>
+        <li>An m-ary tree of height h has at most
+        <span class="blank"></span> leaves.</li>
+        <li>The chain letter has <span class="blank"></span> senders and
+        <span class="blank"></span> people who have seen it.</li>
+        <li>A tree is balanced when every leaf is at level
+        <span class="blank"></span> or <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. mi + 1, (m &#8722; 1)i + 1. 2. m<sup>h</sup>. 3. 33, 133.
+      4. h, h &#8722; 1.</p>
+    </div>
+  </div>
+
+</section>

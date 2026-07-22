@@ -1,0 +1,376 @@
+<section class="part">
+  <div class="kicker">Part Seven</div>
+  <h1>Trees and Their<br>Traversals</h1>
+  <div class="blurb">A tree is a graph with no way back. That single restriction
+  makes it the structure computing actually uses: file systems, expressions,
+  search, and the chain-letter question three of these papers keep asking.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.3" fill="none">
+        <path d="M120 22 L70 62"/><path d="M120 22 L170 62"/>
+        <path d="M70 62 L40 106"/><path d="M70 62 L100 106"/>
+        <path d="M170 62 L140 106"/><path d="M170 62 L200 106"/>
+      </g>
+      <circle cx="120" cy="22" r="6" fill="#be123c"/>
+      <g fill="#283593">
+        <circle cx="70" cy="62" r="5"/><circle cx="170" cy="62" r="5"/>
+        <circle cx="40" cy="106" r="4.4"/><circle cx="100" cy="106" r="4.4"/>
+        <circle cx="140" cy="106" r="4.4"/><circle cx="200" cy="106" r="4.4"/>
+      </g>
+      <text x="132" y="20" font-family="DejaVu Sans" font-size="10" fill="#be123c">root</text>
+      <g font-family="DejaVu Sans" font-size="13" fill="#8891c9">
+        <text x="252" y="30">e = v &#8722; 1</text>
+        <text x="252" y="58">l = (m &#8722; 1)i + 1</text>
+        <text x="252" y="86">at most m to the h</text>
+        <text x="252" y="114">pre, in, post</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#a4abcd">
+        <text x="400" y="30">always</text>
+        <text x="400" y="58">full m-ary</text>
+        <text x="400" y="86">leaves at height h</text>
+        <text x="400" y="114">three traversals</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Seven &middot; 7.1</div>
+  <h2 class="title">Trees and Rooted-Tree Terminology</h2>
+  <hr class="rule">
+  <p class="lead">Two papers ask for the key terminology of a rooted tree, worth
+  7.5 marks each, and a third asks where trees are used. The vocabulary is the
+  question.</p>
+  <p class="lo">By the end of this section you will be able to define a tree and
+  a forest, prove that a tree has one fewer edge than it has vertices, name every
+  part of a rooted tree with a labelled diagram, and answer the terminology and
+  application questions in full.</p>
+
+  <div class="gapchip"><b>Not in the course text</b><br>
+  The official text has no trees in it. Its twelve occurrences of the word
+  "tree" are all in one Venn diagram about trees growing on a street. It never
+  uses <span class="mention">root</span>, <span class="mention">leaf</span> or
+  <span class="mention">traversal</span> in the technical sense. Yet 2024/2025
+  gives a whole 17.5-mark question to trees, and 2020/2021, 2021/2022 and
+  2023/2024 give them two parts each. Everything here is taught from zero.</div>
+
+  <h3 class="sub">What a tree is</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Tree and forest</span></div>
+    <div class="body">
+      <p>A <b>tree</b> is a connected undirected graph with <b>no cycles</b>.</p>
+      <p>A <b>forest</b> is an undirected graph with no cycles that need not be
+      connected: each of its components is a tree.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">connected</span> means there is a route between every
+      pair of vertices, as defined in section 6.2.
+      <span class="sym">no cycles</span> means no route leaves a vertex and
+      returns to it without repeating an edge. This is the restriction that
+      makes a tree a tree.
+      <span class="sym">acyclic</span> is the one-word term for "no cycles", and
+      a forest is exactly an acyclic graph.</div>
+      <p><b>Three equivalent definitions,</b> any of which may be quoted. A graph
+      on v vertices is a tree exactly when</p>
+      <ol class="qlist">
+        <li>it is connected and has no cycles; or</li>
+        <li>there is <b>exactly one</b> path between every pair of vertices; or</li>
+        <li>it is connected and has exactly v &#8722; 1 edges.</li>
+      </ol>
+      <p class="hook"><b>Memory hook:</b> <b>connected, and no way back.</b>
+      Adding any edge to a tree creates a cycle; removing any edge disconnects
+      it. A tree is as connected as a graph can be without being redundant.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The edge count</span></div>
+    <div class="body">
+      <p>A tree with v vertices has exactly</p>
+      <p style="margin-left:12pt"><b>e = v &#8722; 1</b> edges.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">v</span> is the number of vertices and
+      <span class="sym">e</span> the number of edges.
+      <span class="sym">the &#8722; 1</span> is the root, or any one vertex you
+      like: every other vertex is reached by exactly one edge.</div>
+      <p><b>It is not a separate fact.</b> Section 6.7 gave Euler's formula
+      v &#8722; e + f = 2 for a connected planar graph. A tree has no cycles, so
+      it encloses no region and its only face is the outer one: f = 1. Then</p>
+      <p style="margin-left:12pt">v &#8722; e + 1 = 2, &nbsp; so &nbsp;
+      e = v &#8722; 1.</p>
+      <p>By the Handshaking theorem of section 6.3 the degrees therefore sum to
+      2(v &#8722; 1), which is a useful check on any tree you draw.</p>
+      <p class="hook"><b>Memory hook:</b> <b>one edge per vertex, except the
+      first.</b> A tree of 17 vertices has 16 edges, always.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Rooted trees</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Rooted tree</span></div>
+    <div class="body">
+      <p>A <b>rooted tree</b> is a tree in which one vertex has been singled out
+      as the <b>root</b>, and every edge is then understood as pointing away from
+      the root.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">the root</span> is chosen, not discovered: any vertex of
+      a tree may be made the root, and different choices give different rooted
+      trees from the same underlying tree.
+      <span class="sym">away from the root</span> is what gives every other
+      vertex a unique parent, and it is the whole reason the family vocabulary
+      below makes sense.</div>
+      <p class="hook"><b>Memory hook:</b> <b>pick a vertex and hang the tree from
+      it.</b> Everything else in this section is the vocabulary of what happens
+      once you have.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The key terminology</span></div>
+    <div class="body">
+      <p>Let T be a rooted tree and v one of its vertices.</p>
+      <table class="data">
+        <tr><th>Term</th><th>Meaning</th></tr>
+        <tr><td><b>Root</b></td><td>The single distinguished vertex. It has no
+        parent, and it is the only vertex that does not.</td></tr>
+        <tr><td><b>Parent</b></td><td>The vertex immediately above v on the
+        unique path from v to the root. Every vertex but the root has exactly
+        one.</td></tr>
+        <tr><td><b>Child</b></td><td>Any vertex whose parent is v. A vertex may
+        have any number of children, including none.</td></tr>
+        <tr><td><b>Siblings</b></td><td>Vertices that share a parent.</td></tr>
+        <tr><td><b>Ancestors</b></td><td>Every vertex on the path from v up to
+        the root, not counting v itself.</td></tr>
+        <tr><td><b>Descendants</b></td><td>Every vertex having v as an
+        ancestor, that is, everything hanging below v.</td></tr>
+        <tr><td><b>Internal vertex</b></td><td>A vertex with at least one child.
+        Also called a branch vertex.</td></tr>
+        <tr><td><b>Leaf</b></td><td>A vertex with no children. Also called a
+        terminal or external vertex.</td></tr>
+        <tr><td><b>Subtree at v</b></td><td>v together with all its descendants
+        and the edges between them; itself a rooted tree with root v.</td></tr>
+        <tr><td><b>Level (depth) of v</b></td><td>The number of edges on the path
+        from the root to v. The root is at level 0.</td></tr>
+        <tr><td><b>Height of T</b></td><td>The largest level of any vertex, that
+        is, the length of the longest root-to-leaf path.</td></tr>
+        <tr><td><b>Ordered rooted tree</b></td><td>A rooted tree in which the
+        children of each vertex are given a left-to-right order. The traversals
+        of section 7.3 require this.</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>it is a family tree drawn upside
+      down.</b> Parents above, children below, siblings alongside, ancestors all
+      the way up, descendants all the way down. Every term means what it means in
+      a family, except that the root is drawn at the top.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The terminology question</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q2c">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q2(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Highlight the various key terminologies of a Rooted Tree. Support your answer with a
+      diagrammatical illustration. <span class="mk">(7&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q3c">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q3(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Highlight the various key terminologies of a Rooted Tree. Support your answer with a
+      diagrammatical illustration. <span class="mk">(7&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Word for word the same question on two papers, the same marks, the same
+  capitalisation of "Rooted Tree". One prepared answer covers 15 marks across the
+  set. "Highlight" here means list and define; "diagrammatical illustration" is
+  not optional, and an answer without a drawing cannot reach full marks.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. Pure recall.</dd>
+      <dt>Asked</dt><dd><b>Highlight the various key terminologies</b>, and
+      <b>support with a diagram</b>. Two deliverables: a labelled list and one
+      labelled tree.</dd>
+      <dt>Marks say</dt><dd>7.5. At roughly half a mark per term, aim for
+      <b>ten to twelve terms</b> plus the diagram. Define each in one line; do
+      not write a paragraph on any of them.</dd>
+      <dt>Teaches</dt><dd>This section, 7.1.</dd>
+      <dt>Trap</dt><dd>Drawing a tree and labelling only the root and the leaves.
+      The marks are spread across the terms, so the diagram should carry as many
+      labels as it can hold: an internal vertex, a pair of siblings, a subtree, a
+      level and the height.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q2(c) &middot; PQ 21/22 Q3(c)</span></div>
+    <div class="body">
+      <p><b>Open with the definition,</b> because every term below depends on
+      it: a rooted tree is a connected acyclic graph in which one vertex has been
+      designated the root, with all edges understood as directed away from it.</p>
+      <p><b>Then the terms.</b> Use the table above, giving each in one line.
+      Twelve terms at half a mark each covers the paper.</p>
+      <p><b>Then the diagram, fully labelled.</b> This is the half of the answer
+      that is easiest to earn and easiest to skip.</p>
+      <figure>
+        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" style="width:96%;height:auto">
+          <g stroke="#9aa0b8" stroke-width=".9" stroke-dasharray="3 3">
+            <line x1="20" y1="30" x2="336" y2="30"/>
+            <line x1="20" y1="80" x2="336" y2="80"/>
+            <line x1="20" y1="140" x2="336" y2="140"/>
+            <line x1="20" y1="200" x2="336" y2="200"/>
+          </g>
+          <g stroke="#5b6480" stroke-width="1.3" fill="none">
+            <path d="M200 30 L110 80"/><path d="M200 30 L290 80"/>
+            <path d="M110 80 L60 140"/><path d="M110 80 L160 140"/>
+            <path d="M290 80 L250 140"/><path d="M290 80 L330 140"/>
+            <path d="M160 140 L130 200"/><path d="M160 140 L190 200"/>
+          </g>
+          <circle cx="200" cy="30" r="7" fill="#be123c"/>
+          <g fill="#283593">
+            <circle cx="110" cy="80" r="6"/><circle cx="290" cy="80" r="6"/>
+            <circle cx="160" cy="140" r="6"/>
+          </g>
+          <g fill="#67707a">
+            <circle cx="60" cy="140" r="5.5"/><circle cx="250" cy="140" r="5.5"/>
+            <circle cx="330" cy="140" r="5.5"/><circle cx="130" cy="200" r="5.5"/>
+            <circle cx="190" cy="200" r="5.5"/>
+          </g>
+          <g font-family="DejaVu Serif" font-size="12.5" fill="#232a31">
+            <text x="192" y="20">a</text>
+            <text x="94" y="72">b</text><text x="300" y="72">c</text>
+            <text x="42" y="134">d</text><text x="168" y="132">e</text>
+            <text x="236" y="134">f</text><text x="340" y="134">g</text>
+            <text x="114" y="196">h</text><text x="198" y="196">i</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.6" fill="#67707a">
+            <text x="4" y="34">0</text><text x="4" y="84">1</text>
+            <text x="4" y="144">2</text><text x="4" y="204">3</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.6" fill="#be123c">
+            <text x="216" y="26">root a, level 0, no parent</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="9.6" fill="#283593">
+            <text x="352" y="62">b and c are siblings</text>
+            <text x="352" y="80">a is their parent</text>
+            <text x="352" y="106">b, c, e are internal</text>
+            <text x="352" y="132">d, f, g, h, i are leaves</text>
+            <text x="352" y="158">h, i descend from b</text>
+            <text x="352" y="184">a, b are ancestors of e</text>
+            <text x="352" y="210">e with h, i is a subtree</text>
+          </g>
+          <text x="20" y="228" font-family="DejaVu Sans" font-size="9.8" fill="#67707a">Levels down the left. The height is 3: the deepest level any vertex reaches.</text>
+          <text x="20" y="244" font-family="DejaVu Sans" font-size="9.8" fill="#67707a">9 vertices and 8 edges, as e = v &#8722; 1 requires.</text>
+        </svg>
+        <figcaption>One diagram carrying every term the question asks for. Draw
+        the level lines: they earn the marks for level and height at no extra
+        cost.</figcaption>
+      </figure>
+      <p><b>Close with the two counting facts,</b> which show the terms are not
+      just names: this tree has 9 vertices and 8 edges, satisfying
+      e = v &#8722; 1, and its degrees sum to 16, which is twice the 8 edges as
+      the Handshaking theorem requires.</p>
+      <p class="redo"><b>Now redo it:</b> in the diagram above, name the parent
+      of h, the siblings of f, and the level of i. Answers: e; g; level 3.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Where trees are used</h3>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q4c">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q4, third part</span></div>
+    <div class="body">
+      <p class="q">Highlight, with a relevant example each, three application domains of Tree models in computing. <span class="mk">(4&#189; marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>This part has no letter.</b> After Q4(a) and Q4(b) the paper runs straight
+  into this sentence with its marks but no "(c)", just as Question 4 itself
+  carries no number. It is plainly the third part of Question 4, and it is quoted
+  here exactly as printed, with no letter supplied.
+  <br><br>
+  Note the count: <b>three</b> domains with <b>one</b> example each, not the four
+  with two examples that the graph version of this question asks for in section
+  6.1. Read the numbers before writing.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q4, third part</span></div>
+    <div class="body">
+      <p>Three domains, each with what the vertices are, what the edges are, and
+      one concrete example. Naming the modelling is what separates this from a
+      list of words.</p>
+      <ol class="qlist">
+        <li><b>File systems and hierarchical storage.</b> Vertices are
+        directories and files; edges join a directory to what it contains. The
+        root vertex is the root directory, every file has exactly one parent
+        directory, and there are no cycles, which is precisely why the route from
+        the root to any file is unique. <i>Example:</i> resolving a path name is
+        a walk from the root down to a leaf.</li>
+        <li><b>Compilers and expression evaluation.</b> Vertices are operators
+        and operands; the children of an operator are the things it acts on.
+        <i>Example:</i> a compiler parses source code into a syntax tree and then
+        walks it to emit machine code, which is the expression-tree work of
+        section 7.3.</li>
+        <li><b>Searching and decision procedures.</b> Vertices are stored keys or
+        states; edges are the comparisons or moves leading from one to the next.
+        <i>Example:</i> a binary search tree finds a record in a number of
+        comparisons proportional to the tree's height rather than to the number
+        of records, which is why the height bound of section 7.2 matters.</li>
+      </ol>
+      <p><b>A fourth, if the question asks for more:</b> <b>data compression</b>,
+      where a Huffman coding tree gives short codes to frequent symbols by
+      placing them near the root.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a tree, and give two other equivalent
+      definitions.</p>
+      <p class="q">2. How many edges has a tree with 17 vertices?</p>
+      <p class="q">3. What is the difference between a tree and a rooted
+      tree?</p>
+      <p class="q">4. Define leaf, internal vertex, level and height.</p>
+      <p class="q">5. Why does a tree have exactly one face?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A connected acyclic undirected graph. Equivalently: exactly one path
+      between every pair of vertices; or connected with exactly v &#8722; 1
+      edges.<br>
+      2. 16, since e = v &#8722; 1.<br>
+      3. A rooted tree has one vertex singled out as the root, which gives every
+      other vertex a unique parent.<br>
+      4. A leaf has no children; an internal vertex has at least one; the level
+      of a vertex is its distance from the root; the height is the largest
+      level.<br>
+      5. It has no cycles, so it encloses no region; only the unbounded outer
+      face remains, and Euler's formula then gives e = v &#8722; 1.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A tree is a <span class="blank"></span> graph with no
+        <span class="blank"></span>.</li>
+        <li>A tree on v vertices has <span class="blank"></span> edges.</li>
+        <li>The only vertex with no parent is the
+        <span class="blank"></span>.</li>
+        <li>A vertex with no children is a <span class="blank"></span>.</li>
+        <li>The root sits at level <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. connected, cycles. 2. v &#8722; 1. 3. root. 4. leaf. 5. 0.</p>
+    </div>
+  </div>
+
+</section>

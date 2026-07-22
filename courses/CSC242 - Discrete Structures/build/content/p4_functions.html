@@ -1,0 +1,172 @@
+<section class="part">
+  <div class="kicker">Part Four</div>
+  <h1>Functions and<br>Correspondence</h1>
+  <div class="blurb">A function is a relation that never gives two answers to
+  the same question. Every subprogram you write is one, and the five kinds of
+  correspondence in this part appear on paper after paper.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <ellipse cx="90" cy="60" rx="46" ry="46" fill="none" stroke="#283593" stroke-width="1.5"/>
+        <ellipse cx="270" cy="60" rx="46" ry="46" fill="none" stroke="#be123c" stroke-width="1.5" stroke-opacity=".8"/>
+        <text x="76" y="18" font-family="DejaVu Serif" font-size="14" fill="#283593">A</text>
+        <text x="256" y="18" font-family="DejaVu Serif" font-size="14" fill="#be123c">B</text>
+        <g fill="#283593"><circle cx="76" cy="38" r="4"/><circle cx="76" cy="60" r="4"/><circle cx="76" cy="82" r="4"/></g>
+        <g fill="#be123c"><circle cx="284" cy="38" r="4"/><circle cx="284" cy="60" r="4"/><circle cx="284" cy="82" r="4"/></g>
+        <g stroke="#6f78b0" stroke-width="1.3" marker-end="url(#fa)">
+          <line x1="82" y1="38" x2="276" y2="38"/>
+          <line x1="82" y1="60" x2="276" y2="60"/>
+          <line x1="82" y1="82" x2="276" y2="82"/>
+        </g>
+        <defs><marker id="fa" markerWidth="7" markerHeight="7" refX="6" refY="2.4" orient="auto"><path d="M0,0 L6,2.4 L0,4.8 z" fill="#6f78b0"/></marker></defs>
+      </g>
+      <g font-family="DejaVu Sans" font-size="13" fill="#8891c9">
+        <text x="352" y="34">f : A &#8594; B</text>
+        <text x="352" y="60">one-to-one</text>
+        <text x="352" y="86">onto</text>
+        <text x="352" y="112">f &#8728; g</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Four &middot; 4.1</div>
+  <h2 class="title">Functions, Domain and Range</h2>
+  <hr class="rule">
+  <p class="lead">A function assigns exactly one output to each input. That
+  single word "exactly" is the whole definition, and it is what separates a
+  function from an ordinary relation.</p>
+  <p class="lo">By the end of this section you will be able to say whether a
+  given rule or diagram is a function, name the domain, codomain and range, and
+  explain the difference between the last two.</p>
+
+  <h3 class="sub">From relations to functions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Definition</span></div>
+    <div class="body">
+      <p>A <b>function</b> f from A to B, written <b>f : A &#8594; B</b>, is a
+      relation from A to B in which <b>every</b> element of A is paired with
+      <b>exactly one</b> element of B.</p>
+      <p>If f pairs a with b we write <b>f(a) = b</b>, and call b the
+      <b>image</b> of a, and a a <b>pre-image</b> of b.</p>
+      <p>Two conditions are hiding in "every ... exactly one":</p>
+      <p style="margin-left:12pt"><b>Totality:</b> nothing in A is left
+      unassigned.<br>
+      <b>Single-valuedness:</b> nothing in A gets two different outputs.</p>
+      <p class="hook"><b>Memory hook:</b> a function is a machine with one slot
+      and one answer. Put the same thing in twice and you must get the same thing
+      out; put anything valid in and something must come out.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Domain, codomain, range</span></div>
+    <div class="body">
+      <p>For f : A &#8594; B,</p>
+      <p><b>domain</b> = A, the set of all allowed inputs.<br>
+      <b>codomain</b> = B, the set the outputs are declared to live in.<br>
+      <b>range</b> (or image) = the set of values actually produced,
+      {f(a) | a &#8712; A}.</p>
+      <p>The range is always a subset of the codomain, and it may be smaller.</p>
+      <p class="hook"><b>Memory hook:</b> the codomain is what you <i>promised</i>,
+      the range is what you <i>delivered</i>. When they are equal, the function is
+      onto, which is section 4.2.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why range and codomain differ</span></div>
+    <div class="body">
+      <p>Take f : &#8477; &#8594; &#8477; with f(x) = x&#178;.</p>
+      <p>The domain is all reals and the codomain is all reals, because that is
+      how the function was declared. But no square is negative, so the range is
+      only the non-negative reals. The function promised to return a real number
+      and delivered only half of them.</p>
+      <p>In programming terms the codomain is the declared return type and the
+      range is the set of values the routine can actually return. A routine
+      declared to return an integer might in fact only ever return 0 or 1.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Two ways a relation fails to be a function</span></div>
+    <div class="body">
+      <p><b>An input with no output.</b> On A = {1, 2, 3}, the relation
+      {(1,a), (2,b)} is not a function: 3 has no image. Every element of the
+      domain must be used.</p>
+      <p><b>An input with two outputs.</b> {(1,a), (1,b), (2,c), (3,d)} is not a
+      function either: 1 is sent to two places.</p>
+      <p>An output used twice is <b>fine</b>: {(1,a), (2,a), (3,a)} is a perfectly
+      good function. The restriction is on inputs, never on outputs. Getting that
+      backwards is the commonest error in the diagram question of 4.2.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+    <div class="body">
+      <p>Which of these relations on A = {1, 2, 3} to B = {a, b, c} are functions?</p>
+      <table class="data">
+        <tr><th>Relation</th><th>Function?</th><th>Why</th></tr>
+        <tr><td>{(1,a), (2,b), (3,c)}</td><td>yes</td><td>each input once, each with one output</td></tr>
+        <tr><td>{(1,a), (2,a), (3,a)}</td><td>yes</td><td>repeated outputs are allowed</td></tr>
+        <tr><td>{(1,a), (2,b)}</td><td>no</td><td>3 has no image, so it is not total</td></tr>
+        <tr><td>{(1,a), (1,b), (2,c), (3,c)}</td><td>no</td><td>1 has two images</td></tr>
+      </table>
+      <p>For the second one, the domain is {1,2,3}, the codomain is {a,b,c}, and
+      the range is just {a}.</p>
+      <p class="redo"><b>Now redo it:</b> is {(1,c), (2,c), (3,b)} a function? What
+      is its range? (Yes; range {b, c}.)</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The two-line notation</span></div>
+    <div class="body">
+      <p>For a function on a small finite set, the tidiest way to write it is a
+      two-line table with each input directly above its output:</p>
+      <p style="margin-left:12pt" class="mono">f = ( 1 2 3 )<br>
+      <span style="margin-left:22pt">( 2 3 1 )</span></p>
+      <p>meaning f(1) = 2, f(2) = 3, f(3) = 1. It is only notation, and it is not
+      a matrix in the sense of section 3.1: you cannot multiply two of these or
+      row-reduce them. The name is borrowed, the operations are not.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What two conditions must a relation satisfy to be a function?</p>
+      <p class="q">2. For f : &#8477; &#8594; &#8477;, f(x) = x&#178;, state the codomain and the range.</p>
+      <p class="q">3. May two different inputs share an output?</p>
+      <p class="q">4. May one input have two outputs?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Every element of the domain is used (totality), and none is sent to
+      more than one place (single-valuedness).<br>
+      2. Codomain &#8477;; range the non-negative reals.<br>
+      3. Yes, always allowed.<br>
+      4. No. That is exactly what a function forbids.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>In f : A &#8594; B, the set A is the <span class="blank"></span> and B
+        is the <span class="blank"></span>.</li>
+        <li>The set of values actually produced is the
+        <span class="blank"></span>.</li>
+        <li>If f(a) = b then b is the <span class="blank"></span> of a.</li>
+        <li>The range is always a <span class="blank"></span> of the codomain.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. domain, codomain. 2. range (image). 3. image. 4. subset.</p>
+    </div>
+  </div>
+
+</section>

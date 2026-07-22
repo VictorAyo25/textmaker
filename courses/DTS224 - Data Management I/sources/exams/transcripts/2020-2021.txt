@@ -1,0 +1,203 @@
+TRANSCRIPT: CSC 214 / CSC214, 2020/2021, Alpha. (DTS224 is the renamed CSC214.)
+Source: PQ/2020_2021.pdf, 4 pages. It holds TWO papers: pages 1 to 2 are the ALPHA
+MID SEMESTER test (1 hour, answer all), pages 3 to 4 are the ALPHA SEMESTER
+examination (3 hours, attempt any four). Both are transcribed below; the mid
+semester parts carry ids midQ1 to midQ3.
+Transcribed BY EYE from the pages rasterised at 2.0x. The PDF does carry a text
+layer, but it is OCR of a scan and is NOT trusted or used. Read twice.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]] marker, [Figure ...] my description, {{hand: ...}} pen on the paper,
+  [note: ...] my aside, --- a ruled line; everything after the first one below the
+  questions is mine.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  MID SEMESTER: COVENANT UNIVERSITY ... TITLE OF EXAMINATION: B.Sc EXAMINATION,
+  COLLEGE: SCIENCE AND TECHNOLOGY, SCHOOL: NATURAL AND APPLIED SCIENCES,
+  DEPARTMENT: COMPUTER & INFORMATION SCIENCES, SESSION: 2020/2021,
+  SEMESTER: ALPHA MID SEMESTER, COURSE CODE: CSC 214, CREDIT UNIT: 3,
+  COURSE TITLE: HIGH PERFORMANCE AND DATABASE MANAGEMENT SYSTEM,
+  INSTRUCTION: ANSWER ALL QUESTIONS, TIME: 1 HOUR
+  EXAMINATION: as above but SEMESTER: ALPHA SEMESTER, COURSE CODE: CSC214,
+  INSTRUCTION: ATTEMPT ANY FOUR QUESTIONS, TIME: 3 HOURS
+
+=====================================================================
+ALPHA MID SEMESTER TEST (1 hour, answer all questions)
+
+[[midQ1]]
+1.      Convert the following ER diagram into a set of tables (logical Design).
+
+[Figure: a Chen-notation ER diagram. Project (ProjectID underlined, Title, Purpose,
+EndDate, StartDate, Cost) N:1 "Executes" to Organisation (OrgID underlined, Name,
+Address, City, State), which is 1:N "WorksFor" to Employee (SSN underlined, Name,
+City, Address, DOB, Payment, State). Project is N:1 "ReportFor" to StatusReport
+(Comment, MoneySpent, ReportDate). Organisation carries a specialization circle
+marked d over LocalGovt (OrgLevel, Population), College (NoOfStudent, NoOfFaculty)
+and SmallBusines (CorpStatus, DateofIn).]
+
+[[midQ2]]
+2.      The following tables form part of a database held in a relational DBMS:
+        Hotel (hotelNo, hotelName, city) Room (roomNo, hotelNo, type, price)
+        Booking (hotelNo, guestNo, dateFrom, dateTo, roomNo)
+        Guest (guestNo, guestName, guestAddress)
+
+        where Hotel contains hotel details and hotelNo is the primary key; Room contains room details for
+        each hotel and (roomNo, hotelNo) forms the primary key; Booking contains details of bookings and
+        (hotelNo, guestNo, dateFrom) forms the primary key; Guest contains guest details and guestNo is
+        the primary key.
+        Write SQL statements to
+        i.      List full details of all hotels.
+        ii.     List full details of all hotels in London.
+        iii.    List the names and addresses of all guests living in London, alphabetically ordered by name.
+        iv.     List all double or family rooms with a price below £40.00 per night, in ascending order of
+                price.
+        v.      List the bookings for which no dateTo has been specified.
+
+[[midQ3]]
+3.      Examine the Patient Medication Form for the Wellmeadows Hospital case study shown in the
+        Figure below
+        i.      Identify the functional dependencies represented by the attributes shown in the form
+        ii.     State any assumptions you make about the data and the attributes shown in this form
+        iii.    Describe and illustrate the process of normalizing the attributes to produce a set of well-
+                designed 3NF relations. (Use PatientNo, DrugNumber as primary key).
+
+[Figure: a filled-in paper form headed "Wellmeadows Hospital / Patient Medication
+Form". Header fields: Patient Number: P10034; Full Name: Robert MacDonald; Ward
+Number: Ward 11; Bed Number: 84; Ward Name: Orthopaedic. Below, a table with columns
+Drug Number, Name, Description, Dosage, Method of Admin, Units per Day, Start Date,
+Finish Date, and three rows:
+  10223 | Morphine     | Pain Killer | 10mg/ml  | Oral | 50 | 24/03/04 | 24/04/05
+  10334 | Tetracycline | Antibiotic  | 0.5mg/ml | IV   | 10 | 24/03/04 | 17/04/04
+  10223 | Morphine     | Pain Killer | 10mg/ml  | Oral | 10 | 25/04/05 | 02/05/06 ]
+
+{{hand: the candidate has written attribute names and trial dependencies in pen
+around and below the form (PatientNo, FullName, BedNo, WardNo, WardName, and lines
+such as "DrugNo, StartDate" and "DrugNo, WardNo"). None of it is printed.}}
+
+=====================================================================
+ALPHA SEMESTER EXAMINATION (3 hours, attempt any four questions)
+
+QUESTION ONE
+
+[[Q1a]]
+(a) List 3 disadvantages of the File-Based System                            [3 marks]
+
+[[Q1b]]
+(b) Using the schema below, generate SQL statement for the following queries:
+    Hotel (hotelNo, hotelName, City)
+    Room (roomNo, hotelNo, type, price)
+    Booking (hotelNo, guestNo, dateFrom, dateTo, roomNo)
+    Guest (guestNo, guestName, guestAddress)
+    (i)   How many hotels are there?
+    (ii)  List full details of all hotels in London
+    (iii) List number of rooms in each hotel                                 [4.5 marks]
+
+[note: the four schema lines are set in italic with the identifiers underlined.]
+
+[[Q1c]]
+(c) Use the following business rules to create the ERD for a small consulting company named
+ConsultCo. Show all entities, relationships, optionalities, connectivities and cardinalities. A client
+can contract many projects, but each project is contracted by one client. Some clients in the
+company client list have not (yet) contracted any project(s). A project may have many (consulting
+company) employees assigned to it, and each employee may be assigned to many projects. Some
+employees are not assigned to any project. One employee leads each project. An employee may
+lead more than one project at a time. One employee coordinates each project. An employee may
+coordinate more than one project at a time. Some employees never lead or coordinate projects.
+Many of the consulting company employees have multiple job skills that are applicable to the
+consulting work. Each job description- system analyst, database designer, accountant and so on- can
+fit many employees. Some job descriptions are not yet filled.  Some employees do not have a
+specific job classification.                                                 [10 marks]
+
+QUESTION TWO
+
+[[Q2a]]
+(a) Describe the following terms
+    (i)   Full functional dependency                                         [2 marks]
+    (ii)  Partial functional dependency                                      [2 marks]
+    (iii) Transitive functional dependency                                   [1.5 marks]
+
+[[Q2b]]
+(b) Describe and illustrate the process of normalizing the table below to Boyce-Codd Normal form,
+    giving the following information                                         [12 marks]
+        Candidate keys:
+        PNo, ADate                      (Primary key)
+        ADate, Atime, SurgeonNo
+        StaffNo, ADate, Atime
+
+        Patient _Appointment Table
+
+        StaffNo | DentistName  | PNo  | PName       | ADate     | ATime | SurgeonNo
+        S011    | Tony Smith   | P100 | James White | 12-Sep-08 | 10.00 | S15
+        S011    | Tony Smith   | P105 | Jill Bell   | 12-Sep-08 | 12.00 | S15
+        S024    | Hellen Chris | P108 | Tom Fred    | 12-Sep-08 | 10.00 | S10
+        S024    | Hellen Chris | P108 | Tom Fred    | 14-Sep-98 | 14.00 | S10
+        S032    | Rose  Kelvin | P105 | Jill Bell   | 14-Sep-98 | 16.00 | S15
+        S032    | Rose Kelvin  | P110 | John Stone  | 15-Sep-08 | 18.00 | S13
+
+        Functional dependency:
+        PNo, ADate, &#8594; StaffNo, ATime, DentistName, SurgeonNo
+        PNo &#8594; PName
+        StaffNo &#8594; DentistName
+        StaffNo, ADate &#8594; SurgeonNo
+        ADate, ATime, SurgeonNo &#8594; PNo, PName, StaffNo, DentistName
+        StaffNo, ADate, ATime &#8594; PNo, PName
+
+QUESTION THREE
+
+[[Q3a]]
+(a) UPS prides itself on having up-to-date information on the processing and current location of each
+shipped item. To do this, UPS relies on a company-wide information system. Shipped items are
+the heart of the UPS product tracking information system. Shipped items can be characterized by
+item number (unique), weight, dimensions, insurance amount, destination, and final delivery date.
+Shipped items are received into the UPS system at a single retail center. Retail centers are
+characterized by their type, uniqueID, and address. Shipped items make their way to their
+destination via one or more standard UPS transportation events (i.e., flights, truck deliveries). These
+transportation events are characterized by a unique scheduleNumber, a type (e.g. flight, truck), and
+a deliveryRoute.  create an Entity Relationship (E-R) diagram that captures this information about
+the UPS system. Be certain to indicate identifiers and cardinality constraints.    [9 marks]
+
+[[Q3b]]
+(b) Given the conceptual E-R model below, write the business rules associated with it.  [5.5 marks]
+
+[Figure: a crow's-foot conceptual model. CUSTOMER "owns" CAR (one to many, optional
+on the CAR side). CAR "gets" MAINTENANCE (one to many). MAINTENANCE "includes"
+MAINT_LINE, and MAINT_LINE "is written in" PART.]
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. This file holds two different papers for the same session. The mid semester test
+   is 1 hour and answer-all; the examination is 3 hours and any-four. Cite them
+   apart: "20/21 mid Q1" is not "20/21 Q1".
+
+2. The examination's Question Three totals only 14.5 marks (9 + 5.5) where every
+   other question totals 17.5. Either a part (c) worth 3 was dropped at typesetting
+   or it sits below the figure on a page this copy does not carry. Nothing is
+   invented here to fill the gap.
+
+3. Q2(b) candidate keys spell the attribute "Atime", while the table heading and
+   every functional dependency spell it "ATime".
+
+4. Q2(b) first dependency prints a stray comma: "PNo, ADate, &#8594; StaffNo".
+
+5. Q2(b) table repeats "14-Sep-98" twice among otherwise "-08" dates, exactly as
+   the 2019/2020 paper does. The two papers share this table; this one repeats
+   StaffNo and DentistName on every row where 2019/2020 merges them, and this one
+   heads the date columns ADate and ATime where 2019/2020 heads them "Appointment
+   Date / Time". Quoted as each paper prints it.
+
+6. Q2(b) prints "Rose  Kelvin" with two spaces in one row and one space in another.
+
+7. midQ2 prices rooms "below £40.00 per night" with a pound sign, where the
+   2015/2016 paper writes Naira as a plain "N" and the 2025/2026 paper uses the
+   true Naira sign. All three are reproduced as printed.
+
+8. Q3(a) prints "a deliveryRoute.  create an Entity Relationship" with a lower-case
+   "create" starting the sentence, and two spaces before it.
+
+9. The mid semester ER figure names the entity "SmallBusines" with one "s", and
+   "StatusReport"; the 2015/2016 paper prints the same figure with "StatusRepor"
+   (no final t). Each is quoted as its own paper prints it.
+
+10. The examination prints the course code closed up as "CSC214" where the mid
+    semester paper prints "CSC 214".

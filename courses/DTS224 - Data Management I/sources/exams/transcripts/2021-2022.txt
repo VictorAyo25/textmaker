@@ -1,0 +1,297 @@
+TRANSCRIPT: CSC214 / CSC 214, 2021/2022, Alpha. (DTS224 is the renamed CSC214.)
+Source: PQ/2021-2022.pdf, 6 pages. Page 1 is TEST 1; pages 2 to 6 are the B.Sc
+degree examination. Test parts carry ids testQ1a to testQ3.
+Transcribed BY EYE from the pages rasterised at 2.0x. The PDF does carry a text
+layer, but it is OCR of a scan and is NOT trusted or used: it renders this paper's
+own "COURSE TITLE" as "COURSE TrTLE". Read twice.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]] marker, [Figure ...] my description, [note: ...] my aside,
+  --- a ruled line; everything after the first one below the questions is mine.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  TEST 1 header: COURSE CODE: CSC214, COURSE TITLE: DATABASE MANAGEMENT SYSTEMS,
+  SEMESTER: ALPHA, SESSION: 2021/2022, TEST 1: ATTEMPT ALL QUESTIONS
+  EXAMINATION header: COVENANT UNIVERSITY ... B.Sc DEGREE EXAMINATION,
+  COLLEGE: SCEINCE AND TECHNOLOGY, DEPARTMENT: COMPUTER AND INFORMATION SCIENCES,
+  SESSION: 2021/2022, SEMESTER: ALPHA, COURSE CODE: CSC 214, CREDIT UNIT: 3,
+  COURSE TITLE: HIGH PERFORMANCE  AND DATABASE MANAGEMENT SYSTEM,
+  INSTRUCTIONS: ANSWER  ANY  FOUR QUESTIONS, TIME: 3 HOURS
+
+=====================================================================
+TEST 1 (attempt all questions)
+
+[[testQ1a]]
+1a. Extensively differentiate between the following terms:
+    i.      Database Manager and Database Administrator
+    ii.     Data Manipulation Language and Data Definition Language
+    iii.    SQL and NOSQL Databases
+    iv.     Composite and Multi-valued Attributes
+
+[[testQ2]]
+2. At a weekend retreat, the entity type PERSON has three subtypes: CAMPER, BIKER, and
+RUNNER. Draw a separate Extended Entity Relationship (EER) diagram segment for each of the
+following situations:
+    a)  At a given time, a person must be exactly one of these subtypes.
+    b)  A person may or may not be one of these subtypes. However, a person who is one of these
+        subtypes cannot at the same time be one of the other subtypes.
+    c)  A person may or may not be one of these subtypes. On the other hand, a person may be any
+        two (or even three) of these subtypes at the same time.
+    d)  At a given time, a person must be at least one of these subtype
+
+[[testQ3]]
+3. Explain the following terms:
+    a)  Open Database Connectivity (ODBC)
+    b)  Data Mining
+    c)  Knowledge-Based Systems
+    d)  Locking Methods
+
+=====================================================================
+QUESTION ONE
+
+[[Q1a]]
+Figure 1 represents the instance of the DreamHome rental database.
+
+    (a)     Write the DDL state to create PropertyForRent Table. (8.5 Marks)
+
+[Figure 1: a printed instance of the DreamHome database, seven tables with data.
+Branch (branchNo, street, city, postcode): B005 22 Deer Rd London SW1 4EH; B007 16
+Argyll St Aberdeen AB2 3SU; B003 163 Main St Glasgow G11 9QX; B004 32 Manse Rd
+Bristol BS99 1NZ; B002 56 Clover Dr London NW10 6EU.
+Client (clientNo, fName, lName, telNo, prefType, maxRent): CR76 John Kay
+0207-774-5632 Flat 425; CR56 Aline Stewart 0141-848-1825 Flat 350; CR74 Mike Ritchie
+01475-392178 House 750; CR62 Mary Tregear 01224-196720 Flat 600.
+Staff (staffNo, fName, lName, position, sex, DOB, salary, branchNo): SL21 John White
+Manager M 1-Oct-45 30000 B005; SG37 Ann Beech Assistant F 10-Nov-60 12000 B003; SG14
+David Ford Supervisor M 24-Mar-58 18000 B003; SA9 Mary Howe Assistant F 19-Feb-70
+9000 B007; SG5 Susan Brand Manager F 3-Jun-40 24000 B003; SL41 Julie Lee Assistant F
+13-Jun-65 9000 B005.
+PrivateOwner (ownerNo, fName, lName, address, telNo): CO46 Joe Keogh 2 Fergus Dr,
+Aberdeen AB2 7SX 01224-861212; CO87 Carol Farrel 6 Achray St, Glasgow G32 9DX
+0141-357-7419; CO40 Tina Murphy 63 Well St, Glasgow G42 0141-943-1728; CO93 Tony Shaw
+12 Park Pl, Glasgow G4 0QR 0141-225-7025.
+PropertyForRent (propertyNo, street, city, postcode, type, rooms, rent, ownerNo,
+staffNo, branchNo): PA14 16 Holhead Aberdeen AB7 5SU House 6 650 CO46 SA9 B007; PL94
+6 Argyll St London NW2 Flat 4 400 CO87 SL41 B005; PG4 6 Lawrence St Glasgow G11 9QX
+Flat 3 350 CO40 (blank) B003; PG36 2 Manor Rd Glasgow G32 4QX Flat 3 375 CO93 SG37
+B003; PG21 18 Dale Rd Glasgow G12 House 5 600 CO87 SG37 B003; PG16 5 Novar Dr Glasgow
+G12 9AX Flat 4 450 CO93 SG14 B003.
+Viewing (clientNo, propertyNo, viewDate, comment): CR56 PA14 24-May-04 too small;
+CR76 PG4 20-Apr-04 too remote; CR56 PG4 26-May-04; CR62 PA14 14-May-04 no dining
+room; CR56 PG36 28-Apr-04.
+Registration (clientNo, branchNo, staffNo, dateJoined): CR76 B005 SL41 2-Jan-04; CR56
+B003 SG37 11-Apr-03; CR74 B003 SG37 16-Nov-02; CR62 B007 SA9 7-Mar-03.]
+
+[[Q1b]]
+    (b)     Write DDL statements to achieve the following; (4.5 Marks)
+        i.      Delete property for rent table from the database
+        ii.     Change the Staff table by removing the default of 'Assistant' for the position
+                column and setting the default for the sex column to female ('F').
+        iii.    Change the PropertyForRent table by removing the constraint that staff are not
+                allowed to handle more than 100 properties at a time. Change the Client table by
+                adding a new column representing the preferred number of rooms
+
+[[Q1c]]
+    (c)     Write DML statements to achieve the following;  (4.5 Marks)
+        i.      Find all staff whose salary is larger than the salary of every member of staff at
+                branch B003
+        ii.     List the properties that are handled by staff who work in the branch at '22 Deer
+                Road'
+        iii.    List full details of all branch
+
+=====================================================================
+QUESTION TWO
+
+[[Q2a]]
+(a) UPS prides itself on having up-to-date information on the processing and current location of
+each shipped item. To do this, UPS relies on a company-wide information system. Shipped
+items are the heart of the UPS product tracking information system. Shipped items can be
+characterized by item number (unique), weight, dimensions, insurance amount, destination, and
+final delivery date. Shipped items are received into the UPS system at a single retail center.
+Retail centers are characterized by their type, uniqueID, and address. Shipped items make their
+way to their destination via one or more standard UPS transportation events (i.e., flights, truck
+deliveries). These transportation events are characterized by a unique scheduleNumber, a type
+(e.g, flight, truck), and a deliveryRoute.  create an Entity Relationship (E-R) diagram that
+captures this information about the UPS system. Be certain to indicate identifiers and cardinality
+constraints.
+        (9 marks)
+
+[[Q2b]]
+(b) As the ability to handle large amounts of data improves, describe three business areas where
+these very large databases are being used efficiently.                       (4.5 Marks)
+
+[[Q2c]]
+(c) Suppose you are given a relation R with four attributes ABCD. And functional dependency C &#8594;
+D, C &#8594; A, B &#8594; CF, assuming those are the only dependencies that hold for R, do the following:
+
+    i. Identify the candidate key(s) for R.
+    ii. Identify the best normal form that R satisfies (1NF, 2NF, 3NF, or BCNF).
+    iii. If R is not in BCNF, decompose it into a set of BCNF relations that preserve the
+    dependencies.
+                                                                             (4 Marks)
+
+=====================================================================
+QUESTION THREE
+
+[[Q3]]
+Given the following problem scenario, presented as business rules;
+
+Rehoboth housing has branch offices in various part of the country. The requirement specification
+for the company is stated below.
+
+Each branch office is allocated members of staff and a manager to manage the operations of the
+office. The information to be held on the branch office includes a unique branch number, address
+(street, area ,city), telephone number and the name of the manager. A staff can only be allowed to
+manage a branch. There are special staff positions like manager, secretary and sales personnel. A
+staff can belong to more than one of the special positions. For each manager there is bonus, each
+secretary is characterized by typing speed and each sales rep. has sales area and car allowance A
+member of staff can either be on part-time (temporary staff) or full-time  (permanent staff)
+depending on their appointment. Each full time staff is characterized by salary scale and hourly
+allowance, while the part- time staff are rated per hour   The information stored on each member of
+staff includes staff number, name (first and last name), address, telephone number, sex, date of
+birth, position, salary and date of appointment. A staff number is unique across all branches of the
+company. When possible the details of the next-of-kin of staff members are stored. The information
+stored on each next-of-kin includes name, relationship to the member of staff, address and
+telephone number. Only the detail of one  a single next-of-kin are held for a member of staff, and
+one next-of-kin cannot stand-in for more than two staff.
+
+In addition, Rehoboth housing, has customers who attended to by one and only one member of staff,
+but a member of staff can attend to one or  several customers. Figure 3a represents the customer
+rental form for the Rehoboth housing.
+
+[Figure: a filled paper form headed "REHOBOTH / Customer Rental Details  Date 7April
+2009", marked "Page 1". Customer Name: Ibk Fat. Customer Number: RH 76. A table with
+columns Property Number, Property Address, Rent Start, Rent Finish, Rent, Owners
+Number, Owners Name and two rows: PG4, 6,Lawrence St. Ikoyi, 1-Jul-04, 31-Aug-06,
+350, CO40, Tina Murphy; and PG16, 5, Novar St, Oshodi, 1-Sep-06, 1-Sep-08, 450, CO93,
+Tony Shaw. Captioned "Figure 2: Rehoboth Customer Detail form".]
+
+        i.      Develop the EER diagram for the problem scenario (8Marks)
+        ii.     Produce the logical design for the problem scenario (7Marks)
+        iii.    Where necessary, normalize the generated logical designs to 3NF (2.5Marks)
+
+=====================================================================
+QUESTION FOUR
+
+[[Q4a]]
+(a) Model the following business rule based on supertype/subtype relationships. Show the
+constraints on the supertype/subtype relationships. List out clearly the attributes of each entity
+and model the supertype/subtype relationships.
+
+Suppose you are asked to model the human resources in a university. Using specialization (a
+to-down approach) where the root general entity type is PERSON with attributes SSN
+(identifier), Name, Address, Gender and DOB. There are three types of persons that are of
+interest to the university which are: EMPLOYEE (persons who work for the university),
+STUDENT (persons who attend classes), and ALUMNUS (persons who have graduated). In
+this university a person might belong to more than one categories. Each employee has a value
+for Date hired and Salary and Student's Major department is recorded. For each ALUMNI
+the graduating degree is determined by year of graduation, designation and date of
+graduation. These two types of EMPLOYEE: FAULTY and STAFF have the following specific
+attributes respectively: Rank and Position. Also, a STUDENT could either be GRADUATE
+student with Test score or UNDERGRADUATE student with Class standing.    (9.5 marks)
+
+[[Q4b]]
+(b) In the context of semantic object modelling, explain the following terms with diagrammatic
+    illustrations
+        i.      Single/Multi-valued properties                               (2 marks)
+        ii.     Object properties                                            (2 marks)
+        iii.    Compound objects                                             (2 marks)
+        iv.     Simple objects                                               (2 marks)
+
+=====================================================================
+QUESTION FIVE
+
+[[Q5a]]
+(a) Extensively differentiate between the following terms:
+        i.      Database Manager and Database Administrator                  (2 marks)
+        ii.     SQL and NOSQL Databases                                      (2 marks)
+        iii.    Composite and Multi-valued Attributes                        (2 marks)
+
+[[Q5b]]
+(b) At a weekend retreat, the entity type PERSON has three subtypes: CAMPER, BIKER, and
+RUNNER. Draw a separate Extended Entity Relationship (EER) diagram segment for each
+of the following situations:
+        i.      At a given time, a person must be exactly one of these subtypes.   (2 marks)
+        ii.     A person may or may not be one of these subtypes. However, a person who is one of
+                these subtypes cannot at the same time be one of the other subtypes.
+                (2 marks)
+        iii.    A person may or may not be one of these subtypes. On the other hand, a person may
+                be any two (or even three) of these subtypes at the same time.      (2 marks)
+        iv.     At a given time, a person must be at least one of these subtype     (2 marks)
+
+[[Q5c]]
+(c) What is an Enterprise-Level Database? Give a detailed list of its features and an accurate
+diagrammatic representation                                                  (3.5 marks)
+
+=====================================================================
+QUESTION SIX
+
+[[Q6a]]
+(a) Draw a detailed Entity-Relationship diagram for the following business rule. Show the
+cardinality constraints for each relationship.
+
+A Supplier may supply many Items. Each Item is supplied by any number of suppliers. Each
+Item must be used in the assembly of at least one Product and may be used in many products.
+A Supplier may send many Shipments. However, each Shipment must be sent by exactly one
+Supplier. A Shipment must include one or more Items. An item may be included on several
+Shipments. A customer may submit any number of Orders. However, each Order must be
+submitted by exactly one Customer. An Order must request one or more products. A given
+Product may not be requested on any Order, or may be requested on one or more orders
+                                                                             (12 marks)
+
+[[Q6b]]
+(b) Mention four (4) characteristics of a good business rule                 (2 marks)
+
+[[Q6c]]
+(c) An employee in an organization is represented by a unique ID, has a name which can be further
+broken down into first name and last name. The employee entity's date of employment is
+another valuable attribute, in addition to that, it has a payroll address which is comprised of the
+bank name, account number and sort code. The employee can have multiple skills and then the
+number of years employed can also be stored, although that can be gotten from the date
+employed. Represent this entity with an ER diagram showing the accurate representation of its
+attributes                                                                   (3.5 marks)
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. The examination letterhead misspells its own college: "COLLEGE: SCEINCE AND
+   TECHNOLOGY". Identity block only, so it never reaches the book.
+
+2. Q1(a) asks for "the DDL state to create", missing "-ment" on "statement".
+
+3. Q2(c) declares "a relation R with four attributes ABCD" and then gives the
+   dependency "B &#8594; CF". F is not one of the four attributes. The question cannot be
+   answered exactly as printed; a candidate must say so and choose a reading. This
+   is a genuine defect and is left standing.
+
+4. Q2(a) prints "a deliveryRoute.  create an Entity Relationship" with a lower-case
+   "create" opening the sentence, exactly as the 2020/2021 paper prints the same
+   passage. The two papers share this UPS narrative verbatim.
+
+5. Q3 says "Figure 3a represents the customer rental form", but the figure beneath it
+   is captioned "Figure 2: Rehoboth Customer Detail form". The paper contradicts
+   itself about its own figure number.
+
+6. Q3 prints "customers who attended to by one and only one member of staff" (missing
+   "are"), "address (street, area ,city)" with a space before the comma, "Only the
+   detail of one  a single next-of-kin are held" (a false start left in), and
+   "each sales rep. has sales area and car allowance A member of staff" (missing full
+   stop). All reproduced.
+
+7. Q4(a) prints "a to-down approach" for "top-down", "belong to more than one
+   categories", and names the employee subtype "FAULTY" where it means FACULTY. It
+   also switches between "ALUMNUS" and "ALUMNI" for the same subtype.
+
+8. Q5(a) repeats testQ1a's list but drops the DML/DDL pair, keeping three of the four.
+   Q5(b) repeats testQ2 word for word, adding per-part marks.
+
+9. Q6(a) ends "on one or more orders" with no full stop.
+
+10. The test and the examination give the course two different titles: the test says
+    "DATABASE MANAGEMENT SYSTEMS", the examination says "HIGH PERFORMANCE  AND
+    DATABASE MANAGEMENT SYSTEM" (with a double space).
+
+11. Off-syllabus for DTS224: testQ3 (ODBC, data mining, knowledge-based systems,
+    locking), Q2(b) (very large databases), Q4(b) (semantic object modelling), and
+    Q5(c) (enterprise-level databases). They belong to the older "High Performance"
+    title.

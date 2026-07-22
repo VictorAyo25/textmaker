@@ -96,9 +96,42 @@ So the true exponent is 8.</li>
 normalise, exponent plus 127, mantissa to 23 bits.</p>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5a">a.	Represent the following -1240.56 using Single Precision IEEE format for floating point numbers.	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> "Represent <b>the following</b>" sets you up for a
+list and then gives one number, inline, with the minus sign printed tight against the
+digits where it is easy to drop while copying onto your script. The line recurs unchanged
+as 24/25 Q3(c) and 23/24 Q4(c), 6mks every time. What it never says is how many mantissa
+bits to keep when the fraction refuses to terminate, whether to round or truncate, or
+whether the answer is wanted as 32 bits or as hex. Contrast the 24/25 paper's own Q5(c),
+which for a different value does pin it down, "All bits after the first 12 bits of the
+Mantissa should be 0", and opens with the words "Perform the calculation below <b>in
+using</b> Single Precision IEEE format". Where the paper is silent, say what you chose.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one decimal value, &#8722;1240.56, and
+the format, IEEE single precision. That fixes 1 sign bit, 8 exponent bits, 23 mantissa
+bits and a bias of 127.</div>
+<div class="urow"><span class="ulab">Asked</span> a single verb, <i>represent</i>, with no
+sub-parts. When a paper puts 6 marks behind one verb, the marks are in the steps, not in
+the final string.</div>
+<div class="urow"><span class="ulab">Marks</span> 6mks and six natural steps: sign,
+integer part in binary, fraction in binary, normalise, exponent field, mantissa. Show all
+six and the arithmetic marks itself.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> .56 does not terminate in binary. Keep
+doubling until you have 23 mantissa bits, then stop, and write one line saying whether you
+truncated or rounded. Second trap: losing the minus sign, which costs you the sign bit and
+therefore the whole pattern.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q4c &middot; PQ 24/25 Q3c &middot; PQ 25/26 Q5a</span></div>
-<div class="body"><p>Represent <b>&#8722;1240.56</b> in IEEE-754 single precision. Here the
-fraction does not terminate, so we truncate the mantissa at 23 bits.</p>
+<div class="body"><p>Here the fraction does not terminate, so we truncate the mantissa at
+23 bits.</p>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> value = &#8722;1240.56 &middot; format =
 IEEE-754 single precision &middot; bias = 127 &middot; mantissa limited to 23 bits</div>
@@ -147,9 +180,39 @@ the hidden 1, and evaluate.</p>
 bits &middot; <b>&#177;</b> = the sign taken from bit S &middot; <b>bias</b> = 127 single,
 1023 double</div></div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(d)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q5d">d.	By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h	<span class="qmark">6mks</span></div>
+<p class="flag"><b>Read it again.</b> One sentence, two spellings of the same idea:
+"(<b>B</b>ase 10)" with a capital and "(<b>b</b>ase 16)" without. The pattern ends in a
+lower case <b>h</b>, which is the paper's mark for hexadecimal and not a digit of the
+number. The line recurs unchanged as 24/25 Q4(c), also 6mks. The 20/21 paper sets the same
+task on a different value and rewords it: "Use the reverse of the IEEE Single Precision to
+determine the value (Base 10) of the following hexadecimal (base 16) value: BE7C2002H",
+worth 5mks, with a capital H that year. Neither the value, nor the marks, nor the case of
+the suffix is safe to memorise.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one 32-bit pattern written in hex,
+C4F2E000h, and the format it is stored in, IEEE single precision.</div>
+<div class="urow"><span class="ulab">Asked</span> the decimal value, and the route is
+prescribed: <i>by using the reverse of the IEEE Single Precision procedure</i>. The
+question is about the procedure, so the procedure is what you write down.</div>
+<div class="urow"><span class="ulab">Marks</span> 6mks for a single number, which means
+almost all of them are in the working: expand to 32 bits, split 1, 8, 23, unbias the
+exponent, restore the hidden 1, evaluate.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> the two habitual losses: forgetting the
+hidden leading 1, so the mantissa is read as 0.1110... instead of 1.1110..., and
+forgetting to take 127 off the exponent field. Third, smaller trap: the trailing h is
+notation, not a hex digit, so the pattern is eight digits, not nine.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4c &middot; PQ 25/26 Q5d</span></div>
-<div class="body"><p>Find the decimal value of <b>C4F2E000H</b> under IEEE-754 single
-precision.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> stored pattern = C4F2E000H (32 bits)
 &middot; format = IEEE-754 single precision &middot; bias = 127</div>
@@ -177,11 +240,66 @@ right: 11110010111.0.</li>
 1 and forgetting to subtract 127. Do both, every time.</p>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q4(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q4a">a.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.
+X = C1400000h,	Y = 42100000h,	Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true.	<span class="qmark">9mks</span>
+i.	(Y-Z)&gt;0
+ii.	X + Z = 0
+iii.	Z= X + Y</div>
+<p class="flag"><b>Read it again.</b> The values carry a lower case <b>h</b>, not the
+capital H this book uses in its own prose. The claims are set unspaced, "(Y-Z)&gt;0" and
+"Z= X + Y" with nothing after the Z, and they sit <i>below</i> the instruction rather
+than inside it. The sentence breaks across two lines between "of the following" and
+"is true", which is the paper's line ending and not a second instruction. And note where
+this lands: it is the 24/25 Question One (a) reprinted with the same data and the same
+9mks, but moved out of the compulsory question into Q4(a) of an optional one, so on this
+paper you can choose whether to meet it at all.</p>
+</div></div>
+
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">23/24 Q1(c), the same data, a different verb</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2023-2024:Q1c">c.	Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.
+X = C1400000h,	Y = 42100000h,	Z = 41400000h
+Convert X, Y and Z to decimal numbers and determine which of the following
+is true or false	<span class="qmark">9mks</span>
+i.	(Y-Z)&gt;0
+ii.	X + Z = 0
+iii.	Z= X + Y</div>
+<p class="flag"><b>The drift is the point.</b> Identical hex, identical claims, identical
+9mks, and one changed word at the end: 23/24 asks which of them "is <b>true or false</b>"
+and stops without a full stop, where 24/25 and 25/26 ask only which "is <b>true</b>."
+That single word changes the job. "is true or false" demands a verdict on all three;
+"is true" alone tempts a reader under time pressure to find one, tick it and move on. Two
+of the three are true here, so the tempting reading loses marks in every year. Answer all
+three either way.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> three 32-bit hex words and the statement
+that they are IEEE 754 <i>single</i> precision. That one word fixes the split at 1 sign
+bit, 8 exponent bits and 23 mantissa bits, and the bias at 127.</div>
+<div class="urow"><span class="ulab">Asked</span> two instructions in one sentence:
+<i>convert</i> all three to decimal, then <i>determine</i> the standing of three claims.
+The second verb carries the marks. A script that converts perfectly and stops has answered
+half the question.</div>
+<div class="urow"><span class="ulab">Marks</span> 9mks, the biggest single part anywhere in
+this unit, split across three conversions and three verdicts. Roughly 2 per conversion and
+1 per verdict, so the conversions must be shown rather than asserted.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> letting the year's wording decide how many
+verdicts you give. Write TRUE or FALSE against every one of the three, every time, and you
+satisfy both versions of the question. Second trap: comparing the hex patterns directly.
+They are not ordinary integers; convert first, compare afterwards.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4a &middot; PQ 24/25 Q1a &middot; PQ 23/24 Q1c</span></div>
-<div class="body"><p>Three IEEE-754 numbers are stored: <b>X = C1400000H,
-Y = 42100000H, Z = 41400000H</b>. Convert each to decimal, then test:
-(i) (Y &#8722; Z) &gt; 0, (ii) X + Z = 0, (iii) Z = X + Y. This 9-mark question recurs
-on three papers.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> X = C1400000H &middot; Y = 42100000H
 &middot; Z = 41400000H &middot; all IEEE-754 single precision, bias 127</div>

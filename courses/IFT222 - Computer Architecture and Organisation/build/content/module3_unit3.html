@@ -107,9 +107,28 @@ tag on every line.</p>
 mapping &middot; <b>tag bits per line</b> = the tag width you worked out for that mapping
 &middot; the product is in <b>bits</b>, so divide by 8 for bytes</div></div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q2a">a.	Assume a computer has 32-bit addresses.  Each block stores 16 words.  A direct-mapped cache has 256 blocks.  In which block (line) of the cache (decimal value) would you look for each of the following addresses? Addresses are given in hexadecimal for convenience.  <span class="qmark">4mks</span>
+i.	CA2DFC12
+ii.	F24F25FF
+iii.	24BBABCD
+iv.	C1D9EEF2</div>
+<p class="flag"><b>Read it again.</b> The stem asks for the block "(decimal value)", so an answer left in hexadecimal is incomplete however right the working. Sentences are separated by double spaces, and the closing sentence about hexadecimal is set as a plain sentence here where the 24/25 twin of this question puts it in brackets and asks about <b>24-bit</b> addresses instead of 32.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a 32-bit address, 16 words to a block, and a direct-mapped cache of 256 blocks, then four addresses in hexadecimal.</div>
+<div class="urow"><span class="ulab">Asked</span> "In which block (line) of the cache ... would you look", in decimal. One number per address, four numbers in all.</div>
+<div class="urow"><span class="ulab">Marks</span> 4mks, one an address. The field widths earn nothing on their own, so work them out once and then answer four times.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module Three Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> 256 blocks needs 8 index bits and 16 words needs a 4-bit offset, which is exactly one hexadecimal digit. Drop the last digit, read the next two, convert. Reading the <i>first</i> two digits gives the tag, which is the wrong answer to this question.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2a</span></div>
-<div class="body"><p>A computer has 32-bit addresses. Each block holds 16 words and a
-direct-mapped cache has 256 blocks. In which cache line does each hex address fall?</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> address = 32 bits &middot; block = 16
 words &middot; cache = 256 blocks (lines) &middot; mapping = direct &middot; four hex
@@ -144,10 +163,30 @@ the hex reads straight off: drop one digit, take the next two. Confirm the metho
 tutorial address 1A2BC012, which gives line 1.</p>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q3(a), parts (i) to (iii)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q3a">a.	A computer system has the following characteristics:
+•	Main memory = 64 MB
+•	Cache memory = 128 KB
+•	Block size = 64 bytes
+i) Determine the number of cache lines	<span class="qmark">1½mks</span>
+ii) For Direct Mapping, determine: Number of index bits; Number of tag bits; Number of offset bits	<span class="qmark">1½mks</span>
+iii) For a 4-way Set Associative Cache, determine: Number of sets; Number of set index bits; Number of tag bits	<span class="qmark">1½mks</span></div>
+<p class="flag"><b>Read it again.</b> The three characteristics are printed as bullets with equals signs, so they are given data and not a sentence to unpick. Items (ii) and (iii) each pack three separate quantities into one line separated by semicolons, and each of those lines is worth 1&#189;mks <i>in total</i>, not 1&#189; apiece. Item (i) ends with no full stop where (iv) has one. Part (iv), not quoted here, is a discussion of fully associative mapping for a further 1&#189;mks.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> main memory 64 MB, cache 128 KB, block 64 bytes. The address width is not given: you derive it from the memory size.</div>
+<div class="urow"><span class="ulab">Asked</span> "Determine" three times. Every quantity named is a count or a bit width, so every answer is a number.</div>
+<div class="urow"><span class="ulab">Marks</span> 1&#189;mks an item. Item (ii) is three bit widths for 1&#189;mks, half a mark each, so show the split and move on rather than proving it.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module Three Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> the number of lines does not change when the mapping changes. Only the split of the address changes, and every bit taken off the index lands in the tag.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q3a</span></div>
-<div class="body"><p>Main memory is 64 MB, the cache is 128 KB, and a block is 64 bytes.
-Find the number of cache lines, then the field widths for direct and 4-way set
-associative mapping.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> main memory = 64 MB &middot; cache = 128
 KB &middot; block = 64 bytes &middot; mappings = direct, and 4-way set associative
@@ -213,11 +252,29 @@ tag = 17 &#8722; 5 &#8722; 8 = <b>4</b>. Tag directory = 64 &#215; 4 = 256 bits 
 associative), because less indexing leaves a longer tag on every line.</div>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q2c">c.	A processor has the following configuration: Main memory is 1 GB; Cache is 512 KB; Block size is 128 bytes and it is a 4-way Set Associative cache.
+i) Determine the total number of cache blocks.	<span class="qmark">1mk</span>
+ii) Determine the number of sets.	<span class="qmark">1mk</span>
+iii) Construct the complete address format.	<span class="qmark">1mk</span>
+iv) If the hit rate is 96%, cache access time is 2 ns, and main memory access time is 80 ns, calculate the Average Memory Access Time (AMAT).	<span class="qmark">2mks</span>
+v) Discuss how increasing associativity beyond four ways might affect performance. <span class="qmark">2mks</span></div>
+<p class="flag"><b>Read it again.</b> The configuration is one sentence held together by semicolons, and the associativity is its last clause, which is easy to read past. Item (v) is the only part on the page whose marks are set inline after a single space, "performance. 2mks", where every other item has its marks tabbed to the right margin. It is worth 2mks, as much as the calculation above it.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> 1 GB of main memory, a 512 KB cache, 128-byte blocks, 4-way set associative, and for (iv) a hit rate, a cache access time and a memory access time.</div>
+<div class="urow"><span class="ulab">Asked</span> "Determine", "Determine", "Construct", "calculate", "Discuss". The last is prose and it carries 2mks.</div>
+<div class="urow"><span class="ulab">Marks</span> 1 + 1 + 1 + 2 + 2 = 7mks. Two of the seven are for a discussion with no arithmetic in it, so leave time to reach it.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, which covers both the address split and the average memory access time formula.</div>
+<div class="urow"><span class="ulab">Trap</span> "the complete address format" means all three fields with their widths, tag and set and offset, and they must add up to the full address width. Give the widths and check the sum in front of the examiner.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2c</span></div>
-<div class="body"><p>Main memory 1 GB, cache 512 KB, block 128 bytes, 4-way set
-associative. Find (i) the number of cache blocks, (ii) the number of sets, (iii) the
-address format, (iv) the AMAT if the hit rate is 96%, cache access is 2 ns and main
-memory is 80 ns.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> main memory = 1 GB &middot; cache = 512
 KB &middot; block = 128 bytes &middot; k = 4 (4-way) &middot; h = 0.96 &middot;
@@ -248,9 +305,27 @@ AMAT = 5.2 ns. Higher associativity cuts conflict misses but needs more tag comp
 so beyond a point it adds cost and delay for little gain.</div>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">23/24 Q1(d), parts (i) to (iii)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2023-2024:Q1d">d.	If an 8-way set association cache is made up of 32 bits words, 4 words per line and 4096 sets.
+i)	Size of each line of the cache	<span class="qmark">1mk</span>
+ii)	Size of each set of the cache	<span class="qmark">1mk</span>
+iii)	Size of the cache itself	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> The paper prints "8-way set <b>association</b> cache", not associative, and "32 bits words". More seriously the stem is a sentence fragment: it opens with "If" and never completes, so there is no question anywhere in it. The sub-items have to supply one, and they are phrased as nouns rather than commands. Part (iv), not quoted here, asks you to sketch the structure for 1&#189;mks.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> 8 ways to a set, a 32-bit word, 4 words to a line, and 4096 sets.</div>
+<div class="urow"><span class="ulab">Asked</span> three sizes, each written as a noun phrase, "Size of each line of the cache". A number with a unit is the whole of the answer.</div>
+<div class="urow"><span class="ulab">Marks</span> 1mk each. There is no working mark on offer, so give the number and one line showing where it came from.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module Three Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> 32 bits is 4 bytes. Answering in bits where the natural unit is bytes, or multiplying by 32 where you meant 4, is where this one is lost. Build up in order: line, then set, then cache.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q1d</span></div>
-<div class="body"><p>An 8-way set-associative cache has 32-bit words, 4 words per line and
-4096 sets. Find the size of each line, each set, and the whole cache.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> k = 8 (8-way) &middot; word = 32 bits =
 4 bytes &middot; 4 words per line &middot; 4096 sets</div>
@@ -271,9 +346,37 @@ cache, and the arithmetic stays trivial</div>
 <div class="answerbox">Line 16 bytes, set 128 bytes, cache 512 KB.</div>
 </div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q1(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q1b">b.	Determine the average memory access time for a machine with a cache hit rate of 80% and cache access time of 5 ns and main memory access time of 100 ns when:
+i.  Simultaneous access memory organization is used.	<span class="qmark">2mks</span>
+ii. Hierarchical access memory organization is used.	<span class="qmark">2mks</span>
+iii.Draw the diagrams representing the two scenarios	<span class="qmark">3mks</span></div>
+<p class="flag"><b>Read it again.</b> The stem ends with a colon, "100 ns when:", which is what the list underneath needs. Item (iii) is printed "iii.Draw", with no space after the full stop.</p>
+</div></div>
+
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">23/24 Q3(a)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2023-2024:Q3a">a.	Determine the average memory access time for a machine with a cache hit rate of 80% and cache access time of 5 ns and main memory access time of 100 ns when.
+i.  Simultaneous access memory organization is used.	<span class="qmark">2½mks</span>
+ii. Hierarchical access memory organization is used.	<span class="qmark">2½mks</span>
+iii.Draw the diagrams representing the two scenarios	<span class="qmark">3mks</span></div>
+<p class="flag"><b>The same question a year earlier, and the wording drifts twice.</b> This version ends its stem with a <b>full stop</b>, "100 ns when.", where the list plainly needs a colon, and each of the first two items is worth <b>2&#189;mks</b> against 2mks in 24/25. The "iii.Draw" spacing defect is in both years. Same data, same method, different price.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> a hit rate of 80%, a cache access time of 5 ns, and a main memory access time of 100 ns.</div>
+<div class="urow"><span class="ulab">Asked</span> the average access time under two <i>named</i> organisations, then the diagrams. The two names, "Simultaneous" and "Hierarchical", are the whole question: they choose which of the two formulas applies.</div>
+<div class="urow"><span class="ulab">Marks</span> 2 + 2 + 3 in 24/25, and 2&#189; + 2&#189; + 3 in 23/24. Either way the diagrams are worth more than either calculation, so draw them.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module Three Unit 3.</div>
+<div class="urow"><span class="ulab">Trap</span> the two formulas differ in one place only: whether the cache time is weighted by the hit rate or paid on every access. Simultaneous starts both lookups at once; hierarchical searches the cache first. Give both numbers and label which is which.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q1b &middot; PQ 23/24 Q3a</span></div>
-<div class="body"><p>Cache hit ratio 80%, cache access 5 ns, main memory 100 ns. Find the
-average memory access time for (i) simultaneous and (ii) hierarchical organisation.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> h = 0.80 &middot; T<sub>c</sub> = 5 ns
 &middot; T<sub>m</sub> = 100 ns &middot; both organisations required</div>

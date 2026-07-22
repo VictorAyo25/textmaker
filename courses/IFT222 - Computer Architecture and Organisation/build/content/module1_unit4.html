@@ -113,10 +113,44 @@ the expression in <b>postfix</b> first.</li>
 <p><b>Memory hook:</b> 3, 2, 1, 0 addresses map to register, register, accumulator,
 stack machines. Postfix of A op B is "A B op".</p></div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q4(b)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q4b">b.	Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.
+X = ((A * B) +C/D)/(F*G+J*K)	<span class="qmark">8mks</span></div>
+<p class="flag"><b>Read it again.</b> The sentence opens ungrammatically, "Use <b>a</b>
+Zero, One, Two and Three address instruction <b>formats</b>", and the expression is spaced
+three different ways in one line: "(A * B)" spaced out, "+C/D" and "F*G+J*K" closed up.
+The paper names Pentium 4 and then wants generic accumulator and stack listings. Most
+important, it demands "the number of bytes required" while giving you <b>no opcode size
+and no address size</b>, so the count is impossible until you supply those numbers
+yourself. One more thing this printed sheet carries: that byte-count sentence is
+<b>struck through in pen</b>, with a short handwritten word beside it, so on the day the
+requirement was withdrawn. The 24/25 paper sets the identical sentence as Q1(d), nothing
+struck out, with the 8mks printed before the expression rather than after it.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> one arithmetic expression and four
+instruction formats to express it in. No machine parameters at all.</div>
+<div class="urow"><span class="ulab">Asked</span> two deliverables per format: the
+<i>program segment</i>, and the <i>number of bytes required</i>. Eight answers in
+total.</div>
+<div class="urow"><span class="ulab">Marks</span> 8mks, which lands neatly as one mark per
+listing and one per byte count. That tells you the listings must be complete, not
+sketched.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 4.</div>
+<div class="urow"><span class="ulab">Trap</span> starting the byte counts before declaring
+your assumptions. Open with one line, for example 1 byte of opcode and 2 bytes per memory
+address, and every figure after it is defensible whatever the marker expected. Second
+trap: the zero-address listing. Convert the expression to postfix first; writing the
+pushes in infix order gives a stack sequence that does not evaluate.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q4b &middot; PQ 24/25 Q1d</span></div>
-<div class="body"><p>Write <b>X = ((A &#215; B) + C / D) / (F &#215; G + J &#215; K)</b>
-in the 0, 1, 2 and 3 address formats, and count the bytes. Take <b>1 byte per opcode
-and 2 bytes per memory address</b> (state whatever the paper gives).</p>
+<div class="body"><p>The paper supplies no opcode or address size, so take <b>1 byte per
+opcode and 2 bytes per memory address</b> and say so before you count.</p>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> expression X = ((A&#215;B) + C/D) /
 (F&#215;G + J&#215;K) &middot; opcode = 1 byte &middot; each memory address = 2 bytes</div>
@@ -176,9 +210,54 @@ location of the operand.</p>
 <tr><td>Indexed</td><td>EA = index register + address field</td><td>M[index + address field]</td></tr>
 </table>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(e)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2025-2026:Q1e">e.	A processor contains the following information: PC = 7000;  R1 = 1500;
+Memory Contents
+Address	Value
+7000	1200
+1200	4500
+1500	6000
+3200	8100
+4500	999
+6000	200
+8100	400
+Assume an instruction contains address field 1200.
+Determine the Effective Address (EA) and operand for the following addressing modes:
+i) Immediate addressing mode	<span class="qmark">1mk</span>
+ii) Direct addressing mode	<span class="qmark">1mk</span>
+iii) Indirect addressing mode	<span class="qmark">1mk</span>
+iv) Register addressing mode	<span class="qmark">1mk</span>
+v) Register Indirect (R1) addressing mode	<span class="qmark">1mk</span>
+vi) Relative addressing mode	<span class="qmark">1mk</span></div>
+<p class="flag"><b>Read it again.</b> Two things in that table repay a second look. The row
+<b>3200</b> holding <b>8100</b> is never reached by any of the six modes: it is there to
+be ignored, and following it wastes time you do not have. And part vi), Relative, gives
+EA = PC + 1200 = <b>8200</b>, an address the table <i>does not list</i>, so the paper asks
+for an operand it never supplies. Notice as well that part v) names its register,
+"Register Indirect <b>(R1)</b>", while part iv) does not, and that every value in the
+table is decimal even though addresses usually arrive in hex. The single sentence "Assume
+an instruction contains address field 1200" is the input to all six parts.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> PC = 7000, R1 = 1500, a seven-row memory
+table, and one address field, 1200, stated once and used by all six parts.</div>
+<div class="urow"><span class="ulab">Asked</span> for each mode, <i>both</i> the effective
+address and the operand. Six modes, so twelve answers, not six.</div>
+<div class="urow"><span class="ulab">Marks</span> six parts at 1mk each. One mark buys one
+line, so answer in the form "EA = ..., operand = ..." and move on.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 4.</div>
+<div class="urow"><span class="ulab">Trap</span> inventing an effective address for
+immediate and for register mode. Neither has one; write "none" and say why in four words.
+Second trap: part vi). When the table does not hold M[8200], say plainly that the operand
+is outside the data given. Reporting the gap scores; making a number up does not.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q1e</span></div>
-<div class="body"><p>Given PC = 7000, R1 = 1500, address field = 1200, and the memory
-below, find the effective address and operand for each mode.</p>
+<div class="body">
 <div class="params">
 <div class="prow"><span class="plab">Given</span> PC = 7000 &middot; R1 = 1500 &middot;
 address field = 1200 &middot; memory contents as tabulated below</div>
@@ -259,8 +338,36 @@ minus (N set), <b>BCC</b> if carry clear, and <b>BRA</b> branches always.</p>
 <b>BNE &#8722;40</b> with PC = 1000 gives EA = 1000 &#8722; 40 = <b>960</b>, jumping back
 40 locations.</p></div></div>
 
+<div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q2(c)</span></div>
+<div class="body">
+<p class="src">the examiner's words, unedited</p>
+<div class="asprinted" data-src="2024-2025:Q2c">c.	Provide an assembly language program to add two numbers and store the result.	<span class="qmark">4mks</span></div>
+<p class="flag"><b>Read it again.</b> Twelve words and 4mks, which is a lot of marks for a
+very short instruction, and the gap between the two is the question. The paper names no
+machine, no register set and no addressing mode, so it never tells you whether it wants an
+accumulator machine's three lines or a three-address machine's one. That silence is what
+you are being paid to notice: the marks are for stating the machine model you assume, for
+the listing itself, and for a comment on each line. "Provide" also asks for a program, not
+a description of one, so prose alone will not do.</p>
+</div></div>
+
+<div class="box unpack"><div class="bar"><span>Break it down</span><span class="tag">before you compute</span></div>
+<div class="body">
+<div class="urow"><span class="ulab">Given</span> nothing at all beyond the task itself:
+add two numbers, store the result.</div>
+<div class="urow"><span class="ulab">Asked</span> a program, in assembly language. A
+listing on the page, with instruction mnemonics.</div>
+<div class="urow"><span class="ulab">Marks</span> 4mks for what is three instructions.
+Read that as an invitation to write more than the three: the assumption, the listing, and
+a comment per line.</div>
+<div class="urow"><span class="ulab">Taught in</span> this unit, Module One Unit 4.</div>
+<div class="urow"><span class="ulab">Trap</span> writing high-level pseudocode, or writing
+a correct listing without ever saying which machine it is for. Name the model in one line
+first, then LOAD, ADD, STORE, then the comments.</div>
+</div></div>
+
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2c</span></div>
-<div class="body"><p>Write an assembly program to add two numbers and store the result.</p>
+<div class="body">
 <p>On a one-address (accumulator) machine, load the first, add the second, store the
 sum:</p>
 <pre class="code">LOAD  A       ; accumulator = A

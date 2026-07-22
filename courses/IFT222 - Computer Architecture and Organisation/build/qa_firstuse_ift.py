@@ -81,6 +81,11 @@ GLOSSARY = {
     'EX':   r'\bexecute[sd]?\b',
     'MEM':  r'\bmemory\b',
     'WB':   r'write[\s-]?back',
+    # A sixth stage name the reader meets only through the papers: two of them set
+    # a five-stage pipeline as IF, ID, OF, EX, WB rather than IF, ID, EX, MEM, WB.
+    # It entered the glossary when the verbatim rule brought the examiner's own
+    # "Operand Fetch (OF)" into the book, where the rot-guard found it undeclared.
+    'OF':   r'operand fetch',
 }
 
 # Tokens the rot-guard must not mistake for undefined course terms. A 200-level

@@ -1,0 +1,381 @@
+<section class="part">
+  <div class="kicker">Foundations</div>
+  <h1>The Language of<br>Discrete Maths</h1>
+  <div class="blurb">Every symbol this course uses, introduced once, plainly,
+  before anything is built on it. If you have ever stared at a line of
+  mathematics and not known how to say it out loud, start here.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 110" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="DejaVu Sans" font-size="19" fill="#8891c9">
+        <text x="0" y="30">&#8712;</text><text x="60" y="30">&#8713;</text>
+        <text x="120" y="30">&#8838;</text><text x="180" y="30">&#8834;</text>
+        <text x="240" y="30">&#8746;</text><text x="300" y="30">&#8745;</text>
+        <text x="360" y="30">&#8709;</text><text x="420" y="30">&#8721;</text>
+        <text x="480" y="30">&#8704;</text>
+      </g>
+      <line x1="0" y1="48" x2="500" y2="48" stroke="#c9cde8" stroke-width="1.3"/>
+      <g font-family="DejaVu Serif" font-size="11" fill="#6f78b0" font-style="italic">
+        <text x="0" y="70">is in</text><text x="60" y="70">is not in</text>
+        <text x="120" y="70">subset</text><text x="180" y="70">proper</text>
+        <text x="240" y="70">union</text><text x="300" y="70">meet</text>
+        <text x="360" y="70">empty</text><text x="420" y="70">sum</text>
+        <text x="480" y="70">all</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="19" fill="#8891c9">
+        <text x="0" y="100">&#8707;</text><text x="60" y="100">&#172;</text>
+        <text x="120" y="100">&#8743;</text><text x="180" y="100">&#8744;</text>
+        <text x="240" y="100">&#8594;</text><text x="300" y="100">&#8596;</text>
+        <text x="360" y="100">&#8801;</text><text x="420" y="100">&#215;</text>
+        <text x="480" y="100">&#8721;</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Foundations &middot; F.1</div>
+  <h2 class="title">Numbers, Symbols and Notation</h2>
+  <hr class="rule">
+  <p class="lead">Discrete mathematics has a small vocabulary. Learn it once here
+  and nothing later in this book will look like a foreign language.</p>
+  <p class="lo">By the end of this section you will know what "discrete" means,
+  be able to name and write the standard number sets, read and write the
+  membership and subset symbols out loud, and use factorial and summation
+  notation without hesitating.</p>
+
+  <h3 class="sub">What "discrete" means, and why the course exists</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The one word in the title</span></div>
+    <div class="body">
+      <p><b>Discrete</b> means separated, made of individual pieces you can count,
+      with nothing in between. Its opposite is <b>continuous</b>, which flows
+      without gaps.</p>
+      <p>The whole numbers 1, 2, 3 are discrete: between 2 and 3 there is no
+      other whole number. Temperature is continuous: between 20 degrees and 21
+      there are infinitely many values, and you can always find another.</p>
+      <p>A computer is a discrete machine. It stores whole bits, executes whole
+      instructions, and holds finitely many values. That is the whole reason this
+      course exists: <b>the mathematics of computing is the mathematics of things
+      you can count and separate</b>, not the mathematics of smooth curves.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where each part goes in computing</span></div>
+    <div class="body">
+      <p>Keep this map in your head. It also answers a question the examiner
+      likes to ask directly (2025/2026 Q2a asks for five justifications for
+      including discrete structures in a computer science curriculum).</p>
+      <table class="data">
+        <tr><th>Topic</th><th>What it is for in computing</th></tr>
+        <tr><td>Logic</td><td>Circuit design, conditions in programs, database queries, proving a program correct, artificial intelligence</td></tr>
+        <tr><td>Sets</td><td>Data types, database tables, collections, search spaces</td></tr>
+        <tr><td>Relations</td><td>Relational databases, dependency between tasks, equivalence of states</td></tr>
+        <tr><td>Functions</td><td>Every subprogram, hashing, encryption, compression</td></tr>
+        <tr><td>Counting</td><td>Algorithm complexity, password strength, probability of collisions</td></tr>
+        <tr><td>Graphs</td><td>Networks, routing, the web, social networks, scheduling, compilers</td></tr>
+        <tr><td>Trees</td><td>File systems, search structures, parsing, decision procedures</td></tr>
+        <tr><td>Proof and induction</td><td>Showing an algorithm always works, not just on the cases you tried</td></tr>
+        <tr><td>Recurrence</td><td>The running time of a recursive algorithm</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q2a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q2(a)</span></div>
+    <div class="body">
+      <p class="q">(a) Provide five Justification the inclusion of Discrete structure to Computer Science
+      students curriculum. <span class="mk">(5 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  A word is missing and one is capitalised mid-sentence. The sentence should read
+  "Provide five justifications <b>for</b> the inclusion of discrete structures
+  <b>in</b> the computer science students' curriculum". The meaning is not in
+  doubt: give five reasons the subject belongs on the degree. Answer it as the
+  five-reason question it is.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Nothing. This is an opinion question with a right
+      answer.</dd>
+      <dt>Asked</dt><dd><b>Provide five</b> justifications. The number is
+      explicit, so give exactly five, numbered. Four costs a mark; six wastes
+      time.</dd>
+      <dt>Marks say</dt><dd>5 marks, one per justification. Each wants a claim
+      <i>and</i> a concrete example of where it bites. A bare list of topic names
+      is not a justification.</dd>
+      <dt>Teaches</dt><dd>This section, F.1, using the table above.</dd>
+      <dt>Trap</dt><dd>Listing five <b>topics</b> ("logic, sets, graphs, trees,
+      counting") instead of five <b>reasons</b>. The question asks why the
+      subject is included, not what is in it.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2(a)</span></div>
+    <div class="body">
+      <p>Five justifications, each a claim with a concrete example attached.</p>
+      <ol class="qlist">
+        <li><b>Computers are discrete machines, so discrete mathematics is their
+        native mathematics.</b> A machine stores whole bits and executes whole
+        instructions; it has no smooth quantities. Continuous mathematics
+        describes a falling stone, but nothing inside a processor.
+        <i>Example:</i> an integer overflow is a fact about a finite set of
+        representable values, and only discrete reasoning predicts it.</li>
+        <li><b>It supplies the language in which algorithms are specified and
+        their cost measured.</b> Counting techniques give the running time of a
+        procedure before it is ever run. <i>Example:</i> knowing that comparing
+        every pair of n records takes n(n &#8722; 1)/2 comparisons tells you the
+        method will not scale, without writing a line of code.</li>
+        <li><b>It is the basis of correctness, not merely of testing.</b> Logic
+        and proof by induction establish that a program works for <i>every</i>
+        input, where testing only covers the cases you thought of.
+        <i>Example:</i> proving a loop invariant holds shows a sorting routine is
+        right for all inputs, including the ones nobody tried.</li>
+        <li><b>Its structures are the data structures of the subject.</b> Sets,
+        relations, functions, graphs and trees are not analogies for computing
+        objects; they are those objects. <i>Example:</i> a relational database is
+        built directly on relations, and a file system is a tree.</li>
+        <li><b>It underpins the applied areas the degree leads to.</b> Networking,
+        cryptography, compilers and artificial intelligence all rest on it.
+        <i>Example:</i> routing traffic is a shortest-path problem on a graph, and
+        public-key cryptography rests on number theory over the integers.</li>
+      </ol>
+      <p><b>How to write it under time pressure:</b> number them 1 to 5, give
+      each a bold opening claim and one sentence of example. Five short numbered
+      paragraphs read as five justifications; one long paragraph reads as one.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The number sets</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Names for collections of numbers</span></div>
+    <div class="body">
+      <p>A <b>set</b> is any collection of distinct objects, gathered together
+      and treated as one thing. Part Two studies sets properly; for now you only
+      need the five standard ones, because every question in this course lives in
+      one of them.</p>
+      <p>They are written with a special doubled letter so nobody confuses the
+      set of all integers with a variable called Z.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The five number sets</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Symbol</th><th>Name</th><th>What is in it</th></tr>
+        <tr><td>&#8469;</td><td>the natural numbers</td><td>0, 1, 2, 3, ... the counting numbers</td></tr>
+        <tr><td>&#8484;</td><td>the integers</td><td>... &#8722;2, &#8722;1, 0, 1, 2, ... whole numbers, positive and negative</td></tr>
+        <tr><td>&#8474;</td><td>the rational numbers</td><td>anything writable as a fraction of two integers, such as 3/4 or &#8722;7</td></tr>
+        <tr><td>&#8477;</td><td>the real numbers</td><td>every point on the number line, including &#960; and the square root of 2</td></tr>
+        <tr><td>&#8450;</td><td>the complex numbers</td><td>reals extended with the square root of &#8722;1 (not examined here)</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>N</b>atural, <b>Z</b>ahlen (German
+      for numbers, which is where &#8484; comes from), <b>Q</b>uotient,
+      <b>R</b>eal, <b>C</b>omplex. Each doubled stroke says "this is a whole
+      universe of numbers, not a variable".</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Does &#8469; contain 0?</span></div>
+    <div class="body">
+      <p>Textbooks disagree. Some start the natural numbers at 0, some at 1. In
+      computing, 0 is almost always included, and this manual includes it.</p>
+      <p>What matters in an exam: <b>say which convention you are using</b>. One
+      short sentence ("taking &#8469; to include 0") protects you completely,
+      and a marker cannot penalise a stated convention. What loses marks is
+      leaving it ambiguous and then relying on it.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Membership: the two symbols you will use most</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">&#8712; and &#8713;</span></div>
+    <div class="body">
+      <p>To say that an object is in a set we write <b>&#8712;</b>. The statement
+      <b>3 &#8712; &#8484;</b> is read "3 <b>is an element of</b> the integers",
+      or more casually "3 is in Z". The symbol is a stylised Greek epsilon, for
+      the Greek word meaning "is".</p>
+      <p>To say an object is not in a set, strike it through: <b>&#8713;</b>. So
+      <b>&#189; &#8713; &#8484;</b> reads "one half <b>is not an element of</b>
+      the integers", which is true, because one half is not a whole number.</p>
+      <p>The left side is always an <b>object</b> and the right side is always a
+      <b>set</b>. That direction never changes, and it is the single most common
+      slip in first attempts.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Read these out loud</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Written</th><th>Said</th><th>True?</th></tr>
+        <tr><td>5 &#8712; &#8469;</td><td>5 is an element of the natural numbers</td><td>yes</td></tr>
+        <tr><td>&#8722;5 &#8712; &#8469;</td><td>minus 5 is an element of the natural numbers</td><td>no, &#8469; has no negatives</td></tr>
+        <tr><td>&#8722;5 &#8712; &#8484;</td><td>minus 5 is an element of the integers</td><td>yes</td></tr>
+        <tr><td>&#960; &#8713; &#8474;</td><td>pi is not an element of the rationals</td><td>yes, pi is not a fraction</td></tr>
+        <tr><td>&#960; &#8712; &#8477;</td><td>pi is an element of the reals</td><td>yes</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> &#8712; opens towards the set, like a
+      mouth swallowing the element.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Two ways to describe a set</h3>
+
+  <p>The 2025/2026 paper asks for exactly this, in two marks, so learn both names.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Roster and set-builder</span></div>
+    <div class="body">
+      <p><b>1. The roster method</b>, also called listing or the tabular method.
+      Write the members out between braces, separated by commas.</p>
+      <p style="margin-left:12pt">A = {2, 4, 6, 8}</p>
+      <p><b>2. Set-builder notation</b>, also called the rule method. State the
+      property that decides membership.</p>
+      <p style="margin-left:12pt">A = {x | x is an even number and 0 &lt; x &lt; 10}</p>
+      <p>The vertical bar is read "<b>such that</b>". Some books use a colon
+      instead, which means the same thing. The whole line is read: "A is the set
+      of all x such that x is even and x is between 0 and 10".</p>
+      <p class="hook"><b>Memory hook:</b> the roster method names the members,
+      the way a class register does. Set-builder gives the entry rule, the way a
+      door policy does.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method</span></div>
+    <div class="body">
+      <p>Write each set both ways.</p>
+      <p><b>(a) The odd numbers under 10.</b><br>
+      Roster: {1, 3, 5, 7, 9}.<br>
+      Set-builder: {x | x &#8712; &#8469;, x is odd, x &lt; 10}.</p>
+      <p><b>(b) The days of the week starting with T.</b><br>
+      Roster: {Tuesday, Thursday}.<br>
+      Set-builder: {d | d is a day of the week and d begins with T}.</p>
+      <p><b>(c) The integers whose square is 4.</b><br>
+      Set-builder: {x | x &#8712; &#8484; and x&#178; = 4}.<br>
+      Roster: {&#8722;2, 2}. Notice the roster form does the work of solving the
+      equation for you, which is exactly why an examiner asks for it.</p>
+      <p class="redo"><b>Now redo it:</b> write "the prime numbers below 12" both
+      ways, then check: {2, 3, 5, 7, 11}.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Sets do not repeat and do not care about order</span></div>
+    <div class="body">
+      <p>{1, 2, 2, 3} is the same set as {1, 2, 3}. Writing an element twice
+      adds nothing, because a set records only <i>whether</i> a thing is in.</p>
+      <p>{3, 1, 2} is also the same set as {1, 2, 3}. Order carries no
+      information either.</p>
+      <p>This matters later. When order <i>does</i> matter you are no longer
+      dealing with a set but with an <b>ordered pair</b> or a sequence, and the
+      brackets change from braces to parentheses: (1, 2) is not (2, 1). Part
+      Three is built entirely on that distinction.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Factorial</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">n factorial</span></div>
+    <div class="body">
+      <p>For a whole number n, <b>n!</b> (said "n factorial") means multiply
+      every whole number from n down to 1.</p>
+      <p style="margin-left:12pt">n! = n &#215; (n &#8722; 1) &#215; (n &#8722; 2) &#215; ... &#215; 2 &#215; 1</p>
+      <div class="wheredef"><span class="sym">n</span> a whole number, 0 or more.
+      <span class="sym">n!</span> the product of every whole number from n down
+      to 1. By definition <span class="sym">0! = 1</span>.</div>
+      <p>The first few, which you should know on sight:</p>
+      <table class="data">
+        <tr><th>n</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><th>n!</th><td>1</td><td>1</td><td>2</td><td>6</td><td>24</td><td>120</td><td>720</td><td>5040</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> 0! = 1 looks wrong but is forced: there
+      is exactly <b>one</b> way to arrange nothing, namely do nothing. Every
+      counting formula in Part Five breaks if you set it to 0.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why factorials grow so fast</span></div>
+    <div class="body">
+      <p>10! is already 3 628 800, and 20! is bigger than a billion billion. This
+      is not a curiosity: it is the reason some problems are hopeless to solve by
+      trying every possibility. The travelling-salesman question in Part Six
+      turns on exactly this.</p>
+      <p>Useful cancelling trick, used constantly in Part Five:</p>
+      <p style="margin-left:12pt">10! / 8! = (10 &#215; 9 &#215; 8!) / 8! = 10 &#215; 9 = 90</p>
+      <p>Never expand both factorials and divide. Cancel first. It turns an
+      impossible arithmetic problem into a two-second one.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Summation</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Sigma notation</span></div>
+    <div class="body">
+      <p>The Greek capital sigma, <b>&#8721;</b>, is shorthand for "add up". It is
+      read "the sum of".</p>
+      <p style="margin-left:12pt">&#8721;<sub>i=1</sub><sup>n</sup> a<sub>i</sub>
+      = a<sub>1</sub> + a<sub>2</sub> + ... + a<sub>n</sub></p>
+      <div class="wheredef"><span class="sym">i</span> the index, a counter.
+      <span class="sym">i=1</span> below the sigma, where the counter starts.
+      <span class="sym">n</span> above the sigma, where it stops.
+      <span class="sym">a<sub>i</sub></span> the thing being added, written in
+      terms of i.</div>
+      <p>So &#8721;<sub>i=1</sub><sup>4</sup> i&#178; means 1&#178; + 2&#178; +
+      3&#178; + 4&#178; = 1 + 4 + 9 + 16 = 30.</p>
+      <p class="hook"><b>Memory hook:</b> sigma is the Greek S, for Sum. Read it
+      left to right as a sentence: "sum, from i equals 1, up to n, of a-sub-i".</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Say out loud what 7 &#8713; &#8474; would mean, and say whether it is true.</p>
+      <p class="q">2. What is 6! / 4!?</p>
+      <p class="q">3. Write {x | x &#8712; &#8484; and &#8722;2 &#8804; x &#8804; 2} by the roster method.</p>
+      <p class="q">4. Evaluate &#8721;<sub>i=1</sub><sup>3</sup> (2i + 1).</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. "7 is not an element of the rationals". It is false: 7 = 7/1, so 7 is
+      rational.<br>
+      2. 6!/4! = 6 &#215; 5 = 30. Cancel, do not expand.<br>
+      3. {&#8722;2, &#8722;1, 0, 1, 2}.<br>
+      4. (2+1) + (4+1) + (6+1) = 3 + 5 + 7 = 15.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The symbol &#8712; is read <span class="blank"></span>.</li>
+        <li>&#8484; is the set of <span class="blank"></span>.</li>
+        <li>The two mathematical ways to describe a set are the
+        <span class="blank"></span> method and <span class="blank"></span>
+        notation.</li>
+        <li>0! equals <span class="blank"></span>.</li>
+        <li>In set-builder notation the vertical bar is read
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. is an element of. 2. the integers. 3. roster (listing), set-builder
+      (rule). 4. 1. 5. such that.</p>
+    </div>
+  </div>
+
+</section>

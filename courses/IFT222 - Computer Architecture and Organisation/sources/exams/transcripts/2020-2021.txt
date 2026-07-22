@@ -1,0 +1,170 @@
+CSC227 - 2020/2021 Omega semester - VERBATIM TRANSCRIPT
+Source: sources/exams/2020-2021.pdf (a photographed scan with no text layer at
+all; pages rendered to image and read by eye).
+Transcribed by eye 2026-07-22. Re-read against the images once after typing.
+
+TRANSCRIPTION RULES: as in 2024-2025.txt.
+
+TWO JUDGEMENT CALLS ON THIS PAPER, recorded so they can be challenged:
+  * The scan renders "=" faintly, so in several places an equals sign shows as a
+    single horizontal stroke: "R5 = 0xA75F", "a word = 2 bytes", "for (i = 1 to
+    2)" and Q1f(ii)'s "Z = V * (...)". Each is read as an equals sign, on the
+    grounds that the same faint stroke appears where an equals is unambiguous
+    ("a word = 2 bytes"). None is read as a minus.
+  * The pages carry a student's pencil working (hazard labels, Boolean scratch
+    notes, K-map loops). None of it is part of the paper and none is
+    transcribed.
+
+--- PAGE 1 identity block (provenance only, not quoted in the manual) ---
+COVENANT UNIVERSITY
+CANAANLAND, KM 10, IDIROKO ROAD
+P.M.B 1023, OTA, OGUN STATE, NIGERIA
+B.Sc DEGREE  EXAMINATION
+COLLEGE: SCIENCE AND TECHNOLOGY           DEPARTMENT: CIS
+SESSION: 2020/2021                        SEMESTER: OMEGA
+COURSE CODE: CSC227                       CREDIT UNIT: 2
+COURSE TITLE:  COMPUTER ARCH. AND ORGAN. I    TIME:  2 HOURS
+
+--- rubric ---
+INSTRUCTION: ANSWER QUESTION 1 AND ANY OTHER 2 QUESTIONS
+  (this paper's rubric uses digits, "QUESTION 1 ... OTHER 2"; the later papers
+   spell them "QUESTION ONE ... OTHER TWO")
+
+============================== QUESTION ONE ==============================
+Question One (30 marks)
+
+[[Q1a]]
+a.	Minicomputers in the eighties had 18 address signals and 18-bit address bus. Answer the following questions:	3mks
+i.	What was the address space of these computers?
+ii.	What may have been the largest possible memory of these computers in bytes if the memory location is 1 Byte?
+iii)	How long should the program counter (PC) of these computers be?
+
+[[Q1b]]
+b.	i)  What is pipelining?	2mks
+ii)  Calculate how long it will take to execute on a regular non-pipelined and pipelined architecture. There are 4 operations with 5 stages each: IF, ID, EX, M and WB; stage1= 8ns, stage2 = 9ns, stage3 = 11ns, stage4 = 13ns, stage5 =16ns. Provide the Gantt Charts for both pipeline and non-pipeline operations. Also calculate the Speedup of the Pipeline system	6mks
+
+[[Q1c]]
+c.	i)  Describe the three types of data hazards.	1½mks
+ii)  What type of data hazards do the following instructions belong? 1½ mks
+1.	MULTD F0, F2, F4
+DIVD F10, F0, F6
+2.	DIVD F10, F0, F6
+ADDD F6, F8, F2
+3.	MULTD F0, F2, F4
+SD F8, 50 (R5)
+
+[[Q1d]]
+d.	Find the minimum sum-of-products expression represented by the K-map in Figure 1.  'd' means use either 1 or 0 as convenient:	2mks
+[Figure 1: a 2x4 K-map. Columns are X1X2 = 00, 01, 11, 10; rows are X3 = 0, 1.
+Row X3=0: 1, 0, 1, 1
+Row X3=1: d, 0, 1, d]
+
+[[Q1e]]
+e.	Using Boolean algebra, produce a simpler circuit from the circuit given in Figure 2.	4mks
+[Figure 2: a drawn circuit. A and B enter an OR gate; its output passes through
+an inverter; that feeds an AND gate together with B; that gate's output feeds a
+final AND gate with C, giving Z. The figure is a drawing, not text.]
+
+[[Q1f]]
+f.	i)  What is Instruction Set Architecture?	1mk
+ii)  Use a zero address, one address and two address instruction format to write a Pentium 4 assembly language program segment for the expression below. For each format calculate the number of bytes required given that opcode is 2 bytes and memory access is one byte.
+Z = V * ((U + W)/(X *Y));	9mks
+
+============================== QUESTION TWO ==============================
+Question Two (20marks)
+
+[[Q2a]]
+a.	Write down a signed decimal number with a value of -25 in 8-bit fixed point presentation in each of the three 8-bit modes for the representation of signed numbers.	3mks
+
+[[Q2b]]
+b.	i)  Write the value of 4.75 in 32-bit floating point format IEEE 754.	4mks
+ii)  The floating point value is written in the memory as 44FAC000h. Which value does it represent if it is written in the format IEEE 754?	4mks
+iii)  What do you understand by Instruction Format and Instruction Set?	2mks
+
+[[Q2c]]
+c.	i)  State the difference between Von Neumann Architecture and Harvard Architecture (include diagrams)	3mks
+ii)  What do you understand by Von Neumann Bottleneck?  Suggest three ways to mitigate this bottleneck.	4mks
+
+============================== QUESTION THREE ==============================
+Question Three
+
+[[Q3a]]
+a.	Consider Table 1
+i)  Describe each Addressing Mode	1½mks
+ii)  Represent the instruction given in a memory segment for each mode using the values provided.	4½mks
+iii) For each Addressing Mode also determine the ADDRESS and VALUE of the operand that is added to register R1.	3mks
+Table 1
+s/n | Memory Address (initial) | Instruction | Addressing Mode | Remark
+i | 0x017A | Add   R1, #0xC21A | Immediate | -
+ii | 0x017A | Add   R1, [R5] | Register Indirect | R5 = 0xA75F,  operand is 0x1BEC
+iii | 0x017A | Add   R1, [PC + 0xC21A] | PC Relative | R5 = 0x01700 , operand is 0x1BCD
+
+[[Q3b]]
+b.	Complete the Table 2. Show all necessary work done to arrive at each answer. Use 10bits.	6mks
+Table 2
+Value | Unsigned | S-M | 1's Complement | 2's Complement
+234
+-106
+1111 0110 11
+
+[[Q3c]]
+c.	Use the reverse of the IEEE Single Precision to determine the value (Base 10) of the following hexadecimal (base 16) value:	BE7C2002H	5mks
+
+============================== QUESTION FOUR ==============================
+Question Four (20 marks)
+
+[[Q4a]]
+a.	Describe three categories of Instructions that we have. Give two examples of each.	6mks
+
+[[Q4b]]
+b.	i) State Four (4) clear differences between RISC and CISC. Give two examples of processors in each category.	4mks
+ii) Discuss the characteristics of computer memory in terms of the following:
+1) Access Methods
+2) Memory Hierarchy (Include diagram where necessary)	4mks
+
+[[Q4c]]
+c.	ii) Determine the range of POSITIVE and NEGATIVE numbers that can be represented in a 16-bit register using Sign-Magnitude, 1's complement and 2's complement.	6mks
+
+============================== QUESTION FIVE ==============================
+Question Five (20marks)
+
+[[Q5a]]
+a.	i)  A processor can support a maximum memory of 4GB where the memory is word addressable (a word = 2 bytes). Determine the number of bits required to uniquely address the entire memory.	2mks
+ii)  Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in an 10-bit register.	4mks
+
+[[Q5b]]
+b.	i)  List four (4) differences between DRAM and SRAM?	4mks
+ii)  What will be displayed (in binary and decimal) as the sum of 214 and 65 using an 8-bit register? Show details of work?	3mks
+
+[[Q5c]]
+c.	Consider a 4 stage pipeline processor. The number of cycles needed by the four instructions T1, T2, T3, T4 in stages S1, S2, S3, S4 is shown below:
+ | S1 | S2 | S3 | S4
+T1 | 2 | 1 | 1 | 1
+T2 | 2 | 3 | 2 | 2
+T3 | 2 | 1 | 1 | 3
+T4 | 1 | 2 | 2 | 2
+i)  Draw the chart one iteration of the loop given below	6mks
+ii)  Determine the number of cycles needed to execute the following loop	1mk
+for (i = 1 to 2){T1; T2; T3; T4;}
+
+--- NOTES ON THE PAPER'S OWN DEFECTS (observations, not corrections) ---
+1. Question Three carries NO mark total in its heading. Every other question on
+   the paper states one. Its parts do sum to 20.
+2. Question Two and Question Five are headed "(20marks)" with no space;
+   Question Four is headed "(20 marks)" with one.
+3. Q1a numbers its sub-items "i.", "ii.", then "iii)" - the third switches from
+   a full stop to a closing bracket.
+4. Q1b(ii) spaces its equals signs inconsistently: "stage1= 8ns", "stage2 = 9ns",
+   "stage5 =16ns".
+5. Q3a's Table 1 gives the PC Relative row a remark beginning "R5 = 0x01700"
+   although that row's mode is PC relative, not register indirect; the register
+   named looks wrong for the mode.
+6. Q4c is labelled "c." and then opens with "ii)" although there is no "i)".
+7. Q5a(ii) reads "in an 10-bit register". The identical question on the 23/24
+   and 24/25 papers reads "in a 10-bit register".
+8. Q5b(i) and Q5b(ii) are commands punctuated as questions ("List four (4)
+   differences between DRAM and SRAM?", "Show details of work?").
+9. Q3b's third row, "1111 0110 11", is 10 bits and the instruction says "Use
+   10bits", so this paper's version of that table is self-consistent. The 23/24
+   and 24/25 papers reuse the same table shape with an 11-bit row under a
+   12-bit instruction.

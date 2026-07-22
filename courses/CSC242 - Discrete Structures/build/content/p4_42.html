@@ -1,0 +1,300 @@
+<section>
+  <div class="kick">Part Four &middot; 4.2</div>
+  <h2 class="title">The Five Correspondence Types</h2>
+  <hr class="rule">
+  <p class="lead">Ten marks on two separate papers, for one diagram you can learn
+  in ten minutes. This is the best value in the whole course.</p>
+  <p class="lo">By the end of this section you will be able to define one-to-one
+  and onto, draw all five correspondence types from memory, and say which is
+  which from a diagram.</p>
+
+  <h3 class="sub">The two properties</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">One-to-one and onto</span></div>
+    <div class="body">
+      <p>Let f : A &#8594; B.</p>
+      <p><b>One-to-one</b> (also <b>injective</b>): different inputs always give
+      different outputs. Formally, f(a<sub>1</sub>) = f(a<sub>2</sub>) forces
+      a<sub>1</sub> = a<sub>2</sub>. <i>No output is hit twice.</i></p>
+      <p><b>Onto</b> (also <b>surjective</b>): every element of B is hit by
+      something. Formally, for every b &#8712; B there is an a &#8712; A with
+      f(a) = b. <i>Equivalently, the range equals the codomain.</i></p>
+      <p><b>Bijective</b>: both one-to-one and onto. A perfect pairing, with
+      every element of A matched to exactly one of B and nothing left over on
+      either side.</p>
+      <p class="hook"><b>Memory hook:</b> one-to-one is about <b>collisions</b>
+      in B (there are none). Onto is about <b>coverage</b> of B (it is complete).
+      One looks for doubles, the other looks for gaps.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Counting tells you what is possible</span></div>
+    <div class="body">
+      <p>Compare the sizes of A and B and some cases become impossible, which is a
+      fast sanity check on any answer.</p>
+      <table class="data">
+        <tr><th>Sizes</th><th>One-to-one possible?</th><th>Onto possible?</th><th>Bijection possible?</th></tr>
+        <tr><td>n(A) &lt; n(B)</td><td>yes</td><td><b>no</b>, too few inputs to cover B</td><td>no</td></tr>
+        <tr><td>n(A) = n(B)</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>n(A) &gt; n(B)</td><td><b>no</b>, two inputs must collide</td><td>yes</td><td>no</td></tr>
+      </table>
+      <p>The "no" in the last row is the pigeonhole principle of section 5.3
+      arriving early: with more inputs than outputs, some output is used twice.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The five diagrams</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Learn to draw these five</span></div>
+    <div class="body">
+      <p>The exam asks for a diagram, so the diagram is the answer. Each one below
+      uses a small A and B so the property is visible at a glance.</p>
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <marker id="fm" markerWidth="7" markerHeight="7" refX="6" refY="2.4" orient="auto">
+            <path d="M0,0 L6,2.4 L0,4.8 z" fill="#5560a8"/>
+          </marker>
+        </defs>
+
+        <!-- (i) one-to-one not onto -->
+        <g>
+          <text x="0" y="12" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" fill="#283593">(i) One-to-one, not onto</text>
+          <ellipse cx="42" cy="72" rx="26" ry="44" fill="none" stroke="#283593" stroke-width="1.3"/>
+          <ellipse cx="132" cy="72" rx="26" ry="52" fill="none" stroke="#be123c" stroke-width="1.3"/>
+          <g fill="#283593"><circle cx="42" cy="52" r="3.6"/><circle cx="42" cy="92" r="3.6"/></g>
+          <g fill="#be123c"><circle cx="132" cy="40" r="3.6"/><circle cx="132" cy="72" r="3.6"/><circle cx="132" cy="104" r="3.6"/></g>
+          <g stroke="#5560a8" stroke-width="1.2" marker-end="url(#fm)">
+            <line x1="47" y1="52" x2="125" y2="40"/>
+            <line x1="47" y1="92" x2="125" y2="72"/>
+          </g>
+          <text x="24" y="132" font-family="DejaVu Sans" font-size="9" fill="#67707a">no collisions, but one</text>
+          <text x="24" y="144" font-family="DejaVu Sans" font-size="9" fill="#67707a">target is never reached</text>
+        </g>
+
+        <!-- (ii) onto not one-to-one -->
+        <g transform="translate(180,0)">
+          <text x="0" y="12" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" fill="#283593">(ii) Onto, not one-to-one</text>
+          <ellipse cx="42" cy="72" rx="26" ry="52" fill="none" stroke="#283593" stroke-width="1.3"/>
+          <ellipse cx="132" cy="72" rx="26" ry="44" fill="none" stroke="#be123c" stroke-width="1.3"/>
+          <g fill="#283593"><circle cx="42" cy="40" r="3.6"/><circle cx="42" cy="72" r="3.6"/><circle cx="42" cy="104" r="3.6"/></g>
+          <g fill="#be123c"><circle cx="132" cy="52" r="3.6"/><circle cx="132" cy="92" r="3.6"/></g>
+          <g stroke="#5560a8" stroke-width="1.2" marker-end="url(#fm)">
+            <line x1="47" y1="40" x2="125" y2="52"/>
+            <line x1="47" y1="72" x2="125" y2="52"/>
+            <line x1="47" y1="104" x2="125" y2="92"/>
+          </g>
+          <text x="18" y="132" font-family="DejaVu Sans" font-size="9" fill="#67707a">every target reached, but</text>
+          <text x="18" y="144" font-family="DejaVu Sans" font-size="9" fill="#67707a">the top one is hit twice</text>
+        </g>
+
+        <!-- (iii) bijection -->
+        <g transform="translate(360,0)">
+          <text x="0" y="12" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" fill="#283593">(iii) One-to-one and onto</text>
+          <ellipse cx="42" cy="72" rx="26" ry="44" fill="none" stroke="#283593" stroke-width="1.3"/>
+          <ellipse cx="122" cy="72" rx="26" ry="44" fill="none" stroke="#be123c" stroke-width="1.3"/>
+          <g fill="#283593"><circle cx="42" cy="46" r="3.6"/><circle cx="42" cy="72" r="3.6"/><circle cx="42" cy="98" r="3.6"/></g>
+          <g fill="#be123c"><circle cx="122" cy="46" r="3.6"/><circle cx="122" cy="72" r="3.6"/><circle cx="122" cy="98" r="3.6"/></g>
+          <g stroke="#5560a8" stroke-width="1.2" marker-end="url(#fm)">
+            <line x1="47" y1="46" x2="115" y2="46"/>
+            <line x1="47" y1="72" x2="115" y2="72"/>
+            <line x1="47" y1="98" x2="115" y2="98"/>
+          </g>
+          <text x="14" y="132" font-family="DejaVu Sans" font-size="9" fill="#67707a">a perfect pairing:</text>
+          <text x="14" y="144" font-family="DejaVu Sans" font-size="9" fill="#67707a">no collisions, no gaps</text>
+        </g>
+
+        <!-- (iv) neither -->
+        <g transform="translate(0,190)">
+          <text x="0" y="12" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" fill="#283593">(iv) Neither one-to-one nor onto</text>
+          <ellipse cx="42" cy="72" rx="26" ry="52" fill="none" stroke="#283593" stroke-width="1.3"/>
+          <ellipse cx="132" cy="72" rx="26" ry="52" fill="none" stroke="#be123c" stroke-width="1.3"/>
+          <g fill="#283593"><circle cx="42" cy="40" r="3.6"/><circle cx="42" cy="72" r="3.6"/><circle cx="42" cy="104" r="3.6"/></g>
+          <g fill="#be123c"><circle cx="132" cy="40" r="3.6"/><circle cx="132" cy="72" r="3.6"/><circle cx="132" cy="104" r="3.6"/></g>
+          <g stroke="#5560a8" stroke-width="1.2" marker-end="url(#fm)">
+            <line x1="47" y1="40" x2="125" y2="40"/>
+            <line x1="47" y1="72" x2="125" y2="40"/>
+            <line x1="47" y1="104" x2="125" y2="72"/>
+          </g>
+          <text x="6" y="140" font-family="DejaVu Sans" font-size="9" fill="#67707a">the top target is hit twice</text>
+          <text x="6" y="152" font-family="DejaVu Sans" font-size="9" fill="#67707a">AND the bottom one is missed</text>
+        </g>
+
+        <!-- (v) not a function -->
+        <g transform="translate(180,190)">
+          <text x="0" y="12" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" fill="#b91c1c">(v) Not a function</text>
+          <ellipse cx="42" cy="72" rx="26" ry="52" fill="none" stroke="#283593" stroke-width="1.3"/>
+          <ellipse cx="132" cy="72" rx="26" ry="52" fill="none" stroke="#be123c" stroke-width="1.3"/>
+          <g fill="#283593"><circle cx="42" cy="40" r="3.6"/><circle cx="42" cy="72" r="3.6"/><circle cx="42" cy="104" r="3.6"/></g>
+          <g fill="#be123c"><circle cx="132" cy="40" r="3.6"/><circle cx="132" cy="72" r="3.6"/><circle cx="132" cy="104" r="3.6"/></g>
+          <g stroke="#b91c1c" stroke-width="1.3" marker-end="url(#fm)">
+            <line x1="47" y1="40" x2="125" y2="40"/>
+            <line x1="47" y1="40" x2="125" y2="72"/>
+          </g>
+          <g stroke="#5560a8" stroke-width="1.2" marker-end="url(#fm)">
+            <line x1="47" y1="72" x2="125" y2="104"/>
+          </g>
+          <text x="6" y="140" font-family="DejaVu Sans" font-size="9" fill="#b91c1c">the top input has TWO arrows,</text>
+          <text x="6" y="152" font-family="DejaVu Sans" font-size="9" fill="#b91c1c">and the bottom input has none</text>
+        </g>
+
+        <g transform="translate(360,190)" font-family="DejaVu Sans" font-size="9.5" fill="#232a31">
+          <text x="0" y="30" font-weight="bold" fill="#283593">Reading a diagram</text>
+          <text x="0" y="50">Look at the RIGHT circle for both tests.</text>
+          <text x="0" y="66">Two arrows landing on one dot</text>
+          <text x="0" y="78">means not one-to-one.</text>
+          <text x="0" y="96">A dot with no arrow landing on it</text>
+          <text x="0" y="108">means not onto.</text>
+          <text x="0" y="128" fill="#b91c1c">Then check the LEFT circle:</text>
+          <text x="0" y="140" fill="#b91c1c">two arrows leaving one dot, or a</text>
+          <text x="0" y="152" fill="#b91c1c">dot with none, and it is not a</text>
+          <text x="0" y="164" fill="#b91c1c">function at all.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <h3 class="sub">The real question</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q2c">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q2(c)</span></div>
+    <div class="body">
+      <p class="q">(c) With the aid of a diagram, explain the following types of function correspondences types:</p>
+      <p class="qi">(i) One-to-One, not Onto &nbsp; &nbsp; &nbsp; (ii) Onto, not One-to-One &nbsp; &nbsp; &nbsp; (iii) One-to-One and Onto</p>
+      <p class="qi">(iv) Neither One-to-One nor Onto &nbsp; &nbsp; &nbsp; (v) Not a Function <span class="mk">(10 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q4b">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q4(b)</span></div>
+    <div class="body">
+      <p class="q">(b) With the aid of a diagram, explain the following types of function correspondences types:</p>
+      <p class="qi">(i) One-to-one, not onto &nbsp; &nbsp; &nbsp; (ii) Onto, not one-to-one &nbsp; &nbsp; &nbsp; (iii) One-to-one and onto</p>
+      <p class="qi">(iv) Neither one-to-one nor onto &nbsp; &nbsp; &nbsp; (v) Not a function <span class="mk">(10 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "the following types of function correspondences types" says "types" twice, on
+  both papers. Harmless. The two versions are the same question down to the five
+  items and the 10 marks, and differ only in capitalisation: 2021/2022 writes
+  "One-to-One, not Onto", 2020/2021 writes "One-to-one, not onto". One prepared
+  answer serves both.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Five named correspondence types.</dd>
+      <dt>Asked</dt><dd><b>With the aid of a diagram, explain</b> each. Two things
+      are demanded per item: a drawing <b>and</b> a sentence. A page of diagrams
+      with no words scores about half, and so does a page of words with no
+      diagrams.</dd>
+      <dt>Marks say</dt><dd>10 marks over five items is 2 each, so one diagram
+      plus one or two sentences per item. This is the highest marks-per-minute
+      question in the whole set: it is pure recall and needs no calculation.</dd>
+      <dt>Teaches</dt><dd>This section, 4.2, and 4.1 for what a function is.</dd>
+      <dt>Trap</dt><dd>Item (v) is not a correspondence type at all, it is the
+      failure case. Its diagram must break the <b>function</b> rule, on the left
+      circle, and not merely be an odd pattern of arrows on the right.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 21/22 Q2(c) &middot; PQ 20/21 Q4(b)</span></div>
+    <div class="body">
+      <p>Open with the two definitions, because every item below refers to them
+      and stating them once earns the understanding marks.</p>
+      <p><b>One-to-one (injective):</b> different inputs give different outputs,
+      so no element of B receives two arrows.<br>
+      <b>Onto (surjective):</b> every element of B receives at least one arrow, so
+      the range equals the codomain.</p>
+
+      <p><b>(i) One-to-one, not onto.</b> Every element of B receives at most one
+      arrow, but at least one receives none. Take A = {1, 2}, B = {a, b, c} with
+      f(1) = a, f(2) = b. Nothing maps to c. This needs n(A) &lt; n(B).</p>
+
+      <p><b>(ii) Onto, not one-to-one.</b> Every element of B is reached, but at
+      least one is reached twice. Take A = {1, 2, 3}, B = {a, b} with f(1) = a,
+      f(2) = a, f(3) = b. Both targets are covered, and a is hit twice. This needs
+      n(A) &gt; n(B).</p>
+
+      <p><b>(iii) One-to-one and onto (bijective).</b> Every element of B receives
+      exactly one arrow. Take A = {1, 2, 3}, B = {a, b, c} with f(1) = a,
+      f(2) = b, f(3) = c. This is a perfect pairing and requires
+      n(A) = n(B). Only a bijection has an inverse, which is section 4.3.</p>
+
+      <p><b>(iv) Neither one-to-one nor onto.</b> Some element of B is hit twice
+      and some other is missed. Take A = {1, 2, 3}, B = {a, b, c} with f(1) = a,
+      f(2) = a, f(3) = b. Here a is hit twice and c is never reached.</p>
+
+      <p><b>(v) Not a function.</b> The mapping breaks the definition in 4.1, so
+      the fault is on the <i>input</i> side. Either some element of A has two
+      arrows leaving it, or some element of A has none. Take A = {1, 2, 3},
+      B = {a, b, c} with 1 sent to both a and b, and 3 sent nowhere. Both faults
+      are present, and either alone is enough.</p>
+
+      <p>Draw the five pictures exactly as above, label the circles A and B, and
+      write the one-line reason under each. Keep the reason on the right circle
+      for (i) to (iv) and on the left circle for (v).</p>
+      <p class="redo"><b>Now redo it:</b> draw all five from memory on blank
+      paper in four minutes, then check the arrow counts against the diagrams
+      above.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; deciding from a formula</span></div>
+    <div class="body">
+      <p>The exam sometimes gives a formula instead of a picture. The test is the
+      same, done algebraically.</p>
+      <p><b>f : &#8477; &#8594; &#8477;, f(x) = 2x + 1.</b><br>
+      One-to-one? Suppose f(a) = f(b). Then 2a + 1 = 2b + 1, so 2a = 2b and
+      a = b. <b>Yes.</b><br>
+      Onto? Given any y, solve y = 2x + 1 for x = (y &#8722; 1)/2, which is a
+      real number. <b>Yes.</b> So f is a bijection.</p>
+      <p><b>f : &#8477; &#8594; &#8477;, f(x) = x&#178;.</b><br>
+      One-to-one? f(2) = 4 = f(&#8722;2) with 2 &#8800; &#8722;2. <b>No.</b><br>
+      Onto? There is no real x with x&#178; = &#8722;1. <b>No.</b> So it is
+      type (iv), neither.</p>
+      <p>Notice how each "no" is settled by a single explicit counterexample, and
+      each "yes" by a general argument. That asymmetry is section 1.4's rule about
+      quantifiers, showing up again.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define one-to-one and onto in one sentence each.</p>
+      <p class="q">2. If n(A) = 5 and n(B) = 3, can f : A &#8594; B be one-to-one?</p>
+      <p class="q">3. What must be true of the range for f to be onto?</p>
+      <p class="q">4. In a diagram, what tells you it is not a function?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. One-to-one: different inputs always give different outputs. Onto:
+      every element of the codomain is an output of something.<br>
+      2. No. With more inputs than outputs two inputs must share a target.<br>
+      3. The range equals the codomain.<br>
+      4. An element of A with two arrows leaving it, or with none.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Another word for one-to-one is <span class="blank"></span>.</li>
+        <li>Another word for onto is <span class="blank"></span>.</li>
+        <li>A function that is both is called <span class="blank"></span>.</li>
+        <li>A function is onto exactly when its <span class="blank"></span>
+        equals its codomain.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. injective. 2. surjective. 3. bijective (a bijection). 4. range.</p>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,392 @@
+<section>
+  <div class="kick">Part One &middot; 1.4</div>
+  <h2 class="title">Predicate Logic and Quantifiers</h2>
+  <hr class="rule">
+  <p class="lead">Propositional logic cannot say "every student has a laptop"
+  without inventing a letter for each student. Predicate logic can, and that is
+  the whole reason it exists.</p>
+  <p class="lo">By the end of this section you will be able to say exactly how
+  predicate logic differs from propositional logic, use both quantifiers
+  correctly, translate an English sentence with "some", "all", "no" or "every"
+  into symbols, negate a quantified statement, and decide the truth of a
+  quantified statement over the real numbers.</p>
+
+  <h3 class="sub">The limit of propositional logic</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why we need something more</span></div>
+    <div class="body">
+      <p>In Part One so far, p was an entire sentence with a fixed truth value.
+      That is fine for "it is raining", but it cannot see inside a sentence.</p>
+      <p>Consider "every student in this class has a laptop". With propositional
+      letters you would need one letter per student, and you would still have no
+      way to say "every". Worse, "x + 1 = 3" cannot be a proposition at all,
+      because its truth depends on x.</p>
+      <p><b>Predicate logic</b> fixes both problems by splitting a sentence into
+      a <b>subject</b> and a <b>property</b>, and then adding words for "all" and
+      "some".</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Predicate versus propositional logic</span></div>
+    <div class="body">
+      <p>A <b>predicate</b> is a statement containing one or more variables,
+      which becomes a proposition once the variables are given values. We write
+      P(x), read "P of x".</p>
+      <p>If P(x) is "x &gt; 3", then P(5) is "5 &gt; 3", which is true, and P(1)
+      is "1 &gt; 3", which is false. P(x) on its own is neither.</p>
+      <table class="data">
+        <tr><th>Axis</th><th>Propositional logic</th><th>Predicate logic</th></tr>
+        <tr><td>Smallest unit</td><td>a whole sentence, p</td><td>a predicate with variables, P(x)</td></tr>
+        <tr><td>Can see inside a sentence</td><td>no</td><td>yes, subject and property are separate</td></tr>
+        <tr><td>Quantifiers</td><td>none</td><td>&#8704; and &#8707;</td></tr>
+        <tr><td>Can express "all" and "some"</td><td>no</td><td>yes</td></tr>
+        <tr><td>Example</td><td>p = "Ada has a laptop"</td><td>L(x) = "x has a laptop", so &#8704;x L(x)</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> propositional logic treats a sentence
+      as a sealed box. Predicate logic opens the box and finds a subject and a
+      property inside.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The two quantifiers</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Universal and existential</span></div>
+    <div class="body">
+      <p>The <b>universal quantifier &#8704;</b>, read "for all" or "for every".
+      <b>&#8704;x P(x)</b> is true exactly when P(x) is true for <i>every</i> x in
+      the domain.</p>
+      <p>The <b>existential quantifier &#8707;</b>, read "there exists" or "for
+      some". <b>&#8707;x P(x)</b> is true exactly when P(x) is true for
+      <i>at least one</i> x in the domain.</p>
+      <p>The <b>domain</b> (or universe of discourse) is the collection the
+      variable ranges over. It must always be stated, because the same statement
+      can flip truth value when the domain changes.</p>
+      <table class="data">
+        <tr><th></th><th>&#8704; universal</th><th>&#8707; existential</th></tr>
+        <tr><td>Read as</td><td>for all, for every, for each</td><td>there exists, for some, at least one</td></tr>
+        <tr><td>True when</td><td>every element satisfies P</td><td>at least one element satisfies P</td></tr>
+        <tr><td>False when</td><td>one counterexample exists</td><td>every element fails P</td></tr>
+        <tr><td>To prove it</td><td>a general argument covering all cases</td><td>produce one witness</td></tr>
+        <tr><td>To disprove it</td><td>produce one counterexample</td><td>a general argument that none works</td></tr>
+        <tr><td>Pairs with</td><td>&#8594; usually</td><td>&#8743; usually</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> &#8704; is an upside-down <b>A</b> for
+      <b>A</b>ll. &#8707; is a back-to-front <b>E</b> for <b>E</b>xists. The
+      asymmetry in the last two rows is worth learning on its own: <i>one example
+      kills a "for all" and one example makes a "there exists"</i>.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">&#8704; takes an arrow, &#8707; takes an and</span></div>
+    <div class="body">
+      <p>This is the single most common error in translation, and it appears on
+      every paper that asks for one.</p>
+      <p>"Every student in the class has a laptop" is
+      <b>&#8704;x (S(x) &#8594; L(x))</b>, with an arrow. Writing
+      &#8704;x (S(x) &#8743; L(x)) instead would claim that <i>everything in the
+      universe</i> is a student and has a laptop, which is far stronger and
+      almost certainly false.</p>
+      <p>"Some student has a laptop" is <b>&#8707;x (S(x) &#8743; L(x))</b>, with
+      an and. Writing &#8707;x (S(x) &#8594; L(x)) instead is nearly useless: it
+      is satisfied by any non-student at all, since a false hypothesis makes the
+      implication true.</p>
+      <p>If the domain is already restricted to students, the qualifier
+      disappears and you write &#8704;x L(x) or &#8707;x L(x). Say which domain
+      you are using.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Negating a quantified statement</h3>
+
+  <div class="lawstate">
+    <div class="lawname">De Morgan's laws for quantifiers</div>
+    <p><b>The claim.</b> A negation moved across a quantifier flips it. Saying
+    "not everything has the property" is the same as saying "something lacks it",
+    and saying "nothing has the property" is the same as saying "everything lacks
+    it".</p>
+    <p><b>In symbols.</b><br>
+    &#172;&#8704;x P(x) &#8801; &#8707;x &#172;P(x)<br>
+    &#172;&#8707;x P(x) &#8801; &#8704;x &#172;P(x)</p>
+    <p class="cond"><b>Conditions.</b> None. They hold for any predicate over any
+    domain.</p>
+    <p class="cond"><b>The limiting case.</b> Over a <b>finite</b> domain
+    {a<sub>1</sub>, &#8230;, a<sub>n</sub>}, &#8704; is a chain of conjunctions
+    and &#8707; a chain of disjunctions, so these two laws collapse into the
+    propositional De Morgan laws of section 1.3 applied n times. They are not a
+    second pair of laws but the same pair, stretched over a domain. Over an
+    <b>empty</b> domain they still hold, and the check is worth doing once:
+    &#8704;x P(x) is true there (nothing fails) and &#8707;x P(x) is false
+    (nothing succeeds), so both sides of the first law come out false.</p>
+    <p class="cond"><b>Consequence.</b> Any negation can be pushed inwards until
+    it rests on a bare predicate, flipping every quantifier it passes. This is
+    how "no student has a cat, a dog and a ferret" gets written two different but
+    equivalent ways, which 2024/2025 Q2(a)(iv) exploits.</p>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">In plain English</span></div>
+    <div class="body">
+      <p>"Not all swans are white" means "some swan is not white". You have not
+      claimed all swans are non-white, only that at least one is.</p>
+      <p>"No swan is green" means "every swan is not green". Here the negation
+      does apply to all of them.</p>
+      <p>Notice that "no" is a negated <b>existential</b>: "no x has property P"
+      is &#172;&#8707;x P(x), which becomes &#8704;x &#172;P(x). Whenever an exam
+      sentence starts with "No", write it as a negated "there exists" first, then
+      convert if you want.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The translation question</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q2a">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q2(a)</span></div>
+    <div class="body">
+      <p class="q">a. &nbsp; &nbsp; &nbsp; Let C(x) be the statement "x has a cat," let D(x) be the statement "x has a dog," and let F (x) be the statement "x has a ferret." Express each of these statements in terms of C(x), D(x), F (x), quantifiers, and logical connectives. Let the domain consist of all students in your class.</p>
+      <p class="qi">i. &nbsp; &nbsp; &nbsp; A student in your class has a cat, a dog, and a ferret.</p>
+      <p class="qi">ii. &nbsp; &nbsp; &nbsp; All students in your class have a cat, a dog, or a ferret.</p>
+      <p class="qi">iii. &nbsp; &nbsp; &nbsp; Some student in your class has a cat and a ferret, but not a dog.</p>
+      <p class="qi">iv. &nbsp; &nbsp; &nbsp; No student in your class has a cat, a dog, and a ferret.</p>
+      <p class="qi">v. &nbsp; &nbsp; &nbsp; For each of the three animals, cats, dogs, and ferrets, there is a student in your class who has this animal as a pet. <span class="mk">7.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The domain is given as "all students in your class", which is a real gift: it
+  means you do <b>not</b> need a student predicate S(x), and the &#8704;/&#8594;
+  pairing collapses. Students who invent S(x) anyway are not wrong, but they do
+  more work for the same marks. Note also the paper's spacing, "F (x)" with a
+  space, which is just typesetting.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Three predicates C, D, F, and a domain restricted to
+      students in the class.</dd>
+      <dt>Asked</dt><dd><b>Express</b> five English sentences in symbols. Nothing
+      is to be proved or evaluated; the marks are purely for correct
+      translation.</dd>
+      <dt>Marks say</dt><dd>7.5 over five items is 1.5 each, so each answer is
+      one line of symbols. There is no credit for prose here.</dd>
+      <dt>Teaches</dt><dd>This section, 1.4.</dd>
+      <dt>Trap</dt><dd>Item (v) is not three separate statements joined by "and"
+      about one student. It says each animal has <i>some</i> owner, and the
+      owners may be three different people. That distinction is the whole mark.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2(a)</span></div>
+    <div class="body">
+      <p>Throughout, the domain is the students in the class, so a bare
+      &#8704;x or &#8707;x already means "every student" or "some student".</p>
+
+      <p><b>(i) "A student in your class has a cat, a dog, and a ferret."</b><br>
+      "A student" here means at least one, so it is existential, and the three
+      pets belong to the same student, so they join with "and".</p>
+      <p style="margin-left:12pt"><b>&#8707;x (C(x) &#8743; D(x) &#8743; F(x))</b></p>
+
+      <p><b>(ii) "All students in your class have a cat, a dog, or a ferret."</b><br>
+      Universal, and "or" is inclusive: having two of them is fine.</p>
+      <p style="margin-left:12pt"><b>&#8704;x (C(x) &#8744; D(x) &#8744; F(x))</b></p>
+
+      <p><b>(iii) "Some student in your class has a cat and a ferret, but not a
+      dog."</b><br>
+      Existential. "But" is simply "and" with a change of tone, and "not a dog"
+      negates D.</p>
+      <p style="margin-left:12pt"><b>&#8707;x (C(x) &#8743; F(x) &#8743; &#172;D(x))</b></p>
+
+      <p><b>(iv) "No student in your class has a cat, a dog, and a ferret."</b><br>
+      "No" is a negated existential, so start there and then convert.</p>
+      <p style="margin-left:12pt"><b>&#172;&#8707;x (C(x) &#8743; D(x) &#8743; F(x))</b></p>
+      <p style="margin-left:12pt">which by the quantifier law equals
+      <b>&#8704;x &#172;(C(x) &#8743; D(x) &#8743; F(x))</b>, and by De Morgan
+      equals <b>&#8704;x (&#172;C(x) &#8744; &#172;D(x) &#8744; &#172;F(x))</b>.</p>
+      <p>All three are correct and any one earns the mark. Quoting the first and
+      then showing the conversion demonstrates more, and costs one line.</p>
+      <p>Notice this is exactly the negation of (i), which is worth saying in your
+      answer.</p>
+
+      <p><b>(v) "For each of the three animals, cats, dogs, and ferrets, there is
+      a student in your class who has this animal as a pet."</b><br>
+      Three separate existence claims, one per animal, and they need not be the
+      same student. So it is a conjunction of three existentials, each with its
+      own variable.</p>
+      <p style="margin-left:12pt"><b>&#8707;x C(x) &#8743; &#8707;y D(y) &#8743; &#8707;z F(z)</b></p>
+      <p>Using three different letters is not fussiness. Writing
+      &#8707;x (C(x) &#8743; D(x) &#8743; F(x)) instead would say one student owns
+      all three, which is statement (i), a different and much stronger claim.
+      That contrast is exactly what the examiner set (i) and (v) to test.</p>
+      <p class="redo"><b>Now redo it:</b> cover the answers and translate all
+      five again. Then translate a sixth of your own: "exactly one student has a
+      ferret", which is harder than it looks.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Deciding the truth of a quantified statement</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q4a">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q4(a)</span></div>
+    <div class="body">
+      <p class="q">a. &nbsp; &nbsp; &nbsp; Determine the truth value of each of these statements if the domain consists of all real numbers.</p>
+      <p class="qi">i. &nbsp; &nbsp; &nbsp; &#8707;x(x&#179; = &#8722;1) &nbsp; &nbsp; ii. &nbsp; &nbsp; &nbsp; &#8707;x(x&#8308; &lt; x&#178;) &nbsp; &nbsp; iii. &nbsp; &nbsp; &nbsp; &#8704;x((&#8722;x)&#178; = x&#178;) &nbsp; &nbsp; iv. &nbsp; &nbsp; &nbsp; &#8704;x(2x &gt; x) <span class="mk">4 marks</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Four quantified statements, domain the real numbers.</dd>
+      <dt>Asked</dt><dd><b>Determine the truth value.</b> That means a verdict
+      plus the reason: a witness for a true existential, a counterexample for a
+      false universal, an argument otherwise.</dd>
+      <dt>Marks say</dt><dd>1 mark each, so one line each. But a bare "true" is
+      worth little; name the number.</dd>
+      <dt>Teaches</dt><dd>This section, and the asymmetry table above.</dd>
+      <dt>Trap</dt><dd>Part (iv) looks obviously true and is false. The domain is
+      <i>all</i> reals, which includes zero and the negatives.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4(a)</span></div>
+    <div class="body">
+      <p><b>(i) &#8707;x(x&#179; = &#8722;1).</b> An existential, so one witness
+      settles it. Take x = &#8722;1: then x&#179; = &#8722;1. <b>TRUE.</b></p>
+
+      <p><b>(ii) &#8707;x(x&#8308; &lt; x&#178;).</b> Another existential.
+      Try a fraction: x = &#189; gives x&#178; = 0.25 and x&#8308; = 0.0625, and
+      0.0625 &lt; 0.25. <b>TRUE.</b></p>
+      <p>Worth understanding rather than guessing: x&#8308; &lt; x&#178; means
+      x&#178;(x&#178; &#8722; 1) &lt; 0, which needs x&#178; &lt; 1 and x
+      &#8800; 0. So it holds exactly for the non-zero numbers strictly between
+      &#8722;1 and 1.</p>
+
+      <p><b>(iii) &#8704;x((&#8722;x)&#178; = x&#178;).</b> A universal, so it
+      needs an argument covering everything, not an example.
+      (&#8722;x)&#178; = (&#8722;1)&#178; &#215; x&#178; = 1 &#215; x&#178; =
+      x&#178;, for every real x. <b>TRUE.</b></p>
+
+      <p><b>(iv) &#8704;x(2x &gt; x).</b> A universal, so one counterexample
+      kills it. Take x = 0: then 2x = 0 and x = 0, and 0 &gt; 0 is false.
+      <b>FALSE.</b></p>
+      <p>Take x = &#8722;3 for a second counterexample: 2x = &#8722;6, and
+      &#8722;6 &gt; &#8722;3 is false. In fact 2x &gt; x only for the positive
+      reals, and the domain here is all of them.</p>
+      <p class="redo"><b>Now redo it:</b> decide &#8704;x(x&#178; &#8805; x) over
+      the reals, then over the integers. The answers differ, which is the point
+      of always stating the domain.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Translating a sentence with structure</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q2c">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q2(c)</span></div>
+    <div class="body">
+      <p class="q">c. &nbsp; &nbsp; &nbsp; Express the statement "If a person is female and is a parent, then this person is someone's mother" as a logical expression involving predicates, and quantifiers with a domain consisting of all people, and logical connectives. <span class="mk">4 marks</span></p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>One English sentence and a domain of all people.</dd>
+      <dt>Asked</dt><dd><b>Express</b> it in symbols. You must invent the
+      predicates yourself, which is part of the marks: define them before you use
+      them.</dd>
+      <dt>Marks say</dt><dd>4 marks for one sentence is generous, so they are
+      paying for the setup: naming predicates, choosing quantifiers, nesting
+      correctly.</dd>
+      <dt>Teaches</dt><dd>This section. The nesting of two quantifiers is the new
+      element.</dd>
+      <dt>Trap</dt><dd>"Someone's mother" hides a second quantifier. It means
+      there exists a person of whom she is the mother, so the answer nests
+      &#8707; inside &#8704;.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q2(c)</span></div>
+    <div class="body">
+      <p><b>Step 1. Name the predicates.</b> Over the domain of all people, let</p>
+      <p style="margin-left:12pt">F(x) = "x is female"<br>
+      P(x) = "x is a parent"<br>
+      M(x, y) = "x is the mother of y"</p>
+      <p>M takes two arguments because motherhood is a relation between two
+      people, not a property of one. Part Three studies such relations properly.</p>
+
+      <p><b>Step 2. Read the shape of the sentence.</b> It says: for every person,
+      if (female and parent) then (mother of someone).</p>
+
+      <p><b>Step 3. Write it.</b></p>
+      <p style="margin-left:12pt"><b>&#8704;x ((F(x) &#8743; P(x)) &#8594; &#8707;y M(x, y))</b></p>
+
+      <p><b>Step 4. Check each piece.</b> The outer quantifier is universal
+      because the claim is about every person, and it takes an arrow, as
+      universals do. The hypothesis is a conjunction, because both conditions must
+      hold. The conclusion is existential, because being someone's mother only
+      requires one such someone. The y is bound inside, so it cannot be confused
+      with the x.</p>
+      <p>An equally correct variant pulls the existential out to the front:
+      &#8704;x &#8707;y ((F(x) &#8743; P(x)) &#8594; M(x, y)). Both are accepted.</p>
+      <p class="redo"><b>Now redo it:</b> express "every student has an adviser"
+      and then "some adviser advises every student". They differ only in the
+      order of the two quantifiers, and they mean very different things.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Order of nested quantifiers changes the meaning</span></div>
+    <div class="body">
+      <p>&#8704;x &#8707;y L(x, y) says: for each x there is <i>some</i> y, and
+      it may be a different y each time. "Everyone has a mother."</p>
+      <p>&#8707;y &#8704;x L(x, y) says: there is <i>one</i> y that works for
+      every x. "Someone is the mother of everyone."</p>
+      <p>Same symbols, opposite claims, and the first is true while the second is
+      absurd. Two quantifiers of the same kind can be swapped freely; two of
+      different kinds never can.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What does &#8704; pair with, an arrow or an and? And &#8707;?</p>
+      <p class="q">2. Write "no student passed" using &#8707;, then using &#8704;.</p>
+      <p class="q">3. How do you disprove &#8704;x P(x)?</p>
+      <p class="q">4. Is &#8704;x &#8707;y L(x,y) the same as &#8707;y &#8704;x L(x,y)?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. &#8704; pairs with &#8594;, &#8707; pairs with &#8743;.<br>
+      2. &#172;&#8707;x P(x), equivalently &#8704;x &#172;P(x), where P(x) is
+      "x passed".<br>
+      3. Produce a single counterexample: one x with P(x) false.<br>
+      4. No. The first lets y depend on x; the second demands one y for all x.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>&#8704; is the <span class="blank"></span> quantifier and is read
+        <span class="blank"></span>.</li>
+        <li>&#8707; is the <span class="blank"></span> quantifier and is read
+        <span class="blank"></span>.</li>
+        <li>&#172;&#8704;x P(x) is equivalent to <span class="blank"></span>.</li>
+        <li>A statement with a variable that becomes a proposition once the
+        variable is given a value is called a <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. universal, "for all". 2. existential, "there exists".
+      3. &#8707;x &#172;P(x). 4. predicate.</p>
+    </div>
+  </div>
+
+</section>

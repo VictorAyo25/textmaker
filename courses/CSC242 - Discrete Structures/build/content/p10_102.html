@@ -1,0 +1,452 @@
+<section>
+  <div class="kick">Part Ten &middot; 10.2</div>
+  <h2 class="title">Discrete Probability</h2>
+  <hr class="rule">
+  <p class="lead">Probability is Part Five with a division at the end. Count the
+  outcomes you want, count all the outcomes there are, divide. Everything else
+  in this section is a rule for handling two events at once, and every one of
+  those rules is a set identity from Part Two wearing a P.</p>
+  <p class="lo">By the end of this section you will be able to define a random
+  experiment, sample space and event; distinguish independent, dependent,
+  mutually exclusive and equally likely events; state the axioms; apply the
+  complement, addition, multiplication and conditional rules; use Bayes'
+  theorem; and recognise which counting rule of Part Five a probability question
+  is really asking for.</p>
+
+  <div class="gapchip"><b>In the course text, never yet examined</b><br>
+  Discrete probability is a module of the course text and is properly written
+  there, unlike the statistics module. No paper in the five available sessions
+  has asked a probability question. It is taught here in full anyway, and two
+  errors printed in the source module are flagged where they occur, because a
+  reader who memorises them would answer confidently and wrongly.</div>
+
+  <h3 class="sub">The vocabulary</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Experiment, sample space, event</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Term</th><th>Definition</th><th>Example: rolling one die</th></tr>
+        <tr><td><b>Random experiment</b></td><td>a procedure that can be repeated, whose outcome is not determined in advance and is not affected by the repetition</td><td>the roll itself</td></tr>
+        <tr><td><b>Outcome</b></td><td>one possible result of the experiment</td><td>4</td></tr>
+        <tr><td><b>Sample space S</b></td><td>the <b>set</b> of all possible outcomes</td><td>{1, 2, 3, 4, 5, 6}</td></tr>
+        <tr><td><b>Event E</b></td><td>a <b>subset</b> of the sample space</td><td>"an even number" = {2, 4, 6}</td></tr>
+      </table>
+      <p><b>A sample space is a set and an event is a subset of it.</b> That one
+      sentence imports the whole of Part Two: the union of two events is the
+      event that at least one happens, the intersection is the event that both
+      happen, and the complement is the event that it does not happen. Nothing
+      new has to be learned about combining events, only about counting
+      them.</p>
+      <p>For an experiment whose outcomes are all <b>equally likely</b>,</p>
+      <p style="margin-left:12pt"><b>P(E) = n(E) / n(S)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">P(E)</span> is the <b>probability</b> of the event E, a
+      number between 0 and 1 inclusive.
+      <span class="sym">n(E)</span> is the <b>number of favourable
+      outcomes</b>, the cardinality of the event, in the notation of section
+      2.1.
+      <span class="sym">n(S)</span> is the <b>total number of outcomes</b>, the
+      size of the sample space.
+      <span class="sym">equally likely</span> is a condition, not decoration:
+      the formula is wrong the moment some outcomes are more probable than
+      others, and a loaded die is the standard counterexample.</div>
+      <p class="hook"><b>Memory hook:</b> <b>favourable over total, and only
+      when every outcome carries the same weight.</b></p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four kinds of event</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Kind</th><th>Meaning</th><th>Example</th></tr>
+        <tr><td><b>Independent</b></td><td>the outcome of one does not affect the probability of the other</td><td>two separate coin tosses</td></tr>
+        <tr><td><b>Dependent</b></td><td>the outcome of one changes the probability of the other</td><td>drawing two cards without replacing the first</td></tr>
+        <tr><td><b>Mutually exclusive</b></td><td>they cannot both happen; their intersection is empty</td><td>a single toss landing heads, and landing tails</td></tr>
+        <tr><td><b>Equally likely</b></td><td>each has the same probability</td><td>the six faces of a fair die</td></tr>
+      </table>
+      <p><b>Mutually exclusive in set language</b> is A &#8745; B = &#8709;,
+      which is precisely the disjoint sets of section 2.1. That is why the word
+      <b>disjoint</b> is used for the same idea.</p>
+      <p><b>"Without replacement" is the phrase that signals dependence.</b>
+      Take a card and put it back, and the second draw faces the same deck;
+      keep it, and the deck has changed. Exam questions turn on that phrase, and
+      it is worth underlining it when you see it.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Mutually exclusive is not independent</span></div>
+    <div class="body">
+      <p>The official course text writes, under its probability axioms, "if the
+      occurrence of one event is not influenced by another event, they are
+      called mutually exclusive or disjoint". <b>That sentence defines
+      independence and attaches the wrong name to it.</b> The two ideas are not
+      merely different; on events that can happen at all they are
+      <b>opposites</b>.</p>
+      <table class="data">
+        <tr><th></th><th>Mutually exclusive</th><th>Independent</th></tr>
+        <tr><td>Means</td><td>they cannot both happen</td><td>one happening tells you nothing about the other</td></tr>
+        <tr><td>In symbols</td><td>P(A &#8745; B) = 0</td><td>P(A &#8745; B) = P(A) &#215; P(B)</td></tr>
+        <tr><td>Knowing A happened</td><td>tells you B did <b>not</b></td><td>tells you nothing at all</td></tr>
+      </table>
+      <p><b>Why they are opposites.</b> If A and B are mutually exclusive and
+      both have non-zero probability, then learning that A happened tells you B
+      certainly did not: that is the strongest possible influence, so they
+      cannot be independent. Formally, P(A &#8745; B) = 0 while
+      P(A) &#215; P(B) &gt; 0, so the independence equation fails.</p>
+      <p><b>The same module prints a second error,</b> in its properties list:
+      "for two non-disjoint events A and B, the probability of the union of two
+      events P(A &#8746; B) = P(A) + P(B)". That formula is the one for
+      <b>disjoint</b> events. For non-disjoint events the overlap has been
+      counted twice and must come off, exactly as in section 5.3:</p>
+      <p style="margin-left:12pt"><b>P(A &#8746; B) = P(A) + P(B) &#8722;
+      P(A &#8745; B)</b></p>
+      <p>The module's own formula list gives this correct version three
+      paragraphs later, so the two statements contradict each other. Use the one
+      with the subtraction; it is inclusion and exclusion, and it is right.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The axioms and the rules</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The axioms and the five rules</span></div>
+    <div class="body">
+      <p><b>The axioms,</b> which every probability obeys:</p>
+      <ul class="bul">
+        <li>0 &#8804; P(E) &#8804; 1 for every event E</li>
+        <li>P(&#8709;) = 0 for the impossible event, and P(S) = 1 for the
+        certain event</li>
+        <li>if E<sub>1</sub>, E<sub>2</sub>, &#8230;, E<sub>n</sub> are pairwise
+        mutually exclusive, then P(E<sub>1</sub> &#8746; &#8230; &#8746;
+        E<sub>n</sub>) = P(E<sub>1</sub>) + &#8230; + P(E<sub>n</sub>)</li>
+      </ul>
+      <p><b>The rules,</b> which are the axioms put to work:</p>
+      <table class="data">
+        <tr><th>Rule</th><th>Formula</th><th>When</th></tr>
+        <tr><td>Complement</td><td>P(A&#8242;) = 1 &#8722; P(A)</td><td>always</td></tr>
+        <tr><td>Addition</td><td>P(A &#8746; B) = P(A) + P(B) &#8722; P(A &#8745; B)</td><td>always</td></tr>
+        <tr><td>Addition, disjoint</td><td>P(A &#8746; B) = P(A) + P(B)</td><td>only when A &#8745; B = &#8709;</td></tr>
+        <tr><td>Multiplication</td><td>P(A &#8745; B) = P(A) &#215; P(B)</td><td>only when A and B are independent</td></tr>
+        <tr><td>Conditional</td><td>P(B | A) = P(A &#8745; B) / P(A)</td><td>always, provided P(A) &gt; 0</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">A&#8242;</span> is the <b>complement</b> of A, the event
+      that A does not happen, written with the same prime as the set complement
+      of section 2.2.
+      <span class="sym">A &#8746; B</span> is the event that <b>at least one</b>
+      of A, B happens, and
+      <span class="sym">A &#8745; B</span> is the event that <b>both</b>
+      happen.
+      <span class="sym">P(B | A)</span> is the <b>conditional probability</b> of
+      B <b>given</b> A: the probability of B once you already know A has
+      happened. The bar is read "given" and is not division.
+      <span class="sym">P(A) &gt; 0</span> is required because the formula
+      divides by it, and conditioning on something impossible is
+      meaningless.</div>
+      <p><b>The general multiplication rule,</b> which works whether or not the
+      events are independent and is just the conditional rule rearranged:</p>
+      <p style="margin-left:12pt"><b>P(A &#8745; B) = P(A) &#215; P(B |
+      A)</b></p>
+      <p>and independence is exactly the case where P(B | A) = P(B), which
+      collapses it to the simple form.</p>
+      <p class="hook"><b>Memory hook:</b> <b>or adds, and multiplies, not
+      subtracts the overlap, given divides.</b></p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Every rule here is a Part Two identity</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Probability</th><th>Sets (Part Two)</th><th>Counting (Part Five)</th></tr>
+        <tr><td>P(A&#8242;) = 1 &#8722; P(A)</td><td>A&#8242; = U &#8722; A</td><td>the subtraction rule, 5.1</td></tr>
+        <tr><td>P(A &#8746; B) = P(A) + P(B) &#8722; P(A &#8745; B)</td><td>n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B)</td><td>inclusion and exclusion, 5.3</td></tr>
+        <tr><td>P(A &#8745; B) = P(A)P(B)</td><td>n(A &#215; B) = n(A)n(B)</td><td>the product rule, 5.1</td></tr>
+      </table>
+      <p>Divide every count in the middle or right column by n(S) and the left
+      column appears. <b>Probability is not a new subject; it is counting
+      normalised so the total is 1.</b> If a probability question defeats you,
+      answer the counting question instead and divide at the end.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Worked, from the simplest upward</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; coins, dice and cards</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A fair coin, a fair die, and a standard deck of 52
+        cards.</dd>
+        <dt>Find</dt><dd>Several basic probabilities, each by counting the
+        sample space first.</dd>
+        <dt>Formula</dt><dd>P(E) = n(E) / n(S), the outcomes being equally
+        likely in each case.</dd>
+      </dl>
+      <p><b>One coin.</b> S = {H, T}, so n(S) = 2 and
+      P(heads) = 1 / 2.</p>
+      <p><b>One die.</b> S = {1, 2, 3, 4, 5, 6}, so n(S) = 6.</p>
+      <p style="margin-left:12pt">P(any given face) = <b>1/6</b><br>
+      P(even) = n({2, 4, 6}) / 6 = 3 / 6 = <b>1/2</b><br>
+      P(odd) = 3 / 6 = <b>1/2</b></p>
+      <p><b>One card from 52.</b></p>
+      <p style="margin-left:12pt">P(ace) = 4 / 52 = <b>1/13</b><br>
+      P(diamond) = 13 / 52 = <b>1/4</b><br>
+      P(red queen) = 2 / 52 = <b>1/26</b></p>
+      <p><b>Three coin tosses, exactly two heads.</b> The sample space is every
+      sequence of three results, so by the product rule of section 5.1 it has
+      2<sup>3</sup> = <b>8</b> outcomes:</p>
+      <p style="margin-left:12pt">HHH, HHT, HTH, HTT, THH, THT, TTH, TTT</p>
+      <p>Exactly two heads occurs in HHT, HTH and THH, which is 3 outcomes,
+      so</p>
+      <p style="margin-left:12pt">P(exactly two heads) = <b>3/8</b></p>
+      <p><b>The counting shortcut,</b> for when there are too many outcomes to
+      list: choosing which 2 of the 3 positions hold the heads is
+      C(3, 2) = 3, by section 5.2. The same 3, obtained without writing out the
+      sample space, which is the move you need when there are ten tosses rather
+      than three.</p>
+      <p><b>The addition rule in action.</b> One card, P(ace or diamond). The
+      events overlap in the ace of diamonds, so</p>
+      <p style="margin-left:12pt">P(ace &#8746; diamond) =
+      4/52 + 13/52 &#8722; 1/52 = <b>16/52 = 4/13</b></p>
+      <p>Adding without subtracting would give 17/52 and would count the ace of
+      diamonds twice.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; the complement, and "at least one"</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>(a) A jar of 7 red, 3 green and 4 blue marbles, one
+        drawn at random. (b) A committee of 4 chosen from 6 boys and 4
+        girls.</dd>
+        <dt>Find</dt><dd>(a) P(the marble is not blue). (b) P(the committee
+        contains at least one boy).</dd>
+        <dt>Formula</dt><dd>P(A&#8242;) = 1 &#8722; P(A), and C(n, r) from
+        section 5.2 for the counting.</dd>
+      </dl>
+      <p class="marks">(a) The marbles</p>
+      <p>The total is 7 + 3 + 4 = <b>14</b> marbles.</p>
+      <p><b>Directly:</b> non-blue means red or green, which is
+      7 + 3 = 10 marbles, so</p>
+      <p style="margin-left:12pt">P(not blue) = 10 / 14 = <b>5/7</b></p>
+      <p><b>By the complement,</b> which is the same answer by a shorter
+      route:</p>
+      <p style="margin-left:12pt">P(blue) = 4 / 14 = 2/7, so
+      P(not blue) = 1 &#8722; 2/7 = <b>5/7</b></p>
+      <p class="marks">(b) At least one boy</p>
+      <p><b>"At least one" is the standard signal to use the complement,</b>
+      because the opposite of "at least one boy" is the single simple case "no
+      boys at all". Section 5.2 answered the counting version of this exact
+      question from the 2025/2026 paper; here it is as a probability.</p>
+      <p style="margin-left:12pt">total committees = C(10, 4) = <b>210</b><br>
+      committees with no boy = C(4, 4) = <b>1</b><br>
+      committees with at least one boy = 210 &#8722; 1 = <b>209</b></p>
+      <p>so</p>
+      <p style="margin-left:12pt">P(at least one boy) = <b>209 / 210</b></p>
+      <p><b>Read the answer back.</b> That is about 0.995, which is worth
+      saying: with six boys among ten candidates, a committee of four with no
+      boy at all is nearly impossible, and there is in fact exactly one such
+      committee, the four girls. A probability that close to 1 should agree with
+      your intuition, and if it does not, recheck the counting.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; conditional and dependent events</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>(a) Half of all teenagers own a cycle, and 30 per cent
+        own both a bike and a cycle. (b) Six good and three defective laptops
+        are mixed up and tested one at a time at random, without
+        replacement.</dd>
+        <dt>Find</dt><dd>(a) The probability that a teenager owns a bike given
+        that the teenager owns a cycle. (b) The probability that the first two
+        tested are both defective.</dd>
+        <dt>Formula</dt><dd>P(B | A) = P(A &#8745; B) / P(A), and the general
+        multiplication rule P(A &#8745; B) = P(A) &#215; P(B | A).</dd>
+      </dl>
+      <p class="marks">(a) The conditional probability</p>
+      <p>Let A be "owns a cycle" and B be "owns a bike". We are given
+      P(A) = 0.5 and P(A &#8745; B) = 0.3.</p>
+      <p style="margin-left:12pt">P(B | A) = P(A &#8745; B) / P(A) =
+      0.3 / 0.5 = <b>0.6</b></p>
+      <p><b>So 60 per cent</b> of cycle owners also own a bike.</p>
+      <p><b>What conditioning did.</b> The 30 per cent was measured against
+      <b>all</b> teenagers; the answer 60 per cent is measured against cycle
+      owners only. Conditioning shrinks the sample space from S to A, and
+      dividing by P(A) is exactly that shrinking. Say that sentence and the
+      formula stops being something to memorise.</p>
+      <p class="marks">(b) Two defectives in a row</p>
+      <p>There are 6 + 3 = 9 laptops, of which 3 are defective. Let A be "the
+      first is defective" and B be "the second is defective".</p>
+      <p style="margin-left:12pt">P(A) = 3 / 9</p>
+      <p><b>Now the pool has changed,</b> because the first laptop was not
+      replaced: 8 remain and 2 of them are defective. So</p>
+      <p style="margin-left:12pt">P(B | A) = 2 / 8</p>
+      <p>and therefore</p>
+      <p style="margin-left:12pt">P(A &#8745; B) = P(A) &#215; P(B | A) =
+      (3/9) &#215; (2/8) = 6 / 72 = <b>1/12</b></p>
+      <p><b>The trap this question sets</b> is using P(A) &#215; P(B) =
+      (3/9) &#215; (3/9) = 1/9, which treats the draws as independent. They are
+      not, because the first laptop is not put back, and the phrase "tested one
+      by one" is what tells you so.</p>
+      <p><b>Cross-check by counting,</b> in the manner of section 5.2: the
+      number of ways to choose 2 defectives from 3 is C(3, 2) = 3, and the
+      number of ways to choose any 2 from 9 is C(9, 2) = 36, giving
+      3 / 36 = 1/12. The two methods agree.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Bayes' theorem</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Bayes' theorem</span></div>
+    <div class="body">
+      <p>Conditional probability runs one way; Bayes' theorem turns it round.</p>
+      <p style="margin-left:12pt"><b>P(A | B) = P(B | A) &#215; P(A) /
+      P(B)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">P(A)</span> is the probability of A <b>before</b> the
+      evidence, sometimes called the prior.
+      <span class="sym">P(B | A)</span> is how likely the evidence B is
+      <b>when</b> A holds.
+      <span class="sym">P(B)</span> is how likely the evidence is <b>overall</b>,
+      and it is usually the part you must compute rather than the part you are
+      given.
+      <span class="sym">P(A | B)</span> is the probability of A <b>after</b> the
+      evidence, which is what the question wants.</div>
+      <p><b>Computing P(B) is the real work.</b> If A and A&#8242; are the only
+      two possibilities, then B happens either with A or with A&#8242;, and
+      those two cases are mutually exclusive, so</p>
+      <p style="margin-left:12pt"><b>P(B) = P(B | A) &#215; P(A) +
+      P(B | A&#8242;) &#215; P(A&#8242;)</b></p>
+      <p>which is the axiom of adding disjoint cases, applied to a split of the
+      sample space.</p>
+      <p class="hook"><b>Memory hook:</b> <b>Bayes reverses the bar.</b> You are
+      given "evidence given cause" and you want "cause given evidence".</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; Bayes on a server farm</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>60 per cent of a data centre's machines come from
+        supplier A and 40 per cent from supplier B. In the first year 2 per cent
+        of A's machines fail and 5 per cent of B's do. A machine is found to
+        have failed.</dd>
+        <dt>Find</dt><dd>The probability that it came from supplier B.</dd>
+        <dt>Formula</dt><dd>P(B | F) = P(F | B) &#215; P(B) / P(F), with
+        P(F) = P(F | A)P(A) + P(F | B)P(B).</dd>
+      </dl>
+      <p><b>Name everything first,</b> which is where these questions are won or
+      lost:</p>
+      <p style="margin-left:12pt">P(A) = 0.6, &nbsp; P(B) = 0.4<br>
+      P(F | A) = 0.02, &nbsp; P(F | B) = 0.05</p>
+      <p><b>Step 1. The overall failure rate.</b></p>
+      <p style="margin-left:12pt">P(F) = 0.02 &#215; 0.6 + 0.05 &#215; 0.4<br>
+      &nbsp; &nbsp; &nbsp; = 0.012 + 0.020<br>
+      &nbsp; &nbsp; &nbsp; = <b>0.032</b></p>
+      <p><b>Step 2. Reverse the bar.</b></p>
+      <p style="margin-left:12pt">P(B | F) = P(F | B) &#215; P(B) / P(F) =
+      0.05 &#215; 0.4 / 0.032 = 0.020 / 0.032 = <b>0.625</b></p>
+      <p><b>Answer: 62.5 per cent.</b></p>
+      <p><b>Why the answer is interesting.</b> Supplier B provides only 40 per
+      cent of the machines but accounts for 62.5 per cent of the failures,
+      because its failure rate is two and a half times higher. The evidence has
+      moved the probability from 0.4 to 0.625, and that movement is exactly what
+      Bayes' theorem measures.</p>
+      <p><b>Check with the complement.</b> P(A | F) should be
+      0.012 / 0.032 = 0.375, and 0.625 + 0.375 = 1. Given that the machine
+      failed, it came from one supplier or the other, so the two conditional
+      probabilities must add to 1. That check costs one line and catches an
+      arithmetic slip immediately.</p>
+      <p class="redo"><b>Now redo it:</b> if the split were 50 per cent each
+      with the same failure rates, P(F) = 0.02 &#215; 0.5 +
+      0.05 &#215; 0.5 = 0.035 and P(B | F) = 0.025 / 0.035, which is about
+      0.714.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Random variables, in one box</span></div>
+    <div class="body">
+      <p>A <b>random variable</b> assigns a number to each outcome of an
+      experiment. It is a function on the sample space, in the sense of section
+      4.1, and not a variable in the algebraic sense at all.</p>
+      <table class="data">
+        <tr><th>Kind</th><th>Takes</th><th>Examples</th></tr>
+        <tr><td><b>Discrete</b></td><td>countable values, such as 0, 1, 2, &#8230;</td><td>the number of heads in three tosses; the number of cars in a car park; the number of correct answers on a test</td></tr>
+        <tr><td><b>Continuous</b></td><td>every value in a range</td><td>a person's height; the time a reaction takes; a temperature</td></tr>
+      </table>
+      <p><b>Discrete is the one this course is about,</b> which is what the word
+      discrete in the course title means: countable, separated values rather
+      than a smooth range. Every structure in this book, from a set to a graph
+      to a tree, is discrete in exactly that sense.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a sample space and an event, and say how they are
+      related.</p>
+      <p class="q">2. Write the formula for the probability of an event with
+      equally likely outcomes, and state its condition.</p>
+      <p class="q">3. Distinguish mutually exclusive from independent
+      events.</p>
+      <p class="q">4. State the addition rule and say when the subtraction term
+      may be dropped.</p>
+      <p class="q">5. Write the conditional probability formula and say what the
+      bar means.</p>
+      <p class="q">6. A card is drawn from 52. Give P(ace), P(diamond) and
+      P(ace or diamond).</p>
+      <p class="q">7. Three good and six bad chips are tested one by one. What
+      is the probability the first two are both good?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. The sample space S is the set of all possible outcomes; an event is
+      a subset of S.<br>
+      2. P(E) = n(E) / n(S), valid only when every outcome is equally
+      likely.<br>
+      3. Mutually exclusive means they cannot both occur, P(A &#8745; B) = 0.
+      Independent means one gives no information about the other,
+      P(A &#8745; B) = P(A)P(B). For events of non-zero probability the two are
+      opposites.<br>
+      4. P(A &#8746; B) = P(A) + P(B) &#8722; P(A &#8745; B); the last term may
+      be dropped only when the events are disjoint, since it is then zero.<br>
+      5. P(B | A) = P(A &#8745; B) / P(A); the bar is read "given" and restricts
+      the sample space to A.<br>
+      6. 1/13, 1/4 and 4/13.<br>
+      7. (3/9) &#215; (2/8) = 1/12.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>An event is a <span class="blank"></span> of the sample space.</li>
+        <li>Every probability lies between <span class="blank"></span> and
+        <span class="blank"></span>.</li>
+        <li>P(A&#8242;) = <span class="blank"></span>.</li>
+        <li>Two events are independent when P(A &#8745; B) =
+        <span class="blank"></span>.</li>
+        <li>The phrase "without replacement" tells you the events are
+        <span class="blank"></span>.</li>
+        <li>"At least one" is the signal to use the
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. subset. 2. 0, 1. 3. 1 &#8722; P(A). 4. P(A) &#215; P(B).
+      5. dependent. 6. complement.</p>
+    </div>
+  </div>
+
+</section>

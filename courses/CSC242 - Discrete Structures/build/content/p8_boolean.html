@@ -1,0 +1,403 @@
+<section class="part">
+  <div class="kicker">Part Eight</div>
+  <h1>Boolean Algebra<br>and Logic Circuits</h1>
+  <div class="blurb">The same laws as Part One and Part Two, written a third
+  way. Once you see that AND, intersection and conjunction are one operation
+  under three names, this part is a translation exercise.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.4" fill="none">
+        <path d="M40 40 L74 40"/><path d="M40 76 L74 76"/>
+        <path d="M74 26 L104 26 A32 32 0 0 1 104 90 L74 90 Z"/>
+        <path d="M136 58 L172 58"/>
+      </g>
+      <g stroke="#be123c" stroke-width="1.4" fill="none">
+        <path d="M212 40 L246 40"/><path d="M212 76 L246 76"/>
+        <path d="M240 26 Q262 58 240 90 Q286 90 306 58 Q286 26 240 26 Z"/>
+        <path d="M306 58 L342 58"/>
+      </g>
+      <text x="86" y="112" font-family="DejaVu Sans" font-size="11" fill="#283593">AND</text>
+      <text x="256" y="112" font-family="DejaVu Sans" font-size="11" fill="#be123c">OR</text>
+      <g font-family="DejaVu Sans" font-size="13" fill="#8891c9">
+        <text x="380" y="42">A &#183; B</text>
+        <text x="380" y="70">F + S</text>
+        <text x="380" y="98">(A &#183; B)&#8242;</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Eight &middot; 8.1</div>
+  <h2 class="title">Boolean Algebra and Its Laws</h2>
+  <hr class="rule">
+  <p class="lead">Two values, three operations, and a set of laws you have
+  already met twice. The newest paper spends 7.5 marks on turning two sentences
+  about a door and an alarm into Boolean expressions.</p>
+  <p class="lo">By the end of this section you will be able to write Boolean
+  expressions for AND, OR and NOT, build a Boolean table, name the laws of
+  Boolean algebra and their duals, translate between Boolean algebra, logic and
+  sets, draw the corresponding gates, and answer the door and alarm questions in
+  full.</p>
+
+  <div class="gapchip"><b>Not in the course text</b><br>
+  The official text has no Boolean algebra in it: no
+  <span class="mention">Boolean expression</span>, no
+  <span class="mention">logic gate</span>, no
+  <span class="mention">truth table</span> written in ones and zeros. The
+  2025/2026 paper gives it 7.5 marks. Everything here is taught from zero, but
+  almost none of it is new: it is section 1.3 in different clothing, and the
+  translation table below is the whole trick.</div>
+
+  <h3 class="sub">The two values and three operations</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Boolean algebra</span></div>
+    <div class="body">
+      <p>A <b>Boolean variable</b> takes one of exactly two values, written
+      <b>1</b> and <b>0</b>, read as <b>true</b> and <b>false</b>, or as
+      <b>on</b> and <b>off</b>. The three operations are</p>
+      <table class="data">
+        <tr><th>Operation</th><th>Written</th><th>Read</th><th>Value is 1 exactly when</th></tr>
+        <tr><td>Boolean product</td><td>A &#183; B, or AB</td><td>A <b>AND</b> B</td><td>both A and B are 1</td></tr>
+        <tr><td>Boolean sum</td><td>A + B</td><td>A <b>OR</b> B</td><td>at least one of A, B is 1</td></tr>
+        <tr><td>Complement</td><td>A&#8242;, or A&#772;</td><td><b>NOT</b> A</td><td>A is 0</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">&#183;</span> is <b>not</b> ordinary multiplication and
+      <span class="sym">+</span> is <b>not</b> ordinary addition, although
+      &#183; behaves exactly like multiplication on 0 and 1. The one place they
+      part company is <b>1 + 1 = 1</b>, not 2: there is no value above 1 for it
+      to be.
+      <span class="sym">A&#8242;</span> is also written with an overbar. Both
+      appear on these papers.</div>
+      <p><b>The complete arithmetic,</b> which is worth writing out once:</p>
+      <p style="margin-left:12pt">0 &#183; 0 = 0, &nbsp; 0 &#183; 1 = 0,
+      &nbsp; 1 &#183; 0 = 0, &nbsp; 1 &#183; 1 = 1<br>
+      0 + 0 = 0, &nbsp; 0 + 1 = 1, &nbsp; 1 + 0 = 1, &nbsp;
+      <b>1 + 1 = 1</b><br>
+      0&#8242; = 1, &nbsp; 1&#8242; = 0</p>
+      <p class="hook"><b>Memory hook:</b> <b>product needs both, sum needs
+      one.</b> And the only surprise in the whole table is 1 + 1 = 1, which is
+      just "true or true is true".</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The three notations are one subject</span></div>
+    <div class="body">
+      <p>Every law in this part has already been proved twice in this book, once
+      for propositions in section 1.3 and once for sets in section 2.2. They are
+      the same laws.</p>
+      <table class="data">
+        <tr><th>Boolean algebra</th><th>Logic (Part One)</th><th>Sets (Part Two)</th></tr>
+        <tr><td>1</td><td>T, a tautology</td><td>U, the universal set</td></tr>
+        <tr><td>0</td><td>F, a contradiction</td><td>&#8709;, the empty set</td></tr>
+        <tr><td>A &#183; B</td><td>p &#8743; q</td><td>A &#8745; B</td></tr>
+        <tr><td>A + B</td><td>p &#8744; q</td><td>A &#8746; B</td></tr>
+        <tr><td>A&#8242;</td><td>&#172;p</td><td>A&#8242;, the complement</td></tr>
+        <tr><td>A = B</td><td>p &#8801; q</td><td>A = B</td></tr>
+      </table>
+      <p class="hook"><b>Memory hook:</b> <b>AND, intersection and conjunction
+      are one operation with three names.</b> If you can do section 1.3, you can
+      do this part: replace &#8743; by &#183;, &#8744; by +, and &#172; by a
+      dash.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The laws, and duality</span></div>
+    <div class="body">
+      <p>For all Boolean variables A, B, C:</p>
+      <table class="data">
+        <tr><th>Name</th><th>In terms of &#183;</th><th>In terms of +</th></tr>
+        <tr><td>Identity</td><td>A &#183; 1 = A</td><td>A + 0 = A</td></tr>
+        <tr><td>Domination</td><td>A &#183; 0 = 0</td><td>A + 1 = 1</td></tr>
+        <tr><td>Idempotent</td><td>A &#183; A = A</td><td>A + A = A</td></tr>
+        <tr><td>Complement</td><td>A &#183; A&#8242; = 0</td><td>A + A&#8242; = 1</td></tr>
+        <tr><td>Double complement</td><td colspan="2">(A&#8242;)&#8242; = A</td></tr>
+        <tr><td>Commutative</td><td>A &#183; B = B &#183; A</td><td>A + B = B + A</td></tr>
+        <tr><td>Associative</td><td>(A &#183; B) &#183; C = A &#183; (B &#183; C)</td><td>(A + B) + C = A + (B + C)</td></tr>
+        <tr><td>Distributive</td><td>A &#183; (B + C) = A &#183; B + A &#183; C</td><td>A + B &#183; C = (A + B) &#183; (A + C)</td></tr>
+        <tr><td>De Morgan</td><td>(A &#183; B)&#8242; = A&#8242; + B&#8242;</td><td>(A + B)&#8242; = A&#8242; &#183; B&#8242;</td></tr>
+        <tr><td>Absorption</td><td>A &#183; (A + B) = A</td><td>A + A &#183; B = A</td></tr>
+      </table>
+      <p><b>The duality principle.</b> Every law above comes in a pair, and each
+      half is obtained from the other by swapping <b>&#183; with +</b> and
+      <b>0 with 1</b>. That is not a coincidence: it is a theorem, and it means
+      you only ever have to memorise half the table.</p>
+      <p><b>Two that are not in Part One's list</b> and are worth noting.
+      <b>Distributing + over &#183;</b>, that is
+      A + B &#183; C = (A + B) &#183; (A + C), has no counterpart in ordinary
+      arithmetic, where a + bc is certainly not (a + b)(a + c). Boolean algebra
+      is not number algebra, and this is where the difference bites hardest.
+      <b>Absorption</b> is the law that does most of the work in simplifying
+      circuits.</p>
+      <p class="hook"><b>Memory hook:</b> <b>swap the dots for plusses and the
+      zeros for ones, and the law still holds.</b> Learn one column and derive
+      the other.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Gates</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The three basic gates</span></div>
+    <div class="body">
+      <p>A <b>logic gate</b> is a physical component computing one Boolean
+      operation. Circuits are drawn from them, and a Boolean expression and a
+      circuit diagram are two views of the same thing.</p>
+      <figure>
+        <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" style="width:92%;height:auto">
+          <g stroke="#283593" stroke-width="1.5" fill="none">
+            <path d="M20 40 L54 40"/><path d="M20 76 L54 76"/>
+            <path d="M54 26 L84 26 A32 32 0 0 1 84 90 L54 90 Z"/>
+            <path d="M116 58 L152 58"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="8" y="36">A</text><text x="8" y="72">B</text>
+            <text x="122" y="52">A &#183; B</text>
+            <text x="46" y="118">AND gate</text>
+            <text x="30" y="136" font-size="9.5" fill="#67707a">output 1 only if both inputs are 1</text>
+          </g>
+
+          <g stroke="#be123c" stroke-width="1.5" fill="none">
+            <path d="M198 40 L232 40"/><path d="M198 76 L232 76"/>
+            <path d="M226 26 Q248 58 226 90 Q272 90 292 58 Q272 26 226 26 Z"/>
+            <path d="M292 58 L328 58"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="186" y="36">F</text><text x="186" y="72">S</text>
+            <text x="298" y="52">F + S</text>
+            <text x="224" y="118">OR gate</text>
+            <text x="206" y="136" font-size="9.5" fill="#67707a">output 1 if either input is 1</text>
+          </g>
+
+          <g stroke="#5b6480" stroke-width="1.5" fill="none">
+            <path d="M368 58 L396 58"/>
+            <path d="M396 34 L396 82 L436 58 Z"/>
+            <circle cx="441" cy="58" r="5"/>
+            <path d="M446 58 L478 58"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="356" y="54">A</text>
+            <text x="452" y="48">A&#8242;</text>
+            <text x="390" y="118">NOT gate</text>
+            <text x="376" y="136" font-size="9.5" fill="#67707a">output is the opposite of the input</text>
+          </g>
+        </svg>
+        <figcaption>The three gates the papers use. The small circle on the NOT
+        gate is the standard mark for inversion.</figcaption>
+      </figure>
+      <p>Two more names appear often enough to be worth knowing: a <b>NAND</b>
+      gate computes (A &#183; B)&#8242; and a <b>NOR</b> gate computes
+      (A + B)&#8242;, that is, an AND or an OR followed by an inversion.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The door and the alarm</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q5a">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q5(a)</span></div>
+    <div class="body">
+      <p class="q">(a) i. A secure laboratory door opens only when a valid ID card (A) and a correct fingerprint
+      (B) are presented. Express this condition using Boolean Algebra and determine when the
+      door opens. Draw the Boolean table. <span class="mk">(4&#189; marks)</span></p>
+      <p class="qi">ii. An alarm should sound if either a fire sensor (F) or a smoke sensor (S) is activated.
+      Formulate the Boolean expression and determine the output when only the smoke sensor
+      detects danger. <span class="mk">(3 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Nothing is printed wrongly here, but two words are doing precise work and are
+  easy to read past.
+  <br><br>
+  Part i says the door opens <b>"only when"</b> both are presented. Section F.2
+  covered that phrase: "only when" states a <b>necessary</b> condition. Read
+  strictly, it says the door does not open without both, which does not by itself
+  promise that presenting both <i>does</i> open it. The intended reading, and the
+  one to answer, is that both together are necessary and sufficient, so
+  Door = A &#183; B. Say which reading you are using in one line; it costs
+  nothing and shows you noticed.
+  <br><br>
+  Part ii says <b>"either ... or"</b>, which in this context means the
+  <b>inclusive</b> or: the alarm should certainly sound if <i>both</i> sensors
+  fire. So it is A + B, not exclusive or. A candidate who reads "either ... or"
+  as exclusive gets an alarm that stays silent in a real fire, which is worth
+  saying in the answer.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Part i: two conditions A and B, both required. Part ii:
+      two sensors F and S, either sufficient.</dd>
+      <dt>Asked</dt><dd>Part i: <b>express</b> the condition, <b>determine</b>
+      when the door opens, <b>draw</b> the Boolean table. Three deliverables for
+      4.5 marks. Part ii: <b>formulate</b> the expression and <b>determine the
+      output</b> for one specific input.</dd>
+      <dt>Marks say</dt><dd>4.5 and 3. In part i the table is explicitly asked
+      for and is worth roughly 2 of the 4.5, so an answer without it cannot pass.
+      In part ii "determine the output when only the smoke sensor detects
+      danger" is a single substitution: name F = 0, S = 1 and evaluate.</dd>
+      <dt>Teaches</dt><dd>This section, 8.1.</dd>
+      <dt>Trap</dt><dd>Answering part ii with the expression only. It asks for a
+      specific output as well, and that is where the marks split.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q5(a)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Part i: A = valid ID card presented, B = correct
+        fingerprint presented, each 1 if so and 0 if not. Part ii: F = fire
+        sensor activated, S = smoke sensor activated.</dd>
+        <dt>Find</dt><dd>The Boolean expression for each, the Boolean table for
+        the door, and the alarm output when only S is 1.</dd>
+        <dt>Rule</dt><dd>"and" is the Boolean product; "either or" is the
+        inclusive Boolean sum.</dd>
+      </dl>
+
+      <p class="marks">i. The laboratory door</p>
+      <p><b>Assign the variables.</b> Let A = 1 when a valid ID card is
+      presented and 0 otherwise; B = 1 when a correct fingerprint is presented
+      and 0 otherwise. Let D = 1 when the door opens.</p>
+      <p><b>The expression.</b> The door opens only when <b>both</b> are
+      presented, so the two conditions are combined with AND:</p>
+      <p style="margin-left:12pt"><b>D = A &#183; B</b></p>
+      <p><b>Determine when the door opens.</b> By the arithmetic of the Boolean
+      product, D = 1 exactly when A = 1 and B = 1. In words: <b>the door opens
+      only in the single case where a valid ID card and a correct fingerprint are
+      both presented, and stays shut in the other three cases.</b></p>
+      <p><b>The Boolean table.</b> Two variables give 2<sup>2</sup> = 4 rows, by
+      the counting of section 5.1.</p>
+      <table class="data">
+        <tr><th>A</th><th>B</th><th>D = A &#183; B</th><th>Door</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>shut</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>shut</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>shut</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>opens</td></tr>
+      </table>
+      <p><b>The circuit,</b> if a diagram is wanted: a single AND gate with
+      inputs A and B and output D, as drawn above.</p>
+      <p><b>A line worth adding.</b> Rows 2 and 3 are the security property doing
+      its job: a correct fingerprint with no card, or a card with the wrong
+      fingerprint, both leave the door shut. That is what "only when" bought.</p>
+
+      <p class="marks">ii. The alarm</p>
+      <p><b>Assign the variables.</b> Let F = 1 when the fire sensor is
+      activated, S = 1 when the smoke sensor is activated, and L = 1 when the
+      alarm sounds.</p>
+      <p><b>The expression.</b> The alarm sounds if either sensor is activated,
+      and certainly if both are, so this is the <b>inclusive</b> or, which is the
+      Boolean sum:</p>
+      <p style="margin-left:12pt"><b>L = F + S</b></p>
+      <p><b>Determine the output when only the smoke sensor detects danger.</b>
+      That is F = 0 and S = 1. Substituting:</p>
+      <p style="margin-left:12pt">L = F + S = 0 + 1 = <b>1</b></p>
+      <p><b>So the alarm sounds.</b> Which is exactly what it should do: a smoke
+      sensor firing on its own is the ordinary case of a fire being detected
+      early.</p>
+      <p><b>The full table,</b> which costs three more lines and secures the
+      mark:</p>
+      <table class="data">
+        <tr><th>F</th><th>S</th><th>L = F + S</th><th>Alarm</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>silent</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td><b>sounds</b> (the case asked for)</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>sounds</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>sounds</td></tr>
+      </table>
+      <p><b>Why it must be inclusive or.</b> If exclusive or had been used,
+      L = F &#8853; S, then the last row would give L = 0: the alarm would fall
+      silent precisely when both sensors detect danger. Saying that sentence
+      shows you chose the operation rather than guessed it, and it is the
+      difference between the two marks and the three.</p>
+      <p class="redo"><b>Now redo it:</b> the door should also open for a
+      security override switch V, regardless of card and fingerprint. Then
+      D = A &#183; B + V, and with A = 0, B = 0, V = 1 the output is
+      0 &#183; 0 + 1 = 0 + 1 = 1, so the door opens.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Simplifying with the laws</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; simplification</span></div>
+    <div class="body">
+      <p><b>Simplify A &#183; B + A &#183; B&#8242;.</b> Name every law you
+      use; that is where the marks are in any simplification question.</p>
+      <p style="margin-left:12pt">A &#183; B + A &#183; B&#8242;<br>
+      = A &#183; (B + B&#8242;) &nbsp; &nbsp; [distributive]<br>
+      = A &#183; 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [complement:
+      B + B&#8242; = 1]<br>
+      = <b>A</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      [identity]</p>
+      <p><b>What it means:</b> a circuit that fires when A is on and B is on, or
+      when A is on and B is off, is just a circuit that fires when A is on. The B
+      input can be removed entirely, which is a real saving in components.</p>
+      <p><b>A second one, using De Morgan.</b> Simplify
+      (A + B)&#8242; + A&#8242; &#183; B.</p>
+      <p style="margin-left:12pt">(A + B)&#8242; + A&#8242; &#183; B<br>
+      = A&#8242; &#183; B&#8242; + A&#8242; &#183; B &nbsp; &nbsp; [De
+      Morgan]<br>
+      = A&#8242; &#183; (B&#8242; + B) &nbsp; &nbsp; [distributive]<br>
+      = A&#8242; &#183; 1 &nbsp; &nbsp; [complement]<br>
+      = <b>A&#8242;</b> &nbsp; &nbsp; [identity]</p>
+      <p><b>Check it on a table,</b> which is always available and always
+      convincing: A = 0 gives (0 + B)&#8242; + 1 &#183; B = B&#8242; + B = 1, and
+      A&#8242; = 1. A = 1 gives (1 + B)&#8242; + 0 &#183; B = 0 + 0 = 0, and
+      A&#8242; = 0. The two agree in both cases.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. What are the two Boolean values and the three
+      operations?</p>
+      <p class="q">2. What is 1 + 1, and why is that not a mistake?</p>
+      <p class="q">3. State De Morgan's laws in Boolean notation.</p>
+      <p class="q">4. What is the duality principle?</p>
+      <p class="q">5. Write the expression for the laboratory door and give its
+      table in one line.</p>
+      <p class="q">6. Why must the alarm use inclusive rather than exclusive
+      or?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. 1 and 0; the Boolean product &#183; (AND), the Boolean sum + (OR),
+      and the complement &#8242; (NOT).<br>
+      2. 1. The sum is 1 when at least one operand is 1, and there is no value
+      above 1.<br>
+      3. (A &#183; B)&#8242; = A&#8242; + B&#8242; and (A + B)&#8242; =
+      A&#8242; &#183; B&#8242;.<br>
+      4. Swapping &#183; with + and 0 with 1 turns any law into another valid
+      law.<br>
+      5. D = A &#183; B, which is 0, 0, 0, 1 as A and B run 00, 01, 10, 11.<br>
+      6. Because with exclusive or the alarm would fall silent when both sensors
+      detect danger.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>The Boolean product A &#183; B is 1 only when
+        <span class="blank"></span>.</li>
+        <li>1 + 1 = <span class="blank"></span>.</li>
+        <li>The door expression is <span class="blank"></span> and the alarm
+        expression is <span class="blank"></span>.</li>
+        <li>Duality swaps <span class="blank"></span> with
+        <span class="blank"></span>, and 0 with 1.</li>
+        <li>A &#183; B + A &#183; B&#8242; simplifies to
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. both are 1. 2. 1. 3. D = A &#183; B, L = F + S. 4. &#183;, +.
+      5. A.</p>
+    </div>
+  </div>
+
+</section>

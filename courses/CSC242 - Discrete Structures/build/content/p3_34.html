@@ -1,0 +1,294 @@
+<section>
+  <div class="kick">Part Three &middot; 3.4</div>
+  <h2 class="title">Partial and Total Orders</h2>
+  <hr class="rule">
+  <p class="lead">Swap symmetry for antisymmetry and you stop describing sameness
+  and start describing ranking. That is the difference between an equivalence
+  relation and an order.</p>
+  <p class="lo">By the end of this section you will be able to define a partially
+  ordered set and a totally ordered set, tell them apart by the one question that
+  separates them, and prove which a given table is.</p>
+
+  <div class="gapchip"><b>Not in the course text</b><br>
+  The official text never uses the words "partially ordered", "totally ordered"
+  or "poset". The 2025/2026 paper gives 4.5 marks to exactly this, in Q2(e).</div>
+
+  <h3 class="sub">The definitions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Partial order</span></div>
+    <div class="body">
+      <p>A relation R on A is a <b>partial order</b> when it is</p>
+      <p style="margin-left:12pt"><b>reflexive</b>: every element relates to
+      itself<br>
+      <b>antisymmetric</b>: (a,b) and (b,a) both in R forces a = b<br>
+      <b>transitive</b>: (a,b) and (b,c) in R force (a,c) in R</p>
+      <p>The set together with the order, written (A, R), is a <b>partially
+      ordered set</b>, or <b>poset</b>.</p>
+      <p class="hook"><b>Memory hook:</b> <b>RAT</b>: Reflexive, Antisymmetric,
+      Transitive. Compare with <b>RST</b> for an equivalence relation. The only
+      difference is the middle letter, and that one letter is the difference
+      between "the same as" and "no worse than".</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Total order</span></div>
+    <div class="body">
+      <p>A partial order is a <b>total order</b> (also called a linear order or a
+      chain) when it also satisfies <b>comparability</b>:</p>
+      <p style="margin-left:12pt">for every a and b in A, either (a, b) &#8712; R
+      or (b, a) &#8712; R.</p>
+      <p>That is, <b>no two elements are incomparable</b>. Every pair can be put
+      in order.</p>
+      <p>A set with a total order is a <b>totally ordered set</b>, or a
+      <b>chain</b>.</p>
+      <p class="hook"><b>Memory hook:</b> every total order is a partial order.
+      The extra demand is that nothing sits off to the side: you can line all the
+      elements up in a single row, which is why it is also called linear.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The one question that tells them apart</span></div>
+    <div class="body">
+      <p>Once you know a relation is a partial order, ask one thing:</p>
+      <p style="margin-left:12pt"><b>"Is there a pair I cannot compare?"</b></p>
+      <p>If yes, it is partial only. If no, it is total.</p>
+      <p><b>Examples of partial but not total:</b></p>
+      <p>Divisibility on {1, 2, 3, 4}: 2 and 3 are incomparable, since neither
+      divides the other.<br>
+      Subset inclusion on the subsets of {1,2}: {1} and {2} are incomparable,
+      since neither contains the other.<br>
+      "Is a prerequisite of" on university courses: two unrelated electives are
+      incomparable.</p>
+      <p><b>Examples of total:</b></p>
+      <p>"&#8804;" on the integers, on the reals, or on any set of numbers: any
+      two numbers can be compared.<br>
+      Alphabetical order on words: any two words have a first one.</p>
+      <svg viewBox="0 0 520 155" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <text x="0" y="14" font-family="DejaVu Sans" font-size="11" font-weight="bold" fill="#283593">Partial order: divisibility on {1,2,3,4}</text>
+        <g>
+          <circle cx="70" cy="118" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="40" cy="74" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="110" cy="74" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="40" cy="32" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <g font-family="DejaVu Sans" font-size="11" text-anchor="middle" fill="#232a31">
+            <text x="70" y="122">1</text><text x="40" y="78">2</text>
+            <text x="110" y="78">3</text><text x="40" y="36">4</text>
+          </g>
+          <g stroke="#283593" stroke-width="1.3">
+            <line x1="63" y1="107" x2="46" y2="86"/>
+            <line x1="77" y1="107" x2="104" y2="86"/>
+            <line x1="40" y1="61" x2="40" y2="45"/>
+          </g>
+          <text x="140" y="70" font-family="DejaVu Sans" font-size="10" fill="#be123c">2 and 3 are incomparable:</text>
+          <text x="140" y="86" font-family="DejaVu Sans" font-size="10" fill="#be123c">no line joins them, so it is</text>
+          <text x="140" y="102" font-family="DejaVu Sans" font-size="10" fill="#be123c">partial and not total.</text>
+        </g>
+        <text x="300" y="14" font-family="DejaVu Sans" font-size="11" font-weight="bold" fill="#283593">Total order: &#8804; on {1,2,3,4}</text>
+        <g>
+          <circle cx="340" cy="118" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="340" cy="90" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="340" cy="62" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <circle cx="340" cy="34" r="13" fill="#eef0fa" stroke="#283593" stroke-width="1.3"/>
+          <g font-family="DejaVu Sans" font-size="11" text-anchor="middle" fill="#232a31">
+            <text x="340" y="122">1</text><text x="340" y="94">2</text>
+            <text x="340" y="66">3</text><text x="340" y="38">4</text>
+          </g>
+          <g stroke="#283593" stroke-width="1.3">
+            <line x1="340" y1="105" x2="340" y2="103"/>
+            <line x1="340" y1="77" x2="340" y2="75"/>
+            <line x1="340" y1="49" x2="340" y2="47"/>
+          </g>
+          <text x="372" y="70" font-family="DejaVu Sans" font-size="10" fill="#15803d">A single chain. Every pair</text>
+          <text x="372" y="86" font-family="DejaVu Sans" font-size="10" fill="#15803d">is comparable, so it is total.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Antisymmetric does not mean "not symmetric"</span></div>
+    <div class="body">
+      <p>Section 3.2 made this point and it returns here with marks attached.
+      Antisymmetry forbids two <b>different</b> elements pointing at each other.
+      It says nothing about loops, which are always allowed and indeed required by
+      reflexivity.</p>
+      <p>So a partial order is full of pairs (a, a), and that is not a violation
+      of antisymmetry. The definition already says "then a = b", which those pairs
+      satisfy.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The real question</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q2e">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q2(e)</span></div>
+    <div class="body">
+      <p class="q">(e) Differentiate between a partially ordered set and a totally-ordered set. Hence or otherwise
+      determine with proof the status of the table below in terms of partially-ordered or total
+      ordered set.</p>
+      <p class="qi">Student &nbsp; &nbsp; &nbsp; &nbsp; CGPA</p>
+      <p class="qi">A &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4.80</p>
+      <p class="qi">B &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4.50</p>
+      <p class="qi">C &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4.10 <span class="mk">(4&#189; marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The relation is never stated. The table gives three students and three
+  distinct CGPAs, and you are expected to supply the obvious order, "has a CGPA
+  at least as high as". <b>Say which relation you are using in your first line.</b>
+  Without it the question has no determinate answer, and stating it is part of
+  what the 4.5 marks are for. Note also the inconsistent hyphenation
+  ("totally-ordered" then "total ordered"), which changes nothing.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Three students with three distinct CGPAs.</dd>
+      <dt>Asked</dt><dd>Two tasks. First <b>differentiate</b> the two kinds of
+      ordered set, which needs a stated point of contrast, not two definitions
+      side by side. Then <b>determine with proof</b> which the table is, so all
+      the order axioms must be checked.</dd>
+      <dt>Marks say</dt><dd>4.5 marks: roughly 2 for the difference and 2.5 for
+      the classification with proof. The word "proof" means check every property
+      explicitly.</dd>
+      <dt>Teaches</dt><dd>This section, 3.4, plus 3.2 for the properties.</dd>
+      <dt>Trap</dt><dd>Answering "it is a total order" with no proof. The marks
+      are in the four checks: reflexive, antisymmetric, transitive, comparable.
+      The last one is what settles total versus partial.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q2(e)</span></div>
+    <div class="body">
+      <p class="marks">Part 1: the difference</p>
+      <p>Both are sets carrying a relation that is reflexive, antisymmetric and
+      transitive, so both rank their elements consistently and neither allows two
+      different elements to outrank each other.</p>
+      <p><b>They differ on comparability.</b> In a <b>partially ordered set</b>
+      there may be pairs of elements that the relation does not connect in either
+      direction; such elements are <i>incomparable</i>, and the ranking has gaps.
+      In a <b>totally ordered set</b> every pair is comparable, so all the
+      elements line up in one chain with no gaps.</p>
+      <p>Consequently every total order is a partial order, but not the reverse.
+      Divisibility on {1, 2, 3, 4} is partial only, because 2 and 3 are
+      incomparable; the relation &#8804; on numbers is total, because any two
+      numbers can be compared.</p>
+
+      <p class="marks">Part 2: classifying the table</p>
+      <dl class="params">
+        <dt>Given</dt><dd>S = {A, B, C} with CGPA(A) = 4.80, CGPA(B) = 4.50,
+        CGPA(C) = 4.10.</dd>
+        <dt>Find</dt><dd>Whether (S, R) is partially or totally ordered, with
+        proof.</dd>
+        <dt>Relation</dt><dd>Taking the natural relation
+        <b>x R y when CGPA(x) &#8805; CGPA(y)</b>, that is, x ranks at least as
+        high as y. This must be stated because the paper does not state it.</dd>
+      </dl>
+      <p>Writing the pairs out, since CGPA(A) &gt; CGPA(B) &gt; CGPA(C):</p>
+      <p style="margin-left:12pt">R = {(A,A), (B,B), (C,C), (A,B), (A,C), (B,C)}</p>
+
+      <p><b>1. Reflexive.</b> Each student's CGPA is at least as high as itself,
+      since 4.80 &#8805; 4.80, 4.50 &#8805; 4.50 and 4.10 &#8805; 4.10. So (A,A),
+      (B,B) and (C,C) are all in R. <b>Reflexive.</b></p>
+
+      <p><b>2. Antisymmetric.</b> Suppose x R y and y R x. Then
+      CGPA(x) &#8805; CGPA(y) and CGPA(y) &#8805; CGPA(x), so
+      CGPA(x) = CGPA(y). The three CGPAs listed are distinct, so this forces
+      x = y. <b>Antisymmetric.</b></p>
+
+      <p><b>3. Transitive.</b> Suppose x R y and y R z. Then
+      CGPA(x) &#8805; CGPA(y) &#8805; CGPA(z), so CGPA(x) &#8805; CGPA(z) and
+      x R z. Checking the only non-trivial case directly: (A,B) and (B,C) are in
+      R, and (A,C) is in R. <b>Transitive.</b></p>
+
+      <p>So (S, R) is a <b>partially ordered set</b>. Now the deciding test.</p>
+
+      <p><b>4. Comparability.</b> Take the three pairs of distinct students:</p>
+      <table class="data">
+        <tr><th>pair</th><th>comparison</th><th>comparable?</th></tr>
+        <tr><td>A and B</td><td>4.80 &#8805; 4.50, so A R B</td><td>yes</td></tr>
+        <tr><td>A and C</td><td>4.80 &#8805; 4.10, so A R C</td><td>yes</td></tr>
+        <tr><td>B and C</td><td>4.50 &#8805; 4.10, so B R C</td><td>yes</td></tr>
+      </table>
+      <p>Every pair is comparable, because any two real numbers can be compared.</p>
+
+      <p><b>Conclusion.</b> (S, R) is reflexive, antisymmetric and transitive, so
+      it is a partially ordered set; and every pair of students is comparable, so
+      it is in fact a <b>totally ordered set</b>. The students form a single
+      chain</p>
+      <p style="margin-left:12pt"><b>A &gt; B &gt; C</b> &nbsp; (4.80, 4.50, 4.10)</p>
+      <p>which is exactly what a class ranking is.</p>
+
+      <p><b>The remark that shows real understanding:</b> totality here depends on
+      the three CGPAs being <i>distinct</i> and on CGPA being a single number. If
+      two students shared a CGPA, antisymmetry would fail and R would not be a
+      partial order at all. And if students were ranked on two
+      criteria at once, say CGPA <i>and</i> attendance, two students could each
+      lead on one measure, making them incomparable and the order merely partial.
+      That is precisely how a partial order arises in practice.</p>
+      <p class="redo"><b>Now redo it:</b> add student D with CGPA 4.50 and
+      re-classify. Antisymmetry now fails, so it is no longer a partial order at
+      all.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where orders appear in computing</span></div>
+    <div class="body">
+      <p>Worth a line if a question asks for relevance.</p>
+      <p><b>Task scheduling.</b> "Must finish before" is a partial order on jobs;
+      independent jobs are incomparable and can run in parallel. Sorting a partial
+      order into a legal sequence is a topological sort.</p>
+      <p><b>Version control.</b> "Is an ancestor of" is a partial order on
+      commits; branches are incomparable commits.</p>
+      <p><b>Type systems.</b> "Is a subtype of" is a partial order.</p>
+      <p><b>Sorting.</b> Every sorting algorithm assumes a <i>total</i> order on
+      the keys. That is why a comparison function must never report two different
+      items as mutually less-than: it would break antisymmetry and the sort would
+      misbehave.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Name the three properties of a partial order.</p>
+      <p class="q">2. What one extra condition makes it a total order?</p>
+      <p class="q">3. Give two incomparable elements under divisibility on {1,...,6}.</p>
+      <p class="q">4. Which property differs between an equivalence relation and a partial order?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Reflexive, antisymmetric, transitive.<br>
+      2. Comparability: for every a and b, either a R b or b R a.<br>
+      3. 4 and 6, for instance: neither divides the other. Also 2 and 5, or 3 and
+      4.<br>
+      4. The middle one. An equivalence relation is symmetric; a partial order is
+      antisymmetric.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A partial order is reflexive, <span class="blank"></span> and
+        transitive.</li>
+        <li>A set with a partial order is called a <span class="blank"></span>.</li>
+        <li>A partial order in which every pair is comparable is a
+        <span class="blank"></span> order.</li>
+        <li>Two elements neither of which relates to the other are
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. antisymmetric. 2. partially ordered set (poset). 3. total (linear).
+      4. incomparable.</p>
+    </div>
+  </div>
+
+</section>

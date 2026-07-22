@@ -1,0 +1,450 @@
+<section>
+  <div class="kick">Part Six &middot; 6.3</div>
+  <h2 class="title">The Handshaking Theorem</h2>
+  <hr class="rule">
+  <p class="lead">One line of arithmetic that every graph must obey. It is asked
+  for by name on three papers, and it silently decides a fourth: the whole of
+  2024/2025 Question Five turns on it.</p>
+  <p class="lo">By the end of this section you will be able to state and prove the
+  Handshaking theorem, use it to find a missing degree count, use its corollary
+  to prove that a described graph cannot exist, and answer the 17.5-mark
+  Question Five of 2024/2025 in full.</p>
+
+  <div class="lawstate">
+    <div class="lawname">The Handshaking theorem</div>
+    <p><b>The claim.</b> In any undirected graph, the sum of the degrees of all
+    the vertices equals twice the number of edges. Counting degrees counts every
+    edge exactly twice, once from each end.</p>
+    <p><b>In symbols.</b><br>
+    &#931; deg(v) = 2|E|, the sum running over every vertex v in V.</p>
+    <p><b>The proof, which is one sentence.</b> Every edge has two endpoints, so
+    each edge contributes exactly 1 to the degree of each of its two ends, that
+    is, 2 to the total. Adding over all |E| edges gives 2|E|. A loop is no
+    exception: both of its ends are at the same vertex, which is precisely why a
+    loop is defined to add 2 to that vertex's degree.</p>
+    <p class="cond"><b>Conditions.</b> The graph must be <b>finite</b> and
+    <b>undirected</b>. Loops and parallel edges are allowed, provided a loop
+    counts 2. For a directed graph the corresponding statement is different and
+    is given in section 6.4.</p>
+    <p class="cond"><b>The corollary that does the real work.</b> The number of
+    vertices of <b>odd</b> degree is always <b>even</b>. Since the total 2|E| is
+    even, and the even-degree vertices contribute an even amount, the odd-degree
+    vertices must also contribute an even amount between them, which is only
+    possible if there is an even number of them.</p>
+    <p class="cond"><b>The limiting case.</b> With no edges at all the theorem
+    reads 0 = 0, true and empty. It is at its most useful in the opposite
+    direction: given a degree sum that is <b>odd</b>, no graph with those degrees
+    exists at all, and that impossibility is what 2023/2024 Q5(b) is testing.</p>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Handshaking, and what to do with it</span></div>
+    <div class="body">
+      <p style="margin-left:12pt"><b>&#931; deg(v) = 2|E|</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">&#931;</span> is summation, introduced in section F.1:
+      add the quantity that follows over everything listed under it.
+      <span class="sym">deg(v)</span> is the degree of vertex v from section 6.1,
+      a loop counting twice.
+      <span class="sym">|E|</span> is the number of edges, the size of the graph.
+      <span class="sym">2|E|</span> is even <b>always</b>, whatever the graph, and
+      that single fact is the source of every impossibility proof in this
+      section.</div>
+      <p><b>The three ways it is used,</b> and the exam uses all three:</p>
+      <ol class="qlist">
+        <li><b>Find the edges from the degrees.</b> |E| = (&#931; deg(v)) / 2.</li>
+        <li><b>Find a missing degree.</b> If all degrees but one are known and
+        |E| is known, the last one is forced.</li>
+        <li><b>Prove something cannot exist.</b> If the degrees a question
+        describes add to an odd number, no such graph exists, and saying so
+        <i>is</i> the answer.</li>
+      </ol>
+      <p class="hook"><b>Memory hook:</b> <b>every handshake is counted twice,
+      once by each hand.</b> That is where the name comes from: at a party, the
+      total number of hands shaken is twice the number of handshakes.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Stating it, as two papers ask</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q4a">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q4(a)</span></div>
+    <div class="body">
+      <p class="q">4.  (a) Briefly explain the Handshaking Theorem? <span class="mk">(5&#189;marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q5a">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q5(a)</span></div>
+    <div class="body">
+      <p class="q">5.  (a) Define the Handshaking Theorem. <span class="mk">(3 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  2021/2022 punctuates a command as a question ("Briefly explain ... ?"), which
+  it also does in Q1(a) and Q2(c). The two versions want the same thing at
+  different lengths: 3 marks buys the statement and the reason, 5.5 buys the
+  statement, the proof, the corollary and an example. Write to the marks.</div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 21/22 Q4(a) &middot; PQ 23/24 Q5(a)</span></div>
+    <div class="body">
+      <p class="marks">For 3 marks (2023/2024)</p>
+      <p><b>Statement.</b> In any undirected graph, the sum of the degrees of all
+      the vertices is equal to twice the number of edges:
+      &#931; deg(v) = 2|E|.</p>
+      <p><b>Reason.</b> Each edge has two endpoints and so contributes 1 to the
+      degree of each, that is, 2 to the total. Summing over all edges gives
+      2|E|.</p>
+      <p><b>Example.</b> A triangle has 3 vertices each of degree 2 and 3 edges:
+      2 + 2 + 2 = 6 = 2 &#215; 3.</p>
+
+      <p class="marks">For 5.5 marks (2021/2022), add these</p>
+      <p><b>The corollary.</b> The number of vertices of odd degree is even.</p>
+      <p><b>Why the corollary follows.</b> Split the sum into the even-degree
+      vertices and the odd-degree ones. The even-degree part is even. The whole
+      sum is 2|E|, also even. So the odd-degree part is even too; but a sum of
+      odd numbers is even only when there is an even count of them.</p>
+      <p><b>A use.</b> No graph can have exactly three vertices of degree 5 and
+      nothing else, because 5 + 5 + 5 = 15 is odd.</p>
+      <p><b>Where the name comes from,</b> worth one line: if each vertex is a
+      person and each edge a handshake, the degree of a person is the number of
+      hands they shook, and the total counts every handshake from both sides.</p>
+      <p class="redo"><b>Now redo it:</b> a graph has 6 vertices each of degree 3.
+      How many edges? &#931; deg = 18, so |E| = 18 / 2 = 9.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Proving a graph cannot exist</h3>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q5b">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q5(b)</span></div>
+    <div class="body">
+      <p class="q">(b) An Airplane pilot has been scheduled for a trip to five (5) different cities. He can travel directly between
+      two cities through the same route.</p>
+      <p class="qi">(i) Can he visit exactly three (3) cities from each of the cities on the flight plan? Compute your answer. <span class="mk">(3 marks)</span></p>
+      <p class="qi">(ii) Support your answer with a diagrammatical illustration. <span class="mk">(2 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  The second sentence is doing the work of "every pair of cities is joined by at
+  most one route, and a route may be flown in either direction". That is the
+  paper's way of saying the graph is <b>simple</b> and <b>undirected</b>. Read
+  part (i) as: can a simple undirected graph on 5 vertices have every vertex of
+  degree exactly 3? The word "Compute" is the clue that an arithmetic argument,
+  not a drawing, is what earns the 3 marks.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>5 cities. Routes are undirected and there is at most one
+      between any pair.</dd>
+      <dt>Asked</dt><dd>(i) <b>Can</b> every city connect to exactly 3 others,
+      and <b>compute</b> the answer. (ii) <b>Support</b> it with a diagram.</dd>
+      <dt>Marks say</dt><dd>3 and 2. The 3 marks are for the degree-sum
+      computation. Answering only "no" earns almost nothing; the arithmetic is
+      the answer.</dd>
+      <dt>Teaches</dt><dd>This section, 6.3.</dd>
+      <dt>Trap</dt><dd>Trying to draw it, failing, and concluding it is
+      impossible. Failing to draw something proves nothing about whether it
+      exists. The degree sum proves it.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q5(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>n = 5 vertices (cities), each required to have degree
+        exactly 3, graph simple and undirected.</dd>
+        <dt>Find</dt><dd>Whether such a graph exists.</dd>
+        <dt>Formula</dt><dd>&#931; deg(v) = 2|E|, so the degree sum must be
+        even.</dd>
+      </dl>
+      <p><b>Step 1. Compute the degree sum.</b> If each of the 5 cities connects
+      to exactly 3 others, then every vertex has degree 3, so</p>
+      <p style="margin-left:12pt">&#931; deg(v) = 5 &#215; 3 = <b>15</b></p>
+      <p><b>Step 2. Apply the theorem.</b> By the Handshaking theorem this sum
+      must equal 2|E|, so</p>
+      <p style="margin-left:12pt">2|E| = 15, &nbsp; giving &nbsp; |E| = 7.5</p>
+      <p><b>Step 3. Conclude.</b> The number of edges must be a whole number, and
+      7.5 is not. Equivalently, 15 is odd and 2|E| is always even. <b>No such
+      flight plan exists: the pilot cannot visit exactly three cities from each
+      of five cities.</b></p>
+      <p><b>The corollary says the same thing faster,</b> and is worth adding:
+      every one of the 5 vertices would have odd degree, giving 5 odd-degree
+      vertices, but the number of odd-degree vertices is always even.</p>
+      <p><b>Part (ii): the illustration.</b> A drawing cannot show something
+      impossible, so show <b>why</b> it fails and <b>what does</b> work
+      instead.</p>
+      <figure>
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:94%;height:auto">
+          <g stroke="#5b6480" stroke-width="1.3" fill="none">
+            <path d="M70 40 L122 40"/><path d="M122 40 L138 88"/><path d="M138 88 L96 118"/>
+            <path d="M96 118 L54 88"/><path d="M54 88 L70 40"/>
+            <path d="M70 40 L138 88"/><path d="M122 40 L54 88"/><path d="M122 40 L96 118"/>
+          </g>
+          <g stroke="#be123c" stroke-width="1.4" stroke-dasharray="4 3" fill="none">
+            <path d="M70 40 L96 118"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="70" cy="40" r="5"/><circle cx="122" cy="40" r="5"/>
+            <circle cx="138" cy="88" r="5"/><circle cx="96" cy="118" r="5"/><circle cx="54" cy="88" r="5"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+            <text x="16" y="150">5 cities, trying for degree 3 each:</text>
+            <text x="16" y="166" fill="#be123c">whichever edge is added last,</text>
+            <text x="16" y="182" fill="#be123c">one city is left at degree 2 or 4</text>
+          </g>
+
+          <g stroke="#5b6480" stroke-width="1.3" fill="none">
+            <path d="M300 40 L380 40"/><path d="M300 40 L300 110"/><path d="M380 40 L380 110"/>
+            <path d="M300 110 L380 110"/><path d="M300 40 L380 110"/><path d="M380 40 L300 110"/>
+          </g>
+          <g fill="#283593">
+            <circle cx="300" cy="40" r="5"/><circle cx="380" cy="40" r="5"/>
+            <circle cx="300" cy="110" r="5"/><circle cx="380" cy="110" r="5"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+            <text x="266" y="150">4 cities, degree 3 each: this works.</text>
+            <text x="266" y="166">Sum = 4 &#215; 3 = 12 = 2 &#215; 6 edges.</text>
+            <text x="266" y="182">An odd degree needs an even number of cities.</text>
+          </g>
+        </svg>
+        <figcaption>Left: the attempt on five cities always strands one vertex at
+        the wrong degree. Right: on four cities it works, which shows the
+        obstruction is the parity, not the degree 3.</figcaption>
+      </figure>
+      <p class="redo"><b>Now redo it:</b> can six cities each connect to exactly
+      three others? &#931; deg = 18, even, so |E| = 9 and there is no
+      obstruction. It can be done, for instance as two triangles joined by a
+      perfect matching.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The 2024/2025 Question Five</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q5">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Question Five</span></div>
+    <div class="body">
+      <p class="q">A graph designed by a 400-level Graphics student consists of 24 vertices and 30 edges. The graph has five vertices
+      of degree 4, seven pendant vertices, and seven vertices of degree 2. All other vertices have a degree of either 3 or
+      4. After completing the design, the student seeks your assistance as a computer science student to help solve the
+      following questions for further review:</p>
+      <p class="qi">a.  How many vertices of degree 4 are there in the given graph? <span class="mk">4 marks</span></p>
+      <p class="qi">b.  What is the total number of vertices of degree 4 in the corresponding complete graph? <span class="mk">1 mark</span></p>
+      <p class="qi">c.  Provide a proof to determine whether the Handshaking Theorem holds for this scenario. <span class="mk">3 marks</span></p>
+      <p class="qi">d.  Write a C++ code snippet to compute the remaining number of vertices that have either degree 3 or 4. <span class="mk">3 marks</span></p>
+      <p class="qi">e.  Demonstrate how the Handshaking Theorem can be applied in Data Communication. <span class="mk">2 marks</span></p>
+      <p class="qi">f.  Prove that if G is a graph with n vertices and n edges, and no vertex has a degree of 0 or 1, then the degree
+      of every vertex in G is 2. <span class="mk">3 marks</span></p>
+      <p class="qi">g.  Explain what it means for two graphs G and H to be isomorphic. <span class="mk">1.5 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>This question looks self-contradictory and is not.</b> It tells you there
+  are "five vertices of degree 4" and then asks in part (a) how many vertices of
+  degree 4 there are. The answer is <b>not</b> five, and a candidate who writes
+  five has fallen into the best trap on any of these papers.
+  <br><br>
+  The sentence that resolves it is "All other vertices have a degree of either 3
+  or 4". More degree-4 vertices are hiding in that remainder, and part (a) is
+  asking for the <b>total</b>. Read the preamble as a partial inventory, not a
+  complete one.
+  <br><br>
+  Part (d) is a C++ question and is answered in section 11.2, where the code can
+  be compiled and run. Part (g) is answered in section 6.6, where isomorphism is
+  taught. Everything else is answered below.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>|V| = 24, |E| = 30. Five vertices of degree 4, seven
+      pendant vertices (degree 1 by definition, section 6.1), seven of degree 2.
+      All remaining vertices have degree 3 or 4.</dd>
+      <dt>Asked</dt><dd>Seven parts. The whole 17.5-mark question rests on one
+      degree sum, so compute that first and almost everything follows.</dd>
+      <dt>Marks say</dt><dd>4 for part (a) alone, which tells you part (a) is not
+      a one-line read-off. If your answer to a 4-mark question is a number copied
+      from the question, re-read the question.</dd>
+      <dt>Teaches</dt><dd>This section, 6.3, with (d) in 11.2 and (g) in 6.6.</dd>
+      <dt>Trap</dt><dd>Answering (a) with 5. Also forgetting that <b>pendant
+      means degree 1</b>: the question never says "degree 1" anywhere, and if you
+      do not know the word you cannot start.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q5(a), (b), (c), (e), (f)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>|V| = 24, |E| = 30; 5 vertices of degree 4, 7 pendant
+        (degree 1), 7 of degree 2, the rest of degree 3 or 4.</dd>
+        <dt>Find</dt><dd>(a) the total number of degree-4 vertices; (b) the same
+        count in the corresponding complete graph; (c) a proof that Handshaking
+        holds; (e) an application; (f) a proof about n vertices and n edges.</dd>
+        <dt>Formula</dt><dd>&#931; deg(v) = 2|E|.</dd>
+      </dl>
+
+      <p class="marks">a. How many vertices of degree 4 are there</p>
+      <p><b>Step 1. The total degree.</b> By the Handshaking theorem,</p>
+      <p style="margin-left:12pt">&#931; deg(v) = 2|E| = 2 &#215; 30 = <b>60</b></p>
+      <p><b>Step 2. Account for the vertices the question names.</b> A pendant
+      vertex has degree 1.</p>
+      <table class="data">
+        <tr><th>Group</th><th>How many</th><th>Degree each</th><th>Degree total</th></tr>
+        <tr><td>stated degree 4</td><td>5</td><td>4</td><td>20</td></tr>
+        <tr><td>pendant</td><td>7</td><td>1</td><td>7</td></tr>
+        <tr><td>degree 2</td><td>7</td><td>2</td><td>14</td></tr>
+        <tr><td><b>accounted for</b></td><td><b>19</b></td><td></td><td><b>41</b></td></tr>
+      </table>
+      <p><b>Step 3. What is left.</b></p>
+      <p style="margin-left:12pt">vertices remaining = 24 &#8722; 19 = <b>5</b><br>
+      degree remaining = 60 &#8722; 41 = <b>19</b></p>
+      <p><b>Step 4. Split the remainder.</b> Those 5 vertices have degree 3 or 4.
+      Let x have degree 4 and y have degree 3. Then</p>
+      <p style="margin-left:12pt">x + y = 5 &nbsp; &nbsp; and &nbsp; &nbsp;
+      4x + 3y = 19</p>
+      <p>Substituting y = 5 &#8722; x into the second equation:</p>
+      <p style="margin-left:12pt">4x + 3(5 &#8722; x) = 19<br>
+      4x + 15 &#8722; 3x = 19<br>
+      x + 15 = 19<br>
+      x = <b>4</b>, &nbsp; so &nbsp; y = <b>1</b></p>
+      <p>So the remainder is four vertices of degree 4 and one of degree 3, and
+      this is the only fit.</p>
+      <p><b>Step 5. Total.</b></p>
+      <p style="margin-left:12pt">vertices of degree 4 = 5 (stated) + 4 (found) =
+      <b>9</b></p>
+      <p><b>Answer: the graph has 9 vertices of degree 4.</b></p>
+      <p><b>Check the whole inventory,</b> and write the check down:
+      9 &#215; 4 + 1 &#215; 3 + 7 &#215; 2 + 7 &#215; 1 = 36 + 3 + 14 + 7 = 60,
+      which is 2 &#215; 30. The vertices count too:
+      9 + 1 + 7 + 7 = 24. Both agree.</p>
+
+      <p class="marks">b. Degree-4 vertices in the corresponding complete graph</p>
+      <p><b>State the reading, because "corresponding" is not defined.</b> The
+      complete graph corresponding to this one is the complete graph on the same
+      24 vertices, K<sub>24</sub>.</p>
+      <p>In K<sub>n</sub> every vertex is joined to every other, so every vertex
+      has degree n &#8722; 1. Here</p>
+      <p style="margin-left:12pt">degree of every vertex of K<sub>24</sub> =
+      24 &#8722; 1 = 23</p>
+      <p>Since 23 &#8800; 4, <b>no vertex of K<sub>24</sub> has degree 4, so the
+      answer is 0.</b></p>
+      <p><b>Add the alternative reading in one line,</b> since it costs nothing
+      and the phrase is genuinely ambiguous: the only complete graph in which
+      every vertex has degree 4 is K<sub>5</sub>, which has 5 such vertices. If
+      "corresponding" was meant to point at the complete graph of degree 4, the
+      answer is 5. State whichever you use.</p>
+
+      <p class="marks">c. Proof that the Handshaking theorem holds here</p>
+      <p>"Provide a proof to determine whether" means: check it, and show the
+      check.</p>
+      <p><b>Left side, the degree sum.</b> Using the full inventory from part
+      (a):</p>
+      <p style="margin-left:12pt">&#931; deg(v) = (9 &#215; 4) + (1 &#215; 3) +
+      (7 &#215; 2) + (7 &#215; 1)<br>
+      = 36 + 3 + 14 + 7<br>
+      = <b>60</b></p>
+      <p><b>Right side, twice the edges.</b></p>
+      <p style="margin-left:12pt">2|E| = 2 &#215; 30 = <b>60</b></p>
+      <p><b>Conclusion.</b> The two sides agree, so &#931; deg(v) = 2|E| and the
+      Handshaking theorem holds for this graph. Add the reason it had to: the
+      theorem holds for <i>every</i> finite undirected graph, so agreement is not
+      a coincidence but a confirmation that the degree inventory in part (a) is
+      consistent. Had the two sides differed, the fault would have been in the
+      inventory, not in the theorem.</p>
+
+      <p class="marks">e. The Handshaking theorem in Data Communication</p>
+      <p>Model a network as a graph: each <b>node</b> (router, switch, host) is a
+      vertex, and each physical <b>link</b> between two nodes is an edge. The
+      degree of a node is the number of its ports that are in use.</p>
+      <p><b>Application 1: counting cables from port counts.</b> The theorem says
+      the total number of used ports across the network is twice the number of
+      links. So a network of 40 nodes with 6 used ports each needs
+      (40 &#215; 6) / 2 = 120 cables, and a bill of materials that says anything
+      else is wrong.</p>
+      <p><b>Application 2: validating a proposed topology.</b> If a design
+      specifies an odd total of used ports, that design cannot be built: no
+      graph has an odd degree sum. This catches a specification error before any
+      cable is bought, which is the practical point.</p>
+      <p><b>Application 3: the odd-degree corollary in redundancy planning.</b>
+      In a topology where every node must have an odd number of links, the number
+      of nodes must be even. That constrains what a resilient ring or mesh design
+      can look like.</p>
+
+      <p class="marks">f. If G has n vertices and n edges and no degree is 0 or 1</p>
+      <p><b>To prove:</b> every vertex of G has degree exactly 2.</p>
+      <p><b>Proof.</b> By the Handshaking theorem,</p>
+      <p style="margin-left:12pt">&#931; deg(v) = 2|E| = 2n</p>
+      <p>No vertex has degree 0 or 1, so every vertex has degree at least 2.
+      There are n vertices, so</p>
+      <p style="margin-left:12pt">&#931; deg(v) &#8805; 2 + 2 + &#8230; + 2
+      (n times) = 2n</p>
+      <p>But the sum <i>equals</i> 2n. So the inequality is an equality.</p>
+      <p>Now suppose some vertex u had degree 3 or more. Then the other
+      n &#8722; 1 vertices still contribute at least 2 each, so</p>
+      <p style="margin-left:12pt">&#931; deg(v) &#8805; 3 + 2(n &#8722; 1) =
+      2n + 1 &gt; 2n,</p>
+      <p>contradicting the theorem. Hence no vertex has degree 3 or more, and
+      since none has degree 0 or 1, <b>every vertex has degree exactly 2</b>.
+      &#9633;</p>
+      <p><b>What such a graph looks like,</b> worth a closing line: a graph in
+      which every vertex has degree 2 is a disjoint union of cycles. With n
+      vertices and n edges and no isolated or pendant vertices, G is a cycle, or
+      several cycles side by side.</p>
+
+      <p class="redo"><b>Now redo it:</b> a graph has 10 vertices and 12 edges,
+      with four pendant vertices and four of degree 2. What degrees do the
+      remaining two vertices share? Degree sum 24, accounted
+      4 &#215; 1 + 4 &#215; 2 = 12 over 8 vertices, leaving 2 vertices sharing 12,
+      so both have degree 6.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State the Handshaking theorem and prove it in one
+      sentence.</p>
+      <p class="q">2. A graph has 7 vertices each of degree 4. How many
+      edges?</p>
+      <p class="q">3. Can a graph have exactly five vertices of degree 3 and no
+      others? Why?</p>
+      <p class="q">4. What is the degree of every vertex of K<sub>24</sub>?</p>
+      <p class="q">5. Why is the number of odd-degree vertices always even?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. &#931; deg(v) = 2|E|, because each edge contributes 1 to the degree of
+      each of its two endpoints.<br>
+      2. &#931; deg = 28, so |E| = 14.<br>
+      3. No. The degree sum would be 15, which is odd, and 2|E| is always
+      even.<br>
+      4. 23, since every vertex is joined to all the other 23.<br>
+      5. The total degree is even and the even-degree vertices contribute an even
+      amount, so the odd ones must too, which needs an even number of them.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>&#931; deg(v) = <span class="blank"></span>.</li>
+        <li>A pendant vertex has degree <span class="blank"></span>.</li>
+        <li>In 2024/2025 Question Five the degree sum is
+        <span class="blank"></span> and the number of degree-4 vertices is
+        <span class="blank"></span>.</li>
+        <li>The number of odd-degree vertices in any graph is always
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. 2|E|. 2. 1. 3. 60, 9. 4. even.</p>
+    </div>
+  </div>
+
+</section>

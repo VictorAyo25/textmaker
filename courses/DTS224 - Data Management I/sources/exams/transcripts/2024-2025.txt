@@ -1,0 +1,254 @@
+TRANSCRIPT: DTS224, 2024/2025, Omega semester.
+Source: four photographs, PQ/24-25/dts pg1.jpg ... dts pg4.jpg
+Transcribed BY EYE from the upscaled photographs. No OCR layer exists for these
+and none was used. Read twice.
+
+Scaffolding conventions (mine, stripped by the gate):
+  [[Qxx]]        marker cutting the paper into parts. Not printed.
+  [Figure ...]   my description of a printed drawing. Not printed.
+  {{hand: ...}}  something written on the paper in pen. Not printed.
+  ---            a ruled line of mine; everything after the first one below the
+                 questions is my commentary, not the paper.
+
+IDENTITY BLOCK (provenance only; must NEVER reach the book, house rule):
+  COVENANT UNIVERSITY
+  CANAANLAND, KM 10, IDIROKO ROAD
+  P.M.B 1023, OTA, OGUN STATE, NIGERIA.
+  B.Sc. DEGREE EXAMINATION
+  COLLEGE: Science & Technology     DEPARTMENT: Computer & Info. Science
+  SESSION: 2024/2025                SEMESTER: Omega
+  COURSE CODE: DTS224               CREDIT UNIT: 3
+  COURSE TITLE: High Performance Computing & Database Mgt.   TIME: 3 HOURS
+  INSTRUCTIONS: Attempt any four (4) questions and write legibly.
+
+=====================================================================
+Question 1
+
+[[Q1a]]
+(a)  Define the following terms:
+     (i)     Relational model                                        (1 mark)
+     (ii)    Relation                                                (1 mark)
+     (iii)   Relational algebra                                      (1 mark)
+     (iv)    Data model                                              (1 mark)
+
+[[Q1b]]
+(b)  Consider the following schema:
+
+     College (C_Name, State, Enrollment)
+     Student (S_ID, S_Name, CGPA, HighSch_Size)
+     Apply (S_ID, College_Name, Course, Decision)
+     Write the queries in relational algebra to:
+     (i)  Find all students with a CGPA greater than 4.5.            (1½marks)
+     (ii) Find all students with a CGPA greater than 4.5 and a high school size of less than 50.
+                                                                     (1½marks)
+     (iii) Produce the name of students who applied to CST college for the course, Computer Science
+                                                                     (1½marks)
+     (iv) Generate a list of the names and CGPA of students with a high school size larger than 1000
+          who applied to a computer science course at college with an enrollment size greater than
+          20000 and were rejected.                                   (2 marks)
+
+[note: in the printed schema the identifiers are underlined: C_Name and State in College, S_ID in Student, S_ID in Apply. The schema lines are set in italic.]
+
+[[Q1c]]
+(c)  Consider the relation Boys and Girls in Figure 1.
+
+     Boys                         Girls
+     Name    | State              Name    | State
+     Adamu   | Kogi               Kemi    | Kwara
+     Obi     | Imo                Hadiza  | Kaduna
+                                  Chioma  | Rivers
+
+     Figure 1: MN, Boys and Girls Relations.
+
+     perform the following operations on the relations:
+     (i)     Cartesian product on the Boys and Girls relation.       (6 marks)
+     (ii)    Rename the output of (i) as people.                     (1 mark)
+
+=====================================================================
+Question Two
+
+[[Q2a]]
+(a)  Differentiate between the following relational concepts with an example
+     (i)     Associative entity and ternary relationship.            (2½marks)
+     (ii)    Multivalued attributes and derived attributes.          (2½marks)
+
+[[Q2b]]
+(b)  Relations are fundamental to relational database systems, as they represent data using tuples (rows)
+     and attributes (columns). List six (6) properties or characteristics that define a well-structured
+     (good) relation in a relational database.                       (3 marks)
+
+[[Q2c]]
+(c)  Express the relationships in the business rule with just one connected ER diagram to show the
+     degree and cardinalities of the relationships.
+     A hospital has a large number of registered physicians. Attributes of PHYSICIAN include
+     Physician ID (the identifier) and Specialty. Patients are admitted to the hospital by physicians.
+     Attributes of PATIENT include Patient ID (the identifier) and Patient Name. Any patient who is
+     admitted must have exactly one admitting physician. A physician may optionally admit any
+     number of patients. Once admitted, a given patient must be treated by at least one physician. A
+     particular physician may treat any number of patients, or may not treat any patients. Whenever a
+     physician treats a patient, the hospital wishes to record the treatment details. Components of
+     Treatment Detail include Date, Time, and Results.
+     Did you draw more than one relationship between physician and patient? How would you include
+     in the ERD the need to represent the date a patient is admitted for each time he or she is admitted?
+     A patient is assigned to a particular ward, which can accommodate many patients at a time or is
+     vacant. A ward is characterized by its name and type.           (9½marks)
+
+=====================================================================
+Question Three
+
+[[Q3a]]
+(a) What is Normalization?                                           (1½marks)
+
+[[Q3b]]
+(b) Explain the following Terms with example
+    (i)  Full Functional Dependency.                                 (1½marks)
+    (ii) Partial Functional Dependency.                              (1½marks)
+    (iii) Transitive functional Dependency.                          (1½marks)
+
+[[Q3c]]
+(c) Given the StaffPropertyInspection Relation in Table 1 and the information below answer the
+    following questions:
+    (i)  Draw the functional dependency diagram for the relation.    (2marks)
+    (ii) Normalize the relation to 3rd Normal Form.
+        The keys are:
+        (propertyNo, iDate)          (PK)
+        (staffNo, iDate, iTime)      (CK)
+        (carReg, iDate, iTime)       (CK)
+                                                                     (9½marks)
+
+    Table 1: StaffPropertyInspection Relation
+
+    propertyNo | pAddress          | iDate     | iTime | comments                    | staffNo | carReg
+    PG4        |                   | 18-Oct-03 | 10.00 | Need to replace crockery.   | SG37    | M231 JGR
+    PG4        | 6 Lawrence        | 22-Apr-04 | 09.00 | In good order.              | SG14    | M533 HDR
+    PG4        | St, Glasgow.      | 1-Oct-04  | 12.00 | Damp rot in bathroom.       | SG14    | N721 HFR
+    PG16       | 5 Novar Dr,       | 22-Apr-04 | 13.00 | Replace living room carpet. | SG14    | M533 HDR
+    PG16       | Glasgow.          | 24-Oct-04 | 14.00 | Good condition.             | SG37    | N721 HFR
+
+    {{hand: an eighth column headed "S Name" is drawn on in pen at the right edge, with
+    the values A, B, B (for the PG4 rows) and B, A (for the PG16 rows). It is NOT printed:
+    the printed table stops at carReg.}}
+
+    Functional dependencies:
+    fd1 propertyNo, iDate → iTime, comments, staffNo, sName, carReg (Primary key)
+    fd2 propertyNo → pAddress                                       (Partial dependency)
+    fd3 staffNo → sName                                             (Transitive dependency)
+    fd4 staffNo, iDate → carReg                                     (Transitive dependency)
+    fd5 carReg, iDate, iTime → propertyNo, pAddress, comments, staffNo, sName  (Candidate key)
+    fd6 staffNo, iDate, iTime → propertyNo, pAddress, comments      (Candidate key)
+
+=====================================================================
+Question Four
+
+[[Q4a]]
+(a)  Briefly differentiate the following pair of concepts with example
+     (i)   Total specialization and partial specialization.          (2½marks)
+     (ii)  Supertype and subtype.                                    (2½marks)
+
+[[Q4b]]
+(b)  Transform the conceptual design for the bank card in Figure 2 into a logical design.
+                                                                     (6marks)
+
+[Figure 2: a photocopied conceptual (EER) diagram in crow's-foot notation. CUSTOMER
+(Customer ID, Cust Name, Cust Address) "Holds" CARD ACCOUNT (Account ID, Exp Date,
+Card Type). A specialization circle marked d hangs below CARD ACCOUNT, labelled
+"Card Type=", splitting into DEBIT CARD (Bank No), tagged "D", and CREDIT CARD
+(Cur Bal), tagged "C". MERCHANT (Merch ID, Merch Addr) connects down to CHARGES
+(Charge Date, Charge Time, Amount), drawn as a rounded (associative) box, which also
+connects across to CREDIT CARD. Captioned "Figure 2: Bank Card conceptual design".]
+
+[[Q4c]]
+(c)  With two (2) examples, describe a database management system                (3½ marks)
+
+[[Q4d]]
+(d)  Differentiate between data definition language (DDL) and data manipulation language (DML)
+                                                                     (3 marks)
+
+=====================================================================
+Question Five
+
+[[Q5a]]
+(a)  Define the following terms:
+     (i)     Primary key                                             (1 mark)
+     (ii)    Candidate key                                           (1 mark)
+     (iii)   Foreign key                                             (1 mark)
+     (iv)    Super key                                               (1 mark)
+
+[[Q5b]]
+(b)  Use the BankInfo relational schema to answer questions (i-vii) with Structured Query Language.
+         Staff(staffNo, fName, lName, position, sex, DOB, salary, branchNo)
+         Branch(branchNo, street, city, postcode)
+         PrivateOwner(ownerNo, fName, lName, address, telNo)
+
+     (i)     Write an SQL statement to create the Staff and Branch relations enforcing the referential
+             constraints                                             (3 marks)
+     (ii)    Populate the first three (3) tuples of the staff relations created in (i).   (1½ marks)
+     (iii)   Remove the column (attribute) DOB from the staff relation.      (1½ mark)
+     (iv)    Create a view of staff details named adhocStaff at branch B003 excluding salaries.
+                                                                     (1½ marks)
+     (v)     Find all owners with the string 'Glasgow' in their address.     (1½ marks)
+     (vi)    List addresses of all branch offices in London or Glasgow.      (1½ marks)
+     (vii)   List all staff with a salary greater than 10,000.        (1½ marks)
+     (viii)  List staff who work in branch at '163 Main St'.          (1½ marks)
+
+[note: in the printed schema staffNo, branchNo and ownerNo are underlined. The schema lines are set in italic.]
+
+=====================================================================
+Question Six
+
+[[Q6a]]
+(a) Consider yourself as an information system intern at a company that specializes in
+    developing software application for small businesses. Your team has been tasked with
+    creating a new inventory management system for a local retail store. The store's owner
+    wants a system that can track inventory levels, automate ordering, and provide real time
+    reporting. The project needs to be completed within a short time frame (1 month) and
+    with limited resources. The store owner is also keen on being actively involved in the
+    development process.
+
+    (i) How will you explain the concept of an information system to the store owner?   (2½ marks)
+    (ii) Justify why Rapid Application Development (RAD) method might be suitable for this project
+    with three (3) points, considering the project's constraints and requirements.      (6 marks)
+    (iii) Mention (6) characteristics of the business rules you will consider from the requirement
+    analysis phase of this project.                                  (3 marks)
+
+[[Q6b]]
+(b) Explain the following concepts with examples
+    (i)     Entity type                                              (1½ marks)
+    (ii)    Required attribute                                       (1½ marks)
+    (iii)   Disjoint rule                                            (1½ marks)
+    (iv)    Overlap rule                                             (1½ marks)
+
+---------------------------------------------------------------------
+NOTES ON THE PAPER'S OWN DEFECTS AND ODDITIES (mine, not the paper's)
+
+1. Q5(b) instructs "answer questions (i-vii)" and then prints EIGHT parts, (i) to
+   (viii). The rubric and the list contradict each other. Left exactly as printed;
+   a candidate must decide whether the eighth is compulsory. (Marks only reconcile
+   if all eight are attempted: 4 + 3 + 7x1½ = 17½.)
+
+2. Q5(b)(iii) prints "(1½ mark)", singular, where every neighbour prints
+   "(1½ marks)".
+
+3. The paper numbers its first question "Question 1" in digits and every later one
+   in words ("Question Two" ... "Question Six").
+
+4. Q3(c) Table 1 as PRINTED has seven columns and stops at carReg: there is NO
+   sName column. Yet fd1, fd3 and fd5 all determine sName. The relation the
+   student is asked to normalise therefore references an attribute the table does
+   not show. (The candidate who sat this paper drew the column in by hand, which
+   is not printed and is recorded above as a {{hand:}} note.) This is a genuine
+   contradiction in the question and is left standing.
+
+5. The 2025/2026 paper reuses this same StaffPropertyInspection relation but prints
+   a DIFFERENT table: four data rows instead of five (no "Damp rot in bathroom"
+   row), a merged propertyNo cell, and an eighth column printed as "staffName".
+   The two papers do not agree with each other. Both are quoted as each prints it.
+
+6. Mark text is inconsistent: "(1½marks)" closed up in Q1 and Q2, "(1½ marks)"
+   spaced in Q5, "(2marks)" and "(6marks)" closed up in Q3 and Q4, "(3½ marks)"
+   spaced. All reproduced as printed.
+
+7. "Figure 1: MN, Boys and Girls Relations." The "MN" is the paper's; it most
+   likely means the M:N relation but is printed without the colon.
+
+8. Q1(b)(iii) ends without a full stop; Q1(b)(i), (ii) and (iv) end with one.

@@ -1,0 +1,329 @@
+<section>
+  <div class="kick">Part Six &middot; 6.8</div>
+  <h2 class="title">Shortest Routes and the Travelling Salesman</h2>
+  <hr class="rule">
+  <p class="lead">The same five-city map has appeared on three papers, worth 10
+  marks every time, always with the same distances and always asking the same
+  thing. It is the most reliable 10 marks in this book.</p>
+  <p class="lo">By the end of this section you will be able to state the
+  travelling salesman problem, count how many tours a graph has, apply the
+  nearest-neighbour method and say honestly what it does and does not guarantee,
+  and produce the optimal Detroit tour with a proof that it is optimal.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Weighted graphs and the travelling salesman problem</span></div>
+    <div class="body">
+      <p>A <b>weighted graph</b> is a graph in which every edge carries a number
+      w(u, v), its <b>weight</b>: a distance, a cost, a time. The <b>weight of a
+      route</b> is the sum of the weights of the edges it uses.</p>
+      <p>The <b>travelling salesman problem</b> asks: starting from one vertex,
+      visit <b>every other vertex exactly once</b> and return to the start, with
+      the <b>smallest possible total weight</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">w(u, v)</span> is the weight on the edge joining u and v,
+      read straight off the labels on the drawing.
+      <span class="sym">a tour</span> is a <b>Hamilton circuit</b>, as defined in
+      section 6.6: every vertex once, back to the start.
+      <span class="sym">smallest total weight</span> is what makes it an
+      optimisation problem rather than an existence one. On a complete graph a
+      tour always exists; the work is finding the cheapest.</div>
+      <p class="hook"><b>Memory hook:</b> <b>every city once, home at the end,
+      cheapest possible.</b> Drop any one of those three and it is a different
+      problem with a different answer.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">How many tours are there</span></div>
+    <div class="body">
+      <p>On a complete graph with n vertices, the number of <b>distinct</b> tours
+      starting and ending at a fixed vertex is</p>
+      <p style="margin-left:12pt"><b>(n &#8722; 1)! / 2</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">(n &#8722; 1)!</span> counts the orders in which the other
+      n &#8722; 1 cities can be visited, by the permutation rule of section 5.2.
+      <span class="sym">the division by 2</span> is because a tour and the same
+      tour driven backwards use the same edges and cost the same, so they are one
+      route, not two.</div>
+      <p><b>For the five-city map:</b> (5 &#8722; 1)! / 2 = 24 / 2 = <b>12</b>
+      distinct tours. That is few enough to list them all, which is why this
+      question is answerable exactly in an exam.</p>
+      <p><b>Why the problem is famous, in one line worth writing:</b> the count
+      grows factorially, so 10 cities give 181440 tours and 20 cities give more
+      than 10<sup>16</sup>. No method is known that finds the exact optimum
+      quickly for large n, which is why heuristics like nearest neighbour exist at
+      all.</p>
+      <p class="hook"><b>Memory hook:</b> <b>fix the start, permute the rest,
+      halve for the reverse.</b></p>
+    </div>
+  </div>
+
+  <h3 class="sub">The question that appears three times</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q2a">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q2(a)</span></div>
+    <div class="body">
+      <p class="q">2.  (a) A Christian missionary is to embark on a trip from the city of Detroit through all other cities
+      and returns to Detroit, in which order should he visit these cities to travel the minimum
+      distance? <span class="mk">(10marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q4c">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q4(c)</span></div>
+    <div class="body">
+      <p class="q">(c) Given the graph below, a travelling missionary is to embark on a trip from the city of
+      Detroit through all other cities and returns to Detroit, in which order should he visit these cities
+      to travel the minimum distance? <span class="mk">(10marks)</span></p>
+    </div>
+  </div>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q4b">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q4(b)</span></div>
+    <div class="body">
+      <p class="q">(b) A Christian missionary is to embark on a trip from the city of Detroit through all other cities and
+      returns to Detroit, in which order should he visit these cities to travel the minimum distance?</p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper, and on the figure</b><br>
+  Three papers, one question, 30 marks in total, and the same figure each time.
+  The wording differs only in "A Christian missionary" against "a travelling
+  missionary" and in whether the marks are printed closed up.
+  <br><br>
+  <b>Why the 2023/2024 quote above carries no mark text.</b> On that paper the
+  diagram sits between the question and its marks, and "(10 marks)" is printed
+  on its own line <i>below</i> the figure. Splicing it onto the end of the
+  sentence would join words the paper does not join, so the quote stops where
+  the paper's sentence stops and the marks are reported here instead. They are
+  10, the same as the other two versions.
+  <br><br>
+  <b>The figure is the same on all three and it is readable.</b> It is a complete
+  graph on five cities, so all C(5, 2) = 10 edges are drawn and labelled. The
+  labels were read at 500 to 700 dpi and are listed in the worked answer below.
+  Unlike the two digraphs of section 6.4, nothing here is in doubt.
+  <br><br>
+  <b>What "in which order" means for your answer.</b> The question asks for an
+  order, so the answer is a sequence of city names, not just a number. Give the
+  route, give its total, and give the argument that no route is shorter. All
+  three are needed for 10 marks.</div>
+
+  <figure>
+    <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" style="width:98%;height:auto">
+      <g stroke="#9aa0b8" stroke-width="1.1" fill="none">
+        <path d="M92 52 L300 42"/>
+        <path d="M92 52 L86 176"/>
+        <path d="M92 52 L232 214"/>
+        <path d="M92 52 L400 132"/>
+        <path d="M300 42 L86 176"/>
+        <path d="M86 176 L400 132"/>
+        <path d="M86 176 L232 214"/>
+        <path d="M300 42 L232 214"/>
+        <path d="M300 42 L400 132"/>
+        <path d="M400 132 L232 214"/>
+      </g>
+      <g stroke="#283593" stroke-width="2.4" fill="none">
+        <path d="M400 132 L300 42"/>
+        <path d="M300 42 L92 52"/>
+        <path d="M92 52 L86 176"/>
+        <path d="M86 176 L232 214"/>
+        <path d="M232 214 L400 132"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="92" cy="52" r="6.5"/><circle cx="300" cy="42" r="6.5"/>
+        <circle cx="86" cy="176" r="6.5"/><circle cx="232" cy="214" r="6.5"/>
+      </g>
+      <circle cx="400" cy="132" r="7.5" fill="#be123c"/>
+      <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+        <text x="30" y="42">Grand Rapids</text>
+        <text x="286" y="30">Saginaw</text>
+        <text x="16" y="196">Kalamazoo</text>
+        <text x="200" y="236">Toledo</text>
+        <text x="412" y="128" fill="#be123c">Detroit</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="9.5" fill="#67707a">
+        <text x="186" y="40">113</text>
+        <text x="62" y="118">56</text>
+        <text x="150" y="146">167</text>
+        <text x="240" y="86">147</text>
+        <text x="176" y="112">137</text>
+        <text x="232" y="166">135</text>
+        <text x="120" y="206">133</text>
+        <text x="278" y="124">142</text>
+        <text x="352" y="76">98</text>
+        <text x="326" y="184">58</text>
+      </g>
+      <text x="30" y="256" font-family="DejaVu Sans" font-size="10" fill="#283593">The optimal tour, in indigo: Detroit, Saginaw, Grand Rapids, Kalamazoo, Toledo, Detroit. Total 458.</text>
+    </svg>
+    <figcaption>The five-city map as printed on all three papers, with the
+    optimal tour drawn over it. All ten edges exist; only five are used.</figcaption>
+  </figure>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Five cities, all pairs joined, with the ten distances
+      labelled on the figure. The tour must start and finish at Detroit.</dd>
+      <dt>Asked</dt><dd><b>In which order</b> the cities should be visited to
+      travel the <b>minimum</b> distance. An order, a total, and a reason it is
+      minimal.</dd>
+      <dt>Marks say</dt><dd>10, the largest single part on any of these papers.
+      Budget: 1 for tabulating the distances, 1 for the tour count, 4 for the
+      enumeration or the method, 2 for the route, 2 for showing it is
+      optimal.</dd>
+      <dt>Teaches</dt><dd>This section, 6.8, with Hamilton circuits from 6.6 and
+      permutations from 5.2.</dd>
+      <dt>Trap</dt><dd>Giving the nearest-neighbour route and calling it the
+      minimum without checking. Nearest neighbour is a heuristic: it is fast, it
+      is often good, and it is <b>not guaranteed</b> to be optimal. With only 12
+      tours you can check them all, so there is no excuse for guessing here.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q2(a) &middot; PQ 21/22 Q4(c) &middot; PQ 23/24 Q4(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Five cities forming a complete weighted graph, start and
+        finish at Detroit. The ten distances are tabulated in step 1.</dd>
+        <dt>Find</dt><dd>The order of visits giving the minimum total distance,
+        and that minimum.</dd>
+        <dt>Rule</dt><dd>A tour is a Hamilton circuit; there are
+        (n &#8722; 1)!/2 = 12 of them; the minimum is found by evaluating
+        all 12.</dd>
+      </dl>
+
+      <p><b>Step 1. Tabulate the distances,</b> reading them off the figure. Do
+      this first, always: it takes thirty seconds and every later line depends on
+      it.</p>
+      <table class="data">
+        <tr><th></th><th>Grand Rapids</th><th>Saginaw</th><th>Kalamazoo</th><th>Toledo</th><th>Detroit</th></tr>
+        <tr><th>Grand Rapids</th><td>0</td><td>113</td><td>56</td><td>167</td><td>147</td></tr>
+        <tr><th>Saginaw</th><td>113</td><td>0</td><td>137</td><td>142</td><td>98</td></tr>
+        <tr><th>Kalamazoo</th><td>56</td><td>137</td><td>0</td><td>133</td><td>135</td></tr>
+        <tr><th>Toledo</th><td>167</td><td>142</td><td>133</td><td>0</td><td>58</td></tr>
+        <tr><th>Detroit</th><td>147</td><td>98</td><td>135</td><td>58</td><td>0</td></tr>
+      </table>
+
+      <p><b>Step 2. Count the tours.</b> Five cities with Detroit fixed as the
+      start gives</p>
+      <p style="margin-left:12pt">(5 &#8722; 1)! / 2 = 4! / 2 = 24 / 2 =
+      <b>12</b> distinct tours.</p>
+      <p>Twelve is small enough to evaluate exhaustively, and doing so is what
+      turns "here is a short route" into "here is <b>the</b> shortest route".</p>
+
+      <p><b>Step 3. Evaluate all twelve.</b> Abbreviate Grand Rapids as GR,
+      Saginaw as S, Kalamazoo as K, Toledo as T and Detroit as D. Each row starts
+      and ends at D.</p>
+      <table class="data">
+        <tr><th>Tour</th><th>Distances added</th><th>Total</th></tr>
+        <tr><td>D S GR K T D</td><td>98 + 113 + 56 + 133 + 58</td><td><b>458</b></td></tr>
+        <tr><td>D K GR S T D</td><td>135 + 56 + 113 + 142 + 58</td><td>504</td></tr>
+        <tr><td>D S K GR T D</td><td>98 + 137 + 56 + 167 + 58</td><td>516</td></tr>
+        <tr><td>D GR K S T D</td><td>147 + 56 + 137 + 142 + 58</td><td>540</td></tr>
+        <tr><td>D GR K T S D</td><td>147 + 56 + 133 + 142 + 98</td><td>576</td></tr>
+        <tr><td>D GR S K T D</td><td>147 + 113 + 137 + 133 + 58</td><td>588</td></tr>
+        <tr><td>D K GR T S D</td><td>135 + 56 + 167 + 142 + 98</td><td>598</td></tr>
+        <tr><td>D K S GR T D</td><td>135 + 137 + 113 + 167 + 58</td><td>610</td></tr>
+        <tr><td>D K T GR S D</td><td>135 + 133 + 167 + 113 + 98</td><td>646</td></tr>
+        <tr><td>D GR S T K D</td><td>147 + 113 + 142 + 133 + 135</td><td>670</td></tr>
+        <tr><td>D GR T K S D</td><td>147 + 167 + 133 + 137 + 98</td><td>682</td></tr>
+        <tr><td>D GR T S K D</td><td>147 + 167 + 142 + 137 + 135</td><td>728</td></tr>
+      </table>
+
+      <p><b>Step 4. Read off the answer.</b></p>
+      <p style="margin-left:12pt"><b>Order: Detroit, Saginaw, Grand Rapids,
+      Kalamazoo, Toledo, Detroit.</b><br>
+      <b>Minimum distance: 458.</b></p>
+      <p><b>Why it is optimal, which is the part worth two marks:</b> all twelve
+      possible tours have been evaluated and none is shorter than 458. This is not
+      an estimate. The worst tour costs 728, so the choice of order matters by
+      over 270, which is a good closing observation.</p>
+      <p><b>Note the route may be written either way round.</b> Detroit, Toledo,
+      Kalamazoo, Grand Rapids, Saginaw, Detroit is the same tour driven backwards
+      and costs the same 458. Either is a correct answer; that is exactly what the
+      division by 2 in step 2 was accounting for.</p>
+
+      <p><b>The nearest-neighbour method, and its honest status.</b> If time is
+      short, the heuristic is: from the current city, always go to the nearest
+      unvisited one, and return home at the end.</p>
+      <table class="data">
+        <tr><th>At</th><th>Unvisited, with distances</th><th>Nearest</th></tr>
+        <tr><td>Detroit</td><td>GR 147, S 98, K 135, T 58</td><td>Toledo, 58</td></tr>
+        <tr><td>Toledo</td><td>GR 167, S 142, K 133</td><td>Kalamazoo, 133</td></tr>
+        <tr><td>Kalamazoo</td><td>GR 56, S 137</td><td>Grand Rapids, 56</td></tr>
+        <tr><td>Grand Rapids</td><td>S 113</td><td>Saginaw, 113</td></tr>
+        <tr><td>Saginaw</td><td>return home</td><td>Detroit, 98</td></tr>
+      </table>
+      <p style="margin-left:12pt">total = 58 + 133 + 56 + 113 + 98 = <b>458</b></p>
+      <p><b>On this map the heuristic happens to find the optimum</b>, because the
+      route it builds is the optimal tour driven backwards. <b>Say "happens to".</b>
+      Nearest neighbour carries no guarantee: it commits to a cheap first step
+      that can force an expensive last one, and on other maps it does exactly
+      that. If you use it, use it to <i>find</i> a candidate and then justify the
+      candidate by comparison, as above. A 10-mark answer that says "nearest
+      neighbour gives 458, therefore 458 is the minimum" has asserted the thing it
+      was asked to establish.</p>
+      <p class="redo"><b>Now redo it:</b> how many tours would six cities have?
+      (6 &#8722; 1)!/2 = 120/2 = 60, five times as many for one extra city. That
+      growth is the whole difficulty of the problem.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">A heuristic is not a proof</span></div>
+    <div class="body">
+      <p>The three papers all say "the minimum distance". A minimum is a claim
+      about <b>every</b> alternative, so it can only be established by ruling the
+      alternatives out. With 12 tours, list them. With 60 you would explain the
+      method and evaluate a well-chosen few, stating plainly that the result is a
+      good route rather than a proven optimum.</p>
+      <p>Writing that distinction down costs one sentence and is the difference
+      between an answer that is correct and one that is merely right.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State the travelling salesman problem.</p>
+      <p class="q">2. How many distinct tours has a complete graph on n
+      vertices, and why the division by 2?</p>
+      <p class="q">3. How many tours has the five-city map?</p>
+      <p class="q">4. Give the optimal Detroit route and its total.</p>
+      <p class="q">5. What does the nearest-neighbour method guarantee?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Starting from one vertex of a weighted graph, visit every other
+      vertex exactly once and return to the start, at minimum total weight.<br>
+      2. (n &#8722; 1)!/2. Fixing the start leaves (n &#8722; 1)! orders for the
+      rest, and each tour is counted twice because driving it backwards costs the
+      same.<br>
+      3. 4!/2 = 12.<br>
+      4. Detroit, Saginaw, Grand Rapids, Kalamazoo, Toledo, Detroit, totalling
+      458.<br>
+      5. Nothing. It is a heuristic that often gives a good route and is not
+      guaranteed to give the shortest.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A tour is a <span class="blank"></span> circuit with weights
+        attached.</li>
+        <li>A complete graph on n vertices has <span class="blank"></span>
+        distinct tours.</li>
+        <li>The five-city map has <span class="blank"></span> tours and its
+        minimum is <span class="blank"></span>.</li>
+        <li>Nearest neighbour is a <span class="blank"></span>, so it is not a
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Hamilton. 2. (n &#8722; 1)!/2. 3. 12, 458. 4. heuristic, proof.</p>
+    </div>
+  </div>
+
+</section>

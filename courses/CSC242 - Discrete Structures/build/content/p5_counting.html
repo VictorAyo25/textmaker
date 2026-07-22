@@ -1,0 +1,583 @@
+<section class="part">
+  <div class="kicker">Part Five</div>
+  <h1>Counting, Permutations<br>and Combinations</h1>
+  <div class="blurb">Counting sounds like the easiest thing in this book and is
+  the one that loses the most marks. Every question here is answered by deciding
+  two things: are the choices stages or alternatives, and does order matter.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.2" fill="none">
+        <path d="M40 65 L110 30"/><path d="M40 65 L110 65"/><path d="M40 65 L110 100"/>
+        <path d="M110 30 L180 16"/><path d="M110 30 L180 44"/>
+        <path d="M110 65 L180 51"/><path d="M110 65 L180 79"/>
+        <path d="M110 100 L180 86"/><path d="M110 100 L180 114"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="40" cy="65" r="5"/>
+        <circle cx="110" cy="30" r="4"/><circle cx="110" cy="65" r="4"/><circle cx="110" cy="100" r="4"/>
+      </g>
+      <g fill="#be123c">
+        <circle cx="180" cy="16" r="3.6"/><circle cx="180" cy="44" r="3.6"/>
+        <circle cx="180" cy="51" r="3.6"/><circle cx="180" cy="79" r="3.6"/>
+        <circle cx="180" cy="86" r="3.6"/><circle cx="180" cy="114" r="3.6"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="13" fill="#8891c9">
+        <text x="238" y="30">3 &#215; 2 = 6</text>
+        <text x="238" y="58">P(n, r)</text>
+        <text x="238" y="86">C(n, r)</text>
+        <text x="238" y="114">n(A &#8746; B)</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#a4abcd">
+        <text x="372" y="30">stages multiply</text>
+        <text x="372" y="58">order matters</text>
+        <text x="372" y="86">order does not</text>
+        <text x="372" y="114">overlap subtracts</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Five &middot; 5.1</div>
+  <h2 class="title">The Product and Sum Rules</h2>
+  <hr class="rule">
+  <p class="lead">Two rules answer most counting questions on these papers, and
+  choosing between them is the whole skill. Stages multiply. Alternatives add.</p>
+  <p class="lo">By the end of this section you will be able to break a counting
+  task into parts, decide whether those parts are compulsory or alternative,
+  apply the product rule, the sum rule and the subtraction rule, and answer the
+  auditorium chairs, ATM PIN, three-digit-number and password questions in full.</p>
+
+  <h3 class="sub">What a counting question is asking</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Counting without listing</span></div>
+    <div class="body">
+      <p>A counting question asks <b>how many</b> objects of some kind exist. The
+      honest way to answer is to list them all and count the list. That works for
+      six letters and fails for a million PIN codes, so we need rules that give
+      the size of the list without writing it out.</p>
+      <p>Every such rule comes from the same move: <b>break the task into parts</b>,
+      count each part, then combine. The only question is how to combine, and
+      there are exactly two answers.</p>
+      <table class="data">
+        <tr><th>If the parts are</th><th>Then</th><th>Because</th></tr>
+        <tr><td><b>compulsory</b>: you do part 1 <i>and</i> part 2 <i>and</i>
+        part 3</td><td>multiply</td><td>every way of doing part 1 pairs with
+        every way of doing part 2</td></tr>
+        <tr><td><b>alternative</b>: you do part 1 <i>or</i> part 2 <i>or</i>
+        part 3, never two at once</td><td>add</td><td>the possibilities are
+        separate piles and nothing sits in two piles</td></tr>
+      </table>
+      <p>Those two words, <b>compulsory</b> and <b>alternative</b>, are the ones
+      the 2025/2026 paper uses when it asks you to name the parts of a task. They
+      are worth learning in exactly that language.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The product rule</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Product rule</span></div>
+    <div class="body">
+      <p>If a task is carried out in a sequence of stages, and</p>
+      <p style="margin-left:12pt">stage 1 can be done in n<sub>1</sub> ways,<br>
+      stage 2 in n<sub>2</sub> ways <i>whatever</i> stage 1 did,<br>
+      &#8230; and stage k in n<sub>k</sub> ways,</p>
+      <p>then the whole task can be carried out in</p>
+      <p style="margin-left:12pt"><b>n<sub>1</sub> &#215; n<sub>2</sub> &#215;
+      &#8230; &#215; n<sub>k</sub></b> ways.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">k</span> is the number of stages, one for each decision
+      you must make.
+      <span class="sym">n<sub>i</sub></span> is the number of choices at stage i.
+      <span class="sym">&#215;</span> is ordinary multiplication.</div>
+      <p class="hook"><b>Memory hook:</b> <b>and means times.</b> A shirt
+      <i>and</i> a pair of trousers: 3 shirts and 2 trousers give 6 outfits, not
+      5. Say the task out loud; if the joining word is "and", multiply.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why multiplying is right</span></div>
+    <div class="body">
+      <p>Draw the choices as a tree. Each stage adds a level, and each complete
+      path from the root to a tip is one outcome. Three first choices, each
+      splitting into two, gives 3 &#215; 2 = 6 tips.</p>
+      <figure>
+        <svg viewBox="0 0 470 200" xmlns="http://www.w3.org/2000/svg" style="width:88%;height:auto">
+          <g stroke="#9aa0b8" stroke-width="1.2" fill="none">
+            <path d="M46 100 L150 40"/><path d="M46 100 L150 100"/><path d="M46 100 L150 160"/>
+            <path d="M150 40 L258 22"/><path d="M150 40 L258 58"/>
+            <path d="M150 100 L258 82"/><path d="M150 100 L258 118"/>
+            <path d="M150 160 L258 142"/><path d="M150 160 L258 178"/>
+          </g>
+          <circle cx="46" cy="100" r="5.5" fill="#283593"/>
+          <text x="10" y="120" font-family="DejaVu Sans" font-size="10" fill="#67707a">start</text>
+          <g fill="#283593">
+            <circle cx="150" cy="40" r="4.6"/><circle cx="150" cy="100" r="4.6"/><circle cx="150" cy="160" r="4.6"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#283593">
+            <text x="96" y="58">red</text><text x="90" y="94">blue</text><text x="88" y="150">green</text>
+          </g>
+          <g fill="#be123c">
+            <circle cx="258" cy="22" r="4"/><circle cx="258" cy="58" r="4"/>
+            <circle cx="258" cy="82" r="4"/><circle cx="258" cy="118" r="4"/>
+            <circle cx="258" cy="142" r="4"/><circle cx="258" cy="178" r="4"/>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#232a31">
+            <text x="272" y="26">red, black</text>
+            <text x="272" y="62">red, grey</text>
+            <text x="272" y="86">blue, black</text>
+            <text x="272" y="122">blue, grey</text>
+            <text x="272" y="146">green, black</text>
+            <text x="272" y="182">green, grey</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10" fill="#67707a">
+            <text x="120" y="196">stage 1: 3 ways</text>
+            <text x="236" y="196">stage 2: 2 ways each</text>
+          </g>
+        </svg>
+        <figcaption>The product rule is a tree. Three shirts, then two pairs of
+        trousers for each: six paths, so six outfits.</figcaption>
+      </figure>
+      <p>The condition that stage 2 has n<sub>2</sub> ways <b>whatever stage 1
+      did</b> is what makes every branch split the same number of times. If the
+      second choice depended on the first, the branches would have different
+      widths and the count would not be a single product.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The sum rule</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Sum rule</span></div>
+    <div class="body">
+      <p>If a task can be done in one of k alternative ways, and</p>
+      <p style="margin-left:12pt">alternative 1 can be done in n<sub>1</sub> ways,
+      alternative 2 in n<sub>2</sub> ways, &#8230; alternative k in n<sub>k</sub>
+      ways,</p>
+      <p>and <b>no outcome counts under two alternatives at once</b>, then the
+      task can be done in</p>
+      <p style="margin-left:12pt"><b>n<sub>1</sub> + n<sub>2</sub> + &#8230; +
+      n<sub>k</sub></b> ways.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">k</span> is the number of alternatives, one for each
+      separate case.
+      <span class="sym">no overlap</span> is a genuine condition, not decoration.
+      If two alternatives can both produce the same outcome, adding counts that
+      outcome twice.</div>
+      <p class="hook"><b>Memory hook:</b> <b>or means plus.</b> Piles you can
+      choose between are added; stages you must pass through are multiplied.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">The word "or" is not proof of a sum</span></div>
+    <div class="body">
+      <p>English "or" is a bad guide on its own. In the password question below,
+      each character is "an uppercase letter <i>or</i> a digit", and that or is
+      counted by <b>adding</b>: 26 + 10 = 36 symbols. But choosing eight
+      characters is eight compulsory stages, so those 36s are <b>multiplied</b>.
+      One sentence, both rules, in that order.</p>
+      <p>The reliable test is not the word. It is this question: <b>am I
+      describing one decision with several options, or several decisions I must
+      all make?</b> Options add. Decisions multiply.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The subtraction rule</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Subtraction rule</span></div>
+    <div class="body">
+      <p>To count the objects with some property, when the ones <i>without</i> it
+      are easier to count:</p>
+      <p style="margin-left:12pt"><b>(number with the property) = (total) &#8722;
+      (number without it)</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">total</span> is the count with the condition ignored
+      entirely, which is nearly always the easy number.
+      <span class="sym">number without it</span> is the count of the cases the
+      condition rules out, and it must be counted over the same total, not over
+      some smaller pool.
+      <span class="sym">the two groups</span> must cover everything between them
+      and share nothing, which is what makes one subtraction exact.</div>
+      <p>This is the counting form of the complement from section 2.2: the
+      objects with the property and the objects without it fill the whole
+      collection between them and share nothing.</p>
+      <p class="hook"><b>Memory hook:</b> <b>"at least one" means "not none".</b>
+      Whenever a question says at least one, count everything, count the cases
+      with none, and subtract. Counting "at least one" directly means splitting
+      into exactly one, exactly two, exactly three and so on, which is longer and
+      easier to get wrong.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The auditorium chairs</h3>
+
+  <div class="box paper" data-paper="2021-2022" data-q="Q2a">
+    <div class="bar"><span>As printed</span><span class="tag">2021/2022 &middot; Q2(a)</span></div>
+    <div class="body">
+      <p class="q">2.  (a) The chairs of an auditorium are to be labeled with an uppercase English letter followed by a
+      positive integer not exceeding 100. What is the largest number of chairs that can be labeled
+      differently? <span class="mk">(6marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "labeled" is the American spelling; the paper uses it throughout. The mark text
+  is closed up as "(6marks)", which is how this whole paper prints marks. Neither
+  affects the answer. What does affect the answer is "not exceeding 100": that
+  means 100 is allowed, so the integers run 1 to 100 inclusive and there are 100
+  of them, not 99.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A label is an uppercase English letter followed by a
+      positive integer that is at most 100.</dd>
+      <dt>Asked</dt><dd><b>The largest number of chairs that can be labelled
+      differently</b>, which is the number of distinct labels available.</dd>
+      <dt>Parts</dt><dd>Two, and both are compulsory: every label has a letter
+      <b>and</b> a number. So this is the product rule.</dd>
+      <dt>Marks say</dt><dd>6 marks for one multiplication is generous, so the
+      marks are for the reasoning: name the two stages, count each, justify the
+      counts, then multiply.</dd>
+      <dt>Teaches</dt><dd>This section, 5.1.</dd>
+      <dt>Trap</dt><dd>Two of them. "Uppercase English letter" is 26, not 52.
+      "Positive integer not exceeding 100" is 100, not 99 and not 101: positive
+      excludes 0, and not exceeding includes 100.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 21/22 Q2(a)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>label = uppercase letter, then a positive integer at
+        most 100.</dd>
+        <dt>Find</dt><dd>How many different labels exist.</dd>
+        <dt>Rule</dt><dd>Product rule: the two parts are compulsory.</dd>
+      </dl>
+      <p><b>Stage 1: choose the letter.</b> The uppercase English letters are A
+      to Z, so there are <b>26</b> choices.</p>
+      <p><b>Stage 2: choose the integer.</b> Positive integers not exceeding 100
+      are 1, 2, 3, &#8230;, 100. Counting them, there are <b>100</b> choices.</p>
+      <p>Stage 2 offers the same 100 numbers whichever letter was picked, so the
+      product rule applies directly:</p>
+      <p style="margin-left:12pt">number of labels = 26 &#215; 100 =
+      <b>2600</b></p>
+      <p><b>Answer: 2600 chairs can be labelled differently.</b></p>
+      <p>Say the last sentence in the paper's own terms: since each chair needs
+      its own label, 2600 is the largest number of chairs that can be labelled
+      differently.</p>
+      <p class="redo"><b>Now redo it:</b> if the label were two uppercase letters
+      followed by a positive integer not exceeding 100, how many? Three
+      compulsory stages now: 26 &#215; 26 &#215; 100 = 67600.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The ATM PIN codes</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q6b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q6(b)</span></div>
+    <div class="body">
+      <p class="q">(b)  ATM PIN code in Nigeria can contain the digits 0,1,2,&#8230;,9 and digits may be repeated In
+      the light of the above, how many 4 to 6 digit pin codes are there? <span class="mk">(5 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Two sentences have been run together with no full stop: "digits may be repeated
+  In the light of the above". Read the capital "In" as the start of the second
+  sentence. The phrase "4 to 6 digit" means codes of length 4, length 5 or length
+  6, and those three lengths are the alternatives that make this a sum-rule
+  question sitting on top of a product-rule one.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Each position holds one of the ten digits 0 to 9, and
+      repeats are allowed.</dd>
+      <dt>Asked</dt><dd><b>How many</b> codes of length 4, 5 or 6 there are, in
+      total.</dd>
+      <dt>Parts</dt><dd>Two levels. Within one length the positions are
+      compulsory parts, so multiply. Across the three lengths the cases are
+      alternative parts, so add.</dd>
+      <dt>Marks say</dt><dd>5 marks for three powers and one addition. Show each
+      length separately, then total. A bare final number risks losing the method
+      marks.</dd>
+      <dt>Teaches</dt><dd>This section, 5.1.</dd>
+      <dt>Trap</dt><dd>Answering only for 6 digits, or multiplying the three
+      lengths together. A code is 4 <b>or</b> 5 <b>or</b> 6 digits long, never
+      two lengths at once, so the three counts are added.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q6(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Digits 0 to 9, so 10 choices per position. Repetition
+        allowed. Lengths 4, 5 and 6.</dd>
+        <dt>Find</dt><dd>The total number of such codes.</dd>
+        <dt>Rule</dt><dd>Product rule within a length, sum rule across lengths.</dd>
+      </dl>
+      <p><b>Step 1. Count the codes of each length.</b> Because repeats are
+      allowed, every position still has all 10 digits available, no matter what
+      the earlier positions took. So each position is a stage with 10 ways.</p>
+      <table class="data">
+        <tr><th>Length</th><th>Product rule</th><th>Count</th></tr>
+        <tr><td>4 digits</td><td>10 &#215; 10 &#215; 10 &#215; 10 = 10<sup>4</sup></td><td>10000</td></tr>
+        <tr><td>5 digits</td><td>10<sup>5</sup></td><td>100000</td></tr>
+        <tr><td>6 digits</td><td>10<sup>6</sup></td><td>1000000</td></tr>
+      </table>
+      <p><b>Step 2. Combine the three lengths.</b> A code has exactly one length,
+      so no code is counted twice and the sum rule applies:</p>
+      <p style="margin-left:12pt">total = 10<sup>4</sup> + 10<sup>5</sup> +
+      10<sup>6</sup><br>
+      = 10000 + 100000 + 1000000<br>
+      = <b>1110000</b></p>
+      <p><b>Answer: there are 1110000 PIN codes of 4 to 6 digits.</b> Written
+      with separators for readability, 1 110 000.</p>
+      <p><b>Why repetition matters.</b> If digits could not repeat, each position
+      would remove one digit from the pool and the length-4 count would be
+      10 &#215; 9 &#215; 8 &#215; 7 instead of 10<sup>4</sup>. Section 5.2 counts
+      that case. The words "digits may be repeated" are the paper telling you
+      which of the two applies.</p>
+      <p class="redo"><b>Now redo it:</b> how many codes of 4 to 6 digits start
+      with a nonzero digit? Each length loses its first-position zero, giving
+      9 &#215; 10<sup>3</sup> + 9 &#215; 10<sup>4</sup> + 9 &#215; 10<sup>5</sup>
+      = 9000 + 90000 + 900000 = 999000.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Three-digit numbers, and naming the rule</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q6c">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q6(c)</span></div>
+    <div class="body">
+      <p class="q">(c) i. How many three digit natural numbers can be formed using digits 0, 1, &#183; &#183; &#183; , 9? <span class="mk">(1 mark)</span></p>
+      <p class="qi">ii.     Identify the number of parts in the task and the type of the parts (compulsory or
+      alternative). <span class="mk">(4 marks)</span></p>
+      <p class="qi">iii.    Which rule applies here? <span class="mk">(1 mark)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Parts ii and iii say "the task" and "here" without saying which task. They sit
+  directly under (c) i, and (c) i is the nearest task, so answer them about the
+  three-digit numbers. Part (b) immediately above is also a counting task with a
+  different answer, so the safe examination move is to answer for (c) i and then
+  add one line covering (b) as well. That costs a sentence and cannot be marked
+  wrong. Both answers are given below.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>The ten digits 0 to 9, and a three-digit natural number
+      to build from them.</dd>
+      <dt>Asked</dt><dd>(i) <b>How many</b> such numbers. (ii) <b>Identify</b>
+      the number of parts and their type. (iii) <b>Which rule</b> applies. Only
+      the first is a calculation; the other two ask you to describe your own
+      method.</dd>
+      <dt>Marks say</dt><dd>1, 4 and 1. The 4 marks are the largest on this part
+      and they are for the description, not the arithmetic. Name each part, say
+      how many ways it has, and say why it is compulsory.</dd>
+      <dt>Teaches</dt><dd>This section, 5.1.</dd>
+      <dt>Trap</dt><dd>Answering 10<sup>3</sup> = 1000. A three-digit number
+      cannot begin with 0, because 012 is the two-digit number 12. The hundreds
+      position has 9 choices, not 10.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q6(c)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Digits 0 to 9, forming a three-digit natural number.</dd>
+        <dt>Find</dt><dd>The count, the parts, and the rule.</dd>
+        <dt>Rule</dt><dd>Product rule, with one restricted position.</dd>
+      </dl>
+
+      <p class="marks">i. How many three-digit natural numbers</p>
+      <p>A three-digit natural number runs from 100 to 999. Build it position by
+      position:</p>
+      <table class="data">
+        <tr><th>Position</th><th>Allowed digits</th><th>Ways</th></tr>
+        <tr><td>hundreds</td><td>1 to 9, since a leading 0 would make it a
+        shorter number</td><td>9</td></tr>
+        <tr><td>tens</td><td>0 to 9</td><td>10</td></tr>
+        <tr><td>units</td><td>0 to 9</td><td>10</td></tr>
+      </table>
+      <p style="margin-left:12pt">count = 9 &#215; 10 &#215; 10 = <b>900</b></p>
+      <p><b>Answer: 900.</b> Check it another way, which is worth doing on a
+      1-mark part: the numbers 100 to 999 inclusive number
+      999 &#8722; 100 + 1 = 900. The two methods agree.</p>
+
+      <p class="marks">ii. The number of parts and their type</p>
+      <p><b>Three parts, all compulsory.</b> Set out in full, since 4 marks are
+      on offer:</p>
+      <ol class="qlist">
+        <li><b>Part 1, choose the hundreds digit:</b> 9 ways. Compulsory, because
+        every three-digit number has a hundreds digit.</li>
+        <li><b>Part 2, choose the tens digit:</b> 10 ways. Compulsory.</li>
+        <li><b>Part 3, choose the units digit:</b> 10 ways. Compulsory.</li>
+      </ol>
+      <p>They are compulsory rather than alternative because the number is not
+      finished until all three have been done. You do not pick <i>one</i> of the
+      three parts; you do part 1 <b>and</b> part 2 <b>and</b> part 3.</p>
+      <p><b>For part (b) above,</b> the structure is different and worth one
+      line: that task has <b>three alternative parts</b>, one per allowed length
+      (4, 5 and 6 digits), and each of those parts is itself built from
+      compulsory sub-parts, one per digit position.</p>
+
+      <p class="marks">iii. Which rule applies</p>
+      <p><b>The product rule</b>, because the parts of (c) i are compulsory: the
+      counts 9, 10 and 10 are multiplied.</p>
+      <p>And again for (b): <b>the sum rule</b> across the three lengths, sitting
+      on top of the product rule within each length.</p>
+      <p class="redo"><b>Now redo it:</b> how many three-digit natural numbers
+      have no repeated digit? Hundreds 9 ways, tens 9 (zero is back in, but the
+      hundreds digit is gone), units 8. So 9 &#215; 9 &#215; 8 = 648.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The password question</h3>
+
+  <div class="box paper" data-paper="2020-2021" data-q="Q5b">
+    <div class="bar"><span>As printed</span><span class="tag">2020/2021 &middot; Q5(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Each user on a computer system has a password, which is six to eight characters long, where each
+      character is an uppercase letter or a digit. Each password must contain at least one digit. How many
+      possible passwords are there? <span class="mk">(5 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  This is the hardest counting question in the whole set, and it is worth 5 marks
+  out of 22.5. It combines all three rules of this section: add across the three
+  lengths, multiply across the character positions, and subtract to handle "at
+  least one digit". Nothing about it is printed wrongly. The difficulty is real,
+  not a defect.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>Password length 6, 7 or 8. Each character is an uppercase
+      letter or a digit. At least one character must be a digit.</dd>
+      <dt>Asked</dt><dd><b>How many possible passwords</b> there are in total.</dd>
+      <dt>Parts</dt><dd>Three alternative lengths, so add. Within a length, one
+      compulsory part per character position, so multiply. The "at least one"
+      condition is handled by subtracting.</dd>
+      <dt>Marks say</dt><dd>5 marks. Roughly: 1 for the 36 symbols, 1 for seeing
+      that "at least one digit" means total minus letters-only, 2 for the three
+      lengths, 1 for the total. Show every line.</dd>
+      <dt>Teaches</dt><dd>This section, 5.1: product, sum and subtraction rules
+      together.</dd>
+      <dt>Trap</dt><dd>Trying to count "at least one digit" directly by cases
+      (exactly one digit, exactly two, and so on). It can be done, but it is
+      seven cases per length and almost nobody finishes it correctly under exam
+      pressure. Subtract instead.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 20/21 Q5(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>Length 6, 7 or 8; each character from 26 uppercase
+        letters or 10 digits; at least one digit required.</dd>
+        <dt>Find</dt><dd>The number of possible passwords.</dd>
+        <dt>Rule</dt><dd>Sum over lengths; product over positions; subtraction
+        for "at least one".</dd>
+      </dl>
+
+      <p><b>Step 1. Count the symbols available per character.</b> A character is
+      an uppercase letter <b>or</b> a digit, and no symbol is both, so the sum
+      rule gives</p>
+      <p style="margin-left:12pt">26 + 10 = <b>36</b> symbols.</p>
+
+      <p><b>Step 2. Turn "at least one digit" into a subtraction.</b> Let
+      P<sub>n</sub> be the number of valid passwords of length n. Then</p>
+      <p style="margin-left:12pt">P<sub>n</sub> = (all strings of length n over
+      the 36 symbols) &#8722; (those using no digit at all)<br>
+      = 36<sup>n</sup> &#8722; 26<sup>n</sup></p>
+      <p>A string with no digit is made only of the 26 letters, which is where
+      26<sup>n</sup> comes from. Every string either contains a digit or does
+      not, and never both, so the subtraction is exact.</p>
+
+      <p><b>Step 3. Evaluate each length.</b></p>
+      <p style="margin-left:12pt">P<sub>6</sub> = 36<sup>6</sup> &#8722;
+      26<sup>6</sup> = 2176782336 &#8722; 308915776 = <b>1867866560</b><br>
+      P<sub>7</sub> = 36<sup>7</sup> &#8722; 26<sup>7</sup> = 78364164096
+      &#8722; 8031810176 = <b>70332353920</b><br>
+      P<sub>8</sub> = 36<sup>8</sup> &#8722; 26<sup>8</sup> = 2821109907456
+      &#8722; 208827064576 = <b>2612282842880</b></p>
+
+      <p><b>Step 4. Add the three lengths.</b> A password has exactly one length,
+      so the sum rule applies:</p>
+      <p style="margin-left:12pt">P = P<sub>6</sub> + P<sub>7</sub> +
+      P<sub>8</sub> = <b>2684483063360</b></p>
+      <p><b>Answer: 2684483063360 possible passwords</b>, or 2 684 483 063 360
+      written with separators.</p>
+      <p><b>If you run out of time,</b> the formula
+      P = (36<sup>6</sup> &#8722; 26<sup>6</sup>) + (36<sup>7</sup> &#8722;
+      26<sup>7</sup>) + (36<sup>8</sup> &#8722; 26<sup>8</sup>) with the three
+      rules named earns most of the 5 marks on its own. Write the formula first,
+      then evaluate. Never the other way round.</p>
+      <p class="redo"><b>Now redo it:</b> same question but passwords are exactly
+      six characters and must contain at least one letter. Answer:
+      36<sup>6</sup> &#8722; 10<sup>6</sup> = 2176782336 &#8722; 1000000 =
+      2175782336.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. When do you multiply the counts of the parts, and when do
+      you add them?</p>
+      <p class="q">2. What condition must alternatives satisfy before the sum
+      rule is valid?</p>
+      <p class="q">3. How many three-digit natural numbers are there, and why is
+      it not 1000?</p>
+      <p class="q">4. Turn "at least one vowel" into a subtraction.</p>
+      <p class="q">5. Labels are one uppercase letter then an integer from 1 to
+      100. How many?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. Multiply when the parts are compulsory, that is, when all of them
+      must be done. Add when they are alternatives and exactly one of them
+      happens.<br>
+      2. No outcome may count under two alternatives, otherwise it is counted
+      twice.<br>
+      3. 900. The hundreds digit cannot be 0, so it has 9 choices, not 10:
+      9 &#215; 10 &#215; 10.<br>
+      4. (total number of strings) &#8722; (number of strings with no vowel).<br>
+      5. 26 &#215; 100 = 2600.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Parts that must all be done are <span class="blank"></span>, and
+        their counts are <span class="blank"></span>.</li>
+        <li>Parts you choose between are <span class="blank"></span>, and their
+        counts are <span class="blank"></span>.</li>
+        <li>The number of PIN codes of 4 to 6 digits, repeats allowed, is
+        <span class="blank"></span>.</li>
+        <li>"At least one" is counted as total minus
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. compulsory, multiplied. 2. alternative, added. 3. 1110000.
+      4. none.</p>
+    </div>
+  </div>
+
+</section>

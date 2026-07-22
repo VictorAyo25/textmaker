@@ -1,0 +1,294 @@
+<section>
+  <div class="kick">Part Five &middot; 5.4</div>
+  <h2 class="title">The Binomial Theorem</h2>
+  <hr class="rule">
+  <p class="lead">Expanding a bracket raised to a power is a counting problem in
+  disguise, and the numbers that come out are the combinations you met in section
+  5.2.</p>
+  <p class="lo">By the end of this section you will be able to read the binomial
+  coefficient notation, state and apply the binomial theorem, build and use
+  Pascal's triangle, pick out a single term without expanding the whole thing, and
+  explain why the coefficients of a row add to a power of two.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where this stands on the papers</span></div>
+    <div class="body">
+      <p>Say this plainly before spending time here. <b>None of the five papers we
+      hold sets a binomial theorem question.</b> It is a full module of the
+      official course text, so it is examinable and cheap to learn, but it should
+      be the last thing you revise, not the first.</p>
+      <p>It earns its place for a second reason: it is the clearest proof that
+      combinations are not just a formula for committees. The coefficients of an
+      expansion <i>are</i> counts of selections, and seeing that makes section 5.2
+      harder to forget.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The binomial coefficient</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Binomial coefficient</span></div>
+    <div class="body">
+      <p>The <b>binomial coefficient</b> is the combination count of section 5.2
+      under a second name and a second notation. For whole numbers n and r with
+      0 &#8804; r &#8804; n,</p>
+      <p style="margin-left:12pt"><b>C(n, r) = n! / (r! (n &#8722; r)!)</b>, also
+      written <b>( n over r )</b> and read <b>"n choose r"</b>.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the power the bracket is raised to.
+      <span class="sym">r</span> selects which term of the expansion you are
+      looking at, counting from 0.
+      <span class="sym">"n choose r"</span> is the spoken form. When a question
+      says "choose", it means this.</div>
+      <p><b>Two identities worth knowing on sight.</b></p>
+      <p style="margin-left:12pt">C(n, r) = C(n, n &#8722; r) &nbsp; &nbsp;
+      [choosing r to keep is choosing n &#8722; r to leave]<br>
+      C(n, 0) = C(n, n) = 1 &nbsp; &nbsp; [one way to take none, one way to take
+      all]</p>
+      <p class="hook"><b>Memory hook:</b> <b>the coefficient counts the ways.</b>
+      The number in front of a term is the number of ways of picking that many
+      copies of one letter from the brackets.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The theorem</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Binomial theorem</span></div>
+    <div class="body">
+      <p>For any numbers x and y and any whole number n that is not negative,</p>
+      <p style="margin-left:12pt"><b>(x + y)<sup>n</sup> =
+      C(n, 0) x<sup>n</sup> + C(n, 1) x<sup>n&#8722;1</sup> y +
+      C(n, 2) x<sup>n&#8722;2</sup> y<sup>2</sup> + &#8230; +
+      C(n, n) y<sup>n</sup></b></p>
+      <p>The general term, the one to quote when a question asks for a single
+      term rather than the whole expansion, is</p>
+      <p style="margin-left:12pt"><b>term r = C(n, r) x<sup>n&#8722;r</sup>
+      y<sup>r</sup></b>, &nbsp; for r = 0, 1, 2, &#8230;, n.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">r</span> counts from 0, so the expansion has n + 1 terms,
+      not n.
+      <span class="sym">the exponents</span> always add to n: as the power of x
+      falls, the power of y rises by the same step.</div>
+      <p class="hook"><b>Memory hook:</b> <b>the powers see-saw and the exponents
+      always sum to n.</b> If a line of your working breaks that rule, it is
+      wrong, and you can see it without checking anything else.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why the coefficients are combinations</span></div>
+    <div class="body">
+      <p>Write (x + y)<sup>3</sup> as three brackets side by side and do not
+      collect anything yet:</p>
+      <p style="margin-left:12pt">(x + y)(x + y)(x + y)</p>
+      <p>Multiplying out means going through the three brackets and taking either
+      x or y from each. Every choice gives one product of three letters, and every
+      such product is a term.</p>
+      <p>How many of those products come out as x<sup>2</sup>y? Exactly as many as
+      there are ways of picking <b>which one</b> of the three brackets supplied
+      the y, and that is C(3, 1) = 3. So the x<sup>2</sup>y term is 3x<sup>2</sup>y,
+      and it is a combination count, not a coincidence.</p>
+      <p style="margin-left:12pt">(x + y)<sup>3</sup> = x<sup>3</sup> +
+      3x<sup>2</sup>y + 3xy<sup>2</sup> + y<sup>3</sup></p>
+      <p>This also explains the second identity above. Choosing which brackets
+      give y is the same job as choosing which give x, so
+      C(3, 1) = C(3, 2) and the coefficients read the same forwards and
+      backwards.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Pascal's triangle</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Getting the coefficients without factorials</span></div>
+    <div class="body">
+      <p>Write C(n, r) in rows, n going down and r across. Each row starts and
+      ends with 1, and every other entry is the sum of the two directly above it.
+      That triangle is the fastest way to get the coefficients for small n, which
+      is all any exam will ask for.</p>
+      <figure>
+        <svg viewBox="0 0 470 210" xmlns="http://www.w3.org/2000/svg" style="width:82%;height:auto">
+          <g font-family="DejaVu Serif" font-size="14" fill="#232a31" text-anchor="middle">
+            <text x="235" y="30">1</text>
+            <text x="207" y="62">1</text><text x="263" y="62">1</text>
+            <text x="179" y="94">1</text><text x="235" y="94">2</text><text x="291" y="94">1</text>
+            <text x="151" y="126">1</text><text x="207" y="126">3</text><text x="263" y="126">3</text><text x="319" y="126">1</text>
+            <text x="123" y="158">1</text><text x="179" y="158">4</text><text x="235" y="158">6</text><text x="291" y="158">4</text><text x="347" y="158">1</text>
+            <text x="95" y="190">1</text><text x="151" y="190">5</text><text x="207" y="190">10</text><text x="263" y="190">10</text><text x="319" y="190">5</text><text x="375" y="190">1</text>
+          </g>
+          <g stroke="#be123c" stroke-width="1.1" fill="none">
+            <path d="M179 162 L207 184"/><path d="M235 162 L207 184"/>
+          </g>
+          <circle cx="207" cy="185" r="13" fill="none" stroke="#be123c" stroke-width="1.2"/>
+          <g font-family="DejaVu Sans" font-size="10.5" fill="#67707a">
+            <text x="392" y="34">n = 0</text>
+            <text x="392" y="66">n = 1</text>
+            <text x="392" y="98">n = 2</text>
+            <text x="392" y="130">n = 3</text>
+            <text x="392" y="162">n = 4</text>
+            <text x="392" y="194">n = 5</text>
+          </g>
+          <g font-family="DejaVu Sans" font-size="10" fill="#67707a" text-anchor="end">
+            <text x="82" y="34">sum 1</text>
+            <text x="82" y="66">sum 2</text>
+            <text x="82" y="98">sum 4</text>
+            <text x="82" y="130">sum 8</text>
+            <text x="82" y="162">sum 16</text>
+            <text x="82" y="194">sum 32</text>
+          </g>
+          <text x="228" y="208" font-family="DejaVu Sans" font-size="10" fill="#be123c" text-anchor="middle">4 + 6 = 10</text>
+        </svg>
+        <figcaption>Row n gives the coefficients of (x + y) to the power n. Each
+        entry is the sum of the two above it, and each row adds to a power of
+        two.</figcaption>
+      </figure>
+      <p><b>The rule behind the triangle,</b> called Pascal's identity, is</p>
+      <p style="margin-left:12pt"><b>C(n, r) = C(n &#8722; 1, r &#8722; 1) +
+      C(n &#8722; 1, r)</b></p>
+      <p>and it says something sensible about choosing. Fix one particular object.
+      Any selection of r either takes that object, leaving r &#8722; 1 to pick
+      from the other n &#8722; 1, or it does not, leaving all r to pick from the
+      other n &#8722; 1. Those two cases are alternatives with no overlap, so the
+      sum rule of section 5.1 adds them.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The row sum</span></div>
+    <div class="body">
+      <p>The coefficients of row n add to 2<sup>n</sup>:</p>
+      <p style="margin-left:12pt"><b>C(n, 0) + C(n, 1) + &#8230; + C(n, n) =
+      2<sup>n</sup></b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n</span> is the row number, counting from 0 at the apex
+      of the triangle.
+      <span class="sym">C(n, r)</span> is the entry r places along that row, also
+      counting from 0.
+      <span class="sym">2<sup>n</sup></span> is 2 multiplied by itself n times,
+      so row 4 adds to 16 and row 5 to 32.</div>
+      <p><b>Why, in one line.</b> Put x = 1 and y = 1 in the binomial theorem. The
+      left side becomes (1 + 1)<sup>n</sup> = 2<sup>n</sup> and every power on the
+      right becomes 1, leaving just the coefficients.</p>
+      <p><b>And what it means.</b> C(n, r) counts the subsets of size r of a set
+      with n elements, so adding over every r counts <i>all</i> the subsets. That
+      is 2<sup>n</sup>, which is exactly the size of the power set from section
+      2.3. Two sections of this book, arrived at from opposite directions, meeting
+      on the same number.</p>
+      <p class="hook"><b>Memory hook:</b> <b>every row doubles.</b> 1, 2, 4, 8,
+      16, 32. If your coefficients do not add to the next power of two, one of
+      them is wrong.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Using it</h3>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Full expansion</span></div>
+    <div class="body">
+      <p><b>Expand (x + 2)<sup>4</sup>.</b></p>
+      <dl class="params">
+        <dt>Given</dt><dd>The bracket x + 2 raised to the power 4, so n = 4 and
+        the second term is y = 2.</dd>
+        <dt>Find</dt><dd>The expansion in full.</dd>
+        <dt>Formula</dt><dd>term r = C(4, r) x<sup>4&#8722;r</sup>
+        2<sup>r</sup>.</dd>
+      </dl>
+      <p><b>Step 1. Read the coefficients off row 4:</b> 1, 4, 6, 4, 1.</p>
+      <p><b>Step 2. Build each term.</b> The power of x falls from 4 to 0 and the
+      power of 2 rises from 0 to 4.</p>
+      <table class="data">
+        <tr><th>r</th><th>C(4, r)</th><th>x<sup>4&#8722;r</sup></th><th>2<sup>r</sup></th><th>Term</th></tr>
+        <tr><td>0</td><td>1</td><td>x<sup>4</sup></td><td>1</td><td>x<sup>4</sup></td></tr>
+        <tr><td>1</td><td>4</td><td>x<sup>3</sup></td><td>2</td><td>8x<sup>3</sup></td></tr>
+        <tr><td>2</td><td>6</td><td>x<sup>2</sup></td><td>4</td><td>24x<sup>2</sup></td></tr>
+        <tr><td>3</td><td>4</td><td>x</td><td>8</td><td>32x</td></tr>
+        <tr><td>4</td><td>1</td><td>1</td><td>16</td><td>16</td></tr>
+      </table>
+      <p style="margin-left:12pt"><b>(x + 2)<sup>4</sup> = x<sup>4</sup> +
+      8x<sup>3</sup> + 24x<sup>2</sup> + 32x + 16</b></p>
+      <p><b>Check it,</b> and this check costs one line. Put x = 1 on both sides.
+      The left is (1 + 2)<sup>4</sup> = 3<sup>4</sup> = 81, and the right is
+      1 + 8 + 24 + 32 + 16 = 81. They agree, so no coefficient was dropped.</p>
+      <p class="redo"><b>Now redo it:</b> expand (x + 1)<sup>5</sup>. Row 5 is
+      1, 5, 10, 10, 5, 1 and every power of 1 is 1, so it is
+      x<sup>5</sup> + 5x<sup>4</sup> + 10x<sup>3</sup> + 10x<sup>2</sup> + 5x + 1.
+      Check at x = 1: the sum is 32 = 2<sup>5</sup>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">One term only</span></div>
+    <div class="body">
+      <p><b>Find the coefficient of x<sup>3</sup> in
+      (2x + 1)<sup>5</sup>.</b></p>
+      <p>Expanding all six terms would work and would waste four minutes. Use the
+      general term instead and solve for r.</p>
+      <dl class="params">
+        <dt>Given</dt><dd>n = 5, first term 2x, second term 1.</dd>
+        <dt>Find</dt><dd>The number multiplying x<sup>3</sup>.</dd>
+        <dt>Formula</dt><dd>term r = C(5, r) (2x)<sup>5&#8722;r</sup>
+        1<sup>r</sup>.</dd>
+      </dl>
+      <p><b>Step 1. Find which r gives x<sup>3</sup>.</b> The power of x in term r
+      is 5 &#8722; r, so</p>
+      <p style="margin-left:12pt">5 &#8722; r = 3, &nbsp; so &nbsp; r = 2</p>
+      <p><b>Step 2. Evaluate that one term.</b></p>
+      <p style="margin-left:12pt">term 2 = C(5, 2) (2x)<sup>3</sup>
+      1<sup>2</sup><br>
+      = 10 &#215; 8x<sup>3</sup> &#215; 1<br>
+      = <b>80x<sup>3</sup></b></p>
+      <p><b>Answer: the coefficient of x<sup>3</sup> is 80.</b></p>
+      <p><b>The mistake to avoid</b> is taking the coefficient to be C(5, 2) = 10
+      and forgetting that the 2 in 2x is also raised to the power 3. Whenever the
+      bracket has a number attached to a letter, that number carries its own
+      power.</p>
+      <p class="redo"><b>Now redo it:</b> the coefficient of x<sup>2</sup> in
+      (x + 3)<sup>4</sup>. Here 4 &#8722; r = 2 so r = 2, and the term is
+      C(4, 2) x<sup>2</sup> 3<sup>2</sup> = 6 &#215; 9 x<sup>2</sup> =
+      54x<sup>2</sup>.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. State the binomial theorem.</p>
+      <p class="q">2. How many terms has the expansion of
+      (x + y)<sup>7</sup>?</p>
+      <p class="q">3. Write row 4 of Pascal's triangle and say what its entries
+      add to.</p>
+      <p class="q">4. Expand (x + 2)<sup>4</sup>.</p>
+      <p class="q">5. Why is C(n, r) = C(n, n &#8722; r)?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. (x + y)<sup>n</sup> is the sum over r of
+      C(n, r) x<sup>n&#8722;r</sup> y<sup>r</sup>, for r from 0 to n.<br>
+      2. Eight. The terms run r = 0 to r = 7, so there are n + 1 of them.<br>
+      3. 1, 4, 6, 4, 1, adding to 16 = 2<sup>4</sup>.<br>
+      4. x<sup>4</sup> + 8x<sup>3</sup> + 24x<sup>2</sup> + 32x + 16.<br>
+      5. Choosing which r objects to take is the same act as choosing which
+      n &#8722; r to leave behind, so the two counts are equal.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>In every term of (x + y)<sup>n</sup> the two exponents add to
+        <span class="blank"></span>.</li>
+        <li>The expansion of (x + y)<sup>n</sup> has
+        <span class="blank"></span> terms.</li>
+        <li>Row n of Pascal's triangle adds to
+        <span class="blank"></span>.</li>
+        <li>The coefficient of x<sup>3</sup> in (2x + 1)<sup>5</sup> is
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. n. 2. n + 1. 3. 2<sup>n</sup>. 4. 80.</p>
+    </div>
+  </div>
+
+</section>

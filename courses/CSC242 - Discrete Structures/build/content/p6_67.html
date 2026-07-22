@@ -1,0 +1,389 @@
+<section>
+  <div class="kick">Part Six &middot; 6.7</div>
+  <h2 class="title">Planarity, Euler’s Formula and Kuratowski</h2>
+  <hr class="rule">
+  <p class="lead">Can this graph be drawn on paper with no edges crossing? Two
+  graphs cannot, every other obstruction is built from those two, and the newest
+  paper gives 10 marks to proving it.</p>
+  <p class="lo">By the end of this section you will be able to define a planar
+  graph, state and use Euler's formula for planar graphs, derive and apply the
+  two edge bounds, state Kuratowski's theorem, say why K<sub>5</sub> and
+  K<sub>3,3</sub> matter, and prove both non-planar in full.</p>
+
+  <h3 class="sub">Planar graphs</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Planar graph and faces</span></div>
+    <div class="body">
+      <p>A graph is <b>planar</b> when it can be drawn in the plane with <b>no
+      two edges crossing</b> except at their shared endpoints. Such a drawing is
+      called a <b>plane drawing</b> of the graph.</p>
+      <p>A plane drawing cuts the plane into <b>faces</b>, or regions. The
+      unbounded region outside the whole drawing is a face too, and forgetting it
+      is the standard error.</p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">planar</span> is a property of the <b>graph</b>: it asks
+      whether <i>some</i> crossing-free drawing exists.
+      <span class="sym">plane</span> is a property of a particular
+      <b>drawing</b>, one that happens to have no crossings.
+      <span class="sym">a face</span> is a region enclosed by edges, counting the
+      infinite outer region as one.</div>
+      <p><b>Planarity is an invariant,</b> in the sense of section 6.6:
+      isomorphic graphs are either both planar or both non-planar, since a
+      relabelling cannot create or remove a crossing. So it joins the list of
+      properties that can disprove isomorphism.</p>
+      <p><b>Why a drawing with crossings proves nothing.</b> K<sub>4</sub> is
+      usually drawn as a square with both diagonals, which cross; but it can be
+      redrawn as a triangle with one vertex inside, which does not. So a crossing
+      you happen to have drawn never shows a graph is non-planar. Only a
+      counting argument does, which is exactly what this section supplies.</p>
+      <p class="hook"><b>Memory hook:</b> <b>planar means it can be drawn flat,
+      not that you drew it flat.</b> And never forget the outside face.</p>
+    </div>
+  </div>
+
+  <div class="lawstate">
+    <div class="lawname">Euler's formula for planar graphs</div>
+    <p><b>The claim.</b> Every plane drawing of the same connected planar graph
+    cuts the plane into the same number of regions, and that number is fixed by
+    the vertex and edge counts alone. Vertices minus edges plus faces is always
+    two, whatever the graph and however it is drawn.</p>
+    <p><b>In symbols.</b><br>
+    v &#8722; e + f = 2</p>
+    <p class="cond"><b>Conditions.</b> The graph must be <b>connected</b> and
+    <b>planar</b>, and f must be counted from a <b>plane drawing</b>, that is,
+    one with no crossings, including the unbounded outer face. For a graph with
+    k components the formula becomes v &#8722; e + f = 1 + k.</p>
+    <p class="cond"><b>The limiting case.</b> For a tree, which section 7.1
+    defines as a connected graph with no cycles, there are no enclosed regions at
+    all, so f = 1, and the formula gives v &#8722; e + 1 = 2, that is,
+    e = v &#8722; 1. The edge count of a tree is not a separate fact to memorise
+    but this formula at its smallest possible f.</p>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The two edge bounds</span></div>
+    <div class="body">
+      <p>For a <b>simple connected planar</b> graph with v &#8805; 3 vertices,</p>
+      <p style="margin-left:12pt"><b>e &#8804; 3v &#8722; 6</b></p>
+      <p>and if in addition the graph has <b>no triangles</b>, for example if it
+      is bipartite,</p>
+      <p style="margin-left:12pt"><b>e &#8804; 2v &#8722; 4</b></p>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">v</span> is the number of vertices and
+      <span class="sym">e</span> the number of edges.
+      <span class="sym">3v &#8722; 6</span> is the general bound, coming from the
+      fact that every face of a simple graph is bounded by at least 3 edges.
+      <span class="sym">2v &#8722; 4</span> is the triangle-free bound, coming
+      from the fact that without triangles every face needs at least 4 edges.</div>
+      <p><b>Where they come from,</b> which is worth knowing because the derivation
+      is short and it is what makes the bounds usable rather than magic. Count the
+      pairs (face, edge on its boundary) in two ways. Every edge borders exactly
+      two faces, so that count is 2e. Every face is bounded by at least 3 edges in
+      a simple graph, so that count is at least 3f. Hence</p>
+      <p style="margin-left:12pt">2e &#8805; 3f, &nbsp; so &nbsp;
+      f &#8804; 2e/3.</p>
+      <p>Substituting into Euler's formula f = 2 &#8722; v + e gives</p>
+      <p style="margin-left:12pt">2 &#8722; v + e &#8804; 2e/3<br>
+      6 &#8722; 3v + 3e &#8804; 2e<br>
+      e &#8804; 3v &#8722; 6</p>
+      <p>With no triangles every face needs at least 4 edges, so 2e &#8805; 4f and
+      the same substitution gives e &#8804; 2v &#8722; 4.</p>
+      <p><b>How to use them.</b> These are <b>one-way</b> tests. If a graph
+      <i>breaks</i> the bound it is definitely not planar. If it satisfies the
+      bound it may or may not be planar, and the bound has told you nothing.</p>
+      <p class="hook"><b>Memory hook:</b> <b>too many edges for too few vertices
+      means crossings are forced.</b> Three v minus six in general; two v minus
+      four when there are no triangles to help.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The two graphs that matter</h3>
+
+  <figure>
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:90%;height:auto">
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M110 30 L172 76"/><path d="M110 30 L148 148"/><path d="M110 30 L72 148"/><path d="M110 30 L48 76"/>
+        <path d="M172 76 L148 148"/><path d="M172 76 L72 148"/><path d="M172 76 L48 76"/>
+        <path d="M148 148 L72 148"/><path d="M148 148 L48 76"/><path d="M72 148 L48 76"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="110" cy="30" r="5.4"/><circle cx="172" cy="76" r="5.4"/>
+        <circle cx="148" cy="148" r="5.4"/><circle cx="72" cy="148" r="5.4"/><circle cx="48" cy="76" r="5.4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#232a31">
+        <text x="76" y="182">K&#8325;</text>
+        <text x="106" y="182" font-size="10" fill="#67707a">v = 5, e = 10</text>
+      </g>
+
+      <g stroke="#5b6480" stroke-width="1.3" fill="none">
+        <path d="M300 50 L300 140"/><path d="M300 50 L370 140"/><path d="M300 50 L440 140"/>
+        <path d="M370 50 L300 140"/><path d="M370 50 L370 140"/><path d="M370 50 L440 140"/>
+        <path d="M440 50 L300 140"/><path d="M440 50 L370 140"/><path d="M440 50 L440 140"/>
+      </g>
+      <g fill="#283593">
+        <circle cx="300" cy="50" r="5.4"/><circle cx="370" cy="50" r="5.4"/><circle cx="440" cy="50" r="5.4"/>
+      </g>
+      <g fill="#be123c">
+        <circle cx="300" cy="140" r="5.4"/><circle cx="370" cy="140" r="5.4"/><circle cx="440" cy="140" r="5.4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="11" fill="#232a31">
+        <text x="300" y="182">K&#8323;,&#8323;</text>
+        <text x="344" y="182" font-size="10" fill="#67707a">v = 6, e = 9, bipartite</text>
+      </g>
+      <text x="238" y="30" font-family="DejaVu Sans" font-size="10" fill="#67707a">every crossing drawn here is unavoidable</text>
+    </svg>
+    <figcaption>The two obstructions. K<sub>5</sub> joins five vertices to each
+    other; K<sub>3,3</sub> joins each of three vertices to each of three
+    others.</figcaption>
+  </figure>
+
+  <div class="lawstate">
+    <div class="lawname">Kuratowski's theorem</div>
+    <p><b>The claim.</b> There are only two ways a graph can fail to be planar.
+    A graph is planar if and only if it contains no subgraph that is a
+    subdivision of K<sub>5</sub> or of K<sub>3,3</sub>. Every non-planar graph,
+    however large, hides one of those two inside it.</p>
+    <p><b>In symbols.</b><br>
+    G is planar &#8660; G contains no subdivision of K<sub>5</sub> and no
+    subdivision of K<sub>3,3</sub>.</p>
+    <p class="cond"><b>Conditions.</b> A <b>subdivision</b> of a graph is what
+    you get by adding extra vertices in the middle of its edges, which never
+    changes whether the graph can be drawn flat. The theorem holds for all finite
+    simple graphs. Note the "if and only if": unlike the edge bounds, this is a
+    complete characterisation, not a one-way test.</p>
+    <p class="cond"><b>The limiting case, and why it is remarkable.</b> Any graph
+    on 4 or fewer vertices is planar, because K<sub>5</sub> needs 5 vertices and
+    K<sub>3,3</sub> needs 6, so neither can be hidden inside anything smaller.
+    K<sub>4</sub> is therefore the largest complete graph that can be drawn flat,
+    and K<sub>5</sub> is the first that cannot. The force of the theorem is that
+    the list stops at two: an infinite family of obstructions could have existed
+    and does not.</p>
+  </div>
+
+  <h3 class="sub">The 10-mark planarity question</h3>
+
+  <div class="box paper" data-paper="2025-2026" data-q="Q5b">
+    <div class="bar"><span>As printed</span><span class="tag">2025/2026 &middot; Q5(b)</span></div>
+    <div class="body">
+      <p class="q">(b) i. Briefly state and explain Kuratowski's Theorem. <span class="mk">(2 marks)</span></p>
+      <p class="qi">ii. Why are K5 and K3,3 important in graph theory? <span class="mk">(2 marks)</span></p>
+      <p class="qi">iii. Show that K5 is non-planar using Euler's formula, Recall that Euler's formula for a
+      K5 is e&#8804;3v&#8722;6 and for a K3,3 is e&#8804;2v&#8722;4. Also show that K3,3 is non-planar. <span class="mk">(6 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Part iii has a comma where a full stop belongs ("using Euler's formula, Recall
+  that"), and the subscripts are printed inline as "K5" and "K3,3" rather than
+  as K<sub>5</sub> and K<sub>3,3</sub>.
+  <br><br>
+  <b>One thing in it is mathematically loose and you should handle it carefully.</b>
+  The paper calls e &#8804; 3v &#8722; 6 and e &#8804; 2v &#8722; 4 "Euler's
+  formula". They are not. Euler's formula is v &#8722; e + f = 2; these two are
+  <b>corollaries</b> of it, derived by combining it with a count of the edges
+  bounding each face. The safe answer states Euler's formula properly, notes that
+  the two inequalities follow from it, and then uses them exactly as the question
+  directs. That earns the marks the question offers and shows you know the
+  difference, without arguing with the examiner.
+  <br><br>
+  Note also that the bound e &#8804; 2v &#8722; 4 is not a general planar bound:
+  it needs the graph to have no triangles. K<sub>3,3</sub> is bipartite so it has
+  none, which is exactly why the paper offers that bound for it.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>The two inequalities, handed to you in the question. Part
+      iii is a "show that", so the tools are supplied and the marks are for using
+      them correctly.</dd>
+      <dt>Asked</dt><dd>(i) <b>State and explain</b> Kuratowski. (ii) <b>Why</b>
+      the two graphs matter. (iii) <b>Show</b> both are non-planar, which means a
+      computation for each with a stated conclusion.</dd>
+      <dt>Marks say</dt><dd>2, 2 and 6. Part iii carries three marks per graph:
+      roughly one for the counts, one for the substitution, one for the
+      conclusion. Do both graphs; a candidate who does only K<sub>5</sub> loses
+      half of the largest part.</dd>
+      <dt>Teaches</dt><dd>This section, 6.7, with the complete and complete
+      bipartite graphs from 6.2.</dd>
+      <dt>Trap</dt><dd>Miscounting the edges. K<sub>5</sub> has
+      C(5, 2) = 10 edges, not 5; K<sub>3,3</sub> has 3 &#215; 3 = 9, not 6. Get
+      either count wrong and the inequality comes out satisfied, and you will
+      confidently prove a non-planar graph planar.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 25/26 Q5(b)</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>K<sub>5</sub>, the complete graph on 5 vertices, and
+        K<sub>3,3</sub>, the complete bipartite graph with 3 vertices on each
+        side. The bounds e &#8804; 3v &#8722; 6 and e &#8804; 2v &#8722; 4.</dd>
+        <dt>Find</dt><dd>A statement of Kuratowski's theorem, the reason these
+        two graphs matter, and a proof that each is non-planar.</dd>
+        <dt>Formula</dt><dd>Euler's formula v &#8722; e + f = 2, and the two
+        bounds derived from it.</dd>
+      </dl>
+
+      <p class="marks">i. State and explain Kuratowski's theorem</p>
+      <p><b>Statement.</b> A graph is planar if and only if it contains no
+      subgraph that is a subdivision of K<sub>5</sub> or of K<sub>3,3</sub>.</p>
+      <p><b>Explanation.</b> A subdivision of a graph is obtained by inserting
+      extra vertices along its edges, which cannot affect whether the graph can be
+      drawn without crossings, since the inserted vertices simply sit on the
+      curves already drawn. The theorem therefore says that these two graphs are
+      the <b>only</b> obstructions to planarity: any graph that cannot be drawn
+      flat contains a copy of one of them, possibly with extra vertices along its
+      edges, and any graph containing neither can be drawn flat.</p>
+      <p><b>The line that shows you understand it:</b> this is an "if and only
+      if", so unlike the edge bounds it decides the question in both directions.
+      The bounds can only ever say "not planar"; Kuratowski also says "planar".</p>
+
+      <p class="marks">ii. Why K5 and K3,3 are important</p>
+      <p>Three reasons, one per half mark and a spare:</p>
+      <ol class="qlist">
+        <li><b>They are the two smallest non-planar graphs,</b> and by
+        Kuratowski's theorem they are the <b>only</b> obstructions to planarity.
+        Every non-planar graph in existence contains a subdivision of one of
+        them, so understanding two small graphs settles a question about
+        infinitely many large ones.</li>
+        <li><b>They mark the exact boundary.</b> K<sub>4</sub> is planar and
+        K<sub>5</sub> is not, so K<sub>4</sub> is the largest complete graph that
+        can be drawn flat. K<sub>2,3</sub> is planar and K<sub>3,3</sub> is not.
+        The two graphs are where planarity stops.</li>
+        <li><b>They matter in practice.</b> K<sub>3,3</sub> is the classic
+        "three utilities to three houses" puzzle, which has no solution for
+        exactly this reason. Planarity decides whether a circuit can be laid out
+        on a single-layer board without wires crossing, so these two graphs are
+        the test for when a second layer becomes unavoidable.</li>
+      </ol>
+
+      <p class="marks">iii. Show that K5 is non-planar</p>
+      <p><b>State the tool first.</b> Euler's formula for a connected planar
+      graph is v &#8722; e + f = 2. Combining it with the fact that every face of
+      a simple graph is bounded by at least three edges gives the bound the
+      question supplies: for any simple connected planar graph with
+      v &#8805; 3,</p>
+      <p style="margin-left:12pt">e &#8804; 3v &#8722; 6</p>
+      <p><b>Step 1. Count v and e for K<sub>5</sub>.</b> It has 5 vertices, and
+      being complete it joins every pair, so by section 6.2</p>
+      <p style="margin-left:12pt">v = 5, &nbsp; e = C(5, 2) = 5 &#215; 4 / 2 =
+      <b>10</b></p>
+      <p><b>Step 2. Evaluate the bound.</b></p>
+      <p style="margin-left:12pt">3v &#8722; 6 = 3 &#215; 5 &#8722; 6 =
+      15 &#8722; 6 = <b>9</b></p>
+      <p><b>Step 3. Compare and conclude.</b></p>
+      <p style="margin-left:12pt">e = 10 &gt; 9 = 3v &#8722; 6</p>
+      <p>Every simple connected planar graph on at least 3 vertices satisfies
+      e &#8804; 3v &#8722; 6. K<sub>5</sub> does not. <b>Therefore
+      K<sub>5</sub> is non-planar.</b> &#9633;</p>
+
+      <p class="marks">iii, continued. Show that K3,3 is non-planar</p>
+      <p><b>Step 1. Count v and e for K<sub>3,3</sub>.</b> Three vertices on each
+      side gives 3 + 3 = 6 vertices, and every vertex of one side joins every
+      vertex of the other, so by the product rule of section 5.1</p>
+      <p style="margin-left:12pt">v = 6, &nbsp; e = 3 &#215; 3 = <b>9</b></p>
+      <p><b>Step 2. Check that the tighter bound applies.</b> This is the step
+      most answers skip and it is worth a mark. K<sub>3,3</sub> is bipartite, and
+      a bipartite graph has no odd cycles, so in particular it has <b>no
+      triangles</b>. Every face of a plane drawing of it would therefore be
+      bounded by at least four edges, which is what gives the bound</p>
+      <p style="margin-left:12pt">e &#8804; 2v &#8722; 4</p>
+      <p><b>Step 3. Evaluate and compare.</b></p>
+      <p style="margin-left:12pt">2v &#8722; 4 = 2 &#215; 6 &#8722; 4 =
+      12 &#8722; 4 = <b>8</b><br>
+      e = 9 &gt; 8 = 2v &#8722; 4</p>
+      <p><b>Therefore K<sub>3,3</sub> is non-planar.</b> &#9633;</p>
+      <p><b>Why the general bound would have failed here,</b> worth one line
+      because it shows why the question supplied two different inequalities: for
+      K<sub>3,3</sub>, 3v &#8722; 6 = 12, and e = 9 is comfortably under 12. The
+      general bound is satisfied, so it proves nothing. Only the triangle-free
+      bound is sharp enough, and it applies only because the graph is bipartite.</p>
+      <table class="data">
+        <tr><th>Graph</th><th>v</th><th>e</th><th>3v &#8722; 6</th><th>2v &#8722; 4</th><th>Verdict</th></tr>
+        <tr><td>K<sub>4</sub></td><td>4</td><td>6</td><td>6</td><td>not applicable, has triangles</td><td>bound satisfied; K<sub>4</sub> is planar</td></tr>
+        <tr><td>K<sub>5</sub></td><td>5</td><td>10</td><td>9</td><td>not applicable, has triangles</td><td>10 &gt; 9, non-planar</td></tr>
+        <tr><td>K<sub>3,3</sub></td><td>6</td><td>9</td><td>12, no help</td><td>8</td><td>9 &gt; 8, non-planar</td></tr>
+      </table>
+      <p class="redo"><b>Now redo it:</b> is K<sub>6</sub> planar?
+      v = 6 and e = C(6, 2) = 15, while 3v &#8722; 6 = 12. Since 15 &gt; 12 it is
+      non-planar, which also follows from Kuratowski because K<sub>6</sub>
+      contains K<sub>5</sub>.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">Method &middot; Euler's formula on a plane drawing</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>K<sub>4</sub> drawn as a triangle with one vertex
+        inside, joined to all three corners. No edges cross.</dd>
+        <dt>Find</dt><dd>The number of faces, and a check of Euler's formula.</dd>
+        <dt>Formula</dt><dd>v &#8722; e + f = 2.</dd>
+      </dl>
+      <p><b>Count.</b> v = 4 and e = 6.</p>
+      <p><b>Solve for f.</b></p>
+      <p style="margin-left:12pt">4 &#8722; 6 + f = 2, &nbsp; so &nbsp; f =
+      <b>4</b></p>
+      <p><b>Verify by looking at the drawing.</b> The inner vertex splits the
+      triangle into three small regions, and there is the unbounded region
+      outside: 3 + 1 = 4. The formula and the picture agree, and the outer face is
+      the one that is easy to miss.</p>
+      <p><b>The bound as a sanity check:</b> 3v &#8722; 6 = 6 and e = 6, so
+      K<sub>4</sub> sits exactly on the bound. A graph on the bound is called
+      <b>maximal planar</b>: it is planar, and adding any further edge would make
+      it non-planar.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Define a planar graph, and say why a drawing with crossings
+      proves nothing.</p>
+      <p class="q">2. State Euler's formula and say what f counts.</p>
+      <p class="q">3. State the two edge bounds and the condition on the second
+      one.</p>
+      <p class="q">4. State Kuratowski's theorem.</p>
+      <p class="q">5. Show K<sub>5</sub> is non-planar in two lines.</p>
+      <p class="q">6. Why does the bound 3v &#8722; 6 fail to settle
+      K<sub>3,3</sub>?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. A graph is planar when some drawing of it has no crossing edges. A
+      particular drawing with crossings may just be a bad drawing, as with
+      K<sub>4</sub>.<br>
+      2. v &#8722; e + f = 2, where f counts the faces of a plane drawing,
+      including the unbounded outer face.<br>
+      3. e &#8804; 3v &#8722; 6 for a simple connected planar graph with
+      v &#8805; 3, and e &#8804; 2v &#8722; 4 when it also has no triangles.<br>
+      4. A graph is planar if and only if it contains no subdivision of
+      K<sub>5</sub> or K<sub>3,3</sub>.<br>
+      5. v = 5 and e = 10, but 3v &#8722; 6 = 9, and 10 &gt; 9.<br>
+      6. Because 3v &#8722; 6 = 12 and e = 9 satisfies it. The bound is not sharp
+      enough; the triangle-free bound of 8 is.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Euler's formula is <span class="blank"></span>, where f includes the
+        <span class="blank"></span> face.</li>
+        <li>K<sub>5</sub> has <span class="blank"></span> edges and the bound
+        allows <span class="blank"></span>.</li>
+        <li>K<sub>3,3</sub> has <span class="blank"></span> edges and the
+        triangle-free bound allows <span class="blank"></span>.</li>
+        <li>Kuratowski's theorem says the only obstructions to planarity are
+        <span class="blank"></span> and <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. v &#8722; e + f = 2, outer. 2. 10, 9. 3. 9, 8. 4. K<sub>5</sub>,
+      K<sub>3,3</sub>.</p>
+    </div>
+  </div>
+
+</section>
