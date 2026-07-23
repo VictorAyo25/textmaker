@@ -7,6 +7,75 @@ printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
 below records what changed; git holds every superseded copy.
 
 -------------------------------------------------------------------------------
+INS224 - Systems Analysis and Design - Study Manual.pdf   101 pp   published 2026-07-23
+-------------------------------------------------------------------------------
+INS224 Systems Analysis and Design, a complete manual for the current three-hour
+paper: answer ONE question in Section A and ANY THREE in Section B. Course lineage
+CSC317 -> INS224 (older papers and the 24/25 Alpha sitting are printed as CSC317).
+
+Contents: How-to + Exam-at-a-Glance, Modules One to Six (the analyst and the life
+cycle; requirements and use cases; data flow diagrams; entity-relationship
+diagrams; UML class, object-oriented concepts, activity and sequence diagrams;
+design, architecture and delivery), a Reference part (a one-page notation legend
+and the must-memorise list), BOTH the 2025/2026 and 2024/2025 papers fully worked
+(each question quoted As Printed, then Broken Down, then answered), and Mock
+Examinations One to Three (question paper + answers), each built to the exact shape
+of the 25/26 paper with fresh scenarios. About 15 hand-drawn inline diagrams plus
+ten module dividers.
+
+MID-BUILD, the lecturer replaced the 86-page course text with a 117-page one that
+now covers ERD, class, UML, activity and sequence diagrams and the object-oriented
+concepts. The manual was reconciled to it: the "Not in the course text" chip was
+removed everywhere except Module Six (client-server tiers, hardware architecture,
+system acquisition, interface design, relational database design), which the text
+still does not carry. One notation mismatch is flagged throughout: the text draws
+ERDs in Chen style (diamonds and ovals) while the exam asks for the Information
+Engineering style (the crow's foot); the manual teaches both and says which the
+paper wants.
+
+AUTHORED, not rebuilt: the institutional text is a source, content/*.html is the
+book, written by hand. Both worked papers are photograph scans with no reliable
+text layer and were transcribed BY EYE into sources/exams/transcripts/, read twice;
+the paper's own typos ("Categories UML diagrams", "describe it function", mixed
+"Marks/marks/Mark" mark tokens) are kept in as evidence, never silently repaired.
+
+Six scripted gates, all green at publish, each control-tested:
+  - gates.py: no em/en dashes in our prose (24 quoted-paper regions exempt by
+    masking, not by disabling), no institution or pedagogy-source names, the
+    reserved emerald reserved to MUST-MEMORISE only, no code line over 87 columns.
+  - qa_verbatim.py: every past question is quoted as the examiner printed it or not
+    at all. 12 of 12 questions across the two papers match their transcripts
+    character for character, quoted whole, with the paper's own line breaks kept.
+    Control-tested: a one-word paraphrase fails it.
+  - qa_coverage.py: both priority papers (25/26 and 24/25) cite every question One
+    to Six via a worked-answer chip, and the book stays diagram-rich (15 inline
+    figures, floor 13). Control-tested both ways: a dropped citation and a hidden
+    figure each fail it.
+  - qa_firstuse.py: teach before use. All 14 declared notations (SDLC, RAD, OOD,
+    DFD, ERD, PK, FK, UML, OOP, ...) are introduced before use and none first in a
+    mock.
+  - contents.py: all 38 Contents rows resolve to a page carrying that heading and
+    the printed number matches that page's own footer, through the cover merge.
+  - qa_layout.py: body renders at its design size (10.50 pt, no Chromium shrink),
+    nothing outside the margins, no box cut by a page break that could have fitted
+    whole, and every short page is a forced divider break.
+
+Palette: indigo for teaching, a reserved emerald for MUST-MEMORISE, an amber chip
+marking the topics the course text does not carry, and a graphite As-Printed bar
+for the examiner's own words.
+
+KNOWN LIMIT at publish, recorded honestly: the gates cover house style, notation
+order, verbatim quotation, priority-paper coverage, Contents and page geometry.
+They do not read prose; a full end-to-end read for repetition, tonal drift and
+concept-level gaps has NOT been done on this edition. The 2025/2026 and 2024/2025
+papers are the two solved in full; the older CSC317 papers (2018/2019 to 2022/2023)
+and the two CBT tests are drawn on for teaching and mocks but are not each solved
+verbatim end to end.
+
+To rebuild or update:  cd "courses/INS224 - Systems Analysis and Design/build"
+                       && python assemble.py
+
+-------------------------------------------------------------------------------
 TMC221 - Personal Development and Capacity Building - Study Manual.pdf   89 pp   updated 2026-07-19
 -------------------------------------------------------------------------------
 TMC221 Personal Development and Capacity Building, complete manual across the
@@ -479,3 +548,98 @@ blanks and dropped bold. Both remain in git history if a copy is ever needed
 
 To rebuild or update:  see "courses/PHY121 - General Physics II/README.md"
                        (cd build && python assemble.py)
+
+-------------------------------------------------------------------------------
+CSC242 - Discrete Structures - Study Manual.pdf      451 pp   updated 2026-07-22
+-------------------------------------------------------------------------------
+CSC242 Discrete Structures, complete manual, and the largest in this folder.
+
+THE DEFINING FACT, and the reason this course was scoped differently from every
+other manual here: the official 161-page course text does not teach the exam.
+All 184k characters of it were probed. Occurrence counts: reflexive 0,
+antisymmetric 0, vertex 0, vertices 0, adjacency 0, handshaking 0, Euler 0,
+planar 0, Kuratowski 0, poset 0, Hasse 0, isomorph 0, preorder 0, Cartesian 0,
+bit string 0. Yet graph theory, trees, relation properties and posets are about
+40% of the marks on every paper. So those topics are taught here from zero, each
+carrying a visible "not in the course text" chip, rather than merely drilled.
+Scope was taken from the papers, not from the text. Two further defects in that
+text are flagged in the book where they matter: its "Module One: Descriptive
+Statistics" contains no statistics at all (its subject is propositional logic
+from the first line to the last), and its probability module calls independence
+"mutually exclusive or disjoint" and gives the disjoint addition rule for
+non-disjoint events, contradicting its own correct rule three paragraphs later.
+
+Lineage confirmed from the exam banners: CSC311 (2020/21), CSC416 (2021/22 and
+2024/25), CSC242 (2023/24 and 2025/26). Same title, same department, so all five
+papers are valid practice. The format CHANGED partway: the two oldest are any
+THREE in 2 hours; the current shape, and the one the mocks imitate, is ANY FOUR
+of six questions, 17.5 marks each, 70 total, 3 hours.
+
+Contents: How to use it, Foundations F.1 to F.2, Logic 1.1 to 1.5, Sets 2.1 to
+2.3, Relations 3.1 to 3.4, Functions 4.1 to 4.3, Counting 5.1 to 5.4, Graph
+Theory 6.1 to 6.8, Trees 7.1 to 7.3, Boolean Algebra 8.1, Proof, Induction,
+Sequences and Recurrences 9.1 to 9.4, Statistics and Probability 10.1 to 10.2,
+C++ 11.1 to 11.2, Reference R.1 to R.3, all five past papers solved end to end,
+and three mock examinations with full answers. 73 clickable Contents rows.
+
+Every past question is quoted AS PRINTED in the examiner's exact words, broken
+down, and then answered. 81 quoted questions, verified in three directions
+against eye-made transcripts of all five papers. Paper defects are preserved
+inside the quotations and flagged underneath, never silently corrected: 25/26
+Q3a names the same language twice, which makes 7 marks unanswerable exactly as
+written; 25/26 Q1a prints "Prepositional logic" and "Path Matrice"; 24/25 Q4b
+asks the same thing twice; 20/21 Q5a prints "Contigency". Two readings that are
+genuinely unresolvable at scan resolution are marked as such rather than guessed.
+
+Reconciling the printed marks question by question turned up three things worth
+knowing before the exam: 2023/2024 is 23.5 marks a question, not 17.5, so three
+answers give 70.5; 2021/2022 Q4 totals 24 while its other four total 23.5; and
+2020/2021 Q5 totals 22.5 while its other four total 23.5. The manual prints all
+three and tells the reader to add the marks up in the first minute, because a
+question whose parts do not total what its neighbours do has a part you have
+not noticed.
+
+Eight scripted gates, all green at publish:
+  - verify_numbers.py: 762 worked values and 5 printed grids recomputed
+    independently, each pinned to the one file that prints it, with every table
+    row built FROM the recomputation so the value and the check are one object.
+  - verify_code.py: 7 complete C++ programs and 6 teaching fragments EXTRACTED
+    from the book itself, compiled at /W4 where any diagnostic fails, run on the
+    question's own input, and compared line for line with the output panel the
+    book prints. C++ is taught from zero here because the papers set 19 marks of
+    it and the course text does not contain the word "program".
+  - qa_verbatim.py: every quoted question matches its transcript character for
+    character, every question part we hold is quoted somewhere, and every run in
+    quotation marks in paper-citing prose is either verbatim or plainly our own
+    gloss. That third direction caught two real misquotes in this book.
+  - qa_formulas.py: 43 formulas each state what every symbol means at the point
+    of use; 112 must-memorise boxes and 110 worked examples scanned; 10 named
+    laws each stated with conditions and limiting case.
+  - qa_firstuse.py: nothing is used before it is introduced, all 32 gap topics
+    are introduced, and no notation makes its first appearance inside a mock.
+  - gates.py: no em or en dashes in our prose (82 quoted questions exempt by
+    masking, not by disabling the check), no institution or pedagogy-source
+    names, the reserved crimson reserved, no code line over 87 columns.
+  - contents.py: all 73 Contents rows resolve to a page carrying that heading and
+    the printed number matches that page's own footer.
+  - qa_layout.py: body renders at its design size (10.50 pt across 334360
+    characters, no Chromium shrink), nothing outside the margins, no box cut by a
+    page break that could have fitted whole, no code hanging past its panel.
+
+Palette: indigo for teaching with a reserved crimson for MUST-MEMORISE, plus a
+teal chip marking the topics the course text does not carry.
+
+AUTHORED, not rebuilt: the institutional text is a source, content/*.html is the
+book, written by hand. The two oldest papers are image-only with no text layer
+and were read by eye from renders at 170 dpi; the newest was read from phone
+photographs, one of them rotated.
+
+KNOWN LIMIT at publish, recorded honestly: the gates above cover numbers, code,
+quotations, notation order, house style and page geometry. They do not read
+prose. A full end-to-end read for repetition, tonal drift and concept-level gaps
+has NOT been done on this edition. Roughly 23 of its 451 pages also sit under a
+quarter full, which is the price of the rule that a box is never split across a
+page turn; the solved-papers part has the same character.
+
+To rebuild or update:  cd "courses/CSC242 - Discrete Structures/build"
+                       && python assemble.py

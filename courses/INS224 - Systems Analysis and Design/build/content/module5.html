@@ -1,0 +1,456 @@
+<!-- ===================== MODULE FIVE DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Five</div>
+  <h1>Object-Oriented<br>Modelling with UML</h1>
+  <div class="blurb">The last family of diagrams, and the richest source of Section B marks
+  outside the ERD. This module teaches the Unified Modeling Language: the class diagram and
+  its relationships, the object-oriented concepts the examiner names every year, and the two
+  behavioural diagrams, activity and sequence. All of it is in the course text; this module
+  makes it drawable under exam time.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.5">
+        <rect x="30" y="18" width="110" height="60" rx="1"/>
+        <line x1="30" y1="38" x2="140" y2="38"/><line x1="30" y1="58" x2="140" y2="58"/>
+        <rect x="380" y="18" width="110" height="60" rx="1"/>
+        <line x1="380" y1="38" x2="490" y2="38"/><line x1="380" y1="58" x2="490" y2="58"/>
+        <line x1="140" y1="48" x2="380" y2="48"/>
+        <path d="M220 48 l16 -9 l16 9 l-16 9 z"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="9" fill="#18232b" text-anchor="middle">
+        <text x="85" y="32">Order</text><text x="435" y="32">Customer</text>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="7" fill="#5b6b73">
+        <text x="36" y="52">- total</text><text x="36" y="72">+ price()</text>
+        <text x="386" y="52">- name</text><text x="386" y="72">+ id()</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+<!-- ===================== UNIT 1 : UML + CLASS DIAGRAMS ===================== -->
+<section id="m5u1">
+  <div class="kick">Module Five &middot; Unit 1</div>
+  <h2 class="title">UML and Class Diagrams</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can say what UML is and who created it, sort UML
+  diagrams into the two categories, draw a class with its attributes and methods, show
+  relationships and multiplicities, and tell an object from a class.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What UML is</span></div>
+    <div class="body">
+      <p>The <b>Unified Modeling Language
+      (UML)</b> is a standard set of diagram notations for modelling object-oriented systems.
+      It was created in the 1990s by <b>Grady Booch, James Rumbaugh and Ivar Jacobson</b>,
+      often called the "three amigos", who merged their separate methods into one, and it is
+      maintained by the Object Management Group. Its uses: to visualise, specify, construct
+      and document the parts of a software system, so that analysts, designers and
+      programmers share one language.</p>
+      <p>The paper asks you to "write short notes on UML, stating its inventors and its uses."
+      That is the paragraph above: what it is, the three inventors, and the four uses
+      (visualise, specify, construct, document).</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The two UML categories</span></div>
+    <div class="body">
+      <p>The paper asks you to "categorise UML diagrams into two broad categories, mention two
+      diagrams in each, and describe their function." The two categories are:</p>
+      <ul class="bul">
+        <li><b>Structural diagrams</b> show the static structure, the things that make up the
+        system and how they are arranged. Two examples: the <b>class diagram</b> (classes and
+        their relationships) and the <b>object diagram</b> (objects at a moment in time).
+        Their function is to model what the system <i>is</i>.</li>
+        <li><b>Behavioural diagrams</b> show the dynamic behaviour, how the system acts over
+        time. Two examples: the <b>use case diagram</b> (what users can do) and the
+        <b>activity diagram</b> (the flow of a process); the <b>sequence diagram</b> is a
+        third. Their function is to model what the system <i>does</i>.</li>
+      </ul>
+      <p class="small"><b>Memory hook:</b> <b>structure is a noun, behaviour is a verb.</b>
+      Class and object diagrams are nouns (things); use case, activity and sequence diagrams
+      are verbs (happenings).</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Object versus class</span></div>
+    <div class="body">
+      <p>"Differentiate between an object and a class" is a standard 2-mark question. A
+      <b>class</b> is a blueprint or template that defines the attributes and methods a kind
+      of thing has; an <b>object</b> is a specific instance created from that class, with real
+      values. <i>Car</i> is a class; <i>your</i> particular car, with its registration and
+      colour, is an object. One class, many objects. This idea comes from
+      object-oriented programming (OOP), where a program is built from objects that hold data
+      and behaviour together.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The class box</span></div>
+    <div class="body">
+      <p>A <b>class</b> is drawn as a rectangle in <b>three compartments</b>: the class
+      <b>name</b> at the top, its <b>attributes</b> (data) in the middle, and its
+      <b>methods</b> or operations (behaviour) at the bottom. A <b>visibility</b> mark sits
+      before each member: <b>minus</b> for private (hidden inside the class), <b>plus</b> for
+      public (visible outside). The paper asks you to "draw a class with at least two
+      attributes and two methods", so practise the box until it is automatic.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="A UML class box with name, attributes and methods compartments.">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.5">
+        <rect x="150" y="16" width="220" height="118" rx="1"/>
+        <line x1="150" y1="42" x2="370" y2="42"/>
+        <line x1="150" y1="90" x2="370" y2="90"/>
+      </g>
+      <text x="260" y="34" text-anchor="middle" font-family="DejaVu Sans" font-size="11" font-weight="bold" fill="#18232b">Patient</text>
+      <g font-family="DejaVu Sans Mono" font-size="9" fill="#18232b">
+        <text x="160" y="58">- patientId : int</text>
+        <text x="160" y="72">- name : String</text>
+        <text x="160" y="86">- age : int</text>
+        <text x="160" y="106">+ admit() : void</text>
+        <text x="160" y="120">+ getAge() : int</text>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8" fill="#5b6b73">
+        <text x="384" y="60">attributes</text>
+        <text x="384" y="108">methods</text>
+        <text x="384" y="30">name</text>
+      </g>
+    </svg>
+    <figcaption>Figure 5.1 &middot; A class box. Name, then attributes, then methods. Minus is
+    private, plus is public. This is the unit of a class diagram.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Relationships and multiplicity</span></div>
+    <div class="body">
+      <p>Classes are joined by relationships, each with a different line-end, and each line
+      carries a <b>multiplicity</b> saying how many objects take part. Multiplicity is the
+      class-diagram version of cardinality: <b>1</b> (exactly one), <b>0..1</b> (optional),
+      <b>*</b> or <b>0..*</b> (many), <b>1..*</b> (one or more). The relationships:</p>
+      <ul class="bul">
+        <li><b>Association</b> (plain line): the classes are connected. A ward <i>has</i>
+        patients.</li>
+        <li><b>Aggregation</b> (<b>hollow diamond</b> at the whole): a "has-a" where the part
+        can exist without the whole. A department aggregates lecturers; the lecturers survive
+        if the department closes.</li>
+        <li><b>Composition</b> (<b>filled diamond</b> at the whole): a stronger "has-a" where
+        the part cannot exist without the whole. A ward is composed of a convenience room; no
+        ward, no room.</li>
+        <li><b>Generalization</b> / inheritance (<b>hollow triangle</b> at the parent): an
+        "is-a". A new patient and an old patient are both a patient.</li>
+      </ul>
+      <p class="small"><b>Memory hook:</b> <b>hollow diamond is a loose has-a, filled diamond
+      is a life-or-death has-a, hollow triangle is an is-a.</b></p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Class relationships: association, aggregation, composition, generalization with multiplicities.">
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <g fill="none" stroke="#1d4ed8" stroke-width="1.4">
+          <!-- association -->
+          <rect x="10" y="16" width="70" height="24"/><rect x="180" y="16" width="70" height="24"/>
+          <line x1="80" y1="28" x2="180" y2="28"/>
+          <!-- aggregation -->
+          <rect x="270" y="16" width="70" height="24"/><rect x="440" y="16" width="70" height="24"/>
+          <line x1="358" y1="28" x2="440" y2="28"/>
+          <path d="M340 28 l9 -6 l9 6 l-9 6 z"/>
+          <!-- composition -->
+          <rect x="10" y="96" width="70" height="24"/><rect x="180" y="96" width="70" height="24"/>
+          <line x1="98" y1="108" x2="180" y2="108"/>
+          <path d="M80 108 l9 -6 l9 6 l-9 6 z" fill="#1d4ed8"/>
+          <!-- generalization -->
+          <rect x="270" y="96" width="70" height="24"/><rect x="440" y="96" width="70" height="24"/>
+          <line x1="358" y1="108" x2="440" y2="108"/>
+          <path d="M358 108 l-14 -8 l0 16 z"/>
+        </g>
+        <text x="45" y="31">Ward</text><text x="215" y="31">Patient</text>
+        <text x="305" y="31">Dept</text><text x="475" y="31">Lecturer</text>
+        <text x="45" y="111">Ward</text><text x="215" y="111">Room</text>
+        <text x="305" y="111">Patient</text><text x="475" y="111">NewPat.</text>
+        <text x="130" y="24">1</text><text x="170" y="24">*</text>
+        <g fill="#5b6b73" font-size="8">
+          <text x="130" y="56">association</text>
+          <text x="390" y="56">aggregation (hollow)</text>
+          <text x="130" y="136">composition (filled)</text>
+          <text x="390" y="136">generalization (triangle)</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Figure 5.2 &middot; The four class relationships. Hollow diamond = aggregation,
+    filled diamond = composition, hollow triangle = generalization, plain line = association.
+    The 1 and * are multiplicities.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">A class diagram from a scenario</span></div>
+    <div class="body">
+      <p>Take the hospital scenario: <i>a patient is made up of one patient detail (PId, name,
+      age, gender); a patient is either a new patient or an old patient; a ward holds at least
+      8 patients; a ward is made up of one ward detail (WardNo, No_of_Bed, WType); a
+      convenience room is part of a ward; a ward has at least two nurses.</i> Draw the class
+      diagram with relationships and multiplicities.</p>
+      <ol class="steps">
+        <li>Make a class for each noun.
+          <span class="note">Patient, PatientDetail, NewPatient, OldPatient, Ward, WardDetail,
+          ConvenienceRoom, Nurse. Give each its attributes.</span></li>
+        <li>"Is made up of one detail" is composition.
+          <span class="note">Patient has a filled diamond to PatientDetail (1); Ward has a
+          filled diamond to WardDetail (1). The detail cannot exist without its owner.</span></li>
+        <li>"Either a new or an old patient" is generalization.
+          <span class="note">NewPatient and OldPatient both point with a hollow triangle to
+          Patient.</span></li>
+        <li>"A ward holds at least 8 patients", "at least two nurses" are associations with
+        multiplicity.
+          <span class="note">Ward to Patient marked 1 on the ward end and 8..* on the patient
+          end; Ward to Nurse marked 2..*.</span></li>
+        <li>"A convenience room is part of a ward" is composition or aggregation.
+          <span class="note">"Part of" a ward, and it makes no sense without the ward, so a
+          filled diamond from Ward to ConvenienceRoom.</span></li>
+      </ol>
+      <p class="redo"><b>Now you try:</b> draw the class diagram for an order system where an
+      order is made up of three order items, an order is either a special order or a normal
+      order, and a customer places at most 20 orders. Which relationship is each?</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Who invented UML, and name the two diagram categories.</p>
+      <p class="q">2. What are the three compartments of a class box?</p>
+      <p class="q">3. Which line-end means composition, and what does composition imply?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. Booch, Rumbaugh and Jacobson; structural and behavioural diagrams.</p>
+      <p>2. Name, attributes, methods.</p>
+      <p>3. A filled diamond at the whole; the part cannot exist without the whole.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== UNIT 2 : OOD CONCEPTS ===================== -->
+<section id="m5u2">
+  <div class="kick">Module Five &middot; Unit 2</div>
+  <h2 class="title">Object-Oriented Design Concepts</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can explain encapsulation, inheritance,
+  polymorphism, composition, aggregation and association with an example each, and state the
+  drawbacks of multiple inheritance.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The concepts, with an example each</span></div>
+    <div class="body">
+      <p>"Briefly describe the following object-oriented design concepts with relevant
+      examples" is on almost every paper. Learn one clean sentence and one example for each:</p>
+      <ul class="bul">
+        <li><b>Encapsulation:</b> bundling data and the methods that act on it inside one
+        class, and hiding the data behind those methods (private attributes, public methods).
+        Example: a BankAccount hides its balance and exposes deposit() and withdraw().</li>
+        <li><b>Inheritance:</b> a class (the child or subclass) takes on the attributes and
+        methods of another (the parent or superclass) and can add its own. Example: a
+        SavingsAccount inherits from Account and adds interest.</li>
+        <li><b>Polymorphism:</b> the same method name behaves differently on different classes.
+        Example: draw() on a Circle and draw() on a Square both draw, each in its own way.</li>
+        <li><b>Composition:</b> an object is built from other objects that cannot exist without
+        it (a strong "has-a"). Example: a House is composed of Rooms.</li>
+        <li><b>Aggregation:</b> an object is built from other objects that can exist
+        independently (a weak "has-a"). Example: a Team aggregates Players, who exist without
+        the team.</li>
+        <li><b>Association:</b> two classes are related and can use each other, but neither
+        owns the other. Example: a Doctor treats a Patient.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Composition vs aggregation</span></div>
+    <div class="body">
+      <p>The examiner loves to test composition against aggregation because they look almost
+      the same. The one distinction: <b>composition is a life-or-death has-a</b> (the part
+      dies with the whole, filled diamond); <b>aggregation is a loose has-a</b> (the part
+      lives on, hollow diamond). House and Rooms is composition; Team and Players is
+      aggregation.</p>
+      <p class="small"><b>Memory hook:</b> break a House and the Rooms go with it (composition);
+      disband a Team and the Players walk away (aggregation).</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Multiple inheritance and its drawbacks</span></div>
+    <div class="body">
+      <p><b>Multiple inheritance</b> is when one class inherits from <b>more than one</b>
+      parent at once. It is powerful but the paper asks for its <b>drawbacks</b> (worth 2.5 to
+      3.5 marks), so learn three:</p>
+      <ul class="bul">
+        <li><b>The diamond problem (ambiguity):</b> if two parents both provide a method with
+        the same name, the child does not know which to inherit.</li>
+        <li><b>Increased complexity:</b> the class hierarchy is harder to understand, design
+        and maintain.</li>
+        <li><b>Name clashes:</b> attributes or methods with the same name in different parents
+        collide, and resolving them is error-prone.</li>
+      </ul>
+      <p>This is why several modern languages (such as Java) forbid multiple inheritance of
+      classes and offer interfaces instead.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Define encapsulation and give an example.</p>
+      <p class="q">2. What is polymorphism?</p>
+      <p class="q">3. State two drawbacks of multiple inheritance.</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. Bundling data with the methods that use it and hiding the data behind them; a
+      BankAccount hides its balance and exposes deposit() and withdraw().</p>
+      <p>2. The same method name behaving differently on different classes (draw() on a Circle
+      versus a Square).</p>
+      <p>3. Any two of: the diamond problem (ambiguity), increased complexity, name clashes.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== UNIT 3 : ACTIVITY + SEQUENCE ===================== -->
+<section id="m5u3">
+  <div class="kick">Module Five &middot; Unit 3</div>
+  <h2 class="title">Activity and Sequence Diagrams</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can draw an activity diagram of a process flow
+  and a sequence diagram of an interaction over time, the two behavioural diagrams the paper
+  asks for by name.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The activity diagram</span></div>
+    <div class="body">
+      <p>An <b>activity diagram</b> is a flowchart of a process: it shows the order in which
+      actions happen, including choices and parallel work. Its symbols:</p>
+      <ul class="bul">
+        <li>A <b>filled circle</b> for the start, and a filled circle in a ring for the end.</li>
+        <li>A <b>rounded rectangle</b> for each action ("Check patient record").</li>
+        <li>A <b>diamond</b> for a decision, with the condition on each outgoing arrow
+        ("current patient?" splitting into yes and no).</li>
+        <li>A <b>solid bar</b> (fork and join) where flows split to run in parallel and merge
+        again.</li>
+        <li>Arrows for the flow of control from one action to the next.</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="An activity diagram with a start, an action, a decision and two ends.">
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <circle cx="90" cy="24" r="7" fill="#1d4ed8"/>
+        <g fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.4">
+          <rect x="40" y="50" width="100" height="28" rx="12"/>
+          <rect x="300" y="120" width="110" height="28" rx="12"/>
+          <rect x="40" y="170" width="100" height="28" rx="12"/>
+        </g>
+        <path d="M90 96 l24 20 l-24 20 l-24 -20 z" fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.4"/>
+        <text x="90" y="67">Find patient</text>
+        <text x="90" y="120" font-size="7.5">current?</text>
+        <text x="355" y="138" font-size="8">Add patient</text>
+        <text x="90" y="188" font-size="8">Book slot</text>
+        <g stroke="#5b6b73" stroke-width="1.2" fill="none">
+          <line x1="90" y1="31" x2="90" y2="49"/><path d="M90 49 l-3 -7 M90 49 l3 -7"/>
+          <line x1="90" y1="78" x2="90" y2="94"/><path d="M90 94 l-3 -7 M90 94 l3 -7"/>
+          <line x1="114" y1="116" x2="300" y2="130"/><path d="M300 130 l-8 -1 M300 130 l-6 5"/>
+          <line x1="90" y1="136" x2="90" y2="168"/><path d="M90 168 l-3 -7 M90 168 l3 -7"/>
+        </g>
+        <text x="200" y="118" font-size="7.5" fill="#b45309">no</text>
+        <text x="80" y="152" font-size="7.5" fill="#0e7490">yes</text>
+        <circle cx="90" cy="212" r="8" fill="none" stroke="#1d4ed8" stroke-width="1.4"/>
+        <circle cx="90" cy="212" r="4" fill="#1d4ed8"/>
+        <line x1="90" y1="198" x2="90" y2="204" stroke="#5b6b73" stroke-width="1.2"/>
+      </g>
+    </svg>
+    <figcaption>Figure 5.3 &middot; An activity diagram. Filled circle starts it, rounded
+    rectangles are actions, the diamond is a decision with a labelled branch on each arrow,
+    and the ringed circle ends it.</figcaption>
+  </figure>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The sequence diagram</span></div>
+    <div class="body">
+      <p>A <b>sequence diagram</b> shows how objects interact <i>over time</i>, message by
+      message. Time runs down the page. Its parts:</p>
+      <ul class="bul">
+        <li>A box at the top for each participating object or actor, with a dashed
+        <b>lifeline</b> hanging down from it.</li>
+        <li>A thin <b>activation bar</b> on a lifeline while that object is doing something.</li>
+        <li>A solid arrow for a <b>message</b> (a call) from one lifeline to another, labelled
+        with the operation; a dashed arrow for the <b>return</b>.</li>
+      </ul>
+      <p>You draw one when a question says "draw a sequence diagram for the interaction", for
+      example a sales representative entering an order of up to twelve products: the messages
+      go from the rep to the system and back, one per product.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="A sequence diagram with three lifelines and messages passing between them.">
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <g fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.3">
+          <rect x="40" y="14" width="80" height="24"/>
+          <rect x="230" y="14" width="80" height="24"/>
+          <rect x="410" y="14" width="80" height="24"/>
+        </g>
+        <text x="80" y="30">Sales rep</text><text x="270" y="30">:Order</text><text x="450" y="30">:Stock</text>
+        <g stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3">
+          <line x1="80" y1="38" x2="80" y2="196"/>
+          <line x1="270" y1="38" x2="270" y2="196"/>
+          <line x1="450" y1="38" x2="450" y2="196"/>
+        </g>
+        <g fill="#dbe6f2" stroke="#1d4ed8" stroke-width="1">
+          <rect x="74" y="60" width="12" height="120"/>
+          <rect x="264" y="78" width="12" height="86"/>
+          <rect x="444" y="100" width="12" height="34"/>
+        </g>
+        <g stroke="#1d4ed8" stroke-width="1.3" fill="none">
+          <line x1="86" y1="70" x2="264" y2="70"/><path d="M264 70 l-8 -4 M264 70 l-8 4"/>
+          <line x1="276" y1="100" x2="444" y2="100"/><path d="M444 100 l-8 -4 M444 100 l-8 4"/>
+        </g>
+        <g stroke="#94a3b8" stroke-width="1" fill="none" stroke-dasharray="4 3">
+          <line x1="444" y1="134" x2="276" y2="134"/><path d="M276 134 l8 -4 M276 134 l8 4" stroke-dasharray="0"/>
+          <line x1="264" y1="164" x2="86" y2="164"/><path d="M86 164 l8 -4 M86 164 l8 4" stroke-dasharray="0"/>
+        </g>
+        <g font-size="7.5" fill="#5b6b73">
+          <text x="175" y="65">enterOrder()</text>
+          <text x="360" y="95">checkStock()</text>
+          <text x="360" y="129">available</text>
+          <text x="175" y="159">confirmed</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Figure 5.4 &middot; A sequence diagram. Lifelines hang from each object, time
+    runs downward, solid arrows are calls, dashed arrows are returns, and the thin bars show
+    when each object is active.</figcaption>
+  </figure>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. What does a diamond mean in an activity diagram?</p>
+      <p class="q">2. In a sequence diagram, which way does time run, and what is a lifeline?</p>
+      <p class="q">3. Is a sequence diagram structural or behavioural?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. A decision, with a condition labelling each outgoing branch.</p>
+      <p>2. Time runs down the page; a lifeline is the dashed vertical line showing an object's
+      existence through time.</p>
+      <p>3. Behavioural (it shows behaviour over time).</p>
+    </div>
+  </div>
+</section>

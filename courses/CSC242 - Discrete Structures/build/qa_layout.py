@@ -44,6 +44,7 @@ FOOTER_TEXT = 'CSC242'
 SPARSE = 0.30          # fraction of the content height below which a page is odd
 BODY_PT = 10.5         # the body size manual.css asks for
 BODY_TOL = 0.02        # pt: allow rounding, nothing more
+HEAD_BAND = 45         # pt: how far above a box a heading welded to it can sit
 BLOCK_GAP = 6          # pt: the margin between two boxes (.55em), which the next
                        # block also needs and which no rectangle shows
 
@@ -90,23 +91,69 @@ def forced_starts(doc):
                      if mkid(k, t) in forced)
 
 
+def welded_top(page, rects):
+    """Where the topmost block really begins, heading included.
+
+    manual.css gives every heading `break-after: avoid`, so a heading and the box
+    under it travel to a new page as one piece. Measuring the box alone and asking
+    "would it have fitted in the room left on the page before" answers a question
+    the renderer never faced: it had to place the heading too, and a heading is
+    22pt of this book's page. Two short pages were reported for exactly that
+    reason, and both turned out to be correct typesetting.
+
+    Only text within HEAD_BAND of the box counts. Text further up is a paragraph,
+    and a paragraph may be split across the page turn, so it is welded to nothing
+    and the page before could always have taken part of it.
+    """
+    body = [s for s in spans(page) if not is_footer(s, page)]
+    if not body:
+        return rects[0].y0
+    top = min(s['bbox'][1] for s in body)
+    return top if rects[0].y0 - HEAD_BAND <= top < rects[0].y0 else rects[0].y0
+
+
 def first_block(page):
     """Height of the whole topmost block on the page, if it has one.
 
     Every teaching box paints a background, so this is what the page above had to
     make room for. Walk down from the topmost rectangle while they keep touching,
-    so the answer is the box entire (bar, body and border) and not one part of it.
+    so the answer is the box entire (bar, body and border) and not one part of it,
+    and start from any heading welded above it.
     """
     rects = sorted([d['rect'] for d in page.get_drawings() if d['rect'].height > 3],
                    key=lambda r: r.y0)
     if not rects:
         return None
-    top, bottom = rects[0].y0, rects[0].y1
+    top, bottom = welded_top(page, rects), rects[0].y1
     for r in rects[1:]:
         if r.y0 > bottom + 3:      # a real gap: the next block is a separate one
             break
         bottom = max(bottom, r.y1)
     return bottom - top
+
+
+def looks_like_a_bar(rect, wide):
+    """True when this rect is a box's coloured header strip, not a continuation.
+
+    A box paints its bar flush against the top of its body, so a bar always has
+    another full-width rect beginning exactly where it ends. A fragment carried
+    over from the page before has no bar: it opens straight into body, and the
+    next rect beneath it is a different box, a margin away.
+
+    Without this test, a page that merely ENDS with a box, followed by a page that
+    merely BEGINS with one, reads as a single box cut in half. That is how body
+    page 64 came to be reported: a gap chip closing 1pt clear of the bottom
+    margin, and an unrelated teaching box opening the page after it.
+    """
+    return any(abs(o.y0 - rect.y1) < 1.5 for o in wide if o is not rect)
+
+
+def lead_above(page, boxtop):
+    """Height of the heading welded above a box, or 0 when there is none."""
+    body = [s for s in spans(page) if not is_footer(s, page)]
+    tops = [s['bbox'][1] for s in body
+            if s['bbox'][3] <= boxtop + 1 and s['bbox'][1] >= boxtop - HEAD_BAND]
+    return boxtop - min(tops) if tops else 0.0
 
 
 def split_boxes(doc):
@@ -115,6 +162,13 @@ def split_boxes(doc):
     A box that runs off the bottom of one page and resumes at the top of the next
     was cut. If the two halves together would have fitted on a page, the cut was
     avoidable and the box should have moved down entire.
+
+    "Together" includes the heading welded above the box, for the reason
+    welded_top gives: the renderer could only have moved the box by moving its
+    heading with it. The two 735pt answer boxes in this book clear the usable
+    743pt on their own and do not clear it once their headings come along, so
+    those splits are forced, and reporting them told the author to fix something
+    that cannot be fixed.
     """
     out = []
     for i in range(doc.page_count - 1):
@@ -125,12 +179,21 @@ def split_boxes(doc):
         tail = [x for x in wide if x.y1 > bot - 1.5]
         if not tail:
             continue
-        head = [d['rect'] for d in doc[i + 1].get_drawings()
-                if d['rect'].width > 400 and d['rect'].height > 8
-                and d['rect'].y0 < top + 1.5]
+        nxt_wide = [d['rect'] for d in doc[i + 1].get_drawings()
+                    if d['rect'].width > 400 and d['rect'].height > 8]
+        head = [x for x in nxt_wide
+                if x.y0 < top + 1.5 and not looks_like_a_bar(x, nxt_wide)]
         if not head:
             continue
-        whole = max(x.height for x in tail) + max(x.height for x in head)
+        tallest = max(tail, key=lambda x: x.height)
+        boxtop, moved = tallest.y0, True
+        while moved:                      # climb to the top of this box's own run
+            moved = False
+            for o in wide:
+                if o.y0 < boxtop and abs(o.y1 - boxtop) < 1.5:
+                    boxtop, moved = o.y0, True
+        whole = (tallest.height + max(x.height for x in head)
+                 + lead_above(doc[i], boxtop))
         out.append((i, whole, whole <= (r.y1 - BOTTOM - TOP)))
     return out
 
@@ -236,7 +299,8 @@ def check(pdf_path):
     for i, whole, avoidable in split_boxes(doc):
         if avoidable:
             fails.append(f'page {i}: a box is cut by the page break, and at {whole:.0f}pt '
-                         f'it would have fitted whole on the next page')
+                         f'with its heading it would have fitted whole on the '
+                         f'next page')
 
     for i, over, n, txt in panel_overruns(doc):
         fails.append(f'page {i}: a {n}-character code line hangs {over:.1f}pt past the '

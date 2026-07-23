@@ -1,0 +1,313 @@
+<!-- ===================== MODULE SIX DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Six</div>
+  <h1>Design, Architecture<br>and Delivery</h1>
+  <div class="blurb">The Design and Implementation phases in the detail the paper asks for:
+  how a system is structured across tiers, how you decide whether to build or buy it, how it
+  is installed and supported, and how the project around it is managed. These are the marks
+  in Section A and the last parts of the Section B scenario questions.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.6">
+        <rect x="20" y="30" width="120" height="36" rx="2"/>
+        <rect x="200" y="30" width="120" height="36" rx="2"/>
+        <rect x="380" y="30" width="120" height="36" rx="2"/>
+      </g>
+      <g stroke="#94a3b8" stroke-width="1.4" fill="none">
+        <line x1="140" y1="48" x2="198" y2="48"/><path d="M198 48 l-8 -4 M198 48 l-8 4"/>
+        <line x1="320" y1="48" x2="378" y2="48"/><path d="M378 48 l-8 -4 M378 48 l-8 4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="9" fill="#18232b" text-anchor="middle">
+        <text x="80" y="52">Presentation</text>
+        <text x="260" y="52">Application</text>
+        <text x="440" y="52">Data</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+<!-- ===================== UNIT 1 : DESIGN & ARCHITECTURE ===================== -->
+<section id="m6u1">
+  <div class="kick">Module Six &middot; Unit 1</div>
+  <h2 class="title">System Design and Architecture</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can describe the client-server tiers, name the
+  functions software architecture must provide and the non-functional requirements that
+  shape hardware, state interface design principles, choose a system acquisition strategy,
+  and design and populate a small relational database.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Client-server tiers</span></div>
+    <div class="body">
+      <p><span class="offsyl">Not in the course text</span> A system's work can be split into
+      three logical parts: <b>presentation</b> (the screens the user sees), <b>application</b>
+      logic (the processing and rules), and <b>data</b> (storage and access). How these are
+      spread across machines gives the <b>client-server tiers</b>, and the paper asks you to
+      "explain the various client-server tiers to convince your boss":</p>
+      <ul class="bul">
+        <li><b>Single-tier:</b> all three parts on one machine (a mainframe or a standalone
+        app). Simple, but does not scale.</li>
+        <li><b>Two-tier:</b> a client holds the presentation (and often the application logic)
+        and talks to a server that holds the data. The classic client and database server.</li>
+        <li><b>Three-tier:</b> presentation on the client, application logic on a separate
+        middle (application) server, and data on a database server. Each tier can be scaled
+        and maintained on its own; this is the common web architecture.</li>
+        <li><b>N-tier (multi-tier):</b> the middle tier is split further into more specialised
+        servers. Most scalable, most complex.</li>
+      </ul>
+      <p>Sell the three-tier to the boss on scalability and maintainability: because the tiers
+      are separate, you can grow or replace one without disturbing the others.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Software architectural functions</span></div>
+    <div class="body">
+      <p>"Mention the software architectural functions the system will need to perform
+      properly." Software architecture must provide four logical functions, which map onto the
+      tiers above:</p>
+      <ul class="bul">
+        <li><b>Data storage:</b> holding the data (the database).</li>
+        <li><b>Data access logic:</b> the processing needed to read and write that data (the
+        queries).</li>
+        <li><b>Application logic:</b> the business rules and processing.</li>
+        <li><b>Presentation logic:</b> displaying information to the user and accepting their
+        input.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Hardware non-functional requirements</span></div>
+    <div class="body">
+      <p>"The choice of hardware architecture depends on four non-functional requirements; the
+      first is operational, name two others." The four categories of non-functional
+      requirement that shape the hardware are:</p>
+      <ul class="bul">
+        <li><b>Operational requirements:</b> the environment the system must run in (operating
+        system, network, hardware it must coexist with).</li>
+        <li><b>Performance requirements:</b> speed, capacity, throughput and availability.</li>
+        <li><b>Security requirements:</b> access control, encryption, protection of data.</li>
+        <li><b>Cultural and political requirements:</b> local laws, languages, customs and
+        standards the system must respect.</li>
+      </ul>
+      <p class="small"><b>Memory hook:</b> <b>O P S C</b>, "Operational, Performance, Security,
+      Cultural". These are the non-functional "-ilities" of Module Two, grouped for choosing
+      hardware.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Interface design principles</span></div>
+    <div class="body">
+      <p>Interface design decides how the system interacts with the outside world, chiefly the
+      graphical user interface (GUI) the user works through. "Outline three principles of
+      interface design":</p>
+      <ul class="bul">
+        <li><b>Consistency:</b> the same action looks and works the same way everywhere in the
+        system, so the user can transfer what they learn.</li>
+        <li><b>Simplicity (and clarity):</b> show only what is needed, in plain layout and
+        language, so the interface is easy to learn and use.</li>
+        <li><b>User feedback:</b> the system tells the user what is happening, confirms
+        actions, and reports errors clearly.</li>
+      </ul>
+      <p>Other acceptable principles: minimise user effort, prevent and handle errors
+      gracefully, and respect the user's control.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">System acquisition strategy</span></div>
+    <div class="body">
+      <p>When a system is needed but the team lacks the time or skill to build it, you choose a
+      <b>system acquisition strategy</b>. The three options, and the one to pick under time
+      pressure:</p>
+      <ul class="bul">
+        <li><b>Build (custom development):</b> write it in-house. Best fit, most control, but
+        slowest and needs the skills.</li>
+        <li><b>Buy (a packaged or off-the-shelf solution):</b> purchase ready-made software.
+        Fast and cheaper, but may not fit exactly.</li>
+        <li><b>Outsource:</b> pay another company to build or run it. Good when you lack the
+        skill or capacity in-house.</li>
+      </ul>
+      <p>When a scenario says "the time frame is short and the project skills are not
+      strategic", the answer is to <b>buy a packaged solution</b> or <b>outsource</b>, not to
+      build. Supporting factors to cite: cost, time available, in-house skills, how well
+      packages fit the need, and how strategic (core to the business) the system is.</p>
+    </div>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">Designing and populating a relational database</span></div>
+    <div class="body">
+      <p>The paper asks you to "design and populate a relational database of Customer, Order
+      and Payment, with primary keys, at least three columns and five rows." A relational
+      database stores data in <b>tables</b>; each table has a <b>primary key (PK)</b> column
+      that uniquely identifies a row, and a <b>foreign key (FK)</b> to link to another table.</p>
+      <p class="codelabel">Customer</p>
+      <table class="data">
+        <tr><th>custId (PK)</th><th>name</th><th>phone</th></tr>
+        <tr><td>C01</td><td>Ada Obi</td><td>0803...</td></tr>
+        <tr><td>C02</td><td>Bola Ade</td><td>0806...</td></tr>
+        <tr><td>C03</td><td>Chidi Eze</td><td>0701...</td></tr>
+        <tr><td>C04</td><td>Dele Ojo</td><td>0809...</td></tr>
+        <tr><td>C05</td><td>Efe Uche</td><td>0812...</td></tr>
+      </table>
+      <p class="codelabel">Order</p>
+      <table class="data">
+        <tr><th>orderId (PK)</th><th>custId (FK)</th><th>total</th></tr>
+        <tr><td>O01</td><td>C01</td><td>15000</td></tr>
+        <tr><td>O02</td><td>C03</td><td>8000</td></tr>
+        <tr><td>O03</td><td>C01</td><td>22000</td></tr>
+        <tr><td>O04</td><td>C05</td><td>5000</td></tr>
+        <tr><td>O05</td><td>C02</td><td>13000</td></tr>
+      </table>
+      <p>The Payment table follows the same shape: payId (PK), orderId (FK), amount, with five
+      rows. Notice custId is the primary key of Customer and a foreign key in Order: that FK is
+      what records which customer placed each order.</p>
+      <p class="redo"><b>Now you try:</b> add the Payment table with five rows, and say which
+      column links it back to the Order table.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. In a three-tier architecture, what sits in each tier?</p>
+      <p class="q">2. Name the four non-functional requirements that shape hardware choice.</p>
+      <p class="q">3. Time is short and the skills are not strategic. Which acquisition
+      strategy?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. Presentation on the client, application logic on a middle server, data on a
+      database server.</p>
+      <p>2. Operational, performance, security, cultural/political.</p>
+      <p>3. Buy a packaged solution, or outsource; do not build in-house.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== UNIT 2 : DELIVERY & PROJECT MANAGEMENT ===================== -->
+<section id="m6u2">
+  <div class="kick">Module Six &middot; Unit 2</div>
+  <h2 class="title">Project Management, Installation and Support</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can list the project planning activities, decide
+  whether to accept new features, give the reasons projects succeed or fail, name the
+  stakeholders and their views, and describe installation and support.</p>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Project planning activities</span></div>
+    <div class="body">
+      <p>"Identify the five activities in project planning" (the Planning phase of Module One,
+      as a delivery task):</p>
+      <ol class="qlist">
+        <li>Define the problem (the business problem and scope).</li>
+        <li>Produce the project schedule.</li>
+        <li>Confirm project feasibility (technical, economic, operational, schedule, legal).</li>
+        <li>Staff the project (allocate funds, assign members, obtain resources).</li>
+        <li>Launch the project.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Scope creep and feature creep</span></div>
+    <div class="body">
+      <p>Near the end of a project a client often asks for new features. <b>Scope creep</b> is
+      uncontrolled growth of what the project must deliver; <b>feature creep</b> is the same at
+      the level of individual features. The paper asks: as project manager, do you agree or
+      refuse to add new features late? The exam-safe answer is to <b>refuse (or defer)</b>,
+      and give reasons:</p>
+      <ul class="bul">
+        <li>It threatens the schedule and budget already agreed.</li>
+        <li>It risks the quality and stability of what is nearly finished.</li>
+        <li>New features belong in a change request or a later release, assessed properly, not
+        bolted on under time pressure.</li>
+      </ul>
+      <p>This is the "do not be afraid to cancel or revise scope" principle from Module One in
+      action.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Why projects succeed or fail</span></div>
+    <div class="body">
+      <p>"Enumerate reasons a project will succeed and reasons it can fail." The 25/26 paper
+      gives you the first of each: a system succeeds when it is <b>acceptable to the customer</b>
+      and fails if it <b>cannot establish upper-management commitment</b>. Others:</p>
+      <ul class="bul">
+        <li><b>Succeed:</b> clear requirements, strong user involvement, realistic schedule and
+        budget, good project management, management support.</li>
+        <li><b>Fail:</b> unclear or changing requirements, lack of user involvement, poor
+        planning and estimation, weak management support, inadequate testing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Stakeholders and their views</span></div>
+    <div class="body">
+      <p>A <b>stakeholder</b> is anyone with an interest in the system. "Name three system
+      stakeholders and describe how each views the system" wants you to show that different
+      people want different things:</p>
+      <ul class="bul">
+        <li><b>Users</b> want the system easy to use and helpful to their daily work.</li>
+        <li><b>Managers</b> want it to deliver business value on time and within budget.</li>
+        <li><b>Developers</b> (the technical team) want clear requirements and a system that is
+        feasible to build and maintain.</li>
+      </ul>
+      <p>Others: owners, customers, and regulators. The point the examiner wants is that these
+      views can conflict, and the analyst must balance them.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Job roles, installation and support</span></div>
+    <div class="body">
+      <p>Three loose ends the paper picks up:</p>
+      <ul class="bul">
+        <li><b>Other job roles</b> an analyst can grow into: project manager, software
+        architect, software tester, product designer, business analyst.</li>
+        <li><b>Installation (conversion)</b> uses one of the four strategies from Module One:
+        direct cutover, parallel, phased, pilot. Choose by weighing risk against cost.</li>
+        <li><b>Support activities</b> (the Support phase): <b>maintain</b> the system (fix
+        bugs, minor adjustments), <b>enhance</b> it (add capability as the business changes),
+        and <b>support the users</b>, which includes running a help desk. "What three
+        activities will the support group participate in?" is exactly these three.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What a model is, for the stakeholders</span></div>
+    <div class="body">
+      <p>Finally, the paper asks how the analyst explains to stakeholders what a <b>model</b>
+      is, given that "a model is a representation of an important aspect of the real world."
+      Explain it plainly: a model is a simplified picture of the system that leaves out detail
+      so everyone can see and agree the important parts before it is built, the way an
+      architect's drawing lets a client approve a building before a brick is laid. The diagrams
+      throughout this manual, the use case, the DFD, the ERD, the class diagram, are all
+      models in exactly this sense.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. List the five project planning activities.</p>
+      <p class="q">2. A client asks for new features near the deadline. What do you do, and
+      why?</p>
+      <p class="q">3. Name the three support-phase activities.</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. Define the problem, produce the schedule, confirm feasibility, staff the project,
+      launch it.</p>
+      <p>2. Refuse or defer them, because they threaten the agreed schedule, budget and quality;
+      handle them as a change request or later release.</p>
+      <p>3. Maintain the system, enhance the system, support the users (help desk).</p>
+    </div>
+  </div>
+</section>

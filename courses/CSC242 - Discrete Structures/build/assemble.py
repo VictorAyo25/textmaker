@@ -245,6 +245,17 @@ def main():
         if r.returncode != 0:
             stop('numeric gate failed, a worked answer disagrees with a recompute.')
 
+    # ---- code gate: every C++ listing in Part Eleven is extracted from the
+    #      book itself, compiled at /W4 and run, and its output panel is
+    #      compared with what it actually printed. The course text contains no
+    #      programming at all, so this part is the reader's only source. ----
+    cg = os.path.join(HERE, 'verify_code.py')
+    if os.path.exists(cg):
+        r = subprocess.run([sys.executable, cg])
+        if r.returncode != 0 and '--skip-code' not in sys.argv:
+            stop('code gate failed: a listing does not compile, or an output '
+                 'panel is not what the program printed.')
+
     # ---- formula gate: no formula appears without saying what its symbols mean.
     #      Reads content/, so it runs before anything is assembled. ----
     fg = os.path.join(HERE, 'qa_formulas.py')

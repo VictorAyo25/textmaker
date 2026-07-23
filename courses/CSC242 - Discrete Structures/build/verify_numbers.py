@@ -104,7 +104,7 @@ _WORD = {0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five',
 
 # ---- the checks: (label, computed, shown, where) ----
 #
-# WHY `where` AND `near` EXIST. The original form of this gate asked only
+# WHY `where` EXISTS. The original form of this gate asked only
 # "does the string appear anywhere in content/". Control-testing the Part Nine
 # and Ten checks showed how weak that is: flipping the printed Bayes posterior
 # from 0.625 to 0.635 did NOT fail the gate, because 0.625 also appears two
@@ -240,7 +240,7 @@ add('25/26 Q6b 6-digit', 10 ** 6, '1000000')
 add('25/26 Q6b total', 10 ** 4 + 10 ** 5 + 10 ** 6, '1110000')
 add('25/26 Q6b nonzero-start variant',
     9 * 10 ** 3 + 9 * 10 ** 4 + 9 * 10 ** 5, '999000')
-add('25/26 Q6c three-digit', 9 * 10 * 10, '900')
+add('5.1 25/26 Q6c three-digit', 9 * 10 * 10, '900')
 add('25/26 Q6c by range', 999 - 100 + 1, '900')
 add('25/26 Q6c no repeats variant', 9 * 9 * 8, '648')
 
@@ -289,7 +289,7 @@ _bycases = sum(comb(6, b) * comb(4, 4 - b) for b in range(1, 5))
 add('25/26 Q3b total selections', comb(10, 4), '210')
 add('25/26 Q3b all-girl selections', comb(4, 4), '1')
 add('25/26 Q3b subtraction', _atleast1boy, '209')
-add('25/26 Q3b by cases', _bycases, '209')
+add('5.2 25/26 Q3b by cases', _bycases, '209')
 add('25/26 Q3b case 1 boy', comb(6, 1) * comb(4, 3), '24')
 add('25/26 Q3b case 2 boys', comb(6, 2) * comb(4, 2), '90')
 add('25/26 Q3b case 3 boys', comb(6, 3) * comb(4, 1), '80')
@@ -305,8 +305,8 @@ add('25/26 Q3c five-a-side variant', factorial(5), '120')
 # partition: the three regions must add back to the group exactly.
 _both = 72 + 43 - 100
 add('25/26 Q3a both', _both, '15')
-add('25/26 Q3a Ibibio only', 72 - _both, '57')
-add('25/26 Q3a Efik only', 43 - _both, '28')
+add('5.3 25/26 Q3a Ibibio only', 72 - _both, '57')
+add('5.3 25/26 Q3a Efik only', 43 - _both, '28')
 add('25/26 Q3a regions total', (72 - _both) + _both + (43 - _both), '100')
 add('25/26 Q3a redo both', 50 + 45 - 80, '15')
 add('21/22 Q5b class size', 25 + 13 - 8, '30')
@@ -747,7 +747,7 @@ for _name, _walk in (('preorder', _preorder('a')),
                      ('inorder', _inorder('a')),
                      ('postorder', _postorder('a'))):
     assert sorted(_walk) == _ALL, f'{_name} does not list every vertex once'
-    add(f'24/25 Q6a {_name}', ', '.join(_walk), ', '.join(_walk))
+    add(f'7.3 24/25 Q6a {_name}', ', '.join(_walk), ', '.join(_walk))
 add('24/25 Q6a vertex count', len(_ALL), '17')
 assert _preorder('a')[0] == 'a' and _postorder('a')[-1] == 'a', \
     'preorder must start at the root and postorder must end there'
@@ -1045,9 +1045,9 @@ add('10.1 median', (_srt[4] + _srt[5]) / 2, '(20 + 21) / 2 = <b>20.5</b>', P10A)
 add('10.1 mode', max(set(_SCORES), key=_SCORES.count), 'mode = <b>21</b>', P10A)
 add('10.1 range', max(_SCORES) - min(_SCORES), 'range = 33 - 12 = <b>21</b>', P10A)
 _ss = sum((x - _mean) ** 2 for x in _SCORES)
-for _x in _srt:
+for _r, _x in enumerate(_srt, start=1):
     _dev = int(_x - _mean)
-    add(f'10.1 deviation row for {_x}', f'<td>{_x}</td><td>{_dev}</td>',
+    add(f'10.1 deviation row {_r} (score {_x})', f'<td>{_x}</td><td>{_dev}</td>',
         f'<td>{_x}</td><td>{_dev}</td><td>{_dev * _dev}</td>', P10A)
 add('10.1 sum of squared deviations', int(_ss), '<b>306</b>', P10A)
 add('10.1 population variance', round(_ss / len(_SCORES), 4),
@@ -1121,7 +1121,887 @@ add('10.2 Bayes even split P(F)', round(0.02 * 0.5 + 0.05 * 0.5, 4),
     '0.05 &#215; 0.5 = 0.035'.replace('&#215;', chr(0xD7)), P10B)
 
 
+# ---------------------------------------------------------------- Reference
+# R.2's time budget is arithmetic like any other, and a revision page that
+# cannot be trusted on its own numbers is worse than no revision page.
+R2, R3 = 'reference_r2.html', 'reference_r3.html'
+add('R.2 four questions at 17.5', int(4 * 17.5), '4 &#215; 17.5 = 70'.replace('&#215;', chr(0xD7)), R2)
+add('R.2 minutes per question', 160 // 4, '<b>40 minutes each</b>', R2)
+add('R.2 three questions at 23.5', 3 * 23.5, 'would give 70.5', R2)
+for _marks, _mins in ((1, 2), (2.5, 5), (4.5, 9), (7.5, 15), (10, 20)):
+    _label = f'{_marks:g} mark' + ('' if _marks == 1 else 's')
+    _row = f'<td>{_label}</td><td>{_mins} minutes</td>'
+    add(f'R.2 time for {_marks:g} marks', _row, _row, R2)
+add('R.3 edges of a tree on 30 vertices', 30 - 1, '5. 29, since e = v - 1', R3)
+
+
+# ------------------------------------------------- Past paper: 2025/2026
+# The solved papers repeat answers the teaching parts already carry, so the
+# risk here is a transcription slip between the two. Every value the solved
+# paper prints is recomputed and pinned to the solved-paper file, so it cannot
+# pass by matching the copy in the teaching section.
+P2526 = 'papers.html'
+add('25/26 Q1c intersection', '{13, 14}', 'A n B = <b>{13, 14}</b>'.replace(' n ', ' ' + chr(0x2229) + ' '), P2526)
+add('25/26 Q1c A minus B', '{11, 12}', 'A - B = <b>{11, 12}</b>', P2526)
+add('25/26 Q1c B minus A', '{15, 16}', 'B - A = <b>{15, 16}</b>', P2526)
+add('25/26 Q2b product size', 3 * 2, '3 ' + chr(0xD7) + ' 2 = <b>6</b>', P2526)
+add('25/26 Q3a both languages', 72 + 43 - 100, '115 - 100 = <b>15</b>', P2526)
+add('25/26 Q3a Ibibio only', 72 - (72 + 43 - 100), '72 - 15 = <b>57</b>', P2526)
+add('25/26 Q3a Efik only', 43 - (72 + 43 - 100), '43 - 15 = <b>28</b>', P2526)
+add('25/26 Q3a the three regions', 57 + 15 + 28, '57 + 15 + 28 = 100', P2526)
+add('25/26 Q3b total committees', comb(10, 4), 'C(10, 4) = <b>210</b>', P2526)
+add('25/26 Q3b all girls', comb(4, 4), 'C(4, 4) = <b>1</b>', P2526)
+add('25/26 Q3b at least one boy', comb(10, 4) - comb(4, 4), '210 - 1 = <b>209</b>', P2526)
+# The case-by-case route, which must agree with the complement.
+_cases = [comb(6, k) * comb(4, 4 - k) for k in (1, 2, 3, 4)]
+assert sum(_cases) == comb(10, 4) - comb(4, 4)
+add('25/26 Q3b by cases', ' + '.join(str(c) for c in _cases) + ' = ' + str(sum(_cases)),
+    '24 + 90 + 80 + 15 = 209', P2526)
+add('25/26 Q3c prayer units', 10 * 10, '10 ' + chr(0xD7) + ' 10 = <b>100</b>', P2526)
+add('25/26 Q3c partner choices', factorial(10), '10! = <b>3628800</b>', P2526)
+add('25/26 Q4d SCHOOL', perms_with_repeats('SCHOOL'), '720 / 2 = <b>360</b>', P2526)
+add('25/26 Q5b K5 edges', comb(5, 2), 'e = C(5, 2) = <b>10</b>', P2526)
+add('25/26 Q5b K5 bound', 3 * 5 - 6, '3 ' + chr(0xD7) + ' 5 - 6 = <b>9</b>', P2526)
+add('25/26 Q5b K33 edges', 3 * 3, 'e = 3 ' + chr(0xD7) + ' 3 = <b>9</b>', P2526)
+add('25/26 Q5b K33 bound', 2 * 6 - 4, '2 ' + chr(0xD7) + ' 6 - 4 = <b>8</b>', P2526)
+add('25/26 Q5b the loose bound on K33', 3 * 6 - 6, 'gives 12', P2526)
+add('25/26 Q6b PIN codes', 10 ** 4 + 10 ** 5 + 10 ** 6,
+    '10000 + 100000 + 1000000 = <b>1110000</b>', P2526)
+add('25/26 Q6c three-digit', 9 * 10 * 10, '9 ' + chr(0xD7) + ' 10 ' + chr(0xD7) + ' 10 = <b>900</b>', P2526)
+add('25/26 Q6c by subtraction', 999 - 100 + 1, '999 - 100 + 1 = 900', P2526)
+# Every question must reconcile to 17.5, and the solved paper prints the sums.
+_Q2526 = {'Q1': [10, 3, 2, 2.5], 'Q2': [5, 2, 2, 4, 4.5], 'Q3': [7, 5, 5.5],
+          'Q4': [10, 2, 3, 2.5], 'Q5': [4.5, 3, 2, 2, 6],
+          'Q6': [2.5, 4, 5, 1, 4, 1]}
+for _q, _parts in _Q2526.items():
+    assert abs(sum(_parts) - 17.5) < 1e-9, (_q, sum(_parts))
+    _row = ('<td>' + ' + '.join(f'{p:g}' for p in _parts) + '</td><td>17.5</td>')
+    add(f'25/26 {_q} reconciles', _row, _row, P2526)
+
+
+# ------------------------------------------------- Past paper: 2024/2025
+P2425 = 'paper_2425.html'
+X = chr(0xD7)
+add('24/25 Q1b iv rows', 2 ** 4, '2<sup>4</sup> = <b>16</b>', P2425)
+# Where ((p->q)->r)->s is false: X true and s false. Enumerate rather than assert.
+_false = [(pp, qq, rr) for pp in (1, 0) for qq in (1, 0) for rr in (1, 0)
+          if (0 if ((0 if (pp and not qq) else 1) and not rr) else 1)]
+# The count is spelled out in the prose, so compare word with word.
+add('24/25 Q1b iv false rows', _WORD[len(_false)], 'That is <b>five</b> combinations', P2425)
+add('24/25 Q1b iv true rows', 16 - len(_false), '<b>true in the other 11</b>', P2425)
+add('24/25 Q2b iii fog at 1', (1 + 2) ** 2 + 1, 'the first gives 10', P2425)
+add('24/25 Q2b iii gof at 1', (1 ** 2 + 1) + 2, 'the second gives 4', P2425)
+add('24/25 Q3d complement bits', bitstring({2, 4, 6, 8, 10}, U10),
+    '<b>0101010101</b>', P2425)
+add('24/25 Q3d union bits', bitstring({1, 2, 3, 4, 5} | {1, 3, 5, 7, 9}, U10),
+    '<b>1111101010</b>', P2425)
+add('24/25 Q3d meet bits', bitstring({1, 2, 3, 4, 5} & {1, 3, 5, 7, 9}, U10),
+    '<b>1010100000</b>', P2425)
+add('24/25 Q4a ii witness', '1/16', 'x<sup>4</sup> = 1/16', P2425)
+# Q5, the whole scenario, recomputed from the stated figures.
+_V, _E = 24, 30
+_named = 5 + 7 + 7
+_left = _V - _named
+_dsum = 2 * _E
+_used = 4 * 5 + 1 * 7 + 2 * 7
+_leftdeg = _dsum - _used
+_four = _leftdeg - 3 * _left
+_three = _left - _four
+assert _four + _three == _left and 4 * _four + 3 * _three == _leftdeg
+add('24/25 Q5a degree sum', _dsum, '2 ' + X + ' 30 = <b>60</b>', P2425)
+add('24/25 Q5a named vertices', _named, '5 + 7 + 7 = <b>19</b>', P2425)
+add('24/25 Q5a vertices left', _left, '24 - 19 = <b>5</b>', P2425)
+add('24/25 Q5a used degree', _used, '20 + 7 + 14 = <b>41</b>', P2425)
+add('24/25 Q5a degree left', _leftdeg, '60 - 41 = <b>19</b>', P2425)
+add('24/25 Q5a of degree four', _four, 'so four = <b>4</b>', P2425)
+add('24/25 Q5a of degree three', _three, 'and three = <b>1</b>', P2425)
+add('24/25 Q5a total of degree four', 5 + _four, '5 + 4 = 9 vertices of degree 4', P2425)
+add('24/25 Q5a degree check', 20 + 7 + 14 + 16 + 3,
+    '20 + 7 + 14 + 16 + 3 = 60', P2425)
+add('24/25 Q5a vertex check', 5 + 7 + 7 + 4 + 1, '5 + 7 + 7 + 4 + 1 = 24', P2425)
+add('24/25 Q5b complete-graph degree', 24 - 1, 'all 23 others', P2425)
+# Q6, the traversals, generated from the tree rather than copied.
+_TREE = {'a': ['b', 'c'], 'b': ['d', 'e', 'f'], 'e': ['j', 'k'],
+         'k': ['n', 'o'], 'c': ['g', 'h', 'i'], 'h': ['l', 'm'],
+         'm': ['p', 'q']}
+
+
+def _kids(v):
+    return _TREE.get(v, [])
+
+
+def _pre(v):
+    out = [v]
+    for c in _kids(v):
+        out += _pre(c)
+    return out
+
+
+def _post(v):
+    out = []
+    for c in _kids(v):
+        out += _post(c)
+    return out + [v]
+
+
+def _in(v):
+    """Rosen's general inorder: leftmost subtree, the root, then the rest."""
+    ch = _kids(v)
+    if not ch:
+        return [v]
+    out = _in(ch[0]) + [v]
+    for c in ch[1:]:
+        out += _in(c)
+    return out
+
+
+for _name, _fn in (('preorder', _pre), ('inorder', _in), ('postorder', _post)):
+    _seq = _fn('a')
+    assert len(_seq) == 17, (_name, len(_seq))
+    add(f'24/25 Q6a {_name}', ', '.join(_seq), ', '.join(_seq), P2425)
+add('24/25 Q6b value', (3 - 4 * 2) - (5 + (5 - 2)), '-5 - 8 = <b>-13</b>', P2425)
+add('24/25 Q6b quinary leaves', 5 ** 3, '5<sup>3</sup> = <b>125</b>', P2425)
+add('24/25 Q6b internal vertices', 1 + 5 + 25, '1 + 5 + 25 = 31', P2425)
+add('24/25 Q6b leaves the other way', 4 * 31 + 1, '4 ' + X + ' 31 + 1 = <b>125</b>', P2425)
+_Q2425 = {'Q1': [4.5, 4, 3, 6], 'Q2': [7.5, 2, 2, 2, 4],
+          'Q3': [3.5, 6, 3, 2.5, 2.5], 'Q4': [4, 7.5, 6],
+          'Q5': [4, 1, 3, 3, 2, 3, 1.5], 'Q6': [2, 2, 2, 2, 2, 2, 2.5, 3]}
+for _q, _parts in _Q2425.items():
+    assert abs(sum(_parts) - 17.5) < 1e-9, (_q, sum(_parts))
+    _row = ('<td>' + ' + '.join(f'{p:g}' for p in _parts) + '</td><td>17.5</td>')
+    add(f'24/25 {_q} reconciles', _row, _row, P2425)
+
+
+# ------------------------------------------------- Past paper: 2023/2024
+P2324 = 'paper_2324.html'
+add('23/24 Q3a bits i', bitstring({3, 4, 5}, U10), '<b>0011100000</b>', P2324)
+add('23/24 Q3a bits ii', bitstring({1, 3, 6, 10}, U10), '<b>1010010001</b>', P2324)
+add('23/24 Q3a bits iii', bitstring({2, 3, 4, 7, 8, 9}, U10), '<b>0111001110</b>', P2324)
+add('23/24 Q3c fog at 1', (1 + 2) ** 2 + 1, 'the first gives 10', P2324)
+add('23/24 Q3c gof at 1', (1 ** 2 + 1) + 2, 'the second gives 4', P2324)
+# The divides relation on {1,2,3,4}, generated rather than listed by eye.
+_DIV = sorted((a, b) for a in _A4 for b in _A4 if b % a == 0)
+add('23/24 Q3d divides pairs', _WORD[len(_DIV)], 'eight pairs', P2324)
+add('23/24 Q3d divides relation',
+    '{' + ', '.join(f'({a},{b})' for a, b in _DIV) + '}',
+    'R = {(1,1), (1,2), (1,3), (1,4), (2,2), (2,4), (3,3), (4,4)}', P2324)
+# The Detroit distance grid, parsed back out of the solved paper and compared
+# with the readings recorded in the transcript.
+_DIST = {
+    'Grand Rapids': {'Kalamazoo': 56, 'Saginaw': 113, 'Toledo': 167, 'Detroit': 147},
+    'Kalamazoo': {'Grand Rapids': 56, 'Saginaw': 137, 'Toledo': 133, 'Detroit': 135},
+    'Saginaw': {'Grand Rapids': 113, 'Kalamazoo': 137, 'Toledo': 142, 'Detroit': 98},
+    'Toledo': {'Grand Rapids': 167, 'Kalamazoo': 133, 'Saginaw': 142, 'Detroit': 58},
+    'Detroit': {'Grand Rapids': 147, 'Kalamazoo': 135, 'Saginaw': 98, 'Toledo': 58},
+}
+_ORDER = ['Grand Rapids', 'Kalamazoo', 'Saginaw', 'Toledo', 'Detroit']
+for _city in _ORDER:
+    _row = '<td><b>' + _city + '</b></td>' + ''.join(
+        '<td>' + str(0 if _o == _city else _DIST[_city][_o]) + '</td>' for _o in _ORDER)
+    add(f'23/24 Q4b distance row {_city}', _row, _row, P2324)
+add('23/24 Q4b tours', factorial(4) // 2, '24 / 2 = <b>12</b>', P2324)
+_best, _route = tsp_best(_DIST, 'Detroit')
+assert _best == 458, _best
+add('23/24 Q4b optimum', _best, '133 + 58 = <b>458</b>', P2324)
+# The printed tour, leg by leg, built from the distance grid rather than typed.
+_TOUR = ['Detroit', 'Saginaw', 'Grand Rapids', 'Kalamazoo', 'Toledo', 'Detroit']
+_LEGS = [_DIST[_TOUR[_k]][_TOUR[_k + 1]] for _k in range(len(_TOUR) - 1)]
+assert sum(_LEGS) == 458, _LEGS
+add('23/24 Q4b optimum legs', ' + '.join(str(_l) for _l in _LEGS),
+    ' + '.join(str(_l) for _l in _LEGS) + ' = <b>458</b>', P2324)
+# The nearest-neighbour walk from Detroit, generated rather than asserted.
+_here, _seen, _nn = 'Detroit', {'Detroit'}, 0
+while len(_seen) < 5:
+    _next = min((c for c in _DIST[_here] if c not in _seen), key=lambda c: _DIST[_here][c])
+    _nn += _DIST[_here][_next]
+    _seen.add(_next)
+    _here = _next
+_nn += _DIST[_here]['Detroit']
+add('23/24 Q4b nearest neighbour', _nn, 'which totals 458 as well', P2324)
+add('23/24 Q5b degree sum needed', 5 * 3, '5 ' + X + ' 3 = <b>15</b>', P2324)
+add('23/24 Q5b six cities works', 6 * 3, '6 ' + X + ' 3 = 18 is even', P2324)
+# The digraph tabulation, computed from the stated bundle reading.
+_ARCS = {('b', 'a'): 1, ('a', 'b'): 2, ('d', 'a'): 2, ('b', 'c'): 2,
+         ('d', 'c'): 3, ('a', 'c'): 2, ('b', 'd'): 1}
+_OUT = {v: sum(n for (f, t), n in _ARCS.items() if f == v) for v in 'abcde'}
+_IN = {v: sum(n for (f, t), n in _ARCS.items() if t == v) for v in 'abcde'}
+assert sum(_OUT.values()) == sum(_IN.values()) == sum(_ARCS.values()) == 13
+add('23/24 Q5c arcs', sum(_ARCS.values()), '<b>Total 13.</b>', P2324)
+for _v in 'abcde':
+    _row = f'<td>{_v}</td><td>{_OUT[_v]}</td>'
+    add(f'23/24 Q5c out-degree of {_v}', _row, _row, P2324)
+add('23/24 Q5c totals row', sum(_OUT.values()),
+    '<td><b>Total</b></td><td><b>13</b></td>', P2324)
+# The chain letter: a full 4-ary tree with 100 leaves.
+_ii = (100 - 1) // 3
+assert 4 * _ii + 1 == 133 and _ii + 100 == 133
+add('23/24 Q5d internal', _ii, '3i = 99, so i = <b>33</b>', P2324)
+add('23/24 Q5d total seen', 4 * _ii + 1, '4 ' + X + ' 33 + 1 = <b>133</b>', P2324)
+add('23/24 Q5d check', _ii + 100, '33 + 100 = 133', P2324)
+_Q2324 = {'Q3': [1, 1, 1, 7, 3.5, 2, 2, 2, 2, 2], 'Q4': [9, 10, 4.5],
+          'Q5': [3, 3, 2, 1, 1, 2, 2, 6, 3.5]}
+for _q, _parts in _Q2324.items():
+    assert abs(sum(_parts) - 23.5) < 1e-9, (_q, sum(_parts))
+    _row = ('<td>' + ' + '.join(f'{p:g}' for p in _parts) + '</td><td>23.5</td>')
+    add(f'23/24 {_q} reconciles', _row, _row, P2324)
+
+
+# ------------------------------------------------- Past papers: 21/22 and 20/21
+P2122, P2021 = 'paper_2122.html', 'paper_2021.html'
+add('21/22 Q1a primes below 20', _WORD[len([n for n in range(2, 20) if _is_prime(n)])],
+    'eight members', P2122)
+add('21/22 Q1a primes list',
+    '{' + ', '.join(str(n) for n in range(2, 20) if _is_prime(n)) + '}',
+    '<b>{2, 3, 5, 7, 11, 13, 17, 19}</b>', P2122)
+add('21/22 Q1a squares below 100',
+    '{' + ', '.join(str(k * k) for k in range(10)) + '}',
+    '<b>{0, 1, 4, 9, 16, 25, 36, 49, 64, 81}</b>', P2122)
+add('21/22 Q1a square count', _WORD[len([k for k in range(10)])], 'ten members', P2122)
+add('solved 21/22 Q2a chairs', 26 * 100, '26 ' + X + ' 100 = <b>2600</b>', P2122)
+add('21/22 Q2b links', comb(4, 2), '4 ' + X + ' 3 / 2 = <b>6</b>', P2122)
+add('21/22 Q3a internal', (100 - 1) // 3, '3i = 99 and i = <b>33</b>', P2122)
+add('21/22 Q3a seen', 4 * ((100 - 1) // 3) + 1, '4 ' + X + ' 33 + 1 = <b>133</b>', P2122)
+add('21/22 Q3a check', ((100 - 1) // 3) + 100, '33 + 100 = 133', P2122)
+add('21/22 Q4c tours', factorial(4) // 2, '24 / 2 = <b>12</b>', P2122)
+add('21/22 Q4c optimum', 98 + 113 + 56 + 133 + 58,
+    '98 + 113 + 56 + 133 + 58 = <b>458</b>', P2122)
+add('solved 21/22 Q5b class size', 25 + 13 - 8, '25 + 13 - 8<br> = <b>30</b>', P2122)
+add('solved 21/22 Q5b CS only', 25 - 8, '25 - 8 = 17', P2122)
+add('solved 21/22 Q5b Maths only', 13 - 8, '13 - 8 = 5', P2122)
+add('21/22 Q5b regions', 17 + 5 + 8, '17 + 5 + 8 = 30', P2122)
+_Q2122 = {'Q1': [5, 6.5, 12], 'Q2': [6, 7.5, 10], 'Q3': [5, 5, 6, 7.5],
+          'Q4': [5.5, 8.5, 10], 'Q5': [6, 4, 3.5, 5, 5]}
+for _q, _parts in _Q2122.items():
+    _row = ('<td>' + ' + '.join(f'{p:g}' for p in _parts) + '</td>')
+    add(f'21/22 {_q} parts', _row, _row, P2122)
+# Q4 is the odd one out on this paper, and the book says so.
+assert sum(_Q2122['Q4']) == 24 and all(
+    abs(sum(v) - 23.5) < 1e-9 for k, v in _Q2122.items() if k != 'Q4')
+add('21/22 Q4 total', int(sum(_Q2122['Q4'])), '<td><b>24</b></td>', P2122)
+
+add('20/21 Q1b links', comb(5, 2), '5 ' + X + ' 4 / 2 = <b>10</b>', P2021)
+add('solved 20/21 Q1c degree sum', 2 * 6, '2 ' + X + ' 6 = 12', P2021)
+add('20/21 Q1c loop reading', 3 + 6 + 3 + 0, '3 + 6 + 3 + 0 = <b>12</b>', P2021)
+add('20/21 Q1c other reading', '3, 5, 4 and 0', 'the degrees are 3, 5, 4 and 0', P2021)
+add('20/21 Q2a tours', factorial(4) // 2, '24 / 2 = <b>12</b>', P2021)
+add('20/21 Q2a optimum', 98 + 113 + 56 + 133 + 58,
+    '98 + 113 + 56 + 133 + 58 = <b>458</b>', P2021)
+add('20/21 Q3b internal', (100 - 1) // 3, '100 = 3i + 1 and i = <b>33</b>', P2021)
+add('20/21 Q3b seen', 4 * ((100 - 1) // 3) + 1, '4 ' + X + ' 33 + 1 = <b>133</b>', P2021)
+add('20/21 Q3b check', ((100 - 1) // 3) + 100, '33 + 100 = 133', P2021)
+# The playoff, counted by cases and cross-checked by enumerating every series.
+_p3 = comb(2, 2)
+_p4 = comb(3, 1)
+_p5 = comb(4, 2)
+add('20/21 Q4a in three', _p3, 'there is 1 way', P2021)
+add('20/21 Q4a in four', _p4, 'C(3, 1) = 3 ways', P2021)
+add('20/21 Q4a in five', _p5, 'C(4, 2) = 6 ways', P2021)
+add('20/21 Q4a A wins', _p3 + _p4 + _p5, '1 + 3 + 6 = <b>10</b>', P2021)
+add('20/21 Q4a total ways', 2 * (_p3 + _p4 + _p5), '10 + 10 = <b>20</b>', P2021)
+add('20/21 Q4a the trap', 2 ** 5, '2<sup>5</sup> = 32', P2021)
+
+
+def _playoff_series(target=3):
+    """Every way a first-to-`target` series between two teams can finish."""
+    out = []
+
+    def go(seq, a, b):
+        if a == target or b == target:
+            out.append(''.join(seq))
+            return
+        for who in 'AB':
+            go(seq + [who], a + (who == 'A'), b + (who == 'B'))
+
+    go([], 0, 0)
+    return out
+
+
+assert len(_playoff_series()) == 2 * (_p3 + _p4 + _p5), len(_playoff_series())
+# The passwords: 6 to 8 characters, at least one digit.
+_pw = [(k, 36 ** k, 26 ** k, 36 ** k - 26 ** k) for k in (6, 7, 8)]
+for _k, _all, _none, _some in _pw:
+    _row = (f'<td>{_k}</td><td>36<sup>{_k}</sup> = {_all}</td>'
+            f'<td>26<sup>{_k}</sup> = {_none}</td><td>{_some}</td>')
+    add(f'20/21 Q5b password row {_k}', _row, _row, P2021)
+add('20/21 Q5b alphabet', 26 + 10, '26 letters plus 10 digits = <b>36</b>', P2021)
+add('solved 20/21 Q5b total', sum(s for _, _, _, s in _pw),
+    '1867866560 + 70332353920 + 2612282842880 = <b>2684483063360</b>', P2021)
+# The six relations on the integers, decided by testing the rules themselves
+# over a window of integers rather than by eye.
+_W = range(-6, 7)
+_RULES = {
+    'R1': lambda a, b: a <= b,
+    'R2': lambda a, b: a > b,
+    'R3': lambda a, b: a == b or a == -b,
+    'R4': lambda a, b: a == b,
+    'R5': lambda a, b: a == b + 1,
+    'R6': lambda a, b: a + b <= 3,
+}
+_VERDICT = {'R1': (True, False, True), 'R2': (False, False, True),
+            'R3': (True, True, True), 'R4': (True, True, True),
+            'R5': (False, False, False), 'R6': (False, True, False)}
+for _name, _rule in _RULES.items():
+    _refl = all(_rule(a, a) for a in _W)
+    _sym = all(_rule(b, a) for a in _W for b in _W if _rule(a, b))
+    _tran = all(_rule(a, c) for a in _W for b in _W for c in _W
+                if _rule(a, b) and _rule(b, c))
+    assert (_refl, _sym, _tran) == _VERDICT[_name], (_name, _refl, _sym, _tran)
+    _cells = ''.join('<td><b>yes</b></td>' if v else '<td>no</td>'
+                     for v in (_refl, _sym, _tran))
+    add(f'20/21 Q5c verdicts for {_name}', _cells, _cells, P2021)
+_Q2021 = {'Q1': [12, 6.5, 5], 'Q2': [10, 6, 7.5], 'Q3': [7.5, 8, 8],
+          'Q4': [4, 3.5, 10, 3, 3], 'Q5': [6, 5, 5, 6.5]}
+for _q, _parts in _Q2021.items():
+    _row = ('<td>' + ' + '.join(f'{p:g}' for p in _parts) + '</td>')
+    add(f'20/21 {_q} parts', _row, _row, P2021)
+assert sum(_Q2021['Q5']) == 22.5 and all(
+    abs(sum(v) - 23.5) < 1e-9 for k, v in _Q2021.items() if k != 'Q5')
+add('20/21 Q5 total', sum(_Q2021['Q5']), '<td><b>22.5</b></td>', P2021)
+
+
+# ------------------------------------------------------ the three mocks
+#
+# A mock answer is checked exactly as hard as a past-paper answer, and for a
+# harder reason. A wrong number in a taught worked example is met with the
+# teaching around it and a reader who is still learning the method; a wrong
+# number in a mock answer is met by a reader who has just spent forty minutes
+# on the question and is marking their own script against it. They will believe
+# the book over themselves, and they will be wrong.
+#
+# Every check below names its file, and wherever a table is printed the expected
+# row is BUILT from the recomputation rather than typed out, so the string being
+# searched for and the value being recomputed are the same object.
+TIMES = chr(0xD7)
+CUP, CAP = chr(0x222A), chr(0x2229)
+PRIME, TRI, SQRT = chr(0x2032), chr(0x25B3), chr(0x221A)
+SUP2 = chr(0xB2)
+
+
+def _tf(b):
+    return 'T' if b else 'F'
+
+
+def _setstr(members):
+    """A set written the way the book writes it, from the recomputation.
+
+    Comparing a Python list against a printed set never matches: `norm` strips
+    commas, so [1, 2, 3] normalises to '[123]' and never appears inside
+    '<b>{123}</b>'. Rendering the braces here keeps `computed` and `shown` in the
+    same alphabet, which is the whole point of the value comparison.
+    """
+    return '{' + ', '.join(str(m) for m in members) + '}'
+
+
+M1, M1Q = 'mock1_answers.html', 'mock1.html'
+M2, M2Q = 'mock2_answers.html', 'mock2.html'
+M3, M3Q = 'mock3_answers.html', 'mock3.html'
+
+# --- Mock One ---
+add('M1 Q1a permutations', perm(5, 3), 'P(5, 3) = <b>60</b>', M1)
+add('M1 Q1a combinations', comb(5, 3), 'C(5, 3) = <b>10</b>', M1)
+add('M1 Q1a the ratio is 3!', perm(5, 3) // comb(5, 3),
+    '60 / 10 = 3! = 6', M1)
+
+_A15, _B47 = {1, 2, 3, 4, 5}, {4, 5, 6, 7}
+_U8 = set(range(1, 9))
+add('M1 Q1b complement of the union', _setstr(sorted(_U8 - (_A15 | _B47))),
+    '(A ' + CUP + ' B)' + PRIME + ' = <b>{8}</b>', M1)
+add('M1 Q1b A complement', _setstr(sorted(_U8 - _A15)),
+    'A' + PRIME + ' = {6, 7, 8}', M1)
+add('M1 Q1b B complement', _setstr(sorted(_U8 - _B47)),
+    'B' + PRIME + ' = {1, 2, 3, 8}', M1)
+add('M1 Q1b the two sides agree', _setstr(sorted((_U8 - _A15) & (_U8 - _B47))),
+    'A' + PRIME + ' ' + CAP + ' B' + PRIME + ' = <b>{8}</b>', M1)
+add('M1 Q1c union', _setstr(sorted(_A15 | _B47)),
+    'A ' + CUP + ' B = <b>{1, 2, 3, 4, 5, 6, 7}</b>', M1)
+add('M1 Q1c intersection', _setstr(sorted(_A15 & _B47)),
+    'A ' + CAP + ' B = <b>{4, 5}</b>', M1)
+add('M1 Q1c A minus B', _setstr(sorted(_A15 - _B47)),
+    'A - B = <b>{1, 2, 3}</b>', M1)
+add('M1 Q1c B minus A', _setstr(sorted(_B47 - _A15)),
+    'B - A = <b>{6, 7}</b>', M1)
+add('M1 Q1c subsets of the meet', 2 ** len(_A15 & _B47),
+    '2<sup>2</sup> = <b>4</b> subsets', M1)
+add('M1 Q1c union size', len(_A15) + len(_B47) - len(_A15 & _B47),
+    '5 + 4 - 2 = 7', M1)
+
+# Q2(a): the three-subject class, worked from the seven region counts.
+_TOT, _M, _P, _C = 120, 60, 55, 50
+_MP, _PC, _MC, _ALL = 25, 20, 22, 10
+_mp_only, _pc_only, _mc_only = _MP - _ALL, _PC - _ALL, _MC - _ALL
+_m_only = _M - _mp_only - _mc_only - _ALL
+_p_only = _P - _mp_only - _pc_only - _ALL
+_c_only = _C - _mc_only - _pc_only - _ALL
+_atleast1 = _M + _P + _C - _MP - _PC - _MC + _ALL
+add('M1 Q2a M and P only', _mp_only, '25 - 10 = <b>15</b>', M1)
+add('M1 Q2a P and C only', _pc_only, '20 - 10 = <b>10</b>', M1)
+add('M1 Q2a M and C only', _mc_only, '22 - 10 = <b>12</b>', M1)
+add('M1 Q2a M only', _m_only, 'M only: 60 - 15 - 12 - 10 = <b>23</b>', M1)
+add('M1 Q2a P only', _p_only, 'P only: 55 - 15 - 10 - 10 = <b>20</b>', M1)
+add('M1 Q2a C only', _c_only, 'C only: 50 - 12 - 10 - 10 = <b>18</b>', M1)
+add('M1 Q2a at least one', _atleast1,
+    '60 + 55 + 50 - 25 - 20 - 22 + 10 = <b>108</b>', M1)
+add('M1 Q2a none of the three', _TOT - _atleast1, '120 - 108 = <b>12</b>', M1)
+add('M1 Q2a exactly one', _m_only + _p_only + _c_only,
+    '23 + 20 + 18 = <b>61</b>', M1)
+add('M1 Q2a exactly two', _mp_only + _pc_only + _mc_only,
+    '15 + 10 + 12 = 37', M1)
+add('M1 Q2a the regions reconcile',
+    _m_only + _p_only + _c_only + _mp_only + _pc_only + _mc_only + _ALL,
+    '61 + 37 + 10 = 108', M1)
+# The Venn diagram carries the same seven numbers, and a diagram that disagrees
+# with the prose beside it is the defect this book is likeliest to grow.
+for _lbl, _val in (('M only', _m_only), ('P only', _p_only),
+                   ('C only', _c_only), ('M and P', _mp_only),
+                   ('M and C', _mc_only), ('P and C', _pc_only)):
+    add(f'M1 Q2a diagram region {_lbl}', _val,
+        f'text-anchor="middle">{_val}</text>', M1)
+
+# Q2(b): the relation is recomputed, not asserted.
+_R_even = {(a, b) for a in _A4 for b in _A4 if (a - b) % 2 == 0}
+assert _reflexive(_R_even) and _symmetric(_R_even) and _transitive(_R_even)
+_odd_blk = [(a, b) for a in (1, 3) for b in (1, 3)]
+_even_blk = [(a, b) for a in (2, 4) for b in (2, 4)]
+assert set(_odd_blk) | set(_even_blk) == _R_even
+_Rline = 'R = {' + ', '.join(f'({a},{b})' for a, b in _odd_blk + _even_blk) + '}'
+add('M1 Q2b the relation listed', _Rline, _Rline, M1)
+# Q2(c): the four verdicts, each recomputed from the pair set.
+_S_m1 = {(1, 1), (1, 2), (2, 3), (3, 4)}
+for _name, _fn, _word in (('Reflexive', _reflexive, 'No'),
+                          ('Symmetric', _symmetric, 'No'),
+                          ('Antisymmetric', _antisymmetric, 'Yes'),
+                          ('Transitive', _transitive, 'No')):
+    _got = 'Yes' if _fn(_S_m1) else 'No'
+    assert _got == _word, (_name, _got)
+    add(f'M1 Q2c {_name.lower()}', _got,
+        f'<td>{_name}</td><td><b>{_got}</b></td>', M1)
+
+add('M1 Q3a letter count', 3 + 3 + 2 + 1 + 1, '3 + 3 + 2 + 1 + 1 = 10', M1)
+add('M1 Q3a STATISTICS', perms_with_repeats('STATISTICS'),
+    '3628800 / 72 = <b>50400</b>', M1)
+add('M1 Q3b no restriction', comb(13, 5),
+    'C(13, 5) = 13! / (5! ' + TIMES + ' 8!) = <b>1287</b>', M1)
+add('M1 Q3b exactly three women', comb(6, 3) * comb(7, 2),
+    'C(6, 3) ' + TIMES + ' C(7, 2) = 20 ' + TIMES + ' 21 = <b>420</b>', M1)
+add('M1 Q3b exactly four men', comb(7, 4) * comb(6, 1),
+    'C(7, 4) ' + TIMES + ' C(6, 1) = 35 ' + TIMES + ' 6 = 210', M1)
+add('M1 Q3b exactly five men', comb(7, 5) * comb(6, 0),
+    'C(7, 5) ' + TIMES + ' C(6, 0) = 21 ' + TIMES + ' 1 = 21', M1)
+add('M1 Q3b at least four men', comb(7, 4) * comb(6, 1) + comb(7, 5),
+    '210 + 21 = <b>231</b>', M1)
+add('M1 Q3c passwords', 26 * 36 ** 4,
+    '26 ' + TIMES + ' 1679616 = <b>43670016</b>', M1)
+_div28 = ' '.join(str(d) for d in range(1, 29) if 28 % d == 0)
+add('M1 Q3d the divisors it printed', _div28, f'Divisors of 28: {_div28}', M1)
+add('M1 Q3d 28 is perfect',
+    sum(d for d in range(1, 28) if 28 % d == 0),
+    '28 = 1 + 2 + 4 + 7 + 14', M1)
+
+add('M1 Q4a K4 edges', comb(4, 2),
+    '4 ' + TIMES + ' 3 / 2 = 6 edges', M1)
+add('M1 Q4a K33 edges', 3 * 3, '3 ' + TIMES + ' 3 = 9 edges', M1)
+# Q4(b): the graph is recomputed from the matrix the question prints.
+_G_m1 = [(1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 5), (4, 5)]
+_deg_m1 = sorted((sum(1 for e in _G_m1 if v in e) for v in range(1, 6)),
+                 reverse=True)
+add('M1 Q4b edge count', len(_G_m1), 'which is <b>7 edges</b>', M1)
+_seqline = '<b>(' + ', '.join(str(d) for d in _deg_m1) + ')</b>'
+add('M1 Q4b degree sequence', _seqline, _seqline, M1)
+add('M1 Q4b degree sum', sum(_deg_m1),
+    ' + '.join(str(d) for d in _deg_m1) + ' = <b>14</b>', M1)
+add('M1 Q4b twice the edges', 2 * len(_G_m1),
+    '2 ' + TIMES + ' 7 = <b>14</b>', M1)
+add('M1 Q4b odd-degree vertices', _WORD[sum(1 for d in _deg_m1 if d % 2)],
+    'exactly <b>two</b> vertices of odd degree', M1)
+# Q4(c): the full m-ary tree formulas, solved rather than quoted.
+_m, _leaves = 2, 8
+_internal = (_leaves - 1) // (_m - 1)
+add('M1 Q4c internal vertices', _internal,
+    'i = <b>7</b> internal vertices', M1)
+add('M1 Q4c all vertices', _m * _internal + 1,
+    'n = 2 ' + TIMES + ' 7 + 1 = <b>15</b> vertices altogether', M1)
+add('M1 Q4c edges', _m * _internal, 'edges = n - 1 = <b>14</b>', M1)
+add('M1 Q4c the two formulas agree', _internal + _leaves,
+    '7 internal + 8 leaves = 15 vertices', M1)
+
+add('M1 Q5a row count', 2 ** 3, '2<sup>3</sup> = 8 rows', M1)
+for _p, _q, _r in product((True, False), repeat=3):
+    _pq, _qr, _pr = (not _p) or _q, (not _q) or _r, (not _p) or _r
+    _both = _pq and _qr
+    _row = (f'<td>{_tf(_p)}</td><td>{_tf(_q)}</td><td>{_tf(_r)}</td>'
+            f'<td>{_tf(_pq)}</td><td>{_tf(_qr)}</td><td>{_tf(_both)}</td>'
+            f'<td>{_tf(_pr)}</td><td><b>{_tf((not _both) or _pr)}</b></td>')
+    add(f'M1 Q5a row {_tf(_p)}{_tf(_q)}{_tf(_r)}', _row, _row, M1)
+for _a, _b, _c in product((0, 1), repeat=3):
+    _f = 1 if (_a & _b) | (_b & _c) | (_a & _c) else 0
+    _row = (f'<td>{_a}</td><td>{_b}</td><td>{_c}</td><td>{_a * _b}</td>'
+            f'<td>{_b * _c}</td><td>{_a * _c}</td><td>{_f}</td>'
+            f'<td>{"starts" if _f else "stopped"}</td>')
+    add(f'M1 Q5c row {_a}{_b}{_c}', _row, _row, M1)
+add('M1 Q5c how many starting rows',
+    sum(1 for a, b, c in product((0, 1), repeat=3) if a + b + c >= 2),
+    'exactly the <b>4</b> rows', M1)
+for _p, _q in product((True, False), repeat=2):
+    _and = _p and _q
+    _row = (f'<td>{_tf(_p)}</td><td>{_tf(_q)}</td><td>{_tf(_and)}</td>'
+            f'<td><b>{_tf(not _and)}</b></td><td>{_tf(not _p)}</td>'
+            f'<td>{_tf(not _q)}</td>'
+            f'<td><b>{_tf((not _p) or (not _q))}</b></td>')
+    add(f'M1 Q5d row {_tf(_p)}{_tf(_q)}', _row, _row, M1)
+
+add('M1 Q6a basis', 1 * 2 * 3 // 6,
+    '1 ' + TIMES + ' 2 ' + TIMES + ' 3 / 6 = 6 / 6 = 1', M1)
+add('M1 Q6a check at 4 by adding', sum(k * k for k in range(1, 5)),
+    '1 + 4 + 9 + 16 = 30', M1)
+add('M1 Q6a check at 4 by formula', 4 * 5 * 9 // 6,
+    '4 ' + TIMES + ' 5 ' + TIMES + ' 9 / 6 = 180 / 6 = <b>30</b>', M1)
+# Q6(c): the recurrence is solved and then run forward independently.
+_a_m1 = [3, 10]
+for _n in range(2, 4):
+    _a_m1.append(6 * _a_m1[-1] - 8 * _a_m1[-2])
+assert all(_a_m1[n] == 2 ** n + 2 * 4 ** n for n in range(4))
+_roots = sorted(r for r in range(-9, 10) if r * r - 6 * r + 8 == 0)
+_rline = ('(r - {0})(r - {1}) = 0, so r = <b>{0}</b> or r = <b>{1}</b>'
+          .format(*_roots))
+add('M1 Q6c the two roots', _rline, _rline, M1)
+_Bc = (10 - 2 * 3) // 2          # from A + B = 3 and 2A + 4B = 10
+_Ac = 3 - _Bc
+_cline = (f'subtracting, B = <b>{_Bc}</b>, and then '
+          f'A = 3 - {_Bc} = <b>{_Ac}</b>')
+add('M1 Q6c the constants', _cline, _cline, M1)
+add('M1 Q6c a2 from the recurrence', _a_m1[2],
+    '6 ' + TIMES + ' 10 - 8 ' + TIMES + ' 3 = 60 - 24 = <b>36</b>', M1)
+add('M1 Q6c a2 from the formula', 2 ** 2 + 2 * 4 ** 2,
+    '2<sup>2</sup> + 2 ' + TIMES + ' 4<sup>2</sup> = 4 + 32 = <b>36</b>', M1)
+_both_red = Fraction(5, 12) * Fraction(4, 11)
+add('M1 Q6d both red', f'{_both_red.numerator} / {_both_red.denominator}',
+    '20 / 132 = <b>5 / 33</b>', M1)
+add('M1 Q6d at least one blue', str(1 - _both_red).replace('/', ' / '),
+    '1 - 5 / 33 = <b>28 / 33</b>', M1)
+add('M1 Q6d both red as a decimal', round(float(_both_red), 3),
+    '<b>0.152</b>', M1)
+add('M1 Q6d at least one blue as a decimal', round(float(1 - _both_red), 3),
+    '<b>0.848</b>', M1)
+
+# --- Mock Two ---
+for _p, _q, _r in product((True, False), repeat=3):
+    _inner = _q and (not _r)
+    _row = (f'<td>{_tf(_p)}</td><td>{_tf(_q)}</td><td>{_tf(_r)}</td>'
+            f'<td>{_tf(not _r)}</td><td>{_tf(_inner)}</td>'
+            f'<td><b>{_tf(_p or _inner)}</b></td>')
+    add(f'M2 Q1b row {_tf(_p)}{_tf(_q)}{_tf(_r)}', _row, _row, M2)
+add('M2 Q1b how many true rows',
+    sum(1 for p, q, r in product((1, 0), repeat=3) if p or (q and not r)),
+    'true in <b>5</b> of the 8 rows', M2)
+
+_Am2, _Bm2 = {2, 4, 6, 8, 10}, {1, 2, 3, 4, 5}
+_Um2 = set(range(1, 11))
+add('M2 Q2a union', _setstr(sorted(_Am2 | _Bm2)),
+    'A ' + CUP + ' B = <b>{1, 2, 3, 4, 5, 6, 8, 10}</b>', M2)
+add('M2 Q2a intersection', _setstr(sorted(_Am2 & _Bm2)),
+    'A ' + CAP + ' B = <b>{2, 4}</b>', M2)
+add('M2 Q2a complement', _setstr(sorted(_Um2 - _Am2)),
+    'A' + PRIME + ' = <b>{1, 3, 5, 7, 9}</b>', M2)
+add('M2 Q2a difference', _setstr(sorted(_Am2 - _Bm2)), 'A - B = <b>{6, 8, 10}</b>', M2)
+add('M2 Q2a symmetric difference', _setstr(sorted(_Am2 ^ _Bm2)),
+    '= <b>{1, 3, 5, 6, 8, 10}</b>', M2)
+add('M2 Q2a its size', len(_Am2) + len(_Bm2) - 2 * len(_Am2 & _Bm2),
+    '5 + 5 - 4 = <b>6</b>', M2)
+add('M2 Q2c the inverse function', '(x + 5) / 3',
+    'f<sup>-1</sup>(x) = (x + 5) / 3', M2)
+add('M2 Q2d g after h at 2', (2 + 3) ** 2,
+    '(2 + 3)<sup>2</sup> = 5<sup>2</sup> = <b>25</b>', M2)
+add('M2 Q2d h after g at 2', 2 ** 2 + 3,
+    '2<sup>2</sup> + 3 = 4 + 3 = <b>7</b>', M2)
+add('M2 Q2d where they do agree', -1,
+    'they agree at the single point <b>x = -1</b>', M2)
+
+_DIVS = [1, 2, 3, 4, 6, 12]
+_divrel = [(a, b) for a in _DIVS for b in _DIVS if b % a == 0]
+for _a in _DIVS:
+    _ps = [b for b in _DIVS if b % _a == 0]
+    _row = (f'<td>{_a}</td><td>'
+            + ' '.join(f'({_a},{b})' for b in _ps)
+            + f'</td><td>{len(_ps)}</td>')
+    add(f'M2 Q3b divisibility row from {_a}', _row, _row, M2)
+add('M2 Q3b how many pairs', len(_divrel), 'That is <b>18</b> ordered pairs', M2)
+assert not any((a, b) in _divrel or (b, a) in _divrel
+               for a, b in [(2, 3)])
+add('M2 Q3b the incomparable pair', '2 and 3',
+    '<b>2 and 3</b> are not', M2)
+
+add('M2 Q4a the edge count', 8 * 3 // 2,
+    '24 = 2|E| and |E| = <b>12</b>', M2)
+add('M2 Q4b faces', 2 - 10 + 15, 'f = 2 - v + e = 2 - 10 + 15 = <b>7</b>', M2)
+add('M2 Q4b the planar bound', 3 * 10 - 6,
+    '3 ' + TIMES + ' 10 - 6 = <b>24</b>', M2)
+
+
+def _pre(t):
+    return [t[0]] + (_pre(t[1]) + _pre(t[2]) if len(t) == 3 else [])
+
+
+def _in(t):
+    return (_in(t[1]) + [t[0]] + _in(t[2])) if len(t) == 3 else [t[0]]
+
+
+def _post(t):
+    return ((_post(t[1]) + _post(t[2])) if len(t) == 3 else []) + [t[0]]
+
+
+_TREE = (TIMES, ('+', ('a',), ('b',)), ('-', ('c',), ('d',)))
+add('M2 Q4c preorder', ' '.join(_pre(_TREE)),
+    '<b>' + ' '.join(_pre(_TREE)) + '</b>', M2)
+add('M2 Q4c inorder', ' '.join(_in(_TREE)),
+    '<b>' + ' '.join(_in(_TREE)) + '</b>', M2)
+add('M2 Q4c postorder', ' '.join(_post(_TREE)),
+    '<b>' + ' '.join(_post(_TREE)) + '</b>', M2)
+add('M2 Q4d the impossible degree sum', 5 * 3,
+    '5 ' + TIMES + ' 3 = <b>15</b>', M2)
+_K4 = [[0 if i == j else 1 for j in range(4)] for i in range(4)]
+_K4sq = _matmul(_K4, _K4)
+add('M2 Q4e walks of length two', _K4sq[0][1],
+    '0 + 0 + 1 + 1 = <b>2</b>', M2)
+
+_MARKS = [45, 52, 38, 61, 45, 70, 55, 45, 62, 47]
+_mean = sum(_MARKS) // len(_MARKS)
+_srt = sorted(_MARKS)
+_sq = [(x - _mean) ** 2 for x in _MARKS]
+add('M2 Q5a sorted', ', '.join(str(x) for x in _srt),
+    ', '.join(str(x) for x in _srt), M2)
+add('M2 Q5a total', sum(_MARKS), '= <b>520</b>, so the mean is 520 / 10', M2)
+add('M2 Q5a mean', _mean, '520 / 10 = <b>52</b>', M2)
+add('M2 Q5a median', Fraction(_srt[4] + _srt[5], 2),
+    '(47 + 52) / 2 = 99 / 2 = <b>49.5</b>', M2)
+add('M2 Q5a mode', max(set(_MARKS), key=_MARKS.count),
+    'so the mode is <b>45</b>', M2)
+add('M2 Q5a range', max(_MARKS) - min(_MARKS), '70 - 38 = <b>32</b>', M2)
+_hdr = '<th>x</th>' + ''.join(f'<th>{x}</th>' for x in _MARKS)
+add('M2 Q5a the data row', _hdr, _hdr, M2)
+_devrow = (f'<th>x - {_mean}</th>'
+           + ''.join(f'<td>{x - _mean}</td>' for x in _MARKS))
+add('M2 Q5a the deviation row', _devrow, _devrow, M2)
+_sqrow = (f'<th>(x - {_mean}){SUP2}</th>'
+          + ''.join(f'<td>{s}</td>' for s in _sq))
+add('M2 Q5a the squared-deviation row', _sqrow, _sqrow, M2)
+_devs = [x - _mean for x in _MARKS]
+_devline = str(_devs[0]) + ''.join(
+    (' - ' + str(-d)) if d < 0 else (' + ' + str(d)) for d in _devs[1:])
+_devline += ' = ' + str(sum(_devs))
+add('M2 Q5a the deviations vanish', _devline, _devline, M2)
+add('M2 Q5a squared deviations total', sum(_sq),
+    'the squared deviations total <b>882</b>', M2)
+add('M2 Q5a population variance', round(sum(_sq) / 10, 1),
+    '882 / 10 = <b>88.2</b>', M2)
+add('M2 Q5a population sd', round((sum(_sq) / 10) ** 0.5, 2),
+    SQRT + '88.2 = <b>9.39</b>', M2)
+add('M2 Q5a sample variance', sum(_sq) // 9, '882 / 9 = <b>98</b>', M2)
+add('M2 Q5a sample sd', round((sum(_sq) / 9) ** 0.5, 2),
+    SQRT + '98 = <b>9.90</b>', M2)
+
+_pairs36 = list(product(range(1, 7), repeat=2))
+add('M2 Q5b the sample space', len(_pairs36),
+    '6 ' + TIMES + ' 6 = <b>36</b>', M2)
+add('M2 Q5b sum of eight', sum(1 for a, b in _pairs36 if a + b == 8),
+    'P(sum = 8) = <b>5 / 36</b>', M2)
+add('M2 Q5b no six', sum(1 for a, b in _pairs36 if 6 not in (a, b)),
+    'P(no six) = 25 / 36', M2)
+add('M2 Q5b at least one six', sum(1 for a, b in _pairs36 if 6 in (a, b)),
+    '1 - 25/36 = <b>11 / 36</b>', M2)
+add('M2 Q5b by inclusion and exclusion',
+    6 + 6 - sum(1 for a, b in _pairs36 if a == 6 and b == 6),
+    '6 + 6 - 1 = 11', M2)
+add('M2 Q5b conditional on a first three',
+    sum(1 for a, b in _pairs36 if a == 3 and a + b == 8),
+    'P(sum = 8 | first = 3) = <b>1 / 6</b>', M2)
+_prior = [Fraction(50, 100), Fraction(30, 100), Fraction(20, 100)]
+_rate = [Fraction(3, 100), Fraction(4, 100), Fraction(5, 100)]
+_pd = sum(p * r for p, r in zip(_prior, _rate))
+add('M2 Q5c total probability of a defect', float(_pd),
+    '0.015 + 0.012 + 0.010 = <b>0.037</b>', M2)
+_post_a = _prior[0] * _rate[0] / _pd
+add('M2 Q5c the posterior for A',
+    f'{_post_a.numerator} / {_post_a.denominator}',
+    '0.015 / 0.037 = <b>15 / 37</b>', M2)
+add('M2 Q5c the posterior as a decimal', round(float(_post_a), 3),
+    'about <b>0.405</b>', M2)
+
+add('M2 Q6b the common difference', (31 - 13) // (9 - 3),
+    '6d = 18, so d = <b>3</b>', M2)
+add('M2 Q6b the first term', 13 - 3 * 3, 'a = 13 - 9 = <b>4</b>', M2)
+add('M2 Q6b the sum of twenty terms', 20 * (2 * 4 + 19 * 3) // 2,
+    '10 ' + TIMES + ' [8 + 57] = 10 ' + TIMES + ' 65 = <b>650</b>', M2)
+_a_m2 = [1, 6]
+for _n in range(2, 4):
+    _a_m2.append(4 * _a_m2[-1] - 4 * _a_m2[-2])
+assert all(_a_m2[n] == (1 + 2 * n) * 2 ** n for n in range(4))
+add('M2 Q6c the repeated root', 2,
+    '(r - 2)<sup>2</sup> = 0, so r = <b>2</b>, a <b>repeated</b>', M2)
+add('M2 Q6c the second constant', 2,
+    '(1 + B) ' + TIMES + ' 2 = 6, so 1 + B = 3 and B = <b>2</b>', M2)
+add('M2 Q6c a2 from the recurrence', _a_m2[2],
+    '4 ' + TIMES + ' 6 - 4 ' + TIMES + ' 1 = <b>20</b>', M2)
+add('M2 Q6c a2 from the formula', (1 + 2 * 2) * 2 ** 2,
+    '(1 + 4) ' + TIMES + ' 4 = <b>20</b>', M2)
+add('M2 Q6d what the program printed', 20 * (2 * 4 + 19 * 3) // 2,
+    'S_20 = 650', M2)
+add('M2 Q6d and its own check', sum(4 + k * 3 for k in range(20)),
+    'term by term: 650', M2)
+
+# --- Mock Three ---
+for _p, _q, _r in product((True, False), repeat=3):
+    _pq, _npr = (not _p) or _q, _p or _r
+    _both, _qr = _pq and _npr, _q or _r
+    _row = (f'<td>{_tf(_p)}</td><td>{_tf(_q)}</td><td>{_tf(_r)}</td>'
+            f'<td>{_tf(_pq)}</td><td>{_tf(_npr)}</td><td>{_tf(_both)}</td>'
+            f'<td>{_tf(_qr)}</td><td><b>{_tf((not _both) or _qr)}</b></td>')
+    add(f'M3 Q1b row {_tf(_p)}{_tf(_q)}{_tf(_r)}', _row, _row, M3)
+
+ELL = chr(0x2026)
+for _r5 in range(5):
+    _reps = [_r5 + 5 * k for k in (-2, -1, 0, 1, 2)]
+    assert all((x - _r5) % 5 == 0 for x in _reps)
+    _clsline = (f'[{_r5}] = ' + '{' + ELL + ', '
+                + ', '.join(str(x) for x in _reps) + ', ' + ELL + '}')
+    add(f'M3 Q2a class {_r5}', _clsline, _clsline, M3)
+add('M3 Q2a how many classes', _WORD[5],
+    'there are exactly <b>five</b> classes', M3)
+_R_m3 = {(1, 1), (1, 3), (2, 2), (3, 1), (3, 3), (4, 4)}
+assert (_reflexive(_R_m3) and _symmetric(_R_m3)
+        and _transitive(_R_m3) and not _antisymmetric(_R_m3))
+_blocks = [sorted({b for a, b in _R_m3 if a == x})
+           for x in (1, 2, 4)]
+_partline = ', '.join('<b>' + _setstr(bl) + '</b>' for bl in _blocks)
+add('M3 Q2c the partition', _partline, _partline, M3)
+
+add('M3 Q3a multiples of three', 1000 // 3, '1000 / 3 = 333.33', M3)
+add('M3 Q3a multiples of five', 1000 // 5, '1000 / 5 = <b>200</b>', M3)
+add('M3 Q3a multiples of fifteen', 1000 // 15, '1000 / 15 = 66.66', M3)
+add('M3 Q3a three or five', 1000 // 3 + 1000 // 5 - 1000 // 15,
+    '333 + 200 - 66 = <b>467</b>', M3)
+add('M3 Q3a but not fifteen',
+    1000 // 3 + 1000 // 5 - 2 * (1000 // 15), '467 - 66 = <b>401</b>', M3)
+add('M3 Q3a three only', 1000 // 3 - 1000 // 15, '333 - 66 = 267', M3)
+add('M3 Q3a five only', 1000 // 5 - 1000 // 15, '200 - 66 = 134', M3)
+add('M3 Q3a the check by regions',
+    (1000 // 3 - 1000 // 15) + (1000 // 5 - 1000 // 15),
+    '267 + 134 = <b>401</b>', M3)
+add('M3 Q3b letter count', 1 + 4 + 4 + 2, '1 + 4 + 4 + 2 = 11', M3)
+add('M3 Q3b MISSISSIPPI', perms_with_repeats('MISSISSIPPI'),
+    '39916800 / 1152 = <b>34650</b>', M3)
+add('M3 Q3b the four S together',
+    factorial(8) // (factorial(4) * factorial(2)),
+    '8! / (4! ' + TIMES + ' 2!) = 40320 / 48 = <b>840</b>', M3)
+add('M3 Q3b the standard wrong answer',
+    factorial(8) // (factorial(4) * factorial(2)) * factorial(4),
+    'gives 20160', M3)
+add('M3 Q3c the alphabet', 26 + 26 + 10, '26 + 26 + 10 = <b>62</b>', M3)
+add('M3 Q3c all passwords', 62 ** 8,
+    '62<sup>8</sup> = <b>218340105584896</b>', M3)
+add('M3 Q3c no digit at all', 52 ** 8,
+    '52<sup>8</sup> = <b>53459728531456</b>', M3)
+add('M3 Q3c at least one digit', 62 ** 8 - 52 ** 8,
+    '<b>164880377053440</b>', M3)
+add('M3 Q3c as a percentage', round(100 * (1 - 52 ** 8 / 62 ** 8), 1),
+    'about 75.5% of all passwords', M3)
+add('M3 Q3d three in one month', 25,
+    'the least such N is <b>25</b>', M3)
+
+add('M3 Q4b the tree size', 14, 'n + 12 = 2n - 2, so n = <b>14</b>', M3)
+add('M3 Q4b its degree sum', 2 * 4 + 3 * 3 + (14 - 5),
+    '8 + 9 + 9 = 26, which is 2 ' + TIMES + ' 13', M3)
+add('M3 Q4c the parity test passes', 5 + 5 + 4 + 3 + 2 + 1,
+    '5 + 5 + 4 + 3 + 2 + 1 = <b>20</b>', M3)
+
+for _a, _b, _c in product((0, 1), repeat=3):
+    _cnt = _a + _b + _c
+    if _cnt % 2:
+        _term = ''.join(l if bit else l + PRIME
+                        for l, bit in zip('ABC', (_a, _b, _c)))
+        _tail = f'<td><b>1</b></td><td>{_term}</td>'
+    else:
+        _tail = '<td>0</td><td></td>'
+    _row = f'<td>{_a}</td><td>{_b}</td><td>{_c}</td><td>{_cnt}</td>' + _tail
+    add(f'M3 Q5c parity row {_a}{_b}{_c}', _row, _row, M3)
+_ones = [(0, 0, 1), (0, 1, 0), (1, 0, 0), (1, 1, 1)]
+for _i in range(len(_ones)):
+    for _j in range(_i + 1, len(_ones)):
+        _u, _v = _ones[_i], _ones[_j]
+        _at = [l for l, x, y in zip('ABC', _u, _v) if x != y]
+        _row = ('<td>' + ''.join(map(str, _u)) + ' and '
+                + ''.join(map(str, _v)) + '</td><td>'
+                + ' and '.join(_at) + f'</td><td>{len(_at)}</td>')
+        add(f'M3 Q5c pair {"".join(map(str, _u))}/{"".join(map(str, _v))}',
+            _row, _row, M3)
+
+_a_m3 = [1]
+for _n in range(1, 4):
+    _a_m3.append(2 * _a_m3[-1] + 3)
+assert all(_a_m3[n] == 2 ** (n + 2) - 3 for n in range(4))
+add('M3 Q6b the shifted first term', _a_m3[0] + 3,
+    'b<sub>0</sub> = a<sub>0</sub> + 3 = 1 + 3 = 4', M3)
+add('M3 Q6b n = 0', _a_m3[0], '4 ' + TIMES + ' 1 - 3 = <b>1</b>', M3)
+for _n in (1, 2, 3):
+    _row = (f'<td>{_n}</td><td>2 {TIMES} {_a_m3[_n - 1]} + 3 = '
+            f'<b>{_a_m3[_n]}</b></td><td>4 {TIMES} {2 ** _n} - 3 = '
+            f'<b>{_a_m3[_n]}</b></td>')
+    add(f'M3 Q6b table row n={_n}', _row, _row, M3)
+add('M3 Q6c the ways of drawing three', comb(15, 3),
+    '2730 / 6 = <b>455</b>', M3)
+add('M3 Q6c three white', comb(4, 3), 'C(4, 3) = <b>4</b>', M3)
+add('M3 Q6c three black', comb(5, 3), 'C(5, 3) = <b>10</b>', M3)
+add('M3 Q6c three green', comb(6, 3), 'C(6, 3) = <b>20</b>', M3)
+add('M3 Q6c favourable in all', comb(4, 3) + comb(5, 3) + comb(6, 3),
+    '4 + 10 + 20 = <b>34</b>', M3)
+add('M3 Q6c the probability',
+    round((comb(4, 3) + comb(5, 3) + comb(6, 3)) / comb(15, 3), 3),
+    '34 / 455, about <b>0.075</b>', M3)
+_primorial = 2 * 3 * 5 * 7 * 11 * 13
+add('M3 Q6d the primorial plus one', _primorial + 1,
+    '11 ' + TIMES + ' 13 + 1 = 30031', M3)
+_fac = next(k for k in range(2, _primorial + 1)
+            if (_primorial + 1) % k == 0)
+assert _is_prime(_fac) and _is_prime((_primorial + 1) // _fac)
+_facline = f'which is {_fac} {TIMES} {(_primorial + 1) // _fac}'
+add('M3 Q6d and it is not prime', _facline, _facline, M3)
+
+# --- the three question papers reconcile to 17.5 like the real ones ---
+_MOCK_MARKS = {
+    M1Q: {'Q1': [10, 2.5, 5], 'Q2': [7, 5.5, 5], 'Q3': [3, 6, 3.5, 5],
+          'Q4': [10, 4, 3.5], 'Q5': [5, 4, 5, 3.5], 'Q6': [6, 3, 5, 3.5]},
+    M2Q: {'Q1': [5, 4, 4.5, 4], 'Q2': [5, 4, 5, 3.5], 'Q3': [6, 6, 3, 2.5],
+          'Q4': [3, 2.5, 6, 3, 3], 'Q5': [7, 5, 5.5],
+          'Q6': [4, 5, 4.5, 4]},
+    M3Q: {'Q1': [4, 5, 4, 4.5], 'Q2': [6, 4, 4, 3.5], 'Q3': [5, 5, 4, 3.5],
+          'Q4': [4, 5, 3.5, 5], 'Q5': [5, 3, 4.5, 5],
+          'Q6': [5, 4.5, 4, 4]},
+}
+for _fname, _paper in _MOCK_MARKS.items():
+    for _q, _parts in _paper.items():
+        assert abs(sum(_parts) - 17.5) < 1e-9, (_fname, _q, sum(_parts))
+        _row = ('<td>' + _q + '</td><td>'
+                + ' + '.join(f'{p:g}' for p in _parts)
+                + '</td><td>17.5</td>')
+        add(f'{_fname} {_q} reconciles', _row, _row, _fname)
+
+
 # ---------------------------------------------------------------- reporting
+def emit(line):
+    """Print safely on a cp1252 console.
+
+    A failure message here quotes the string the book was expected to contain,
+    and those strings carry the notation of the subject: union, intersection,
+    the prime that marks a complement, the triangle of a symmetric difference.
+    On a Windows console `print` raises UnicodeEncodeError on the first of them
+    and the gate dies mid-report, having already announced FAIL and printed
+    nothing useful. That is the worst possible moment to crash, and it happened
+    on the first run after the mock checks went in. qa_firstuse carries the same
+    guard for the same reason.
+    """
+    enc = getattr(sys.stdout, 'encoding', None) or 'ascii'
+    print(line.encode(enc, 'replace').decode(enc))
+
+
 def norm(s):
     return str(s).replace(' ', '').replace(',', '')
 
@@ -1129,6 +2009,16 @@ def norm(s):
 def report(_ignored_html=None):
     whole = book_text()
     fails = []
+
+    # Two checks with the same label make a failure message point at two places
+    # at once, and a repeated label is the signature of a block pasted in twice.
+    # Both have happened here, so neither is hypothetical.
+    from collections import Counter
+    for _label, _n in Counter(c[0] for c in CHECKS).items():
+        if _n > 1:
+            fails.append(f'the label {_label!r} is used by {_n} different '
+                         f'checks, so a failure in one cannot be told from the '
+                         f'other; give each its own name')
     scoped = 0
     for label, computed, shown, where in CHECKS:
         if where is None:
@@ -1150,9 +2040,9 @@ def report(_ignored_html=None):
           f'{len(MATRIX_CHECKS)} printed grids recomputed '
           f'({scoped} pinned to the one file that prints them)')
     if fails:
-        print('NUMERIC GATE: FAIL')
+        emit('NUMERIC GATE: FAIL')
         for f in fails:
-            print('  x ' + f)
+            emit('  x ' + f)
         return False
     print('  . every worked number matches an independent recomputation')
     print('  . every recomputed value appears in the manual')

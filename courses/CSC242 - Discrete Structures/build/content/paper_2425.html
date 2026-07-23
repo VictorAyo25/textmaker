@@ -2,7 +2,533 @@
   <div class="kick">Past Paper</div>
   <h2 class="title">2024/2025 Solved in Full</h2>
   <hr class="rule">
-  <p class="lead">Stub section. Real content follows.</p>
-  <p>Placeholder paragraph so the section occupies a measurable amount of the
-  page and the layout gate has something real to look at.</p>
+  <p class="lead">The same format as the newest paper, four questions of 17.5
+  from six, three hours, and by some distance the hardest of the five. It sets
+  two C++ programs, a 17.5-mark graph scenario built entirely around one trap,
+  and a proof question. Every part is answered here.</p>
+  <p class="lo">By the end of this section you will have a complete answer to
+  the hardest paper in the set, including its two programs, its Handshaking
+  scenario and the proof in Q1(c)(ii).</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The paper at a glance</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Session</th><th>Code printed</th><th>Instruction</th><th>Time</th><th>Per question</th></tr>
+        <tr><td>2024/2025</td><td>CSC416</td><td>attempt any FOUR</td><td>3 hours</td><td>17.5 marks</td></tr>
+      </table>
+      <p><b>This paper writes its marks without brackets</b>: "4.5 marks", not
+      "(4.5 marks)". Small, but it tells you at a glance which paper you are
+      holding.</p>
+      <p><b>Its defects,</b> all quoted as printed in the sections that carry
+      them. Q2 welds its part letter to its first numeral, printing "bi." then
+      "ii.", "iii.". Q3(c) prints De Morgan with the overbar over B alone and a
+      dash where an equals sign belongs. Q3(d) closes a set with two round
+      brackets. <b>Q4(b) asks which relations are reflexive twice</b>, as part i
+      and again as part v. Q6(b) numbers its parts i, iv, v, vi, vii, skipping
+      ii and iii, and two superscripts in its expression cannot be read at any
+      available resolution.</p>
+      <p><b>The trap the paper is built around</b> is Q5, which states that the
+      graph has five vertices of degree 4 and then asks how many vertices of
+      degree 4 it has. The answer is not five.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question One</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q1 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Converse, contrapositive and inverse of three conditionals (4.5 marks)</p>
+      <p><i>Quoted as printed in section 1.2.</i> Identify p and q first; that
+      is where the marks are lost, not in the three rewrites.</p>
+      <p><b>i. "If it snows tonight, then I will stay at home."</b> p = it snows
+      tonight, q = I will stay at home.</p>
+      <p style="margin-left:12pt"><b>Converse:</b> If I stay at home tonight,
+      then it will snow.<br>
+      <b>Contrapositive:</b> If I do not stay at home, then it will not
+      snow.<br>
+      <b>Inverse:</b> If it does not snow tonight, then I will not stay at
+      home.</p>
+      <p><b>ii. "I go to the beach whenever it is a sunny summer day."</b> The
+      <b>whenever</b> clause is the hypothesis, so p = it is a sunny summer day,
+      q = I go to the beach. Writing it the other way round loses every mark
+      that follows.</p>
+      <p style="margin-left:12pt"><b>Converse:</b> If I go to the beach, then it
+      is a sunny summer day.<br>
+      <b>Contrapositive:</b> If I do not go to the beach, then it is not a sunny
+      summer day.<br>
+      <b>Inverse:</b> If it is not a sunny summer day, then I do not go to the
+      beach.</p>
+      <p><b>iii. "When I stay up late, it is necessary that I sleep until
+      noon."</b> "It is necessary that q" makes q the <b>conclusion</b>, so
+      p = I stay up late, q = I sleep until noon.</p>
+      <p style="margin-left:12pt"><b>Converse:</b> If I sleep until noon, then I
+      stayed up late.<br>
+      <b>Contrapositive:</b> If I do not sleep until noon, then I did not stay
+      up late.<br>
+      <b>Inverse:</b> If I do not stay up late, then I do not sleep until
+      noon.</p>
+      <p class="marks">b. Four truth tables (4 marks)</p>
+      <p><i>Quoted as printed in section 1.1.</i></p>
+      <p><b>i. p &#8596; &#172;p</b></p>
+      <table class="data">
+        <tr><th>p</th><th>&#172;p</th><th>p &#8596; &#172;p</th></tr>
+        <tr><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td></tr>
+      </table>
+      <p><b>False in every row: it is a contradiction,</b> which is worth saying
+      rather than leaving the marker to notice.</p>
+      <p><b>ii. (q &#8594; &#172;p) &#8596; (p &#8596; q)</b></p>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>&#172;p</th><th>q &#8594; &#172;p</th><th>p &#8596; q</th><th>the whole</th></tr>
+        <tr><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      </table>
+      <p><b>True in one row only,</b> when both are false.</p>
+      <p><b>iii. (p &#8853; q) &#8744; (p &#8853; &#172;q)</b></p>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>p &#8853; q</th><th>p &#8853; &#172;q</th><th>the whole</th></tr>
+        <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+      </table>
+      <p><b>True in every row: a tautology.</b> The reason is worth one line:
+      p &#8853; q and p &#8853; &#172;q are negations of each other, so exactly
+      one of them is true in any row and their disjunction cannot fail.</p>
+      <p><b>iv. ((p &#8594; q) &#8594; r) &#8594; s</b></p>
+      <p>Four letters, so the table has 2<sup>4</sup> = <b>16</b> rows. Rather
+      than fill sixteen rows blindly, work out where it is false and say so.</p>
+      <p>Write X for (p &#8594; q) &#8594; r. The whole expression X &#8594; s
+      is false <b>only</b> when X is true and s is false. X is true unless
+      p &#8594; q is true and r is false; so X is true when r is true (four ways
+      to choose p and q), or when r is false and p &#8594; q is false, which is
+      p true and q false. That is <b>five</b> combinations of p, q, r.</p>
+      <p><b>So the expression is false in exactly 5 of the 16 rows,</b> namely
+      those with s false and (p, q, r) equal to (T,T,T), (T,F,T), (F,T,T),
+      (F,F,T) or (T,F,F), and <b>true in the other 11</b>. Draw the full table
+      if time allows; state this if it does not.</p>
+      <p class="marks">c. i. "The home team wins whenever it is raining" (3 marks)</p>
+      <p><i>Quoted as printed in section 1.2.</i> With p = "It is raining" and
+      q = "The home team wins", the statement is p &#8594; q.</p>
+      <p style="margin-left:12pt"><b>Contrapositive:</b> If the home team does
+      not win, then it is not raining.<br>
+      <b>Converse:</b> If the home team wins, then it is raining.<br>
+      <b>Inverse:</b> If it is not raining, then the home team does not win.</p>
+      <p class="marks">c. ii. Prove only the contrapositive agrees (6 marks)</p>
+      <p><b>To prove:</b> of the converse, the inverse and the contrapositive,
+      only the contrapositive has the same truth value as p &#8594; q in every
+      case.</p>
+      <p><b>Proof, by exhaustive truth table.</b> There are only four
+      assignments, so this covers every case and is a complete proof, not an
+      illustration.</p>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>p &#8594; q</th><th>&#172;q &#8594; &#172;p</th><th>q &#8594; p</th><th>&#172;p &#8594; &#172;q</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      </table>
+      <p><b>Read the columns.</b> The contrapositive column is identical to the
+      original in all four rows, so p &#8594; q &#8801; &#172;q &#8594;
+      &#172;p. The converse and the inverse each differ from the original in
+      <b>two</b> rows, the second and the third, so neither is equivalent to it.
+      &#9633;</p>
+      <p><b>Using the statement from c(i), as the question asks.</b> Take the
+      case where it is not raining and the home team wins, which is row 3.
+      "The home team wins whenever it is raining" is <b>true</b>: nothing was
+      promised about dry days. Its contrapositive, "if the home team does not
+      win it is not raining", is also true, vacuously. But its converse, "if the
+      home team wins it is raining", is <b>false</b>, since the team won in the
+      dry; and its inverse, "if it is not raining the home team does not win",
+      is false for the same reason. One concrete case, and it exhibits the
+      difference the table proves in general.</p>
+      <p><b>A second line worth adding:</b> the converse and the inverse have
+      identical columns, so they are equivalent to each other. They are
+      contrapositives of one another.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Two</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q2 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Five quantified translations (7.5 marks)</p>
+      <p><i>Quoted as printed in section 1.4.</i> C(x) = x has a cat,
+      D(x) = x has a dog, F(x) = x has a ferret, domain = the students in the
+      class. Because the domain is already the students, no S(x) is needed and
+      no arrow appears.</p>
+      <p style="margin-left:12pt"><b>i.</b> &#8707;x (C(x) &#8743; D(x) &#8743;
+      F(x))<br>
+      <b>ii.</b> &#8704;x (C(x) &#8744; D(x) &#8744; F(x))<br>
+      <b>iii.</b> &#8707;x (C(x) &#8743; F(x) &#8743; &#172;D(x))<br>
+      <b>iv.</b> &#172;&#8707;x (C(x) &#8743; D(x) &#8743; F(x)), equivalently
+      &#8704;x &#172;(C(x) &#8743; D(x) &#8743; F(x))<br>
+      <b>v.</b> &#8707;x C(x) &#8743; &#8707;y D(y) &#8743; &#8707;z F(z)</p>
+      <p><b>Part v is the one that separates candidates.</b> "For each of the
+      three animals there is a student who has it" allows a <b>different</b>
+      student for each animal, so it needs three separate quantifiers. Writing
+      &#8707;x (C(x) &#8743; D(x) &#8743; F(x)) would say one student has all
+      three, which is part i, not part v.</p>
+      <p><b>Part iv is the negation of part i,</b> which is worth saying: it
+      makes the pair easy to check and shows the structure was seen rather than
+      guessed.</p>
+      <p class="marks">b. i. When f &#8728; g = g &#8728; f (2 marks)</p>
+      <p><i>Quoted as printed in section 4.3.</i> With f(x) = ax + b and
+      g(x) = cx + d:</p>
+      <p style="margin-left:12pt">(f &#8728; g)(x) = f(cx + d) =
+      a(cx + d) + b = acx + ad + b<br>
+      (g &#8728; f)(x) = g(ax + b) = c(ax + b) + d = acx + bc + d</p>
+      <p>The x terms already agree, so the two are equal for every x exactly
+      when the constants agree:</p>
+      <p style="margin-left:12pt"><b>ad + b = bc + d</b></p>
+      <p>That single equation is both necessary and sufficient, which is what
+      the question asked for.</p>
+      <p class="marks">b. ii. If f and f &#8728; g are one-to-one, is g? (2 marks)</p>
+      <p><b>Yes,</b> and here is the proof.</p>
+      <p><b>Proof.</b> Suppose g(x<sub>1</sub>) = g(x<sub>2</sub>). Applying f
+      to both sides, f(g(x<sub>1</sub>)) = f(g(x<sub>2</sub>)), that is
+      (f &#8728; g)(x<sub>1</sub>) = (f &#8728; g)(x<sub>2</sub>). Since
+      f &#8728; g is one-to-one, x<sub>1</sub> = x<sub>2</sub>. Therefore g is
+      one-to-one. &#9633;</p>
+      <p><b>Note what was not used:</b> the hypothesis that f is one-to-one
+      never appears. The result holds from f &#8728; g alone, and saying so
+      shows the argument was followed rather than recited.</p>
+      <p class="marks">b. iii. f &#8728; g and g &#8728; f for x<sup>2</sup> + 1 and x + 2 (2 marks)</p>
+      <p style="margin-left:12pt">(f &#8728; g)(x) = f(x + 2) =
+      (x + 2)<sup>2</sup> + 1 = <b>x<sup>2</sup> + 4x + 5</b><br>
+      (g &#8728; f)(x) = g(x<sup>2</sup> + 1) = (x<sup>2</sup> + 1) + 2 =
+      <b>x<sup>2</sup> + 3</b></p>
+      <p><b>They are not equal.</b> One value settles it: at x = 1 the first
+      gives 10 and the second gives 4. This identical question is set again on
+      the 2023/2024 paper.</p>
+      <p class="marks">c. "Female and a parent implies someone's mother" (4 marks)</p>
+      <p><i>Quoted as printed in section 1.4.</i> Over a domain of all people,
+      with F(x) = x is female, P(x) = x is a parent, and M(x, y) = x is the
+      mother of y:</p>
+      <p style="margin-left:12pt"><b>&#8704;x ((F(x) &#8743; P(x)) &#8594;
+      &#8707;y M(x, y))</b></p>
+      <p><b>Three things to point at.</b> The domain is all people, so the
+      universal quantifier takes an <b>arrow</b>. "Someone's mother" is an
+      existence claim about a second person, so it needs its own
+      <b>&#8707;y</b> inside. And the &#8707;y sits <b>inside</b> the
+      implication, because a different child may serve each mother.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Three</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q3 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Why (A &#215; B) &#215; (C &#215; D) and A &#215; (B &#215; C) &#215; D differ (3.5 marks)</p>
+      <p><i>Quoted as printed in section 2.3.</i></p>
+      <p><b>The point is the shape of the elements, not their number.</b> A
+      typical element of the first is <b>((a, b), (c, d))</b>: an ordered pair
+      whose two entries are themselves ordered pairs. A typical element of the
+      second is <b>(a, (b, c), d)</b>: an ordered triple whose middle entry is a
+      pair.</p>
+      <p>A pair of pairs is not a triple, so no element of one set is an element
+      of the other, and the two sets are not equal. <b>The Cartesian product is
+      not associative.</b></p>
+      <p><b>What is true.</b> The two sets have the same <b>size</b>,
+      n(A)n(B)n(C)n(D) either way, and there is an obvious one-to-one
+      correspondence between them. Equal size is not equality, and saying both
+      halves is what a 3.5-mark answer looks like.</p>
+      <p class="marks">b. C++ program for the power set (6 marks)</p>
+      <p><i>Quoted as printed, and answered with a compiled and run listing, in
+      section 11.2.</i> The method in one line: count a mask from 0 to
+      2<sup>n</sup> &#8722; 1 and print element i whenever bit i of the mask is
+      set. That enumeration produces the eight subsets in exactly the order the
+      paper prints them, including the empty set as { }.</p>
+      <p class="marks">c. The first De Morgan law by set-builder notation (3 marks)</p>
+      <p><i>Quoted as printed in section 2.2.</i></p>
+      <p><b>Note on the printed line first.</b> The paper prints the law with
+      the overbar sitting over B alone and with a dash where an equals sign
+      belongs. The law being asked for is that <b>the complement of an
+      intersection is the union of the complements</b>, and that is what is
+      established here.</p>
+      <p><b>To prove:</b> (A &#8745; B)&#8242; = A&#8242; &#8746;
+      B&#8242;.</p>
+      <p><b>Proof, by a chain of equivalences on an arbitrary element.</b></p>
+      <p style="margin-left:12pt">x &#8712; (A &#8745; B)&#8242;<br>
+      &#8801; &#172;(x &#8712; A &#8745; B) &nbsp; &nbsp; [definition of
+      complement]<br>
+      &#8801; &#172;(x &#8712; A &#8743; x &#8712; B) &nbsp; &nbsp;
+      [definition of intersection]<br>
+      &#8801; &#172;(x &#8712; A) &#8744; &#172;(x &#8712; B) &nbsp; &nbsp;
+      [<b>De Morgan for propositions</b>, section 1.3]<br>
+      &#8801; x &#8712; A&#8242; &#8744; x &#8712; B&#8242; &nbsp; &nbsp;
+      [definition of complement, twice]<br>
+      &#8801; x &#8712; A&#8242; &#8746; B&#8242; &nbsp; &nbsp; [definition of
+      union]</p>
+      <p>Since an arbitrary x belongs to one side exactly when it belongs to the
+      other, the two sets are equal. &#9633;</p>
+      <p><b>Name the step that does the work.</b> The whole proof is the
+      propositional De Morgan law with set membership substituted for the
+      propositions, and saying so is the point of the question.</p>
+      <p class="marks">d. i. Bit string of the complement (2.5 marks)</p>
+      <p><i>Quoted as printed in section 2.3.</i> With U = {1, ..., 10}, the set
+      {1, 3, 5, 7, 9} is 1010101010. The complement flips every bit:</p>
+      <p style="margin-left:12pt"><b>0101010101</b>, which is
+      {2, 4, 6, 8, 10}</p>
+      <p><b>The complement is a bitwise NOT,</b> which is why bit strings are
+      used for sets in the first place.</p>
+      <p class="marks">d. ii. Union and intersection by bit strings (2.5 marks)</p>
+      <p>{1, 2, 3, 4, 5} is 1111100000 and {1, 3, 5, 7, 9} is 1010101010.</p>
+      <p style="margin-left:12pt"><b>Union</b> is bitwise OR, 1 where either has
+      a 1: <b>1111101010</b>, which is {1, 2, 3, 4, 5, 7, 9}<br>
+      <b>Intersection</b> is bitwise AND, 1 only where both have a 1:
+      <b>1010100000</b>, which is {1, 3, 5}</p>
+      <p><b>Check by eye:</b> the intersection is the odd numbers up to 5, which
+      is exactly what the two sets share.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Four</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q4 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Truth values over the real numbers (4 marks)</p>
+      <p><i>Quoted as printed in section 1.4.</i> Each answer needs a witness if
+      it is true and a counterexample if it is false; the verdict alone is worth
+      little.</p>
+      <p><b>i. &#8707;x(x<sup>3</sup> = &#8722;1). TRUE.</b> Witness
+      x = &#8722;1, since (&#8722;1)<sup>3</sup> = &#8722;1.</p>
+      <p><b>ii. &#8707;x(x<sup>4</sup> &lt; x<sup>2</sup>). TRUE.</b> Witness
+      x = 1/2: x<sup>4</sup> = 1/16 and x<sup>2</sup> = 1/4, and
+      1/16 &lt; 1/4. In general it holds for every x strictly between
+      &#8722;1 and 1 other than 0.</p>
+      <p><b>iii. &#8704;x((&#8722;x)<sup>2</sup> = x<sup>2</sup>). TRUE.</b>
+      For any real x, (&#8722;x)<sup>2</sup> =
+      (&#8722;1)<sup>2</sup>x<sup>2</sup> = x<sup>2</sup>.</p>
+      <p><b>iv. &#8704;x(2x &gt; x). FALSE.</b> Counterexample x = 0, which
+      gives 0 &gt; 0, false. Also x = &#8722;1, which gives
+      &#8722;2 &gt; &#8722;1, false. <b>The claim is only true for positive
+      x</b>, and this is the part where the domain "all real numbers" is doing
+      the work.</p>
+      <p class="marks">b. R1 to R6 on {1, 2, 3, 4} (7.5 marks)</p>
+      <p><i>Quoted as printed in section 3.2.</i> One table answers all five
+      parts and is far easier to mark than five sentences.</p>
+      <table class="data">
+        <tr><th>Relation</th><th>Reflexive</th><th>Symmetric</th><th>Antisymmetric</th><th>Transitive</th></tr>
+        <tr><td>R1</td><td>no</td><td>no</td><td>no</td><td>no</td></tr>
+        <tr><td>R2</td><td>no</td><td><b>yes</b></td><td>no</td><td>no</td></tr>
+        <tr><td>R3</td><td><b>yes</b></td><td><b>yes</b></td><td>no</td><td>no</td></tr>
+        <tr><td>R4</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><td>R5</td><td><b>yes</b></td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><td>R6</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+      </table>
+      <p><b>i and v. Reflexive: R3 and R5.</b> Only these contain all four
+      loops (1,1), (2,2), (3,3), (4,4).</p>
+      <p><b>ii. Symmetric: R2 and R3.</b> In each, every pair appears with its
+      reverse.</p>
+      <p><b>iii. Antisymmetric: R4, R5 and R6.</b> None of them contains both
+      (a, b) and (b, a) for two different elements.</p>
+      <p><b>iv. Transitive: R4, R5 and R6.</b> Every composable pair of arrows
+      has its shortcut present.</p>
+      <p><b>On the repeated part.</b> The paper asks "Which of these relations
+      are reflexive?" as part i and again as part v. Answer it twice, identically,
+      and add one line: the intended part was almost certainly
+      <b>irreflexive</b> or asymmetric, and if irreflexive was meant the answer
+      is <b>R4 and R6</b>, the two containing no loop at all. That line costs
+      nothing and covers both readings.</p>
+      <p class="marks">c. C++ isPerfectSquare by binary search (6 marks)</p>
+      <p><i>Quoted as printed, and answered with a compiled and run listing, in
+      section 11.2.</i> The method in one line: search the range [1, num],
+      compare the square of the midpoint with num, keep the half that can still
+      contain the answer, and return the midpoint on a hit or &#8722;1 when the
+      range empties. The function keeps the paper's own name and capitalisation,
+      and its return type is <code>int</code> rather than <code>bool</code>,
+      because the question asks for the square root to be returned.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Five</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q5 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p><i>Quoted whole, as printed, in section 6.3.</i> The scenario: 24
+      vertices, 30 edges, five vertices of degree 4, seven pendant vertices,
+      seven of degree 2, and every other vertex of degree 3 or 4.</p>
+      <p class="marks">a. How many vertices of degree 4? (4 marks)</p>
+      <p><b>Not five.</b> The question says five vertices <i>are</i> of degree
+      4 and then says all other vertices have degree 3 or 4, so more of them
+      are hiding in the remainder. Work it out.</p>
+      <p style="margin-left:12pt">degree sum = 2|E| = 2 &#215; 30 = <b>60</b>
+      &nbsp; &nbsp; [Handshaking]<br>
+      named vertices = 5 + 7 + 7 = <b>19</b>, leaving 24 &#8722; 19 = <b>5</b><br>
+      their degree = 4 &#215; 5 + 1 &#215; 7 + 2 &#215; 7 = 20 + 7 + 14 =
+      <b>41</b><br>
+      degree left for the last five = 60 &#8722; 41 = <b>19</b></p>
+      <p>Let four of them have degree 4 and three of them degree 3, with
+      four + three = 5 and 4(four) + 3(three) = 19. Substituting,
+      4(four) + 3(5 &#8722; four) = 19, so four = <b>4</b> and three =
+      <b>1</b>.</p>
+      <p><b>So the graph has 5 + 4 = 9 vertices of degree 4.</b></p>
+      <p><b>Check:</b> the full degree list is five 4s, seven 1s, seven 2s, four
+      4s and one 3, summing to 20 + 7 + 14 + 16 + 3 = 60, and the vertices count
+      5 + 7 + 7 + 4 + 1 = 24. Both agree.</p>
+      <p class="marks">b. Degree-4 vertices in the corresponding complete graph (1 mark)</p>
+      <p>The corresponding complete graph on the same 24 vertices is
+      K<sub>24</sub>, in which every vertex is joined to all 23 others, so every
+      degree is 23.</p>
+      <p><b>Therefore the number of vertices of degree 4 in it is 0.</b> State
+      the reading in the same breath: "taking the corresponding complete graph
+      to be K<sub>24</sub>". A one-mark part rewards the observation, not a
+      calculation.</p>
+      <p class="marks">c. Does the Handshaking theorem hold here? (3 marks)</p>
+      <p><b>Statement.</b> In any undirected graph, &#931; deg(v) = 2|E|: the
+      degrees sum to twice the number of edges, because each edge contributes
+      exactly one to the degree of each of its two ends.</p>
+      <p><b>Applied.</b> Here 2|E| = 60, and the degree list found in part (a)
+      sums to 60. The two agree, so the theorem holds for this graph.</p>
+      <p><b>Proof of the theorem itself.</b> Count the pairs (v, e) where vertex
+      v is an end of edge e. Counting by vertices gives &#931; deg(v); counting
+      by edges gives 2|E|, since every edge has exactly two ends. One quantity
+      counted two ways must give the same total. &#9633;</p>
+      <p><b>A consequence worth adding:</b> the degree sum is always even, so a
+      graph with an odd degree sum cannot exist. That is the fact part (a)
+      relied on.</p>
+      <p class="marks">d. C++ snippet for the remaining vertices (3 marks)</p>
+      <p><i>Answered with a compiled and run listing in section 11.2.</i> The
+      snippet computes 24 &#8722; 19 = 5 vertices left, 60 &#8722; 41 = 19
+      degree left to share, then solves the pair of equations in one line to
+      print four of degree 4 and one of degree 3.</p>
+      <p class="marks">e. Handshaking in data communication (2 marks)</p>
+      <p>In a communication network model the vertices are devices and the edges
+      are links. The theorem says the total number of <b>link ends</b>, that is
+      the sum over devices of how many links each has, is exactly twice the
+      number of links.</p>
+      <p><b>Two uses.</b> Capacity planning: if a network is to have 50 links,
+      the port counts across all devices must total 100, which sizes the
+      hardware before anything is bought. And validation: if a device inventory
+      reports an odd total number of ports, the inventory is wrong, because no
+      network can have an odd total. That second use is a real error check and
+      is the better half of the answer.</p>
+      <p class="marks">f. n vertices, n edges, no degree 0 or 1 (3 marks)</p>
+      <p><b>To prove:</b> if G has n vertices and n edges and no vertex has
+      degree 0 or 1, then every vertex has degree exactly 2.</p>
+      <p><b>Proof.</b> By Handshaking, &#931; deg(v) = 2|E| = <b>2n</b>. No
+      vertex has degree 0 or 1, so every one of the n vertices has degree at
+      least 2, and therefore</p>
+      <p style="margin-left:12pt">&#931; deg(v) &#8805; 2n</p>
+      <p>But the sum <b>equals</b> 2n. If any single vertex had degree 3 or
+      more, the sum would exceed 2n, since the other n &#8722; 1 vertices
+      already contribute at least 2 each. That is impossible, so no vertex
+      exceeds degree 2. Combined with every degree being at least 2, every
+      degree is exactly <b>2</b>. &#9633;</p>
+      <p><b>What such a graph looks like,</b> worth one extra line: every vertex
+      of degree 2 and n edges means G is a disjoint union of cycles.</p>
+      <p class="marks">g. What it means for G and H to be isomorphic (1.5 marks)</p>
+      <p>G and H are <b>isomorphic</b> when there is a one-to-one
+      correspondence between their vertex sets that preserves adjacency: two
+      vertices are joined in G exactly when their partners are joined in H. In
+      plain words, they are the same graph drawn differently, with the vertices
+      renamed.</p>
+      <p><b>The consequence a marker looks for:</b> isomorphic graphs must agree
+      on every structural property, so the same number of vertices, the same
+      number of edges and the same list of degrees. Any disagreement in those
+      proves they are not isomorphic.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Six</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2024/2025 Q6 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Three traversals of the given tree (6 marks)</p>
+      <p><i>Quoted as printed in section 7.3</i>, where the tree is redrawn and
+      each traversal is walked step by step. The tree has 17 vertices: a is the
+      root with children b and c; b has d, e, f; e has j, k; k has n, o; c has
+      g, h, i; h has l, m; m has p, q.</p>
+      <p><b>i. Preorder</b> visits the root, then each subtree in turn:</p>
+      <p style="margin-left:12pt">a, b, d, e, j, k, n, o, f, c, g, h, l, m, p,
+      q, i</p>
+      <p><b>ii. Inorder</b> visits the leftmost subtree, then the root, then the
+      remaining subtrees:</p>
+      <p style="margin-left:12pt">d, b, j, e, n, k, o, f, a, g, c, l, h, p, m,
+      q, i</p>
+      <p><b>iii. Postorder</b> visits every subtree first and the root last:</p>
+      <p style="margin-left:12pt">d, j, n, o, k, e, f, b, g, l, p, q, m, h, i,
+      c, a</p>
+      <p><b>Two checks worth the ten seconds.</b> All three lists have 17
+      entries. Preorder starts at the root and postorder ends at it.</p>
+      <p class="marks">b. i. The rooted tree of the expression (2 marks)</p>
+      <p><i>Quoted as printed in section 7.3.</i> Two superscript characters in
+      the printed expression could not be read at any available resolution, so
+      this answers the plain reading
+      (3 &#8722; 4 &#183; 2) &#8722; (5 + (5 &#8722; 2)) and says in one line
+      what changes otherwise.</p>
+      <p><b>The tree.</b> The root is the outer subtraction. Its left subtree is
+      3 &#8722; 4 &#183; 2, whose root is a subtraction with 3 on the left and a
+      multiplication of 4 and 2 on the right. Its right subtree is
+      5 + (5 &#8722; 2), whose root is an addition with 5 on the left and a
+      subtraction of 5 and 2 on the right.</p>
+      <p><b>Its value:</b> (3 &#8722; 8) &#8722; (5 + 3) = &#8722;5 &#8722; 8 =
+      <b>&#8722;13</b>.</p>
+      <p><b>If the two marks are exponents,</b> the tree gains two exponent
+      nodes, one above each bracketed group, and the values change; the
+      structure of the answer does not.</p>
+      <p class="marks">b. iv. Prefix notation (2 marks)</p>
+      <p style="margin-left:12pt">&#8722; &#8722; 3 &#183; 4 2 + 5 &#8722; 5
+      2</p>
+      <p class="marks">b. v. Postfix notation (2 marks)</p>
+      <p style="margin-left:12pt">3 4 2 &#183; &#8722; 5 5 2 &#8722; + &#8722;</p>
+      <p><b>Both are read off the tree,</b> prefix by visiting each node before
+      its subtrees and postfix by visiting it after. Neither is the other
+      reversed, and neither is produced by moving the symbols of the infix
+      expression about by eye.</p>
+      <p class="marks">b. vi. Leaves of a quinary tree of height 3 (2.5 marks)</p>
+      <p><b>Say what is determined first.</b> A quinary tree of height 3 could
+      have as few as 3 leaves; what m and h fix is the <b>maximum</b>. With
+      m = 5 and h = 3:</p>
+      <p style="margin-left:12pt">leaves = m<sup>h</sup> = 5<sup>3</sup> =
+      <b>125</b></p>
+      <p><b>Cross-check by the other formula.</b> The full quinary tree of
+      height 3 has internal vertices 1 + 5 + 25 = 31, and
+      l = (m &#8722; 1)i + 1 = 4 &#215; 31 + 1 = <b>125</b>. The two agree.</p>
+      <p class="marks">b. vii. Prove the m<sup>h</sup> bound (3 marks)</p>
+      <p><b>Proof, by induction on the height h.</b></p>
+      <p><b>Base case, h = 0.</b> A tree of height 0 is a single vertex, which
+      is both root and leaf: 1 leaf, and m<sup>0</sup> = 1.</p>
+      <p><b>Hypothesis.</b> Every m-ary tree of height k has at most
+      m<sup>k</sup> leaves.</p>
+      <p><b>Step.</b> Let T have height k + 1. Removing the root leaves at most
+      m subtrees, one per child, each of height at most k, so each has at most
+      m<sup>k</sup> leaves by the hypothesis. Every leaf of T lies in one of
+      them, so T has at most m &#215; m<sup>k</sup> = m<sup>k+1</sup> leaves.
+      &#9633;</p>
+      <p><b>When the bound is attained:</b> exactly when the tree is full and
+      every leaf sits at level h. Saying so shows the bound is sharp, not merely
+      true.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Mark reconciliation</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Question</th><th>Parts</th><th>Total</th></tr>
+        <tr><td>Q1</td><td>4.5 + 4 + 3 + 6</td><td>17.5</td></tr>
+        <tr><td>Q2</td><td>7.5 + 2 + 2 + 2 + 4</td><td>17.5</td></tr>
+        <tr><td>Q3</td><td>3.5 + 6 + 3 + 2.5 + 2.5</td><td>17.5</td></tr>
+        <tr><td>Q4</td><td>4 + 7.5 + 6</td><td>17.5</td></tr>
+        <tr><td>Q5</td><td>4 + 1 + 3 + 3 + 2 + 3 + 1.5</td><td>17.5</td></tr>
+        <tr><td>Q6</td><td>2 + 2 + 2 + 2 + 2 + 2 + 2.5 + 3</td><td>17.5</td></tr>
+      </table>
+      <p>All six reconcile, including Q6, whose printed numbering skips ii and
+      iii. That is worth checking rather than assuming: if the parts had not
+      added to 17.5, a part really would be missing rather than merely
+      mislabelled.</p>
+    </div>
+  </div>
+
 </section>

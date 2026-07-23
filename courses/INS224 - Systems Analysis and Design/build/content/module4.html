@@ -1,0 +1,304 @@
+<!-- ===================== MODULE FOUR DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Four</div>
+  <h1>Data Modelling with<br>Entity-Relationship Diagrams</h1>
+  <div class="blurb">Where a data flow diagram shows data moving, an entity-relationship
+  diagram shows data at rest: the things a business keeps facts about and how they connect.
+  This is the most heavily drawn topic on the paper. The text teaches it in Chen notation;
+  the exam asks for the crow's foot, so learn both symbols cold.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.6">
+        <rect x="20" y="34" width="120" height="30" rx="1"/>
+        <rect x="380" y="34" width="120" height="30" rx="1"/>
+        <line x1="140" y1="49" x2="380" y2="49"/>
+        <!-- one bar near left -->
+        <line x1="176" y1="41" x2="176" y2="57"/>
+        <!-- crow's foot near right -->
+        <path d="M344 49 l-18 -9 M344 49 l-18 9 M344 49 l-18 0"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10" fill="#18232b" text-anchor="middle">
+        <text x="80" y="53">CUSTOMER</text>
+        <text x="440" y="53">ORDER</text>
+        <text x="258" y="43" font-size="8" fill="#5b6b73">places</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+<!-- ===================== UNIT 1 : ERD ===================== -->
+<section id="m4u1">
+  <div class="kick">Module Four &middot; Unit 1</div>
+  <h2 class="title">The Entity-Relationship Model</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can draw an entity-relationship diagram from a
+  narrative, read cardinality off a diagram, use the crow's-foot and Chen notations, choose
+  an identifier, and interpret a relationship by forward and backward chaining.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Two notations, one for the exam</span></div>
+    <div class="body">
+      <p>The entity-relationship diagram is examined heavily and is taught in the course text,
+      but in the <b>Chen</b> style (relationships as diamonds, attributes as ovals). The exam,
+      by contrast, asks you to draw it in the <b>Information Engineering</b> style (the crow's
+      foot). This unit teaches both and says clearly which the paper wants, so you are never
+      caught out. Read it slowly and draw every figure yourself.</p>
+      <p>The <b>entity-relationship (E-R) model</b> describes the data a business needs to
+      store as a set of <b>entities</b> and the <b>relationships</b> between them. Drawn out,
+      it is an <b>entity-relationship diagram (ERD)</b>. It answers the question "what things
+      does this business keep information about, and how are they connected?" It says nothing
+      about process; that is the data flow diagram's job. This is the single difference the
+      examiner asks for between a data model and a process model.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The elements of an ERD</span></div>
+    <div class="body">
+      <p>An ERD is built from four things:</p>
+      <ul class="bul">
+        <li><b>Entity:</b> a thing the business stores data about (Customer, Order, Patient).
+        Drawn as a <b>rectangle</b> with the entity name, singular, in capitals.</li>
+        <li><b>Attribute:</b> a fact about an entity (a customer's name, an order's date). In
+        crow's-foot notation the attributes are listed inside the entity's rectangle.</li>
+        <li><b>Identifier</b> (or <b>key</b>): the attribute that uniquely identifies each
+        instance of an entity. The chosen one is the <b>primary key (PK)</b>. When an entity
+        holds the key of another to record a relationship, that borrowed key is a <b>foreign
+        key (FK)</b>.</li>
+        <li><b>Relationship:</b> an association between entities, drawn as a <b>line</b> with
+        a verb naming it (a customer <i>places</i> an order).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Choosing an identifier</span></div>
+    <div class="body">
+      <p>The paper asks you to give "two options for an identifier for a student entity and
+      justify your choice." An identifier must be <b>unique</b> and <b>unchanging</b>. For a
+      student, the two options are typically the <b>matriculation number</b> and the
+      <b>email address</b>. Justify: the matriculation number is best because it is assigned
+      once, never reused, and never changes; an email can be changed or reassigned, so it is
+      a weaker key. The lesson generalises: prefer a stable, system-assigned identifier over
+      one the user can change.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Cardinality: the cardinal relationships</span></div>
+    <div class="body">
+      <p><b>Cardinality</b> is how many instances of one entity relate to how many of another.
+      There are three cardinal relationships, and naming and drawing them is worth marks every
+      year:</p>
+      <ul class="bul">
+        <li><b>One-to-one (1:1):</b> each instance of A relates to at most one of B, and vice
+        versa. One employee manages one department, and one department has one manager.</li>
+        <li><b>One-to-many (1:M):</b> one instance of A relates to many of B, but each B to
+        one A. One customer places many orders, but each order belongs to one customer.</li>
+        <li><b>Many-to-many (M:N):</b> each A relates to many B and each B to many A. A
+        student takes many courses, and each course has many students.</li>
+      </ul>
+      <p class="small"><b>Memory hook:</b> read the sentence both ways. "One customer places
+      many orders" and "one order is placed by one customer" gives you 1:M. Always test a
+      relationship in both directions; that is what tells you the cardinality.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Cardinality versus ordinality</span></div>
+    <div class="body">
+      <p>The paper asks you to "differentiate between cardinality and ordinality." Keep them
+      apart:</p>
+      <ul class="bul">
+        <li><b>Cardinality</b> is the <b>maximum</b> number on each side: one or many. It is
+        the 1, the M and the N above.</li>
+        <li><b>Ordinality</b> (also called optionality or the minimum) is whether the
+        relationship is <b>mandatory or optional</b>: must there be at least one, or is zero
+        allowed? "An order must have a customer" is mandatory (minimum one); "a customer may
+        have no orders yet" is optional (minimum zero).</li>
+      </ul>
+      <p>Together they give the full rule: a customer relates to <b>zero or many</b> orders
+      (optional, many), an order relates to <b>exactly one</b> customer (mandatory, one).</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Crow's-foot symbols</span></div>
+    <div class="body">
+      <p>The <b>Information Engineering</b> style, the <b>crow's-foot</b> notation, puts the
+      cardinality and ordinality at the ends of the relationship line with two marks: an inner
+      mark for the minimum and an outer mark for the maximum. Learn the four combinations.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 190" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Crow's foot cardinality symbols: one-and-only-one, zero-or-one, one-or-many, zero-or-many.">
+      <g stroke="#1d4ed8" stroke-width="1.7" fill="none" font-family="DejaVu Sans">
+        <!-- one and only one -->
+        <line x1="30" y1="30" x2="150" y2="30"/>
+        <line x1="120" y1="22" x2="120" y2="38"/>
+        <line x1="130" y1="22" x2="130" y2="38"/>
+        <!-- zero or one -->
+        <line x1="30" y1="70" x2="150" y2="70"/>
+        <circle cx="118" cy="70" r="7"/>
+        <line x1="132" y1="62" x2="132" y2="78"/>
+        <!-- one or many -->
+        <line x1="30" y1="115" x2="150" y2="115"/>
+        <line x1="118" y1="107" x2="118" y2="123"/>
+        <path d="M150 115 l-22 -10 M150 115 l-22 10 M150 115 l-22 0"/>
+        <!-- zero or many -->
+        <line x1="30" y1="160" x2="150" y2="160"/>
+        <circle cx="112" cy="160" r="7"/>
+        <path d="M150 160 l-22 -10 M150 160 l-22 10 M150 160 l-22 0"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="10" fill="#18232b">
+        <text x="200" y="34">one and only one (exactly 1)</text>
+        <text x="200" y="74">zero or one (optional, max 1)</text>
+        <text x="200" y="119">one or many (mandatory, max many)</text>
+        <text x="200" y="164">zero or many (optional, max many)</text>
+      </g>
+    </svg>
+    <figcaption>Figure 4.1 &middot; Crow's-foot cardinality. The bar means "one", the circle
+    means "zero" (optional), and the crow's foot means "many". The inner mark is the minimum,
+    the outer mark the maximum.</figcaption>
+  </figure>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The notation styles</span></div>
+    <div class="body">
+      <p>Three notations appear in the papers. They say the same things with different
+      symbols, and you should be able to use whichever a question asks for:</p>
+      <ul class="bul">
+        <li><b>Information Engineering (crow's foot):</b> entities are rectangles with
+        attributes listed inside; cardinality is the bar-circle-crowsfoot marks above. This is
+        the style the current paper asks for ("using Information Engineering style") and the
+        one to default to.</li>
+        <li><b>Martin's notation:</b> a close cousin of crow's foot, also using the crow's-foot
+        marks for "many"; the paper sometimes says "the Martin's ERD notation style."</li>
+        <li><b>Chen notation:</b> the original style. Entities are rectangles, but each
+        <b>relationship is a diamond</b> on the line, and <b>attributes are ovals</b> hung off
+        the entity. Cardinality is written as 1, M or N beside the line rather than as
+        symbols.</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="The same relationship in crow's foot and in Chen notation.">
+      <!-- crow's foot -->
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.5">
+        <rect x="10" y="20" width="90" height="26" rx="1"/>
+        <rect x="200" y="20" width="90" height="26" rx="1"/>
+        <line x1="100" y1="33" x2="200" y2="33"/>
+        <line x1="126" y1="25" x2="126" y2="41"/>
+        <path d="M174 33 l-18 -8 M174 33 l-18 8 M174 33 l-18 0"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <text x="55" y="37">CUSTOMER</text><text x="245" y="37">ORDER</text>
+        <text x="150" y="16" fill="#5b6b73">places</text>
+        <text x="150" y="62" fill="#5b6b73" font-size="8">crow's foot: 1 to many</text>
+      </g>
+      <!-- Chen -->
+      <g fill="none" stroke="#b45309" stroke-width="1.5">
+        <rect x="10" y="86" width="80" height="24" rx="1"/>
+        <rect x="250" y="86" width="80" height="24" rx="1"/>
+        <path d="M150 78 l30 20 l-30 20 l-30 -20 z"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <text x="50" y="102">CUSTOMER</text><text x="290" y="102">ORDER</text>
+        <text x="150" y="101">places</text>
+      </g>
+      <g stroke="#b45309" stroke-width="1.3">
+        <line x1="90" y1="98" x2="120" y2="98"/><line x1="180" y1="98" x2="250" y2="98"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8" fill="#18232b" text-anchor="middle">
+        <text x="105" y="92">1</text><text x="215" y="92">M</text>
+        <text x="150" y="128" fill="#5b6b73">Chen: diamond relationship, 1 and M on the lines</text>
+      </g>
+    </svg>
+    <figcaption>Figure 4.2 &middot; The same 1:M relationship in crow's-foot (top) and Chen
+    (bottom) notation. Chen puts the relationship in a diamond and writes the numbers on the
+    lines; crow's foot puts marks at the ends.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">An ERD from a narrative</span></div>
+    <div class="body">
+      <p>Take the patient billing scenario: <i>a patient must be assigned to only one doctor,
+      but a doctor can have many patients; a patient can have only one insurance ID.</i> Draw
+      the ERD.</p>
+      <ol class="steps">
+        <li>Find the entities (the nouns kept as records).
+          <span class="note">PATIENT, DOCTOR, INSURANCE. Three rectangles.</span></li>
+        <li>Find the relationships (the verbs).
+          <span class="note">A doctor <i>treats</i> patients; a patient <i>has</i> insurance.
+          Draw a line for each with the verb on it.</span></li>
+        <li>Work out the cardinality of each, both ways.
+          <span class="note">"One doctor, many patients" and "each patient, one doctor" gives
+          DOCTOR 1:M PATIENT. "A patient has only one insurance" gives PATIENT 1:1 INSURANCE
+          (or M:1 if insurers are shared, but the fraud rule fixes it at one each).</span></li>
+        <li>Put the crow's-foot marks on.
+          <span class="note">On the DOCTOR-PATIENT line: one bar at DOCTOR (one), a crow's
+          foot at PATIENT (many). On PATIENT-INSURANCE: a bar at each end (one to one).</span></li>
+        <li>Choose the keys.
+          <span class="note">patientId (PK) in PATIENT, doctorId (PK) in DOCTOR; PATIENT holds
+          doctorId and insuranceId as foreign keys (FK) to record its relationships.</span></li>
+      </ol>
+      <p class="redo"><b>Now you try:</b> KHMS schools have one or more annexes; each annex has
+      one or more teachers, but a teacher is assigned to one annex; each teacher coordinates
+      one or more classes, but a class is coordinated by one teacher. Draw the ERD, marking
+      every cardinality.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Reading an ERD: forward and backward chaining</span></div>
+    <div class="body">
+      <p>The 25/26 paper prints an ERD and asks you to "read and interpret it using forward
+      and backward chaining", and to read the cardinal relationships between the entities.
+      Reading an ERD means turning its symbols back into English sentences, one relationship
+      at a time, in both directions:</p>
+      <ul class="bul">
+        <li><b>Forward chaining</b> reads the relationship in the direction of the verb, from
+        the first entity to the second: "a CUSTOMER <i>places</i> zero or many ORDERs."</li>
+        <li><b>Backward chaining</b> reads it the other way: "an ORDER <i>is placed by</i> one
+        and only one CUSTOMER."</li>
+      </ul>
+      <p>Do this for every line and you have interpreted the whole diagram. The cardinality
+      you report for each relationship is exactly what the crow's-foot marks say: look at the
+      mark nearest each entity, translate it (bar = one, foot = many, circle = optional), and
+      write the sentence.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">M:N needs a link, and the verb belongs on the line</span></div>
+    <div class="body">
+      <p>Two ERD mistakes cost marks. First, a <b>many-to-many</b> relationship that carries
+      its own data (a STUDENT takes a COURSE <i>with a grade</i>) cannot store that data on
+      either entity: the grade belongs to the pairing. In logical design this becomes a
+      <b>linking (associative) entity</b> between them, turning one M:N into two 1:M. Second,
+      the <b>relationship name is a verb and sits on the line</b>, not inside a box; leaving a
+      line unlabelled, or writing a noun on it, loses the reading marks.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Give the three cardinal relationships and an example of each.</p>
+      <p class="q">2. What is the difference between cardinality and ordinality?</p>
+      <p class="q">3. In crow's foot, what do a bar, a circle and a crow's foot each mean?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. One-to-one (employee manages department), one-to-many (customer places orders),
+      many-to-many (student takes courses).</p>
+      <p>2. Cardinality is the maximum (one or many); ordinality is the minimum, whether the
+      relationship is mandatory (at least one) or optional (zero allowed).</p>
+      <p>3. Bar = one, circle = zero (optional), crow's foot = many.</p>
+    </div>
+  </div>
+</section>

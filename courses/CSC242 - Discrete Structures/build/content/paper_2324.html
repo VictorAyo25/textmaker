@@ -2,7 +2,319 @@
   <div class="kick">Past Paper</div>
   <h2 class="title">2023/2024 Solved in Full</h2>
   <hr class="rule">
-  <p class="lead">Stub section. Real content follows.</p>
-  <p>Placeholder paragraph so the section occupies a measurable amount of the
-  page and the layout gate has something real to look at.</p>
+  <p class="lead">The paper we hold only in part, and the one whose marks are
+  weighted differently: 23.5 per question rather than 17.5. Everything from
+  Question Three onward is answered here, and the missing half is named rather
+  than invented.</p>
+  <p class="lo">By the end of this section you will have complete answers to the
+  three questions this scan carries, and a clear statement of what it does not
+  carry.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The paper at a glance, and what is missing</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Session</th><th>Code printed</th><th>Instruction</th><th>Time</th><th>Per question</th></tr>
+        <tr><td>2023/2024</td><td>CSC 242</td><td>not on the pages we hold</td><td>not stated</td><td>23.5 marks</td></tr>
+      </table>
+      <p><b>Questions One and Two are not in our possession.</b> The scan opens
+      at Question Three; page one carries only the title line. This manual does
+      not invent them, and neither should you: if a past paper is quoted to you
+      with questions that are not on the original, the questions are somebody's
+      guess.</p>
+      <p><b>What that costs you is small.</b> The three questions we do hold
+      contain five of the fourteen repeat-offender drills of section R.3,
+      including the minimum tour and the chain letter, both of which appear on
+      two other papers as well.</p>
+      <p><b>Its defects,</b> all quoted as printed. <b>Question Four has no
+      number at all</b>: after Q3(d) the page runs straight into "(a) Explain in
+      details ... types of undirected graph", and the third part of that
+      question has no letter either. "(1 marks)" is printed three times and
+      "(2 marks)" throughout, with a singular value and a plural noun. And two
+      arrowheads in the Q5(c) digraph <b>cannot be resolved</b> at any available
+      magnification, which the answer below states rather than hides.</p>
+      <p><b>The mark weighting is the thing to notice.</b> At 23.5 a question,
+      three answers give 70.5. Practising this paper against a 17.5-mark clock
+      would leave you a third short on every question.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Three</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2023/2024 Q3 &middot; 23.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Bit strings over U = {1, ..., 10} (3 marks)</p>
+      <p><i>Quoted as printed in section 2.3.</i> The convention is fixed by the
+      question: the i-th bit is 1 when i is in the set. Ten elements, so ten
+      bits, and position i holds element i.</p>
+      <table class="data">
+        <tr><th>Set</th><th>Bit string</th></tr>
+        <tr><td>(i) {3, 4, 5}</td><td><b>0011100000</b></td></tr>
+        <tr><td>(ii) {1, 3, 6, 10}</td><td><b>1010010001</b></td></tr>
+        <tr><td>(iii) {2, 3, 4, 7, 8, 9}</td><td><b>0111001110</b></td></tr>
+      </table>
+      <p><b>Check each by counting the 1s:</b> three, four and six, matching the
+      sizes of the three sets. That is the fastest verification available and it
+      catches a dropped or shifted bit at once.</p>
+      <p class="marks">b. C++ program taking the sets dynamically (7 marks)</p>
+      <p><i>Quoted as printed, and answered with a compiled and run listing, in
+      section 11.2.</i> The load-bearing word is <b>dynamically</b>: the sets
+      must arrive through <code>cin</code> at run time, not be written into the
+      source. The program reads how many sets, then for each one reads its size
+      and its members, builds a string of ten <code>'0'</code> characters and
+      sets position m &#8722; 1 to <code>'1'</code> for each member m. Its
+      output on these three sets is exactly the three strings above.</p>
+      <p class="marks">c. f &#8728; g and g &#8728; f, and are they equal? (3.5 marks)</p>
+      <p><i>Quoted as printed in section 4.3.</i> With f(x) = x<sup>2</sup> + 1
+      and g(x) = x + 2, both from the reals to the reals:</p>
+      <p style="margin-left:12pt">(f &#8728; g)(x) = f(g(x)) = f(x + 2) =
+      (x + 2)<sup>2</sup> + 1 = <b>x<sup>2</sup> + 4x + 5</b><br>
+      (g &#8728; f)(x) = g(f(x)) = g(x<sup>2</sup> + 1) =
+      (x<sup>2</sup> + 1) + 2 = <b>x<sup>2</sup> + 3</b></p>
+      <p><b>They are not equal,</b> and the question explicitly asks you to say
+      so. One value proves it: at x = 1 the first gives 10 and the second
+      gives 4.</p>
+      <p><b>Composition is not commutative,</b> which is the general fact behind
+      it. The 2024/2025 paper sets this identical pair of functions.</p>
+      <p class="marks">d. i. The divides relation on {1, 2, 3, 4} (2 marks)</p>
+      <p><i>Quoted as printed in section 3.1.</i> R = {(a, b) | a divides b}
+      means b is a multiple of a. Take each a in turn and list the multiples of
+      a that lie in the set:</p>
+      <p style="margin-left:12pt">1 divides 1, 2, 3, 4<br>
+      2 divides 2 and 4<br>
+      3 divides 3<br>
+      4 divides 4</p>
+      <p style="margin-left:12pt"><b>R = {(1,1), (1,2), (1,3), (1,4), (2,2),
+      (2,4), (3,3), (4,4)}</b>, eight pairs.</p>
+      <p><b>Note it is not symmetric:</b> (1, 2) is in R but (2, 1) is not,
+      since 2 does not divide 1. It is reflexive, antisymmetric and transitive,
+      so it is a <b>partial order</b>, which is section 3.4.</p>
+      <p class="marks">d. ii to v. R1 to R6 classified (8 marks)</p>
+      <p><i>Quoted as printed in section 3.2.</i> One table answers all four
+      parts.</p>
+      <table class="data">
+        <tr><th>Relation</th><th>Reflexive</th><th>Symmetric</th><th>Antisymmetric</th><th>Transitive</th></tr>
+        <tr><td>R1</td><td>no</td><td>no</td><td>no</td><td>no</td></tr>
+        <tr><td>R2</td><td>no</td><td><b>yes</b></td><td>no</td><td>no</td></tr>
+        <tr><td>R3</td><td><b>yes</b></td><td><b>yes</b></td><td>no</td><td>no</td></tr>
+        <tr><td>R4</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><td>R5</td><td><b>yes</b></td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+        <tr><td>R6</td><td>no</td><td>no</td><td><b>yes</b></td><td><b>yes</b></td></tr>
+      </table>
+      <p style="margin-left:12pt"><b>(ii) Reflexive:</b> R3 and R5<br>
+      <b>(iii) Symmetric:</b> R2 and R3<br>
+      <b>(iv) Antisymmetric:</b> R4, R5 and R6<br>
+      <b>(v) Transitive:</b> R4, R5 and R6</p>
+      <p><b>Give one reason per verdict where a relation fails,</b> since 2
+      marks a part is buying justification and not just a list. For example R1
+      is not reflexive because (3, 3) is absent, and not symmetric because
+      (3, 4) has no (4, 3).</p>
+      <p><b>Note that R6 = {(3, 4)} is antisymmetric and transitive,</b> both
+      vacuously: there is no offending pair to break either, and a single arrow
+      composes with nothing. Vacuous truth from section 9.1, doing real work.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Four</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2023/2024 Q4 &middot; 23.5 marks</span></div>
+    <div class="body">
+      <p><i>This question carries no number on the paper, and its third part
+      carries no letter. Both are reproduced as printed in sections 6.2, 6.8 and
+      7.1.</i></p>
+      <p class="marks">a. Types of undirected graph, in detail with diagrams (9 marks)</p>
+      <p><i>Quoted as printed in section 6.2.</i> Nine marks for a catalogue, so
+      give a definition, a distinguishing feature and a sketch for each. This is
+      the single most repeated question on the course, appearing on three of the
+      five papers.</p>
+      <table class="data">
+        <tr><th>Type</th><th>Definition</th><th>How to draw it</th></tr>
+        <tr><td><b>Simple graph</b></td><td>no loops, at most one edge between any two vertices</td><td>a triangle</td></tr>
+        <tr><td><b>Multigraph</b></td><td>two vertices may be joined by several edges</td><td>two dots with three curves between them</td></tr>
+        <tr><td><b>Pseudograph</b></td><td>a multigraph that also allows loops</td><td>the same, with a loop at one dot</td></tr>
+        <tr><td><b>Null or empty graph</b></td><td>vertices but no edges at all</td><td>four isolated dots</td></tr>
+        <tr><td><b>Trivial graph</b></td><td>a single vertex and no edge</td><td>one dot</td></tr>
+        <tr><td><b>Complete graph K<sub>n</sub></b></td><td>every pair of vertices joined</td><td>K<sub>4</sub>: a square with both diagonals</td></tr>
+        <tr><td><b>Regular graph</b></td><td>every vertex has the same degree</td><td>a square: every vertex of degree 2</td></tr>
+        <tr><td><b>Cycle graph C<sub>n</sub></b></td><td>a single closed ring of n vertices</td><td>a pentagon</td></tr>
+        <tr><td><b>Path graph</b></td><td>a line of vertices, no closing edge</td><td>four dots in a row</td></tr>
+        <tr><td><b>Wheel graph</b></td><td>a cycle plus one hub joined to every vertex</td><td>a pentagon with a centre dot joined to all five</td></tr>
+        <tr><td><b>Bipartite graph</b></td><td>vertices split into two groups, edges only across</td><td>two rows, edges only between rows</td></tr>
+        <tr><td><b>Complete bipartite K<sub>m,n</sub></b></td><td>bipartite with every cross pair joined</td><td>K<sub>3,3</sub>: three above, three below, nine edges</td></tr>
+        <tr><td><b>Connected graph</b></td><td>a path exists between every pair</td><td>any single piece</td></tr>
+        <tr><td><b>Weighted graph</b></td><td>each edge carries a number</td><td>the Detroit map of part (b)</td></tr>
+        <tr><td><b>Subgraph</b></td><td>a graph made from some of another's vertices and edges</td><td>a triangle inside K<sub>4</sub></td></tr>
+      </table>
+      <p><b>Draw every one you name.</b> The question says "with diagrammatic
+      illustration", so the sketches are not optional and are probably half the
+      nine marks. Small, labelled, five seconds each.</p>
+      <p class="marks">b. The travelling missionary, minimum distance (10 marks)</p>
+      <p><i>Quoted as printed in section 6.8, where all twelve tours are
+      tabulated.</i> Five cities, every pair joined, with the distances read off
+      the printed map:</p>
+      <table class="data">
+        <tr><th></th><th>Grand Rapids</th><th>Kalamazoo</th><th>Saginaw</th><th>Toledo</th><th>Detroit</th></tr>
+        <tr><td><b>Grand Rapids</b></td><td>0</td><td>56</td><td>113</td><td>167</td><td>147</td></tr>
+        <tr><td><b>Kalamazoo</b></td><td>56</td><td>0</td><td>137</td><td>133</td><td>135</td></tr>
+        <tr><td><b>Saginaw</b></td><td>113</td><td>137</td><td>0</td><td>142</td><td>98</td></tr>
+        <tr><td><b>Toledo</b></td><td>167</td><td>133</td><td>142</td><td>0</td><td>58</td></tr>
+        <tr><td><b>Detroit</b></td><td>147</td><td>135</td><td>98</td><td>58</td><td>0</td></tr>
+      </table>
+      <p><b>How many tours there are.</b> Starting and ending at Detroit, the
+      other four cities can be visited in 4! = 24 orders, but each tour and its
+      reverse cover the same route, so there are 24 / 2 = <b>12</b> distinct
+      tours. Twelve is small enough to list, and the question says
+      <b>minimum</b>, which is a claim about every alternative.</p>
+      <p><b>The answer.</b> The shortest tour measures <b>458</b> miles:</p>
+      <p style="margin-left:12pt"><b>Detroit, Saginaw, Grand Rapids, Kalamazoo,
+      Toledo, Detroit</b><br>
+      98 + 113 + 56 + 133 + 58 = <b>458</b></p>
+      <p><b>Say why a nearest-neighbour walk is not an answer.</b> Starting at
+      Detroit the nearest city is Toledo at 58, then Kalamazoo at 133, then
+      Grand Rapids at 56, then Saginaw at 113, then home at 98, which totals
+      458 as well. It agrees here, and that is luck: nearest-neighbour carries
+      no guarantee, so on its own it establishes an upper bound and nothing
+      more. The enumeration is what makes 458 a minimum.</p>
+      <p class="marks">c. Three application domains of tree models (4.5 marks)</p>
+      <p><i>Quoted as printed in section 7.1. This part has no letter on the
+      paper.</i> Three domains, each with an example, at 1.5 marks apiece.</p>
+      <p><b>1. File systems and hierarchical storage.</b> A directory tree has
+      one root, every file and folder has exactly one parent, and there are no
+      cycles, which is precisely a rooted tree. Example: a path such as
+      /home/user/notes.txt is the unique route from the root to a leaf, and the
+      uniqueness of that path is a property of trees, not of graphs generally.</p>
+      <p><b>2. Compilers and expression evaluation.</b> A parser turns source
+      code into a syntax tree whose internal vertices are operators and whose
+      leaves are operands, and the compiler then walks it. Example: section 7.3
+      builds the tree of (3 &#8722; 4 &#183; 2) &#8722; (5 + (5 &#8722; 2)) and
+      reads its postfix form straight off a postorder walk, which is exactly
+      what a stack machine consumes.</p>
+      <p><b>3. Searching and decision procedures.</b> A binary search tree keeps
+      data ordered so that each comparison discards half the remaining
+      possibilities, and a decision tree encodes a sequence of tests.
+      Example: the binary search of section 11.2 halves its range each pass, so
+      it reaches an answer in the number of halvings rather than in the number
+      of items.</p>
+      <p><b>Two more if the marks look generous:</b> organisational charts and
+      family trees, where the hierarchy is the point; and prefix codes such as
+      Huffman coding, where the tree structure is what makes the code
+      unambiguous.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Question Five</h3>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">2023/2024 Q5 &middot; 23.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Define the Handshaking theorem (3 marks)</p>
+      <p><i>Quoted as printed in section 6.3.</i></p>
+      <p><b>Statement.</b> In any undirected graph G = (V, E), the sum of the
+      degrees of all the vertices equals twice the number of edges:</p>
+      <p style="margin-left:12pt"><b>&#931; deg(v) = 2|E|</b></p>
+      <p><b>Why.</b> Each edge has exactly two ends, and each end adds one to
+      the degree of the vertex it meets, so counting edge ends by vertices and
+      by edges must give the same total.</p>
+      <p><b>Two consequences worth adding for three marks.</b> The degree sum is
+      always <b>even</b>, so no graph can have an odd degree sum. And the number
+      of vertices of odd degree is always even, since the odd degrees must pair
+      up to leave an even total.</p>
+      <p class="marks">b. i. Can the pilot visit exactly three of five cities? (3 marks)</p>
+      <p><i>Quoted as printed in section 6.3.</i> Model the five cities as
+      vertices and each direct route as an edge. "Visit exactly three from each"
+      means every vertex has degree exactly 3.</p>
+      <p><b>Compute.</b> Five vertices, each of degree 3:</p>
+      <p style="margin-left:12pt">&#931; deg(v) = 5 &#215; 3 = <b>15</b></p>
+      <p>But Handshaking says this sum must equal 2|E|, which is <b>even</b>,
+      and 15 is odd.</p>
+      <p><b>So no such flight plan exists.</b> It is impossible, and the
+      impossibility is not about scheduling or geography: no graph on five
+      vertices can have every degree 3.</p>
+      <p><b>The general rule behind it,</b> worth one line: a graph in which
+      every vertex has degree d and there are n vertices requires nd to be even,
+      so n and d cannot both be odd.</p>
+      <p class="marks">b. ii. Support the answer with a diagram (2 marks)</p>
+      <p>Draw the five cities as five dots and attempt it. Give four of them
+      three edges each and the fifth is forced to have an even number, because
+      the twelve edge ends already placed must pair off. Any attempt leaves one
+      vertex at degree 2 or 4.</p>
+      <p><b>Then draw what does work,</b> which shows you understood rather than
+      merely failed: with <b>six</b> cities, every vertex of degree 3 is
+      possible, since 6 &#215; 3 = 18 is even. K<sub>3,3</sub> is exactly such a
+      graph, and so is the triangular prism.</p>
+      <p class="marks">c. The directed graph, in tabular form (6 marks)</p>
+      <p><i>Quoted as printed in section 6.4, where the reading is set out in
+      full.</i></p>
+      <p><b>State the reading first.</b> The three multi-arc bundles are clear.
+      The two crossing diagonals in the middle are <b>not</b>: at the available
+      resolution their arrowheads can be read either as two arcs a to c plus one
+      arc b to d, or as one each way. The table below tabulates the first
+      reading. <b>Re-read the arrowheads on your own copy</b>; the method, which
+      is what the six marks are for, does not change.</p>
+      <p><b>(i) Vertices.</b> a, b, c, d, e. <b>Total 5.</b> Note e has no arc
+      at all and is still a vertex.</p>
+      <p><b>(ii) Edges,</b> counted as bundles: b to a is 1 arc, a to b is 2,
+      d to a is 2, b to c is 2, d to c is 3, a to c is 2, b to d is 1.
+      <b>Total 13.</b></p>
+      <p><b>(iii) and (iv) In-degree and out-degree.</b></p>
+      <table class="data">
+        <tr><th>Vertex</th><th>Out-degree</th><th>where to</th><th>In-degree</th><th>where from</th></tr>
+        <tr><td>a</td><td>4</td><td>2 to b, 2 to c</td><td>3</td><td>1 from b, 2 from d</td></tr>
+        <tr><td>b</td><td>4</td><td>1 to a, 2 to c, 1 to d</td><td>2</td><td>2 from a</td></tr>
+        <tr><td>c</td><td>0</td><td>none</td><td>7</td><td>2 from b, 3 from d, 2 from a</td></tr>
+        <tr><td>d</td><td>5</td><td>2 to a, 3 to c</td><td>1</td><td>1 from b</td></tr>
+        <tr><td>e</td><td>0</td><td>none</td><td>0</td><td>none</td></tr>
+        <tr><td><b>Total</b></td><td><b>13</b></td><td></td><td><b>13</b></td><td></td></tr>
+      </table>
+      <p><b>The check that makes the answer safe.</b> Both totals must equal the
+      number of arcs, because every arc leaves exactly one vertex and arrives at
+      exactly one. Here both are 13 and the edge count is 13, so the tabulation
+      is internally consistent whatever the two uncertain arrowheads turn out to
+      be.</p>
+      <p class="marks">d. The convocation chain letter (9.5 marks)</p>
+      <p><i>Quoted as printed in section 7.2.</i> Model it as a rooted tree: the
+      first person is the root, and each person who sends the cards on has four
+      children. Those who received but did not send are the <b>leaves</b>, and
+      there are 100 of them. Nobody receives more than one card, which is what
+      makes it a tree rather than a general graph.</p>
+      <p><b>The tree is full,</b> because everyone who sends sends to exactly
+      four, so every internal vertex has exactly m = 4 children.</p>
+      <p><b>(i) How many have seen the card (6 marks).</b> For a full m-ary tree
+      with i internal vertices, the leaves number
+      l = (m &#8722; 1)i + 1, so</p>
+      <p style="margin-left:12pt">100 = 3i + 1<br>
+      3i = 99, so i = <b>33</b></p>
+      <p>and the total number of vertices is</p>
+      <p style="margin-left:12pt">n = mi + 1 = 4 &#215; 33 + 1 =
+      <b>133</b></p>
+      <p><b>So 133 people have seen the card, including the first person.</b>
+      Check with the other identity: n = i + l = 33 + 100 = 133. The two agree,
+      which is the verification worth writing down.</p>
+      <p><b>(ii) How many sent it out (3.5 marks).</b> The senders are exactly
+      the internal vertices, so <b>33</b> people sent the card on, and the first
+      person is one of them.</p>
+      <p><b>The trap in the wording:</b> "100 people who read it but did not
+      send it out" describes the <b>leaves</b>, not the whole readership. A
+      candidate who takes 100 as the answer to part (i) has answered a question
+      the paper did not ask.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Mark reconciliation</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Question</th><th>Parts</th><th>Total</th></tr>
+        <tr><td>Q3</td><td>1 + 1 + 1 + 7 + 3.5 + 2 + 2 + 2 + 2 + 2</td><td>23.5</td></tr>
+        <tr><td>Q4</td><td>9 + 10 + 4.5</td><td>23.5</td></tr>
+        <tr><td>Q5</td><td>3 + 3 + 2 + 1 + 1 + 2 + 2 + 6 + 3.5</td><td>23.5</td></tr>
+      </table>
+      <p>All three reconcile to <b>23.5</b>, not 17.5. That is how we know this
+      paper used a different rubric from 2024/2025 and 2025/2026, and it is the
+      kind of thing worth checking on any paper before you budget your time.</p>
+    </div>
+  </div>
+
 </section>

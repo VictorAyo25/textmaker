@@ -1,14 +1,453 @@
 <section class="part">
   <div class="kicker">Part Eleven</div>
   <h1>C++ for Discrete<br>Structures</h1>
-  <div class="blurb">Stub divider. Real content follows.</div>
+  <div class="blurb">Two papers demand written C++ worth six, six and seven
+  marks, and the course text does not contain the word "program". So this part
+  teaches the language from nothing, to exactly the depth those questions need,
+  and every listing in it was compiled and run before it was printed.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.3" fill="none">
+        <rect x="34" y="26" width="196" height="82" rx="4"/>
+        <path d="M34 44 L230 44"/>
+        <circle cx="46" cy="35" r="3"/><circle cx="58" cy="35" r="3"/>
+        <circle cx="70" cy="35" r="3"/>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="9" fill="#5b6480">
+        <text x="46" y="60">int main() {</text>
+        <text x="58" y="74">cout &lt;&lt; ...</text>
+        <text x="58" y="88">return 0;</text>
+        <text x="46" y="102">}</text>
+      </g>
+      <g stroke="#be123c" stroke-width="1.4" fill="none">
+        <path d="M248 67 L292 67"/><path d="M286 62 L292 67 L286 72"/>
+      </g>
+      <g stroke="#8891c9" stroke-width="1.3" fill="none">
+        <rect x="308" y="26" width="176" height="82" rx="4"/>
+        <path d="M308 44 L484 44"/>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="9" fill="#283593">
+        <text x="320" y="62">{ }</text>
+        <text x="320" y="76">{1}</text>
+        <text x="320" y="90">{1, 2}</text>
+        <text x="392" y="62">0011100000</text>
+        <text x="392" y="76">1010010001</text>
+        <text x="392" y="90">0111001110</text>
+      </g>
+      <text x="308" y="122" font-family="DejaVu Sans" font-size="9.5" fill="#67707a">what the examiner asked the program to print</text>
+    </svg>
+  </div>
 </section>
 
 <section>
   <div class="kick">Part Eleven &middot; 11.1</div>
   <h2 class="title">Enough C++ to Answer the Question</h2>
   <hr class="rule">
-  <p class="lead">Stub section. Real content follows.</p>
-  <p>Placeholder paragraph so the section occupies a measurable amount of the
-  page and the layout gate has something real to look at.</p>
+  <p class="lead">You are not being examined on C++. You are being examined on
+  whether you can express a discrete structure as a program. That takes far less
+  of the language than a programming course would give you, and this section is
+  the whole of what the four examined questions use.</p>
+  <p class="lo">By the end of this section you will be able to write and read a
+  complete C++ program: the skeleton, printing and reading, the types this
+  course needs, arithmetic including integer division and remainder, conditions,
+  both kinds of loop, arrays through <code>vector</code>, functions with a
+  return value, and the bit operations that turn a subset into a number.</p>
+
+  <div class="gapchip"><b>Not in the course text, and not a little bit</b><br>
+  Probed across all 184 thousand characters of the official text, these occur
+  <b>zero</b> times: <span class="mention">C++</span>,
+  <span class="mention">cout</span>, <span class="mention">cin</span>,
+  <span class="mention">include</span>, <span class="mention">main</span>,
+  <span class="mention">algorithm</span>,
+  <span class="mention">pseudocode</span>, and the word
+  <span class="mention">program</span> itself. Meanwhile 2023/2024 asks for a
+  seven-mark program and 2024/2025 asks for two more worth six marks each. That
+  is 19 marks of programming with no source behind it. Everything here is
+  therefore taught from zero, and every listing was compiled with warnings
+  turned up and run before it went on the page.</div>
+
+  <h3 class="sub">The skeleton</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The shape every program has</span></div>
+    <div class="body">
+      <p>Write this out from memory once, and you have the first mark of any
+      programming question before you have thought about the problem.</p>
+      <div class="codelabel">The smallest complete program</div>
+<pre class="code"><span class="c">// A comment. Everything after two slashes is ignored by the compiler.</span>
+<span class="k">#include</span> &lt;iostream&gt;         <span class="c">// brings cout and cin into the program</span>
+<span class="k">using namespace</span> std;      <span class="c">// lets us write cout, not std::cout</span>
+
+<span class="k">int</span> main() {                <span class="c">// execution starts here</span>
+    cout &lt;&lt; <span class="s">"Hello"</span> &lt;&lt; endl;
+    <span class="k">return</span> <span class="n">0</span>;                <span class="c">// 0 means "finished normally"</span>
+}
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">#include &lt;iostream&gt;</span> pulls in the
+      <b>input and output</b> facilities. Without it the compiler has never
+      heard of <code>cout</code> and the program does not build.
+      <span class="sym">using namespace std;</span> saves writing
+      <code>std::</code> in front of every library name. Real projects avoid it;
+      exam answers use it, and so does this book.
+      <span class="sym">int main()</span> is the <b>entry point</b>. Every
+      program has exactly one, and the machine begins there.
+      <span class="sym">{ }</span> braces enclose a <b>block</b>: a group of
+      statements treated as one.
+      <span class="sym">cout</span> is the <b>output stream</b>, read
+      "see out", and it sends what follows to the screen.
+      <span class="sym">&lt;&lt;</span> is the <b>insertion operator</b>. Read
+      it as an arrow pointing at cout: the value flows into the stream. It can
+      be chained, so one line may print several things.
+      <span class="sym">endl</span> ends the line and is short for "end line".
+      <span class="sym">;</span> ends a <b>statement</b>. It is not optional and
+      it is the single most common thing candidates leave out.
+      <span class="sym">return 0;</span> hands 0 back to whatever started the
+      program, meaning success.</div>
+      <p class="hook"><b>Memory hook:</b> <b>include, namespace, main, return.</b>
+      Four lines, always the same, before any thinking happens.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Values and variables</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The types this course needs</span></div>
+    <div class="body">
+      <p>C++ makes you say what kind of value a name holds. Five types cover
+      every examined question.</p>
+      <table class="data">
+        <tr><th>Type</th><th>Holds</th><th>Example</th></tr>
+        <tr><td><code>int</code></td><td>a whole number, positive or negative</td><td><code>int n = 24;</code></td></tr>
+        <tr><td><code>long long</code></td><td>a whole number with room for much larger values</td><td><code>long long big = 2684483063360;</code></td></tr>
+        <tr><td><code>bool</code></td><td>true or false, the propositions of section 1.1</td><td><code>bool found = false;</code></td></tr>
+        <tr><td><code>char</code></td><td>one character, written in single quotes</td><td><code>char bit = '1';</code></td></tr>
+        <tr><td><code>string</code></td><td>text, written in double quotes</td><td><code>string bits = "1010101010";</code></td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">int n = 24;</span> reads: make a whole-number box called
+      n and put 24 in it. The type comes first, then the name, then the value.
+      <span class="sym">=</span> is <b>assignment</b>, not equality. It puts the
+      right side into the left. The test for equality is <code>==</code>, with
+      two signs, and confusing the two is the classic C++ error.
+      <span class="sym">string</span> needs its own line,
+      <code>#include &lt;string&gt;</code>, at the top.
+      <span class="sym">'1' and "1"</span> are different things: single quotes
+      make one character, double quotes make text. A bit string is built from
+      the first and printed as the second.</div>
+      <p><b>Why long long matters here.</b> An <code>int</code> runs out at
+      about two thousand million. The password count of section 5.1 is
+      2684483063360, which is far past that, and storing it in an
+      <code>int</code> silently gives a wrong answer rather than an error. If a
+      count can be large, say <code>long long</code>.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Arithmetic, and the two operators that surprise people</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>+ - *</code></td><td>add, subtract, multiply</td><td><code>3 * 4</code></td><td>12</td></tr>
+        <tr><td><code>/</code></td><td>divide; on two whole numbers it <b>throws the remainder away</b></td><td><code>7 / 2</code></td><td>3, not 3.5</td></tr>
+        <tr><td><code>%</code></td><td>the <b>remainder</b> after whole division</td><td><code>7 % 2</code></td><td>1</td></tr>
+        <tr><td><code>==  !=</code></td><td>is equal to, is not equal to</td><td><code>n % 2 == 0</code></td><td>true when n is even</td></tr>
+        <tr><td><code>&lt;  &lt;=  &gt;  &gt;=</code></td><td>the ordinary comparisons</td><td><code>low &lt;= high</code></td><td>true or false</td></tr>
+        <tr><td><code>&amp;&amp;  ||  !</code></td><td>and, or, not: the connectives of section 1.1</td><td><code>a &gt; 0 &amp;&amp; b &gt; 0</code></td><td>true when both are</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">/</span> between two <code>int</code> values performs
+      <b>integer division</b>. 7 / 2 is 3 because both operands are whole
+      numbers and the fractional part is discarded, not rounded. This is not a
+      bug and it is used deliberately below to find the midpoint of a range.
+      <span class="sym">%</span> is read "mod" and gives what is left over.
+      <code>n % 2</code> is 0 exactly when n is even, which is the definition
+      from section 9.1 written as a test.
+      <span class="sym">&amp;&amp; and ||</span> are conjunction and disjunction
+      from Part One, spelled with two symbols each. One <code>&amp;</code> or
+      one <code>|</code> means something else entirely, covered below.</div>
+      <p class="hook"><b>Memory hook:</b> <b>slash keeps the whole part, percent
+      keeps the rest.</b> Together they recover the full answer: 7 is
+      2 &#215; 3 + 1.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Reading input, and making choices</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">cin, if and else</span></div>
+    <div class="body">
+      <p><code>cin</code> is the input stream, and <code>&gt;&gt;</code> is the
+      extraction operator: the arrow points away from cin and into the variable
+      you name.</p>
+      <div class="codelabel">Reading a number and testing it</div>
+<pre class="code"><span class="k">int</span> n;
+cout &lt;&lt; <span class="s">"Enter an integer: "</span>;   <span class="c">// always prompt; a bare cursor is not a program</span>
+cin &gt;&gt; n;                        <span class="c">// wait for the user, then store it in n</span>
+
+<span class="k">if</span> (n % <span class="n">2</span> == <span class="n">0</span>) {
+    cout &lt;&lt; n &lt;&lt; <span class="s">" is even"</span> &lt;&lt; endl;
+} <span class="k">else</span> {
+    cout &lt;&lt; n &lt;&lt; <span class="s">" is odd"</span> &lt;&lt; endl;
+}
+</pre>
+      <p><b>The condition goes in round brackets and the branch in braces.</b>
+      The <code>else</code> part is optional. Note that the test is
+      <code>==</code>: a single <code>=</code> would <i>assign</i> 0 to the
+      remainder rather than compare with it, and the compiler will let you.</p>
+      <p><b>Dynamic input is what "dynamically" means in an exam question.</b>
+      The 2023/2024 paper asks for a program that "dynamically takes these sets
+      as input"; that is a request for <code>cin</code>, not for the three sets
+      typed into the source as constants. A program with the answer already
+      written into it has not been asked for.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Loops</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">for and while</span></div>
+    <div class="body">
+      <p>Two loops, and the choice between them is mechanical.</p>
+      <div class="codelabel">A for loop: use it when you know how many times</div>
+<pre class="code"><span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; n; i++) {
+    cout &lt;&lt; i &lt;&lt; <span class="s">" "</span>;
+}
+</pre>
+      <div class="codelabel">A while loop: use it when you stop on a condition</div>
+<pre class="code"><span class="k">while</span> (low &lt;= high) {
+    <span class="c">// keep going until the range is empty</span>
+}
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">int i = 0</span> is the <b>start</b>, run once before
+      the first pass.
+      <span class="sym">i &lt; n</span> is the <b>condition</b>, tested before
+      every pass; the loop ends the first time it is false.
+      <span class="sym">i++</span> is the <b>step</b>, run after every pass, and
+      it means "add one to i".
+      <span class="sym">i</span> is the loop variable, and counting from
+      <b>0</b> rather than 1 is the C++ convention. A loop over n items runs
+      i = 0, 1, ..., n &#8722; 1, which is n passes.
+      <span class="sym">while</span> takes only the condition, so anything that
+      makes it eventually false has to happen inside the body. If nothing does,
+      the program never stops.</div>
+      <p class="hook"><b>Memory hook:</b> <b>for counts, while waits.</b> A
+      known number of passes is a for; a search that ends when it finds
+      something is a while.</p>
+      <p><b>The off-by-one to expect.</b> <code>i &lt; n</code> gives n passes;
+      <code>i &lt;= n</code> gives n + 1 and reads past the end of an n-element
+      array. This is the same one-fewer-than-you-think that section 9.3 met in
+      a<sub>n</sub> = a + (n &#8722; 1)d.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Many values at once</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">vector, a list that knows its own length</span></div>
+    <div class="body">
+      <div class="codelabel">Declaring, filling and reading a vector</div>
+<pre class="code"><span class="k">#include</span> &lt;vector&gt;                <span class="c">// needed at the top of the file</span>
+
+<span class="k">int</span> n = <span class="n">3</span>;
+vector&lt;<span class="k">int</span>&gt; s(n);                 <span class="c">// three ints, all 0 to begin with</span>
+
+<span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; n; i++) cin &gt;&gt; s[i];   <span class="c">// fill it from the keyboard</span>
+cout &lt;&lt; s[<span class="n">0</span>] &lt;&lt; <span class="s">" and there are "</span> &lt;&lt; s.size() &lt;&lt; <span class="s">" of them"</span>;
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">vector&lt;int&gt;</span> means "a list of int". The type in
+      the angle brackets is what it holds, so <code>vector&lt;string&gt;</code>
+      is a list of text.
+      <span class="sym">s(n)</span> creates it with n slots. The size may be a
+      variable, which is exactly what "dynamically" needs and what a plain
+      fixed-size array cannot do.
+      <span class="sym">s[i]</span> is the <b>slot at position i</b>, counting
+      from <b>0</b>. So a three-element vector has slots s[0], s[1], s[2], and
+      s[3] does not exist.
+      <span class="sym">s.size()</span> is how many slots there are. The dot
+      means "of this object", and the brackets are there because it is a
+      function call.</div>
+      <p><b>Position 0 is not a quirk to work around.</b> It is the reason
+      <code>bits[m - 1]</code> appears in the bit-string program: element m of
+      the universe {1, ..., 10} lives at slot m &#8722; 1. Write that
+      subtraction down deliberately rather than discovering it by being one out.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Functions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Writing a function and calling it</span></div>
+    <div class="body">
+      <p>A function is a named piece of program that takes values in and hands
+      one value back. It is the section 4.1 idea of a function, made
+      executable.</p>
+      <div class="codelabel">Definition, then use</div>
+<pre class="code"><span class="c">// returns the larger of two whole numbers</span>
+<span class="k">int</span> larger(<span class="k">int</span> a, <span class="k">int</span> b) {
+    <span class="k">if</span> (a &gt; b) <span class="k">return</span> a;
+    <span class="k">return</span> b;
+}
+
+<span class="k">int</span> main() {
+    cout &lt;&lt; larger(<span class="n">3</span>, <span class="n">9</span>);          <span class="c">// prints 9</span>
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">int larger(...)</span> the leading <code>int</code> is
+      the <b>return type</b>: the kind of value handed back. A function that
+      hands nothing back is declared <code>void</code>.
+      <span class="sym">(int a, int b)</span> are the <b>parameters</b>: names
+      for the values passed in, each with its own type. These are the domain of
+      section 4.1.
+      <span class="sym">return a;</span> hands a value back <b>and stops the
+      function immediately</b>. Everything after it in that path is not run.
+      <span class="sym">larger(3, 9)</span> is the <b>call</b>. The whole
+      expression stands for the value returned, so it can be printed, stored or
+      used in arithmetic.
+      <span class="sym">const vector&lt;int&gt;&amp; s</span>, which appears in
+      the programs below, is a parameter that receives the list <b>without
+      copying it</b>, and <code>const</code> promises the function will not
+      change it. Say that in one line if a marker asks; nothing else about
+      references is examined.</div>
+      <p><b>A function must appear before the line that calls it,</b> or the
+      compiler has not met it yet. Defining every helper above
+      <code>main</code> avoids the question entirely, and every program in the
+      next section does that.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Bits, and why a subset is a number</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The two operators the power set needs</span></div>
+    <div class="body">
+      <p>Section 2.3 encoded a subset as a bit string: one bit per element of
+      the universe, 1 when the element is in. C++ can hold that string of bits
+      as a single whole number and test one bit at a time, which turns "list
+      every subset" into "count from 0 upwards".</p>
+      <table class="data">
+        <tr><th>Written</th><th>Read</th><th>Does</th></tr>
+        <tr><td><code>1 &lt;&lt; i</code></td><td>one shifted left by i</td><td>a number with a single 1 bit, at position i</td></tr>
+        <tr><td><code>mask &amp; (1 &lt;&lt; i)</code></td><td>mask AND that</td><td>non-zero exactly when bit i of mask is 1</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">&lt;&lt;</span> here is the <b>shift</b> operator, not
+      the printing one. Which meaning applies is decided by what sits on its
+      left: a stream means print, a number means shift. Both spellings are the
+      same two characters and this is a genuine wart of the language.
+      <span class="sym">&amp;</span> with one ampersand is <b>bitwise and</b>:
+      it lines the two numbers up bit by bit and keeps a 1 only where both have
+      one. Two ampersands, <code>&amp;&amp;</code>, is the logical and of Part
+      One; the two are not interchangeable.
+      <span class="sym">mask</span> is the number whose bits name a subset: bit
+      i is 1 when element i is in.
+      <span class="sym">position i</span> counts from 0 at the right-hand end,
+      so 1 &lt;&lt; 0 is 1, 1 &lt;&lt; 1 is 2, 1 &lt;&lt; 2 is 4.</div>
+      <table class="data">
+        <tr><th>mask</th><th>in binary</th><th>the subset of {1, 2, 3}</th></tr>
+        <tr><td>0</td><td>000</td><td>{ }</td></tr>
+        <tr><td>1</td><td>001</td><td>{1}</td></tr>
+        <tr><td>2</td><td>010</td><td>{2}</td></tr>
+        <tr><td>3</td><td>011</td><td>{1, 2}</td></tr>
+        <tr><td>4</td><td>100</td><td>{3}</td></tr>
+        <tr><td>5</td><td>101</td><td>{1, 3}</td></tr>
+        <tr><td>6</td><td>110</td><td>{2, 3}</td></tr>
+        <tr><td>7</td><td>111</td><td>{1, 2, 3}</td></tr>
+      </table>
+      <p><b>Read the right-hand column downwards</b> and compare it with the
+      sample output printed on the 2024/2025 paper. They are in the same order,
+      because counting 0 to 7 <i>is</i> the enumeration the examiner printed.
+      That is not a coincidence to be grateful for; it is the reason the power
+      set of an n-element set has 2<sup>n</sup> members, which section 2.1
+      proved by a different route.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">You are writing on paper, not in an editor</span></div>
+    <div class="body">
+      <p>There is no compiler in the hall. Nobody will run what you write, which
+      cuts both ways: a missing semicolon will not stop you, and a program that
+      only looks plausible will not fool a marker who can read.</p>
+      <ul class="bul">
+        <li><b>Write the skeleton first,</b> before you have solved anything.
+        Four lines you already know are four lines of marks.</li>
+        <li><b>Comment the steps the question numbered.</b> 2024/2025 Q4(c)
+        lists five things the function must do; put those five as comments in
+        the body and the marker can find each one.</li>
+        <li><b>Indent.</b> A marker reading handwriting needs the block
+        structure visible, and it costs nothing.</li>
+        <li><b>Prompt before every read.</b> <code>cout</code> then
+        <code>cin</code>, every time.</li>
+        <li><b>Name things as the question names them.</b> If it says the
+        function is called <code>isPerfectSquare</code>, that is its name.
+        Renaming it is the same defect as paraphrasing a quotation.</li>
+        <li><b>If you run out of time, write the logic in ordered comments.</b>
+        A correct method in comments earns more than half a program that stops
+        mid-loop.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Write the four lines every C++ program starts and ends
+      with.</p>
+      <p class="q">2. What is the difference between <code>=</code> and
+      <code>==</code>?</p>
+      <p class="q">3. What do <code>7 / 2</code> and <code>7 % 2</code> give,
+      and why?</p>
+      <p class="q">4. When do you use a for loop and when a while loop?</p>
+      <p class="q">5. What is the first slot of a vector called, and what is the
+      last slot of a vector of size n?</p>
+      <p class="q">6. What does <code>mask &amp; (1 &lt;&lt; i)</code> test?</p>
+      <p class="q">7. Why does the bit-string program write
+      <code>bits[m - 1]</code> rather than <code>bits[m]</code>?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. <code>#include &lt;iostream&gt;</code>,
+      <code>using namespace std;</code>, <code>int main() {</code>, and
+      <code>return 0; }</code>.<br>
+      2. <code>=</code> assigns the right side into the left;
+      <code>==</code> tests whether the two are equal.<br>
+      3. 3 and 1. Division between whole numbers discards the fraction, and
+      <code>%</code> gives what was discarded.<br>
+      4. A for loop when the number of passes is known in advance; a while loop
+      when you stop on a condition.<br>
+      5. <code>s[0]</code>, and the last is <code>s[n - 1]</code>.<br>
+      6. Whether bit i of mask is 1, that is whether element i is in the subset
+      that mask encodes.<br>
+      7. Because element m of the universe {1, ..., 10} sits at slot
+      m &#8722; 1, since slots count from 0.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Every statement ends with a <span class="blank"></span>.</li>
+        <li><code>cout &lt;&lt;</code> sends a value <span class="blank"></span>
+        and <code>cin &gt;&gt;</code> reads a value
+        <span class="blank"></span>.</li>
+        <li>A vector's slots are numbered from <span class="blank"></span>.</li>
+        <li>The remainder operator is written <span class="blank"></span>.</li>
+        <li>A function that hands nothing back has return type
+        <span class="blank"></span>.</li>
+        <li>The word "dynamically" in an exam question is asking for
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. semicolon. 2. out to the screen, in from the keyboard. 3. 0.
+      4. <code>%</code>. 5. <code>void</code>. 6. input read at run time with
+      <code>cin</code>, rather than values written into the source.</p>
+    </div>
+  </div>
+
 </section>

@@ -2,7 +2,605 @@
   <div class="kick">Part Eleven &middot; 11.2</div>
   <h2 class="title">The Four Examined Programs</h2>
   <hr class="rule">
-  <p class="lead">Stub section. Real content follows.</p>
-  <p>Placeholder paragraph so the section occupies a measurable amount of the
-  page and the layout gate has something real to look at.</p>
+  <p class="lead">Four programs have been set across two papers, worth 19 marks
+  between them. Every one is below, quoted as printed, broken down, then
+  answered with a listing that was compiled at full warnings and run. The output
+  panels are what the machine actually printed, not what it ought to have
+  printed.</p>
+  <p class="lo">By the end of this section you will be able to write the power
+  set program, the bit-string program, the isPerfectSquare function with its
+  main, and the degree-counting snippet, and to explain each line of them.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">How these listings were checked</span></div>
+    <div class="body">
+      <p>Every listing in this part was saved to a file, compiled with warnings
+      turned up, and run with the input the question specifies. Nothing was
+      transcribed from memory or from a listing that had merely been read
+      through.</p>
+      <p>That matters more here than anywhere else in the book. A wrong number
+      in a worked example is visible to anyone who checks the arithmetic; a
+      program that does not compile looks exactly like a program that does, and
+      a manual that prints one has taught the reader to write it.</p>
+      <p><b>The output panels below are captured output.</b> Where a prompt and
+      an answer sit on the same line, that is because the program printed the
+      prompt without a newline and the input was supplied from a file rather
+      than typed. It is what the terminal showed.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">1. The power set</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q3b">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q3(b)</span></div>
+    <div class="body">
+      <p class="q">b.  Write a C++ program to generate all possible subsets (also known as the power set) of a given set of integers.</p>
+      <p class="q">For example, if the user enters the set {1, 2, 3}, the output should include:<br>
+      { }<br>
+      {1}<br>
+      {2}<br>
+      {1, 2}<br>
+      {3}<br>
+      {1, 3}<br>
+      {2, 3}<br>
+      {1, 2, 3}
+      <span class="mk">6 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  Nothing is printed wrongly here, but the sample output is doing more work than
+  it looks. It is not a random selection of subsets: it is <b>all eight of
+  them, in the exact order a counting loop produces</b>, as the bit table in
+  section 11.1 shows. Reproducing that order is free if you enumerate by
+  counting and awkward if you enumerate any other way, so take the hint.
+  <br><br>
+  Note also the empty set prints as <b>{ }</b>, with a space between the braces,
+  while every other line has no space inside them. That is one extra line of
+  code and it is the kind of detail a marker checks first.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>A set of integers, entered by the user. The size is not
+      fixed by the question.</dd>
+      <dt>Asked</dt><dd><b>Write a C++ program</b> that <b>generates</b> all
+      possible subsets. One deliverable: a complete, runnable program, not a
+      fragment.</dd>
+      <dt>Marks say</dt><dd>6. Expect roughly: the skeleton and input, the
+      enumeration loop, the membership test, the printing format, and the
+      correct count of subsets. The sample output is printed for you, which
+      means the format itself carries marks.</dd>
+      <dt>Teaches</dt><dd>Sections 11.1 (bits, vector, loops) and 2.1 (a set of
+      n elements has 2<sup>n</sup> subsets).</dd>
+      <dt>Trap</dt><dd>Writing the set into the source as {1, 2, 3}. The
+      question says "a given set of integers" and "if the user enters", so the
+      program must read it. Also: forgetting the empty set, which is subset
+      number 0 and the one candidates most often lose.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q3(b), compiled and run</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>n integers read from the keyboard into a
+        <code>vector</code>.</dd>
+        <dt>Find</dt><dd>A program printing all 2<sup>n</sup> subsets in the
+        paper's format and order.</dd>
+        <dt>Formula</dt><dd>Count mask from 0 to 2<sup>n</sup> &#8722; 1;
+        element i is in the subset exactly when bit i of mask is 1, that is when
+        <code>mask &amp; (1 &lt;&lt; i)</code> is non-zero.</dd>
+      </dl>
+      <div class="codelabel">powerset.cpp</div>
+<pre class="code"><span class="c">// PQ 2024/2025 Question Three (b): the power set of a set of integers.</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">#include</span> &lt;vector&gt;
+<span class="k">using namespace</span> std;
+
+<span class="c">// Print the one subset picked out by the bits of `mask`.</span>
+<span class="k">void</span> printSubset(<span class="k">const</span> vector&lt;<span class="k">int</span>&gt;&amp; s, <span class="k">int</span> mask) {
+    cout &lt;&lt; <span class="s">"{"</span>;
+    <span class="k">bool</span> first = <span class="k">true</span>;
+    <span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; (<span class="k">int</span>)s.size(); i++) {
+        <span class="k">if</span> (mask &amp; (<span class="n">1</span> &lt;&lt; i)) {          <span class="c">// is element i in this subset?</span>
+            <span class="k">if</span> (!first) cout &lt;&lt; <span class="s">", "</span>;
+            cout &lt;&lt; s[i];
+            first = <span class="k">false</span>;
+        }
+    }
+    <span class="k">if</span> (first) cout &lt;&lt; <span class="s">" "</span>;             <span class="c">// the empty set prints as { }</span>
+    cout &lt;&lt; <span class="s">"}"</span> &lt;&lt; endl;
+}
+
+<span class="k">int</span> main() {
+    <span class="k">int</span> n;
+    cout &lt;&lt; <span class="s">"How many integers are in the set? "</span>;
+    cin &gt;&gt; n;
+
+    vector&lt;<span class="k">int</span>&gt; s(n);
+    cout &lt;&lt; <span class="s">"Enter "</span> &lt;&lt; n &lt;&lt; <span class="s">" integers: "</span>;
+    <span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; n; i++) cin &gt;&gt; s[i];
+
+    <span class="k">int</span> total = <span class="n">1</span> &lt;&lt; n;                 <span class="c">// 2^n subsets</span>
+    cout &lt;&lt; <span class="s">"The power set has "</span> &lt;&lt; total &lt;&lt; <span class="s">" subsets:"</span> &lt;&lt; endl;
+    <span class="k">for</span> (<span class="k">int</span> mask = <span class="n">0</span>; mask &lt; total; mask++) printSubset(s, mask);
+
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="codelabel">What it printed, for the paper's own example</div>
+<pre class="out">How many integers are in the set? Enter 3 integers: The power set has 8 subsets:
+{ }
+{1}
+{2}
+{1, 2}
+{3}
+{1, 3}
+{2, 3}
+{1, 2, 3}
+</pre>
+      <p><b>Line for line against the question.</b> The eight lines are the
+      paper's eight lines, in the paper's order, including the space inside the
+      empty braces.</p>
+      <ul class="bul">
+        <li><b>The enumeration.</b> <code>total = 1 &lt;&lt; n</code> is
+        2<sup>n</sup>, so the loop runs once per subset. That is section 2.1's
+        count, used rather than restated.</li>
+        <li><b>The membership test.</b>
+        <code>mask &amp; (1 &lt;&lt; i)</code> asks whether bit i is set. It is
+        the bit string of section 2.3 read one position at a time.</li>
+        <li><b>The comma.</b> <code>first</code> exists so the separator goes
+        <i>between</i> elements and not before the first one. Printing
+        <code>s[i] &lt;&lt; ", "</code> instead would leave a trailing comma on
+        every line.</li>
+        <li><b>The cast.</b> <code>(int)s.size()</code> is there because
+        <code>size()</code> returns an unsigned type, and comparing it with a
+        signed <code>int</code> draws a warning. Not examinable; say one line
+        about it if asked.</li>
+      </ul>
+      <p class="redo"><b>Now redo it:</b> with the set {5, 7} the program should
+      print 4 subsets: { }, {5}, {7}, {5, 7}. Trace it by hand with mask = 0, 1,
+      2, 3 and check the bits against the table in section 11.1.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">2. The bit strings</h3>
+
+  <div class="box paper" data-paper="2023-2024" data-q="Q3b">
+    <div class="bar"><span>As printed</span><span class="tag">2023/2024 &middot; Q3(b)</span></div>
+    <div class="body">
+      <p class="q">(b) Write a C++ program that dynamically takes these sets in 3(i-iii) above as input and displays the
+      corresponding bit strings for each set. <span class="mk">(7 marks)</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  "These sets in 3(i-iii) above" points back at part (a) of the same question,
+  which is quoted in full in section 2.3: the universal set is
+  U = {1, 2, ..., 10} and the three sets are {3, 4, 5}, {1, 3, 6, 10} and
+  {2, 3, 4, 7, 8, 9}. Part (a) also fixes the convention the program must
+  follow, that "the i<sup>th</sup> bit in the string is 1 if i is in the set and
+  0 otherwise", so the program is not free to choose its own bit order.
+  <br><br>
+  The load-bearing word is <b>dynamically</b>. It rules out a program with the
+  three sets typed into the source. Read together with "as input", it is asking
+  for the sets to arrive through <code>cin</code> while the program is
+  running.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>U = {1, 2, ..., 10}, and three sets to be supplied at
+      run time. The convention that bit i is 1 when i is in the set.</dd>
+      <dt>Asked</dt><dd><b>Write a C++ program</b> that <b>dynamically takes</b>
+      the sets <b>as input</b> and <b>displays</b> the corresponding bit
+      strings.</dd>
+      <dt>Marks say</dt><dd>7, the largest of the programming questions. Expect:
+      the skeleton, reading a variable number of sets, reading a variable number
+      of elements per set, the conversion itself, the correct bit order, and the
+      display. The word "dynamically" is worth marks on its own.</dd>
+      <dt>Teaches</dt><dd>Sections 11.1 (vector, string, nested loops) and 2.3
+      (what a bit string is).</dd>
+      <dt>Trap</dt><dd>Two of them. Writing the sets as constants, which fails
+      "dynamically"; and putting element m at position m rather than
+      m &#8722; 1, which shifts every bit one place and produces a plausible
+      wrong answer.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 23/24 Q3(b), compiled and run</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>A universe of 10 elements, and sets read at run
+        time.</dd>
+        <dt>Find</dt><dd>A program printing each set's bit string.</dd>
+        <dt>Formula</dt><dd>Start with ten <code>'0'</code> characters; for each
+        member m, set position m &#8722; 1 to <code>'1'</code>.</dd>
+      </dl>
+      <div class="codelabel">bitstrings.cpp</div>
+<pre class="code"><span class="c">// PQ 2023/2024 Question Three (b): read sets dynamically, print bit strings.</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">#include</span> &lt;string&gt;
+<span class="k">#include</span> &lt;vector&gt;
+<span class="k">using namespace</span> std;
+
+<span class="k">const int</span> UNIVERSE = <span class="n">10</span>;                <span class="c">// U = {1, 2, ..., 10}</span>
+
+<span class="c">// The bit string of one set: position i carries 1 when i is a member.</span>
+string bitString(<span class="k">const</span> vector&lt;<span class="k">int</span>&gt;&amp; members) {
+    string bits(UNIVERSE, <span class="s">'0'</span>);         <span class="c">// start with every position 0</span>
+    <span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; (<span class="k">int</span>)members.size(); i++) {
+        <span class="k">int</span> m = members[i];
+        <span class="k">if</span> (m &gt;= <span class="n">1</span> &amp;&amp; m &lt;= UNIVERSE) bits[m - <span class="n">1</span>] = <span class="s">'1'</span>;
+    }
+    <span class="k">return</span> bits;
+}
+
+<span class="k">int</span> main() {
+    <span class="k">int</span> howMany;
+    cout &lt;&lt; <span class="s">"How many sets? "</span>;
+    cin &gt;&gt; howMany;
+
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="n">1</span>; s &lt;= howMany; s++) {
+        <span class="k">int</span> size;
+        cout &lt;&lt; <span class="s">"Set "</span> &lt;&lt; s &lt;&lt; <span class="s">", how many elements? "</span>;
+        cin &gt;&gt; size;
+
+        vector&lt;<span class="k">int</span>&gt; members(size);
+        cout &lt;&lt; <span class="s">"Enter "</span> &lt;&lt; size &lt;&lt; <span class="s">" elements from 1 to "</span> &lt;&lt; UNIVERSE &lt;&lt; <span class="s">": "</span>;
+        <span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; size; i++) cin &gt;&gt; members[i];
+        cout &lt;&lt; endl;                   <span class="c">// close the line the user typed on</span>
+
+        cout &lt;&lt; <span class="s">"Set "</span> &lt;&lt; s &lt;&lt; <span class="s">" bit string: "</span> &lt;&lt; bitString(members) &lt;&lt; endl;
+    }
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="codelabel">What it printed, given the three sets of part (a)</div>
+<pre class="out">How many sets? Set 1, how many elements? Enter 3 elements from 1 to 10:
+Set 1 bit string: 0011100000
+Set 2, how many elements? Enter 4 elements from 1 to 10:
+Set 2 bit string: 1010010001
+Set 3, how many elements? Enter 6 elements from 1 to 10:
+Set 3 bit string: 0111001110
+</pre>
+      <p><b>Check against section 2.3,</b> where the same three sets were
+      converted by hand: {3, 4, 5} gives 0011100000, {1, 3, 6, 10} gives
+      1010010001, and {2, 3, 4, 7, 8, 9} gives 0111001110. The program agrees
+      with the hand answer in all thirty positions, which is the point of
+      writing both.</p>
+      <ul class="bul">
+        <li><b>Two loops, nested.</b> The outer one walks the sets, the inner
+        one walks the elements of one set. Each has its own counter, and reusing
+        <code>i</code> for both would destroy the outer count.</li>
+        <li><b>The subtraction.</b> <code>bits[m - 1]</code> is where element m
+        lives, because string positions count from 0. Getting this wrong
+        produces 0001110000 for the first set, which looks right at a glance and
+        is not.</li>
+        <li><b>The guard.</b> <code>m &gt;= 1 &amp;&amp; m &lt;= UNIVERSE</code>
+        stops a typed 11 from writing outside the string. A program that
+        crashes on bad input has lost the marks it was about to earn.</li>
+        <li><b>Why a function.</b> <code>bitString</code> does one job and is
+        called once per set. It also makes the answer readable, which on a
+        7-mark question is worth doing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">3. isPerfectSquare, by binary search</h3>
+
+  <div class="box paper" data-paper="2024-2025" data-q="Q4c">
+    <div class="bar"><span>As printed</span><span class="tag">2024/2025 &middot; Q4(c)</span></div>
+    <div class="body">
+      <p class="q">c.  Write a C++ function called isPerfectSquare that uses a binary search algorithm to verify if a given integer num
+      is a perfect square. The function should:</p>
+      <p class="qi">i.  Narrow down the search range [low,high] by repeatedly dividing it into two parts (midpoint).</p>
+      <p class="qi">ii. Calculate the square of the midpoint value.</p>
+      <p class="qi">iii. Check if the square of the midpoint is equal to num. If so, return the midpoint as the square
+      root of num.</p>
+      <p class="qi">iv. If the square of the midpoint is greater than or less than num, adjust the search range
+      accordingly.</p>
+      <p class="qi">v.  If the search range is exhausted and no midpoint satisfies the condition, return -1.</p>
+      <p class="q">Write a main function to:</p>
+      <p class="qi">i.  Prompt the user to enter an integer xx.</p>
+      <p class="qi">ii. Call isPerfectSquare(x).</p>
+      <p class="qi">iii. Display whether xx is a perfect square. If xx is a perfect square, also display its integer square
+      root. <span class="mk">6 marks</span></p>
+    </div>
+  </div>
+
+  <div class="aspnote"><b>Note on the paper</b><br>
+  <b>Three names for one value.</b> The function's parameter is called
+  <b>num</b>, the main function is told to prompt for "an integer <b>xx</b>",
+  then to call <b>isPerfectSquare(x)</b> with a single x, then to report on
+  <b>xx</b> again. Only one value is involved. Answer it with one variable,
+  named once, and say in a line which name you adopted; a marker reading three
+  names in a six-mark question is looking to see whether you noticed.
+  <br><br>
+  <b>The function name is not yours to change.</b> The question names it
+  <b>isPerfectSquare</b>, so that is its name, spelled and capitalised exactly
+  that way. Renaming it to <code>perfect_square</code> or
+  <code>isSquare</code> is the same defect as paraphrasing a quotation: the
+  question asked for a specific thing and got something else.
+  <br><br>
+  <b>Part iv says "greater than or less than".</b> Those are two different
+  adjustments, not one, and the answer must make both moves: too big means
+  search below the midpoint, too small means search above it. A single branch
+  answers half the part.</div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>An integer. A five-step specification of the function,
+      and a three-step specification of main.</dd>
+      <dt>Asked</dt><dd><b>Write a function called isPerfectSquare</b> using
+      <b>binary search</b>, plus a <b>main</b> that prompts, calls and reports.
+      Two deliverables.</dd>
+      <dt>Marks say</dt><dd>6, split across eight numbered requirements. The
+      cheapest way to secure them is to make the numbering visible in the answer,
+      so that each printed requirement has a line the marker can point at.</dd>
+      <dt>Teaches</dt><dd>Sections 11.1 (functions, while, integer division)
+      and 9.4, where T(n) = T(n/2) + 1 is exactly this algorithm's cost.</dd>
+      <dt>Trap</dt><dd>Answering with <code>sqrt(num)</code>. It is shorter, it
+      works, and it scores nothing, because the question asks for a binary
+      search and that is what the marks are for. Also: returning
+      <code>true</code> or <code>false</code>, when the question says to return
+      the midpoint or &#8722;1, so the return type is <code>int</code> despite
+      the name beginning with "is".</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q4(c), compiled and run</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>An integer num, and the search range [low, high]
+        starting at [1, num].</dd>
+        <dt>Find</dt><dd>The integer square root of num, or &#8722;1.</dd>
+        <dt>Formula</dt><dd>Halve the range each pass: compare
+        mid<sup>2</sup> with num and keep whichever half can still contain the
+        answer.</dd>
+      </dl>
+      <div class="codelabel">perfectsquare.cpp</div>
+<pre class="code"><span class="c">// PQ 2024/2025 Question Four (c): isPerfectSquare by binary search.</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">using namespace</span> std;
+
+<span class="c">// Returns the integer square root of num, or -1 if num is not a perfect square.</span>
+<span class="k">int</span> isPerfectSquare(<span class="k">int</span> num) {
+    <span class="k">if</span> (num &lt; <span class="n">0</span>) <span class="k">return</span> -<span class="n">1</span>;             <span class="c">// no real square root</span>
+    <span class="k">if</span> (num == <span class="n">0</span>) <span class="k">return</span> <span class="n">0</span>;             <span class="c">// 0 = 0 * 0</span>
+
+    <span class="k">int</span> low = <span class="n">1</span>, high = num;            <span class="c">// the search range [low, high]</span>
+    <span class="k">while</span> (low &lt;= high) {
+        <span class="k">int</span> mid = low + (high - low) / <span class="n">2</span>;        <span class="c">// i. the midpoint</span>
+        <span class="k">long long</span> square = (<span class="k">long long</span>)mid * mid; <span class="c">// ii. square it</span>
+
+        <span class="k">if</span> (square == num) <span class="k">return</span> mid;           <span class="c">// iii. found it</span>
+        <span class="k">if</span> (square &lt; num) low = mid + <span class="n">1</span>;         <span class="c">// iv. adjust upward</span>
+        <span class="k">else</span> high = mid - <span class="n">1</span>;                    <span class="c">// iv. adjust downward</span>
+    }
+    <span class="k">return</span> -<span class="n">1</span>;                          <span class="c">// v. range exhausted</span>
+}
+
+<span class="k">int</span> main() {
+    <span class="k">int</span> x;
+    cout &lt;&lt; <span class="s">"Enter an integer: "</span>;              <span class="c">// i. prompt</span>
+    cin &gt;&gt; x;
+
+    <span class="k">int</span> root = isPerfectSquare(x);            <span class="c">// ii. call it</span>
+    <span class="k">if</span> (root == -<span class="n">1</span>) {                          <span class="c">// iii. report</span>
+        cout &lt;&lt; x &lt;&lt; <span class="s">" is not a perfect square."</span> &lt;&lt; endl;
+    } <span class="k">else</span> {
+        cout &lt;&lt; x &lt;&lt; <span class="s">" is a perfect square."</span> &lt;&lt; endl;
+        cout &lt;&lt; <span class="s">"Its integer square root is "</span> &lt;&lt; root &lt;&lt; <span class="s">"."</span> &lt;&lt; endl;
+    }
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="codelabel">What it printed, run twice</div>
+<pre class="out">Enter an integer: 49 is a perfect square.
+Its integer square root is 7.
+
+Enter an integer: 50 is not a perfect square.
+</pre>
+      <p><b>The name is the paper's.</b> <code>isPerfectSquare</code>, spelled
+      and capitalised exactly as printed, and one variable <code>x</code> for
+      the value the question called num, xx and x in three different places. The
+      comments carry the paper's own numbering, i to v and i to iii, so each
+      requirement has a line beside it.</p>
+      <ul class="bul">
+        <li><b>Why the range starts at [1, num].</b> The square root of num is
+        never larger than num for whole numbers, so the answer, if it exists, is
+        inside. Starting at [1, num] is safe and needs no justification;
+        [1, num/2 + 1] is tighter and needs one.</li>
+        <li><b>Why <code>low + (high - low) / 2</code>.</b> It is the midpoint,
+        written so that <code>low + high</code> is never formed. That sum can
+        exceed what an <code>int</code> holds when num is large, and the
+        overflow would produce a negative midpoint. Worth one line in an
+        answer.</li>
+        <li><b>Why <code>long long</code> for the square.</b> mid can be close
+        to num, so mid &#215; mid can be far past the <code>int</code> limit.
+        Squaring inside an <code>int</code> is the bug this program is most
+        likely to have, and it is silent.</li>
+        <li><b>Why the loop ends.</b> Every pass either returns or moves
+        <code>low</code> up or <code>high</code> down by at least one, so the
+        range strictly shrinks and <code>low &lt;= high</code> must eventually
+        fail. That is the termination argument, and it is the sort of thing
+        section 9.2 taught you to state rather than assume.</li>
+        <li><b>The cost.</b> Each pass halves the range, so the number of passes
+        is the number of halvings needed to reduce num to 1. That is the
+        recurrence T(n) = T(n/2) + 1 of section 9.4, and it is why binary search
+        beats testing 1, 2, 3, ... in turn.</li>
+      </ul>
+      <p class="redo"><b>Now redo it:</b> trace the function on num = 49 by
+      hand. Range [1, 49], mid 25, 625 &gt; 49 so high becomes 24; mid 12,
+      144 &gt; 49 so high becomes 11; mid 6, 36 &lt; 49 so low becomes 7; mid 9,
+      81 &gt; 49 so high becomes 8; mid 7, 49 = 49, return <b>7</b>. Five passes
+      to search forty-nine numbers.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">4. Counting the remaining degree-3 and degree-4 vertices</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Where this question is quoted</span></div>
+    <div class="body">
+      <p>2024/2025 Question Five is printed as a single scenario with seven
+      parts, so it is quoted whole, once, in section 6.3 where the Handshaking
+      theorem is taught. Part (d) is the programming one:</p>
+      <p style="margin-left:12pt">"Write a C++ code snippet to compute the
+      remaining number of vertices that have either degree 3 or 4."
+      <span class="mk">3 marks</span></p>
+      <p>Section 6.3 answers the mathematics: 24 vertices and 30 edges force the
+      degree sum to 60; the five of degree 4, seven pendant and seven of degree
+      2 account for 19 vertices and 41 of that sum, leaving 5 vertices to share
+      19, which can only be four of degree 4 and one of degree 3. So the graph
+      has <b>9</b> vertices of degree 4, not the five the question appears to
+      state. This section turns that reasoning into the snippet the part asks
+      for.</p>
+      <p><b>Note the word "snippet".</b> The question does not ask for a
+      complete program, so a fragment would be accepted. The listing below is
+      complete anyway, because a complete program can be run and a fragment
+      cannot, and the wrapper is <b>ours, not the examiner's</b>: if you
+      reproduce this in an exam, the part inside main is the answer and the
+      include line is scaffolding.</p>
+    </div>
+  </div>
+
+  <div class="breakdown">
+    <div class="bdh">Break it down</div>
+    <dl>
+      <dt>Given</dt><dd>24 vertices, 30 edges, five of degree 4, seven pendant,
+      seven of degree 2, and every other vertex of degree 3 or 4.</dd>
+      <dt>Asked</dt><dd><b>Write a C++ code snippet</b> to <b>compute the
+      remaining number</b> of vertices of degree 3 or 4.</dd>
+      <dt>Marks say</dt><dd>3. Small, so the marks are for the arithmetic being
+      right and visible, not for program structure. Print the intermediate
+      values.</dd>
+      <dt>Teaches</dt><dd>Sections 6.3 (Handshaking) and 11.1.</dd>
+      <dt>Trap</dt><dd>Reading "the remaining number of vertices that have
+      either degree 3 or 4" as just 24 &#8722; 19 = 5. That is the count of
+      vertices left, and it is worth computing, but the question sits inside a
+      scenario whose whole point is the split of those five. Compute both, and
+      say which is which.</dd>
+    </dl>
+  </div>
+
+  <div class="box work">
+    <div class="bar"><span>Worked example</span><span class="tag">PQ 24/25 Q5(d), compiled and run</span></div>
+    <div class="body">
+      <dl class="params">
+        <dt>Given</dt><dd>v = 24, e = 30, and the counts 5, 7, 7 of degree 4, 1
+        and 2 respectively.</dd>
+        <dt>Find</dt><dd>How many vertices remain, and how those split between
+        degree 3 and degree 4.</dd>
+        <dt>Formula</dt><dd>&#931; deg(v) = 2|E| from section 6.3, then the pair
+        of simultaneous equations four + three = remaining and
+        4 &#215; four + 3 &#215; three = leftDegree.</dd>
+      </dl>
+      <div class="codelabel">degrees.cpp</div>
+<pre class="code"><span class="c">// PQ 2024/2025 Question Five (d): the vertices of degree 3 or 4 still to classify.</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">using namespace</span> std;
+
+<span class="k">int</span> main() {
+    <span class="k">int</span> vertices = <span class="n">24</span>, edges = <span class="n">30</span>;
+    <span class="k">int</span> knownDeg4 = <span class="n">5</span>, pendant = <span class="n">7</span>, deg2 = <span class="n">7</span>;
+
+    <span class="k">int</span> accounted = knownDeg4 + pendant + deg2;      <span class="c">// vertices already named</span>
+    <span class="k">int</span> remaining = vertices - accounted;            <span class="c">// still to classify</span>
+
+    <span class="k">int</span> degreeSum = <span class="n">2</span> * edges;                       <span class="c">// Handshaking theorem</span>
+    <span class="k">int</span> usedDegree = <span class="n">4</span> * knownDeg4 + <span class="n">1</span> * pendant + <span class="n">2</span> * deg2;
+    <span class="k">int</span> leftDegree = degreeSum - usedDegree;         <span class="c">// degree left to share</span>
+
+    <span class="c">// Solve  four + three = remaining  and  4*four + 3*three = leftDegree.</span>
+    <span class="k">int</span> four = leftDegree - <span class="n">3</span> * remaining;
+    <span class="k">int</span> three = remaining - four;
+
+    cout &lt;&lt; <span class="s">"Vertices still to classify: "</span> &lt;&lt; remaining &lt;&lt; endl;
+    cout &lt;&lt; <span class="s">"Degree left to share:       "</span> &lt;&lt; leftDegree &lt;&lt; endl;
+    cout &lt;&lt; <span class="s">"Of those, degree 4: "</span> &lt;&lt; four &lt;&lt; <span class="s">", degree 3: "</span> &lt;&lt; three &lt;&lt; endl;
+    cout &lt;&lt; <span class="s">"Degree-4 vertices in the whole graph: "</span> &lt;&lt; knownDeg4 + four &lt;&lt; endl;
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="codelabel">What it printed</div>
+<pre class="out">Vertices still to classify: 5
+Degree left to share:       19
+Of those, degree 4: 4, degree 3: 1
+Degree-4 vertices in the whole graph: 9
+</pre>
+      <p><b>Where the two-line solution comes from.</b> Let four and three be
+      the counts. Then four + three = 5 and
+      4 &#215; four + 3 &#215; three = 19. Substituting three = 5 &#8722; four
+      into the second gives
+      4 &#215; four + 15 &#8722; 3 &#215; four = 19, so four = 19 &#8722; 15 = 4
+      and three = 1. The single line
+      <code>four = leftDegree - 3 * remaining</code> is that substitution done
+      once and for all, which is why it deserves the comment above it.</p>
+      <p><b>The final line is the answer to part (a),</b> not part (d), and
+      printing it costs nothing. 5 + 4 = <b>9</b> vertices of degree 4, which is
+      the trap the whole question is built around.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. How does the power set program enumerate subsets, and why
+      does that give the paper's order?</p>
+      <p class="q">2. What does the word "dynamically" require of the
+      bit-string program?</p>
+      <p class="q">3. Why is element m stored at position m &#8722; 1?</p>
+      <p class="q">4. Why must isPerfectSquare return an <code>int</code> rather
+      than a <code>bool</code>?</p>
+      <p class="q">5. Give two reasons the binary search uses
+      <code>long long</code> and <code>low + (high - low) / 2</code>.</p>
+      <p class="q">6. In the degree question, how many vertices of degree 4 does
+      the graph have?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. By counting a mask from 0 to 2<sup>n</sup> &#8722; 1 and reading its
+      bits. Counting in that order is exactly the order the paper printed.<br>
+      2. That the sets arrive through <code>cin</code> at run time rather than
+      being written into the source.<br>
+      3. Because string and vector positions count from 0, so the ten elements
+      of U occupy positions 0 to 9.<br>
+      4. Because the question says to return the midpoint as the square root, or
+      &#8722;1 if there is none, and neither of those is a truth value.<br>
+      5. <code>long long</code> because mid &#215; mid can exceed the
+      <code>int</code> range and overflow silently; the midpoint form because
+      <code>low + high</code> can overflow before the division happens.<br>
+      6. Nine: the five named in the question plus four of the five remaining
+      vertices.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>A set of n elements has <span class="blank"></span> subsets, so the
+        enumeration loop runs that many times.</li>
+        <li>The empty set is the subset with mask =
+        <span class="blank"></span>.</li>
+        <li>The bit string of {3, 4, 5} over U = {1, ..., 10} is
+        <span class="blank"></span>.</li>
+        <li>Answering the isPerfectSquare question with
+        <code>sqrt(num)</code> scores <span class="blank"></span>.</li>
+        <li>Binary search on a range of n values costs about
+        <span class="blank"></span> passes.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. 2<sup>n</sup>. 2. 0. 3. 0011100000. 4. nothing, because the question
+      asks for a binary search and that is where the marks are.
+      5. the number of halvings needed to reduce n to 1.</p>
+    </div>
+  </div>
+
 </section>

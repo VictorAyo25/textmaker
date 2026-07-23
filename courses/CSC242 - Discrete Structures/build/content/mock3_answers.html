@@ -2,7 +2,693 @@
   <div class="kick">Mock Examination Three</div>
   <h2 class="title">Answers</h2>
   <hr class="rule">
-  <p class="lead">Stub section. Real content follows.</p>
-  <p>Placeholder paragraph so the section occupies a measurable amount of the
-  page and the layout gate has something real to look at.</p>
+  <p class="lead">Mark these strictly. On this paper the number at the end of a
+  part is worth almost nothing on its own: the marks are in the justification,
+  and a proof that reaches the right conclusion by an argument that does not
+  hold is worth less than an honest attempt that stops halfway. Where an answer
+  below names a law or a definition, check that your own script named it
+  too.</p>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q1 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. (p &#8743; q) &#8744; (p &#8743; &#172;q) &#8801; p, by the laws (4 marks)</p>
+      <p>Three steps, and each one is a mark. The instruction "without using a
+      truth table" means the table earns nothing here even if it is correct.</p>
+      <table class="data">
+        <tr><th>Step</th><th>Expression</th><th>Law used</th></tr>
+        <tr><td>0</td><td>(p &#8743; q) &#8744; (p &#8743; &#172;q)</td><td>the given proposition</td></tr>
+        <tr><td>1</td><td>p &#8743; (q &#8744; &#172;q)</td><td>distributive</td></tr>
+        <tr><td>2</td><td>p &#8743; T</td><td>negation, since q &#8744; &#172;q is always true</td></tr>
+        <tr><td>3</td><td><b>p</b></td><td>identity</td></tr>
+      </table>
+      <p><b>Say what it means,</b> which costs a sentence and shows the
+      manipulation was understood: whether q holds or not is irrelevant to the
+      compound, because the two disjuncts between them cover both cases and
+      each requires p. This is the propositional twin of the Boolean
+      simplification AB + AB&#8242; = A.</p>
+      <p class="marks">b. Is (p &#8594; q) &#8743; (&#172;p &#8594; r) &#8594; (q &#8744; r) a tautology? (5 marks)</p>
+      <p><b>Yes.</b> The table has 2<sup>3</sup> = 8 rows and the last column
+      is true in every one.</p>
+      <table class="data">
+        <tr><th>p</th><th>q</th><th>r</th><th>p &#8594; q</th><th>&#172;p &#8594; r</th><th>both</th><th>q &#8744; r</th><th>the whole</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td><td><b>T</b></td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td><b>T</b></td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td><b>T</b></td></tr>
+      </table>
+      <p><b>The argument in two lines, which is the better answer</b> if the
+      question does not insist on a table. Suppose both premises hold. Either p
+      is true, in which case p &#8594; q gives q, so q &#8744; r holds; or p is
+      false, in which case &#172;p is true and &#172;p &#8594; r gives r, so
+      q &#8744; r holds again. There is no third case, so the conclusion cannot
+      fail while the premises hold. That is a <b>proof by cases</b>, and it
+      explains <i>why</i> the table came out as it did.</p>
+      <p><b>Rows 4 and 8 are the ones to look at.</b> In both, q &#8744; r is
+      false, so if the whole thing is to be a tautology the premise must be
+      false there, and it is. An implication with a false hypothesis is true
+      whatever its conclusion does, which is exactly the vacuous case that
+      makes so many people distrust the truth table for
+      &#8594;.</p>
+      <p class="marks">c. Symbolising and negating (4 marks)</p>
+      <p><b>Declare the domains and the predicate before writing a
+      quantifier.</b> Let x range over the students in the class, let y range
+      over the problems set, and let S(x, y) mean "student x has solved problem
+      y". Then</p>
+      <p style="margin-left:12pt">&#8704;x &#8707;y S(x, y)</p>
+      <p><b>The negation,</b> pushed inward one quantifier at a time. Each step
+      flips one quantifier and moves the negation past it:</p>
+      <p style="margin-left:12pt">&#172;&#8704;x &#8707;y S(x, y)<br>
+      &#8801; &#8707;x &#172;&#8707;y S(x, y)<br>
+      &#8801; <b>&#8707;x &#8704;y &#172;S(x, y)</b></p>
+      <p><b>In plain words:</b> there is a student in the class who has solved
+      no problem at all.</p>
+      <p><b>The two traps.</b> First, the order of the quantifiers matters:
+      &#8707;y &#8704;x S(x, y) would say there is one single problem that
+      every student has solved, which is a much stronger claim than the
+      original. Second, the negation is <b>not</b> "no student has solved any
+      problem"; that would be &#8704;x &#8704;y &#172;S(x, y). Denying that
+      everyone succeeded requires only one failure.</p>
+      <p class="marks">d. The validity of the syllogism (4.5 marks)</p>
+      <p>Let C(x) mean x is a computer scientist, L(x) that x is logical and
+      M(x) that x is a musician.</p>
+      <p style="margin-left:12pt">Premise 1: &#8704;x (C(x) &#8594; L(x))<br>
+      Premise 2: &#8707;x (L(x) &#8743; M(x))<br>
+      Conclusion: &#8707;x (C(x) &#8743; M(x))</p>
+      <p><b>The argument is invalid,</b> and the way to prove an argument
+      invalid is to exhibit one situation in which every premise is true and
+      the conclusion is false. Take a universe of just two individuals, 1 and
+      2, and set</p>
+      <p style="margin-left:12pt">C = {1}, &nbsp; L = {1, 2}, &nbsp;
+      M = {2}</p>
+      <p><b>Premise 1 holds:</b> the only computer scientist is 1, and 1 is
+      logical.<br>
+      <b>Premise 2 holds:</b> 2 is both logical and a musician.<br>
+      <b>The conclusion fails:</b> the only computer scientist is 1, and 1 is
+      not a musician, so no individual satisfies
+      C(x) &#8743; M(x).</p>
+      <p>Premises true and conclusion false in the same situation, so the
+      argument is <b>not valid</b>.</p>
+      <p><b>Where the reasoning goes wrong.</b> Being logical is the middle
+      term, and the two premises attach to <i>different parts</i> of it: the
+      first says the computer scientists sit somewhere inside the logical
+      people, the second says some logical people are musicians, and nothing
+      forces those two regions of the logical people to overlap. Drawing three
+      circles makes this visible at once, and a Venn diagram is a perfectly
+      acceptable way to present this answer provided the counter-example is
+      named.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q2 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. a &#8722; b divisible by 5, on the integers (6 marks)</p>
+      <p><b>Use the definition of "divides" explicitly,</b> because every one of
+      the three checks is an application of it: 5 divides m means m = 5k for
+      some integer k.</p>
+      <p><b>Reflexive.</b> For any integer a, a &#8722; a = 0 = 5 &#215; 0, and
+      0 is an integer, so 5 divides a &#8722; a and a R a. This holds for every
+      a, so R is reflexive.</p>
+      <p><b>Symmetric.</b> Suppose a R b, so a &#8722; b = 5k for some integer
+      k. Then</p>
+      <p style="margin-left:12pt">b &#8722; a = &#8722;(a &#8722; b) =
+      5(&#8722;k)</p>
+      <p>and &#8722;k is an integer, so 5 divides b &#8722; a and b R a.</p>
+      <p><b>Transitive.</b> Suppose a R b and b R c, so a &#8722; b = 5k and
+      b &#8722; c = 5m for integers k and m. Adding,</p>
+      <p style="margin-left:12pt">a &#8722; c = (a &#8722; b) +
+      (b &#8722; c) = 5k + 5m = 5(k + m)</p>
+      <p>and k + m is an integer, so a R c.</p>
+      <p><b>R is reflexive, symmetric and transitive, so it is an equivalence
+      relation.</b></p>
+      <p><b>The classes.</b> Two integers are related exactly when they leave
+      the <b>same remainder on division by 5</b>, since if a = 5q + r and
+      b = 5q&#8242; + r then a &#8722; b = 5(q &#8722; q&#8242;), and
+      conversely. There are five possible remainders, so there are exactly
+      <b>five</b> classes:</p>
+      <p style="margin-left:12pt">[0] = {&#8230;, &#8722;10, &#8722;5, 0, 5,
+      10, &#8230;}<br>
+      [1] = {&#8230;, &#8722;9, &#8722;4, 1, 6, 11, &#8230;}<br>
+      [2] = {&#8230;, &#8722;8, &#8722;3, 2, 7, 12, &#8230;}<br>
+      [3] = {&#8230;, &#8722;7, &#8722;2, 3, 8, 13, &#8230;}<br>
+      [4] = {&#8230;, &#8722;6, &#8722;1, 4, 9, 14, &#8230;}</p>
+      <p><b>Every integer lies in exactly one of them,</b> which is the
+      partition the relation induces and the sentence that finishes the answer.
+      Note that the classes are infinite while there are only finitely many of
+      them: a partition does not have to cut a set into small pieces, only into
+      pieces that do not overlap and leave nothing out.</p>
+      <p class="marks">b. f(n) = 2n + 1 from the integers to the integers (4 marks)</p>
+      <p><b>Injective, yes.</b> Suppose f(n<sub>1</sub>) = f(n<sub>2</sub>).
+      Then 2n<sub>1</sub> + 1 = 2n<sub>2</sub> + 1, so
+      2n<sub>1</sub> = 2n<sub>2</sub>, so n<sub>1</sub> = n<sub>2</sub>.</p>
+      <p><b>Surjective, no.</b> Every value of f is odd, because 2n is even for
+      every integer n and one more than an even number is odd. So no even
+      integer is an image. A single witness settles it: if
+      f(n) = 2 then 2n + 1 = 2, so n = 1/2, which is <b>not an
+      integer</b>, and therefore 2 has no preimage.</p>
+      <p><b>Making it a bijection.</b> f is injective but not surjective, so
+      the codomain is too large. Shrink it to exactly the set of values f
+      actually takes:</p>
+      <p style="margin-left:12pt">f from the integers to
+      <b>{ 2k + 1 : k is an integer }</b>, the set of odd integers</p>
+      <p>This is now surjective by construction, since any odd integer can be
+      written 2k + 1 and is then f(k), and it is still injective because
+      shrinking the codomain cannot make two inputs collide. So it is a
+      bijection.</p>
+      <p><b>The general principle worth stating:</b> any injective function
+      becomes a bijection onto its range. It is surjectivity that a codomain
+      can be blamed for; injectivity is a property of the rule itself.</p>
+      <p class="marks">c. Reading the five properties off a matrix (4 marks)</p>
+      <table class="data" style="width:auto">
+        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>1</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>2</th><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><th>3</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><th>4</th><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      </table>
+      <table class="data">
+        <tr><th>Property</th><th>Test in the matrix</th><th>Verdict</th></tr>
+        <tr><td>Reflexive</td><td>the main diagonal is all 1's</td><td><b>Yes</b>, it reads 1, 1, 1, 1</td></tr>
+        <tr><td>Irreflexive</td><td>the main diagonal is all 0's</td><td><b>No</b>, and it cannot be, the relation being reflexive</td></tr>
+        <tr><td>Symmetric</td><td>the matrix equals its transpose</td><td><b>Yes</b>, the only off-diagonal 1's are at (1,3) and (3,1)</td></tr>
+        <tr><td>Antisymmetric</td><td>no off-diagonal position has 1 in both (i, j) and (j, i)</td><td><b>No</b>, (1,3) and (3,1) are both 1 with 1 &#8800; 3</td></tr>
+        <tr><td>Transitive</td><td>every two-step path has a one-step edge</td><td><b>Yes</b>, checked below</td></tr>
+      </table>
+      <p><b>Transitivity checked in full,</b> since it is the one property the
+      matrix does not settle at a glance. The only composable pairs involving
+      different elements are (1,3) with (3,1), needing (1,1), present; (3,1)
+      with (1,3), needing (3,3), present; (1,3) with (3,3), needing (1,3),
+      present; and (1,1) with (1,3), needing (1,3), present. Everything else is
+      a loop composed with itself. So R is transitive.</p>
+      <p><b>R is reflexive, symmetric and transitive, so it is an equivalence
+      relation,</b> and the partition it induces is</p>
+      <p style="margin-left:12pt"><b>{1, 3}</b>, &nbsp; <b>{2}</b>, &nbsp;
+      <b>{4}</b></p>
+      <p><b>A class of one is still a class.</b> Elements 2 and 4 are related
+      to nothing but themselves, and a partition must cover the whole set, so
+      each forms its own block. Leaving them out is the usual way to lose the
+      last mark here.</p>
+      <p class="marks">d. The composition of two injections (3.5 marks)</p>
+      <p><b>Set it up first.</b> Let f be a function from A to B and g a
+      function from B to C, both injective, so that g &#8728; f is a function
+      from A to C.</p>
+      <p><b>Proof.</b> Suppose (g &#8728; f)(x<sub>1</sub>) =
+      (g &#8728; f)(x<sub>2</sub>) for some x<sub>1</sub> and x<sub>2</sub> in
+      A. By the definition of composition this says</p>
+      <p style="margin-left:12pt">g(f(x<sub>1</sub>)) =
+      g(f(x<sub>2</sub>))</p>
+      <p>Now f(x<sub>1</sub>) and f(x<sub>2</sub>) are elements of B, and g is
+      injective, so equal images force equal inputs:</p>
+      <p style="margin-left:12pt">f(x<sub>1</sub>) = f(x<sub>2</sub>)</p>
+      <p>And f is injective, so by the same reasoning</p>
+      <p style="margin-left:12pt">x<sub>1</sub> = x<sub>2</sub></p>
+      <p>Since x<sub>1</sub> and x<sub>2</sub> were arbitrary, g &#8728; f
+      sends no two different inputs to the same output, and is therefore
+      injective. &#8718;</p>
+      <p><b>Notice the order in which the two hypotheses are used:</b> g first,
+      then f, which is the reverse of the order in which the functions are
+      applied. That is not a coincidence, and saying so is worth half a mark:
+      the proof runs backwards along the chain
+      x &#8594; f(x) &#8594; g(f(x)), peeling off the outermost function
+      first.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q3 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Divisible by 3 or 5 but not by 15 (5 marks)</p>
+      <p><b>Count each family with a division.</b> The number of integers from
+      1 to 1000 that a given d divides is the whole-number part of
+      1000 / d.</p>
+      <p style="margin-left:12pt">divisible by 3: 1000 / 3 = 333.33&#8230;, so
+      <b>333</b><br>
+      divisible by 5: 1000 / 5 = <b>200</b><br>
+      divisible by 15: 1000 / 15 = 66.66&#8230;, so <b>66</b></p>
+      <p><b>Why 15 and not something else.</b> An integer is divisible by both
+      3 and 5 exactly when it is divisible by 15, because 3 and 5 have no
+      common factor above 1. This is the step to state: writing 3 &#215; 5 = 15
+      without saying why the two conditions combine that way is the part
+      examiners probe.</p>
+      <p><b>Divisible by 3 or by 5,</b> by inclusion and exclusion:</p>
+      <p style="margin-left:12pt">333 + 200 &#8722; 66 = <b>467</b></p>
+      <p><b>Now remove the multiples of 15.</b> Every multiple of 15 is
+      divisible by 3, so all 66 of them are inside that 467 and must come
+      out:</p>
+      <p style="margin-left:12pt">467 &#8722; 66 = <b>401</b></p>
+      <p><b>Check by regions.</b> Divisible by 3 only: 333 &#8722; 66 = 267.
+      Divisible by 5 only: 200 &#8722; 66 = 134. Their sum is
+      267 + 134 = <b>401</b>, computed a different way. The phrase "or but
+      not both" would have meant the same thing here, which is worth noticing:
+      "divisible by 15" and "divisible by both" are the same set.</p>
+      <p class="marks">b. MISSISSIPPI (5 marks)</p>
+      <p><b>Count the letters first.</b> MISSISSIPPI has 11 letters: M once, I
+      four times, S four times, P twice. Check:
+      1 + 4 + 4 + 2 = 11.</p>
+      <p style="margin-left:12pt">11! / (4! &#215; 4! &#215; 2!) =
+      39916800 / (24 &#215; 24 &#215; 2) = 39916800 / 1152 =
+      <b>34650</b></p>
+      <p><b>All four S's together.</b> Glue them into a single block. The block
+      then behaves as one letter, so the objects to arrange are</p>
+      <p style="margin-left:12pt">[SSSS], M, I, I, I, I, P, P &nbsp; that is
+      <b>8</b> objects, with the four I's alike and the two P's alike</p>
+      <p style="margin-left:12pt">8! / (4! &#215; 2!) = 40320 / 48 =
+      <b>840</b></p>
+      <p><b>Why the block is not itself rearranged.</b> Ordinarily a block of k
+      items would be permuted internally in k! ways, but the four S's are
+      identical, so their 4! internal orders all give the same word. Multiplying
+      by 4! here is the standard error and gives 20160.</p>
+      <p><b>A sanity check on the size:</b> 840 out of 34650 is about one
+      arrangement in 41, which is plausible, since insisting that four
+      particular letters be adjacent is a severe restriction. An answer larger
+      than 34650 would be impossible on its face.</p>
+      <p class="marks">c. Eight characters with at least one digit (4 marks)</p>
+      <p>The alphabet has 26 + 26 + 10 = <b>62</b> characters. "At least one"
+      is the signal for the <b>complement</b>: count all passwords and remove
+      those with no digit at all.</p>
+      <p style="margin-left:12pt">all passwords: 62<sup>8</sup> =
+      <b>218340105584896</b><br>
+      with no digit, only the 52 letters: 52<sup>8</sup> =
+      <b>53459728531456</b><br>
+      at least one digit = 62<sup>8</sup> &#8722; 52<sup>8</sup> =
+      <b>164880377053440</b></p>
+      <p><b>Leaving the answer as 62<sup>8</sup> &#8722; 52<sup>8</sup> is
+      acceptable</b> and is what most of the marks are for. If you do evaluate
+      it, note that the answer is about 75.5% of all passwords, which is the
+      kind of remark that shows the number was understood rather than
+      copied off a calculator.</p>
+      <p><b>Why not count directly.</b> "Exactly one digit, exactly two digits,
+      and so on up to eight" is eight terms, each a product of a binomial
+      coefficient and two powers. It gives the same answer and takes ten times
+      as long.</p>
+      <p class="marks">d. Two pigeonhole arguments (3.5 marks)</p>
+      <p><b>The first.</b> Name the objects and the boxes, which is where the
+      marks are. The <b>objects</b> are the 13 people; the <b>boxes</b> are the
+      12 months of the year; each person goes into the box of their birth
+      month, and every person has exactly one birth month, so every object goes
+      into some box. Since 13 &gt; 12, the pigeonhole principle says some box
+      holds at least two people, that is, <b>two people share a birth
+      month</b>.</p>
+      <p><b>The second</b> needs the generalised form: N objects in k boxes
+      force some box to hold at least &#8968;N / k&#8969;. Three in one box is
+      guaranteed as soon as</p>
+      <p style="margin-left:12pt">&#8968;N / 12&#8969; &#8805; 3, that is
+      N &gt; 24, so the least such N is <b>25</b></p>
+      <p><b>Why 24 is not enough,</b> and this sentence is worth a mark of its
+      own: with 24 people it is possible for exactly two to be born in each of
+      the twelve months, and then no month holds three. The principle
+      guarantees a crowded box only from the twenty-fifth person onward, and
+      exhibiting the arrangement that defeats 24 is what proves the answer is
+      least.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q4 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. The number of odd-degree vertices is even (4 marks)</p>
+      <p><b>Split the sum, which is the whole idea.</b> Let V be the vertex set
+      and divide it into the vertices of even degree and the vertices of odd
+      degree. By the handshaking theorem</p>
+      <p style="margin-left:12pt">&#8721;<sub>even</sub> deg(v) +
+      &#8721;<sub>odd</sub> deg(v) = &#8721;<sub>V</sub> deg(v) =
+      2|E|</p>
+      <p><b>Two of those three quantities are visibly even.</b> The total
+      2|E| is even, being twice a whole number. The first sum is even, being a
+      sum of even numbers. Therefore</p>
+      <p style="margin-left:12pt">&#8721;<sub>odd</sub> deg(v) = 2|E| &#8722;
+      &#8721;<sub>even</sub> deg(v) = even &#8722; even = <b>even</b></p>
+      <p><b>Finish with the parity argument.</b> That last sum consists
+      entirely of odd numbers. A sum of odd numbers is odd when there is an odd
+      count of them and even when there is an even count. Since the sum is
+      even, the count must be even. So the number of vertices of odd degree is
+      even. &#8718;</p>
+      <p><b>The consequence worth naming:</b> no graph has exactly one
+      odd-degree vertex, or three, or five. This is the corollary that answers
+      "can such a graph exist" questions in one line, and part (b) of Mock Two
+      Question Four used it.</p>
+      <p class="marks">b. The tree with degrees 4, 4, 3, 3, 3 and the rest 1 (5 marks)</p>
+      <p><b>Two facts about the tree, then equate them.</b> Let n be the total
+      number of vertices. A tree on n vertices has exactly n &#8722; 1 edges,
+      so by the handshaking theorem</p>
+      <p style="margin-left:12pt">&#8721; deg(v) = 2(n &#8722; 1) =
+      2n &#8722; 2</p>
+      <p><b>Now add the degrees up from the description.</b> There are two
+      vertices of degree 4, three of degree 3, and the remaining
+      n &#8722; 5 vertices have degree 1:</p>
+      <p style="margin-left:12pt">&#8721; deg(v) = 2 &#215; 4 + 3 &#215; 3 +
+      (n &#8722; 5) &#215; 1 = 8 + 9 + n &#8722; 5 = n + 12</p>
+      <p><b>Equating the two expressions</b> gives one equation in one
+      unknown:</p>
+      <p style="margin-left:12pt">n + 12 = 2n &#8722; 2, so n =
+      <b>14</b></p>
+      <p><b>Check every figure.</b> The tree has 14 vertices and 13 edges. Its
+      leaves number 14 &#8722; 5 = 9, and the degrees total
+      8 + 9 + 9 = 26, which is 2 &#215; 13 as the theorem requires. A tree with
+      9 leaves and 5 branch vertices is entirely believable, so nothing here is
+      out of proportion.</p>
+      <p><b>The step that is easy to miss</b> is that "the rest" have degree 1
+      and there are n &#8722; 5 of them, not some fixed number. Writing the
+      unknown into the degree sum is what makes the equation solvable.</p>
+      <p class="marks">c. No simple graph has degree sequence (5, 5, 4, 3, 2, 1) (3.5 marks)</p>
+      <p><b>The parity test does not settle it,</b> and saying so first shows
+      you tried the cheap test: the degrees sum to
+      5 + 5 + 4 + 3 + 2 + 1 = <b>20</b>, which is even, so the handshaking
+      theorem is satisfied with 10 edges. Something else must do the
+      work.</p>
+      <p><b>The argument.</b> The sequence has six terms, so the graph has six
+      vertices, and it contains <b>two vertices of degree 5</b>. In a simple
+      graph with six vertices, a vertex of degree 5 is joined to <i>all five</i>
+      of the others, since it has no loops and no repeated edges available to
+      it. So call the two of them u and w.</p>
+      <p>Every other vertex is joined to u, and every other vertex is joined to
+      w. Hence <b>every vertex apart from u and w has degree at least 2</b>.
+      But the sequence contains a vertex of degree <b>1</b>, which would have to
+      be joined to both u and w and so have degree at least 2. That is a
+      contradiction, so no such simple graph exists. &#8718;</p>
+      <p><b>Where "simple" is doing the work.</b> Without it a vertex could
+      reach degree 5 through loops or parallel edges and would not need to
+      touch all five other vertices, and the argument collapses. Whenever a
+      degree-sequence question is set, look first at whether the largest degree
+      forces adjacency to everything.</p>
+      <p class="marks">d. Every simple connected planar graph has a vertex of degree at most 5 (5 marks)</p>
+      <p><b>By contradiction.</b> Suppose G is simple, connected and planar
+      with v &#8805; 3 vertices, and suppose <b>every</b> vertex has degree at
+      least 6.</p>
+      <p><b>The lower bound from the assumption.</b> By the handshaking
+      theorem,</p>
+      <p style="margin-left:12pt">2e = &#8721; deg(v) &#8805; 6v, so
+      e &#8805; <b>3v</b></p>
+      <p><b>The upper bound from planarity.</b> Euler's formula
+      v &#8722; e + f = 2, together with the fact that every face of a simple
+      graph is bounded by at least three edges and every edge borders at most
+      two faces, gives the standard bound</p>
+      <p style="margin-left:12pt">e &#8804; <b>3v &#8722; 6</b></p>
+      <p><b>The two bounds cannot both hold.</b> They would give</p>
+      <p style="margin-left:12pt">3v &#8804; e &#8804; 3v &#8722; 6, so
+      3v &#8804; 3v &#8722; 6, so 0 &#8804; &#8722;6</p>
+      <p>which is false. The assumption is therefore untenable, and <b>some
+      vertex has degree at most 5</b>. &#8718;</p>
+      <p><b>Read the result back.</b> This is the reason five colours are
+      always enough for a planar map by an easy argument, and it is also why
+      K<sub>5</sub>, in which every vertex has degree 4, is not ruled out by
+      this test and needs the edge-count argument instead. A theorem that
+      excludes a shape is only as useful as the shapes it fails to
+      exclude.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q5 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Simplifying A&#8242;BC + AB&#8242;C + ABC&#8242; + ABC (5 marks)</p>
+      <p><b>The trick is to use ABC three times.</b> In Boolean algebra
+      X + X = X, so a term may be duplicated as often as it is useful without
+      changing the expression. That is the idempotent law, and it is the step
+      that makes this question tractable.</p>
+      <table class="data">
+        <tr><th>Step</th><th>Expression</th><th>Law used</th></tr>
+        <tr><td>0</td><td>A&#8242;BC + AB&#8242;C + ABC&#8242; + ABC</td><td>the given F</td></tr>
+        <tr><td>1</td><td>A&#8242;BC + AB&#8242;C + ABC&#8242; + ABC + ABC + ABC</td><td>idempotent, X = X + X + X</td></tr>
+        <tr><td>2</td><td>(A&#8242;BC + ABC) + (AB&#8242;C + ABC) + (ABC&#8242; + ABC)</td><td>commutative and associative</td></tr>
+        <tr><td>3</td><td>BC(A&#8242; + A) + AC(B&#8242; + B) + AB(C&#8242; + C)</td><td>distributive</td></tr>
+        <tr><td>4</td><td>BC &#183; 1 + AC &#183; 1 + AB &#183; 1</td><td>complement</td></tr>
+        <tr><td>5</td><td><b>AB + BC + AC</b></td><td>identity</td></tr>
+      </table>
+      <p><b>Check by counting the 1's.</b> The original F is 1 in exactly four
+      rows: 011, 101, 110 and 111. The simplified AB + BC + AC is 1 exactly
+      when some two of the inputs are 1, which is those same four rows. Four
+      product terms have become three, and each has shrunk from three literals
+      to two.</p>
+      <p class="marks">b. The circuit, and what it computes (3 marks)</p>
+      <p><b>It is the majority function of three inputs:</b> the output is 1
+      exactly when at least two of A, B and C are 1. It is the circuit behind
+      any two-out-of-three voting arrangement, such as three sensors on a
+      machine or three copies of a computation compared against one
+      another.</p>
+      <figure>
+        <svg viewBox="0 0 460 290" xmlns="http://www.w3.org/2000/svg" style="width:88%;height:auto" font-family="DejaVu Sans">
+          <g stroke="#33566e" stroke-width="1.4" fill="none">
+            <path d="M40 30 L40 258"/>
+            <path d="M62 30 L62 258"/>
+            <path d="M84 30 L84 258"/>
+            <path d="M40 48 L150 48"/><path d="M62 76 L150 76"/>
+            <path d="M62 132 L150 132"/><path d="M84 160 L150 160"/>
+            <path d="M40 216 L150 216"/><path d="M84 244 L150 244"/>
+            <path d="M150 38 L172 38 A24 24 0 0 1 172 86 L150 86 Z"/>
+            <path d="M150 122 L172 122 A24 24 0 0 1 172 170 L150 170 Z"/>
+            <path d="M150 206 L172 206 A24 24 0 0 1 172 254 L150 254 Z"/>
+            <!-- Each AND output must land ON the OR gate's left edge,
+                 which is a curve bulging rightward: x = 250 + 52t(1-t).
+                 The middle wire therefore has 13pt further to travel
+                 than the outer two, and drawing all three to the same x
+                 leaves the middle one visibly short of the gate. -->
+            <path d="M196 62 L254 62"/>
+            <path d="M196 146 L263 146"/>
+            <path d="M196 230 L254 230"/>
+            <path d="M250 46 Q276 146 250 246 Q322 246 352 146 Q322 46 250 46 Z"/>
+            <path d="M352 146 L412 146"/>
+          </g>
+          <g fill="#be123c">
+            <circle cx="40" cy="48" r="3.2"/><circle cx="62" cy="76" r="3.2"/>
+            <circle cx="62" cy="132" r="3.2"/><circle cx="84" cy="160" r="3.2"/>
+            <circle cx="40" cy="216" r="3.2"/><circle cx="84" cy="244" r="3.2"/>
+          </g>
+          <g font-size="12" fill="#1f2430" text-anchor="middle">
+            <text x="40" y="22">A</text><text x="62" y="22">B</text>
+            <text x="84" y="22">C</text>
+          </g>
+          <g font-size="10" fill="#5b6480" text-anchor="middle">
+            <text x="174" y="104">AND</text>
+            <text x="174" y="188">AND</text>
+            <text x="174" y="272">AND</text>
+            <text x="292" y="274">OR</text>
+          </g>
+          <text x="420" y="150" font-size="12" fill="#1f2430">F</text>
+        </svg>
+        <figcaption>Three vertical rails carry A, B and C down the diagram, and
+        a dot marks each place a gate taps one of them. A line crossing a rail
+        with no dot on it is not connected to that rail, which is the standard
+        convention and the reason the dots are drawn at all.</figcaption>
+      </figure>
+      <p><b>Six taps, three rails.</b> Each input is used by exactly two of the
+      three AND gates, which the drawing shows directly; the version of this
+      circuit that draws six separate input wires is not wrong, but it hides
+      the fact that there are only three signals.</p>
+      <p class="marks">c. The odd-parity function, and why it will not simplify (4.5 marks)</p>
+      <p><b>Build the table and take the rows where F is 1.</b> Each such row
+      contributes one product term, with a letter written plain where the input
+      is 1 and complemented where it is 0.</p>
+      <table class="data">
+        <tr><th>A</th><th>B</th><th>C</th><th>number of 1's</th><th>F</th><th>product term</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>1</td><td><b>1</b></td><td>A&#8242;B&#8242;C</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td><b>1</b></td><td>A&#8242;BC&#8242;</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>2</td><td>0</td><td></td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td><b>1</b></td><td>AB&#8242;C&#8242;</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>2</td><td>0</td><td></td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>2</td><td>0</td><td></td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>3</td><td><b>1</b></td><td>ABC</td></tr>
+      </table>
+      <p style="margin-left:12pt"><b>F = A&#8242;B&#8242;C +
+      A&#8242;BC&#8242; + AB&#8242;C&#8242; + ABC</b></p>
+      <p><b>Why no two terms combine.</b> The only way to shorten a sum of
+      products is the rule XY + XY&#8242; = X, which needs two terms that agree
+      in every letter but one. Writing each term as the row it came from, the
+      four rows are 001, 010, 100 and 111, and every pair of them differs in
+      <b>two</b> positions:</p>
+      <table class="data">
+        <tr><th>Pair of rows</th><th>Positions where they differ</th><th>How many</th></tr>
+        <tr><td>001 and 010</td><td>B and C</td><td>2</td></tr>
+        <tr><td>001 and 100</td><td>A and C</td><td>2</td></tr>
+        <tr><td>001 and 111</td><td>A and B</td><td>2</td></tr>
+        <tr><td>010 and 100</td><td>A and B</td><td>2</td></tr>
+        <tr><td>010 and 111</td><td>A and C</td><td>2</td></tr>
+        <tr><td>100 and 111</td><td>B and C</td><td>2</td></tr>
+      </table>
+      <p>All six pairs differ in two positions, none in exactly one, so the
+      combining rule never applies and the four-term expression above is
+      already as short as a sum of products can be. &#8718;</p>
+      <p><b>Why this happens, in one sentence:</b> changing a single input
+      flips the count of 1's from odd to even, so it always flips F, and two
+      rows one step apart can never both be rows where F is 1. The function is
+      the parity of the three inputs, and parity is the standard example of a
+      function that a sum of products handles badly.</p>
+      <p class="marks">d. The majority function as a program (5 marks)</p>
+      <p>The Boolean product and sum of part (a) are written with the bitwise
+      operators &amp; and |, which act on 0 and 1 exactly as
+      &#183; and + do in Boolean algebra. That correspondence is the point of
+      the program, so make it visible in a comment.</p>
+      <div class="codelabel">majority.cpp</div>
+<pre class="code"><span class="c">// Mock Three Question Five (d): the majority of three 0/1 inputs.</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">using namespace</span> std;
+
+<span class="c">// F = AB + BC + AC, with &amp; for the Boolean product and | for the sum.</span>
+<span class="k">int</span> majority(<span class="k">int</span> a, <span class="k">int</span> b, <span class="k">int</span> c) {
+    <span class="k">return</span> (a &amp; b) | (b &amp; c) | (a &amp; c);
+}
+
+<span class="k">int</span> main() {
+    <span class="k">int</span> a, b, c;
+    cout &lt;&lt; <span class="s">"Enter A, B and C as 0 or 1: "</span>;   <span class="c">// i. prompt</span>
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    <span class="k">if</span> (a &gt; <span class="n">1</span> || b &gt; <span class="n">1</span> || c &gt; <span class="n">1</span>) {           <span class="c">// ii. reject anything else</span>
+        cout &lt;&lt; <span class="s">"Each input must be 0 or 1."</span> &lt;&lt; endl;
+        <span class="k">return</span> <span class="n">0</span>;
+    }
+
+    cout &lt;&lt; <span class="s">"F = "</span> &lt;&lt; majority(a, b, c) &lt;&lt; endl;  <span class="c">// iii. report</span>
+    <span class="k">return</span> <span class="n">0</span>;
+}
+</pre>
+      <div class="codelabel">What it printed for the input 1 0 1</div>
+<pre class="out">Enter A, B and C as 0 or 1: F = 1
+</pre>
+      <p><b>So the program prints F = 1,</b> which agrees with the truth table:
+      with A = 1, B = 0 and C = 1, the term AC is 1 and that is enough.</p>
+      <p><b>Two remarks worth a mark each on paper.</b> First, &amp; and |
+      here are the <b>bitwise</b> operators, not the logical &amp;&amp; and ||;
+      on inputs restricted to 0 and 1 the two pairs agree, but &amp;&amp; and
+      || also stop evaluating as soon as the answer is settled, which is a
+      difference that matters as soon as the operands do anything besides hold
+      a value. Second, the guard rejecting inputs above 1 is not decoration:
+      with a = 2 the expression a &amp; b would compute a bit pattern rather
+      than a truth value, and the program would print something that is not
+      0 or 1.</p>
+    </div>
+  </div>
+
+  <div class="box ans">
+    <div class="bar"><span>Answer</span><span class="tag">Mock Three Q6 &middot; 17.5 marks</span></div>
+    <div class="body">
+      <p class="marks">a. Every integer n &#8805; 2 is a product of primes (5 marks)</p>
+      <p><b>Say at the outset that a single prime counts as a product of one
+      prime.</b> Without that convention the basis case fails and the whole
+      proof stalls on a technicality.</p>
+      <p><b>Basis.</b> n = 2 is prime, so it is a product of primes, namely of
+      the one prime 2.</p>
+      <p><b>Strong inductive hypothesis.</b> Let k &#8805; 2 and assume that
+      <b>every</b> integer m with 2 &#8804; m &lt; k is a product of
+      primes.</p>
+      <p><b>Inductive step.</b> Consider k. There are two cases and they are
+      exhaustive.</p>
+      <p style="margin-left:12pt"><b>Case 1, k is prime.</b> Then k is a
+      product of one prime and there is nothing to do.<br>
+      <b>Case 2, k is composite.</b> Then by the definition of composite,
+      k = a &#215; b for some integers a and b with 2 &#8804; a &lt; k and
+      2 &#8804; b &lt; k. Both a and b fall in the range covered by the
+      hypothesis, so each is a product of primes. Multiplying those two
+      products together expresses k as a product of primes.</p>
+      <p>In both cases k is a product of primes, so the hypothesis for all
+      values below k yields the claim at k. By the principle of strong
+      induction, every integer n &#8805; 2 is a product of primes.
+      &#8718;</p>
+      <p><b>Why ordinary induction will not do here,</b> and this is what the
+      word "strong" in the question is testing. Ordinary induction would let
+      you assume the claim only for k &#8722; 1, and knowing that
+      k &#8722; 1 factorises tells you nothing whatever about k. What the proof
+      actually needs is the claim at a and at b, two numbers that may lie
+      anywhere below k. Strong induction is exactly the form that makes the
+      whole range below k available.</p>
+      <p class="marks">b. Solving a<sub>n</sub> = 2a<sub>n&#8722;1</sub> + 3 (4.5 marks)</p>
+      <p>This is not homogeneous, because of the constant 3, so the
+      characteristic equation does not apply directly. The standard move is to
+      absorb the constant by shifting the sequence.</p>
+      <p><b>The shift to use.</b> For a<sub>n</sub> =
+      c&#183;a<sub>n&#8722;1</sub> + b with c &#8800; 1, add
+      b / (c &#8722; 1) to both sides. Here c = 2 and b = 3, so the amount to
+      add is 3 / (2 &#8722; 1) = <b>3</b>. Put
+      b<sub>n</sub> = a<sub>n</sub> + 3. Then</p>
+      <p style="margin-left:12pt">b<sub>n</sub> = a<sub>n</sub> + 3 =
+      2a<sub>n&#8722;1</sub> + 3 + 3 = 2a<sub>n&#8722;1</sub> + 6 =
+      2(a<sub>n&#8722;1</sub> + 3) = 2b<sub>n&#8722;1</sub></p>
+      <p><b>which is a plain geometric progression.</b> Its first term is
+      b<sub>0</sub> = a<sub>0</sub> + 3 = 1 + 3 = 4, so</p>
+      <p style="margin-left:12pt">b<sub>n</sub> = 4 &#183; 2<sup>n</sup> =
+      2<sup>n+2</sup></p>
+      <p><b>Undo the shift</b> to get back to the sequence that was asked
+      for:</p>
+      <p style="margin-left:12pt"><b>a<sub>n</sub> = 2<sup>n+2</sup> &#8722; 3
+      = 4 &#183; 2<sup>n</sup> &#8722; 3</b></p>
+      <p><b>Check the first three terms against the recurrence,</b> which is
+      the only check that tests both the formula and the starting value:</p>
+      <table class="data">
+        <tr><th>n</th><th>from the recurrence</th><th>from the formula</th></tr>
+        <tr><td>0</td><td>given as 1</td><td>4 &#215; 1 &#8722; 3 = <b>1</b></td></tr>
+        <tr><td>1</td><td>2 &#215; 1 + 3 = <b>5</b></td><td>4 &#215; 2 &#8722; 3 = <b>5</b></td></tr>
+        <tr><td>2</td><td>2 &#215; 5 + 3 = <b>13</b></td><td>4 &#215; 4 &#8722; 3 = <b>13</b></td></tr>
+        <tr><td>3</td><td>2 &#215; 13 + 3 = <b>29</b></td><td>4 &#215; 8 &#8722; 3 = <b>29</b></td></tr>
+      </table>
+      <p><b>Iterating instead is a legitimate route</b> and gets the same
+      answer: a<sub>n</sub> = 2<sup>n</sup>a<sub>0</sub> +
+      3(2<sup>n&#8722;1</sup> + &#8230; + 2 + 1) =
+      2<sup>n</sup> + 3(2<sup>n</sup> &#8722; 1) =
+      4 &#183; 2<sup>n</sup> &#8722; 3, using the sum of a geometric
+      progression. Whichever route you take, <b>state which one you are
+      taking</b> in the first line.</p>
+      <p class="marks">c. Three balls of the same colour (4 marks)</p>
+      <p>The bag holds 4 + 5 + 6 = <b>15</b> balls, and three are taken
+      together, so order does not matter and every part of this is a
+      combination.</p>
+      <p style="margin-left:12pt">all selections of three:
+      C(15, 3) = (15 &#215; 14 &#215; 13) / (3 &#215; 2 &#215; 1) =
+      2730 / 6 = <b>455</b></p>
+      <p><b>The favourable selections, one colour at a time.</b> The three
+      colours are alternatives, only one of which can happen, so they are added
+      rather than multiplied:</p>
+      <p style="margin-left:12pt">all three white: C(4, 3) = <b>4</b><br>
+      all three black: C(5, 3) = <b>10</b><br>
+      all three green: C(6, 3) = <b>20</b><br>
+      favourable in all: 4 + 10 + 20 = <b>34</b></p>
+      <p style="margin-left:12pt">P(all the same colour) = 34 / 455, about
+      <b>0.075</b></p>
+      <p><b>The fraction will not reduce:</b> 455 = 5 &#215; 7 &#215; 13 and
+      34 = 2 &#215; 17, so they share no factor. Saying so saves you from
+      hunting for a cancellation that is not there.</p>
+      <p><b>A check on plausibility.</b> About one selection in thirteen is
+      monochrome, which is believable: the largest colour class has only 6 of
+      the 15 balls, so three matching is a genuine coincidence rather than a
+      near-certainty. Any answer above about 0.2 should have prompted a
+      recount.</p>
+      <p class="marks">d. There is no largest prime (4 marks)</p>
+      <p><b>Proof by contradiction, so begin by assuming the opposite,</b> and
+      say that you are doing so.</p>
+      <p><b>Suppose</b> there is a largest prime. Then the primes can be listed
+      completely and finitely:</p>
+      <p style="margin-left:12pt">p<sub>1</sub> = 2, p<sub>2</sub> = 3,
+      p<sub>3</sub> = 5, &#8230;, p<sub>k</sub>, the largest</p>
+      <p><b>Construct a number the list cannot account for.</b> Let</p>
+      <p style="margin-left:12pt">N = (p<sub>1</sub> &#215; p<sub>2</sub>
+      &#215; &#8230; &#215; p<sub>k</sub>) + 1</p>
+      <p>Then N &gt; 1, so by part (a) of this question N has at least one
+      prime divisor; call it q.</p>
+      <p><b>Now trap q.</b> Suppose q were one of the primes on the list. Then
+      q divides the product p<sub>1</sub> &#215; &#8230; &#215; p<sub>k</sub>,
+      and q divides N by choice, so q divides their difference:</p>
+      <p style="margin-left:12pt">N &#8722; (p<sub>1</sub> &#215; &#8230;
+      &#215; p<sub>k</sub>) = <b>1</b></p>
+      <p>But no prime divides 1, since every prime is at least 2. So q is a
+      prime that is <b>not</b> on the list, contradicting the assumption that
+      the list contained every prime.</p>
+      <p><b>The assumption is therefore false, and there is no largest prime.</b>
+      &#8718;</p>
+      <p><b>The point that is worth stating and is usually got wrong:</b> N
+      itself need not be prime. The argument does not claim it is. It claims
+      only that <i>some</i> prime divides N and that no prime on the list can.
+      For instance 2 &#215; 3 &#215; 5 &#215; 7 &#215; 11 &#215; 13 + 1 = 30031,
+      which is 59 &#215; 509 and so not prime at all; but 59 is a prime that was
+      missing from the list, which is exactly what the proof promised.</p>
+      <p><b>Notice this answer used part (a).</b> The step "N has a prime
+      divisor" is precisely the theorem proved by strong induction earlier in
+      this question, and pointing that out is free.</p>
+    </div>
+  </div>
+
 </section>

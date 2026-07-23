@@ -1,0 +1,312 @@
+<!-- ===================== MODULE THREE DIVIDER ===================== -->
+<div class="part">
+  <div class="kicker">Module Three</div>
+  <h1>Process and<br>Data Flow Modelling</h1>
+  <div class="blurb">The data flow diagram is the workhorse of Section B. It shows how
+  data moves through a system: who sends it in, which processes transform it, where it is
+  stored, and what comes out. Learn its four symbols, its three levels, and the handful of
+  mistakes the examiner hunts for, and this becomes reliable, drawable marks.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.6">
+        <rect x="6" y="34" width="70" height="30" rx="1"/>
+        <circle cx="180" cy="49" r="26"/>
+        <path d="M300 36 h150 M300 64 h150 M300 36 v28"/>
+        <rect x="470" y="34" width="44" height="30" rx="1"/>
+      </g>
+      <g stroke="#94a3b8" stroke-width="1.4" fill="none">
+        <line x1="76" y1="49" x2="152" y2="49"/><path d="M152 49 l-8 -4 M152 49 l-8 4"/>
+        <line x1="206" y1="49" x2="298" y2="49"/><path d="M298 49 l-8 -4 M298 49 l-8 4"/>
+        <line x1="452" y1="49" x2="468" y2="49"/><path d="M468 49 l-8 -4 M468 49 l-8 4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#5b6b73" text-anchor="middle">
+        <text x="41" y="52">Entity</text>
+        <text x="180" y="52">1.0</text>
+        <text x="375" y="54">D1 Store</text>
+        <text x="492" y="52">Entity</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+<!-- ===================== UNIT 1 : DFD ===================== -->
+<section id="m3u1">
+  <div class="kick">Module Three &middot; Unit 1</div>
+  <h2 class="title">Data Flow Diagrams</h2>
+  <hr class="rule">
+  <p class="lo">By the end of this unit you can draw the four elements of a data flow
+  diagram, build a context diagram, a Level 0 and a Level 1 from a scenario, and name and
+  avoid the mechanical errors and illegal flows the examiner tests.</p>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">What process modelling is</span></div>
+    <div class="body">
+      <p><b>Process modelling</b> shows how a system works by following the data. The tool
+      for it is the <b>data flow diagram (DFD)</b>: a picture of how data moves from the
+      outside world, through the processes that transform it, into and out of the places it
+      is stored, and back out to the world. Where a use case diagram shows <i>what</i> the
+      system does for its users, a DFD shows <i>how</i> data flows to make that happen.</p>
+      <p>The examiner also asks why a DFD is worth drawing before you build. Good reasons:
+      it is a clear picture that non-technical users can check; it separates <i>what</i> the
+      system does from <i>how</i> it is built; it shows the boundary of the system and every
+      thing it touches; and it breaks a large system into manageable processes (functional
+      decomposition again).</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">The four elements</span></div>
+    <div class="body">
+      <p>A DFD has exactly <b>four</b> elements. Draw each one exactly right; a wrong symbol
+      loses the mark however good the logic.</p>
+      <ul class="bul">
+        <li><b>External entity</b> (a <b>rectangle</b>): a person, department or other system
+        <i>outside</i> the system that sends data in or receives data out. Named with a noun
+        (Customer, Bank).</li>
+        <li><b>Process</b> (a <b>circle</b> or rounded rectangle, numbered): work that
+        transforms data. Named with a verb phrase and given a number (1.0 Verify order).</li>
+        <li><b>Data store</b> (an <b>open-ended rectangle</b>, two parallel lines, labelled
+        D1, D2): data at rest, a file or table. Named with a noun (D1 Customers).</li>
+        <li><b>Data flow</b> (an <b>arrow</b>): data in motion between the other elements.
+        Named with the data it carries (order details), not with a verb.</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="The four DFD symbols: external entity rectangle, process circle, data store open rectangle, data flow arrow.">
+      <g fill="#eef3ff" stroke="#1d4ed8" stroke-width="1.5">
+        <rect x="14" y="26" width="80" height="40" rx="1"/>
+        <circle cx="200" cy="46" r="28"/>
+      </g>
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.5">
+        <path d="M300 26 h120 M300 66 h120 M300 26 v40"/>
+        <rect x="300" y="26" width="22" height="40" fill="#eef3ff"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="9" fill="#18232b" text-anchor="middle">
+        <text x="54" y="49">Customer</text>
+        <text x="200" y="43">1.0</text>
+        <text x="200" y="55">Place order</text>
+        <text x="311" y="49" font-size="7.5">D1</text>
+        <text x="372" y="49">Orders</text>
+      </g>
+      <g stroke="#5b6b73" stroke-width="1.4" fill="none">
+        <line x1="452" y1="46" x2="512" y2="46"/><path d="M512 46 l-9 -5 M512 46 l-9 5"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8" fill="#5b6b73" text-anchor="middle">
+        <text x="54" y="82">external entity</text>
+        <text x="200" y="82">process</text>
+        <text x="360" y="82">data store</text>
+        <text x="482" y="36">data flow</text>
+      </g>
+    </svg>
+    <figcaption>Figure 3.1 &middot; The four DFD symbols. Learn to draw all four; the data
+    store is the one candidates get wrong (it is open at the right, not a closed box).</figcaption>
+  </figure>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The three levels</span></div>
+    <div class="body">
+      <p>A DFD is drawn at levels, each an explosion of the one above. The terminology is
+      examinable and slightly confusing, so pin it down:</p>
+      <ul class="bul">
+        <li>The <b>context diagram</b> shows the <i>whole system as a single process</i>,
+        numbered 0, with the external entities around it and the net data flows in and out.
+        It has <b>no data stores</b>. It defines the boundary: everything inside the one
+        circle is the system, everything drawn as a rectangle is outside it.</li>
+        <li>The <b>Level 0 DFD</b> (also called <b>Diagram 0</b>, and in some papers the
+        <b>Process 0 diagram</b>) explodes that single process into the <i>major processes</i>
+        of the system, numbered 1.0, 2.0, 3.0, and adds the data stores and the flows between
+        them.</li>
+        <li>A <b>Level 1 DFD</b> explodes <i>one</i> of those processes into its sub-processes.
+        A Level 1 of process 3.0 has processes numbered 3.1, 3.2, 3.3.</li>
+      </ul>
+      <p>So when a paper says "draw a context diagram, a Level 0 and a Level 1 for the rent
+      payment process", it wants three diagrams: the system as one bubble, then its major
+      processes, then a close-up of the rent-payment process alone.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="A context diagram: the whole system as one process 0 between two external entities.">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.6">
+        <rect x="14" y="56" width="82" height="40" rx="1"/>
+        <circle cx="260" cy="75" r="40"/>
+        <rect x="424" y="56" width="82" height="40" rx="1"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="9" fill="#18232b" text-anchor="middle">
+        <text x="55" y="80">Customer</text>
+        <text x="260" y="72">0</text>
+        <text x="260" y="85">Order system</text>
+        <text x="465" y="80">Warehouse</text>
+      </g>
+      <g stroke="#5b6b73" stroke-width="1.3" fill="none">
+        <line x1="96" y1="66" x2="219" y2="66"/><path d="M219 66 l-9 -4 M219 66 l-9 4"/>
+        <line x1="219" y1="86" x2="96" y2="86"/><path d="M96 86 l9 -4 M96 86 l9 4"/>
+        <line x1="301" y1="75" x2="422" y2="75"/><path d="M422 75 l-9 -4 M422 75 l-9 4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="7.5" fill="#5b6b73" text-anchor="middle">
+        <text x="157" y="61">order</text>
+        <text x="157" y="99">confirmation</text>
+        <text x="360" y="70">dispatch note</text>
+      </g>
+    </svg>
+    <figcaption>Figure 3.2 &middot; A context diagram: the entire system is one process
+    (numbered 0), external entities are rectangles, and only the net flows cross the
+    boundary. No data stores appear at this level.</figcaption>
+  </figure>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Illegal flows</span></div>
+    <div class="body">
+      <p>A data flow shows data moving from one element to another, but <b>a process must be
+      at one end of every flow.</b> Data cannot move on its own; something has to do the
+      moving. So these four flows are <b>illegal</b>, and drawing one is a classic lost mark:</p>
+      <ul class="bul">
+        <li>entity <span class="notpaper">&#8594;</span> entity (two outsiders talking bypass
+        the system entirely)</li>
+        <li>entity <span class="notpaper">&#8594;</span> data store (nothing processed the
+        data before storing it)</li>
+        <li>data store <span class="notpaper">&#8594;</span> data store (data copying itself
+        with no process)</li>
+        <li>data store <span class="notpaper">&#8594;</span> entity (data leaving store
+        straight to the outside with no process)</li>
+      </ul>
+      <p>The rule in one line: <b>every data flow must touch a process at one end.</b> An
+      entity talks to a process, a process talks to a store, a process talks to an entity;
+      never store-to-store, store-to-entity, or entity-to-entity, or entity-to-store.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">Data does not move itself</span></div>
+    <div class="body">
+      <p>The sentence the paper gives you, <i>"a data flow shows data movement from one
+      system entity to another,"</i> is true but incomplete, and the follow-up
+      <i>"data cannot move between entities in a data flow diagram"</i> catches people out.
+      What it means: data never flows straight between two <b>external entities</b>, or
+      straight into or out of a <b>store</b> without a process. If your diagram has an arrow
+      from a rectangle to a rectangle, or from a data store straight to a rectangle, it is
+      wrong. Put a process bubble in the middle.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Mechanical errors</span></div>
+    <div class="body">
+      <p>"What mechanical errors can result while constructing a DFD?" is a standard 3-mark
+      question. There are three, all about a process whose inputs and outputs do not match:</p>
+      <ul class="bul">
+        <li><b>Black hole:</b> a process with input but <b>no output</b>. Data goes in and
+        vanishes. (A process that stores data but produces nothing.)</li>
+        <li><b>Miracle</b> (spontaneous generation): a process with output but <b>no input</b>.
+        Data appears from nowhere.</li>
+        <li><b>Grey hole:</b> a process whose <b>inputs are insufficient</b> to produce its
+        output. Something needed is missing (a receipt that shows a price, from an input that
+        never carried a price).</li>
+      </ul>
+      <p class="small"><b>Memory hook:</b> in goes nothing, out comes something = miracle; in
+      goes something, out comes nothing = black hole; in goes too little = grey hole.</p>
+    </div>
+  </div>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">Data balancing</span></div>
+    <div class="body">
+      <p>When you explode a process into a lower level, the data flowing into and out of the
+      exploded process on the parent diagram must be exactly the data flowing into and out of
+      its child diagram. This rule is <b>data balancing</b> (or balancing the DFD). If process
+      3.0 receives "payment" and sends out "receipt" on the Level 0, then its Level 1 must
+      also receive "payment" and, in total, send out "receipt", no more and no less. An
+      unbalanced DFD, where a flow appears or disappears between levels, is a mechanical
+      error, and checking the balance is one way to <b>validate the diagram's integrity</b>
+      after you draw it, along with checking that every process has both inputs and outputs
+      and that no flow is illegal.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="A Level 0 DFD with two processes, a data store and two external entities.">
+      <g fill="none" stroke="#1d4ed8" stroke-width="1.5">
+        <rect x="10" y="30" width="72" height="34" rx="1"/>
+        <rect x="10" y="140" width="72" height="34" rx="1"/>
+        <circle cx="200" cy="50" r="30"/>
+        <circle cx="200" cy="160" r="30"/>
+        <path d="M330 44 h150 M330 64 h150 M330 44 v20"/>
+        <rect x="330" y="44" width="20" height="20" fill="#eef3ff"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="8.5" fill="#18232b" text-anchor="middle">
+        <text x="46" y="51">Customer</text>
+        <text x="46" y="161">Warehouse</text>
+        <text x="200" y="47">1.0</text><text x="200" y="58">Verify order</text>
+        <text x="200" y="157">2.0</text><text x="200" y="168">Dispatch</text>
+        <text x="340" y="57" font-size="7">D1</text><text x="410" y="57">Orders</text>
+      </g>
+      <g stroke="#5b6b73" stroke-width="1.2" fill="none">
+        <line x1="82" y1="47" x2="169" y2="49"/><path d="M169 49 l-9 -4 M169 49 l-9 4"/>
+        <line x1="200" y1="80" x2="200" y2="128"/><path d="M200 128 l-4 -9 M200 128 l4 -9"/>
+        <line x1="229" y1="45" x2="329" y2="52"/><path d="M329 52 l-9 -3 M329 52 l-8 5"/>
+        <line x1="170" y1="160" x2="82" y2="158"/><path d="M82 158 l9 -4 M82 158 l9 4"/>
+      </g>
+      <g font-family="DejaVu Sans" font-size="7" fill="#5b6b73" text-anchor="middle">
+        <text x="125" y="43">order</text>
+        <text x="228" y="104">valid order</text>
+        <text x="280" y="42">saved order</text>
+        <text x="125" y="150">dispatch note</text>
+      </g>
+    </svg>
+    <figcaption>Figure 3.3 &middot; A Level 0 DFD: the single process 0 has exploded into
+    processes 1.0 and 2.0, a data store D1 has appeared, and every flow touches a process at
+    one end. Balance check: the "order" in and "dispatch note" out match the context diagram.</figcaption>
+  </figure>
+
+  <div class="box work">
+    <div class="bar"><span>Worked</span><span class="tag">From a scenario to three diagrams</span></div>
+    <div class="body">
+      <p>The routine for "draw a context diagram, a Level 0 and a Level 1" is always the
+      same. Take the warehouse scenario: trucks arrive, drivers submit trucks, the manager
+      tells a labourer to unload, the storekeeper takes inventory and generates a stock
+      report for the manager.</p>
+      <ol class="steps">
+        <li>Find the external entities (who is outside sending or receiving).
+          <span class="note">Truck driver, Warehouse manager. They become rectangles.</span></li>
+        <li>Context diagram: one process for the whole system.
+          <span class="note">One bubble "0 Warehouse system"; arrows in (truck, activity
+          report) and out (stock report). No data stores yet.</span></li>
+        <li>Level 0: explode into the major processes.
+          <span class="note">1.0 Unload truck, 2.0 Take inventory, 3.0 Generate report; add
+          data store D1 Stock; wire the flows so each process has input and output.</span></li>
+        <li>Level 1: explode one process, say 2.0 Take inventory.
+          <span class="note">2.1 Count stock, 2.2 Classify condition, 2.3 Update stock
+          record; number them 2.x and balance the flows to match process 2.0.</span></li>
+        <li>Validate.
+          <span class="note">Every process has an input and an output (no black holes or
+          miracles); no illegal flows; the levels balance.</span></li>
+      </ol>
+      <p class="redo"><b>Now you try:</b> draw the context diagram for food ordering at a
+      Nigerian airport, then give four reasons a DFD is helpful for modelling those
+      processes before you build.</p>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall</span><span class="tag">Cover the answers</span></div>
+    <div class="body">
+      <p class="q">1. Name the four elements of a DFD and the shape of each.</p>
+      <p class="q">2. A process has an input but produces no output. Which mechanical error?</p>
+      <p class="q">3. Why can you not draw an arrow straight from a data store to an external
+      entity?</p>
+      <hr class="cut">
+      <p class="alabel">Answers</p>
+      <p>1. External entity (rectangle), process (numbered circle), data store (open-ended
+      rectangle), data flow (arrow).</p>
+      <p>2. A black hole.</p>
+      <p>3. Every data flow must touch a process at one end; a store cannot send data to the
+      outside without a process to move it.</p>
+    </div>
+  </div>
+</section>
