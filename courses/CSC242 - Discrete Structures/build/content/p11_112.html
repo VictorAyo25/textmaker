@@ -1,27 +1,29 @@
 <section>
-  <div class="kick">Part Eleven &middot; 11.2</div>
-  <h2 class="title">The Four Examined Programs</h2>
+  <div class="kick">Part Eleven &middot; 11.3</div>
+  <h2 class="title">The Four Examined Programs, in Python and C++</h2>
   <hr class="rule">
   <p class="lead">Four programs have been set across two papers, worth 19 marks
-  between them. Every one is below, quoted as printed, broken down, then
-  answered with a listing that was compiled at full warnings and run. The output
-  panels are what the machine actually printed, not what it ought to have
-  printed.</p>
+  between them. Every one is below, quoted as printed, broken down, then answered
+  <b>in Python first and then in C++</b>. The output panels are what each
+  program actually printed, not what it ought to have printed, and the two
+  languages produce the same answer line for line.</p>
   <p class="lo">By the end of this section you will be able to write the power
   set program, the bit-string program, the isPerfectSquare function with its
-  main, and the degree-counting snippet, and to explain each line of them.</p>
+  main, and the degree-counting snippet, in either language, and to explain each
+  line of them.</p>
 
   <div class="box teach">
     <div class="bar"><span>Teach</span><span class="tag">How these listings were checked</span></div>
     <div class="body">
-      <p>Every listing in this part was saved to a file, compiled with warnings
-      turned up, and run with the input the question specifies. Nothing was
+      <p>Every listing in this part was saved to a file and run with the input
+      the question specifies: the Python listings with the interpreter, the C++
+      listings compiled with warnings turned up and then run. Nothing was
       transcribed from memory or from a listing that had merely been read
       through.</p>
       <p>That matters more here than anywhere else in the book. A wrong number
       in a worked example is visible to anyone who checks the arithmetic; a
-      program that does not compile looks exactly like a program that does, and
-      a manual that prints one has taught the reader to write it.</p>
+      program that does not run looks exactly like a program that does, and a
+      manual that prints one has taught the reader to write it.</p>
       <p><b>The output panels below are captured output.</b> Where a prompt and
       an answer sit on the same line, that is because the program printed the
       prompt without a newline and the input was supplied from a file rather
@@ -71,7 +73,7 @@
       enumeration loop, the membership test, the printing format, and the
       correct count of subsets. The sample output is printed for you, which
       means the format itself carries marks.</dd>
-      <dt>Teaches</dt><dd>Sections 11.1 (bits, vector, loops) and 2.1 (a set of
+      <dt>Teaches</dt><dd>Sections 11.1 and 11.2 (bits, lists or vector, loops) and 2.1 (a set of
       n elements has 2<sup>n</sup> subsets).</dd>
       <dt>Trap</dt><dd>Writing the set into the source as {1, 2, 3}. The
       question says "a given set of integers" and "if the user enters", so the
@@ -92,6 +94,37 @@
         element i is in the subset exactly when bit i of mask is 1, that is when
         <code>mask &amp; (1 &lt;&lt; i)</code> is non-zero.</dd>
       </dl>
+      <p><b>In Python.</b> The bit-mask idea is identical; only the spelling changes, and there is no <code>long&nbsp;long</code> to worry about.</p>
+      <div class="codelabel">powerset.py</div>
+<pre class="code"><span class="c"># PQ 2024/2025 Question Three (b): the power set of a set of integers.</span>
+
+<span class="k">def</span> print_subset(s, mask):
+    inside = []
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="k">len</span>(s)):
+        <span class="k">if</span> mask &amp; (<span class="n">1</span> &lt;&lt; i):            <span class="c"># is element i in this subset?</span>
+            inside.append(<span class="k">str</span>(s[i]))
+    <span class="k">print</span>(<span class="s">&quot;{&quot;</span> + (<span class="s">&quot;, &quot;</span>.join(inside) <span class="k">if</span> inside <span class="k">else</span> <span class="s">&quot; &quot;</span>) + <span class="s">&quot;}&quot;</span>)
+
+n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">&quot;How many integers are in the set? &quot;</span>))
+s = <span class="k">list</span>(<span class="k">map</span>(<span class="k">int</span>, <span class="k">input</span>(<span class="s">&quot;Enter &quot;</span> + <span class="k">str</span>(n) + <span class="s">&quot; integers: &quot;</span>).split()))
+
+total = <span class="n">1</span> &lt;&lt; n                         <span class="c"># 2 to the n subsets</span>
+<span class="k">print</span>(<span class="s">&quot;The power set has &quot;</span> + <span class="k">str</span>(total) + <span class="s">&quot; subsets:&quot;</span>)
+<span class="k">for</span> mask <span class="k">in</span> <span class="k">range</span>(total):
+    print_subset(s, mask)
+</pre>
+      <div class="codelabel">What the Python version printed, for the paper&#8217;s own example</div>
+<pre class="out">How many integers are in the set? Enter 3 integers: The power set has 8 subsets:
+{ }
+{1}
+{2}
+{1, 2}
+{3}
+{1, 3}
+{2, 3}
+{1, 2, 3}
+</pre>
+      <p><b>Now the same program in C++, for the older papers.</b></p>
       <div class="codelabel">powerset.cpp</div>
 <pre class="code"><span class="c">// PQ 2024/2025 Question Three (b): the power set of a set of integers.</span>
 <span class="k">#include</span> &lt;iostream&gt;
@@ -200,7 +233,7 @@
       the skeleton, reading a variable number of sets, reading a variable number
       of elements per set, the conversion itself, the correct bit order, and the
       display. The word "dynamically" is worth marks on its own.</dd>
-      <dt>Teaches</dt><dd>Sections 11.1 (vector, string, nested loops) and 2.3
+      <dt>Teaches</dt><dd>Sections 11.1 and 11.2 (lists or vector, strings, nested loops) and 2.3
       (what a bit string is).</dd>
       <dt>Trap</dt><dd>Two of them. Writing the sets as constants, which fails
       "dynamically"; and putting element m at position m rather than
@@ -219,6 +252,35 @@
         <dt>Formula</dt><dd>Start with ten <code>'0'</code> characters; for each
         member m, set position m &#8722; 1 to <code>'1'</code>.</dd>
       </dl>
+      <p><b>In Python.</b> The convention that element m lives at position m &#8722; 1 is the same, since Python lists also count from 0.</p>
+      <div class="codelabel">bitstrings.py</div>
+<pre class="code"><span class="c"># PQ 2023/2024 Question Three (b): read sets dynamically, print bit strings.</span>
+
+UNIVERSE = <span class="n">10</span>                          <span class="c"># U = {1, 2, ..., 10}</span>
+
+<span class="k">def</span> bit_string(members):
+    bits = [<span class="s">&quot;0&quot;</span>] * UNIVERSE            <span class="c"># start with every position 0</span>
+    <span class="k">for</span> m <span class="k">in</span> members:
+        <span class="k">if</span> <span class="n">1</span> &lt;= m &lt;= UNIVERSE:
+            bits[m - <span class="n">1</span>] = <span class="s">&quot;1&quot;</span>          <span class="c"># element m lives at position m - 1</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span>.join(bits)
+
+how_many = <span class="k">int</span>(<span class="k">input</span>(<span class="s">&quot;How many sets? &quot;</span>))
+<span class="k">for</span> s <span class="k">in</span> <span class="k">range</span>(<span class="n">1</span>, how_many + <span class="n">1</span>):
+    size = <span class="k">int</span>(<span class="k">input</span>(<span class="s">&quot;Set &quot;</span> + <span class="k">str</span>(s) + <span class="s">&quot;, how many elements? &quot;</span>))
+    members = <span class="k">list</span>(<span class="k">map</span>(<span class="k">int</span>, <span class="k">input</span>(<span class="s">&quot;Enter &quot;</span> + <span class="k">str</span>(size) + <span class="s">&quot; from 1 to 10: &quot;</span>).split()))
+    <span class="k">print</span>()                            <span class="c"># close the line the user typed on</span>
+    <span class="k">print</span>(<span class="s">&quot;Set &quot;</span> + <span class="k">str</span>(s) + <span class="s">&quot; bit string: &quot;</span> + bit_string(members))
+</pre>
+      <div class="codelabel">What the Python version printed, given the three sets of part (a)</div>
+<pre class="out">How many sets? Set 1, how many elements? Enter 3 from 1 to 10:
+Set 1 bit string: 0011100000
+Set 2, how many elements? Enter 4 from 1 to 10:
+Set 2 bit string: 1010010001
+Set 3, how many elements? Enter 6 from 1 to 10:
+Set 3 bit string: 0111001110
+</pre>
+      <p><b>Now the same program in C++.</b></p>
       <div class="codelabel">bitstrings.cpp</div>
 <pre class="code"><span class="c">// PQ 2023/2024 Question Three (b): read sets dynamically, print bit strings.</span>
 <span class="k">#include</span> &lt;iostream&gt;
@@ -341,7 +403,7 @@ Set 3 bit string: 0111001110
       <dt>Marks say</dt><dd>6, split across eight numbered requirements. The
       cheapest way to secure them is to make the numbering visible in the answer,
       so that each printed requirement has a line the marker can point at.</dd>
-      <dt>Teaches</dt><dd>Sections 11.1 (functions, while, integer division)
+      <dt>Teaches</dt><dd>Sections 11.1 and 11.2 (functions, while, floor or integer division)
       and 9.4, where T(n) = T(n/2) + 1 is exactly this algorithm's cost.</dd>
       <dt>Trap</dt><dd>Answering with <code>sqrt(num)</code>. It is shorter, it
       works, and it scores nothing, because the question asks for a binary
@@ -363,6 +425,42 @@ Set 3 bit string: 0111001110
         mid<sup>2</sup> with num and keep whichever half can still contain the
         answer.</dd>
       </dl>
+      <p><b>In Python.</b> The one change worth naming is the midpoint: <code>//</code>, floor division, does what C++'s <code>/</code> did, and Python's unbounded integers mean the square never overflows, so no <code>long&nbsp;long</code> is needed.</p>
+      <div class="codelabel">perfectsquare.py</div>
+<pre class="code"><span class="c"># PQ 2024/2025 Question Four (c): is_perfect_square by binary search.</span>
+
+<span class="k">def</span> is_perfect_square(num):
+    <span class="k">if</span> num &lt; <span class="n">0</span>:
+        <span class="k">return</span> -<span class="n">1</span>                      <span class="c"># no real square root</span>
+    <span class="k">if</span> num == <span class="n">0</span>:
+        <span class="k">return</span> <span class="n">0</span>                       <span class="c"># 0 = 0 * 0</span>
+    low, high = <span class="n">1</span>, num                 <span class="c"># the search range [low, high]</span>
+    <span class="k">while</span> low &lt;= high:
+        mid = low + (high - low) // <span class="n">2</span>  <span class="c"># i. the midpoint, floor division</span>
+        square = mid * mid             <span class="c"># ii. square it</span>
+        <span class="k">if</span> square == num:
+            <span class="k">return</span> mid                 <span class="c"># iii. found it</span>
+        <span class="k">if</span> square &lt; num:
+            low = mid + <span class="n">1</span>              <span class="c"># iv. adjust upward</span>
+        <span class="k">else</span>:
+            high = mid - <span class="n">1</span>             <span class="c"># iv. adjust downward</span>
+    <span class="k">return</span> -<span class="n">1</span>                          <span class="c"># v. range exhausted</span>
+
+x = <span class="k">int</span>(<span class="k">input</span>(<span class="s">&quot;Enter an integer: &quot;</span>))
+root = is_perfect_square(x)
+<span class="k">if</span> root == -<span class="n">1</span>:
+    <span class="k">print</span>(<span class="k">str</span>(x) + <span class="s">&quot; is not a perfect square.&quot;</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="k">str</span>(x) + <span class="s">&quot; is a perfect square.&quot;</span>)
+    <span class="k">print</span>(<span class="s">&quot;Its integer square root is &quot;</span> + <span class="k">str</span>(root) + <span class="s">&quot;.&quot;</span>)
+</pre>
+      <div class="codelabel">What the Python version printed, run twice</div>
+<pre class="out">Enter an integer: 49 is a perfect square.
+Its integer square root is 7.
+
+Enter an integer: 50 is not a perfect square.
+</pre>
+      <p><b>Now the same program in C++, where the square is held in a <code>long long</code> for the reason the bullets below give.</b></p>
       <div class="codelabel">perfectsquare.cpp</div>
 <pre class="code"><span class="c">// PQ 2024/2025 Question Four (c): isPerfectSquare by binary search.</span>
 <span class="k">#include</span> &lt;iostream&gt;
@@ -480,7 +578,7 @@ Enter an integer: 50 is not a perfect square.
       <dt>Marks say</dt><dd>3. Small, so the marks are for the arithmetic being
       right and visible, not for program structure. Print the intermediate
       values.</dd>
-      <dt>Teaches</dt><dd>Sections 6.3 (Handshaking) and 11.1.</dd>
+      <dt>Teaches</dt><dd>Sections 6.3 (Handshaking) and 11.1 to 11.2.</dd>
       <dt>Trap</dt><dd>Reading "the remaining number of vertices that have
       either degree 3 or 4" as just 24 &#8722; 19 = 5. That is the count of
       vertices left, and it is worth computing, but the question sits inside a
@@ -501,6 +599,36 @@ Enter an integer: 50 is not a perfect square.
         of simultaneous equations four + three = remaining and
         4 &#215; four + 3 &#215; three = leftDegree.</dd>
       </dl>
+      <p><b>In Python.</b> Pure arithmetic, so the two languages read almost the same line for line.</p>
+      <div class="codelabel">degrees.py</div>
+<pre class="code"><span class="c"># PQ 2024/2025 Question Five (d): the vertices of degree 3 or 4 still to classify.</span>
+
+vertices, edges = <span class="n">24</span>, <span class="n">30</span>
+known_deg4, pendant, deg2 = <span class="n">5</span>, <span class="n">7</span>, <span class="n">7</span>
+
+accounted = known_deg4 + pendant + deg2      <span class="c"># vertices already named</span>
+remaining = vertices - accounted             <span class="c"># still to classify</span>
+
+degree_sum = <span class="n">2</span> * edges                        <span class="c"># Handshaking theorem</span>
+used_degree = <span class="n">4</span> * known_deg4 + <span class="n">1</span> * pendant + <span class="n">2</span> * deg2
+left_degree = degree_sum - used_degree        <span class="c"># degree left to share</span>
+
+<span class="c"># Solve  four + three = remaining  and  4*four + 3*three = left_degree.</span>
+four = left_degree - <span class="n">3</span> * remaining
+three = remaining - four
+
+<span class="k">print</span>(<span class="s">&quot;Vertices still to classify: &quot;</span> + <span class="k">str</span>(remaining))
+<span class="k">print</span>(<span class="s">&quot;Degree left to share:       &quot;</span> + <span class="k">str</span>(left_degree))
+<span class="k">print</span>(<span class="s">&quot;Of those, degree 4: &quot;</span> + <span class="k">str</span>(four) + <span class="s">&quot;, degree 3: &quot;</span> + <span class="k">str</span>(three))
+<span class="k">print</span>(<span class="s">&quot;Degree-4 vertices in the whole graph: &quot;</span> + <span class="k">str</span>(known_deg4 + four))
+</pre>
+      <div class="codelabel">What the Python version printed</div>
+<pre class="out">Vertices still to classify: 5
+Degree left to share:       19
+Of those, degree 4: 4, degree 3: 1
+Degree-4 vertices in the whole graph: 9
+</pre>
+      <p><b>Now the same program in C++.</b></p>
       <div class="codelabel">degrees.cpp</div>
 <pre class="code"><span class="c">// PQ 2024/2025 Question Five (d): the vertices of degree 3 or 4 still to classify.</span>
 <span class="k">#include</span> &lt;iostream&gt;

@@ -233,6 +233,21 @@
       <p class="marks">d. The divisors of n (5 marks)</p>
       <p>d divides n exactly when n % d is 0, so the whole program is one loop
       over the candidates from 1 to n with that one test inside it.</p>
+      <p><b>In Python,</b> the language to reach for this semester. The loop and the one test <code>n % d == 0</code> are the whole answer.</p>
+      <div class="codelabel">divisors.py</div>
+<pre class="code"><span class="c"># Mock One Question Three (d): every positive divisor of n, on one line.</span>
+
+n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">&quot;Enter a positive integer: &quot;</span>))
+<span class="k">if</span> n &lt; <span class="n">1</span>:
+    <span class="k">print</span>(<span class="s">&quot;n must be positive.&quot;</span>)
+<span class="k">else</span>:
+    divisors = [d <span class="k">for</span> d <span class="k">in</span> <span class="k">range</span>(<span class="n">1</span>, n + <span class="n">1</span>) <span class="k">if</span> n % d == <span class="n">0</span>]   <span class="c"># d divides n exactly</span>
+    <span class="k">print</span>(<span class="s">&quot;Divisors of &quot;</span> + <span class="k">str</span>(n) + <span class="s">&quot;: &quot;</span> + <span class="s">&quot; &quot;</span>.join(<span class="k">map</span>(<span class="k">str</span>, divisors)))
+</pre>
+      <div class="codelabel">What the Python version printed for n = 28</div>
+<pre class="out">Enter a positive integer: Divisors of 28: 1 2 4 7 14 28
+</pre>
+      <p><b>And the same program in C++.</b></p>
       <div class="codelabel">divisors.cpp</div>
 <pre class="code"><span class="c">// Mock One Question Three (d): every positive divisor of n, on one line.</span>
 <span class="k">#include</span> &lt;iostream&gt;

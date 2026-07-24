@@ -524,6 +524,23 @@
       operators &amp; and |, which act on 0 and 1 exactly as
       &#183; and + do in Boolean algebra. That correspondence is the point of
       the program, so make it visible in a comment.</p>
+      <p><b>In Python.</b> The bitwise <code>&amp;</code> and <code>|</code> behave on 0 and 1 exactly as the Boolean product and sum do, the same as in C++.</p>
+      <div class="codelabel">majority.py</div>
+<pre class="code"><span class="c"># Mock Three Question Five (d): the majority of three 0/1 inputs.</span>
+
+<span class="k">def</span> majority(a, b, c):
+    <span class="k">return</span> (a &amp; b) | (b &amp; c) | (a &amp; c)   <span class="c"># F = AB + BC + AC, &amp; is product, | is sum</span>
+
+a, b, c = <span class="k">map</span>(<span class="k">int</span>, <span class="k">input</span>(<span class="s">&quot;Enter A, B and C as 0 or 1: &quot;</span>).split())
+<span class="k">if</span> a &gt; <span class="n">1</span> <span class="k">or</span> b &gt; <span class="n">1</span> <span class="k">or</span> c &gt; <span class="n">1</span>:
+    <span class="k">print</span>(<span class="s">&quot;Each input must be 0 or 1.&quot;</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(<span class="s">&quot;F = &quot;</span> + <span class="k">str</span>(majority(a, b, c)))
+</pre>
+      <div class="codelabel">What the Python version printed for the input 1 0 1</div>
+<pre class="out">Enter A, B and C as 0 or 1: F = 1
+</pre>
+      <p><b>And the same program in C++.</b></p>
       <div class="codelabel">majority.cpp</div>
 <pre class="code"><span class="c">// Mock Three Question Five (d): the majority of three 0/1 inputs.</span>
 <span class="k">#include</span> &lt;iostream&gt;

@@ -550,7 +550,7 @@ To rebuild or update:  see "courses/PHY121 - General Physics II/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-CSC242 - Discrete Structures - Study Manual.pdf      451 pp   updated 2026-07-22
+CSC242 - Discrete Structures - Study Manual.pdf      466 pp   updated 2026-07-23
 -------------------------------------------------------------------------------
 CSC242 Discrete Structures, complete manual, and the largest in this folder.
 
@@ -575,12 +575,22 @@ papers are valid practice. The format CHANGED partway: the two oldest are any
 THREE in 2 hours; the current shape, and the one the mocks imitate, is ANY FOUR
 of six questions, 17.5 marks each, 70 total, 3 hours.
 
+PROGRAMMING IS TAUGHT IN BOTH PYTHON AND C++. The guidance this semester is to
+answer any coding question in Python, so Part Eleven leads with Python (11.1),
+gives the same tools in C++ for the older papers (11.2), and answers each of the
+four examined programs in Python first and then in C++ (11.3). The three mock
+programs are given the same way. Every listing in both languages is extracted
+from the book, run on the question's own input, and its output panel compared
+with what it actually printed; the Python and C++ twin of each program are
+checked to print the same panel line for line.
+
 Contents: How to use it, Foundations F.1 to F.2, Logic 1.1 to 1.5, Sets 2.1 to
 2.3, Relations 3.1 to 3.4, Functions 4.1 to 4.3, Counting 5.1 to 5.4, Graph
 Theory 6.1 to 6.8, Trees 7.1 to 7.3, Boolean Algebra 8.1, Proof, Induction,
 Sequences and Recurrences 9.1 to 9.4, Statistics and Probability 10.1 to 10.2,
-C++ 11.1 to 11.2, Reference R.1 to R.3, all five past papers solved end to end,
-and three mock examinations with full answers. 73 clickable Contents rows.
+Programming (Python and C++) 11.1 to 11.3, Reference R.1 to R.3, all five past
+papers solved end to end, and three mock examinations with full answers. 74
+clickable Contents rows.
 
 Every past question is quoted AS PRINTED in the examiner's exact words, broken
 down, and then answered. 81 quoted questions, verified in three directions
@@ -603,26 +613,31 @@ Eight scripted gates, all green at publish:
   - verify_numbers.py: 762 worked values and 5 printed grids recomputed
     independently, each pinned to the one file that prints it, with every table
     row built FROM the recomputation so the value and the check are one object.
-  - verify_code.py: 7 complete C++ programs and 6 teaching fragments EXTRACTED
-    from the book itself, compiled at /W4 where any diagnostic fails, run on the
-    question's own input, and compared line for line with the output panel the
-    book prints. C++ is taught from zero here because the papers set 19 marks of
-    it and the course text does not contain the word "program".
+  - verify_code.py: 14 complete programs (each examined and mock program in
+    Python and in C++) and 13 teaching fragments EXTRACTED from the book itself,
+    run on the question's own input and compared line for line with the output
+    panel the book prints. C++ is compiled at /W4 where any diagnostic fails;
+    Python is parsed (the interpreted analogue of compiling) and then run. The
+    papers set 19 marks of programming, and the course text's only code is one
+    worked example, an inclusion-exclusion count given in both C++ and Python3,
+    that resembles none of the examined questions, so this part teaches both
+    languages to exam depth. Control-tested on 6 planted defects across both
+    language arms, all caught.
   - qa_verbatim.py: every quoted question matches its transcript character for
     character, every question part we hold is quoted somewhere, and every run in
     quotation marks in paper-citing prose is either verbatim or plainly our own
     gloss. That third direction caught two real misquotes in this book.
   - qa_formulas.py: 43 formulas each state what every symbol means at the point
-    of use; 112 must-memorise boxes and 110 worked examples scanned; 10 named
+    of use; 119 must-memorise boxes and 110 worked examples scanned; 10 named
     laws each stated with conditions and limiting case.
   - qa_firstuse.py: nothing is used before it is introduced, all 32 gap topics
     are introduced, and no notation makes its first appearance inside a mock.
   - gates.py: no em or en dashes in our prose (82 quoted questions exempt by
     masking, not by disabling the check), no institution or pedagogy-source
     names, the reserved crimson reserved, no code line over 87 columns.
-  - contents.py: all 73 Contents rows resolve to a page carrying that heading and
+  - contents.py: all 74 Contents rows resolve to a page carrying that heading and
     the printed number matches that page's own footer.
-  - qa_layout.py: body renders at its design size (10.50 pt across 334360
+  - qa_layout.py: body renders at its design size (10.50 pt across 338748
     characters, no Chromium shrink), nothing outside the margins, no box cut by a
     page break that could have fitted whole, no code hanging past its panel.
 
@@ -634,10 +649,21 @@ book, written by hand. The two oldest papers are image-only with no text layer
 and were read by eye from renders at 170 dpi; the newest was read from phone
 photographs, one of them rotated.
 
+CORRECTION in this edition (2026-07-23): the previous 451pp edition carried a
+false claim. Part Eleven's opening asserted that "C++", "cout", "cin",
+"include", "main", "algorithm" and the word "program" occur ZERO times in the
+course text. Re-probing the extracted text found that untrue: the text contains
+one worked program, an inclusion-exclusion count printed in BOTH C++ and
+Python3, plus the exercise "write a Python or C++ program". The math-coverage
+claims that define this manual's scope (vertex 0, reflexive 0, bit string 0, and
+the rest) were re-verified and all hold; only the code-word claim was wrong,
+having been asserted without being probed while the math terms were. It is now
+stated truthfully, and the correction rode in on the Python edition.
+
 KNOWN LIMIT at publish, recorded honestly: the gates above cover numbers, code,
 quotations, notation order, house style and page geometry. They do not read
 prose. A full end-to-end read for repetition, tonal drift and concept-level gaps
-has NOT been done on this edition. Roughly 23 of its 451 pages also sit under a
+has NOT been done on this edition. Roughly 24 of its 466 pages also sit under a
 quarter full, which is the price of the rule that a box is never split across a
 page turn; the solved-papers part has the same character.
 

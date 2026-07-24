@@ -36,7 +36,7 @@ BODY_PARTS = [
     'p6_65.html', 'p6_66.html', 'p6_67.html', 'p6_68.html', 'p7_trees.html',
     'p7_72.html', 'p7_73.html', 'p8_boolean.html', 'p9_proof.html',
     'p9_92.html', 'p9_93.html', 'p9_94.html', 'p10_stats.html',
-    'p10_102.html', 'p11_cpp.html', 'p11_112.html', 'reference.html',
+    'p10_102.html', 'p11_py.html', 'p11_cpp.html', 'p11_112.html', 'reference.html',
     'reference_r2.html', 'reference_r3.html', 'papers.html',
     'paper_2425.html', 'paper_2324.html', 'paper_2122.html',
     'paper_2021.html', 'mock1.html', 'mock1_answers.html', 'mock2.html',
@@ -245,10 +245,11 @@ def main():
         if r.returncode != 0:
             stop('numeric gate failed, a worked answer disagrees with a recompute.')
 
-    # ---- code gate: every C++ listing in Part Eleven is extracted from the
-    #      book itself, compiled at /W4 and run, and its output panel is
-    #      compared with what it actually printed. The course text contains no
-    #      programming at all, so this part is the reader's only source. ----
+    # ---- code gate: every listing in Part Eleven, Python and C++, is extracted
+    #      from the book itself, run (C++ compiled at /W4 first), and its output
+    #      panel compared with what it actually printed. The course text's only
+    #      code is one example resembling none of the examined questions, so this
+    #      part is effectively the reader's only source. ----
     cg = os.path.join(HERE, 'verify_code.py')
     if os.path.exists(cg):
         r = subprocess.run([sys.executable, cg])

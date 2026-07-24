@@ -501,6 +501,25 @@
       beneath it is not required by the question, but it costs three lines and
       turns the program into its own check, which is worth writing when a
       program is being marked on paper.</p>
+      <p><b>In Python.</b> The closed form uses <code>//</code>, floor division, so the halving keeps a whole number just as the C++ version does.</p>
+      <div class="codelabel">apsum.py</div>
+<pre class="code"><span class="c"># Mock Two Question Six (d): the sum of the first n terms of an AP.</span>
+
+a, d, n = <span class="k">map</span>(<span class="k">int</span>, <span class="k">input</span>(<span class="s">&quot;Enter a, d and n: &quot;</span>).split())
+
+total = n * (<span class="n">2</span> * a + (n - <span class="n">1</span>) * d) // <span class="n">2</span>           <span class="c"># the closed form, floor division</span>
+<span class="k">print</span>(<span class="s">&quot;S_&quot;</span> + <span class="k">str</span>(n) + <span class="s">&quot; = &quot;</span> + <span class="k">str</span>(total))
+
+running = <span class="n">0</span>                                       <span class="c"># the same sum, term by term</span>
+<span class="k">for</span> k <span class="k">in</span> <span class="k">range</span>(n):
+    running += a + k * d                          <span class="c"># the (k+1)th term</span>
+<span class="k">print</span>(<span class="s">&quot;term by term: &quot;</span> + <span class="k">str</span>(running))
+</pre>
+      <div class="codelabel">What the Python version printed for a = 4, d = 3, n = 20</div>
+<pre class="out">Enter a, d and n: S_20 = 650
+term by term: 650
+</pre>
+      <p><b>And the same program in C++.</b></p>
       <div class="codelabel">apsum.cpp</div>
 <pre class="code"><span class="c">// Mock Two Question Six (d): the sum of the first n terms of an AP.</span>
 <span class="k">#include</span> &lt;iostream&gt;

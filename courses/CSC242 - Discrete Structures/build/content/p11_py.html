@@ -1,0 +1,463 @@
+<section class="part">
+  <div class="kicker">Part Eleven</div>
+  <h1>Programming for<br>Discrete Structures</h1>
+  <div class="blurb">Two papers demand a written program worth six, six and seven
+  marks. The guidance this semester is to answer any coding question in
+  <b>Python</b>, so every program here is given in Python first and then in C++,
+  the language the older papers set. Both are taught from the ground up, to
+  exactly the depth those questions need, and every listing was run before it was
+  printed.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6f78b0" stroke-width="1.3" fill="none">
+        <rect x="24" y="26" width="150" height="82" rx="4"/>
+        <path d="M24 44 L174 44"/>
+        <circle cx="36" cy="35" r="3"/><circle cx="48" cy="35" r="3"/>
+        <circle cx="60" cy="35" r="3"/>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="8.5" fill="#283593">
+        <text x="34" y="60">n = int(input())</text>
+        <text x="34" y="74">for m in range(n):</text>
+        <text x="46" y="88">print(m)</text>
+      </g>
+      <text x="24" y="122" font-family="DejaVu Sans" font-size="9" fill="#67707a">Python</text>
+      <g stroke="#8891c9" stroke-width="1.3" fill="none">
+        <rect x="196" y="26" width="150" height="82" rx="4"/>
+        <path d="M196 44 L346 44"/>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="8.5" fill="#5b6480">
+        <text x="206" y="60">int main() {</text>
+        <text x="206" y="74">  cout &lt;&lt; ...</text>
+        <text x="206" y="88">}</text>
+      </g>
+      <text x="196" y="122" font-family="DejaVu Sans" font-size="9" fill="#67707a">C++</text>
+      <g stroke="#be123c" stroke-width="1.4" fill="none">
+        <path d="M360 67 L392 67"/><path d="M386 62 L392 67 L386 72"/>
+      </g>
+      <g stroke="#8891c9" stroke-width="1.2" fill="none">
+        <rect x="404" y="34" width="96" height="66" rx="3"/>
+      </g>
+      <g font-family="DejaVu Sans Mono" font-size="8.5" fill="#283593">
+        <text x="414" y="54">{ }</text>
+        <text x="414" y="68">{1}</text>
+        <text x="414" y="82">{1, 2}</text>
+      </g>
+      <text x="404" y="120" font-family="DejaVu Sans" font-size="9" fill="#67707a">the same output either way</text>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Part Eleven &middot; 11.1</div>
+  <h2 class="title">Enough Python to Answer the Question</h2>
+  <hr class="rule">
+  <p class="lead">You are not being examined on Python. You are being examined on
+  whether you can express a discrete structure as a program. That takes far less
+  of the language than a programming course would give you, and this section is
+  the whole of what the four examined questions use. Section 11.2 gives the same
+  tools in C++ for the older papers; read whichever language you will write.</p>
+  <p class="lo">By the end of this section you will be able to write and read a
+  complete Python program: printing and reading, the values this course needs,
+  arithmetic including the two kinds of division and the remainder, conditions,
+  both kinds of loop, lists, functions with a return value, and the bit
+  operations that turn a subset into a number.</p>
+
+  <div class="gapchip"><b>Almost nothing in the course text, and none of what the exam asks</b><br>
+  The official text carries exactly <b>one</b> worked program: a count of the
+  integers below 100 divisible by 2, 3 or 5, done by inclusion and exclusion and
+  printed in <b>both C++ and Python3</b>, followed by a single exercise that says
+  "write a Python or C++ program" for the same kind of count. That is the whole
+  of its programming content. It explains no syntax, no values, no input, no loop
+  as an idea; it drops the two listings in and moves on. None of the four
+  programs the papers actually set, the power set by bit mask, the bit strings,
+  the binary search, the degree count, resembles it. So this part teaches both
+  languages from the ground up, to exactly the depth those questions need, and
+  every listing in it was run before it went on the page.</div>
+
+  <h3 class="sub">The smallest program, and what Python spares you</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">A whole program is one line</span></div>
+    <div class="body">
+      <p>Where C++ needs four lines of scaffolding before it prints anything,
+      Python needs none. This complete program prints one word:</p>
+      <div class="codelabel">The smallest complete program</div>
+<pre class="code"><span class="c"># A comment. Everything after a hash is ignored by Python.</span>
+<span class="k">print</span>(<span class="s">"Hello"</span>)            <span class="c"># no #include, no main, no braces, no semicolons</span>
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">print(...)</span> writes what is inside the brackets to
+      the screen and then moves to a new line. It is the whole of output for this
+      course.
+      <span class="sym">the round brackets</span> are a <b>function call</b>:
+      print is a function, and the value to print goes between its brackets.
+      <span class="sym">"Hello"</span> in double quotes is a <b>string</b>, a
+      piece of text.
+      <span class="sym">#</span> starts a comment, which runs to the end of the
+      line. It is Python's <code>//</code>.
+      <span class="sym">no semicolon</span> is needed: in Python the end of the
+      line ends the statement.</div>
+      <p class="hook"><b>Memory hook:</b> <b>Python has no boilerplate.</b> The
+      first line of your answer is the first line of the solution, not four lines
+      of ceremony.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Values and variables</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Four kinds of value, and no type to declare</span></div>
+    <div class="body">
+      <p>Python does not make you announce what kind of value a name holds. You
+      write the name, an <code>=</code>, and the value; the kind is decided by
+      what you put there.</p>
+      <table class="data">
+        <tr><th>Kind</th><th>Holds</th><th>Example</th></tr>
+        <tr><td><code>int</code></td><td>a whole number, of <b>any size</b></td><td><code>n = 24</code></td></tr>
+        <tr><td><code>float</code></td><td>a number with a decimal point</td><td><code>r = 2.5</code></td></tr>
+        <tr><td><code>bool</code></td><td>True or False, the propositions of 1.1</td><td><code>found = False</code></td></tr>
+        <tr><td><code>str</code></td><td>text, in single or double quotes</td><td><code>bits = "1010101010"</code></td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">n = 24</span> reads: make a name n and let it stand for
+      24. No type word in front, unlike C++.
+      <span class="sym">=</span> is <b>assignment</b>, not equality. It puts the
+      right side into the name on the left. The test for equality is
+      <code>==</code>, with two signs.
+      <span class="sym">True and False</span> are capitalised in Python, which is
+      the spelling the compiler insists on.
+      <span class="sym">int of any size</span> is the difference that matters
+      here. Python integers never overflow: they grow to whatever size the
+      arithmetic needs.</div>
+      <p><b>Why "any size" is worth a sentence.</b> The password count of
+      section 5.1 is 2684483063360, far past what a fixed-width integer holds. In
+      C++ that forces a choice of <code>long long</code>, and choosing wrong
+      gives a silent wrong answer; in Python the number simply grows and there is
+      nothing to get wrong. If you write the same count in both languages, this
+      is the one place they differ.</p>
+    </div>
+  </div>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Arithmetic, and the division that surprises people</span></div>
+    <div class="body">
+      <table class="data">
+        <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+        <tr><td><code>+ - *</code></td><td>add, subtract, multiply</td><td><code>3 * 4</code></td><td>12</td></tr>
+        <tr><td><code>/</code></td><td><b>true division</b>; always gives a decimal</td><td><code>7 / 2</code></td><td>3.5</td></tr>
+        <tr><td><code>//</code></td><td><b>floor division</b>; throws the remainder away</td><td><code>7 // 2</code></td><td>3</td></tr>
+        <tr><td><code>%</code></td><td>the <b>remainder</b> after whole division</td><td><code>7 % 2</code></td><td>1</td></tr>
+        <tr><td><code>==  !=</code></td><td>is equal to, is not equal to</td><td><code>n % 2 == 0</code></td><td>True when n is even</td></tr>
+        <tr><td><code>&lt;  &lt;=  &gt;  &gt;=</code></td><td>the ordinary comparisons</td><td><code>low &lt;= high</code></td><td>True or False</td></tr>
+        <tr><td><code>and  or  not</code></td><td>the connectives of section 1.1, spelled as words</td><td><code>a &gt; 0 and b &gt; 0</code></td><td>True when both are</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">/</span> in Python is <b>true division</b> and always
+      produces a decimal: 7 / 2 is 3.5, and even 4 / 2 is 2.0, not 2. This is the
+      opposite of C++, where <code>/</code> between whole numbers throws the
+      fraction away. Getting the two languages the wrong way round here is the
+      single commonest slip.
+      <span class="sym">//</span> is <b>floor division</b>, the one that keeps
+      only the whole part: 7 // 2 is 3. When you want the midpoint of a range or
+      an integer count, this is the slash you need, not <code>/</code>.
+      <span class="sym">%</span> is read "mod" and gives what is left over.
+      <code>n % 2</code> is 0 exactly when n is even, the definition from
+      section 9.1 written as a test.
+      <span class="sym">and, or, not</span> are conjunction, disjunction and
+      negation from Part One, spelled as English words rather than symbols.</div>
+      <p class="hook"><b>Memory hook:</b> <b>one slash divides for real, two
+      slashes keep the whole part.</b> In C++ it is the single slash that keeps
+      the whole part; do not carry the C++ habit across.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Reading input, and making choices</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">input, int(), and the if</span></div>
+    <div class="body">
+      <p><code>input()</code> reads one line from the keyboard and hands it back
+      as a <b>string</b>. To do arithmetic on it you must convert it, with
+      <code>int(...)</code> for a whole number.</p>
+      <div class="codelabel">Reading a number and testing it</div>
+<pre class="code">n = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Enter an integer: "</span>))   <span class="c"># read a line, turn it into a number</span>
+
+<span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span>:
+    <span class="k">print</span>(n, <span class="s">"is even"</span>)
+<span class="k">else</span>:
+    <span class="k">print</span>(n, <span class="s">"is odd"</span>)
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">input("...")</span> prints its prompt, waits for a line,
+      and returns what was typed as text. Without the <code>int(...)</code> around
+      it, <code>n</code> would be the string "24", and "24" % 2 is meaningless.
+      <span class="sym">the colon</span> ends the <code>if</code> line, and every
+      block in Python opens with one: after <code>if</code>, <code>else</code>,
+      <code>for</code>, <code>while</code> and <code>def</code>.
+      <span class="sym">the indentation</span> is the block. Python has no
+      braces; the lines belonging to the <code>if</code> are exactly the lines
+      indented under it. Four spaces is the convention, and being consistent is
+      not optional: mixed indentation is an error.
+      <span class="sym">print(n, "is even")</span> prints several things
+      separated by a space, so the output reads "24 is even".</div>
+      <p><b>Dynamic input is what "dynamically" means in an exam question.</b>
+      The 2023/2024 paper asks for a program that "dynamically takes these sets
+      as input"; that is a request for <code>input()</code>, not for the three
+      sets typed into the source as constants. A program with the answer already
+      written into it has not been asked for.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Loops</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">for and while</span></div>
+    <div class="body">
+      <p>Two loops, and the choice between them is mechanical.</p>
+      <div class="codelabel">A for loop: use it when you know how many times</div>
+<pre class="code"><span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(n):        <span class="c"># i takes 0, 1, ..., n - 1</span>
+    <span class="k">print</span>(i, end=<span class="s">" "</span>)
+</pre>
+      <div class="codelabel">A while loop: use it when you stop on a condition</div>
+<pre class="code"><span class="k">while</span> low &lt;= high:        <span class="c"># keep going until the range is empty</span>
+    <span class="k">pass</span>                 <span class="c"># the real body would shrink the range</span>
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">range(n)</span> produces the numbers <b>0, 1, ...,
+      n &#8722; 1</b>: n of them, starting at 0 and stopping <b>before</b> n. So
+      the loop runs n times, and counting from 0 is the Python convention just as
+      it is the C++ one.
+      <span class="sym">for i in ...</span> takes each value in turn and puts it
+      in <code>i</code>. There is no separate start, condition and step as in
+      C++; range holds all three.
+      <span class="sym">end=" "</span> tells print to end with a space instead of
+      a new line, so the numbers print along one line.
+      <span class="sym">while</span> takes only the condition, so something in the
+      body must eventually make it false. If nothing does, the program never
+      stops.
+      <span class="sym">pass</span> is a do-nothing statement, here only because
+      a block may not be empty; the real loop puts work there.</div>
+      <p class="hook"><b>Memory hook:</b> <b>for counts, while waits.</b> A known
+      number of passes is a for; a search that ends when it finds something is a
+      while.</p>
+      <p><b>The off-by-one to expect.</b> <code>range(n)</code> stops at
+      n &#8722; 1, which is n passes and exactly the length of an n-element list.
+      This is the same one-fewer-than-you-think that section 9.3 met in
+      a<sub>n</sub> = a + (n &#8722; 1)d.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Many values at once</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">list, and reading a whole line of numbers</span></div>
+    <div class="body">
+      <div class="codelabel">Declaring, filling and reading a list</div>
+<pre class="code">s = [<span class="n">0</span>] * n                <span class="c"># n slots, all 0 to begin with</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(n):
+    s[i] = <span class="k">int</span>(<span class="k">input</span>())      <span class="c"># fill one slot per line</span>
+<span class="k">print</span>(s[<span class="n">0</span>], <span class="s">"and there are"</span>, <span class="k">len</span>(s), <span class="s">"of them"</span>)
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">[0] * n</span> makes a list of n zeros. A list is
+      Python's array, and it can be any length, which is what "dynamically"
+      needs.
+      <span class="sym">s[i]</span> is the <b>slot at position i</b>, counting
+      from <b>0</b>. A three-element list has slots s[0], s[1], s[2], and s[3]
+      does not exist.
+      <span class="sym">len(s)</span> is how many slots there are.
+      <span class="sym">s[-1]</span>, worth knowing, is the <b>last</b> slot,
+      counting from the end.</div>
+      <p><b>Reading a whole line of numbers at once,</b> which the examined
+      programs use, is one idiom worth memorising:</p>
+      <div class="codelabel">One line of numbers into a list</div>
+<pre class="code">s = <span class="k">list</span>(<span class="k">map</span>(<span class="k">int</span>, <span class="k">input</span>().split()))   <span class="c"># "1 2 3" becomes [1, 2, 3]</span>
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">input().split()</span> reads the line and breaks it at the
+      spaces into pieces of text: "1 2 3" becomes "1", "2", "3".
+      <span class="sym">map(int, ...)</span> applies <code>int</code> to each
+      piece, turning each string into a number.
+      <span class="sym">list(...)</span> collects the results into a list. The
+      three steps read left to right: split the line, convert each piece, gather
+      them up.</div>
+      <p><b>Position 0 is not a quirk to work around.</b> It is the reason
+      <code>bits[m - 1]</code> appears in the bit-string program: element m of
+      the universe {1, ..., 10} lives at slot m &#8722; 1. Write that
+      subtraction down deliberately rather than discovering it by being one out.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Functions</h3>
+
+  <div class="box mem">
+    <div class="bar"><span>Must memorise</span><span class="tag">Writing a function and calling it</span></div>
+    <div class="body">
+      <p>A function is a named piece of program that takes values in and hands
+      one value back. It is the section 4.1 idea of a function, made
+      executable.</p>
+      <div class="codelabel">Definition, then use</div>
+<pre class="code"><span class="k">def</span> larger(a, b):          <span class="c"># takes two values, hands one back</span>
+    <span class="k">if</span> a &gt; b:
+        <span class="k">return</span> a
+    <span class="k">return</span> b
+
+<span class="k">print</span>(larger(<span class="n">3</span>, <span class="n">9</span>))         <span class="c"># prints 9</span>
+</pre>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">def larger(a, b):</span> begins a definition:
+      <code>def</code>, the name, the parameters in brackets, then a colon. There
+      is no return type to declare, unlike C++.
+      <span class="sym">a, b</span> are the <b>parameters</b>: names for the
+      values passed in. These are the domain of section 4.1.
+      <span class="sym">return a</span> hands a value back <b>and stops the
+      function immediately</b>. Everything after it in that path is not run.
+      <span class="sym">larger(3, 9)</span> is the <b>call</b>. The whole
+      expression stands for the value returned, so it can be printed, stored or
+      used in arithmetic.
+      <span class="sym">the indented block</span> is the body, exactly as with a
+      loop: the function is the lines indented under the <code>def</code>.</div>
+      <p><b>Python does not require a function to appear before it is called,</b>
+      as long as the definition has run by the time the call happens. Defining
+      every helper at the top of the file, above the code that uses it, is the
+      safe habit and the one every program in the next section follows.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Bits, and why a subset is a number</h3>
+
+  <div class="box teach">
+    <div class="bar"><span>Teach</span><span class="tag">The two operators the power set needs</span></div>
+    <div class="body">
+      <p>Section 2.3 encoded a subset as a bit string: one bit per element of the
+      universe, 1 when the element is in. Python can hold that string of bits as a
+      single whole number and test one bit at a time, which turns "list every
+      subset" into "count from 0 upwards". These two operators are spelled exactly
+      as in C++, so this is the one part of the language the two share letter for
+      letter.</p>
+      <table class="data">
+        <tr><th>Written</th><th>Read</th><th>Does</th></tr>
+        <tr><td><code>1 &lt;&lt; i</code></td><td>one shifted left by i</td><td>a number with a single 1 bit, at position i</td></tr>
+        <tr><td><code>mask &amp; (1 &lt;&lt; i)</code></td><td>mask AND that</td><td>non-zero exactly when bit i of mask is 1</td></tr>
+      </table>
+      <div class="wheredef"><span class="wlab">Where</span>
+      <span class="sym">&lt;&lt;</span> is the <b>shift</b> operator: it moves the
+      bits of a number to the left, so <code>1 &lt;&lt; i</code> is 1 followed by
+      i zeros in binary. In Python <code>&lt;&lt;</code> has only this meaning,
+      with none of the printing sense it carries in C++.
+      <span class="sym">&amp;</span> with one ampersand is <b>bitwise and</b>: it
+      lines two numbers up bit by bit and keeps a 1 only where both have one. The
+      word <code>and</code> is the logical connective of Part One; the symbol
+      <code>&amp;</code> is the bit operator, and they are not interchangeable.
+      <span class="sym">mask</span> is the number whose bits name a subset: bit i
+      is 1 when element i is in.
+      <span class="sym">position i</span> counts from 0 at the right-hand end, so
+      1 &lt;&lt; 0 is 1, 1 &lt;&lt; 1 is 2, 1 &lt;&lt; 2 is 4.</div>
+      <table class="data">
+        <tr><th>mask</th><th>in binary</th><th>the subset of {1, 2, 3}</th></tr>
+        <tr><td>0</td><td>000</td><td>{ }</td></tr>
+        <tr><td>1</td><td>001</td><td>{1}</td></tr>
+        <tr><td>2</td><td>010</td><td>{2}</td></tr>
+        <tr><td>3</td><td>011</td><td>{1, 2}</td></tr>
+        <tr><td>4</td><td>100</td><td>{3}</td></tr>
+        <tr><td>5</td><td>101</td><td>{1, 3}</td></tr>
+        <tr><td>6</td><td>110</td><td>{2, 3}</td></tr>
+        <tr><td>7</td><td>111</td><td>{1, 2, 3}</td></tr>
+      </table>
+      <p><b>Read the right-hand column downwards</b> and compare it with the
+      sample output printed on the 2024/2025 paper. They are in the same order,
+      because counting 0 to 7 <i>is</i> the enumeration the examiner printed. That
+      is not a coincidence to be grateful for; it is the reason the power set of
+      an n-element set has 2<sup>n</sup> members, which section 2.1 proved by a
+      different route.</p>
+    </div>
+  </div>
+
+  <div class="box trap">
+    <div class="bar"><span>Trap</span><span class="tag">You are writing on paper, not in an editor</span></div>
+    <div class="body">
+      <p>There is no interpreter in the hall. Nobody will run what you write,
+      which cuts both ways: a missing colon will not stop you, and a program that
+      only looks plausible will not fool a marker who can read. This advice holds
+      whichever language you answer in.</p>
+      <ul class="bul">
+        <li><b>Comment the steps the question numbered.</b> 2024/2025 Q4(c)
+        lists five things the function must do; put those five as comments in the
+        body and the marker can find each one.</li>
+        <li><b>Indent consistently.</b> In Python the indentation <i>is</i> the
+        program, so ragged indentation is not untidy, it is wrong. Four spaces a
+        level, the same throughout.</li>
+        <li><b>End every block header with a colon,</b> after
+        <code>if</code>, <code>for</code>, <code>while</code> and
+        <code>def</code>. It is the semicolon of Python for how often it is left
+        out.</li>
+        <li><b>Prompt before every read.</b> Put the message inside
+        <code>input(...)</code>, every time.</li>
+        <li><b>Name things as the question names them.</b> If it says the
+        function is called <code>isPerfectSquare</code>, that is its name.
+        Renaming it is the same defect as paraphrasing a quotation.</li>
+        <li><b>If you run out of time, write the logic in ordered comments.</b> A
+        correct method in comments earns more than half a program that stops
+        mid-loop.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box recall">
+    <div class="bar"><span>Recall and check</span></div>
+    <div class="body">
+      <p class="q">1. Write the smallest complete Python program that prints a
+      word.</p>
+      <p class="q">2. What is the difference between <code>=</code> and
+      <code>==</code>?</p>
+      <p class="q">3. What do <code>7 / 2</code>, <code>7 // 2</code> and
+      <code>7 % 2</code> give, and which one matches C++'s single slash?</p>
+      <p class="q">4. What does <code>input()</code> hand back, and what must you
+      do before using it as a number?</p>
+      <p class="q">5. How many values does <code>range(n)</code> produce, and what
+      are the first and last?</p>
+      <p class="q">6. What marks a block in Python, where C++ uses braces?</p>
+      <p class="q">7. What does <code>mask &amp; (1 &lt;&lt; i)</code> test?</p>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. <code>print("Hello")</code>. That is the whole program.<br>
+      2. <code>=</code> assigns the right side into the name on the left;
+      <code>==</code> tests whether two values are equal.<br>
+      3. 3.5, 3 and 1. The double slash <code>//</code> matches C++'s single
+      slash, because both keep only the whole part; Python's single slash gives
+      the decimal.<br>
+      4. A string, the line as text. Wrap it in <code>int(...)</code> before doing
+      arithmetic.<br>
+      5. n values, 0 to n &#8722; 1; the first is 0 and the last is
+      n &#8722; 1.<br>
+      6. Indentation: the lines indented under the header form the block.<br>
+      7. Whether bit i of mask is 1, that is whether element i is in the subset
+      that mask encodes.</p>
+    </div>
+  </div>
+
+  <div class="box fill">
+    <div class="bar"><span>Fill in the gap</span></div>
+    <div class="body">
+      <ol>
+        <li>Every block header ends with a <span class="blank"></span>.</li>
+        <li><code>print(...)</code> sends a value <span class="blank"></span> and
+        <code>input()</code> reads a line <span class="blank"></span>.</li>
+        <li>A list's slots are numbered from <span class="blank"></span>.</li>
+        <li>The floor-division operator is written
+        <span class="blank"></span> and the remainder operator
+        <span class="blank"></span>.</li>
+        <li>An integer in Python can grow to <span class="blank"></span>
+        size.</li>
+        <li>The word "dynamically" in an exam question is asking for
+        <span class="blank"></span>.</li>
+      </ol>
+      <hr class="cut">
+      <div class="alabel">Answers</div>
+      <p>1. colon. 2. out to the screen, in from the keyboard. 3. 0.
+      4. <code>//</code> and <code>%</code>. 5. any. 6. input read at run time
+      with <code>input()</code>, rather than values written into the source.</p>
+    </div>
+  </div>
+
+</section>

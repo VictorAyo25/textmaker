@@ -1,70 +1,19 @@
-<section class="part">
-  <div class="kicker">Part Eleven</div>
-  <h1>C++ for Discrete<br>Structures</h1>
-  <div class="blurb">Two papers demand written C++ worth six, six and seven
-  marks, and the course text does not contain the word "program". So this part
-  teaches the language from nothing, to exactly the depth those questions need,
-  and every listing in it was compiled and run before it was printed.</div>
-  <div class="divider-motif">
-    <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="#6f78b0" stroke-width="1.3" fill="none">
-        <rect x="34" y="26" width="196" height="82" rx="4"/>
-        <path d="M34 44 L230 44"/>
-        <circle cx="46" cy="35" r="3"/><circle cx="58" cy="35" r="3"/>
-        <circle cx="70" cy="35" r="3"/>
-      </g>
-      <g font-family="DejaVu Sans Mono" font-size="9" fill="#5b6480">
-        <text x="46" y="60">int main() {</text>
-        <text x="58" y="74">cout &lt;&lt; ...</text>
-        <text x="58" y="88">return 0;</text>
-        <text x="46" y="102">}</text>
-      </g>
-      <g stroke="#be123c" stroke-width="1.4" fill="none">
-        <path d="M248 67 L292 67"/><path d="M286 62 L292 67 L286 72"/>
-      </g>
-      <g stroke="#8891c9" stroke-width="1.3" fill="none">
-        <rect x="308" y="26" width="176" height="82" rx="4"/>
-        <path d="M308 44 L484 44"/>
-      </g>
-      <g font-family="DejaVu Sans Mono" font-size="9" fill="#283593">
-        <text x="320" y="62">{ }</text>
-        <text x="320" y="76">{1}</text>
-        <text x="320" y="90">{1, 2}</text>
-        <text x="392" y="62">0011100000</text>
-        <text x="392" y="76">1010010001</text>
-        <text x="392" y="90">0111001110</text>
-      </g>
-      <text x="308" y="122" font-family="DejaVu Sans" font-size="9.5" fill="#67707a">what the examiner asked the program to print</text>
-    </svg>
-  </div>
-</section>
-
 <section>
-  <div class="kick">Part Eleven &middot; 11.1</div>
-  <h2 class="title">Enough C++ to Answer the Question</h2>
+  <div class="kick">Part Eleven &middot; 11.2</div>
+  <h2 class="title">The Same Tools in C++</h2>
   <hr class="rule">
-  <p class="lead">You are not being examined on C++. You are being examined on
-  whether you can express a discrete structure as a program. That takes far less
-  of the language than a programming course would give you, and this section is
-  the whole of what the four examined questions use.</p>
+  <p class="lead">The older papers set their programs in C++, so here are the
+  same seven tools in that language: the skeleton, printing and reading, the
+  types this course needs, arithmetic, conditions, both kinds of loop, arrays
+  through <code>vector</code>, functions, and the bit operations. If you have
+  read section 11.1 you have met every idea already and this section only
+  changes the spelling; answer in whichever language you will write in the
+  hall.</p>
   <p class="lo">By the end of this section you will be able to write and read a
-  complete C++ program: the skeleton, printing and reading, the types this
-  course needs, arithmetic including integer division and remainder, conditions,
-  both kinds of loop, arrays through <code>vector</code>, functions with a
-  return value, and the bit operations that turn a subset into a number.</p>
-
-  <div class="gapchip"><b>Not in the course text, and not a little bit</b><br>
-  Probed across all 184 thousand characters of the official text, these occur
-  <b>zero</b> times: <span class="mention">C++</span>,
-  <span class="mention">cout</span>, <span class="mention">cin</span>,
-  <span class="mention">include</span>, <span class="mention">main</span>,
-  <span class="mention">algorithm</span>,
-  <span class="mention">pseudocode</span>, and the word
-  <span class="mention">program</span> itself. Meanwhile 2023/2024 asks for a
-  seven-mark program and 2024/2025 asks for two more worth six marks each. That
-  is 19 marks of programming with no source behind it. Everything here is
-  therefore taught from zero, and every listing was compiled with warnings
-  turned up and run before it went on the page.</div>
+  complete C++ program and set it beside its Python twin: the skeleton, printing
+  and reading, the types, arithmetic including integer division and remainder,
+  conditions, both kinds of loop, <code>vector</code>, functions with a return
+  value, and the bit operations that turn a subset into a number.</p>
 
   <h3 class="sub">The skeleton</h3>
 
@@ -364,32 +313,6 @@ cout &lt;&lt; s[<span class="n">0</span>] &lt;&lt; <span class="s">" and there a
       That is not a coincidence to be grateful for; it is the reason the power
       set of an n-element set has 2<sup>n</sup> members, which section 2.1
       proved by a different route.</p>
-    </div>
-  </div>
-
-  <div class="box trap">
-    <div class="bar"><span>Trap</span><span class="tag">You are writing on paper, not in an editor</span></div>
-    <div class="body">
-      <p>There is no compiler in the hall. Nobody will run what you write, which
-      cuts both ways: a missing semicolon will not stop you, and a program that
-      only looks plausible will not fool a marker who can read.</p>
-      <ul class="bul">
-        <li><b>Write the skeleton first,</b> before you have solved anything.
-        Four lines you already know are four lines of marks.</li>
-        <li><b>Comment the steps the question numbered.</b> 2024/2025 Q4(c)
-        lists five things the function must do; put those five as comments in
-        the body and the marker can find each one.</li>
-        <li><b>Indent.</b> A marker reading handwriting needs the block
-        structure visible, and it costs nothing.</li>
-        <li><b>Prompt before every read.</b> <code>cout</code> then
-        <code>cin</code>, every time.</li>
-        <li><b>Name things as the question names them.</b> If it says the
-        function is called <code>isPerfectSquare</code>, that is its name.
-        Renaming it is the same defect as paraphrasing a quotation.</li>
-        <li><b>If you run out of time, write the logic in ordered comments.</b>
-        A correct method in comments earns more than half a program that stops
-        mid-loop.</li>
-      </ul>
     </div>
   </div>
 
