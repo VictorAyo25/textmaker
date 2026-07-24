@@ -7,6 +7,82 @@ printout goes stale. Version numbers (v2, v4) are for drafts/ only. The history
 below records what changed; git holds every superseded copy.
 
 -------------------------------------------------------------------------------
+ENT221 - Agripreneurship - Study Manual.pdf   95 pp   published 2026-07-24
+-------------------------------------------------------------------------------
+ENT221 Agripreneurship, a non-computational recall course, complete manual across
+the four modules of the course text: Agriculture and Agripreneurship, Fish Farming
+(the heaviest tested), Oil Palm cultivation and processing, and Agribusiness
+Opportunities and Value Addition. Assessment is a computer-based test (CBT) in four
+styles: single-best-answer multiple choice, true/false, fill-in-the-gap, and matching.
+
+Contents: How to use it + The Exam at a Glance + How the Examiner Thinks (the CBT's
+habits banked as strategy), Modules One to Four taught from zero in the box grammar,
+a Reference part (a must-memorise consolidation of every enumerated list, plus a
+glossary), BOTH real class tests solved in full (each question quoted AS PRINTED,
+then BROKEN DOWN, then answered), and FIVE mock CBTs of forty questions each, ten per
+module. Six hand-drawn inline figures (the water-quality parameters, the fish-farm
+departments, the 3M roadmap, the oil-palm cultivation timeline and processing flow,
+the value-addition forms) plus module and mock dividers. 37 clickable Contents rows,
+real selectable text throughout.
+
+DIRECTIVE from Victor, honoured: teach AND mock-test all four modules to the same
+depth, even though both class tests leaned almost entirely on Modules One and Two
+(fish farming dominated). Oil palm and value addition are exactly the crisp,
+list-based content a CBT feeds on, so the manual teaches them fully and each mock
+draws ten questions from every module.
+
+AUTHORED, not rebuilt: the 88-page course text is a source, content/*.html is the
+book, written by hand. Neither class test had a printed key on the copy supplied, so
+the two were handled differently and honestly: Test 2 came with a graded 30/30 review
+sheet, so every answer is CONFIRMED from the ticks; Test 1 was unattempted, so its 29
+answers are DERIVED from the course text and reasoned, and the one figure the text
+does not carry (Q8's "1.9 million metric tons" annual deficit) is flagged as derived,
+not certain. Both tests were transcribed BY EYE from the screenshots into
+sources/exams/transcripts/. Module drills that echo a real question are chipped
+"Practice, cf. Test N" and never presented as the paper's own words; the verbatim
+quotes live only in the two solved-test sections.
+
+Seven scripted gates, all green at publish, each control-tested:
+  - gates.py: no em/en dashes in our prose (60 quoted AS PRINTED regions exempt by
+    masking, not by disabling the check, so the tests' own dashes survive), no
+    institution or pedagogy-source names, the reserved harvest gold reserved to
+    MUST-MEMORISE only.
+  - qa_verbatim.py: every real test question is quoted as it appeared, or not at all.
+    All 59 questions across the two tests (29 + 30) match their transcripts character
+    for character, both tests quoted in full, with the tests' own option line breaks
+    kept. Control-tested to fail in three directions: a one-word paraphrase, a dropped
+    question, and two joined option lines.
+  - qa_coverage.py: no module, unit, or key exam list left out. Every course-text unit
+    is taught, all five mocks and both solved tests are present, and each of 22
+    enumerated exam lists (the 3M model, the five processing stages, POCD, and the
+    rest) is present. Control-tested to fail on a dropped list.
+  - qa_firstuse.py: teach before use. All 11 declared abbreviations (DO, TBC, USP, FFB,
+    CPO, PKC, PPF, EFB, NPKMg, POME, POCD) are introduced before the reader meets them,
+    and none first inside a mock. Control-tested on a removed introduction.
+  - qa_content.py: every one of the 411 drill options is actually painted in the
+    rendered PDF (measured against the artifact, not the HTML), no tofu glyphs.
+  - contents.py: all 37 Contents rows resolve to a page carrying that heading and the
+    printed number matches that page's own footer, through the cover merge.
+  - qa_layout.py: the body renders at its design size (10.50 pt, no Chromium shrink),
+    nothing outside the margins, no box cut by a page break that could have fitted
+    whole, and every short page is a forced divider break. A false positive was fixed
+    here: a mock divider owns its page (page-break-after), so a page that itself begins
+    a forced section is no longer reported as anomalously short.
+
+Palette: leaf green for teaching (growth), soil brown for worked examples (earth), a
+reserved harvest gold for MUST-MEMORISE (the harvest to bank), barn red for traps, and
+a graphite As-Printed bar for the examiner's own words.
+
+KNOWN LIMIT at publish, recorded honestly: the gates cover house style, notation order,
+verbatim quotation, list coverage, drill-option rendering, Contents and page geometry.
+They do not read prose; a full end-to-end read for repetition and tonal drift has not
+been done. Test 1 carried no key, so its answers are the author's reasoned best from
+the text, not a marked ground truth.
+
+To rebuild or update:  cd "courses/ENT221 - Agripreneurship/build"
+                       && python assemble.py
+
+-------------------------------------------------------------------------------
 INS224 - Systems Analysis and Design - Study Manual.pdf   101 pp   published 2026-07-23
 -------------------------------------------------------------------------------
 INS224 Systems Analysis and Design, a complete manual for the current three-hour

@@ -1,0 +1,349 @@
+/* ============================================================
+   ENT221 - Agripreneurship : study manual stylesheet
+   Box grammar inherited from the PHY121 / CSC241 / INS224 build;
+   palette is this course's own (leaf-green + soil-brown, an
+   agriculture theme).
+
+   Reserved colour: harvest gold #ca8a04 means MUST MEMORISE and
+   nothing else. It never appears as decoration. TEACH is leaf green
+   (growth), WORKED is soil brown (earth), the reserved gold reads as
+   the harvest to bank.
+   ============================================================ */
+/* SCALE NOTE: every pt length below is a 9.6pt-base design grown by 10.5/9.6
+   (about 1.094x) for readability, so the odd-looking sizes (18.1pt, 8.4pt ...)
+   are one uniform scale, not arbitrary values. Held fixed against the scale:
+   the code specimens keep their size AND padding so a 90-column line still
+   fits (pre.code/.repl/.out, table.trace, .answerbox), the cover is a fixed
+   full-bleed design, and @page is the sheet of paper. To rescale, do not hand
+   edit: re-run the base sheet through the scale so the ratios stay coherent. */
+
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Italic.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-BoldItalic.ttf'); font-weight:bold; font-style:italic; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Oblique.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Oblique.ttf'); font-weight:normal; font-style:italic; }
+
+:root{
+  --ink:#2b2a26; --head:#1f2a1c; --muted:#5f6b5a; --faint:#8a9384;
+  --teach:#15803d;      --teach-bg:#eef6f0;                        /* leaf green: growth */
+  --code:#4338ca;       --code-bg:#f2f2fc;   --code-ink:#1e1b4b;   /* unused: no code in this course */
+  --work:#78350f;       --work-bg:#f7f0e6;                         /* soil brown: earth / worked */
+  --trap:#b3261e;       --trap-bg:#fbecea;                         /* barn red */
+  --dry:#4b5563;        --dry-bg:#f4f6f6;
+  --mem:#ca8a04;        --mem-bg:#fef8e4;    --mem-bg2:#f5e4b3;  --mem-ink:#422006;  /* RESERVED harvest gold */
+  --recall:#44524a;     --recall-bg:#ffffff;                       /* muted green-slate */
+  --fill:#7c3aed;       --fill-bg:#f5f0fe;                         /* FILL IN THE GAP: violet */
+  --qpaper:#3f3f46;     --qpaper-bg:#ffffff;
+  --ans:#0f766e;        --ans-bg:#eef8f6;                          /* deep teal, clear of leaf green */
+  /* the CBT drill styles (mirroring the real test): a cooler "test" zone,
+     kept clear of the green/brown/gold teaching zone and the reserved gold */
+  --pick:#1d4ed8;       --pick-bg:#eff6ff;                         /* PICK (MCQ): blue */
+  --match:#0891b2;      --match-bg:#ecfeff;                        /* MATCH-UP: cyan */
+  --tf:#7e22ce;         --tf-bg:#faf5ff;                           /* TRUE OR FALSE: purple */
+  --cloze:#334155;      --cloze-bg:#f4f6f9;                        /* CLOZE scenario: slate */
+  --rule:#d8ddd5;
+}
+
+@page{ size:A4; margin:19mm 18mm 16mm 18mm; }
+
+*{ box-sizing:border-box; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'DejaVu Serif', serif;
+  color:var(--ink);
+  font-size:10.5pt;
+  line-height:1.42;
+  margin:0;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+p{ margin:.42em 0; }
+b,strong{ font-weight:bold; }
+sub,sup{ font-size:.72em; }
+
+/* ---------- part / module divider ---------- */
+/* A divider owns its page. Without break-after the next unit's heading drops
+   into whatever space is left below the divider and is stranded there, its own
+   text starting overleaf. min-height alone does not prevent it: it leaves just
+   enough room for a heading to squeeze in. */
+.part{ page-break-before:always; page-break-after:always; break-after:page;
+  padding-top:32mm; min-height:248mm; }
+.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:12pt;
+  color:var(--teach); font-weight:bold; text-transform:uppercase; }
+.part h1{ font-family:'DejaVu Serif',serif; font-size:37.2pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
+.part .blurb{ font-style:italic; color:var(--muted); font-size:12pt; max-width:74%; line-height:1.5; }
+.divider-motif{ margin-top:24mm; opacity:.95; }
+.divider-motif svg{ width:82%; height:auto; }
+
+/* ---------- section header ---------- */
+section{ page-break-inside:auto; }
+.kick{ font-family:'DejaVu Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-size:8.3pt; font-weight:bold; color:var(--muted); margin-top:2.2pt;
+  page-break-after:avoid; break-after:avoid; }
+h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:18pt; color:var(--head);
+  margin:.1em 0 .18em; line-height:1.12;
+  page-break-after:avoid; break-after:avoid; page-break-inside:avoid; }
+.title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
+  page-break-after:avoid; break-after:avoid; }
+.lead{ font-style:italic; color:var(--muted); font-size:10.5pt; margin:.2em 0 .7em; }
+.lo{ font-size:9.8pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
+h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:12.7pt;
+  color:var(--head); margin:1.05em 0 .5em; line-height:1.25; page-break-after:avoid; }
+h3.sub:first-child{ margin-top:0; }
+
+/* ---------- generic box ---------- */
+.box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
+.box > .bar{
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
+  letter-spacing:.14em; font-size:8.4pt; color:#fff; padding:6pt 9.8pt; line-height:1.2;
+  display:flex; justify-content:flex-start; align-items:center;
+}
+.box .bar .tag{ font-size:7.4pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
+  padding:2.2pt 6.6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
+.box .body{ padding:7.7pt 10.9pt 8.8pt; }
+.box .body > :first-child{ margin-top:0; }
+.box .body > :last-child{ margin-bottom:0; }
+
+.teach  > .bar{ background:var(--teach); }   .teach  .body{ background:var(--teach-bg); }
+.code   > .bar{ background:var(--code);  }   .code   .body{ background:var(--code-bg); }
+.trap   > .bar{ background:var(--trap);  }   .trap   .body{ background:var(--trap-bg); }
+.work   > .bar{ background:var(--work);  }   .work   .body{ background:var(--work-bg); }
+.dry    > .bar{ background:var(--dry);   }   .dry    .body{ background:var(--dry-bg); }
+.recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
+.fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+.match  > .bar{ background:var(--match); }   .match  .body{ background:var(--match-bg); }
+.pick   > .bar{ background:var(--pick);  }   .pick   .body{ background:var(--pick-bg); }
+.tf     > .bar{ background:var(--tf);    }   .tf     .body{ background:var(--tf-bg); }
+.cloze  > .bar{ background:var(--cloze); }   .cloze  .body{ background:var(--cloze-bg); }
+
+/* an exam question, reproduced as a paper: plain, no teaching colour */
+.qpaper > .bar{ background:var(--qpaper); }
+.qpaper .body{ background:var(--qpaper-bg); }
+.qpaper{ border-color:#b9c0cc; }
+.qpaper .body > p{ margin:.5em 0; }
+
+/* ---- AS PRINTED: the examiner's own words (methodology 4c, binding) ----
+   A quoted past question must not be able to be mistaken for our prose, so it
+   gets its own graphite bar, a warm paper tint nothing else in the book uses,
+   and a rule down the left the way a block quotation is set.
+   white-space:pre-wrap is load-bearing, not decoration: the paper's own line
+   breaks carry meaning (a numbered listing, a table row, where a part ends), and
+   qa_verbatim.py check 4 compares the book's line structure against the
+   transcript's. Reflowing a quote here would be the same class of edit as
+   rewording it. */
+.paper > .bar{ background:#3f3f46; }
+.paper .body{ background:#fbfaf7; }
+.paper{ border-color:#c9c2b6; }
+.asprinted{
+  white-space:pre-wrap; font-family:'DejaVu Serif',serif; font-size:9.6pt;
+  line-height:1.34; color:#1b1b1f;
+  border-left:2.5pt solid #a8a29a; padding-left:8.4pt; margin:.15em 0;
+}
+/* Our note UNDER a quote, flagging a typo or contradiction we must never repair
+   silently. Every quotation inside one is a claim about the paper, and
+   qa_verbatim.py check 3 holds it to the transcript. */
+.paper .flag{
+  font-size:9.1pt; color:#6b6257; margin:.55em 0 0; padding-top:.45em;
+  border-top:1px dotted #c9c2b6;
+}
+/* A run we deliberately show as NOT the paper's words. Named so the exemption is
+   visible and counted, never silent. */
+.notpaper{ font-style:italic; color:#8a5a2b; }
+
+/* ---- BREAK IT DOWN: read the question before answering it ---- */
+.unpack > .bar{ background:#7c3aed; }
+.unpack .body{ background:#f7f4ff; }
+.unpack{ border-color:#d6c9f5; }
+.unpack .body > p{ margin:.34em 0; }
+/* Hanging indent for the "Given:" / "Asked:" labels. text-indent INHERITS, and an
+   inline-block is a block container, so without the reset the label takes the
+   negative indent a second time and hangs outside the page margin. */
+.unpack p.row{ padding-left:5.6em; text-indent:-5.6em; }
+.unpack p.row > b.lab{
+  display:inline-block; min-width:5.2em; text-indent:0;
+  color:#5b21b6; font-size:8.6pt; letter-spacing:.06em; text-transform:uppercase;
+}
+
+/* a worked answer to an exam question */
+.ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
+/* A box is one idea, so it does not get cut across a page turn. These two used
+   to say break-inside:auto, on the theory that a whole question or a long answer
+   is taller than a page and would be futile to keep together. Measured, that was
+   wrong: it cut 30 boxes that would have fit whole and only 1 that had to split.
+   avoid is best effort, so the genuinely oversized box still splits by itself. */
+.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
+.ans .marks:first-child{ margin-top:0; }
+
+/* MUST MEMORISE: the reserved hue. Yellow needs dark ink, not white. */
+.mem    > .bar{ background:var(--mem); color:var(--mem-ink); }
+.mem    .body{ background:var(--mem-bg); }
+.mem    { border-color:#eab308; }
+.mem .bar .tag{ background:rgba(0,0,0,.14); color:var(--mem-ink); }
+.mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* filled circle */
+.trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* warning sign */
+
+/* ---------- code, the spine of this manual ----------
+   Every code block is monospace, always. The source manual sets some code in a
+   proportional font, which makes its column-alignment examples meaningless.
+   That is a defect we do not inherit. */
+pre.code, pre.repl, pre.out{
+  font-family:'DejaVu Sans Mono', monospace;
+  font-size:8.7pt; line-height:1.38;
+  margin:.4em 0; padding:6pt 9pt;
+  white-space:pre; overflow-wrap:normal;
+  background:#fff; border:1px solid #dbe6e0; border-left:3px solid var(--code);
+  break-inside:avoid; tab-size:4;
+}
+pre.repl{ border-left-color:var(--teach); border-color:#dae3ee; }
+pre.out{ border-left-color:var(--dry); border-color:#dfe3ea; background:#f7f8fa; color:#20262f; }
+pre .c{ color:#6b7280; font-style:italic; }        /* comment */
+pre .k{ color:#4338ca; font-weight:bold; }         /* SQL keyword: indigo */
+pre .s{ color:#a15c00; }                            /* string literal: brown (clear of green) */
+pre .n{ color:#0e7490; }                            /* number: teal */
+pre .p{ color:#8a8f98; }                           /* prompt / relation name */
+pre .t{ color:#7c3aed; font-weight:bold; }          /* table / relation identifier: violet */
+pre .hl{ background:var(--mem-bg2); }              /* highlighted span */
+pre .bad{ background:#fbe0e0; }                    /* the broken bit */
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em;
+  background:#f3f5f7; padding:0.5pt 2.7pt; border-radius:2px; }
+.box .body code{ background:rgba(255,255,255,.7); }
+
+/* provenance chip: where a worked question comes from (past paper, test, deck) */
+.prov{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; font-weight:bold;
+  letter-spacing:.07em; text-transform:uppercase; background:var(--head); color:#fff;
+  padding:1.2pt 5.2pt; border-radius:2px; white-space:nowrap; }
+/* not-in-syllabus label: on a question or a piece of content outside the syllabus.
+   Amber, deliberately clear of the reserved emerald (must-memorise). */
+.offsyl{ font-family:'DejaVu Sans',sans-serif; font-size:7pt; font-weight:bold;
+  letter-spacing:.06em; text-transform:uppercase; background:#fde68a; color:#713f12;
+  padding:1.2pt 5.2pt; border-radius:2px; border:1px solid #eab308; white-space:nowrap; }
+
+/* label strip above a code block */
+.codelabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.5pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); margin:.5em 0 -.2em; }
+
+/* a keystroke, never inline text that could be mistaken for code */
+.key{ font-family:'DejaVu Sans',sans-serif; font-size:7.9pt; font-weight:bold;
+  border:1px solid #b9c0cc; border-bottom-width:2px; border-radius:3px;
+  padding:0.5pt 3.8pt; background:#fff; color:var(--head); white-space:nowrap; }
+
+/* ---------- DRY RUN: the trace table ---------- */
+table.trace{ border-collapse:collapse; width:100%; font-size:8.4pt;
+  font-family:'DejaVu Sans Mono',monospace; margin:.35em 0; }
+table.trace th{ background:var(--dry); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:6.9pt;
+  text-align:left; padding:3.8pt 6.6pt; }
+table.trace td{ padding:3.1pt 6.6pt; border-bottom:1px solid #e3e7ee; vertical-align:top; }
+table.trace tr:nth-child(even) td{ background:#fff; }
+table.trace td.out{ color:var(--code); font-weight:bold; }
+
+/* ---------- worked example ---------- */
+.steps{ list-style:none; counter-reset:step; padding:0; margin:.3em 0 0; }
+.steps > li{ position:relative; padding-left:24.1pt; margin:.5em 0; break-inside:avoid; }
+.steps > li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; left:0; top:0; width:16.4pt; height:16.4pt; border-radius:50%;
+  background:var(--work); color:#fff; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  font-size:9.3pt; text-align:center; line-height:16.4pt;
+}
+.steps .note{ display:block; font-size:9.2pt; color:var(--muted); font-style:italic; margin-top:.15em; }
+.answerbox{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; background:#fff;
+  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5.5pt 8.8pt; margin:.5em 0; }
+.redo{ font-size:9.6pt; margin-top:.55em; }
+.redo b{ color:var(--work); }
+
+/* ---------- recall ---------- */
+.recall .q{ font-weight:bold; }
+.recall .cut{ border:0; border-top:1px dashed #b9c0cc; margin:.55em 0; }
+.recall .alabel, .fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); }
+.fill .blank{ display:inline-block; min-width:65.6pt; border-bottom:1.2px solid var(--fill); }
+.fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
+
+/* ---------- CBT drill mechanics (pick / match / TF / cloze / fill) ----------
+   Options are laid out with flexbox so the letter marker sits in normal flow.
+   An absolutely positioned marker is the page-boundary-fragile pattern the
+   methodology warns about; flow layout cannot drop at a break. */
+.q{ font-weight:bold; }
+.cut{ border:0; border-top:1px dashed #b7c0b7; margin:.55em 0; }
+.alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); }
+.blank{ display:inline-block; min-width:62pt; border-bottom:1.4px solid var(--fill); vertical-align:baseline; }
+.blank.g{ min-width:120pt; }
+.opts{ margin:.28em 0 .28em 0; padding-left:0; list-style:none; }
+.opts li{ display:flex; align-items:flex-start; margin:.2em 0; }
+.opts li::before{ content:attr(data-l); flex:0 0 auto; margin-right:8pt;
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:8.6pt; color:var(--pick);
+  border:1.3px solid var(--pick); border-radius:50%; width:14pt; height:14pt;
+  line-height:12.6pt; text-align:center; }
+.multi .opts li::before{ border-radius:3px; }                    /* checkbox = multi-select */
+.correct{ color:var(--teach); font-weight:bold; }
+.matchcol{ list-style:none; padding:0; margin:.2em 0; }
+.matchcol li{ margin:.2em 0; }
+table.match{ border-collapse:collapse; width:100%; font-size:9.6pt; margin:.4em 0; break-inside:avoid; }
+table.match th{ background:var(--match); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.06em; font-size:7.8pt;
+  text-align:left; padding:4.2pt 7pt; }
+table.match td{ padding:4pt 7pt; border-bottom:1px solid #e6ece6; vertical-align:top; }
+table.match td:first-child{ width:58%; }
+/* memory hook line inside a MUST-MEMORISE box */
+.mem .hook{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:8pt;
+  letter-spacing:.10em; text-transform:uppercase; color:var(--mem); margin-top:.5em; }
+.mem .hook::before{ content:"\25C6\00A0"; }                       /* filled diamond (DejaVu has it; key emoji is tofu) */
+.prov.test{ background:#9a1c1c; }                                /* chip: from a real ENT221 test */
+
+/* ---------- tables ---------- */
+table.data{ border-collapse:collapse; width:100%; font-size:9.7pt; margin:.4em 0; break-inside:avoid; }
+table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:8.1pt;
+  text-align:left; padding:4.9pt 7.7pt; }
+table.data td{ padding:4.4pt 7.7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
+table.data tr:nth-child(even) td{ background:#f7f8fa; }
+table.data td code, table.data th code{ background:none; padding:0; }
+
+/* ---------- misc ---------- */
+.bul{ margin:.3em 0 .3em 0; padding-left:0; list-style:none; }
+.bul li{ position:relative; padding-left:17.5pt; margin:.22em 0; }
+.bul li::before{ content:"\25B8"; position:absolute; left:2.2pt; color:var(--work); }
+.small{ font-size:9.3pt; color:var(--muted); }
+.callout-dark{ background:var(--head); color:#fff; padding:9.8pt 13.1pt; margin:.6em 0; break-inside:avoid; }
+figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
+figure svg{ max-width:100%; height:auto; }
+figcaption{ font-size:9pt; color:var(--muted); font-style:italic; margin-top:.35em; }
+ol.qlist{ margin:.3em 0 .5em 0; padding-left:1.5em; }
+ol.qlist li{ margin:.18em 0; padding-left:.15em; }
+/* The Contents links to an id on each .kick / .part .kicker, injected at build
+   time. There is deliberately no marker element to style: see contents.py. */
+
+/* ---- Contents ---- */
+.contents-page{ page-break-before:always; }
+.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:28.4pt; color:var(--head); margin:0 0 .1em; }
+.toc-note{ font-size:9.3pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
+.toc-part{ display:flex; align-items:baseline; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  text-transform:uppercase; letter-spacing:.06em; font-size:9.2pt; color:var(--teach); margin:.85em 0 .2em; }
+.toc-l1{ display:flex; align-items:baseline; font-size:10.4pt; color:var(--head); margin:.2em 0; }
+.toc-l2{ display:flex; align-items:baseline; font-size:10.1pt; color:var(--ink); margin:.12em 0 .12em 15.3pt; }
+.toc-label{ flex:0 1 auto; }
+.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5.5pt 3.3pt; min-width:13.1pt; }
+.toc-pg{ flex:0 0 auto; font-variant-numeric:tabular-nums; color:var(--muted); }
+.toc-part .toc-pg{ color:var(--teach); }
+.toc-link{ text-decoration:none; color:inherit; }
+
+/* ---- Cover ---- */
+.cover{ width:210mm; height:297mm; margin:0; position:relative; overflow:hidden;
+  background:#14311e; color:#fff; }
+.cover .wash{ position:absolute; inset:0;
+  background:linear-gradient(140deg,#14311e 0%,#1f5130 46%,#4d6a24 100%); }
+.cover .inner{ position:absolute; inset:0; padding:34mm 24mm; display:flex; flex-direction:column; }
+.cover .code{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:13pt;
+  color:var(--mem); font-weight:bold; }
+.cover h1{ font-family:'DejaVu Serif',serif; font-size:40pt; line-height:1.04; margin:.22em 0 .1em; color:#fff; }
+.cover .sub{ font-family:'DejaVu Serif',serif; font-style:italic; font-size:14pt; color:#d7e4c9; margin:.2em 0 0; }
+.cover .rulebar{ width:38mm; height:3pt; background:var(--mem); margin:9mm 0 7mm; }
+.cover .who{ font-family:'DejaVu Sans',sans-serif; font-size:10pt; color:#dfe8d3; letter-spacing:.05em; }
+.cover .motif{ margin-top:auto; opacity:.98; }
