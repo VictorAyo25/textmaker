@@ -252,6 +252,66 @@ tag = 17 &#8722; 5 &#8722; 8 = <b>4</b>. Tag directory = 64 &#215; 4 = 256 bits 
 associative), because less indexing leaves a longer tag on every line.</div>
 </div></div>
 
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">The lecturer's practice caches</span></div>
+<div class="body">
+<p class="src">the lecturer's own practice set, given without answers</p>
+<div class="slidequote">Direct Mapping   Example 2: Main Memory = 128 KB, Cache = 4 KB, Block = 32 B
+                 Example 3: Main Memory = 1 MB, Cache = 8 KB, Block = 64 B
+Fully Associative Example 2: Main Memory = 256 KB, Cache = 4 KB, Block = 32 B
+                 Example 3: Main Memory = 2 MB, Cache = 16 KB, Block = 64 B
+Set Associative  Example 2 (4-Way): Main Memory = 512 KB, Cache = 8 KB, Block = 32 B
+                 Example 3 (8-Way): Main Memory = 4 MB, Cache = 32 KB, Block = 64 B
+Find: Offset, Index/Set bits, Tag bits, Cache lines, Tag Directory Size.</div>
+<div class="note2"><b>The slide sets these six but leaves them blank.</b> Example 1 of each
+mapping is the 64 KB / 1 KB / 16 B cache, which is the 24/25 Q2(a) paper solved in the Past
+Papers section (direct tag 6, fully tag 12, 2-way tag 7). The six below are solved in full
+underneath.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: the six practice caches, solved</span></div>
+<div class="body"><p>Every one uses the same method, so it is worked once in steps and then
+tabulated for all six.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> six cache configurations (memory, cache
+and block sizes, with the associativity for the set-associative pair)</div>
+<div class="prow"><span class="plab">Find</span> offset bits, index or set bits, tag bits,
+the number of lines, and the tag-directory size for each</div>
+<div class="prow"><span class="plab">Formula</span> address = log<sub>2</sub>(memory)
+&middot; offset = log<sub>2</sub>(block) &middot; lines = cache / block &middot; sets =
+lines / ways &middot; tag = address &#8722; index (or set) &#8722; offset &middot; tag
+directory = lines &#215; tag bits</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>address bits</b> = log<sub>2</sub> of the main-memory size &middot; <b>offset</b> =
+log<sub>2</sub> of the block size in bytes &middot; <b>lines</b> = cache size / block size,
+the same whatever the mapping &middot; <b>fully associative</b> has no index, so its tag is
+the widest &middot; <b>ways</b> = the associativity (4 or 8 here), and sets = lines / ways
+&middot; <b>tag directory</b> comes out in bits, so divide by 8 for bytes</div>
+<ol class="steps">
+<li>Worked for Direct Example 2 (128 KB / 4 KB / 32 B): address = log<sub>2</sub>128 KB =
+<b>17 bits</b>; offset = log<sub>2</sub>32 = <b>5 bits</b>; lines = 4 KB / 32 B =
+<b>128</b>, so index = log<sub>2</sub>128 = <b>7 bits</b>.</li>
+<li>Tag = 17 &#8722; 7 &#8722; 5 = <b>5 bits</b>. Tag directory = 128 &#215; 5 =
+<b>640 bits (80 bytes)</b>.</li>
+<li>The other five follow the same three steps, changing only the sizes:</li>
+</ol>
+<table class="data">
+<tr><th>Practice</th><th>MM / cache / block</th><th>Addr</th><th>Offset</th><th>Index/Set</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>
+<tr><td>Direct Ex 2</td><td>128 KB / 4 KB / 32 B</td><td>17</td><td>5</td><td>index 7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>
+<tr><td>Direct Ex 3</td><td>1 MB / 8 KB / 64 B</td><td>20</td><td>6</td><td>index 7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>
+<tr><td>Fully Ex 2</td><td>256 KB / 4 KB / 32 B</td><td>18</td><td>5</td><td>none</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>
+<tr><td>Fully Ex 3</td><td>2 MB / 16 KB / 64 B</td><td>21</td><td>6</td><td>none</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>
+<tr><td>Set Ex 2 (4-way)</td><td>512 KB / 8 KB / 32 B</td><td>19</td><td>5</td><td>set 6</td><td>8</td><td>256</td><td>2048 bits (256 bytes)</td></tr>
+<tr><td>Set Ex 3 (8-way)</td><td>4 MB / 32 KB / 64 B</td><td>22</td><td>6</td><td>set 6</td><td>10</td><td>512</td><td>5120 bits (640 bytes)</td></tr>
+</table>
+<div class="answerbox">Tag directories: direct 80 and 112 bytes; fully associative 208 and
+480 bytes; set associative 256 and 640 bytes. The fully associative caches carry the widest
+tags because they keep no index at all.</div>
+<p class="redo"><b>Now redo it:</b> cover the table and rebuild one row: address from the
+memory size, offset from the block, lines from cache over block, then tag is what is left,
+and the directory is lines times tag.</p>
+</div></div>
+
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(c)</span></div>
 <div class="body">
 <p class="src">the examiner's words, unedited</p>

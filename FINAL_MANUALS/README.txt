@@ -482,11 +482,29 @@ To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-IFT222 - Computer Architecture and Organisation - Study Manual.pdf   185 pp   updated 2026-07-22
+IFT222 - Computer Architecture and Organisation - Study Manual.pdf   194 pp   updated 2026-07-25
 -------------------------------------------------------------------------------
 IFT222 Computer Architecture and Organisation, complete manual: Foundations,
 Modules 1 to 4, a Digital Logic supplement, a Reference part, both priority past
 papers solved in full, and three mock examinations.
+
+NEW-SLIDES BLEND (2026-07-25). The lecturer released three further decks mid-course,
+on pipelining, on RISC versus CISC, and a set of solved cache examples, and asked that
+they be taught well and folded seamlessly into the manual, the questions in them most
+of all. They are now blended in. A new box style, "From the slides", carries the
+lecturer's own questions the way the "As printed" box carries a past exam paper: the
+question is quoted faithfully, broken down, then answered, and where the slide gives a
+model answer that is shown too, so a reader sees exactly what the examiner counts as
+full. It is kept visibly distinct from the exam box, because a slide is not a scanned
+paper. Blended this pass: the lecturer's data-hazard drills (classify read/write orders,
+identify every hazard in a code sequence, reorder instructions to remove a stall), three
+worked pipeline-speedup setups plus the efficiency, throughput and stall formulas, a
+weighted-CPI comparison of a pipelined and a non-pipelined design, the RISC/CISC history
+and the multiply that takes one CISC instruction or four RISC ones with its microcode
+diagram, the advantages and disadvantages of each, and the lecturer's six practice cache
+problems solved in full. Two arithmetic slips on the slides were corrected rather than
+copied, with the correction noted. The book grew from 185 to 194 pages; median page fill
+held at 81.8% and the body still renders at its designed size with nothing scaled.
 
 VERBATIM PAST-QUESTION EDITION (2026-07-22). A reader reported that every manual
 we had shipped restated each real past question in the author's compressed words
@@ -529,9 +547,9 @@ SVG). Clickable Contents links and real selectable text throughout.
 
 Like the other Omega manuals this was AUTHORED, not rebuilt: IFT222 is the renamed
 CSC227, so those past papers are valid practice, and the lecture decks are sources,
-so content/*.html is the book, written by hand. A four-deck slide-coverage audit
-blended every substantive slide item the past papers did not already force into the
-teaching, so nothing examinable is left to the decks alone. The two priority papers
+so content/*.html is the book, written by hand. A slide-coverage audit blended every
+substantive item from all seven lecture decks that the past papers did not already
+force into the teaching, so nothing examinable is left to the decks alone. The two priority papers
 (2024/25 and 2025/26) are weighted most heavily and drilled in the mocks. Every
 numeric result (base conversions, two's-complement and IEEE-754 encodings, addressing
 arithmetic, cache and performance calculations) was recomputed independently, never
@@ -539,7 +557,7 @@ copied from a deck whose figures are unverified.
 
 Seven scripted gates, all green at publish:
   - verify_numbers.py: every number in the book recomputed and diffed, not trusted
-    as printed. 221 checks, 0 mismatches.
+    as printed. 253 checks, 0 mismatches.
   - qa_verbatim.py: a past question is quoted as the examiner printed it, or not at
     all. Five mechanisms, each control-tested by feeding it a known-bad book and
     requiring it to fail: no reworded quote, no dropped part of a paper presented as

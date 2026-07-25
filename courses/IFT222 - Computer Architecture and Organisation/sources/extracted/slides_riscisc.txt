@@ -1,0 +1,283 @@
+DECK: IFT222 - RISC AND CISC.pptx
+==========================================================================================
+Eye-readable text dump for provenance (blended into the manual 2026-07-25).
+Diagrams live in the pptx as shapes/images; they are redrawn or described
+in the manual, not reproduced here. Screenshots on some slides were web
+captures the lecturer pasted; only their teaching content is carried over.
+==========================================================================================
+
+----- SLIDE 1 -----
+- IFT222Computer Architecture and Organization I
+- MODULE5: PROCESSOR TYPES – RISC VERSUS CISC 
+
+----- SLIDE 2 -----
+- Learning Outcomes
+- At the end of this lesson, students should be able to:
+- Define Instruction Set Architecture (ISA).
+- Explain the concepts of RISC and CISC architectures.
+- Describe the characteristics of RISC processors.
+- Describe the characteristics of CISC processors.
+- Compare RISC and CISC architectures based on design principles and performance.
+- Identify advantages and disadvantages of both architectures.
+- Analyze practical applications of RISC and CISC processors.
+- Differentiate between modern processor implementations of RISC and CISC.	  
+
+----- SLIDE 3 -----
+- Introduction
+- A processor is the logic circuitry that responds to and processes the basic instructions that drive a computer.
+- CPU instructions are numbers stored in memory.
+- Instruction set is a set of instructions a programmer can give to a machine to perform operations.
+- The instructions are specific to CPU architecture.
+- Basic operations: read instruction from memory, decode, execute ,write back. 	  
+
+----- SLIDE 4 -----
+- Introduction
+- Over the years, two major processor design philosophies emerged:
+- Complex Instruction Set Computer (CISC)
+- Reduced Instruction Set Computer (RISC)
+- These architectures were developed to address different challenges in processor design and performance optimization.
+
+----- SLIDE 5 -----
+- Historical Background
+- During the 1960s and 1970s, memory was expensive while processor hardware was relatively cheap.
+- Engineers attempted to reduce program size by creating processors with powerful instructions capable of performing complex tasks in a single instruction. 
+- This led to the development of CISC architectures.
+- By the early 1980s, researchers discovered that:
+- Most programs used only a small subset of available instructions.
+- Complex instructions often required multiple clock cycles.Simpler instructions could be executed much faster.This observation led to the development of RISC architectures.
+
+----- SLIDE 6 -----
+- Historical Background
+- During the 1960s and 1970s, memory was expensive while processor hardware was relatively cheap.
+  - Engineers attempted to reduce program size by creating processors with powerful instructions capable of performing complex tasks in a single instruction. 
+- This led to the development of CISC architectures.
+  - By the early 1980s, researchers discovered that:
+  - Most programs used only a small subset of available instructions.
+  - Complex instructions often required multiple clock cycles.
+  - Simpler instructions could be executed much faster.
+- This observation led to the development of RISC architectures.
+
+----- SLIDE 7 -----
+- Question
+- Why were CISC architectures initially popular?
+
+----- SLIDE 8 -----
+- Answer
+- Because memory was expensive, and CISC instructions could perform complex operations using fewer instructions, thereby reducing program size.
+
+----- SLIDE 9 -----
+- CISC: Complex Instruction Set Computers
+- CISC existed close to the beginning of general computing. 
+- Since the earliest machines were programmed in assembly language and memory was slow and expensive, IBM designed an instruction set to allow early programmer to easily program a hundred complex instruction rather than thousands of individual instructions.
+- CISC was developed to make compiler development simpler. It shifts most of the burden of generating machine instructions to the processor.
+- For example, instead of having to make a compiler write long machine instructions to calculate a square-root, a CISC processor would have a built-in ability to do this. 
+
+----- SLIDE 10 -----
+- CISC Architecture
+- Complex instruction set computing is a CPU design where single instructions can execute several low-level operations (such as a load from memory, an arithmetic operation, and a memory store) or are capable of multi-step operations or addressing modes within single instructions.
+- Called “complex” because of the complex work performed per instruction. 
+- Concept: Encode the intention directly.
+- Eg:” add X and Y and put the result in Z” (for X,Y,Z memory address)
+- Problem: Some instruction take more time then others.
+- Examples: x86, s390.
+- Small number of general purpose registers
+
+----- SLIDE 11 -----
+- cont….
+- • Computers typically use CISC while tablets, smartphones and other devices use RISC.
+- • So, the higher efficiency of the RISC architecture makes it desirable in these applications where cycles and power are usually in short supply.
+- • In CISC instructions are executed by microcode.
+- • A CISC instruction set typically includes many instructions with different sizes and execution cycles, which makes CISC instructions harder to pipeline.
+
+----- SLIDE 12 -----
+- Characteristic of CISC Processors
+- A CISC instruction can be thought to contain many different type of instructions bundled into one simple instruction.
+- A large number of instructions - typically from 100 to 250 instructions.
+- Some instructions that perform specialized tasks and are used infrequently.
+- A large variety of addressing modes - typically 5 to 20 different modes.
+- Variable-length instruction formats
+- Instructions that manipulate operands in memory.
+
+----- SLIDE 13 -----
+- Properties of a CISC Processor
+- Richer instruction set, some simple, some very complex.
+- 2. Instructions generally take more than 1 clock to execute.
+- 3. Instructions of a variable size.
+- 4. Instructions is an interface with memory in multiple mechanisms with complex addressing modes.
+- 5. No pipelining.
+- 6. Microcode control make CISC instruction set possible & flexible. 
+- 7. Work well with simpler compiler.
+
+----- SLIDE 14 -----
+- Advantages
+- Microprogramming is as easy as assembly language to implement, and much less expensive than hardwiring a control unit.
+- As each instruction became more capable, fewer instructions could be used to implement a given task. This made more efficient use of the relatively slow main memory. 
+- Because micro-program instruction sets can be written to match the constructs of high-level languages, the compiler does not have to be as complicated.
+
+----- SLIDE 15 -----
+- Disadvantages
+- Complex instructions are infrequently used by programmers and compilers.
+- Memory references, loads and stores, are slow and account for a significant fraction of all instructions.
+- Procedure and function calls are a major bottleneck, passing arguments, storing and retrieving values in registers.
+- Instruction set & chip of new generation hardware become more complex with each generation of computers.
+
+----- SLIDE 16 -----
+- CISC Instruction Example
+- A CISC could multiply 5 by 10 as follows:
+- Mov ax,10
+- Mov bx,5
+- Mul bx
+
+----- SLIDE 17 -----
+- RISC: Reduced Instruction Set Computer
+- History
+- The first RISC projects came from IBM, Stanford, and UC-Berkeley in the late 70s and early 80s.
+-  The IBM 801, Stanford MIPS, and Berkeley RISC 1 and 2 were all designed with a similar philosophy which has become known as RISC.
+- When designers create a new generation of processors, improving performance is the key goal. There are three main factors that affect performance; they are :
+  - • How fast you can crank up the clock.
+  - • How much work you can do per cycle.
+  - • How many instructions you need to perform a task.
+
+----- SLIDE 18 -----
+- Philosophy of RISC
+- Instead of one complex instruction:
+- MULT A, B
+- RISC breaks the operation into simple instructions:
+  - LOAD R1, A
+  - LOAD R2, B
+  - MUL R3, R1, R2
+  - STORE R3, C
+- Although more instructions are required, each executes very quickly.
+
+----- SLIDE 19 -----
+- RISC Architecture
+- Called “reduced” because of the reduction of work performed by an instruction.
+- It is a type of microprocessor architecture that utilizes a small, highly-optimized set of instructions, rather than a more specialized set of instructions often found in other types of architectures.
+- RISC's original goals was to limit the number of instructions on the chip so that each could be allocated enough transistors to make it execute in one cycle.
+- Small set of instructions of a typical RISC processor consists mostly of register-to-register operations, with only simple load and store operations for memory access.
+
+----- SLIDE 20 -----
+- cont….
+- Thus each operand is brought into a processor register with a load instruction
+- • All computations are done among the data stored in processor registers.
+- • Results are transferred to memory by means of store instructions.
+- Concepts: Break operation into simpler sub operations.
+- Eg: instruction: 
+  - load X, 
+  - load Y, 
+  - add X and Y, 
+  - store Z
+
+----- SLIDE 21 -----
+- Characteristic of RISC Processors
+- • Simplifies the instruction set..
+- • The use of only a few addressing modes results from the fact that almost all instructions have simple register addressing.
+- • Other addressing modes may be included, such as immediate operands.
+- • By using a relatively simple instruction format, the instruction length can be fixed and aligned on word boundaries.
+- • An important aspect of RISC instruction format is that it is easy to decode.
+- • Shorter Instructions - Breaking the complex instruction into several short simpler instructions
+
+----- SLIDE 22 -----
+- cont….
+- • It has the ability to execute one instruction per clock cycle.
+- This is done by overlapping the fetch, decode and execute phases of two or three instructions by using a procedure referred to as pipelining.
+- • The advantage of register storage as opposed to memory storage is that registers can transfer information to other registers much faster than the transfer of information to and from memory.
+- • Relatively few instructions
+- • Relatively few addressing modes.
+- • Memory access limited to load and store instructions
+- • Can run several instructions simultaneously.
+
+----- SLIDE 23 -----
+- Properties of a RISC Processor
+- Simple primitive instructions and addressing modes.
+- 2. Instructions execute in one clock cycle.
+- 3. Uniformed length instructions and fixed instruction format.
+- 4. Instructions interface with memory via fixed mechanisms(load/store).
+- 5. Pipelining.
+- Hardwired control.
+- Complexity pushed to the compiler.
+
+----- SLIDE 24 -----
+- Advantages of RISC
+- Speed: RISC processors often achieve 2 to 4 times the performance of CISC processors using comparable semiconductor technology and the same clock rates.
+- Simpler hardware. Because the instruction set of a RISC processor is so simple, it uses up much less chip space and simple hardware requirements. 
+- Shorter design cycle. Since RISC processors are simpler than corresponding CISC processors, they can be designed more quickly, and can complete there work in 1 clock cycle
+
+----- SLIDE 25 -----
+- Disadvantages of RISC
+- Code Quality: The performance of a RISC processor depends greatly on the code that it is executing. If the programmer (or compiler) does a poor job of instruction scheduling, the processor can spend quite a bit of time stalling (waiting for the result of one instruction before it can proceed with a subsequent instruction).
+- Code expansion: Since CISC machines perform complex actions with a single instruction, where RISC machines may require multiple instructions for the same action, code expansion can be a problem.
+- System Design: Another problem that faces RISC machines is that they require very fast memory systems to feed their instructions. RISC-based systems typically contain large memory caches, usually on the chip itself. This is known as a first-level cache.
+
+----- SLIDE 26 -----
+- RISC Instruction Example
+- In RISC the microprocessor's designers might make sure that add executes in one clock. 
+- Then a compiler could multiply a and b by adding a to itself b times or b to itself a times.
+-       Mov ax,0
+  - Mov bx,10
+  - Mov cx,5
+  - Begin:
+  - Add ax,bx
+  - Loop Begin 
+  - loop cx times
+
+----- SLIDE 27 -----
+- RISC 5 Stage Pipelining
+- Fivestage “RISC” load-‐store architecture
+- 1. Instruction fetch (IF)
+- • Get instruction from memory, increment PC.
+- 2. Instruction Decode (ID)
+- • Translate opcode into control signals and read registers.
+- 3. Execute (EX)
+- • Perform ALU operation, compute jump/branch target
+- 4. Memory (MEM)
+- • Access memory if needed
+- 5. Writeback (WB)
+- • Update register file
+
+----- SLIDE 28 -----
+- RISC 5 Stage Pipelining
+
+----- SLIDE 29 -----
+- Question
+- Why is pipelining more difficult in CISC processors?
+
+----- SLIDE 30 -----
+- Answer
+- Because instructions have varying lengths and execution times, making it harder to process instructions uniformly through the pipeline stages.
+
+----- SLIDE 31 -----
+- Example: CISC and RISC Instructions
+
+----- SLIDE 32 -----
+- Comparisons between CISC and RISC Processors
+- Instructions utilize more cycles in CISC than RISC.
+- • CISC has more complex instructions than RISC.
+- • CISC typically has fewer instructions than RISC.
+- • CISC implementations tend to be slower than RISC implementations.
+- • RISC design is approximately twice as cost-effective as CISC.
+- • RISC architectures are designed for a good cost/performance, whereas CISC architectures are designed for a good performance on slow memories.
+
+----- SLIDE 33 -----
+- Comparisons between CISC and RISC Processors
+
+----- SLIDE 34 -----
+- cont….
+[TABLE]
+    CISC | RISC
+    Emphasis on hardware  / | Emphasis on software  /
+    Includes multi-clock, complex instructions | Single-clock, reduced instruction only
+    Memory-to-memory:"LOAD" and "STORE"incorporated in instructions | Register to register:"LOAD" and "STORE"are independent instructions
+    / Slower since instruction can take more than 1 cycle | / Faster since instructions usually take 1 instruction cycle
+    Main objective is less code. | / Main objective is speed.  /
+
+----- SLIDE 35 -----
+- cont….
+[TABLE]
+    CISC | RISC
+    More hardware oriented. | More software oriented since the compiler deals with translations. /
+    Instruction size is mostly varied in size. / | Instruction size is always a set size. /
+    Addressing Modes can be complex / | Addressing Modes are simple. /
+
+----- SLIDE 36 -----
+- Examples of CISC and RISC Processors

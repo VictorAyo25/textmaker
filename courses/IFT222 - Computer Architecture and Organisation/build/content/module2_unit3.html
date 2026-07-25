@@ -191,6 +191,101 @@ so 4 &#215; 57 = <b>228 ns</b>.</li>
 speedup is below 5 because only 4 tasks run, so the fill time still dominates.</div>
 </div></div>
 
+<h3 class="sub">Efficiency, throughput, and the lecturer's speedup setups</h3>
+<p>The deck the lecturer released frames the same arithmetic three more ways, and adds two
+metrics the papers can ask for by name: <b>efficiency</b> and <b>throughput</b>. The
+intuition is the laundry from the top of this unit: four loads that take <b>8 hours</b>
+done one after another finish in <b>3.5 hours</b> overlapped, a speedup of 8 / 3.5 =
+<b>2.29</b> (the slide rounds this to about 2.1). The speedup is short of the ideal 4
+because, with only four loads, the time to fill and drain the pipe still counts. Push many
+loads through and it climbs toward 4.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Efficiency, throughput, stalls</span></div>
+<div class="body"><ul class="bul">
+<li><b>Efficiency</b> E = n / (k + n &#8722; 1): how fully the stages are kept busy, the
+ideal speedup k scaled down by the fill and drain. As n grows without bound, E tends to
+<b>1</b>.</li>
+<li><b>Throughput</b> = E / cycle time = n / [(k + n &#8722; 1) &#215; cycle time]: results
+finished per second. In the steady state, once the pipe is full, that is simply
+<b>1 / cycle time</b>.</li>
+<li><b>Speedup with stalls</b> = k / (1 + stalls per instruction): every stall cycle added
+per instruction eats into the ideal k-fold speedup.</li>
+</ul>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = the number of pipeline stages &middot; <b>n</b> = the number of tasks pushed
+through &middot; <b>cycle time</b> = the clock period, the slowest stage plus any latch
+delay &middot; <b>k + n &#8722; 1</b> = the total cycles for n tasks, fill included &middot;
+<b>stalls per instruction</b> = the average number of bubble cycles each instruction adds
+because of hazards</div>
+<p><b>Memory hook:</b> efficiency is the fraction of the ideal you actually get, so it is
+always the real speedup divided by k, and it only reaches 1 when the fill time becomes
+negligible against a very long run.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: equal-stage speedup</span></div>
+<div class="body"><p>A 4-stage pipeline, each stage 20 ns, running 100 tasks. Find the
+non-pipelined and pipelined times, the speedup, the efficiency and the throughput.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> k = 4 stages &middot; cycle time = 20 ns
+(all stages equal) &middot; n = 100 tasks</div>
+<div class="prow"><span class="plab">Find</span> non-pipelined time, pipelined time,
+speedup, efficiency, throughput</div>
+<div class="prow"><span class="plab">Formula</span> one task = k &#215; stage &middot;
+non-pipelined = n &#215; k &#215; stage &middot; pipelined = (k + n &#8722; 1) &#215; cycle
+&middot; speedup = non-pipelined / pipelined &middot; E = n / (k + n &#8722; 1)</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>k</b> = 4 stages &middot; <b>stage</b> = 20 ns, and because the stages are equal the
+cycle time is also 20 ns &middot; <b>n</b> = 100 tasks &middot; <b>k + n &#8722; 1</b> =
+103, the cycles for 100 tasks with the fill counted</div>
+<ol class="steps">
+<li>One task, non-pipelined = k &#215; stage = 4 &#215; 20 = <b>80 ns</b>.</li>
+<li>All 100, non-pipelined = 100 &#215; 80 = <b>8000 ns</b>.</li>
+<li>Pipelined = (k + n &#8722; 1) &#215; cycle = (4 + 99) &#215; 20 = 103 &#215; 20 =
+<b>2060 ns</b>.</li>
+<li>Speedup = 8000 / 2060 = <b>3.88</b>.</li>
+<li>Efficiency = n / (k + n &#8722; 1) = 100 / 103 = <b>0.97</b>, so the pipe runs at 97% of
+its ideal fourfold speedup.</li>
+<li>Throughput = 100 / 2060 ns &#8776; <b>48.5 million tasks per second</b> (steady state
+1 / 20 ns = 50 million per second).</li>
+</ol>
+<div class="answerbox">Non-pipelined 8000 ns; pipelined 2060 ns; speedup 3.88; efficiency
+0.97; throughput &#8776; 48.5 M tasks/s.</div>
+<p class="redo"><b>Now redo it:</b> equal stages make the cycle time the stage time, so the
+only sums are n &#215; k &#215; stage and (k + n &#8722; 1) &#215; stage. Efficiency is
+just the speedup over k.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: unequal stages plus overhead</span></div>
+<div class="body"><p>A pipeline's stages take 10, 8, 10, 10 and 7 ns, with a 1 ns overhead
+per stage. Find the speedup of the data path.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> stage times = 10, 8, 10, 10, 7 ns
+&middot; overhead = 1 ns per stage &middot; steady-state comparison (many instructions)</div>
+<div class="prow"><span class="plab">Find</span> the pipelined instruction time, the
+non-pipelined instruction time, and the speedup</div>
+<div class="prow"><span class="plab">Formula</span> pipelined cycle = slowest stage +
+overhead &middot; non-pipelined = &#931;(stage times) &middot; speedup = non-pipelined /
+pipelined</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>slowest stage</b> = 10 ns, because every stage is given the longest stage's time
+&middot; <b>overhead</b> = 1 ns of latch and clock-skew time added to every cycle &middot;
+<b>&#931;(stage times)</b> = 10 + 8 + 10 + 10 + 7 = 45 ns, one instruction's whole journey
+without a pipeline</div>
+<ol class="steps">
+<li>Pipelined cycle = max(10, 8, 10, 10, 7) + overhead = 10 + 1 = <b>11 ns</b>. At steady
+state one instruction finishes every cycle, so this is its average time.</li>
+<li>Non-pipelined = 10 + 8 + 10 + 10 + 7 = <b>45 ns</b> per instruction.</li>
+<li>Speedup = 45 / 11 = <b>4.09</b> (the slide rounds to 4.1).</li>
+</ol>
+<div class="answerbox">Pipelined 11 ns/instruction, non-pipelined 45 ns/instruction, speedup
+&#8776; 4.09. The unequal stages waste time: the slowest stage sets a cycle every other
+stage must wait out.</div>
+<p class="redo"><b>Now redo it:</b> the pipeline runs at the slowest stage plus overhead, so
+its instruction time is 11 ns however fast the other stages are. That waste is the reason
+designers balance stages.</p>
+</div></div>
+
 <h3 class="sub">Hazards: when overlap goes wrong</h3>
 <p>Overlapping instructions can clash. There are three kinds of hazard, and the exam
 expects you to name them and say how each is handled.</p>
@@ -214,6 +309,82 @@ predicting it, or flushing the wrongly fetched instructions.</li>
 a value loaded from memory is not ready until the memory stage, so an instruction that
 uses it the very next cycle must wait one cycle even with forwarding. That single
 unavoidable stall appears in the exam's RISC (reduced instruction set computer) pipeline question.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Naming a data hazard by its access order</span></div>
+<div class="body"><p>The lecturer's slides sort data hazards into three named cases, by the
+<i>order</i> in which two instructions touch the same register. This is the vocabulary the
+three drills below and the papers use:</p>
+<ul class="bul">
+<li><b>RAW, read after write:</b> a later instruction reads a register an earlier one has
+not finished writing. The true dependency, and the common one, handled by forwarding.</li>
+<li><b>WAR, write after read:</b> a later instruction writes a register an earlier one has
+still to read. A name dependency, harmless in an in-order pipeline because reads happen in
+decode, before writes in write-back.</li>
+<li><b>WAW, write after write:</b> two instructions write the same register, so their order
+must be preserved. Also a name dependency.</li>
+</ul>
+<p>To classify a pair, ignore the operation and look only for the <b>one register that
+appears on both lines</b>, then read off the order it is written and read.</p></div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Classify: RAW, WAR or WAW</span></div>
+<div class="body">
+<p class="src">the lecturer's own question, left unanswered on the slide</p>
+<div class="slidequote">Describe each of the following categories of Data Hazards: RAW, WAR, WAW. Using (i) to (iii) below state which is RAW, WAR or WAW and indicate how each occurs using an arrow.
+(i)    R3 &#8592; R1 op R2          (ii)   R3 &#8592; R1 op R2          (iii)  R3 &#8592; R1 op R2
+       R5 &#8592; R3 op R4                 R1 &#8592; R4 op R5                 R3 &#8592; R6 op R7</div>
+<div class="note2"><b>The slide leaves this to you, so here it is worked.</b> Ignore "op"
+and the right-hand source registers; the hazard is decided by the single register on both
+lines and the order it is written then read. The arrow runs from the earlier access to the
+later one.</div>
+<table class="data">
+<tr><th>Case</th><th>Register on both lines</th><th>Order (arrow)</th><th>Hazard</th></tr>
+<tr><td>(i)&nbsp;&nbsp;R3 &#8592; R1 op R2 / R5 &#8592; R3 op R4</td><td>R3</td>
+    <td>written in (1), then read in (2)</td><td><b>RAW</b></td></tr>
+<tr><td>(ii)&nbsp;&nbsp;R3 &#8592; R1 op R2 / R1 &#8592; R4 op R5</td><td>R1</td>
+    <td>read in (1), then written in (2)</td><td><b>WAR</b></td></tr>
+<tr><td>(iii)&nbsp;R3 &#8592; R1 op R2 / R3 &#8592; R6 op R7</td><td>R3</td>
+    <td>written in (1), then written in (2)</td><td><b>WAW</b></td></tr>
+</table>
+<div class="answerbox">(i) RAW (read after write), (ii) WAR (write after read), (iii) WAW
+(write after write). Describe each in one line as above, and draw the arrow from the first
+access to the second.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Identify every hazard</span></div>
+<div class="body">
+<p class="src">the lecturer's own worked example, with the slide's answer</p>
+<div class="slidequote">Identify hazards in the following code:
+I1: ADD R1, R2, R3
+I2: SUB R4, R1, R5
+I3: MUL R1, R6, R7
+I4: DIV R8, R1, R9</div>
+<div class="note2"><b>The slide's answer:</b> I1 &#8594; I2 is <b>RAW</b> (I2 reads R1 after
+I1 writes it), I1 &#8594; I3 is <b>WAW</b> (both write R1), and I3 &#8594; I4 is <b>RAW</b>
+(I4 reads R1 after I3 writes it). Every clash here is on <b>R1</b>, which is why writing
+down what each instruction reads and writes finds them all.</div>
+<div class="answerbox">I1 &#8594; I2 : RAW &nbsp;&middot;&nbsp; I1 &#8594; I3 : WAW
+&nbsp;&middot;&nbsp; I3 &#8594; I4 : RAW. One line more than the slide gives: I2 &#8594; I3
+is also a <b>WAR</b> (I2 reads R1, I3 writes it), which an in-order pipeline ignores because
+it reads in decode before it writes in write-back. Name it and say so.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Reorder to remove a stall</span></div>
+<div class="body">
+<p class="src">the lecturer's own worked example, with the slide's answer</p>
+<div class="slidequote">Given the instruction sequence:
+I1: LOAD R1, 0(R2)
+I2: ADD  R3, R1, R4
+I3: SUB  R5, R6, R7
+I4: MUL  R8, R3, R9
+Rearrange instructions to minimize stalls.</div>
+<div class="note2"><b>Why it stalls, and the fix.</b> I2 needs R1 the cycle after I1 loads
+it, which is the one load-use stall forwarding cannot remove. I3 (SUB) depends on nothing
+above it, so slot it into the gap: the load is still in flight while SUB runs, and by the
+time I2 needs R1 it is ready.</div>
+<div class="answerbox">Reordered: <b>LOAD, SUB, ADD, MUL</b> (I1, I3, I2, I4). The independent
+SUB fills the load-delay slot, so the load-use stall disappears and MUL still gets its R3
+from the ADD just before it.</div>
+</div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q2(b)</span></div>
 <div class="body">

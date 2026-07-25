@@ -352,6 +352,80 @@ add('MC img bytes', int(8.5 * 200) * 11 * 200 // 8, '467 500')
 add('MC img KB', round(int(8.5 * 200) * 11 * 200 / 8 / 1024, 2), '456.54')
 
 
+# ---- new-slide blends (2026-07-25): pipelining, RISC/CISC and cache decks ----
+# Every number the three new lecturer decks add to the manual, recomputed here.
+
+# M2 Unit 3: the laundry, and the two slide speedup setups (equal / unequal stages)
+add('laundry speedup', round(8 / 3.5, 2), '2.29')
+add('s25 one task', 4 * 20, '80 ns')
+add('s25 nonpipe', 100 * (4 * 20), '8000')
+add('s25 pipe', (4 + 99) * 20, '2060')
+add('s25 speedup', round(100 * (4 * 20) / ((4 + 99) * 20), 2), '3.88')
+add('s25 efficiency', round(100 / (4 + 100 - 1), 2), '0.97')
+add('s25 throughput', round(100 / ((4 + 99) * 20) * 1000, 1), '48.5')
+_st29 = [10, 8, 10, 10, 7]
+add('s29 cycle', max(_st29) + 1, '11 ns')
+add('s29 nonpipe', sum(_st29), '45')
+add('s29 speedup', round(sum(_st29) / (max(_st29) + 1), 2), '4.09')
+
+# M2 Unit 2: slide 28, pipelined vs non-pipelined by weighted CPI
+_cpi28 = 0.40 * 4 + 0.20 * 4 + 0.40 * 5
+add('s28 CPI', round(_cpi28, 1), '4.4')
+add('s28 design1', int(round(10 * _cpi28)), '44 ns')
+add('s28 design2', 10 + 1, '11 ns')
+add('s28 speedup', int(round(10 * _cpi28)) // (10 + 1), '4')
+
+# M4 Unit 1 (RISC/CISC) has no arithmetic to recompute: it is a describing topic,
+# and the MULT example just contrasts one CISC instruction with four RISC ones.
+
+# M3 Unit 3: the lecturer's six practice caches (Examples 2 and 3 of each mapping).
+# Example 1 of each is the 64 KB / 1 KB / 16 B cache already worked as 24/25 Q2a.
+def _log2p(x):
+    return (x).bit_length() - 1
+
+def _direct(mm, cs, blk):
+    addr, off, lines = _log2p(mm), _log2p(blk), cs // blk
+    tag = addr - _log2p(lines) - off
+    return addr, off, tag, lines, lines * tag
+
+def _fully(mm, cs, blk):
+    addr, off, lines = _log2p(mm), _log2p(blk), cs // blk
+    tag = addr - off
+    return addr, off, tag, lines, lines * tag
+
+def _setassoc(mm, cs, blk, ways):
+    addr, off, lines = _log2p(mm), _log2p(blk), cs // blk
+    sets = lines // ways
+    tag = addr - _log2p(sets) - off
+    return addr, off, tag, lines, sets, lines * tag
+
+_KB, _MB = 1024, 1024 * 1024
+_d2 = _direct(128 * _KB, 4 * _KB, 32)          # 17,5,5,128,640
+add('cacheD2 tag', _d2[2], '5')
+add('cacheD2 dirbits', _d2[4], '640 bits')
+add('cacheD2 dirbytes', _d2[4] // 8, '80 bytes')
+_d3 = _direct(1 * _MB, 8 * _KB, 64)            # 20,6,7,128,896
+add('cacheD3 tag', _d3[2], '7')
+add('cacheD3 dirbits', _d3[4], '896 bits')
+add('cacheD3 dirbytes', _d3[4] // 8, '112 bytes')
+_f2 = _fully(256 * _KB, 4 * _KB, 32)           # 18,5,13,128,1664
+add('cacheF2 tag', _f2[2], '13')
+add('cacheF2 dirbits', _f2[4], '1664 bits')
+add('cacheF2 dirbytes', _f2[4] // 8, '208 bytes')
+_f3 = _fully(2 * _MB, 16 * _KB, 64)            # 21,6,15,256,3840
+add('cacheF3 tag', _f3[2], '15')
+add('cacheF3 dirbits', _f3[4], '3840 bits')
+add('cacheF3 dirbytes', _f3[4] // 8, '480 bytes')
+_s2 = _setassoc(512 * _KB, 8 * _KB, 32, 4)     # 19,5,8,256,64,2048
+add('cacheS2 tag', _s2[2], '8')
+add('cacheS2 dirbits', _s2[5], '2048 bits')
+add('cacheS2 dirbytes', _s2[5] // 8, '256 bytes')
+_s3 = _setassoc(4 * _MB, 32 * _KB, 64, 8)      # 22,6,10,512,64,5120
+add('cacheS3 tag', _s3[2], '10')
+add('cacheS3 dirbits', _s3[5], '5120 bits')
+add('cacheS3 dirbytes', _s3[5] // 8, '640 bytes')
+
+
 def norm(s):
     return str(s).replace(' ', '').replace(',', '')
 

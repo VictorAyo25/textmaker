@@ -44,6 +44,9 @@
      black bar: it must never read as one of our own coloured teaching boxes. */
   --paper:#111827;      --paper-bg:#f7f7f4;
   --unpack:#0f766e;     --unpack-bg:#eef6f5;
+  /* FROM THE SLIDES: a slate document tone, a sibling of --paper but clearly
+     lighter, for the lecturer's own lecture deck (never the reserved violet). */
+  --slide:#334155;      --slide-bg:#f5f6f8;
   --rule:#d5dae0;
 }
 
@@ -142,6 +145,36 @@ h3.sub:first-child{ margin-top:0; }
    a bad restatement, or a mark format the paper does not use. Italic so a reader
    can see it is not a quotation, and qa_verbatim exempts it by this class name. */
 .notpaper{ font-style:italic; }
+
+/* ---------- FROM THE SLIDES: the lecturer's own deck, quoted faithfully ----------
+   A sibling of AS PRINTED, but the source is the lecture slides the lecturer
+   released this semester, not a past exam paper. Styled as a quoted document (a
+   ruled left margin, a slate document tone) so it never reads as one of our own
+   coloured teaching boxes, and its slate bar is clearly lighter than the near
+   black AS PRINTED bar so the two are never confused. The questions on these
+   slides are set by the same person who sets the exam, so they carry real weight.
+   Unlike AS PRINTED this is NOT gated character-for-character against an eye
+   transcript (a slide is not a scanned paper), so its wording follows house style,
+   including the no-dash rule: the house-style gate does not mask this box, so
+   nothing dash-like may sit inside it. */
+.slide  > .bar{ background:var(--slide); }   .slide  .body{ background:var(--slide-bg); }
+.slide  { border-color:#c3cbd6; }
+.slide .src{
+  font-family:'DejaVu Sans',sans-serif; font-size:7.6pt; letter-spacing:.06em;
+  text-transform:uppercase; color:#64748b; margin:0 0 5pt;
+}
+.slidequote{
+  white-space:pre-wrap;                 /* the slide's own line breaks survive */
+  font-family:'DejaVu Serif',Georgia,serif; font-size:9.6pt; line-height:1.42;
+  border-left:2.6px solid #94a3b8; padding:1pt 0 1pt 9pt; margin:0;
+}
+.slidequote .qmark{ font-weight:bold; }
+/* Our note under a slide quotation: what the slide is teaching, and how it maps to
+   the exam. Slate-toned, to match the box, and set apart from the quote above it. */
+.slide .note2{
+  font-size:9pt; background:#eef1f5; border-left:2.6px solid var(--slide);
+  padding:4.4pt 8.8pt; margin:.55em 0 0; }
+.slide .note2 b{ color:var(--slide); }
 
 /* ---------- BREAK IT DOWN: reading the question before answering it ---------- */
 .unpack .body{ font-size:9.6pt; }

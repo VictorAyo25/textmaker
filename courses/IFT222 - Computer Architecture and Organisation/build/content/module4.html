@@ -40,6 +40,105 @@ instructions, each doing a little in (ideally) one cycle, with memory touched on
 dedicated load and store instructions (a <b>load-store</b> architecture). Programs are
 longer but the hardware is simple and fast, and it pipelines well.</p></div></div>
 
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why CISC came first, then RISC</span></div>
+<div class="body"><p>The order is not an accident, it follows the cost of memory. In the
+1960s and 1970s <b>memory was expensive and slow while processor hardware was relatively
+cheap</b>, so the sensible trade was to make each instruction do as much as possible and
+keep programs short. That is the <b>CISC</b> idea, and it also made the compiler's job
+easy, since one powerful instruction could stand in for a whole sequence.</p>
+<p>By the early 1980s two measurements changed the trade. Researchers found that <b>most
+programs use only a small subset of the available instructions</b>, and that <b>the
+complex instructions took many cycles</b> while simple ones could run in one. If the
+fancy instructions are rarely used and slow when they are, why pay for them? Stripping
+them out gives the <b>RISC</b> idea: a few fast instructions, and let the compiler build
+the rest. RISC grew out of that early-1980s work, including the IBM 801 and the academic
+MIPS and RISC research projects.</p></div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Q &amp; A on the deck</span></div>
+<div class="body">
+<p class="src">the lecturer's own question, and the answer the slide gives</p>
+<div class="slidequote">Why were CISC architectures initially popular?</div>
+<div class="note2"><b>The slide's answer.</b> Because memory was expensive, and CISC
+instructions could perform complex operations using fewer instructions, thereby reducing
+program size. In other words the whole point of CISC was to spend cheap processor
+complexity to save on costly memory, which is exactly the trade the paragraph above
+describes. A one line question like this is worth 2 marks on a describing question, so
+learn the sentence.</div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The same multiply, both ways</span></div>
+<div class="body"><p>The clearest way to feel the difference is to watch each philosophy
+multiply two numbers held in memory. CISC offers one instruction that reaches into memory,
+multiplies and writes back. RISC forbids arithmetic on memory: you must <b>load</b> both
+operands into registers, multiply <b>register to register</b>, then <b>store</b> the
+result. RISC needs four instructions where CISC needs one, yet each RISC instruction is
+simple, fixed-length and one cycle, so it pipelines cleanly.</p>
+<pre class="code"><span class="c">; CISC: one instruction, memory to memory</span>
+<span class="k">MUL</span>  C, A, B        <span class="c">; C &#8592; A &#215; B, all in one</span>
+
+<span class="c">; RISC: load, work in registers, store</span>
+<span class="k">LOAD</span>  R1, A         <span class="c">; bring A into a register</span>
+<span class="k">LOAD</span>  R2, B         <span class="c">; bring B into a register</span>
+<span class="k">MUL</span>   R3, R1, R2    <span class="c">; multiply, register to register</span>
+<span class="k">STORE</span> C, R3         <span class="c">; write the result back to memory</span></pre>
+<p>This is the trade in miniature: CISC hides the loads and stores inside the multiply and
+pays for it with a slow, many-cycle instruction; RISC exposes them and pays with a longer
+program of fast instructions. The compiler, not the hardware, arranges the four RISC
+lines, which is what "complexity pushed to the compiler" means in the table below.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why CISC needs microcode</span></div>
+<div class="body"><p>A CISC instruction is too complex to run directly, so inside the
+processor it is first translated into a string of tiny internal steps called
+<b>microinstructions</b>, and those are what actually execute. A RISC instruction is
+already simple enough to run directly in hardware (<b>hardwired control</b>), with no
+translation layer. That extra step is a large part of why CISC instructions take more
+cycles and are harder to pipeline.</p>
+<figure>
+<svg viewBox="0 0 520 190" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10">
+  <g text-anchor="middle">
+    <text x="120" y="16" font-weight="bold" fill="#1e2830">RISC: run it directly</text>
+    <rect x="45" y="26" width="150" height="30" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.3"/>
+    <text x="120" y="45">Machine instruction</text>
+    <line x1="120" y1="56" x2="120" y2="76" stroke="#8a919b" stroke-width="1.3" marker-end="url(#ar)"/>
+    <rect x="45" y="76" width="150" height="30" rx="4" fill="#f0f8f2" stroke="#15803d" stroke-width="1.3"/>
+    <text x="120" y="95">Instruction execution</text>
+
+    <text x="395" y="16" font-weight="bold" fill="#1e2830">CISC: translate first</text>
+    <rect x="320" y="26" width="150" height="26" rx="4" fill="#f1f5f8" stroke="#33566e" stroke-width="1.3"/>
+    <text x="395" y="43">Machine instruction</text>
+    <line x1="395" y1="52" x2="395" y2="66" stroke="#8a919b" stroke-width="1.3" marker-end="url(#ar)"/>
+    <rect x="320" y="66" width="150" height="26" rx="4" fill="#fdf6ec" stroke="#b45309" stroke-width="1.3"/>
+    <text x="395" y="83">Microcode conversion</text>
+    <line x1="395" y1="92" x2="395" y2="106" stroke="#8a919b" stroke-width="1.3" marker-end="url(#ar)"/>
+    <rect x="320" y="106" width="150" height="26" rx="4" fill="#fdf6ec" stroke="#b45309" stroke-width="1.3"/>
+    <text x="395" y="123">Microinstructions</text>
+    <line x1="395" y1="132" x2="395" y2="146" stroke="#8a919b" stroke-width="1.3" marker-end="url(#ar)"/>
+    <rect x="320" y="146" width="150" height="26" rx="4" fill="#f0f8f2" stroke="#15803d" stroke-width="1.3"/>
+    <text x="395" y="163">Microinstruction execution</text>
+  </g>
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#8a919b"/></marker></defs>
+</svg>
+<figcaption>RISC executes the instruction straight away; CISC first turns it into
+microinstructions. The extra layer is flexible but costs cycles.</figcaption>
+</figure></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The contrast in numbers</span></div>
+<div class="body"><p>When the paper asks for "clear differences", these concrete figures
+turn a vague contrast into a marked one:</p>
+<ul class="bul">
+<li><b>Instruction count:</b> CISC typically has a large set, on the order of <b>100 to
+250</b> instructions; RISC keeps it small and simple.</li>
+<li><b>Addressing modes:</b> CISC offers many, roughly <b>5 to 20</b>; RISC has only a
+few, because nearly every instruction uses simple register addressing.</li>
+<li><b>Instruction length:</b> CISC instructions are <b>variable</b> in size; RISC are a
+<b>fixed</b> size, aligned on word boundaries, which is what makes them easy to decode and
+to pipeline.</li>
+<li><b>Control:</b> CISC uses <b>microcode</b>; RISC uses <b>hardwired</b> control.</li>
+<li><b>Registers:</b> RISC provides <b>many</b> general-purpose registers, CISC relatively
+<b>few</b>.</li>
+</ul></div></div>
+
 <table class="data">
 <tr><th>RISC</th><th>CISC</th></tr>
 <tr><td>Few, simple instructions</td><td>Many, complex instructions</td></tr>
@@ -50,6 +149,25 @@ longer but the hardware is simple and fast, and it pipelines well.</p></div></di
 <tr><td>Simple hardware, easy to pipeline</td><td>Complex hardware, harder to pipeline</td></tr>
 <tr><td>Complexity handled in the compiler</td><td>Complexity handled in the hardware</td></tr>
 </table>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Advantages and disadvantages</span></div>
+<div class="body"><p>The slides ask you to weigh each side, so keep two points ready for
+each:</p>
+<ul class="bul">
+<li><b>CISC advantages:</b> fewer instructions do a given task, which saves on the slow,
+expensive memory CISC was built for; and microprogramming the control unit is easier and
+cheaper than hardwiring it, so a rich instruction set is affordable.</li>
+<li><b>CISC disadvantages:</b> the complex instructions are rarely used yet the hardware
+still has to carry them, the many memory operations are slow, and the whole design grows
+more complex, and harder to pipeline, with every generation.</li>
+<li><b>RISC advantages:</b> often <b>2 to 4 times</b> the performance of a comparable CISC
+at the same clock, simpler hardware that uses less chip area, a shorter design cycle, and
+one instruction finished per cycle, which pipelines cleanly.</li>
+<li><b>RISC disadvantages:</b> performance leans heavily on the compiler, so poor
+instruction scheduling leaves the processor stalling; and because each instruction does
+little, programs expand (code expansion) and need a fast memory system, usually a large
+on-chip cache, to keep the pipeline fed.</li>
+</ul></div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">24/25 Q4(a)(ii)</span></div>
 <div class="body">
@@ -94,10 +212,26 @@ length, cycles, memory access) and memorise two examples each: ARM/MIPS for RISC
 </div></div>
 
 <div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">Example processors</span></div>
-<div class="body"><p><b>RISC:</b> ARM, MIPS, SPARC, PowerPC. <b>CISC:</b> Intel x86
-(8086, Pentium), Motorola 68000.</p>
+<div class="body"><p><b>RISC:</b> ARM, MIPS (R2000, R4000), SPARC, PowerPC (601),
+Intel i860, Motorola 88000, IBM RS/6000. <b>CISC:</b> Intel x86 (8086, 80286, 80386,
+Pentium), Motorola 68000, VAX 11/780, IBM 370, PDP-11.</p>
+<p>The lecturer's slide lists its own favourites, so two safe ones to quote are <b>MIPS
+and SPARC for RISC</b> and <b>Intel x86 and VAX for CISC</b>. Any two from each row score;
+the paper only ever asks for two.</p>
 <p><b>Memory hook:</b> the phone in your pocket is <b>ARM (RISC)</b>; the older desktop
 is <b>x86 (CISC)</b>.</p></div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Q &amp; A on the deck</span></div>
+<div class="body">
+<p class="src">the lecturer's own question, and the answer the slide gives</p>
+<div class="slidequote">Why is pipelining more difficult in CISC processors?</div>
+<div class="note2"><b>The slide's answer.</b> Because instructions have varying lengths
+and execution times, making it harder to process instructions uniformly through the
+pipeline stages. This is the flip side of everything above: a pipeline wants every
+instruction to be the same shape so the stages line up, and CISC instructions are not,
+whereas RISC's fixed-length one-cycle instructions are. Expect this as a short 2 to 3 mark
+question, and answer it in exactly this shape.</div>
+</div></div>
 
 <div class="box recall"><div class="bar"><span>Recall and check</span></div>
 <div class="body"><p class="q">Why does RISC pipeline more easily than CISC?</p>

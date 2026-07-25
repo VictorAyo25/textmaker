@@ -174,6 +174,43 @@ differently: clock = slowest stage + overhead, CPI = 1 + weighted extra cycles, 
 IC &#215; CPI &#215; T. State how you read each penalty and you keep the method marks.</p>
 </div></div>
 
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: pipelined vs non-pipelined by CPI</span></div>
+<div class="body"><p>The lecturer's deck compares two designs of the same machine. The
+instruction mix is <b>40% ALU, 20% branch, 40% memory</b>. <b>Design 1</b> is
+non-pipelined with a 10 ns clock, where ALU and branch instructions take 4 cycles and
+memory instructions take 5. <b>Design 2</b> pipelines it, so one instruction finishes per
+cycle, but clock skew and setup add 1 ns of overhead to the cycle. Find the speedup.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> mix = 40% ALU, 20% branch, 40% memory
+&middot; Design 1 clock = 10 ns, cycles = 4 (ALU), 4 (branch), 5 (memory) &middot; Design 2
+pipelined, 1 ns overhead</div>
+<div class="prow"><span class="plab">Find</span> the speedup of Design 2 over Design 1</div>
+<div class="prow"><span class="plab">Formula</span> Design 1 time = clock &#215; average CPI
+&middot; average CPI = &#931;(fraction<sub>i</sub> &#215; cycles<sub>i</sub>) &middot;
+Design 2 time = clock + overhead (one instruction per cycle) &middot; speedup = Design 1 /
+Design 2</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>fraction<sub>i</sub></b> = each type's share of the mix as a decimal, which must total 1
+&middot; <b>cycles<sub>i</sub></b> = cycles that type costs on the non-pipelined design
+&middot; <b>average CPI</b> = the weighted average of those cycle costs &middot;
+<b>overhead</b> = the 1 ns of latch and clock-skew time the pipeline adds to every cycle
+&middot; at steady state the pipeline finishes one instruction per cycle, so its
+instruction time is just the cycle</div>
+<ol class="steps">
+<li>Average CPI = 0.40(4) + 0.20(4) + 0.40(5) = 1.6 + 0.8 + 2.0 = <b>4.4</b>.</li>
+<li>Design 1 time per instruction = clock &#215; CPI = 10 &#215; 4.4 = <b>44 ns</b>.</li>
+<li>Design 2 time per instruction = clock + overhead = 10 + 1 = <b>11 ns</b>.</li>
+<li>Speedup = 44 / 11 = <b>4</b>.</li>
+</ol>
+<div class="answerbox">Design 1 = 44 ns/instruction, Design 2 = 11 ns/instruction, speedup =
+<b>4</b>. The pipeline turns an average of 4.4 cycles per instruction into one, at the cost
+of 1 ns of overhead. The pipeline mechanics themselves are in Module Two Unit 3.</div>
+<p class="redo"><b>Now redo it:</b> the non-pipelined machine pays its full weighted CPI on
+every instruction; the pipelined one pays a single cycle plus overhead. The whole speedup
+is 44 over 11.</p>
+</div></div>
+
 <h3 class="sub">Amdahl's law: the limit on any speedup</h3>
 <p>If you speed up only part of a task, the untouched part limits the gain. Amdahl's law
 puts a number on it, and the exam asks it most years.</p>

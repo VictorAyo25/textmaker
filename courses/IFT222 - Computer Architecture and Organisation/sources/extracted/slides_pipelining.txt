@@ -1,0 +1,647 @@
+DECK: IFT222 - IMPROVING CPU PERFORMANCE - PIPELINING.pptx
+==========================================================================================
+Eye-readable text dump for provenance (blended into the manual 2026-07-25).
+Diagrams live in the pptx as shapes/images; they are redrawn or described
+in the manual, not reproduced here. Screenshots on some slides were web
+captures the lecturer pasted; only their teaching content is carried over.
+==========================================================================================
+
+----- SLIDE 1 -----
+- IFT222Computer Architecture and Organization
+- MODULE5: IMPROVING PROCESSOR PERFORMANCE THROUGH PIPELINING
+
+----- SLIDE 2 -----
+- Improving System Performance through Pipelining
+
+----- SLIDE 3 -----
+- General Introduction
+- In modern computer systems, users expect programs to execute quickly and efficiently. 
+- One of the major goals of Computer Architecture is to improve the speed and overall performance of a computer system without excessively increasing hardware cost. 
+- One effective technique used to achieve this goal is pipelining.
+- Pipelining is a performance enhancement technique in which multiple instructions are processed simultaneously by dividing instruction execution into several stages. 
+
+----- SLIDE 4 -----
+- General Introduction -2
+-  Instead of waiting for one instruction to complete entirely before starting another, the processor overlaps the execution of multiple instructions. 
+-  This approach is similar to an assembly line in a factory where different stages of production occur at the same time.
+- A typical instruction pipeline consists of stages such as:
+  -  Instruction Fetch (IF) – retrieving the instruction from memory
+  -  Instruction Decode (ID) – interpreting the instruction
+  -  Execute (EX) – performing the decoded operation
+  -  Memory Access (MEM) – accessing memory if required 
+  -  Write Back (WB) – storing the result back into a register
+
+----- SLIDE 5 -----
+- General Introduction - 3
+-  By allowing different instructions to occupy different stages simultaneously, pipelining increases the throughput of the processor, enabling more instructions to be completed in less time.
+-  Although pipelining significantly improves system performance, it also introduces challenges such as pipeline hazards, data dependencies, branch instructions, and resource conflicts. 
+-  Computer architects therefore design techniques such as forwarding, stalling, and branch prediction to reduce these problems and maintain efficient execution.
+
+----- SLIDE 6 -----
+- General Introduction - 4
+-  Pipelining is widely used in modern processors, including those developed by Intel and AMD, because it improves CPU utilization, enhances instruction throughput, and contributes to faster system performance.
+
+----- SLIDE 7 -----
+- Learning Outcomes
+- At the end of this topic, students should be able to:
+-  Define pipelining and explain its role in improving computer system performance. 
+-  Describe the stages involved in a typical instruction pipeline. 
+-  Explain how pipelining increases instruction throughput and CPU efficiency. 
+-  Differentiate between non-pipelined and pipelined processor execution. 
+-  Analyze the advantages of pipelining in modern computer systems. 
+-  Identify and explain different types of pipeline hazards, including: 
+  - Structural hazards, Data hazards  and Control hazards 
+
+----- SLIDE 8 -----
+- Learning Outcomes
+-  Discuss techniques used to handle pipeline hazards, such as: 
+  - Pipeline stalling 
+  - Data forwarding 
+  - Branch prediction 
+-  Calculate pipeline performance metrics such as: 
+  - Speedup 
+  - Throughput 
+  - Pipeline efficiency 
+-  Evaluate the impact of pipelining on processor design and system performance. 
+-  Apply pipelining concepts to solve numerical and analytical problems in computer architecture. 
+
+----- SLIDE 9 -----
+- Pipelining
+
+----- SLIDE 10 -----
+- Pipelining - Introduction
+- In a typical system speedup is achieved through parallelism at all  levels:
+- Multi-user, multitasking, multi-processing, multi-programming, multi-threading, compiler optimizations.
+- Pipelining : is a technique for overlapping operations during
+- execution. 
+- Today this is a key feature that makes fast CPUs.
+- 	Different types of pipeline: instruction pipeline, operation pipeline,  multi-issue pipelines.
+
+----- SLIDE 11 -----
+- What is Pipelining? - 1
+- Pipeline processing is an implementation technique where  arithmetic sub-operations or the phases of a computer instruction  cycle overlap in execution
+- Pipelining exploits parallelism among instructions by overlapping  them - called Instruction Level Parallelism (ILP)
+- Pipelining is a technique of decomposing a sequential process  into sub-operations, with each sub-process being executed in a  special dedicated segment that operates concurrently with all other  segments
+- 11
+
+----- SLIDE 12 -----
+- What is a Pipeline? - 2
+- Pipeline is like an automobile assembly line.
+- A pipeline has many steps or stages or segments.
+- Each stage carries out a different part of an instruction or operation.
+- The stages are connected to form a pipe.
+- An instruction or operation enters through one end and progresses  through the stages to exit at the other end.
+- 12
+
+----- SLIDE 13 -----
+- Pipeline Characteristics
+- Throughput: Number of items (cars, instructions,  operations) that exit the pipeline per unit time. Ex: 1 inst /clock  cycle, 10 cars/ hour, 10 floating point operations /cycle.
+- Stage time: The pipeline designer’s goal is to balance the
+- length of each pipeline stage(balanced pipeline). 
+- In general, Stage time = Time per instruction on non-pipelined machine/ number of stages
+- In many instances, stage time = max (times for all stages).
+- CPI:  Pipeline yields a reduction in cycles per instruction
+- CPI is  approximately = stage time.
+- 13
+
+----- SLIDE 14 -----
+- Pipeline Analogy – The Laundry
+[GROUP]
+- Ann, Brian, Cathy, Dave each have one load of clothes to wash, dry, stash, and fold 
+- Washer takes 30 minutes
+[GROUP]
+- A	B	C	D
+- Ann’s clothes 
+- 30 mins x 4 = 120 mins) 
+- Brian
+- 30mins x 4 = 120mins
+- Cathy
+- 30mins x 4 = 120mins
+- 480mins
+[GROUP]
+[GROUP]
+- Dryer takes 30 minutes
+- “Folder” takes 30 minutes
+- “Stasher” takes 30 minutes to put clothes  into drawers
+[GROUP]
+[GROUP]
+- 14
+
+----- SLIDE 15 -----
+- Pipeline Analogy  – The Laundry	- Sequential Operation
+- 2 AM
+- 6 PM	7	8	12	1
+- 10	11
+- 9
+[GROUP]
+[GROUP]
+[GROUP]
+- Ann’s clothes 
+- 30 mins x 4 = 120 mins) 
+- Brian
+- 30mins x 4 = 120mins
+- Cathy
+- 30mins x 4 = 120mins
+- Dave clothes
+- 30mins x 4 = 120mins
+- 480mins = 8 hours
+- 30 30	30	30	30 30	30	30	30 30	30	30	30 30	30	30
+- Time
+- A
+- B  C  D
+- Time Required: 8 hours for 4 loads
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+- 15
+
+----- SLIDE 16 -----
+- Pipeline Analogy  – The Laundry	- Overlapping Tasks
+[GROUP]
+- 2 AM
+- 12
+- 6 PM	7	8
+- 1
+- 11
+- 10
+- 9
+[GROUP]
+- Ann - 30mins = wash
+- Ann – 30min = dry
+- Brian -            = wash
+- Ann – 30mins = stash
+- Brian  ------      =   dry
+- Cathy    -------  = wash
+- Ann      30mins= fold
+- Brian  ---------- = stash
+- Cathy ----------  = Dry
+- Dave  -----------  = wash
+[GROUP]
+- Time
+- 30 30	30 30 30 30 30
+- A  B  C  D
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+- Time Required: 3.5 Hours for 4 Loads
+- Normal operation = 8hours 
+- Speedup = 8/3.5 = 2.1
+- 16
+
+----- SLIDE 17 -----
+- Pipeline Analogy – The Laundry (cont’d)
+- Pipelining doesn’t help latency of single task, it helps throughput of  entire workload
+- Pipeline rate is limited by slowest pipeline stage
+- Multiple tasks operating simultaneously
+- Potential speedup = Number of pipe stages as number of tasks increases
+- Unbalanced lengths of pipe stages reduces speedup
+- Time to “fill” pipeline and time to “drain” it reduces speedup
+[GROUP]
+
+----- SLIDE 18 -----
+- Pipeline Analogy – The Laundry (cont’d)
+- Key idea: break big computation up into pieces
+[GROUP]
+  [GROUP]
+- 1 nanosecond  = 10^-9 second  
+- 1 picosecond   = 10^-12 second
+- 1ns
+- Separate each piece with a pipeline register
+[GROUP]
+  [GROUP]
+  [GROUP]
+  [GROUP]
+    - 200ps
+    - 200ps
+    - 200ps
+    - 200ps
+    - 200ps
+    - Pipeline  Register
+- 18
+
+----- SLIDE 19 -----
+- Pipelining Analogy – Grading of Exam
+- Grading the Final exam for a class of 100 students:
+  - 5 problems, five people grading the exam
+  - Each person ONLY grades one problem
+  - Pass the exam to the next person as soon as one finishes his part
+  - Assume each problem takes 12 min to grade
+    - Each individual exam still takes 1 hour to grade
+    - But with 5 people, all exams can be graded five times quicker
+- 19
+
+----- SLIDE 20 -----
+- Pipelining Analogy – Grading of Exam
+- The load instruction has 5 stages:
+  - Five independent functional units to work on each stage
+- ‒ Each functional unit is used only once
+  - The 2nd load can start as soon as the 1st finishes its fetch stage
+  - Each load still takes five cycles to complete
+  - The throughput, however, is much higher
+- 20
+
+----- SLIDE 21 -----
+- Pipelining Analogy – Grading of Exam
+- buffer
+[GROUP]
+[GROUP]
+- Input  Tasks
+- Stage 1	Stage 2	K – stage pipeline	Stage k
+[GROUP]
+- Let n be number of tasks or exams (or instructions)
+- Let k be number of stages for each task
+- Let T be the time per stage
+- Time per task = T . k
+- Total Time per n tasks for non-pipelined solution = T . k . n
+- Total Time per n tasks for pipelined solution	= T . k + T . (n-1)
+- Speedup = pipelined perform/non-pipelined performance
+- = Total Time non-pipelined/	Total Time	for pipelined
+- = k . n / k + n-1	=	k	approx. when n >> k
+- 21
+
+----- SLIDE 22 -----
+- Single-Cycle vs Pipelined Execution
+- Non-Pipelined
+- Instruction  Order
+[GROUP]
+- 0
+- 200
+- 400
+- 600
+- 800	1000	1200	1400	1600	1800
+- Time
+[GROUP]
+[TABLE]
+    Instruction  Fetch | REG  RD | ALU | MEM | REG  WR |  |  |  |  |  | 
+    / 800ps |  |  |  |  | Instruction  Fetch | REG  RD | ALU | MEM | REG  WR | 
+     |  |  |  |  |  |  |  |  |  | Instruction  Fetch
+[GROUP]
+[TABLE]
+    lw | $1, | 100($0)
+    lw | $2, | 200($0)
+    lw | $3, | 300($0)
+[GROUP]
+- 800ps
+- 800ps
+[GROUP]
+[GROUP]
+[GROUP]
+- Pipelined
+- Instruction  Order
+- 0
+- 200
+- 400
+- 600
+- 800	1000	1200	1400	1600
+- Time
+[GROUP]
+[TABLE]
+    Instruction  Fetch |  | REG  RD | ALU |  | MEM |  | REG  WR |  |  |  | 
+    / 200ps | Instruction  Fetch |  |  | REG  RD | ALU |  | MEM |  | REG  WR |  | 
+     |  |  | Instruction  Fetch |  |  | REG  RD | ALU |  | MEM |  | REG  WR
+[GROUP]
+[TABLE]
+    lw | $1, | 100($0)
+    lw | $2, | 200($0)
+    lw | $3, | 300($0)
+[GROUP]
+[GROUP]
+- 200ps
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+- 200ps
+- 200ps
+- 200ps
+- 200ps
+- 200ps
+- 22
+
+----- SLIDE 23 -----
+- Performance Issues in Pipelining
+- Speedup : How much speed up performance we get through pipelining.
+  - n:	Number of tasks to be performed
+- Conventional Machine (Non-pipelined)    
+[GROUP]
+- tn:
+- t1:
+- Clock cycle
+- Time required to complete n tasks
+- t1    = n * tn
+- 23
+
+----- SLIDE 24 -----
+- Performance Issues in Pipelining – cont’d
+- Pipelined Machine (k stages)
+  - tp:	Clock cycle (time to complete each sub operation)
+  - tk:	Time required to complete the n tasks
+  - tk = (k + (n - 1)) * tp
+- Speedup
+  - Sk:	Speedup
+- 
+- Sk = n*tn / (k + (n – 1))*tp
+- 24
+
+----- SLIDE 25 -----
+- Performance Issue - Example
+- Example
+- 4-stage pipeline
+- sub operation in each stage;	tp = 20ns
+- 100 tasks to be executed
+- 1 task in non-pipelined system;	20*4 = 80ns
+- Pipelined System
+- (k + (n – 1))*tp = (4 + 99) * 20 = 2060ns
+- Non-Pipelined System
+-     n*tp = 100 * 80 = 8000ns
+- Speedup
+- Sk = 8000 / 2060 = 3.88
+- 4-Stage Pipeline is basically identical to the system with 4 identical function units
+[GROUP]
+- 25
+
+----- SLIDE 26 -----
+- Performance Issue – Example (cont’d)
+[GROUP]
+- I i
+- Ii+1
+- I i+2
+- I i+3
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+- Multiple Functional Units
+- P1
+- P2
+- P3
+- P4
+[GROUP]
+[GROUP]
+[GROUP]
+[GROUP]
+- 26
+
+----- SLIDE 27 -----
+- Pipeline Performance – Example2
+- 27
+
+----- SLIDE 28 -----
+- Pipeline Performance – Example2
+- Design1:
+- Average instruction execution time = clock cycletime *CPI
+- •	= 10ns * (4 *0.4 + 4 *0.2+ 5*0.4) = 10 *(1.6+0.8+2.0)
+- •	= 44ns
+- Design 2:
+- Average instruction time at steady state is clock cycle time:
+- •	= 10ns + 1ns (for setup and clock skew) = 11ns
+- Speed up = 44/11 = 4
+- 28
+
+----- SLIDE 29 -----
+- Pipeline Performance – Example 3
+- Assume times for each functional unit of a pipeline to be: 10ns, 8ns,  10ns, 10ns and 7ns.
+- Overhead 1ns per stage. Compute the speed of the data path.
+- Pipelined: Stage time = MAX(10,8,10,10,7) + overhead
+- •	= 10 + 1 = 11ns.
+- This is the average instruction execution time at steady state.
+- Non-pipelined: 10+8+10+10+7 = 45ns
+- Speedup = 45/11= 4.1 times
+- 29
+
+----- SLIDE 30 -----
+- Performance Issue – (cont’d)
+- Efficiency: The efficiency of a pipeline can be measured as the ratio  of busy time span to the total time span including the idle time.
+- Let c be the clock period of the pipeline, the efficiency E can be  denoted as:
+- E = (n. m. c) / m. [m. c + (n-1).c] = n / [(m + (n-1)]
+- As n-> ∞ , E becomes 1.
+- 30
+
+----- SLIDE 31 -----
+- Performance Issue – (cont’d)
+- Throughput: Throughput of a pipeline can be defined as the number of results  that have been achieved per unit time.
+- It can be denoted as:
+  - T = (n / [m + (n-1)]) / c = E / c
+- Throughput denotes the computing power of the pipeline.
+- Maximum speedup, efficiency and throughput are the ideal cases.
+- 31
+
+----- SLIDE 32 -----
+- Pipeline Hazards/Limitations
+- Hazards reduce the performance from the ideal speedup gained by  pipelines:
+- Structural hazard: Resource conflict.
+- Hardware cannot support all possible combinations of instructions in  simultaneous overlapped execution.
+- Data hazard:
+- When an instruction depends on the results of the previous instruction.
+- Control hazard:
+- Due to branches and other instructions that affect the PC.
+- 32
+
+----- SLIDE 33 -----
+- Pipeline Stalls
+- A	stall	is	the	delay	in	cycles	caused	due	to	any	of	the	hazards  mentioned above.
+- Speedup :
+- 1/(1+pipeline stall per instruction)* Number of stages
+- Number of cycles needed to initially fill up the pipeline could be  included in computation of average stall per instruction
+- 33
+
+----- SLIDE 34 -----
+- Structural Hazards
+- When more than one instruction in the pipeline needs to access a  resource, the datapath is said to have a structural hazard.
+- Examples of resources: register file, memory, ALU.
+- 	Solution: Stall the pipeline for one clock cycle when the conflict is  detected.  This results in a pipeline bubble.
+- 	Figures 4 & 5 illustrate the memory access conflict and how it is  resolved by stalling an instruction.
+- Problem: one memory port.
+- 34
+
+----- SLIDE 35 -----
+- Structural Hazards and Stalls - Conflicts
+- 35
+
+----- SLIDE 36 -----
+- Structural Hazards and Stalls - Solution
+- 36
+
+----- SLIDE 37 -----
+- Structural Hazards and Stalls - Bubble
+- 37
+
+----- SLIDE 38 -----
+- Data Hazard - Example
+- Consider the instruction  sequence:
+- ADD R1,R2,R3 ; result is in R1
+- SUB R4,R5,R1
+- AND R6,R1,R7
+- OR R8,R1,R9
+- XOR R10,R1,R11
+- All instructions use R1 after the first instruction.
+- 38
+
+----- SLIDE 39 -----
+- Data Hazard - Solution
+- Usually solved by data or register forwarding (bypassing or short - circuiting).
+- 	How? The data selected is not really used in ID but in the next stage:  ALU.
+- Forwarding works as follows:
+- 	ALU result from EX/MEM buffer is always fed back to ALU input  latches.
+- 	If the forwarding hardware detects that its source operand has a  new value, the logic selects the newer result than the value read from  the register file.
+- 39
+
+----- SLIDE 40 -----
+- Data Hazard – Solution (cont’d)
+- The results need to be forwarded not only from the immediate  previous instruction but also from any instruction that started up to  three cycles before.
+- 	The result from EX/MEM (1 cycle before) and MEM/WB (2 cycles  before) are forwarded to the both ALU inputs.
+- 	Writing into the register file is done in the first half of the cycle and  read is done in the second half.(3 cycles before)
+- 40
+
+----- SLIDE 41 -----
+- Data Hazard – Example
+- Example 1 :       add     $s0,    $t0,    $t1       sub      $t2,    $s0,    $t3
+- In the example, the second instruction is dependent on the result in $s0 of the first instruction:     if $s0 = -5  before add         $s0 =  8  after add     then the value 8 should be used in the second instruction sub. 
+- Draw the multiple clock cycle pipeline diagram for the execution:
+- 41
+
+----- SLIDE 42 -----
+- Data Hazard – Example(cont’d)
+-                             Execution           Time       CC1     CC2      CC3       CC4          CC5        CC6 orderadd $s0, $t0, $t1                    IF -----ID------EX------MEM----WB
+- value in $s0                             -5        -5        -5          -5          -5/8         8
+- sub  $t2, $s0, $t3                                IF -----ID-------EX------MEM-----WB 
+-     In which clock cycle add writes to $s0?     Clock 5    In which clock cycle sub reads $s0?            Clock 3
+- For sub instruction, the value in $s0 has to be read in its ID stage (CC3).However, the value in $s0 in CC3 is still -5 and not the correct value8. We can only have the correct value in $s0 at the end of clock 5 (CC5).
+- The dependency goes from CC5 ---> CC3 (backward)
+- 42
+
+----- SLIDE 43 -----
+- Data Hazard Stalls
+- All data hazards cannot be solved by forwarding:
+- LW R1,0(R2)
+- SUB R4,R1, R5
+- AND R6,R1,R7
+- OR R8,R1,R9
+- Unlike	the	previous example, data	is available	until a MEM/WB. 
+- So subtract ALU cycle has to be stalled introducing a (vertical) bubble.
+- 43
+
+----- SLIDE 44 -----
+- Data Hazards and Stalls
+- 44
+
+----- SLIDE 45 -----
+- Data Hazards and Stalls
+- 45
+
+----- SLIDE 46 -----
+- Data Hazards – Time Stage Diagram
+- 46
+
+----- SLIDE 47 -----
+- Data Hazard Classification
+- RAW - Read After Write. Most common: solved by data forwarding.
+- WAW - Write After Write : Inst i (load) before inst j (add).
+- Both write to same register. But inst i does it before inst j. DLX avoids  this by waiting for WB to write to registers. So no WAW hazard in  DLX.
+- WAR - Write after Read: inst j tries to write a destination before it is  read by I, so I incorrectly gets its value. This cannot happen in DLX  since all inst read early (ID) but write late (WB).
+- But WAW happens in complex instruction sets that have auto-  increment mode and require operands to be read late cycle  experience WAW.
+- 47
+
+----- SLIDE 48 -----
+- Data Hazard Classifications
+  - Describe each of the following categories of Data Hazards: RAW, WAR, WAW. Using  (I – iii) below state which is RAW, WAR or WAW and indicate how each occurs using an arrow.  						
+- 	R3  R1 op R2	ii)	R3  R1 op R2	iii)	R3  R1 op R2	 
+- 	R5  R3 op R4		R1  R4 op R5		R3  R6 op R7
+- 48
+
+----- SLIDE 49 -----
+- Example 1
+- Identify hazards in the following code:
+- I1: ADD R1, R2, R3I2: SUB R4, R1, R5I3: MUL R1, R6, R7I4: DIV R8, R1, R9
+- Solution
+- Between I1 and I2
+  - I2 reads R1 after I1 writes R1.
+  - RAW hazard.
+- Between I1 and I3
+  - I3 writes R1 after I1 writes R1.
+  - WAW hazard.
+- 49
+
+----- SLIDE 50 -----
+- Example 1
+- Between I3 and I4
+  - I4 reads R1 after I3 writes R1.
+  - RAW hazard.
+- Final Answer
+- I1 → I2 : RAW 
+- I1 → I3 : WAW 
+- I3 → I4 : RAW 
+- 50
+
+----- SLIDE 51 -----
+- Example 2
+- Given the instruction sequence:
+- I1: LOAD R1, 0(R2)I2: ADD R3, R1, R4I3: SUB R5, R6, R7I4: MUL R8, R3, R9
+- Rearrange instructions to minimize stalls.
+- Solution
+- Original Sequence
+- LOAD → dependent ADD immediately
+- This creates a load-use hazard.
+- 51
+
+----- SLIDE 52 -----
+- Example 2
+- Optimized Scheduling
+- Move independent instructions between dependent instructions.
+- I1: LOAD R1, 0(R2)I3: SUB R5, R6, R7I2: ADD R3, R1, R4I4: MUL R8, R3, R9
+- Explanation
+- SUB instruction fills the delay slot and reduces stalling.
+- Final Answer
+- Optimized sequence:
+- LOAD – SUB – ADD - MUL
+- 52
+
+----- SLIDE 53 -----
+- Effects of Pipeline Hazards
+- Data dependency between successive tasks: There may be dependencies  between the instructions of two tasks used in the pipeline.
+- For example:
+  - One instruction cannot be started until the previous instruction returns the  results, as both are interdependent.
+  - Another instance of data dependency will be when both instructions  try to modify the same data object. These are called data hazards.
+- 53
+
+----- SLIDE 54 -----
+- Effects of Pipeline Hazards
+- Resource Constraints: When resources are not available at the time of execution  then delays are caused in pipelining.
+- For example:
+-  If one common memory is used for both data and instructions and there is  need to read/write and fetch the instruction at the same time, then only one can  be carried out and the other has to wait.
+-  Limited resource like execution unit, which may be busy at the required time.
+- 54
+
+----- SLIDE 55 -----
+- Conclusion
+- Improving system performance is a major objective in processor design, and pipelining provides an effective solution for achieving this goal. 
+- By dividing instruction execution into stages and allowing overlapping operations, pipelining increases processor throughput and makes better use of CPU resources.
+- Despite the challenges associated with hazards and synchronization, modern computer systems employ sophisticated hardware and software techniques to reduce pipeline delays and maintain efficient execution. 
+- 55
+
+----- SLIDE 56 -----
+- Conclusion
+- As processor technologies continue to evolve, pipelining remains a foundational concept in high-performance computing and advanced processor architecture.
+- Understanding pipelining enables students and system designers to appreciate how modern processors execute instructions rapidly and efficiently, making it an essential topic in Computer Architecture and Organization.
+- 56
+
+----- SLIDE 57 -----
+- End of Unit
+- 57
