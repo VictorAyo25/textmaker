@@ -21,7 +21,7 @@ cd build
 python assemble.py          # ~5 min: writes build/full_manual_clean.pdf
 ```
 
-That file is the finished manual (151 pages). Copy it to `../../FINAL_MANUALS/`
+That file is the finished manual (172 pages). Copy it to `../../FINAL_MANUALS/`
 only when it is signed off.
 
 **Requirements:** Python 3 with `playwright` (+ `python -m playwright install chromium`),

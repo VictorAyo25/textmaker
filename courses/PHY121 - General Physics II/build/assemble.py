@@ -11,10 +11,13 @@ doc=fitz.open(PDF)
 def load(p): return io.open(os.path.join(HERE,p),encoding='utf-8').read()
 
 def split_module5():
+    import shortcuts
     body=load('module5_body.html'); assess=load('module5_assess.html')
     svgs={n:load(f'svg_{n}.svg') for n in ['em_wave','spectrum','capacitor','poynting','chain','fieldlines']}
     inj=lambda t: re.sub(r'\{\{SVG:(\w+)\}\}', lambda m:svgs.get(m.group(1),''), t)
     body=inj(body)
+    body=shortcuts.inject('module5body', body)          # exam-speed shortcuts
+    assess=shortcuts.inject('module5assess', assess)
     def between(t,a,b):
         i=t.find(a); j=t.find(b) if b else len(t); return t[i:j]
     def _mk(m):
@@ -30,6 +33,21 @@ def split_module5():
     m5=mark(between(assess,'<!-- ============ MODULE 5 MOCK','<!-- ============ REFERENCE ADDITIONS'))
     refadd=mark(between(assess,'<!-- ============ REFERENCE ADDITIONS', None))
     return dict(foundations=found, module=module, s7=s7, m5=m5, refadd=refadd)
+
+def load_tutorial():
+    """The authored Tutorial One (Part X): the lecturer's Tutorial 1, every question
+    solved with a shortcut. Injects the four capacitor-network SVGs, marks each
+    section kick for the Contents, and gives the Part X divider its TOC anchor."""
+    t=load('tutorial.html')
+    svgs={n:load(f'{n}.svg') for n in ['tut_net1','tut_net2','tut_net3','tut_net4']}
+    t=re.sub(r'\{\{SVG:(\w+)\}\}', lambda m:svgs.get(m.group(1),f'<!--missing {m.group(1)}-->'), t)
+    def _mk(m):
+        mid=re.sub(r'[^A-Za-z0-9]','',m.group(1)).upper()
+        return f'<span class="tocm" id="sec-{mid}">TOCM{mid}TOCM</span><div class="kick">{m.group(1)}</div>'
+    t=re.sub(r'<div class="kick">([^<]+)</div>', _mk, t)
+    t=t.replace('<div class="kicker">Part X</div>',
+                '<span class="tocm" id="sec-PARTX">TOCMPARTXTOCM</span><div class="kicker">Part X</div>')
+    return t
 
 def crop_page(pagenum, dpi=170, marker=None):
     uri=crop_datauri(doc[pagenum-1], 40, 30, 556, 800, dpi=dpi)
@@ -134,6 +152,11 @@ TOC=[
  (2,'R.3 A general problem-solving method','REFERENCER3'),
  (2,'R.4 Glossary','REFERENCER4'),
  (2,'R.1b Module 5 formulas & must-memorise additions','REFERENCER1ADDITION'),
+ (0,'PART X · TUTORIAL ONE','PARTX'),
+ (2,'Capacitance: networks and energy','TUTORIALCAPACITANCE'),
+ (2,'Electrostatics: fields, potential, flux, charge','TUTORIALELECTROSTATICS'),
+ (2,'Circuits: series resistance and the real cell','TUTORIALCIRCUITS'),
+ (2,'Magnetism and induction','TUTORIALMAGNETISMANDINDUCTION'),
 ]
 
 CONTENT=os.path.join(HERE,'content')
@@ -146,8 +169,12 @@ def frozen(name):
     return None
 
 def section(name, lo, hi, gen=None):
-    """Frozen content if available (editable), else re-derive from the v1 PDF."""
-    return frozen(name) or (gen or gen_pages)(lo,hi)
+    """Frozen content if available (editable), else re-derive from the v1 PDF.
+    Shortcut callouts are injected here, at assemble time, so they survive a
+    freeze --force and are not baked into the frozen prose."""
+    import shortcuts
+    html = frozen(name) or (gen or gen_pages)(lo,hi)
+    return shortcuts.inject(name, html)
 
 def part(name, roman, pg, marker):
     return frozen(name) or divider_html(roman,pg,marker)
@@ -175,6 +202,7 @@ def assemble(contents_html=''):
     S.append(part('partIX','IX',165,'PARTIX'))
     S.append(section('reference',166,174,gen_back))
     S.append(m5['refadd'])
+    S.append(load_tutorial())                                 # Tutorial One (Part X)
     body='\n'.join(S)
     html=(f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
           f'<title>PHY121 Complete Study Manual</title>'

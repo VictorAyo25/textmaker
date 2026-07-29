@@ -586,16 +586,41 @@ To rebuild or update:  see "courses/IFT222 - Computer Architecture and Organisat
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-PHY121 - General Physics II - Study Manual.pdf      148 pp   updated 2026-07-17
+PHY121 - General Physics II - Study Manual.pdf      172 pp   updated 2026-07-29
 -------------------------------------------------------------------------------
 PHY121 General Physics II, complete manual, Modules 1 to 5.
 
 Contents: Foundations F.1-F.11, Modules 1 to 5 (eighteen units), full solutions
-S.1-S.7, mock papers M.1-M.5, reference R.1-R.4. Module 5 is Maxwell's Equations
-and Electromagnetic Waves. 55 clickable Contents links, real selectable text
+S.1-S.7, mock papers M.1-M.5, reference R.1-R.4, and Tutorial One (Part X, the
+lecturer's official practice set). Module 5 is Maxwell's Equations and
+Electromagnetic Waves. 60 clickable Contents links, real selectable text
 throughout including every table.
 
-What changed from the previous edition (16 July, 150 pp): PHYSICS ERRORS.
+What changed from the 148 pp edition:
+
+  1. TUTORIAL ONE added as Part X. The lecturer's official "Tutorial 1" (27
+     problems, Dr Oyeyemi) is worked in full: each question quoted AS PRINTED,
+     BROKEN DOWN, solved the long way, then a shortcut. No question is left
+     behind, including a network the slide drew without a printed question, and
+     six slides that showed only a solution (each question reconstructed from its
+     own data and flagged). Where a unit prefix did not embed on a slide, the
+     reading is resolved and stated openly. Four capacitor-network figures were
+     drawn as vector art. Every number recomputed independently.
+
+  2. A SHORTCUT on EVERY worked example and solved question, 130 in all (the one
+     multi-question answer-key box excepted). Each is the fastest correct route
+     to that same answer under exam time, a teal callout at the foot of the box.
+     They were authored section by section and each answer was independently
+     recomputed to confirm it before a shortcut was written; none disagreed with
+     the manual. Shortcuts live in build/shortcuts.py (and inline in the authored
+     Tutorial and Module 5) and are injected at assemble time, so a full rebuild
+     from the original never loses them.
+
+The 148 pp edition (2026-07-17) already carried the physics-error fixes below,
+which remain in force. That work is preserved here unchanged; the two additions
+above sit on top of it.
+
+Earlier: PHYSICS ERRORS fixed (the 148 pp edition).
 
 That edition reproduced the original manual's wording faithfully, and the
 original was wrong in places. Reproducing an error faithfully still ships the
@@ -628,12 +653,13 @@ along it, which hid the clockwise/anticlockwise contradiction above.
 Every correction is recorded in build/corrections.py with its rationale, applied
 at freeze time so it cannot be lost by re-deriving from the original.
 
-Verified: no blank pages; footer numbering sequential; all 55 Contents links
+Verified: no blank pages; footer numbering sequential; all 60 Contents links
 resolve; every number recomputed independently; no em/en dashes; no institution
 or methodology-author names. Structural gates (bold, sub/superscript, blanks,
-lists, tables, figures) all above floor. Every correction was then independently
-re-checked by an adversarial pass, which caught two that had fixed the answer
-while leaving the working beneath it describing the old one.
+lists, tables, figures, and now shortcuts) all above floor. The earlier physics
+corrections were each independently re-checked by an adversarial pass, which
+caught two that had fixed the answer while leaving the working beneath it
+describing the old one.
 
 The two preceding editions were both withdrawn as defective: the 16 July one for
 the physics errors above, and the one before it (163 pp) for missing fill-in

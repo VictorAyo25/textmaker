@@ -62,11 +62,17 @@ src = ' '.join(io.open(f, encoding='utf-8').read() for f in glob.glob(os.path.jo
 # cropped image and again as a real table underneath, because the box was assumed
 # to run to the next bar. box_end() ended that, and with it the duplicate crops.
 FLOOR = {'<b>': 1100, '<sub>': 480, '<sup>': 750, 'class="blank"': 100,
-         '<li>': 560, 'class="sub"': 30, '<table': 15, 'tablefig': 13}
+         '<li>': 560, 'class="sub"': 30, '<table': 15, 'tablefig': 13,
+         # every worked example and solved question carries a Shortcut, bar the one
+         # multi-question answer-key box: 130 today, floor a little under
+         'class="shortcut"': 128}
 print('--- structural counts (floor):')
+# shortcuts are injected at assemble time and live in the ASSEMBLED html, plus the
+# authored tutorial and module5, not in the frozen content/ files; count them there
+assembled = io.open(os.path.join(HERE, 'full_manual.html'), encoding='utf-8').read()
 bad = 0
 for k, floor in FLOOR.items():
-    n = src.count(k)
+    n = (assembled if k == 'class="shortcut"' else src).count(k)
     ok = n >= floor
     bad += 0 if ok else 1
     print(f'    {k:16s} {n:5d}  (>= {floor})  {"" if ok else "<-- BELOW FLOOR"}')
