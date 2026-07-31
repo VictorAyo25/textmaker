@@ -27,6 +27,7 @@ COVER = 'cover.html'
 # Every part here must supply the headings contents.py TOC names, and vice versa.
 BODY_PARTS = ['front.html',
               'module1.html', 'module2.html', 'module3.html', 'module4.html',
+              'module5.html',
               'worked_test.html',
               'mock1.html', 'mock1_answers.html',
               'mock2.html', 'mock2_answers.html',

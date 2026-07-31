@@ -51,6 +51,17 @@ NOTATIONS = {
     'Total Man':               r'<b>Total Man</b>',
     'Brand Bank Account':      r'<b>Brand Bank Account</b>',
     'the 7 Kits':              r'<b>seven interlocking [Kk]its</b>',
+    # ---- Lecture Five, added when the lecturer released the deck ----
+    'Grit':                    r'<b>Grit = Passion \+ Long-term Perseverance</b>',
+    'Sledgehammer Principle':  r'<b>The Sledgehammer Principle</b>',
+    'the Three Pillars':       r'three\s+components are <b>VISION</b>',
+    'the Precision Test':      r'<b>The Precision Test</b>',
+    'the 1% Rule':             r'<b>The 1% Rule</b>',
+    'Growth Mindset':          r'<th>Fixed Mindset</th><th>Growth Mindset</th>',
+    'Four Truths About Resistance': r'<b>Four Truths About Resistance</b>',
+    'Joy Stimulants':          r'<b>Joy\s+Stimulants</b>',
+    "Joseph's Principle":      r'<b>Joseph.s Principle</b>',
+    'the 7-Step Plan':         r'The 7 steps in order',
 }
 
 # how each notation is spelled where it is USED (for the ordering warning). Defaults to

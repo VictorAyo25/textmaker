@@ -62,6 +62,15 @@ TOC = [
     (2, 'Unit 1 · The System and Kits 1 to 4', 'Module Four &middot; Unit 1', 'The System and Kits 1 to 4'),
     (2, 'Unit 2 · Kits 5 to 7 and the Self-Audit', 'Module Four &middot; Unit 2', 'Kits 5 to 7 and the Self-Audit'),
 
+    # Label shortened from the full heading so the row stays on one line like every
+    # other; the anchor is built from the kick and title, not from this label.
+    (0, 'Module Five · Overcoming Discouragement and Sustaining Success',
+        'Module Five', 'Overcoming Discouragement and<br>Sustaining Personal Success'),
+    (2, 'Unit 1 · Discouragement and the Grit to Outlast It', 'Module Five &middot; Unit 1', 'Discouragement and the Grit to Outlast It'),
+    (2, 'Unit 2 · Vision, the Anchor That Holds', 'Module Five &middot; Unit 2', 'Vision, the Anchor That Holds'),
+    (2, 'Unit 3 · The Three Pillars of Success', 'Module Five &middot; Unit 3', 'The Three Pillars of Success'),
+    (2, 'Unit 4 · Four Strategies and the 7-Step Plan', 'Module Five &middot; Unit 4', 'Four Strategies and the 7-Step Plan'),
+
     (0, 'The TMC Test, Fully Worked', 'The Real Test', 'The TMC Test,<br>Fully Worked'),
     (2, 'Questions 1 to 15', 'The Real Test', 'Questions 1 to 15'),
     (2, 'Questions 16 to 30', 'The Real Test', 'Questions 16 to 30'),

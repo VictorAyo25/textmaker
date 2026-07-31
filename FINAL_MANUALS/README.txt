@@ -152,12 +152,13 @@ To rebuild or update:  cd "courses/INS224 - Systems Analysis and Design/build"
                        && python assemble.py
 
 -------------------------------------------------------------------------------
-TMC221 - Personal Development and Capacity Building - Study Manual.pdf   89 pp   updated 2026-07-19
+TMC221 - Personal Development and Capacity Building - Study Manual.pdf  122 pp   updated 2026-07-31
 -------------------------------------------------------------------------------
 TMC221 Personal Development and Capacity Building, complete manual across the
-four lecture decks: Goal Setting, Positive Thinking and Creative Problem-Solving
-(the W.I.S.E. Model), Personal Branding and Strategic Positioning, and Systems
-for Sustainable Success (the seven Kits).
+five lecture decks: Goal Setting, Positive Thinking and Creative Problem-Solving
+(the W.I.S.E. Model), Personal Branding and Strategic Positioning, Systems for
+Sustainable Success (the seven Kits), and Overcoming Discouragement and
+Sustaining Personal Success.
 
 This is a non-computational RECALL course, so the manual is a drill bank. Brief
 from Victor: cover every single idea, concept, acronym and datum from the decks,
@@ -165,11 +166,30 @@ and test every area of every slide in any style except plain theory. The five
 drill boxes mirror the real computer-based test exactly: Fill in the Gap,
 Match-up, Pick (single and multiple response), True or False, and Cloze scenario.
 
-Contents: How-to + course-at-a-glance, Modules One to Four (teach every slide
+Contents: How-to + course-at-a-glance, Modules One to Five (teach every slide
 fact, then drill it), the real 30-question TMC test solved in full, three mock
-examinations (20 questions each, all five styles, weighted across the four
-lectures, fully answered), and a Master Cram Sheet. About 110 practice questions
-plus hundreds of inline drills. 29 clickable Contents links, real selectable text.
+examinations (25 questions each, all five styles, weighted across the five
+lectures, fully answered), and a Master Cram Sheet. About 125 practice questions
+plus hundreds of inline drills. 34 clickable Contents links, real selectable text.
+
+LECTURE FIVE, added 2026-07-31. The lecturer released a fifth deck (Overcoming
+Discouragement and Sustaining Personal Success) after the first edition had
+shipped, and it is fully blended in as Module Five: discouragement as the gradual
+withdrawal of the courage to continue, the wrong and right responses, Duckworth's
+grit, the Sledgehammer Principle and the 50th blow, vision against dream, the
+Three Pillars with their failure modes (Frustration, Exhaustion, Stagnation), the
+Precision Test, the 1% Rule, Alexander Kroll, Dweck's mindsets, the four
+strategies (RESIST, GUARD YOUR JOY, PERSEVERE, SPEAK YOUR DREAM), and the 7-Step
+Personal Success Plan.
+
+Two things the reader is told openly. First, the real TMC test was sat BEFORE
+Lecture Five existed, so not one of its 30 questions covers it; the three mock
+papers were each extended from 20 to 25 questions with a Lecture Five section in
+all five styles to correct that imbalance. Second, the course now carries two
+different accountability figures that are easy to confuse: 95% in Lecture 1 (a
+partner with regular check-ins) and 76% in Lecture 5 (writing goals AND sharing
+them with a partner, Gail Matthews). That collision has its own Trap box and a
+cram-sheet entry.
 
 AUTHORED, not rebuilt: the decks are a source, content/*.html is the book,
 written by hand. The two image-only decks were read slide by slide from rendered
@@ -180,17 +200,20 @@ Six scripted gates, all green at publish:
   - gates.py: no em/en dashes, no institution/platform/lecturer names (the book
     authors Oyedepo, Leaf, Peale, de Bono, Young are subject matter and kept),
     the reserved gold reserved to MUST-MEMORISE only.
-  - qa_coverage.py: no slide left behind. Every content-bearing slide of all four
-    decks (69 of them) must be cited by a provenance chip; control-tested.
-  - qa_firstuse.py: teach before use. Every declared acronym (SMART+ER, OKR, KR,
-    WOOP, WISE, SWITCH, Po, Mindshare and more) is introduced before use and never
-    first inside a mock.
-  - contents.py + assemble.py: all 29 Contents links resolve to the right page and
+  - qa_coverage.py: no slide left behind. Every content-bearing slide of all five
+    decks (87 of them) must be cited by a provenance chip. Control-tested live in
+    both directions when Lecture Five widened it: removing one slide's chips makes
+    it name that slide, renumbering the deck makes it name all 18.
+  - qa_firstuse.py: teach before use. Every declared notation (SMART+ER, OKR, KR,
+    WOOP, WISE, SWITCH, Po, Mindshare, Grit, the Precision Test, the 1% Rule and
+    more, 22 in all) is introduced before use and never first inside a mock. Both
+    arms control-tested.
+  - contents.py + assemble.py: all 34 Contents links resolve to the right page and
     the printed number matches that page's footer.
   - qa_layout.py: body renders at its design size (10.50 pt, no Chromium shrink),
     footer numbering sequential, no near-blank pages, nothing outside the margins,
     no box cut by a page break that could have fitted whole.
-  - qa_content.py: every one of the 208 drill options is actually painted in the
+  - qa_content.py: every one of the 284 drill options is actually painted in the
     rendered PDF (measured against the artifact, not the HTML), and no tofu glyphs.
 
 Palette: forest green (growth) with a reserved gold for MUST-MEMORISE. Two render
