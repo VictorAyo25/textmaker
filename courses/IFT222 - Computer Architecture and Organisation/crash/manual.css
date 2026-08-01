@@ -1,0 +1,369 @@
+/* ============================================================
+   IFT222 - Computer Architecture and Organisation : study manual stylesheet
+   Box grammar inherited from the PHY121 / CSC241 build. Palette is this
+   course's own: graphite + steel-slate for structure (silicon, buses,
+   datapaths), amber for worked energy, green for solutions/listings,
+   teal for cloze practice, red for traps.
+
+   Reserved colour: electric violet #6d28d9 means MUST MEMORISE and
+   nothing else. It never appears as decoration. (FILL moved off purple
+   to teal so nothing else in the book shares the reserved hue's family.)
+   ============================================================ */
+/* SCALE NOTE: every pt length below is a 9.6pt-base design grown by 10.5/9.6
+   (about 1.094x) for readability, so the odd-looking sizes (18.1pt, 8.4pt ...)
+   are one uniform scale, not arbitrary values. Held fixed against the scale:
+   the code specimens keep their size AND padding so a 90-column line still
+   fits (pre.code/.repl/.out, table.trace, .answerbox), the cover is a fixed
+   full-bleed design, and @page is the sheet of paper. To rescale, do not hand
+   edit: re-run the base sheet through the scale so the ratios stay coherent. */
+
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-Italic.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Serif'; src:url('fonts/DejaVuSerif-BoldItalic.ttf'); font-weight:bold; font-style:italic; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans'; src:url('fonts/DejaVuSans-Oblique.ttf'); font-weight:normal; font-style:italic; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono.ttf'); font-weight:normal; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Bold.ttf'); font-weight:bold; font-style:normal; }
+@font-face { font-family:'DejaVu Sans Mono'; src:url('fonts/DejaVuSansMono-Oblique.ttf'); font-weight:normal; font-style:italic; }
+
+:root{
+  --ink:#232a31; --head:#1e2830; --muted:#67707a; --faint:#8a919b;
+  --teach:#33566e;      --teach-bg:#f1f5f8;
+  --code:#15803d;       --code-bg:#f0f8f2;   --code-ink:#123322;
+  --work:#b45309;       --work-bg:#fdf6ec;
+  --trap:#b91c1c;       --trap-bg:#fdefef;
+  --dry:#41505f;        --dry-bg:#f3f6f8;
+  --mem:#6d28d9;        --mem-bg:#f4f0fe;    --mem-bg2:#e7dcfb;  --mem-ink:#ffffff;
+  --recall:#3f4753;     --recall-bg:#ffffff;
+  --fill:#0e7490;       --fill-bg:#ecf5f8;
+  --qpaper:#1e2830;     --qpaper-bg:#ffffff;
+  --ans:#15803d;        --ans-bg:#f0f8f2;
+  /* AS PRINTED quotes an external document, so it gets a paper tone and a near
+     black bar: it must never read as one of our own coloured teaching boxes. */
+  --paper:#111827;      --paper-bg:#f7f7f4;
+  --unpack:#0f766e;     --unpack-bg:#eef6f5;
+  /* FROM THE SLIDES: a slate document tone, a sibling of --paper but clearly
+     lighter, for the lecturer's own lecture deck (never the reserved violet). */
+  --slide:#334155;      --slide-bg:#f5f6f8;
+  --rule:#d5dae0;
+}
+
+@page{ size:A4; margin:19mm 18mm 16mm 18mm; }
+
+*{ box-sizing:border-box; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'DejaVu Serif', serif;
+  color:var(--ink);
+  font-size:10.5pt;
+  line-height:1.42;
+  margin:0;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+p{ margin:.42em 0; }
+b,strong{ font-weight:bold; }
+sub,sup{ font-size:.72em; }
+
+/* ---------- part / module divider ---------- */
+/* A divider owns its page. Without break-after the next unit's heading drops
+   into whatever space is left below the divider and is stranded there, its own
+   text starting overleaf. min-height alone does not prevent it: it leaves just
+   enough room for a heading to squeeze in. */
+.part{ page-break-before:always; page-break-after:always; break-after:page;
+  padding-top:32mm; min-height:248mm; }
+.part .kicker{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:12pt;
+  color:var(--teach); font-weight:bold; text-transform:uppercase; }
+.part h1{ font-family:'DejaVu Serif',serif; font-size:37.2pt; color:var(--head); margin:.15em 0 .3em; line-height:1.05; }
+.part .blurb{ font-style:italic; color:var(--muted); font-size:12pt; max-width:74%; line-height:1.5; }
+.divider-motif{ margin-top:24mm; opacity:.95; }
+.divider-motif svg{ width:82%; height:auto; }
+
+/* ---------- section header ---------- */
+section{ page-break-inside:auto; }
+.kick{ font-family:'DejaVu Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-size:8.3pt; font-weight:bold; color:var(--muted); margin-top:2.2pt;
+  page-break-after:avoid; break-after:avoid; }
+h2.title{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:18pt; color:var(--head);
+  margin:.1em 0 .18em; line-height:1.12;
+  page-break-after:avoid; break-after:avoid; page-break-inside:avoid; }
+.title + .rule{ border:0; border-top:1.4px solid var(--head); margin:.1em 0 .5em;
+  page-break-after:avoid; break-after:avoid; }
+.lead{ font-style:italic; color:var(--muted); font-size:10.5pt; margin:.2em 0 .7em; }
+.lo{ font-size:9.8pt; color:var(--muted); font-style:italic; margin:.1em 0 .6em; }
+h3.sub{ font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:12.7pt;
+  color:var(--head); margin:1.05em 0 .5em; line-height:1.25; page-break-after:avoid; }
+h3.sub:first-child{ margin-top:0; }
+
+/* ---------- generic box ---------- */
+.box{ border:1px solid var(--rule); border-top:none; margin:.55em 0 .7em; break-inside:avoid; }
+.box > .bar{
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; text-transform:uppercase;
+  letter-spacing:.14em; font-size:8.4pt; color:#fff; padding:6pt 9.8pt; line-height:1.2;
+  display:flex; justify-content:flex-start; align-items:center;
+}
+.box .bar .tag{ font-size:7.4pt; letter-spacing:.12em; background:rgba(0,0,0,.20);
+  padding:2.2pt 6.6pt; border-radius:2px; font-weight:bold; margin-left:auto; }
+.box .body{ padding:7.7pt 10.9pt 8.8pt; }
+.box .body > :first-child{ margin-top:0; }
+.box .body > :last-child{ margin-bottom:0; }
+
+.teach  > .bar{ background:var(--teach); }   .teach  .body{ background:var(--teach-bg); }
+.code   > .bar{ background:var(--code);  }   .code   .body{ background:var(--code-bg); }
+.trap   > .bar{ background:var(--trap);  }   .trap   .body{ background:var(--trap-bg); }
+.work   > .bar{ background:var(--work);  }   .work   .body{ background:var(--work-bg); }
+.dry    > .bar{ background:var(--dry);   }   .dry    .body{ background:var(--dry-bg); }
+.recall > .bar{ background:var(--recall);}   .recall .body{ background:var(--recall-bg); }
+.fill   > .bar{ background:var(--fill);  }   .fill   .body{ background:var(--fill-bg); }
+.paper  > .bar{ background:var(--paper); }   .paper  .body{ background:var(--paper-bg); }
+.unpack > .bar{ background:var(--unpack);}   .unpack .body{ background:var(--unpack-bg); }
+
+/* ---------- AS PRINTED: a verbatim quotation of the examiner's paper ----------
+   Nothing in here is ours. The rule (methodology 4c) is that a past question is
+   reproduced in the examiner's exact words, exact part numbering, exact casing
+   and exact mark text, with the paper's own typos and contradictions left in.
+   So this box is styled as a quoted document, not as a teaching box: paper tone,
+   a ruled left margin like a quotation, and the setter's own line breaks kept.
+   The .flag line underneath is OURS and says so, which is why it sits outside
+   the quoted region and is styled differently. */
+.asprinted{
+  white-space:pre-wrap;                 /* the paper's own line breaks survive */
+  font-family:'DejaVu Serif',Georgia,serif; font-size:9.6pt; line-height:1.42;
+  border-left:2.6px solid #9aa3ad; padding:1pt 0 1pt 9pt; margin:0;
+}
+.asprinted .qmark{ font-weight:bold; }   /* the paper's own mark annotation */
+.paper .src{
+  font-family:'DejaVu Sans',sans-serif; font-size:7.6pt; letter-spacing:.06em;
+  text-transform:uppercase; color:#6b7280; margin:0 0 5pt;
+}
+.paper .flag{
+  font-size:9pt; background:#fdefef; border-left:2.6px solid var(--trap);
+  padding:4.4pt 8.8pt; margin:.55em 0 0; }
+.paper .flag b{ color:var(--trap); }
+/* A run shown in quotation marks that is deliberately NOT the paper's words:
+   a bad restatement, or a mark format the paper does not use. Italic so a reader
+   can see it is not a quotation, and qa_verbatim exempts it by this class name. */
+.notpaper{ font-style:italic; }
+
+/* ---------- FROM THE SLIDES: the lecturer's own deck, quoted faithfully ----------
+   A sibling of AS PRINTED, but the source is the lecture slides the lecturer
+   released this semester, not a past exam paper. Styled as a quoted document (a
+   ruled left margin, a slate document tone) so it never reads as one of our own
+   coloured teaching boxes, and its slate bar is clearly lighter than the near
+   black AS PRINTED bar so the two are never confused. The questions on these
+   slides are set by the same person who sets the exam, so they carry real weight.
+   Unlike AS PRINTED this is NOT gated character-for-character against an eye
+   transcript (a slide is not a scanned paper), so its wording follows house style,
+   including the no-dash rule: the house-style gate does not mask this box, so
+   nothing dash-like may sit inside it. */
+.slide  > .bar{ background:var(--slide); }   .slide  .body{ background:var(--slide-bg); }
+.slide  { border-color:#c3cbd6; }
+.slide .src{
+  font-family:'DejaVu Sans',sans-serif; font-size:7.6pt; letter-spacing:.06em;
+  text-transform:uppercase; color:#64748b; margin:0 0 5pt;
+}
+.slidequote{
+  white-space:pre-wrap;                 /* the slide's own line breaks survive */
+  font-family:'DejaVu Serif',Georgia,serif; font-size:9.6pt; line-height:1.42;
+  border-left:2.6px solid #94a3b8; padding:1pt 0 1pt 9pt; margin:0;
+}
+.slidequote .qmark{ font-weight:bold; }
+/* Our note under a slide quotation: what the slide is teaching, and how it maps to
+   the exam. Slate-toned, to match the box, and set apart from the quote above it. */
+.slide .note2{
+  font-size:9pt; background:#eef1f5; border-left:2.6px solid var(--slide);
+  padding:4.4pt 8.8pt; margin:.55em 0 0; }
+.slide .note2 b{ color:var(--slide); }
+
+/* ---------- BREAK IT DOWN: reading the question before answering it ---------- */
+.unpack .body{ font-size:9.6pt; }
+.unpack .urow{ margin:.28em 0; padding-left:60pt; text-indent:-60pt; }
+.unpack .ulab{
+  /* text-indent:0 is load-bearing, not tidying. The row above sets a hanging
+     indent (padding-left with a matching negative text-indent). text-indent is
+     inherited, and an inline-block is a block container, so without this reset
+     the label's own first line takes the -60pt a SECOND time and the word is
+     drawn outside the page margin. .params .plab carries the same reset for the
+     same reason. */
+  display:inline-block; width:56pt; text-indent:0; white-space:nowrap;
+  font-family:'DejaVu Sans',sans-serif;
+  font-size:7.8pt; font-weight:bold; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--unpack); vertical-align:baseline;
+}
+
+/* an exam question, reproduced as a paper: plain, no teaching colour */
+.qpaper > .bar{ background:var(--qpaper); }
+.qpaper .body{ background:var(--qpaper-bg); }
+.qpaper{ border-color:#b9c0cc; }
+.qpaper .body > p{ margin:.5em 0; }
+
+/* a worked answer to an exam question */
+.ans    > .bar{ background:var(--ans);   }   .ans    .body{ background:var(--ans-bg); }
+/* A box is one idea, so it does not get cut across a page turn. These two used
+   to say break-inside:auto, on the theory that a whole question or a long answer
+   is taller than a page and would be futile to keep together. Measured, that was
+   wrong: it cut 30 boxes that would have fit whole and only 1 that had to split.
+   avoid is best effort, so the genuinely oversized box still splits by itself. */
+.ans .marks{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ans); font-weight:bold; margin:.7em 0 .2em; }
+.ans .marks:first-child{ margin-top:0; }
+
+/* MUST MEMORISE: the reserved hue. Electric violet takes white ink. */
+.mem    > .bar{ background:var(--mem); color:var(--mem-ink); }
+.mem    .body{ background:var(--mem-bg); }
+.mem    { border-color:#c9b6f2; }
+.mem .bar .tag{ background:rgba(0,0,0,.22); color:var(--mem-ink); }
+.mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* filled circle */
+.trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* warning sign */
+
+/* ---------- code, the spine of this manual ----------
+   Every code block is monospace, always. The source manual sets some code in a
+   proportional font, which makes its column-alignment examples meaningless.
+   That is a defect we do not inherit. */
+pre.code, pre.repl, pre.out{
+  font-family:'DejaVu Sans Mono', monospace;
+  font-size:8.7pt; line-height:1.38;
+  margin:.4em 0; padding:6pt 9pt;
+  white-space:pre; overflow-wrap:normal;
+  background:#fff; border:1px solid #dbe6e0; border-left:3px solid var(--code);
+  break-inside:avoid; tab-size:4;
+}
+pre.repl{ border-left-color:var(--teach); border-color:#dae3ee; }
+pre.out{ border-left-color:var(--dry); border-color:#dfe3ea; background:#f7f8fa; color:#20262f; }
+pre .c{ color:#6b7280; font-style:italic; }        /* comment */
+pre .k{ color:#33566e; font-weight:bold; }         /* mnemonic / keyword */
+pre .s{ color:#15803d; }                           /* label / string */
+pre .n{ color:#b45309; }                           /* number / literal */
+pre .p{ color:#8a8f98; }                           /* prompt >>> */
+pre .hl{ background:var(--mem-bg2); }              /* highlighted span */
+pre .bad{ background:#fbe0e0; }                    /* the broken bit */
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:.92em;
+  background:#f3f5f7; padding:0.5pt 2.7pt; border-radius:2px; }
+.box .body code{ background:rgba(255,255,255,.7); }
+
+/* label strip above a code block */
+.codelabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.5pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); margin:.5em 0 -.2em; }
+
+/* a keystroke, never inline text that could be mistaken for code */
+.key{ font-family:'DejaVu Sans',sans-serif; font-size:7.9pt; font-weight:bold;
+  border:1px solid #b9c0cc; border-bottom-width:2px; border-radius:3px;
+  padding:0.5pt 3.8pt; background:#fff; color:var(--head); white-space:nowrap; }
+
+/* ---------- DRY RUN: the trace table ---------- */
+table.trace{ border-collapse:collapse; width:100%; font-size:8.4pt;
+  font-family:'DejaVu Sans Mono',monospace; margin:.35em 0; }
+table.trace th{ background:var(--dry); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:6.9pt;
+  text-align:left; padding:3.8pt 6.6pt; }
+table.trace td{ padding:3.1pt 6.6pt; border-bottom:1px solid #e3e7ee; vertical-align:top; }
+table.trace tr:nth-child(even) td{ background:#fff; }
+table.trace td.out{ color:var(--code); font-weight:bold; }
+
+/* ---------- worked example ---------- */
+.steps{ list-style:none; counter-reset:step; padding:0; margin:.3em 0 0; }
+.steps > li{ position:relative; padding-left:24.1pt; margin:.5em 0; break-inside:avoid; }
+.steps > li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; left:0; top:0; width:16.4pt; height:16.4pt; border-radius:50%;
+  background:var(--work); color:#fff; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  font-size:9.3pt; text-align:center; line-height:16.4pt;
+}
+.steps .note{ display:block; font-size:9.2pt; color:var(--muted); font-style:italic; margin-top:.15em; }
+.answerbox{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; background:#fff;
+  border:1px solid #e5c9a6; border-left:3px solid var(--work); padding:5.5pt 8.8pt; margin:.5em 0; }
+.redo{ font-size:9.6pt; margin-top:.55em; }
+.redo b{ color:var(--work); }
+
+/* ---------- recall ---------- */
+.recall .q{ font-weight:bold; }
+.recall .cut{ border:0; border-top:1px dashed #b9c0cc; margin:.55em 0; }
+.recall .alabel, .fill .alabel{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); }
+.fill .blank{ display:inline-block; min-width:65.6pt; border-bottom:1.2px solid var(--fill); }
+.fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
+
+/* ---------- tables ---------- */
+table.data{ border-collapse:collapse; width:100%; font-size:9.7pt; margin:.4em 0; break-inside:avoid; }
+table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;
+  font-weight:bold; text-transform:uppercase; letter-spacing:.08em; font-size:8.1pt;
+  text-align:left; padding:4.9pt 7.7pt; }
+table.data td{ padding:4.4pt 7.7pt; border-bottom:1px solid #ececf0; vertical-align:top; }
+table.data tr:nth-child(even) td{ background:#f7f8fa; }
+table.data td code, table.data th code{ background:none; padding:0; }
+
+/* ---------- misc ---------- */
+.bul{ margin:.3em 0 .3em 0; padding-left:0; list-style:none; }
+.bul li{ position:relative; padding-left:17.5pt; margin:.22em 0; }
+.bul li::before{ content:"\25B8"; position:absolute; left:2.2pt; color:var(--work); }
+.small{ font-size:9.3pt; color:var(--muted); }
+/* A named law is stated the way a law should be stated: the claim in words first, then
+   the conditions it holds under, then the formula, then its limiting case. A formula
+   alone is a recipe, not a law, and "state the law" is a question the paper asks.
+   qa_formulas.py enforces that every named law carries one of these. */
+.lawstate{ border:1px solid #dfe5ec; border-left:3px solid var(--teach); background:#fbfcfd;
+  padding:6pt 10pt; margin:.5em 0; break-inside:avoid; }
+.lawstate .wlab{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--faint); display:block; margin-bottom:.25em; }
+.lawstate .lawname{ font-weight:bold; }
+.lawstate p{ margin:.3em 0; }
+
+/* Every numeric worked example opens the way a physics solution does: the parameters
+   you were given, what you are asked to find, and the formula that joins them, before
+   a single number is substituted. qa_formulas.py enforces this too. */
+.params{ font-size:9.5pt; background:#fbfcfd; border:1px solid #e2e8ee;
+  border-left:2.6px solid var(--work); padding:5.2pt 9pt; margin:.5em 0; break-inside:avoid; }
+.params .prow{ margin:.2em 0; padding-left:56pt; text-indent:-56pt; }
+.params .plab{ display:inline-block; width:52pt; text-indent:0; font-family:'DejaVu Sans',sans-serif;
+  font-size:7.7pt; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); }
+
+/* Every formula states what each of its symbols means, right where it is used.
+   qa_formulas.py enforces this: a formula box without a .wheredef stops the build. */
+.wheredef{ font-size:9.3pt; background:#f6f8fa; border-left:2.6px solid var(--teach);
+  padding:4.4pt 8.8pt; margin:.45em 0; break-inside:avoid; }
+.wheredef .wlab{ font-family:'DejaVu Sans',sans-serif; font-size:7.7pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--faint); display:block; margin-bottom:.15em; }
+.wheredef b{ color:#1e2830; }
+.callout-dark{ background:var(--head); color:#fff; padding:9.8pt 13.1pt; margin:.6em 0; break-inside:avoid; }
+figure{ margin:.6em 0; text-align:center; break-inside:avoid; }
+figure svg{ max-width:100%; height:auto; }
+figcaption{ font-size:9pt; color:var(--muted); font-style:italic; margin-top:.35em; }
+/* padding-left holds the list markers. The crash MCQ bank numbers each topic 1..N
+   with N up to 26, and a two-digit marker needs more room than a single digit or it
+   pokes past the page margin (layout QA catches it). 2.4em fits "26.". */
+ol.qlist{ margin:.3em 0 .5em 0; padding-left:2.4em; }
+ol.qlist li{ margin:.28em 0; padding-left:.15em; }
+/* The Contents links to an id on each .kick / .part .kicker, injected at build
+   time. There is deliberately no marker element to style: see contents.py. */
+
+/* ---- Contents ---- */
+.contents-page{ page-break-before:always; }
+.toc-head{ font-family:'DejaVu Serif',serif; font-weight:bold; font-size:28.4pt; color:var(--head); margin:0 0 .1em; }
+.toc-note{ font-size:9.3pt; color:var(--muted); font-style:italic; margin:0 0 1.1em; }
+.toc-part{ display:flex; align-items:baseline; font-family:'DejaVu Sans',sans-serif; font-weight:bold;
+  text-transform:uppercase; letter-spacing:.06em; font-size:9.2pt; color:var(--teach); margin:.85em 0 .2em; }
+.toc-l1{ display:flex; align-items:baseline; font-size:10.4pt; color:var(--head); margin:.2em 0; }
+.toc-l2{ display:flex; align-items:baseline; font-size:10.1pt; color:var(--ink); margin:.12em 0 .12em 15.3pt; }
+.toc-label{ flex:0 1 auto; }
+.toc-dots{ flex:1 1 auto; border-bottom:1px dotted #c4cad4; margin:0 5.5pt 3.3pt; min-width:13.1pt; }
+.toc-pg{ flex:0 0 auto; font-variant-numeric:tabular-nums; color:var(--muted); }
+.toc-part .toc-pg{ color:var(--teach); }
+.toc-link{ text-decoration:none; color:inherit; }
+
+/* ---- Cover ---- */
+/* Graphite-to-steel wash (silicon die), electric-violet accents. The reserved
+   hue is too dark for a dark ground, so the cover uses a lightened violet
+   #a78bfa for the kicker + rulebar; it reads as the same signal. */
+.cover{ width:210mm; height:297mm; margin:0; position:relative; overflow:hidden;
+  background:#161b20; color:#fff; }
+.cover .wash{ position:absolute; inset:0;
+  background:linear-gradient(140deg,#12171c 0%,#243542 50%,#37566b 100%); }
+.cover .inner{ position:absolute; inset:0; padding:34mm 24mm; display:flex; flex-direction:column; }
+.cover .code{ font-family:'DejaVu Sans',sans-serif; letter-spacing:.42em; font-size:13pt;
+  color:#a78bfa; font-weight:bold; }
+.cover h1{ font-family:'DejaVu Serif',serif; font-size:40pt; line-height:1.04; margin:.22em 0 .1em; color:#fff; }
+.cover .sub{ font-family:'DejaVu Serif',serif; font-style:italic; font-size:14pt; color:#c4d2de; margin:.2em 0 0; }
+.cover .rulebar{ width:38mm; height:3pt; background:#a78bfa; margin:9mm 0 7mm; }
+.cover .who{ font-family:'DejaVu Sans',sans-serif; font-size:10pt; color:#d6e2ee; letter-spacing:.05em; }
+.cover .motif{ margin-top:auto; opacity:.98; }

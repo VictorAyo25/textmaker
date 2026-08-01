@@ -1,0 +1,96 @@
+<!-- ===================== PIPELINING ===================== -->
+<section>
+<div class="kick">The Machine</div>
+<h2 class="title">Pipelining and Hazards</h2>
+<hr class="rule">
+<p class="lead">Overlapping instructions so several are in progress at once, like a laundry
+that washes one load while drying the last. It speeds the processor up, and the paper asks you
+to compute that speedup and to name the hazards that get in the way.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The idea, and the stages</span></div>
+<div class="body"><p>Split each instruction into <b>k</b> stages. A common five are <b>IF</b>
+(instruction fetch), <b>ID</b> (instruction decode), <b>EX</b> (execute), <b>MEM</b> (memory
+access) and <b>WB</b> (write back). Without a pipeline one instruction finishes before the next
+starts. <b>With</b> a pipeline, as soon as an instruction leaves a stage the next enters it, so
+once the pipe is full <b>one instruction finishes every clock cycle</b>. The clock cycle is set
+by the <b>slowest stage</b> (plus a tiny latch delay between stages).</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The pipeline sums</span></div>
+<div class="body"><ul class="bul">
+<li><b>Cycle time</b> = slowest stage + latch delay.</li>
+<li><b>Pipelined time for n tasks</b> = <b>(k + n &#8722; 1) &#215; cycle time</b>. (It takes k
+cycles to fill with the first task, then one more cycle for each of the other n &#8722; 1.)</li>
+<li><b>Non-pipelined time for n tasks</b> = n &#215; (time for one instruction). One
+instruction takes the sum of all the stage times, or the given per-instruction time.</li>
+<li><b>Speedup</b> = non-pipelined time / pipelined time. Its ceiling is k.</li>
+</ul>
+<p><b>Memory hook:</b> "k + n &#8722; 1", and the clock runs at the <b>slowest</b> stage, never
+the average.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q5b)</span></div>
+<div class="body"><p>A pipeline has 4 phases of 60, 50, 90, 80 ns, with a 10 ns latch delay.
+Find the cycle time, the one-task non-pipeline time, the speedup, and the times for 500 tasks.</p>
+<ol class="steps">
+<li>Cycle time = slowest phase + latch = 90 + 10 = <b>100 ns</b>.</li>
+<li>Non-pipeline time for one task = 60 + 50 + 90 + 80 = <b>280 ns</b>.</li>
+<li>Speedup = 280 / 100 = <b>2.8</b>.</li>
+<li>Pipelined, 500 tasks = (k + n &#8722; 1) &#215; cycle = (4 + 499) &#215; 100 = 503 &#215;
+100 = <b>50 300 ns</b>.</li>
+<li>Sequential, 500 tasks = 500 &#215; 280 = <b>140 000 ns</b>.</li>
+</ol>
+<div class="answerbox">Cycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined
+50 300 ns against sequential 140 000 ns.</div></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the revision deck's new one</span></div>
+<div class="body"><p>A non-pipelined processor takes 60 ns per instruction. Redesigned as a
+6-stage pipeline with a 12 ns cycle time, running 50 instructions. Find both times and the
+speedup. (This is the one question on the revision deck that is not on any past paper, so learn
+it fresh.)</p>
+<ol class="steps">
+<li>Without pipelining = 50 &#215; 60 = <b>3000 ns</b>.</li>
+<li>With pipelining = (k + n &#8722; 1) &#215; cycle = (6 + 50 &#8722; 1) &#215; 12 = 55 &#215;
+12 = <b>660 ns</b>. (The first instruction fills the pipe in 6 &#215; 12 = 72 ns; the other 49
+add 49 &#215; 12 = 588 ns.)</li>
+<li>Speedup = 3000 / 660 = <b>4.55</b>.</li>
+</ol>
+<div class="answerbox">Without pipelining 3000 ns; with pipelining 660 ns; speedup 4.55.</div>
+<p class="redo"><b>Now redo it:</b> whatever the numbers, it is n &#215; per-instruction time
+without, and (k + n &#8722; 1) &#215; cycle with, then divide.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three hazards</span></div>
+<div class="body"><p>Overlapping can clash. Three kinds of <b>hazard</b>, and you must name them:</p>
+<ul class="bul">
+<li><b>Structural hazard:</b> two instructions need the <b>same hardware</b> at once (one memory
+for a fetch and a data access). Fixed by duplicating the resource.</li>
+<li><b>Data hazard:</b> an instruction needs a result the one before it has not written yet.
+The three types, by the order two instructions touch the same register: <b>RAW</b> (read after
+write, the true dependency, eased by <b>forwarding</b>), <b>WAR</b> (write after read), and
+<b>WAW</b> (write after write). When forwarding cannot help, the pipeline <b>stalls</b> (a
+bubble).</li>
+<li><b>Control hazard:</b> a <b>branch</b> changes what runs next, but the pipeline already
+fetched the following instructions. Eased by <b>branch prediction</b> and speculative
+execution, which exist precisely to <b>reduce control-hazard stalls</b>.</li>
+</ul></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">classify the hazards</span></div>
+<div class="body"><p class="q">Find the one register on both lines and read its order.
+(i) R3 &#8592; R1 op R2, then R5 &#8592; R3 op R4. (ii) R3 &#8592; R1 op R2, then
+R1 &#8592; R4 op R5. (iii) R3 &#8592; R1 op R2, then R3 &#8592; R6 op R7.</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(i) R3 is written then read, so <b>RAW</b>. (ii) R1 is read then written, so <b>WAR</b>.
+(iii) R3 is written then written, so <b>WAW</b>. Only RAW is a real data dependency; the other
+two are naming clashes.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, pipelining</span></div>
+<div class="body"><p class="q">(1) The main objective of branch prediction and speculative
+execution is to? (2) A read-after-write clash is eased by which technique?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>reduce pipeline stalls caused by control hazards</b> (keep the pipe full across
+branches). (2) <b>forwarding</b> (feed the result straight to where it is needed).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>The clock runs at the <b>slowest</b> stage plus latch, not the average or
+the sum. For n tasks the count is <b>k + n &#8722; 1</b>, so 500 tasks in a 4-stage pipe is
+503 cycles, not 504. Classify data hazards by the shared <b>register</b> and the order it is
+written and read, never by the instruction name.</p></div></div>
+</section>

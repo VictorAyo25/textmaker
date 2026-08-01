@@ -1,0 +1,71 @@
+<!-- ===================== ADDRESSING MODES ===================== -->
+<section>
+<div class="kick">The Machine</div>
+<h2 class="title">Addressing Modes</h2>
+<hr class="rule">
+<p class="lead">An address field in an instruction does not always hold the operand directly.
+The addressing mode says how to turn that field into the real location, the effective address,
+and then the operand. Learn the six or seven modes as "how many hops through memory", and this
+is easy marks on both the paper and the objective test.</p>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The modes, as hops</span></div>
+<div class="body"><p>The <b>effective address (EA)</b> is where the operand really is;
+<b>M[x]</b> means "the value stored at address x". Each mode is one more hop than the last:</p>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand is</th></tr>
+<tr><td>Immediate</td><td>none</td><td>the value <b>inside the instruction</b> (a constant)</td></tr>
+<tr><td>Direct</td><td>EA = the address field</td><td>M[address field]</td></tr>
+<tr><td>Indirect</td><td>EA = M[address field]</td><td>M[ M[address field] ]</td></tr>
+<tr><td>Register</td><td>none</td><td>the value <b>in the named register</b></td></tr>
+<tr><td>Register indirect</td><td>EA = contents of the register</td><td>M[register]</td></tr>
+<tr><td>Relative (PC-relative)</td><td>EA = PC + address field</td><td>M[PC + field]</td></tr>
+<tr><td>Indexed</td><td>EA = index register + address field</td><td>M[index + field]</td></tr>
+<tr><td>Base</td><td>EA = base register + displacement</td><td>M[base + displacement]</td></tr>
+</table>
+<p><b>Memory hook:</b> immediate = <b>in</b> the instruction (zero hops, fewest memory
+accesses); direct = <b>one</b> hop; indirect = <b>two</b> hops (a pointer to a pointer).
+Register indirect uses a register as the pointer; relative, indexed and base all <b>add</b>
+something to the field.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q1e)</span></div>
+<div class="body"><p>PC = 7000, R1 = 1500, address field = 1200. Memory holds:
+M[1200] = 4500, M[4500] = 999, M[1500] = 6000. Give the EA and operand for each mode.</p>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
+<tr><td>Immediate</td><td>none</td><td>the field itself = <b>1200</b></td></tr>
+<tr><td>Direct</td><td>1200</td><td>M[1200] = <b>4500</b></td></tr>
+<tr><td>Indirect</td><td>M[1200] = 4500</td><td>M[4500] = <b>999</b></td></tr>
+<tr><td>Register</td><td>none</td><td>R1 = <b>1500</b></td></tr>
+<tr><td>Register indirect</td><td>R1 = 1500</td><td>M[1500] = <b>6000</b></td></tr>
+<tr><td>Relative</td><td>PC + 1200 = <b>8200</b></td><td>M[8200], not in the given table</td></tr>
+</table>
+<div class="answerbox">Immediate 1200; Direct 4500; Indirect 999; Register 1500; Register
+indirect 6000; Relative EA 8200. If the table has no entry for an EA, say so, do not invent a
+value.</div>
+<p class="redo"><b>Now redo it:</b> follow the hops. Direct reads memory once, indirect twice,
+the "add" modes add a register to the field first.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, work the EA</span></div>
+<div class="body"><p class="q">(1) R1 = 2000, M[2000] = 500. Register-indirect operand? (2)
+Instruction address 500, displacement +30, PC-relative EA? (3) R2 = 300 (index),
+displacement 20, indexed EA? (4) Base register 4000, displacement 120, base EA? (5) Address
+700, M[700] = 1500, M[1500] = 60. Indirect operand?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) M[2000] = <b>500</b>. (2) 500 + 30 = <b>530</b>. (3) 20 + 300 = <b>320</b>. (4)
+4000 + 120 = <b>4120</b>. (5) M[700] = 1500, then M[1500] = <b>60</b>.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, pick the mode</span></div>
+<div class="body"><p class="q">(1) A constant is embedded in the instruction: which mode?
+(2) Which mode needs the fewest memory accesses? (3) Which mode best suits following pointers
+in a linked list?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>immediate</b>. (2) <b>immediate</b> (the operand is already in the instruction, no
+memory hop). (3) <b>indirect</b> (it dereferences a pointer, which is exactly what a linked
+list needs).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>When a question gives you M[EA], read what it asks: the <b>effective
+address</b> is the location, the <b>operand</b> is the value there. For indexed, base and
+relative modes, you <b>add</b> the register or PC to the field to get the EA; the value stored
+at that EA is the operand, one further hop.</p></div></div>
+</section>

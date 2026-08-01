@@ -1,0 +1,108 @@
+<!-- ===================== FINAL MOCK: 2025/2026 ===================== -->
+<section>
+<div class="kick">Prove It</div>
+<h2 class="title">The 2025 to 2026 Paper, Your Final Mock</h2>
+<hr class="rule">
+<p class="lead">The real paper, the one you are aiming at. Sit it Monday under exam conditions:
+two hours, answer Question One and any other two. Attempt every part with the answers covered,
+then check below. Each answer names the skill that teaches the method, so a miss tells you
+exactly where to go back.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The shape of the paper</span></div>
+<div class="body"><p><b>Question One is compulsory, 30 marks</b>, and is where the numeric work
+piles up. Then choose <b>any two of Questions Two to Five</b>, 20 marks each. Do Question One
+slowly and completely; it is nearly half the paper. Every answer below uses a method you have
+already drilled.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Question One</span><span class="tag">compulsory, 30 marks</span></div>
+<div class="body">
+<p class="q"><b>a)</b> Three IEEE-754 single-precision numbers: X = C1400000, Y = 42100000,
+Z = 41400000. Convert to decimal and test the claims (for example is Y &#8722; Z &gt; 0, is
+Z = X + Y). <b>b)</b> A five-stage pipeline performance question with an instruction mix.
+<b>c)</b> Store &#8722;182, 487, &#8722;1023 in a 16-bit two's-complement machine (binary and
+hex) and add (&#8722;182) + 487. <b>d)</b> Average CPI from an addressing-mode mix, then
+optimise one row and give the percent improvement. <b>e)</b> Effective address and operand for
+six addressing modes from a memory table (PC = 7000, field 1200).</p>
+<hr class="cut"><p class="alabel">Answers</p>
+<p><b>a)</b> X = &#8722;1.5&#215;2<sup>3</sup> = <b>&#8722;12</b>; Y = 1.125&#215;2<sup>5</sup> =
+<b>36</b>; Z = 1.5&#215;2<sup>3</sup> = <b>12</b>. So Y &#8722; Z = 24 &gt; 0 is true; X + Z =
+0 is true; Z = X + Y (12 = 24) is false. (Skill: Floating Point.) <b>b)</b> clock = slowest
+stage + overhead, actual CPI = 1 + weighted extra cycles, time = IC&#215;CPI&#215;T. (Skills:
+CPU Performance and Pipelining.) <b>c)</b> 487 = 01E7, &#8722;182 = FF4A, &#8722;1023 = FC01,
+sum = 305. (Skill: Signed Numbers.) <b>d)</b> CPI 1.70, then 1.50, improvement 11.76%.
+(Skill: CPU Performance.) <b>e)</b> Immediate 1200, Direct 4500, Indirect 999, Register 1500,
+Register indirect 6000, Relative EA 8200. (Skill: Addressing Modes.)</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Question Two</span><span class="tag">20 marks</span></div>
+<div class="body">
+<p class="q"><b>a)</b> 32-bit addresses, 16 words per block, direct-mapped cache of 256 blocks:
+which cache line (in decimal) do CA2DFC12, F24F25FF, 24BBABCD, C1D9EEF2 map to? <b>b)</b> A
+classic five-stage RISC pipeline runs LW, ADD, SUB, SW, BEQ, MUL with forwarding, a one-cycle
+load-use stall and a three-cycle multiply: identify the hazards and give the total cycles.
+<b>c)</b> 1 GB memory, 512 KB cache, 128-byte blocks, 4-way set associative: blocks, sets,
+address format, and AMAT at 96% hits, 2 ns cache, 80 ns memory.</p>
+<hr class="cut"><p class="alabel">Answers</p>
+<p><b>a)</b> offset 4 bits, index 8 bits: read the last hex digit off and take the next two.
+Lines: CA2DFC12 &#8594; <b>193</b>, F24F25FF &#8594; <b>95</b>, 24BBABCD &#8594; <b>188</b>,
+C1D9EEF2 &#8594; <b>239</b>. (Skill: Memory and Cache.) <b>b)</b> one load-use RAW stall plus
+two extra multiply cycles give <b>13 cycles</b>. (Skill: Pipelining.) <b>c)</b> blocks =
+512 KB / 128 B = <b>4096</b>; sets = 4096 / 4 = <b>1024</b>; address 30 bits = tag 13 / set 10 /
+offset 7; AMAT = 2 + 0.04&#215;80 = <b>5.2 ns</b>. (Skill: Memory and Cache.)</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Question Three</span><span class="tag">20 marks</span></div>
+<div class="body">
+<p class="q"><b>a)</b> 64 MB memory, 128 KB cache, 64-byte blocks: number of lines, and the direct
+and 4-way field splits. <b>b)</b> A five-stage pipeline where execute takes 1 cycle for
+ADD/SUB, 3 for MUL, 6 for DIV: schedule four instructions with and without operand forwarding
+and count cycles. <b>c)</b> State Amdahl's law and use it: a cache 10 times faster than memory,
+used 85% of the time.</p>
+<hr class="cut"><p class="alabel">Answers</p>
+<p><b>a)</b> lines = 128 KB / 64 B = <b>2048</b>; address 26 bits; direct: index 11, tag
+<b>9</b>, offset 6; 4-way: set 9, tag <b>11</b>, offset 6. (Skill: Memory and Cache.)
+<b>b)</b> build the cycle diagram row by row; the long DIV fixes everything behind it. Total
+<b>15 cycles</b> with forwarding, <b>17 cycles</b> without. (Skill: Pipelining.) <b>c)</b>
+S = 1 / ((1&#8722;0.85) + 0.85/10) = 1 / 0.235 = <b>4.26</b>. (Skill: CPU Performance.)</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Question Four</span><span class="tag">20 marks</span></div>
+<div class="body">
+<p class="q"><b>a)</b> The IEEE-754 conversions again (as Q1a). <b>b)</b> Write X = ((A&#215;B) +
+C/D) / (F&#215;G + J&#215;K) in zero, one, two and three-address formats. <b>c)</b> Memory for
+an image 17.12 by 9.45 inches at 250 dpi, in megabytes.</p>
+<hr class="cut"><p class="alabel">Answers</p>
+<p><b>a)</b> as Question 1a. <b>b)</b> do the numerator and denominator first, then divide; the
+three-address version is 7 instructions ending <b>DIV X, R1, R2</b> (numerator over
+denominator, not R2, R3). (Skill: Instruction Sets and Formats.) <b>c)</b> pixels =
+(17.12&#215;250)&#215;(9.45&#215;250) = 10 111 500; at 1 bit = 1 263 937.5 bytes &#8776;
+<b>1.21 MB</b>. (Skill: Image and Memory Sizing.)</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Question Five</span><span class="tag">20 marks</span></div>
+<div class="body">
+<p class="q"><b>a)</b> Represent &#8722;1240.56 in single-precision IEEE-754. <b>b)</b> A pipeline
+of 4 phases 60, 50, 90, 80 ns with a 10 ns latch: cycle time, one-task time, speedup, and the
+times for 500 tasks.</p>
+<hr class="cut"><p class="alabel">Answers</p>
+<p><b>a)</b> sign 1; 1240.56 = 1.21...&#215;2<sup>10</sup>, so exponent field 10 + 127 = 137;
+fill the 23 mantissa bits and round. The pattern is <b>C49B11EB</b> truncated (C49B11EC if you
+round the last bit). State which you did. (Skill: Floating Point.) <b>b)</b> cycle
+<b>100 ns</b>, one task <b>280 ns</b>, speedup <b>2.8</b>, 500 tasks pipelined <b>50 300 ns</b>
+against sequential <b>140 000 ns</b>. (Skill: Pipelining.)</p></div></div>
+
+<h3 class="sub">Extra practice: the revision deck's cache set</h3>
+<p>The revision deck sets nine cache problems; the standard 64 KB / 1 KB / 16 B case is worked
+in Memory and Cache. Here are the other six, with just the answers, so you can drill the method
+on fresh numbers. Cover the table, work a row, then check.</p>
+<table class="data">
+<tr><th>Mapping and cache</th><th>Offset</th><th>Index/Set</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>
+<tr><td>Direct, 128 KB / 4 KB / 32 B</td><td>5</td><td>index 7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>
+<tr><td>Direct, 1 MB / 8 KB / 64 B</td><td>6</td><td>index 7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>
+<tr><td>Fully associative, 256 KB / 4 KB / 32 B</td><td>5</td><td>none</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>
+<tr><td>Fully associative, 2 MB / 16 KB / 64 B</td><td>6</td><td>none</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>
+<tr><td>4-way, 512 KB / 8 KB / 32 B</td><td>5</td><td>set 6</td><td>8</td><td>256</td><td>2048 bits (256 bytes)</td></tr>
+<tr><td>8-way, 4 MB / 32 KB / 64 B</td><td>6</td><td>set 6</td><td>10</td><td>512</td><td>5120 bits (640 bytes)</td></tr>
+</table>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The night before</span></div>
+<div class="body"><p>You have taught yourself the whole paper. The night before, do only this: work
+Question One again on blank paper from memory, then one cache split, one pipeline speedup, one
+CPI, and one Amdahl. If those flow, you are ready. Walk in and start with Question One.</p></div></div>
+</section>

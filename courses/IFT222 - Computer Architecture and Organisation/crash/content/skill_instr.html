@@ -1,0 +1,117 @@
+<!-- ===================== PART B (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Part B</div>
+  <h1>The Machine</h1>
+  <div class="blurb">The heart of Question One: instructions, how operands are found,
+  performance sums, pipelining, and memory and cache. Every skill here is a fixed method you
+  apply to whatever numbers the paper hands you.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 100" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="12">
+      <g fill="#33566e" text-anchor="middle">
+        <rect x="20" y="34" width="88" height="34" rx="4" fill="#f1f5f8" stroke="#33566e"/><text x="64" y="55">IF</text>
+        <rect x="128" y="34" width="88" height="34" rx="4" fill="#f1f5f8" stroke="#33566e"/><text x="172" y="55">ID</text>
+        <rect x="236" y="34" width="88" height="34" rx="4" fill="#fdf6ec" stroke="#b45309"/><text x="280" y="55">EX</text>
+        <rect x="344" y="34" width="88" height="34" rx="4" fill="#f0f8f2" stroke="#15803d"/><text x="388" y="55">MEM</text>
+        <rect x="452" y="34" width="60" height="34" rx="4" fill="#ecf5f8" stroke="#0e7490"/><text x="482" y="55">WB</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== INSTRUCTIONS ===================== -->
+<section>
+<div class="kick">The Machine</div>
+<h2 class="title">Instruction Sets and Formats</h2>
+<hr class="rule">
+<p class="lead">What a machine instruction is, the kinds there are, and the four
+"address" formats the paper asks you to write a program in. Plus the counting question the
+objective test likes.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Parts and types of an instruction</span></div>
+<div class="body"><p>An instruction has an <b>opcode</b> (which operation to do) and zero or
+more <b>operands</b> (what to do it to), with an addressing mode saying where each operand is.
+The <b>instruction format</b> is just the layout of these bit fields. The whole collection of
+instructions a processor understands is its <b>instruction set</b>. The main types:</p>
+<ul class="bul">
+<li><b>Data transfer</b> (LOAD, STORE, MOVE): move data between registers and memory. LOAD
+reads from memory.</li>
+<li><b>Arithmetic and logic</b> (ADD, SUB, AND, OR): the ALU's work, mostly on registers.</li>
+<li><b>Control transfer</b> (JUMP, BRANCH, CALL): <b>change the order</b> instructions run
+in, usually after a compare.</li>
+<li><b>Input/output</b>: talk to devices.</li>
+</ul></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The four address formats</span></div>
+<div class="body"><p>How many operand addresses each instruction names:</p>
+<ul class="bul">
+<li><b>Three-address:</b> names both sources and the destination, e.g. <code>ADD X, A, B</code>
+(X = A + B). Fewest instructions for an expression.</li>
+<li><b>Two-address:</b> the destination is also a source, e.g. <code>ADD A, B</code> (A = A +
+B).</li>
+<li><b>One-address:</b> works through a single register, the <b>accumulator</b>: LOAD a value
+in, operate, STORE it out.</li>
+<li><b>Zero-address:</b> a <b>stack</b> machine. Operands sit on top of the stack, so
+operations name no address at all: PUSH values, then ADD takes the top two. Most instructions
+here, but each is tiny.</li>
+</ul>
+<p><b>The trade-off:</b> fewer addresses means <b>shorter instructions but more of them</b>.
+Three-address gives the shortest program; zero-address the longest.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">write X = (A + B) &#215; (C + D)</span></div>
+<div class="body"><p>The same expression in each format. Watch the instruction count climb as
+the number of addresses drops.</p>
+<p><b>Three-address</b> (shortest, 3 instructions):</p>
+<pre class="code">ADD  T, A, B      ; T = A + B
+ADD  X, C, D      ; X = C + D
+MUL  X, T, X      ; X = T * X</pre>
+<p><b>Two-address</b> (destination is also a source):</p>
+<pre class="code">MOV  T, A
+ADD  T, B         ; T = A + B
+MOV  X, C
+ADD  X, D         ; X = C + D
+MUL  X, T         ; X = X * T</pre>
+<p><b>One-address</b> (one accumulator, AC):</p>
+<pre class="code">LOAD  A
+ADD   B           ; AC = A + B
+STORE T
+LOAD  C
+ADD   D           ; AC = C + D
+MUL   T           ; AC = AC * T
+STORE X</pre>
+<p><b>Zero-address</b> (stack, most instructions but each is tiny):</p>
+<pre class="code">PUSH A   PUSH B   ADD      ; A + B on the stack
+PUSH C   PUSH D   ADD      ; C + D on the stack
+MUL                       ; (A+B) * (C+D)
+POP  X</pre>
+<p>The bigger version, X = ((A&#215;B) + C/D) / (F&#215;G + J&#215;K), is Question 4b on the
+2025/2026 paper and is in your final mock at the back.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Counting bytes, and fixed vs variable length</span></div>
+<div class="body"><p>To size a program, count each instruction's bytes and add up:</p>
+<div class="answerbox">bytes per instruction = opcode bytes + (number of addresses &#215; bytes per
+address)</div>
+<p>An instruction's total length is just its fields added: an 8-bit opcode, a 6-bit register
+field and an 18-bit address field make an <b>8 + 6 + 18 = 32-bit</b> instruction.
+<b>Fixed-length</b> instructions (all the same size) are <b>faster to decode</b> and are used
+by RISC (reduced instruction set computers); <b>variable-length</b> instructions are used by
+CISC (complex instruction set computers). To fit <b>more opcodes</b> in the same length, give
+the opcode <b>more bits</b> and the operands fewer. (Both philosophies are covered in Part C.)
+</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, instructions</span></div>
+<div class="body"><p class="q">(1) Which format is used by stack machines? (2) Which instruction
+category changes the program's execution sequence? (3) An instruction has an 8-bit opcode, a
+6-bit register field and an 18-bit address field: total length? (4) Which is NOT defined by
+the ISA: addressing modes, instruction formats, internal ALU implementation, or visible
+registers?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>zero-address</b> (operands on the stack top). (2) <b>control transfer</b>
+(branch/jump/call). (3) 8 + 6 + 18 = <b>32 bits</b>. (4) <b>internal ALU implementation</b>
+(that is organization, not the programmer-visible ISA).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>"Zero-address" goes with the <b>stack</b> and operands on <b>top of the
+stack</b>; do not mix it up with three-address (the shortest program). And the ISA defines
+what the programmer sees (formats, modes, registers), never how the ALU is wired inside.</p>
+</div></div>
+</section>

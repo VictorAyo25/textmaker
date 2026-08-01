@@ -1,0 +1,101 @@
+<!-- ===================== NUMBER SYSTEMS ===================== -->
+<section>
+<div class="kick">Foundations and Data</div>
+<h2 class="title">Number Systems and Conversions</h2>
+<hr class="rule">
+<p class="lead">Everything a computer holds is binary. This skill is turning numbers between
+binary, decimal and hexadecimal without thinking, plus the special decimal codes. It is easy
+marks and a big share of the objective questions.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Bases, and place value</span></div>
+<div class="body"><p>A <b>base</b> is just how many symbols you count with before starting a new
+column. Decimal is base 10 (symbols 0 to 9). Computers use <b>binary</b>, base 2 (0 and 1),
+because a wire is either on or off. Binary gets long, so we write it in <b>hexadecimal</b>,
+base 16 (0 to 9 then A to F, where A = 10 up to F = 15). One binary digit is a <b>bit</b>;
+four bits are a <b>nibble</b>; eight bits are a <b>byte</b>.</p>
+<p>In every base, a digit's value is the digit times the <b>place value</b>, and the places
+are powers of the base: reading right to left they are base<sup>0</sup> = 1, then base,
+then base<sup>2</sup>, and so on. That one rule reads every base.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The three conversions, and powers of two</span></div>
+<div class="body"><ul class="bul">
+<li><b>Any base to decimal:</b> multiply each digit by its place value and add. In hex the
+places are 1, 16, 256, 4096.</li>
+<li><b>Decimal to any base:</b> divide repeatedly by the base, write down each remainder,
+then read the remainders <b>bottom to top</b>.</li>
+<li><b>Binary to hex:</b> group the bits into <b>fours from the right</b>, turn each group of
+four into one hex digit. Hex to binary is the reverse: each hex digit becomes four bits. This
+works because 16 = 2<sup>4</sup>, so one hex digit is exactly four bits.</li>
+</ul>
+<table class="data">
+<tr><th>n</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><th>2<sup>n</sup></th><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td></tr>
+</table>
+<p><b>Memory hook:</b> know these powers of two cold; 2<sup>10</sup> = 1024 = "1 K", then
+2<sup>20</sup> = 1 M, 2<sup>30</sup> = 1 G. Every cache and memory question needs them.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">hex to decimal</span></div>
+<div class="body"><p>Convert the hex number <b>7D3A</b> to decimal.</p>
+<ol class="steps">
+<li>Replace letters by values: 7, D = 13, 3, A = 10.</li>
+<li>Place values right to left: 1, 16, 256, 4096. So 7 is in the 4096 place, D in 256, 3 in
+16, A in 1.</li>
+<li>Multiply and add: 7&#215;4096 + 13&#215;256 + 3&#215;16 + 10&#215;1
+= 28 672 + 3328 + 48 + 10.</li>
+<li>Total = <b>32 058</b>.</li>
+</ol>
+<div class="answerbox">7D3A = 28 672 + 3328 + 48 + 10 = 32 058</div>
+<p class="redo"><b>Now redo it:</b> the only hard part is remembering 4096, 256, 16, 1. Write
+those four first, then multiply.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">binary to hex</span></div>
+<div class="body"><p>Convert binary <b>11010110</b> to hex.</p>
+<ol class="steps">
+<li>Group in fours from the right: 1101&nbsp;&nbsp;0110.</li>
+<li>Each group of four to one hex digit: 1101 = 8+4+1 = 13 = <b>D</b>; 0110 = 4+2 = <b>6</b>.</li>
+<li>Write them in order: <b>D6</b>.</li>
+</ol>
+<div class="answerbox">11010110 = 1101 0110 = D6 (check: both equal 214)</div>
+<p class="redo"><b>Now redo it:</b> go backwards too. 2A7F to binary is 2=0010, A=1010, 7=0111,
+F=1111, giving 0010101001111111.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">convert three</span></div>
+<div class="body"><p class="q">(1) Write decimal 255 in hex. (2) How many hex digits does a
+20-bit binary number need? (3) A hex value shifted right by one bit is the same as which
+operation?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) 255 = 15&#215;16 + 15 = <b>FF</b>. (2) 20 &#247; 4 = <b>5</b> hex digits (one hex
+digit per four bits). (3) shifting right one bit is <b>dividing by 2</b> (left one bit is
+times 2).</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Decimal codes: BCD, Excess-3, and characters</span></div>
+<div class="body"><p>Sometimes we keep decimal digits as separate 4-bit codes rather than one
+binary number. The exam asks about three:</p>
+<ul class="bul">
+<li><b>BCD (binary coded decimal), the 8421 code:</b> write <b>each decimal digit</b> on its
+own as 4 bits. So 59 is 5 = 0101 and 9 = 1001, giving 0101 1001. It is a <b>weighted</b> code
+(the bits are worth 8, 4, 2, 1).</li>
+<li><b>Excess-3:</b> take the digit, <b>add 3</b>, then write that in 4 bits. So 9 becomes
+9 + 3 = 12 = 1100. To read it back, subtract 3. It is <b>non-weighted</b> (the bits carry no
+fixed weights) and <b>self-complementing</b>: flipping all four bits gives the Excess-3 of the
+digit's 9's complement, which makes decimal subtraction easy.</li>
+<li><b>Character codes:</b> <b>ASCII</b> encodes English letters, digits and symbols in 7 or 8
+bits; <b>Unicode</b> was introduced to cover the characters of <b>all</b> the world's
+languages. These are how text, not numbers, is stored.</li>
+</ul></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, the codes</span></div>
+<div class="body"><p class="q">(1) The Excess-3 code for decimal 9 is? (2) The Excess-3 code
+0110 is which decimal digit? (3) The 8421 BCD of decimal 59 is?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) 9 + 3 = 12 = <b>1100</b>. (2) 0110 = 6, minus 3 = <b>3</b>. (3) 5 = 0101, 9 = 1001, so
+<b>01011001</b>. Remember: BCD is the digit itself in 4 bits; Excess-3 is the digit plus 3.</p>
+</div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Group binary into fours <b>from the right</b>, never the left, and pad the
+leftmost group with leading zeros if it is short. And do not confuse the codes: <b>BCD is
+weighted</b> (8421) and is just the digit in binary; <b>Excess-3 is non-weighted</b> and is
+the digit <b>plus 3</b>. "BCD" stands for <b>binary coded decimal</b>, nothing else.</p></div></div>
+</section>

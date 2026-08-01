@@ -1,0 +1,77 @@
+<!-- ===================== IEEE 754 ===================== -->
+<section>
+<div class="kick">Foundations and Data</div>
+<h2 class="title">Floating Point, IEEE 754</h2>
+<hr class="rule">
+<p class="lead">How a computer stores numbers with a fractional part and a huge range, like
+64.2 or &#8722;1240.56. The exam asks it both ways: a decimal to its 32-bit pattern, and a
+hex pattern back to decimal. One method each, and it is the same three fields every time.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why, and the three fields</span></div>
+<div class="body"><p>Floating point exists to hold <b>very large and very small</b> values in a
+few bits: its strength is <b>range</b>, not exact decimals. A number is stored as three
+fields, left to right: <b>sign</b>, then <b>exponent</b>, then <b>mantissa</b> (also called
+the fraction).</p>
+<ul class="bul">
+<li><b>Single precision:</b> <b>32 bits</b> = 1 sign + <b>8</b> exponent + 23 mantissa. It
+covers roughly 10<sup>&#177;38</sup>.</li>
+<li><b>Double precision:</b> <b>64 bits</b> = 1 sign + <b>11</b> exponent + 52 mantissa. It
+covers roughly 10<sup>&#177;308</sup>.</li>
+</ul>
+<p>The value is <b>&#177; 1.mantissa &#215; 2<sup>exponent</sup></b>. The leading 1 is
+<b>always there</b> for a normalised number, so it is not stored (the "hidden 1"). The
+exponent is stored with a <b>bias</b> added so it can be negative without a sign of its own:
+bias is <b>127</b> for single, <b>1023</b> for double.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Encode and decode</span></div>
+<div class="body"><ul class="bul">
+<li><b>Decimal to IEEE (single):</b> (1) sign bit from the sign. (2) Convert the magnitude to
+binary. (3) Normalise to <b>1.something &#215; 2<sup>e</sup></b> by moving the point. (4)
+Exponent field = <b>e + 127</b>, in 8 bits. (5) Mantissa = the "something" after the point,
+padded with zeros to 23 bits. (6) Put the 32 bits together and group in fours for hex.</li>
+<li><b>IEEE (hex) to decimal:</b> (1) write the 32 bits, split as 1 / 8 / 23. (2) Sign bit
+gives the sign. (3) Real exponent <b>e = exponent field &#8722; 127</b>. (4) Value =
+&#177; 1.mantissa in binary &#215; 2<sup>e</sup>.</li>
+</ul>
+<p><b>Memory hook:</b> "sign, exponent, mantissa", and the exponent is always <b>stored plus
+the bias, read minus the bias</b>.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">hex to decimal (a 2025/2026 number)</span></div>
+<div class="body"><p>Convert <b>C1400000</b> (single precision) to decimal. This is the X from
+Question 1a / 4a of the recent papers.</p>
+<ol class="steps">
+<li>Hex to bits, split 1 / 8 / 23: sign = <b>1</b>; exponent field = <b>1000 0010</b>;
+mantissa = <b>100 0000&#8230;</b></li>
+<li>Sign 1 means <b>negative</b>. Exponent field 1000 0010 = 130, so e = 130 &#8722; 127 =
+<b>3</b>.</li>
+<li>Mantissa 1.100&#8230; = 1 + 1/2 = <b>1.5</b>, so value = &#8722;1.5 &#215; 2<sup>3</sup> =
+&#8722;1.5 &#215; 8 = <b>&#8722;12</b>.</li>
+</ol>
+<div class="answerbox">C1400000 = &#8722;1.5 &#215; 2<sup>3</sup> = &#8722;12</div>
+<p class="redo"><b>Now redo it:</b> the whole trick is exponent field minus 127, then read
+1.mantissa as a binary fraction.</p>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">encode a clean number</span></div>
+<div class="body"><p class="q">Encode <b>+6.0</b> in single precision. (Hint: 6 in binary is
+110; normalise it.)</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>6 = 110 = 1.10 &#215; 2<sup>2</sup>. Sign = 0. Exponent field = 2 + 127 = 129 = 1000 0001.
+Mantissa = 100&#8230;0 (23 bits). Pattern: 0 10000001 10000000000000000000000 =
+<b>40C00000</b>. Check by decoding: +1.5 &#215; 2<sup>2</sup> = 6.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, the facts</span></div>
+<div class="body"><p class="q">(1) How many exponent bits in single precision? (2) The bias in
+double precision? (3) How many bits is double precision? (4) A floating-point number is
+stored as which order of fields?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>8</b>. (2) <b>1023</b>. (3) <b>64</b>. (4) sign, then exponent, then mantissa (the
+exam phrases the answer as "sign, mantissa, exponent", meaning those three parts with the
+sign first; the true field order on the chip is sign, exponent, mantissa).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Do not forget the <b>bias</b>: the exponent you compute is <b>e + 127</b>
+going in, and <b>field &#8722; 127</b> coming out. And the leading 1 is <b>hidden</b>, so when
+you read the mantissa put a "1." in front of it. Single precision has range about
+10<sup>&#177;38</sup>; double about 10<sup>&#177;308</sup>.</p></div></div>
+</section>

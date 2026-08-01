@@ -1,0 +1,150 @@
+<!-- ===================== PART A (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Part A</div>
+  <h1>Foundations<br>and Data</h1>
+  <div class="blurb">The bedrock first, then every number skill the exam leans on. Nothing
+  here assumes you know anything. Do it in order: each section stands on the one before.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 96" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="DejaVu Sans Mono" font-size="20" fill="#33566e">
+        <text x="0" y="34">1010 0011</text>
+        <text x="200" y="34" fill="#8a919b">=</text>
+        <text x="240" y="34" fill="#b45309">A3</text>
+        <text x="320" y="34" fill="#8a919b">=</text>
+        <text x="360" y="34" fill="#15803d">163</text>
+      </g>
+      <rect x="0" y="52" width="520" height="1.4" fill="#c9b6f2"/>
+      <g font-family="DejaVu Sans" font-size="12" fill="#8a919b">
+        <text x="0" y="78">binary</text><text x="240" y="78">hex</text><text x="360" y="78">decimal</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== BIG PICTURE ===================== -->
+<section>
+<div class="kick">Foundations and Data</div>
+<h2 class="title">The Big Picture</h2>
+<hr class="rule">
+<p class="lead">Before any sums, the shape of the whole thing. Half the objective questions
+live right here: what a computer is made of, and the one distinction the examiner asks in a
+dozen disguises, architecture versus organization.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">What a computer is</span></div>
+<div class="body"><p>A computer runs a program by repeating three steps forever:
+<b>fetch</b> an instruction from memory, <b>decode</b> it (work out what it means), and
+<b>execute</b> it. This is the <b>fetch, decode, execute cycle</b>. The big idea, called the
+<b>stored-program</b> or <b>Von Neumann</b> concept, is that <b>the program and the data live
+together in the same memory</b>, both just binary numbers. That is what makes a computer
+general: change the numbers in memory and it does a different job.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The parts inside</span></div>
+<div class="body"><p>The <b>CPU</b> (central processing unit, the processor) has two working
+parts and a handful of tiny fast stores called <b>registers</b>:</p>
+<ul class="bul">
+<li>The <b>control unit (CU)</b> is the conductor: it fetches each instruction and sends out
+the <b>control signals</b> that make everything else act at the right moment.</li>
+<li>The <b>arithmetic and logic unit (ALU)</b> does the actual work: add, subtract, AND, OR,
+compare.</li>
+<li><b>Registers</b> hold what the CPU is using right now. Learn four by name: the
+<b>program counter (PC)</b> holds the address of the next instruction; the <b>instruction
+register (IR)</b> holds the instruction being executed; the <b>memory address register
+(MAR)</b> holds the address the CPU is about to read or write; the <b>memory data register
+(MDR)</b> holds the data going to or coming from memory.</li>
+</ul>
+<p>Everything talks over three <b>buses</b> (shared wires): the <b>address bus</b> carries
+which location is wanted, the <b>data bus</b> carries the value itself, and the <b>control
+bus</b> carries the signals that say read or write and when.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The one distinction they love: architecture vs organization</span></div>
+<div class="body"><p>This is the most asked idea on the objective test. Learn it once, cleanly.</p>
+<ul class="bul">
+<li><b>Computer architecture</b> is <b>what the machine does, as the programmer sees it</b>.
+It answers <i>"what does the computer do?"</i> It is the <b>instruction set architecture
+(ISA)</b>: the instructions available, the data types, the addressing modes, the registers a
+program can name, the instruction formats. If a programmer can see it or use it, it is
+architecture.</li>
+<li><b>Computer organization</b> is <b>how the machine is built to do it</b>. It answers
+<i>"how does it do it?"</i> It is the hidden hardware: the control signals, the buses, the
+memory technology used, the cache, how many execution units there are. The programmer never
+sees it directly; it decides <b>how fast and how efficiently</b> the job gets done.</li>
+</ul>
+<p>The clean test: <b>can a program see it or name it? Then it is architecture. Is it an
+implementation choice hidden inside? Then it is organization.</b> Two chips with the
+<b>same ISA</b> run the <b>same programs</b> (binary compatible) but can differ wildly in
+speed, because their <b>organization</b> differs. The deeper hardware realisation of an ISA
+is also called the <b>microarchitecture</b>: same ISA, different microarchitecture, different
+performance. (There are two whole ISA styles, the reduced instruction set computer and the
+complex instruction set computer, RISC and CISC; they are compared in Part C.)</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Sort it: architecture or organization</span></div>
+<div class="body"><p>Memorise these two lists. Most arch-vs-org MCQs are just "which side is
+this?"</p>
+<table class="data">
+<tr><th>Architecture (programmer-visible, "what")</th><th>Organization (hidden build, "how")</th></tr>
+<tr><td>Instruction set and instruction formats</td><td>Control signals and control-unit design</td></tr>
+<tr><td>Addressing modes</td><td>Buses and interconnection</td></tr>
+<tr><td>Data types and their representation</td><td>The memory technology used</td></tr>
+<tr><td>Registers a program can name</td><td>Cache size and cache implementation</td></tr>
+<tr><td>Whether floating-point instructions exist</td><td>Number of cores and execution units, clock circuitry</td></tr>
+</table>
+<p><b>Memory hook:</b> architecture is the <b>blueprint</b> (the design); organization is the
+<b>construction</b> (how it is actually built). Same blueprint, two builders, two costs and
+two speeds.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Von Neumann vs Harvard</span></div>
+<div class="body"><p>Two ways to wire memory to the CPU:</p>
+<ul class="bul">
+<li><b>Von Neumann:</b> <b>one</b> memory and one bus for <b>both</b> instructions and data.
+Simple and cheap, but the shared path is a bottleneck (you cannot fetch an instruction and
+read data at the very same moment).</li>
+<li><b>Harvard:</b> <b>separate</b> memories and buses for instructions and data. More
+hardware, but it can <b>fetch an instruction and read data at the same time</b>, so it is
+faster. That simultaneous access is its whole advantage.</li>
+</ul></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">sort five things</span></div>
+<div class="body"><p class="q">Label each as architecture (A) or organization (O): (1) the list
+of addressing modes, (2) the size of the cache, (3) the number of general registers a
+program can use, (4) the technology the main memory is built from, (5) the control signals
+the control unit sends.</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>1 A (programmer names them), 2 O (hidden size choice), 3 A (programmer-visible), 4 O
+(implementation), 5 O (hidden). If you can explain <i>why</i> for each, you have this
+topic.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, arch vs org</span></div>
+<div class="body"><p class="q">A bank upgrades its servers to processors with larger caches and
+faster RAM while keeping the same x86 instruction set. What has primarily changed?
+&nbsp; (a) Architecture only &nbsp; (b) Organization only &nbsp; (c) Both &nbsp; (d) Neither</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p><b>(b) Organization only.</b> Same instruction set means the <b>architecture is
+unchanged</b>; larger caches and faster RAM are <b>organization</b>. This exact shape,
+"same ISA, faster hardware", appears again and again: the answer is always organization.</p>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, same ISA</span></div>
+<div class="body"><p class="q">A developer runs the same compiled application on two processors
+from different manufacturers. This is possible because both implement the same:
+&nbsp; (a) Instruction Set Architecture &nbsp; (b) Microarchitecture &nbsp; (c) Control unit
+design &nbsp; (d) Cache hierarchy</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p><b>(a) Instruction Set Architecture.</b> The same binary program runs on both because they
+share an <b>ISA</b>. Their microarchitecture, control unit and cache may all differ; that is
+organization, and it only changes speed, not what runs.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, Harvard</span></div>
+<div class="body"><p class="q">A processor fetches an instruction while simultaneously reading
+data from memory. Which architecture makes this possible?
+&nbsp; (a) Stack &nbsp; (b) CISC &nbsp; (c) Von Neumann &nbsp; (d) Harvard</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p><b>(d) Harvard.</b> Separate instruction and data memories and buses let both happen at
+once. Von Neumann shares one path, so it cannot.</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>When an MCQ says <b>"same instruction set"</b> or <b>"same ISA"</b> but the
+hardware changed, the change is <b>organization</b>, never architecture. And "which is
+visible to the programmer?" almost always points to the <b>instruction formats / addressing
+modes / registers</b> (architecture), not to caches, buses or memory technology
+(organization).</p></div></div>
+</section>

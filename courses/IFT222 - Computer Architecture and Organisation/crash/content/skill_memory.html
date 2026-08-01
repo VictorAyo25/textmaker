@@ -1,0 +1,104 @@
+<!-- ===================== MEMORY AND CACHE ===================== -->
+<section>
+<div class="kick">The Machine</div>
+<h2 class="title">Memory and Cache</h2>
+<hr class="rule">
+<p class="lead">The memory hierarchy carries the largest single block of objective questions,
+and cache mapping is the most examined calculation on the whole course. Two teach boxes of
+facts, then one method for the cache sums.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The hierarchy, and the memory types</span></div>
+<div class="body"><p>Memory is arranged in levels. From <b>fastest to slowest</b>:
+<b>registers &#8594; cache &#8594; main memory &#8594; secondary storage</b> (disk, SSD).
+Going up, memory gets <b>faster, smaller, and more expensive per bit</b>; registers are the
+fastest and the <b>highest cost per bit</b>. The reason there are levels at all is a trade-off:
+you cannot have fast, big and cheap at once.</p>
+<ul class="bul">
+<li><b>SRAM</b> (static RAM) uses <b>flip-flops</b>: fast, <b>no refresh</b>, but costly and
+low density, so it is used for <b>cache</b>.</li>
+<li><b>DRAM</b> (dynamic RAM) uses <b>capacitors</b>: dense and cheap but slower and <b>needs
+periodic refresh</b>, so it is used for <b>main memory</b>.</li>
+<li><b>ROM</b> is <b>non-volatile</b> and holds firmware permanently. <b>Flash</b> is also
+non-volatile. RAM, cache and DRAM are all <b>volatile</b> (lost on power off).</li>
+</ul>
+<p>Two more facts the MCQs love: the <b>memory address register (MAR)</b> holds the address
+currently being accessed; and <b>access time</b> is how long one access takes, while
+<b>cycle time</b> is the minimum gap between the starts of two accesses, so a device with 60 ns
+access and 90 ns cycle can start a new access only every 90 ns.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Locality, the memory wall, virtual memory</span></div>
+<div class="body"><p>Cache works because of <b>locality of reference</b>:</p>
+<ul class="bul">
+<li><b>Temporal locality:</b> a location used now is likely used again <b>soon</b> (reusing the
+same instruction or variable).</li>
+<li><b>Spatial locality:</b> once a location is used, <b>nearby</b> locations are likely used
+next (stepping through an array).</li>
+</ul>
+<p>Even so, cache cannot fix everything: the growing gap between fast CPUs and slow memory is
+the <b>memory wall</b>, and it is why a processor can still wait on data despite a big cache.
+<b>Virtual memory</b> lets a program use an address space <b>larger than the physical RAM</b>,
+with a memory management unit (MMU) translating addresses.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Cache: the address split, in five steps</span></div>
+<div class="body"><p>Cache is divided into <b>lines</b> the size of a memory <b>block</b>. An
+address splits into <b>tag</b>, then <b>index</b> (or <b>set</b>), then <b>offset</b>. Work them
+in this order:</p>
+<ul class="bul">
+<li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>
+<li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>
+<li><b>Number of lines</b> = cache size / block size.</li>
+<li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>
+cache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully
+associative</b> has no index at all.</li>
+<li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The
+<b>tag directory</b> is lines &#215; tag bits.</li>
+</ul>
+<p>And the <b>average memory access time (AMAT)</b>, with hit ratio h, cache time
+T<sub>c</sub>, memory time T<sub>m</sub>:</p>
+<div class="answerbox">Hierarchical (cache first): AMAT = T<sub>c</sub> + (1 &#8722; h) &#215;
+T<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +
+(1 &#8722; h) &#215; T<sub>m</sub>.</div></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the cache slides' standard case</span></div>
+<div class="body"><p>Main memory 64 KB, cache 1 KB, block 16 B, direct mapped. Find the
+address split and the tag-directory size.</p>
+<ol class="steps">
+<li>Address bits = log<sub>2</sub>(64 KB) = log<sub>2</sub>2<sup>16</sup> = <b>16</b>.</li>
+<li>Offset = log<sub>2</sub>16 = <b>4</b>.</li>
+<li>Lines = cache / block = 1024 / 16 = <b>64</b>, so index = log<sub>2</sub>64 = <b>6</b>.</li>
+<li>Tag = 16 &#8722; 6 &#8722; 4 = <b>6</b>.</li>
+<li>Tag directory = lines &#215; tag = 64 &#215; 6 = <b>384 bits</b> = 48 bytes.</li>
+</ol>
+<div class="answerbox">Offset 4, index 6, tag 6; tag directory 384 bits (48 bytes). More
+practice caches, in all three mappings, are in your final mock at the back.</div>
+<p class="redo"><b>Now redo it:</b> address from the memory size, offset from the block, lines
+from cache over block, and the tag is whatever is left. This works for any numbers.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">average access time</span></div>
+<div class="body"><p>Hit rate 80%, cache time 5 ns, memory time 100 ns. Find the AMAT both
+ways.</p>
+<ol class="steps">
+<li>Simultaneous = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> = 0.8&#215;5 +
+0.2&#215;100 = 4 + 20 = <b>24 ns</b>.</li>
+<li>Hierarchical = T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> = 5 + 0.2&#215;100 = 5 + 20 =
+<b>25 ns</b>.</li>
+</ol>
+<div class="answerbox">Simultaneous 24 ns, hierarchical 25 ns. Hierarchical pays the cache time
+on every access, so it is a touch slower here.</div></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, memory</span></div>
+<div class="body"><p class="q">(1) Order fastest to slowest: registers, cache, main memory,
+secondary. (2) SRAM versus DRAM in one line? (3) Reusing the same location soon is which
+locality? (4) A program using more address space than physical RAM uses what? (5) Which memory
+has the highest cost per bit?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>registers, cache, main memory, secondary</b>. (2) SRAM = flip-flops, fast, no
+refresh; <b>DRAM = capacitors</b>, dense, needs refresh. (3) <b>temporal</b> (nearby locations
+would be spatial). (4) <b>virtual memory</b>. (5) <b>registers</b>.</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Keep the units straight: offset comes from the <b>block</b> size, lines from
+<b>cache over block</b>. For set associative, divide lines by the ways to get <b>sets</b>
+before taking the log, and the bits you save on the index move into the <b>tag</b>. Temporal
+locality is "same place, later"; spatial is "nearby places".</p></div></div>
+</section>

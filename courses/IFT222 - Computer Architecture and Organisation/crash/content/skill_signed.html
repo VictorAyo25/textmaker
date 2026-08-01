@@ -1,0 +1,87 @@
+<!-- ===================== SIGNED NUMBERS ===================== -->
+<section>
+<div class="kick">Foundations and Data</div>
+<h2 class="title">Signed Numbers</h2>
+<hr class="rule">
+<p class="lead">How a computer stores negative numbers. Three schemes, one of which
+(two's complement) is what real machines use. This is the single most asked numeric topic,
+on the paper and in the objective test, so learn the moves until they are automatic.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Unsigned first</span></div>
+<div class="body"><p>With <b>n</b> bits and no sign, you can store <b>0 to 2<sup>n</sup> &#8722;
+1</b>. So 8 bits hold 0 to 255, and 10 bits hold 0 to 1023. All patterns are positive; the
+biggest is all ones.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Three ways to store a sign</span></div>
+<div class="body"><p>The top (leftmost) bit becomes a <b>sign bit</b>: 0 means positive, 1 means
+negative. The three schemes differ only in how they build a negative:</p>
+<ul class="bul">
+<li><b>Sign-magnitude:</b> sign bit, then the plain magnitude. So &#8722;42 in 8 bits is
+1 (negative) then 0101010 (42) = 1010 1010. Simple to read, but arithmetic hardware is slow
+and messy, and there are <b>two zeros</b> (+0 = 0000 0000 and &#8722;0 = 1000 0000).</li>
+<li><b>One's complement:</b> to make a number negative, <b>invert every bit</b> of the
+positive. Adding needs an <b>end-around carry</b> (any carry out of the top is added back
+into the bottom), and it too has <b>two zeros</b> (+0 = all zeros, &#8722;0 = all ones).</li>
+<li><b>Two's complement:</b> to make a number negative, <b>invert every bit and add 1</b>.
+This is what real computers use, because it has <b>one</b> zero and the same adder does
+subtraction, so the hardware is simpler and faster.</li>
+</ul></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The two's-complement moves</span></div>
+<div class="body"><ul class="bul">
+<li><b>Make a negative:</b> write the positive in n bits, invert all bits, add 1.</li>
+<li><b>Read a pattern whose top bit is 1 (so it is negative):</b> invert all bits and add 1
+to get the magnitude, then put a minus sign on it. (Example: 1000 0000 in 8 bits inverts to
+0111 1111, plus 1 is 1000 0000 = 128, so the value is &#8722;128.)</li>
+<li><b>Range in n bits:</b> &#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1.
+For 16 bits that is &#8722;32 768 to 32 767.</li>
+<li><b>Add two's-complement numbers:</b> just add the bit patterns and <b>throw away</b> any
+carry off the top. No end-around carry.</li>
+</ul>
+<p><b>Memory hook:</b> one's complement is "flip"; two's complement is "flip and add one".
+That extra "add one" is what buys the single zero and the simple hardware.</p></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q1c)</span></div>
+<div class="body"><p>A 16-bit machine uses two's complement. Store <b>&#8722;182</b>, <b>487</b>
+and <b>&#8722;1023</b> in binary and hex, and compute (&#8722;182) + 487. (This is exactly
+Question 1c on the 2025/2026 paper.)</p>
+<ol class="steps">
+<li><b>Range check.</b> 16-bit two's complement holds &#8722;32 768 to 32 767, so all three
+fit.</li>
+<li><b>487</b> is positive: 0000 0001 1110 0111. In hex (group in fours): <b>01E7</b>.</li>
+<li><b>&#8722;182:</b> +182 = 0000 0000 1011 0110; invert = 1111 1111 0100 1001; add 1 =
+1111 1111 0100 1010 = <b>FF4A</b>.</li>
+<li><b>&#8722;1023:</b> +1023 = 0000 0011 1111 1111; invert = 1111 1100 0000 0000; add 1 =
+1111 1100 0000 0001 = <b>FC01</b>.</li>
+<li><b>Add:</b> 1111 1111 0100 1010 + 0000 0001 1110 0111 = 0000 0001 0011 0001 (drop the
+carry off the top). That is +305, and indeed &#8722;182 + 487 = <b>305</b>.</li>
+</ol>
+<div class="answerbox">487 = 01E7; &#8722;182 = FF4A; &#8722;1023 = FC01; (&#8722;182) + 487 =
+305. The machine adds and gets the right signed answer with nothing but addition.</div>
+<p class="redo"><b>Now redo it:</b> the recipe is always the same, positive then invert then
+add 1. Practise with &#8722;75 in 8 bits (answer 1011 0101).</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">read three patterns</span></div>
+<div class="body"><p class="q">In 8 bits: (1) what decimal is 1000 0000 in two's complement?
+(2) what is the two's complement of 0010 1100? (3) what decimal is 1010 1010 in
+<i>sign-magnitude</i>?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) top bit 1 so negative; invert 0111 1111 + 1 = 1000 0000 = 128, so <b>&#8722;128</b>.
+(2) invert 0010 1100 to 1101 0011, add 1 = <b>1101 0100</b>. (3) sign bit 1 (negative),
+magnitude 010 1010 = 42, so <b>&#8722;42</b>.</p></div></div>
+
+<div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, quick facts</span></div>
+<div class="body"><p class="q">(1) How many representations of zero in sign-magnitude?
+(2) Which scheme needs an end-around carry? (3) The one's-complement pattern 1110 0011 is
+which decimal? (4) Why is two's complement used?</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>(1) <b>two</b> (+0 and &#8722;0). (2) <b>one's complement</b>. (3) top bit 1 so negative;
+invert 1110 0011 to 0001 1100 = 28, so <b>&#8722;28</b>. (4) <b>simpler and faster hardware</b>
+(one zero, and add/subtract share one circuit).</p></div></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span></div>
+<div class="body"><p>Reading a negative two's-complement pattern, do <b>not</b> just read the
+magnitude bits; you must invert and add 1 first. <b>Overflow</b> is when the true result is
+too big or too small for the range, not division by zero. And the end-around carry belongs to
+<b>one's</b> complement only; two's complement just discards the top carry.</p></div></div>
+</section>
