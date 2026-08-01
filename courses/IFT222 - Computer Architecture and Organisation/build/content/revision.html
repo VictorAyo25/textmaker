@@ -1,0 +1,417 @@
+<!-- ===================== REVISION CLASS (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Revision Class</div>
+  <h1>The Revision Deck,<br>Solved A to Z</h1>
+  <div class="blurb">The lecturer's revision class, every question in it worked out and
+  explained in the plainest words possible. Read it last, the night before, with a pen.
+  Nearly every question here is one you have already met in this book, which is the whole
+  point: the revision is the exam, and you have drilled it.</div>
+  <div class="divider-motif">
+    <svg viewBox="0 0 520 100" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+      <g fill="#334155">
+        <text x="16" y="40" font-size="15" font-weight="bold">A</text>
+        <text x="16" y="66" font-size="10" fill="#8a919b">start</text>
+        <line x1="60" y1="46" x2="452" y2="46" stroke="#94a3b8" stroke-width="1.6" marker-end="url(#rv)"/>
+        <text x="486" y="40" font-size="15" font-weight="bold">Z</text>
+        <text x="470" y="66" font-size="10" fill="#8a919b">exam</text>
+      </g>
+      <defs><marker id="rv" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+        <path d="M0,0 L7,3.2 L0,6.4 Z" fill="#94a3b8"/></marker></defs>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== REVISION SECTION 1 ===================== -->
+<section>
+<div class="kick">Revision Class</div>
+<h2 class="title">Data, Instructions and Addressing</h2>
+<hr class="rule">
+<p class="lead">The first block of the revision deck: signed numbers, instruction formats,
+and addressing modes. Every question here is straight off the 2025/2026 paper, so treat
+this as the paper itself.</p>
+<p class="lo">By the end you can, from memory, place any signed number in a 16-bit register
+in binary and hex, write an expression in all four instruction formats, and read an
+operand out of memory under any addressing mode.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">What this deck actually is</span></div>
+<div class="body"><p>Before the questions, the one thing worth knowing about this revision
+deck: <b>almost every worked example in it is a question you have already met.</b> The data
+representation, instruction format, addressing, 4-phase pipeline, hazard classification and
+the whole cache section are the 2025/2026 paper and the pipelining and cache slides, which
+this manual has already drilled. Only <b>one</b> question, the 6-stage pipeline, is new.
+Each one below is labelled with where else it lives, so you can see for yourself that if you
+can do this section, you have done the exam.</p></div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision A</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">A spacecraft telemetry system uses a 16-bit processor to transmit environmental measurements. The following values are to be stored: Temperature = &#8722;182; Pressure = 487; Altitude = &#8722;1023. The processor uses 2's complement representation for signed integers.
+(i)   Determine the range of values representable in a 16-bit two's complement system. Indicate whether the given numbers fall within the range.
+(ii)  Represent each value in binary and hexadecimal.
+(iii) Demonstrate how the processor uses two's complement to compute (&#8722;182) + 487.</div>
+<div class="note2"><b>You have met this.</b> It is <b>PQ 2025/2026 Q1(c)</b>, word for word,
+spacecraft and all, solved in full in the Past Papers section. Here it is again, as simply
+as it goes.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision A</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> a 16-bit machine, 2's complement &middot;
+Temperature = &#8722;182, Pressure = 487, Altitude = &#8722;1023</div>
+<div class="prow"><span class="plab">Find</span> (i) the range and whether each fits,
+(ii) each in binary and hex, (iii) the sum (&#8722;182) + 487 in binary</div>
+<div class="prow"><span class="plab">Formula</span> range = &#8722;2<sup>15</sup> to
+2<sup>15</sup> &#8722; 1 &middot; negative in 2's complement = invert the positive and add 1
+&middot; group the 16 bits in fours to read the hex</div>
+</div>
+<ol class="steps">
+<li><b>Range.</b> A 16-bit 2's complement register holds &#8722;2<sup>15</sup> to
+2<sup>15</sup> &#8722; 1, that is <b>&#8722;32768 to 32767</b>. All three of &#8722;182,
+487 and &#8722;1023 sit comfortably inside it.</li>
+<li><b>487</b> is positive, so just write it in binary: 0000 0001 1110 0111.
+<span class="note">Group in fours: 0000=0, 0001=1, 1110=E, 0111=7, so hex = 01E7.</span></li>
+<li><b>&#8722;182.</b> First +182 = 0000 0000 1011 0110. Invert every bit: 1111 1111 0100
+1001. Add 1: 1111 1111 0100 1010.
+<span class="note">Hex: 1111=F, 1111=F, 0100=4, 1010=A, so &#8722;182 = FF4A.</span></li>
+<li><b>&#8722;1023.</b> First +1023 = 0000 0011 1111 1111. Invert: 1111 1100 0000 0000. Add
+1: 1111 1100 0000 0001.
+<span class="note">Hex: 1111=F, 1100=C, 0000=0, 0001=1, so &#8722;1023 = FC01.</span></li>
+<li><b>(&#8722;182) + 487.</b> Add the two 16-bit patterns and throw away any carry out of
+the top:
+<span class="note">1111 1111 0100 1010 + 0000 0001 1110 0111 = 0000 0001 0011 0001.</span>
+That pattern is positive and equals 256 + 32 + 16 + 1 = <b>305</b>, which is exactly
+&#8722;182 + 487. The machine got the right answer with nothing but addition.</li>
+</ol>
+<div class="answerbox">Range &#8722;32768 to 32767 (all three fit). 487 = 01E7; &#8722;182 =
+FF4A; &#8722;1023 = FC01. (&#8722;182) + 487 = 0000 0001 0011 0001 = 305.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision B</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">Use a Zero, One, Two and Three address instruction format to write a Pentium 4 assembly language program segment for the expression:
+X = ((A * B) + C/D) / (F*G + J*K)</div>
+<div class="note2"><b>You have met this.</b> Same expression as <b>PQ 2025/2026 Q4(b)</b>,
+solved in full in Module One Unit 4. The revision drops the "number of bytes required" part,
+which is the very part struck out by hand on the exam paper, so here you only write the four
+programs. The byte counts (49, 60, 51, 34 for 3, 2, 1, 0-address) are in Module One Unit 4
+if you want them.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision B</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> X = ((A &#215; B) + C/D) / (F &#215; G +
+J &#215; K)</div>
+<div class="prow"><span class="plab">Find</span> the program in each of the four formats</div>
+<div class="prow"><span class="plab">Formula</span> 3-address names both sources and the
+destination &middot; 2-address lets the destination double as a source &middot; 1-address
+works through one accumulator (LOAD, op, STORE) &middot; 0-address pushes operands on a
+stack and each operation pops two</div>
+</div>
+<p>Do the numerator (A&#215;B + C/D) and the denominator (F&#215;G + J&#215;K) first, then
+divide.</p>
+<p class="marks">3-address (shortest)</p>
+<pre class="code">MUL  R1, A, B      ; R1 = A*B
+DIV  R2, C, D      ; R2 = C/D
+ADD  R1, R1, R2    ; R1 = A*B + C/D    (numerator)
+MUL  R2, F, G      ; R2 = F*G
+MUL  R3, J, K      ; R3 = J*K
+ADD  R2, R2, R3    ; R2 = F*G + J*K    (denominator)
+DIV  X,  R1, R2    ; X  = numerator / denominator</pre>
+<p class="small">The revision slide prints the last line as "DIV X, R2, R3", which is a slip:
+that would divide the denominator by J*K. The correct last line is <b>DIV X, R1, R2</b>,
+numerator over denominator.</p>
+<p class="marks">2-address (destination is also a source)</p>
+<pre class="code">MOV  R1, A         ; R1 = A
+MUL  R1, B         ; R1 = A*B
+MOV  R2, C
+DIV  R2, D         ; R2 = C/D
+ADD  R1, R2        ; R1 = numerator
+MOV  R3, F
+MUL  R3, G         ; R3 = F*G
+MOV  R2, J
+MUL  R2, K         ; R2 = J*K
+ADD  R2, R3        ; R2 = denominator
+DIV  R1, R2        ; R1 = X
+MOV  X,  R1</pre>
+<p class="marks">1-address (one accumulator, AC)</p>
+<pre class="code">LOAD  F            ; AC = F
+MUL   G            ; AC = F*G
+STORE T            ; T  = F*G
+LOAD  J
+MUL   K            ; AC = J*K
+ADD   T            ; AC = F*G + J*K
+STORE T            ; T  = denominator
+LOAD  A
+MUL   B            ; AC = A*B
+STORE R            ; R  = A*B
+LOAD  C
+DIV   D            ; AC = C/D
+ADD   R            ; AC = numerator
+DIV   T            ; AC = numerator / denominator
+STORE X            ; X  = AC</pre>
+<p class="marks">0-address (stack, postfix A B * C D / + F G * J K * + /)</p>
+<pre class="code">PUSH A   PUSH B   MUL          ; A*B
+PUSH C   PUSH D   DIV   ADD    ; + C/D   -> numerator
+PUSH F   PUSH G   MUL          ; F*G
+PUSH J   PUSH K   MUL   ADD    ; + J*K   -> denominator
+DIV      POP  X                ; numerator / denominator, store X</pre>
+<div class="answerbox">Fewer address fields means shorter instructions but more of them:
+3-address is 7 instructions, 0-address is 16. Each program computes the same X.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision C</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">A processor contains: PC = 7000; R1 = 1500. Memory contents:
+   Address   Value
+   7000      1200
+   1200      4500
+   1500      6000
+   3200      8100
+   4500      999
+   6000      200
+   8100      400
+An instruction contains address field 1200. Determine the Effective Address (EA) and operand for:
+(i) Immediate  (ii) Direct  (iii) Indirect  (iv) Register  (v) Register Indirect (R1)  (vi) Relative</div>
+<div class="note2"><b>You have met this.</b> It is <b>PQ 2025/2026 Q1(e)</b>, the same table
+and the same field 1200, solved in Module One Unit 4.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision C</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> PC = 7000, R1 = 1500, the memory table
+above, and address field = 1200</div>
+<div class="prow"><span class="plab">Find</span> the EA and the operand under each of the
+six modes</div>
+<div class="prow"><span class="plab">Formula</span> the mode tells you how to turn the
+address field into the EA, and the operand is what sits at the EA. M[x] means "the value
+stored at address x".</div>
+</div>
+<table class="data">
+<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>
+<tr><td>(i) Immediate</td><td>none</td><td>the field itself = <b>1200</b></td></tr>
+<tr><td>(ii) Direct</td><td>EA = 1200</td><td>M[1200] = <b>4500</b></td></tr>
+<tr><td>(iii) Indirect</td><td>EA = M[1200] = 4500</td><td>M[4500] = <b>999</b></td></tr>
+<tr><td>(iv) Register</td><td>none</td><td>contents of R1 = <b>1500</b></td></tr>
+<tr><td>(v) Register indirect</td><td>EA = R1 = 1500</td><td>M[1500] = <b>6000</b></td></tr>
+<tr><td>(vi) Relative</td><td>EA = PC + 1200 = 7000 + 1200 = 8200</td><td>M[8200] = <b>not in the table</b></td></tr>
+</table>
+<div class="answerbox">Immediate 1200; Direct 4500; Indirect 999; Register 1500; Register
+indirect 6000; Relative EA = 8200 (its operand is not listed, so say so). The trick is to
+follow the arrows: each mode is one more hop through memory than the last.</div>
+</div></div>
+</section>
+
+<!-- ===================== REVISION SECTION 2 ===================== -->
+<section>
+<div class="kick">Revision Class</div>
+<h2 class="title">Pipelining and Hazards</h2>
+<hr class="rule">
+<p class="lead">Two pipeline speedup questions and the data-hazard classification. The second
+pipeline question and the hazard one you have already met; the first is the deck's one new
+example, so learn it fresh.</p>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision D</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">A non-pipelined processor requires 60 ns per instruction. The processor is redesigned into a 6-stage pipeline with a cycle time of 12 ns. Calculate:
+(a) Time required for 50 instructions without pipelining
+(b) Time required for 50 instructions with pipelining
+(c) Speedup obtained</div>
+<div class="note2"><b>This one is new.</b> It is not on any past paper, so it is the only
+question in the whole revision deck you have not already drilled. It is an easy one, worth
+learning cold.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision D</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> non-pipelined time = 60 ns per instruction
+&middot; pipeline stages k = 6 &middot; pipeline cycle time = 12 ns &middot; n = 50
+instructions</div>
+<div class="prow"><span class="plab">Find</span> (a) non-pipelined time, (b) pipelined time,
+(c) speedup</div>
+<div class="prow"><span class="plab">Formula</span> non-pipelined = n &#215; time per
+instruction &middot; pipelined = (k + n &#8722; 1) &#215; cycle time &middot; speedup =
+non-pipelined / pipelined</div>
+</div>
+<ol class="steps">
+<li><b>(a) Without pipelining.</b> Each instruction takes the full 60 ns and they run one
+after another: 50 &#215; 60 = <b>3000 ns</b>.</li>
+<li><b>(b) With pipelining.</b> The first instruction must pass through all 6 stages, which
+takes 6 &#215; 12 = 72 ns to fill the pipe. After that, one instruction finishes every
+cycle, so the remaining 49 add 49 &#215; 12 = 588 ns. Total = 72 + 588 = <b>660 ns</b>.
+<span class="note">Same thing in one line: (k + n &#8722; 1) &#215; cycle = (6 + 50 &#8722; 1)
+&#215; 12 = 55 &#215; 12 = 660 ns.</span></li>
+<li><b>(c) Speedup.</b> = 3000 / 660 = <b>4.55</b> (about four and a half times faster).</li>
+</ol>
+<div class="answerbox">Without pipelining 3000 ns; with pipelining 660 ns; speedup
+3000 / 660 &#8776; 4.55.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision E</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate:
+(i)   Pipeline cycle time
+(ii)  Non-pipeline execution time
+(iii) Speed up ratio
+(iv)  Pipeline time for 500 tasks
+(v)   Sequential time for 500 tasks</div>
+<div class="note2"><b>You have met this.</b> It is <b>PQ 2025/2026 Q5(b)</b> and
+<b>PQ 2024/2025 Q5(b)</b>, exactly, and it is worked in Module Two Unit 3 and again in the
+Past Papers section. (The 2024/2025 version adds a sixth part, "Throughput", which this one
+drops.)</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision E</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> four phases of 60, 50, 90, 80 ns &middot;
+latch delay = 10 ns &middot; n = 500 tasks for parts (iv) and (v)</div>
+<div class="prow"><span class="plab">Find</span> cycle time, non-pipeline time for one task,
+speedup, and the pipelined and sequential times for 500 tasks</div>
+<div class="prow"><span class="plab">Formula</span> cycle = slowest phase + latch &middot;
+pipelined(n) = (k + n &#8722; 1) &#215; cycle &middot; sequential(n) = n &#215; sum of phases
+&middot; speedup = sum of phases / cycle</div>
+</div>
+<ol class="steps">
+<li><b>(i) Cycle time</b> = slowest phase + latch = max(60, 50, 90, 80) + 10 = 90 + 10 =
+<b>100 ns</b>. The slowest phase sets the clock, not the average.</li>
+<li><b>(ii) Non-pipeline time</b> for one task = 60 + 50 + 90 + 80 = <b>280 ns</b>.</li>
+<li><b>(iii) Speed up ratio</b> = 280 / 100 = <b>2.8</b>.</li>
+<li><b>(iv) Pipeline time for 500 tasks</b> = (k + n &#8722; 1) &#215; cycle =
+(4 + 499) &#215; 100 = 503 &#215; 100 = <b>50 300 ns</b>.</li>
+<li><b>(v) Sequential time for 500 tasks</b> = 500 &#215; 280 = <b>140 000 ns</b>.</li>
+</ol>
+<div class="answerbox">Cycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined
+50 300 ns against sequential 140 000 ns.</div>
+</div></div>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision F</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">Describe each of the following categories of Data Hazards: RAW, WAR, WAW. Using (i) to (iii) below state which is RAW, WAR or WAW and indicate how each occurs using an arrow.
+(i)    R3 &#8592; R1 op R2          (ii)   R3 &#8592; R1 op R2          (iii)  R3 &#8592; R1 op R2
+       R5 &#8592; R3 op R4                 R1 &#8592; R4 op R5                 R3 &#8592; R6 op R7</div>
+<div class="note2"><b>You have met this.</b> It is the exact classification question already
+worked in Module Two Unit 3 (it was on the pipelining slides too). Here is the short
+answer.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision F</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> three pairs of instructions, each writing
+and reading registers</div>
+<div class="prow"><span class="plab">Find</span> which data hazard each pair is, with an
+arrow from the first access to the second</div>
+<div class="prow"><span class="plab">Formula</span> find the one register on both lines, then
+read its order: write then read is RAW, read then write is WAR, write then write is WAW</div>
+</div>
+<table class="data">
+<tr><th>Pair</th><th>Register on both lines</th><th>Order</th><th>Hazard</th></tr>
+<tr><td>(i)&nbsp;&nbsp;R3 written, then R3 read</td><td>R3</td>
+    <td>write &#8594; read</td><td><b>RAW</b> (read after write)</td></tr>
+<tr><td>(ii)&nbsp;&nbsp;R1 read, then R1 written</td><td>R1</td>
+    <td>read &#8594; write</td><td><b>WAR</b> (write after read)</td></tr>
+<tr><td>(iii)&nbsp;R3 written, then R3 written</td><td>R3</td>
+    <td>write &#8594; write</td><td><b>WAW</b> (write after write)</td></tr>
+</table>
+<div class="answerbox">(i) RAW, (ii) WAR, (iii) WAW. Only RAW is a real data dependency;
+WAR and WAW are naming clashes that an ordinary in-order pipeline handles by reading in
+decode and writing in write-back.</div>
+</div></div>
+</section>
+
+<!-- ===================== REVISION SECTION 3 ===================== -->
+<section>
+<div class="kick">Revision Class</div>
+<h2 class="title">Cache Mapping, Every Case</h2>
+<hr class="rule">
+<p class="lead">The last third of the deck is one long cache exercise: direct, fully
+associative and set associative, each with three sizes. It is the same cache slide set
+already worked in Module Three, so here every case is laid out in one place for revision.</p>
+
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">Revision G to O</span></div>
+<div class="body">
+<p class="src">the lecturer's revision deck</p>
+<div class="slidequote">For each cache, find the Offset, Index or Set bits, Tag bits, number of Cache lines, and the Tag Directory size.
+Direct mapping    Ex 1: MM 64 KB, Cache 1 KB, Block 16 B
+                  Ex 2: MM 128 KB, Cache 4 KB, Block 32 B
+                  Ex 3: MM 1 MB, Cache 8 KB, Block 64 B
+Fully associative Ex 1: MM 64 KB, Cache 1 KB, Block 16 B
+                  Ex 2: MM 256 KB, Cache 4 KB, Block 32 B
+                  Ex 3: MM 2 MB, Cache 16 KB, Block 64 B
+Set associative   Ex 1 (2-way): MM 64 KB, Cache 1 KB, Block 16 B
+                  Ex 2 (4-way): MM 512 KB, Cache 8 KB, Block 32 B
+                  Ex 3 (8-way): MM 4 MB, Cache 32 KB, Block 64 B</div>
+<div class="note2"><b>You have met all of these.</b> This is the cache slide set worked in
+Module Three Unit 3. <b>Example 1 of each mapping</b> (64 KB / 1 KB / 16 B) is also
+<b>PQ 2024/2025 Q2(a)</b>. Examples 2 and 3 are the practice bank in Module Three. All nine
+are solved below.</div>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Revision cache, the method</span></div>
+<div class="body">
+<div class="params">
+<div class="prow"><span class="plab">Given</span> nine caches, each with a memory size, a
+cache size and a block size (and a way count for the set-associative three)</div>
+<div class="prow"><span class="plab">Find</span> offset, index or set bits, tag bits, lines,
+and the tag-directory size for each</div>
+<div class="prow"><span class="plab">Formula</span> address = log<sub>2</sub>(memory)
+&middot; offset = log<sub>2</sub>(block) &middot; lines = cache / block &middot; sets =
+lines / ways &middot; tag = address &#8722; index (or set) &#8722; offset &middot; tag
+directory = lines &#215; tag bits (divide by 8 for bytes)</div>
+</div>
+<p>The method never changes: work the address width from the memory size, the offset from
+the block, the lines from cache over block, and whatever is left after offset and index (or
+set) is the tag. Fully associative has no index at all, so its tag is the widest. The three
+tables below apply exactly this to all nine caches.</p>
+</div></div>
+
+<p><b>Direct mapping</b></p>
+<table class="data">
+<tr><th>Cache (MM / cache / block)</th><th>Addr</th><th>Offset</th><th>Index</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>
+<tr><td>Ex 1: 64 KB / 1 KB / 16 B</td><td>16</td><td>4</td><td>6</td><td>6</td><td>64</td><td>384 bits (48 bytes)</td></tr>
+<tr><td>Ex 2: 128 KB / 4 KB / 32 B</td><td>17</td><td>5</td><td>7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>
+<tr><td>Ex 3: 1 MB / 8 KB / 64 B</td><td>20</td><td>6</td><td>7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>
+</table>
+
+<p><b>Fully associative</b> (no index field, so the whole non-offset part is tag)</p>
+<table class="data">
+<tr><th>Cache (MM / cache / block)</th><th>Addr</th><th>Offset</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>
+<tr><td>Ex 1: 64 KB / 1 KB / 16 B</td><td>16</td><td>4</td><td>12</td><td>64</td><td>768 bits (96 bytes)</td></tr>
+<tr><td>Ex 2: 256 KB / 4 KB / 32 B</td><td>18</td><td>5</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>
+<tr><td>Ex 3: 2 MB / 16 KB / 64 B</td><td>21</td><td>6</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>
+</table>
+
+<p><b>Set associative</b> (sets = lines / ways; the set field replaces the index)</p>
+<table class="data">
+<tr><th>Cache (MM / cache / block, ways)</th><th>Addr</th><th>Offset</th><th>Set</th><th>Tag</th><th>Lines / sets</th><th>Tag directory</th></tr>
+<tr><td>Ex 1: 64 KB / 1 KB / 16 B, 2-way</td><td>16</td><td>4</td><td>5</td><td>7</td><td>64 / 32</td><td>448 bits (56 bytes)</td></tr>
+<tr><td>Ex 2: 512 KB / 8 KB / 32 B, 4-way</td><td>19</td><td>5</td><td>6</td><td>8</td><td>256 / 64</td><td>2048 bits (256 bytes)</td></tr>
+<tr><td>Ex 3: 4 MB / 32 KB / 64 B, 8-way</td><td>22</td><td>6</td><td>6</td><td>10</td><td>512 / 64</td><td>5120 bits (640 bytes)</td></tr>
+</table>
+
+<div class="answerbox">The lines are set by cache over block and never change with the mapping;
+the tag directory grows as the mapping gets more associative, because dropping the index
+lengthens the tag on every line. Every value above is checked against an independent
+recompute by the numeric gate.</div>
+<p class="redo"><b>Now redo it:</b> pick any one row, cover the answer, and rebuild it from
+the four sizes. If you can do the 64 KB / 1 KB / 16 B case in all three mappings, you can do
+the exam's cache question in your sleep.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">How the deck ends</span></div>
+<div class="body"><p>The revision deck closes with two instructions to you: <b>read the
+slides on RISC versus CISC</b>, and <b>read every other slide provided</b>, then <b>prepare
+for the examination</b>. Everything it points you to is already in this book: RISC versus
+CISC with its history, the multiply example and the microcode diagram is Module Four Unit 1;
+the pipelining, cache, data representation and instruction-set material fills Modules Two,
+Three and One. So the honest revision plan is short: work this section, then sit the three
+mock papers at the back under exam conditions.</p></div></div>
+</section>

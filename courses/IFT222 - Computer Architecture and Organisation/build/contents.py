@@ -97,6 +97,15 @@ TOC = [
     (2, '2024/2025 Solved in Full', 'Past Paper', '2024/2025 Solved in Full'),
     (2, '2025/2026 Solved in Full', 'Past Paper', '2025/2026 Solved in Full'),
 
+    (0, 'Revision Class · Every Question Solved', 'Revision Class',
+        'The Revision Deck,<br>Solved A to Z'),
+    (2, 'Data, Instructions and Addressing',
+        'Revision Class', 'Data, Instructions and Addressing'),
+    (2, 'Pipelining and Hazards',
+        'Revision Class', 'Pipelining and Hazards'),
+    (2, 'Cache Mapping, Every Case',
+        'Revision Class', 'Cache Mapping, Every Case'),
+
     (0, 'Mock Examination One', 'Mock Examination One',
         'Sit This Paper<br>Under Exam Conditions'),
     (2, 'Question Paper', 'Mock Examination One', 'Question Paper'),

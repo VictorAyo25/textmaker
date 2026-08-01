@@ -378,6 +378,15 @@ add('s28 speedup', int(round(10 * _cpi28)) // (10 + 1), '4')
 # M4 Unit 1 (RISC/CISC) has no arithmetic to recompute: it is a describing topic,
 # and the MULT example just contrasts one CISC instruction with four RISC ones.
 
+# Revision Class (2026-07-31): the deck's one NEW example, a 6-stage pipeline. Every
+# other question in the revision deck reuses numbers already gated above (25/26 Q1c,
+# Q1e, Q4b, Q5b; the cache slides), so only this one adds fresh values.
+add('rev D nonpipe', 50 * 60, '3000')
+add('rev D fill', 6 * 12, '72')
+add('rev D rest', (50 - 1) * 12, '588')
+add('rev D pipe', (6 + 50 - 1) * 12, '660')
+add('rev D speedup', round(50 * 60 / ((6 + 50 - 1) * 12), 2), '4.55')
+
 # M3 Unit 3: the lecturer's six practice caches (Examples 2 and 3 of each mapping).
 # Example 1 of each is the 64 KB / 1 KB / 16 B cache already worked as 24/25 Q2a.
 def _log2p(x):

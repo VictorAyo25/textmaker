@@ -505,11 +505,21 @@ To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-IFT222 - Computer Architecture and Organisation - Study Manual.pdf   194 pp   updated 2026-07-25
+IFT222 - Computer Architecture and Organisation - Study Manual.pdf   206 pp   updated 2026-08-01
 -------------------------------------------------------------------------------
 IFT222 Computer Architecture and Organisation, complete manual: Foundations,
 Modules 1 to 4, a Digital Logic supplement, a Reference part, both priority past
-papers solved in full, and three mock examinations.
+papers solved in full, a Revision Class section, and three mock examinations.
+
+REVISION-CLASS BLEND (2026-08-01). The lecturer released a whole-course revision
+deck. Almost every question on it was already in this book, so a new part,
+"Revision Class, The Revision Deck Solved A to Z", gathers all fifteen and works
+each one simply, labelling where it already appears (fourteen of the fifteen are
+the 2025/2026 paper or the pipelining and cache slides; only a 6-stage pipeline
+example is new). Each home site now also points forward to the revision, so a
+coincidence is flagged both ways. One slip on the slides (a three-address program
+line) was corrected, not copied. The book grew from 194 to 206 pages, still at its
+designed size with nothing scaled.
 
 NEW-SLIDES BLEND (2026-07-25). The lecturer released three further decks mid-course,
 on pipelining, on RISC versus CISC, and a set of solved cache examples, and asked that

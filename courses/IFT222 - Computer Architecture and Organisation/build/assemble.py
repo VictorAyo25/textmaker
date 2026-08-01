@@ -32,6 +32,7 @@ BODY_PARTS = ['front.html', 'module1.html', 'module1_unit2.html',
               'module3.html', 'module3_unit2.html', 'module3_unit3.html',
               'module4.html', 'supplement.html', 'reference.html',
               'papers.html',
+              'revision.html',
               'mock1.html', 'mock1_answers.html',
               'mock2.html', 'mock2_answers.html',
               'mock3.html', 'mock3_answers.html']
