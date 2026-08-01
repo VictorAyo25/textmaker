@@ -475,6 +475,47 @@ something AS PRINTED if it genuinely is. Mark author-written questions clearly a
 practice, and where a mock deliberately mirrors a real question's shape, say so
 and cite the paper rather than implying it is that paper's wording.
 
+## 4d. Faithful reproduction beyond the words (tables, diagrams, the pen)
+
+Added 2026-08-01 (IFT222). Verbatim is not only about wording. Three ways a
+faithful quote still reads wrong, each fixed while keeping `qa_verbatim` green
+character-for-character:
+
+- **The examiner's ruled tables render as real tables, not as text.** A transcript
+  encodes a printed table's columns with a delimiter (`Register | 40% | 1`); left
+  raw in the AS PRINTED box it prints literal pipes and looks nothing like the
+  exam. Render it as a real `<table>` (a "complete the table" question keeps the
+  value column filled and the rest of each row blank, exactly as printed), and
+  teach the verbatim gate to read a table BACK to the transcript's delimited rows
+  before it compares (IFT222's `_detable` in `qa_verbatim.book_quotes`: cells
+  joined by the delimiter, one row per line, **trailing empty cells dropped** so a
+  blank-celled value row like `204` reconstructs to just the printed value). The
+  transcript stays the untouched authority; the gate never sees the tags. Style the
+  table `white-space:normal` because the AS PRINTED box is `pre-wrap`. Control-test
+  still applies: reword one cell and the gate must fail.
+- **Diagrams the paper demands are DRAWN, not described.** Where a question says
+  "draw / include a diagram", the solution shows the diagram as it should look on
+  the answer script, and the teaching section shows **how to draw it and a way to
+  remember it**. Use the LECTURER'S OWN figure where one exists: unzip the deck
+  (`ppt/media/` holds the images; `slideN.xml.rels` maps a slide to its image; an
+  EMF vector converts with PowerShell `System.Drawing.Image::FromFile` ->
+  `DrawImage` -> `Bitmap.Save(...Png)`), look at it, and redraw it faithfully as
+  inline SVG (unique `<marker>` ids per SVG, since ids are document-global; a
+  two-figure box can exceed a page, so constrain figure height or `svg` width).
+  This is §2's "author as inline SVG, eyeball before embedding", sharpened: match
+  the lecturer's layout so the student reproduces what he expects.
+- **The examiner's pen stays out of the printed quote.** A part struck through in
+  pen, or a printed word corrected in pen (IFT222 25/26 Q3b prints "PO stage",
+  pen-corrected to EX), keeps the PRINTED text in the AS PRINTED box; the pen mark
+  is recorded in the flag note and the working uses the corrected value. And a
+  struck-out part is worked anyway: the reader may sit a version where it is not
+  struck, and a cancelled part costs nothing to answer.
+
+A pedagogy note that belongs with the quote: **write a solution's definitions the
+way the lecturer states them** ("X is defined as ...", echoing his own words and
+his own in-class questions), not in the author's cleaner phrasing. The marks are
+awarded for his phrasing, and the student is training to reproduce it.
+
 ## 5. Release rule
 
 Work-in-progress stays in that course's `build/` and `drafts/`. A finished manual

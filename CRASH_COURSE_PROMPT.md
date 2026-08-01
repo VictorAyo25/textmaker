@@ -31,17 +31,28 @@ from the full study manual, that takes a complete novice to a perfect score by *
 6. **Give every test and exam question verbatim, in the examiner's exact words, never
    paraphrased** (the same "as printed" discipline the study manuals use). That covers the MCQ
    stems and options, the destination paper, and any past question a skill shows. Enforce it
-   with the verbatim gate so a quote that drifts from the transcript fails the build.
+   with the verbatim gate so a quote that drifts from the transcript fails the build. **Show the
+   examiner's own tables as real ruled tables, like the exam, not as text or pipes** (a "complete
+   the table" keeps the columns blank to fill). If a printed part is **struck out** or corrected
+   by hand, quote it as printed and note the pen mark, and **still work a struck-out part in
+   full** so I am ready whether or not the strike is on my paper; a printed slip corrected in pen
+   keeps the printed word in the quote and uses the correction in the working.
 7. **Make it feel like the exam hall, and solve every calculation the way I would by hand:**
    outline the **Given** values, state the **formula** before any number goes in, show the
    arithmetic **vertically / stacked** (binary additions, the invert-and-add-one, the cache
-   field split, the weighted CPI sum), then the answer. Not squashed into a sentence.
-8. Solve **every** MCQ (double-check every numeric one), grouped by topic as a self-test bank.
-9. Solve the destination paper(s) in full as a final mock: the real paper, verbatim, sat under
-   the clock, each question worked in the exam-hall style above. Include the extra question sets.
-10. Hold the flawless bar: recompute every worked number independently, no dashes or institution
+   field split, the weighted CPI sum), then the answer. Not squashed into a sentence. **Write the
+   definitions in the solutions the way the lecturer states them** ("is defined as ...", echoing
+   his own words and his own questions), because that is the phrasing that earns the marks.
+8. **Draw the diagrams the paper asks for.** Where a question says "draw" or "include a diagram",
+   the solution SHOWS the diagram as it should look on my answer script, and the lesson teaches
+   **how to draw it and how to remember it**, not just what it means. Use the **lecturer's own
+   figures** from the slides where they exist (redrawn cleanly), so I reproduce what he expects.
+9. Solve **every** MCQ (double-check every numeric one), grouped by topic as a self-test bank.
+10. Solve the destination paper(s) in full as a final mock: the real paper, verbatim, sat under
+    the clock, each question worked in the exam-hall style above. Include the extra question sets.
+11. Hold the flawless bar: recompute every worked number independently, no dashes or institution
     names, no shrunk or overflowing pages, an accurate clickable Contents.
-11. Build it in the course's `crash/` folder and publish to **`FINAL_CRASH_MANUALS/`** (separate
+12. Build it in the course's `crash/` folder and publish to **`FINAL_CRASH_MANUALS/`** (separate
     from `FINAL_MANUALS/`), and only when I say "we are done" or "go to final".
 
 Tell me you understand, and which past question you are treating as the destination, before you
