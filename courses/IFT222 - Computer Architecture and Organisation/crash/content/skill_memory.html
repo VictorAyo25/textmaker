@@ -3,16 +3,20 @@
 <div class="kick">The Machine</div>
 <h2 class="title">Memory and Cache</h2>
 <hr class="rule">
-<p class="lead">The memory hierarchy carries the largest single block of objective questions,
-and cache mapping is the most examined calculation on the whole course. Two teach boxes of
+<p class="lead">The memory hierarchy carries the largest single block of objective questions, and
+cache mapping is the most examined calculation on the whole course. It looks fiddly, but once you
+see what the cache is actually doing it is the same four steps every time. Two teach boxes of
 facts, then one method for the cache sums.</p>
 
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The hierarchy, and the memory types</span></div>
 <div class="body"><p>Memory is arranged in levels. From <b>fastest to slowest</b>:
-<b>registers &#8594; cache &#8594; main memory &#8594; secondary storage</b> (disk, SSD).
-Going up, memory gets <b>faster, smaller, and more expensive per bit</b>; registers are the
-fastest and the <b>highest cost per bit</b>. The reason there are levels at all is a trade-off:
-you cannot have fast, big and cheap at once.</p>
+<b>registers &#8594; cache &#8594; main memory &#8594; secondary storage</b> (disk, SSD). Think of
+it like your workspace: the few things in your hands (registers), the book open on your desk
+(cache), the shelf beside you (main memory), and the library across campus (disk). You keep what
+you use most closest, because reaching further costs time. Going up, memory gets <b>faster,
+smaller, and more expensive per bit</b>; registers are the fastest and the <b>highest cost per
+bit</b>. The reason there are levels at all is a trade-off: you cannot have fast, big and cheap at
+once.</p>
 <ul class="bul">
 <li><b>SRAM</b> (static RAM) uses <b>flip-flops</b>: fast, <b>no refresh</b>, but costly and
 low density, so it is used for <b>cache</b>.</li>
@@ -27,12 +31,14 @@ currently being accessed; and <b>access time</b> is how long one access takes, w
 access and 90 ns cycle can start a new access only every 90 ns.</p></div></div>
 
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Locality, the memory wall, virtual memory</span></div>
-<div class="body"><p>Cache works because of <b>locality of reference</b>:</p>
+<div class="body"><p>Why does keeping a small nearby cache help at all? Because programs are
+predictable in two ways, together called <b>locality of reference</b>:</p>
 <ul class="bul">
 <li><b>Temporal locality:</b> a location used now is likely used again <b>soon</b> (reusing the
-same instruction or variable).</li>
+same instruction or variable, for example a loop counter).</li>
 <li><b>Spatial locality:</b> once a location is used, <b>nearby</b> locations are likely used
-next (stepping through an array).</li>
+next (stepping through an array). This is why the cache copies a whole <b>block</b> at a time,
+not one byte.</li>
 </ul>
 <p>Even so, cache cannot fix everything: the growing gap between fast CPUs and slow memory is
 the <b>memory wall</b>, and it is why a processor can still wait on data despite a big cache.
@@ -40,16 +46,26 @@ the <b>memory wall</b>, and it is why a processor can still wait on data despite
 with a memory management unit (MMU) translating addresses.</p></div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Cache: the address split, in five steps</span></div>
-<div class="body"><p>Cache is divided into <b>lines</b> the size of a memory <b>block</b>. An
-address splits into <b>tag</b>, then <b>index</b> (or <b>set</b>), then <b>offset</b>. Work them
-in this order:</p>
+<div class="body"><p>Picture the cache as a wall of numbered <b>hooks</b> (the <b>lines</b>), each
+big enough to hold one <b>block</b>, a short run of consecutive bytes copied from memory together.
+Far more blocks exist in memory than there are hooks, so many blocks compete for the same hook.
+When the CPU names an address, the address itself answers <b>three questions</b>, and that is
+exactly why it splits into three fields:</p>
+<ul class="bul">
+<li><b>Offset</b> (the low bits): <i>which byte inside the block?</i></li>
+<li><b>Index</b> or <b>set</b> (the middle bits): <i>which hook does this block hang on?</i></li>
+<li><b>Tag</b> (the high bits): <i>which</i> of the many blocks that share this hook is actually
+hanging here? The tag is stored beside the block and compared on every access; a match is a
+<b>hit</b>, no match is a <b>miss</b>.</li>
+</ul>
+<p>So the sizes fall out in this order:</p>
 <ul class="bul">
 <li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>
 <li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>
 <li><b>Number of lines</b> = cache size / block size.</li>
 <li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>
 cache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully
-associative</b> has no index at all.</li>
+associative</b> has no index at all (any block may hang on any hook).</li>
 <li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The
 <b>tag directory</b> is lines &#215; tag bits.</li>
 </ul>

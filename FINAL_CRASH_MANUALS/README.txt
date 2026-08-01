@@ -10,7 +10,7 @@ How they are built and the reusable prompt for new ones: see
 CRASH_COURSE_PROMPT.md in the workspace root.
 
 -------------------------------------------------------------------------------
-IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     60 pp   2026-08-01
+IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     66 pp   2026-08-01
 -------------------------------------------------------------------------------
 Computer Architecture and Organisation. Takes a reader who has not opened the
 course from zero to solving the 2025/2026 paper, the revision deck's extra
@@ -36,8 +36,14 @@ used before it is taught:
 
 Every skill is taught as a method you apply to any numbers (not an answer to
 memorise), then practised on fresh numbers with the answers hidden, so a change
-of values in the exam does not matter. Built to the same flawless bar: every
-worked number recomputed independently (80 checks), no dashes or institution
+of values in the exam does not matter. The harder ideas are taught intuition
+first, with the reason before the rule (why two's complement wraps like an
+odometer, why floating point is just scientific notation in binary, why a cache
+address splits three ways like a coat-check ticket), not as steps to swallow.
+Where a question asks for a diagram (Von Neumann versus Harvard, the pipeline
+timing and cycle diagrams), it is drawn, taught with a way to remember it, and
+shown as it should look on your answer script. Built to the same flawless bar:
+every worked number recomputed independently (90 checks), no dashes or institution
 names, teach-before-use audited against the assembled book, an accurate
 clickable Contents, and the body rendered at its designed size with nothing
 scaled. Clickable Contents, real selectable text.

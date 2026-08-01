@@ -3,53 +3,82 @@
 <div class="kick">Foundations and Data</div>
 <h2 class="title">Signed Numbers</h2>
 <hr class="rule">
-<p class="lead">How a computer stores negative numbers. Three schemes, one of which
-(two's complement) is what real machines use. This is the single most asked numeric topic,
-on the paper and in the objective test, so learn the moves until they are automatic.</p>
+<p class="lead">How a computer stores a negative number when all it has is 0s and 1s. There is no
+minus key in binary, so a sign has to be built out of bits. Three schemes were invented; one of
+them (two's complement) is what every real machine uses. This is the single most asked numeric
+topic, on the paper and in the objective test, so we go slowly and make it click, not just
+stick.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Unsigned first</span></div>
-<div class="body"><p>With <b>n</b> bits and no sign, you can store <b>0 to 2<sup>n</sup> &#8722;
-1</b>. So 8 bits hold 0 to 255, and 10 bits hold 0 to 1023. All patterns are positive; the
-biggest is all ones.</p></div></div>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Start here: no sign, then a sign bit</span></div>
+<div class="body"><p>First, with <b>no sign at all</b> (call it <b>unsigned</b>), <b>n</b> bits count
+plainly from <b>0 up to 2<sup>n</sup> &#8722; 1</b>. So 8 bits hold 0 to 255, and 10 bits hold 0
+to 1023. Every pattern is a positive number, and the biggest is all ones.</p>
+<p>To make room for negatives, we give up the <b>top (leftmost) bit</b> and use it as a
+<b>sign flag</b>: <b>0 means positive, 1 means negative</b>. The bits below it say <i>how much</i>.
+That is the easy part. The only real question, and the whole topic, is <b>how you build the
+negative pattern</b>. There are three answers, and they only differ in that one step.</p></div></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Three ways to store a sign</span></div>
-<div class="body"><p>The top (leftmost) bit becomes a <b>sign bit</b>: 0 means positive, 1 means
-negative. The three schemes differ only in how they build a negative:</p>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Three ways to build a negative</span></div>
+<div class="body"><p>Take <b>+42</b> in 8 bits, which is <b>0010 1010</b>, and make it negative
+three ways:</p>
 <ul class="bul">
-<li><b>Sign-magnitude:</b> sign bit, then the plain magnitude. So &#8722;42 in 8 bits is
-1 (negative) then 0101010 (42) = 1010 1010. Simple to read, but arithmetic hardware is slow
-and messy, and there are <b>two zeros</b> (+0 = 0000 0000 and &#8722;0 = 1000 0000).</li>
-<li><b>One's complement:</b> to make a number negative, <b>invert every bit</b> of the
-positive. Adding needs an <b>end-around carry</b> (any carry out of the top is added back
-into the bottom), and it too has <b>two zeros</b> (+0 = all zeros, &#8722;0 = all ones).</li>
-<li><b>Two's complement:</b> to make a number negative, <b>invert every bit and add 1</b>.
-This is what real computers use, because it has <b>one</b> zero and the same adder does
-subtraction, so the hardware is simpler and faster.</li>
+<li><b>Sign-magnitude</b> (the obvious one). Just flip the sign bit and leave the size alone:
+write a 1 for "negative", then 42. So &#8722;42 is <b>1</b> then <b>010 1010</b> = <b>1010 1010</b>.
+Easy to read. The catch: the hardware for adding is slow and messy (the sign and the size are
+handled separately), and there are <b>two zeros</b>, a +0 (0000 0000) and a &#8722;0 (1000 0000),
+which is untidy.</li>
+<li><b>One's complement</b> (flip). To negate, <b>invert every bit</b> of the positive. So
+&#8722;42 is 0010 1010 flipped = <b>1101 0101</b>. The catch: adding needs a fix called an
+<b>end-around carry</b> (a carry off the top has to be added back in at the bottom), and it
+<i>still</i> has <b>two zeros</b> (+0 = all zeros, &#8722;0 = all ones).</li>
+<li><b>Two's complement</b> (flip and add one). To negate, <b>invert every bit and add 1</b>. So
+&#8722;42 is 1101 0101 + 1 = <b>1101 0110</b>. This is the one real computers use, and the next box
+shows why it is worth the extra "add one".</li>
 </ul></div></div>
 
-<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The two's-complement moves</span></div>
-<div class="body"><ul class="bul">
-<li><b>Make a negative:</b> write the positive in n bits, invert all bits, add 1.</li>
-<li><b>Read a pattern whose top bit is 1 (so it is negative):</b> invert all bits and add 1
-to get the magnitude, then put a minus sign on it. (Example: 1000 0000 in 8 bits inverts to
-0111 1111, plus 1 is 1000 0000 = 128, so the value is &#8722;128.)</li>
-<li><b>Range in n bits:</b> &#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1.
-For 16 bits that is &#8722;32 768 to 32 767.</li>
-<li><b>Add two's-complement numbers:</b> just add the bit patterns and <b>throw away</b> any
-carry off the top. No end-around carry.</li>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why two's complement wins: the odometer</span></div>
+<div class="body"><p>Here is the idea that makes two's complement click. Picture the 8 bits as a
+car <b>odometer</b> that counts 0000 0000, 0000 0001, and on up to 1111 1111, then rolls back to
+0000 0000. Now run it <b>one click backwards</b> from zero: 0000 0000 rolls back to
+<b>1111 1111</b>. So the pattern just below zero is all ones, and it makes perfect sense to call it
+<b>&#8722;1</b>. One more click back, 1111 1110, is <b>&#8722;2</b>, and so on. <b>Negatives are just
+the patterns you land on counting down from the top.</b></p>
+<p>That single wrap is the whole payoff: there is now <b>one</b> zero, not two, and an ordinary
+adder that is allowed to overflow and wrap round does <b>subtraction for free</b> (a &#8722; b is
+just a + (&#8722;b)). That is why the hardware is simpler and faster.</p>
+<p><b>So why "flip and add 1"?</b> It is the shortcut for counting all the way down. Flipping alone
+(one's complement) lands you <b>one short</b>; the <b>+ 1</b> closes the gap. Prove it to yourself:
++42 is 0010 1010, flip to 1101 0101, add 1 to get <b>1101 0110</b>. Add that back to +42 and the 8
+bits roll over to 0000 0000, which is <b>zero</b>. A number and its negative adding to zero is
+exactly what "negative" should mean, so 1101 0110 really is &#8722;42.</p></div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The four two's-complement moves</span></div>
+<div class="body"><p>Every question is one of these four. Learn them until your hand does them
+without you.</p>
+<ul class="bul">
+<li><b>Write a negative:</b> write the positive in n bits, <b>flip every bit, add 1</b>.</li>
+<li><b>Read a pattern whose top bit is 1</b> (so you know it is negative): <b>flip every bit, add
+1</b> to get the size, then put a minus sign in front. (Example: 1000 0000 in 8 bits flips to
+0111 1111, plus 1 is 1000 0000 = 128, so the value is <b>&#8722;128</b>.)</li>
+<li><b>Range in n bits:</b> <b>&#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1</b>.
+For 16 bits that is <b>&#8722;32 768 to 32 767</b> (one more negative than positive, because zero
+uses up a positive slot).</li>
+<li><b>Add two numbers:</b> just add the bit patterns and <b>throw away</b> any carry off the top.
+No end-around carry; that belongs to one's complement.</li>
 </ul>
-<p><b>Memory hook:</b> one's complement is "flip"; two's complement is "flip and add one".
-That extra "add one" is what buys the single zero and the simple hardware.</p></div></div>
+<p><b>Memory hook:</b> one's complement is "<b>flip</b>"; two's complement is "<b>flip and add
+one</b>". That extra "add one" is what buys the single zero and the simple hardware.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
 <div class="body"><p>Store &#8722;182, 487 and &#8722;1023 in a 16-bit two's-complement machine
 (binary and hex) and add (&#8722;182) + 487. <b>The exam sets exactly this; you will sit it
-verbatim in the final mock at the back.</b> Here is how you write it on paper.</p>
+verbatim in the final mock at the back.</b> Here is how you write it on paper, one move at a
+time.</p>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> 16 bits, two's complement &middot;
 &#8722;182, 487, &#8722;1023</div>
 <div class="prow"><span class="plab">Formula</span> range = &#8722;2<sup>15</sup> to
-2<sup>15</sup> &#8722; 1 &middot; negative = invert the positive and add 1 &middot; group 4
+2<sup>15</sup> &#8722; 1 &middot; negative = flip the positive and add 1 &middot; group 4
 bits per hex digit</div>
 </div>
 <pre class="calc">Range: -2¹⁵ to 2¹⁵ - 1  =  -32768 to 32767   (all three fit)
@@ -80,8 +109,8 @@ bits per hex digit</div>
 (2) what is the two's complement of 0010 1100? (3) what decimal is 1010 1010 in
 <i>sign-magnitude</i>?</p>
 <hr class="cut"><p class="alabel">Answer</p>
-<p>(1) top bit 1 so negative; invert 0111 1111 + 1 = 1000 0000 = 128, so <b>&#8722;128</b>.
-(2) invert 0010 1100 to 1101 0011, add 1 = <b>1101 0100</b>. (3) sign bit 1 (negative),
+<p>(1) top bit 1 so negative; flip to 0111 1111, add 1 = 1000 0000 = 128, so <b>&#8722;128</b>.
+(2) flip 0010 1100 to 1101 0011, add 1 = <b>1101 0100</b>. (3) sign bit 1 (negative),
 magnitude 010 1010 = 42, so <b>&#8722;42</b>.</p></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, quick facts</span></div>
@@ -90,12 +119,12 @@ magnitude 010 1010 = 42, so <b>&#8722;42</b>.</p></div></div>
 which decimal? (4) Why is two's complement used?</p>
 <hr class="cut"><p class="alabel">Answer</p>
 <p>(1) <b>two</b> (+0 and &#8722;0). (2) <b>one's complement</b>. (3) top bit 1 so negative;
-invert 1110 0011 to 0001 1100 = 28, so <b>&#8722;28</b>. (4) <b>simpler and faster hardware</b>
-(one zero, and add/subtract share one circuit).</p></div></div>
+flip 1110 0011 to 0001 1100 = 28, so <b>&#8722;28</b>. (4) <b>simpler and faster hardware</b>
+(one zero, and add and subtract share one circuit).</p></div></div>
 
 <div class="box trap"><div class="bar"><span>Trap</span></div>
 <div class="body"><p>Reading a negative two's-complement pattern, do <b>not</b> just read the
-magnitude bits; you must invert and add 1 first. <b>Overflow</b> is when the true result is
-too big or too small for the range, not division by zero. And the end-around carry belongs to
-<b>one's</b> complement only; two's complement just discards the top carry.</p></div></div>
+magnitude bits off; you must flip and add 1 first. <b>Overflow</b> means the true result is too
+big or too small for the range, not division by zero. And the end-around carry belongs to
+<b>one's</b> complement only; two's complement simply discards the top carry.</p></div></div>
 </section>

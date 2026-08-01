@@ -28,6 +28,11 @@ from the full study manual, that takes a complete novice to a perfect score by *
 5. Make every skill a loop I can actually study from: teach it simply, give the method as fixed
    steps and why it works, one worked example, then practice questions with **different numbers
    and the answers hidden** so I cover and redo, plus the real MCQs on that skill.
+   **Teach the reason before the rule.** For every hard idea, give one concrete intuition or
+   everyday analogy and the "why" first, then the mechanics; a correct but jargon-first wall of
+   bullets is still confusing to a novice. (In IFT222: two's complement as an odometer that
+   wraps, IEEE-754 as scientific notation in binary, the cache address split as a coat-check
+   ticket.) Do not dumb it down, and keep the worked calculations laid out vertically.
 6. **Give every test and exam question verbatim, in the examiner's exact words, never
    paraphrased** (the same "as printed" discipline the study manuals use). That covers the MCQ
    stems and options, the destination paper, and any past question a skill shows. Enforce it

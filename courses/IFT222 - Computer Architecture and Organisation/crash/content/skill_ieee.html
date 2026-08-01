@@ -3,35 +3,61 @@
 <div class="kick">Foundations and Data</div>
 <h2 class="title">Floating Point, IEEE 754</h2>
 <hr class="rule">
-<p class="lead">How a computer stores numbers with a fractional part and a huge range, like
-64.2 or &#8722;1240.56. The exam asks it both ways: a decimal to its 32-bit pattern, and a
-hex pattern back to decimal. One method each, and it is the same three fields every time.</p>
+<p class="lead">One 32-bit pattern has to hold both a tiny number like 0.0000001 and a huge one
+like 6 billion. Whole-number binary cannot stretch that far, so a cleverer layout is used, the
+same trick you already know from science class. The exam asks it both ways: a decimal to its
+32-bit pattern, and a hex pattern back to decimal. One method each, and it is the same three
+fields every time.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why, and the three fields</span></div>
-<div class="body"><p>Floating point exists to hold <b>very large and very small</b> values in a
-few bits: its strength is <b>range</b>, not exact decimals. A number is stored as three
-fields, left to right: <b>sign</b> (s), then <b>exponent</b> (E), then <b>mantissa</b> M (also
-called the fraction).</p>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">It is just scientific notation, in binary</span></div>
+<div class="body"><p>You already do this in decimal. To write 6,020,000 compactly you put it as
+<b>6.02 &#215; 10<sup>6</sup></b>: a <b>sign</b> (it is positive), a <b>fraction</b> (6.02, the
+meaningful digits), and an <b>exponent</b> (6, how far the point moved). Floating point stores a
+number in exactly this shape, but in <b>base 2</b>: a sign, a fraction, and a power of <b>2</b>.
+Nothing more.</p>
+<p>Those three pieces are the three fields, stored left to right: <b>sign</b> (s), then
+<b>exponent</b> (E), then <b>mantissa</b> M (the fraction, also called the significand).</p>
 <ul class="bul">
 <li><b>Single precision:</b> <b>32 bits</b> = 1 sign + <b>8</b> exponent + 23 mantissa. It
 covers roughly 10<sup>&#177;38</sup>.</li>
 <li><b>Double precision:</b> <b>64 bits</b> = 1 sign + <b>11</b> exponent + 52 mantissa. It
 covers roughly 10<sup>&#177;308</sup>.</li>
 </ul>
-<p>The value is <b>&#177; 1.M &#215; 2<sup>exponent</sup></b>. The leading 1 is
-<b>always there</b> for a normalised number, so it is not stored (the "hidden 1"). The
-exponent is stored with a <b>bias</b> added so it can be negative without a sign of its own:
-bias is <b>127</b> for single, <b>1023</b> for double.</p></div></div>
+<p><b>Normalising</b> is the one preparation step. In decimal scientific notation you insist on
+<b>exactly one non-zero digit before the point</b> (6.02, never 60.2 or 0.602). In binary you do
+the same: slide the point until the number reads <b>1.something &#215; 2<sup>e</sup></b>. Since
+the only non-zero binary digit is 1, a normalised binary number <b>always</b> starts "1.", and
+that fact is about to save you a bit.</p></div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The two tricks: the hidden 1, and the bias</span></div>
+<div class="body"><p>Two small tricks trip up every beginner, so meet them head on. Both have a
+reason.</p>
+<ul class="bul">
+<li><b>The hidden 1.</b> A normalised number always starts with "1." (from the step above). Storing
+that 1 would waste a bit on something you already know, so it is <b>left out and just assumed</b>.
+That is the "hidden 1": when you <b>read</b> a pattern you put a "1." back in front of the
+mantissa; when you <b>write</b> one you drop the leading 1 and keep only what follows the point.
+It buys you one extra bit of precision for free.</li>
+<li><b>The bias.</b> The exponent can be <b>negative</b> (for a small number like 2<sup>&#8722;3</sup>)
+or positive (for a big one). Rather than give the exponent its own sign bit, we <b>add a fixed
+number, the bias</b>, so the stored exponent is always a positive count. Bias is <b>127</b> for
+single, <b>1023</b> for double. It is like storing temperatures as "degrees above &#8722;127" so a
+minus sign is never needed: to get the <b>true</b> exponent you <b>subtract</b> the bias again.</li>
+</ul>
+<p>Put together, the value a pattern stands for is
+<b>&#177; 1.M &#215; 2<sup>(exponent field &#8722; bias)</sup></b>. Learn that one line and both
+directions fall out of it.</p></div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Encode and decode</span></div>
 <div class="body"><ul class="bul">
 <li><b>Decimal to IEEE (single):</b> (1) sign bit from the sign. (2) Convert the magnitude to
 binary. (3) Normalise to <b>1.something &#215; 2<sup>e</sup></b> by moving the point. (4)
 Exponent field = <b>e + 127</b>, in 8 bits. (5) Mantissa = the "something" after the point,
-padded with zeros to 23 bits. (6) Put the 32 bits together and group in fours for hex.</li>
+padded with zeros to 23 bits (the leading 1 is dropped, it is the hidden 1). (6) Put the 32 bits
+together and group in fours for hex.</li>
 <li><b>IEEE (hex) to decimal:</b> (1) write the 32 bits, split as 1 / 8 / 23. (2) Sign bit
 gives the sign. (3) Real exponent <b>e = exponent field &#8722; 127</b>. (4) Value =
-&#177; 1.M in binary &#215; 2<sup>e</sup>.</li>
+&#177; 1.M in binary &#215; 2<sup>e</sup> (remember to put the hidden 1 back).</li>
 </ul>
 <p><b>Memory hook:</b> "sign, exponent, mantissa", and the exponent is always <b>stored plus
 the bias, read minus the bias</b>.</p></div></div>
