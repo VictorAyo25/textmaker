@@ -240,6 +240,30 @@ def _contiguous(haystack, needle):
     return False
 
 
+_TABLE_RE = re.compile(r'<table\b[^>]*>(.*?)</table>', re.S)
+_ROW_RE = re.compile(r'<tr\b[^>]*>(.*?)</tr>', re.S)
+_CELL_RE = re.compile(r'<t[hd]\b[^>]*>(.*?)</t[hd]>', re.S)
+
+
+def _detable(frag):
+    """A ruled table inside an As-printed box IS the paper's own tabulated rows.
+    Re-express it as the transcript stores such a table: cells joined by ' | ',
+    one row per line, so a real HTML table in the book still checks character for
+    character against the pipe rows in the transcript. Trailing EMPTY cells are
+    dropped, so a 'complete the table' value row (the value printed, the rest of
+    the row blank for the student) reconstructs to just the value the paper prints."""
+    def one(m):
+        rows = []
+        for r in _ROW_RE.findall(m.group(1)):
+            cells = [re.sub(r'\s+', ' ', TAG_RE.sub(' ', c)).strip()
+                     for c in _CELL_RE.findall(r)]
+            while cells and cells[-1] == '':
+                cells.pop()
+            rows.append(' | '.join(cells))
+        return '\n' + '\n'.join(rows) + '\n'
+    return _TABLE_RE.sub(one, frag)
+
+
 def book_quotes():
     """[(file, paper, qid, normalised quote)] plus any quote missing its data-src"""
     quotes, undeclared = [], []
@@ -251,7 +275,7 @@ def book_quotes():
             undeclared.append(fname)
         for m in ASPRINTED_RE.finditer(text):
             src = m.group(1)
-            inner = m.group(2)
+            inner = _detable(m.group(2))
             body = norm(TAG_RE.sub(' ', inner))
             if ':' in src:
                 paper, qid = src.split(':', 1)
