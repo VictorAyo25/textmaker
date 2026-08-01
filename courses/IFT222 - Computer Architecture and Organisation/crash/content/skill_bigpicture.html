@@ -92,16 +92,67 @@ this?"</p>
 <b>construction</b> (how it is actually built). Same blueprint, two builders, two costs and
 two speeds.</p></div></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Von Neumann vs Harvard</span></div>
-<div class="body"><p>Two ways to wire memory to the CPU:</p>
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Von Neumann vs Harvard, and how to draw each</span></div>
+<div class="body"><p>Two ways to wire memory to the CPU. The distinction the examiner wants is
+whether instructions and data share <b>one</b> memory or sit in <b>two</b> separate ones:</p>
 <ul class="bul">
 <li><b>Von Neumann:</b> <b>one</b> memory and one bus for <b>both</b> instructions and data.
 Simple and cheap, but the shared path is a bottleneck (you cannot fetch an instruction and
 read data at the very same moment).</li>
 <li><b>Harvard:</b> <b>separate</b> memories and buses for instructions and data. More
-hardware, but it can <b>fetch an instruction and read data at the same time</b>, so it is
-faster. That simultaneous access is its whole advantage.</li>
-</ul></div></div>
+hardware (the address, data and control lines are duplicated), but it can <b>fetch an
+instruction and read data at the same time</b>, a form of parallelism, and that is its whole
+advantage.</li>
+</ul>
+<p><b>How to draw each</b> (the paper asks for a diagram, so practise it): draw the CPU as one
+box. For <b>Von Neumann</b>, join it by a single line, the shared bus, to <b>one</b> Memory box
+holding instructions and data together. For <b>Harvard</b>, draw <b>two</b> memory boxes, an
+instruction memory and a data memory, and join <b>each</b> to the CPU by its own bus.</p>
+<figure>
+<svg viewBox="0 0 520 250" style="width:74%" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+<defs><marker id="vnLA" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 Z" fill="#33566e"/></marker></defs>
+<g fill="#20262f" text-anchor="middle">
+<rect x="185" y="12" width="150" height="172" rx="3" fill="#f7f9fb" stroke="#33566e" stroke-width="1.6"/>
+<text x="260" y="32" font-size="12" fill="#33566e" font-weight="bold">Processor</text>
+<rect x="205" y="42" width="110" height="36" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="65" font-size="11">Control unit</text>
+<rect x="205" y="88" width="110" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="109" font-size="11">Registers</text>
+<rect x="205" y="130" width="110" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="151" font-size="11">ALU</text>
+<rect x="22" y="80" width="108" height="44" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="76" y="107" font-size="11">I/O device</text>
+<rect x="390" y="80" width="108" height="44" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="444" y="107" font-size="11">I/O device</text>
+<rect x="185" y="210" width="150" height="38" rx="2" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.4"/><text x="260" y="234" font-size="12" fill="#0e7490" font-weight="bold">Memory</text>
+<line x1="130" y1="102" x2="185" y2="102" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnLA)" marker-end="url(#vnLA)"/>
+<line x1="390" y1="102" x2="335" y2="102" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnLA)" marker-end="url(#vnLA)"/>
+<line x1="260" y1="184" x2="260" y2="210" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnLA)" marker-end="url(#vnLA)"/>
+</g></svg>
+<figcaption>Von Neumann: one Memory, one shared path. One box, one bus.</figcaption>
+</figure>
+<figure>
+<svg viewBox="0 0 520 258" style="width:76%" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+<defs><marker id="hLA" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 Z" fill="#33566e"/></marker></defs>
+<g fill="#20262f" text-anchor="middle">
+<rect x="198" y="28" width="132" height="200" rx="3" fill="#f7f9fb" stroke="#33566e" stroke-width="1.6"/>
+<text x="264" y="48" font-size="12" fill="#33566e" font-weight="bold">Processor</text>
+<rect x="212" y="58" width="104" height="36" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="81" font-size="11">Control unit</text>
+<rect x="212" y="104" width="104" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="125" font-size="11">Registers</text>
+<rect x="212" y="146" width="104" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="167" font-size="11">ALU</text>
+<rect x="22" y="44" width="108" height="42" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="76" y="70" font-size="11">I/O device</text>
+<rect x="390" y="44" width="108" height="42" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="444" y="70" font-size="11">I/O device</text>
+<rect x="18" y="150" width="140" height="56" rx="2" fill="#f0f8f2" stroke="#15803d" stroke-width="1.4"/>
+<text x="88" y="172" font-size="11" fill="#15803d" font-weight="bold">Instruction</text>
+<text x="88" y="190" font-size="11" fill="#15803d" font-weight="bold">memory</text>
+<rect x="374" y="152" width="124" height="52" rx="2" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.4"/>
+<text x="436" y="182" font-size="11" fill="#0e7490" font-weight="bold">Data memory</text>
+<line x1="130" y1="65" x2="198" y2="65" stroke="#33566e" stroke-width="1.8" marker-start="url(#hLA)" marker-end="url(#hLA)"/>
+<line x1="390" y1="65" x2="330" y2="65" stroke="#33566e" stroke-width="1.8" marker-start="url(#hLA)" marker-end="url(#hLA)"/>
+<line x1="158" y1="178" x2="198" y2="178" stroke="#33566e" stroke-width="1.8" marker-end="url(#hLA)"/>
+<line x1="374" y1="178" x2="330" y2="178" stroke="#33566e" stroke-width="1.8" marker-start="url(#hLA)" marker-end="url(#hLA)"/>
+</g></svg>
+<figcaption>Harvard: a separate instruction memory and data memory. Two boxes, two buses.</figcaption>
+</figure>
+<p><b>How to remember it:</b> Von Neumann = <b>one</b> box, <b>one</b> bus. Harvard = <b>two</b>
+boxes, <b>two</b> buses; picture the two upright strokes of the letter <b>H</b> as the two
+separate memories.</p>
+</div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">sort five things</span></div>
 <div class="body"><p class="q">Label each as architecture (A) or organization (O): (1) the list

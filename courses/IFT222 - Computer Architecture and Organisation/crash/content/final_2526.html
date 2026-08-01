@@ -23,7 +23,46 @@ ii) Compare Von Neumann Architecture and Harvard Architecture. Include a diagram
 
 <div class="box work"><div class="bar"><span>In the hall</span><span class="tag">25/26 Q1(a)</span></div>
 <div class="body">
-<p><b>i) Architecture vs organization.</b> <b>Architecture</b> is what the machine does as the programmer sees it (the instruction set, data types, addressing modes, registers), the "what". <b>Organization</b> is how it is built to do it (control signals, buses, memory technology, cache), the "how".</p><p><b>ii) Von Neumann vs Harvard.</b> <b>Von Neumann</b> uses one memory and one bus for both instructions and data (simple, but the shared path is a bottleneck). <b>Harvard</b> uses separate memories and buses for instructions and data, so it can fetch an instruction and read data at the same time. Draw each: Von Neumann has CPU joined to a single Memory block; Harvard has CPU joined to a separate Instruction memory and Data memory.</p>
+<p><b>i) Differentiate computer architecture from computer organization.</b></p><p><b>Computer architecture</b> is defined as the functional design and logical structure of the computer system as the programmer sees it: the instruction set, the data types, the addressing modes and the register organization. It answers the question <i>"What does the computer do?"</i> and serves as the blueprint for the system.</p><p><b>Computer organization</b> is defined as the operational units and their interconnections that realize (carry out) that architecture: the control signals, the buses, the memory technology used and the cache. It answers the question <i>"How does the computer do it?"</i> A useful likeness: architecture is the building's design, organization is the actual construction of the building.</p><p><b>ii) Compare Von Neumann and Harvard architecture, with a diagram for each.</b></p><p><b>Von Neumann architecture</b> is defined as a design that uses a <b>single</b> (shared) area of memory, reached over <b>one</b> bus, for both the program instructions and the data those instructions act on. It is simple to build, but the shared path is a bottleneck (an instruction fetch and a data access cannot happen at the same instant).</p><figure>
+<svg viewBox="0 0 520 250" style="width:80%" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+<defs><marker id="vnA" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 Z" fill="#33566e"/></marker></defs>
+<g fill="#20262f" text-anchor="middle">
+<rect x="185" y="12" width="150" height="172" rx="3" fill="#f7f9fb" stroke="#33566e" stroke-width="1.6"/>
+<text x="260" y="32" font-size="12" fill="#33566e" font-weight="bold">Processor</text>
+<rect x="205" y="42" width="110" height="36" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="65" font-size="11">Control unit</text>
+<rect x="205" y="88" width="110" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="109" font-size="11">Registers</text>
+<rect x="205" y="130" width="110" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="260" y="151" font-size="11">ALU</text>
+<rect x="22" y="80" width="108" height="44" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="76" y="107" font-size="11">I/O device</text>
+<rect x="390" y="80" width="108" height="44" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="444" y="107" font-size="11">I/O device</text>
+<rect x="185" y="210" width="150" height="38" rx="2" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.4"/><text x="260" y="234" font-size="12" fill="#0e7490" font-weight="bold">Memory</text>
+<line x1="130" y1="102" x2="185" y2="102" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnA)" marker-end="url(#vnA)"/>
+<line x1="390" y1="102" x2="335" y2="102" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnA)" marker-end="url(#vnA)"/>
+<line x1="260" y1="184" x2="260" y2="210" stroke="#33566e" stroke-width="1.8" marker-start="url(#vnA)" marker-end="url(#vnA)"/>
+</g></svg>
+<figcaption>Von Neumann architecture, the layout the lecturer draws: one Memory serves the whole processor over a single shared path (instructions and data together).</figcaption>
+</figure><p><b>Harvard architecture</b> is defined as a design that uses <b>separate</b> memories and <b>separate</b> buses for instructions and data, which lets it <b>fetch an instruction and read data at the same time</b> (a form of parallelism), at the cost of duplicating the address, data and control lines.</p><figure>
+<svg viewBox="0 0 520 258" style="width:82%" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="13">
+<defs><marker id="hA" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 Z" fill="#33566e"/></marker></defs>
+<g fill="#20262f" text-anchor="middle">
+<rect x="198" y="28" width="132" height="200" rx="3" fill="#f7f9fb" stroke="#33566e" stroke-width="1.6"/>
+<text x="264" y="48" font-size="12" fill="#33566e" font-weight="bold">Processor</text>
+<rect x="212" y="58" width="104" height="36" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="81" font-size="11">Control unit</text>
+<rect x="212" y="104" width="104" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="125" font-size="11">Registers</text>
+<rect x="212" y="146" width="104" height="32" rx="2" fill="#eef2f6" stroke="#33566e"/><text x="264" y="167" font-size="11">ALU</text>
+<rect x="22" y="44" width="108" height="42" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="76" y="70" font-size="11">I/O device</text>
+<rect x="390" y="44" width="108" height="42" rx="2" fill="#f7f9fb" stroke="#33566e"/><text x="444" y="70" font-size="11">I/O device</text>
+<rect x="18" y="150" width="140" height="56" rx="2" fill="#f0f8f2" stroke="#15803d" stroke-width="1.4"/>
+<text x="88" y="172" font-size="11" fill="#15803d" font-weight="bold">Instruction</text>
+<text x="88" y="190" font-size="11" fill="#15803d" font-weight="bold">memory</text>
+<rect x="374" y="152" width="124" height="52" rx="2" fill="#ecf5f8" stroke="#0e7490" stroke-width="1.4"/>
+<text x="436" y="182" font-size="11" fill="#0e7490" font-weight="bold">Data memory</text>
+<line x1="130" y1="65" x2="198" y2="65" stroke="#33566e" stroke-width="1.8" marker-start="url(#hA)" marker-end="url(#hA)"/>
+<line x1="390" y1="65" x2="330" y2="65" stroke="#33566e" stroke-width="1.8" marker-start="url(#hA)" marker-end="url(#hA)"/>
+<line x1="158" y1="178" x2="198" y2="178" stroke="#33566e" stroke-width="1.8" marker-end="url(#hA)"/>
+<line x1="374" y1="178" x2="330" y2="178" stroke="#33566e" stroke-width="1.8" marker-start="url(#hA)" marker-end="url(#hA)"/>
+</g></svg>
+<figcaption>Harvard architecture, the lecturer's layout: a separate instruction memory (fetched, one arrow in) and data memory (read and written), each on its own path, so both are reached at once.</figcaption>
+</figure>
 </div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q1(b)</span></div>
@@ -317,8 +356,20 @@ I4	SUB R5, R2, R6	; R5 ← R2 – R6</div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> 5 stages IF, ID, OF, EX, WB, one cycle each except EX = 1 (ADD/SUB), 3 (MUL), 6 (DIV) ; four instructions ; do it with and without forwarding</div>
 <div class="prow"><span class="plab">Find</span> the cycle diagram and total cycles for each case</div>
-<div class="prow"><span class="plab">Formula</span> no single formula once EX is multi-cycle: lay the schedule out row by row, a long EX blocks those behind it, then read the total off the last write-back</div>
-</div><p class="small">The paper prints "PO stage", struck through in pen to EX. Dependencies: I3 needs R5 from I2 and R2 from I1; I4 needs R2 from I3.</p><p class="marks">(i) With operand forwarding: 15 cycles</p><p class="marks">(ii) Without operand forwarding: 17 cycles</p><p>The DIV holds EX for six cycles (7 to 12) and fixes everything behind it. With forwarding, I3 takes R5 straight from I2's EX at cycle 13 and I4 takes R2 from I3 at 14, ending at 15. Without forwarding, I3 must wait for I2's write-back and I4 for I3's, pushing the end to 17.</p><div class="answerbox">Total = <b>15 cycles</b> with forwarding, <b>17 cycles</b> without. Forwarding saved 2 cycles here.</div>
+<div class="prow"><span class="plab">Formula</span> no single formula once EX is multi-cycle: lay the schedule out cycle by cycle, a long EX blocks those behind it, then read the total off the last write-back</div>
+</div><p class="small">The paper prints "PO stage", struck through in pen to EX. Instructions: I1 MUL R2,R0,R1 ; I2 DIV R5,R3,R4 ; I3 ADD R2,R5,R2 (needs R5 from I2 and R2 from I1) ; I4 SUB R5,R2,R6 (needs R2 from I3). Read each cell as the stage that instruction is in that cycle; "--" is a stall.</p><p class="marks">(i) With operand forwarding</p><table class="trace cyc">
+<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>
+<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class="out">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class="out">WB</td><td></td><td></td></tr>
+<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class="out">WB</td><td></td></tr>
+<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class="out">WB</td></tr>
+</table><p>The DIV holds EX for six cycles (7 to 12) and blocks everything behind it. With forwarding, I3 takes R5 straight from I2's EX and runs at cycle 13, and I4 takes R2 from I3 and runs at 14, so the last write-back is at <b>cycle 15</b>.</p><p class="marks">(ii) Without operand forwarding</p><table class="trace cyc">
+<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th></tr>
+<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class="out">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class="out">WB</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class="out">WB</td><td></td><td></td></tr>
+<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class="out">WB</td></tr>
+</table><p>Without forwarding, I3 must wait for I2's <b>write-back</b> before it can read R5 (one cycle later, EX at 14), and I4 likewise waits for I3, so the last write-back slips to <b>cycle 17</b>.</p><div class="answerbox">Total = <b>15 cycles</b> with forwarding, <b>17 cycles</b> without. Forwarding saved 2 cycles here.</div>
 </div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q3(c)</span></div>
@@ -335,7 +386,7 @@ ii) Assume in hypothetical system cache is 10 times faster than main memory and 
 <div class="prow"><span class="plab">Given</span> cache 10 times faster than memory ; used 85% of the time</div>
 <div class="prow"><span class="plab">Find</span> state Amdahl's law, then the overall speedup</div>
 <div class="prow"><span class="plab">Formula</span> S = 1 / ((1−f) + f/s), with f the sped-up fraction and s its speedup</div>
-</div><p><b>Amdahl's law:</b> the overall speedup from improving part of a task is limited by the fraction of the time that part takes; as the improved part gets infinitely fast the speedup can never beat 1/(1−f).</p><pre class="calc">f = 0.85 (cache hits), s = 10
+</div><p><b>Amdahl's law</b> states that the overall speedup obtainable by improving one part of a system is limited by the fraction of the total time that part is actually used: even if that part is made infinitely fast, the speedup can never exceed 1/(1−f), where f is the fraction of the time that is sped up.</p><pre class="calc">f = 0.85 (cache hits), s = 10
 S = 1 / ((1 - 0.85) + 0.85/10)
   = 1 / (0.15 + 0.085)
   = 1 / 0.235
@@ -474,7 +525,7 @@ ii.	Temporal locality</div>
 
 <div class="box work"><div class="bar"><span>In the hall</span><span class="tag">25/26 Q5(c)</span></div>
 <div class="body">
-<p><b>i) Locality of reference:</b> the tendency of a program to reuse a small set of memory locations over a short time, which is why a small fast cache satisfies most accesses.</p><p><b>ii) Temporal locality:</b> a location used now is likely to be used again <b>soon</b> (reusing the same instruction or variable). (Its partner, spatial locality, is about nearby locations being used next.)</p>
+<p><b>i) Locality of reference</b> is defined as the tendency of a program to keep accessing the same small set of memory locations over a short period, a consequence of loops and subroutines; it is why a small fast cache can satisfy most accesses.</p><p><b>ii) Temporal (time) locality</b> is defined as: if a memory location is accessed, it is very likely to be accessed <b>again soon</b> (the same instruction or variable reused). Its partner, <b>spatial (space) locality</b>, is defined as: if a location is accessed, the <b>nearby</b> addresses are very likely to be accessed next (as when stepping through an array).</p>
 </div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(d)</span></div>

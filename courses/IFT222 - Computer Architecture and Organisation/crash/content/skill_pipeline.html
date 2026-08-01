@@ -81,6 +81,26 @@ fetched the following instructions. Eased by <b>branch prediction</b> and specul
 execution, which exist precisely to <b>reduce control-hazard stalls</b>.</li>
 </ul></div></div>
 
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">How to draw the timing (cycle) diagram</span></div>
+<div class="body"><p>The paper sometimes says <i>"draw the pipeline timing diagram"</i> or <i>"draw the
+cycle diagram"</i>. It is always the same grid, and you draw it the same way every time:</p>
+<ul class="bul">
+<li><b>Cycles across the top</b> (1, 2, 3, ...), <b>one instruction per row</b> down the side.</li>
+<li>In each cell write the <b>stage</b> that instruction is in that cycle: IF, ID, EX, (MEM),
+WB. Some papers add an <b>operand fetch (OF)</b> stage between ID and EX; use whatever stages
+the question names.</li>
+<li>Each instruction begins its IF <b>one cycle after</b> the instruction above it.</li>
+<li>A <b>multi-cycle execute</b> (say a 3-cycle multiply or a 6-cycle divide) writes EX in
+<b>that many cells</b> in a row, and everything behind it slides right.</li>
+<li>A <b>stall</b> (waiting for a hazard to clear, or for a busy stage) is a gap you mark with
+a bubble, written <b>--</b>.</li>
+</ul>
+<p>The <b>total number of cycles</b> is simply the column where the <b>last</b> instruction
+reaches WB. That is your answer to "how many cycles".</p>
+<p><b>How to remember it:</b> "cycles across, instructions down, stages in the boxes, count to
+the last WB." A long EX <b>pushes</b>; a stall is a <b>--</b>. (You will draw exactly this for
+Question Two and Question Three in the final mock.)</p></div></div>
+
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">classify the hazards</span></div>
 <div class="body"><p class="q">Find the one register on both lines and read its order.
 (i) R3 &#8592; R1 op R2, then R5 &#8592; R3 op R4. (ii) R3 &#8592; R1 op R2, then
