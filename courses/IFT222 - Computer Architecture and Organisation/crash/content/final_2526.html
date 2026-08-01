@@ -77,8 +77,8 @@ iii) Demonstrate how the processor uses two's complement to compute	<span class=
 <div class="params">
 <div class="prow"><span class="plab">Given</span> 16-bit two's complement ; Temperature −182, Pressure 487, Altitude −1023</div>
 <div class="prow"><span class="plab">Find</span> the range and whether each fits ; each in binary and hex ; (−182) + 487</div>
-<div class="prow"><span class="plab">Formula</span> range = −2^15 to 2^15 − 1 &middot; negative = invert the positive and add 1 &middot; group 4 bits per hex digit</div>
-</div><pre class="calc">Range: -2^15 to 2^15 - 1  =  -32768 to 32767   (all three fit)
+<div class="prow"><span class="plab">Formula</span> range = −2<sup>15</sup> to 2<sup>15</sup> − 1 &middot; negative = invert the positive and add 1 &middot; group 4 bits per hex digit</div>
+</div><pre class="calc">Range: -2¹⁵ to 2¹⁵ - 1  =  -32768 to 32767   (all three fit)
 
 487  =  0000 0001 1110 0111  =  01E7
 
@@ -258,9 +258,9 @@ v) Discuss how increasing associativity beyond four ways might affect performanc
 <div class="prow"><span class="plab">Given</span> main memory 1 GB ; cache 512 KB ; block 128 B ; 4-way ; h = 0.96, Tc = 2 ns, Tm = 80 ns</div>
 <div class="prow"><span class="plab">Find</span> blocks, sets, the address format, the AMAT</div>
 <div class="prow"><span class="plab">Formula</span> blocks = cache/block ; sets = blocks/ways ; tag = addr − set − offset ; AMAT = Tc + (1−h)&#215;Tm</div>
-</div><pre class="calc">Blocks = 512 KB / 128 B = 2^19 / 2^7 = 4096
+</div><pre class="calc">Blocks = 512 KB / 128 B = 2¹⁹ / 2⁷ = 4096
 Sets   = 4096 / 4 = 1024
-Address = 1 GB = 2^30 -> 30 bits
+Address = 1 GB = 2³⁰ -> 30 bits
   offset = log2(128) = 7
   set    = log2(1024) = 10
   tag    = 30 - 10 - 7 = 13
@@ -289,8 +289,8 @@ iv) Explain why fully associative mapping eliminates conflict misses but introdu
 <div class="prow"><span class="plab">Given</span> main memory 64 MB ; cache 128 KB ; block 64 B</div>
 <div class="prow"><span class="plab">Find</span> lines ; direct fields ; 4-way fields ; the fully-associative trade-off</div>
 <div class="prow"><span class="plab">Formula</span> lines = cache/block ; offset = log2(block) ; tag = addr − index(or set) − offset</div>
-</div><pre class="calc">Lines = 128 KB / 64 B = 2^17 / 2^6 = 2^11 = 2048
-Address = 64 MB = 2^26 -> 26 bits ; offset = log2(64) = 6
+</div><pre class="calc">Lines = 128 KB / 64 B = 2¹⁷ / 2⁶ = 2¹¹ = 2048
+Address = 64 MB = 2²⁶ -> 26 bits ; offset = log2(64) = 6
 
 Direct: index = log2(2048) = 11 ; tag = 26 - 11 - 6 = 9
 4-way : sets = 2048/4 = 512 ; set = log2(512) = 9 ; tag = 26 - 9 - 6 = 11</pre><div class="answerbox">2048 lines. Direct: index 11, tag 9, offset 6. 4-way: set 9, tag 11, offset 6. (iv) Fully associative lets any block go in any line, so no conflict misses, but every line's tag must be searched, which is slow and costly.</div>
@@ -362,18 +362,18 @@ iii.	Z= X + Y</div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> X = C1400000h, Y = 42100000h, Z = 41400000h, IEEE-754 single precision</div>
 <div class="prow"><span class="plab">Find</span> each in decimal, then which claim is true</div>
-<div class="prow"><span class="plab">Formula</span> value = (−1)^sign &#215; 1.mantissa &#215; 2^(exp field − 127)</div>
+<div class="prow"><span class="plab">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>
 </div><pre class="calc">X = C1400000 = 1 10000010 100 0000...
     sign 1 (neg); exp 130, e = 3; 1.100... = 1.5
-    X = -1.5 x 2^3 = -12
+    X = -1.5 x 2³ = -12
 
 Y = 42100000 = 0 10000100 001 0000...
     sign 0; exp 132, e = 5; 1.001... = 1.125
-    Y = 1.125 x 2^5 = 36
+    Y = 1.125 x 2⁵ = 36
 
 Z = 41400000 = 0 10000010 100 0000...
     sign 0; exp 130, e = 3; 1.5
-    Z = +1.5 x 2^3 = 12
+    Z = +1.5 x 2³ = 12
 
 (Y - Z) = 36 - 12 = 24 > 0   TRUE
 X + Z   = -12 + 12 = 0       TRUE
@@ -431,9 +431,9 @@ MB    = 1,263,937.5 / 1024 / 1024 = 1.21 MB</pre><div class="answerbox">10,111,5
 <div class="params">
 <div class="prow"><span class="plab">Given</span> −1240.56, single precision</div>
 <div class="prow"><span class="plab">Find</span> the 32-bit pattern (and its hex)</div>
-<div class="prow"><span class="plab">Formula</span> sign ; normalise |x| to 1.f &#215; 2^e ; exp field = e + 127 ; mantissa = f to 23 bits</div>
+<div class="prow"><span class="plab">Formula</span> sign ; normalise |x| to 1.M &#215; 2<sup>e</sup> ; exp field = e + 127 ; mantissa M = f to 23 bits</div>
 </div><pre class="calc">sign = 1  (negative)
-1240.56 in binary = 1.0011011000100011110101... x 2^10
+1240.56 in binary = 1.0011011000100011110101... x 2¹⁰
 exp field = 10 + 127 = 137 = 1000 1001
 mantissa (23 bits) = 0011011 0001000 1111010 11
 pattern = 1 10001001 00110110001000111101011
@@ -488,11 +488,11 @@ ii.	Temporal locality</div>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> C4F2E000h, single precision</div>
 <div class="prow"><span class="plab">Find</span> the decimal value</div>
-<div class="prow"><span class="plab">Formula</span> value = (−1)^sign &#215; 1.mantissa &#215; 2^(exp − 127)</div>
+<div class="prow"><span class="plab">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>
 </div><pre class="calc">C4F2E000 = 1 10001001 11100101110000000000000
 sign 1 (neg); exp field 1000 1001 = 137, e = 137 - 127 = 10
-1.mantissa = 1.1110010111  =  1.8974609375
-value = -1.8974609375 x 2^10 = -1.8974609375 x 1024
+1.M = 1.1110010111  =  1.8974609375
+value = -1.8974609375 x 2¹⁰ = -1.8974609375 x 1024
       = -1943</pre><div class="answerbox">C4F2E000h = &#8722;1943.</div>
 </div></div>
 

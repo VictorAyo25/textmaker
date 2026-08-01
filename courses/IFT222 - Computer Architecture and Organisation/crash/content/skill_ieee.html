@@ -10,15 +10,15 @@ hex pattern back to decimal. One method each, and it is the same three fields ev
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Why, and the three fields</span></div>
 <div class="body"><p>Floating point exists to hold <b>very large and very small</b> values in a
 few bits: its strength is <b>range</b>, not exact decimals. A number is stored as three
-fields, left to right: <b>sign</b>, then <b>exponent</b>, then <b>mantissa</b> (also called
-the fraction).</p>
+fields, left to right: <b>sign</b> (s), then <b>exponent</b> (E), then <b>mantissa</b> M (also
+called the fraction).</p>
 <ul class="bul">
 <li><b>Single precision:</b> <b>32 bits</b> = 1 sign + <b>8</b> exponent + 23 mantissa. It
 covers roughly 10<sup>&#177;38</sup>.</li>
 <li><b>Double precision:</b> <b>64 bits</b> = 1 sign + <b>11</b> exponent + 52 mantissa. It
 covers roughly 10<sup>&#177;308</sup>.</li>
 </ul>
-<p>The value is <b>&#177; 1.mantissa &#215; 2<sup>exponent</sup></b>. The leading 1 is
+<p>The value is <b>&#177; 1.M &#215; 2<sup>exponent</sup></b>. The leading 1 is
 <b>always there</b> for a normalised number, so it is not stored (the "hidden 1"). The
 exponent is stored with a <b>bias</b> added so it can be negative without a sign of its own:
 bias is <b>127</b> for single, <b>1023</b> for double.</p></div></div>
@@ -31,7 +31,7 @@ Exponent field = <b>e + 127</b>, in 8 bits. (5) Mantissa = the "something" after
 padded with zeros to 23 bits. (6) Put the 32 bits together and group in fours for hex.</li>
 <li><b>IEEE (hex) to decimal:</b> (1) write the 32 bits, split as 1 / 8 / 23. (2) Sign bit
 gives the sign. (3) Real exponent <b>e = exponent field &#8722; 127</b>. (4) Value =
-&#177; 1.mantissa in binary &#215; 2<sup>e</sup>.</li>
+&#177; 1.M in binary &#215; 2<sup>e</sup>.</li>
 </ul>
 <p><b>Memory hook:</b> "sign, exponent, mantissa", and the exponent is always <b>stored plus
 the bias, read minus the bias</b>.</p></div></div>
@@ -42,15 +42,15 @@ sets in Question 4a; you will sit it verbatim in the final mock.</p>
 <div class="params">
 <div class="prow"><span class="plab">Given</span> C1400000h, single precision</div>
 <div class="prow"><span class="plab">Formula</span> value = (&#8722;1)<sup>sign</sup> &#215;
-1.mantissa &#215; 2<sup>(exp field &#8722; 127)</sup></div>
+1.M &#215; 2<sup>(exp field &#8722; 127)</sup></div>
 </div>
 <pre class="calc">C1400000 = 1 10000010 100 0000...
   sign 1  ->  negative
   exp field 1000 0010 = 130,  e = 130 - 127 = 3
   mantissa 1.100... = 1 + 1/2 = 1.5
-  value = -1.5 x 2^3 = -1.5 x 8 = -12</pre>
+  value = -1.5 x 2³ = -1.5 x 8 = -12</pre>
 <div class="answerbox">C1400000 = &#8722;1.5 &#215; 2<sup>3</sup> = &#8722;12</div>
-<p class="redo"><b>Now redo it:</b> exponent field minus 127, then read 1.mantissa as a binary
+<p class="redo"><b>Now redo it:</b> exponent field minus 127, then read 1.M as a binary
 fraction (first bit a half, next a quarter).</p>
 </div></div>
 
