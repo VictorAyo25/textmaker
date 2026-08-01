@@ -89,6 +89,11 @@ add('img MB', round(10111500 / 8 / 1024 / 1024, 2), '1.21')
 
 # --- Instruction formats ---
 add('instr length', 8 + 6 + 18, '32 bits')
+# 25/26 Q4b byte counts (opcode 1 byte, each address 2 bytes; the struck-out part, worked anyway)
+add('Q4b 3-address bytes', 7 * (1 + 3 * 2), '49')
+add('Q4b 2-address bytes', 12 * (1 + 2 * 2), '60')
+add('Q4b 1-address bytes', 17 * (1 + 1 * 2), '51')
+add('Q4b 0-address bytes', 8 * 3 + 1 * 3 + 7 * 1, '34')
 
 # --- Addressing modes (25/26 Q1e + MCQs) ---
 add('Q1e indirect', 999, '999')
