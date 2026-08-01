@@ -25,22 +25,30 @@ time.</li>
 count and the CPI (and behind CPI, the cache, branch prediction and instruction-level
 parallelism). That is why "judge a processor by clock frequency only" is wrong.</p></div></div>
 
-<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q1d)</span></div>
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
 <div class="body"><p>One million instructions, by addressing mode: Register 40% at 1 cycle,
 Immediate 20% at 1, Direct 15% at 2, Indirect 10% at 4, Indexed 10% at 3, Relative 5% at 2.
-Find the average CPI and total cycles; then if indirect is optimised to 2 cycles, the new CPI
-and the percent improvement.</p>
-<ol class="steps">
-<li>Average CPI = weighted sum = 0.40(1) + 0.20(1) + 0.15(2) + 0.10(4) + 0.10(3) + 0.05(2)
-= 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10 = <b>1.70</b>.</li>
-<li>Total cycles = IC &#215; CPI = 1 000 000 &#215; 1.70 = <b>1 700 000</b>.</li>
-<li>Optimise indirect from 4 to 2 cycles: its share falls from 0.10(4) = 0.40 to 0.10(2) =
-0.20, a drop of 0.20. New CPI = 1.70 &#8722; 0.20 = <b>1.50</b>.</li>
-<li>Improvement = (1.70 &#8722; 1.50) / 1.70 = 0.20 / 1.70 = <b>11.76%</b>.</li>
-</ol>
+Find the average CPI and total cycles; then optimise indirect to 2 cycles and give the
+improvement. <b>The exam sets exactly this; sit it verbatim in the final mock.</b></p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> IC = 1 000 000 &middot; the share and cycle
+cost of each mode</div>
+<div class="prow"><span class="plab">Formula</span> CPI = &#931;(fraction &#215; cycles)
+&middot; total = IC &#215; CPI &middot; improvement = (old &#8722; new) / old</div>
+</div>
+<pre class="calc">Avg CPI = 0.40x1 + 0.20x1 + 0.15x2 + 0.10x4 + 0.10x3 + 0.05x2
+        = 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10
+        = 1.70
+
+Total cycles = 1 000 000 x 1.70 = 1 700 000
+
+Indirect 4 -> 2:  new CPI = 1.70 - 0.10x4 + 0.10x2
+                          = 1.70 - 0.20
+                          = 1.50
+
+Improvement = (1.70 - 1.50) / 1.70 = 0.20 / 1.70 = 11.76%</pre>
 <div class="answerbox">CPI 1.70; total cycles 1 700 000; new CPI 1.50; improvement 11.76%.</div>
-<p class="redo"><b>Now redo it:</b> average CPI is just a weighted average. To measure a change,
-recompute CPI with the one changed cost and compare against the old.</p></div></div>
+<p class="redo"><b>Now redo it:</b> weighted average, then recompute with the one changed cost.</p></div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Amdahl's law</span></div>
 <div class="body"><p><b>Amdahl's law:</b> if you speed up only part of a task, the part you did
@@ -51,18 +59,22 @@ improve, and let that part become <b>s</b> times faster. Then the overall speedu
 untouched fraction (1 &#8722; f) still takes its full time. <b>Memory hook:</b> the slow part
 you left alone sets the ceiling, no matter how fast you make the rest.</p></div></div>
 
-<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q3c)</span></div>
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
 <div class="body"><p>A cache is 10 times faster than main memory, and the CPU finds what it needs
-in cache 85% of the time. Find the overall speedup.</p>
-<ol class="steps">
-<li>The sped-up fraction is f = 0.85 (the cache hits); the speedup of that part is s = 10.</li>
-<li>S = 1 / ((1 &#8722; 0.85) + 0.85 / 10) = 1 / (0.15 + 0.085) = 1 / 0.235.</li>
-<li>= <b>4.26</b>.</li>
-</ol>
-<div class="answerbox">S = 1 / (0.15 + 0.085) = 4.26, far below 10, because the 15% of slow
-accesses dominate. That is exactly Amdahl's point.</div>
+in cache 85% of the time. Find the overall speedup. <b>The exam sets exactly this; sit it
+verbatim in the final mock.</b></p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> f = 0.85 (cache hits) &middot; s = 10</div>
+<div class="prow"><span class="plab">Formula</span> S = 1 / ((1 &#8722; f) + f/s)</div>
+</div>
+<pre class="calc">S = 1 / ((1 - 0.85) + 0.85/10)
+  = 1 / (0.15 + 0.085)
+  = 1 / 0.235
+  = 4.26</pre>
+<div class="answerbox">S = 4.26, far below 10, because the 15% of slow accesses dominate. That
+is exactly Amdahl's point.</div>
 <p class="redo"><b>Now redo it:</b> the "10 times faster" is s, not the answer; only the 85%
-gets divided by s, and the other 15% stays at full cost.</p></div></div>
+gets divided by s, the other 15% stays at full cost.</p></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, performance</span></div>
 <div class="body"><p class="q">(1) A benchmark runs 12 billion instructions at 4 GHz with an

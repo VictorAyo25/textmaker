@@ -28,12 +28,21 @@ from the full study manual, that takes a complete novice to a perfect score by *
 5. Make every skill a loop I can actually study from: teach it simply, give the method as fixed
    steps and why it works, one worked example, then practice questions with **different numbers
    and the answers hidden** so I cover and redo, plus the real MCQs on that skill.
-6. Solve **every** MCQ (double-check every numeric one), grouped by topic as a self-test bank.
-7. Solve the destination paper(s) in full as a final mock, and include the extra question sets.
-8. Hold the flawless bar: recompute every worked number independently, no dashes or institution
-   names, no shrunk or overflowing pages, an accurate clickable Contents.
-9. Build it in the course's `crash/` folder and publish to **`FINAL_CRASH_MANUALS/`** (separate
-   from `FINAL_MANUALS/`), and only when I say "we are done" or "go to final".
+6. **Give every test and exam question verbatim, in the examiner's exact words, never
+   paraphrased** (the same "as printed" discipline the study manuals use). That covers the MCQ
+   stems and options, the destination paper, and any past question a skill shows. Enforce it
+   with the verbatim gate so a quote that drifts from the transcript fails the build.
+7. **Make it feel like the exam hall, and solve every calculation the way I would by hand:**
+   outline the **Given** values, state the **formula** before any number goes in, show the
+   arithmetic **vertically / stacked** (binary additions, the invert-and-add-one, the cache
+   field split, the weighted CPI sum), then the answer. Not squashed into a sentence.
+8. Solve **every** MCQ (double-check every numeric one), grouped by topic as a self-test bank.
+9. Solve the destination paper(s) in full as a final mock: the real paper, verbatim, sat under
+   the clock, each question worked in the exam-hall style above. Include the extra question sets.
+10. Hold the flawless bar: recompute every worked number independently, no dashes or institution
+    names, no shrunk or overflowing pages, an accurate clickable Contents.
+11. Build it in the course's `crash/` folder and publish to **`FINAL_CRASH_MANUALS/`** (separate
+    from `FINAL_MANUALS/`), and only when I say "we are done" or "go to final".
 
 Tell me you understand, and which past question you are treating as the destination, before you
 start building.

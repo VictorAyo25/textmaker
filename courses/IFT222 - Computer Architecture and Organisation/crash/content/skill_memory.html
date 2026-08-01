@@ -62,29 +62,40 @@ T<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub>
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the cache slides' standard case</span></div>
 <div class="body"><p>Main memory 64 KB, cache 1 KB, block 16 B, direct mapped. Find the
 address split and the tag-directory size.</p>
-<ol class="steps">
-<li>Address bits = log<sub>2</sub>(64 KB) = log<sub>2</sub>2<sup>16</sup> = <b>16</b>.</li>
-<li>Offset = log<sub>2</sub>16 = <b>4</b>.</li>
-<li>Lines = cache / block = 1024 / 16 = <b>64</b>, so index = log<sub>2</sub>64 = <b>6</b>.</li>
-<li>Tag = 16 &#8722; 6 &#8722; 4 = <b>6</b>.</li>
-<li>Tag directory = lines &#215; tag = 64 &#215; 6 = <b>384 bits</b> = 48 bytes.</li>
-</ol>
-<div class="answerbox">Offset 4, index 6, tag 6; tag directory 384 bits (48 bytes). More
-practice caches, in all three mappings, are in your final mock at the back.</div>
+<pre class="calc">Address = log2(64 KB) = log2(2^16)     = 16 bits
+Offset  = log2(16)                     = 4 bits
+Lines   = cache/block = 1024/16 = 64
+Index   = log2(64)                     = 6 bits
+Tag     = 16 - 6 - 4                   = 6 bits
+Tag dir = lines x tag = 64 x 6 = 384 bits = 48 bytes</pre>
+<div class="answerbox">Offset 4, index 6, tag 6; tag directory 384 bits (48 bytes).</div>
 <p class="redo"><b>Now redo it:</b> address from the memory size, offset from the block, lines
 from cache over block, and the tag is whatever is left. This works for any numbers.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">average access time</span></div>
 <div class="body"><p>Hit rate 80%, cache time 5 ns, memory time 100 ns. Find the AMAT both
 ways.</p>
-<ol class="steps">
-<li>Simultaneous = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> = 0.8&#215;5 +
-0.2&#215;100 = 4 + 20 = <b>24 ns</b>.</li>
-<li>Hierarchical = T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> = 5 + 0.2&#215;100 = 5 + 20 =
-<b>25 ns</b>.</li>
-</ol>
+<pre class="calc">Simultaneous = h.Tc + (1-h).Tm = 0.8x5 + 0.2x100 = 4 + 20 = 24 ns
+Hierarchical =   Tc + (1-h).Tm =    5 + 0.2x100 = 5 + 20 = 25 ns</pre>
 <div class="answerbox">Simultaneous 24 ns, hierarchical 25 ns. Hierarchical pays the cache time
 on every access, so it is a touch slower here.</div></div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the revision deck's six extra caches</span></div>
+<div class="body"><p>The lecturer's revision deck sets six more cache problems (Examples 2 and 3
+of each mapping). They are not on the 2025/2026 paper, so drill the method on these fresh
+numbers. Cover a row, rebuild it from the four sizes, then check.</p>
+<table class="data">
+<tr><th>Cache (memory / cache / block)</th><th>Offset</th><th>Index/Set</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>
+<tr><td>Direct, 128 KB / 4 KB / 32 B</td><td>5</td><td>index 7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>
+<tr><td>Direct, 1 MB / 8 KB / 64 B</td><td>6</td><td>index 7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>
+<tr><td>Fully assoc, 256 KB / 4 KB / 32 B</td><td>5</td><td>none</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>
+<tr><td>Fully assoc, 2 MB / 16 KB / 64 B</td><td>6</td><td>none</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>
+<tr><td>4-way, 512 KB / 8 KB / 32 B</td><td>5</td><td>set 6</td><td>8</td><td>256</td><td>2048 bits (256 bytes)</td></tr>
+<tr><td>8-way, 4 MB / 32 KB / 64 B</td><td>6</td><td>set 6</td><td>10</td><td>512</td><td>5120 bits (640 bytes)</td></tr>
+</table>
+<div class="answerbox">The lines are set by cache over block; the tag directory grows as the
+mapping gets more associative, because dropping the index lengthens the tag on every line.</div>
+</div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, memory</span></div>
 <div class="body"><p class="q">(1) Order fastest to slowest: registers, cache, main memory,

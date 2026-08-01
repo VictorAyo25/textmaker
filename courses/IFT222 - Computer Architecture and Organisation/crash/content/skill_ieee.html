@@ -36,20 +36,22 @@ gives the sign. (3) Real exponent <b>e = exponent field &#8722; 127</b>. (4) Val
 <p><b>Memory hook:</b> "sign, exponent, mantissa", and the exponent is always <b>stored plus
 the bias, read minus the bias</b>.</p></div></div>
 
-<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">hex to decimal (a 2025/2026 number)</span></div>
-<div class="body"><p>Convert <b>C1400000</b> (single precision) to decimal. This is the X from
-Question 1a / 4a of the recent papers.</p>
-<ol class="steps">
-<li>Hex to bits, split 1 / 8 / 23: sign = <b>1</b>; exponent field = <b>1000 0010</b>;
-mantissa = <b>100 0000&#8230;</b></li>
-<li>Sign 1 means <b>negative</b>. Exponent field 1000 0010 = 130, so e = 130 &#8722; 127 =
-<b>3</b>.</li>
-<li>Mantissa 1.100&#8230; = 1 + 1/2 = <b>1.5</b>, so value = &#8722;1.5 &#215; 2<sup>3</sup> =
-&#8722;1.5 &#215; 8 = <b>&#8722;12</b>.</li>
-</ol>
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
+<div class="body"><p>Convert <b>C1400000</b> (single precision) to decimal. This is the X the exam
+sets in Question 4a; you will sit it verbatim in the final mock.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> C1400000h, single precision</div>
+<div class="prow"><span class="plab">Formula</span> value = (&#8722;1)<sup>sign</sup> &#215;
+1.mantissa &#215; 2<sup>(exp field &#8722; 127)</sup></div>
+</div>
+<pre class="calc">C1400000 = 1 10000010 100 0000...
+  sign 1  ->  negative
+  exp field 1000 0010 = 130,  e = 130 - 127 = 3
+  mantissa 1.100... = 1 + 1/2 = 1.5
+  value = -1.5 x 2^3 = -1.5 x 8 = -12</pre>
 <div class="answerbox">C1400000 = &#8722;1.5 &#215; 2<sup>3</sup> = &#8722;12</div>
-<p class="redo"><b>Now redo it:</b> the whole trick is exponent field minus 127, then read
-1.mantissa as a binary fraction.</p>
+<p class="redo"><b>Now redo it:</b> exponent field minus 127, then read 1.mantissa as a binary
+fraction (first bit a half, next a quarter).</p>
 </div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">encode a clean number</span></div>

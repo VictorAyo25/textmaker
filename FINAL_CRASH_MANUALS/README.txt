@@ -10,11 +10,18 @@ How they are built and the reusable prompt for new ones: see
 CRASH_COURSE_PROMPT.md in the workspace root.
 
 -------------------------------------------------------------------------------
-IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     46 pp   2026-08-01
+IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     60 pp   2026-08-01
 -------------------------------------------------------------------------------
 Computer Architecture and Organisation. Takes a reader who has not opened the
 course from zero to solving the 2025/2026 paper, the revision deck's extra
 questions, and every objective (MCQ) question from both practice tests.
+
+Every test and exam question is given VERBATIM, in the examiner's exact words
+(gated against the eye-verified transcripts, so a quote that drifts fails the
+build). The whole 2025/2026 paper is sat as a final mock, and each answer is
+laid out the way you write it in the hall: the given values, the formula, then
+the arithmetic worked VERTICALLY, stacked and column-aligned (binary additions,
+the invert-and-add-one, cache field splits, weighted CPI sums), then the answer.
 
 Organised by exam skill, not the syllabus, and foundation-first so nothing is
 used before it is taught:

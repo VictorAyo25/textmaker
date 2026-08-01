@@ -41,25 +41,39 @@ carry off the top. No end-around carry.</li>
 <p><b>Memory hook:</b> one's complement is "flip"; two's complement is "flip and add one".
 That extra "add one" is what buys the single zero and the simple hardware.</p></div></div>
 
-<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">on the 2025/2026 paper (Q1c)</span></div>
-<div class="body"><p>A 16-bit machine uses two's complement. Store <b>&#8722;182</b>, <b>487</b>
-and <b>&#8722;1023</b> in binary and hex, and compute (&#8722;182) + 487. (This is exactly
-Question 1c on the 2025/2026 paper.)</p>
-<ol class="steps">
-<li><b>Range check.</b> 16-bit two's complement holds &#8722;32 768 to 32 767, so all three
-fit.</li>
-<li><b>487</b> is positive: 0000 0001 1110 0111. In hex (group in fours): <b>01E7</b>.</li>
-<li><b>&#8722;182:</b> +182 = 0000 0000 1011 0110; invert = 1111 1111 0100 1001; add 1 =
-1111 1111 0100 1010 = <b>FF4A</b>.</li>
-<li><b>&#8722;1023:</b> +1023 = 0000 0011 1111 1111; invert = 1111 1100 0000 0000; add 1 =
-1111 1100 0000 0001 = <b>FC01</b>.</li>
-<li><b>Add:</b> 1111 1111 0100 1010 + 0000 0001 1110 0111 = 0000 0001 0011 0001 (drop the
-carry off the top). That is +305, and indeed &#8722;182 + 487 = <b>305</b>.</li>
-</ol>
-<div class="answerbox">487 = 01E7; &#8722;182 = FF4A; &#8722;1023 = FC01; (&#8722;182) + 487 =
-305. The machine adds and gets the right signed answer with nothing but addition.</div>
-<p class="redo"><b>Now redo it:</b> the recipe is always the same, positive then invert then
-add 1. Practise with &#8722;75 in 8 bits (answer 1011 0101).</p></div></div>
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
+<div class="body"><p>Store &#8722;182, 487 and &#8722;1023 in a 16-bit two's-complement machine
+(binary and hex) and add (&#8722;182) + 487. <b>The exam sets exactly this; you will sit it
+verbatim in the final mock at the back.</b> Here is how you write it on paper.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> 16 bits, two's complement &middot;
+&#8722;182, 487, &#8722;1023</div>
+<div class="prow"><span class="plab">Formula</span> range = &#8722;2<sup>15</sup> to
+2<sup>15</sup> &#8722; 1 &middot; negative = invert the positive and add 1 &middot; group 4
+bits per hex digit</div>
+</div>
+<pre class="calc">Range: -2^15 to 2^15 - 1  =  -32768 to 32767   (all three fit)
+
+487  =  0000 0001 1110 0111  =  01E7
+
+-182:  +182  =  0000 0000 1011 0110
+     invert  =  1111 1111 0100 1001
+        + 1  =  1111 1111 0100 1010  =  FF4A
+
+-1023: +1023 =  0000 0011 1111 1111
+     invert  =  1111 1100 0000 0000
+        + 1  =  1111 1100 0000 0001  =  FC01
+
+(-182) + 487:
+     1111 1111 0100 1010
+   + 0000 0001 1110 0111
+   ---------------------
+   1 0000 0001 0011 0001   drop the carry off the top
+     0000 0001 0011 0001   =  256+32+16+1  =  305</pre>
+<div class="answerbox">Range &#8722;32768 to 32767 (all fit); 487 = 01E7, &#8722;182 = FF4A,
+&#8722;1023 = FC01; (&#8722;182) + 487 = 305.</div>
+<p class="redo"><b>Now redo it:</b> positive, invert, add 1, every time. Practise with
+&#8722;75 in 8 bits (answer 1011 0101).</p></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">read three patterns</span></div>
 <div class="body"><p class="q">In 8 bits: (1) what decimal is 1000 0000 in two's complement?

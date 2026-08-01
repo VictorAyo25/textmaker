@@ -128,6 +128,15 @@ add('AMAT simultaneous', int(0.8 * 5 + 0.2 * 100), '24 ns')
 add('AMAT hierarchical', int(5 + 0.2 * 100), '25 ns')
 
 # --- Final mock (25/26 numbers not gated above) ---
+# Q1b: five-stage pipeline, actual CPI under the stated reading of the penalties
+_cpi1b = round(1 + 0.20 * 2 + 0.35 * (2 + 0.10 * 4) + 0.05 * 4, 2)
+add('Q1b clock', 6 + 1, '7 ns')
+add('Q1b CPI', _cpi1b, '2.44')
+add('Q1b time', round(20_000_000 * _cpi1b * 7 / 1e9, 4), '0.3416')
+add('Q1b nonpipe', 20_000_000 * 25 / 1e9, '0.5 s')
+add('Q1b speedup', round((20_000_000 * 25 / 1e9) / (20_000_000 * _cpi1b * 7 / 1e9), 2), '1.46')
+# Q5d: reverse IEEE decode
+add('Q5d decimal', int(from_hex_f('C4F2E000')), '1943')
 add('Y decimal', int(from_hex_f('42100000')), '36')
 add('Z decimal', int(from_hex_f('41400000')), '12')
 for _h, _shown in [('CA2DFC12', '193'), ('F24F25FF', '95'),
@@ -176,9 +185,10 @@ def norm(s):
 
 def report(_ignored_html=None):
     text = book_text()
+    ntext = norm(text)   # spaces and commas stripped, so "1 700 000" and "1,700,000" match
     fails = []
     for label, computed, shown in CHECKS:
-        if shown not in text:
+        if shown not in text and norm(shown) not in ntext:
             fails.append(f'{label}: the book does not contain {shown!r} '
                          f'(recompute says {computed})')
             continue
