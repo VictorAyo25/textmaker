@@ -143,4 +143,11 @@ branches). (2) <b>forwarding</b> (feed the result straight to where it is needed
 the sum. For n tasks the count is <b>k + n &#8722; 1</b>, so 500 tasks in a 4-stage pipe is
 503 cycles, not 504. Classify data hazards by the shared <b>register</b> and the order it is
 written and read, never by the instruction name.</p></div></div>
+<div class="lockin">
+<span class="clab">Lock it in</span>
+<p class="big">"Clock = the slowest stage + latch. For n tasks it is (k + n &#8722; 1) cycles."</p>
+<p class="sub">Speedup tops out at <b>k</b> stages. Name a data hazard by the register order: <b>RAW</b>
+(read after write, the real one, eased by forwarding), WAR, WAW. A long execute pushes everything
+behind it; a stall is a bubble.</p>
+</div>
 </section>

@@ -64,6 +64,8 @@ TOC = [
         'Prove It', 'RISC, CISC and the Rest'),
     (2, 'The MCQ Bank, Every Question Answered',
         'Prove It', 'The MCQ Bank, Every Question Answered'),
+    (2, 'The Night Before, on One Page',
+        'Prove It', 'The Night Before, on One Page'),
     (2, 'The 2025 to 2026 Paper, Your Final Mock',
         'Prove It', 'The 2025 to 2026 Paper, Your Final Mock'),
 ]
@@ -77,6 +79,7 @@ ANCHOR = 'sec-'
 # added automatically by forced_ids). The MCQ bank and the final mock start fresh
 # too, so the page before them is short by design and the layout QA must know.
 FORCED_BREAK = {'PROVEITTHEMCQBANKEVERYQUESTIONANSWERED',
+                'PROVEITTHENIGHTBEFOREONONEPAGE',
                 'PROVEITTHE2025TO2026PAPERYOURFINALMOCK'}
 
 

@@ -10,7 +10,7 @@ How they are built and the reusable prompt for new ones: see
 CRASH_COURSE_PROMPT.md in the workspace root.
 
 -------------------------------------------------------------------------------
-IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     82 pp   2026-08-02
+IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     86 pp   2026-08-02
 -------------------------------------------------------------------------------
 Computer Architecture and Organisation. Takes a reader who has not opened the
 course from zero to solving the 2025/2026 paper, the revision deck's extra
@@ -37,7 +37,11 @@ used before it is taught:
 Every teaching section is a step-by-step PROGRAMME: many tiny numbered frames,
 each doing one small thing and ending with a task, the next frame opening with
 the answer, so you cover the page, work the step, then slide down to check.
-Nothing is a wall of prose. Every skill is taught as a method you apply to any
+Nothing is a wall of prose. To grasp and remember it, the abstract layouts are
+DRAWN (a labelled IEEE field strip, the cache address split, the two's-complement
+odometer, an instruction-format strip), every section closes with a "Lock it in"
+card carrying its one-line mnemonic, and a single-page "The Night Before" map
+compresses the whole course to one hook and one formula per skill. Every skill is taught as a method you apply to any
 numbers (not an answer to memorise), then practised on fresh numbers with the
 answers hidden, so a change of values in the exam does not matter. The harder
 ideas are taught intuition first, with the reason before the rule (why two's complement wraps like an

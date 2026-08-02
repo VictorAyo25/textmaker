@@ -91,6 +91,34 @@ Now watch all the moves used together in the worked example below, then sit it y
 answer covered.</p></div>
 </div></div>
 
+<figure class="strip">
+<svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <defs><marker id="sgar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b45309"/></marker></defs>
+  <text x="12" y="17" font-size="10" fill="#67707a" font-weight="bold" letter-spacing="0.6">8-BIT TWO'S COMPLEMENT: NEGATIVES COUNT DOWN FROM THE TOP</text>
+  <path d="M498 52 C 498 20, 22 20, 22 52" fill="none" stroke="#b45309" stroke-width="1.6" marker-end="url(#sgar)"/>
+  <text x="260" y="33" font-size="9.5" fill="#b45309" text-anchor="middle">add 1 past 1111 1111 rolls back to 0000 0000</text>
+  <rect x="20" y="56" width="240" height="30" fill="#15803d"/>
+  <rect x="260" y="56" width="240" height="30" fill="#33566e"/>
+  <rect x="20" y="56" width="480" height="30" fill="none" stroke="#20262f" stroke-width="1"/>
+  <text x="140" y="75" font-size="10.5" fill="#fff" text-anchor="middle">top bit 0: positive</text>
+  <text x="380" y="75" font-size="10.5" fill="#fff" text-anchor="middle">top bit 1: negative</text>
+  <g font-size="9.5" fill="#41505f" font-family="DejaVu Sans Mono">
+    <text x="20" y="104" text-anchor="start">0000 0000</text>
+    <text x="255" y="104" text-anchor="end">0111 1111</text>
+    <text x="265" y="104" text-anchor="start">1000 0000</text>
+    <text x="500" y="104" text-anchor="end">1111 1111</text>
+  </g>
+  <g font-size="10" fill="#20262f" font-weight="bold">
+    <text x="20" y="120" text-anchor="start">= 0</text>
+    <text x="255" y="120" text-anchor="end">= +127</text>
+    <text x="265" y="120" text-anchor="start">= &#8722;128</text>
+    <text x="500" y="120" text-anchor="end">= &#8722;1</text>
+  </g>
+</svg>
+<figcaption>The patterns just below zero are the negatives: 1111 1111 is &#8722;1, counting down. To make
+or read a negative, flip every bit and add 1.</figcaption>
+</figure>
+
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">the moves on one card</span></div>
 <div class="body"><ul class="bul">
 <li><b>Write a negative:</b> positive in n bits, <b>flip every bit, add 1</b>.</li>
@@ -160,4 +188,12 @@ flip 1110 0011 to 0001 1100 = 28, so <b>&#8722;28</b>. (4) <b>simpler and faster
 magnitude bits off; you must flip and add 1 first. <b>Overflow</b> means the true result is too
 big or too small for the range, not division by zero. And the end-around carry belongs to
 <b>one's</b> complement only; two's complement simply discards the top carry.</p></div></div>
+<div class="lockin">
+<span class="clab">Lock it in</span>
+<p class="big">"Flip and add one, to write a negative and to read one. Add the patterns, throw
+away the top carry."</p>
+<p class="sub">Range in n bits: <b>&#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1</b>.
+One's complement is "flip"; two's complement is "flip and add one", which is why it has one zero
+and one adder for both add and subtract.</p>
+</div>
 </section>

@@ -99,6 +99,27 @@ directory and AMAT. Now watch it on real numbers in the three worked examples be
 six extra caches with a card over each row.</p></div>
 </div></div>
 
+<figure class="strip">
+<svg viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <text x="12" y="17" font-size="10.5" fill="#67707a" font-weight="bold" letter-spacing="0.7">A MEMORY ADDRESS SPLITS INTO THREE</text>
+  <rect x="12" y="30" width="186" height="44" fill="#b45309"/>
+  <rect x="198" y="30" width="186" height="44" fill="#0e7490"/>
+  <rect x="384" y="30" width="124" height="44" fill="#33566e"/>
+  <rect x="12" y="30" width="496" height="44" fill="none" stroke="#20262f" stroke-width="1.1"/>
+  <text x="105" y="57" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">tag (6)</text>
+  <text x="291" y="57" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">index (6)</text>
+  <text x="446" y="57" font-size="11.5" fill="#fff" text-anchor="middle" font-weight="bold">offset (4)</text>
+  <g font-size="10.5" fill="#41505f" text-anchor="middle">
+    <text x="105" y="92">which block</text>
+    <text x="291" y="92">which hook (line)</text>
+    <text x="446" y="92">which byte</text>
+  </g>
+  <text x="260" y="120" font-size="10.5" fill="#20262f" text-anchor="middle">example: 64 KB memory, 1 KB cache, 16 B block, direct mapped</text>
+</svg>
+<figcaption>The high bits pick the block (tag), the middle bits the line (index), the low bits the byte
+(offset). Their sizes come from the memory, cache and block sizes.</figcaption>
+</figure>
+
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">the cache split on one card</span></div>
 <div class="body"><ul class="bul">
 <li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>
@@ -167,4 +188,11 @@ would be spatial). (4) <b>virtual memory</b>. (5) <b>registers</b>.</p></div></d
 <b>cache over block</b>. For set associative, divide lines by the ways to get <b>sets</b>
 before taking the log, and the bits you save on the index move into the <b>tag</b>. Temporal
 locality is "same place, later"; spatial is "nearby places".</p></div></div>
+<div class="lockin">
+<span class="clab">Lock it in</span>
+<p class="big">"Offset, index, tag = which byte, which hook, which block."</p>
+<p class="sub">Offset = log<sub>2</sub>(block), lines = cache &#247; block, index = log<sub>2</sub>(lines),
+and the <b>tag is whatever is left</b>. AMAT = T<sub>c</sub> + (1 &#8722; h) &#215; T<sub>m</sub>.
+Registers are fastest and dearest; DRAM needs refresh, SRAM does not.</p>
+</div>
 </section>

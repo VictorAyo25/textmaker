@@ -100,6 +100,27 @@ together in the worked example below (it decodes this exact pattern, C1400000), 
 "Your turn" boxes with the answer covered.</p></div>
 </div></div>
 
+<figure class="strip">
+<svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
+  <text x="12" y="19" font-size="10.5" fill="#67707a" font-weight="bold" letter-spacing="0.8">SINGLE PRECISION = 32 BITS = 1 + 8 + 23</text>
+  <rect x="12" y="32" width="16" height="46" fill="#33566e"/>
+  <rect x="28" y="32" width="124" height="46" fill="#0e7490"/>
+  <rect x="152" y="32" width="356" height="46" fill="#b45309"/>
+  <rect x="12" y="32" width="496" height="46" fill="none" stroke="#20262f" stroke-width="1.1"/>
+  <text x="20" y="60" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">s</text>
+  <text x="90" y="60" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">exponent (8)</text>
+  <text x="330" y="60" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">mantissa (23)</text>
+  <g font-size="10.5" fill="#41505f" text-anchor="middle">
+    <text x="20" y="96">sign</text>
+    <text x="90" y="96">power + 127</text>
+    <text x="330" y="96">the fraction after "1."</text>
+  </g>
+  <text x="260" y="126" font-size="12.5" fill="#20262f" text-anchor="middle">value = &#177; 1.M &#215; 2<tspan font-size="8.5" dy="-5">(exponent field &#8722; 127)</tspan></text>
+</svg>
+<figcaption>The three fields, left to right: sign, exponent, mantissa. Store the exponent plus 127,
+read it minus 127; the leading 1 is hidden.</figcaption>
+</figure>
+
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Encode and decode</span></div>
 <div class="body"><ul class="bul">
 <li><b>Decimal to IEEE (single):</b> (1) sign bit from the sign. (2) Convert the magnitude to
@@ -154,4 +175,12 @@ sign first; the true field order on the chip is sign, exponent, mantissa).</p></
 going in, and <b>field &#8722; 127</b> coming out. And the leading 1 is <b>hidden</b>, so when
 you read the mantissa put a "1." in front of it. Single precision has range about
 10<sup>&#177;38</sup>; double about 10<sup>&#177;308</sup>.</p></div></div>
+
+<div class="lockin">
+<span class="clab">Lock it in</span>
+<p class="big">"Sign, exponent, mantissa. Add the bias going in, take the bias coming out, and
+always hide the leading 1."</p>
+<p class="sub">Single precision is <b>32 bits = 1 + 8 + 23</b>, bias <b>127</b>. One line runs both
+directions: value = <b>&#177; 1.M &#215; 2<sup>(field &#8722; 127)</sup></b>.</p>
+</div>
 </section>

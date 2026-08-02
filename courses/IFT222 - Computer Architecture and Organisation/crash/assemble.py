@@ -44,6 +44,7 @@ BODY_PARTS = ['front.html',
               # Part C: prove it
               'skill_riscisc.html',
               'mcq_bank.html',
+              'cram.html',
               'final_2526.html']
 
 MAX_PASSES = 5
