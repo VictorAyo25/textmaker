@@ -304,6 +304,33 @@ pre.calc{ font-family:'DejaVu Sans Mono',monospace; font-size:9pt; line-height:1
 .fill .blank{ display:inline-block; min-width:65.6pt; border-bottom:1.2px solid var(--fill); }
 .fill ol{ margin:.2em 0 .2em 1.2em; padding:0; }
 
+/* ---------- programmed frames: one tiny step, then check (cover-and-slide) ----------
+   A gentle, self-paced sequence for the hardest topics. Each numbered frame does ONE
+   small thing and ends with a task; the next frame opens with the answer (a green tick),
+   so the reader covers the page below the line, works the step, then slides down to
+   check. break-inside:auto lets a long programme flow across pages while each .fr stays
+   whole, so no single frame is ever cut mid-thought. */
+.prog{ counter-reset:fr; break-inside:avoid; border-color:#bfdbe4; }
+.prog > .bar{ background:var(--fill); }
+.prog .body{ background:var(--fill-bg); }
+.prog .howto{ font-size:9pt; color:var(--muted); font-style:italic; margin:0 0 .5em; }
+.prog .fr{ counter-increment:fr; position:relative; padding:6pt 0 6pt 27pt;
+  border-top:1px dashed #a9c4cf; break-inside:avoid; }
+.prog .fr:first-of-type{ border-top:none; padding-top:2pt; }
+.prog .fr > :first-child{ margin-top:0; }
+.prog .fr > :last-child{ margin-bottom:0; }
+.prog .fr::before{ content:counter(fr); position:absolute; left:0; top:6pt;
+  width:18pt; height:18pt; border-radius:50%; background:var(--fill); color:#fff;
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:8.9pt;
+  text-align:center; line-height:18pt; }
+.prog .fr:first-of-type::before{ top:2pt; }
+.prog .chk{ font-weight:bold; color:var(--ans); }        /* answer that opens a frame */
+.prog .chk::before{ content:"\2713\00A0"; }              /* a tick */
+.prog .ask{ font-weight:bold; color:var(--fill); }       /* the tiny task at the end */
+.prog pre.mini{ font-family:'DejaVu Sans Mono',monospace; font-size:8.7pt; line-height:1.35;
+  margin:.35em 0; padding:4pt 8pt; white-space:pre; background:#fff; border:1px solid #cfe0e6;
+  border-left:3px solid var(--fill); break-inside:avoid; }
+
 /* ---------- tables ---------- */
 table.data{ border-collapse:collapse; width:100%; font-size:9.7pt; margin:.4em 0; break-inside:avoid; }
 table.data th{ background:var(--head); color:#fff; font-family:'DejaVu Sans',sans-serif;

@@ -22,45 +22,80 @@
 <div class="kick">Prove It</div>
 <h2 class="title">RISC, CISC and the Rest</h2>
 <hr class="rule">
-<p class="lead">Two design philosophies, plus the loose theory ideas the objective test dips
-into. Mostly describing and comparing, which means fast, reliable marks if you know the
-contrasts cleanly.</p>
+<p class="lead">Two design philosophies, plus the loose theory ideas the objective test dips into.
+Mostly describing and comparing, so we do it as a short <b>programme</b>: one small contrast at a
+time, then check. Get the contrasts clean and these are fast, reliable marks.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">RISC versus CISC</span></div>
-<div class="body"><p><b>CISC (complex instruction set computer)</b> has <b>many, powerful,
-variable-length</b> instructions, some doing a lot of work each (including direct
-memory-to-memory operations). Programs are short but the hardware is complex, instructions take
-several cycles, and it is <b>harder to pipeline</b>. Its instructions can resemble high-level
-language constructs, which <b>eases the compiler</b>. It suited the old days of slow, expensive
-memory.</p>
-<p><b>RISC (reduced instruction set computer)</b> has <b>few, simple, fixed-length</b>
-instructions, each ideally <b>one cycle</b>, with memory touched only by <b>load and store</b>
-(a load-store design), <b>many registers</b>, and hardwired control. Programs are longer but the
-hardware is simple, fast, and <b>pipelines cleanly</b>. It minimises chip area and power and
-leans on the <b>compiler</b>.</p>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
+
+<div class="fr"><p>An instruction set can be designed with two opposite philosophies. The first is
+<b>CISC</b> (complex instruction set computer): <b>many</b>, powerful, <b>variable-length</b>
+instructions, some doing a lot of work each (even direct memory-to-memory operations).
+<span class="ask">Does CISC have few or many instructions?</span></p></div>
+
+<div class="fr"><p><span class="chk">many.</span> Because each instruction does so much, CISC programs are
+<b>short</b>, but the hardware is complex, instructions take several cycles, and it is <b>harder to
+pipeline</b>. Its instructions can resemble high-level language constructs, which <b>eases the
+compiler</b>. It suited the old days of slow, expensive memory. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>The opposite is <b>RISC</b> (reduced instruction set computer): <b>few</b>, simple,
+<b>fixed-length</b> instructions, each ideally <b>one cycle</b>. <span class="ask">Are RISC
+instructions fixed-length or variable-length?</span></p></div>
+
+<div class="fr"><p><span class="chk">fixed-length.</span> RISC touches memory only through <b>load and
+store</b> (a load-store design), keeps <b>many registers</b>, and uses hardwired control. Programs
+are longer, but the hardware is simple, fast, and <b>pipelines cleanly</b>. It minimises chip area
+and power and leans on the <b>compiler</b>. <span class="ask">So which philosophy pipelines more
+easily, RISC or CISC?</span></p></div>
+
+<div class="fr"><p><span class="chk">RISC</span> (simple fixed-length instructions flow through the
+pipeline cleanly). One quick sort for the exam: <span class="ask">variable-length instruction
+formats go with RISC or CISC?</span></p></div>
+
+<div class="fr"><p><span class="chk">CISC</span> (RISC is fixed-length). The card just below lays the two
+side by side. Examples to recognise: RISC is ARM, MIPS, SPARC, PowerPC; CISC is Intel x86, VAX, the
+Motorola 68000. <span class="ask">Read on to the loose ideas the MCQs also test.</span></p></div>
+
+<div class="fr"><p><b>SIMD</b> (single instruction, multiple data): one instruction acts on <b>many
+data items at once</b>, to speed up data-parallel work like graphics and matrices.
+<span class="ask">Why does SIMD exist?</span></p></div>
+
+<div class="fr"><p><span class="chk">to accelerate data-parallel computations.</span> <b>Domain-specific
+architecture</b>: a processor tailored to one job (say the matrix work in AI) can be far more
+efficient than a general-purpose one for that job. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Abstraction</b>: layering the design, with the ISA as the key layer, lets the
+hardware and software teams work <b>independently</b> while staying compatible.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Backward compatibility</b>: keeping a <b>stable ISA</b> while the organization
+underneath evolves is what lets twenty-year-old software still run on new chips.
+<span class="ask">What one thing gives backward compatibility across processor generations?</span></p></div>
+
+<div class="fr"><p><span class="chk">a stable ISA</span> (with the organization evolving underneath).
+Last one, a wording the test likes: <b>architecture versus engineering</b>. Computer architecture is
+the conceptual, operational design; computer engineering is the broader design, build and
+integration of the hardware. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><span class="chk">Done.</span> You have now met every skill the exam tests. What is
+left is <b>proof</b>: turn the page and work the MCQ bank a whole topic at a time with the answers
+covered, going back to any skill you miss, then sit the 2025/2026 paper at the very back under exam
+conditions.</p></div>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">RISC versus CISC, side by side</span></div>
+<div class="body">
 <table class="data">
 <tr><th>RISC</th><th>CISC</th></tr>
 <tr><td>Few, simple, fixed-length instructions</td><td>Many, complex, variable-length</td></tr>
 <tr><td>Mostly one cycle each; pipelines well</td><td>Several cycles; harder to pipeline</td></tr>
 <tr><td>Load-store; many registers</td><td>Memory-to-memory; fewer registers</td></tr>
 <tr><td>Complexity handled by the compiler</td><td>Complexity handled by the hardware</td></tr>
-</table>
-<p><b>Examples.</b> RISC: ARM, MIPS, SPARC, PowerPC. CISC: Intel x86, VAX, the Motorola
-68000.</p></div></div>
-
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">A few loose ideas the MCQs use</span></div>
-<div class="body"><ul class="bul">
-<li><b>SIMD (single instruction, multiple data):</b> one instruction acts on many data items
-at once, to accelerate <b>data-parallel</b> work (graphics, matrices).</li>
-<li><b>Domain-specific architecture:</b> a processor tailored to one job (for example AI matrix
-work) can be far more efficient than a general one for that job.</li>
-<li><b>Abstraction:</b> layering the design (the ISA is the key layer) lets hardware and
-software teams work <b>independently</b> while staying compatible.</li>
-<li><b>Backward compatibility:</b> keeping a <b>stable ISA</b> while the organization underneath
-evolves is what lets old software still run on new chips.</li>
-<li><b>Architecture versus engineering:</b> computer architecture is the conceptual, operational
-design; computer engineering is the broader design, build and integration of the hardware.</li>
-</ul></div></div>
+</table></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, RISC/CISC and friends</span></div>
 <div class="body"><p class="q">(1) Variable-length instructions go with RISC or CISC? (2) A chip

@@ -4,18 +4,89 @@
 <h2 class="title">Number Systems and Conversions</h2>
 <hr class="rule">
 <p class="lead">Everything a computer holds is binary. This skill is turning numbers between
-binary, decimal and hexadecimal without thinking, plus the special decimal codes. It is easy
-marks and a big share of the objective questions.</p>
+binary, decimal and hexadecimal without thinking, plus the special decimal codes, and it is easy
+marks. We build it as a <b>programme</b>: many tiny steps worked through one at a time, and you
+check each one before the next. Go slowly and it will soon feel automatic.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Bases, and place value</span></div>
-<div class="body"><p>A <b>base</b> is just how many symbols you count with before starting a new
-column. Decimal is base 10 (symbols 0 to 9). Computers use <b>binary</b>, base 2 (0 and 1),
-because a wire is either on or off. Binary gets long, so we write it in <b>hexadecimal</b>,
-base 16 (0 to 9 then A to F, where A = 10 up to F = 15). One binary digit is a <b>bit</b>;
-four bits are a <b>nibble</b>; eight bits are a <b>byte</b>.</p>
-<p>In every base, a digit's value is the digit times the <b>place value</b>, and the places
-are powers of the base: reading right to left they are base<sup>0</sup> = 1, then base,
-then base<sup>2</sup>, and so on. That one rule reads every base.</p></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
+
+<div class="fr"><p>A <b>base</b> just means how many symbols you count with before you start a new
+column. Decimal is base 10: the ten symbols 0 to 9. A computer wire is only ever on or off.
+<span class="ask">So how many symbols does binary have?</span></p></div>
+
+<div class="fr"><p><span class="chk">2, just 0 and 1</span> (on or off), which is base 2. Binary is
+correct but gets very long, so we bundle it up as <b>hexadecimal</b>, base 16, whose symbols run
+0 to 9 and then A, B, C, D, E, F. <span class="ask">A is the first letter-symbol; what decimal
+value does the hex digit A stand for?</span></p></div>
+
+<div class="fr"><p><span class="chk">10.</span> Then B = 11, C = 12, D = 13, E = 14, F = 15. Next,
+<b>place value</b>: reading a number from right to left, the columns are worth base<sup>0</sup> = 1,
+then base<sup>1</sup>, then base<sup>2</sup>, and so on. <span class="ask">In hex, what is the place
+value of the third column from the right?</span></p></div>
+
+<div class="fr"><p><span class="chk">16<sup>2</sup> = 256.</span> So the hex columns are 1, 16, 256,
+4096. Three size words before we convert: one binary digit is a <b>bit</b>, four bits are a
+<b>nibble</b>, and eight bits are a <b>byte</b>. <span class="ask">How many bits are in a
+byte?</span></p></div>
+
+<div class="fr"><p><span class="chk">8</span> (and four bits are a nibble). Now the first conversion.
+To turn <b>any base into decimal</b>, multiply each digit by its place value and add the results.
+Take the hex number 2F: its columns are 16 and 1, and F = 15. <span class="ask">Work out
+2&#215;16 + 15.</span></p></div>
+
+<div class="fr"><p><span class="chk">47, so hex 2F = 47.</span> That is every base-to-decimal
+question. The reverse, <b>decimal to any base</b>, divides repeatedly by the base, jots each
+remainder, and reads the remainders bottom to top. For 13 to binary: 13&#247;2 = 6 r 1,
+6&#247;2 = 3 r 0, 3&#247;2 = 1 r 1, 1&#247;2 = 0 r 1. <span class="ask">Read the four remainders
+from the bottom up.</span></p></div>
+
+<div class="fr"><p><span class="chk">1101.</span> Let us <b>prove it</b> rather than trust it. The
+binary columns are 8, 4, 2, 1, and 1101 has 1-bits in the 8, 4 and 1 columns.
+<span class="ask">Add 8 + 4 + 1; do you land back on 13?</span></p></div>
+
+<div class="fr"><p><span class="chk">yes, 8 + 4 + 1 = 13.</span> The conversion checks out. Now
+<b>binary to hex</b>. Because 16 = 2<sup>4</sup>, one hex digit is exactly four bits, so group the
+bits into fours <b>from the right</b> and turn each four into one hex digit. Take 1101 0110: the
+right group 0110 = 4+2 = 6. <span class="ask">What hex digit is the left group 1101?</span></p></div>
+
+<div class="fr"><p><span class="chk">D</span> (that is 8+4+1 = 13). So 1101 0110 = D6, and going the
+other way you simply expand each hex digit back into its four bits. <span class="ask">Read
+on.</span></p></div>
+
+<div class="fr"><p>A few <b>powers of two</b> must be instant. 2<sup>10</sup> = 1024, which we call
+"1 K"; then 2<sup>20</sup> = 1 M and 2<sup>30</sup> = 1 G. <span class="ask">How many bytes is
+2<sup>10</sup>, and what one-letter name do we give it?</span></p></div>
+
+<div class="fr"><p><span class="chk">1024 bytes, called 1 K.</span> Every memory and cache question
+leans on these. Now the special <b>decimal codes</b>, where each decimal digit is kept on its own.
+First is BCD. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>BCD</b> (binary coded decimal), the 8421 code, writes <b>each decimal digit</b>
+as its own 4 bits. So 59 becomes 5 = 0101 and 9 = 1001, written 0101 1001. It is a
+<b>weighted</b> code (the bit positions are worth 8, 4, 2, 1). <span class="ask">Write the single
+digit 7 in BCD.</span></p></div>
+
+<div class="fr"><p><span class="chk">0111</span> (4+2+1 = 7). BCD is just the digit in plain 4-bit
+binary. The next code, <b>Excess-3</b>, takes the digit, <b>adds 3</b>, then writes the result in
+4 bits. So 9 becomes 9+3 = 12 = 1100. <span class="ask">Write the digit 6 in Excess-3.</span></p></div>
+
+<div class="fr"><p><span class="chk">1001</span> (6+3 = 9 = 1001); to decode you subtract 3. Excess-3
+is <b>non-weighted</b> (its bits carry no fixed weight) and self-complementing.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Last, the <b>character codes</b>, which store text and not numbers. <b>ASCII</b>
+encodes English letters, digits and symbols in 7 or 8 bits; <b>Unicode</b> was introduced to
+cover the characters of all the world's languages. <span class="ask">Which of the two would you
+need for Chinese or Arabic letters?</span></p></div>
+
+<div class="fr"><p><span class="chk">Unicode</span> (it covers every language). That is every fact in
+this skill. Now watch the moves used together in the two worked examples below, then sit the
+recalls with the answers covered.</p></div>
+</div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The three conversions, and powers of two</span></div>
 <div class="body"><ul class="bul">
@@ -69,22 +140,6 @@ operation?</p>
 <p>(1) 255 = 15&#215;16 + 15 = <b>FF</b>. (2) 20 &#247; 4 = <b>5</b> hex digits (one hex
 digit per four bits). (3) shifting right one bit is <b>dividing by 2</b> (left one bit is
 times 2).</p></div></div>
-
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Decimal codes: BCD, Excess-3, and characters</span></div>
-<div class="body"><p>Sometimes we keep decimal digits as separate 4-bit codes rather than one
-binary number. The exam asks about three:</p>
-<ul class="bul">
-<li><b>BCD (binary coded decimal), the 8421 code:</b> write <b>each decimal digit</b> on its
-own as 4 bits. So 59 is 5 = 0101 and 9 = 1001, giving 0101 1001. It is a <b>weighted</b> code
-(the bits are worth 8, 4, 2, 1).</li>
-<li><b>Excess-3:</b> take the digit, <b>add 3</b>, then write that in 4 bits. So 9 becomes
-9 + 3 = 12 = 1100. To read it back, subtract 3. It is <b>non-weighted</b> (the bits carry no
-fixed weights) and <b>self-complementing</b>: flipping all four bits gives the Excess-3 of the
-digit's 9's complement, which makes decimal subtraction easy.</li>
-<li><b>Character codes:</b> <b>ASCII</b> encodes English letters, digits and symbols in 7 or 8
-bits; <b>Unicode</b> was introduced to cover the characters of <b>all</b> the world's
-languages. These are how text, not numbers, is stored.</li>
-</ul></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, the codes</span></div>
 <div class="body"><p class="q">(1) The Excess-3 code for decimal 9 is? (2) The Excess-3 code

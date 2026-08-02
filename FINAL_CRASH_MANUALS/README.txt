@@ -10,7 +10,7 @@ How they are built and the reusable prompt for new ones: see
 CRASH_COURSE_PROMPT.md in the workspace root.
 
 -------------------------------------------------------------------------------
-IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     66 pp   2026-08-01
+IFT222 - Exam Crash Course - Zero to a Perfect Score.pdf     82 pp   2026-08-02
 -------------------------------------------------------------------------------
 Computer Architecture and Organisation. Takes a reader who has not opened the
 course from zero to solving the 2025/2026 paper, the revision deck's extra
@@ -34,10 +34,13 @@ used before it is taught:
     objective questions grouped by topic with hidden answers), then the whole
     2025/2026 paper as a final mock.
 
-Every skill is taught as a method you apply to any numbers (not an answer to
-memorise), then practised on fresh numbers with the answers hidden, so a change
-of values in the exam does not matter. The harder ideas are taught intuition
-first, with the reason before the rule (why two's complement wraps like an
+Every teaching section is a step-by-step PROGRAMME: many tiny numbered frames,
+each doing one small thing and ending with a task, the next frame opening with
+the answer, so you cover the page, work the step, then slide down to check.
+Nothing is a wall of prose. Every skill is taught as a method you apply to any
+numbers (not an answer to memorise), then practised on fresh numbers with the
+answers hidden, so a change of values in the exam does not matter. The harder
+ideas are taught intuition first, with the reason before the rule (why two's complement wraps like an
 odometer, why floating point is just scientific notation in binary, why a cache
 address splits three ways like a coat-check ticket), not as steps to swallow.
 Where a question asks for a diagram (Von Neumann versus Harvard, the pipeline

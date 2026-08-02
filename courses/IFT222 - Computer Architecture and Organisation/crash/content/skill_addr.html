@@ -8,6 +8,85 @@ The addressing mode says how to turn that field into the real location, the effe
 and then the operand. Learn the six or seven modes as "how many hops through memory", and this
 is easy marks on both the paper and the objective test.</p>
 
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
+
+<div class="fr"><p>Here is the one idea behind every addressing mode. An instruction carries an
+address <b>field</b>, but that field does not always hold the operand you want. The <b>mode</b> is
+the rule for turning the field into the real place, and then the operand.
+<span class="ask">What does the addressing mode tell you how to find?</span></p></div>
+
+<div class="fr"><p><span class="chk">the real location, then the operand.</span> Two names to fix
+first. The real location of the operand is the <b>effective address</b>, or EA. And <b>M[x]</b> is
+shorthand for "the value stored at address x", so M[1200] is the value sitting at address 1200.
+<span class="ask">In words, what does M[4500] mean?</span></p></div>
+
+<div class="fr"><p><span class="chk">the value stored at address 4500.</span> We will grade every mode
+by one question: <b>how many hops through memory</b> does it take to reach the operand? We start
+with the fewest. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Immediate</b> mode. The operand is a plain constant written <b>inside</b> the
+instruction itself, so you never touch memory to fetch it.
+<span class="ask">How many memory hops does immediate mode need?</span></p></div>
+
+<div class="fr"><p><span class="chk">zero.</span> Needing no memory access, immediate is the fastest
+way to supply a constant. Next, <b>direct</b> mode: the field <i>is</i> the address, so EA = the
+field and the operand = M[field], one hop into memory.
+<span class="ask">Direct mode reads memory how many times?</span></p></div>
+
+<div class="fr"><p><span class="chk">once</span> (one hop). <b>Indirect</b> mode adds one more hop. Now
+the field holds the address <i>of</i> the address: first EA = M[field], then the operand =
+M[ M[field] ]. That is two hops, a pointer to a pointer.
+<span class="ask">How many hops does indirect mode take?</span></p></div>
+
+<div class="fr"><p><span class="chk">two.</span> Because indirect follows an address that is itself
+stored in memory, it is exactly what you need to chase pointers, for example down a linked list.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Two modes lean on a <b>register</b> instead of memory. <b>Register</b> mode: the
+operand sits in a named register, so no memory hop at all. <b>Register indirect</b>: the register
+holds an <b>address</b>, so the operand is M[register], one hop.
+<span class="ask">In register-indirect, is the operand in the register, or at the address the
+register holds?</span></p></div>
+
+<div class="fr"><p><span class="chk">at the address the register holds.</span> Last group, the "add"
+modes; each <b>adds</b> something to the field to make the EA. <b>Relative</b>: EA = PC + field.
+<b>Indexed</b>: EA = index register + field. <b>Base</b>: EA = base register + displacement.
+<span class="ask">What does relative mode add to the field?</span></p></div>
+
+<div class="fr"><p><span class="chk">the PC.</span> Now put it to work on one running example. Take
+PC = 7000, R1 = 1500, address field = 1200, and memory holds M[1200] = 4500, M[4500] = 999,
+M[1500] = 6000. Keep these in view. First, <b>direct</b> (EA = field, operand = M[field]).
+<span class="ask">Give the direct operand.</span></p></div>
+
+<div class="fr"><p><span class="chk">4500.</span> (EA = 1200, operand = M[1200] = 4500.) Now
+<b>indirect</b> on the same field: first EA = M[1200], then operand = M[that].
+<span class="ask">Work both hops and give the indirect operand.</span></p></div>
+
+<div class="fr"><p><span class="chk">999.</span> (EA = M[1200] = 4500, then operand = M[4500] = 999.)
+Now <b>register indirect</b> with R1 = 1500: the register holds the address, so operand = M[R1].
+<span class="ask">Give the register-indirect operand.</span></p></div>
+
+<div class="fr"><p><span class="chk">6000.</span> (R1 = 1500, so operand = M[1500] = 6000.) Finally
+<b>relative</b>, an add-mode: EA = PC + field, with PC = 7000 and field = 1200.
+<span class="ask">Give the relative EA.</span></p></div>
+
+<div class="fr"><p><span class="chk">8200.</span> (7000 + 1200 = 8200. The table gives no M[8200], so
+you would report the EA and never invent a value.) <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the whole thing on one card. Immediate = the operand is <b>in</b> the
+instruction (zero hops). Direct = <b>one</b> hop. Indirect = <b>two</b> hops. And the add-modes
+(relative, indexed, base) <b>add</b> a register or the PC to the field first, then read there.
+<span class="ask">Order these by hops, fewest first: direct, immediate, indirect.</span></p></div>
+
+<div class="fr"><p><span class="chk">immediate (0), direct (1), indirect (2).</span> That is every mode
+you need. Now study the worked example and recall below, which run this exact PC = 7000, R1 = 1500,
+field = 1200 example, and sit them with the answers covered.</p></div>
+</div></div>
+
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The modes, as hops</span></div>
 <div class="body"><p>The <b>effective address (EA)</b> is where the operand really is;
 <b>M[x]</b> means "the value stored at address x". Each mode is one more hop than the last:</p>

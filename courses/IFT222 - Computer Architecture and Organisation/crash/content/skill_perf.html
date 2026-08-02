@@ -7,23 +7,58 @@
 almost everything: the CPU-time equation and Amdahl's law. This is the most heavily weighted
 numeric topic on the recent paper.</p>
 
-<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The performance formulas</span></div>
-<div class="body"><p>A program's time is how many instructions it runs, times the average
-cycles each takes, times how long a cycle lasts:</p>
-<ul class="bul">
-<li><b>CPU time = IC &#215; CPI &#215; T</b>, where IC is the instruction count, CPI is the
-average cycles per instruction, and T is the clock cycle time. Since T = 1 / clock rate, this
-is also <b>CPU time = (IC &#215; CPI) / clock rate</b>.</li>
-<li><b>Average CPI = &#931; (fraction of each type &#215; its cycles)</b>, a weighted average.
-The fractions add to 1.</li>
-<li><b>MIPS = clock rate / (CPI &#215; 10<sup>6</sup>)</b>, millions of instructions per
-second.</li>
-<li><b>Improvement</b> = (old &#8722; new) / old, always measured against the <b>old</b>
-time.</li>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.</p>
+
+<div class="fr"><p>Everything about processor speed comes from one equation. A program's running time is three numbers multiplied together: CPU time = IC &#215; CPI &#215; T. IC is the instruction count (how many instructions actually run), CPI is the average cycles per instruction, and T is how long one clock cycle lasts. <span class="ask">Say what each of the three, IC, CPI and T, stands for, then slide down.</span></p></div>
+
+<div class="fr"><p><span class="chk">instruction count, average cycles per instruction, clock cycle time.</span> The clock rate you see advertised (say 4 GHz) is cycles per second, so one cycle lasts T = 1 / clock rate. <span class="ask">Put that in place of T and write CPU time using clock rate.</span></p></div>
+
+<div class="fr"><p><span class="chk">CPU time = (IC &#215; CPI) / clock rate.</span> So a faster clock shortens the time, but a smaller instruction count or a smaller CPI does too. All three matter. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Look closer at CPI. Instructions are not all equal: a register add may take 1 cycle, an indirect memory access 4. The average CPI weights each type by how often it appears, adding up (fraction of the type &#215; its cycles) over all types. The fractions must add to 1. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Try a tiny one. A program is 70% simple instructions at 1 cycle each and 30% at 3 cycles each. <span class="ask">Work out the average CPI: (0.70 &#215; 1) + (0.30 &#215; 3).</span></p></div>
+
+<div class="fr"><p><span class="chk">1.60.</span> (0.70 &#215; 1 = 0.70, and 0.30 &#215; 3 = 0.90, giving 1.60.) Notice 0.70 and 0.30 add to 1, exactly as the fractions must. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>A second speed measure is MIPS, millions of instructions per second: MIPS = clock rate / (CPI &#215; 10<sup>6</sup>). A faster clock or a lower CPI both raise it. <span class="ask">If the clock rate is 2 &#215; 10<sup>9</sup> and CPI is 2, find the MIPS.</span></p></div>
+
+<div class="fr"><p><span class="chk">1000 MIPS.</span> (2 &#215; 10<sup>9</sup> divided by (2 &#215; 10<sup>6</sup>) gives 1000.) <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>When you improve something, always measure the gain against the OLD time: improvement = (old &#8722; new) / old. <span class="ask">Old time 200, new time 150: what fraction is the improvement?</span></p></div>
+
+<div class="fr"><p><span class="chk">0.25, that is 25%.</span> ((200 &#8722; 150) / 200 = 50 / 200 = 0.25.) Divide by the old value, never the new. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>So is a chip fast just because its clock is fast? No. Because time = (IC &#215; CPI) / clock rate, the instruction count and CPI count just as much, and behind CPI sit cache behaviour, branch prediction and instruction-level parallelism. <span class="ask">Name one reason a high-clock chip can still be slow.</span></p></div>
+
+<div class="fr"><p><span class="chk">a high CPI</span> (or a large instruction count, or poor cache or branch behaviour). That is why "judge a processor by clock frequency only" is wrong. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the second big formula, Amdahl's law. Suppose you speed up only PART of a task. The part you did not touch still takes its full time, so it caps the gain. Let f be the fraction of the original time spent in the part you improve, and let s be how many times faster you make that part. <span class="ask">In your own words, what does f stand for?</span></p></div>
+
+<div class="fr"><p><span class="chk">the fraction of the time spent in the part you speed up.</span> That part's time shrinks from f to f / s, while the rest, (1 &#8722; f), is unchanged. If the whole job was time 1, the new time is (1 &#8722; f) + f / s, and speedup is old over new. <span class="ask">Write the speedup S.</span></p></div>
+
+<div class="fr"><p><span class="chk">S = 1 / ((1 &#8722; f) + f / s).</span> Old time 1 on top, new time (1 &#8722; f) + f / s on the bottom. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Push s as large as you like, so f / s shrinks towards 0. Then S climbs only as far as 1 / (1 &#8722; f), because the untouched (1 &#8722; f) never goes away. Memory hook: the slow part you left alone sets the ceiling. <span class="ask">With f = 0.85, what is the best speedup possible, even with an infinite s?</span></p></div>
+
+<div class="fr"><p><span class="chk">about 6.67.</span> (1 / (1 &#8722; 0.85) = 1 / 0.15 = 6.67.) Now a real, finite case: a cache 10 times faster (s = 10) that the CPU hits 85% of the time (f = 0.85). First find the new time, (1 &#8722; f) + f / s. <span class="ask">Compute 0.15 + 0.85 / 10.</span></p></div>
+
+<div class="fr"><p><span class="chk">0.235.</span> (0.15 + 0.085 = 0.235.) So S = 1 / 0.235. <span class="ask">Finish it: what is S?</span></p></div>
+
+<div class="fr"><p><span class="chk">about 4.26.</span> (1 / 0.235 = 4.26.) Far below the cache's 10 times, because the 15% of slow accesses dominate, which is exactly Amdahl's point. The reference card and the two worked examples below sit both of these formulas; do them with the answers covered.</p></div>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">the performance formulas on one card</span></div>
+<div class="body"><ul class="bul">
+<li><b>CPU time = IC &#215; CPI &#215; T = (IC &#215; CPI) / clock rate</b> (since T = 1 / clock rate).</li>
+<li><b>Average CPI = &#931;(fraction of each type &#215; its cycles)</b>, and the fractions add to 1.</li>
+<li><b>MIPS = clock rate / (CPI &#215; 10<sup>6</sup>)</b>.</li>
+<li><b>Improvement = (old &#8722; new) / old</b>, always against the old time.</li>
+<li><b>Amdahl's law: S = 1 / ((1 &#8722; f) + f / s)</b>, ceiling <b>1 / (1 &#8722; f)</b>.</li>
 </ul>
-<p>So performance is <b>not</b> set by clock speed alone: it also depends on the instruction
-count and the CPI (and behind CPI, the cache, branch prediction and instruction-level
-parallelism). That is why "judge a processor by clock frequency only" is wrong.</p></div></div>
+<p><b>Memory hook:</b> the slow part you left alone sets the ceiling, no matter how fast you make the rest.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
 <div class="body"><p>One million instructions, by addressing mode: Register 40% at 1 cycle,
@@ -49,15 +84,6 @@ Indirect 4 -> 2:  new CPI = 1.70 - 0.10x4 + 0.10x2
 Improvement = (1.70 - 1.50) / 1.70 = 0.20 / 1.70 = 11.76%</pre>
 <div class="answerbox">CPI 1.70; total cycles 1 700 000; new CPI 1.50; improvement 11.76%.</div>
 <p class="redo"><b>Now redo it:</b> weighted average, then recompute with the one changed cost.</p></div></div>
-
-<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Amdahl's law</span></div>
-<div class="body"><p><b>Amdahl's law:</b> if you speed up only part of a task, the part you did
-not touch limits the gain. Let <b>f</b> be the fraction of the time spent in the part you
-improve, and let that part become <b>s</b> times faster. Then the overall speedup is</p>
-<div class="answerbox">S = 1 / ( (1 &#8722; f) + f / s )</div>
-<p>As s grows without limit, the speedup can never beat <b>1 / (1 &#8722; f)</b>, because the
-untouched fraction (1 &#8722; f) still takes its full time. <b>Memory hook:</b> the slow part
-you left alone sets the ceiling, no matter how fast you make the rest.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">the method, vertically</span></div>
 <div class="body"><p>A cache is 10 times faster than main memory, and the CPU finds what it needs

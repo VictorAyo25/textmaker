@@ -30,52 +30,101 @@
 live right here: what a computer is made of, and the one distinction the examiner asks in a
 dozen disguises, architecture versus organization.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">What a computer is</span></div>
-<div class="body"><p>A computer runs a program by repeating three steps forever:
-<b>fetch</b> an instruction from memory, <b>decode</b> it (work out what it means), and
-<b>execute</b> it. This is the <b>fetch, decode, execute cycle</b>. The big idea, called the
-<b>stored-program</b> or <b>Von Neumann</b> concept, is that <b>the program and the data live
-together in the same memory</b>, both just binary numbers. That is what makes a computer
-general: change the numbers in memory and it does a different job.</p></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The parts inside</span></div>
-<div class="body"><p>The <b>CPU</b> (central processing unit, the processor) has two working
-parts and a handful of tiny fast stores called <b>registers</b>:</p>
-<ul class="bul">
-<li>The <b>control unit (CU)</b> is the conductor: it fetches each instruction and sends out
-the <b>control signals</b> that make everything else act at the right moment.</li>
-<li>The <b>arithmetic and logic unit (ALU)</b> does the actual work: add, subtract, AND, OR,
-compare.</li>
-<li><b>Registers</b> hold what the CPU is using right now. Learn four by name: the
-<b>program counter (PC)</b> holds the address of the next instruction; the <b>instruction
-register (IR)</b> holds the instruction being executed; the <b>memory address register
-(MAR)</b> holds the address the CPU is about to read or write; the <b>memory data register
-(MDR)</b> holds the data going to or coming from memory.</li>
-</ul>
-<p>Everything talks over three <b>buses</b> (shared wires): the <b>address bus</b> carries
-which location is wanted, the <b>data bus</b> carries the value itself, and the <b>control
-bus</b> carries the signals that say read or write and when.</p></div></div>
+<div class="fr"><p>A computer runs a program by repeating three steps forever: it <b>fetches</b> an
+instruction from memory, <b>decodes</b> it (works out what it means), then <b>executes</b> it,
+and loops back to do it all again. That never-ending loop is the <b>fetch, decode, execute
+cycle</b>. <span class="ask">Name the three steps, in order.</span></p></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The one distinction they love: architecture vs organization</span></div>
-<div class="body"><p>This is the most asked idea on the objective test. Learn it once, cleanly.</p>
-<ul class="bul">
-<li><b>Computer architecture</b> is <b>what the machine does, as the programmer sees it</b>.
-It answers <i>"what does the computer do?"</i> It is the <b>instruction set architecture
-(ISA)</b>: the instructions available, the data types, the addressing modes, the registers a
-program can name, the instruction formats. If a programmer can see it or use it, it is
-architecture.</li>
-<li><b>Computer organization</b> is <b>how the machine is built to do it</b>. It answers
-<i>"how does it do it?"</i> It is the hidden hardware: the control signals, the buses, the
-memory technology used, the cache, how many execution units there are. The programmer never
-sees it directly; it decides <b>how fast and how efficiently</b> the job gets done.</li>
-</ul>
-<p>The clean test: <b>can a program see it or name it? Then it is architecture. Is it an
-implementation choice hidden inside? Then it is organization.</b> Two chips with the
-<b>same ISA</b> run the <b>same programs</b> (binary compatible) but can differ wildly in
-speed, because their <b>organization</b> differs. The deeper hardware realisation of an ISA
-is also called the <b>microarchitecture</b>: same ISA, different microarchitecture, different
-performance. (There are two whole ISA styles, the reduced instruction set computer and the
-complex instruction set computer, RISC and CISC; they are compared in Part C.)</p></div></div>
+<div class="fr"><p><span class="chk">fetch, decode, execute.</span> Where do those instructions
+live? In <b>memory</b>, written as plain binary numbers, sitting right beside the <b>data</b>
+they work on. This one idea, the program and the data together in the <b>same</b> memory, is the
+<b>stored-program</b> (or <b>Von Neumann</b>) concept. <span class="ask">Are the program and the
+data kept in the same memory, or in two separate ones?</span></p></div>
+
+<div class="fr"><p><span class="chk">the same memory.</span> That is exactly what makes a computer
+<b>general</b>: change the numbers in memory and the same machine does a different job. Now look
+inside the processor, the <b>CPU</b>. Its first working part is the <b>control unit (CU)</b>,
+the conductor: it fetches each instruction and sends out the <b>control signals</b> that make
+everything act at the right moment. <span class="ask">Does the CU itself do the adding and
+subtracting, yes or no?</span></p></div>
+
+<div class="fr"><p><span class="chk">no.</span> The adding, subtracting, AND, OR and comparing is
+the job of the second part, the <b>arithmetic and logic unit (ALU)</b>. So keep the two apart:
+the <b>CU directs</b>, the <b>ALU calculates</b>. <span class="ask">Which unit actually works
+out 7 + 5?</span></p></div>
+
+<div class="fr"><p><span class="chk">the ALU.</span> The CPU also keeps a few tiny, very fast
+stores called <b>registers</b>, each holding something it needs right now. The first is the
+<b>program counter (PC)</b>: it holds the <b>address of the next instruction</b> to fetch.
+<span class="ask">What does the PC hold?</span></p></div>
+
+<div class="fr"><p><span class="chk">the address of the next instruction.</span> Once an
+instruction has been fetched, it is held in the <b>instruction register (IR)</b> while it is
+decoded and run. <span class="ask">Which register holds the instruction currently being
+executed?</span></p></div>
+
+<div class="fr"><p><span class="chk">the IR.</span> Two more registers, both for talking to
+memory. The <b>memory address register (MAR)</b> holds the address the CPU is about to read from
+or write to. <span class="ask">Does the MAR hold an address, or a value?</span></p></div>
+
+<div class="fr"><p><span class="chk">an address.</span> Its partner, the <b>memory data register
+(MDR)</b>, holds the <b>data itself</b> going to or coming from memory. So the MAR says <i>which
+location</i>, and the MDR carries <i>the value there</i>. <span class="ask">From memory, name all
+four registers you have now met.</span></p></div>
+
+<div class="fr"><p><span class="chk">PC, IR, MAR, MDR.</span> How do these parts reach each other
+and memory? Over three shared sets of wires called <b>buses</b>. The <b>address bus</b> carries
+<b>which location</b> is wanted. <span class="ask">Which register's contents would travel out on
+the address bus?</span></p></div>
+
+<div class="fr"><p><span class="chk">the MAR</span> (the address it is holding). The <b>data
+bus</b> carries the <b>value itself</b>, and the <b>control bus</b> carries the signals that say
+<b>read or write, and when</b>. <span class="ask">Which of the three buses carries the value
+itself?</span></p></div>
+
+<div class="fr"><p><span class="chk">the data bus.</span> Now the idea the examiner asks in a
+dozen disguises: <b>architecture</b> versus <b>organization</b>. <b>Computer architecture</b> is
+<b>what the machine does, as the programmer sees it</b>; it answers <i>"what does the computer
+do?"</i> <span class="ask">Does architecture describe what the programmer can see, or the hidden
+hardware?</span></p></div>
+
+<div class="fr"><p><span class="chk">what the programmer can see.</span> Concretely, architecture
+is the <b>instruction set architecture (ISA)</b>: the instructions available, the data types,
+the addressing modes, the registers a program can name, the instruction formats. Rule of thumb:
+<b>if a program can see it or name it, it is architecture</b>. <span class="ask">So is the list
+of addressing modes architecture?</span></p></div>
+
+<div class="fr"><p><span class="chk">yes</span> (a program chooses among them, so architecture).
+Its opposite is <b>computer organization</b>: <b>how the machine is built to do it</b>. It is
+the hidden hardware, the control signals, the buses, the memory technology, the cache, how many
+execution units there are; the programmer never sees it, and it decides how fast the job gets
+done. <span class="ask">Architecture answers "what"; organization answers which one-word
+question?</span></p></div>
+
+<div class="fr"><p><span class="chk">"how".</span> Here is the clean test: <b>can a program see it
+or name it? Then architecture. Is it an implementation choice hidden inside? Then
+organization.</b> Try it on a hard one, <b>the size of the cache</b>. <span class="ask">Is cache
+size architecture or organization?</span></p></div>
+
+<div class="fr"><p><span class="chk">organization</span> (a hidden build choice; no program names
+the cache size). Because the ISA is all a program sees, two chips with the <b>same ISA</b> run
+the <b>same programs</b> (they are <b>binary compatible</b>), yet can differ wildly in speed
+because their organization differs; that deeper hardware realisation is the
+<b>microarchitecture</b>. <span class="ask">If two chips share an ISA, will one compiled program
+run on both?</span></p></div>
+
+<div class="fr"><p><span class="chk">yes.</span> One hook to lock it in for the test: architecture
+is the <b>blueprint</b> (the design); organization is the <b>construction</b> (how it is
+actually built). Same blueprint, two builders, two speeds. (There are two whole ISA styles you will meet in
+Part C: the reduced instruction set computer, RISC, and the complex instruction set computer,
+CISC.) Now slide down to the sorting card
+below and read both columns; most arch-vs-org questions are simply <i>"which side is
+this?"</i></p></div>
+</div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Sort it: architecture or organization</span></div>
 <div class="body"><p>Memorise these two lists. Most arch-vs-org MCQs are just "which side is
@@ -92,19 +141,40 @@ this?"</p>
 <b>construction</b> (how it is actually built). Same blueprint, two builders, two costs and
 two speeds.</p></div></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Von Neumann vs Harvard, and how to draw each</span></div>
-<div class="body"><p>Two ways to wire memory to the CPU. The distinction the examiner wants is
-whether instructions and data share <b>one</b> memory or sit in <b>two</b> separate ones:</p>
-<ul class="bul">
-<li><b>Von Neumann:</b> <b>one</b> memory and one bus for <b>both</b> instructions and data.
-Simple and cheap, but the shared path is a bottleneck (you cannot fetch an instruction and
-read data at the very same moment).</li>
-<li><b>Harvard:</b> <b>separate</b> memories and buses for instructions and data. More
-hardware (the address, data and control lines are duplicated), but it can <b>fetch an
-instruction and read data at the same time</b>, a form of parallelism, and that is its whole
-advantage.</li>
-</ul>
-<p><b>How to draw each</b> (the paper asks for a diagram, so practise it): draw the CPU as one
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">the two memory designs</span></div>
+<div class="body">
+<p class="howto">Same as before: keep the page covered, read a frame, do the small task, then
+slide the card down one line to check.</p>
+
+<div class="fr"><p>Two ways to wire memory to the CPU, and the examiner wants the difference. The
+first you have already met, <b>Von Neumann</b>: <b>one</b> memory and one bus shared by
+<b>both</b> instructions and data. It is simple and cheap. <span class="ask">In a Von Neumann
+machine, how many memories hold the instructions and the data?</span></p></div>
+
+<div class="fr"><p><span class="chk">one</span> (shared). That single shared path has a price:
+the CPU <b>cannot</b> fetch an instruction and read data at the very same moment, they must take
+turns on the one bus. That traffic jam is the well-known <b>bottleneck</b>.
+<span class="ask">What do we call the slowdown caused by sharing one path?</span></p></div>
+
+<div class="fr"><p><span class="chk">the bottleneck.</span> The rival design is <b>Harvard</b>:
+<b>separate</b> memories and <b>separate</b> buses, one set for instructions and another for
+data. It costs more hardware, since the address, data and control lines are duplicated.
+<span class="ask">How many separate memories does a Harvard machine use?</span></p></div>
+
+<div class="fr"><p><span class="chk">two.</span> That extra hardware buys one thing: Harvard can
+<b>fetch an instruction and read data at the same time</b>, a form of parallelism, and that is
+its whole advantage. <span class="ask">Which design, Von Neumann or Harvard, can fetch an
+instruction and read data at once?</span></p></div>
+
+<div class="fr"><p><span class="chk">Harvard.</span> So hold the trade in your head: Von Neumann is
+<b>one</b> memory, cheap but with a shared bottleneck; Harvard is <b>two</b> memories, more
+hardware but faster because both happen together. Now look just below at the two diagrams and
+the <b>how to draw each</b> note, and practise drawing both, because the paper asks for exactly
+that.</p></div>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Draw it</span><span class="tag">Von Neumann vs Harvard on paper</span></div>
+<div class="body"><p><b>How to draw each</b> (the paper asks for a diagram, so practise it): draw the CPU as one
 box. For <b>Von Neumann</b>, join it by a single line, the shared bus, to <b>one</b> Memory box
 holding instructions and data together. For <b>Harvard</b>, draw <b>two</b> memory boxes, an
 instruction memory and a data memory, and join <b>each</b> to the CPU by its own bus.</p>

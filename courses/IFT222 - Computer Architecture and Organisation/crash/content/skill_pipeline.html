@@ -7,13 +7,28 @@
 that washes one load while drying the last. It speeds the processor up, and the paper asks you
 to compute that speedup and to name the hazards that get in the way.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The idea, and the stages</span></div>
-<div class="body"><p>Split each instruction into <b>k</b> stages. A common five are <b>IF</b>
-(instruction fetch), <b>ID</b> (instruction decode), <b>EX</b> (execute), <b>MEM</b> (memory
-access) and <b>WB</b> (write back). Without a pipeline one instruction finishes before the next
-starts. <b>With</b> a pipeline, as soon as an instruction leaves a stage the next enters it, so
-once the pipe is full <b>one instruction finishes every clock cycle</b>. The clock cycle is set
-by the <b>slowest stage</b> (plus a tiny latch delay between stages).</p></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.</p>
+
+<div class="fr"><p>Pipelining means overlapping instructions so several are in progress at once. Picture a laundry: you do not wait for one load to wash, dry and fold before starting the next, because the moment the first load moves to the dryer the second goes into the washer. A processor overlaps its instructions the same way. <span class="ask">What everyday process is pipelining most like?</span></p></div>
+
+<div class="fr"><p><span class="chk">a laundry</span> (or any assembly line). To overlap them, we split each instruction into stages, called k stages. A common five are IF (instruction fetch), ID (instruction decode), EX (execute), MEM (memory access) and WB (write back). Each stage is its own hardware, so five instructions can each sit in a different stage at the same moment. <span class="ask">Name the five stages in order.</span></p></div>
+
+<div class="fr"><p><span class="chk">IF, ID, EX, MEM, WB.</span> Without a pipeline, instruction 2 cannot start until instruction 1 has passed through every stage. With a pipeline, the instant an instruction leaves a stage the next one enters it, so once the pipe is full one instruction finishes every clock cycle. <span class="ask">Once the pipe is full, how many instructions complete per clock cycle?</span></p></div>
+
+<div class="fr"><p><span class="chk">one every cycle.</span> That steady one-per-cycle output is the whole payoff. Now, how long is one clock cycle? Every stage must finish inside it, so the cycle is set by the slowest stage plus a small latch delay between stages, never the average and never the sum. <span class="ask">If the stages take 60, 50, 90, 80 ns with a 10 ns latch, what is the cycle time?</span></p></div>
+
+<div class="fr"><p><span class="chk">100 ns.</span> (The slowest stage is 90 ns, plus the 10 ns latch, giving 100 ns.) <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the time for n instructions. The first takes k cycles to fill the pipe; after that one more finishes every cycle, so n instructions take (k + n &#8722; 1) cycles, which you then multiply by the cycle time. <span class="ask">With k = 4 stages and n = 500 tasks, how many cycles is that?</span></p></div>
+
+<div class="fr"><p><span class="chk">503 cycles.</span> (4 + 500 &#8722; 1 = 503, and at 100 ns each that is 50 300 ns.) <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Without the pipeline each instruction needs its full one-instruction time, the sum of the stage times, here 60 + 50 + 90 + 80 = 280 ns. The speedup is that one-instruction time divided by the cycle time, and it can never exceed k, the number of stages. <span class="ask">Divide 280 ns by the 100 ns cycle to get the speedup.</span></p></div>
+
+<div class="fr"><p><span class="chk">2.8.</span> (280 / 100 = 2.8, below the ceiling of k = 4 stages.) For a whole batch you compare totals instead: 500 &#215; 280 = 140 000 ns without a pipeline, against 50 300 ns with one. The reference card and the two worked examples below sit exactly these; do them with the answers covered.</p></div>
+</div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">The pipeline sums</span></div>
 <div class="body"><ul class="bul">
@@ -66,20 +81,26 @@ Speedup            = 3000 / 660 = 4.55</pre>
 <p class="redo"><b>Now redo it:</b> n &#215; per-instruction time without, (k + n &#8722; 1)
 &#215; cycle with, then divide.</p></div></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The three hazards</span></div>
-<div class="body"><p>Overlapping can clash. Three kinds of <b>hazard</b>, and you must name them:</p>
-<ul class="bul">
-<li><b>Structural hazard:</b> two instructions need the <b>same hardware</b> at once (one memory
-for a fetch and a data access). Fixed by duplicating the resource.</li>
-<li><b>Data hazard:</b> an instruction needs a result the one before it has not written yet.
-The three types, by the order two instructions touch the same register: <b>RAW</b> (read after
-write, the true dependency, eased by <b>forwarding</b>), <b>WAR</b> (write after read), and
-<b>WAW</b> (write after write). When forwarding cannot help, the pipeline <b>stalls</b> (a
-bubble).</li>
-<li><b>Control hazard:</b> a <b>branch</b> changes what runs next, but the pipeline already
-fetched the following instructions. Eased by <b>branch prediction</b> and speculative
-execution, which exist precisely to <b>reduce control-hazard stalls</b>.</li>
-</ul></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.</p>
+
+<div class="fr"><p>Overlapping is not free: sometimes two instructions in the pipe clash, and a clash is called a hazard. There are three kinds, and you must be able to name them. The first is the structural hazard, where two instructions need the same piece of hardware in the same cycle (one memory wanted for a fetch and a data access at once). <span class="ask">How do you remove a structural hazard?</span></p></div>
+
+<div class="fr"><p><span class="chk">duplicate the resource</span> (for example, separate instruction and data memories, so each instruction has its own). The second kind is the data hazard: an instruction needs a result that an earlier instruction has not written yet. We name its three types by the order in which two instructions touch the same register. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>RAW (read after write) is the true dependency: the second instruction reads a register the first has not written yet. It is eased by forwarding, which feeds the result straight from where it is produced to where it is needed, before the write-back stage. <span class="ask">Which of the three data hazards is the real dependency?</span></p></div>
+
+<div class="fr"><p><span class="chk">RAW.</span> The other two, WAR (write after read) and WAW (write after write), are only naming clashes over the same register, not true data flow. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>When forwarding cannot deliver the value in time, the pipeline must stall: it inserts a bubble, an idle cycle, until the value is ready. <span class="ask">What is the idle cycle a stall inserts called?</span></p></div>
+
+<div class="fr"><p><span class="chk">a bubble.</span> The third kind is the control hazard: a branch changes which instruction runs next, but the pipe has already fetched the ones right after the branch. It is eased by branch prediction and speculative execution, whose whole purpose is to reduce control-hazard stalls. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now classify one pair. The first instruction writes R3, and the second instruction reads R3. The shared register is R3, and the order is write then read. <span class="ask">Which data hazard is that?</span></p></div>
+
+<div class="fr"><p><span class="chk">RAW</span> (write then read is exactly read-after-write). That is every hazard idea in place. The box just below shows how to draw the pipeline timing diagram the paper sometimes asks for; after it, sit the two "your turn" boxes with the answers covered.</p></div>
+</div></div>
 
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">How to draw the timing (cycle) diagram</span></div>
 <div class="body"><p>The paper sometimes says <i>"draw the pipeline timing diagram"</i> or <i>"draw the

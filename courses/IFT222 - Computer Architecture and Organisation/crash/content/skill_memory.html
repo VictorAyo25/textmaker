@@ -4,73 +4,112 @@
 <h2 class="title">Memory and Cache</h2>
 <hr class="rule">
 <p class="lead">The memory hierarchy carries the largest single block of objective questions, and
-cache mapping is the most examined calculation on the whole course. It looks fiddly, but once you
-see what the cache is actually doing it is the same four steps every time. Two teach boxes of
-facts, then one method for the cache sums.</p>
+cache mapping is the most examined calculation on the whole course. It looks fiddly, so we do it
+as a <b>programme</b>: many tiny steps, and you check each one before moving on. By the end the
+cache split will be the same four moves every time.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The hierarchy, and the memory types</span></div>
-<div class="body"><p>Memory is arranged in levels. From <b>fastest to slowest</b>:
-<b>registers &#8594; cache &#8594; main memory &#8594; secondary storage</b> (disk, SSD). Think of
-it like your workspace: the few things in your hands (registers), the book open on your desk
-(cache), the shelf beside you (main memory), and the library across campus (disk). You keep what
-you use most closest, because reaching further costs time. Going up, memory gets <b>faster,
-smaller, and more expensive per bit</b>; registers are the fastest and the <b>highest cost per
-bit</b>. The reason there are levels at all is a trade-off: you cannot have fast, big and cheap at
-once.</p>
-<ul class="bul">
-<li><b>SRAM</b> (static RAM) uses <b>flip-flops</b>: fast, <b>no refresh</b>, but costly and
-low density, so it is used for <b>cache</b>.</li>
-<li><b>DRAM</b> (dynamic RAM) uses <b>capacitors</b>: dense and cheap but slower and <b>needs
-periodic refresh</b>, so it is used for <b>main memory</b>.</li>
-<li><b>ROM</b> is <b>non-volatile</b> and holds firmware permanently. <b>Flash</b> is also
-non-volatile. RAM, cache and DRAM are all <b>volatile</b> (lost on power off).</li>
-</ul>
-<p>Two more facts the MCQs love: the <b>memory address register (MAR)</b> holds the address
-currently being accessed; and <b>access time</b> is how long one access takes, while
-<b>cycle time</b> is the minimum gap between the starts of two accesses, so a device with 60 ns
-access and 90 ns cycle can start a new access only every 90 ns.</p></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Locality, the memory wall, virtual memory</span></div>
-<div class="body"><p>Why does keeping a small nearby cache help at all? Because programs are
-predictable in two ways, together called <b>locality of reference</b>:</p>
-<ul class="bul">
-<li><b>Temporal locality:</b> a location used now is likely used again <b>soon</b> (reusing the
-same instruction or variable, for example a loop counter).</li>
-<li><b>Spatial locality:</b> once a location is used, <b>nearby</b> locations are likely used
-next (stepping through an array). This is why the cache copies a whole <b>block</b> at a time,
-not one byte.</li>
-</ul>
-<p>Even so, cache cannot fix everything: the growing gap between fast CPUs and slow memory is
-the <b>memory wall</b>, and it is why a processor can still wait on data despite a big cache.
-<b>Virtual memory</b> lets a program use an address space <b>larger than the physical RAM</b>,
-with a memory management unit (MMU) translating addresses.</p></div></div>
+<div class="fr"><p>Memory is arranged in <b>levels</b>, fastest to slowest: <b>registers</b>, then
+<b>cache</b>, then <b>main memory</b>, then <b>secondary storage</b> (disk or SSD).
+<span class="ask">Of those four, which is the fastest?</span></p></div>
 
-<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Cache: the address split, in five steps</span></div>
-<div class="body"><p>Picture the cache as a wall of numbered <b>hooks</b> (the <b>lines</b>), each
-big enough to hold one <b>block</b>, a short run of consecutive bytes copied from memory together.
-Far more blocks exist in memory than there are hooks, so many blocks compete for the same hook.
-When the CPU names an address, the address itself answers <b>three questions</b>, and that is
-exactly why it splits into three fields:</p>
-<ul class="bul">
-<li><b>Offset</b> (the low bits): <i>which byte inside the block?</i></li>
-<li><b>Index</b> or <b>set</b> (the middle bits): <i>which hook does this block hang on?</i></li>
-<li><b>Tag</b> (the high bits): <i>which</i> of the many blocks that share this hook is actually
-hanging here? The tag is stored beside the block and compared on every access; a match is a
-<b>hit</b>, no match is a <b>miss</b>.</li>
-</ul>
-<p>So the sizes fall out in this order:</p>
-<ul class="bul">
+<div class="fr"><p><span class="chk">registers.</span> Picture it as your workspace: the few things in
+your hands (registers), the book open on your desk (cache), the shelf beside you (main memory), and
+the library across campus (disk). You keep what you use most closest, because reaching further
+costs time. <span class="ask">As you climb toward registers, does memory get cheaper or dearer per
+bit?</span></p></div>
+
+<div class="fr"><p><span class="chk">dearer.</span> Climbing up, memory gets faster, smaller, and more
+expensive per bit. The reason there are levels at all is a trade-off: you cannot have fast, big and
+cheap at once. <span class="ask">So which level has the highest cost per bit?</span></p></div>
+
+<div class="fr"><p><span class="chk">registers.</span> Now the two kinds of RAM. <b>SRAM</b> (static RAM)
+is built from <b>flip-flops</b>: fast, needs <b>no refresh</b>, but costly and low density.
+<span class="ask">Given it is fast but costly, which level is SRAM used for?</span></p></div>
+
+<div class="fr"><p><span class="chk">cache.</span> <b>DRAM</b> (dynamic RAM) is built from
+<b>capacitors</b>: dense and cheap, but slower and it <b>needs periodic refresh</b>, so it is used
+for <b>main memory</b>. (ROM and Flash are non-volatile; RAM, cache and DRAM are volatile, lost on
+power off.) <span class="ask">Which kind of RAM has to be refreshed?</span></p></div>
+
+<div class="fr"><p><span class="chk">DRAM.</span> Two facts the MCQs love: the <b>MAR</b> (memory address
+register) holds the address being accessed; and <b>access time</b> is how long one access takes,
+while <b>cycle time</b> is the minimum gap between the <b>starts</b> of two accesses.
+<span class="ask">A device with 60 ns access and 90 ns cycle can start a new access how often?</span></p></div>
+
+<div class="fr"><p><span class="chk">every 90 ns</span> (the cycle time, not the access time). Now, why
+does a small nearby cache help at all? Because programs are predictable, a habit called
+<b>locality of reference</b>. It comes in two kinds. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Temporal</b> locality: a location used now is likely used again <b>soon</b>
+(think of a loop counter, read over and over). <span class="ask">Reusing the same location again
+soon is which locality?</span></p></div>
+
+<div class="fr"><p><span class="chk">temporal.</span> <b>Spatial</b> locality: once a location is used,
+<b>nearby</b> ones are likely used next (stepping through an array). That is exactly why the cache
+copies a whole <b>block</b> at a time, not one lonely byte. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Two limits to know by name. The <b>memory wall</b> is the widening gap between
+fast CPUs and slow memory, which is why a processor can still wait on data despite a big cache.
+<b>Virtual memory</b> lets a program use an address space <b>larger than the physical RAM</b>, with
+a memory management unit (MMU) translating the addresses. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the cache sum itself, gently. Picture the cache as a wall of numbered
+<b>hooks</b> (the <b>lines</b>), each big enough to hold one <b>block</b>, a short run of
+consecutive bytes copied from memory together. Far more blocks exist in memory than there are
+hooks, so many blocks compete for the same hook. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>When the CPU names an address, that address answers <b>three questions</b>, and
+that is exactly why it splits into three fields. The first, from the <b>low</b> bits, is the
+<b>offset</b>. <span class="ask">Which one thing does the offset pick out: which byte in the block,
+which hook, or which block?</span></p></div>
+
+<div class="fr"><p><span class="chk">which byte inside the block.</span> The middle bits are the
+<b>index</b> (or <b>set</b>): which <b>hook</b> the block hangs on. The high bits are the
+<b>tag</b>: <b>which</b> of the many blocks sharing that hook is actually here, stored beside the
+block and compared on every access. <span class="ask">A tag that matches means what?</span></p></div>
+
+<div class="fr"><p><span class="chk">a hit</span> (no match is a miss). Now the sizes, in order.
+<b>Address bits</b> = log<sub>2</sub>(main memory size). <b>Offset</b> = log<sub>2</sub>(block
+size). <span class="ask">A 16-byte block needs how many offset bits?</span></p></div>
+
+<div class="fr"><p><span class="chk">4</span> (log<sub>2</sub>16 = 4). <b>Number of lines</b> = cache
+size / block size. <b>Index bits</b> (direct mapped) = log<sub>2</sub>(lines).
+<span class="ask">A direct-mapped cache with 64 lines needs how many index bits?</span></p></div>
+
+<div class="fr"><p><span class="chk">6</span> (log<sub>2</sub>64 = 6). For a <b>k-way set associative</b>
+cache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets); <b>fully associative</b>
+has no index at all (any block on any hook). Whatever is left over is the <b>tag</b>: <b>tag bits</b>
+= address bits &#8722; index (or set) &#8722; offset. The <b>tag directory</b> = lines &#215; tag
+bits. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Last, the <b>average memory access time (AMAT)</b>, with hit ratio h, cache time
+T<sub>c</sub> and memory time T<sub>m</sub>. Hierarchical (cache first): AMAT = T<sub>c</sub> +
+(1 &#8722; h) &#215; T<sub>m</sub>. Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +
+(1 &#8722; h) &#215; T<sub>m</sub>. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><span class="chk">Done.</span> That is the whole method: address bits from the
+memory, offset from the block, lines from cache over block, tag is whatever is left, then the tag
+directory and AMAT. Now watch it on real numbers in the three worked examples below, then drill the
+six extra caches with a card over each row.</p></div>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">the cache split on one card</span></div>
+<div class="body"><ul class="bul">
 <li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>
 <li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>
 <li><b>Number of lines</b> = cache size / block size.</li>
 <li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>
 cache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully
-associative</b> has no index at all (any block may hang on any hook).</li>
+associative</b> has no index at all.</li>
 <li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The
 <b>tag directory</b> is lines &#215; tag bits.</li>
 </ul>
-<p>And the <b>average memory access time (AMAT)</b>, with hit ratio h, cache time
-T<sub>c</sub>, memory time T<sub>m</sub>:</p>
 <div class="answerbox">Hierarchical (cache first): AMAT = T<sub>c</sub> + (1 &#8722; h) &#215;
 T<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +
 (1 &#8722; h) &#215; T<sub>m</sub>.</div></div></div>

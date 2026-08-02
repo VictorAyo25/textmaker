@@ -4,49 +4,101 @@
 <h2 class="title">Floating Point, IEEE 754</h2>
 <hr class="rule">
 <p class="lead">One 32-bit pattern has to hold both a tiny number like 0.0000001 and a huge one
-like 6 billion. Whole-number binary cannot stretch that far, so a cleverer layout is used, the
-same trick you already know from science class. The exam asks it both ways: a decimal to its
-32-bit pattern, and a hex pattern back to decimal. One method each, and it is the same three
-fields every time.</p>
+like 6 billion, and plain whole-number binary cannot stretch that far. The fix is a trick you
+already know from science class, but people find it fiddly, so we do it as a <b>programme</b>:
+many tiny steps, and you check each one before moving on. Go slowly. By the last frame the three
+fields will feel obvious, and both exam directions fall out of a single line.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">It is just scientific notation, in binary</span></div>
-<div class="body"><p>You already do this in decimal. To write 6,020,000 compactly you put it as
-<b>6.02 &#215; 10<sup>6</sup></b>: a <b>sign</b> (it is positive), a <b>fraction</b> (6.02, the
-meaningful digits), and an <b>exponent</b> (6, how far the point moved). Floating point stores a
-number in exactly this shape, but in <b>base 2</b>: a sign, a fraction, and a power of <b>2</b>.
-Nothing more.</p>
-<p>Those three pieces are the three fields, stored left to right: <b>sign</b> (s), then
-<b>exponent</b> (E), then <b>mantissa</b> M (the fraction, also called the significand).</p>
-<ul class="bul">
-<li><b>Single precision:</b> <b>32 bits</b> = 1 sign + <b>8</b> exponent + 23 mantissa. It
-covers roughly 10<sup>&#177;38</sup>.</li>
-<li><b>Double precision:</b> <b>64 bits</b> = 1 sign + <b>11</b> exponent + 52 mantissa. It
-covers roughly 10<sup>&#177;308</sup>.</li>
-</ul>
-<p><b>Normalising</b> is the one preparation step. In decimal scientific notation you insist on
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
+
+<div class="fr"><p>Here is the whole problem in one line. You have <b>one</b> box, exactly 32 bits
+wide, and it must be able to write both a tiny number like <b>0.0000001</b> and a giant one like
+<b>6,000,000,000</b>. Plain whole-number binary, the kind you have used so far, cannot reach both
+ends. <span class="ask">Can plain whole-number binary write both of those in 32 bits? Yes or no?</span></p></div>
+
+<div class="fr"><p><span class="chk">No.</span> It runs out of room. But you already beat this same
+problem in <b>decimal</b>, in science class: to write 6,020,000 compactly you put it as
+<b>6.02 &#215; 10<sup>6</sup></b>. Hidden in that little form are three separate pieces of
+information. <span class="ask">Name the three pieces.</span></p></div>
+
+<div class="fr"><p><span class="chk">a sign (it is positive, +), a fraction (6.02), and an exponent
+(6).</span> That is all scientific notation is. Floating point does <b>exactly</b> this, but in
+<b>base 2</b>: a sign, a fraction, and a power of <b>2</b> instead of 10. Nothing more is going on.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>So a floating-point number is stored as those same three pieces, now called three
+<b>fields</b>, written left to right: the <b>sign</b> (s), then the <b>exponent</b> (E), then the
+<b>mantissa</b> M (which is just the fraction, also called the significand).
+<span class="ask">Which of the three fields sits on the far left?</span></p></div>
+
+<div class="fr"><p><span class="chk">the sign.</span> Now their sizes. <b>Single precision</b> is
+<b>32 bits</b>, split as <b>1</b> sign bit, then <b>8</b> exponent bits.
+<span class="ask">That leaves how many bits for the mantissa, to reach 32?</span></p></div>
+
+<div class="fr"><p><span class="chk">23.</span> (1 + 8 + 23 = 32.) You only need to <b>recognise</b> the
+bigger size: <b>double precision</b> is <b>64 bits</b>, split 1 + 11 + 52. Everything from here uses
+single precision. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>One preparation step, called <b>normalising</b>. In decimal you insist on
 <b>exactly one non-zero digit before the point</b> (6.02, never 60.2 or 0.602). In binary you do
-the same: slide the point until the number reads <b>1.something &#215; 2<sup>e</sup></b>. Since
-the only non-zero binary digit is 1, a normalised binary number <b>always</b> starts "1.", and
-that fact is about to save you a bit.</p></div></div>
+the same: slide the point until the number reads <b>1.something &#215; 2<sup>e</sup></b>. Since the
+only non-zero binary digit there can be is 1, <span class="ask">what single thing does a normalised
+binary number always start with?</span></p></div>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The two tricks: the hidden 1, and the bias</span></div>
-<div class="body"><p>Two small tricks trip up every beginner, so meet them head on. Both have a
-reason.</p>
-<ul class="bul">
-<li><b>The hidden 1.</b> A normalised number always starts with "1." (from the step above). Storing
-that 1 would waste a bit on something you already know, so it is <b>left out and just assumed</b>.
-That is the "hidden 1": when you <b>read</b> a pattern you put a "1." back in front of the
-mantissa; when you <b>write</b> one you drop the leading 1 and keep only what follows the point.
-It buys you one extra bit of precision for free.</li>
-<li><b>The bias.</b> The exponent can be <b>negative</b> (for a small number like 2<sup>&#8722;3</sup>)
-or positive (for a big one). Rather than give the exponent its own sign bit, we <b>add a fixed
-number, the bias</b>, so the stored exponent is always a positive count. Bias is <b>127</b> for
-single, <b>1023</b> for double. It is like storing temperatures as "degrees above &#8722;127" so a
-minus sign is never needed: to get the <b>true</b> exponent you <b>subtract</b> the bias again.</li>
-</ul>
-<p>Put together, the value a pattern stands for is
-<b>&#177; 1.M &#215; 2<sup>(exponent field &#8722; bias)</sup></b>. Learn that one line and both
-directions fall out of it.</p></div></div>
+<div class="fr"><p><span class="chk">"1." (a one, then the point).</span> Always. And here is the first
+trick that helps: because it is <b>always</b> "1.", actually storing that 1 would waste a bit on
+something you already know for certain. So it is <b>left out and just assumed</b>. This is the famous
+<b>hidden 1</b>. <span class="ask">When you READ a stored pattern back, what must you put in front of
+the mantissa?</span></p></div>
+
+<div class="fr"><p><span class="chk">a "1.".</span> Put the hidden 1 back before you read. And going the
+other way, when you <b>write</b> a number you drop that leading 1 and keep only what follows the
+point. It costs nothing and buys you one extra bit of precision for free.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the second trick, the one that trips up most beginners: the <b>bias</b>. The
+exponent can be <b>negative</b> (for a tiny number like 2<sup>&#8722;3</sup>) or positive (for a big
+one). Rather than give the exponent its own sign bit, we <b>add a fixed number, the bias</b>, so the
+stored exponent is always a positive count. The bias is <b>127</b> for single (1023 for double). It
+is like storing temperatures as "degrees above &#8722;127", so a minus sign is never needed.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>So the stored exponent field is the true exponent <b>plus</b> 127. To undo that and
+get the <b>true</b> exponent back, you simply <b>subtract</b> the bias again. Suppose a pattern has
+an exponent field of <b>130</b>. <span class="ask">What is its true exponent?</span></p></div>
+
+<div class="fr"><p><span class="chk">3.</span> (130 &#8722; 127 = 3.) That is the whole method on one
+line, so learn it: <b>value = &#177; 1.M &#215; 2<sup>(exponent field &#8722; 127)</sup></b>. Both
+exam directions fall straight out of it. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>One last reading skill: turning the mantissa into a number. After the hidden "1.",
+each mantissa bit is a smaller and smaller fraction: the first bit is worth <b>1/2</b>, the next
+<b>1/4</b>, the next <b>1/8</b>. So a stored mantissa of 100&#8230; reads as <b>1.1</b> in binary,
+which is 1 + 1/2. <span class="ask">What is 1 + 1/2 in decimal?</span></p></div>
+
+<div class="fr"><p><span class="chk">1.5.</span> Now decode a whole real pattern, one field at a time.
+Take sign bit <b>1</b>, exponent field <b>130</b>, mantissa <b>100&#8230;</b>. The sign bit 1 means
+negative, the field 130 gives e = 3 (you just did that), and the mantissa gives 1.M = 1.5. First the
+power: <span class="ask">what is 2<sup>3</sup>?</span></p></div>
+
+<div class="fr"><p><span class="chk">8.</span> Now hang the sign and the mantissa on it: value =
+<b>&#8722;1.5 &#215; 2<sup>3</sup></b> = &#8722;1.5 &#215; 8.
+<span class="ask">Finish it: what number is that?</span></p></div>
+
+<div class="fr"><p><span class="chk">&#8722;12.</span> You just decoded a floating-point pattern by
+hand. Now <b>prove the bias to yourself</b>: to STORE that same exponent of 3 you would go the other
+way and do 3 + 127. <span class="ask">What exponent field would you store?</span></p></div>
+
+<div class="fr"><p><span class="chk">130.</span> The very field you started from, so the bias undoes
+itself cleanly, going in and coming out. That is every idea in the topic: three fields, normalise to
+1.something, hide the leading 1, and shift the exponent by the bias. Now watch all the moves used
+together in the worked example below (it decodes this exact pattern, C1400000), then sit the two
+"Your turn" boxes with the answer covered.</p></div>
+</div></div>
 
 <div class="box mem"><div class="bar"><span>Must do</span><span class="tag">Encode and decode</span></div>
 <div class="body"><ul class="bul">

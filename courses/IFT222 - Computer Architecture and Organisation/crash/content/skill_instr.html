@@ -27,35 +27,95 @@
 "address" formats the paper asks you to write a program in. Plus the counting question the
 objective test likes.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Parts and types of an instruction</span></div>
-<div class="body"><p>An instruction has an <b>opcode</b> (which operation to do) and zero or
-more <b>operands</b> (what to do it to), with an addressing mode saying where each operand is.
-The <b>instruction format</b> is just the layout of these bit fields. The whole collection of
-instructions a processor understands is its <b>instruction set</b>. The main types:</p>
-<ul class="bul">
-<li><b>Data transfer</b> (LOAD, STORE, MOVE): move data between registers and memory. LOAD
-reads from memory.</li>
-<li><b>Arithmetic and logic</b> (ADD, SUB, AND, OR): the ALU's work, mostly on registers.</li>
-<li><b>Control transfer</b> (JUMP, BRANCH, CALL): <b>change the order</b> instructions run
-in, usually after a compare.</li>
-<li><b>Input/output</b>: talk to devices.</li>
-</ul></div></div>
+<div class="box prog"><div class="bar"><span>Work it frame by frame</span><span class="tag">cover, work, then slide down to check</span></div>
+<div class="body">
+<p class="howto">Cover the page just below the first line with a card or your hand. Read a frame, do
+the small task, then slide the card down to the next line to check your answer. One step at a
+time, and do not skip.</p>
 
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">The four address formats</span></div>
-<div class="body"><p>How many operand addresses each instruction names:</p>
-<ul class="bul">
-<li><b>Three-address:</b> names both sources and the destination, e.g. <code>ADD X, A, B</code>
-(X = A + B). Fewest instructions for an expression.</li>
-<li><b>Two-address:</b> the destination is also a source, e.g. <code>ADD A, B</code> (A = A +
-B).</li>
-<li><b>One-address:</b> works through a single register, the <b>accumulator</b>: LOAD a value
-in, operate, STORE it out.</li>
-<li><b>Zero-address:</b> a <b>stack</b> machine. Operands sit on top of the stack, so
-operations name no address at all: PUSH values, then ADD takes the top two. Most instructions
-here, but each is tiny.</li>
-</ul>
-<p><b>The trade-off:</b> fewer addresses means <b>shorter instructions but more of them</b>.
-Three-address gives the shortest program; zero-address the longest.</p></div></div>
+<div class="fr"><p>A machine instruction is one small command for the CPU. It always names an
+operation to carry out, for example ADD. The part that says <i>which</i> operation is called the
+<b>opcode</b>. <span class="ask">Name the part of an instruction that says which operation to do.</span></p></div>
+
+<div class="fr"><p><span class="chk">the opcode.</span> Sitting beside the opcode are zero or more
+<b>operands</b>: the things the operation works on. In <code>ADD A, B</code> the opcode is ADD, and
+A and B are the operands. (Each operand also carries an addressing mode saying where it is; that is
+the next section.) <span class="ask">In <code>ADD A, B</code>, what are A and B called?</span></p></div>
+
+<div class="fr"><p><span class="chk">the operands.</span> Opcode and operands are just <b>bit
+fields</b> packed side by side. The fixed layout of those fields is the instruction
+<b>format</b>. <span class="ask">What word means the layout of the bit fields in an instruction?</span></p></div>
+
+<div class="fr"><p><span class="chk">the format</span> (the instruction format). And the whole
+collection of instructions one CPU understands is called its <b>instruction set</b>. That is the
+vocabulary. Now the kinds of instructions. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>There are four main <b>types</b>. First, <b>data transfer</b>: LOAD, STORE, MOVE.
+These move data between registers and memory, and a LOAD in particular reads <b>from</b> memory
+into the CPU. <span class="ask">Does LOAD read from memory, or write to it?</span></p></div>
+
+<div class="fr"><p><span class="chk">reads from memory.</span> Second, <b>arithmetic and logic</b>:
+ADD, SUB, AND, OR. This is the ALU's work. Third, <b>input/output</b>: talk to devices.
+<span class="ask">Which unit does the ADD and AND work?</span></p></div>
+
+<div class="fr"><p><span class="chk">the ALU.</span> Fourth, and the one the exam cares about,
+<b>control transfer</b>: JUMP, BRANCH, CALL. Normally instructions run one after another in order;
+these <b>change that order</b>. <span class="ask">Which type changes the order instructions run in?</span></p></div>
+
+<div class="fr"><p><span class="chk">control transfer.</span> Now the four <b>address formats</b>.
+This is only a count: how many operand addresses each instruction names. We go from most to fewest.
+<span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Three-address</b> names both sources and the destination in one instruction,
+e.g. <code>ADD X, A, B</code> meaning X = A + B. Because each instruction does so much, you need the
+<b>fewest</b> of them. <span class="ask">How many addresses does <code>ADD X, A, B</code> name?</span></p></div>
+
+<div class="fr"><p><span class="chk">three.</span> <b>Two-address</b> drops the separate destination;
+the destination doubles as one source, e.g. <code>ADD A, B</code> means A = A + B.
+<span class="ask">After <code>ADD A, B</code>, where has the result gone?</span></p></div>
+
+<div class="fr"><p><span class="chk">into A.</span> <b>One-address</b> works through a single register
+called the <b>accumulator</b>: LOAD a value in, do the operation, then STORE the result out. Only
+one address is named each time. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p><b>Zero-address</b> names <b>no</b> address at all. It is a <b>stack</b> machine:
+you PUSH operands onto the stack, and ADD simply pops the top two and pushes their sum.
+<span class="ask">Which of the four formats is the stack machine?</span></p></div>
+
+<div class="fr"><p><span class="chk">zero-address.</span> Now the trade-off across all four. Fewer
+addresses means each instruction is <b>shorter</b>, but you need <b>more</b> of them.
+<span class="ask">Which format gives the shortest program (fewest instructions)?</span></p></div>
+
+<div class="fr"><p><span class="chk">three-address.</span> And the other end: <b>zero-address</b> gives
+the longest program (most instructions), though each one is tiny. You will write one expression in
+all four formats in the worked example below. <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>Now the counting question the objective test likes. To size a program in bytes,
+count each instruction and add up, using: bytes per instruction = opcode bytes + (number of
+addresses &#215; bytes per address). <span class="ask">Read on.</span></p></div>
+
+<div class="fr"><p>A single instruction's total <b>length</b> is just its fields added together. Take
+an 8-bit opcode, a 6-bit register field and an 18-bit address field.
+<span class="ask">Add them; what is the total length in bits?</span></p></div>
+
+<div class="fr"><p><span class="chk">32 bits.</span> (8 + 6 + 18 = 32.) When every instruction is the
+<b>same</b> size it is called <b>fixed-length</b>; these decode faster and are used by RISC.
+Variable-length instructions are used by CISC.
+<span class="ask">Which style, fixed or variable, is faster to decode?</span></p></div>
+
+<div class="fr"><p><span class="chk">fixed-length.</span> Last one: to fit <b>more opcodes</b> into the
+same instruction length, you give the opcode <b>more bits</b> (and the operands fewer). That is
+every idea here. Now watch one expression written in all four formats in the worked example below,
+then sit the recall with the answer covered.</p></div>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must do</span><span class="tag">the counting formula</span></div>
+<div class="body"><div class="answerbox">bytes per instruction = opcode bytes + (number of addresses &#215; bytes per
+address)</div>
+<p>A single instruction's total length is its fields added: an 8-bit opcode + a 6-bit register
+field + an 18-bit address field = <b>32 bits</b>. <b>Fixed-length</b> (all one size) decodes faster
+and is used by RISC; <b>variable-length</b> by CISC. More opcodes in the same length means giving
+the opcode more bits.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">write X = (A + B) &#215; (C + D)</span></div>
 <div class="body"><p>The same expression in each format. Watch the instruction count climb as
@@ -85,18 +145,6 @@ MUL                       ; (A+B) * (C+D)
 POP  X</pre>
 <p>The bigger version, X = ((A&#215;B) + C/D) / (F&#215;G + J&#215;K), is Question 4b on the
 2025/2026 paper and is in your final mock at the back.</p></div></div>
-
-<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Counting bytes, and fixed vs variable length</span></div>
-<div class="body"><p>To size a program, count each instruction's bytes and add up:</p>
-<div class="answerbox">bytes per instruction = opcode bytes + (number of addresses &#215; bytes per
-address)</div>
-<p>An instruction's total length is just its fields added: an 8-bit opcode, a 6-bit register
-field and an 18-bit address field make an <b>8 + 6 + 18 = 32-bit</b> instruction.
-<b>Fixed-length</b> instructions (all the same size) are <b>faster to decode</b> and are used
-by RISC (reduced instruction set computers); <b>variable-length</b> instructions are used by
-CISC (complex instruction set computers). To fit <b>more opcodes</b> in the same length, give
-the opcode <b>more bits</b> and the operands fewer. (Both philosophies are covered in Part C.)
-</p></div></div>
 
 <div class="box recall"><div class="bar"><span>Your turn</span><span class="tag">MCQ, instructions</span></div>
 <div class="body"><p class="q">(1) Which format is used by stack machines? (2) Which instruction
