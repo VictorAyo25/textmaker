@@ -33,6 +33,11 @@ from the full study manual, that takes a complete novice to a perfect score by *
    bullets is still confusing to a novice. (In IFT222: two's complement as an odometer that
    wraps, IEEE-754 as scientific notation in binary, the cache address split as a coat-check
    ticket.) Do not dumb it down, and keep the worked calculations laid out vertically.
+   **Teach each section as a step-by-step programme, not prose:** many tiny numbered frames, each
+   doing one small thing and ending with a small task, the next frame opening with the answer, so
+   I cover the page, work the step, then slide down to check. (This is programmed learning; use
+   the method, never print the name.) Keep the worked examples, tables and diagrams whole between
+   the frames.
 6. **Give every test and exam question verbatim, in the examiner's exact words, never
    paraphrased** (the same "as printed" discipline the study manuals use). That covers the MCQ
    stems and options, the destination paper, and any past question a skill shows. Enforce it
