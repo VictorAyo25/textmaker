@@ -703,6 +703,64 @@ input[type='range'] {
   border-top: 1px dashed var(--line);
   padding-top: 6px;
 }
+
+/* ---------- option-by-option verdicts ---------- */
+/* Getting it right for the wrong reason scores nothing next time, so the
+   review prints every option with its own verdict, not just the key. */
+.whygrid {
+  margin-top: 8px;
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+}
+.whyhead {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+.whyrow {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 0.86rem;
+  margin: 0 0 6px;
+  line-height: 1.45;
+}
+.whyrow .mk {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+.whyrow.ok .mk {
+  background: var(--green);
+}
+.whyrow.no .mk {
+  background: var(--muted);
+}
+.whyrow.ok {
+  color: var(--ink);
+}
+.whyrow.no {
+  color: var(--muted);
+}
+.whyrow .verdict-note {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.whyrow.ok .verdict-note {
+  color: var(--green-dark);
+}
 .authbar {
   display: flex;
   justify-content: flex-end;
@@ -766,4 +824,470 @@ ul.plain {
 ul.plain li {
   margin: 2px 0;
   font-size: 0.9rem;
+}
+
+/* ---------- landing page ---------- */
+.courserow {
+  text-decoration: none;
+  align-items: flex-start;
+  padding: 14px;
+  margin-bottom: 10px;
+  transition: border-color 0.12s, transform 0.12s;
+}
+.courserow:hover {
+  border-color: var(--green);
+  transform: translateY(-1px);
+}
+.courserow .badge {
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+.courserow .stat {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.courserow .cnt {
+  color: var(--green);
+  font-weight: 600;
+}
+.backlink {
+  margin-left: auto;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 11px;
+  align-self: center;
+}
+.backlink:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* ---------- crash course ---------- */
+.crashcard {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  border-left: 4px solid var(--green);
+}
+.crashcard .t {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.crashcard .b {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.crashcard .cnt {
+  margin-left: auto;
+  color: var(--green);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lessonrow {
+  align-items: flex-start;
+  text-decoration: none;
+}
+.lessonrow:hover {
+  border-color: var(--green);
+}
+.lessonrow .box.ticked {
+  background: var(--green);
+  border-color: var(--green);
+}
+.lessonrow .stat {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.lessonrow .cnt {
+  color: var(--green);
+  font-weight: 600;
+}
+.crumbs {
+  display: flex;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.crumbs a {
+  color: var(--green);
+  text-decoration: none;
+}
+.lessonhead .kick {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold);
+}
+.lessonhead h1 {
+  font-size: 1.4rem;
+  margin: 4px 0 8px;
+  letter-spacing: -0.01em;
+}
+.lessonhead .lead {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+.prevnext {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 18px 0 40px;
+  flex-wrap: wrap;
+}
+.prevnext .chip {
+  text-decoration: none;
+}
+
+/* The manual's boxes, rebuilt for a screen. */
+.lblock {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.lbar {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 14px;
+  background: var(--green-soft);
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+}
+.lbar .ltag {
+  margin-left: auto;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: right;
+}
+.lbody {
+  padding: 14px;
+  font-size: 0.93rem;
+}
+.lblock.trap .lbar {
+  background: var(--red-soft);
+  color: var(--red);
+}
+.lblock.rules .lbar {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+.lblock.recall.right {
+  border-color: var(--green);
+}
+.lblock.recall.wrong {
+  border-color: var(--red);
+}
+.lheading {
+  font-size: 1.12rem;
+  margin: 26px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--green);
+}
+.lprose {
+  font-size: 0.93rem;
+  margin-bottom: 14px;
+}
+
+/* Frames: the app holds the card the reader used to hold. */
+.frametrack {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--line);
+  overflow: hidden;
+  margin: 10px 0 14px;
+}
+.frametrack > i {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transition: width 0.2s;
+}
+.frame {
+  border-left: 3px solid var(--line);
+  padding: 2px 0 2px 12px;
+  margin-bottom: 12px;
+}
+.frame.live {
+  border-left-color: var(--green);
+}
+.frame.past {
+  opacity: 0.72;
+}
+.frame p {
+  margin: 0 0 6px;
+}
+/* The manual leans on superscripts for powers, and a power that does not read
+   as a power is a wrong answer. */
+.lbody sup,
+.lockin sup,
+.lprose sup {
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  font-weight: 700;
+}
+.lbody sub {
+  font-size: 0.7em;
+  vertical-align: sub;
+  line-height: 0;
+}
+.chk {
+  font-weight: 700;
+  color: var(--green-dark);
+  background: var(--green-soft);
+  border-radius: 4px;
+  padding: 0 5px;
+}
+.askrow {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-top: 8px !important;
+}
+.asklab {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-right: 8px;
+}
+.donebar {
+  background: var(--green-soft);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  color: var(--green-dark);
+  margin: 4px 0 0;
+}
+.restart {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+.howto {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.nudge {
+  margin-top: 8px;
+}
+.markrow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+
+/* Elements carried over from the manual's own markup. */
+.lbody p {
+  margin: 0 0 10px;
+}
+.lbody p:last-child {
+  margin-bottom: 0;
+}
+.lbody ul.bul,
+.lbody ol.steps,
+.lbody ul,
+.lbody ol {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+.lbody li {
+  margin-bottom: 5px;
+}
+.lbody pre.calc,
+.lbody pre.code {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre;
+}
+.answerbox {
+  background: var(--green-soft);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  color: var(--green-dark);
+}
+.redo {
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+  margin-top: 10px;
+}
+.lbody .params {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  background: var(--bg);
+}
+.lbody .prow {
+  font-size: 0.86rem;
+  margin-bottom: 4px;
+}
+.lbody .plab {
+  display: inline-block;
+  min-width: 62px;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.lbody table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin: 10px 0;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.lbody table.data th,
+.lbody table.data td {
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+  text-align: center;
+}
+.lbody table.data th {
+  background: var(--green-soft);
+  color: var(--green-dark);
+}
+.lbody figure {
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 8px;
+  /* The manual's diagrams are drawn for paper in fixed inks, so they keep a
+     light ground in both themes rather than going dark on dark. */
+  background: #ffffff;
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+.lbody figure svg {
+  max-width: 100%;
+  height: auto;
+}
+.lbody figcaption {
+  font-size: 0.79rem;
+  color: #5b6b60;
+  margin-top: 8px;
+}
+.asprinted {
+  white-space: pre-wrap;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  background: var(--bg);
+  border: 1px dashed var(--muted);
+  border-radius: 8px;
+  padding: 10px 12px;
+  overflow-x: auto;
+}
+.src {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.qmark {
+  display: inline-block;
+  background: var(--gold-soft);
+  color: var(--gold);
+  border-radius: 4px;
+  padding: 0 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.alabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--muted);
+  margin: 12px 0 6px;
+}
+.lockin {
+  background: var(--green-soft);
+  border: 1px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.lockin .clab {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+.lockin .big {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 6px 0;
+}
+.lockin .sub {
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+/* ---------- per-course accent ----------
+   The palette is the manual's palette: forest green for TMC221, the graphite
+   and violet of the IFT222 book for IFT222. Only the accent moves, so the two
+   courses read as one platform rather than two apps. */
+.wrap[data-course='IFT222'],
+.courserow[data-course='IFT222'] {
+  --green: #6d28d9;
+  --green-dark: #5b21b6;
+  --green-soft: #f1ebfd;
+}
+@media (prefers-color-scheme: dark) {
+  .wrap[data-course='IFT222'],
+  .courserow[data-course='IFT222'] {
+    --green: #a78bfa;
+    --green-dark: #c4b5fd;
+    --green-soft: #1c1430;
+  }
 }

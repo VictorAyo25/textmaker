@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { COURSES } from '@/data/courses';
+import Link from 'next/link';
+import { courseByCode } from '@/data/courses';
 import { presentQuestion, selectQuestions, shuffle } from '@/lib/bank';
 import { markAll } from '@/lib/grading';
 import type { GapMode, Marked, Paper, Question, Response } from '@/lib/types';
@@ -19,11 +20,27 @@ interface Attempt {
   created_at: string;
 }
 
-const HISTORY_KEY = 'tmc-drill-history-v1';
+// History is kept per course, so a TMC221 run never shows up under IFT222. The
+// bare v1 key was TMC221's before the platform took a second course, and it is
+// still read for that one so nobody loses their existing history.
+const historyKey = (code: string) =>
+  code === 'TMC221' ? 'tmc-drill-history-v1' : `drill-history-v1:${code}`;
 
-export default function App({ authEnabled }: { authEnabled: boolean }) {
-  const course = COURSES[0];
+export default function App({
+  code,
+  authEnabled,
+  hasCrashCourse = false,
+}: {
+  code: string;
+  authEnabled: boolean;
+  hasCrashCourse?: boolean;
+}) {
+  const course = courseByCode(code);
+  const HISTORY_KEY = historyKey(course.code);
   const [stage, setStage] = useState<Stage>('setup');
+  // A lesson can hand off to the drill with ?topic=8, which preselects that
+  // topic here. Read after mount, so the server and client first paint agree.
+  const [initialModules, setInitialModules] = useState<number[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [gapMode, setGapMode] = useState<GapMode>('typed');
   const [timeLimit, setTimeLimit] = useState<number | null>(null);
@@ -37,7 +54,7 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
     // nobody is signed in or Supabase is not configured, and we fall back to
     // whatever this browser remembers.
     try {
-      const res = await fetch('/api/attempts');
+      const res = await fetch(`/api/attempts?course=${encodeURIComponent(course.code)}`);
       const json = await res.json();
       if (json.synced) {
         setSynced(true);
@@ -50,15 +67,24 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
     setSynced(false);
     try {
       const raw = localStorage.getItem(HISTORY_KEY);
-      if (raw) setHistory(JSON.parse(raw));
+      setHistory(raw ? JSON.parse(raw) : []);
     } catch {
       /* storage blocked: history is simply unavailable */
     }
-  }, []);
+  }, [course.code, HISTORY_KEY]);
 
   useEffect(() => {
     void loadHistory();
   }, [loadHistory]);
+
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search)
+      .getAll('topic')
+      .flatMap((t) => t.split(','))
+      .map(Number)
+      .filter((n) => course.modules.some((m) => m.number === n));
+    if (wanted.length) setInitialModules(wanted);
+  }, [course]);
 
   const remember = async (a: Attempt, earned: number) => {
     const next = [a, ...history].slice(0, 50);
@@ -98,9 +124,12 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
     const sel = selectQuestions(course, config);
     if (!sel.questions.length) return;
     const prepared = sel.questions.map((q) => presentQuestion(q, config.shuffleOptions));
+    const noun = course.moduleNoun;
     const mods = config.modules.length
-      ? `Modules ${[...config.modules].sort((a, b) => a - b).join(', ')}`
-      : 'All modules';
+      ? `${noun}${config.modules.length === 1 ? '' : 's'} ${[...config.modules]
+          .sort((a, b) => a - b)
+          .join(', ')}`
+      : `All ${noun.toLowerCase()}s`;
     begin(
       prepared,
       config.gapMode,
@@ -135,14 +164,14 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
   };
 
   return (
-    <main className="wrap">
+    <main className="wrap" data-course={course.code}>
       <header className="masthead">
         <span className="code">{course.code}</span>
         <h1>{course.title}</h1>
-        <span className="sub">
-          Active recall drilled straight from the study manual. Every answer carries the
-          slide it came from.
-        </span>
+        <span className="sub">{course.tagline}</span>
+        <Link className="backlink" href="/">
+          All courses
+        </Link>
       </header>
 
       {stage === 'setup' && (
@@ -150,7 +179,27 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
           <div className="authbar">
             <AuthBar authEnabled={authEnabled} />
           </div>
-          <Setup course={course} onStart={onStart} onStartPaper={onStartPaper} />
+          {hasCrashCourse && (
+            <Link className="card crashcard" href={`/${course.code.toLowerCase()}/learn`}>
+              <span>
+                <span className="t">Never studied this? Start with the crash course</span>
+                <br />
+                <span className="b">
+                  The whole course taught from zero in programmed steps: one small step
+                  at a time, and you answer before the page tells you anything. Worked
+                  examples, the traps, and the real paper answered in full.
+                </span>
+              </span>
+              <span className="cnt">Learn it</span>
+            </Link>
+          )}
+          <Setup
+            key={initialModules.join(',')}
+            course={course}
+            initialModules={initialModules}
+            onStart={onStart}
+            onStartPaper={onStartPaper}
+          />
           {history.length > 0 && (
             <div className="card" style={{ marginTop: 22 }}>
               <h2>Your recent attempts</h2>
@@ -179,6 +228,7 @@ export default function App({ authEnabled }: { authEnabled: boolean }) {
           questions={questions}
           gapMode={gapMode}
           timeLimitSec={timeLimit}
+          moduleNoun={course.moduleNoun}
           onFinish={onFinish}
           onQuit={() => setStage('setup')}
         />

@@ -4,29 +4,6 @@ import { useMemo, useState } from 'react';
 import type { Course, Difficulty, Facet, GapMode, Paper, TestConfig } from '@/lib/types';
 import { pool, poolByTier } from '@/lib/bank';
 
-const FACETS: { id: Facet; label: string; help: string }[] = [
-  {
-    id: 'numbers',
-    label: 'Numbers, percentages, dates',
-    help: '71% vs 32%, 0.76, 85%, +51%, 95%, 76%, blow 50, 37x, 2:30 a.m., 65 years',
-  },
-  {
-    id: 'names',
-    label: 'Names, authors, book titles',
-    help: 'Duckworth, Dweck, Clear, Leaf, Peale, de Bono, Young, Moran, Gollwitzer, Ries and Trout',
-  },
-  {
-    id: 'lists',
-    label: 'Lists, steps and their order',
-    help: 'The 7 Kits, SWITCH, the 7-Step Plan, W.I.S.E., WOOP, the Six Hats, the three Pillars',
-  },
-  {
-    id: 'wording',
-    label: 'Exact definitions and wording',
-    help: 'The precise slide phrasing: Key Result vs activity, replaced not managed, launch pad not limitation',
-  },
-];
-
 const PRESETS: { name: string; mix: Record<Difficulty, number> }[] = [
   { name: 'Warm up', mix: { easy: 60, medium: 30, hard: 10 } },
   { name: 'Balanced', mix: { easy: 30, medium: 40, hard: 30 } },
@@ -41,12 +18,19 @@ export interface StartArgs {
 
 interface Props {
   course: Course;
+  /** Preselected topics, set when a crash-course lesson hands off to the drill. */
+  initialModules?: number[];
   onStart: (args: StartArgs) => void;
   onStartPaper: (paper: Paper, timeLimitSec: number | null) => void;
 }
 
-export default function Setup({ course, onStart, onStartPaper }: Props) {
-  const [modules, setModules] = useState<number[]>([]);
+export default function Setup({
+  course,
+  initialModules = [],
+  onStart,
+  onStartPaper,
+}: Props) {
+  const [modules, setModules] = useState<number[]>(initialModules);
   const [facets, setFacets] = useState<Facet[]>([]);
   const [mix, setMix] = useState<Record<Difficulty, number>>({
     easy: 30,
@@ -62,6 +46,16 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
   const config: TestConfig = { modules, facets, mix, count, gapMode, shuffleOptions };
   const available = useMemo(() => pool(course, config), [course, modules, facets]);
   const tiers = useMemo(() => poolByTier(available), [available]);
+
+  const FACETS = course.facetGuide;
+  const noun = course.moduleNoun;
+  const nouns = `${noun.toLowerCase()}s`;
+  // Typed short answers only exist where the bank has gap or cloze questions.
+  // An MCQ-only course would otherwise be offered a setting that does nothing.
+  const hasBlanks = useMemo(
+    () => course.questions.some((q) => q.style === 'gap' || q.style === 'cloze'),
+    [course]
+  );
 
   const countPerModule = useMemo(() => {
     const m: Record<number, number> = {};
@@ -83,8 +77,8 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
       <div className="card">
         <h2>1. What do you want to be tested on?</h2>
         <p className="help">
-          Leave every box unticked to mix all five modules. Tick one to drill it alone,
-          or tick several to mix just those.
+          Leave every box unticked to mix all {course.modules.length} {nouns}. Tick one
+          to drill it alone, or tick several to mix just those.
         </p>
         {course.modules.map((m) => (
           <button
@@ -97,7 +91,7 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
             <span className="box">{modules.includes(m.number) ? '✓' : ''}</span>
             <span>
               <span className="t">
-                Module {m.number}: {m.title}
+                {noun} {m.number}: {m.title}
               </span>
               <br />
               <span className="b">{m.blurb}</span>
@@ -156,7 +150,7 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
         <h2>3. How hard?</h2>
         <p className="help">
           Easy is one fact recalled straight. Medium makes you tell near-misses apart.
-          Hard is scenarios, exact figures, orderings and cross-lecture links.
+          Hard is scenarios, exact figures, orderings and multi-step working.
         </p>
         <div className="chips">
           {PRESETS.map((p) => (
@@ -251,28 +245,33 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
       <div className="card">
         <h2>5. How should it run?</h2>
 
-        <p className="help" style={{ marginBottom: 6 }}>
-          Short-answer blanks: type the answer from memory, or pick it from a dropdown
-          like the real Moodle test. Long cloze continuations are always dropdowns.
-        </p>
-        <div className="seg">
-          <button
-            type="button"
-            aria-pressed={gapMode === 'typed'}
-            onClick={() => setGapMode('typed')}
-          >
-            Type it from memory
-          </button>
-          <button
-            type="button"
-            aria-pressed={gapMode === 'choice'}
-            onClick={() => setGapMode('choice')}
-          >
-            Choose from a dropdown
-          </button>
-        </div>
+        {hasBlanks && (
+          <>
+            <p className="help" style={{ marginBottom: 6 }}>
+              Short-answer blanks: type the answer from memory, or pick it from a
+              dropdown like the real Moodle test. Long cloze continuations are always
+              dropdowns.
+            </p>
+            <div className="seg">
+              <button
+                type="button"
+                aria-pressed={gapMode === 'typed'}
+                onClick={() => setGapMode('typed')}
+              >
+                Type it from memory
+              </button>
+              <button
+                type="button"
+                aria-pressed={gapMode === 'choice'}
+                onClick={() => setGapMode('choice')}
+              >
+                Choose from a dropdown
+              </button>
+            </div>
+          </>
+        )}
 
-        <p className="help" style={{ margin: '16px 0 6px' }}>
+        <p className="help" style={{ margin: hasBlanks ? '16px 0 6px' : '0 0 6px' }}>
           Clock.
         </p>
         <div className="seg">
@@ -334,31 +333,34 @@ export default function Setup({ course, onStart, onStartPaper }: Props) {
         {timed ? `, ${minutes} min` : ', untimed'})
       </button>
 
-      {course.papers.map((p) => (
-        <div className="card" key={p.id} style={{ marginTop: 22 }}>
-          <h2>{p.title}</h2>
-          <p className="help">{p.subtitle}</p>
-          <p className="note" style={{ marginBottom: 12 }}>
-            {p.note}
-          </p>
-          <div className="footer-actions">
-            <button
-              type="button"
-              className="btn ghost"
-              onClick={() => onStartPaper(p, null)}
-            >
-              Sit it untimed
-            </button>
-            <button
-              type="button"
-              className="btn ghost"
-              onClick={() => onStartPaper(p, 20 * 60)}
-            >
-              Sit it in 20 minutes
-            </button>
+      {course.papers.map((p) => {
+        const mins = p.minutes ?? 20;
+        return (
+          <div className="card" key={p.id} style={{ marginTop: 22 }}>
+            <h2>{p.title}</h2>
+            <p className="help">{p.subtitle}</p>
+            <p className="note" style={{ marginBottom: 12 }}>
+              {p.note}
+            </p>
+            <div className="footer-actions">
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => onStartPaper(p, null)}
+              >
+                Sit it untimed
+              </button>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => onStartPaper(p, mins * 60)}
+              >
+                Sit it in {mins} minutes
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 }

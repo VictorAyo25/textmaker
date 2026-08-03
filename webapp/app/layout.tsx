@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'TMC221 Drill',
+  title: { default: 'CU Drill', template: '%s' },
   description:
-    'Active-recall testing for TMC221 Personal Development and Capacity Building, built from the study manual.',
+    'Active-recall testing for the CU study manuals. Every question marked instantly and reviewed option by option.',
 };
 
 export const viewport: Viewport = {

@@ -55,9 +55,9 @@ export interface Blank {
 
 export interface Question {
   id: string;
-  module: number; // 1..5 for TMC221
-  lecture: number; // the source lecture number
-  slides: string[]; // provenance, e.g. ["L1 S9"] - shown in review
+  module: number; // 1..5 for TMC221, 1..10 for IFT222
+  lecture?: number; // the source lecture number, where the course has lectures
+  slides: string[]; // provenance, e.g. ["L1 S9"] or ["Test 1 Q16"] - shown in review
   style: Style;
   difficulty: Difficulty;
   facets: Facet[];
@@ -69,6 +69,14 @@ export interface Question {
   extraLabels?: string[]; // match: decoy labels added to the dropdown
   blanks?: Blank[]; // cloze, gap
   explanation: string; // always shown in review
+  /**
+   * Per-option verdict, keyed by option id: why the key is right and why each
+   * distractor is wrong. Review prints every entry, so a reader who guessed
+   * right for the wrong reason still learns what the other three were doing
+   * there. Where a course supplies these, the bank gate requires one entry for
+   * every option, so a question cannot ship half explained.
+   */
+  why?: Record<string, string>;
 }
 
 export interface Paper {
@@ -78,18 +86,83 @@ export interface Paper {
   subtitle: string;
   note: string;
   questions: Question[];
+  /** Minutes offered by the timed button. Defaults to 20 when absent. */
+  minutes?: number;
 }
 
 export interface ModuleMeta {
   number: number;
   title: string;
-  lecture: number;
+  lecture?: number;
   blurb: string;
+}
+
+/** The facet filter, worded for the course in hand. */
+export interface FacetGuide {
+  id: Facet;
+  label: string;
+  help: string;
+}
+
+// ---- the crash course ----
+//
+// Lessons are converted from the crash manual's authored HTML by
+// scripts/import-crash.mjs, so the words on screen are the words the manual's
+// own gates passed. The html fields are trusted repository content and are
+// rendered with dangerouslySetInnerHTML; nothing here is user input.
+
+/** One programmed frame: the check answering the frame before it, the teaching
+ *  step, and the question it leaves you on. */
+export interface Frame {
+  check: string;
+  teach: string;
+  ask: string;
+}
+
+export type LessonBlock =
+  | { kind: 'frames'; label: string; tag: string; howto: string; frames: Frame[] }
+  | {
+      kind: 'worked';
+      /** 'model' hides the whole answer, 'example' shows the problem first. */
+      mode: 'model' | 'example';
+      label: string;
+      tag: string;
+      problem: string;
+      working: string;
+      answer: string;
+      redo: string;
+    }
+  | { kind: 'recall'; label: string; tag: string; question: string; answer: string }
+  | { kind: 'asprinted'; label: string; tag: string; src: string; printed: string }
+  | { kind: 'rules' | 'trap' | 'teach'; label: string; tag: string; html: string }
+  | { kind: 'prose'; html: string }
+  | { kind: 'heading'; text: string }
+  | { kind: 'lockin'; big: string; sub: string };
+
+export interface Lesson {
+  slug: string;
+  /** The manual's own grouping: "Part A: foundations and data" and so on. */
+  part: string;
+  kick: string;
+  title: string;
+  lead: string;
+  minutes: number;
+  /** Drill topics this skill teaches, so a lesson can hand off to the bank. */
+  modules: number[];
+  blocks: LessonBlock[];
 }
 
 export interface Course {
   code: string;
   title: string;
+  /** One line under the code on the course card and the masthead. */
+  tagline: string;
+  /** What the course covers, shown on the landing page card. */
+  blurb: string;
+  /** What the app calls a module group: "Module" for TMC221, "Topic" here. */
+  moduleNoun: string;
+  /** The four facets, described in this course's own vocabulary. */
+  facetGuide: FacetGuide[];
   modules: ModuleMeta[];
   questions: Question[];
   papers: Paper[];

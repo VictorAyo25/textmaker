@@ -23,6 +23,8 @@ interface Props {
   questions: Question[];
   gapMode: GapMode;
   timeLimitSec: number | null;
+  /** What this course calls a module group: "Module", "Topic". */
+  moduleNoun: string;
   onFinish: (responses: (Response | null)[]) => void;
   onQuit: () => void;
 }
@@ -31,6 +33,7 @@ export default function Runner({
   questions,
   gapMode,
   timeLimitSec,
+  moduleNoun,
   onFinish,
   onQuit,
 }: Props) {
@@ -120,7 +123,9 @@ export default function Runner({
         <div className="qmeta">
           <span className="tag">{STYLE_LABEL[q.style] ?? q.style}</span>
           <span className={`tag ${q.difficulty}`}>{q.difficulty}</span>
-          <span className="tag">Module {q.module}</span>
+          <span className="tag">
+            {moduleNoun} {q.module}
+          </span>
           <span className="tag">{q.topic}</span>
         </div>
         <p className="prompt">

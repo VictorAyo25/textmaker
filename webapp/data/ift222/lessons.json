@@ -1,0 +1,2097 @@
+[
+ {
+  "slug": "plan",
+  "part": "Start here",
+  "kick": "Start Here",
+  "title": "How to pass this in a weekend",
+  "lead": "You have not read this course and the exam is on Tuesday. That is fine.\nThis book is built for exactly that. It ignores everything the exam will not ask and\nteaches you, from zero, the dozen skills that answer every question. Do what it says and\nyou will walk in ready.",
+  "minutes": 6,
+  "modules": [],
+  "blocks": [
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "The one idea behind this book",
+    "html": "<p>Computer Architecture looks huge but the exam is small. It reuses about\n<b>a dozen ideas</b>, over and over, with the numbers changed. So this book does not try to\ncover the syllabus. It works <b>backwards from the exam</b>: it takes the real questions as\nthe target, then teaches every skill you need to reach them, starting from nothing. Each\nskill is taught so you understand <i>why</i> it works, not just what to write, which is the\nonly way to stay safe when the examiner changes the numbers on you.</p>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "The habit that passes the exam",
+    "html": "<p>Reading feels like studying and teaches you almost nothing. What puts a\nskill into your hands is <b>doing it with the answer covered</b>. So all through this book you\nwill meet two things, and you must actually use them:</p>\n<ul class=\"bul\">\n<li>A <b>Your turn</b> box: a question with new numbers and the answer hidden under a dashed\nline. Cover it, work it on paper, then check. This is where the learning happens.</li>\n<li>After a worked example, <b>Now redo it</b>: close the book and reproduce the whole\nsolution on blank paper. If you can do that, you own the skill.</li>\n</ul>\n<p><b>The rule:</b> never move on from a skill until you can do its Your-turn box cold, from\nmemory, with different numbers. That single habit is the difference between a pass and a\nblank page.</p>"
+   },
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "What the exam looks like",
+    "html": "<p>Two kinds of question, and this book prepares you for both:</p>\n<ul class=\"bul\">\n<li><b>Objective questions (MCQs).</b> Multiple choice, one right answer out of four. The\nlecturer has said these are coming. They test definitions and quick judgement across the\nwhole course. Every one from the practice tests is answered and explained in Part C.</li>\n<li><b>The written paper.</b> The classic shape is <b>Question One, compulsory, 30 marks</b>,\nthen <b>any two of the remaining questions</b> at 20 marks each, for 70 marks in 2 hours.\nQuestion One is where the number-crunching lives, so master it and you have half the paper\nbefore you choose anything. The whole 2025/2026 paper is worked at the back as your final\nmock.</li>\n</ul>"
+   },
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "Your three-day plan",
+    "html": "<p>Three days, three sittings. Do the Your-turn boxes as you go, do not just read.</p>\n<ul class=\"bul\">\n<li><b>Saturday, Part A.</b> The big picture, then all the number skills: number systems,\nsigned numbers, floating point, and image sizing. These are pure marks and most of the\nnumeric MCQs.</li>\n<li><b>Sunday, Part B.</b> The machine: instruction formats, addressing modes, CPU\nperformance, pipelining, and memory and cache. This is the heart of Question One.</li>\n<li><b>Monday, Part C.</b> The last of the theory, then work the whole <b>MCQ bank</b> as a\ntest, then sit the <b>2025/2026 paper</b> under the clock. Spend the evening redoing anything\nyou got wrong.</li>\n</ul>\n<p>If you are short on time, the order is chosen so the earliest sections are the highest\nvalue. Never skip Part A: everything else stands on it.</p>"
+   },
+   {
+    "kind": "heading",
+    "text": "The boxes, and what each is for"
+   },
+   {
+    "kind": "prose",
+    "html": "<p>Navigate by the colour and label of these boxes.</p>"
+   },
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "",
+    "html": "A concept, from zero, in plain words. Blue."
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "Method",
+    "html": "The few things to know by heart: a rule, or a step-by-step <b>method</b> you\napply to any numbers. This violet is reserved, so wherever you see it, memorise it."
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "step by step",
+    "problem": "",
+    "working": "<b>Now redo it</b>",
+    "answer": "",
+    "redo": ""
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "",
+    "question": "<p class=\"q\">What should you do the instant you reach one of these?</p>",
+    "answer": "<p>Cover the answer, work it on paper with the\nnumbers given, then check. The whole point is retrieval, not reading.</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "The exact mistake students make here every year. Read these twice; this is\nthe easiest place to lose marks you did not need to."
+   }
+  ]
+ },
+ {
+  "slug": "big-picture",
+  "part": "Part A: foundations and data",
+  "kick": "Foundations and Data",
+  "title": "The Big Picture",
+  "lead": "Before any sums, the shape of the whole thing. Half the objective questions\nlive right here: what a computer is made of, and the one distinction the examiner asks in a\ndozen disguises, architecture versus organization.",
+  "minutes": 22,
+  "modules": [
+   1,
+   2,
+   10
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "A computer runs a program by repeating three steps forever: it <b>fetches</b> an\ninstruction from memory, <b>decodes</b> it (works out what it means), then <b>executes</b> it,\nand loops back to do it all again. That never-ending loop is the <b>fetch, decode, execute\ncycle</b>.",
+      "ask": "Name the three steps, in order."
+     },
+     {
+      "check": "fetch, decode, execute.",
+      "teach": "Where do those instructions\nlive? In <b>memory</b>, written as plain binary numbers, sitting right beside the <b>data</b>\nthey work on. This one idea, the program and the data together in the <b>same</b> memory, is the\n<b>stored-program</b> (or <b>Von Neumann</b>) concept.",
+      "ask": "Are the program and the\ndata kept in the same memory, or in two separate ones?"
+     },
+     {
+      "check": "the same memory.",
+      "teach": "That is exactly what makes a computer\n<b>general</b>: change the numbers in memory and the same machine does a different job. Now look\ninside the processor, the <b>CPU</b>. Its first working part is the <b>control unit (CU)</b>,\nthe conductor: it fetches each instruction and sends out the <b>control signals</b> that make\neverything act at the right moment.",
+      "ask": "Does the CU itself do the adding and\nsubtracting, yes or no?"
+     },
+     {
+      "check": "no.",
+      "teach": "The adding, subtracting, AND, OR and comparing is\nthe job of the second part, the <b>arithmetic and logic unit (ALU)</b>. So keep the two apart:\nthe <b>CU directs</b>, the <b>ALU calculates</b>.",
+      "ask": "Which unit actually works\nout 7 + 5?"
+     },
+     {
+      "check": "the ALU.",
+      "teach": "The CPU also keeps a few tiny, very fast\nstores called <b>registers</b>, each holding something it needs right now. The first is the\n<b>program counter (PC)</b>: it holds the <b>address of the next instruction</b> to fetch.",
+      "ask": "What does the PC hold?"
+     },
+     {
+      "check": "the address of the next instruction.",
+      "teach": "Once an\ninstruction has been fetched, it is held in the <b>instruction register (IR)</b> while it is\ndecoded and run.",
+      "ask": "Which register holds the instruction currently being\nexecuted?"
+     },
+     {
+      "check": "the IR.",
+      "teach": "Two more registers, both for talking to\nmemory. The <b>memory address register (MAR)</b> holds the address the CPU is about to read from\nor write to.",
+      "ask": "Does the MAR hold an address, or a value?"
+     },
+     {
+      "check": "an address.",
+      "teach": "Its partner, the <b>memory data register\n(MDR)</b>, holds the <b>data itself</b> going to or coming from memory. So the MAR says <i>which\nlocation</i>, and the MDR carries <i>the value there</i>.",
+      "ask": "From memory, name all\nfour registers you have now met."
+     },
+     {
+      "check": "PC, IR, MAR, MDR.",
+      "teach": "How do these parts reach each other\nand memory? Over three shared sets of wires called <b>buses</b>. The <b>address bus</b> carries\n<b>which location</b> is wanted.",
+      "ask": "Which register's contents would travel out on\nthe address bus?"
+     },
+     {
+      "check": "the MAR",
+      "teach": "(the address it is holding). The <b>data\nbus</b> carries the <b>value itself</b>, and the <b>control bus</b> carries the signals that say\n<b>read or write, and when</b>.",
+      "ask": "Which of the three buses carries the value\nitself?"
+     },
+     {
+      "check": "the data bus.",
+      "teach": "Now the idea the examiner asks in a\ndozen disguises: <b>architecture</b> versus <b>organization</b>. <b>Computer architecture</b> is\n<b>what the machine does, as the programmer sees it</b>; it answers <i>\"what does the computer\ndo?\"</i>",
+      "ask": "Does architecture describe what the programmer can see, or the hidden\nhardware?"
+     },
+     {
+      "check": "what the programmer can see.",
+      "teach": "Concretely, architecture\nis the <b>instruction set architecture (ISA)</b>: the instructions available, the data types,\nthe addressing modes, the registers a program can name, the instruction formats. Rule of thumb:\n<b>if a program can see it or name it, it is architecture</b>.",
+      "ask": "So is the list\nof addressing modes architecture?"
+     },
+     {
+      "check": "yes",
+      "teach": "(a program chooses among them, so architecture).\nIts opposite is <b>computer organization</b>: <b>how the machine is built to do it</b>. It is\nthe hidden hardware, the control signals, the buses, the memory technology, the cache, how many\nexecution units there are; the programmer never sees it, and it decides how fast the job gets\ndone.",
+      "ask": "Architecture answers \"what\"; organization answers which one-word\nquestion?"
+     },
+     {
+      "check": "\"how\".",
+      "teach": "Here is the clean test: <b>can a program see it\nor name it? Then architecture. Is it an implementation choice hidden inside? Then\norganization.</b> Try it on a hard one, <b>the size of the cache</b>.",
+      "ask": "Is cache\nsize architecture or organization?"
+     },
+     {
+      "check": "organization",
+      "teach": "(a hidden build choice; no program names\nthe cache size). Because the ISA is all a program sees, two chips with the <b>same ISA</b> run\nthe <b>same programs</b> (they are <b>binary compatible</b>), yet can differ wildly in speed\nbecause their organization differs; that deeper hardware realisation is the\n<b>microarchitecture</b>.",
+      "ask": "If two chips share an ISA, will one compiled program\nrun on both?"
+     },
+     {
+      "check": "yes.",
+      "teach": "One hook to lock it in for the test: architecture\nis the <b>blueprint</b> (the design); organization is the <b>construction</b> (how it is\nactually built). Same blueprint, two builders, two speeds. (There are two whole ISA styles you will meet in\nPart C: the reduced instruction set computer, RISC, and the complex instruction set computer,\nCISC.) Now slide down to the sorting card\nbelow and read both columns; most arch-vs-org questions are simply <i>\"which side is\nthis?\"</i>",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "Sort it: architecture or organization",
+    "html": "<p>Memorise these two lists. Most arch-vs-org MCQs are just \"which side is\nthis?\"</p>\n<table class=\"data\">\n<tr><th>Architecture (programmer-visible, \"what\")</th><th>Organization (hidden build, \"how\")</th></tr>\n<tr><td>Instruction set and instruction formats</td><td>Control signals and control-unit design</td></tr>\n<tr><td>Addressing modes</td><td>Buses and interconnection</td></tr>\n<tr><td>Data types and their representation</td><td>The memory technology used</td></tr>\n<tr><td>Registers a program can name</td><td>Cache size and cache implementation</td></tr>\n<tr><td>Whether floating-point instructions exist</td><td>Number of cores and execution units, clock circuitry</td></tr>\n</table>\n<p><b>Memory hook:</b> architecture is the <b>blueprint</b> (the design); organization is the\n<b>construction</b> (how it is actually built). Same blueprint, two builders, two costs and\ntwo speeds.</p>"
+   },
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "the two memory designs",
+    "howto": "Same as before: keep the page covered, read a frame, do the small task, then\nslide the card down one line to check.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Two ways to wire memory to the CPU, and the examiner wants the difference. The\nfirst you have already met, <b>Von Neumann</b>: <b>one</b> memory and one bus shared by\n<b>both</b> instructions and data. It is simple and cheap.",
+      "ask": "In a Von Neumann\nmachine, how many memories hold the instructions and the data?"
+     },
+     {
+      "check": "one",
+      "teach": "(shared). That single shared path has a price:\nthe CPU <b>cannot</b> fetch an instruction and read data at the very same moment, they must take\nturns on the one bus. That traffic jam is the well-known <b>bottleneck</b>.",
+      "ask": "What do we call the slowdown caused by sharing one path?"
+     },
+     {
+      "check": "the bottleneck.",
+      "teach": "The rival design is <b>Harvard</b>:\n<b>separate</b> memories and <b>separate</b> buses, one set for instructions and another for\ndata. It costs more hardware, since the address, data and control lines are duplicated.",
+      "ask": "How many separate memories does a Harvard machine use?"
+     },
+     {
+      "check": "two.",
+      "teach": "That extra hardware buys one thing: Harvard can\n<b>fetch an instruction and read data at the same time</b>, a form of parallelism, and that is\nits whole advantage.",
+      "ask": "Which design, Von Neumann or Harvard, can fetch an\ninstruction and read data at once?"
+     },
+     {
+      "check": "Harvard.",
+      "teach": "So hold the trade in your head: Von Neumann is\n<b>one</b> memory, cheap but with a shared bottleneck; Harvard is <b>two</b> memories, more\nhardware but faster because both happen together. Now look just below at the two diagrams and\nthe <b>how to draw each</b> note, and practise drawing both, because the paper asks for exactly\nthat.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "teach",
+    "label": "Draw it",
+    "tag": "Von Neumann vs Harvard on paper",
+    "html": "<p><b>How to draw each</b> (the paper asks for a diagram, so practise it): draw the CPU as one\nbox. For <b>Von Neumann</b>, join it by a single line, the shared bus, to <b>one</b> Memory box\nholding instructions and data together. For <b>Harvard</b>, draw <b>two</b> memory boxes, an\ninstruction memory and a data memory, and join <b>each</b> to the CPU by its own bus.</p>\n<figure>\n<svg viewBox=\"0 0 520 250\" style=\"width:74%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\n<defs><marker id=\"vnLA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\n<g fill=\"#20262f\" text-anchor=\"middle\">\n<rect x=\"185\" y=\"12\" width=\"150\" height=\"172\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\n<text x=\"260\" y=\"32\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\n<rect x=\"205\" y=\"42\" width=\"110\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"65\" font-size=\"11\">Control unit</text>\n<rect x=\"205\" y=\"88\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"109\" font-size=\"11\">Registers</text>\n<rect x=\"205\" y=\"130\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"151\" font-size=\"11\">ALU</text>\n<rect x=\"22\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"107\" font-size=\"11\">I/O device</text>\n<rect x=\"390\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"107\" font-size=\"11\">I/O device</text>\n<rect x=\"185\" y=\"210\" width=\"150\" height=\"38\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/><text x=\"260\" y=\"234\" font-size=\"12\" fill=\"#0e7490\" font-weight=\"bold\">Memory</text>\n<line x1=\"130\" y1=\"102\" x2=\"185\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnLA)\" marker-end=\"url(#vnLA)\"/>\n<line x1=\"390\" y1=\"102\" x2=\"335\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnLA)\" marker-end=\"url(#vnLA)\"/>\n<line x1=\"260\" y1=\"184\" x2=\"260\" y2=\"210\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnLA)\" marker-end=\"url(#vnLA)\"/>\n</g></svg>\n<figcaption>Von Neumann: one Memory, one shared path. One box, one bus.</figcaption>\n</figure>\n<figure>\n<svg viewBox=\"0 0 520 258\" style=\"width:76%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\n<defs><marker id=\"hLA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\n<g fill=\"#20262f\" text-anchor=\"middle\">\n<rect x=\"198\" y=\"28\" width=\"132\" height=\"200\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\n<text x=\"264\" y=\"48\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\n<rect x=\"212\" y=\"58\" width=\"104\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"81\" font-size=\"11\">Control unit</text>\n<rect x=\"212\" y=\"104\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"125\" font-size=\"11\">Registers</text>\n<rect x=\"212\" y=\"146\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"167\" font-size=\"11\">ALU</text>\n<rect x=\"22\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"70\" font-size=\"11\">I/O device</text>\n<rect x=\"390\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"70\" font-size=\"11\">I/O device</text>\n<rect x=\"18\" y=\"150\" width=\"140\" height=\"56\" rx=\"2\" fill=\"#f0f8f2\" stroke=\"#15803d\" stroke-width=\"1.4\"/>\n<text x=\"88\" y=\"172\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">Instruction</text>\n<text x=\"88\" y=\"190\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">memory</text>\n<rect x=\"374\" y=\"152\" width=\"124\" height=\"52\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/>\n<text x=\"436\" y=\"182\" font-size=\"11\" fill=\"#0e7490\" font-weight=\"bold\">Data memory</text>\n<line x1=\"130\" y1=\"65\" x2=\"198\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hLA)\" marker-end=\"url(#hLA)\"/>\n<line x1=\"390\" y1=\"65\" x2=\"330\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hLA)\" marker-end=\"url(#hLA)\"/>\n<line x1=\"158\" y1=\"178\" x2=\"198\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-end=\"url(#hLA)\"/>\n<line x1=\"374\" y1=\"178\" x2=\"330\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hLA)\" marker-end=\"url(#hLA)\"/>\n</g></svg>\n<figcaption>Harvard: a separate instruction memory and data memory. Two boxes, two buses.</figcaption>\n</figure>\n<p><b>How to remember it:</b> Von Neumann = <b>one</b> box, <b>one</b> bus. Harvard = <b>two</b>\nboxes, <b>two</b> buses; picture the two upright strokes of the letter <b>H</b> as the two\nseparate memories.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "sort five things",
+    "question": "<p class=\"q\">Label each as architecture (A) or organization (O): (1) the list\nof addressing modes, (2) the size of the cache, (3) the number of general registers a\nprogram can use, (4) the technology the main memory is built from, (5) the control signals\nthe control unit sends.</p>",
+    "answer": "<p>1 A (programmer names them), 2 O (hidden size choice), 3 A (programmer-visible), 4 O\n(implementation), 5 O (hidden). If you can explain <i>why</i> for each, you have this\ntopic.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, arch vs org",
+    "question": "<p class=\"q\">A bank upgrades its servers to processors with larger caches and\nfaster RAM while keeping the same x86 instruction set. What has primarily changed?\n&nbsp; (a) Architecture only &nbsp; (b) Organization only &nbsp; (c) Both &nbsp; (d) Neither</p>",
+    "answer": "<p><b>(b) Organization only.</b> Same instruction set means the <b>architecture is\nunchanged</b>; larger caches and faster RAM are <b>organization</b>. This exact shape,\n\"same ISA, faster hardware\", appears again and again: the answer is always organization.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, same ISA",
+    "question": "<p class=\"q\">A developer runs the same compiled application on two processors\nfrom different manufacturers. This is possible because both implement the same:\n&nbsp; (a) Instruction Set Architecture &nbsp; (b) Microarchitecture &nbsp; (c) Control unit\ndesign &nbsp; (d) Cache hierarchy</p>",
+    "answer": "<p><b>(a) Instruction Set Architecture.</b> The same binary program runs on both because they\nshare an <b>ISA</b>. Their microarchitecture, control unit and cache may all differ; that is\norganization, and it only changes speed, not what runs.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, Harvard",
+    "question": "<p class=\"q\">A processor fetches an instruction while simultaneously reading\ndata from memory. Which architecture makes this possible?\n&nbsp; (a) Stack &nbsp; (b) CISC &nbsp; (c) Von Neumann &nbsp; (d) Harvard</p>",
+    "answer": "<p><b>(d) Harvard.</b> Separate instruction and data memories and buses let both happen at\nonce. Von Neumann shares one path, so it cannot.</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>When an MCQ says <b>\"same instruction set\"</b> or <b>\"same ISA\"</b> but the\nhardware changed, the change is <b>organization</b>, never architecture. And \"which is\nvisible to the programmer?\" almost always points to the <b>instruction formats / addressing\nmodes / registers</b> (architecture), not to caches, buses or memory technology\n(organization).</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Architecture is the blueprint, what the machine does; organization is the\nconstruction, how it does it.\"",
+    "sub": "If a program can see or name it, it is <b>architecture</b> (the ISA); if it is a\nhidden build choice, it is <b>organization</b>. Same ISA runs the same programs. Von Neumann shares\none memory; Harvard splits instructions and data so it fetches both at once."
+   }
+  ]
+ },
+ {
+  "slug": "numbers",
+  "part": "Part A: foundations and data",
+  "kick": "Foundations and Data",
+  "title": "Number Systems and Conversions",
+  "lead": "Everything a computer holds is binary. This skill is turning numbers between\nbinary, decimal and hexadecimal without thinking, plus the special decimal codes, and it is easy\nmarks. We build it as a <b>programme</b>: many tiny steps worked through one at a time, and you\ncheck each one before the next. Go slowly and it will soon feel automatic.",
+  "minutes": 18,
+  "modules": [
+   3
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "A <b>base</b> just means how many symbols you count with before you start a new\ncolumn. Decimal is base 10: the ten symbols 0 to 9. A computer wire is only ever on or off.",
+      "ask": "So how many symbols does binary have?"
+     },
+     {
+      "check": "2, just 0 and 1",
+      "teach": "(on or off), which is base 2. Binary is\ncorrect but gets very long, so we bundle it up as <b>hexadecimal</b>, base 16, whose symbols run\n0 to 9 and then A, B, C, D, E, F.",
+      "ask": "A is the first letter-symbol; what decimal\nvalue does the hex digit A stand for?"
+     },
+     {
+      "check": "10.",
+      "teach": "Then B = 11, C = 12, D = 13, E = 14, F = 15. Next,\n<b>place value</b>: reading a number from right to left, the columns are worth base<sup>0</sup> = 1,\nthen base<sup>1</sup>, then base<sup>2</sup>, and so on.",
+      "ask": "In hex, what is the place\nvalue of the third column from the right?"
+     },
+     {
+      "check": "16<sup>2</sup> = 256.",
+      "teach": "So the hex columns are 1, 16, 256,\n4096. Three size words before we convert: one binary digit is a <b>bit</b>, four bits are a\n<b>nibble</b>, and eight bits are a <b>byte</b>.",
+      "ask": "How many bits are in a\nbyte?"
+     },
+     {
+      "check": "8",
+      "teach": "(and four bits are a nibble). Now the first conversion.\nTo turn <b>any base into decimal</b>, multiply each digit by its place value and add the results.\nTake the hex number 2F: its columns are 16 and 1, and F = 15.",
+      "ask": "Work out\n2&#215;16 + 15."
+     },
+     {
+      "check": "47, so hex 2F = 47.",
+      "teach": "That is every base-to-decimal\nquestion. The reverse, <b>decimal to any base</b>, divides repeatedly by the base, jots each\nremainder, and reads the remainders bottom to top. For 13 to binary: 13&#247;2 = 6 r 1,\n6&#247;2 = 3 r 0, 3&#247;2 = 1 r 1, 1&#247;2 = 0 r 1.",
+      "ask": "Read the four remainders\nfrom the bottom up."
+     },
+     {
+      "check": "1101.",
+      "teach": "Let us <b>prove it</b> rather than trust it. The\nbinary columns are 8, 4, 2, 1, and 1101 has 1-bits in the 8, 4 and 1 columns.",
+      "ask": "Add 8 + 4 + 1; do you land back on 13?"
+     },
+     {
+      "check": "yes, 8 + 4 + 1 = 13.",
+      "teach": "The conversion checks out. Now\n<b>binary to hex</b>. Because 16 = 2<sup>4</sup>, one hex digit is exactly four bits, so group the\nbits into fours <b>from the right</b> and turn each four into one hex digit. Take 1101 0110: the\nright group 0110 = 4+2 = 6.",
+      "ask": "What hex digit is the left group 1101?"
+     },
+     {
+      "check": "D",
+      "teach": "(that is 8+4+1 = 13). So 1101 0110 = D6, and going the\nother way you simply expand each hex digit back into its four bits.",
+      "ask": "Read\non."
+     },
+     {
+      "check": "",
+      "teach": "A few <b>powers of two</b> must be instant. 2<sup>10</sup> = 1024, which we call\n\"1 K\"; then 2<sup>20</sup> = 1 M and 2<sup>30</sup> = 1 G.",
+      "ask": "How many bytes is\n2<sup>10</sup>, and what one-letter name do we give it?"
+     },
+     {
+      "check": "1024 bytes, called 1 K.",
+      "teach": "Every memory and cache question\nleans on these. Now the special <b>decimal codes</b>, where each decimal digit is kept on its own.\nFirst is BCD.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>BCD</b> (binary coded decimal), the 8421 code, writes <b>each decimal digit</b>\nas its own 4 bits. So 59 becomes 5 = 0101 and 9 = 1001, written 0101 1001. It is a\n<b>weighted</b> code (the bit positions are worth 8, 4, 2, 1).",
+      "ask": "Write the single\ndigit 7 in BCD."
+     },
+     {
+      "check": "0111",
+      "teach": "(4+2+1 = 7). BCD is just the digit in plain 4-bit\nbinary. The next code, <b>Excess-3</b>, takes the digit, <b>adds 3</b>, then writes the result in\n4 bits. So 9 becomes 9+3 = 12 = 1100.",
+      "ask": "Write the digit 6 in Excess-3."
+     },
+     {
+      "check": "1001",
+      "teach": "(6+3 = 9 = 1001); to decode you subtract 3. Excess-3\nis <b>non-weighted</b> (its bits carry no fixed weight) and self-complementing.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Last, the <b>character codes</b>, which store text and not numbers. <b>ASCII</b>\nencodes English letters, digits and symbols in 7 or 8 bits; <b>Unicode</b> was introduced to\ncover the characters of all the world's languages.",
+      "ask": "Which of the two would you\nneed for Chinese or Arabic letters?"
+     },
+     {
+      "check": "Unicode",
+      "teach": "(it covers every language). That is every fact in\nthis skill. Now watch the moves used together in the two worked examples below, then sit the\nrecalls with the answers covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "The three conversions, and powers of two",
+    "html": "<ul class=\"bul\">\n<li><b>Any base to decimal:</b> multiply each digit by its place value and add. In hex the\nplaces are 1, 16, 256, 4096.</li>\n<li><b>Decimal to any base:</b> divide repeatedly by the base, write down each remainder,\nthen read the remainders <b>bottom to top</b>.</li>\n<li><b>Binary to hex:</b> group the bits into <b>fours from the right</b>, turn each group of\nfour into one hex digit. Hex to binary is the reverse: each hex digit becomes four bits. This\nworks because 16 = 2<sup>4</sup>, so one hex digit is exactly four bits.</li>\n</ul>\n<table class=\"data\">\n<tr><th>n</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>\n<tr><th>2<sup>n</sup></th><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td></tr>\n</table>\n<p><b>Memory hook:</b> know these powers of two cold; 2<sup>10</sup> = 1024 = \"1 K\", then\n2<sup>20</sup> = 1 M, 2<sup>30</sup> = 1 G. Every cache and memory question needs them.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "hex to decimal",
+    "problem": "<p>Convert the hex number <b>7D3A</b> to decimal.</p>",
+    "working": "<pre class=\"calc\">place:   4096   256    16     1\ndigit:      7    13(D)   3    10(A)\n         ----   ----   ---   ---\n   7 x 4096  = 28 672\n  13 x  256  =  3 328\n   3 x   16  =     48\n  10 x    1  =     10\n             --------\n               32 058</pre>",
+    "answer": "7D3A = 28 672 + 3328 + 48 + 10 = 32 058",
+    "redo": "<b>Now redo it:</b> the only hard part is remembering 4096, 256, 16, 1. Write\nthose four first, then multiply."
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "binary to hex",
+    "problem": "<p>Convert binary <b>11010110</b> to hex.</p>",
+    "working": "<ol class=\"steps\">\n<li>Group in fours from the right: 1101&nbsp;&nbsp;0110.</li>\n<li>Each group of four to one hex digit: 1101 = 8+4+1 = 13 = <b>D</b>; 0110 = 4+2 = <b>6</b>.</li>\n<li>Write them in order: <b>D6</b>.</li>\n</ol>",
+    "answer": "11010110 = 1101 0110 = D6 (check: both equal 214)",
+    "redo": "<b>Now redo it:</b> go backwards too. 2A7F to binary is 2=0010, A=1010, 7=0111,\nF=1111, giving 0010101001111111."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "convert three",
+    "question": "<p class=\"q\">(1) Write decimal 255 in hex. (2) How many hex digits does a\n20-bit binary number need? (3) A hex value shifted right by one bit is the same as which\noperation?</p>",
+    "answer": "<p>(1) 255 = 15&#215;16 + 15 = <b>FF</b>. (2) 20 &#247; 4 = <b>5</b> hex digits (one hex\ndigit per four bits). (3) shifting right one bit is <b>dividing by 2</b> (left one bit is\ntimes 2).</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, the codes",
+    "question": "<p class=\"q\">(1) The Excess-3 code for decimal 9 is? (2) The Excess-3 code\n0110 is which decimal digit? (3) The 8421 BCD of decimal 59 is?</p>",
+    "answer": "<p>(1) 9 + 3 = 12 = <b>1100</b>. (2) 0110 = 6, minus 3 = <b>3</b>. (3) 5 = 0101, 9 = 1001, so\n<b>01011001</b>. Remember: BCD is the digit itself in 4 bits; Excess-3 is the digit plus 3.</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>Group binary into fours <b>from the right</b>, never the left, and pad the\nleftmost group with leading zeros if it is short. And do not confuse the codes: <b>BCD is\nweighted</b> (8421) and is just the digit in binary; <b>Excess-3 is non-weighted</b> and is\nthe digit <b>plus 3</b>. \"BCD\" stands for <b>binary coded decimal</b>, nothing else.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Powers of the base, right to left. And four bits make one hex digit.\"",
+    "sub": "To decimal: digit &#215; place, then add. To another base: divide by the base, read the\nremainders <b>bottom to top</b>. BCD is the digit in 4 bits; Excess-3 is the digit <b>plus 3</b>."
+   }
+  ]
+ },
+ {
+  "slug": "signed",
+  "part": "Part A: foundations and data",
+  "kick": "Foundations and Data",
+  "title": "Signed Numbers",
+  "lead": "This is the most asked numeric topic, and the one most people find confusing. So we\ndo it as a <b>programme</b>: many tiny steps, and you check each one before moving on. Go slowly.\nBy the last frame the moves will feel obvious.",
+  "minutes": 20,
+  "modules": [
+   4
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Start with 8 bits and <b>no sign</b> yet. The patterns run 0000 0000, 0000 0001,\nall the way up to 1111 1111. That top one, 1111 1111, is 2<sup>8</sup> &#8722; 1.",
+      "ask": "Write its value in decimal, then slide down."
+     },
+     {
+      "check": "255.",
+      "teach": "Every one of the 256 patterns is a positive number;\nthere is no minus sign anywhere yet. To make room for negatives we sacrifice the <b>top\n(leftmost) bit</b> and let it carry the sign: a top bit of 0 means positive.",
+      "ask": "So a top bit of 1 must mean what?"
+     },
+     {
+      "check": "negative.",
+      "teach": "So just by glancing at 1010 1010 (top bit 1)\nyou know it is a negative number. The only question left in the whole topic is <i>which</i> pattern\nto use for a given negative. The scheme real computers use is called <b>two's complement</b>, and\nthe next few frames build it slowly.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Picture the 8 bits as a car <b>odometer</b>. It counts up 0000 0000, 0000 0001, and\non to 1111 1111, then rolls back round to 0000 0000. Now turn it <b>one step backwards</b> from\n0000 0000.",
+      "ask": "What pattern do you land on?"
+     },
+     {
+      "check": "1111 1111.",
+      "teach": "One step below zero. So it is natural to call\n1111 1111 the value <b>&#8722;1</b>. Step back once more, to 1111 1110, and that is <b>&#8722;2</b>.\nNegatives are just the patterns you meet counting <b>down</b> from the top.",
+      "ask": "Counting back once more, what pattern is &#8722;3?"
+     },
+     {
+      "check": "1111 1101.",
+      "teach": "Counting all the way down would be slow, so\nhere is the <b>shortcut</b> to build any negative: write the positive, <b>flip every bit</b>, then\n<b>add 1</b>. Try it on &#8722;1. Start with +1 = 0000 0001.",
+      "ask": "Flip every bit and write the result."
+     },
+     {
+      "check": "1111 1110.",
+      "teach": "Now the second half of the shortcut.",
+      "ask": "Add 1 to 1111 1110. What do you get?"
+     },
+     {
+      "check": "1111 1111.",
+      "teach": "That is the same pattern the odometer gave for\n&#8722;1, so the shortcut is trustworthy. Say it like a chant: <b>\"flip every bit, add one.\"</b>\nNow your turn, all by yourself: make <b>&#8722;5</b> in 8 bits. Start with +5 = 0000 0101.",
+      "ask": "Flip, then add 1."
+     },
+     {
+      "check": "1111 1011.",
+      "teach": "(0000 0101 flips to 1111 1010, and adding 1\ngives 1111 1011.) That pattern is &#8722;5. Notice you only ever do three things: <b>positive,\nflip, add one</b>.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the other direction: <b>reading</b> a negative pattern back into a number. The\ntrick is the very same one. Take 1111 1011 (top bit 1, so it is negative). Flip it and add 1 to\nfind its <b>size</b>.",
+      "ask": "Flip 1111 1011, add 1, and say what size you get."
+     },
+     {
+      "check": "0000 0101 = 5",
+      "teach": ", so the value is <b>&#8722;5</b>. (Flip\n1111 1011 to 0000 0100, add 1 to get 0000 0101.) Writing a negative and reading one use the\n<b>same move</b>, which is why it is worth learning well.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Why did the world settle on this scheme? Two reasons. It has only <b>one</b> zero\n(just 0000 0000), and the ordinary adder does subtraction for free, because a &#8722; b is the same\nas a + (&#8722;b). Here is the proof. Add &#8722;5 (1111 1011) to +5 (0000 0101), and drop any\ncarry that falls off the top.",
+      "ask": "What 8-bit pattern is left?"
+     },
+     {
+      "check": "0000 0000.",
+      "teach": "(1111 1011 + 0000 0101 = 1&nbsp;0000 0000;\nthrow away the carry and you have 0000 0000, which is zero.) A number plus its negative gives\nzero, which is exactly what a negative should do. The scheme really works.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Last piece: the <b>range</b>. Half the patterns are negative and half positive,\nbut zero uses up one positive slot, so there is always one more negative than positive:\n<b>&#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1</b>. In 16 bits that is\n&#8722;32 768 to 32 767.",
+      "ask": "So in 8 bits the range is &#8722;128 to what?"
+     },
+     {
+      "check": "127.",
+      "teach": "(&#8722;2<sup>7</sup> to 2<sup>7</sup> &#8722; 1 is\n&#8722;128 to 127.) That is two's complement, start to finish.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Two older schemes you only need to <b>recognise</b> for the objective test.\n<b>Sign-magnitude</b>: a sign bit then the plain size, so &#8722;42 is 1 then 010 1010 = 1010 1010;\nits drawback is <b>two zeros</b> (+0 and &#8722;0). <b>One's complement</b>: negate by flipping\nevery bit only (no add 1); it needs an <b>end-around carry</b> when adding and also has two zeros.\nTwo's complement beat both by adding that 1.",
+      "ask": "How many zeros does sign-magnitude have?"
+     },
+     {
+      "check": "two",
+      "teach": "(+0 and &#8722;0). That is every idea in this topic.\nNow watch all the moves used together in the worked example below, then sit it yourself with the\nanswer covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "prose",
+    "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <defs><marker id=\"sgar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L7,3 L0,6 Z\" fill=\"#b45309\"/></marker></defs>\n  <text x=\"12\" y=\"17\" font-size=\"10\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.6\">8-BIT TWO'S COMPLEMENT: NEGATIVES COUNT DOWN FROM THE TOP</text>\n  <path d=\"M498 52 C 498 20, 22 20, 22 52\" fill=\"none\" stroke=\"#b45309\" stroke-width=\"1.6\" marker-end=\"url(#sgar)\"/>\n  <text x=\"260\" y=\"33\" font-size=\"9.5\" fill=\"#b45309\" text-anchor=\"middle\">add 1 past 1111 1111 rolls back to 0000 0000</text>\n  <rect x=\"20\" y=\"56\" width=\"240\" height=\"30\" fill=\"#15803d\"/>\n  <rect x=\"260\" y=\"56\" width=\"240\" height=\"30\" fill=\"#33566e\"/>\n  <rect x=\"20\" y=\"56\" width=\"480\" height=\"30\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1\"/>\n  <text x=\"140\" y=\"75\" font-size=\"10.5\" fill=\"#fff\" text-anchor=\"middle\">top bit 0: positive</text>\n  <text x=\"380\" y=\"75\" font-size=\"10.5\" fill=\"#fff\" text-anchor=\"middle\">top bit 1: negative</text>\n  <g font-size=\"9.5\" fill=\"#41505f\" font-family=\"DejaVu Sans Mono\">\n    <text x=\"20\" y=\"104\" text-anchor=\"start\">0000 0000</text>\n    <text x=\"255\" y=\"104\" text-anchor=\"end\">0111 1111</text>\n    <text x=\"265\" y=\"104\" text-anchor=\"start\">1000 0000</text>\n    <text x=\"500\" y=\"104\" text-anchor=\"end\">1111 1111</text>\n  </g>\n  <g font-size=\"10\" fill=\"#20262f\" font-weight=\"bold\">\n    <text x=\"20\" y=\"120\" text-anchor=\"start\">= 0</text>\n    <text x=\"255\" y=\"120\" text-anchor=\"end\">= +127</text>\n    <text x=\"265\" y=\"120\" text-anchor=\"start\">= &#8722;128</text>\n    <text x=\"500\" y=\"120\" text-anchor=\"end\">= &#8722;1</text>\n  </g>\n</svg>\n<figcaption>The patterns just below zero are the negatives: 1111 1111 is &#8722;1, counting down. To make\nor read a negative, flip every bit and add 1.</figcaption>\n</figure>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "the moves on one card",
+    "html": "<ul class=\"bul\">\n<li><b>Write a negative:</b> positive in n bits, <b>flip every bit, add 1</b>.</li>\n<li><b>Read a negative</b> (top bit 1): <b>flip, add 1</b> for the size, then put a minus in\nfront.</li>\n<li><b>Add:</b> add the patterns, <b>drop</b> any carry off the top (no end-around carry).</li>\n<li><b>Range in n bits:</b> &#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1\n(16 bits: &#8722;32 768 to 32 767).</li>\n</ul>\n<p><b>Memory hook:</b> one's complement is \"flip\"; two's complement is \"flip and add one\".</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>Store &#8722;182, 487 and &#8722;1023 in a 16-bit two's-complement machine\n(binary and hex) and add (&#8722;182) + 487. <b>The exam sets exactly this; you will sit it\nverbatim in the final mock at the back.</b> Here is how you write it on paper, one move at a\ntime.</p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 16 bits, two's complement &middot;\n&#8722;182, 487, &#8722;1023</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> range = &#8722;2<sup>15</sup> to\n2<sup>15</sup> &#8722; 1 &middot; negative = flip the positive and add 1 &middot; group 4\nbits per hex digit</div>\n</div>\n<pre class=\"calc\">Range: -2¹⁵ to 2¹⁵ - 1  =  -32768 to 32767   (all three fit)\n\n487  =  0000 0001 1110 0111  =  01E7\n\n-182:  +182  =  0000 0000 1011 0110\n     invert  =  1111 1111 0100 1001\n        + 1  =  1111 1111 0100 1010  =  FF4A\n\n-1023: +1023 =  0000 0011 1111 1111\n     invert  =  1111 1100 0000 0000\n        + 1  =  1111 1100 0000 0001  =  FC01\n\n(-182) + 487:\n     1111 1111 0100 1010\n   + 0000 0001 1110 0111\n   ---------------------\n   1 0000 0001 0011 0001   drop the carry off the top\n     0000 0001 0011 0001   =  256+32+16+1  =  305</pre>",
+    "answer": "Range &#8722;32768 to 32767 (all fit); 487 = 01E7, &#8722;182 = FF4A,\n&#8722;1023 = FC01; (&#8722;182) + 487 = 305.",
+    "redo": "<b>Now redo it:</b> positive, invert, add 1, every time. Practise with\n&#8722;75 in 8 bits (answer 1011 0101)."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "read three patterns",
+    "question": "<p class=\"q\">In 8 bits: (1) what decimal is 1000 0000 in two's complement?\n(2) what is the two's complement of 0010 1100? (3) what decimal is 1010 1010 in\n<i>sign-magnitude</i>?</p>",
+    "answer": "<p>(1) top bit 1 so negative; flip to 0111 1111, add 1 = 1000 0000 = 128, so <b>&#8722;128</b>.\n(2) flip 0010 1100 to 1101 0011, add 1 = <b>1101 0100</b>. (3) sign bit 1 (negative),\nmagnitude 010 1010 = 42, so <b>&#8722;42</b>.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, quick facts",
+    "question": "<p class=\"q\">(1) How many representations of zero in sign-magnitude?\n(2) Which scheme needs an end-around carry? (3) The one's-complement pattern 1110 0011 is\nwhich decimal? (4) Why is two's complement used?</p>",
+    "answer": "<p>(1) <b>two</b> (+0 and &#8722;0). (2) <b>one's complement</b>. (3) top bit 1 so negative;\nflip 1110 0011 to 0001 1100 = 28, so <b>&#8722;28</b>. (4) <b>simpler and faster hardware</b>\n(one zero, and add and subtract share one circuit).</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>Reading a negative two's-complement pattern, do <b>not</b> just read the\nmagnitude bits off; you must flip and add 1 first. <b>Overflow</b> means the true result is too\nbig or too small for the range, not division by zero. And the end-around carry belongs to\n<b>one's</b> complement only; two's complement simply discards the top carry.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Flip and add one, to write a negative and to read one. Add the patterns, throw\naway the top carry.\"",
+    "sub": "Range in n bits: <b>&#8722;2<sup>n&#8722;1</sup> to 2<sup>n&#8722;1</sup> &#8722; 1</b>.\nOne's complement is \"flip\"; two's complement is \"flip and add one\", which is why it has one zero\nand one adder for both add and subtract."
+   }
+  ]
+ },
+ {
+  "slug": "ieee",
+  "part": "Part A: foundations and data",
+  "kick": "Foundations and Data",
+  "title": "Floating Point, IEEE 754",
+  "lead": "One 32-bit pattern has to hold both a tiny number like 0.0000001 and a huge one\nlike 6 billion, and plain whole-number binary cannot stretch that far. The fix is a trick you\nalready know from science class, but people find it fiddly, so we do it as a <b>programme</b>:\nmany tiny steps, and you check each one before moving on. Go slowly. By the last frame the three\nfields will feel obvious, and both exam directions fall out of a single line.",
+  "minutes": 18,
+  "modules": [
+   5
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Here is the whole problem in one line. You have <b>one</b> box, exactly 32 bits\nwide, and it must be able to write both a tiny number like <b>0.0000001</b> and a giant one like\n<b>6,000,000,000</b>. Plain whole-number binary, the kind you have used so far, cannot reach both\nends.",
+      "ask": "Can plain whole-number binary write both of those in 32 bits? Yes or no?"
+     },
+     {
+      "check": "No.",
+      "teach": "It runs out of room. But you already beat this same\nproblem in <b>decimal</b>, in science class: to write 6,020,000 compactly you put it as\n<b>6.02 &#215; 10<sup>6</sup></b>. Hidden in that little form are three separate pieces of\ninformation.",
+      "ask": "Name the three pieces."
+     },
+     {
+      "check": "a sign (it is positive, +), a fraction (6.02), and an exponent\n(6).",
+      "teach": "That is all scientific notation is. Floating point does <b>exactly</b> this, but in\n<b>base 2</b>: a sign, a fraction, and a power of <b>2</b> instead of 10. Nothing more is going on.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "So a floating-point number is stored as those same three pieces, now called three\n<b>fields</b>, written left to right: the <b>sign</b> (s), then the <b>exponent</b> (E), then the\n<b>mantissa</b> M (which is just the fraction, also called the significand).",
+      "ask": "Which of the three fields sits on the far left?"
+     },
+     {
+      "check": "the sign.",
+      "teach": "Now their sizes. <b>Single precision</b> is\n<b>32 bits</b>, split as <b>1</b> sign bit, then <b>8</b> exponent bits.",
+      "ask": "That leaves how many bits for the mantissa, to reach 32?"
+     },
+     {
+      "check": "23.",
+      "teach": "(1 + 8 + 23 = 32.) You only need to <b>recognise</b> the\nbigger size: <b>double precision</b> is <b>64 bits</b>, split 1 + 11 + 52. Everything from here uses\nsingle precision.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "One preparation step, called <b>normalising</b>. In decimal you insist on\n<b>exactly one non-zero digit before the point</b> (6.02, never 60.2 or 0.602). In binary you do\nthe same: slide the point until the number reads <b>1.something &#215; 2<sup>e</sup></b>. Since the\nonly non-zero binary digit there can be is 1,",
+      "ask": "what single thing does a normalised\nbinary number always start with?"
+     },
+     {
+      "check": "\"1.\" (a one, then the point).",
+      "teach": "Always. And here is the first\ntrick that helps: because it is <b>always</b> \"1.\", actually storing that 1 would waste a bit on\nsomething you already know for certain. So it is <b>left out and just assumed</b>. This is the famous\n<b>hidden 1</b>.",
+      "ask": "When you READ a stored pattern back, what must you put in front of\nthe mantissa?"
+     },
+     {
+      "check": "a \"1.\".",
+      "teach": "Put the hidden 1 back before you read. And going the\nother way, when you <b>write</b> a number you drop that leading 1 and keep only what follows the\npoint. It costs nothing and buys you one extra bit of precision for free.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the second trick, the one that trips up most beginners: the <b>bias</b>. The\nexponent can be <b>negative</b> (for a tiny number like 2<sup>&#8722;3</sup>) or positive (for a big\none). Rather than give the exponent its own sign bit, we <b>add a fixed number, the bias</b>, so the\nstored exponent is always a positive count. The bias is <b>127</b> for single (1023 for double). It\nis like storing temperatures as \"degrees above &#8722;127\", so a minus sign is never needed.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "So the stored exponent field is the true exponent <b>plus</b> 127. To undo that and\nget the <b>true</b> exponent back, you simply <b>subtract</b> the bias again. Suppose a pattern has\nan exponent field of <b>130</b>.",
+      "ask": "What is its true exponent?"
+     },
+     {
+      "check": "3.",
+      "teach": "(130 &#8722; 127 = 3.) That is the whole method on one\nline, so learn it: <b>value = &#177; 1.M &#215; 2<sup>(exponent field &#8722; 127)</sup></b>. Both\nexam directions fall straight out of it.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "One last reading skill: turning the mantissa into a number. After the hidden \"1.\",\neach mantissa bit is a smaller and smaller fraction: the first bit is worth <b>1/2</b>, the next\n<b>1/4</b>, the next <b>1/8</b>. So a stored mantissa of 100&#8230; reads as <b>1.1</b> in binary,\nwhich is 1 + 1/2.",
+      "ask": "What is 1 + 1/2 in decimal?"
+     },
+     {
+      "check": "1.5.",
+      "teach": "Now decode a whole real pattern, one field at a time.\nTake sign bit <b>1</b>, exponent field <b>130</b>, mantissa <b>100&#8230;</b>. The sign bit 1 means\nnegative, the field 130 gives e = 3 (you just did that), and the mantissa gives 1.M = 1.5. First the\npower:",
+      "ask": "what is 2<sup>3</sup>?"
+     },
+     {
+      "check": "8.",
+      "teach": "Now hang the sign and the mantissa on it: value =\n<b>&#8722;1.5 &#215; 2<sup>3</sup></b> = &#8722;1.5 &#215; 8.",
+      "ask": "Finish it: what number is that?"
+     },
+     {
+      "check": "&#8722;12.",
+      "teach": "You just decoded a floating-point pattern by\nhand. Now <b>prove the bias to yourself</b>: to STORE that same exponent of 3 you would go the other\nway and do 3 + 127.",
+      "ask": "What exponent field would you store?"
+     },
+     {
+      "check": "130.",
+      "teach": "The very field you started from, so the bias undoes\nitself cleanly, going in and coming out. That is every idea in the topic: three fields, normalise to\n1.something, hide the leading 1, and shift the exponent by the bias. Now watch all the moves used\ntogether in the worked example below (it decodes this exact pattern, C1400000), then sit the two\n\"Your turn\" boxes with the answer covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "prose",
+    "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <text x=\"12\" y=\"19\" font-size=\"10.5\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.8\">SINGLE PRECISION = 32 BITS = 1 + 8 + 23</text>\n  <rect x=\"12\" y=\"32\" width=\"16\" height=\"46\" fill=\"#33566e\"/>\n  <rect x=\"28\" y=\"32\" width=\"124\" height=\"46\" fill=\"#0e7490\"/>\n  <rect x=\"152\" y=\"32\" width=\"356\" height=\"46\" fill=\"#b45309\"/>\n  <rect x=\"12\" y=\"32\" width=\"496\" height=\"46\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1.1\"/>\n  <text x=\"20\" y=\"60\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">s</text>\n  <text x=\"90\" y=\"60\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">exponent (8)</text>\n  <text x=\"330\" y=\"60\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">mantissa (23)</text>\n  <g font-size=\"10.5\" fill=\"#41505f\" text-anchor=\"middle\">\n    <text x=\"20\" y=\"96\">sign</text>\n    <text x=\"90\" y=\"96\">power + 127</text>\n    <text x=\"330\" y=\"96\">the fraction after \"1.\"</text>\n  </g>\n  <text x=\"260\" y=\"126\" font-size=\"12.5\" fill=\"#20262f\" text-anchor=\"middle\">value = &#177; 1.M &#215; 2<tspan font-size=\"8.5\" dy=\"-5\">(exponent field &#8722; 127)</tspan></text>\n</svg>\n<figcaption>The three fields, left to right: sign, exponent, mantissa. Store the exponent plus 127,\nread it minus 127; the leading 1 is hidden.</figcaption>\n</figure>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "Encode and decode",
+    "html": "<ul class=\"bul\">\n<li><b>Decimal to IEEE (single):</b> (1) sign bit from the sign. (2) Convert the magnitude to\nbinary. (3) Normalise to <b>1.something &#215; 2<sup>e</sup></b> by moving the point. (4)\nExponent field = <b>e + 127</b>, in 8 bits. (5) Mantissa = the \"something\" after the point,\npadded with zeros to 23 bits (the leading 1 is dropped, it is the hidden 1). (6) Put the 32 bits\ntogether and group in fours for hex.</li>\n<li><b>IEEE (hex) to decimal:</b> (1) write the 32 bits, split as 1 / 8 / 23. (2) Sign bit\ngives the sign. (3) Real exponent <b>e = exponent field &#8722; 127</b>. (4) Value =\n&#177; 1.M in binary &#215; 2<sup>e</sup> (remember to put the hidden 1 back).</li>\n</ul>\n<p><b>Memory hook:</b> \"sign, exponent, mantissa\", and the exponent is always <b>stored plus\nthe bias, read minus the bias</b>.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>Convert <b>C1400000</b> (single precision) to decimal. This is the X the exam\nsets in Question 4a; you will sit it verbatim in the final mock.</p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> C1400000h, single precision</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = (&#8722;1)<sup>sign</sup> &#215;\n1.M &#215; 2<sup>(exp field &#8722; 127)</sup></div>\n</div>\n<pre class=\"calc\">C1400000 = 1 10000010 100 0000...\n  sign 1  ->  negative\n  exp field 1000 0010 = 130,  e = 130 - 127 = 3\n  mantissa 1.100... = 1 + 1/2 = 1.5\n  value = -1.5 x 2³ = -1.5 x 8 = -12</pre>",
+    "answer": "C1400000 = &#8722;1.5 &#215; 2<sup>3</sup> = &#8722;12",
+    "redo": "<b>Now redo it:</b> exponent field minus 127, then read 1.M as a binary\nfraction (first bit a half, next a quarter)."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "encode a clean number",
+    "question": "<p class=\"q\">Encode <b>+6.0</b> in single precision. (Hint: 6 in binary is\n110; normalise it.)</p>",
+    "answer": "<p>6 = 110 = 1.10 &#215; 2<sup>2</sup>. Sign = 0. Exponent field = 2 + 127 = 129 = 1000 0001.\nMantissa = 100&#8230;0 (23 bits). Pattern: 0 10000001 10000000000000000000000 =\n<b>40C00000</b>. Check by decoding: +1.5 &#215; 2<sup>2</sup> = 6.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, the facts",
+    "question": "<p class=\"q\">(1) How many exponent bits in single precision? (2) The bias in\ndouble precision? (3) How many bits is double precision? (4) A floating-point number is\nstored as which order of fields?</p>",
+    "answer": "<p>(1) <b>8</b>. (2) <b>1023</b>. (3) <b>64</b>. (4) sign, then exponent, then mantissa (the\nexam phrases the answer as \"sign, mantissa, exponent\", meaning those three parts with the\nsign first; the true field order on the chip is sign, exponent, mantissa).</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>Do not forget the <b>bias</b>: the exponent you compute is <b>e + 127</b>\ngoing in, and <b>field &#8722; 127</b> coming out. And the leading 1 is <b>hidden</b>, so when\nyou read the mantissa put a \"1.\" in front of it. Single precision has range about\n10<sup>&#177;38</sup>; double about 10<sup>&#177;308</sup>.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Sign, exponent, mantissa. Add the bias going in, take the bias coming out, and\nalways hide the leading 1.\"",
+    "sub": "Single precision is <b>32 bits = 1 + 8 + 23</b>, bias <b>127</b>. One line runs both\ndirections: value = <b>&#177; 1.M &#215; 2<sup>(field &#8722; 127)</sup></b>."
+   }
+  ]
+ },
+ {
+  "slug": "image",
+  "part": "Part A: foundations and data",
+  "kick": "Foundations and Data",
+  "title": "Image and Memory Sizing",
+  "lead": "A small, reliable question: how much memory a picture needs. One formula and a\ncouple of unit facts, and the marks are yours. We build it as a <b>programme</b> of tiny steps,\nworked through one at a time, so cover the page and check yourself as you go.",
+  "minutes": 10,
+  "modules": [
+   10,
+   8
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "A <b>bitmap</b> image (also called <b>raster</b>) is a grid of tiny squares, and\neach square stores its own colour as a few bits.",
+      "ask": "So a bitmap picture is built\nout of what?"
+     },
+     {
+      "check": "pixels.",
+      "teach": "A <b>vector</b> image is different: it stores the\nshapes as maths (lines and curves), so it can be scaled to any size with no loss of quality.",
+      "ask": "A logo that must be blown up to billboard size with no blur, bitmap or\nvector?"
+     },
+     {
+      "check": "vector",
+      "teach": "(the maths redraws it crisply at any size). A\nphotograph, with its continuous shades, is stored as a bitmap.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now <b>colour depth</b>, the number of bits each pixel uses. Monochrome (black or\nwhite only) needs 1 bit per pixel; greyscale is often 8 bits; full colour is 24 bits.",
+      "ask": "How many bits per pixel does a monochrome image use?"
+     },
+     {
+      "check": "1 bit",
+      "teach": "(only two states, black or white). Now the size\nformula. The number of bits in a bitmap is width in pixels &#215; height in pixels &#215; bits per\npixel. Picture a small 100 by 50 pixel monochrome image.",
+      "ask": "Work out\n100 &#215; 50 &#215; 1."
+     },
+     {
+      "check": "5000 bits.",
+      "teach": "To turn bits into bytes, divide by 8.",
+      "ask": "What is 5000 &#247; 8?"
+     },
+     {
+      "check": "625 bytes.",
+      "teach": "So the whole chain is pixels across &#215;\npixels down &#215; bits per pixel, then &#247; 8 for bytes.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Often the size is given in inches at a certain <b>dpi</b> (dots per inch). Get the\npixels first: pixels = inches &#215; dpi, the same way for width and for height. Take 2 inches at\n300 dpi.",
+      "ask": "How many pixels is 2 &#215; 300?"
+     },
+     {
+      "check": "600 pixels.",
+      "teach": "Do that for the width and the height, then feed\nthe two pixel counts into the size formula as before.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "One last caution. A <b>megabyte</b> can mean 1024 &#215; 1024 bytes or a plain one\nmillion bytes, and the two give slightly different answers, so always say which you used. That is\nthe whole skill. Now work the example below with the answer covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>An image is 17.12 inches by 9.45 inches at 250 dpi, 1 bit per pixel. Find its\nmemory in megabytes. <b>The exam sets exactly this; sit it verbatim in the final mock.</b></p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 17.12 in &#215; 9.45 in &#183; 250 dpi &#183;\n1 bit per pixel</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> pixels = inches &#215; dpi (both ways)\n&middot; bytes = pixels &#215; bits / 8 &middot; MB = bytes / 1024 / 1024</div>\n</div>\n<pre class=\"calc\">pixels across = 17.12 x 250 = 4280\npixels down   =  9.45 x 250 = 2362.5\ntotal pixels  = 4280 x 2362.5 = 10 111 500\nbytes = 10 111 500 / 8 = 1 263 937.5\nMB    = 1 263 937.5 / 1024 / 1024 = 1.21 MB</pre>",
+    "answer": "10 111 500 pixels &#215; 1 bit = 1 263 937.5 bytes &#8776; 1.21 MB. Say\nwhich megabyte you used (1024 twice gives 1.21; a million gives about 1.26).",
+    "redo": "<b>Now redo it:</b> pixels first, times the bits per pixel, divide by 8, then\nby 1024 twice."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, images",
+    "question": "<p class=\"q\">(1) How many bits per pixel for a monochrome bitmap? (2) A logo\nmust be enlarged to billboard size without losing quality: bitmap or vector? (3) Photographs\nare best represented as?</p>",
+    "answer": "<p>(1) <b>1 bit</b> (two states). (2) <b>vector</b> (scales with no quality loss). (3)\n<b>bitmap</b> (a photo is a grid of continuous-tone pixels).</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Pixels = inches &#215; dpi. Bits = pixels &#215; depth. Bytes = bits &#247; 8.\"",
+    "sub": "For megabytes, divide by <b>1024 twice</b>, and say which megabyte you used. Vector\nscales with no quality loss; a bitmap does not. Monochrome is <b>1 bit</b> per pixel."
+   }
+  ]
+ },
+ {
+  "slug": "instructions",
+  "part": "Part B: the machine",
+  "kick": "The Machine",
+  "title": "Instruction Sets and Formats",
+  "lead": "What a machine instruction is, the kinds there are, and the four\n\"address\" formats the paper asks you to write a program in. Plus the counting question the\nobjective test likes.",
+  "minutes": 18,
+  "modules": [
+   6,
+   2
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "A machine instruction is one small command for the CPU. It always names an\noperation to carry out, for example ADD. The part that says <i>which</i> operation is called the\n<b>opcode</b>.",
+      "ask": "Name the part of an instruction that says which operation to do."
+     },
+     {
+      "check": "the opcode.",
+      "teach": "Sitting beside the opcode are zero or more\n<b>operands</b>: the things the operation works on. In <code>ADD A, B</code> the opcode is ADD, and\nA and B are the operands. (Each operand also carries an addressing mode saying where it is; that is\nthe next section.)",
+      "ask": "In <code>ADD A, B</code>, what are A and B called?"
+     },
+     {
+      "check": "the operands.",
+      "teach": "Opcode and operands are just <b>bit\nfields</b> packed side by side. The fixed layout of those fields is the instruction\n<b>format</b>.",
+      "ask": "What word means the layout of the bit fields in an instruction?"
+     },
+     {
+      "check": "the format",
+      "teach": "(the instruction format). And the whole\ncollection of instructions one CPU understands is called its <b>instruction set</b>. That is the\nvocabulary. Now the kinds of instructions.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "There are four main <b>types</b>. First, <b>data transfer</b>: LOAD, STORE, MOVE.\nThese move data between registers and memory, and a LOAD in particular reads <b>from</b> memory\ninto the CPU.",
+      "ask": "Does LOAD read from memory, or write to it?"
+     },
+     {
+      "check": "reads from memory.",
+      "teach": "Second, <b>arithmetic and logic</b>:\nADD, SUB, AND, OR. This is the ALU's work. Third, <b>input/output</b>: talk to devices.",
+      "ask": "Which unit does the ADD and AND work?"
+     },
+     {
+      "check": "the ALU.",
+      "teach": "Fourth, and the one the exam cares about,\n<b>control transfer</b>: JUMP, BRANCH, CALL. Normally instructions run one after another in order;\nthese <b>change that order</b>.",
+      "ask": "Which type changes the order instructions run in?"
+     },
+     {
+      "check": "control transfer.",
+      "teach": "Now the four <b>address formats</b>.\nThis is only a count: how many operand addresses each instruction names. We go from most to fewest.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Three-address</b> names both sources and the destination in one instruction,\ne.g. <code>ADD X, A, B</code> meaning X = A + B. Because each instruction does so much, you need the\n<b>fewest</b> of them.",
+      "ask": "How many addresses does <code>ADD X, A, B</code> name?"
+     },
+     {
+      "check": "three.",
+      "teach": "<b>Two-address</b> drops the separate destination;\nthe destination doubles as one source, e.g. <code>ADD A, B</code> means A = A + B.",
+      "ask": "After <code>ADD A, B</code>, where has the result gone?"
+     },
+     {
+      "check": "into A.",
+      "teach": "<b>One-address</b> works through a single register\ncalled the <b>accumulator</b>: LOAD a value in, do the operation, then STORE the result out. Only\none address is named each time.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Zero-address</b> names <b>no</b> address at all. It is a <b>stack</b> machine:\nyou PUSH operands onto the stack, and ADD simply pops the top two and pushes their sum.",
+      "ask": "Which of the four formats is the stack machine?"
+     },
+     {
+      "check": "zero-address.",
+      "teach": "Now the trade-off across all four. Fewer\naddresses means each instruction is <b>shorter</b>, but you need <b>more</b> of them.",
+      "ask": "Which format gives the shortest program (fewest instructions)?"
+     },
+     {
+      "check": "three-address.",
+      "teach": "And the other end: <b>zero-address</b> gives\nthe longest program (most instructions), though each one is tiny. You will write one expression in\nall four formats in the worked example below.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the counting question the objective test likes. To size a program in bytes,\ncount each instruction and add up, using: bytes per instruction = opcode bytes + (number of\naddresses &#215; bytes per address).",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "A single instruction's total <b>length</b> is just its fields added together. Take\nan 8-bit opcode, a 6-bit register field and an 18-bit address field.",
+      "ask": "Add them; what is the total length in bits?"
+     },
+     {
+      "check": "32 bits.",
+      "teach": "(8 + 6 + 18 = 32.) When every instruction is the\n<b>same</b> size it is called <b>fixed-length</b>; these decode faster and are used by RISC.\nVariable-length instructions are used by CISC.",
+      "ask": "Which style, fixed or variable, is faster to decode?"
+     },
+     {
+      "check": "fixed-length.",
+      "teach": "Last one: to fit <b>more opcodes</b> into the\nsame instruction length, you give the opcode <b>more bits</b> (and the operands fewer). That is\nevery idea here. Now watch one expression written in all four formats in the worked example below,\nthen sit the recall with the answer covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "prose",
+    "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 122\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <text x=\"12\" y=\"17\" font-size=\"10.5\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.7\">AN INSTRUCTION = OPCODE + OPERAND FIELDS</text>\n  <rect x=\"12\" y=\"30\" width=\"124\" height=\"44\" fill=\"#0e7490\"/>\n  <rect x=\"136\" y=\"30\" width=\"93\" height=\"44\" fill=\"#33566e\"/>\n  <rect x=\"229\" y=\"30\" width=\"279\" height=\"44\" fill=\"#b45309\"/>\n  <rect x=\"12\" y=\"30\" width=\"496\" height=\"44\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1.1\"/>\n  <text x=\"74\" y=\"57\" font-size=\"11.5\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">opcode (8)</text>\n  <text x=\"182\" y=\"57\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">register (6)</text>\n  <text x=\"368\" y=\"57\" font-size=\"11.5\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">address (18)</text>\n  <text x=\"260\" y=\"98\" font-size=\"12\" fill=\"#20262f\" text-anchor=\"middle\">8 + 6 + 18 = 32-bit instruction</text>\n</svg>\n<figcaption>An instruction is just its fields added: the opcode says what to do, the operand fields say\nwhat to do it to. More opcodes need more opcode bits and fewer operand bits.</figcaption>\n</figure>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "the counting formula",
+    "html": "<div class=\"answerbox\">bytes per instruction = opcode bytes + (number of addresses &#215; bytes per\naddress)</div>\n<p>A single instruction's total length is its fields added: an 8-bit opcode + a 6-bit register\nfield + an 18-bit address field = <b>32 bits</b>. <b>Fixed-length</b> (all one size) decodes faster\nand is used by RISC; <b>variable-length</b> by CISC. More opcodes in the same length means giving\nthe opcode more bits.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "write X = (A + B) &#215; (C + D)",
+    "problem": "",
+    "working": "<p>The same expression in each format. Watch the instruction count climb as\nthe number of addresses drops.</p>\n<p><b>Three-address</b> (shortest, 3 instructions):</p>\n<pre class=\"code\">ADD  T, A, B      ; T = A + B\nADD  X, C, D      ; X = C + D\nMUL  X, T, X      ; X = T * X</pre>\n<p><b>Two-address</b> (destination is also a source):</p>\n<pre class=\"code\">MOV  T, A\nADD  T, B         ; T = A + B\nMOV  X, C\nADD  X, D         ; X = C + D\nMUL  X, T         ; X = X * T</pre>\n<p><b>One-address</b> (one accumulator, AC):</p>\n<pre class=\"code\">LOAD  A\nADD   B           ; AC = A + B\nSTORE T\nLOAD  C\nADD   D           ; AC = C + D\nMUL   T           ; AC = AC * T\nSTORE X</pre>\n<p><b>Zero-address</b> (stack, most instructions but each is tiny):</p>\n<pre class=\"code\">PUSH A   PUSH B   ADD      ; A + B on the stack\nPUSH C   PUSH D   ADD      ; C + D on the stack\nMUL                       ; (A+B) * (C+D)\nPOP  X</pre>\n<p>The bigger version, X = ((A&#215;B) + C/D) / (F&#215;G + J&#215;K), is Question 4b on the\n2025/2026 paper and is in your final mock at the back.</p>",
+    "answer": "",
+    "redo": ""
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, instructions",
+    "question": "<p class=\"q\">(1) Which format is used by stack machines? (2) Which instruction\ncategory changes the program's execution sequence? (3) An instruction has an 8-bit opcode, a\n6-bit register field and an 18-bit address field: total length? (4) Which is NOT defined by\nthe ISA: addressing modes, instruction formats, internal ALU implementation, or visible\nregisters?</p>",
+    "answer": "<p>(1) <b>zero-address</b> (operands on the stack top). (2) <b>control transfer</b>\n(branch/jump/call). (3) 8 + 6 + 18 = <b>32 bits</b>. (4) <b>internal ALU implementation</b>\n(that is organization, not the programmer-visible ISA).</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>\"Zero-address\" goes with the <b>stack</b> and operands on <b>top of the\nstack</b>; do not mix it up with three-address (the shortest program). And the ISA defines\nwhat the programmer sees (formats, modes, registers), never how the ALU is wired inside.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Opcode says what; operands say what to. Fewer addresses, shorter instructions\nbut more of them.\"",
+    "sub": "Three-address is the shortest program; zero-address (a stack) the longest. Bytes =\nopcode + (number of addresses &#215; bytes each). Fixed-length decodes faster (RISC); variable-length\nis CISC."
+   }
+  ]
+ },
+ {
+  "slug": "addressing",
+  "part": "Part B: the machine",
+  "kick": "The Machine",
+  "title": "Addressing Modes",
+  "lead": "An address field in an instruction does not always hold the operand directly.\nThe addressing mode says how to turn that field into the real location, the effective address,\nand then the operand. Learn the six or seven modes as \"how many hops through memory\", and this\nis easy marks on both the paper and the objective test.",
+  "minutes": 15,
+  "modules": [
+   7
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Here is the one idea behind every addressing mode. An instruction carries an\naddress <b>field</b>, but that field does not always hold the operand you want. The <b>mode</b> is\nthe rule for turning the field into the real place, and then the operand.",
+      "ask": "What does the addressing mode tell you how to find?"
+     },
+     {
+      "check": "the real location, then the operand.",
+      "teach": "Two names to fix\nfirst. The real location of the operand is the <b>effective address</b>, or EA. And <b>M[x]</b> is\nshorthand for \"the value stored at address x\", so M[1200] is the value sitting at address 1200.",
+      "ask": "In words, what does M[4500] mean?"
+     },
+     {
+      "check": "the value stored at address 4500.",
+      "teach": "We will grade every mode\nby one question: <b>how many hops through memory</b> does it take to reach the operand? We start\nwith the fewest.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Immediate</b> mode. The operand is a plain constant written <b>inside</b> the\ninstruction itself, so you never touch memory to fetch it.",
+      "ask": "How many memory hops does immediate mode need?"
+     },
+     {
+      "check": "zero.",
+      "teach": "Needing no memory access, immediate is the fastest\nway to supply a constant. Next, <b>direct</b> mode: the field <i>is</i> the address, so EA = the\nfield and the operand = M[field], one hop into memory.",
+      "ask": "Direct mode reads memory how many times?"
+     },
+     {
+      "check": "once",
+      "teach": "(one hop). <b>Indirect</b> mode adds one more hop. Now\nthe field holds the address <i>of</i> the address: first EA = M[field], then the operand =\nM[ M[field] ]. That is two hops, a pointer to a pointer.",
+      "ask": "How many hops does indirect mode take?"
+     },
+     {
+      "check": "two.",
+      "teach": "Because indirect follows an address that is itself\nstored in memory, it is exactly what you need to chase pointers, for example down a linked list.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Two modes lean on a <b>register</b> instead of memory. <b>Register</b> mode: the\noperand sits in a named register, so no memory hop at all. <b>Register indirect</b>: the register\nholds an <b>address</b>, so the operand is M[register], one hop.",
+      "ask": "In register-indirect, is the operand in the register, or at the address the\nregister holds?"
+     },
+     {
+      "check": "at the address the register holds.",
+      "teach": "Last group, the \"add\"\nmodes; each <b>adds</b> something to the field to make the EA. <b>Relative</b>: EA = PC + field.\n<b>Indexed</b>: EA = index register + field. <b>Base</b>: EA = base register + displacement.",
+      "ask": "What does relative mode add to the field?"
+     },
+     {
+      "check": "the PC.",
+      "teach": "Now put it to work on one running example. Take\nPC = 7000, R1 = 1500, address field = 1200, and memory holds M[1200] = 4500, M[4500] = 999,\nM[1500] = 6000. Keep these in view. First, <b>direct</b> (EA = field, operand = M[field]).",
+      "ask": "Give the direct operand."
+     },
+     {
+      "check": "4500.",
+      "teach": "(EA = 1200, operand = M[1200] = 4500.) Now\n<b>indirect</b> on the same field: first EA = M[1200], then operand = M[that].",
+      "ask": "Work both hops and give the indirect operand."
+     },
+     {
+      "check": "999.",
+      "teach": "(EA = M[1200] = 4500, then operand = M[4500] = 999.)\nNow <b>register indirect</b> with R1 = 1500: the register holds the address, so operand = M[R1].",
+      "ask": "Give the register-indirect operand."
+     },
+     {
+      "check": "6000.",
+      "teach": "(R1 = 1500, so operand = M[1500] = 6000.) Finally\n<b>relative</b>, an add-mode: EA = PC + field, with PC = 7000 and field = 1200.",
+      "ask": "Give the relative EA."
+     },
+     {
+      "check": "8200.",
+      "teach": "(7000 + 1200 = 8200. The table gives no M[8200], so\nyou would report the EA and never invent a value.)",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the whole thing on one card. Immediate = the operand is <b>in</b> the\ninstruction (zero hops). Direct = <b>one</b> hop. Indirect = <b>two</b> hops. And the add-modes\n(relative, indexed, base) <b>add</b> a register or the PC to the field first, then read there.",
+      "ask": "Order these by hops, fewest first: direct, immediate, indirect."
+     },
+     {
+      "check": "immediate (0), direct (1), indirect (2).",
+      "teach": "That is every mode\nyou need. Now study the worked example and recall below, which run this exact PC = 7000, R1 = 1500,\nfield = 1200 example, and sit them with the answers covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "The modes, as hops",
+    "html": "<p>The <b>effective address (EA)</b> is where the operand really is;\n<b>M[x]</b> means \"the value stored at address x\". Each mode is one more hop than the last:</p>\n<table class=\"data\">\n<tr><th>Mode</th><th>Effective address</th><th>Operand is</th></tr>\n<tr><td>Immediate</td><td>none</td><td>the value <b>inside the instruction</b> (a constant)</td></tr>\n<tr><td>Direct</td><td>EA = the address field</td><td>M[address field]</td></tr>\n<tr><td>Indirect</td><td>EA = M[address field]</td><td>M[ M[address field] ]</td></tr>\n<tr><td>Register</td><td>none</td><td>the value <b>in the named register</b></td></tr>\n<tr><td>Register indirect</td><td>EA = contents of the register</td><td>M[register]</td></tr>\n<tr><td>Relative (PC-relative)</td><td>EA = PC + address field</td><td>M[PC + field]</td></tr>\n<tr><td>Indexed</td><td>EA = index register + address field</td><td>M[index + field]</td></tr>\n<tr><td>Base</td><td>EA = base register + displacement</td><td>M[base + displacement]</td></tr>\n</table>\n<p><b>Memory hook:</b> immediate = <b>in</b> the instruction (zero hops, fewest memory\naccesses); direct = <b>one</b> hop; indirect = <b>two</b> hops (a pointer to a pointer).\nRegister indirect uses a register as the pointer; relative, indexed and base all <b>add</b>\nsomething to the field.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, laid out",
+    "problem": "<p>PC = 7000, R1 = 1500, address field = 1200. Memory holds:\nM[1200] = 4500, M[4500] = 999, M[1500] = 6000. Give the EA and operand for each mode. <b>The\nexam sets exactly this; sit it verbatim in the final mock.</b></p>\n<table class=\"data\">\n<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>\n<tr><td>Immediate</td><td>none</td><td>the field itself = <b>1200</b></td></tr>\n<tr><td>Direct</td><td>1200</td><td>M[1200] = <b>4500</b></td></tr>\n<tr><td>Indirect</td><td>M[1200] = 4500</td><td>M[4500] = <b>999</b></td></tr>\n<tr><td>Register</td><td>none</td><td>R1 = <b>1500</b></td></tr>\n<tr><td>Register indirect</td><td>R1 = 1500</td><td>M[1500] = <b>6000</b></td></tr>\n<tr><td>Relative</td><td>PC + 1200 = <b>8200</b></td><td>M[8200], not in the given table</td></tr>\n</table>",
+    "working": "",
+    "answer": "Immediate 1200; Direct 4500; Indirect 999; Register 1500; Register\nindirect 6000; Relative EA 8200. If the table has no entry for an EA, say so, do not invent a\nvalue.",
+    "redo": "<b>Now redo it:</b> follow the hops. Direct reads memory once, indirect twice,\nthe \"add\" modes add a register to the field first."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, work the EA",
+    "question": "<p class=\"q\">(1) R1 = 2000, M[2000] = 500. Register-indirect operand? (2)\nInstruction address 500, displacement +30, PC-relative EA? (3) R2 = 300 (index),\ndisplacement 20, indexed EA? (4) Base register 4000, displacement 120, base EA? (5) Address\n700, M[700] = 1500, M[1500] = 60. Indirect operand?</p>",
+    "answer": "<p>(1) M[2000] = <b>500</b>. (2) 500 + 30 = <b>530</b>. (3) 20 + 300 = <b>320</b>. (4)\n4000 + 120 = <b>4120</b>. (5) M[700] = 1500, then M[1500] = <b>60</b>.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, pick the mode",
+    "question": "<p class=\"q\">(1) A constant is embedded in the instruction: which mode?\n(2) Which mode needs the fewest memory accesses? (3) Which mode best suits following pointers\nin a linked list?</p>",
+    "answer": "<p>(1) <b>immediate</b>. (2) <b>immediate</b> (the operand is already in the instruction, no\nmemory hop). (3) <b>indirect</b> (it dereferences a pointer, which is exactly what a linked\nlist needs).</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>When a question gives you M[EA], read what it asks: the <b>effective\naddress</b> is the location, the <b>operand</b> is the value there. For indexed, base and\nrelative modes, you <b>add</b> the register or PC to the field to get the EA; the value stored\nat that EA is the operand, one further hop.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Count the hops through memory: immediate 0, direct 1, indirect 2.\"",
+    "sub": "The <b>effective address</b> is the place; the <b>operand</b> is the value at it.\nIndexed, base and relative all <b>add</b> a register or the PC to the field to get the effective\naddress."
+   }
+  ]
+ },
+ {
+  "slug": "performance",
+  "part": "Part B: the machine",
+  "kick": "The Machine",
+  "title": "CPU Performance",
+  "lead": "How fast a processor runs is a calculation, not a mystery. Two formulas do\nalmost everything: the CPU-time equation and Amdahl's law. This is the most heavily weighted\nnumeric topic on the recent paper.",
+  "minutes": 14,
+  "modules": [
+   9
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Everything about processor speed comes from one equation. A program's running time is three numbers multiplied together: CPU time = IC &#215; CPI &#215; T. IC is the instruction count (how many instructions actually run), CPI is the average cycles per instruction, and T is how long one clock cycle lasts.",
+      "ask": "Say what each of the three, IC, CPI and T, stands for, then slide down."
+     },
+     {
+      "check": "instruction count, average cycles per instruction, clock cycle time.",
+      "teach": "The clock rate you see advertised (say 4 GHz) is cycles per second, so one cycle lasts T = 1 / clock rate.",
+      "ask": "Put that in place of T and write CPU time using clock rate."
+     },
+     {
+      "check": "CPU time = (IC &#215; CPI) / clock rate.",
+      "teach": "So a faster clock shortens the time, but a smaller instruction count or a smaller CPI does too. All three matter.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Look closer at CPI. Instructions are not all equal: a register add may take 1 cycle, an indirect memory access 4. The average CPI weights each type by how often it appears, adding up (fraction of the type &#215; its cycles) over all types. The fractions must add to 1.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Try a tiny one. A program is 70% simple instructions at 1 cycle each and 30% at 3 cycles each.",
+      "ask": "Work out the average CPI: (0.70 &#215; 1) + (0.30 &#215; 3)."
+     },
+     {
+      "check": "1.60.",
+      "teach": "(0.70 &#215; 1 = 0.70, and 0.30 &#215; 3 = 0.90, giving 1.60.) Notice 0.70 and 0.30 add to 1, exactly as the fractions must.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "A second speed measure is MIPS, millions of instructions per second: MIPS = clock rate / (CPI &#215; 10<sup>6</sup>). A faster clock or a lower CPI both raise it.",
+      "ask": "If the clock rate is 2 &#215; 10<sup>9</sup> and CPI is 2, find the MIPS."
+     },
+     {
+      "check": "1000 MIPS.",
+      "teach": "(2 &#215; 10<sup>9</sup> divided by (2 &#215; 10<sup>6</sup>) gives 1000.)",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "When you improve something, always measure the gain against the OLD time: improvement = (old &#8722; new) / old.",
+      "ask": "Old time 200, new time 150: what fraction is the improvement?"
+     },
+     {
+      "check": "0.25, that is 25%.",
+      "teach": "((200 &#8722; 150) / 200 = 50 / 200 = 0.25.) Divide by the old value, never the new.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "So is a chip fast just because its clock is fast? No. Because time = (IC &#215; CPI) / clock rate, the instruction count and CPI count just as much, and behind CPI sit cache behaviour, branch prediction and instruction-level parallelism.",
+      "ask": "Name one reason a high-clock chip can still be slow."
+     },
+     {
+      "check": "a high CPI",
+      "teach": "(or a large instruction count, or poor cache or branch behaviour). That is why \"judge a processor by clock frequency only\" is wrong.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the second big formula, Amdahl's law. Suppose you speed up only PART of a task. The part you did not touch still takes its full time, so it caps the gain. Let f be the fraction of the original time spent in the part you improve, and let s be how many times faster you make that part.",
+      "ask": "In your own words, what does f stand for?"
+     },
+     {
+      "check": "the fraction of the time spent in the part you speed up.",
+      "teach": "That part's time shrinks from f to f / s, while the rest, (1 &#8722; f), is unchanged. If the whole job was time 1, the new time is (1 &#8722; f) + f / s, and speedup is old over new.",
+      "ask": "Write the speedup S."
+     },
+     {
+      "check": "S = 1 / ((1 &#8722; f) + f / s).",
+      "teach": "Old time 1 on top, new time (1 &#8722; f) + f / s on the bottom.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Push s as large as you like, so f / s shrinks towards 0. Then S climbs only as far as 1 / (1 &#8722; f), because the untouched (1 &#8722; f) never goes away. Memory hook: the slow part you left alone sets the ceiling.",
+      "ask": "With f = 0.85, what is the best speedup possible, even with an infinite s?"
+     },
+     {
+      "check": "about 6.67.",
+      "teach": "(1 / (1 &#8722; 0.85) = 1 / 0.15 = 6.67.) Now a real, finite case: a cache 10 times faster (s = 10) that the CPU hits 85% of the time (f = 0.85). First find the new time, (1 &#8722; f) + f / s.",
+      "ask": "Compute 0.15 + 0.85 / 10."
+     },
+     {
+      "check": "0.235.",
+      "teach": "(0.15 + 0.085 = 0.235.) So S = 1 / 0.235.",
+      "ask": "Finish it: what is S?"
+     },
+     {
+      "check": "about 4.26.",
+      "teach": "(1 / 0.235 = 4.26.) Far below the cache's 10 times, because the 15% of slow accesses dominate, which is exactly Amdahl's point. The reference card and the two worked examples below sit both of these formulas; do them with the answers covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "the performance formulas on one card",
+    "html": "<ul class=\"bul\">\n<li><b>CPU time = IC &#215; CPI &#215; T = (IC &#215; CPI) / clock rate</b> (since T = 1 / clock rate).</li>\n<li><b>Average CPI = &#931;(fraction of each type &#215; its cycles)</b>, and the fractions add to 1.</li>\n<li><b>MIPS = clock rate / (CPI &#215; 10<sup>6</sup>)</b>.</li>\n<li><b>Improvement = (old &#8722; new) / old</b>, always against the old time.</li>\n<li><b>Amdahl's law: S = 1 / ((1 &#8722; f) + f / s)</b>, ceiling <b>1 / (1 &#8722; f)</b>.</li>\n</ul>\n<p><b>Memory hook:</b> the slow part you left alone sets the ceiling, no matter how fast you make the rest.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>One million instructions, by addressing mode: Register 40% at 1 cycle,\nImmediate 20% at 1, Direct 15% at 2, Indirect 10% at 4, Indexed 10% at 3, Relative 5% at 2.\nFind the average CPI and total cycles; then optimise indirect to 2 cycles and give the\nimprovement. <b>The exam sets exactly this; sit it verbatim in the final mock.</b></p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> IC = 1 000 000 &middot; the share and cycle\ncost of each mode</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> CPI = &#931;(fraction &#215; cycles)\n&middot; total = IC &#215; CPI &middot; improvement = (old &#8722; new) / old</div>\n</div>\n<pre class=\"calc\">Avg CPI = 0.40x1 + 0.20x1 + 0.15x2 + 0.10x4 + 0.10x3 + 0.05x2\n        = 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10\n        = 1.70\n\nTotal cycles = 1 000 000 x 1.70 = 1 700 000\n\nIndirect 4 -> 2:  new CPI = 1.70 - 0.10x4 + 0.10x2\n                          = 1.70 - 0.20\n                          = 1.50\n\nImprovement = (1.70 - 1.50) / 1.70 = 0.20 / 1.70 = 11.76%</pre>",
+    "answer": "CPI 1.70; total cycles 1 700 000; new CPI 1.50; improvement 11.76%.",
+    "redo": "<b>Now redo it:</b> weighted average, then recompute with the one changed cost."
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>A cache is 10 times faster than main memory, and the CPU finds what it needs\nin cache 85% of the time. Find the overall speedup. <b>The exam sets exactly this; sit it\nverbatim in the final mock.</b></p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> f = 0.85 (cache hits) &middot; s = 10</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> S = 1 / ((1 &#8722; f) + f/s)</div>\n</div>\n<pre class=\"calc\">S = 1 / ((1 - 0.85) + 0.85/10)\n  = 1 / (0.15 + 0.085)\n  = 1 / 0.235\n  = 4.26</pre>",
+    "answer": "S = 4.26, far below 10, because the 15% of slow accesses dominate. That\nis exactly Amdahl's point.",
+    "redo": "<b>Now redo it:</b> the \"10 times faster\" is s, not the answer; only the 85%\ngets divided by s, the other 15% stays at full cost."
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, performance",
+    "question": "<p class=\"q\">(1) A benchmark runs 12 billion instructions at 4 GHz with an\naverage CPI of 1.5. Execution time? (2) Why should performance not be judged by clock\nfrequency alone?</p>",
+    "answer": "<p>(1) time = (IC &#215; CPI) / clock rate = (12&#215;10<sup>9</sup> &#215; 1.5) /\n(4&#215;10<sup>9</sup>) = 18 / 4 = <b>4.5 seconds</b>. (2) because it also depends on\n<b>CPI, instruction count, cache behaviour and instruction-level parallelism</b>, not clock\nspeed by itself.</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>Improvement is measured against the <b>old</b> time, (old &#8722; new)/old,\nnot the new. In Amdahl's law, <b>f</b> is the fraction sped up and only that part is divided by\ns; a \"10 times faster\" cache with 85% hits gives about 4.26, not 10.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Time = IC &#215; CPI &#215; T. In Amdahl's law, the slow part you leave alone sets\nthe ceiling.\"",
+    "sub": "Improvement is measured against the <b>old</b> time, (old &#8722; new)/old. However fast\nyou make the rest, speedup can never beat <b>1/(1 &#8722; f)</b>. CPI is a weighted average of the\ncycles."
+   }
+  ]
+ },
+ {
+  "slug": "pipelining",
+  "part": "Part B: the machine",
+  "kick": "The Machine",
+  "title": "Pipelining and Hazards",
+  "lead": "Overlapping instructions so several are in progress at once, like a laundry\nthat washes one load while drying the last. It speeds the processor up, and the paper asks you\nto compute that speedup and to name the hazards that get in the way.",
+  "minutes": 15,
+  "modules": [
+   9
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Pipelining means overlapping instructions so several are in progress at once. Picture a laundry: you do not wait for one load to wash, dry and fold before starting the next, because the moment the first load moves to the dryer the second goes into the washer. A processor overlaps its instructions the same way.",
+      "ask": "What everyday process is pipelining most like?"
+     },
+     {
+      "check": "a laundry",
+      "teach": "(or any assembly line). To overlap them, we split each instruction into stages, called k stages. A common five are IF (instruction fetch), ID (instruction decode), EX (execute), MEM (memory access) and WB (write back). Each stage is its own hardware, so five instructions can each sit in a different stage at the same moment.",
+      "ask": "Name the five stages in order."
+     },
+     {
+      "check": "IF, ID, EX, MEM, WB.",
+      "teach": "Without a pipeline, instruction 2 cannot start until instruction 1 has passed through every stage. With a pipeline, the instant an instruction leaves a stage the next one enters it, so once the pipe is full one instruction finishes every clock cycle.",
+      "ask": "Once the pipe is full, how many instructions complete per clock cycle?"
+     },
+     {
+      "check": "one every cycle.",
+      "teach": "That steady one-per-cycle output is the whole payoff. Now, how long is one clock cycle? Every stage must finish inside it, so the cycle is set by the slowest stage plus a small latch delay between stages, never the average and never the sum.",
+      "ask": "If the stages take 60, 50, 90, 80 ns with a 10 ns latch, what is the cycle time?"
+     },
+     {
+      "check": "100 ns.",
+      "teach": "(The slowest stage is 90 ns, plus the 10 ns latch, giving 100 ns.)",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the time for n instructions. The first takes k cycles to fill the pipe; after that one more finishes every cycle, so n instructions take (k + n &#8722; 1) cycles, which you then multiply by the cycle time.",
+      "ask": "With k = 4 stages and n = 500 tasks, how many cycles is that?"
+     },
+     {
+      "check": "503 cycles.",
+      "teach": "(4 + 500 &#8722; 1 = 503, and at 100 ns each that is 50 300 ns.)",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Without the pipeline each instruction needs its full one-instruction time, the sum of the stage times, here 60 + 50 + 90 + 80 = 280 ns. The speedup is that one-instruction time divided by the cycle time, and it can never exceed k, the number of stages.",
+      "ask": "Divide 280 ns by the 100 ns cycle to get the speedup."
+     },
+     {
+      "check": "2.8.",
+      "teach": "(280 / 100 = 2.8, below the ceiling of k = 4 stages.) For a whole batch you compare totals instead: 500 &#215; 280 = 140 000 ns without a pipeline, against 50 300 ns with one. The reference card and the two worked examples below sit exactly these; do them with the answers covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "The pipeline sums",
+    "html": "<ul class=\"bul\">\n<li><b>Cycle time</b> = slowest stage + latch delay.</li>\n<li><b>Pipelined time for n tasks</b> = <b>(k + n &#8722; 1) &#215; cycle time</b>. (It takes k\ncycles to fill with the first task, then one more cycle for each of the other n &#8722; 1.)</li>\n<li><b>Non-pipelined time for n tasks</b> = n &#215; (time for one instruction). One\ninstruction takes the sum of all the stage times, or the given per-instruction time.</li>\n<li><b>Speedup</b> = non-pipelined time / pipelined time. Its ceiling is k.</li>\n</ul>\n<p><b>Memory hook:</b> \"k + n &#8722; 1\", and the clock runs at the <b>slowest</b> stage, never\nthe average.</p>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the method, vertically",
+    "problem": "<p>A pipeline has 4 phases of 60, 50, 90, 80 ns, with a 10 ns latch delay.\nFind the cycle time, the one-task time, the speedup, and the times for 500 tasks. <b>The exam\nsets exactly this; sit it verbatim in the final mock.</b></p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 4 phases 60, 50, 90, 80 ns &middot; latch\n10 ns &middot; 500 tasks</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch &middot; pipe(n) =\n(k + n &#8722; 1) &#215; cycle &middot; seq(n) = n &#215; &#931;phases &middot; speedup =\n&#931;phases / cycle</div>\n</div>\n<pre class=\"calc\">Cycle    = max(60,50,90,80) + 10 = 90 + 10 = 100 ns\nOne task = 60 + 50 + 90 + 80 = 280 ns\nSpeedup  = 280 / 100 = 2.8\nPipe 500 = (4 + 500 - 1) x 100 = 503 x 100 = 50 300 ns\nSeq 500  = 500 x 280 = 140 000 ns</pre>",
+    "answer": "Cycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined\n50 300 ns against sequential 140 000 ns.",
+    "redo": ""
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the revision deck's new one",
+    "problem": "<p>A non-pipelined processor takes 60 ns per instruction. Redesigned as a\n6-stage pipeline with a 12 ns cycle time, running 50 instructions. Find both times and the\nspeedup. (This is the one question on the revision deck that is not on any past paper, so learn\nit fresh.)</p>",
+    "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> non-pipelined 60 ns/instruction &middot;\nk = 6 stages &middot; cycle 12 ns &middot; n = 50</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> non-pipe = n &#215; time/instruction\n&middot; pipe = (k + n &#8722; 1) &#215; cycle &middot; speedup = non-pipe / pipe</div>\n</div>\n<pre class=\"calc\">Without pipelining = 50 x 60 = 3000 ns\nWith pipelining    = (6 + 50 - 1) x 12\n                   = 55 x 12\n                   = 660 ns      (fill 6x12=72, then 49x12=588)\nSpeedup            = 3000 / 660 = 4.55</pre>",
+    "answer": "Without pipelining 3000 ns; with pipelining 660 ns; speedup 4.55.",
+    "redo": "<b>Now redo it:</b> n &#215; per-instruction time without, (k + n &#8722; 1)\n&#215; cycle with, then divide."
+   },
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do the small task, then slide the card down to the next line to check your answer. One step at a time, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Overlapping is not free: sometimes two instructions in the pipe clash, and a clash is called a hazard. There are three kinds, and you must be able to name them. The first is the structural hazard, where two instructions need the same piece of hardware in the same cycle (one memory wanted for a fetch and a data access at once).",
+      "ask": "How do you remove a structural hazard?"
+     },
+     {
+      "check": "duplicate the resource",
+      "teach": "(for example, separate instruction and data memories, so each instruction has its own). The second kind is the data hazard: an instruction needs a result that an earlier instruction has not written yet. We name its three types by the order in which two instructions touch the same register.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "RAW (read after write) is the true dependency: the second instruction reads a register the first has not written yet. It is eased by forwarding, which feeds the result straight from where it is produced to where it is needed, before the write-back stage.",
+      "ask": "Which of the three data hazards is the real dependency?"
+     },
+     {
+      "check": "RAW.",
+      "teach": "The other two, WAR (write after read) and WAW (write after write), are only naming clashes over the same register, not true data flow.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "When forwarding cannot deliver the value in time, the pipeline must stall: it inserts a bubble, an idle cycle, until the value is ready.",
+      "ask": "What is the idle cycle a stall inserts called?"
+     },
+     {
+      "check": "a bubble.",
+      "teach": "The third kind is the control hazard: a branch changes which instruction runs next, but the pipe has already fetched the ones right after the branch. It is eased by branch prediction and speculative execution, whose whole purpose is to reduce control-hazard stalls.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now classify one pair. The first instruction writes R3, and the second instruction reads R3. The shared register is R3, and the order is write then read.",
+      "ask": "Which data hazard is that?"
+     },
+     {
+      "check": "RAW",
+      "teach": "(write then read is exactly read-after-write). That is every hazard idea in place. The box just below shows how to draw the pipeline timing diagram the paper sometimes asks for; after it, sit the two \"your turn\" boxes with the answers covered.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "How to draw the timing (cycle) diagram",
+    "html": "<p>The paper sometimes says <i>\"draw the pipeline timing diagram\"</i> or <i>\"draw the\ncycle diagram\"</i>. It is always the same grid, and you draw it the same way every time:</p>\n<ul class=\"bul\">\n<li><b>Cycles across the top</b> (1, 2, 3, ...), <b>one instruction per row</b> down the side.</li>\n<li>In each cell write the <b>stage</b> that instruction is in that cycle: IF, ID, EX, (MEM),\nWB. Some papers add an <b>operand fetch (OF)</b> stage between ID and EX; use whatever stages\nthe question names.</li>\n<li>Each instruction begins its IF <b>one cycle after</b> the instruction above it.</li>\n<li>A <b>multi-cycle execute</b> (say a 3-cycle multiply or a 6-cycle divide) writes EX in\n<b>that many cells</b> in a row, and everything behind it slides right.</li>\n<li>A <b>stall</b> (waiting for a hazard to clear, or for a busy stage) is a gap you mark with\na bubble, written <b>--</b>.</li>\n</ul>\n<p>The <b>total number of cycles</b> is simply the column where the <b>last</b> instruction\nreaches WB. That is your answer to \"how many cycles\".</p>\n<p><b>How to remember it:</b> \"cycles across, instructions down, stages in the boxes, count to\nthe last WB.\" A long EX <b>pushes</b>; a stall is a <b>--</b>. (You will draw exactly this for\nQuestion Two and Question Three in the final mock.)</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "classify the hazards",
+    "question": "<p class=\"q\">Find the one register on both lines and read its order.\n(i) R3 &#8592; R1 op R2, then R5 &#8592; R3 op R4. (ii) R3 &#8592; R1 op R2, then\nR1 &#8592; R4 op R5. (iii) R3 &#8592; R1 op R2, then R3 &#8592; R6 op R7.</p>",
+    "answer": "<p>(i) R3 is written then read, so <b>RAW</b>. (ii) R1 is read then written, so <b>WAR</b>.\n(iii) R3 is written then written, so <b>WAW</b>. Only RAW is a real data dependency; the other\ntwo are naming clashes.</p>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, pipelining",
+    "question": "<p class=\"q\">(1) The main objective of branch prediction and speculative\nexecution is to? (2) A read-after-write clash is eased by which technique?</p>",
+    "answer": "<p>(1) <b>reduce pipeline stalls caused by control hazards</b> (keep the pipe full across\nbranches). (2) <b>forwarding</b> (feed the result straight to where it is needed).</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>The clock runs at the <b>slowest</b> stage plus latch, not the average or\nthe sum. For n tasks the count is <b>k + n &#8722; 1</b>, so 500 tasks in a 4-stage pipe is\n503 cycles, not 504. Classify data hazards by the shared <b>register</b> and the order it is\nwritten and read, never by the instruction name.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Clock = the slowest stage + latch. For n tasks it is (k + n &#8722; 1) cycles.\"",
+    "sub": "Speedup tops out at <b>k</b> stages. Name a data hazard by the register order: <b>RAW</b>\n(read after write, the real one, eased by forwarding), WAR, WAW. A long execute pushes everything\nbehind it; a stall is a bubble."
+   }
+  ]
+ },
+ {
+  "slug": "memory",
+  "part": "Part B: the machine",
+  "kick": "The Machine",
+  "title": "Memory and Cache",
+  "lead": "The memory hierarchy carries the largest single block of objective questions, and\ncache mapping is the most examined calculation on the whole course. It looks fiddly, so we do it\nas a <b>programme</b>: many tiny steps, and you check each one before moving on. By the end the\ncache split will be the same four moves every time.",
+  "minutes": 20,
+  "modules": [
+   8
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "Memory is arranged in <b>levels</b>, fastest to slowest: <b>registers</b>, then\n<b>cache</b>, then <b>main memory</b>, then <b>secondary storage</b> (disk or SSD).",
+      "ask": "Of those four, which is the fastest?"
+     },
+     {
+      "check": "registers.",
+      "teach": "Picture it as your workspace: the few things in\nyour hands (registers), the book open on your desk (cache), the shelf beside you (main memory), and\nthe library across campus (disk). You keep what you use most closest, because reaching further\ncosts time.",
+      "ask": "As you climb toward registers, does memory get cheaper or dearer per\nbit?"
+     },
+     {
+      "check": "dearer.",
+      "teach": "Climbing up, memory gets faster, smaller, and more\nexpensive per bit. The reason there are levels at all is a trade-off: you cannot have fast, big and\ncheap at once.",
+      "ask": "So which level has the highest cost per bit?"
+     },
+     {
+      "check": "registers.",
+      "teach": "Now the two kinds of RAM. <b>SRAM</b> (static RAM)\nis built from <b>flip-flops</b>: fast, needs <b>no refresh</b>, but costly and low density.",
+      "ask": "Given it is fast but costly, which level is SRAM used for?"
+     },
+     {
+      "check": "cache.",
+      "teach": "<b>DRAM</b> (dynamic RAM) is built from\n<b>capacitors</b>: dense and cheap, but slower and it <b>needs periodic refresh</b>, so it is used\nfor <b>main memory</b>. (ROM and Flash are non-volatile; RAM, cache and DRAM are volatile, lost on\npower off.)",
+      "ask": "Which kind of RAM has to be refreshed?"
+     },
+     {
+      "check": "DRAM.",
+      "teach": "Two facts the MCQs love: the <b>MAR</b> (memory address\nregister) holds the address being accessed; and <b>access time</b> is how long one access takes,\nwhile <b>cycle time</b> is the minimum gap between the <b>starts</b> of two accesses.",
+      "ask": "A device with 60 ns access and 90 ns cycle can start a new access how often?"
+     },
+     {
+      "check": "every 90 ns",
+      "teach": "(the cycle time, not the access time). Now, why\ndoes a small nearby cache help at all? Because programs are predictable, a habit called\n<b>locality of reference</b>. It comes in two kinds.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Temporal</b> locality: a location used now is likely used again <b>soon</b>\n(think of a loop counter, read over and over).",
+      "ask": "Reusing the same location again\nsoon is which locality?"
+     },
+     {
+      "check": "temporal.",
+      "teach": "<b>Spatial</b> locality: once a location is used,\n<b>nearby</b> ones are likely used next (stepping through an array). That is exactly why the cache\ncopies a whole <b>block</b> at a time, not one lonely byte.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Two limits to know by name. The <b>memory wall</b> is the widening gap between\nfast CPUs and slow memory, which is why a processor can still wait on data despite a big cache.\n<b>Virtual memory</b> lets a program use an address space <b>larger than the physical RAM</b>, with\na memory management unit (MMU) translating the addresses.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Now the cache sum itself, gently. Picture the cache as a wall of numbered\n<b>hooks</b> (the <b>lines</b>), each big enough to hold one <b>block</b>, a short run of\nconsecutive bytes copied from memory together. Far more blocks exist in memory than there are\nhooks, so many blocks compete for the same hook.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "When the CPU names an address, that address answers <b>three questions</b>, and\nthat is exactly why it splits into three fields. The first, from the <b>low</b> bits, is the\n<b>offset</b>.",
+      "ask": "Which one thing does the offset pick out: which byte in the block,\nwhich hook, or which block?"
+     },
+     {
+      "check": "which byte inside the block.",
+      "teach": "The middle bits are the\n<b>index</b> (or <b>set</b>): which <b>hook</b> the block hangs on. The high bits are the\n<b>tag</b>: <b>which</b> of the many blocks sharing that hook is actually here, stored beside the\nblock and compared on every access.",
+      "ask": "A tag that matches means what?"
+     },
+     {
+      "check": "a hit",
+      "teach": "(no match is a miss). Now the sizes, in order.\n<b>Address bits</b> = log<sub>2</sub>(main memory size). <b>Offset</b> = log<sub>2</sub>(block\nsize).",
+      "ask": "A 16-byte block needs how many offset bits?"
+     },
+     {
+      "check": "4",
+      "teach": "(log<sub>2</sub>16 = 4). <b>Number of lines</b> = cache\nsize / block size. <b>Index bits</b> (direct mapped) = log<sub>2</sub>(lines).",
+      "ask": "A direct-mapped cache with 64 lines needs how many index bits?"
+     },
+     {
+      "check": "6",
+      "teach": "(log<sub>2</sub>64 = 6). For a <b>k-way set associative</b>\ncache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets); <b>fully associative</b>\nhas no index at all (any block on any hook). Whatever is left over is the <b>tag</b>: <b>tag bits</b>\n= address bits &#8722; index (or set) &#8722; offset. The <b>tag directory</b> = lines &#215; tag\nbits.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "Last, the <b>average memory access time (AMAT)</b>, with hit ratio h, cache time\nT<sub>c</sub> and memory time T<sub>m</sub>. Hierarchical (cache first): AMAT = T<sub>c</sub> +\n(1 &#8722; h) &#215; T<sub>m</sub>. Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +\n(1 &#8722; h) &#215; T<sub>m</sub>.",
+      "ask": "Read on."
+     },
+     {
+      "check": "Done.",
+      "teach": "That is the whole method: address bits from the\nmemory, offset from the block, lines from cache over block, tag is whatever is left, then the tag\ndirectory and AMAT. Now watch it on real numbers in the three worked examples below, then drill the\nsix extra caches with a card over each row.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "prose",
+    "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 140\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <text x=\"12\" y=\"17\" font-size=\"10.5\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.7\">A MEMORY ADDRESS SPLITS INTO THREE</text>\n  <rect x=\"12\" y=\"30\" width=\"186\" height=\"44\" fill=\"#b45309\"/>\n  <rect x=\"198\" y=\"30\" width=\"186\" height=\"44\" fill=\"#0e7490\"/>\n  <rect x=\"384\" y=\"30\" width=\"124\" height=\"44\" fill=\"#33566e\"/>\n  <rect x=\"12\" y=\"30\" width=\"496\" height=\"44\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1.1\"/>\n  <text x=\"105\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">tag (6)</text>\n  <text x=\"291\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">index (6)</text>\n  <text x=\"446\" y=\"57\" font-size=\"11.5\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">offset (4)</text>\n  <g font-size=\"10.5\" fill=\"#41505f\" text-anchor=\"middle\">\n    <text x=\"105\" y=\"92\">which block</text>\n    <text x=\"291\" y=\"92\">which hook (line)</text>\n    <text x=\"446\" y=\"92\">which byte</text>\n  </g>\n  <text x=\"260\" y=\"120\" font-size=\"10.5\" fill=\"#20262f\" text-anchor=\"middle\">example: 64 KB memory, 1 KB cache, 16 B block, direct mapped</text>\n</svg>\n<figcaption>The high bits pick the block (tag), the middle bits the line (index), the low bits the byte\n(offset). Their sizes come from the memory, cache and block sizes.</figcaption>\n</figure>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "the cache split on one card",
+    "html": "<ul class=\"bul\">\n<li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>\n<li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>\n<li><b>Number of lines</b> = cache size / block size.</li>\n<li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>\ncache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully\nassociative</b> has no index at all.</li>\n<li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The\n<b>tag directory</b> is lines &#215; tag bits.</li>\n</ul>\n<div class=\"answerbox\">Hierarchical (cache first): AMAT = T<sub>c</sub> + (1 &#8722; h) &#215;\nT<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +\n(1 &#8722; h) &#215; T<sub>m</sub>.</div>"
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the cache slides' standard case",
+    "problem": "<p>Main memory 64 KB, cache 1 KB, block 16 B, direct mapped. Find the\naddress split and the tag-directory size.</p>",
+    "working": "<pre class=\"calc\">Address = log2(64 KB) = log2(2¹⁶)     = 16 bits\nOffset  = log2(16)                     = 4 bits\nLines   = cache/block = 1024/16 = 64\nIndex   = log2(64)                     = 6 bits\nTag     = 16 - 6 - 4                   = 6 bits\nTag dir = lines x tag = 64 x 6 = 384 bits = 48 bytes</pre>",
+    "answer": "Offset 4, index 6, tag 6; tag directory 384 bits (48 bytes).",
+    "redo": "<b>Now redo it:</b> address from the memory size, offset from the block, lines\nfrom cache over block, and the tag is whatever is left. This works for any numbers."
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "average access time",
+    "problem": "<p>Hit rate 80%, cache time 5 ns, memory time 100 ns. Find the AMAT both\nways.</p>",
+    "working": "<pre class=\"calc\">Simultaneous = h.Tc + (1-h).Tm = 0.8x5 + 0.2x100 = 4 + 20 = 24 ns\nHierarchical =   Tc + (1-h).Tm =    5 + 0.2x100 = 5 + 20 = 25 ns</pre>",
+    "answer": "Simultaneous 24 ns, hierarchical 25 ns. Hierarchical pays the cache time\non every access, so it is a touch slower here.",
+    "redo": ""
+   },
+   {
+    "kind": "worked",
+    "mode": "example",
+    "label": "Worked example",
+    "tag": "the revision deck's six extra caches",
+    "problem": "<p>The lecturer's revision deck sets six more cache problems (Examples 2 and 3\nof each mapping). They are not on the 2025/2026 paper, so drill the method on these fresh\nnumbers. Cover a row, rebuild it from the four sizes, then check.</p>\n<table class=\"data\">\n<tr><th>Cache (memory / cache / block)</th><th>Offset</th><th>Index/Set</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>\n<tr><td>Direct, 128 KB / 4 KB / 32 B</td><td>5</td><td>index 7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>\n<tr><td>Direct, 1 MB / 8 KB / 64 B</td><td>6</td><td>index 7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>\n<tr><td>Fully assoc, 256 KB / 4 KB / 32 B</td><td>5</td><td>none</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>\n<tr><td>Fully assoc, 2 MB / 16 KB / 64 B</td><td>6</td><td>none</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>\n<tr><td>4-way, 512 KB / 8 KB / 32 B</td><td>5</td><td>set 6</td><td>8</td><td>256</td><td>2048 bits (256 bytes)</td></tr>\n<tr><td>8-way, 4 MB / 32 KB / 64 B</td><td>6</td><td>set 6</td><td>10</td><td>512</td><td>5120 bits (640 bytes)</td></tr>\n</table>",
+    "working": "",
+    "answer": "The lines are set by cache over block; the tag directory grows as the\nmapping gets more associative, because dropping the index lengthens the tag on every line.",
+    "redo": ""
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, memory",
+    "question": "<p class=\"q\">(1) Order fastest to slowest: registers, cache, main memory,\nsecondary. (2) SRAM versus DRAM in one line? (3) Reusing the same location soon is which\nlocality? (4) A program using more address space than physical RAM uses what? (5) Which memory\nhas the highest cost per bit?</p>",
+    "answer": "<p>(1) <b>registers, cache, main memory, secondary</b>. (2) SRAM = flip-flops, fast, no\nrefresh; <b>DRAM = capacitors</b>, dense, needs refresh. (3) <b>temporal</b> (nearby locations\nwould be spatial). (4) <b>virtual memory</b>. (5) <b>registers</b>.</p>"
+   },
+   {
+    "kind": "trap",
+    "label": "Trap",
+    "tag": "",
+    "html": "<p>Keep the units straight: offset comes from the <b>block</b> size, lines from\n<b>cache over block</b>. For set associative, divide lines by the ways to get <b>sets</b>\nbefore taking the log, and the bits you save on the index move into the <b>tag</b>. Temporal\nlocality is \"same place, later\"; spatial is \"nearby places\".</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"Offset, index, tag = which byte, which hook, which block.\"",
+    "sub": "Offset = log<sub>2</sub>(block), lines = cache &#247; block, index = log<sub>2</sub>(lines),\nand the <b>tag is whatever is left</b>. AMAT = T<sub>c</sub> + (1 &#8722; h) &#215; T<sub>m</sub>.\nRegisters are fastest and dearest; DRAM needs refresh, SRAM does not."
+   }
+  ]
+ },
+ {
+  "slug": "risc-cisc",
+  "part": "Part C: prove it",
+  "kick": "Prove It",
+  "title": "RISC, CISC and the Rest",
+  "lead": "Two design philosophies, plus the loose theory ideas the objective test dips into.\nMostly describing and comparing, so we do it as a short <b>programme</b>: one small contrast at a\ntime, then check. Get the contrasts clean and these are fast, reliable marks.",
+  "minutes": 12,
+  "modules": [
+   9,
+   10
+  ],
+  "blocks": [
+   {
+    "kind": "frames",
+    "label": "Work it frame by frame",
+    "tag": "cover, work, then slide down to check",
+    "howto": "Cover the page just below the first line with a card or your hand. Read a frame, do\nthe small task, then slide the card down to the next line to check your answer. One step at a\ntime, and do not skip.",
+    "frames": [
+     {
+      "check": "",
+      "teach": "An instruction set can be designed with two opposite philosophies. The first is\n<b>CISC</b> (complex instruction set computer): <b>many</b>, powerful, <b>variable-length</b>\ninstructions, some doing a lot of work each (even direct memory-to-memory operations).",
+      "ask": "Does CISC have few or many instructions?"
+     },
+     {
+      "check": "many.",
+      "teach": "Because each instruction does so much, CISC programs are\n<b>short</b>, but the hardware is complex, instructions take several cycles, and it is <b>harder to\npipeline</b>. Its instructions can resemble high-level language constructs, which <b>eases the\ncompiler</b>. It suited the old days of slow, expensive memory.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "The opposite is <b>RISC</b> (reduced instruction set computer): <b>few</b>, simple,\n<b>fixed-length</b> instructions, each ideally <b>one cycle</b>.",
+      "ask": "Are RISC\ninstructions fixed-length or variable-length?"
+     },
+     {
+      "check": "fixed-length.",
+      "teach": "RISC touches memory only through <b>load and\nstore</b> (a load-store design), keeps <b>many registers</b>, and uses hardwired control. Programs\nare longer, but the hardware is simple, fast, and <b>pipelines cleanly</b>. It minimises chip area\nand power and leans on the <b>compiler</b>.",
+      "ask": "So which philosophy pipelines more\neasily, RISC or CISC?"
+     },
+     {
+      "check": "RISC",
+      "teach": "(simple fixed-length instructions flow through the\npipeline cleanly). One quick sort for the exam:",
+      "ask": "variable-length instruction\nformats go with RISC or CISC?"
+     },
+     {
+      "check": "CISC",
+      "teach": "(RISC is fixed-length). The card just below lays the two\nside by side. Examples to recognise: RISC is ARM, MIPS, SPARC, PowerPC; CISC is Intel x86, VAX, the\nMotorola 68000.",
+      "ask": "Read on to the loose ideas the MCQs also test."
+     },
+     {
+      "check": "",
+      "teach": "<b>SIMD</b> (single instruction, multiple data): one instruction acts on <b>many\ndata items at once</b>, to speed up data-parallel work like graphics and matrices.",
+      "ask": "Why does SIMD exist?"
+     },
+     {
+      "check": "to accelerate data-parallel computations.",
+      "teach": "<b>Domain-specific\narchitecture</b>: a processor tailored to one job (say the matrix work in AI) can be far more\nefficient than a general-purpose one for that job.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Abstraction</b>: layering the design, with the ISA as the key layer, lets the\nhardware and software teams work <b>independently</b> while staying compatible.",
+      "ask": "Read on."
+     },
+     {
+      "check": "",
+      "teach": "<b>Backward compatibility</b>: keeping a <b>stable ISA</b> while the organization\nunderneath evolves is what lets twenty-year-old software still run on new chips.",
+      "ask": "What one thing gives backward compatibility across processor generations?"
+     },
+     {
+      "check": "a stable ISA",
+      "teach": "(with the organization evolving underneath).\nLast one, a wording the test likes: <b>architecture versus engineering</b>. Computer architecture is\nthe conceptual, operational design; computer engineering is the broader design, build and\nintegration of the hardware.",
+      "ask": "Read on."
+     },
+     {
+      "check": "Done.",
+      "teach": "You have now met every skill the exam tests. What is\nleft is <b>proof</b>: turn the page and work the MCQ bank a whole topic at a time with the answers\ncovered, going back to any skill you miss, then sit the 2025/2026 paper at the very back under exam\nconditions.",
+      "ask": ""
+     }
+    ]
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "RISC versus CISC, side by side",
+    "html": "<table class=\"data\">\n<tr><th>RISC</th><th>CISC</th></tr>\n<tr><td>Few, simple, fixed-length instructions</td><td>Many, complex, variable-length</td></tr>\n<tr><td>Mostly one cycle each; pipelines well</td><td>Several cycles; harder to pipeline</td></tr>\n<tr><td>Load-store; many registers</td><td>Memory-to-memory; fewer registers</td></tr>\n<tr><td>Complexity handled by the compiler</td><td>Complexity handled by the hardware</td></tr>\n</table>"
+   },
+   {
+    "kind": "recall",
+    "label": "Your turn",
+    "tag": "MCQ, RISC/CISC and friends",
+    "question": "<p class=\"q\">(1) Variable-length instructions go with RISC or CISC? (2) A chip\nthat minimises area and power and leans on the compiler follows which philosophy? (3) Why does\nSIMD exist? (4) What gives backward compatibility across processor generations?</p>",
+    "answer": "<p>(1) <b>CISC</b> (RISC is fixed-length). (2) <b>RISC</b>. (3) to <b>accelerate data-parallel\ncomputations</b>. (4) a <b>stable ISA</b> while the organization evolves underneath.</p>"
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "Before you turn the page",
+    "html": "<p>You have now met every skill the exam tests. What is left is <b>proof</b>.\nTurn the page and work the <b>MCQ bank</b>: attempt a whole topic with the answers covered,\nthen check. Anything you miss, go straight back to the skill that teaches it. Then sit the\n<b>2025/2026 paper</b> at the very back under exam conditions. That is the whole plan.</p>"
+   },
+   {
+    "kind": "lockin",
+    "big": "\"RISC: few, fixed, one-cycle, pipelines cleanly. CISC: many, complex,\nvariable-length.\"",
+    "sub": "A <b>stable ISA</b> gives backward compatibility while the organization evolves.\nSIMD accelerates data-parallel work; a domain-specific chip beats a general one at its one job."
+   }
+  ]
+ },
+ {
+  "slug": "final-paper",
+  "part": "Part C: prove it",
+  "kick": "Prove It",
+  "title": "The 2025 to 2026 Paper, Your Final Mock",
+  "lead": "The real paper, printed word for word, the one you are aiming at. Sit it Monday under exam conditions: two hours, answer Question One and any other two. Cover the worked answer, attempt the question, then check. This is the hall.",
+  "minutes": 120,
+  "modules": [],
+  "blocks": [
+   {
+    "kind": "teach",
+    "label": "Teach",
+    "tag": "How to sit it",
+    "html": "<p><b>Question One is compulsory, 30 marks</b>, and is where the numbers pile up. Then choose <b>any two of Questions Two to Five</b>, 20 marks each. Every answer is laid out the way you should write it on paper: the given values, the formula, the working stacked vertically, then the answer.</p>"
+   },
+   {
+    "kind": "heading",
+    "text": "Question One (30 marks, compulsory)"
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q1(a)",
+    "src": "the examiner's words, unedited",
+    "printed": "a.\ti) Computer Systems are designed using two closely related but distinct concepts which are Computer Architecture and Computer Organization. Differentiate between these concepts.\r\n\t<span class=\"qmark\">2mks</span>\r\nii) Compare Von Neumann Architecture and Harvard Architecture. Include a diagram for each.\r\n\t<span class=\"qmark\">3mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q1(a)",
+    "problem": "",
+    "working": "<p><b>i) Differentiate computer architecture from computer organization.</b></p>\n<p><b>Computer architecture</b> is defined as the functional design and logical structure of the computer system as the programmer sees it: the instruction set, the data types, the addressing modes and the register organization. It answers the question <i>\"What does the computer do?\"</i> and serves as the blueprint for the system.</p>\n<p><b>Computer organization</b> is defined as the operational units and their interconnections that realize (carry out) that architecture: the control signals, the buses, the memory technology used and the cache. It answers the question <i>\"How does the computer do it?\"</i> A useful likeness: architecture is the building's design, organization is the actual construction of the building.</p>\n<p><b>ii) Compare Von Neumann and Harvard architecture, with a diagram for each.</b></p>\n<p><b>Von Neumann architecture</b> is defined as a design that uses a <b>single</b> (shared) area of memory, reached over <b>one</b> bus, for both the program instructions and the data those instructions act on. It is simple to build, but the shared path is a bottleneck (an instruction fetch and a data access cannot happen at the same instant).</p>\n<figure>\r\n<svg viewBox=\"0 0 520 250\" style=\"width:80%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\r\n<defs><marker id=\"vnA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\r\n<g fill=\"#20262f\" text-anchor=\"middle\">\r\n<rect x=\"185\" y=\"12\" width=\"150\" height=\"172\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\r\n<text x=\"260\" y=\"32\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\r\n<rect x=\"205\" y=\"42\" width=\"110\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"65\" font-size=\"11\">Control unit</text>\r\n<rect x=\"205\" y=\"88\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"109\" font-size=\"11\">Registers</text>\r\n<rect x=\"205\" y=\"130\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"151\" font-size=\"11\">ALU</text>\r\n<rect x=\"22\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"107\" font-size=\"11\">I/O device</text>\r\n<rect x=\"390\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"107\" font-size=\"11\">I/O device</text>\r\n<rect x=\"185\" y=\"210\" width=\"150\" height=\"38\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/><text x=\"260\" y=\"234\" font-size=\"12\" fill=\"#0e7490\" font-weight=\"bold\">Memory</text>\r\n<line x1=\"130\" y1=\"102\" x2=\"185\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n<line x1=\"390\" y1=\"102\" x2=\"335\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n<line x1=\"260\" y1=\"184\" x2=\"260\" y2=\"210\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n</g></svg>\r\n<figcaption>Von Neumann architecture, the layout the lecturer draws: one Memory serves the whole processor over a single shared path (instructions and data together).</figcaption>\r\n</figure>\n<p><b>Harvard architecture</b> is defined as a design that uses <b>separate</b> memories and <b>separate</b> buses for instructions and data, which lets it <b>fetch an instruction and read data at the same time</b> (a form of parallelism), at the cost of duplicating the address, data and control lines.</p>\n<figure>\r\n<svg viewBox=\"0 0 520 258\" style=\"width:82%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\r\n<defs><marker id=\"hA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\r\n<g fill=\"#20262f\" text-anchor=\"middle\">\r\n<rect x=\"198\" y=\"28\" width=\"132\" height=\"200\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\r\n<text x=\"264\" y=\"48\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\r\n<rect x=\"212\" y=\"58\" width=\"104\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"81\" font-size=\"11\">Control unit</text>\r\n<rect x=\"212\" y=\"104\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"125\" font-size=\"11\">Registers</text>\r\n<rect x=\"212\" y=\"146\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"167\" font-size=\"11\">ALU</text>\r\n<rect x=\"22\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"70\" font-size=\"11\">I/O device</text>\r\n<rect x=\"390\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"70\" font-size=\"11\">I/O device</text>\r\n<rect x=\"18\" y=\"150\" width=\"140\" height=\"56\" rx=\"2\" fill=\"#f0f8f2\" stroke=\"#15803d\" stroke-width=\"1.4\"/>\r\n<text x=\"88\" y=\"172\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">Instruction</text>\r\n<text x=\"88\" y=\"190\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">memory</text>\r\n<rect x=\"374\" y=\"152\" width=\"124\" height=\"52\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/>\r\n<text x=\"436\" y=\"182\" font-size=\"11\" fill=\"#0e7490\" font-weight=\"bold\">Data memory</text>\r\n<line x1=\"130\" y1=\"65\" x2=\"198\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"390\" y1=\"65\" x2=\"330\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"158\" y1=\"178\" x2=\"198\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"374\" y1=\"178\" x2=\"330\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n</g></svg>\r\n<figcaption>Harvard architecture, the lecturer's layout: a separate instruction memory (fetched, one arrow in) and data memory (read and written), each on its own path, so both are reached at once.</figcaption>\r\n</figure>",
+    "answer": "",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q1(b)",
+    "src": "the examiner's words, unedited",
+    "printed": "b.\tA computer manufacturer is evaluating whether to replace a non-pipelined processor with a five-stage pipelined processor. The processor executes the following instruction mix: Arithmetic – 40%, Memory Access – 35%, Branch – 20%, Floating Point – 5%. The Non-pipelined processor clock cycle is 25ns.  Pipelined processor stage times are:  IF – 5ns, ID – 4ns, EX – 6ns, MEM – 5ns and WB – 4ns. Furthermore, Pipeline register overhead is 1 ns. Branch instructions incur a two-cycle penalty, Floating-point instructions has three cycles for EX stage, Memory accesses experience cache misses 10% of the time, adding four extra cycles. The program contains 20 million instructions.\r\ni) Determine the pipelined clock cycle.\t<span class=\"qmark\">1mk</span>\r\nii) Calculate the actual CPI.\t<span class=\"qmark\">2mks</span>\r\niii) Determine the actual execution time.\t<span class=\"qmark\">1mk</span>\r\niv) Compute the speedup over the non-pipelined processor.\t<span class=\"qmark\">1mk</span>\r\nv) Explain why the speedup differs from the theoretical maximum.\t<span class=\"qmark\">1mk</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q1(b)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> mix arithmetic 40%, memory 35%, branch 20%, floating point 5% ; five stage times 5, 4, 6, 5, 4 ns ; register overhead 1 ns ; non-pipelined clock 25 ns ; IC = 20 000 000 ; branch adds a 2-cycle penalty, floating point adds 4 extra cycles, a memory access misses 10% of the time adding 4 more.</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> pipelined clock, actual CPI, execution time, speedup, and why it is short of the max</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> clock = slowest stage + overhead &middot; actual CPI = 1 + &#931;(fraction &#215; extra cycles) &middot; time = IC &#215; CPI &#215; T &middot; speedup = time(non-pipe) / time(pipe)</div>\r\n</div>\n<p class=\"small\">The stem is dense and does not say whether each penalty is extra or total, so state the reading: base CPI 1; branch +2; memory +(2 + 0.10&#215;4) = 2.4; floating point +4; arithmetic +0.</p>\n<pre class=\"calc\">Clock  = max(5,4,6,5,4) + overhead\r\n       = 6 + 1 = 7 ns\r\n\r\nCPI    = 1                (base, one per cycle)\r\n       + 0.20 x 2         (branch)\r\n       + 0.35 x 2.4       (memory: 2 + 0.10x4)\r\n       + 0.05 x 4         (floating point)\r\n       + 0.40 x 0         (arithmetic)\r\n       = 1 + 0.40 + 0.84 + 0.20\r\n       = 2.44\r\n\r\nTime   = IC x CPI x T\r\n       = 20,000,000 x 2.44 x 7 ns = 0.3416 s\r\nNon-pipe = 20,000,000 x 25 ns    = 0.5 s\r\nSpeedup  = 0.5 / 0.3416          = 1.46</pre>",
+    "answer": "Clock 7 ns; CPI 2.44; time 0.3416 s; speedup 1.46. (v) It is far below the ideal 5 because the branch, floating-point and cache-miss penalties and the register overhead all raise the CPI above 1.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q1(c)",
+    "src": "the examiner's words, unedited",
+    "printed": "c.\tA spacecraft telemetry system uses a 16-bit processor to transmit environmental measurements. The following values are to be stored - Temperature = -182; Pressure = 487;\r\nAltitude = -1023. The processor uses 2's complement representation for signed integers.\r\ni) Determine the range of values representable in a 16-bit two's complement system.\r\nIndicate whether the given numbers fall within the range of value\t<span class=\"qmark\">2mks</span>\r\nii) Represent each value in: Binary and Hexadecimal\t<span class=\"qmark\">3mks</span>\r\niii) Demonstrate how the processor uses two's complement to compute\t<span class=\"qmark\">2mks</span>\r\n(−182) + 487"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q1(c)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 16-bit two's complement ; Temperature −182, Pressure 487, Altitude −1023</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the range and whether each fits ; each in binary and hex ; (−182) + 487</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> range = −2<sup>15</sup> to 2<sup>15</sup> − 1 &middot; negative = invert the positive and add 1 &middot; group 4 bits per hex digit</div>\r\n</div>\n<pre class=\"calc\">Range: -2¹⁵ to 2¹⁵ - 1  =  -32768 to 32767   (all three fit)\r\n\r\n487  =  0000 0001 1110 0111  =  01E7\r\n\r\n-182:  +182  =  0000 0000 1011 0110\r\n     invert  =  1111 1111 0100 1001\r\n        + 1  =  1111 1111 0100 1010  =  FF4A\r\n\r\n-1023: +1023 =  0000 0011 1111 1111\r\n     invert  =  1111 1100 0000 0000\r\n        + 1  =  1111 1100 0000 0001  =  FC01\r\n\r\n(-182) + 487:\r\n     1111 1111 0100 1010\r\n   + 0000 0001 1110 0111\r\n   ---------------------\r\n   1 0000 0001 0011 0001   drop the carry off the top\r\n     0000 0001 0011 0001   =  256+32+16+1  =  305</pre>",
+    "answer": "Range −32768 to 32767 (all fit). 487 = 01E7, −182 = FF4A, −1023 = FC01. (−182) + 487 = 305: the machine adds the patterns and gets the right signed answer.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q1(d)",
+    "src": "the examiner's words, unedited",
+    "printed": "d.\tA processor executes one million(1M) instructions distributed as follows.\r\n<table class=\"astab\"><tr><th>Addressing Mode</th><th>Percentage</th><th>Cycles</th></tr><tr><td>Register</td><td>40%</td><td>1</td></tr><tr><td>Immediate</td><td>20%</td><td>1</td></tr><tr><td>Direct</td><td>15%</td><td>2</td></tr><tr><td>Indirect</td><td>10%</td><td>4</td></tr><tr><td>Indexed</td><td>10%</td><td>3</td></tr><tr><td>Relative</td><td>5%</td><td>2</td></tr></table>\r\ni) Compute the average CPI\t<span class=\"qmark\">2mks</span>\r\nii) Determine total clock cycles.\t<span class=\"qmark\">1mk</span>\r\niii) If indirect addressing is optimized to 2 cycles, compute the new CPI.\t<span class=\"qmark\">1mk</span>\r\niv) Evaluate the performance improvement.\t<span class=\"qmark\">2mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q1(d)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 1,000,000 instructions ; per-mode share and cycles as tabled</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> average CPI, total cycles, new CPI after optimising indirect, improvement</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> CPI = &#931;(fraction &#215; cycles) &middot; total = IC &#215; CPI &middot; improvement = (old − new)/old</div>\r\n</div>\n<pre class=\"calc\">Avg CPI = 0.40x1 + 0.20x1 + 0.15x2 + 0.10x4 + 0.10x3 + 0.05x2\r\n        = 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10\r\n        = 1.70\r\n\r\nTotal cycles = 1,000,000 x 1.70 = 1,700,000\r\n\r\nIndirect 4 -> 2:  new CPI = 1.70 - 0.10x4 + 0.10x2\r\n                          = 1.70 - 0.20 = 1.50\r\n\r\nImprovement = (1.70 - 1.50) / 1.70 = 0.20 / 1.70 = 11.76%</pre>",
+    "answer": "CPI 1.70; total cycles 1,700,000; new CPI 1.50; improvement 11.76%.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q1(e)",
+    "src": "the examiner's words, unedited",
+    "printed": "e.\tA processor contains the following information: PC = 7000;  R1 = 1500;\r\nMemory Contents\r\nAddress\tValue\r\n7000\t1200\r\n1200\t4500\r\n1500\t6000\r\n3200\t8100\r\n4500\t999\r\n6000\t200\r\n8100\t400\r\nAssume an instruction contains address field 1200.\r\nDetermine the Effective Address (EA) and operand for the following addressing modes:\r\ni) Immediate addressing mode\t<span class=\"qmark\">1mk</span>\r\nii) Direct addressing mode\t<span class=\"qmark\">1mk</span>\r\niii) Indirect addressing mode\t<span class=\"qmark\">1mk</span>\r\niv) Register addressing mode\t<span class=\"qmark\">1mk</span>\r\nv) Register Indirect (R1) addressing mode\t<span class=\"qmark\">1mk</span>\r\nvi) Relative addressing mode\t<span class=\"qmark\">1mk</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q1(e)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> PC = 7000, R1 = 1500, address field = 1200 ; M[1200]=4500, M[4500]=999, M[1500]=6000</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the EA and operand under each mode</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> the mode says how to turn the field into the EA ; the operand is M[EA]</div>\r\n</div>\n<table class=\"data\">\r\n<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>\r\n<tr><td>i) Immediate</td><td>none</td><td>the field = <b>1200</b></td></tr>\r\n<tr><td>ii) Direct</td><td>1200</td><td>M[1200] = <b>4500</b></td></tr>\r\n<tr><td>iii) Indirect</td><td>M[1200] = 4500</td><td>M[4500] = <b>999</b></td></tr>\r\n<tr><td>iv) Register</td><td>none</td><td>R1 = <b>1500</b></td></tr>\r\n<tr><td>v) Register indirect</td><td>R1 = 1500</td><td>M[1500] = <b>6000</b></td></tr>\r\n<tr><td>vi) Relative</td><td>PC + 1200 = <b>8200</b></td><td>M[8200], not in the given table</td></tr>\r\n</table>",
+    "answer": "Immediate 1200; Direct 4500; Indirect 999; Register 1500; Register indirect 6000; Relative EA 8200 (its operand is not listed).",
+    "redo": ""
+   },
+   {
+    "kind": "heading",
+    "text": "Question Two (20 marks)"
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q2(a)",
+    "src": "the examiner's words, unedited",
+    "printed": "a.\tAssume a computer has 32-bit addresses.  Each block stores 16 words.  A direct-mapped cache has 256 blocks.  In which block (line) of the cache (decimal value) would you look for each of the following addresses? Addresses are given in hexadecimal for convenience.  <span class=\"qmark\">4mks</span>\r\ni.\tCA2DFC12\r\nii.\tF24F25FF\r\niii.\t24BBABCD\r\niv.\tC1D9EEF2"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q2(a)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 32-bit address ; 16 words per block ; direct-mapped, 256 blocks</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the cache line each hex address maps to, in decimal</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> offset = log2(words/block) ; index = log2(lines) ; the index field IS the line</div>\r\n</div>\n<pre class=\"calc\">offset = log2(16) = 4 bits    (one hex digit)\r\nindex  = log2(256) = 8 bits   (two hex digits)\r\nSo: drop the last hex digit (offset), read the next two (the line):\r\n\r\n  CA2DFC1|2   ->  C1  =  193\r\n  F24F25F|F   ->  5F  =  95\r\n  24BBABC|D   ->  BC  =  188\r\n  C1D9EEF|2   ->  EF  =  239</pre>",
+    "answer": "Lines: CA2DFC12 &#8594; 193, F24F25FF &#8594; 95, 24BBABCD &#8594; 188, C1D9EEF2 &#8594; 239.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q2(b)",
+    "src": "the examiner's words, unedited",
+    "printed": "b.\tConsider the following code segment executed on a classic five-stage RISC processor.\r\nI1: LW   R1,0(R2)\r\nI2: ADD  R3,R1,R4\r\nI3: SUB  R5,R3,R6\r\nI4: SW   R5,8(R2)\r\nI5: BEQ  R5,R0,LABEL\r\nI6: MUL  R7,R5,R8\r\nAssume:\r\n•\tforwarding is available\r\n•\tbranch resolved in EX stage\r\n•\tload-use hazards require one stall\r\n•\tmultiplier occupies EX for three cycles\r\n•\tseparate instruction and data caches\r\ni) Identify and explain every pipeline hazard.\t<span class=\"qmark\">5mks</span>\r\nii) Draw the pipeline timing diagram\t<span class=\"qmark\">2mks</span>\r\niii) Determine the total execution cycles\t<span class=\"qmark\">1mk</span>\r\niv) Suggest any two hardware improvements that would reduce stalls.\t<span class=\"qmark\">1mk</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q2(b)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> six instructions on a classic 5-stage RISC pipeline ; forwarding on ; branch resolved in EX ; load-use costs 1 stall ; MUL holds EX for 3 cycles ; separate caches</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the hazards, the timing diagram, the total cycles, two improvements</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> ideal = (k + n − 1) cycles, then add every stall: 1 per load-use, and (EX cycles − 1) per multi-cycle execute</div>\r\n</div>\n<p class=\"marks\">Hazards</p>\n<p>I1&#8594;I2 is a <b>load-use RAW</b> (R1 not ready until MEM, so I2 stalls one cycle). I2&#8594;I3, I3&#8594;I4, I3&#8594;I5, I3&#8594;I6 are ordinary RAW hazards <b>hidden by forwarding</b>. I6's <b>multiply holds EX for three cycles</b>, adding two extra at the end. Structural hazards are avoided by the separate caches.</p>\n<p class=\"marks\">Timing diagram (one stall, then the long multiply)</p>\n<table class=\"trace\">\r\n<tr><th>Cyc</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>\r\n<tr><td>I1 LW</td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 ADD</td><td></td><td>IF</td><td>ID</td><td>--</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I3 SUB</td><td></td><td></td><td>IF</td><td>--</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I4 SW</td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I5 BEQ</td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td></tr>\r\n<tr><td>I6 MUL</td><td></td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>EX</td><td>EX</td><td>ME</td><td class=\"out\">WB</td></tr>\r\n</table>",
+    "answer": "One load-use stall (the -- in cycle 4) plus two extra multiply cycles give a total of <b>13 cycles</b> (a clean run of 6 would be 5 + 6 − 1 = 10). Two improvements: add more forwarding paths, and pipeline or duplicate the multiplier.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q2(c)",
+    "src": "the examiner's words, unedited",
+    "printed": "c.\tA processor has the following configuration: Main memory is 1 GB; Cache is 512 KB; Block size is 128 bytes and it is a 4-way Set Associative cache.\r\ni) Determine the total number of cache blocks.\t<span class=\"qmark\">1mk</span>\r\nii) Determine the number of sets.\t<span class=\"qmark\">1mk</span>\r\niii) Construct the complete address format.\t<span class=\"qmark\">1mk</span>\r\niv) If the hit rate is 96%, cache access time is 2 ns, and main memory access time is 80 ns, calculate the Average Memory Access Time (AMAT).\t<span class=\"qmark\">2mks</span>\r\nv) Discuss how increasing associativity beyond four ways might affect performance. <span class=\"qmark\">2mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q2(c)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> main memory 1 GB ; cache 512 KB ; block 128 B ; 4-way ; h = 0.96, Tc = 2 ns, Tm = 80 ns</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> blocks, sets, the address format, the AMAT</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> blocks = cache/block ; sets = blocks/ways ; tag = addr − set − offset ; AMAT = Tc + (1−h)&#215;Tm</div>\r\n</div>\n<pre class=\"calc\">Blocks = 512 KB / 128 B = 2¹⁹ / 2⁷ = 4096\r\nSets   = 4096 / 4 = 1024\r\nAddress = 1 GB = 2³⁰ -> 30 bits\r\n  offset = log2(128) = 7\r\n  set    = log2(1024) = 10\r\n  tag    = 30 - 10 - 7 = 13\r\nAMAT = Tc + (1-h)Tm = 2 + 0.04 x 80 = 2 + 3.2 = 5.2 ns</pre>",
+    "answer": "4096 blocks; 1024 sets; address tag 13 / set 10 / offset 7; AMAT 5.2 ns. (v) More ways cuts conflict misses but needs more tag comparators, so beyond a point it adds cost and delay for little gain.",
+    "redo": ""
+   },
+   {
+    "kind": "heading",
+    "text": "Question Three (20 marks)"
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q3(a)",
+    "src": "the examiner's words, unedited",
+    "printed": "a.\tA computer system has the following characteristics:\r\n•\tMain memory = 64 MB\r\n•\tCache memory = 128 KB\r\n•\tBlock size = 64 bytes\r\ni) Determine the number of cache lines\t<span class=\"qmark\">1½mks</span>\r\nii) For Direct Mapping, determine: Number of index bits; Number of tag bits; Number of offset bits\t<span class=\"qmark\">1½mks</span>\r\niii) For a 4-way Set Associative Cache, determine: Number of sets; Number of set index bits; Number of tag bits\t<span class=\"qmark\">1½mks</span>\r\niv) Explain why fully associative mapping eliminates conflict misses but introduces another performance challenge.\t<span class=\"qmark\">1½mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q3(a)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> main memory 64 MB ; cache 128 KB ; block 64 B</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> lines ; direct fields ; 4-way fields ; the fully-associative trade-off</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> lines = cache/block ; offset = log2(block) ; tag = addr − index(or set) − offset</div>\r\n</div>\n<pre class=\"calc\">Lines = 128 KB / 64 B = 2¹⁷ / 2⁶ = 2¹¹ = 2048\r\nAddress = 64 MB = 2²⁶ -> 26 bits ; offset = log2(64) = 6\r\n\r\nDirect: index = log2(2048) = 11 ; tag = 26 - 11 - 6 = 9\r\n4-way : sets = 2048/4 = 512 ; set = log2(512) = 9 ; tag = 26 - 9 - 6 = 11</pre>",
+    "answer": "2048 lines. Direct: index 11, tag 9, offset 6. 4-way: set 9, tag 11, offset 6. (iv) Fully associative lets any block go in any line, so no conflict misses, but every line's tag must be searched, which is slow and costly.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q3(b)",
+    "src": "the examiner's words, unedited",
+    "printed": "b.\tA 5-stage pipelined processor has instruction fetch (IF), Instruction decode (ID), Operand Fetch (OF), Execute (Ex) and Write Back (WB) stages. The IF, ID, OF and WB stages take 1 clock cycle each for any instruction. The PO stage take 1 cycle for ADD and SUB instructions, 3 clock cycles for MUL instruction and 6 clock cycles for DIV instruction respectively. Operand forwarding is used in the pipeline.\r\n\r\nDraw the cycle diagram and determine the number of cycles needed to execute the following sequence of instructions:\r\n\r\ni.\tWhen Operand forwarding is used\t<span class=\"qmark\">4½mks</span>\r\nii.\tWhen Operand forwarding is not used\t<span class=\"qmark\">5½mks</span>\r\n\r\nI1\tMUL R2, R0, R1\t; R2 ← R0 X R1\r\nI2\tDIV R5, R3, R4\t; R5 ← R3/R4\r\nI3\tADD R2, R5, R2\t; R2 ← R5 + R2\r\nI4\tSUB R5, R2, R6\t; R5 ← R2 – R6"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q3(b)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 5 stages IF, ID, OF, EX, WB, one cycle each except EX = 1 (ADD/SUB), 3 (MUL), 6 (DIV) ; four instructions ; do it with and without forwarding</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the cycle diagram and total cycles for each case</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> no single formula once EX is multi-cycle: lay the schedule out cycle by cycle, a long EX blocks those behind it, then read the total off the last write-back</div>\r\n</div>\n<p class=\"small\">The paper prints \"PO stage\", struck through in pen to EX. Instructions: I1 MUL R2,R0,R1 ; I2 DIV R5,R3,R4 ; I3 ADD R2,R5,R2 (needs R5 from I2 and R2 from I1) ; I4 SUB R5,R2,R6 (needs R2 from I3). Read each cell as the stage that instruction is in that cycle; \"--\" is a stall.</p>\n<p class=\"marks\">(i) With operand forwarding</p>\n<table class=\"trace cyc\">\r\n<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>\r\n<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td></tr>\r\n<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class=\"out\">WB</td><td></td></tr>\r\n<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class=\"out\">WB</td></tr>\r\n</table>\n<p>The DIV holds EX for six cycles (7 to 12) and blocks everything behind it. With forwarding, I3 takes R5 straight from I2's EX and runs at cycle 13, and I4 takes R2 from I3 and runs at 14, so the last write-back is at <b>cycle 15</b>.</p>\n<p class=\"marks\">(ii) Without operand forwarding</p>\n<table class=\"trace cyc\">\r\n<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th></tr>\r\n<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td></tr>\r\n<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class=\"out\">WB</td></tr>\r\n</table>\n<p>Without forwarding, I3 must wait for I2's <b>write-back</b> before it can read R5 (one cycle later, EX at 14), and I4 likewise waits for I3, so the last write-back slips to <b>cycle 17</b>.</p>",
+    "answer": "Total = <b>15 cycles</b> with forwarding, <b>17 cycles</b> without. Forwarding saved 2 cycles here.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q3(c)",
+    "src": "the examiner's words, unedited",
+    "printed": "c.\ti) State Amdahl's law'\t<span class=\"qmark\">2mks</span>\r\nii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.\r\n\t<span class=\"qmark\">2mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q3(c)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> cache 10 times faster than memory ; used 85% of the time</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> state Amdahl's law, then the overall speedup</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> S = 1 / ((1−f) + f/s), with f the sped-up fraction and s its speedup</div>\r\n</div>\n<p><b>Amdahl's law</b> states that the overall speedup obtainable by improving one part of a system is limited by the fraction of the total time that part is actually used: even if that part is made infinitely fast, the speedup can never exceed 1/(1−f), where f is the fraction of the time that is sped up.</p>\n<pre class=\"calc\">f = 0.85 (cache hits), s = 10\r\nS = 1 / ((1 - 0.85) + 0.85/10)\r\n  = 1 / (0.15 + 0.085)\r\n  = 1 / 0.235\r\n  = 4.26</pre>",
+    "answer": "S = 4.26, far below 10, because the 15% of slow accesses dominate.",
+    "redo": ""
+   },
+   {
+    "kind": "heading",
+    "text": "Question Four (20 marks)"
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q4(a)",
+    "src": "the examiner's words, unedited",
+    "printed": "a.\tConsider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.\r\nX = C1400000h,\tY = 42100000h,\tZ = 41400000h\r\nConvert X, Y and Z to decimal numbers and determine which of the following\r\nis true.\t<span class=\"qmark\">9mks</span>\r\ni.\t(Y-Z)&gt;0\r\nii.\tX + Z = 0\r\niii.\tZ= X + Y"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q4(a)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> X = C1400000h, Y = 42100000h, Z = 41400000h, IEEE-754 single precision</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> each in decimal, then which claim is true</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>\r\n</div>\n<pre class=\"calc\">X = C1400000 = 1 10000010 100 0000...\r\n    sign 1 (neg); exp 130, e = 3; 1.100... = 1.5\r\n    X = -1.5 x 2³ = -12\r\n\r\nY = 42100000 = 0 10000100 001 0000...\r\n    sign 0; exp 132, e = 5; 1.001... = 1.125\r\n    Y = 1.125 x 2⁵ = 36\r\n\r\nZ = 41400000 = 0 10000010 100 0000...\r\n    sign 0; exp 130, e = 3; 1.5\r\n    Z = +1.5 x 2³ = 12\r\n\r\n(Y - Z) = 36 - 12 = 24 > 0   TRUE\r\nX + Z   = -12 + 12 = 0       TRUE\r\nZ = X + Y ?  12 = -12+36=24  FALSE</pre>",
+    "answer": "X = −12, Y = 36, Z = 12. (i) true, (ii) true, (iii) false.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q4(b)",
+    "src": "the examiner's words, unedited",
+    "printed": "b.\tUse a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.\r\nX = ((A * B) +C/D)/(F*G+J*K)\t<span class=\"qmark\">8mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q4(b)",
+    "problem": "",
+    "working": "<p class=\"small\">On the sheet the sentence \"For each format determine the number of bytes required\" is struck through in pen, so in that one sitting only the four programs were wanted. But the PRINTED paper asks for the byte counts too, so here is both: the programs, then the byte count for each format. If the strike is not on your paper, you have the full answer; if it is, the totals cost four lines and cannot lose marks.</p>\n<p><b>Three-address</b> (numerator, then denominator, then divide):</p>\n<pre class=\"code\">MUL  R1, A, B      ; R1 = A*B\r\nDIV  R2, C, D      ; R2 = C/D\r\nADD  R1, R1, R2    ; numerator\r\nMUL  R2, F, G\r\nMUL  R3, J, K\r\nADD  R2, R2, R3    ; denominator\r\nDIV  X,  R1, R2    ; X = numerator / denominator</pre>\n<p><b>Two-address:</b> MOV/op with the destination doubling as a source. <b>One-address:</b> work through the accumulator (LOAD, op, STORE). <b>Zero-address:</b> a stack (PUSH the eight operands, then each ADD/MUL/DIV pops two and pushes the result, finally POP X).</p>\n<p class=\"marks\">Byte count for each format (the printed part, worked)</p>\n<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> the paper gives no field sizes, so state the usual convention: opcode = 1 byte, each address = 2 bytes</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> bytes per instruction = opcode + (address fields &#215; 2) &middot; total = instruction count &#215; bytes per instruction</div>\r\n</div>\n<table class=\"data\">\r\n<tr><th>Format</th><th>Instructions</th><th>Bytes</th></tr>\r\n<tr><td>3-address</td><td>7</td><td>7 &#215; (1 + 3&#215;2) = 7 &#215; 7 = <b>49</b></td></tr>\r\n<tr><td>2-address</td><td>12</td><td>12 &#215; (1 + 2&#215;2) = 12 &#215; 5 = <b>60</b></td></tr>\r\n<tr><td>1-address</td><td>17</td><td>17 &#215; (1 + 1&#215;2) = 17 &#215; 3 = <b>51</b></td></tr>\r\n<tr><td>0-address</td><td>16</td><td>8 pushes&#215;3 + 1 pop&#215;3 + 7 ops&#215;1 = <b>34</b></td></tr>\r\n</table>",
+    "answer": "Same X in all four formats. Byte totals <b>49, 60, 51 and 34</b> for 3, 2, 1 and 0-address. Fewer address fields shortens each instruction but needs more of them, so the totals stay close, and 0-address is smallest here because its operation instructions carry no address at all.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q4(c)",
+    "src": "the examiner's words, unedited",
+    "printed": "c.\tCalculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte\t<span class=\"qmark\">3mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q4(c)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 17.12 in by 9.45 in at 250 dpi ; 1 bit per pixel</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the memory in megabytes</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> pixels = inches &#215; dpi (both ways) ; bytes = pixels &#215; bits / 8 ; MB = bytes / 1024 / 1024</div>\r\n</div>\n<pre class=\"calc\">pixels across = 17.12 x 250 = 4280\r\npixels down   =  9.45 x 250 = 2362.5\r\ntotal pixels  = 4280 x 2362.5 = 10,111,500\r\nbytes = 10,111,500 / 8 = 1,263,937.5\r\nMB    = 1,263,937.5 / 1024 / 1024 = 1.21 MB</pre>",
+    "answer": "10,111,500 pixels &#215; 1 bit = 1,263,937.5 bytes &#8776; 1.21 MB. State the megabyte convention you used.",
+    "redo": ""
+   },
+   {
+    "kind": "heading",
+    "text": "Question Five (20 marks)"
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q5(a)",
+    "src": "the examiner's words, unedited",
+    "printed": "a.\tRepresent the following -1240.56 using Single Precision IEEE format for floating point numbers.\t<span class=\"qmark\">6mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q5(a)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> −1240.56, single precision</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the 32-bit pattern (and its hex)</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> sign ; normalise |x| to 1.M &#215; 2<sup>e</sup> ; exp field = e + 127 ; mantissa M = f to 23 bits</div>\r\n</div>\n<pre class=\"calc\">sign = 1  (negative)\r\n1240.56 in binary = 1.0011011000100011110101... x 2¹⁰\r\nexp field = 10 + 127 = 137 = 1000 1001\r\nmantissa (23 bits) = 0011011 0001000 1111010 11\r\npattern = 1 10001001 00110110001000111101011\r\n        = C49B11EB   (truncated;  C49B11EC if rounded)</pre>",
+    "answer": "&#8722;1240.56 = <b>C49B11EB</b> (truncated), or C49B11EC rounded. State which.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q5(b)",
+    "src": "the examiner's words, unedited",
+    "printed": "b.\tConsider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate-\r\ni.\tPipeline cycle time\t<span class=\"qmark\">1mk</span>\r\nii.\tNon-pipeline execution time\t<span class=\"qmark\">1mk</span>\r\niii.\tSpeed up ratio\t<span class=\"qmark\">1mk</span>\r\niv.\tPipeline time for 500 tasks\t<span class=\"qmark\">1mk</span>\r\nv.\tSequential time for 500 tasks\t<span class=\"qmark\">1mk</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q5(b)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 4 phases 60, 50, 90, 80 ns ; latch 10 ns ; 500 tasks</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> cycle time, one-task time, speedup, and the times for 500 tasks</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch ; pipe(n) = (k + n − 1)&#215;cycle ; seq(n) = n &#215; &#931;phases ; speedup = &#931;phases / cycle</div>\r\n</div>\n<pre class=\"calc\">Cycle    = max(60,50,90,80) + 10 = 90 + 10 = 100 ns\r\nOne task = 60 + 50 + 90 + 80 = 280 ns\r\nSpeedup  = 280 / 100 = 2.8\r\nPipe 500 = (4 + 500 - 1) x 100 = 503 x 100 = 50,300 ns\r\nSeq 500  = 500 x 280 = 140,000 ns</pre>",
+    "answer": "Cycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined 50,300 ns vs sequential 140,000 ns.",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q5(c)",
+    "src": "the examiner's words, unedited",
+    "printed": "c.\tExplain the following terms\t<span class=\"qmark\">3mks</span>\r\ni.\tLocality of reference\r\nii.\tTemporal locality"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q5(c)",
+    "problem": "",
+    "working": "<p><b>i) Locality of reference</b> is defined as the tendency of a program to keep accessing the same small set of memory locations over a short period, a consequence of loops and subroutines; it is why a small fast cache can satisfy most accesses.</p>\n<p><b>ii) Temporal (time) locality</b> is defined as: if a memory location is accessed, it is very likely to be accessed <b>again soon</b> (the same instruction or variable reused). Its partner, <b>spatial (space) locality</b>, is defined as: if a location is accessed, the <b>nearby</b> addresses are very likely to be accessed next (as when stepping through an array).</p>",
+    "answer": "",
+    "redo": ""
+   },
+   {
+    "kind": "asprinted",
+    "label": "As printed",
+    "tag": "25/26 Q5(d)",
+    "src": "the examiner's words, unedited",
+    "printed": "d.\tBy using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h\t<span class=\"qmark\">6mks</span>"
+   },
+   {
+    "kind": "worked",
+    "mode": "model",
+    "label": "In the hall",
+    "tag": "25/26 Q5(d)",
+    "problem": "",
+    "working": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> C4F2E000h, single precision</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the decimal value</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>\r\n</div>\n<pre class=\"calc\">C4F2E000 = 1 10001001 11100101110000000000000\r\nsign 1 (neg); exp field 1000 1001 = 137, e = 137 - 127 = 10\r\n1.M = 1.1110010111  =  1.8974609375\r\nvalue = -1.8974609375 x 2¹⁰ = -1.8974609375 x 1024\r\n      = -1943</pre>",
+    "answer": "C4F2E000h = &#8722;1943.",
+    "redo": ""
+   },
+   {
+    "kind": "rules",
+    "label": "Must do",
+    "tag": "The night before",
+    "html": "<p>Redo Question One on blank paper from memory, then one cache split, one pipeline speedup, one CPI and one Amdahl. If those flow, you are ready. Walk in and start with Question One.</p>"
+   }
+  ]
+ },
+ {
+  "slug": "night-before",
+  "part": "Part C: prove it",
+  "kick": "Prove It",
+  "title": "The Night Before, on One Page",
+  "lead": "The whole course compressed to one hook and the key formula for each skill. If you\ncan rebuild a row from memory, you own it; if you cannot, flip back to that section. Read this\nlast tonight, and once more walking in.",
+  "minutes": 8,
+  "modules": [],
+  "blocks": [
+   {
+    "kind": "heading",
+    "text": "Part A, Foundations and Data"
+   },
+   {
+    "kind": "prose",
+    "html": "<table class=\"data\">\n<tr><th>Skill</th><th>Remember this</th></tr>\n<tr><td><b>Number systems</b></td><td>Powers of the base, right to left; <b>4 bits = 1 hex digit</b>.\nTo decimal: digit &#215; place, then add. To another base: divide, read remainders bottom to top.</td></tr>\n<tr><td><b>Signed numbers</b></td><td><b>Flip and add one</b>, to write a negative and to read one.\nAdd the patterns, drop the top carry. Range <b>&#8722;2<sup>n&#8722;1</sup> to\n2<sup>n&#8722;1</sup> &#8722; 1</b>.</td></tr>\n<tr><td><b>IEEE-754</b></td><td>Sign, exponent, mantissa (<b>1 + 8 + 23</b>, bias <b>127</b>). value\n= <b>&#177; 1.M &#215; 2<sup>(field &#8722; 127)</sup></b>. Hide the leading 1.</td></tr>\n<tr><td><b>Image sizing</b></td><td>pixels = inches &#215; dpi; bits = pixels &#215; depth;\nbytes = bits &#247; 8; MB = &#247; 1024 twice.</td></tr>\n<tr><td><b>Architecture vs organization</b></td><td>Architecture = the blueprint (what, the ISA);\norganization = the construction (how). Von Neumann shares one memory, Harvard splits the two.</td></tr>\n</table>"
+   },
+   {
+    "kind": "heading",
+    "text": "Part B, The Machine"
+   },
+   {
+    "kind": "prose",
+    "html": "<table class=\"data\">\n<tr><th>Skill</th><th>Remember this</th></tr>\n<tr><td><b>Instructions</b></td><td>Opcode = what, operands = what to. Fewer addresses, shorter but\nmore of them. bytes = opcode + (addresses &#215; bytes each).</td></tr>\n<tr><td><b>Addressing modes</b></td><td>Count the hops: immediate 0, direct 1, indirect 2. EA is the\nplace; operand is M[EA]. Indexed, base, relative <b>add</b> to the field.</td></tr>\n<tr><td><b>CPU performance</b></td><td>Time = <b>IC &#215; CPI &#215; T</b>. CPI = &#931;(fraction\n&#215; cycles). Improvement = (old &#8722; new)/old. Amdahl S = 1/((1&#8722;f) + f/s), ceiling\n1/(1&#8722;f).</td></tr>\n<tr><td><b>Pipelining</b></td><td>Clock = slowest stage + latch. n tasks = <b>(k + n &#8722; 1)</b>\ncycles, speedup up to k. Hazards RAW/WAR/WAW by the register order.</td></tr>\n<tr><td><b>Memory and cache</b></td><td><b>Offset, index, tag = byte, hook, block</b>. offset =\nlog<sub>2</sub>(block), lines = cache &#247; block, index = log<sub>2</sub>(lines), tag = the rest.\nAMAT = T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub>.</td></tr>\n</table>"
+   },
+   {
+    "kind": "heading",
+    "text": "Part C, Prove It"
+   },
+   {
+    "kind": "prose",
+    "html": "<table class=\"data\">\n<tr><th>Skill</th><th>Remember this</th></tr>\n<tr><td><b>RISC vs CISC</b></td><td>RISC: few, fixed, one-cycle, pipelines cleanly. CISC: many,\ncomplex, variable-length. A stable ISA gives backward compatibility; SIMD accelerates\ndata-parallel work.</td></tr>\n<tr><td><b>Sitting the paper</b></td><td>Question One is compulsory (30 marks), then any two of\nQuestions Two to Five (20 each). Every answer: the Given, the Formula, the working stacked\nvertically, then the answer. Never write a bare number without its formula above it. Go and pass.</td></tr>\n</table>"
+   }
+  ]
+ }
+]

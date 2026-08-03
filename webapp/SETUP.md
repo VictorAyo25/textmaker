@@ -1,4 +1,4 @@
-# Setting up the TMC221 drill platform
+# Setting up the CU drill platform
 
 Four things to do, in this order. The app is built so that **every one of them is
 optional**: with nothing configured it still runs and still marks you, it just keeps
@@ -43,7 +43,7 @@ This is what lets your results follow you from laptop to phone.
    for example `tmc-drill`).
 2. In the sidebar: **APIs and Services** then **OAuth consent screen**.
    - User type: **External**. Create.
-   - App name: `TMC221 Drill`. Support email and developer email: your own.
+   - App name: `CU Drill`. Support email and developer email: your own.
    - Scopes: skip, the defaults are what we use.
    - Test users: add your own Gmail address, and any classmate who should get in
      while the app is unpublished. Save.
@@ -109,6 +109,10 @@ but there is still nowhere to store results, so history stays local.
    create index if not exists attempts_user_created_idx
      on public.attempts (user_email, created_at desc);
 
+   -- History is read one course at a time, so the lookup is keyed on both.
+   create index if not exists attempts_user_course_created_idx
+     on public.attempts (user_email, course, created_at desc);
+
    -- The app reaches this table only through its own server routes, which have
    -- already checked who you are. RLS with no policy means nothing can read it
    -- with the public key even if that key ever leaks.
@@ -154,10 +158,13 @@ stops the build before it can reach Vercel.
 
 | Thing | Where it lives | Why |
 | --- | --- | --- |
-| The 560+ questions | JSON in this repo | Reviewed in diffs next to the manual they came from, and gated on every build |
-| Your attempt history | Supabase `attempts` | So it follows you across devices |
-| A local copy of recent attempts | Browser localStorage | So the app still shows history when signed out or offline |
+| All 717 questions, across every course | JSON in this repo | Reviewed in diffs next to the manual they came from, and gated on every build |
+| Your attempt history | Supabase `attempts`, tagged with the course | So it follows you across devices, and stays separated per course |
+| A local copy of recent attempts | Browser localStorage, one key per course | So the app still shows history when signed out or offline |
+| Crash-course progress | Browser localStorage, one key per course | Which frames you have reached and which skills you have marked done. Local on purpose: a score is evidence worth carrying between devices, "I have read frame 14" is not, and syncing it would mean a database write on every button press |
 | Your identity | Google, via a JWT session | No passwords are stored anywhere |
 
-Adding a second course later means dropping `data/<code>/*.json` in the same shape and
-registering it in `data/courses.ts`. No database change, no schema change.
+Adding another course means dropping `data/<code>/*.json` in the same shape, registering
+it in `data/courses.ts`, and adding its entry to the gate's course table. It appears on
+the landing page and gets its own `/<code>` route automatically. No database change, no
+schema change: the `course` column already carries the code.

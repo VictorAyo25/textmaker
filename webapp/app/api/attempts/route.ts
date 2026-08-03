@@ -22,16 +22,23 @@ interface AttemptBody {
   detail?: unknown;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   const db = supabaseAdmin();
   const email = session?.user?.email;
   if (!db || !email) return NextResponse.json({ synced: false, attempts: [] });
 
-  const { data, error } = await db
+  // Scoped to one course, so a TMC221 run never appears under IFT222. Rows
+  // written before the platform took a second course all carry 'TMC221'.
+  const course = new URL(request.url).searchParams.get('course');
+
+  let query = db
     .from('attempts')
-    .select('id, title, percent, total, earned, created_at')
-    .eq('user_email', email)
+    .select('id, course, title, percent, total, earned, created_at')
+    .eq('user_email', email);
+  if (course) query = query.eq('course', course);
+
+  const { data, error } = await query
     .order('created_at', { ascending: false })
     .limit(50);
 
