@@ -16,6 +16,10 @@
   --blue: #1d4ed8;
   --radius: 12px;
   --shadow: 0 1px 2px rgba(16, 40, 24, 0.06), 0 8px 24px rgba(16, 40, 24, 0.06);
+  /* Chevron for our custom select. Kept as a variable so the dark theme can
+     swap the stroke colour; a data URI cannot read currentColor. */
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7' fill='none'%3E%3Cpath d='M1 1L5.5 5.5L10 1' stroke='%235b6b60' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +38,9 @@
     --red-soft: #2a1414;
     --blue: #7aa2ff;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7' fill='none'%3E%3Cpath d='M1 1L5.5 5.5L10 1' stroke='%239db0a4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    /* Makes the native option list render dark instead of a white flash. */
+    color-scheme: dark;
   }
 }
 
@@ -212,8 +219,7 @@ body {
   margin-bottom: 4px;
 }
 input[type='number'],
-input[type='text'],
-select {
+input[type='text'] {
   width: 100%;
   padding: 9px 10px;
   border: 1.5px solid var(--line);
@@ -222,6 +228,45 @@ select {
   color: var(--ink);
   font-size: 0.95rem;
   font-family: inherit;
+}
+
+/* Selects are answer controls, so they follow the same visual grammar as the
+   option buttons: same border, same radius, same green "you have chosen"
+   state. The native chevron is replaced because its colour and metrics are the
+   operating system's, not ours, and it looked pasted on. */
+select {
+  width: 100%;
+  padding: 9px 32px 9px 11px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  background-color: var(--card);
+  color: var(--muted);
+  font-size: 0.93rem;
+  font-family: inherit;
+  line-height: 1.35;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: var(--chev);
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 11px 7px;
+  transition: border-color 0.12s, background-color 0.12s;
+}
+select:hover {
+  border-color: var(--green);
+}
+/* Answered: reads at a glance like a pressed option button. */
+select[data-filled='true'] {
+  color: var(--ink);
+  font-weight: 600;
+  border-color: var(--green);
+  background-color: var(--green-soft);
+}
+select option {
+  color: var(--ink);
+  background: var(--card);
+  font-weight: 400;
 }
 input:focus,
 select:focus,
@@ -464,18 +509,54 @@ input[type='range'] {
   font-family: inherit;
   color: var(--ink);
 }
+/* A cloze blank sits inline in a sentence, so it is the same control at a
+   smaller scale. The chosen continuation can be a long phrase, so it is
+   clipped rather than allowed to push the page sideways on a phone. */
 .blank-select {
   display: inline-block;
   width: auto;
   max-width: 100%;
-  padding: 4px 8px;
-  font-size: 0.92rem;
+  padding: 5px 27px 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  background-position: right 9px center;
+  background-size: 10px 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
 }
 .blank-wrap {
   display: inline-flex;
   flex-direction: column;
   vertical-align: middle;
   margin: 0 2px;
+  /* Without this the wrapper is sized by its content, so the child's
+     max-width:100% resolves against itself and constrains nothing. */
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Numbered marker standing in for a cloze blank inside the passage. */
+.blanknum {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin: 0 3px;
+  border-radius: 6px;
+  background: var(--card);
+  border: 1.5px dashed var(--blue);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  vertical-align: middle;
+  line-height: 1;
+}
+.blanknum.done {
+  background: var(--green);
+  border: 1.5px solid var(--green);
+  color: #fff;
 }
 .blank-hint {
   font-size: 0.66rem;
@@ -486,14 +567,24 @@ input[type='range'] {
 }
 .gaplist {
   display: grid;
-  gap: 12px;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 16px;
 }
 .gapitem {
   display: grid;
-  grid-template-columns: 26px 1fr;
+  grid-template-columns: 26px minmax(0, 1fr);
   gap: 10px;
-  align-items: start;
+  align-items: center;
+}
+/* A whole clause has to be readable, so these wrap over as many lines as they
+   need instead of being clipped to one. */
+.gapitem select {
+  white-space: normal;
+  height: auto;
+  min-height: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.4;
 }
 .gapitem .num {
   width: 24px;

@@ -115,6 +115,7 @@ export default function QuestionView({
             <span>{p.left}</span>
             <select
               value={chosen[p.left] ?? ''}
+              data-filled={chosen[p.left] ? 'true' : 'false'}
               disabled={readOnly}
               aria-label={`Match for ${p.left}`}
               onChange={(e) => set(p.left, e.target.value)}
@@ -148,14 +149,65 @@ export default function QuestionView({
 
   const pieces = q.prompt.split(/(\{\{\d+\}\})/g);
 
+  // A cloze continuation is a whole clause, so an inline dropdown would size
+  // itself to its longest option and shove the page sideways on a phone. The
+  // passage therefore carries numbered markers and the choices sit beneath it,
+  // full width, where a long phrase is readable rather than clipped.
+  if (q.style === 'cloze') {
+    return (
+      <div>
+        <p className="note" style={{ marginTop: 0 }}>
+          Read the passage, then choose the continuation for each numbered blank.
+        </p>
+        <div className="clozebody">
+          {pieces.map((piece, idx) => {
+            const m = piece.match(/^\{\{(\d+)\}\}$/);
+            if (!m) return <span key={idx}>{piece}</span>;
+            const i = parseInt(m[1], 10);
+            return (
+              <span
+                className={`blanknum${values[i - 1] ? ' done' : ''}`}
+                key={idx}
+                aria-label={`blank ${i}`}
+              >
+                {i}
+              </span>
+            );
+          })}
+        </div>
+        <div className="gaplist">
+          {blanks.map((b, i) => (
+            <div className="gapitem" key={i}>
+              <span className="num">{i + 1}</span>
+              <select
+                value={values[i] ?? ''}
+                data-filled={values[i] ? 'true' : 'false'}
+                disabled={readOnly}
+                aria-label={`Blank ${i + 1}`}
+                onChange={(e) => setBlank(i, e.target.value)}
+              >
+                <option value="">Choose the continuation...</option>
+                {b.choices.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {q.style === 'gap' && useTyping && (
+      {useTyping && (
         <p className="note" style={{ marginTop: 0 }}>
           Type your answer. Capitals and punctuation do not matter, spelling does.
         </p>
       )}
-      <div className={q.style === 'cloze' ? 'clozebody' : 'clozebody'}>
+      <div className="clozebody">
         {pieces.map((piece, idx) => {
           const m = piece.match(/^\{\{(\d+)\}\}$/);
           if (!m) return <span key={idx}>{piece}</span>;
@@ -180,6 +232,7 @@ export default function QuestionView({
                 <select
                   className="blank-select"
                   value={values[i] ?? ''}
+                  data-filled={values[i] ? 'true' : 'false'}
                   disabled={readOnly}
                   aria-label={`Blank ${i + 1}`}
                   onChange={(e) => setBlank(i, e.target.value)}
