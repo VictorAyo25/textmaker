@@ -17,9 +17,16 @@ setting that matters is the root directory.
 1. Go to <https://vercel.com/new> and import `VictorAyo25/textmaker`.
 2. When it asks for configuration:
    - **Root Directory**: click Edit and choose `webapp`. This is the important one.
-   - **Framework Preset**: Next.js (it will detect this once the root directory is set).
+   - **Framework Preset**: it should read **Next.js**. If it still says "Other", change
+     it. `webapp/vercel.json` also declares the framework, so a fresh import gets this
+     right on its own, but the value shown in the UI wins for an existing project.
    - Leave the build and output settings alone.
 3. Deploy.
+
+> If a deployment fails with **`No Output Directory named "public" found after the
+> Build completed`**, this is the cause: the preset is on "Other", so Vercel builds the
+> app and then looks for a plain static folder that a Next.js app never produces. Set
+> Framework Preset to Next.js in Settings then Build and Deployment, and redeploy.
 
 You now have a working drill at `https://<something>.vercel.app`. Note that URL, the
 next two steps need it.
