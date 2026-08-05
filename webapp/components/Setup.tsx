@@ -8,6 +8,7 @@ import type {
   FeedbackMode,
   GapMode,
   Paper,
+  Question,
   SourceFilter,
   TestConfig,
 } from '@/lib/types';
@@ -31,6 +32,7 @@ interface Props {
   initialModules?: number[];
   onStart: (args: StartArgs) => void;
   onStartPaper: (paper: Paper, timeLimitSec: number | null, fb: FeedbackMode) => void;
+  onExport: (questions: Question[], title: string) => void;
 }
 
 export default function Setup({
@@ -38,6 +40,7 @@ export default function Setup({
   initialModules = [],
   onStart,
   onStartPaper,
+  onExport,
 }: Props) {
   const [modules, setModules] = useState<number[]>(initialModules);
   const [facets, setFacets] = useState<Facet[]>([]);
@@ -104,6 +107,17 @@ export default function Setup({
 
   const canStart = available.length > 0 && count > 0;
   const effectiveCount = Math.min(count, available.length);
+
+  // The printable sheet honours the topic, specifics and source choices above,
+  // but not the difficulty mix or the question count: it is the whole of what
+  // you selected, which is the point of taking it away.
+  const selectionLabel = modules.length
+    ? `${noun}${modules.length === 1 ? '' : 's'} ${[...modules].sort((a, b) => a - b).join(', ')}`
+    : `All ${nouns}`;
+  const exportTitle =
+    selectionLabel +
+    (facets.length ? ` · ${FACETS.filter((f) => facets.includes(f.id)).map((f) => f.label).join(', ')}` : '') +
+    (source === 'exam' ? ' · past questions only' : '');
 
   return (
     <>
@@ -332,9 +346,9 @@ export default function Setup({
         {hasBlanks && (
           <>
             <p className="help" style={{ margin: '16px 0 6px' }}>
-              Short-answer blanks: type the answer from memory, or pick it from a
-              dropdown like the real Moodle test. Long cloze continuations are always
-              dropdowns.
+              Short-answer blanks: type the answer from memory, pick it from a dropdown
+              like the real Moodle test, or mix the two. Long cloze continuations are
+              always dropdowns.
             </p>
             <div className="seg">
               <button
@@ -351,7 +365,20 @@ export default function Setup({
               >
                 Choose from a dropdown
               </button>
+              <button
+                type="button"
+                aria-pressed={gapMode === 'mixed'}
+                onClick={() => setGapMode('mixed')}
+              >
+                Mix the two
+              </button>
             </div>
+            {gapMode === 'mixed' && (
+              <p className="note" style={{ marginTop: 6 }}>
+                Each short-answer question is decided on its own when the paper starts,
+                so you will not know which is coming until you reach it.
+              </p>
+            )}
           </>
         )}
 
@@ -416,6 +443,25 @@ export default function Setup({
         Start test ({effectiveCount} question{effectiveCount === 1 ? '' : 's'}
         {timed ? `, ${minutes} min` : ', untimed'})
       </button>
+
+      <div className="card" style={{ marginTop: 22 }}>
+        <h2>Take the questions with you</h2>
+        <p className="help">
+          Every question in the selection above, printed with its answer, its
+          explanation, the verdict on each option and the reference it came from. The
+          difficulty mix and the question count do not apply here: you get all{' '}
+          {available.length} of them.
+        </p>
+        <button
+          type="button"
+          className="btn ghost"
+          disabled={available.length === 0}
+          onClick={() => onExport(available, exportTitle)}
+        >
+          Printable sheet of all {available.length} question
+          {available.length === 1 ? '' : 's'}
+        </button>
+      </div>
 
       {course.papers.map((p) => {
         const mins = p.minutes ?? 20;

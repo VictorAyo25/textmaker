@@ -77,7 +77,15 @@ export default function Review({
               Retry the {wrongQuestions.length} I missed
             </button>
           )}
+          <button type="button" className="btn ghost" onClick={() => window.print()}>
+            Save as PDF
+          </button>
         </div>
+        <p className="note" style={{ marginTop: 10 }}>
+          Save as PDF prints exactly what is shown below, so switch to only what you
+          missed first if that is the copy you want. Every question keeps its
+          explanation, its per-option verdicts and its source reference.
+        </p>
       </div>
 
       <div className="filterrow">

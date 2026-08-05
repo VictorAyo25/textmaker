@@ -16,9 +16,10 @@ import type {
 import Setup, { type StartArgs } from './Setup';
 import Runner from './Runner';
 import Review from './Review';
+import Sheet from './Sheet';
 import AuthBar from './AuthBar';
 
-type Stage = 'setup' | 'running' | 'review';
+type Stage = 'setup' | 'running' | 'review' | 'export';
 
 interface Attempt {
   title: string;
@@ -54,6 +55,10 @@ export default function App({
   const [timeLimit, setTimeLimit] = useState<number | null>(null);
   const [marked, setMarked] = useState<Marked[]>([]);
   const [title, setTitle] = useState('');
+  const [sheet, setSheet] = useState<{ questions: Question[]; title: string }>({
+    questions: [],
+    title: '',
+  });
   const [history, setHistory] = useState<Attempt[]>([]);
   const [synced, setSynced] = useState(false);
 
@@ -176,6 +181,12 @@ export default function App({
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   };
 
+  const onExport = (qs: Question[], label: string) => {
+    setSheet({ questions: qs, title: label });
+    setStage('export');
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  };
+
   const retryWrong = (qs: Question[]) => {
     begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`, feedback);
   };
@@ -216,6 +227,7 @@ export default function App({
             initialModules={initialModules}
             onStart={onStart}
             onStartPaper={onStartPaper}
+            onExport={onExport}
           />
           {history.length > 0 && (
             <div className="card" style={{ marginTop: 22 }}>
@@ -262,6 +274,15 @@ export default function App({
             void loadHistory();
             setStage('setup');
           }}
+        />
+      )}
+
+      {stage === 'export' && (
+        <Sheet
+          course={course}
+          questions={sheet.questions}
+          title={sheet.title}
+          onBack={() => setStage('setup')}
         />
       )}
     </main>

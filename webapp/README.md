@@ -29,10 +29,15 @@ landing page lists every course loaded; pick one and set up a test.
 - Answer in all six styles the tests use: single choice, multiple response,
   true/false, matching dropdowns, cloze dropdowns, typed short answers. The typed
   answer setting only appears where a course actually has blanks.
+- Answer short blanks by **typing them, picking from a dropdown, or a mix of the
+  two**. Mixed decides per question when the paper starts, so you cannot settle
+  into one and it never changes under you mid-question.
 - Get a **score, a per-group breakdown, and every answer with the source it came
   from**, plus a one-button **retry of only what you missed**.
 - **Retake a real paper** exactly as it was set: the TMC221 test, either IFT222
   objective test, or either ENT221 computer-based test.
+- **Take it away as a PDF**, either the marked results or the questions
+  themselves. See below.
 
 ## Two ways to sit a test
 
@@ -49,6 +54,26 @@ keystroke. A running tally sits in the progress bar.
 
 The panel is the same component the end-of-test review prints (`components/Feedback.tsx`),
 so what you are taught mid-test and what you read afterwards cannot drift apart.
+
+## Taking it away as a PDF
+
+Two routes, both through the browser's own print dialog, so the text stays selectable
+and searchable and the bundle carries no PDF library at all.
+
+**Your marked results.** The review screen has a **Save as PDF** button. It prints
+exactly what is on screen, so switching to "only what I missed" first gives you a
+revision sheet of just your mistakes. Every question keeps its explanation, its
+per-option verdicts and its source reference.
+
+**The questions themselves.** Setup has a **Printable sheet** button that takes whatever
+you have selected there, one topic, several, or all of them, plus the specifics and past
+question filters, and lays out every question in it with its answer, explanation,
+verdicts and reference. The difficulty mix and question count do not apply: you get all
+of them. For ENT221 with nothing filtered that is all 814.
+
+`@media print` in `globals.css` hides everything you would tap, keeps everything that
+teaches, and sets `break-inside: avoid` so a question is never split across a page
+boundary. Anything that should never print carries the `noprint` class.
 
 ## Every option, and why
 
@@ -236,8 +261,8 @@ Every question is worth 1 mark.
 ```
 app/          / lists the courses, /[course] drills one, /[course]/learn/[slug]
               teaches one, plus the auth and attempts APIs
-components/   App, Setup, Runner, QuestionView, Feedback, Review, AuthBar,
-              LessonIndex, LessonView
+components/   App, Setup, Runner, QuestionView, Feedback, Review, Sheet,
+              AuthBar, LessonIndex, LessonView
 lib/          types, grading, bank selection, lesson progress, supabase, auth
 data/         courses.ts registry, lessons.ts registry, tmc221/*.json,
               ift222/*.json and ent221/*.json banks, ift222/lessons.json,

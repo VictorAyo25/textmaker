@@ -191,7 +191,15 @@ export interface Course {
 
 // ---- what the setup screen produces ----
 
-export type GapMode = 'typed' | 'choice';
+/**
+ * How a short-answer blank is answered.
+ *
+ * 'mixed' decides per question rather than per paper, so some blanks arrive as
+ * a text box and some as a dropdown and you cannot settle into either. The
+ * decision is made once when the paper starts and does not change under you.
+ * Long cloze continuations ignore this and stay dropdowns whatever it says.
+ */
+export type GapMode = 'typed' | 'choice' | 'mixed';
 
 /**
  * When the student is told how they did.

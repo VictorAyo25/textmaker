@@ -73,6 +73,13 @@ export default function Runner({
   // Which questions have been checked in teaching mode. A checked question is
   // locked: seeing the answer and then changing yours would teach nothing.
   const [checked, setChecked] = useState<boolean[]>(() => questions.map(() => false));
+  // 'mixed' is resolved once, here, and never recomputed: a blank that started
+  // as a text box must not turn into a dropdown while the student is looking at
+  // it. Runner mounts fresh for every paper, so this initialiser runs once per
+  // sitting, exactly like `responses` above.
+  const [blankModes] = useState<GapMode[]>(() =>
+    questions.map(() => (Math.random() < 0.5 ? 'typed' : 'choice'))
+  );
   const [left, setLeft] = useState<number | null>(timeLimitSec);
   const finished = useRef(false);
 
@@ -202,7 +209,7 @@ export default function Runner({
           question={q}
           response={responses[i]}
           onChange={setResponse}
-          gapMode={gapMode}
+          gapMode={gapMode === 'mixed' ? blankModes[i] : gapMode}
           readOnly={shown}
         />
         {marked && (

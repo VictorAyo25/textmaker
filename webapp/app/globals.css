@@ -279,8 +279,12 @@ input[type='range'] {
   accent-color: var(--green);
 }
 
+/* Three options fit side by side on a laptop and wrap on a phone, so the
+   segmented control never pushes the page sideways. */
 .seg {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   border: 1.5px solid var(--line);
   border-radius: 9px;
   overflow: hidden;
@@ -1298,6 +1302,106 @@ ul.plain li {
 .lockin .sub {
   font-size: 0.87rem;
   color: var(--muted);
+}
+
+/* ---------- the printable sheet ----------
+   Every question in a selection with its answer, its explanation, its verdicts
+   and its source, laid out to be printed or saved as a PDF. */
+.sheet {
+  margin-top: 18px;
+}
+.sheethead {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+.sheethead h2 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+}
+.sheethead p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.sheetq {
+  border-left: 3px solid var(--line);
+  padding: 10px 0 12px 14px;
+  margin-bottom: 16px;
+}
+.sheetnum {
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 0.97rem;
+}
+/* Each line prints its own letter, so the browser must not number them too. */
+.sheetopts {
+  margin: 0 0 8px;
+  padding-left: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.sheetopts li {
+  margin-bottom: 2px;
+}
+
+/* ---------- printing ----------
+   Saving a PDF is the browser's own print dialog: the text stays selectable
+   and searchable and the bundle carries no PDF library. Everything you would
+   tap is hidden, and nothing that teaches is. */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --card: #ffffff;
+  }
+  body {
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page {
+    margin: 14mm;
+  }
+  .noprint,
+  .authbar,
+  .backlink,
+  .crashcard,
+  .filterrow,
+  .footer-actions,
+  .modbars,
+  .seg,
+  .bar,
+  .btn,
+  .chip {
+    display: none !important;
+  }
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+  .card {
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+    margin: 0 0 12px;
+  }
+  .masthead {
+    margin-bottom: 12px;
+  }
+  /* A question and its teaching belong on one page wherever they fit. */
+  .review,
+  .sheetq {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .whygrid,
+  .whyrow {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  a[href]::after {
+    content: '';
+  }
 }
 
 /* ---------- per-course accent ----------
