@@ -1,0 +1,505 @@
+# ISA
+# source file: IFT222 -ISA.pptx
+# slides: 60
+
+============================================================
+SLIDE 1
+[images: 1]
+IFT222Computer Architecture and Organization
+INSTRUCTION SET ARCHITECTURE
+Department of Computer and Information Sciences
+
+============================================================
+SLIDE 2
+By the end of this lecture, students should be able to:
+  Define Instruction Set Architecture (ISA)
+  Explain the components and features of ISA
+  Identify different instruction types and formats
+  Differentiate between addressing modes
+  Compare RISC and CISC architectures
+  Analyze instruction execution with examples
+  Apply ISA concepts to solve practical problems
+Learning Outcomes
+
+============================================================
+SLIDE 3
+Introduction
+Instruction Set Architecture (ISA) is one of the most fundamental concepts in Computer Architecture and Organization.
+It defines the interface between hardware and software, acting as a bridge that allows software programs to communicate with the processor.
+In simple terms, ISA specifies:
+  What operations a processor can perform (instruction set)
+  How instructions are represented (instruction format)
+  How data is accessed and manipulated (addressing modes)
+
+============================================================
+SLIDE 4
+[images: 1]
+(no text)
+
+============================================================
+SLIDE 5
+a) Instruction Set
+The complete set of instructions a processor can execute.
+Examples:
+  •	Arithmetic: ADD, SUB
+  •	Logical: AND, OR
+  •	Control: JUMP, CALL
+  •	Data Transfer: LOAD, STORE
+Key Components of the ISA
+
+============================================================
+SLIDE 6
+b) Registers
+Small, fast storage locations inside the CPU.
+Types:
+  •	General Purpose Registers (GPR)
+  •	Special Registers (PC , IR, MAR, MDR)
+c) Data Types
+Defines the types of data supported:
+•	Integer, Floating point, Character , Boolean
+Key Components of the ISA
+
+============================================================
+SLIDE 7
+d) Addressing Modes
+Methods used to access operands at runtime.
+Common types:
+  •	Immediate
+  •	Direct
+  •	Indirect
+  •	Register
+  •	Indexed
+Key Components of the ISA
+
+============================================================
+SLIDE 8
+e) Instruction Format
+Structure of an instruction: opcode and operand, addressing mode
+•  Opcode (operation)
+•  Operand(s)
+Example:
+ADD R1, R2  (add R1 and R2 and store result in R1)
+Opcode = ADD
+Operands = R1 and R2
+Key Components of the ISA
+
+============================================================
+SLIDE 9
+Within Instruction Set Architecture (ISA), types of instructions define the various operations a processor can perform on data.
+These instructions determine how a program:
+  Moves data
+  Performs computations
+  Makes decisions
+  Interacts with memory and I/O devices
+Types of Instructions
+
+============================================================
+SLIDE 10
+Each instruction type is designed to handle a specific category of tasks, and together they form the complete functional capability of a CPU.
+  Understanding instruction types is essential for:
+  Writing efficient assembly programs
+  Designing compilers
+  Optimizing system performance
+Types of Instructions
+
+============================================================
+SLIDE 11
+Load/store operations are those which move data between a register in the processor and a memory location (or another register).
+They are often collectively referred to as data movement instructions.
+The two terms load and store are often confused and should be carefully distinguished from each other.
+The next slide presents a picture of the load operation(instruction)
+Types of Instructions - Load/Store Instructions
+
+============================================================
+SLIDE 12
+[images: 1]
+Load Operation
+
+============================================================
+SLIDE 13
+[images: 1]
+Store Operation
+
+============================================================
+SLIDE 14
+Types of Instructions - Load/Store Instructions
+One of the universal characteristics of instruction execution is that the source does not get changed, only the destination.
+Thus, in a load operation the processor copies data into a register, and in a store operation the processor copies data from a register into a memory location.
+Examples of load/store instructions in the MC68009 processor are LDA, STA, LDB, STB, LDD, STD, and so forth.
+
+============================================================
+SLIDE 15
+Types of Instructions - Load/Store Instructions
+Examples of load/store instructions in the MC68000 processor are
+MOVE (for either direction of data movement),
+MOVEM (for moving the content of several registers into or out of memory with a single instruction), and
+EXG (for exchanging register contents).
+These instructions and others like them must include information identifying the source and destination.
+
+============================================================
+SLIDE 16
+Arithmetic/logic operations provide the primary data-processing capabilities of the computer.
+The minimum arithmetic operations required are those of addition and subtraction.  5 – 3  = 5 + (-3)     101 + 011
+All processors, implement the basic logic operations of AND, OR, and exclusive-OR on a bit-by-bit basis between two operands.
+With operations requiring two operands, smaller microprocessors usually require that one of the operands must be in a destination register initially, while the other may be in another register or in memory.
+Types of Instructions - Arithmetic/Logic Instructions
+
+============================================================
+SLIDE 17
+Their instructions may identify at most a single operand in memory, as shown in the  next slide.
+They support such operations as ADDing or ANDing to processor registers as illustrated but not to memory locations.
+Types of Instructions - Arithmetic/Logic Instructions
+
+============================================================
+SLIDE 18
+Some examples of two-operand arithmetic/logic instructions in the MC6809 are ADDB, SUBA, SUBD, ANDA, and EORA (exclusive-OR). Each of these requires one operand to be in an accumulator
+Some two-operand arithmetic/logic instructions in the MC68000 instruction set are ADD, AND, OR, SUB, and EOR.
+All of the two-operand instructions in the MC68000 must specify the source and the destination.
+With a few exceptions, these may both be registers or memory locations or one of each
+Types of Instructions - Arithmetic/Logic Instructions
+
+============================================================
+SLIDE 19
+Test/branch operations provide the decision-making capabilities in computer programs.
+The test is often performed on the result of some prior arithmetic/logic operation.
+It determines whether the result was zero or non-zero, positive or negative, or some other binary choice involving bits in the condition code register.
+During the execution of a test/branch instruction, the processor examines the appropriate condition code bits to determine the result of the test.
+Types of Instructions - Test/Branch Instructions
+
+============================================================
+SLIDE 20
+Depending upon the result, the processor may or may not branch to a remote location for the next instruction.
+Examples of test/branch instructions are BCC (branch if carry is cleared), BEQ (branch if equal to 0), BMI (branch if minus), and BRA (branch always).
+Types of Instructions - Test/Branch Instructions
+
+============================================================
+SLIDE 21
+Instruction Formats
+
+============================================================
+SLIDE 22
+An instruction is usually made up of a combination of an operation code and some way of specifying an operand, most commonly by its location or address in memory.
+Instruction Format is the layout of bits in an instruction
+11100011111110000001110000 = ADD R1,R2
+An instruction is divided into Opcode (function), operand(s) (implicit or explicit) and addressing mode.
+Instructions typically have 0,1,2 or 3 operands
+There is usually more than one instruction format in an instruction set
+Instruction Format
+
+============================================================
+SLIDE 23
+The format of an instruction is usually depicted in a rectangular box symbolizing the bits of the instruction as they appear in memory words or in a control register.
+The bits of the instruction are divided into groups called fields. The most common fields found in instruction formats are:
+General Structure of an Instruction
+Opcode
+Mode
+Address or Operand
+
+============================================================
+SLIDE 24
+An operation code field that specifies the operation to be performed.
+An address field that designates a memory address or a processor register.
+A mode field that specifies the way the operand or the effective address is determined.
+General Structure of an Instruction
+
+============================================================
+SLIDE 25
+Example 1: Simple 16-bit Instruction Format
+Format : 1111111100001111
+| Opcode (4 bits) | Register (4 bits) | Address (8 bits) |
+Explanation
+  Opcode (4 bits) → Defines operation (e.g., ADD, SUB)
+  Register (4 bits) → Specifies register (e.g., R1, R2)
+  Address (8 bits) → Memory location
+General Structure of an Instruction
+
+============================================================
+SLIDE 26
+Binary Example
+1010 0011 11001010
+Breakdown
+Field		Bits		Value		Meaning
+Opcode		1010		ADD		Perform addition
+Register		0011		R3		Use register 3
+Address		11001010	202		Memory location 202
+Interpretation: ADD R3, [202]
+General Structure of an Instruction
+
+============================================================
+SLIDE 27
+Binary Example 2 (32 bits)
+000001 00001 00010 00011 00000000000
+Breakdown
+Field				Meaning
+Opcode = 000001		ADD
+R1 = 00001			Destination (R1)
+R2 = 00010			Operand 1 (R2)
+R3 = 00011			Operand 2 (R3)
+Interpretation
+ADD R1, R2, R3
+General Structure of an Instruction
+
+============================================================
+SLIDE 28
+[images: 2]
+(no text)
+
+============================================================
+SLIDE 29
+[images: 1]
+Figure: Instruction format for One Address
+
+============================================================
+SLIDE 30
+[images: 1]
+Figure: Instruction format for Two Addresses
+
+============================================================
+SLIDE 31
+[images: 1]
+Figure: Instruction format for Two Addresses
+
+============================================================
+SLIDE 32
+[images: 1]
+Figure: Instruction format for Three Addresses
+
+============================================================
+SLIDE 33
+Instruction Format Examples
+Let’s attempt to study various instruction formats using the following program.
+The program in assembly language that evaluates
+X = (A + B) * (C + D)
+We shall use this to understand 3,2,1, and 0  instruction formats
+
+============================================================
+SLIDE 34
+Three Address - Instruction FormatX = (A + B) * (C + D)   X =A +B + C
+ADD R1, A, B  R1 ← M[A] + M[B]   ADD R1,A,B
+ADD R2, C, D  R2 ← M[C] + M[D]  ADD X, R1,C
+MUL  X, R1, R2  M[X] ← R1 * R2
+It is assumed that the computer has two processor registers, R1 and R2. The symbol M[A] denotes the operand at memory address symbolized by A.
+The advantage of the three-address format is that it results in short programs when evaluating arithmetic expressions.
+The disadvantage is that the binary-coded instructions require too many bits to specify three addresses.
+
+============================================================
+SLIDE 35
+Two Address - Instruction Format
+Two-address instructions are the most common in commercial computers. Here again each address field can specify either a processor register or a memory word. The program to evaluate X = (A + B) * (C + D) is as follows:
+MOV R1, A   R1 ← M[A]
+ADD R1, B   R1 ← R1 + M[B]
+MOV R2, C   R2 ← M[C]
+ADD R2, D   R2 ← R2 + M[D]
+MOL R1, R2  R1 ← R1 * R2
+MOV X, R1   M[X] ← R1
+
+============================================================
+SLIDE 36
+Two Address - Instruction Format
+The MOV instruction moves or transfers the operands to and from memory and processor registers.
+The first symbol listed in an instruction is assumed to be both a source and the destination where the result of the operation is transferred.
+
+============================================================
+SLIDE 37
+One Address - Instruction Format
+One-address instructions use an implied accumulator (AC) register for all data manipulation.
+For multiplication and division there is a need for a second register.
+However, here we will neglect the second register and assume that the AC contains the result of all operations.
+The program to evaluate X = (A + B) * (C + D) is
+
+============================================================
+SLIDE 38
+One Address - Instruction Format
+  LOAD A  AC ← M[AJ
+  ADD B   AC ← AC + M[B]
+  STORE T M[T] ← AC
+  LOAD C AC ← M[C]
+  ADD  D   AC ← AC + M[D]
+  MOL  T   AC ← AC*M[T]
+  STORE   X  M[X] ← AC
+All operations are done between the AC register and a memory operand. T is the address of a temporary memory location required for storing the intermediate result.
+
+============================================================
+SLIDE 39
+Zero Address - Instruction Format
+A stack-organized computer does not use an address field for the instructions ADD and MUL.
+The PUSH and POP instructions, however, need an address field to specify the operand that communicates with the stack.
+The following program shows how X = (A + B) * (C + D) will be written for a stack organized computer. (TOS stands for top of stack).
+
+============================================================
+SLIDE 40
+Zero Address - Instruction Format
+  PUSH A TOS ← A
+  PUSH B TOS  ← B
+  ADD TOS ← (A + B)
+  PUSH C TOS ← C
+  PUSH D TOS ← D
+  ADD TO S ← (C + D)
+  MOL TOS ← (C + D)*(A + B)
+  POP X M[X] ← TOS
+
+============================================================
+SLIDE 41
+Zero Address - Instruction Format
+To evaluate arithmetic expressions in a stack computer, it is necessary to convert the expression into reverse Polish notation.
+The name "zero-address" is given to this type of computer because of the absence of an address field in the computational instructions.
+
+============================================================
+SLIDE 42
+Addressing Modes
+
+============================================================
+SLIDE 43
+[images: 1]
+Addressing Modes
+
+============================================================
+SLIDE 44
+[images: 1]
+Addressing Modes
+
+============================================================
+SLIDE 45
+[images: 1]
+Classification of Addressing Modes
+
+============================================================
+SLIDE 46
+[images: 1]
+Classification of Addressing Modes
+
+============================================================
+SLIDE 47
+[images: 1]
+Immediate Addressing
+Immediate addressing is one of the simplest and fastest addressing modes in Instruction Set Architecture (ISA).
+In this mode, the actual operand (data value) is directly embedded inside the instruction itself, rather than being stored in a register or memory location.
+
+============================================================
+SLIDE 48
+[images: 1]
+Immediate Addressing -Examples
+
+============================================================
+SLIDE 49
+[images: 1]
+Direct Addressing  Mode
+An addressing technique in which the address field of the instruction contains the actual memory location of the operand.
+How It Works
+CPU reads the instruction
+Extracts the memory address
+Accesses that memory location
+Retrieves or stores data
+
+============================================================
+SLIDE 50
+[images: 1]
+Direct Addressing  Mode
+
+============================================================
+SLIDE 51
+Indirect Addressing  Mode
+An addressing technique in which the address field of the instruction contains the address of another memory location that stores the effective address of the operand.
+Basic Format
+|Opcode|Address|
+Interpretation
+Address field → does not contain actual operand location
+It contains → pointer to the operand’s address
+
+============================================================
+SLIDE 52
+Indirect Addressing  Mode
+How It Works (Step-by-Step)
+CPU fetches the instruction
+Reads the address field (say A)
+Goes to memory location A
+Retrieves the effective address (EA) stored there
+Accesses operand using EA
+Example 1
+LOAD R1, (200)
+Explanation
+Instruction contains 200
+Memory[200] contains 500
+Memory[500] contains actual data
+Final operation:R1 = Memory[500]
+
+============================================================
+SLIDE 53
+Indirect Addressing  Mode
+Example 2
+LOAD R2,(300)
+Given:
+Memory[300] = 400
+Memory[400] = 50
+Solution:
+R2 = 50
+Example 3
+ADD R1, (150)
+Given:
+R1 = 10
+Memory[150] = 250
+Memory[250] = 5
+Solution:
+R1 = 10 + 5 = 15
+Example 4
+STORE R3, (500)
+Given:
+R3 = 30
+Memory[500] = 800
+Solution:
+Memory[800] = 30
+
+============================================================
+SLIDE 54
+Relative Addressing  Mode
+Relative Addressing Mode is defined as:
+An addressing technique in which the effective address (EA) is obtained by adding a displacement (offset) to the current value of the Program Counter (PC).
+Formula:
+Effective Address (EA) = PC + Offset
+
+============================================================
+SLIDE 55
+Relative Addressing  Mode
+How It Works (Step-by-Step)
+CPU fetches the instruction
+PC already points to the next instruction
+Offset is extracted from instruction
+Offset is added to PC
+Result gives target address (EA)
+
+============================================================
+SLIDE 56
+[images: 1]
+Relative Addressing  Mode
+
+============================================================
+SLIDE 57
+[images: 1]
+Relative Addressing  Mode
+
+============================================================
+SLIDE 58
+Relative Addressing  Mode
+Example 1
+BEQ R1, R2, +30
+Given:
+PC = 200
+Solution:
+𝐸𝐴=200+30 = 230
+Jump to 230 if R1 = R2
+Example 2
+BNE R3, R4, -40
+Given:
+PC = 1000
+Solution:
+𝐸𝐴=1000−40=960
+Jump to 960 if R3 ≠ R4
+
+============================================================
+SLIDE 59
+Indexed Addressing  Mode
+Assignment for Students
+
+============================================================
+SLIDE 60
+END OF UNIT

@@ -1,0 +1,2703 @@
+[
+  {
+    "id": "ift-d9-001",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what a processor is",
+    "prompt": "A processor is defined as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The logic circuitry that responds to and processes the basic instructions that drive a computer"
+      },
+      {
+        "id": "b",
+        "text": "The set of instructions a programmer can give to a machine"
+      },
+      {
+        "id": "c",
+        "text": "The memory that holds the instructions"
+      },
+      {
+        "id": "d",
+        "text": "The interface between hardware and software"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Logic circuitry that responds to and processes the basic instructions. It is hardware, not a set of instructions and not an interface.",
+    "why": {
+      "a": "Correct. Logic circuitry that responds to and processes the basic instructions.",
+      "b": "Wrong. That is the instruction set, defined two lines later on the same slide.",
+      "c": "Wrong. Instructions are stored in memory, but memory is not the processor.",
+      "d": "Wrong. That is the ISA."
+    },
+    "facts": [
+      "t9-001"
+    ]
+  },
+  {
+    "id": "ift-d9-002",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what a processor is",
+    "prompt": "A processor is the {{1}} circuitry that responds to and processes the basic instructions that drive a computer.",
+    "blanks": [
+      {
+        "accept": [
+          "logic"
+        ],
+        "choices": [
+          "logic",
+          "memory",
+          "control",
+          "arithmetic"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Logic circuitry. The control unit and the ALU are both parts of it.",
+    "facts": [
+      "t9-001"
+    ]
+  },
+  {
+    "id": "ift-d9-003",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "instructions in memory",
+    "prompt": "CPU instructions are numbers stored in memory.",
+    "answer": "true",
+    "explanation": "They are, which is the stored program idea again: an instruction is just a bit pattern, and the instruction format slide shows one.",
+    "why": {
+      "true": "Correct. The deck states it plainly.",
+      "false": "Wrong. An instruction such as ADD R1,R2 is stored as the number 11100011111110000001110000."
+    },
+    "facts": [
+      "t9-002"
+    ]
+  },
+  {
+    "id": "ift-d9-004",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the instruction set",
+    "prompt": "According to the RISC deck, an instruction set is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "A set of instructions a programmer can give to a machine to perform operations, specific to the CPU architecture"
+      },
+      {
+        "id": "b",
+        "text": "The logic circuitry that executes instructions"
+      },
+      {
+        "id": "c",
+        "text": "The numbers stored in memory during execution"
+      },
+      {
+        "id": "d",
+        "text": "The four basic operations of a processor"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A set of instructions a programmer can give, and the deck adds that the instructions are specific to the CPU architecture, which is why software is tied to an ISA.",
+    "why": {
+      "a": "Correct. A set of instructions a programmer can give, and the deck adds that the instructions are specific to the CPU architecture, which is why software is tied to an ISA.",
+      "b": "Wrong. That is the processor.",
+      "c": "Wrong. Those are the instructions themselves, once loaded.",
+      "d": "Wrong. Read, decode, execute, write back are the basic operations."
+    },
+    "facts": [
+      "t9-003"
+    ]
+  },
+  {
+    "id": "ift-d9-005",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the instruction set",
+    "prompt": "The instructions of a machine are specific to the CPU {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "architecture"
+        ],
+        "choices": [
+          "architecture",
+          "organization",
+          "clock",
+          "manufacturer"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Architecture. That is why an application compiled for x86 will not run on ARM.",
+    "facts": [
+      "t9-003"
+    ]
+  },
+  {
+    "id": "ift-d9-006",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the basic operations",
+    "prompt": "Select the basic operations of a processor the deck lists.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Read instruction from memory"
+      },
+      {
+        "id": "b",
+        "text": "Decode"
+      },
+      {
+        "id": "c",
+        "text": "Execute"
+      },
+      {
+        "id": "d",
+        "text": "Write back"
+      },
+      {
+        "id": "e",
+        "text": "Branch"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four operations, and they line up with four of the five stages of the RISC pipeline: fetch, decode, execute, write back.",
+    "why": {
+      "a": "Correct, reading the instruction from memory is first.",
+      "b": "Correct, decode is second.",
+      "c": "Correct, execute is third.",
+      "d": "Correct, write back closes the list.",
+      "e": "Wrong. Branching is a kind of instruction, not one of the basic operations of executing any instruction."
+    },
+    "facts": [
+      "t9-004"
+    ]
+  },
+  {
+    "id": "ift-d9-007",
+    "module": 9,
+    "slides": [
+      "RISC S3"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the basic operations",
+    "prompt": "The basic operations are: read instruction from memory, decode, execute, {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "write back"
+        ],
+        "choices": [
+          "write back",
+          "branch",
+          "stall",
+          "forward"
+        ],
+        "format": "words"
+      }
+    ],
+    "explanation": "Write back. In the five-stage pipeline a memory access stage sits between execute and write back.",
+    "facts": [
+      "t9-004"
+    ]
+  },
+  {
+    "id": "ift-d9-008",
+    "module": 9,
+    "slides": [
+      "RISC S4"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the two philosophies",
+    "prompt": "What do CISC and RISC stand for?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Complex Instruction Set Computer and Reduced Instruction Set Computer"
+      },
+      {
+        "id": "b",
+        "text": "Compact Instruction Set Computer and Rapid Instruction Set Computer"
+      },
+      {
+        "id": "c",
+        "text": "Complex Integrated System Computer and Reduced Integrated System Computer"
+      },
+      {
+        "id": "d",
+        "text": "Controlled Instruction Sequence Computer and Registered Instruction Sequence Computer"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Complex and Reduced. The words describe the instruction set, and the deck later stresses that reduced means reduced work per instruction rather than merely fewer instructions.",
+    "why": {
+      "a": "Correct. Complex and Reduced.",
+      "b": "Wrong. Compact and Rapid are not the words.",
+      "c": "Wrong. The middle words are Instruction Set.",
+      "d": "Wrong on every word but Computer."
+    },
+    "facts": [
+      "t9-005"
+    ]
+  },
+  {
+    "id": "ift-d9-009",
+    "module": 9,
+    "slides": [
+      "RISC S4"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the two philosophies",
+    "prompt": "Over the years {{1}} major processor design philosophies emerged.",
+    "blanks": [
+      {
+        "accept": [
+          "2",
+          "two"
+        ],
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Two: CISC and RISC. They were developed to address different challenges in processor design and performance optimization.",
+    "facts": [
+      "t9-005"
+    ]
+  },
+  {
+    "id": "ift-d9-010",
+    "module": 9,
+    "slides": [
+      "RISC S5"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 1960s and 1970s",
+    "prompt": "During the 1960s and 1970s, what was the relationship between memory and processor hardware costs?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Memory was expensive while processor hardware was relatively cheap"
+      },
+      {
+        "id": "b",
+        "text": "Memory was cheap while processor hardware was expensive"
+      },
+      {
+        "id": "c",
+        "text": "Both were expensive"
+      },
+      {
+        "id": "d",
+        "text": "Both were cheap"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Expensive memory, cheap hardware. That imbalance is the whole reason CISC made sense: spend transistors to save memory.",
+    "why": {
+      "a": "Correct. Expensive memory, cheap hardware.",
+      "b": "Wrong, and reversed, which would have argued for RISC instead.",
+      "c": "Wrong. The contrast between the two is the point.",
+      "d": "Wrong, for the same reason."
+    },
+    "facts": [
+      "t9-006"
+    ]
+  },
+  {
+    "id": "ift-d9-011",
+    "module": 9,
+    "slides": [
+      "RISC S5"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 1960s and 1970s",
+    "prompt": "During the {{1}} and 1970s memory was expensive while processor hardware was relatively {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "1960s"
+        ],
+        "choices": [
+          "1960s",
+          "1950s",
+          "1970s",
+          "1980s"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "cheap"
+        ],
+        "choices": [
+          "cheap",
+          "expensive",
+          "slow",
+          "scarce"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The 1960s, and cheap hardware. By the early 1980s the reasoning had reversed and RISC followed.",
+    "facts": [
+      "t9-006"
+    ]
+  },
+  {
+    "id": "ift-d9-012",
+    "module": 9,
+    "slides": [
+      "RISC S5"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why CISC arose",
+    "prompt": "Engineers attempted to reduce program size by creating processors with powerful instructions capable of performing complex tasks in a single instruction, and this led to CISC.",
+    "answer": "true",
+    "explanation": "That is the deck's account of CISC's origin: expensive memory made small programs valuable, so instructions were made to do more.",
+    "why": {
+      "true": "Correct, and it explains why the main objective of CISC is less code.",
+      "false": "Wrong. This is the historical background the deck gives for CISC."
+    },
+    "facts": [
+      "t9-007"
+    ]
+  },
+  {
+    "id": "ift-d9-013",
+    "module": 9,
+    "slides": [
+      "RISC S6"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the early 1980s discovery",
+    "prompt": "By the early 1980s researchers discovered that most programs:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Used only a small subset of the available instructions"
+      },
+      {
+        "id": "b",
+        "text": "Used almost every available instruction"
+      },
+      {
+        "id": "c",
+        "text": "Were limited by memory size"
+      },
+      {
+        "id": "d",
+        "text": "Spent most of their time in input and output"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A small subset, which made the elaborate rest of a CISC instruction set look like wasted silicon.",
+    "why": {
+      "a": "Correct. A small subset, which made the elaborate rest of a CISC instruction set look like wasted silicon.",
+      "b": "Wrong, and it would have been an argument for keeping CISC.",
+      "c": "Wrong. Memory cost was the 1960s and 1970s problem.",
+      "d": "Wrong. I/O is not what the observation was about."
+    },
+    "facts": [
+      "t9-008"
+    ]
+  },
+  {
+    "id": "ift-d9-014",
+    "module": 9,
+    "slides": [
+      "RISC S6"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the early 1980s discovery",
+    "prompt": "By the early {{1}} researchers discovered that most programs used only a small subset of the available instructions.",
+    "blanks": [
+      {
+        "accept": [
+          "1980s"
+        ],
+        "choices": [
+          "1980s",
+          "1970s",
+          "1960s",
+          "1990s"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The early 1980s, which is also when the first RISC projects were running at IBM, Stanford and UC-Berkeley.",
+    "facts": [
+      "t9-008"
+    ]
+  },
+  {
+    "id": "ift-d9-015",
+    "module": 9,
+    "slides": [
+      "RISC S6"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what led to RISC",
+    "prompt": "Which observation about instruction timing led to RISC?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Complex instructions often required multiple clock cycles while simpler instructions executed much faster"
+      },
+      {
+        "id": "b",
+        "text": "All instructions took the same time"
+      },
+      {
+        "id": "c",
+        "text": "Simple instructions required multiple clock cycles"
+      },
+      {
+        "id": "d",
+        "text": "Clock speed could not be increased further"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Complex instructions cost many cycles, simple ones few. Combined with the small subset finding, that is the entire case for RISC.",
+    "why": {
+      "a": "Correct. Complex instructions cost many cycles, simple ones few.",
+      "b": "Wrong, and uniform timing is a RISC goal rather than a 1980s observation.",
+      "c": "Wrong, and reversed.",
+      "d": "Wrong. Clock speed is one of three performance factors but is not this observation."
+    },
+    "facts": [
+      "t9-009"
+    ]
+  },
+  {
+    "id": "ift-d9-016",
+    "module": 9,
+    "slides": [
+      "RISC S6"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what led to RISC",
+    "prompt": "The observation that simpler instructions could be executed much faster led to the development of RISC architectures.",
+    "answer": "true",
+    "explanation": "It did, together with the finding that most programs use only a small subset of instructions.",
+    "why": {
+      "true": "Correct. The deck says this observation led to the development of RISC architectures.",
+      "false": "Wrong. It is the conclusion drawn at the end of the historical background."
+    },
+    "facts": [
+      "t9-009"
+    ]
+  },
+  {
+    "id": "ift-d9-017",
+    "module": 9,
+    "slides": [
+      "RISC S7"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the first in-class question",
+    "prompt": "The first in-class question in the RISC and CISC deck asks:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Why were CISC architectures initially popular?"
+      },
+      {
+        "id": "b",
+        "text": "Why is pipelining more difficult in CISC processors?"
+      },
+      {
+        "id": "c",
+        "text": "Why do we not use only cache memory?"
+      },
+      {
+        "id": "d",
+        "text": "What is the primary focus of computer architecture?"
+      }
+    ],
+    "answer": "a",
+    "explanation": "It follows the historical background, and its answer slide comes next.",
+    "why": {
+      "a": "Correct. It follows the historical background, and its answer slide comes next.",
+      "b": "Wrong. That is the second in-class question in this deck, much later.",
+      "c": "Wrong. That belongs to the memory deck.",
+      "d": "Wrong. That belongs to the introduction deck."
+    },
+    "facts": [
+      "t9-010"
+    ]
+  },
+  {
+    "id": "ift-d9-018",
+    "module": 9,
+    "slides": [
+      "RISC S8"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why CISC was popular",
+    "prompt": "Why were CISC architectures initially popular?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because memory was expensive, and CISC instructions could perform complex operations using fewer instructions, reducing program size"
+      },
+      {
+        "id": "b",
+        "text": "Because they were faster than RISC at the same clock rate"
+      },
+      {
+        "id": "c",
+        "text": "Because they pipelined more easily"
+      },
+      {
+        "id": "d",
+        "text": "Because they used fewer transistors"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Expensive memory plus fewer instructions equals smaller programs. Every clause of the answer slide is doing work.",
+    "why": {
+      "a": "Correct. Expensive memory plus fewer instructions equals smaller programs.",
+      "b": "Wrong. RISC achieves 2 to 4 times the performance at comparable clock rates.",
+      "c": "Wrong, and the opposite: varying lengths and execution times make CISC harder to pipeline.",
+      "d": "Wrong. Simple hardware and less chip space are RISC advantages."
+    },
+    "facts": [
+      "t9-011"
+    ]
+  },
+  {
+    "id": "ift-d9-019",
+    "module": 9,
+    "slides": [
+      "RISC S8"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why CISC was popular",
+    "prompt": "CISC was initially popular because memory was {{1}}, and CISC instructions could perform complex operations using fewer instructions, thereby reducing program {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "expensive"
+        ],
+        "choices": [
+          "expensive",
+          "cheap",
+          "slow",
+          "volatile"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "size"
+        ],
+        "choices": [
+          "size",
+          "time",
+          "complexity",
+          "cost"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Expensive memory, reduced program size. The cost of memory is what made size worth paying for.",
+    "facts": [
+      "t9-011"
+    ]
+  },
+  {
+    "id": "ift-d9-020",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the origins of CISC",
+    "prompt": "CISC existed close to the beginning of general computing, when the earliest machines were programmed in assembly language and memory was slow and expensive.",
+    "answer": "true",
+    "explanation": "That is the deck's framing. Assembly programming by hand is what made a hundred powerful instructions preferable to thousands of simple ones.",
+    "why": {
+      "true": "Correct, and it is the setting for the IBM instruction set decision on the same slide.",
+      "false": "Wrong. This is how the deck opens its account of CISC."
+    },
+    "facts": [
+      "t9-012"
+    ]
+  },
+  {
+    "id": "ift-d9-021",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the IBM instruction set",
+    "prompt": "IBM designed an instruction set to allow early programmers to easily program:",
+    "options": [
+      {
+        "id": "a",
+        "text": "A hundred complex instructions rather than thousands of individual instructions"
+      },
+      {
+        "id": "b",
+        "text": "Thousands of complex instructions rather than a hundred individual ones"
+      },
+      {
+        "id": "c",
+        "text": "A hundred individual instructions rather than a thousand complex ones"
+      },
+      {
+        "id": "d",
+        "text": "Ten complex instructions rather than a hundred individual ones"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A hundred complex against thousands of individual. The trade is fewer, richer instructions for the human writing them.",
+    "why": {
+      "a": "Correct. A hundred complex against thousands of individual.",
+      "b": "Wrong, and reversed.",
+      "c": "Wrong. The hundred are the complex ones.",
+      "d": "Wrong figures. A hundred complex against thousands of individual."
+    },
+    "facts": [
+      "t9-013"
+    ]
+  },
+  {
+    "id": "ift-d9-022",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the IBM instruction set",
+    "prompt": "{{1}} designed an instruction set to let early programmers write a hundred complex instructions rather than thousands of individual ones.",
+    "blanks": [
+      {
+        "accept": [
+          "IBM"
+        ],
+        "choices": [
+          "IBM",
+          "Intel",
+          "AMD",
+          "Motorola"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "IBM, which also appears later on the other side of the argument, as the home of the IBM 801, one of the first RISC projects.",
+    "facts": [
+      "t9-013"
+    ]
+  },
+  {
+    "id": "ift-d9-023",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC and the compiler",
+    "prompt": "CISC was developed to make compiler development simpler. How?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It shifts most of the burden of generating machine instructions to the processor"
+      },
+      {
+        "id": "b",
+        "text": "It shifts most of the burden to the compiler"
+      },
+      {
+        "id": "c",
+        "text": "It removes the need for a compiler"
+      },
+      {
+        "id": "d",
+        "text": "It requires the compiler to schedule every instruction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The burden moves to the processor. RISC does the reverse, which is why the deck later says complexity is pushed to the compiler in RISC.",
+    "why": {
+      "a": "Correct. The burden moves to the processor.",
+      "b": "Wrong, and that is the RISC position.",
+      "c": "Wrong. A compiler is still needed; it is simply simpler.",
+      "d": "Wrong. Instruction scheduling is a RISC compiler's job, and poor scheduling is a RISC disadvantage."
+    },
+    "facts": [
+      "t9-014"
+    ]
+  },
+  {
+    "id": "ift-d9-024",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC and the compiler",
+    "prompt": "In CISC, most of the burden of generating machine instructions is shifted to the compiler.",
+    "answer": "false",
+    "explanation": "The other way round. CISC shifts the burden to the processor, which is what makes compiler development simpler.",
+    "why": {
+      "true": "Wrong. Pushing complexity to the compiler is the RISC approach.",
+      "false": "Correct. In CISC the processor carries the burden."
+    },
+    "facts": [
+      "t9-014"
+    ]
+  },
+  {
+    "id": "ift-d9-025",
+    "module": 9,
+    "slides": [
+      "RISC S9"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the square root example",
+    "prompt": "The deck's example of what a CISC processor has built in is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The ability to calculate a square root"
+      },
+      {
+        "id": "b",
+        "text": "The ability to sort an array"
+      },
+      {
+        "id": "c",
+        "text": "The ability to draw a rectangle"
+      },
+      {
+        "id": "d",
+        "text": "The ability to translate an address"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A square root, so the compiler does not have to emit a long sequence of machine instructions for it.",
+    "why": {
+      "a": "Correct. A square root, so the compiler does not have to emit a long sequence of machine instructions for it.",
+      "b": "Wrong. Sorting is not mentioned.",
+      "c": "Wrong. Rectangles belong to the vector graphics section.",
+      "d": "Wrong. Address translation is the MMU's job."
+    },
+    "facts": [
+      "t9-015"
+    ]
+  },
+  {
+    "id": "ift-d9-026",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what CISC is",
+    "prompt": "Complex instruction set computing is a CPU design where single instructions can:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Execute several low-level operations, such as a load, an arithmetic operation and a store"
+      },
+      {
+        "id": "b",
+        "text": "Execute only one low-level operation each"
+      },
+      {
+        "id": "c",
+        "text": "Execute only register-to-register operations"
+      },
+      {
+        "id": "d",
+        "text": "Be decoded in a single cycle"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Several low-level operations in one instruction, or multi-step operations, or addressing modes within single instructions.",
+    "why": {
+      "a": "Correct, and the deck names load, arithmetic and store as the example trio.",
+      "b": "Wrong. That is closer to the RISC philosophy.",
+      "c": "Wrong. Register-to-register only is the RISC restriction.",
+      "d": "Wrong. Easy decoding is an important aspect of the RISC instruction format."
+    },
+    "facts": [
+      "t9-016"
+    ]
+  },
+  {
+    "id": "ift-d9-027",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what CISC is",
+    "prompt": "A CISC instruction may execute several low-level operations, such as a {{1}} from memory, an arithmetic operation, and a memory {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "load"
+        ],
+        "choices": [
+          "load",
+          "store",
+          "branch",
+          "shift"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "store"
+        ],
+        "choices": [
+          "store",
+          "load",
+          "fetch",
+          "compare"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Load, then arithmetic, then store, all inside one instruction. In RISC those would be three separate instructions.",
+    "facts": [
+      "t9-016"
+    ]
+  },
+  {
+    "id": "ift-d9-028",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why it is called complex",
+    "prompt": "CISC is called complex because of:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The complex work performed per instruction"
+      },
+      {
+        "id": "b",
+        "text": "The complexity of its compiler"
+      },
+      {
+        "id": "c",
+        "text": "The number of registers it has"
+      },
+      {
+        "id": "d",
+        "text": "The difficulty of manufacturing it"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Work per instruction. It matches RISC being called reduced because of the reduction of work performed by an instruction.",
+    "why": {
+      "a": "Correct. Work per instruction.",
+      "b": "Wrong. The CISC compiler is the simpler one.",
+      "c": "Wrong. CISC has a small number of general purpose registers, but that is not where the name comes from.",
+      "d": "Wrong. Manufacturing difficulty is not the reason given."
+    },
+    "facts": [
+      "t9-017"
+    ]
+  },
+  {
+    "id": "ift-d9-029",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the CISC concept",
+    "prompt": "The CISC concept is to encode the {{1}} directly, as in add X and Y and put the result in Z.",
+    "blanks": [
+      {
+        "accept": [
+          "intention"
+        ],
+        "choices": [
+          "intention",
+          "address",
+          "operand",
+          "opcode"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The intention. You say what you want done, and the processor works out the steps.",
+    "facts": [
+      "t9-017"
+    ]
+  },
+  {
+    "id": "ift-d9-030",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the problem with CISC",
+    "prompt": "The problem the deck identifies with CISC is that:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Some instructions take more time than others"
+      },
+      {
+        "id": "b",
+        "text": "All instructions take the same time"
+      },
+      {
+        "id": "c",
+        "text": "It has too many registers"
+      },
+      {
+        "id": "d",
+        "text": "Its instructions are too short"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Uneven timing, which is exactly what makes pipelining hard: a pipeline wants every stage to take the same time.",
+    "why": {
+      "a": "Correct. Uneven timing, which is exactly what makes pipelining hard: a pipeline wants every stage to take the same time.",
+      "b": "Wrong. Uniform timing is a RISC property and an advantage.",
+      "c": "Wrong. CISC has a small number of general purpose registers.",
+      "d": "Wrong. CISC instructions are variable in length, and often long."
+    },
+    "facts": [
+      "t9-018"
+    ]
+  },
+  {
+    "id": "ift-d9-031",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the problem with CISC",
+    "prompt": "In CISC, some instructions take more time than others.",
+    "answer": "true",
+    "explanation": "They do, and the deck flags it as the problem. It comes back later as the reason CISC instructions are harder to pipeline.",
+    "why": {
+      "true": "Correct. The deck labels this the problem with CISC.",
+      "false": "Wrong. Varying execution times are characteristic of CISC."
+    },
+    "facts": [
+      "t9-018"
+    ]
+  },
+  {
+    "id": "ift-d9-032",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "examples of CISC",
+    "prompt": "Which architectures does the deck give as examples of CISC?",
+    "options": [
+      {
+        "id": "a",
+        "text": "x86 and s390"
+      },
+      {
+        "id": "b",
+        "text": "ARM and MIPS"
+      },
+      {
+        "id": "c",
+        "text": "IBM 801 and Berkeley RISC 1"
+      },
+      {
+        "id": "d",
+        "text": "DLX and MIPS"
+      }
+    ],
+    "answer": "a",
+    "explanation": "x86 and s390. All the other options are RISC machines.",
+    "why": {
+      "a": "Correct. X86 and s390.",
+      "b": "Wrong. ARM is the smartphone RISC example and MIPS came out of Stanford's RISC project.",
+      "c": "Wrong. Both are named as early RISC projects.",
+      "d": "Wrong. Both are RISC."
+    },
+    "facts": [
+      "t9-019"
+    ]
+  },
+  {
+    "id": "ift-d9-033",
+    "module": 9,
+    "slides": [
+      "RISC S10"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC registers",
+    "prompt": "CISC has a {{1}} number of general purpose registers.",
+    "blanks": [
+      {
+        "accept": [
+          "small"
+        ],
+        "choices": [
+          "small",
+          "large",
+          "variable",
+          "fixed"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Small. RISC leans the other way, since almost all its instructions work register to register and it needs plenty of them.",
+    "facts": [
+      "t9-019"
+    ]
+  },
+  {
+    "id": "ift-d9-034",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "who uses which",
+    "prompt": "According to the deck, which devices typically use CISC and which use RISC?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Computers typically use CISC, while tablets, smartphones and other devices use RISC"
+      },
+      {
+        "id": "b",
+        "text": "Computers typically use RISC, while tablets and smartphones use CISC"
+      },
+      {
+        "id": "c",
+        "text": "Both use CISC"
+      },
+      {
+        "id": "d",
+        "text": "Both use RISC"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Computers CISC, mobile devices RISC. The reason follows immediately: RISC is more efficient where cycles and power are in short supply.",
+    "why": {
+      "a": "Correct. Computers CISC, mobile devices RISC.",
+      "b": "Wrong, and reversed.",
+      "c": "Wrong. The slide draws a contrast.",
+      "d": "Wrong, for the same reason."
+    },
+    "facts": [
+      "t9-020"
+    ]
+  },
+  {
+    "id": "ift-d9-035",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "who uses which",
+    "prompt": "Match each kind of device to the architecture the deck says it typically uses.",
+    "pairs": [
+      {
+        "left": "Computers",
+        "right": "CISC"
+      },
+      {
+        "left": "Tablets and smartphones",
+        "right": "RISC"
+      }
+    ],
+    "explanation": "It lines up with the ISA example in the introduction deck, where mobile apps are built for the ARM-based processors in smartphones.",
+    "facts": [
+      "t9-020"
+    ]
+  },
+  {
+    "id": "ift-d9-036",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why RISC suits mobile devices",
+    "prompt": "Why does the higher efficiency of RISC make it desirable in tablets and smartphones?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because cycles and power are usually in short supply in these applications"
+      },
+      {
+        "id": "b",
+        "text": "Because memory is expensive in these applications"
+      },
+      {
+        "id": "c",
+        "text": "Because their compilers are simpler"
+      },
+      {
+        "id": "d",
+        "text": "Because they need variable-length instructions"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Cycles and power. It is the same idea as battery life in the smartphone architecture example.",
+    "why": {
+      "a": "Correct. Cycles and power.",
+      "b": "Wrong. Expensive memory is the 1960s and 1970s argument for CISC.",
+      "c": "Wrong. RISC pushes complexity to the compiler, making it harder rather than simpler.",
+      "d": "Wrong. Variable-length instructions are a CISC characteristic."
+    },
+    "facts": [
+      "t9-021"
+    ]
+  },
+  {
+    "id": "ift-d9-037",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why RISC suits mobile devices",
+    "prompt": "RISC is desirable where {{1}} and {{2}} are usually in short supply.",
+    "blanks": [
+      {
+        "accept": [
+          "cycles"
+        ],
+        "choices": [
+          "cycles",
+          "registers",
+          "instructions",
+          "addresses"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "power"
+        ],
+        "choices": [
+          "power",
+          "memory",
+          "cache",
+          "bandwidth"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Cycles and power, the two things a battery-driven device cannot spare.",
+    "facts": [
+      "t9-021"
+    ]
+  },
+  {
+    "id": "ift-d9-038",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "microcode",
+    "prompt": "In CISC, instructions are executed by:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Microcode"
+      },
+      {
+        "id": "b",
+        "text": "Hardwired control"
+      },
+      {
+        "id": "c",
+        "text": "The compiler"
+      },
+      {
+        "id": "d",
+        "text": "The operating system"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Microcode, and RISC uses hardwired control instead. That single contrast explains a great deal about both designs.",
+    "why": {
+      "a": "Correct. Microcode, and RISC uses hardwired control instead.",
+      "b": "Wrong, and that is the RISC property.",
+      "c": "Wrong. The compiler produces instructions; it does not execute them.",
+      "d": "Wrong. The operating system is software running on the machine."
+    },
+    "facts": [
+      "t9-022"
+    ]
+  },
+  {
+    "id": "ift-d9-039",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "microcode",
+    "prompt": "In CISC, instructions are executed by microcode.",
+    "answer": "true",
+    "explanation": "They are, and the deck elsewhere adds that microcode control makes the CISC instruction set possible and flexible.",
+    "why": {
+      "true": "Correct. Microcode is the CISC mechanism; hardwired control is the RISC one.",
+      "false": "Wrong. This is stated directly in the deck."
+    },
+    "facts": [
+      "t9-022"
+    ]
+  },
+  {
+    "id": "ift-d9-040",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why CISC is hard to pipeline",
+    "prompt": "What about a CISC instruction set makes its instructions harder to pipeline?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It includes many instructions with different sizes and execution cycles"
+      },
+      {
+        "id": "b",
+        "text": "It includes too few instructions"
+      },
+      {
+        "id": "c",
+        "text": "Its instructions are all the same length"
+      },
+      {
+        "id": "d",
+        "text": "It has too many registers"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Different sizes and different cycle counts. A pipeline works best when every instruction is the same shape and takes the same time.",
+    "why": {
+      "a": "Correct. Different sizes and different cycle counts.",
+      "b": "Wrong. CISC has more instructions, typically 100 to 250.",
+      "c": "Wrong, and uniform length is a RISC property that helps pipelining.",
+      "d": "Wrong. CISC has a small number of general purpose registers."
+    },
+    "facts": [
+      "t9-023"
+    ]
+  },
+  {
+    "id": "ift-d9-041",
+    "module": 9,
+    "slides": [
+      "RISC S11"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why CISC is hard to pipeline",
+    "prompt": "A CISC instruction set typically includes many instructions with different {{1}} and execution {{2}}, which makes CISC instructions harder to pipeline.",
+    "blanks": [
+      {
+        "accept": [
+          "sizes"
+        ],
+        "choices": [
+          "sizes",
+          "names",
+          "opcodes",
+          "operands"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "cycles"
+        ],
+        "choices": [
+          "cycles",
+          "stages",
+          "modes",
+          "formats"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Sizes and cycles. The answer slide to the second in-class question says the same thing in other words: varying lengths and execution times.",
+    "facts": [
+      "t9-023"
+    ]
+  },
+  {
+    "id": "ift-d9-042",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how many CISC instructions",
+    "prompt": "A CISC processor has a large number of instructions, typically:",
+    "options": [
+      {
+        "id": "a",
+        "text": "From 100 to 250"
+      },
+      {
+        "id": "b",
+        "text": "From 5 to 20"
+      },
+      {
+        "id": "c",
+        "text": "From 250 to 500"
+      },
+      {
+        "id": "d",
+        "text": "From 50 to 100"
+      }
+    ],
+    "answer": "a",
+    "explanation": "100 to 250 instructions. Do not confuse it with 5 to 20, which is the number of addressing modes on the very next line.",
+    "why": {
+      "a": "Correct. 100 to 250 instructions.",
+      "b": "Wrong, and that is the addressing mode figure.",
+      "c": "Wrong. The upper bound given is 250.",
+      "d": "Wrong. The lower bound given is 100."
+    },
+    "facts": [
+      "t9-024"
+    ]
+  },
+  {
+    "id": "ift-d9-043",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how many CISC instructions",
+    "prompt": "A CISC processor typically has from 100 to {{1}} instructions.",
+    "blanks": [
+      {
+        "accept": [
+          "250"
+        ],
+        "choices": [
+          "250",
+          "200",
+          "300",
+          "150"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "250 is the top of the range, and 100 is the bottom.",
+    "facts": [
+      "t9-024"
+    ]
+  },
+  {
+    "id": "ift-d9-044",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how many CISC addressing modes",
+    "prompt": "A CISC processor has a large variety of addressing modes, typically:",
+    "options": [
+      {
+        "id": "a",
+        "text": "5 to 20 different modes"
+      },
+      {
+        "id": "b",
+        "text": "100 to 250 different modes"
+      },
+      {
+        "id": "c",
+        "text": "2 to 5 different modes"
+      },
+      {
+        "id": "d",
+        "text": "20 to 50 different modes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "5 to 20. The pair of figures on this slide, 100 to 250 instructions and 5 to 20 modes, are easily swapped under pressure.",
+    "why": {
+      "a": "Correct. 5 to 20.",
+      "b": "Wrong, and that is the instruction count.",
+      "c": "Wrong. The range given starts at 5 and ends at 20.",
+      "d": "Wrong. 20 is the top of the range, not the bottom."
+    },
+    "facts": [
+      "t9-025"
+    ]
+  },
+  {
+    "id": "ift-d9-045",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the two CISC figures",
+    "prompt": "A CISC processor typically has from {{1}} to 250 instructions and from 5 to {{2}} addressing modes.",
+    "blanks": [
+      {
+        "accept": [
+          "100"
+        ],
+        "choices": [
+          "100",
+          "5",
+          "50",
+          "20"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "20"
+        ],
+        "choices": [
+          "20",
+          "250",
+          "50",
+          "10"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "100 to 250 instructions, 5 to 20 modes. Both ranges are worth memorising as a pair, because a question about one usually offers the other as a distractor.",
+    "facts": [
+      "t9-024",
+      "t9-025"
+    ]
+  },
+  {
+    "id": "ift-d9-046",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "specialized CISC instructions",
+    "prompt": "A CISC processor includes some instructions that perform specialized tasks and are used infrequently.",
+    "answer": "true",
+    "explanation": "It does, and that observation is what the 1980s researchers seized on: most programs use only a small subset of the available instructions.",
+    "why": {
+      "true": "Correct. It is one of the listed characteristics of CISC processors.",
+      "false": "Wrong. The infrequently used specialized instructions are exactly what RISC set out to remove."
+    },
+    "facts": [
+      "t9-026"
+    ]
+  },
+  {
+    "id": "ift-d9-047",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "CISC characteristics",
+    "prompt": "Select the characteristics of CISC processors from this list.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Variable-length instruction formats"
+      },
+      {
+        "id": "b",
+        "text": "Instructions that manipulate operands in memory"
+      },
+      {
+        "id": "c",
+        "text": "Uniform length instructions"
+      },
+      {
+        "id": "d",
+        "text": "Memory access limited to load and store"
+      }
+    ],
+    "answer": [
+      "a",
+      "b"
+    ],
+    "explanation": "Variable length and memory operands are CISC. The other two are RISC properties, and they are the exact opposites.",
+    "why": {
+      "a": "Correct, variable-length instruction formats.",
+      "b": "Correct, instructions that manipulate operands in memory.",
+      "c": "Wrong. Uniform length and fixed format are RISC properties.",
+      "d": "Wrong. Restricting memory access to load and store is the RISC rule."
+    },
+    "facts": [
+      "t9-027"
+    ]
+  },
+  {
+    "id": "ift-d9-048",
+    "module": 9,
+    "slides": [
+      "RISC S12"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC characteristics",
+    "prompt": "CISC uses {{1}}-length instruction formats.",
+    "blanks": [
+      {
+        "accept": [
+          "variable"
+        ],
+        "choices": [
+          "variable",
+          "fixed",
+          "uniform",
+          "word"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Variable. It saves memory, since a simple instruction need not be padded to the size of a complex one, but it complicates decoding and pipelining.",
+    "facts": [
+      "t9-027"
+    ]
+  },
+  {
+    "id": "ift-d9-049",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "properties of a CISC processor",
+    "prompt": "Among the properties of a CISC processor, how is its instruction set described?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Richer, some simple and some very complex, with instructions of a variable size"
+      },
+      {
+        "id": "b",
+        "text": "Simple and primitive, with instructions of a fixed size"
+      },
+      {
+        "id": "c",
+        "text": "Uniform in length and easy to decode"
+      },
+      {
+        "id": "d",
+        "text": "Limited to register-to-register operations"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Richer and mixed, with variable size. Everything else in the list follows from that mixture.",
+    "why": {
+      "a": "Correct. Richer and mixed, with variable size.",
+      "b": "Wrong. Simple primitive instructions is the first RISC property.",
+      "c": "Wrong. Easy decoding is an important aspect of RISC.",
+      "d": "Wrong. Register-to-register is the RISC restriction."
+    },
+    "facts": [
+      "t9-028"
+    ]
+  },
+  {
+    "id": "ift-d9-050",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "properties of a CISC processor",
+    "prompt": "CISC has a {{1}} instruction set, some simple, some very complex.",
+    "blanks": [
+      {
+        "accept": [
+          "richer"
+        ],
+        "choices": [
+          "richer",
+          "reduced",
+          "shorter",
+          "uniform"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Richer. Reduced is its opposite, and the R in RISC.",
+    "facts": [
+      "t9-028"
+    ]
+  },
+  {
+    "id": "ift-d9-051",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "CISC clock cycles",
+    "prompt": "CISC instructions generally take:",
+    "options": [
+      {
+        "id": "a",
+        "text": "More than 1 clock to execute"
+      },
+      {
+        "id": "b",
+        "text": "Exactly 1 clock to execute"
+      },
+      {
+        "id": "c",
+        "text": "Less than 1 clock to execute"
+      },
+      {
+        "id": "d",
+        "text": "A fixed 5 clocks to execute"
+      }
+    ],
+    "answer": "a",
+    "explanation": "More than one clock, against RISC's one instruction per clock cycle. That single number is behind most of the comparison table.",
+    "why": {
+      "a": "Correct. More than one clock, against RISC's one instruction per clock cycle.",
+      "b": "Wrong, and that is the RISC property.",
+      "c": "Wrong. No instruction takes less than a clock.",
+      "d": "Wrong. The point is that CISC timing is not fixed."
+    },
+    "facts": [
+      "t9-029"
+    ]
+  },
+  {
+    "id": "ift-d9-052",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "CISC clock cycles",
+    "prompt": "CISC instructions generally take more than 1 clock to execute.",
+    "answer": "true",
+    "explanation": "They do, which is why the comparison table says CISC is slower since an instruction can take more than 1 cycle.",
+    "why": {
+      "true": "Correct. It is the second listed property of a CISC processor.",
+      "false": "Wrong. One instruction per clock is the RISC goal, not the CISC reality."
+    },
+    "facts": [
+      "t9-029"
+    ]
+  },
+  {
+    "id": "ift-d9-053",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC and pipelining",
+    "prompt": "Among the listed properties of a CISC processor, what does the deck say about pipelining?",
+    "options": [
+      {
+        "id": "a",
+        "text": "No pipelining"
+      },
+      {
+        "id": "b",
+        "text": "Pipelining, in five stages"
+      },
+      {
+        "id": "c",
+        "text": "Pipelining, but only for load and store"
+      },
+      {
+        "id": "d",
+        "text": "Pipelining is optional"
+      }
+    ],
+    "answer": "a",
+    "explanation": "No pipelining, listed as property 5. RISC lists pipelining as one of its own properties, so the two lists are mirror images.",
+    "why": {
+      "a": "Correct. No pipelining, listed as property 5.",
+      "b": "Wrong. The five-stage pipeline is the RISC one.",
+      "c": "Wrong. No such qualification is given.",
+      "d": "Wrong. The property is stated flatly as no pipelining."
+    },
+    "facts": [
+      "t9-030"
+    ]
+  },
+  {
+    "id": "ift-d9-054",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC and memory",
+    "prompt": "A CISC processor interfaces with memory in multiple mechanisms with {{1}} addressing modes.",
+    "blanks": [
+      {
+        "accept": [
+          "complex"
+        ],
+        "choices": [
+          "complex",
+          "simple",
+          "fixed",
+          "relative"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Complex addressing modes. RISC has simple ones, and the comparison table states that contrast directly.",
+    "facts": [
+      "t9-030"
+    ]
+  },
+  {
+    "id": "ift-d9-055",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what microcode control buys",
+    "prompt": "According to the listed properties, microcode control makes the CISC instruction set:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Possible and flexible"
+      },
+      {
+        "id": "b",
+        "text": "Faster and smaller"
+      },
+      {
+        "id": "c",
+        "text": "Fixed and uniform"
+      },
+      {
+        "id": "d",
+        "text": "Easier to pipeline"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Possible and flexible. Without microcode, every complex instruction would have to be wired in by hand.",
+    "why": {
+      "a": "Correct. Possible and flexible.",
+      "b": "Wrong. Microcode adds a layer of interpretation and does not make things faster.",
+      "c": "Wrong. Flexibility is the opposite of fixed.",
+      "d": "Wrong. CISC is harder to pipeline, not easier."
+    },
+    "facts": [
+      "t9-031"
+    ]
+  },
+  {
+    "id": "ift-d9-056",
+    "module": 9,
+    "slides": [
+      "RISC S13"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "CISC and the compiler",
+    "prompt": "CISC works well with a simpler compiler.",
+    "answer": "true",
+    "explanation": "It does, which is the seventh listed property and matches the earlier claim that CISC was developed to make compiler development simpler.",
+    "why": {
+      "true": "Correct. Work well with simpler compiler is listed as a CISC property.",
+      "false": "Wrong. It is RISC that pushes complexity to the compiler."
+    },
+    "facts": [
+      "t9-031"
+    ]
+  },
+  {
+    "id": "ift-d9-057",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the advantage of microprogramming",
+    "prompt": "The deck says microprogramming is as easy as assembly language to implement, and:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Much less expensive than hardwiring a control unit"
+      },
+      {
+        "id": "b",
+        "text": "Much more expensive than hardwiring a control unit"
+      },
+      {
+        "id": "c",
+        "text": "About the same cost as hardwiring"
+      },
+      {
+        "id": "d",
+        "text": "Only possible on RISC machines"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Much less expensive than hardwiring. Cost, not speed, is the advantage claimed.",
+    "why": {
+      "a": "Correct. Much less expensive than hardwiring.",
+      "b": "Wrong, and reversed.",
+      "c": "Wrong. The deck asserts a clear cost advantage.",
+      "d": "Wrong. Hardwired control is the RISC property; microprogramming belongs to CISC."
+    },
+    "facts": [
+      "t9-032"
+    ]
+  },
+  {
+    "id": "ift-d9-058",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the advantage of microprogramming",
+    "prompt": "Microprogramming is much less expensive than {{1}} a control unit.",
+    "blanks": [
+      {
+        "accept": [
+          "hardwiring"
+        ],
+        "choices": [
+          "hardwiring",
+          "pipelining",
+          "compiling",
+          "microcoding"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Hardwiring. RISC accepts that expense in exchange for speed.",
+    "facts": [
+      "t9-032"
+    ]
+  },
+  {
+    "id": "ift-d9-059",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "capable instructions and slow memory",
+    "prompt": "As each CISC instruction became more capable, fewer instructions were needed for a task. What did that achieve?",
+    "options": [
+      {
+        "id": "a",
+        "text": "More efficient use of the relatively slow main memory"
+      },
+      {
+        "id": "b",
+        "text": "More efficient use of the register file"
+      },
+      {
+        "id": "c",
+        "text": "Simpler pipelining"
+      },
+      {
+        "id": "d",
+        "text": "Fewer clock cycles per instruction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Fewer instructions means fewer instruction fetches, and fetches from slow memory were the bottleneck of the era.",
+    "why": {
+      "a": "Correct. Fewer instructions means fewer instruction fetches, and fetches from slow memory were the bottleneck of the era.",
+      "b": "Wrong. CISC has few general purpose registers.",
+      "c": "Wrong. Capable, variable instructions make pipelining harder.",
+      "d": "Wrong. Complex instructions take more cycles each, not fewer."
+    },
+    "facts": [
+      "t9-033"
+    ]
+  },
+  {
+    "id": "ift-d9-060",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "capable instructions and slow memory",
+    "prompt": "Making each CISC instruction more capable meant fewer instructions were needed to implement a given task.",
+    "answer": "true",
+    "explanation": "Fewer, more powerful instructions, which is the same trade the historical background describes as reducing program size.",
+    "why": {
+      "true": "Correct, and the benefit claimed is more efficient use of relatively slow main memory.",
+      "false": "Wrong. This is one of the listed advantages of CISC."
+    },
+    "facts": [
+      "t9-033"
+    ]
+  },
+  {
+    "id": "ift-d9-061",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "micro-program instruction sets",
+    "prompt": "Because micro-program instruction sets can be written to match the constructs of high-level languages:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The compiler does not have to be as complicated"
+      },
+      {
+        "id": "b",
+        "text": "The compiler has to be more complicated"
+      },
+      {
+        "id": "c",
+        "text": "No compiler is needed"
+      },
+      {
+        "id": "d",
+        "text": "The processor can be simpler"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A simpler compiler, because the gap between the language and the machine is narrower.",
+    "why": {
+      "a": "Correct. A simpler compiler, because the gap between the language and the machine is narrower.",
+      "b": "Wrong, and that is the RISC position.",
+      "c": "Wrong. A compiler is still required.",
+      "d": "Wrong. The complexity moves into the processor, not out of it."
+    },
+    "facts": [
+      "t9-034"
+    ]
+  },
+  {
+    "id": "ift-d9-062",
+    "module": 9,
+    "slides": [
+      "RISC S14"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "micro-program instruction sets",
+    "prompt": "Micro-program instruction sets can be written to match the constructs of {{1}} languages.",
+    "blanks": [
+      {
+        "accept": [
+          "high-level",
+          "high level"
+        ],
+        "choices": [
+          "high-level",
+          "low-level",
+          "assembly",
+          "machine"
+        ],
+        "format": "words"
+      }
+    ],
+    "explanation": "High-level languages. The closer the instruction set is to the language, the less translation the compiler has to do.",
+    "facts": [
+      "t9-034"
+    ]
+  },
+  {
+    "id": "ift-d9-063",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the first CISC disadvantage",
+    "prompt": "The first listed disadvantage of CISC is that complex instructions are:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Infrequently used by programmers and compilers"
+      },
+      {
+        "id": "b",
+        "text": "Frequently used but slow"
+      },
+      {
+        "id": "c",
+        "text": "Impossible to microcode"
+      },
+      {
+        "id": "d",
+        "text": "Too short to be useful"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Infrequently used. All that silicon sits idle most of the time, which is precisely the 1980s finding.",
+    "why": {
+      "a": "Correct. Infrequently used.",
+      "b": "Wrong. The complaint is that they are not used, not that they are used and slow.",
+      "c": "Wrong. Microcode is what makes them possible.",
+      "d": "Wrong. They are long, not short."
+    },
+    "facts": [
+      "t9-035"
+    ]
+  },
+  {
+    "id": "ift-d9-064",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the first CISC disadvantage",
+    "prompt": "Complex instructions are {{1}} used by programmers and compilers.",
+    "blanks": [
+      {
+        "accept": [
+          "infrequently"
+        ],
+        "choices": [
+          "infrequently",
+          "frequently",
+          "exclusively",
+          "always"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Infrequently, which is the disadvantage that gave RISC its opening.",
+    "facts": [
+      "t9-035"
+    ]
+  },
+  {
+    "id": "ift-d9-065",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "memory references",
+    "prompt": "What does the deck say about memory references, loads and stores, in CISC?",
+    "options": [
+      {
+        "id": "a",
+        "text": "They are slow and account for a significant fraction of all instructions"
+      },
+      {
+        "id": "b",
+        "text": "They are fast and rare"
+      },
+      {
+        "id": "c",
+        "text": "They are forbidden except in load and store instructions"
+      },
+      {
+        "id": "d",
+        "text": "They are handled entirely by microcode without touching memory"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Slow and common, which is a bad combination. RISC's answer is to make them explicit and few.",
+    "why": {
+      "a": "Correct. Slow and common, which is a bad combination.",
+      "b": "Wrong on both counts.",
+      "c": "Wrong, and that is the RISC restriction, not a CISC disadvantage.",
+      "d": "Wrong. Microcode sequences the work; it does not remove the memory access."
+    },
+    "facts": [
+      "t9-036"
+    ]
+  },
+  {
+    "id": "ift-d9-066",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "memory references",
+    "prompt": "In CISC, memory references such as loads and stores account for a significant fraction of all instructions.",
+    "answer": "true",
+    "explanation": "They do, and they are slow, which is why the deck lists this as a disadvantage.",
+    "why": {
+      "true": "Correct. Slow, and a significant fraction of all instructions.",
+      "false": "Wrong. This is the second listed disadvantage of CISC."
+    },
+    "facts": [
+      "t9-036"
+    ]
+  },
+  {
+    "id": "ift-d9-067",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the procedure call bottleneck",
+    "prompt": "The deck calls procedure and function calls a major CISC bottleneck. Why?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because of passing arguments and storing and retrieving values in registers"
+      },
+      {
+        "id": "b",
+        "text": "Because they cannot be microcoded"
+      },
+      {
+        "id": "c",
+        "text": "Because they always miss in the cache"
+      },
+      {
+        "id": "d",
+        "text": "Because they require variable-length instructions"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Argument passing and the saving and restoring of registers around the call. All of it is overhead that computes nothing.",
+    "why": {
+      "a": "Correct. Argument passing and the saving and restoring of registers around the call.",
+      "b": "Wrong. Microcode is not the issue here.",
+      "c": "Wrong. Cache behaviour is not what the slide names.",
+      "d": "Wrong. Variable-length instructions are a separate characteristic."
+    },
+    "facts": [
+      "t9-037"
+    ]
+  },
+  {
+    "id": "ift-d9-068",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the procedure call bottleneck",
+    "prompt": "Procedure and function calls are a major bottleneck: passing {{1}}, storing and retrieving values in {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "arguments"
+        ],
+        "choices": [
+          "arguments",
+          "addresses",
+          "opcodes",
+          "results"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "registers"
+        ],
+        "choices": [
+          "registers",
+          "memory",
+          "cache",
+          "the stack"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Arguments, and registers. Both halves are pure overhead around the useful work of the call.",
+    "facts": [
+      "t9-037"
+    ]
+  },
+  {
+    "id": "ift-d9-069",
+    "module": 9,
+    "slides": [
+      "RISC S15"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "generational complexity",
+    "prompt": "The deck lists as a CISC disadvantage that the instruction set and chip become more complex with each generation of computers.",
+    "answer": "true",
+    "explanation": "It does, and it is a compounding problem: every generation must keep the old instructions and add new ones.",
+    "why": {
+      "true": "Correct. It is the fourth listed disadvantage of CISC.",
+      "false": "Wrong. The growth in complexity across generations is stated on the disadvantages slide."
+    },
+    "facts": [
+      "t9-038"
+    ]
+  },
+  {
+    "id": "ift-d9-070",
+    "module": 9,
+    "slides": [
+      "RISC S16"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the CISC instruction example",
+    "prompt": "How does the deck's CISC example multiply 5 by 10?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Mov ax,10 then Mov bx,5 then Mul bx"
+      },
+      {
+        "id": "b",
+        "text": "Mov ax,0 then Mov bx,10 then Mov cx,5 then a loop of Add ax,bx"
+      },
+      {
+        "id": "c",
+        "text": "LOAD R1, A then LOAD R2, B then MUL R3, R1, R2 then STORE R3, C"
+      },
+      {
+        "id": "d",
+        "text": "PUSH 5 then PUSH 10 then MUL"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Three instructions, and one of them is a multiply. The processor knows how to multiply, so the program does not have to.",
+    "why": {
+      "a": "Correct. Three instructions, and one of them is a multiply.",
+      "b": "Wrong. That is the RISC example, which multiplies by repeated addition in a loop.",
+      "c": "Wrong. That is the RISC philosophy example, breaking MULT A, B into four instructions.",
+      "d": "Wrong. That is a zero-address stack sequence from the instruction formats topic."
+    },
+    "facts": [
+      "t9-039"
+    ]
+  },
+  {
+    "id": "ift-d9-071",
+    "module": 9,
+    "slides": [
+      "RISC S16"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the CISC instruction example",
+    "prompt": "The CISC example takes {{1}} instructions to multiply 5 by 10.",
+    "blanks": [
+      {
+        "accept": [
+          "3",
+          "three"
+        ],
+        "choices": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Three: two moves and a multiply. The RISC version needs a loop instead.",
+    "facts": [
+      "t9-039"
+    ]
+  },
+  {
+    "id": "ift-d9-072",
+    "module": 9,
+    "slides": [
+      "RISC S17"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "where RISC came from",
+    "prompt": "Where did the first RISC projects come from, and when?",
+    "options": [
+      {
+        "id": "a",
+        "text": "IBM, Stanford and UC-Berkeley, in the late 70s and early 80s"
+      },
+      {
+        "id": "b",
+        "text": "Intel, AMD and Motorola, in the late 80s"
+      },
+      {
+        "id": "c",
+        "text": "IBM alone, in the 1960s"
+      },
+      {
+        "id": "d",
+        "text": "Stanford and MIT, in the early 90s"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Three institutions, late 70s and early 80s. IBM appears on both sides of the story, having designed the CISC instruction set earlier.",
+    "why": {
+      "a": "Correct. Three institutions, late 70s and early 80s.",
+      "b": "Wrong. Intel and AMD appear in the pipelining deck, as users of pipelining.",
+      "c": "Wrong. IBM was one of three, and the period is the late 70s and early 80s.",
+      "d": "Wrong. MIT is not named, and the period is wrong."
+    },
+    "facts": [
+      "t9-040"
+    ]
+  },
+  {
+    "id": "ift-d9-073",
+    "module": 9,
+    "slides": [
+      "RISC S17"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "where RISC came from",
+    "prompt": "The first RISC projects came from IBM, Stanford and UC-{{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "Berkeley"
+        ],
+        "choices": [
+          "Berkeley",
+          "Davis",
+          "Irvine",
+          "Stanford"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "UC-Berkeley, home of Berkeley RISC 1 and 2.",
+    "facts": [
+      "t9-040"
+    ]
+  }
+]

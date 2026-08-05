@@ -1,0 +1,2617 @@
+[
+  {
+    "id": "ift-d2-001",
+    "module": 2,
+    "slides": [
+      "ISA S3"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what the ISA is",
+    "prompt": "The Instruction Set Architecture defines the interface between:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hardware and software"
+      },
+      {
+        "id": "b",
+        "text": "The CPU and the memory"
+      },
+      {
+        "id": "c",
+        "text": "The user and the operating system"
+      },
+      {
+        "id": "d",
+        "text": "The compiler and the assembler"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The ISA is the interface between hardware and software, a bridge that allows software programs to communicate with the processor. That one sentence is the reason the ISA sits at the centre of the whole course.",
+    "why": {
+      "a": "Correct. Hardware and software, and the deck calls it a bridge.",
+      "b": "Wrong. The CPU to memory link is carried by the buses, which are an organizational component.",
+      "c": "Wrong. That interface is the user interface, which this course does not deal with.",
+      "d": "Wrong. Both compiler and assembler are software, and both target the ISA rather than sitting either side of it."
+    },
+    "facts": [
+      "t2-001"
+    ]
+  },
+  {
+    "id": "ift-d2-002",
+    "module": 2,
+    "slides": [
+      "ISA S3"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what the ISA is",
+    "prompt": "The ISA acts as a {{1}} that allows software programs to communicate with the processor.",
+    "blanks": [
+      {
+        "accept": [
+          "bridge"
+        ],
+        "choices": [
+          "bridge",
+          "buffer",
+          "barrier",
+          "bus"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Bridge. It is the deck's own metaphor, and it is worth keeping because a bridge carries traffic both ways: the compiler targets the ISA, and the hardware implements it.",
+    "facts": [
+      "t2-001"
+    ]
+  },
+  {
+    "id": "ift-d2-003",
+    "module": 2,
+    "slides": [
+      "ISA S3"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "what the ISA specifies",
+    "prompt": "In simple terms, what does the ISA specify?",
+    "options": [
+      {
+        "id": "a",
+        "text": "What operations a processor can perform"
+      },
+      {
+        "id": "b",
+        "text": "How instructions are represented"
+      },
+      {
+        "id": "c",
+        "text": "How data is accessed and manipulated"
+      },
+      {
+        "id": "d",
+        "text": "How many clock cycles each instruction takes"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Three things, and the deck names the mechanism for each: the instruction set, the instruction format, and the addressing modes.",
+    "why": {
+      "a": "Correct, and the mechanism is the instruction set.",
+      "b": "Correct, and the mechanism is the instruction format.",
+      "c": "Correct, and the mechanism is the addressing modes.",
+      "d": "Wrong. Cycle counts are an implementation matter; two machines with the same ISA can differ in them, which is the whole point of the same ISA, different speed idea."
+    },
+    "facts": [
+      "t2-002"
+    ]
+  },
+  {
+    "id": "ift-d2-004",
+    "module": 2,
+    "slides": [
+      "ISA S3"
+    ],
+    "style": "match",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "what the ISA specifies",
+    "prompt": "Match each thing the ISA specifies to the mechanism that carries it.",
+    "pairs": [
+      {
+        "left": "What operations a processor can perform",
+        "right": "Instruction set"
+      },
+      {
+        "left": "How instructions are represented",
+        "right": "Instruction format"
+      },
+      {
+        "left": "How data is accessed and manipulated",
+        "right": "Addressing modes"
+      }
+    ],
+    "explanation": "Three questions, three mechanisms. Each of the three becomes a topic of its own later in the deck.",
+    "facts": [
+      "t2-002"
+    ]
+  },
+  {
+    "id": "ift-d2-005",
+    "module": 2,
+    "slides": [
+      "ISA S5"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the instruction set",
+    "prompt": "The instruction set is defined as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The complete set of instructions a processor can execute"
+      },
+      {
+        "id": "b",
+        "text": "The instructions a particular program happens to use"
+      },
+      {
+        "id": "c",
+        "text": "The instructions stored in the instruction register"
+      },
+      {
+        "id": "d",
+        "text": "The set of instructions the compiler can generate"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The complete set a processor can execute. The word complete matters: it is the whole vocabulary of the machine, not the subset any one program uses.",
+    "why": {
+      "a": "Correct. Complete set of instructions a processor can execute.",
+      "b": "Wrong, and this is the RISC observation in disguise: most programs use only a small subset of the available instructions, but the set is still the whole of it.",
+      "c": "Wrong. The instruction register holds one instruction at a time during execution.",
+      "d": "Wrong. What the compiler emits is a choice; the instruction set is what the hardware supports."
+    },
+    "facts": [
+      "t2-003"
+    ]
+  },
+  {
+    "id": "ift-d2-006",
+    "module": 2,
+    "slides": [
+      "ISA S5"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the instruction set",
+    "prompt": "The instruction set is the {{1}} set of instructions a processor can execute.",
+    "blanks": [
+      {
+        "accept": [
+          "complete"
+        ],
+        "choices": [
+          "complete",
+          "reduced",
+          "common",
+          "internal"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Complete. Reduced is the R in RISC and describes one design philosophy, not the definition of an instruction set.",
+    "facts": [
+      "t2-003"
+    ]
+  },
+  {
+    "id": "ift-d2-007",
+    "module": 2,
+    "slides": [
+      "ISA S5"
+    ],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "instruction categories",
+    "prompt": "Match each pair of example instructions to the category the deck puts them in.",
+    "pairs": [
+      {
+        "left": "ADD, SUB",
+        "right": "Arithmetic"
+      },
+      {
+        "left": "AND, OR",
+        "right": "Logical"
+      },
+      {
+        "left": "JUMP, CALL",
+        "right": "Control"
+      },
+      {
+        "left": "LOAD, STORE",
+        "right": "Data transfer"
+      }
+    ],
+    "explanation": "Four categories with two examples each. LOAD and STORE being data transfer rather than memory instructions is the distinction RISC leans on hardest.",
+    "facts": [
+      "t2-004"
+    ]
+  },
+  {
+    "id": "ift-d2-008",
+    "module": 2,
+    "slides": [
+      "ISA S5"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "instruction categories",
+    "prompt": "JUMP and CALL are given as examples of which category of instruction?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Control"
+      },
+      {
+        "id": "b",
+        "text": "Arithmetic"
+      },
+      {
+        "id": "c",
+        "text": "Logical"
+      },
+      {
+        "id": "d",
+        "text": "Data transfer"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Control. Both change which instruction runs next rather than computing a value.",
+    "why": {
+      "a": "Correct. Control instructions decide what executes next.",
+      "b": "Wrong. Arithmetic is ADD and SUB.",
+      "c": "Wrong. Logical is AND and OR.",
+      "d": "Wrong. Data transfer is LOAD and STORE."
+    },
+    "facts": [
+      "t2-004"
+    ]
+  },
+  {
+    "id": "ift-d2-009",
+    "module": 2,
+    "slides": [
+      "ISA S6"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "registers in the ISA",
+    "prompt": "The deck lists the special registers of the ISA as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "PC, IR, MAR, MDR"
+      },
+      {
+        "id": "b",
+        "text": "PC, SP, AC, R1"
+      },
+      {
+        "id": "c",
+        "text": "MAR, MDR, ALU, CU"
+      },
+      {
+        "id": "d",
+        "text": "R1, R2, R3, R4"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Program Counter, Instruction Register, Memory Address Register, Memory Data Register. The other kind is the General Purpose Register.",
+    "why": {
+      "a": "Correct. These four are the special registers named on the slide.",
+      "b": "Wrong. The Stack Pointer and the accumulator appear elsewhere in the course, but this slide's four are PC, IR, MAR and MDR.",
+      "c": "Wrong. The ALU and the control unit are units, not registers.",
+      "d": "Wrong. R1 to R4 are general purpose registers, the other category."
+    },
+    "facts": [
+      "t2-005"
+    ]
+  },
+  {
+    "id": "ift-d2-010",
+    "module": 2,
+    "slides": [
+      "ISA S6"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "registers in the ISA",
+    "prompt": "Registers are small, fast storage locations inside the {{1}}, of two types: General Purpose Registers and {{2}} Registers.",
+    "blanks": [
+      {
+        "accept": [
+          "CPU"
+        ],
+        "choices": [
+          "CPU",
+          "cache",
+          "main memory",
+          "ALU"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "Special"
+        ],
+        "choices": [
+          "Special",
+          "Shadow",
+          "Segment",
+          "Status"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Inside the CPU, and the second type is Special Registers. Inside the CPU is the phrase that separates a register from cache, which is close to the CPU but not inside it.",
+    "facts": [
+      "t2-005"
+    ]
+  },
+  {
+    "id": "ift-d2-011",
+    "module": 2,
+    "slides": [
+      "ISA S6"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "data types in the ISA",
+    "prompt": "Select the data types the ISA slide says are supported.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Integer"
+      },
+      {
+        "id": "b",
+        "text": "Floating point"
+      },
+      {
+        "id": "c",
+        "text": "Character"
+      },
+      {
+        "id": "d",
+        "text": "Boolean"
+      },
+      {
+        "id": "e",
+        "text": "Pointer"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four: integer, floating point, character, Boolean.",
+    "why": {
+      "a": "Correct, integer is first.",
+      "b": "Correct, floating point is second and gets a deck of its own.",
+      "c": "Correct, character is third and leads to ASCII, EBCDIC and Unicode.",
+      "d": "Correct, Boolean closes the list.",
+      "e": "Wrong. Pointer is not listed as a data type anywhere in this course, although indirect addressing uses the idea."
+    },
+    "facts": [
+      "t2-006"
+    ]
+  },
+  {
+    "id": "ift-d2-012",
+    "module": 2,
+    "slides": [
+      "ISA S6"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers",
+      "lists"
+    ],
+    "topic": "data types in the ISA",
+    "prompt": "The ISA data types component lists {{1}} supported data types.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "3",
+          "5",
+          "6"
+        ],
+        "format": "number",
+        "hint": "integer, floating point, character, Boolean"
+      }
+    ],
+    "explanation": "Four. Boolean is the one most often dropped when the list is recalled from memory.",
+    "facts": [
+      "t2-006"
+    ]
+  },
+  {
+    "id": "ift-d2-013",
+    "module": 2,
+    "slides": [
+      "ISA S7"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "addressing modes in the ISA",
+    "prompt": "Select the common addressing modes listed as a key component of the ISA.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Immediate"
+      },
+      {
+        "id": "b",
+        "text": "Direct"
+      },
+      {
+        "id": "c",
+        "text": "Indirect"
+      },
+      {
+        "id": "d",
+        "text": "Register"
+      },
+      {
+        "id": "e",
+        "text": "Indexed"
+      },
+      {
+        "id": "f",
+        "text": "Relative"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+    ],
+    "explanation": "Five common types on this slide: immediate, direct, indirect, register, indexed. Relative is taught later in the same deck but is not on this particular list.",
+    "why": {
+      "a": "Correct, immediate heads the list.",
+      "b": "Correct, direct is second.",
+      "c": "Correct, indirect is third.",
+      "d": "Correct, register is fourth.",
+      "e": "Correct, indexed closes the list of five.",
+      "f": "Wrong on this slide. Relative addressing is taught in full later, with EA equals PC plus Offset, but the key components slide names only five."
+    },
+    "facts": [
+      "t2-007"
+    ]
+  },
+  {
+    "id": "ift-d2-014",
+    "module": 2,
+    "slides": [
+      "ISA S7"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "addressing modes in the ISA",
+    "prompt": "Addressing modes are defined as the methods used to:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Access operands at runtime"
+      },
+      {
+        "id": "b",
+        "text": "Decode the opcode"
+      },
+      {
+        "id": "c",
+        "text": "Allocate registers to variables"
+      },
+      {
+        "id": "d",
+        "text": "Move blocks between cache and memory"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Methods used to access operands at runtime. Runtime is the key word: the mode decides where the value is found while the instruction executes.",
+    "why": {
+      "a": "Correct. Access operands at runtime.",
+      "b": "Wrong. Decoding the opcode is the ID stage of the pipeline, and the mode field is separate from the opcode field.",
+      "c": "Wrong. Register allocation is a compiler task.",
+      "d": "Wrong. That is cache mapping, a different topic entirely."
+    },
+    "facts": [
+      "t2-007"
+    ]
+  },
+  {
+    "id": "ift-d2-015",
+    "module": 2,
+    "slides": [
+      "ISA S8"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the instruction format component",
+    "prompt": "The instruction format component of the ISA gives the structure of an instruction. Select its parts.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode"
+      },
+      {
+        "id": "b",
+        "text": "Operand or operands"
+      },
+      {
+        "id": "c",
+        "text": "Addressing mode"
+      },
+      {
+        "id": "d",
+        "text": "Clock cycle count"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Opcode, operands, addressing mode. The same three parts reappear in the instruction format deck as opcode, mode and address fields.",
+    "why": {
+      "a": "Correct, the opcode is the operation.",
+      "b": "Correct, the operands are what it operates on.",
+      "c": "Correct, the addressing mode says how the operands are reached.",
+      "d": "Wrong. No instruction carries a cycle count in its own bits."
+    },
+    "facts": [
+      "t2-008"
+    ]
+  },
+  {
+    "id": "ift-d2-016",
+    "module": 2,
+    "slides": [
+      "ISA S8"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the instruction format component",
+    "prompt": "The instruction format is the {{1}} of an instruction: opcode, operands and addressing mode.",
+    "blanks": [
+      {
+        "accept": [
+          "structure"
+        ],
+        "choices": [
+          "structure",
+          "length",
+          "meaning",
+          "sequence"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Structure. In the instruction format deck the same idea is put as the layout of bits in an instruction.",
+    "facts": [
+      "t2-008"
+    ]
+  },
+  {
+    "id": "ift-d2-017",
+    "module": 2,
+    "slides": [
+      "ISA S8"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "reading ADD R1, R2",
+    "prompt": "In the example ADD R1, R2, which adds R1 and R2 and stores the result in R1, what are the operands?",
+    "options": [
+      {
+        "id": "a",
+        "text": "R1 and R2"
+      },
+      {
+        "id": "b",
+        "text": "ADD only"
+      },
+      {
+        "id": "c",
+        "text": "ADD and R1"
+      },
+      {
+        "id": "d",
+        "text": "R1 only, because the result goes there"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Opcode is ADD, operands are R1 and R2. R1 happens to be both a source and the destination, which is exactly the two-address convention.",
+    "why": {
+      "a": "Correct. Both registers are operands.",
+      "b": "Wrong. ADD is the opcode, not an operand.",
+      "c": "Wrong. ADD is the opcode; mixing it into the operands confuses the two fields.",
+      "d": "Wrong. R2 is an operand too, even though it is only read."
+    },
+    "facts": [
+      "t2-009"
+    ]
+  },
+  {
+    "id": "ift-d2-018",
+    "module": 2,
+    "slides": [
+      "ISA S8"
+    ],
+    "style": "cloze",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "reading ADD R1, R2",
+    "prompt": "In ADD R1, R2 the opcode is {{1}} and the operands are {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "ADD"
+        ],
+        "choices": [
+          "ADD",
+          "R1",
+          "R2",
+          "R1, R2"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "R1 and R2"
+        ],
+        "choices": [
+          "R1 and R2",
+          "R1 only",
+          "R2 only",
+          "ADD and R1"
+        ],
+        "format": "phrase"
+      }
+    ],
+    "explanation": "Opcode ADD, operands R1 and R2. The instruction stores its result in R1, so R1 serves twice.",
+    "facts": [
+      "t2-009"
+    ]
+  },
+  {
+    "id": "ift-d2-019",
+    "module": 2,
+    "slides": [
+      "ISA S9"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "what instruction types determine",
+    "prompt": "Types of instructions determine how a program does what, according to the deck?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Moves data"
+      },
+      {
+        "id": "b",
+        "text": "Performs computations"
+      },
+      {
+        "id": "c",
+        "text": "Makes decisions"
+      },
+      {
+        "id": "d",
+        "text": "Interacts with memory and I/O devices"
+      },
+      {
+        "id": "e",
+        "text": "Allocates its own memory"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four: moves data, performs computations, makes decisions, interacts with memory and I/O devices. Each maps onto one instruction type taught next.",
+    "why": {
+      "a": "Correct, and it maps onto load and store instructions.",
+      "b": "Correct, and it maps onto arithmetic and logic instructions.",
+      "c": "Correct, and it maps onto test and branch instructions.",
+      "d": "Correct, and it closes the list.",
+      "e": "Wrong. Memory allocation is an operating system job, not an instruction type."
+    },
+    "facts": [
+      "t2-010"
+    ]
+  },
+  {
+    "id": "ift-d2-020",
+    "module": 2,
+    "slides": [
+      "ISA S9"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what instruction types determine",
+    "prompt": "Within the ISA, types of instructions define:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The various operations a processor can perform on data"
+      },
+      {
+        "id": "b",
+        "text": "The number of registers the processor has"
+      },
+      {
+        "id": "c",
+        "text": "The width of the data bus"
+      },
+      {
+        "id": "d",
+        "text": "The size of the cache"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The various operations a processor can perform on data. Instruction types are a way of grouping those operations by the job they do.",
+    "why": {
+      "a": "Correct, straight from the slide.",
+      "b": "Wrong. The register set is a separate ISA component.",
+      "c": "Wrong. Bus width is organizational.",
+      "d": "Wrong. Cache size is organizational, and the memory deck makes that explicit."
+    },
+    "facts": [
+      "t2-010"
+    ]
+  },
+  {
+    "id": "ift-d2-021",
+    "module": 2,
+    "slides": [
+      "ISA S10"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "instruction types together",
+    "prompt": "Each instruction type handles a specific category of tasks, and together they form the complete functional capability of a CPU.",
+    "answer": "true",
+    "explanation": "This is the sentence that justifies teaching instructions by type rather than one at a time.",
+    "why": {
+      "true": "Correct. Complete functional capability of a CPU is the deck's phrase.",
+      "false": "Wrong. The slide says exactly this."
+    },
+    "facts": [
+      "t2-011"
+    ]
+  },
+  {
+    "id": "ift-d2-022",
+    "module": 2,
+    "slides": [
+      "ISA S10"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "why instruction types matter",
+    "prompt": "Understanding instruction types is said to be essential for all of these EXCEPT:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Writing efficient assembly programs"
+      },
+      {
+        "id": "b",
+        "text": "Designing compilers"
+      },
+      {
+        "id": "c",
+        "text": "Optimizing system performance"
+      },
+      {
+        "id": "d",
+        "text": "Installing device drivers"
+      }
+    ],
+    "answer": "d",
+    "explanation": "Three reasons are given: writing efficient assembly programs, designing compilers, optimizing system performance.",
+    "why": {
+      "a": "Wrong, it is on the list and heads it.",
+      "b": "Wrong, designing compilers is second.",
+      "c": "Wrong, optimizing system performance closes the list.",
+      "d": "Correct. Device drivers are not mentioned in this deck."
+    },
+    "facts": [
+      "t2-012"
+    ]
+  },
+  {
+    "id": "ift-d2-023",
+    "module": 2,
+    "slides": [
+      "ISA S11"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "load and store operations",
+    "prompt": "Load and store operations move data between:",
+    "options": [
+      {
+        "id": "a",
+        "text": "A register in the processor and a memory location, or another register"
+      },
+      {
+        "id": "b",
+        "text": "Two memory locations only"
+      },
+      {
+        "id": "c",
+        "text": "The cache and main memory only"
+      },
+      {
+        "id": "d",
+        "text": "The ALU and the control unit"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Between a register and a memory location, or another register. They are often collectively called data movement instructions.",
+    "why": {
+      "a": "Correct, and note the or another register, which allows register to register moves.",
+      "b": "Wrong. Memory to memory movement is the CISC pattern, and even there it is not what load and store mean.",
+      "c": "Wrong. Cache to memory traffic is handled by the cache hardware, not by load and store instructions the programmer writes.",
+      "d": "Wrong. No instruction moves data between the ALU and the control unit."
+    },
+    "facts": [
+      "t2-013"
+    ]
+  },
+  {
+    "id": "ift-d2-024",
+    "module": 2,
+    "slides": [
+      "ISA S11"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "load and store operations",
+    "prompt": "Load and store operations are often collectively referred to as {{1}} instructions.",
+    "blanks": [
+      {
+        "accept": [
+          "data movement"
+        ],
+        "choices": [
+          "data movement",
+          "data transfer",
+          "memory access",
+          "register transfer"
+        ],
+        "format": "words",
+        "hint": "two words, the deck's exact phrase on this slide"
+      }
+    ],
+    "explanation": "Data movement instructions. Note that the key components slide earlier used data transfer for the same category, so both phrases appear in this course; on this slide the phrase is data movement.",
+    "facts": [
+      "t2-013"
+    ]
+  },
+  {
+    "id": "ift-d2-025",
+    "module": 2,
+    "slides": [
+      "ISA S11"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "load and store confusion",
+    "prompt": "The deck warns that the two terms load and store are often confused and should be carefully distinguished from each other.",
+    "answer": "true",
+    "explanation": "It does, and the distinguishing rule follows three slides later: load copies into a register, store copies out of one.",
+    "why": {
+      "true": "Correct. The warning is on the slide, word for word.",
+      "false": "Wrong. The deck explicitly flags the confusion before giving the rule that resolves it."
+    },
+    "facts": [
+      "t2-014"
+    ]
+  },
+  {
+    "id": "ift-d2-026",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the universal characteristic of instruction execution",
+    "prompt": "One of the universal characteristics of instruction execution is that:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The source does not get changed, only the destination"
+      },
+      {
+        "id": "b",
+        "text": "The destination does not get changed, only the source"
+      },
+      {
+        "id": "c",
+        "text": "Both source and destination change"
+      },
+      {
+        "id": "d",
+        "text": "Neither changes until the write back stage"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The source is read, the destination is written. This is why a load leaves memory untouched and a store leaves the register untouched.",
+    "why": {
+      "a": "Correct, and the deck calls it universal.",
+      "b": "Wrong, and it is exactly backwards.",
+      "c": "Wrong. If the source changed too, copying would be destructive, which it is not.",
+      "d": "Wrong. Write back is a pipeline stage, and this characteristic is about which operand changes, not when."
+    },
+    "facts": [
+      "t2-015"
+    ]
+  },
+  {
+    "id": "ift-d2-027",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the universal characteristic of instruction execution",
+    "prompt": "During instruction execution the source operand is modified along with the destination.",
+    "answer": "false",
+    "explanation": "The source does not get changed, only the destination. Data movement copies rather than moves, despite the name.",
+    "why": {
+      "true": "Wrong. If the source changed, a load would empty the memory location it read from.",
+      "false": "Correct. Only the destination changes; the source is left as it was."
+    },
+    "facts": [
+      "t2-015"
+    ]
+  },
+  {
+    "id": "ift-d2-028",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "load against store",
+    "prompt": "In a store operation the processor copies data:",
+    "options": [
+      {
+        "id": "a",
+        "text": "From a register into a memory location"
+      },
+      {
+        "id": "b",
+        "text": "From a memory location into a register"
+      },
+      {
+        "id": "c",
+        "text": "From one memory location into another"
+      },
+      {
+        "id": "d",
+        "text": "From the cache into a register"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Store goes out of the register into memory. Load is the other direction: the processor copies data into a register.",
+    "why": {
+      "a": "Correct. Store writes memory from a register.",
+      "b": "Wrong. That is a load.",
+      "c": "Wrong. Memory to memory is neither, and RISC forbids it outright.",
+      "d": "Wrong. The cache is transparent here; the instruction names a memory address and the cache decides whether it can serve it."
+    },
+    "facts": [
+      "t2-016"
+    ]
+  },
+  {
+    "id": "ift-d2-029",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "load against store",
+    "prompt": "Match each operation to what the processor does in it.",
+    "pairs": [
+      {
+        "left": "Load",
+        "right": "Copies data into a register"
+      },
+      {
+        "left": "Store",
+        "right": "Copies data from a register into a memory location"
+      }
+    ],
+    "explanation": "The two directions, side by side. Read them from the register's point of view and they never get mixed up: load fills the register, store empties it into memory.",
+    "facts": [
+      "t2-016"
+    ]
+  },
+  {
+    "id": "ift-d2-030",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68009 load and store instructions",
+    "prompt": "Which set of instructions is given as MC68009 load and store examples?",
+    "options": [
+      {
+        "id": "a",
+        "text": "LDA, STA, LDB, STB, LDD, STD"
+      },
+      {
+        "id": "b",
+        "text": "MOVE, MOVEM, EXG"
+      },
+      {
+        "id": "c",
+        "text": "ADDB, SUBA, SUBD, ANDA, EORA"
+      },
+      {
+        "id": "d",
+        "text": "BCC, BEQ, BMI, BRA"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The LD and ST pairs belong to the MC68009. Read them as load A, store A, load B, store B, load D, store D.",
+    "why": {
+      "a": "Correct. These are the MC68009 load and store examples.",
+      "b": "Wrong. MOVE, MOVEM and EXG are the MC68000 data movement examples.",
+      "c": "Wrong. These are MC6809 arithmetic and logic instructions.",
+      "d": "Wrong. These are test and branch instructions."
+    },
+    "facts": [
+      "t2-017"
+    ]
+  },
+  {
+    "id": "ift-d2-031",
+    "module": 2,
+    "slides": [
+      "ISA S14"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68009 load and store instructions",
+    "prompt": "In the MC68009 the instruction LDA loads accumulator A, and the instruction {{1}} stores it.",
+    "blanks": [
+      {
+        "accept": [
+          "STA"
+        ],
+        "choices": [
+          "STA",
+          "STB",
+          "STD",
+          "EXG"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "STA. The six examples pair up: LDA with STA, LDB with STB, LDD with STD.",
+    "facts": [
+      "t2-017"
+    ]
+  },
+  {
+    "id": "ift-d2-032",
+    "module": 2,
+    "slides": [
+      "ISA S15"
+    ],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68000 data movement instructions",
+    "prompt": "Match each MC68000 data movement instruction to what it does.",
+    "pairs": [
+      {
+        "left": "MOVE",
+        "right": "Either direction of data movement"
+      },
+      {
+        "left": "MOVEM",
+        "right": "Moves the content of several registers into or out of memory with a single instruction"
+      },
+      {
+        "left": "EXG",
+        "right": "Exchanges register contents"
+      }
+    ],
+    "explanation": "Three instructions, three jobs. MOVEM is the interesting one: one instruction moving several registers is exactly the kind of complex instruction CISC is built on.",
+    "facts": [
+      "t2-018"
+    ]
+  },
+  {
+    "id": "ift-d2-033",
+    "module": 2,
+    "slides": [
+      "ISA S15"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68000 data movement instructions",
+    "prompt": "Which MC68000 instruction moves the content of several registers into or out of memory with a single instruction?",
+    "options": [
+      {
+        "id": "a",
+        "text": "MOVEM"
+      },
+      {
+        "id": "b",
+        "text": "MOVE"
+      },
+      {
+        "id": "c",
+        "text": "EXG"
+      },
+      {
+        "id": "d",
+        "text": "LDD"
+      }
+    ],
+    "answer": "a",
+    "explanation": "MOVEM, where the M is for multiple. MOVE handles one item in either direction and EXG swaps two registers.",
+    "why": {
+      "a": "Correct. MOVEM is the multiple register move.",
+      "b": "Wrong. MOVE handles either direction, but not several registers at once.",
+      "c": "Wrong. EXG exchanges register contents.",
+      "d": "Wrong. LDD is an MC68009 load, not an MC68000 instruction."
+    },
+    "facts": [
+      "t2-018"
+    ]
+  },
+  {
+    "id": "ift-d2-034",
+    "module": 2,
+    "slides": [
+      "ISA S15"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "identifying source and destination",
+    "prompt": "Data movement instructions must include information identifying the source and destination.",
+    "answer": "true",
+    "explanation": "They must. A copy with only one end named would have nowhere to put the data.",
+    "why": {
+      "true": "Correct. The deck closes the data movement slide with exactly this requirement.",
+      "false": "Wrong. Both ends have to be identified for a copy to be defined at all."
+    },
+    "facts": [
+      "t2-019"
+    ]
+  },
+  {
+    "id": "ift-d2-035",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "arithmetic and logic instructions",
+    "prompt": "What are the minimum arithmetic operations required of a processor?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Addition and subtraction"
+      },
+      {
+        "id": "b",
+        "text": "Addition, subtraction, multiplication and division"
+      },
+      {
+        "id": "c",
+        "text": "Addition only"
+      },
+      {
+        "id": "d",
+        "text": "Addition and multiplication"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Addition and subtraction. The deck even shows why subtraction is not a separate problem: 5 minus 3 is 5 plus minus 3, which is why two's complement matters so much.",
+    "why": {
+      "a": "Correct. Those two are the stated minimum.",
+      "b": "Wrong. Multiplication and division can be built from the minimum, which is the RISC example of multiplying by repeated addition.",
+      "c": "Wrong. Subtraction is included in the minimum, even though it can be done with complement arithmetic.",
+      "d": "Wrong. Subtraction, not multiplication, joins addition in the minimum."
+    },
+    "facts": [
+      "t2-020"
+    ]
+  },
+  {
+    "id": "ift-d2-036",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "arithmetic and logic instructions",
+    "prompt": "Arithmetic and logic operations provide the primary {{1}} capabilities of the computer.",
+    "blanks": [
+      {
+        "accept": [
+          "data-processing",
+          "data processing"
+        ],
+        "choices": [
+          "data-processing",
+          "decision-making",
+          "data movement",
+          "control"
+        ],
+        "format": "words"
+      }
+    ],
+    "explanation": "Data-processing. Decision-making belongs to test and branch, and data movement belongs to load and store, so each instruction type has its own capability word.",
+    "facts": [
+      "t2-020"
+    ]
+  },
+  {
+    "id": "ift-d2-037",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the basic logic operations",
+    "prompt": "Which basic logic operations do all processors implement on a bit-by-bit basis between two operands?",
+    "options": [
+      {
+        "id": "a",
+        "text": "AND"
+      },
+      {
+        "id": "b",
+        "text": "OR"
+      },
+      {
+        "id": "c",
+        "text": "Exclusive-OR"
+      },
+      {
+        "id": "d",
+        "text": "NAND"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "AND, OR and exclusive-OR, all bit by bit between two operands. NAND is a gate this course uses in logic design, but it is not on the deck's list of basic operations all processors implement.",
+    "why": {
+      "a": "Correct, AND is first.",
+      "b": "Correct, OR is second.",
+      "c": "Correct, exclusive-OR closes the list, and it appears again as the EOR and EORA instructions.",
+      "d": "Wrong. NAND is not named on this slide."
+    },
+    "facts": [
+      "t2-021"
+    ]
+  },
+  {
+    "id": "ift-d2-038",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the basic logic operations",
+    "prompt": "The basic logic operations are applied on a bit-by-bit basis between two operands.",
+    "answer": "true",
+    "explanation": "Bit by bit is what makes them logic operations rather than arithmetic ones: no carry crosses from one bit position to the next.",
+    "why": {
+      "true": "Correct. Bit-by-bit basis between two operands is the deck's phrase.",
+      "false": "Wrong. This is exactly how the slide describes AND, OR and exclusive-OR."
+    },
+    "facts": [
+      "t2-021"
+    ]
+  },
+  {
+    "id": "ift-d2-039",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "where the operands must live",
+    "prompt": "For two-operand operations, what do smaller microprocessors usually require?",
+    "options": [
+      {
+        "id": "a",
+        "text": "One operand must be in a destination register initially, while the other may be in another register or in memory"
+      },
+      {
+        "id": "b",
+        "text": "Both operands must be in registers"
+      },
+      {
+        "id": "c",
+        "text": "Both operands must be in memory"
+      },
+      {
+        "id": "d",
+        "text": "One operand must be immediate"
+      }
+    ],
+    "answer": "a",
+    "explanation": "One in a destination register, the other in a register or in memory. It is the accumulator idea generalised, and it is why the MC6809 examples all need an operand in an accumulator.",
+    "why": {
+      "a": "Correct, straight from the slide.",
+      "b": "Wrong, and that is the RISC rule, register to register only, not the rule for smaller microprocessors here.",
+      "c": "Wrong. Memory to memory is the CISC pattern and is not what this slide requires.",
+      "d": "Wrong. Immediate operands are one addressing mode among several, not a requirement."
+    },
+    "facts": [
+      "t2-022"
+    ]
+  },
+  {
+    "id": "ift-d2-040",
+    "module": 2,
+    "slides": [
+      "ISA S16"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "where the operands must live",
+    "prompt": "With operations requiring two operands, smaller microprocessors usually require that one operand must be in a {{1}} register initially.",
+    "blanks": [
+      {
+        "accept": [
+          "destination"
+        ],
+        "choices": [
+          "destination",
+          "source",
+          "index",
+          "general purpose"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Destination. The result lands where one of the inputs already was, which is the two-address convention in hardware terms.",
+    "facts": [
+      "t2-022"
+    ]
+  },
+  {
+    "id": "ift-d2-041",
+    "module": 2,
+    "slides": [
+      "ISA S17"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "operands in memory",
+    "prompt": "Smaller microprocessors support operations such as ADDing or ANDing to:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Processor registers, but not to memory locations"
+      },
+      {
+        "id": "b",
+        "text": "Memory locations, but not to processor registers"
+      },
+      {
+        "id": "c",
+        "text": "Both equally"
+      },
+      {
+        "id": "d",
+        "text": "Neither, only to the accumulator"
+      }
+    ],
+    "answer": "a",
+    "explanation": "To processor registers, not to memory locations, and their instructions may identify at most a single operand in memory.",
+    "why": {
+      "a": "Correct. The deck says as illustrated but not to memory locations.",
+      "b": "Wrong, and it inverts the restriction.",
+      "c": "Wrong. The whole point of the slide is that the two are not equal.",
+      "d": "Wrong. The accumulator restriction belongs to the MC6809 examples specifically, and even there the target is a register."
+    },
+    "facts": [
+      "t2-023"
+    ]
+  },
+  {
+    "id": "ift-d2-042",
+    "module": 2,
+    "slides": [
+      "ISA S17"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "operands in memory",
+    "prompt": "The instructions of smaller microprocessors may identify at most a single operand in memory.",
+    "answer": "true",
+    "explanation": "At most one. That single memory operand limit is what keeps the instruction short and the hardware simple.",
+    "why": {
+      "true": "Correct. At most a single operand in memory is the deck's wording.",
+      "false": "Wrong. The slide states this limit directly, just before the ADDing and ANDing sentence."
+    },
+    "facts": [
+      "t2-023"
+    ]
+  },
+  {
+    "id": "ift-d2-043",
+    "module": 2,
+    "slides": [
+      "ISA S18"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC6809 arithmetic and logic instructions",
+    "prompt": "In the MC6809 examples ADDB, SUBA, SUBD, ANDA and EORA, what does each of these require?",
+    "options": [
+      {
+        "id": "a",
+        "text": "One operand to be in an accumulator"
+      },
+      {
+        "id": "b",
+        "text": "Both operands to be in memory"
+      },
+      {
+        "id": "c",
+        "text": "An explicit source and destination"
+      },
+      {
+        "id": "d",
+        "text": "An immediate operand"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Each requires one operand in an accumulator, which is why the instruction names end in A, B or D: the letter says which accumulator.",
+    "why": {
+      "a": "Correct. One operand in an accumulator is the MC6809 requirement.",
+      "b": "Wrong. That is not permitted here.",
+      "c": "Wrong, and this is the MC68000 rule instead: all its two-operand instructions must specify source and destination.",
+      "d": "Wrong. Immediate operands are not required by these instructions."
+    },
+    "facts": [
+      "t2-024"
+    ]
+  },
+  {
+    "id": "ift-d2-044",
+    "module": 2,
+    "slides": [
+      "ISA S18"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC6809 arithmetic and logic instructions",
+    "prompt": "Among the MC6809 two-operand examples, the instruction {{1}} performs exclusive-OR.",
+    "blanks": [
+      {
+        "accept": [
+          "EORA"
+        ],
+        "choices": [
+          "EORA",
+          "ANDA",
+          "SUBD",
+          "ADDB"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "EORA. In the MC68000 list the same operation appears without the accumulator letter, as EOR.",
+    "facts": [
+      "t2-024"
+    ]
+  },
+  {
+    "id": "ift-d2-045",
+    "module": 2,
+    "slides": [
+      "ISA S18"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68000 two-operand instructions",
+    "prompt": "All two-operand instructions in the MC68000 instruction set must specify the source and the destination. With a few exceptions, these may be:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Both registers, or both memory locations, or one of each"
+      },
+      {
+        "id": "b",
+        "text": "Both registers only"
+      },
+      {
+        "id": "c",
+        "text": "One register and one immediate value only"
+      },
+      {
+        "id": "d",
+        "text": "Both memory locations only"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Both registers, both memory locations, or one of each. That freedom, memory to memory included, is a distinctly CISC trait.",
+    "why": {
+      "a": "Correct. The deck lists all three possibilities, with a few exceptions.",
+      "b": "Wrong. Register to register only is the RISC restriction, not the MC68000's.",
+      "c": "Wrong. Immediate values are not what the slide is contrasting here.",
+      "d": "Wrong. Memory to memory is allowed but is not the only option."
+    },
+    "facts": [
+      "t2-025"
+    ]
+  },
+  {
+    "id": "ift-d2-046",
+    "module": 2,
+    "slides": [
+      "ISA S18"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "MC68000 two-operand instructions",
+    "prompt": "Select the two-operand arithmetic and logic instructions listed for the MC68000.",
+    "options": [
+      {
+        "id": "a",
+        "text": "ADD"
+      },
+      {
+        "id": "b",
+        "text": "AND"
+      },
+      {
+        "id": "c",
+        "text": "OR"
+      },
+      {
+        "id": "d",
+        "text": "SUB"
+      },
+      {
+        "id": "e",
+        "text": "EOR"
+      },
+      {
+        "id": "f",
+        "text": "ANDA"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+    ],
+    "explanation": "Five: ADD, AND, OR, SUB, EOR. The MC6809 versions carry an accumulator letter on the end, which is how the two lists are told apart.",
+    "why": {
+      "a": "Correct, ADD is on the MC68000 list.",
+      "b": "Correct, AND is on the list.",
+      "c": "Correct, OR is on the list, and note it has no MC6809 counterpart in the deck.",
+      "d": "Correct, SUB is on the list.",
+      "e": "Correct, EOR closes the list.",
+      "f": "Wrong. ANDA, with the accumulator letter, is an MC6809 instruction."
+    },
+    "facts": [
+      "t2-025"
+    ]
+  },
+  {
+    "id": "ift-d2-047",
+    "module": 2,
+    "slides": [
+      "ISA S19"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "test and branch instructions",
+    "prompt": "Test and branch operations provide which capability in computer programs?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Decision-making"
+      },
+      {
+        "id": "b",
+        "text": "Data-processing"
+      },
+      {
+        "id": "c",
+        "text": "Data movement"
+      },
+      {
+        "id": "d",
+        "text": "Input and output"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Decision-making. Each instruction type gets its own capability: movement, processing, decisions.",
+    "why": {
+      "a": "Correct. Decision-making capabilities is the deck's phrase.",
+      "b": "Wrong. Data-processing belongs to arithmetic and logic instructions.",
+      "c": "Wrong. Data movement belongs to load and store.",
+      "d": "Wrong. Input and output is an organizational component, not one of these three instruction types."
+    },
+    "facts": [
+      "t2-026"
+    ]
+  },
+  {
+    "id": "ift-d2-048",
+    "module": 2,
+    "slides": [
+      "ISA S19"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "test and branch instructions",
+    "prompt": "The test in a test and branch instruction is often performed on the result of some prior {{1}} operation.",
+    "blanks": [
+      {
+        "accept": [
+          "arithmetic/logic",
+          "arithmetic or logic",
+          "arithmetic and logic"
+        ],
+        "choices": [
+          "arithmetic/logic",
+          "load/store",
+          "input/output",
+          "control transfer"
+        ],
+        "format": "words"
+      }
+    ],
+    "explanation": "A prior arithmetic or logic operation. This is why the two instruction types sit next to each other: one computes and sets condition codes, the other reads them.",
+    "facts": [
+      "t2-026"
+    ]
+  },
+  {
+    "id": "ift-d2-049",
+    "module": 2,
+    "slides": [
+      "ISA S19"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "condition codes",
+    "prompt": "During the execution of a test and branch instruction, what does the processor examine?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The appropriate condition code bits"
+      },
+      {
+        "id": "b",
+        "text": "The opcode of the previous instruction"
+      },
+      {
+        "id": "c",
+        "text": "The contents of the program counter"
+      },
+      {
+        "id": "d",
+        "text": "The tag field of the cache line"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The appropriate condition code bits, which record whether the previous result was zero or non-zero, positive or negative, or some other binary choice.",
+    "why": {
+      "a": "Correct. The condition code register is what the test reads.",
+      "b": "Wrong. The previous opcode is gone by then; what it left behind is the condition codes.",
+      "c": "Wrong. The PC says where to fetch next, and relative addressing uses it, but the test does not examine it.",
+      "d": "Wrong. Cache tags belong to the memory deck and have nothing to do with branching."
+    },
+    "facts": [
+      "t2-027"
+    ]
+  },
+  {
+    "id": "ift-d2-050",
+    "module": 2,
+    "slides": [
+      "ISA S19"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "condition codes",
+    "prompt": "What does the test in a test and branch instruction determine?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Whether the result was zero or non-zero"
+      },
+      {
+        "id": "b",
+        "text": "Whether the result was positive or negative"
+      },
+      {
+        "id": "c",
+        "text": "Some other binary choice involving bits in the condition code register"
+      },
+      {
+        "id": "d",
+        "text": "How many cycles the previous instruction took"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "All three are on the slide, and each of them is binary, which is why a single bit can record it.",
+    "why": {
+      "a": "Correct, zero or non-zero is the first.",
+      "b": "Correct, positive or negative is the second.",
+      "c": "Correct, and it leaves room for carry, overflow and the rest.",
+      "d": "Wrong. Cycle counts are not recorded in condition codes."
+    },
+    "facts": [
+      "t2-027"
+    ]
+  },
+  {
+    "id": "ift-d2-051",
+    "module": 2,
+    "slides": [
+      "ISA S20"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "branching to a remote location",
+    "prompt": "Depending on the result of the test, the processor may or may not branch to a remote location for the next instruction.",
+    "answer": "true",
+    "explanation": "May or may not is the point: the branch is conditional, which is precisely what makes it a control hazard for a pipeline.",
+    "why": {
+      "true": "Correct. The deck says the processor may or may not branch to a remote location for the next instruction.",
+      "false": "Wrong. This is stated directly at the top of the slide."
+    },
+    "facts": [
+      "t2-028"
+    ]
+  },
+  {
+    "id": "ift-d2-052",
+    "module": 2,
+    "slides": [
+      "ISA S20"
+    ],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "test and branch examples",
+    "prompt": "Match each test and branch instruction to its meaning.",
+    "pairs": [
+      {
+        "left": "BCC",
+        "right": "Branch if carry is cleared"
+      },
+      {
+        "left": "BEQ",
+        "right": "Branch if equal to 0"
+      },
+      {
+        "left": "BMI",
+        "right": "Branch if minus"
+      },
+      {
+        "left": "BRA",
+        "right": "Branch always"
+      }
+    ],
+    "explanation": "Four examples. BRA is the odd one: it always branches, so it tests nothing and is an unconditional jump.",
+    "facts": [
+      "t2-029"
+    ]
+  },
+  {
+    "id": "ift-d2-053",
+    "module": 2,
+    "slides": [
+      "ISA S20"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "test and branch examples",
+    "prompt": "Which of the listed test and branch instructions branches unconditionally?",
+    "options": [
+      {
+        "id": "a",
+        "text": "BRA"
+      },
+      {
+        "id": "b",
+        "text": "BCC"
+      },
+      {
+        "id": "c",
+        "text": "BEQ"
+      },
+      {
+        "id": "d",
+        "text": "BMI"
+      }
+    ],
+    "answer": "a",
+    "explanation": "BRA, branch always. The other three each read a condition code before deciding.",
+    "why": {
+      "a": "Correct. Branch always, so no condition is examined.",
+      "b": "Wrong. BCC branches only if the carry is cleared.",
+      "c": "Wrong. BEQ branches only if the result was equal to 0.",
+      "d": "Wrong. BMI branches only if the result was minus."
+    },
+    "facts": [
+      "t2-029"
+    ]
+  },
+  {
+    "id": "ift-d2-054",
+    "module": 2,
+    "slides": [
+      "Rev S9"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the revision summary of instruction types",
+    "prompt": "The revision class repeats that instruction types determine how a program does all of these EXCEPT:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Schedules its own threads"
+      },
+      {
+        "id": "b",
+        "text": "Moves data"
+      },
+      {
+        "id": "c",
+        "text": "Makes decisions"
+      },
+      {
+        "id": "d",
+        "text": "Interacts with memory and I/O devices"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The revision list is the same four as the ISA deck: moves data, performs computations, makes decisions, interacts with memory and I/O devices.",
+    "why": {
+      "a": "Correct. Thread scheduling is nowhere in this course.",
+      "b": "Wrong, moves data is on the list.",
+      "c": "Wrong, makes decisions is on the list.",
+      "d": "Wrong, interacts with memory and I/O devices closes the list."
+    },
+    "facts": [
+      "t2-030"
+    ]
+  },
+  {
+    "id": "ift-d2-055",
+    "module": 2,
+    "slides": [
+      "Rev S10"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the revision summary of load, store and arithmetic",
+    "prompt": "In the revision class, which processor is credited with the load and store examples LDA, STA, LDB, STB, LDD and STD?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The MC68009"
+      },
+      {
+        "id": "b",
+        "text": "The MC68000"
+      },
+      {
+        "id": "c",
+        "text": "The MC6809"
+      },
+      {
+        "id": "d",
+        "text": "The IBM 801"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The MC68009, exactly as in the ISA deck. The MC6809 supplies the arithmetic examples on the same revision slide and the MC68000 supplies MOVE, MOVEM and EXG in the ISA deck.",
+    "why": {
+      "a": "Correct. The load and store examples are the MC68009's.",
+      "b": "Wrong. The MC68000 contributes MOVE, MOVEM and EXG.",
+      "c": "Wrong. The MC6809 contributes ADDB, SUBA, SUBD, ANDA and EORA.",
+      "d": "Wrong. The IBM 801 is an early RISC machine and has no instruction examples in this course."
+    },
+    "facts": [
+      "t2-031"
+    ]
+  },
+  {
+    "id": "ift-d2-056",
+    "module": 2,
+    "slides": [
+      "Rev S11"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the revision summary of test and branch",
+    "prompt": "The revision class repeats that test and branch operations provide:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The decision-making capabilities in computer programs"
+      },
+      {
+        "id": "b",
+        "text": "The primary data-processing capabilities"
+      },
+      {
+        "id": "c",
+        "text": "The data movement capabilities"
+      },
+      {
+        "id": "d",
+        "text": "The interrupt handling capabilities"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Decision-making, and the revision slide repeats the same four examples, BCC, BEQ, BMI and BRA.",
+    "why": {
+      "a": "Correct, unchanged from the ISA deck.",
+      "b": "Wrong. That belongs to arithmetic and logic.",
+      "c": "Wrong. That belongs to load and store.",
+      "d": "Wrong. Interrupts are not covered in this course."
+    },
+    "facts": [
+      "t2-032"
+    ]
+  },
+  {
+    "id": "ift-d2-057",
+    "module": 2,
+    "slides": [
+      "Rev S12"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the revision summary of branching",
+    "prompt": "The revision class lists BCC, BEQ, BMI and BRA again on its slide about branching to a remote location.",
+    "answer": "true",
+    "explanation": "It does. The four examples appear twice in the revision deck, on consecutive slides, which is a fair signal that they are worth knowing.",
+    "why": {
+      "true": "Correct. The same four examples are repeated on the following revision slide.",
+      "false": "Wrong. The list is repeated, not replaced."
+    },
+    "facts": [
+      "t2-033"
+    ]
+  },
+  {
+    "id": "ift-d2-058",
+    "module": 2,
+    "slides": [
+      "Intro S30"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the ISA as the core of architecture",
+    "prompt": "The introduction deck calls the Instruction Set Architecture:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The core of computer architecture"
+      },
+      {
+        "id": "b",
+        "text": "The core of computer organization"
+      },
+      {
+        "id": "c",
+        "text": "One organizational attribute among many"
+      },
+      {
+        "id": "d",
+        "text": "A property of the compiler"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The core of computer architecture, and it acts as the interface between hardware and software. It heads the list of architecture's six components.",
+    "why": {
+      "a": "Correct. The ISA is the core of computer architecture.",
+      "b": "Wrong. Organization's components are the control unit, ALU, memory organization, I/O, buses, and pipelining and parallelism.",
+      "c": "Wrong. It is architectural, and it is first among architecture's components rather than one among many organizational ones.",
+      "d": "Wrong. The compiler targets the ISA; it does not own it."
+    },
+    "facts": [
+      "t2i-001"
+    ]
+  },
+  {
+    "id": "ift-d2-059",
+    "module": 2,
+    "slides": [
+      "Intro S30"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the ISA as the core of architecture",
+    "prompt": "The ISA acts as the interface between hardware and software.",
+    "answer": "true",
+    "explanation": "Both the introduction deck and the ISA deck say so, in the same words. It is the single most repeated sentence in the course.",
+    "why": {
+      "true": "Correct, and it is stated twice in the course, once in each deck.",
+      "false": "Wrong. This is the deck's own description of what the ISA does."
+    },
+    "facts": [
+      "t2i-001"
+    ]
+  },
+  {
+    "id": "ift-d2-060",
+    "module": 2,
+    "slides": [
+      "Intro S30"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "what the ISA defines",
+    "prompt": "Select what the introduction deck says the ISA defines.",
+    "options": [
+      {
+        "id": "a",
+        "text": "The set of instructions a processor can execute"
+      },
+      {
+        "id": "b",
+        "text": "Instruction formats, for example ADD, LOAD, STORE"
+      },
+      {
+        "id": "c",
+        "text": "Data types, integer and floating point"
+      },
+      {
+        "id": "d",
+        "text": "Registers available"
+      },
+      {
+        "id": "e",
+        "text": "Addressing modes"
+      },
+      {
+        "id": "f",
+        "text": "Cache size"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+    ],
+    "explanation": "Five items. Cache size is organizational, which is exactly why two machines with the same ISA can differ in performance.",
+    "why": {
+      "a": "Correct, and it heads the list.",
+      "b": "Correct, with ADD, LOAD and STORE given as the examples.",
+      "c": "Correct, with integer and floating point given as the examples.",
+      "d": "Correct, registers available is fourth.",
+      "e": "Correct, addressing modes closes the list.",
+      "f": "Wrong. Cache size is an organizational difference, named in the laptop example."
+    },
+    "facts": [
+      "t2i-002"
+    ]
+  },
+  {
+    "id": "ift-d2-061",
+    "module": 2,
+    "slides": [
+      "Intro S30"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "what the ISA defines",
+    "prompt": "The introduction deck gives ADD, LOAD and STORE as examples of instruction {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "formats"
+        ],
+        "choices": [
+          "formats",
+          "types",
+          "modes",
+          "sets"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Formats, as the slide has it. The ISA deck itself treats ADD, LOAD and STORE as instruction categories, so hold the wording of this slide separately.",
+    "facts": [
+      "t2i-002"
+    ]
+  },
+  {
+    "id": "ift-d2-062",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "software compatibility",
+    "prompt": "Applications compiled for a specific ISA, for example x86 or ARM:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Will only run on processors supporting that ISA"
+      },
+      {
+        "id": "b",
+        "text": "Will run on any processor with enough memory"
+      },
+      {
+        "id": "c",
+        "text": "Will run on any processor of the same speed"
+      },
+      {
+        "id": "d",
+        "text": "Will run anywhere once recompiled by the operating system at load time"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Only on processors supporting that ISA. That is why mobile apps are built for the ARM-based processors in smartphones.",
+    "why": {
+      "a": "Correct. Compatibility follows the ISA, not the machine.",
+      "b": "Wrong. Memory size has nothing to do with which instructions the processor understands.",
+      "c": "Wrong. Speed is organizational and irrelevant to compatibility.",
+      "d": "Wrong. Nothing in this course describes load-time recompilation."
+    },
+    "facts": [
+      "t2i-003"
+    ]
+  },
+  {
+    "id": "ift-d2-063",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "software compatibility",
+    "prompt": "Mobile apps are built for the {{1}}-based processors in smartphones.",
+    "blanks": [
+      {
+        "accept": [
+          "ARM"
+        ],
+        "choices": [
+          "ARM",
+          "x86",
+          "MIPS",
+          "s390"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "ARM. It pairs with the other example on the slide: Windows is optimized for x86.",
+    "facts": [
+      "t2i-003"
+    ]
+  },
+  {
+    "id": "ift-d2-064",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "operating systems and the ISA",
+    "prompt": "The deck's example of an operating system designed for a specific ISA is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Windows, optimized for x86 architecture systems"
+      },
+      {
+        "id": "b",
+        "text": "Android, optimized for s390 systems"
+      },
+      {
+        "id": "c",
+        "text": "Linux, optimized for MIPS systems"
+      },
+      {
+        "id": "d",
+        "text": "Windows, optimized for ARM systems"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Windows on x86. An operating system is software too, so it is bound to an ISA in exactly the same way an application is.",
+    "why": {
+      "a": "Correct. Windows OS is optimized for x86 architecture systems.",
+      "b": "Wrong. Android is not named in this deck, and s390 appears only in the CISC examples.",
+      "c": "Wrong. Linux is not named in this deck.",
+      "d": "Wrong pairing. ARM is the smartphone example on this slide, and it is paired with mobile apps, not with Windows."
+    },
+    "facts": [
+      "t2i-004"
+    ]
+  },
+  {
+    "id": "ift-d2-065",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "operating systems and the ISA",
+    "prompt": "An operating system is designed for a specific ISA.",
+    "answer": "true",
+    "explanation": "It is, and the deck gives Windows on x86 as the example.",
+    "why": {
+      "true": "Correct. An OS is compiled to an instruction set like any other program.",
+      "false": "Wrong. The slide states this plainly under the heading Operating Systems."
+    },
+    "facts": [
+      "t2i-004"
+    ]
+  },
+  {
+    "id": "ift-d2-066",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "same ISA, different organization",
+    "prompt": "Different organizations, that is different hardware implementations, can support the same ISA but:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Vary in performance"
+      },
+      {
+        "id": "b",
+        "text": "Run different software"
+      },
+      {
+        "id": "c",
+        "text": "Use different instruction formats"
+      },
+      {
+        "id": "d",
+        "text": "Support different addressing modes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "They vary in performance. This is the single most examined idea in the whole architecture against organization topic.",
+    "why": {
+      "a": "Correct. Same ISA, same software, different speed.",
+      "b": "Wrong. Sharing an ISA is precisely what makes the same software run on both.",
+      "c": "Wrong. Instruction formats are part of the ISA, so they are shared.",
+      "d": "Wrong. Addressing modes are part of the ISA, so they are shared too."
+    },
+    "facts": [
+      "t2i-005"
+    ]
+  },
+  {
+    "id": "ift-d2-067",
+    "module": 2,
+    "slides": [
+      "Intro S31"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "same ISA, different organization",
+    "prompt": "Different {{1}}, that is different hardware implementations, can support the same ISA but vary in {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "organizations"
+        ],
+        "choices": [
+          "organizations",
+          "architectures",
+          "instruction sets",
+          "compilers"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "performance"
+        ],
+        "choices": [
+          "performance",
+          "compatibility",
+          "capability",
+          "correctness"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Organizations, and performance. Say it the other way round to check yourself: if two machines run the same programs at different speeds, the ISA is shared and the organization is not.",
+    "facts": [
+      "t2i-005"
+    ]
+  },
+  {
+    "id": "ift-d2-068",
+    "module": 2,
+    "slides": [
+      "Intro S32"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the repeated applications slide",
+    "prompt": "The introduction deck repeats its real-life applications slide on software compatibility, operating systems and differing organizations of the same ISA.",
+    "answer": "true",
+    "explanation": "Slides 31 and 32 of the introduction deck carry the same three points. Repetition in a lecture deck is usually a signal about what will be asked.",
+    "why": {
+      "true": "Correct. The slide appears twice in succession with the same three points.",
+      "false": "Wrong. The content is duplicated across two consecutive slides."
+    },
+    "facts": [
+      "t2i-006"
+    ]
+  }
+]

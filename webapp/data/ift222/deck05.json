@@ -1,0 +1,2160 @@
+[
+  {
+    "id": "ift-d5-001",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "overflow against underflow",
+    "prompt": "In the floating point sense, underflow is a situation in which:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The number is too small to be represented in the Exponent field"
+      },
+      {
+        "id": "b",
+        "text": "The exponent is too large to be represented in the Exponent field"
+      },
+      {
+        "id": "c",
+        "text": "The mantissa has too many digits"
+      },
+      {
+        "id": "d",
+        "text": "The sign bit is set on a positive number"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Too small is underflow, too large is overflow. Both are stated against the Exponent field, which is the deck's own framing.",
+    "why": {
+      "a": "Correct. Too small is underflow, too large is overflow.",
+      "b": "Wrong, that is overflow, the other half of the same sentence.",
+      "c": "Wrong. Too many mantissa digits costs precision, not range, and the deck calls that inexact.",
+      "d": "Wrong. The sign bit has nothing to do with either condition."
+    },
+    "facts": [
+      "t5-001"
+    ]
+  },
+  {
+    "id": "ift-d5-002",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "overflow against underflow",
+    "prompt": "Match each condition to its definition in the deck.",
+    "pairs": [
+      {
+        "left": "Overflow",
+        "right": "The exponent is too large to be represented in the Exponent field"
+      },
+      {
+        "left": "Underflow",
+        "right": "The number is too small to be represented in the Exponent field"
+      }
+    ],
+    "explanation": "Both definitions come from one sentence on the same slide, which is why they are so easily swapped under exam pressure.",
+    "facts": [
+      "t5-001"
+    ]
+  },
+  {
+    "id": "ift-d5-003",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "arithmetic underflow",
+    "prompt": "Arithmetic underflow can occur when the true result of a floating point operation is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Smaller in magnitude, that is closer to zero, than the smallest value representable as a normal floating point number in the target datatype"
+      },
+      {
+        "id": "b",
+        "text": "Larger in magnitude than the largest representable value"
+      },
+      {
+        "id": "c",
+        "text": "Exactly zero"
+      },
+      {
+        "id": "d",
+        "text": "Negative"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Closer to zero than the smallest normal value. The words closer to zero matter, because a very large negative number is not an underflow.",
+    "why": {
+      "a": "Correct, and the deck spells out that smaller in magnitude means closer to zero.",
+      "b": "Wrong, that is overflow.",
+      "c": "Wrong. Zero is representable exactly.",
+      "d": "Wrong. Sign is irrelevant; magnitude is what matters."
+    },
+    "facts": [
+      "t5-002"
+    ]
+  },
+  {
+    "id": "ift-d5-003b",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "arithmetic underflow",
+    "prompt": "Arithmetic underflow occurs when the true result is smaller in magnitude than the smallest value representable as a {{1}} floating point number in the target datatype.",
+    "blanks": [
+      {
+        "accept": [
+          "normal"
+        ],
+        "choices": [
+          "normal",
+          "signed",
+          "rounded",
+          "exact"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Normal. The word is doing real work: values below the smallest normal number are not all lost at once, but they are no longer normal floating point numbers.",
+    "facts": [
+      "t5-002"
+    ]
+  },
+  {
+    "id": "ift-d5-004",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "underflow as negative overflow",
+    "prompt": "If the exponent part can represent values from minus 127 to 127, a result with a value less than which figure may cause underflow?",
+    "options": [
+      {
+        "id": "a",
+        "text": "minus 127"
+      },
+      {
+        "id": "b",
+        "text": "127"
+      },
+      {
+        "id": "c",
+        "text": "0"
+      },
+      {
+        "id": "d",
+        "text": "minus 1023"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Less than minus 127. Underflow can in part be regarded as negative overflow of the exponent, so it is the bottom of the exponent range that is breached.",
+    "why": {
+      "a": "Correct, and the figure is the bottom of the stated exponent range.",
+      "b": "Wrong. Exceeding plus 127 is overflow.",
+      "c": "Wrong. An exponent of 0 is perfectly ordinary.",
+      "d": "Wrong. Minus 1023 is the double precision bias, not the single precision exponent limit."
+    },
+    "facts": [
+      "t5-003"
+    ]
+  },
+  {
+    "id": "ift-d5-005",
+    "module": 5,
+    "slides": [
+      "Data S36"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "underflow as negative overflow",
+    "prompt": "Underflow can in part be regarded as {{1}} overflow of the exponent of the floating point value.",
+    "blanks": [
+      {
+        "accept": [
+          "negative"
+        ],
+        "choices": [
+          "negative",
+          "positive",
+          "silent",
+          "partial"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Negative overflow. It is a useful way to hold the pair: both conditions are the exponent running off an end of its range, just different ends.",
+    "facts": [
+      "t5-003"
+    ]
+  },
+  {
+    "id": "ift-d5-006",
+    "module": 5,
+    "slides": [
+      "Data S37"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "reducing overflow and underflow",
+    "prompt": "To reduce the chances of underflow or overflow, the deck says you can use:",
+    "options": [
+      {
+        "id": "a",
+        "text": "64-bit double-precision arithmetic"
+      },
+      {
+        "id": "b",
+        "text": "32-bit single-precision arithmetic"
+      },
+      {
+        "id": "c",
+        "text": "16-bit integer arithmetic"
+      },
+      {
+        "id": "d",
+        "text": "BCD arithmetic"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64-bit double precision. Its 11-bit exponent reaches about 10 to the power plus or minus 308, against single precision's 38.",
+    "why": {
+      "a": "Correct. 64-bit double precision.",
+      "b": "Wrong. Single precision is the narrower option, so it makes the problem more likely, not less.",
+      "c": "Wrong, and a 16-bit signed integer is precisely what destroyed the Ariane 5 on the next slide.",
+      "d": "Wrong. BCD is a decimal digit code, not a floating point format."
+    },
+    "facts": [
+      "t5-004"
+    ]
+  },
+  {
+    "id": "ift-d5-007",
+    "module": 5,
+    "slides": [
+      "Data S37"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "reducing overflow and underflow",
+    "prompt": "To reduce the chances of underflow or overflow, use {{1}}-bit double-precision arithmetic.",
+    "blanks": [
+      {
+        "accept": [
+          "64"
+        ],
+        "choices": [
+          "64",
+          "32",
+          "16",
+          "128"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "64 bits. The deck then shows two cases of what happens when arithmetic goes wrong: the Ariane 5 and the Vancouver Stock Exchange.",
+    "facts": [
+      "t5-004"
+    ]
+  },
+  {
+    "id": "ift-d5-008",
+    "module": 5,
+    "slides": [
+      "Data S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the Ariane 5",
+    "prompt": "How long after lift-off did the unmanned Ariane 5 rocket explode?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Forty seconds"
+      },
+      {
+        "id": "b",
+        "text": "Four seconds"
+      },
+      {
+        "id": "c",
+        "text": "Forty minutes"
+      },
+      {
+        "id": "d",
+        "text": "Four minutes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Just forty seconds after lift-off, on 4 June 1996, on its first voyage, after a decade of development costing 7 billion dollars.",
+    "why": {
+      "a": "Correct. Just forty seconds after lift-off, on 4 June 1996, on its first voyage, after a decade of development costing 7 billion dollars.",
+      "b": "Wrong. The deck says forty seconds.",
+      "c": "Wrong unit. Just forty seconds after lift-off, on 4 June 1996, on its first voyage, after a decade of development costing 7 billion dollars.",
+      "d": "Wrong on both count and unit."
+    },
+    "facts": [
+      "t5-005"
+    ]
+  },
+  {
+    "id": "ift-d5-009",
+    "module": 5,
+    "slides": [
+      "Data S39"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers",
+      "names"
+    ],
+    "topic": "the Ariane 5",
+    "prompt": "On June 4, {{1}} an unmanned Ariane 5 rocket launched by the European Space Agency exploded, after a decade of development costing {{2}} billion dollars.",
+    "blanks": [
+      {
+        "accept": [
+          "1996"
+        ],
+        "choices": [
+          "1996",
+          "1986",
+          "1982",
+          "2006"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "7",
+          "seven"
+        ],
+        "choices": [
+          "7",
+          "5",
+          "10",
+          "3"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "1996, and 7 billion dollars. 1982 is the other date in this section, and it belongs to the Vancouver Stock Exchange.",
+    "facts": [
+      "t5-005"
+    ]
+  },
+  {
+    "id": "ift-d5-010",
+    "module": 5,
+    "slides": [
+      "Data S39"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "what went wrong on the Ariane 5",
+    "prompt": "What was the software error that destroyed the Ariane 5?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A 64 bit floating point number was converted to a 16 bit signed integer, and the value was too large for it"
+      },
+      {
+        "id": "b",
+        "text": "A 16 bit integer was converted to a 64 bit floating point number"
+      },
+      {
+        "id": "c",
+        "text": "A value was truncated rather than rounded"
+      },
+      {
+        "id": "d",
+        "text": "An exponent underflowed"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A 64 bit floating point number relating to the horizontal velocity of the rocket with respect to the platform was converted to a 16 bit signed integer, and the conversion failed. Note that the slide gives the limit as 32678; the largest 16-bit signed integer is in fact 32767.",
+    "why": {
+      "a": "Correct, and it is an overflow on conversion, not in the arithmetic itself.",
+      "b": "Wrong direction. Widening a value is safe; it was the narrowing that failed.",
+      "c": "Wrong. Truncation rather than rounding is the Vancouver Stock Exchange case on the next slide.",
+      "d": "Wrong. The value was too large, not too close to zero."
+    },
+    "facts": [
+      "t5-006"
+    ]
+  },
+  {
+    "id": "ift-d5-011",
+    "module": 5,
+    "slides": [
+      "Data S39"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what went wrong on the Ariane 5",
+    "prompt": "The 64 bit floating point number that failed to convert related to the {{1}} velocity of the rocket with respect to the platform.",
+    "blanks": [
+      {
+        "accept": [
+          "horizontal"
+        ],
+        "choices": [
+          "horizontal",
+          "vertical",
+          "angular",
+          "relative"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Horizontal velocity. The Ariane 5 flew a different trajectory from its predecessor, so a value that had always been small on the old rocket was not small on the new one.",
+    "facts": [
+      "t5-006"
+    ]
+  },
+  {
+    "id": "ift-d5-012",
+    "module": 5,
+    "slides": [
+      "Data S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the Vancouver Stock Exchange",
+    "prompt": "The Vancouver stock exchange index was instituted in 1982 at a value of 1000.000. What had it fallen to twenty two months later?",
+    "options": [
+      {
+        "id": "a",
+        "text": "520"
+      },
+      {
+        "id": "b",
+        "text": "1098.892"
+      },
+      {
+        "id": "c",
+        "text": "500"
+      },
+      {
+        "id": "d",
+        "text": "820"
+      }
+    ],
+    "answer": "a",
+    "explanation": "It had fallen to 520, while the correctly rounded calculation gave 1098.892. The index had lost almost half its value to arithmetic alone.",
+    "why": {
+      "a": "Correct. It had fallen to 520, while the correctly rounded calculation gave 1098.",
+      "b": "Wrong. 1098.892 is what the rounded calculation gave, that is the value it should have shown.",
+      "c": "Wrong. The deck says 520.",
+      "d": "Wrong. That figure appears nowhere."
+    },
+    "facts": [
+      "t5-007"
+    ]
+  },
+  {
+    "id": "ift-d5-013",
+    "module": 5,
+    "slides": [
+      "Data S40"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the Vancouver Stock Exchange",
+    "prompt": "In {{1}} the Vancouver stock exchange instituted a new index initialized to a value of {{2}}, updated after each transaction.",
+    "blanks": [
+      {
+        "accept": [
+          "1982"
+        ],
+        "choices": [
+          "1982",
+          "1996",
+          "1984",
+          "1992"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "1000.000",
+          "1000"
+        ],
+        "choices": [
+          "1000.000",
+          "1098.892",
+          "520",
+          "100.000"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "1982, starting at 1000.000. Updating after each transaction is what let a tiny error per update compound into a huge one.",
+    "facts": [
+      "t5-007"
+    ]
+  },
+  {
+    "id": "ift-d5-014",
+    "module": 5,
+    "slides": [
+      "Data S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what went wrong in Vancouver",
+    "prompt": "What caused the Vancouver index to drift so far from its true value?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The updated value was truncated rather than rounded"
+      },
+      {
+        "id": "b",
+        "text": "The updated value was rounded rather than truncated"
+      },
+      {
+        "id": "c",
+        "text": "A 64 bit float was narrowed to a 16 bit integer"
+      },
+      {
+        "id": "d",
+        "text": "The exponent underflowed"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Truncated rather than rounded. Truncation always loses in the same direction, so thousands of updates pushed the index steadily down.",
+    "why": {
+      "a": "Correct, and the direction of the bias is why the error only ever grew.",
+      "b": "Wrong, and reversed: rounding is what should have been done, and it gave 1098.892.",
+      "c": "Wrong. That is the Ariane 5.",
+      "d": "Wrong. No exponent condition is involved."
+    },
+    "facts": [
+      "t5-008"
+    ]
+  },
+  {
+    "id": "ift-d5-015",
+    "module": 5,
+    "slides": [
+      "Data S40"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "what went wrong in Vancouver",
+    "prompt": "The correctly rounded calculation gave the Vancouver index a value of {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "1098.892"
+        ],
+        "choices": [
+          "1098.892",
+          "1000.000",
+          "520",
+          "1089.892"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "1098.892 against the 520 actually displayed, a gap of well over five hundred points from a difference in rounding alone.",
+    "facts": [
+      "t5-008"
+    ]
+  },
+  {
+    "id": "ift-d5-016",
+    "module": 5,
+    "slides": [
+      "Data S48"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "scientific notation",
+    "prompt": "In the deck's example, 976,000,000,000,000 is written in scientific notation as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "9.76 times 10 to the power 14"
+      },
+      {
+        "id": "b",
+        "text": "9.76 times 10 to the power 15"
+      },
+      {
+        "id": "c",
+        "text": "9.76 times 10 to the power minus 14"
+      },
+      {
+        "id": "d",
+        "text": "97.6 times 10 to the power 13"
+      }
+    ],
+    "answer": "a",
+    "explanation": "9.76 times 10 to the power 14. Its companion on the slide is 0.0000000000000976, which is 9.76 times 10 to the power minus 14.",
+    "why": {
+      "a": "Correct. 9. 9.76 times 10 to the power 14. Its companion on the slide is 0.0000000000000976, which is 9.76 times 10 to the power minus 14.",
+      "b": "Wrong by one in the exponent.",
+      "c": "Wrong sign, and that is the small companion value.",
+      "d": "Wrong form. Scientific notation puts a single digit before the point."
+    },
+    "facts": [
+      "t5-009"
+    ]
+  },
+  {
+    "id": "ift-d5-017",
+    "module": 5,
+    "slides": [
+      "Data S48"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "scientific notation",
+    "prompt": "The deck writes 0.0000000000000976 as 9.76 times 10 to the power {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "-14",
+          "minus 14"
+        ],
+        "choices": [
+          "-14",
+          "14",
+          "-13",
+          "-15"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Minus 14. The pair of examples makes the point that one notation covers both the very large and the very small.",
+    "facts": [
+      "t5-009"
+    ]
+  },
+  {
+    "id": "ift-d5-018",
+    "module": 5,
+    "slides": [
+      "Data S48"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the three fields",
+    "prompt": "A number represented by M times B to the power plus or minus E is stored in a binary word with which fields?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The mantissa"
+      },
+      {
+        "id": "b",
+        "text": "The exponent E"
+      },
+      {
+        "id": "c",
+        "text": "The sign"
+      },
+      {
+        "id": "d",
+        "text": "The base B"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "The base B is implicit and need not be stored, which is why it costs no bits. The sign, exponent and mantissa are the three that do.",
+    "why": {
+      "a": "Correct, the mantissa is stored.",
+      "b": "Correct, the exponent E is stored.",
+      "c": "Correct, and it is the one bit at the front of both single and double precision.",
+      "d": "Wrong. The deck says the base B is implicit and need not be stored."
+    },
+    "facts": [
+      "t5-010"
+    ]
+  },
+  {
+    "id": "ift-d5-019",
+    "module": 5,
+    "slides": [
+      "Data S48"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the three fields",
+    "prompt": "In the form M times B to the power plus or minus E, the base B is {{1}} and need not be stored.",
+    "blanks": [
+      {
+        "accept": [
+          "implicit"
+        ],
+        "choices": [
+          "implicit",
+          "explicit",
+          "variable",
+          "signed"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Implicit. Every number in the format shares the same base, so recording it in each one would be a waste of bits.",
+    "facts": [
+      "t5-010"
+    ]
+  },
+  {
+    "id": "ift-d5-020",
+    "module": 5,
+    "slides": [
+      "Data S49"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the IEEE standards",
+    "prompt": "Which standards does the deck name for representing floating point?",
+    "options": [
+      {
+        "id": "a",
+        "text": "IEEE-754 and 854"
+      },
+      {
+        "id": "b",
+        "text": "IEEE-754 only"
+      },
+      {
+        "id": "c",
+        "text": "ISO 8859-1"
+      },
+      {
+        "id": "d",
+        "text": "IEEE-802"
+      }
+    ],
+    "answer": "a",
+    "explanation": "IEEE-754, 854. The second number is easy to miss, since 754 is the one usually quoted.",
+    "why": {
+      "a": "Correct, both are on the slide.",
+      "b": "Wrong, incomplete: 854 is named alongside it.",
+      "c": "Wrong. ISO 8859-1 is the extended ASCII table.",
+      "d": "Wrong. Not mentioned in this course."
+    },
+    "facts": [
+      "t5-011"
+    ]
+  },
+  {
+    "id": "ift-d5-021",
+    "module": 5,
+    "slides": [
+      "Data S49"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why it is called floating",
+    "prompt": "It is called floating point because the decimal point can {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "move"
+        ],
+        "choices": [
+          "move",
+          "vanish",
+          "double",
+          "round"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Move. The exponent says where the point sits, so the same bits can express a huge number or a tiny fraction.",
+    "facts": [
+      "t5-011"
+    ]
+  },
+  {
+    "id": "ift-d5-022",
+    "module": 5,
+    "slides": [
+      "Data S49"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the single precision range",
+    "prompt": "Single precision floating point can represent numbers of roughly what order?",
+    "options": [
+      {
+        "id": "a",
+        "text": "10 to the power plus or minus 38"
+      },
+      {
+        "id": "b",
+        "text": "10 to the power plus or minus 308"
+      },
+      {
+        "id": "c",
+        "text": "10 to the power plus or minus 127"
+      },
+      {
+        "id": "d",
+        "text": "10 to the power plus or minus 23"
+      }
+    ],
+    "answer": "a",
+    "explanation": "About 10 to the power plus or minus 38 for single precision, against 10 to the power plus or minus 308 for double.",
+    "why": {
+      "a": "Correct. About 10 to the power plus or minus 38 for single precision, against 10 to the power plus or minus 308 for double.",
+      "b": "Wrong. That is double precision.",
+      "c": "Wrong. 127 is the single precision exponent bias, not the decimal range.",
+      "d": "Wrong. 23 is the number of mantissa bits in single precision."
+    },
+    "facts": [
+      "t5-012"
+    ]
+  },
+  {
+    "id": "ift-d5-023",
+    "module": 5,
+    "slides": [
+      "Data S49"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "what floating point is for",
+    "prompt": "Floating point is useful for scientific calculations. What can it represent?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Very large integers"
+      },
+      {
+        "id": "b",
+        "text": "Very small fractions"
+      },
+      {
+        "id": "c",
+        "text": "Character strings"
+      },
+      {
+        "id": "d",
+        "text": "Memory addresses only"
+      }
+    ],
+    "answer": [
+      "a",
+      "b"
+    ],
+    "explanation": "Both ends of the scale, which is the whole reason for the format.",
+    "why": {
+      "a": "Correct, very large integers is the first item.",
+      "b": "Correct, very small fractions is the second.",
+      "c": "Wrong. Character strings need an alphanumeric code such as ASCII.",
+      "d": "Wrong. Addresses are integers and are not stored in floating point."
+    },
+    "facts": [
+      "t5-012"
+    ]
+  },
+  {
+    "id": "ift-d5-024",
+    "module": 5,
+    "slides": [
+      "Data S50"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the single precision layout",
+    "prompt": "How is a 32-bit single precision floating point number laid out?",
+    "options": [
+      {
+        "id": "a",
+        "text": "1 sign bit, an 8-bit excess-127 exponent, and a 23-bit mantissa fraction"
+      },
+      {
+        "id": "b",
+        "text": "1 sign bit, a 23-bit exponent, and an 8-bit mantissa fraction"
+      },
+      {
+        "id": "c",
+        "text": "1 sign bit, an 11-bit exponent, and a 20-bit mantissa fraction"
+      },
+      {
+        "id": "d",
+        "text": "8 sign bits, a 1-bit exponent, and a 23-bit mantissa"
+      }
+    ],
+    "answer": "a",
+    "explanation": "1 plus 8 plus 23 is 32. The exponent is stored in excess-127 form, which is what the bias of 127 means.",
+    "why": {
+      "a": "Correct. 1 plus 8 plus 23 is 32.",
+      "b": "Wrong, the two field widths are swapped.",
+      "c": "Wrong. 11 exponent bits belong to double precision.",
+      "d": "Wrong. There is exactly one sign bit."
+    },
+    "facts": [
+      "t5-013"
+    ]
+  },
+  {
+    "id": "ift-d5-025",
+    "module": 5,
+    "slides": [
+      "Data S50"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the single precision layout",
+    "prompt": "Single precision is {{1}} bits in total, with a {{2}}-bit mantissa fraction.",
+    "blanks": [
+      {
+        "accept": [
+          "32"
+        ],
+        "choices": [
+          "32",
+          "64",
+          "16",
+          "23"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "23"
+        ],
+        "choices": [
+          "23",
+          "8",
+          "52",
+          "24"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "32 bits, of which 23 are the mantissa fraction. Add the 8-bit exponent and the 1 sign bit and the 32 is accounted for.",
+    "facts": [
+      "t5-013"
+    ]
+  },
+  {
+    "id": "ift-d5-026",
+    "module": 5,
+    "slides": [
+      "Data S50"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the single precision value",
+    "prompt": "The value represented by a single precision number is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "plus or minus 1.M times 2 to the power E prime minus 127"
+      },
+      {
+        "id": "b",
+        "text": "plus or minus M times 2 to the power E prime minus 127"
+      },
+      {
+        "id": "c",
+        "text": "plus or minus 1.M times 2 to the power E prime minus 1023"
+      },
+      {
+        "id": "d",
+        "text": "plus or minus 1.M times 10 to the power E prime minus 127"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The leading 1 is implied, the stored exponent has 127 subtracted from it, and the base is 2.",
+    "why": {
+      "a": "Correct. The leading 1 is implied, the stored exponent has 127 subtracted from it, and the base is 2.",
+      "b": "Wrong. The 1 in front of the point is implicit and must be restored.",
+      "c": "Wrong bias. 1023 belongs to double precision.",
+      "d": "Wrong base. The base is 2, not 10."
+    },
+    "facts": [
+      "t5-014"
+    ]
+  },
+  {
+    "id": "ift-d5-027",
+    "module": 5,
+    "slides": [
+      "Data S50"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the sign bit",
+    "prompt": "In single precision, a sign bit of 0 signifies:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Plus"
+      },
+      {
+        "id": "b",
+        "text": "Minus"
+      },
+      {
+        "id": "c",
+        "text": "Zero"
+      },
+      {
+        "id": "d",
+        "text": "An underflow"
+      }
+    ],
+    "answer": "a",
+    "explanation": "0 is plus and 1 is minus, the same convention as sign magnitude for integers.",
+    "why": {
+      "a": "Correct. 0 is plus and 1 is minus, the same convention as sign magnitude for integers.",
+      "b": "Wrong, that is a sign bit of 1.",
+      "c": "Wrong. Zero is signalled by the whole pattern, not by the sign bit alone.",
+      "d": "Wrong. Underflow is an exponent condition."
+    },
+    "facts": [
+      "t5-014"
+    ]
+  },
+  {
+    "id": "ift-d5-028",
+    "module": 5,
+    "slides": [
+      "Data S51"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the double precision layout",
+    "prompt": "How is a double precision floating point number laid out?",
+    "options": [
+      {
+        "id": "a",
+        "text": "64 bits: 1 sign bit, an 11-bit excess-1023 exponent, and a 52-bit mantissa fraction"
+      },
+      {
+        "id": "b",
+        "text": "64 bits: 1 sign bit, an 8-bit excess-127 exponent, and a 55-bit mantissa fraction"
+      },
+      {
+        "id": "c",
+        "text": "32 bits: 1 sign bit, an 11-bit exponent, and a 20-bit mantissa fraction"
+      },
+      {
+        "id": "d",
+        "text": "64 bits: 2 sign bits, a 10-bit exponent, and a 52-bit mantissa fraction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "1 plus 11 plus 52 is 64, and the exponent is stored in excess-1023 form.",
+    "why": {
+      "a": "Correct. 1 plus 11 plus 52 is 64, and the exponent is stored in excess-1023 form.",
+      "b": "Wrong. 8 bits and a bias of 127 are single precision figures.",
+      "c": "Wrong total. Double precision is 64 bits.",
+      "d": "Wrong. There is one sign bit, and the exponent is 11 bits."
+    },
+    "facts": [
+      "t5-015"
+    ]
+  },
+  {
+    "id": "ift-d5-029",
+    "module": 5,
+    "slides": [
+      "Data S51"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the double precision layout",
+    "prompt": "Double precision uses an {{1}}-bit excess-1023 exponent and a {{2}}-bit mantissa fraction, and can represent numbers of the order of 10 to the power plus or minus 308.",
+    "blanks": [
+      {
+        "accept": [
+          "11",
+          "eleven"
+        ],
+        "choices": [
+          "11",
+          "8",
+          "12",
+          "10"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "52"
+        ],
+        "choices": [
+          "52",
+          "23",
+          "53",
+          "51"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "11 and 52. Set them against single precision's 8 and 23 and the whole comparison is in hand.",
+    "facts": [
+      "t5-015"
+    ]
+  },
+  {
+    "id": "ift-d5-030",
+    "module": 5,
+    "slides": [
+      "Data S51"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the double precision value",
+    "prompt": "The value represented by a double precision number is plus or minus 1.M times 2 to the power:",
+    "options": [
+      {
+        "id": "a",
+        "text": "E prime minus 1023"
+      },
+      {
+        "id": "b",
+        "text": "E prime minus 127"
+      },
+      {
+        "id": "c",
+        "text": "E prime minus 308"
+      },
+      {
+        "id": "d",
+        "text": "E prime plus 1023"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Minus 1023, the double precision bias. The single precision formula is the same shape with 127 in its place.",
+    "why": {
+      "a": "Correct. Minus 1023, the double precision bias.",
+      "b": "Wrong, that is the single precision bias.",
+      "c": "Wrong. 308 is the decimal order of magnitude, not the bias.",
+      "d": "Wrong sign. The bias is subtracted from the stored exponent."
+    },
+    "facts": [
+      "t5-016"
+    ]
+  },
+  {
+    "id": "ift-d5-031",
+    "module": 5,
+    "slides": [
+      "Data S50",
+      "Data S51"
+    ],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "single against double precision",
+    "prompt": "Match each figure to the precision it belongs to.",
+    "pairs": [
+      {
+        "left": "32 bits in total",
+        "right": "Single precision"
+      },
+      {
+        "left": "8-bit exponent",
+        "right": "Single precision"
+      },
+      {
+        "left": "23-bit mantissa fraction",
+        "right": "Single precision"
+      },
+      {
+        "left": "Bias of 127",
+        "right": "Single precision"
+      },
+      {
+        "left": "64 bits in total",
+        "right": "Double precision"
+      },
+      {
+        "left": "11-bit exponent",
+        "right": "Double precision"
+      },
+      {
+        "left": "52-bit mantissa fraction",
+        "right": "Double precision"
+      },
+      {
+        "left": "Bias of 1023",
+        "right": "Double precision"
+      }
+    ],
+    "explanation": "Eight figures, four a side. Every one of them has been asked about on a past paper, so this mapping is worth being fluent in.",
+    "facts": [
+      "t5-014",
+      "t5-016"
+    ]
+  },
+  {
+    "id": "ift-d5-032",
+    "module": 5,
+    "slides": [
+      "Data S52"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "required operations",
+    "prompt": "Select the operations the IEEE Standard requires at a minimum.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Add"
+      },
+      {
+        "id": "b",
+        "text": "Subtract"
+      },
+      {
+        "id": "c",
+        "text": "Multiply"
+      },
+      {
+        "id": "d",
+        "text": "Divide"
+      },
+      {
+        "id": "e",
+        "text": "Remainder"
+      },
+      {
+        "id": "f",
+        "text": "Square Root"
+      },
+      {
+        "id": "g",
+        "text": "Decimal and binary conversion"
+      },
+      {
+        "id": "h",
+        "text": "Logarithm"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g"
+    ],
+    "explanation": "Seven required operations. Remainder and square root are the two most often forgotten, and logarithm is not among them.",
+    "why": {
+      "a": "Correct, add heads the list.",
+      "b": "Correct, subtract is second.",
+      "c": "Correct, multiply is third.",
+      "d": "Correct, divide is fourth.",
+      "e": "Correct, remainder is fifth and easily missed.",
+      "f": "Correct, square root is sixth and is a genuine surprise on a minimum list.",
+      "g": "Correct, decimal and binary conversion closes the list.",
+      "h": "Wrong. Logarithm is not required by the standard as the deck presents it."
+    },
+    "facts": [
+      "t5-017"
+    ]
+  },
+  {
+    "id": "ift-d5-033",
+    "module": 5,
+    "slides": [
+      "Data S52"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers",
+      "lists"
+    ],
+    "topic": "required operations",
+    "prompt": "The IEEE Standard requires {{1}} operations at a minimum.",
+    "blanks": [
+      {
+        "accept": [
+          "7",
+          "seven"
+        ],
+        "choices": [
+          "7",
+          "5",
+          "6",
+          "8"
+        ],
+        "format": "number",
+        "hint": "add, subtract, multiply, divide, remainder, square root, decimal and binary conversion"
+      }
+    ],
+    "explanation": "Seven. Counting only the four familiar arithmetic operations is the usual undercount.",
+    "facts": [
+      "t5-017"
+    ]
+  },
+  {
+    "id": "ift-d5-034",
+    "module": 5,
+    "slides": [
+      "Data S52"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the exceptions",
+    "prompt": "Select the IEEE floating point exceptions the deck lists.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Underflow"
+      },
+      {
+        "id": "b",
+        "text": "Overflow"
+      },
+      {
+        "id": "c",
+        "text": "Divide by 0"
+      },
+      {
+        "id": "d",
+        "text": "Inexact"
+      },
+      {
+        "id": "e",
+        "text": "Invalid"
+      },
+      {
+        "id": "f",
+        "text": "Truncated"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+    ],
+    "explanation": "Five exceptions: underflow, overflow, divide by 0, inexact, invalid. Truncation is what went wrong in Vancouver, but it is not an IEEE exception.",
+    "why": {
+      "a": "Correct, underflow is first.",
+      "b": "Correct, overflow is second.",
+      "c": "Correct, divide by 0 is third.",
+      "d": "Correct, inexact is fourth and is the one raised by ordinary rounding.",
+      "e": "Correct, invalid closes the list.",
+      "f": "Wrong. Truncated is not one of the five, although the Vancouver case shows how much damage truncation can do."
+    },
+    "facts": [
+      "t5-018"
+    ]
+  },
+  {
+    "id": "ift-d5-035",
+    "module": 5,
+    "slides": [
+      "Data S52"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "the exceptions",
+    "prompt": "Besides underflow, overflow, divide by 0 and invalid, the fifth IEEE exception is {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "inexact"
+        ],
+        "choices": [
+          "inexact",
+          "truncated",
+          "unstable",
+          "denormal"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Inexact. It fires whenever a result has to be rounded, which for a value like 0.2 in binary is almost always.",
+    "facts": [
+      "t5-018"
+    ]
+  },
+  {
+    "id": "ift-d5-036",
+    "module": 5,
+    "slides": [
+      "Data S53"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "step 1 of the 64.2 example",
+    "prompt": "In step 1 of putting 64.2 into IEEE single precision, what is 64 in binary?",
+    "options": [
+      {
+        "id": "a",
+        "text": "1000000"
+      },
+      {
+        "id": "b",
+        "text": "100000"
+      },
+      {
+        "id": "c",
+        "text": "10000000"
+      },
+      {
+        "id": "d",
+        "text": "1000001"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 is 2 to the power 6, so it is a 1 followed by six zeros: 1000000.",
+    "why": {
+      "a": "Correct, seven digits in all.",
+      "b": "Wrong. That is 32.",
+      "c": "Wrong. That is 128.",
+      "d": "Wrong. That is 65."
+    },
+    "facts": [
+      "t5-019"
+    ]
+  },
+  {
+    "id": "ift-d5-037",
+    "module": 5,
+    "slides": [
+      "Data S53"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "step 1 of the 64.2 example",
+    "prompt": "The fractional part .2 is found by repeated doubling, and gives the repeating pattern {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "0011"
+        ],
+        "choices": [
+          "0011",
+          "1100",
+          "0101",
+          "1010"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "0011, repeating for ever. That is why 0.2 can never be stored exactly in binary, however many bits you use.",
+    "facts": [
+      "t5-019"
+    ]
+  },
+  {
+    "id": "ift-d5-038",
+    "module": 5,
+    "slides": [
+      "Data S53"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the repeated doubling",
+    "prompt": "In the repeated doubling for .2, the third step is .8 times 2, which is 1.6. What digit does it contribute?",
+    "options": [
+      {
+        "id": "a",
+        "text": "1"
+      },
+      {
+        "id": "b",
+        "text": "0"
+      },
+      {
+        "id": "c",
+        "text": "6"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The digit is the whole part of the product, so 1.6 contributes 1 and leaves .6 to carry forward. The four steps give 0, 0, 1, 1, and then the pattern repeats.",
+    "why": {
+      "a": "Correct, the whole part of 1.6.",
+      "b": "Wrong. 0 is contributed when the product is less than 1, as in the first two steps.",
+      "c": "Wrong. The 6 is the fractional part carried into the next step, not the digit emitted.",
+      "d": "Wrong. 8 is the input to this step, not its output."
+    },
+    "facts": [
+      "t5-020"
+    ]
+  },
+  {
+    "id": "ift-d5-039",
+    "module": 5,
+    "slides": [
+      "Data S53"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the repeated doubling",
+    "prompt": "Putting the halves back together, 64.2 in binary is {{1}}.0011001100110011 and on.",
+    "blanks": [
+      {
+        "accept": [
+          "1000000"
+        ],
+        "choices": [
+          "1000000",
+          "0100000",
+          "1000001",
+          "10000000"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "1000000.0011001100110011 and on. The whole part terminates; the fraction never does.",
+    "facts": [
+      "t5-020"
+    ]
+  },
+  {
+    "id": "ift-d5-040",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "normalising",
+    "prompt": "Normalising 1000000.00110011 and on gives 1.00000000110011 and on, times 2 to the power:",
+    "options": [
+      {
+        "id": "a",
+        "text": "6"
+      },
+      {
+        "id": "b",
+        "text": "7"
+      },
+      {
+        "id": "c",
+        "text": "133"
+      },
+      {
+        "id": "d",
+        "text": "127"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The point moves six places left, so the true exponent is 6. 133 is what it becomes after the bias is added, and 127 is the bias itself.",
+    "why": {
+      "a": "Correct, and the deck calls 6 the true exponent.",
+      "b": "Wrong by one. Count the places the point moves, not the digits before it.",
+      "c": "Wrong. 133 is the biased exponent, 6 plus 127.",
+      "d": "Wrong. 127 is the bias."
+    },
+    "facts": [
+      "t5-021"
+    ]
+  },
+  {
+    "id": "ift-d5-041",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "normalising",
+    "prompt": "Step 2 is to {{1}} the binary representation, that is, make it look like scientific notation.",
+    "blanks": [
+      {
+        "accept": [
+          "normalize",
+          "normalise"
+        ],
+        "choices": [
+          "normalize",
+          "truncate",
+          "invert",
+          "shift"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Normalize. The result always has exactly one 1 before the point, which is why that 1 can then be left implicit.",
+    "facts": [
+      "t5-021"
+    ]
+  },
+  {
+    "id": "ift-d5-042",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the biased exponent",
+    "prompt": "With a true exponent of 6, what is the biased exponent stored for E, in binary?",
+    "options": [
+      {
+        "id": "a",
+        "text": "10000101"
+      },
+      {
+        "id": "b",
+        "text": "00000110"
+      },
+      {
+        "id": "c",
+        "text": "01111111"
+      },
+      {
+        "id": "d",
+        "text": "10000110"
+      }
+    ],
+    "answer": "a",
+    "explanation": "6 plus 127 is 133, and 133 in 8-bit unsigned is 1000 0101.",
+    "why": {
+      "a": "Correct. 6 plus 127 is 133, and 133 in 8-bit unsigned is 1000 0101.",
+      "b": "Wrong. That is 6 itself, with no bias added.",
+      "c": "Wrong. That is 127, the bias alone.",
+      "d": "Wrong. That is 134, one too many."
+    },
+    "facts": [
+      "t5-022"
+    ]
+  },
+  {
+    "id": "ift-d5-043",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the biased exponent",
+    "prompt": "For the standard form the exponent needs to be in biased-127 form, so 6 plus 127 is {{1}}, whose 8-bit unsigned representation is {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "133"
+        ],
+        "choices": [
+          "133",
+          "121",
+          "134",
+          "127"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "10000101",
+          "1000 0101"
+        ],
+        "choices": [
+          "10000101",
+          "10000110",
+          "01111111",
+          "10000100"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "133, which is 10000101. Adding the bias is what lets a signed exponent be stored in an unsigned field.",
+    "facts": [
+      "t5-022"
+    ]
+  },
+  {
+    "id": "ift-d5-044",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the stored mantissa",
+    "prompt": "The mantissa stored, F, is taken from where in the normalised form, and how much of it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The 23 bits to the right of the radix point"
+      },
+      {
+        "id": "b",
+        "text": "The 23 bits to the left of the radix point"
+      },
+      {
+        "id": "c",
+        "text": "All 32 bits"
+      },
+      {
+        "id": "d",
+        "text": "The 8 bits to the right of the radix point"
+      }
+    ],
+    "answer": "a",
+    "explanation": "23 bits, all of them to the right of the point. The single 1 to the left is implicit and is not stored.",
+    "why": {
+      "a": "Correct. 23 bits, all of them to the right of the point.",
+      "b": "Wrong. After normalising there is only one digit to the left of the point.",
+      "c": "Wrong. 32 is the whole word, which also holds the sign and the exponent.",
+      "d": "Wrong. 8 is the exponent width."
+    },
+    "facts": [
+      "t5-023"
+    ]
+  },
+  {
+    "id": "ift-d5-045",
+    "module": 5,
+    "slides": [
+      "Data S54"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the stored mantissa",
+    "prompt": "Step 4 of the worked example also requires including the correct sign bit.",
+    "answer": "true",
+    "explanation": "It does. For 64.2 the sign bit is 0, since the number is positive, and the finished pattern begins with that 0.",
+    "why": {
+      "true": "Correct. The deck says put it all together and include the correct sign bit.",
+      "false": "Wrong. The sign bit is part of the assembly step and is stated on the slide."
+    },
+    "facts": [
+      "t5-023"
+    ]
+  },
+  {
+    "id": "ift-d5-046",
+    "module": 5,
+    "slides": [
+      "Data S55"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the finished representation of 64.2",
+    "prompt": "In the finished single precision representation of 64.2, what are S and E?",
+    "options": [
+      {
+        "id": "a",
+        "text": "S is 0 and E is 10000101"
+      },
+      {
+        "id": "b",
+        "text": "S is 1 and E is 10000101"
+      },
+      {
+        "id": "c",
+        "text": "S is 0 and E is 01111111"
+      },
+      {
+        "id": "d",
+        "text": "S is 0 and E is 00000110"
+      }
+    ],
+    "answer": "a",
+    "explanation": "S is 0 because 64.2 is positive, and E is 10000101, which is the biased exponent 133.",
+    "why": {
+      "a": "Correct. S is 0 because 64.",
+      "b": "Wrong. A sign bit of 1 would make the number negative.",
+      "c": "Wrong. 01111111 is 127, the bias, not the biased exponent.",
+      "d": "Wrong. 00000110 is the true exponent 6, before the bias is added."
+    },
+    "facts": [
+      "t5-024"
+    ]
+  },
+  {
+    "id": "ift-d5-047",
+    "module": 5,
+    "slides": [
+      "Data S55"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the finished representation of 64.2",
+    "prompt": "The stored mantissa F for 64.2 is {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "00000000110011001100110"
+        ],
+        "choices": [
+          "00000000110011001100110",
+          "00000000110011001100111",
+          "10000000110011001100110",
+          "00000001100110011001100"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "00000000110011001100110, twenty three bits. The repeating 0011 pattern is simply cut off when the field runs out, which is where the inexactness comes from.",
+    "facts": [
+      "t5-024"
+    ]
+  },
+  {
+    "id": "ift-d5-048",
+    "module": 5,
+    "slides": [
+      "Data S55"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "64.2 in hexadecimal",
+    "prompt": "What is the IEEE single precision representation of 64.2 in hexadecimal?",
+    "options": [
+      {
+        "id": "a",
+        "text": "42806666h"
+      },
+      {
+        "id": "b",
+        "text": "42800666h"
+      },
+      {
+        "id": "c",
+        "text": "BE7BAC10h"
+      },
+      {
+        "id": "d",
+        "text": "40806666h"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The 32 bits group into 0100 0010 1000 0000 0110 0110 0110 0110, which is 42806666h.",
+    "why": {
+      "a": "Correct. The 32 bits group into 0100 0010 1000 0000 0110 0110 0110 0110, which is 42806666h.",
+      "b": "Wrong. Check the third byte: the repeating pattern gives 66, not 06.",
+      "c": "Wrong. BE7BAC10h is the value set in Quiz 3, a different number.",
+      "d": "Wrong. The second hex digit comes from the exponent and is 2, not 0."
+    },
+    "facts": [
+      "t5-025"
+    ]
+  },
+  {
+    "id": "ift-d5-049",
+    "module": 5,
+    "slides": [
+      "Data S55"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "64.2 in hexadecimal",
+    "prompt": "Grouped into fours, the representation of 64.2 begins {{1}} 0010 1000 0000 and ends in the repeating hexadecimal digits {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "0100"
+        ],
+        "choices": [
+          "0100",
+          "1010",
+          "0010",
+          "1100"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "6666"
+        ],
+        "choices": [
+          "6666",
+          "3333",
+          "9999",
+          "0666"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "0100 at the front, and 6666 at the back. The repeating 6 in hexadecimal is the repeating 0110 in binary, which is the tail of the endless 0011 pattern of 0.2.",
+    "facts": [
+      "t5-025"
+    ]
+  },
+  {
+    "id": "ift-d5-050",
+    "module": 5,
+    "slides": [
+      "Data S55"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the IEEE exercise",
+    "prompt": "Select the values the exercise slide asks students to represent in IEEE format.",
+    "options": [
+      {
+        "id": "a",
+        "text": "10.5"
+      },
+      {
+        "id": "b",
+        "text": "9.999 times 10 to the 1, plus 1.610 times 10 to the minus 1"
+      },
+      {
+        "id": "c",
+        "text": ".510 times minus 0.4375"
+      },
+      {
+        "id": "d",
+        "text": "1.10 times 10 to the 10, times 9.2 times 10 to the minus 5"
+      },
+      {
+        "id": "e",
+        "text": "64.2"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four exercise items. 64.2 is the worked example the exercise follows, not one of the questions set.",
+    "why": {
+      "a": "Correct, 10.5 is the first exercise.",
+      "b": "Correct, and it asks for an addition before the conversion.",
+      "c": "Correct, and it asks for a multiplication first.",
+      "d": "Correct, another multiplication.",
+      "e": "Wrong. 64.2 is the worked example immediately above the exercise."
+    },
+    "facts": [
+      "t5-026"
+    ]
+  },
+  {
+    "id": "ift-d5-051",
+    "module": 5,
+    "slides": [
+      "Data S63"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Quiz 3",
+    "prompt": "Quiz 3 asks for the decimal value of which hexadecimal number, represented in IEEE single precision format?",
+    "options": [
+      {
+        "id": "a",
+        "text": "BE7BAC10h"
+      },
+      {
+        "id": "b",
+        "text": "42806666h"
+      },
+      {
+        "id": "c",
+        "text": "A34Eh"
+      },
+      {
+        "id": "d",
+        "text": "FF4Ah"
+      }
+    ],
+    "answer": "a",
+    "explanation": "BE7BAC10h. Its leading hex digit B is 1011 in binary, so the sign bit is 1 and the value is negative.",
+    "why": {
+      "a": "Correct. BE7BAC10h.",
+      "b": "Wrong. 42806666h is the answer to the worked example, 64.2.",
+      "c": "Wrong. A34E is from the hexadecimal conversion section.",
+      "d": "Wrong. FF4A is minus 182 from the revision telemetry question."
+    },
+    "facts": [
+      "t5-027"
+    ]
+  },
+  {
+    "id": "ift-d5-052",
+    "module": 5,
+    "slides": [
+      "Data S63"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "Quiz 3",
+    "prompt": "Quiz 3 also asks students to represent minus 82 using sign-magnitude, 1's and 2's complement.",
+    "answer": "true",
+    "explanation": "It does. The quiz has two questions and they cross both topics: one floating point, one signed integers.",
+    "why": {
+      "true": "Correct. Minus 82 in all three integer schemes is the second question.",
+      "false": "Wrong. The second question on the quiz slide asks for exactly that."
+    },
+    "facts": [
+      "t5-027"
+    ]
+  }
+]

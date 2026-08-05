@@ -1,0 +1,2782 @@
+[
+  {
+    "id": "ift-d11-058",
+    "module": 11,
+    "slides": [
+      "Mem S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why a mapping function is needed",
+    "prompt": "Why is a cache mapping function needed at all?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because there are fewer cache lines than main memory blocks"
+      },
+      {
+        "id": "b",
+        "text": "Because there are more cache lines than main memory blocks"
+      },
+      {
+        "id": "c",
+        "text": "Because blocks and lines are different sizes"
+      },
+      {
+        "id": "d",
+        "text": "Because the cache is volatile"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Far fewer lines than blocks, so some rule has to decide which blocks may occupy which lines.",
+    "why": {
+      "a": "Correct. Far fewer lines than blocks, so some rule has to decide which blocks may occupy which lines.",
+      "b": "Wrong, and if it were true no mapping would be needed at all.",
+      "c": "Wrong. A block occupies a line, so they are the same size.",
+      "d": "Wrong. Volatility has nothing to do with placement."
+    },
+    "facts": [
+      "t11m-001"
+    ]
+  },
+  {
+    "id": "ift-d11-059",
+    "module": 11,
+    "slides": [
+      "Mem S39"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why a mapping function is needed",
+    "prompt": "There are {{1}} cache lines than main memory blocks, so a mapping function is needed.",
+    "blanks": [
+      {
+        "accept": [
+          "fewer"
+        ],
+        "choices": [
+          "fewer",
+          "more",
+          "larger",
+          "faster"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Fewer. The memory deck writes it as m much less than M.",
+    "facts": [
+      "t11m-001"
+    ]
+  },
+  {
+    "id": "ift-d11-060",
+    "module": 11,
+    "slides": [
+      "Mem S39"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the three mapping techniques",
+    "prompt": "Select the three techniques for mapping blocks into cache lines.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Direct"
+      },
+      {
+        "id": "b",
+        "text": "Associative"
+      },
+      {
+        "id": "c",
+        "text": "Set associative"
+      },
+      {
+        "id": "d",
+        "text": "Sequential"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Direct, associative, set associative. Sequential is an access method, from the memory characteristics slide, not a mapping function.",
+    "why": {
+      "a": "Correct, and it is the simplest.",
+      "b": "Correct, also called fully associative.",
+      "c": "Correct, and it combines the best of the other two.",
+      "d": "Wrong. Sequential access is what magnetic tape does."
+    },
+    "facts": [
+      "t11m-002"
+    ]
+  },
+  {
+    "id": "ift-d11-061",
+    "module": 11,
+    "slides": [
+      "Mem S39"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the three mapping techniques",
+    "prompt": "{{1}} techniques can be used for mapping blocks into cache lines.",
+    "blanks": [
+      {
+        "accept": [
+          "3",
+          "Three"
+        ],
+        "choices": [
+          "3",
+          "2",
+          "4",
+          "5"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Three: direct, associative and set associative.",
+    "facts": [
+      "t11m-002"
+    ]
+  },
+  {
+    "id": "ift-d11-062",
+    "module": 11,
+    "slides": [
+      "Mem S40"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "direct mapping defined",
+    "prompt": "Direct mapping, the simplest technique, maps each block of main memory into:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Only one possible cache line"
+      },
+      {
+        "id": "b",
+        "text": "Any cache line"
+      },
+      {
+        "id": "c",
+        "text": "Any line within one set"
+      },
+      {
+        "id": "d",
+        "text": "Two possible cache lines"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Exactly one line, which is what makes it simple and what makes thrashing possible.",
+    "why": {
+      "a": "Correct. Exactly one line, which is what makes it simple and what makes thrashing possible.",
+      "b": "Wrong. That is associative mapping.",
+      "c": "Wrong. That is set associative mapping.",
+      "d": "Wrong. Two lines per block would be 2-way set associative."
+    },
+    "facts": [
+      "t11m-003"
+    ]
+  },
+  {
+    "id": "ift-d11-063",
+    "module": 11,
+    "slides": [
+      "Mem S40"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "direct mapping defined",
+    "prompt": "Direct mapping is described as the {{1}} technique.",
+    "blanks": [
+      {
+        "accept": [
+          "simplest"
+        ],
+        "choices": [
+          "simplest",
+          "fastest",
+          "newest",
+          "most flexible"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Simplest. Its advantage is that it is simple and inexpensive to implement.",
+    "facts": [
+      "t11m-003"
+    ]
+  },
+  {
+    "id": "ift-d11-064",
+    "module": 11,
+    "slides": [
+      "Mem S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the i, j, m formula",
+    "prompt": "In the direct mapping expression i equals j modulo m, what do the letters mean?",
+    "options": [
+      {
+        "id": "a",
+        "text": "i is the cache line number, j is the main memory block number, m is the number of lines in the cache"
+      },
+      {
+        "id": "b",
+        "text": "i is the block number, j is the line number, m is the number of blocks"
+      },
+      {
+        "id": "c",
+        "text": "i is the tag, j is the index, m is the offset"
+      },
+      {
+        "id": "d",
+        "text": "i is the set number, j is the line number, m is the associativity"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Line equals block mod line count. It is the same rule as the Cache deck's Cache Line equals Main Memory Block Number mod Number of Cache Addresses.",
+    "why": {
+      "a": "Correct. Line equals block mod line count.",
+      "b": "Wrong, and it swaps i and j.",
+      "c": "Wrong. Those are the address fields, not the formula's letters.",
+      "d": "Wrong. Sets belong to set associative mapping."
+    },
+    "facts": [
+      "t11m-004"
+    ]
+  },
+  {
+    "id": "ift-d11-065",
+    "module": 11,
+    "slides": [
+      "Mem S40"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the i, j, m formula",
+    "prompt": "Direct mapping is expressed as i equals j modulo m, where i is the cache {{1}} number and m is the number of {{2}} in the cache.",
+    "blanks": [
+      {
+        "accept": [
+          "line"
+        ],
+        "choices": [
+          "line",
+          "block",
+          "set",
+          "word"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "lines"
+        ],
+        "choices": [
+          "lines",
+          "blocks",
+          "sets",
+          "words"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Line, and lines. Only j refers to main memory.",
+    "facts": [
+      "t11m-004"
+    ]
+  },
+  {
+    "id": "ift-d11-066",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "checking a direct mapped cache",
+    "prompt": "To determine whether a block is in a direct mapped cache, you:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Use the line field of the memory address to index the cache line, then compare the tag from the address with the line tag"
+      },
+      {
+        "id": "b",
+        "text": "Simultaneously compare every line's tag"
+      },
+      {
+        "id": "c",
+        "text": "Search the sets in order until a match is found"
+      },
+      {
+        "id": "d",
+        "text": "Ask main memory whether the block is cached"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Index first, then compare one tag. That single comparison is why direct mapping is inexpensive.",
+    "why": {
+      "a": "Correct. Index first, then compare one tag.",
+      "b": "Wrong. Comparing every tag at once is the associative method.",
+      "c": "Wrong. Nothing is searched in order; the index goes straight to the line.",
+      "d": "Wrong. The cache answers for itself, using its tags."
+    },
+    "facts": [
+      "t11m-005"
+    ]
+  },
+  {
+    "id": "ift-d11-067",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "checking a direct mapped cache",
+    "prompt": "Use the {{1}} field of the memory address to index the cache line, then compare the tag from the address with the line tag.",
+    "blanks": [
+      {
+        "accept": [
+          "line"
+        ],
+        "choices": [
+          "line",
+          "tag",
+          "offset",
+          "block"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The line field, which the Cache deck calls the index.",
+    "facts": [
+      "t11m-005"
+    ]
+  },
+  {
+    "id": "ift-d11-068",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "a hit in a direct mapped cache",
+    "prompt": "If the tag from the address matches the line tag, what follows?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A cache hit, and the corresponding word is retrieved from the indexed line"
+      },
+      {
+        "id": "b",
+        "text": "A cache miss, and the line is updated"
+      },
+      {
+        "id": "c",
+        "text": "The next line is checked"
+      },
+      {
+        "id": "d",
+        "text": "The cache is flushed"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A hit, and the word comes from the line the index already selected.",
+    "why": {
+      "a": "Correct. A hit, and the word comes from the line the index already selected.",
+      "b": "Wrong. That happens when the tags do not match.",
+      "c": "Wrong. In direct mapping there is only one line to check.",
+      "d": "Wrong. Flushing belongs to virtual caches at a context switch."
+    },
+    "facts": [
+      "t11m-006"
+    ]
+  },
+  {
+    "id": "ift-d11-069",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "a hit in a direct mapped cache",
+    "prompt": "In a direct mapped cache, only one line ever has to be checked for a given address.",
+    "answer": "true",
+    "explanation": "One only, because the index picks it out. That is the difference from associative mapping, which has to examine every line's tag.",
+    "why": {
+      "true": "Correct. The line field selects the single candidate line.",
+      "false": "Wrong. A block can only ever be in one line, so there is nowhere else to look."
+    },
+    "facts": [
+      "t11m-006"
+    ]
+  },
+  {
+    "id": "ift-d11-070",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "a miss in a direct mapped cache",
+    "prompt": "If the tags do not match, what happens?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A cache miss, and the indexed cache line is updated with the word and the tag"
+      },
+      {
+        "id": "b",
+        "text": "A cache hit, and the word is delivered"
+      },
+      {
+        "id": "c",
+        "text": "Another line is chosen to hold the block"
+      },
+      {
+        "id": "d",
+        "text": "The address is discarded"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A miss, and the line is overwritten with the new word and its tag. There is no choice of line: the index already fixed it.",
+    "why": {
+      "a": "Correct. A miss, and the line is overwritten with the new word and its tag.",
+      "b": "Wrong. A hit needs the tags to match.",
+      "c": "Wrong. Choosing a line is what associative mapping has to do.",
+      "d": "Wrong. The access still has to be served."
+    },
+    "facts": [
+      "t11m-007"
+    ]
+  },
+  {
+    "id": "ift-d11-071",
+    "module": 11,
+    "slides": [
+      "Mem S43"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "a miss in a direct mapped cache",
+    "prompt": "If both do not match, then it is a cache {{1}}, and the cache line is updated with the word and the {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "miss"
+        ],
+        "choices": [
+          "miss",
+          "hit",
+          "stall",
+          "flush"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "tag"
+        ],
+        "choices": [
+          "tag",
+          "index",
+          "offset",
+          "address"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A miss, and both the word and the tag are written. Without the new tag the line would claim to hold the wrong block.",
+    "facts": [
+      "t11m-007"
+    ]
+  },
+  {
+    "id": "ift-d11-072",
+    "module": 11,
+    "slides": [
+      "Mem S44"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the advantage of direct mapping",
+    "prompt": "The advantage of direct mapping is that it is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Simple and inexpensive to implement"
+      },
+      {
+        "id": "b",
+        "text": "Free of thrashing"
+      },
+      {
+        "id": "c",
+        "text": "Able to place any block anywhere"
+      },
+      {
+        "id": "d",
+        "text": "The fastest at high hit rates"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Simple and inexpensive. Only one tag comparison is ever needed.",
+    "why": {
+      "a": "Correct. Simple and inexpensive.",
+      "b": "Wrong, and thrashing is precisely its disadvantage.",
+      "c": "Wrong. That freedom belongs to associative mapping.",
+      "d": "Wrong. No such claim is made."
+    },
+    "facts": [
+      "t11m-008"
+    ]
+  },
+  {
+    "id": "ift-d11-073",
+    "module": 11,
+    "slides": [
+      "Mem S44"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the advantage of direct mapping",
+    "prompt": "Direct mapping is simple and {{1}} to implement.",
+    "blanks": [
+      {
+        "accept": [
+          "inexpensive"
+        ],
+        "choices": [
+          "inexpensive",
+          "expensive",
+          "slow",
+          "flexible"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Inexpensive. Fully associative mapping is the costly one, since every tag must be compared at once.",
+    "facts": [
+      "t11m-008"
+    ]
+  },
+  {
+    "id": "ift-d11-074",
+    "module": 11,
+    "slides": [
+      "Mem S44"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "thrashing",
+    "prompt": "What is thrashing, in the direct mapping disadvantage?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Two blocks that map to the same line being continually swapped, so the hit ratio is low"
+      },
+      {
+        "id": "b",
+        "text": "The cache being flushed at every context switch"
+      },
+      {
+        "id": "c",
+        "text": "The pipeline stalling on a data hazard"
+      },
+      {
+        "id": "d",
+        "text": "A block being written to two lines at once"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Repeated references to two different blocks that map into the same line evict each other in turn, so neither is ever there when wanted.",
+    "why": {
+      "a": "Correct, and the deck names the effect thrashing.",
+      "b": "Wrong. That is the virtual cache problem.",
+      "c": "Wrong. Stalling belongs to the pipelining topic.",
+      "d": "Wrong. A block occupies one line at a time."
+    },
+    "facts": [
+      "t11m-009"
+    ]
+  },
+  {
+    "id": "ift-d11-075",
+    "module": 11,
+    "slides": [
+      "Mem S44"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "thrashing",
+    "prompt": "The disadvantage of direct mapping is that there is a {{1}} cache location for any given block, so two blocks mapping to the same line are continually swapped and the {{2}} ratio is low.",
+    "blanks": [
+      {
+        "accept": [
+          "fixed"
+        ],
+        "choices": [
+          "fixed",
+          "random",
+          "shared",
+          "temporary"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "hit"
+        ],
+        "choices": [
+          "hit",
+          "miss",
+          "swap",
+          "tag"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A fixed location, and a low hit ratio. Set associative mapping was invented to address exactly this.",
+    "facts": [
+      "t11m-009"
+    ]
+  },
+  {
+    "id": "ift-d11-076",
+    "module": 11,
+    "slides": [
+      "Mem S45"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the memory deck worked example",
+    "prompt": "The memory deck's worked direct mapping example uses which figures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cache 16 KB, block 256 bytes, main memory 128 KB"
+      },
+      {
+        "id": "b",
+        "text": "Cache 1 KB, block 16 bytes, main memory 64 KB"
+      },
+      {
+        "id": "c",
+        "text": "Cache 4 KB, block 32 bytes, main memory 128 KB"
+      },
+      {
+        "id": "d",
+        "text": "Cache 8 KB, block 64 bytes, main memory 1 MB"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 KB, 256 bytes, 128 KB. The same three figures are then reused for the associative and 2-way set associative worked examples, so all three can be compared.",
+    "why": {
+      "a": "Correct. 16 KB, 256 bytes, 128 KB.",
+      "b": "Wrong. Those are the Cache deck's Example 1 figures.",
+      "c": "Wrong. Those are the Cache deck's direct mapping Example 2 figures.",
+      "d": "Wrong. Those are the Cache deck's direct mapping Example 3 figures."
+    },
+    "facts": [
+      "t11m-010"
+    ]
+  },
+  {
+    "id": "ift-d11-077",
+    "module": 11,
+    "slides": [
+      "Mem S45"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the memory deck worked example",
+    "prompt": "The memory deck's worked example asks for the number of bits in the tag and the {{1}} directory size.",
+    "blanks": [
+      {
+        "accept": [
+          "tag"
+        ],
+        "choices": [
+          "tag",
+          "line",
+          "block",
+          "set"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The tag directory size. Both worked examples in that deck ask for the same two quantities.",
+    "facts": [
+      "t11m-010"
+    ]
+  },
+  {
+    "id": "ift-d11-078",
+    "module": 11,
+    "slides": [
+      "Mem S45"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "block, frame and line",
+    "prompt": "In the worked cache examples, block size, frame size and line size all mean the same thing.",
+    "answer": "true",
+    "explanation": "The deck writes Block size equals Frame size equals Line size on the given line of every worked example, so the three words are interchangeable here.",
+    "why": {
+      "true": "Correct. All three name the same quantity.",
+      "false": "Wrong. The deck equates them explicitly in the Given of each example."
+    },
+    "facts": [
+      "t11m-011"
+    ]
+  },
+  {
+    "id": "ift-d11-079",
+    "module": 11,
+    "slides": [
+      "Mem S46"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the physical address width",
+    "prompt": "With a main memory of 128 KB and byte addressable memory, how wide is the physical address?",
+    "options": [
+      {
+        "id": "a",
+        "text": "17 bits"
+      },
+      {
+        "id": "b",
+        "text": "16 bits"
+      },
+      {
+        "id": "c",
+        "text": "18 bits"
+      },
+      {
+        "id": "d",
+        "text": "14 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "128 KB is 2 to the power 17 bytes, so 17 bits. The assumption of byte addressability is stated explicitly and matters.",
+    "why": {
+      "a": "Correct. 128 KB is 2 to the power 17 bytes, so 17 bits.",
+      "b": "Wrong. 16 bits is 64 KB.",
+      "c": "Wrong. 18 bits is 256 KB.",
+      "d": "Wrong. 14 bits is 16 KB, which is the cache size here, not the memory."
+    },
+    "facts": [
+      "t11m-012"
+    ]
+  },
+  {
+    "id": "ift-d11-080",
+    "module": 11,
+    "slides": [
+      "Mem S46"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the physical address width",
+    "prompt": "In the worked examples the memory is taken to be {{1}} addressable.",
+    "blanks": [
+      {
+        "accept": [
+          "byte"
+        ],
+        "choices": [
+          "byte",
+          "word",
+          "block",
+          "bit"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Byte addressable. Without that assumption the address width could not be read off the size in bytes.",
+    "facts": [
+      "t11m-012"
+    ]
+  },
+  {
+    "id": "ift-d11-081",
+    "module": 11,
+    "slides": [
+      "Mem S46"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the block offset width",
+    "prompt": "With a block size of 256 bytes, how many bits are in the block offset?",
+    "options": [
+      {
+        "id": "a",
+        "text": "8"
+      },
+      {
+        "id": "b",
+        "text": "4"
+      },
+      {
+        "id": "c",
+        "text": "256"
+      },
+      {
+        "id": "d",
+        "text": "6"
+      }
+    ],
+    "answer": "a",
+    "explanation": "256 bytes is 2 to the power 8, so 8 offset bits.",
+    "why": {
+      "a": "Correct. 256 bytes is 2 to the power 8, so 8 offset bits.",
+      "b": "Wrong. 4 bits indexes 16 bytes, the Cache deck's block size.",
+      "c": "Wrong. 256 is the size in bytes, not the bit count.",
+      "d": "Wrong. 6 bits indexes 64 bytes."
+    },
+    "facts": [
+      "t11m-013"
+    ]
+  },
+  {
+    "id": "ift-d11-082",
+    "module": 11,
+    "slides": [
+      "Mem S46"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the block offset width",
+    "prompt": "A block size of 256 bytes is 2 to the power {{1}} bytes, so the block offset is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "4",
+          "6",
+          "16"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "4",
+          "6",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 8, so 8 bits. The exponent is always the bit count.",
+    "facts": [
+      "t11m-013"
+    ]
+  },
+  {
+    "id": "ift-d11-083",
+    "module": 11,
+    "slides": [
+      "Mem S47"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the line number width",
+    "prompt": "With a 16 KB cache and a 256 byte line, how many lines are there and how wide is the line number?",
+    "options": [
+      {
+        "id": "a",
+        "text": "2 to the power 6 lines, so 6 bits"
+      },
+      {
+        "id": "b",
+        "text": "2 to the power 8 lines, so 8 bits"
+      },
+      {
+        "id": "c",
+        "text": "2 to the power 14 lines, so 14 bits"
+      },
+      {
+        "id": "d",
+        "text": "2 to the power 5 lines, so 5 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "2 to the 14 over 2 to the 8 is 2 to the 6, that is 64 lines, so the line number is 6 bits.",
+    "why": {
+      "a": "Correct. 2 to the 14 over 2 to the 8 is 2 to the 6, that is 64 lines, so the line number is 6 bits.",
+      "b": "Wrong. 8 is the offset width, from the block size.",
+      "c": "Wrong. 14 is the cache size exponent, before the block size is divided out.",
+      "d": "Wrong. 5 bits is the set number in the 2-way example."
+    },
+    "facts": [
+      "t11m-014"
+    ]
+  },
+  {
+    "id": "ift-d11-084",
+    "module": 11,
+    "slides": [
+      "Mem S47"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the line number width",
+    "prompt": "Total lines equals cache size over line size, so 2 to the 14 over 2 to the 8 is 2 to the power {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "8",
+          "14",
+          "22"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 6. Dividing powers subtracts the exponents, which is the quickest way through all of these examples.",
+    "facts": [
+      "t11m-014"
+    ]
+  },
+  {
+    "id": "ift-d11-085",
+    "module": 11,
+    "slides": [
+      "Mem S48"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag width in the worked example",
+    "prompt": "In the memory deck's direct mapping worked example, what is the number of tag bits?",
+    "options": [
+      {
+        "id": "a",
+        "text": "3"
+      },
+      {
+        "id": "b",
+        "text": "6"
+      },
+      {
+        "id": "c",
+        "text": "9"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "17 minus 6 plus 8, that is 17 minus 14, giving 3 bits. It is a very small tag, because the cache is large relative to the memory.",
+    "why": {
+      "a": "Correct. 17 minus 6 plus 8, that is 17 minus 14, giving 3 bits.",
+      "b": "Wrong. 6 is the line number width.",
+      "c": "Wrong. 9 is the tag in the fully associative version of the same example.",
+      "d": "Wrong. 8 is the block offset."
+    },
+    "facts": [
+      "t11m-015"
+    ]
+  },
+  {
+    "id": "ift-d11-086",
+    "module": 11,
+    "slides": [
+      "Mem S48"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag width in the worked example",
+    "prompt": "The tag is 17 minus the sum of 6 and 8, that is 17 minus {{1}}, giving {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "14"
+        ],
+        "choices": [
+          "14",
+          "6",
+          "8",
+          "3"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "3",
+          "three"
+        ],
+        "choices": [
+          "3",
+          "6",
+          "8",
+          "9"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "17 minus 14 is 3. Adding the three fields back gives 17, which is the check.",
+    "facts": [
+      "t11m-015"
+    ]
+  },
+  {
+    "id": "ift-d11-087",
+    "module": 11,
+    "slides": [
+      "Mem S49"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag directory in the worked example",
+    "prompt": "With 2 to the power 6 lines and a 3-bit tag, what is the tag directory size?",
+    "options": [
+      {
+        "id": "a",
+        "text": "192 bits, that is 24 bytes"
+      },
+      {
+        "id": "b",
+        "text": "384 bits, that is 48 bytes"
+      },
+      {
+        "id": "c",
+        "text": "576 bits, that is 72 bytes"
+      },
+      {
+        "id": "d",
+        "text": "64 bits, that is 8 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 times 3 is 192 bits, which is 24 bytes.",
+    "why": {
+      "a": "Correct. 64 times 3 is 192 bits, which is 24 bytes.",
+      "b": "Wrong. 384 bits is the Cache deck's Example 1, with a 6-bit tag.",
+      "c": "Wrong. 576 bits is the fully associative version of this same example, with a 9-bit tag.",
+      "d": "Wrong. That forgets to multiply by the tag width."
+    },
+    "facts": [
+      "t11m-016"
+    ]
+  },
+  {
+    "id": "ift-d11-088",
+    "module": 11,
+    "slides": [
+      "Mem S49"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag directory in the worked example",
+    "prompt": "Tag directory size is the number of tags times the tag size, giving 192 bits, that is {{1}} bytes.",
+    "blanks": [
+      {
+        "accept": [
+          "24"
+        ],
+        "choices": [
+          "24",
+          "48",
+          "72",
+          "8"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "24 bytes, from 192 over 8.",
+    "facts": [
+      "t11m-016"
+    ]
+  },
+  {
+    "id": "ift-d11-089",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what associative mapping fixes",
+    "prompt": "Associative mapping overcomes the disadvantage of direct mapping by:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Permitting each main memory block to be loaded into any line of the cache"
+      },
+      {
+        "id": "b",
+        "text": "Making the cache larger"
+      },
+      {
+        "id": "c",
+        "text": "Making the block size smaller"
+      },
+      {
+        "id": "d",
+        "text": "Grouping lines into sets"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Any line, so two hot blocks need never collide. Grouping lines into sets is the set associative compromise, not this one.",
+    "why": {
+      "a": "Correct. Any line, so two hot blocks need never collide.",
+      "b": "Wrong. Size is not the mechanism.",
+      "c": "Wrong. Block size does not address the collision problem.",
+      "d": "Wrong. That is set associative mapping."
+    },
+    "facts": [
+      "t11m-017"
+    ]
+  },
+  {
+    "id": "ift-d11-090",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what associative mapping fixes",
+    "prompt": "Associative mapping permits each main memory block to be loaded into {{1}} line of the cache.",
+    "blanks": [
+      {
+        "accept": [
+          "any"
+        ],
+        "choices": [
+          "any",
+          "one",
+          "every",
+          "the first free"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Any line. Direct mapping allows exactly one.",
+    "facts": [
+      "t11m-017"
+    ]
+  },
+  {
+    "id": "ift-d11-091",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "how associative mapping reads an address",
+    "prompt": "In associative mapping, the cache control logic interprets a memory address simply as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "A Tag and a Word field"
+      },
+      {
+        "id": "b",
+        "text": "A Tag, an Index and a Word field"
+      },
+      {
+        "id": "c",
+        "text": "A Tag and a Set field"
+      },
+      {
+        "id": "d",
+        "text": "An Opcode and an Address field"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Tag and Word, which the Cache deck calls Tag and Offset. Two fields, because there is no line to select.",
+    "why": {
+      "a": "Correct. Tag and Word, which the Cache deck calls Tag and Offset.",
+      "b": "Wrong. An index is what associative mapping does without.",
+      "c": "Wrong. A set field belongs to set associative mapping.",
+      "d": "Wrong. That is an instruction format."
+    },
+    "facts": [
+      "t11m-018"
+    ]
+  },
+  {
+    "id": "ift-d11-092",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how associative mapping reads an address",
+    "prompt": "In associative mapping the Tag field {{1}} identifies a block of main memory.",
+    "blanks": [
+      {
+        "accept": [
+          "uniquely"
+        ],
+        "choices": [
+          "uniquely",
+          "partly",
+          "loosely",
+          "temporarily"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Uniquely. With no index to narrow the search, the tag alone has to name the block.",
+    "facts": [
+      "t11m-018"
+    ]
+  },
+  {
+    "id": "ift-d11-093",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the cost of associative mapping",
+    "prompt": "To determine whether a block is in a fully associative cache, the cache control logic must:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Simultaneously examine every line's tag for a match"
+      },
+      {
+        "id": "b",
+        "text": "Examine one line's tag"
+      },
+      {
+        "id": "c",
+        "text": "Examine the tags of one set"
+      },
+      {
+        "id": "d",
+        "text": "Ask main memory"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Every tag at once. That is expensive in hardware, and it is the price of placement freedom.",
+    "why": {
+      "a": "Correct, and simultaneously is the deck's word.",
+      "b": "Wrong. One line is enough only in direct mapping.",
+      "c": "Wrong. Searching one set is the set associative method.",
+      "d": "Wrong. The cache decides for itself."
+    },
+    "facts": [
+      "t11m-019"
+    ]
+  },
+  {
+    "id": "ift-d11-094",
+    "module": 11,
+    "slides": [
+      "Mem S50"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the cost of associative mapping",
+    "prompt": "A fully associative cache can find a block by checking a single line, as a direct mapped cache does.",
+    "answer": "false",
+    "explanation": "It must examine every line's tag simultaneously, because the block could be anywhere. That is the hardware cost of full associativity.",
+    "why": {
+      "true": "Wrong. With no index there is nothing to say which line to check.",
+      "false": "Correct. Every line's tag has to be compared at once."
+    },
+    "facts": [
+      "t11m-019"
+    ]
+  },
+  {
+    "id": "ift-d11-095",
+    "module": 11,
+    "slides": [
+      "Mem S52"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the s and w fields",
+    "prompt": "In associative mapping the address splits into a Tag of s bits and a Word field of w bits. What does each identify?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The Tag uniquely identifies a block of main memory, and the Word uniquely identifies a word within a block"
+      },
+      {
+        "id": "b",
+        "text": "The Tag identifies a word, and the Word identifies a block"
+      },
+      {
+        "id": "c",
+        "text": "The Tag identifies a line, and the Word identifies a set"
+      },
+      {
+        "id": "d",
+        "text": "Both identify blocks"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Tag names the block, Word names the position inside it. The Word field is the same thing the Cache deck calls the offset.",
+    "why": {
+      "a": "Correct. Tag names the block, Word names the position inside it.",
+      "b": "Wrong, and reversed.",
+      "c": "Wrong. Lines and sets do not appear in the fully associative address.",
+      "d": "Wrong. Only the tag identifies a block."
+    },
+    "facts": [
+      "t11m-020"
+    ]
+  },
+  {
+    "id": "ift-d11-096",
+    "module": 11,
+    "slides": [
+      "Mem S52"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the s and w fields",
+    "prompt": "The Tag is {{1}} bits and the Word is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "s"
+        ],
+        "choices": [
+          "s",
+          "w",
+          "n",
+          "m"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "w"
+        ],
+        "choices": [
+          "w",
+          "s",
+          "n",
+          "k"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "s for the tag, w for the word. Together they make up the whole address.",
+    "facts": [
+      "t11m-020"
+    ]
+  },
+  {
+    "id": "ift-d11-097",
+    "module": 11,
+    "slides": [
+      "Mem S53"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "a hit in an associative cache",
+    "prompt": "If a match exists in the simultaneous tag comparison, what happens?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A cache hit: the tag field is used to index the cache line and the word is retrieved"
+      },
+      {
+        "id": "b",
+        "text": "A cache miss: a line is chosen and updated"
+      },
+      {
+        "id": "c",
+        "text": "The set is searched in order"
+      },
+      {
+        "id": "d",
+        "text": "The block is fetched from main memory anyway"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A hit, and the matching tag identifies which line to read from.",
+    "why": {
+      "a": "Correct. A hit, and the matching tag identifies which line to read from.",
+      "b": "Wrong. That is what happens when no match exists.",
+      "c": "Wrong. All tags are compared at once, not in order.",
+      "d": "Wrong. A hit is served from the cache."
+    },
+    "facts": [
+      "t11m-021"
+    ]
+  },
+  {
+    "id": "ift-d11-098",
+    "module": 11,
+    "slides": [
+      "Mem S53"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "a hit in an associative cache",
+    "prompt": "If a match exists it is a cache {{1}}, and the tag field of the memory address is used to index the cache line.",
+    "blanks": [
+      {
+        "accept": [
+          "hit"
+        ],
+        "choices": [
+          "hit",
+          "miss",
+          "fault",
+          "stall"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A hit. Note that here the TAG does the indexing, since there is no index field of its own.",
+    "facts": [
+      "t11m-021"
+    ]
+  },
+  {
+    "id": "ift-d11-099",
+    "module": 11,
+    "slides": [
+      "Mem S53"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "a miss in an associative cache",
+    "prompt": "If no match exists in a fully associative cache, what extra problem arises that direct mapping does not have?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A cache line has to be chosen, since the block could go in any of them"
+      },
+      {
+        "id": "b",
+        "text": "The tag has to be recomputed"
+      },
+      {
+        "id": "c",
+        "text": "The block offset has to be widened"
+      },
+      {
+        "id": "d",
+        "text": "The whole cache must be flushed"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Choosing a victim line, which the deck marks with its own question, How? In direct mapping the index has already decided.",
+    "why": {
+      "a": "Correct, and it is why replacement policies exist.",
+      "b": "Wrong. The tag comes from the address.",
+      "c": "Wrong. Field widths are fixed by the design.",
+      "d": "Wrong. Only one line is replaced."
+    },
+    "facts": [
+      "t11m-022"
+    ]
+  },
+  {
+    "id": "ift-d11-100",
+    "module": 11,
+    "slides": [
+      "Mem S53"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "a miss in an associative cache",
+    "prompt": "If a match does not exist it is a cache miss: choose a cache line, then update it with the word and the {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "tag"
+        ],
+        "choices": [
+          "tag",
+          "index",
+          "offset",
+          "set"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The tag, exactly as in the direct mapped case. What differs is that here the line had to be chosen first.",
+    "facts": [
+      "t11m-022"
+    ]
+  },
+  {
+    "id": "ift-d11-101",
+    "module": 11,
+    "slides": [
+      "Mem S54"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative worked example",
+    "prompt": "Worked associative Example 1 uses which configuration?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A fully associative cache of 16 KB, block 256 bytes, main memory 128 KB"
+      },
+      {
+        "id": "b",
+        "text": "A direct mapped cache of 16 KB, block 256 bytes, main memory 128 KB"
+      },
+      {
+        "id": "c",
+        "text": "A fully associative cache of 4 KB, block 32 bytes, main memory 256 KB"
+      },
+      {
+        "id": "d",
+        "text": "A 2-way cache of 16 KB, block 256 bytes, main memory 128 KB"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same figures as the direct mapping worked example, but fully associative. Holding the numbers fixed is what makes the comparison instructive: a 3-bit tag becomes a 9-bit one.",
+    "why": {
+      "a": "Correct. The same figures as the direct mapping worked example, but fully associative.",
+      "b": "Wrong. Those are the same numbers but the earlier, direct mapped example.",
+      "c": "Wrong. Those are Cache deck figures.",
+      "d": "Wrong. The 2-way version of these numbers is the set associative worked example."
+    },
+    "facts": [
+      "t11m-023"
+    ]
+  },
+  {
+    "id": "ift-d11-102",
+    "module": 11,
+    "slides": [
+      "Mem S54"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative worked example",
+    "prompt": "Worked associative Example 1 considers a fully associative mapped cache of size {{1}} KB.",
+    "blanks": [
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "4",
+          "8",
+          "32"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "16 KB, with a 256 byte block and 128 KB of main memory.",
+    "facts": [
+      "t11m-023"
+    ]
+  },
+  {
+    "id": "ift-d11-103",
+    "module": 11,
+    "slides": [
+      "Mem S55"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative example address",
+    "prompt": "In worked associative Example 1, what is the physical address width?",
+    "options": [
+      {
+        "id": "a",
+        "text": "17 bits, because 128 KB is 2 to the power 17 bytes"
+      },
+      {
+        "id": "b",
+        "text": "14 bits, because 16 KB is 2 to the power 14 bytes"
+      },
+      {
+        "id": "c",
+        "text": "8 bits, because the block is 256 bytes"
+      },
+      {
+        "id": "d",
+        "text": "34 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The address width always comes from the main memory size, never from the cache size.",
+    "why": {
+      "a": "Correct. The address width always comes from the main memory size, never from the cache size.",
+      "b": "Wrong. 14 bits is the cache size exponent, which sets the line count, not the address.",
+      "c": "Wrong. 8 bits is the block offset.",
+      "d": "Wrong. 34 bits is associative Example 2, whose memory is 16 GB."
+    },
+    "facts": [
+      "t11m-024"
+    ]
+  },
+  {
+    "id": "ift-d11-104",
+    "module": 11,
+    "slides": [
+      "Mem S55"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative example address",
+    "prompt": "128 KB is 2 to the power {{1}} bytes.",
+    "blanks": [
+      {
+        "accept": [
+          "17"
+        ],
+        "choices": [
+          "17",
+          "16",
+          "18",
+          "14"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 17, since 128 is 2 to the 7 and a KB is 2 to the 10.",
+    "facts": [
+      "t11m-024"
+    ]
+  },
+  {
+    "id": "ift-d11-105",
+    "module": 11,
+    "slides": [
+      "Mem S56"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag formula",
+    "prompt": "In fully associative mapping the number of tag bits is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Physical address bits minus block offset bits, so 17 minus 8, which is 9"
+      },
+      {
+        "id": "b",
+        "text": "Physical address bits minus line number bits, so 17 minus 6, which is 11"
+      },
+      {
+        "id": "c",
+        "text": "17 minus 6 minus 8, which is 3"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Only the offset is subtracted, giving 9 bits against the 3 bits of the direct mapped version of the same machine.",
+    "why": {
+      "a": "Correct. Only the offset is subtracted, giving 9 bits against the 3 bits of the direct mapped version of the same machine.",
+      "b": "Wrong. There is no line number field to subtract in a fully associative cache.",
+      "c": "Wrong. That is the direct mapped calculation.",
+      "d": "Wrong. 8 is the offset."
+    },
+    "facts": [
+      "t11m-025"
+    ]
+  },
+  {
+    "id": "ift-d11-106",
+    "module": 11,
+    "slides": [
+      "Mem S56"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag formula",
+    "prompt": "The tag is 17 minus 8, giving {{1}} bits, which is {{2}} bits more than the direct mapped tag for the same machine.",
+    "blanks": [
+      {
+        "accept": [
+          "9",
+          "nine"
+        ],
+        "choices": [
+          "9",
+          "3",
+          "11",
+          "6"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "3",
+          "9",
+          "8"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "9 bits, which is 6 more than 3. Those 6 bits are exactly the line number field that full associativity gives up.",
+    "facts": [
+      "t11m-025"
+    ]
+  },
+  {
+    "id": "ift-d11-107",
+    "module": 11,
+    "slides": [
+      "Mem S56"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "lines in the associative example",
+    "prompt": "In worked associative Example 1, how many lines are in the cache?",
+    "options": [
+      {
+        "id": "a",
+        "text": "2 to the power 6, that is 64"
+      },
+      {
+        "id": "b",
+        "text": "2 to the power 8, that is 256"
+      },
+      {
+        "id": "c",
+        "text": "2 to the power 14"
+      },
+      {
+        "id": "d",
+        "text": "2 to the power 9"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 KB over 256 bytes is 2 to the 14 over 2 to the 8, which is 2 to the 6. The line count does not depend on the mapping function.",
+    "why": {
+      "a": "Correct. 16 KB over 256 bytes is 2 to the 14 over 2 to the 8, which is 2 to the 6.",
+      "b": "Wrong. 2 to the 8 is the block size in bytes.",
+      "c": "Wrong. That is the cache size in bytes.",
+      "d": "Wrong. 9 is the tag width."
+    },
+    "facts": [
+      "t11m-026"
+    ]
+  },
+  {
+    "id": "ift-d11-108",
+    "module": 11,
+    "slides": [
+      "Mem S56"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "lines in the associative example",
+    "prompt": "Total lines equals cache size over line size, so 16 KB over 256 bytes gives 2 to the power {{1}} lines.",
+    "blanks": [
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "8",
+          "14",
+          "9"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 6, that is 64 lines, the same as in the direct mapped version.",
+    "facts": [
+      "t11m-026"
+    ]
+  },
+  {
+    "id": "ift-d11-109",
+    "module": 11,
+    "slides": [
+      "Mem S57"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative tag directory",
+    "prompt": "In worked associative Example 1, what is the tag directory size?",
+    "options": [
+      {
+        "id": "a",
+        "text": "576 bits, that is 72 bytes"
+      },
+      {
+        "id": "b",
+        "text": "192 bits, that is 24 bytes"
+      },
+      {
+        "id": "c",
+        "text": "768 bits, that is 96 bytes"
+      },
+      {
+        "id": "d",
+        "text": "448 bits, that is 56 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "2 to the 6 times 9 bits is 576 bits, which is 72 bytes. Compare it with 192 bits for the direct mapped version of the very same machine.",
+    "why": {
+      "a": "Correct. 2 to the 6 times 9 bits is 576 bits, which is 72 bytes.",
+      "b": "Wrong. 192 bits is the direct mapped answer, with a 3-bit tag.",
+      "c": "Wrong. 768 bits belongs to the Cache deck's fully associative Example 1.",
+      "d": "Wrong. 448 bits belongs to the Cache deck's 2-way example."
+    },
+    "facts": [
+      "t11m-027"
+    ]
+  },
+  {
+    "id": "ift-d11-110",
+    "module": 11,
+    "slides": [
+      "Mem S57"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the associative tag directory",
+    "prompt": "The tag directory is 2 to the 6 times 9 bits, which is 576 bits, that is {{1}} bytes.",
+    "blanks": [
+      {
+        "accept": [
+          "72"
+        ],
+        "choices": [
+          "72",
+          "24",
+          "96",
+          "56"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "72 bytes, three times the direct mapped figure for the same cache, because the tag is three times as wide.",
+    "facts": [
+      "t11m-027"
+    ]
+  },
+  {
+    "id": "ift-d11-111",
+    "module": 11,
+    "slides": [
+      "Mem S58"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "associative example 2",
+    "prompt": "Worked associative Example 2 has a block size of 4 KB and a main memory of 16 GB. How many bits is 16 GB?",
+    "options": [
+      {
+        "id": "a",
+        "text": "2 to the power 34 bytes, so 34 address bits"
+      },
+      {
+        "id": "b",
+        "text": "2 to the power 32 bytes, so 32 address bits"
+      },
+      {
+        "id": "c",
+        "text": "2 to the power 30 bytes, so 30 address bits"
+      },
+      {
+        "id": "d",
+        "text": "2 to the power 24 bytes, so 24 address bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 is 2 to the 4 and a GB is 2 to the 30, so 16 GB is 2 to the 34 bytes.",
+    "why": {
+      "a": "Correct. 16 is 2 to the 4 and a GB is 2 to the 30, so 16 GB is 2 to the 34 bytes.",
+      "b": "Wrong. 2 to the 32 is 4 GB.",
+      "c": "Wrong. 2 to the 30 is 1 GB.",
+      "d": "Wrong. 2 to the 24 is 16 MB."
+    },
+    "facts": [
+      "t11m-028"
+    ]
+  },
+  {
+    "id": "ift-d11-112",
+    "module": 11,
+    "slides": [
+      "Mem S58"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "associative example 2",
+    "prompt": "In worked associative Example 2 the block size is {{1}} KB.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "16",
+          "256",
+          "8"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "4 KB, which is 2 to the power 12 bytes, so the block offset is 12 bits.",
+    "facts": [
+      "t11m-028"
+    ]
+  },
+  {
+    "id": "ift-d11-113",
+    "module": 11,
+    "slides": [
+      "Mem S59"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag in associative example 2",
+    "prompt": "In worked associative Example 2, what is the number of tag bits?",
+    "options": [
+      {
+        "id": "a",
+        "text": "22"
+      },
+      {
+        "id": "b",
+        "text": "34"
+      },
+      {
+        "id": "c",
+        "text": "12"
+      },
+      {
+        "id": "d",
+        "text": "9"
+      }
+    ],
+    "answer": "a",
+    "explanation": "34 minus 12 is 22 bits. The physical address is 34 bits and the 4 KB block gives a 12-bit offset.",
+    "why": {
+      "a": "Correct. 34 minus 12 is 22 bits.",
+      "b": "Wrong. 34 is the whole address.",
+      "c": "Wrong. 12 is the block offset.",
+      "d": "Wrong. 9 is the tag in Example 1."
+    },
+    "facts": [
+      "t11m-029"
+    ]
+  },
+  {
+    "id": "ift-d11-114",
+    "module": 11,
+    "slides": [
+      "Mem S59"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag in associative example 2",
+    "prompt": "In associative Example 2 the block offset is {{1}} bits and the tag is 34 minus that, which is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "12"
+        ],
+        "choices": [
+          "12",
+          "8",
+          "22",
+          "10"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "22"
+        ],
+        "choices": [
+          "22",
+          "26",
+          "12",
+          "9"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "12 and 22. In fully associative mapping the tag is always the address minus the offset, nothing else.",
+    "facts": [
+      "t11m-029"
+    ]
+  },
+  {
+    "id": "ift-d11-115",
+    "module": 11,
+    "slides": [
+      "Mem S60"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the repeated solution slide",
+    "prompt": "The solution to associative Example 2 appears twice in the memory deck, both times giving a 34-bit address, a 12-bit block offset and a 22-bit tag.",
+    "answer": "true",
+    "explanation": "Slides 59 and 60 carry the same working. Repetition in a lecture deck is usually a signal about what will be asked.",
+    "why": {
+      "true": "Correct. The slide is duplicated with identical figures.",
+      "false": "Wrong. The same three lines appear on both slides."
+    },
+    "facts": [
+      "t11m-030"
+    ]
+  },
+  {
+    "id": "ift-d11-116",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what set associative mapping is",
+    "prompt": "Set associative mapping is described as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "An enhanced form of direct mapping in which the drawbacks of direct mapping are removed"
+      },
+      {
+        "id": "b",
+        "text": "An enhanced form of associative mapping"
+      },
+      {
+        "id": "c",
+        "text": "A form of sequential access"
+      },
+      {
+        "id": "d",
+        "text": "The same as direct mapping with a larger cache"
+      }
+    ],
+    "answer": "a",
+    "explanation": "An enhanced direct mapping, and specifically one that addresses the problem of possible thrashing.",
+    "why": {
+      "a": "Correct. An enhanced direct mapping, and specifically one that addresses the problem of possible thrashing.",
+      "b": "Wrong. The deck derives it from direct mapping, not from associative.",
+      "c": "Wrong. Sequential access is an access method for tape.",
+      "d": "Wrong. Enlarging the cache would not remove the fixed-location drawback."
+    },
+    "facts": [
+      "t11m-031"
+    ]
+  },
+  {
+    "id": "ift-d11-117",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "what set associative mapping is",
+    "prompt": "Set associative mapping addresses the problem of possible {{1}} in the direct mapping method.",
+    "blanks": [
+      {
+        "accept": [
+          "thrashing"
+        ],
+        "choices": [
+          "thrashing",
+          "flushing",
+          "stalling",
+          "overflow"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Thrashing, the continual swapping of two blocks that map to the same line.",
+    "facts": [
+      "t11m-031"
+    ]
+  },
+  {
+    "id": "ift-d11-118",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how sets work",
+    "prompt": "How does set associative mapping change the placement rule?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A few lines are grouped into a set, and a block in memory can map to any one of the lines of a specific set"
+      },
+      {
+        "id": "b",
+        "text": "A block can map to any line in the cache"
+      },
+      {
+        "id": "c",
+        "text": "A block can map to exactly one line"
+      },
+      {
+        "id": "d",
+        "text": "Blocks are placed in the least recently used line of the whole cache"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Any line within one set. It is the midpoint between one line, which is direct, and every line, which is fully associative.",
+    "why": {
+      "a": "Correct. Any line within one set.",
+      "b": "Wrong. That is fully associative mapping.",
+      "c": "Wrong. That is direct mapping.",
+      "d": "Wrong. The set restricts the choice; a replacement policy then picks within it."
+    },
+    "facts": [
+      "t11m-032"
+    ]
+  },
+  {
+    "id": "ift-d11-119",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how sets work",
+    "prompt": "Instead of exactly one line that a block can map to, a few lines are grouped together creating a {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "set"
+        ],
+        "choices": [
+          "set",
+          "block",
+          "frame",
+          "page"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A set. The number of lines in each set is the n of n-way.",
+    "facts": [
+      "t11m-032"
+    ]
+  },
+  {
+    "id": "ift-d11-120",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what set associative mapping combines",
+    "prompt": "Set associative cache mapping is said to combine:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The best of direct and associative cache mapping techniques"
+      },
+      {
+        "id": "b",
+        "text": "The worst of both techniques"
+      },
+      {
+        "id": "c",
+        "text": "Sequential and random access"
+      },
+      {
+        "id": "d",
+        "text": "Physical and logical addressing"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The best of both: some placement freedom, but only a set's worth of tags to compare.",
+    "why": {
+      "a": "Correct. The best of both: some placement freedom, but only a set's worth of tags to compare.",
+      "b": "Wrong, and it inverts the claim.",
+      "c": "Wrong. Those are access methods, not mapping functions.",
+      "d": "Wrong. That distinction belongs to cache addresses."
+    },
+    "facts": [
+      "t11m-033"
+    ]
+  },
+  {
+    "id": "ift-d11-121",
+    "module": 11,
+    "slides": [
+      "Mem S61"
+    ],
+    "style": "tf",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what set associative mapping allows",
+    "prompt": "Set-associative mapping allows each word present in the cache to have two or more words in main memory for the same index address.",
+    "answer": "true",
+    "explanation": "That is the deck's own phrasing, and it is the point: several memory blocks sharing an index no longer have to fight over a single line.",
+    "why": {
+      "true": "Correct. Two or more memory words can share an index address without colliding.",
+      "false": "Wrong. This is exactly what the set gives room for."
+    },
+    "facts": [
+      "t11m-033"
+    ]
+  },
+  {
+    "id": "ift-d11-122",
+    "module": 11,
+    "slides": [
+      "Mem S62"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative worked example",
+    "prompt": "Worked set associative Example 1 uses which configuration?",
+    "options": [
+      {
+        "id": "a",
+        "text": "2-way, cache 16 KB, block 256 bytes, main memory 128 KB, so the set size is 2"
+      },
+      {
+        "id": "b",
+        "text": "4-way, cache 8 KB, block 32 bytes, main memory 512 KB"
+      },
+      {
+        "id": "c",
+        "text": "2-way, cache 1 KB, block 16 bytes, main memory 64 KB"
+      },
+      {
+        "id": "d",
+        "text": "8-way, cache 32 KB, block 64 bytes, main memory 4 MB"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same 16 KB, 256 byte, 128 KB machine as the other two worked examples, now 2-way. Three mapping functions, one machine.",
+    "why": {
+      "a": "Correct. The same 16 KB, 256 byte, 128 KB machine as the other two worked examples, now 2-way.",
+      "b": "Wrong. That is the Cache deck's set associative Example 2.",
+      "c": "Wrong. That is the Cache deck's set associative Example 1.",
+      "d": "Wrong. That is the Cache deck's set associative Example 3."
+    },
+    "facts": [
+      "t11m-034"
+    ]
+  },
+  {
+    "id": "ift-d11-123",
+    "module": 11,
+    "slides": [
+      "Mem S62"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative worked example",
+    "prompt": "In worked set associative Example 1 the set size is {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "2",
+          "two"
+        ],
+        "choices": [
+          "2",
+          "4",
+          "8",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2, because the cache is 2-way. Set size and the n of n-way are the same thing.",
+    "facts": [
+      "t11m-034"
+    ]
+  },
+  {
+    "id": "ift-d11-124",
+    "module": 11,
+    "slides": [
+      "Mem S63"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative example address",
+    "prompt": "In worked set associative Example 1, what are the physical address and block offset widths?",
+    "options": [
+      {
+        "id": "a",
+        "text": "17 bits and 8 bits"
+      },
+      {
+        "id": "b",
+        "text": "16 bits and 4 bits"
+      },
+      {
+        "id": "c",
+        "text": "17 bits and 6 bits"
+      },
+      {
+        "id": "d",
+        "text": "14 bits and 8 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same 17 and 8 as the other two worked examples, since the memory and block sizes are unchanged.",
+    "why": {
+      "a": "Correct. The same 17 and 8 as the other two worked examples, since the memory and block sizes are unchanged.",
+      "b": "Wrong. Those are the Cache deck's figures for a different machine.",
+      "c": "Wrong. 6 bits is the line number here, not the offset.",
+      "d": "Wrong. 14 bits is the cache size exponent."
+    },
+    "facts": [
+      "t11m-035"
+    ]
+  },
+  {
+    "id": "ift-d11-125",
+    "module": 11,
+    "slides": [
+      "Mem S63"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative example address",
+    "prompt": "In worked set associative Example 1, 128 KB gives a {{1}}-bit physical address and a 256 byte block gives an {{2}}-bit block offset.",
+    "blanks": [
+      {
+        "accept": [
+          "17"
+        ],
+        "choices": [
+          "17",
+          "14",
+          "16",
+          "18"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "6",
+          "4",
+          "12"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "17 and 8. Only the middle field and the tag differ between the three mapping functions on this machine.",
+    "facts": [
+      "t11m-035"
+    ]
+  },
+  {
+    "id": "ift-d11-126",
+    "module": 11,
+    "slides": [
+      "Mem S64"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "lines in the set associative example",
+    "prompt": "In worked set associative Example 1, how many lines are in the cache?",
+    "options": [
+      {
+        "id": "a",
+        "text": "64"
+      },
+      {
+        "id": "b",
+        "text": "32"
+      },
+      {
+        "id": "c",
+        "text": "128"
+      },
+      {
+        "id": "d",
+        "text": "256"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 KB over 256 bytes is 64 lines, the same as in the direct mapped and fully associative versions.",
+    "why": {
+      "a": "Correct. 16 KB over 256 bytes is 64 lines, the same as in the direct mapped and fully associative versions.",
+      "b": "Wrong. 32 is the number of sets, once the lines are paired.",
+      "c": "Wrong. That would need a 128 byte block.",
+      "d": "Wrong. 256 is the block size in bytes."
+    },
+    "facts": [
+      "t11m-036"
+    ]
+  },
+  {
+    "id": "ift-d11-127",
+    "module": 11,
+    "slides": [
+      "Mem S64"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "lines in the set associative example",
+    "prompt": "Total number of lines in cache equals cache size over line size, so 16 KB over 256 bytes is {{1}} lines.",
+    "blanks": [
+      {
+        "accept": [
+          "64"
+        ],
+        "choices": [
+          "64",
+          "32",
+          "128",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "64 lines. The line count never depends on the associativity.",
+    "facts": [
+      "t11m-036"
+    ]
+  },
+  {
+    "id": "ift-d11-128",
+    "module": 11,
+    "slides": [
+      "Mem S64"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "sets in the set associative example",
+    "prompt": "With 64 lines and a set size of 2, how many sets are there and how wide is the set number?",
+    "options": [
+      {
+        "id": "a",
+        "text": "32 sets, that is 2 to the power 5, so the set number is 5 bits"
+      },
+      {
+        "id": "b",
+        "text": "64 sets, that is 2 to the power 6, so the set number is 6 bits"
+      },
+      {
+        "id": "c",
+        "text": "128 sets, so the set number is 7 bits"
+      },
+      {
+        "id": "d",
+        "text": "16 sets, so the set number is 4 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 over 2 is 32, and 32 is 2 to the 5, so 5 bits. Halving the number of index-like entries always costs one bit.",
+    "why": {
+      "a": "Correct. 64 over 2 is 32, and 32 is 2 to the 5, so 5 bits.",
+      "b": "Wrong. 64 sets would mean one line per set, which is direct mapping.",
+      "c": "Wrong. There cannot be more sets than lines.",
+      "d": "Wrong. 16 sets would be a 4-way cache on this machine."
+    },
+    "facts": [
+      "t11m-037"
+    ]
+  },
+  {
+    "id": "ift-d11-129",
+    "module": 11,
+    "slides": [
+      "Mem S64"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "sets in the set associative example",
+    "prompt": "Total sets equals total lines over set size, so 64 over 2 is {{1}} sets, which is 2 to the power {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "32"
+        ],
+        "choices": [
+          "32",
+          "64",
+          "16",
+          "128"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "5",
+          "five"
+        ],
+        "choices": [
+          "5",
+          "6",
+          "4",
+          "7"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "32 sets, 2 to the 5, so a 5-bit set number and therefore a 4-bit tag on this machine.",
+    "facts": [
+      "t11m-037"
+    ]
+  }
+]

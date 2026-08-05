@@ -39,6 +39,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildIndex, serialise, INDEX_FILE } from './build-ledger-index.mjs';
+import { IFT_DECK_SLIDES } from './ift-slides.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA = join(HERE, '..', 'data');
@@ -167,15 +168,27 @@ const COURSES = [
   {
     code: 'IFT222',
     dir: 'ift222',
-    slideRef: /^Test [12] Q\d{1,2}$/,
-    slideRefHelp: 'like "Test 1 Q16"',
+    // Two shapes of provenance: a numbered slide of one of the eight lecture
+    // decks, or a question from one of the two computer-based tests. The deck
+    // keys and the content slides they admit live in scripts/ift-slides.mjs.
+    slideRef: /^((Intro|Data|ISA|Mem|Cache|RISC|Pipe|Rev) S\d{1,2}|Test [12] Q\d{1,2})$/,
+    slideRefHelp: 'like "Mem S37" or "Test 1 Q16"',
+    examRef: /^Test [12] Q\d{1,2}$/,
     requireLecture: false,
     minPerModule: 5,
-    // The objective tests are pure MCQ, so demanding all six styles here would
-    // be demanding the drill differ from the exam.
+    // The objective tests are pure MCQ, so demanding all six styles of every
+    // question would be demanding the drill differ from the exam. The deck
+    // questions do carry variety, and requireStyles below insists on it.
     requireEveryStyle: false,
+    requireStyles: ['mcq', 'tf', 'gap', 'match', 'cloze', 'multi'],
     requireWhy: true,
+    requireFacts: 'non-exam',
     coverages: [
+      {
+        kind: 'at-least-once',
+        required: IFT_DECK_SLIDES,
+        noun: 'content slides of the eight lecture decks',
+      },
       {
         kind: 'exactly-once',
         required: [
@@ -187,6 +200,7 @@ const COURSES = [
       },
     ],
     key: IFT_KEY,
+    ledger: 'ledger',
     // The crash course, converted by scripts/import-crash.mjs. Every drill topic
     // must be taught by some lesson: a topic with questions and no lesson is a
     // hole a reader falls into.
@@ -270,11 +284,23 @@ function validate(q, where, cfg, seenIds) {
     typeof q.explanation === 'string' && q.explanation.length > 10,
     `${at}: explanation missing or too thin to teach from`
   );
-  if (cfg.requireFacts)
-    check(
-      Array.isArray(q.facts) && q.facts.length > 0,
-      `${at}: names no ledger fact, so nothing ties it to anything in the source`
-    );
+  if (cfg.requireFacts) {
+    // requireFacts: 'non-exam' exempts a question whose every reference is a
+    // past-paper one. The paper IS its provenance. IFT222 needs this because
+    // the two objective tests range wider than the eight lecture decks do, so
+    // forcing a deck ref onto all 120 would mean inventing a source that is
+    // not there. Deck-drilled questions are still held to the rule.
+    const examOnly =
+      cfg.requireFacts === 'non-exam' &&
+      cfg.examRef &&
+      (q.slides ?? []).length > 0 &&
+      (q.slides ?? []).every((s) => cfg.examRef.test(s));
+    if (!examOnly)
+      check(
+        Array.isArray(q.facts) && q.facts.length > 0,
+        `${at}: names no ledger fact, so nothing ties it to anything in the source`
+      );
+  }
 
   if (q.style === 'mcq' || q.style === 'multi') {
     const ids = (q.options ?? []).map((o) => o.id);
@@ -629,9 +655,16 @@ for (const cfg of COURSES) {
   const all = [];
   const perModule = {};
 
+  // module<N>.json holds past-paper questions, deck<N>.json the ones written
+  // from the lecture material. A topic whose deck questions outgrew one file
+  // splits into deck08a, deck08b and so on; the letter is presentation only,
+  // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^module\d+\.json$/.test(f))
-    .sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]));
+    .filter((f) => /^(module|deck)\d+[a-z]?\.json$/.test(f))
+    .sort((a, b) => {
+      const n = (f) => Number(f.match(/\d+/)[0]);
+      return n(a) - n(b) || a.localeCompare(b);
+    });
 
   for (const f of moduleFiles) {
     const items = JSON.parse(readFileSync(join(dir, f), 'utf8'));
@@ -642,7 +675,9 @@ for (const cfg of COURSES) {
     }
     all.push(...items);
     const n = Number(f.match(/\d+/)[0]);
-    perModule[n] = items.length;
+    // Two files can share a topic number now (module1 and deck01), so add
+    // rather than assign, or the second silently hides the first.
+    perModule[n] = (perModule[n] ?? 0) + items.length;
     for (const q of items)
       check(
         q.module === n,

@@ -17,6 +17,24 @@ import i7 from './ift222/module7.json';
 import i8 from './ift222/module8.json';
 import i9 from './ift222/module9.json';
 import i10 from './ift222/module10.json';
+import d01 from './ift222/deck01.json';
+import d02 from './ift222/deck02.json';
+import d03 from './ift222/deck03.json';
+import d04 from './ift222/deck04.json';
+import d05 from './ift222/deck05.json';
+import d06 from './ift222/deck06.json';
+import d07 from './ift222/deck07.json';
+import d08A from './ift222/deck08a.json';
+import d08B from './ift222/deck08b.json';
+import d08C from './ift222/deck08c.json';
+import d09A from './ift222/deck09a.json';
+import d09B from './ift222/deck09b.json';
+import d10 from './ift222/deck10.json';
+import d11A from './ift222/deck11a.json';
+import d11B from './ift222/deck11b.json';
+import d12A from './ift222/deck12a.json';
+import d12B from './ift222/deck12b.json';
+import d12C from './ift222/deck12c.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -150,6 +168,24 @@ const iftQuestions: Question[] = [
   ...(i8 as unknown as Question[]),
   ...(i9 as unknown as Question[]),
   ...(i10 as unknown as Question[]),
+  ...(d01 as unknown as Question[]),
+  ...(d02 as unknown as Question[]),
+  ...(d03 as unknown as Question[]),
+  ...(d04 as unknown as Question[]),
+  ...(d05 as unknown as Question[]),
+  ...(d06 as unknown as Question[]),
+  ...(d07 as unknown as Question[]),
+  ...(d08A as unknown as Question[]),
+  ...(d08B as unknown as Question[]),
+  ...(d08C as unknown as Question[]),
+  ...(d09A as unknown as Question[]),
+  ...(d09B as unknown as Question[]),
+  ...(d10 as unknown as Question[]),
+  ...(d11A as unknown as Question[]),
+  ...(d11B as unknown as Question[]),
+  ...(d12A as unknown as Question[]),
+  ...(d12B as unknown as Question[]),
+  ...(d12C as unknown as Question[]),
 ];
 
 /**
@@ -181,9 +217,9 @@ const ift222: Course = {
   code: 'IFT222',
   title: 'Computer Architecture and Organisation',
   tagline:
-    'All 120 objective questions from both computer-based tests, answered and pulled apart. Every option is explained, not only the right one.',
+    'All eight lecture decks turned into questions, plus all 120 from both computer-based tests. Every option is explained, not only the right one.',
   blurb:
-    'Architecture against organization, number systems and codes, signed numbers, IEEE floating point, instruction formats, addressing modes, the memory hierarchy, performance and RISC against CISC. Drill by topic, or sit either real test end to end.',
+    'Architecture against organization, number systems and codes, signed numbers, IEEE floating point, instruction formats, addressing modes, the memory hierarchy, cache mapping, pipelining and hazards, and RISC against CISC. Drill by topic, sit either real test end to end, or take the crash course first.',
   moduleNoun: 'Topic',
   facetGuide: iftFacets,
   modules: [
@@ -237,9 +273,9 @@ const ift222: Course = {
     },
     {
       number: 9,
-      title: 'Performance, Pipelining, RISC and CISC',
+      title: 'Performance, RISC and CISC',
       blurb:
-        'The CPU time equation with CPI, why clock frequency is not enough, branch prediction and control hazards, the RISC and CISC philosophies.',
+        'The CPU time equation with CPI, why clock frequency is not enough, the two design philosophies from 100 to 250 instructions down to one clock each, and the comparison tables line by line.',
     },
     {
       number: 10,
@@ -247,11 +283,24 @@ const ift222: Course = {
       blurb:
         'One shared memory against two separate ones, the bottleneck and the simultaneous access it prevents, bits per pixel, bitmap against vector.',
     },
+    {
+      number: 11,
+      title: 'Cache Mapping Functions',
+      blurb:
+        'Direct, fully associative and set associative, worked end to end: address bits, offset, index, tag and tag directory size, with the same machine mapped three ways so the answers can be compared.',
+    },
+    {
+      number: 12,
+      title: 'Pipelining and Hazards',
+      blurb:
+        'The five stages, throughput against latency, speedup and efficiency formulas with every worked example, and the three hazards with forwarding, stalling and scheduling as their remedies.',
+    },
   ],
   questions: iftQuestions,
-  // Every IFT222 question came from a real test, so the "past questions only"
-  // filter has nothing to filter out and the setup screen hides it.
+  // The two objective tests are tagged so the "past questions only" filter can
+  // rebuild them; the rest of the bank comes from the eight lecture decks.
   examTags: ['Test 1 Q', 'Test 2 Q'],
+  hasLedger: true,
   papers: [
     objectiveTest(
       'Test 1',

@@ -1,0 +1,2830 @@
+[
+  {
+    "id": "ift-d12-080",
+    "module": 12,
+    "slides": [
+      "Pipe S24"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the pipelined machine formula",
+    "prompt": "For a pipelined machine with k stages and clock cycle tp, the time to complete n tasks is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "tk equals k plus n minus 1, all times tp"
+      },
+      {
+        "id": "b",
+        "text": "tk equals k times n times tp"
+      },
+      {
+        "id": "c",
+        "text": "tk equals k minus n plus 1, all times tp"
+      },
+      {
+        "id": "d",
+        "text": "tk equals n times tp"
+      }
+    ],
+    "answer": "a",
+    "explanation": "k cycles to fill, then one per remaining task. The bracket k plus n minus 1 counts the total cycles.",
+    "why": {
+      "a": "Correct. K cycles to fill, then one per remaining task.",
+      "b": "Wrong, and that is the non-pipelined shape.",
+      "c": "Wrong. The signs are reversed and it could go negative.",
+      "d": "Wrong. That ignores the fill time entirely."
+    },
+    "facts": [
+      "t12-041"
+    ]
+  },
+  {
+    "id": "ift-d12-081",
+    "module": 12,
+    "slides": [
+      "Pipe S24"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the pipelined machine formula",
+    "prompt": "For the pipelined machine, {{1}} is the clock cycle, that is the time to complete each sub operation.",
+    "blanks": [
+      {
+        "accept": [
+          "tp"
+        ],
+        "choices": [
+          "tp",
+          "tn",
+          "tk",
+          "t1"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "tp for the pipelined clock cycle, tn for the non-pipelined one. Keeping the two apart is what makes the speedup formula readable.",
+    "facts": [
+      "t12-041"
+    ]
+  },
+  {
+    "id": "ift-d12-082",
+    "module": 12,
+    "slides": [
+      "Pipe S24"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the general speedup formula",
+    "prompt": "Pipeline speedup Sk is given as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "n times tn, divided by k plus n minus 1, all times tp"
+      },
+      {
+        "id": "b",
+        "text": "k plus n minus 1, all times tp, divided by n times tn"
+      },
+      {
+        "id": "c",
+        "text": "n times tp, divided by k times tn"
+      },
+      {
+        "id": "d",
+        "text": "k times n, divided by tp"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Non-pipelined over pipelined, which is always the direction of a speedup.",
+    "why": {
+      "a": "Correct. Non-pipelined over pipelined, which is always the direction of a speedup.",
+      "b": "Wrong, and it is upside down, which would give a number less than 1.",
+      "c": "Wrong. The two clock cycles are in the wrong places.",
+      "d": "Wrong. Neither total time appears."
+    },
+    "facts": [
+      "t12-042"
+    ]
+  },
+  {
+    "id": "ift-d12-083",
+    "module": 12,
+    "slides": [
+      "Pipe S24"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the general speedup formula",
+    "prompt": "In the speedup formula the numerator is n times {{1}}, the total non-pipelined time.",
+    "blanks": [
+      {
+        "accept": [
+          "tn"
+        ],
+        "choices": [
+          "tn",
+          "tp",
+          "tk",
+          "k"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "n times tn. The denominator uses tp, the pipelined cycle.",
+    "facts": [
+      "t12-042"
+    ]
+  },
+  {
+    "id": "ift-d12-084",
+    "module": 12,
+    "slides": [
+      "Pipe S25"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 4-stage worked example",
+    "prompt": "In the 4-stage worked example with tp of 20 ns, how long does one task take in a non-pipelined system?",
+    "options": [
+      {
+        "id": "a",
+        "text": "80 ns, from 20 times 4"
+      },
+      {
+        "id": "b",
+        "text": "20 ns"
+      },
+      {
+        "id": "c",
+        "text": "2060 ns"
+      },
+      {
+        "id": "d",
+        "text": "8000 ns"
+      }
+    ],
+    "answer": "a",
+    "explanation": "20 ns per sub-operation times 4 stages is 80 ns for one whole task.",
+    "why": {
+      "a": "Correct. 20 ns per sub-operation times 4 stages is 80 ns for one whole task.",
+      "b": "Wrong. 20 ns is one stage.",
+      "c": "Wrong. 2060 ns is the pipelined total for 100 tasks.",
+      "d": "Wrong. 8000 ns is the non-pipelined total for 100 tasks."
+    },
+    "facts": [
+      "t12-043"
+    ]
+  },
+  {
+    "id": "ift-d12-085",
+    "module": 12,
+    "slides": [
+      "Pipe S25"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 4-stage worked example",
+    "prompt": "The example uses a {{1}}-stage pipeline with tp of 20 ns and {{2}} tasks to be executed.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "3"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "100"
+        ],
+        "choices": [
+          "100",
+          "50",
+          "500",
+          "10"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "4 stages, 100 tasks. With n far larger than k, the speedup should come close to the ideal 4.",
+    "facts": [
+      "t12-043"
+    ]
+  },
+  {
+    "id": "ift-d12-086",
+    "module": 12,
+    "slides": [
+      "Pipe S25"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 4-stage speedup",
+    "prompt": "In the 4-stage example, what are the pipelined and non-pipelined totals, and the speedup?",
+    "options": [
+      {
+        "id": "a",
+        "text": "2060 ns and 8000 ns, giving 3.88"
+      },
+      {
+        "id": "b",
+        "text": "8000 ns and 2060 ns, giving 3.88"
+      },
+      {
+        "id": "c",
+        "text": "2060 ns and 8000 ns, giving 4.00"
+      },
+      {
+        "id": "d",
+        "text": "2000 ns and 8000 ns, giving 4.00"
+      }
+    ],
+    "answer": "a",
+    "explanation": "4 plus 99, times 20, is 2060 ns pipelined; 100 times 80 is 8000 ns non-pipelined; and 8000 over 2060 is 3.88, just short of the ideal 4.",
+    "why": {
+      "a": "Correct. 4 plus 99, times 20, is 2060 ns pipelined; 100 times 80 is 8000 ns non-pipelined; and 8000 over 2060 is 3.",
+      "b": "Wrong, and it labels the two totals the wrong way round.",
+      "c": "Wrong. The ideal 4 is never quite reached because of the fill time.",
+      "d": "Wrong. The pipelined total is 2060, not 2000; the extra 60 ns is the fill."
+    },
+    "facts": [
+      "t12-044"
+    ]
+  },
+  {
+    "id": "ift-d12-087",
+    "module": 12,
+    "slides": [
+      "Pipe S25"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 4-stage speedup",
+    "prompt": "The pipelined system takes 4 plus 99, times 20, which is {{1}} ns, and the speedup is 8000 over that, which is {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "2060"
+        ],
+        "choices": [
+          "2060",
+          "2000",
+          "8000",
+          "2080"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "3.88"
+        ],
+        "choices": [
+          "3.88",
+          "4.00",
+          "2.80",
+          "4.55"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2060 ns and 3.88. The 99 is n minus 1, the tasks after the first.",
+    "facts": [
+      "t12-044"
+    ]
+  },
+  {
+    "id": "ift-d12-088",
+    "module": 12,
+    "slides": [
+      "Pipe S25"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "a pipeline against multiple units",
+    "prompt": "The deck notes that a 4-stage pipeline is basically identical to a system with 4 identical function units.",
+    "answer": "true",
+    "explanation": "It does, as a way of seeing where the fourfold ideal speedup comes from: four things are in progress at once either way.",
+    "why": {
+      "true": "Correct. The remark closes the worked example.",
+      "false": "Wrong. The comparison is made explicitly on the slide."
+    },
+    "facts": [
+      "t12-045"
+    ]
+  },
+  {
+    "id": "ift-d12-089",
+    "module": 12,
+    "slides": [
+      "Pipe S28"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Design 1 of Example 2",
+    "prompt": "In Design 1 of pipeline performance Example 2, the average instruction execution time is clock cycle time times CPI. What does it come to?",
+    "options": [
+      {
+        "id": "a",
+        "text": "44 ns"
+      },
+      {
+        "id": "b",
+        "text": "11 ns"
+      },
+      {
+        "id": "c",
+        "text": "10 ns"
+      },
+      {
+        "id": "d",
+        "text": "4 ns"
+      }
+    ],
+    "answer": "a",
+    "explanation": "10 ns times the bracket 4 times 0.4 plus 4 times 0.2 plus 5 times 0.4, that is 10 times 1.6 plus 0.8 plus 2.0, which is 10 times 4.4, giving 44 ns.",
+    "why": {
+      "a": "Correct. 10 ns times the bracket 4 times 0.",
+      "b": "Wrong. 11 ns is Design 2.",
+      "c": "Wrong. 10 ns is the clock cycle time alone.",
+      "d": "Wrong. 4 is the speedup, not a time."
+    },
+    "facts": [
+      "t12-046"
+    ]
+  },
+  {
+    "id": "ift-d12-090",
+    "module": 12,
+    "slides": [
+      "Pipe S28"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Design 1 of Example 2",
+    "prompt": "In Design 1 the three CPI terms are 1.6, {{1}} and 2.0, and multiplying their sum by the 10 ns clock cycle gives {{2}} ns.",
+    "blanks": [
+      {
+        "accept": [
+          "0.8"
+        ],
+        "choices": [
+          "0.8",
+          "1.6",
+          "2.0",
+          "0.4"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "44"
+        ],
+        "choices": [
+          "44",
+          "11",
+          "40",
+          "4"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "0.8, and 44 ns. Average instruction execution time equals clock cycle time times CPI.",
+    "facts": [
+      "t12-046"
+    ]
+  },
+  {
+    "id": "ift-d12-091",
+    "module": 12,
+    "slides": [
+      "Pipe S28"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Design 2 of Example 2",
+    "prompt": "In Design 2 the average instruction time at steady state is the clock cycle time. What is it, and what is the speedup?",
+    "options": [
+      {
+        "id": "a",
+        "text": "11 ns, being 10 ns plus 1 ns for setup and clock skew, giving a speedup of 4"
+      },
+      {
+        "id": "b",
+        "text": "10 ns, giving a speedup of 4.4"
+      },
+      {
+        "id": "c",
+        "text": "11 ns, giving a speedup of 4.4"
+      },
+      {
+        "id": "d",
+        "text": "12 ns, giving a speedup of 3.67"
+      }
+    ],
+    "answer": "a",
+    "explanation": "10 plus 1 is 11 ns, and 44 over 11 is exactly 4. The extra nanosecond is the price of the pipeline registers.",
+    "why": {
+      "a": "Correct. 10 plus 1 is 11 ns, and 44 over 11 is exactly 4.",
+      "b": "Wrong. The 1 ns overhead has to be added.",
+      "c": "Wrong. 44 over 11 is 4, not 4.4.",
+      "d": "Wrong. The overhead is 1 ns, not 2."
+    },
+    "facts": [
+      "t12-047"
+    ]
+  },
+  {
+    "id": "ift-d12-092",
+    "module": 12,
+    "slides": [
+      "Pipe S28"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Design 2 of Example 2",
+    "prompt": "In Design 2 the 1 ns added to the clock cycle is for setup and clock {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "skew"
+        ],
+        "choices": [
+          "skew",
+          "drift",
+          "jitter",
+          "delay"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Clock skew. In Example 3 the same kind of cost appears as an overhead of 1 ns per stage.",
+    "facts": [
+      "t12-047"
+    ]
+  },
+  {
+    "id": "ift-d12-093",
+    "module": 12,
+    "slides": [
+      "Pipe S29"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Example 3 stage time",
+    "prompt": "With functional unit times of 10, 8, 10, 10 and 7 ns and an overhead of 1 ns per stage, what is the pipelined stage time?",
+    "options": [
+      {
+        "id": "a",
+        "text": "11 ns, being the maximum of the five times plus the overhead"
+      },
+      {
+        "id": "b",
+        "text": "46 ns, being the sum plus the overhead"
+      },
+      {
+        "id": "c",
+        "text": "9 ns, being the average plus the overhead"
+      },
+      {
+        "id": "d",
+        "text": "8 ns, being the minimum plus the overhead"
+      }
+    ],
+    "answer": "a",
+    "explanation": "MAX of 10, 8, 10, 10, 7 is 10, plus 1 ns overhead, giving 11 ns. The slowest stage sets the rate for all of them.",
+    "why": {
+      "a": "Correct, and this is the average instruction execution time at steady state.",
+      "b": "Wrong. The sum is the non-pipelined time, 45 ns.",
+      "c": "Wrong. The average is not what limits a pipeline.",
+      "d": "Wrong. The fastest stage waits for the others."
+    },
+    "facts": [
+      "t12-048"
+    ]
+  },
+  {
+    "id": "ift-d12-094",
+    "module": 12,
+    "slides": [
+      "Pipe S29"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Example 3 stage time",
+    "prompt": "In Example 3 the stage time is MAX of the five unit times, which is {{1}}, plus the 1 ns overhead.",
+    "blanks": [
+      {
+        "accept": [
+          "10",
+          "ten"
+        ],
+        "choices": [
+          "10",
+          "8",
+          "7",
+          "45"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "10 ns, the maximum. Three of the five units happen to take 10 ns.",
+    "facts": [
+      "t12-048"
+    ]
+  },
+  {
+    "id": "ift-d12-095",
+    "module": 12,
+    "slides": [
+      "Pipe S29"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Example 3 speedup",
+    "prompt": "In Example 3, what are the non-pipelined time and the speedup?",
+    "options": [
+      {
+        "id": "a",
+        "text": "45 ns, giving a speedup of 4.1 times"
+      },
+      {
+        "id": "b",
+        "text": "45 ns, giving a speedup of 4.5 times"
+      },
+      {
+        "id": "c",
+        "text": "50 ns, giving a speedup of 4.55 times"
+      },
+      {
+        "id": "d",
+        "text": "44 ns, giving a speedup of 4 times"
+      }
+    ],
+    "answer": "a",
+    "explanation": "10 plus 8 plus 10 plus 10 plus 7 is 45 ns, and 45 over 11 is 4.1 times.",
+    "why": {
+      "a": "Correct. 10 plus 8 plus 10 plus 10 plus 7 is 45 ns, and 45 over 11 is 4.",
+      "b": "Wrong. 45 over 11 is 4.1, not 4.5.",
+      "c": "Wrong. The sum is 45, and 4.55 is the revision Example 1 answer.",
+      "d": "Wrong. 44 ns and a speedup of 4 belong to Example 2."
+    },
+    "facts": [
+      "t12-049"
+    ]
+  },
+  {
+    "id": "ift-d12-096",
+    "module": 12,
+    "slides": [
+      "Pipe S29"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "Example 3 speedup",
+    "prompt": "The non-pipelined time is 10 plus 8 plus 10 plus 10 plus 7, which is {{1}} ns, so the speedup is that over 11, which is {{2}} times.",
+    "blanks": [
+      {
+        "accept": [
+          "45"
+        ],
+        "choices": [
+          "45",
+          "44",
+          "46",
+          "50"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "4.1"
+        ],
+        "choices": [
+          "4.1",
+          "4.0",
+          "4.5",
+          "3.88"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "45 ns and 4.1 times. Note the pattern: with five stages the ideal is 5, and the unbalanced stage times plus the overhead cost the rest.",
+    "facts": [
+      "t12-049"
+    ]
+  },
+  {
+    "id": "ift-d12-097",
+    "module": 12,
+    "slides": [
+      "Pipe S30"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "efficiency defined",
+    "prompt": "The efficiency of a pipeline is measured as the ratio of:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The busy time span to the total time span including the idle time"
+      },
+      {
+        "id": "b",
+        "text": "The idle time span to the busy time span"
+      },
+      {
+        "id": "c",
+        "text": "The number of stages to the number of tasks"
+      },
+      {
+        "id": "d",
+        "text": "The throughput to the clock period"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Busy over total. Efficiency asks what fraction of the pipeline's capacity is actually being used.",
+    "why": {
+      "a": "Correct. Busy over total.",
+      "b": "Wrong, and inverted.",
+      "c": "Wrong. That ratio has no name here.",
+      "d": "Wrong. Throughput is efficiency divided by the clock period, which is the other way round."
+    },
+    "facts": [
+      "t12-050"
+    ]
+  },
+  {
+    "id": "ift-d12-098",
+    "module": 12,
+    "slides": [
+      "Pipe S30"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "efficiency defined",
+    "prompt": "Pipeline efficiency is the ratio of the {{1}} time span to the total time span including the idle time.",
+    "blanks": [
+      {
+        "accept": [
+          "busy"
+        ],
+        "choices": [
+          "busy",
+          "idle",
+          "stage",
+          "total"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Busy. The idle time comes from the fill and drain phases.",
+    "facts": [
+      "t12-050"
+    ]
+  },
+  {
+    "id": "ift-d12-099",
+    "module": 12,
+    "slides": [
+      "Pipe S30"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the efficiency formula",
+    "prompt": "The efficiency E simplifies to n divided by m plus n minus 1. What does E become as n tends to infinity?",
+    "options": [
+      {
+        "id": "a",
+        "text": "1"
+      },
+      {
+        "id": "b",
+        "text": "0"
+      },
+      {
+        "id": "c",
+        "text": "m"
+      },
+      {
+        "id": "d",
+        "text": "n"
+      }
+    ],
+    "answer": "a",
+    "explanation": "E becomes 1, that is 100 per cent. With enough tasks the fill and drain become negligible and no stage is ever idle.",
+    "why": {
+      "a": "Correct. E becomes 1, that is 100 per cent.",
+      "b": "Wrong. Efficiency rises with n, it does not fall.",
+      "c": "Wrong. m is the stage count, and efficiency is a ratio bounded by 1.",
+      "d": "Wrong. Efficiency cannot exceed 1."
+    },
+    "facts": [
+      "t12-051"
+    ]
+  },
+  {
+    "id": "ift-d12-100",
+    "module": 12,
+    "slides": [
+      "Pipe S30"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the efficiency formula",
+    "prompt": "Efficiency E equals n divided by m plus n minus {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "1",
+          "one"
+        ],
+        "choices": [
+          "1",
+          "m",
+          "n",
+          "2"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Minus 1. The denominator m plus n minus 1 is the same cycle count as in the speedup formula.",
+    "facts": [
+      "t12-051"
+    ]
+  },
+  {
+    "id": "ift-d12-101",
+    "module": 12,
+    "slides": [
+      "Pipe S31"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the throughput formula",
+    "prompt": "Throughput of a pipeline is defined as the number of results achieved per unit time, and is denoted:",
+    "options": [
+      {
+        "id": "a",
+        "text": "T equals E over c, where c is the clock period"
+      },
+      {
+        "id": "b",
+        "text": "T equals E times c"
+      },
+      {
+        "id": "c",
+        "text": "T equals c over E"
+      },
+      {
+        "id": "d",
+        "text": "T equals E plus c"
+      }
+    ],
+    "answer": "a",
+    "explanation": "E over c. Since c is a time, dividing by it turns a dimensionless efficiency into a rate.",
+    "why": {
+      "a": "Correct. E over c.",
+      "b": "Wrong. Multiplying by a time would not give a rate.",
+      "c": "Wrong, and inverted.",
+      "d": "Wrong. The two quantities do not add."
+    },
+    "facts": [
+      "t12-052"
+    ]
+  },
+  {
+    "id": "ift-d12-102",
+    "module": 12,
+    "slides": [
+      "Pipe S31"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the throughput formula",
+    "prompt": "Throughput is the number of {{1}} that have been achieved per unit time.",
+    "blanks": [
+      {
+        "accept": [
+          "results"
+        ],
+        "choices": [
+          "results",
+          "stages",
+          "stalls",
+          "instructions issued"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Results, that is completed items leaving the pipeline.",
+    "facts": [
+      "t12-052"
+    ]
+  },
+  {
+    "id": "ift-d12-103",
+    "module": 12,
+    "slides": [
+      "Pipe S31"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what throughput denotes",
+    "prompt": "According to the deck, throughput denotes:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The computing power of the pipeline"
+      },
+      {
+        "id": "b",
+        "text": "The latency of the pipeline"
+      },
+      {
+        "id": "c",
+        "text": "The cost of the pipeline"
+      },
+      {
+        "id": "d",
+        "text": "The number of hazards"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The computing power. The deck adds that maximum speedup, efficiency and throughput are all ideal cases.",
+    "why": {
+      "a": "Correct. The computing power.",
+      "b": "Wrong. Latency is the time one item takes, and pipelining does not improve it.",
+      "c": "Wrong. Cost is not measured by throughput.",
+      "d": "Wrong. Hazards reduce throughput but are not what it denotes."
+    },
+    "facts": [
+      "t12-053"
+    ]
+  },
+  {
+    "id": "ift-d12-104",
+    "module": 12,
+    "slides": [
+      "Pipe S31"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "ideal cases",
+    "prompt": "Maximum speedup, efficiency and throughput are ideal cases rather than what a real pipeline achieves.",
+    "answer": "true",
+    "explanation": "The deck says so directly, and the very next slide explains why: hazards reduce performance from the ideal speedup.",
+    "why": {
+      "true": "Correct. All three maxima are ideals.",
+      "false": "Wrong. The deck flags them as ideal cases before turning to hazards."
+    },
+    "facts": [
+      "t12-053"
+    ]
+  },
+  {
+    "id": "ift-d12-105",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the three hazards",
+    "prompt": "Select the three types of pipeline hazard.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Structural"
+      },
+      {
+        "id": "b",
+        "text": "Data"
+      },
+      {
+        "id": "c",
+        "text": "Control"
+      },
+      {
+        "id": "d",
+        "text": "Timing"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Structural, data, control. Hazards reduce the performance from the ideal speedup gained by pipelines.",
+    "why": {
+      "a": "Correct, a resource conflict.",
+      "b": "Correct, a dependence on a previous result.",
+      "c": "Correct, caused by branches.",
+      "d": "Wrong. There is no timing hazard in this course."
+    },
+    "facts": [
+      "t12-054"
+    ]
+  },
+  {
+    "id": "ift-d12-106",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the three hazards",
+    "prompt": "Hazards reduce the performance from the {{1}} speedup gained by pipelines.",
+    "blanks": [
+      {
+        "accept": [
+          "ideal"
+        ],
+        "choices": [
+          "ideal",
+          "measured",
+          "average",
+          "minimum"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Ideal speedup, which is the stage count k.",
+    "facts": [
+      "t12-054"
+    ]
+  },
+  {
+    "id": "ift-d12-107",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the structural hazard",
+    "prompt": "A structural hazard is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "A resource conflict, where hardware cannot support all possible combinations of instructions in simultaneous overlapped execution"
+      },
+      {
+        "id": "b",
+        "text": "A dependence on the result of a previous instruction"
+      },
+      {
+        "id": "c",
+        "text": "A consequence of branches affecting the PC"
+      },
+      {
+        "id": "d",
+        "text": "A mismatch between stage lengths"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A resource conflict. Two instructions want the same piece of hardware in the same cycle.",
+    "why": {
+      "a": "Correct. A resource conflict.",
+      "b": "Wrong. That is a data hazard.",
+      "c": "Wrong. That is a control hazard.",
+      "d": "Wrong. Unbalanced stages reduce speedup but are not called a hazard."
+    },
+    "facts": [
+      "t12-055"
+    ]
+  },
+  {
+    "id": "ift-d12-108",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the structural hazard",
+    "prompt": "A structural hazard is a {{1}} conflict.",
+    "blanks": [
+      {
+        "accept": [
+          "resource"
+        ],
+        "choices": [
+          "resource",
+          "data",
+          "control",
+          "timing"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A resource conflict. Examples of the resources involved are the register file, memory and the ALU.",
+    "facts": [
+      "t12-055"
+    ]
+  },
+  {
+    "id": "ift-d12-109",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the data hazard",
+    "prompt": "A data hazard occurs when:",
+    "options": [
+      {
+        "id": "a",
+        "text": "An instruction depends on the results of the previous instruction"
+      },
+      {
+        "id": "b",
+        "text": "Two instructions need the same hardware resource"
+      },
+      {
+        "id": "c",
+        "text": "A branch changes the PC"
+      },
+      {
+        "id": "d",
+        "text": "The cache misses"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A dependence on a previous result. The ADD then SUB example shows it plainly.",
+    "why": {
+      "a": "Correct. A dependence on a previous result.",
+      "b": "Wrong. That is a structural hazard.",
+      "c": "Wrong. That is a control hazard.",
+      "d": "Wrong. A cache miss is a memory event, not a pipeline hazard in this taxonomy."
+    },
+    "facts": [
+      "t12-056"
+    ]
+  },
+  {
+    "id": "ift-d12-110",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "match",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "matching the hazards",
+    "prompt": "Match each hazard to its cause.",
+    "pairs": [
+      {
+        "left": "Structural hazard",
+        "right": "Resource conflict"
+      },
+      {
+        "left": "Data hazard",
+        "right": "An instruction depends on the results of the previous instruction"
+      },
+      {
+        "left": "Control hazard",
+        "right": "Branches and other instructions that affect the PC"
+      }
+    ],
+    "explanation": "Three hazards, three causes. Every remedy in the deck attaches to one of these three rows.",
+    "facts": [
+      "t12-055",
+      "t12-056",
+      "t12-057"
+    ]
+  },
+  {
+    "id": "ift-d12-111",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the control hazard",
+    "prompt": "A control hazard is due to:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Branches and other instructions that affect the PC"
+      },
+      {
+        "id": "b",
+        "text": "Two instructions needing the ALU at once"
+      },
+      {
+        "id": "c",
+        "text": "An instruction waiting for a previous result"
+      },
+      {
+        "id": "d",
+        "text": "An unbalanced pipeline"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Anything that changes the PC, because the pipeline has already begun fetching from the wrong place.",
+    "why": {
+      "a": "Correct. Anything that changes the PC, because the pipeline has already begun fetching from the wrong place.",
+      "b": "Wrong. That is a structural hazard.",
+      "c": "Wrong. That is a data hazard.",
+      "d": "Wrong. Imbalance reduces speedup but is not a hazard."
+    },
+    "facts": [
+      "t12-057"
+    ]
+  },
+  {
+    "id": "ift-d12-112",
+    "module": 12,
+    "slides": [
+      "Pipe S32"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the control hazard",
+    "prompt": "A control hazard arises from branches and other instructions that affect the {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "PC"
+        ],
+        "choices": [
+          "PC",
+          "ALU",
+          "MAR",
+          "IR"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The PC. Branch prediction is the remedy the deck lists for this family.",
+    "facts": [
+      "t12-057"
+    ]
+  },
+  {
+    "id": "ift-d12-113",
+    "module": 12,
+    "slides": [
+      "Pipe S33"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "what a stall is",
+    "prompt": "A stall is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The delay in cycles caused by any of the hazards"
+      },
+      {
+        "id": "b",
+        "text": "The time taken to fill the pipeline"
+      },
+      {
+        "id": "c",
+        "text": "The number of stages in the pipeline"
+      },
+      {
+        "id": "d",
+        "text": "A branch that is not taken"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A delay in cycles, caused by a hazard. Stalling the pipeline for a cycle leaves a bubble behind it.",
+    "why": {
+      "a": "Correct. A delay in cycles, caused by a hazard.",
+      "b": "Wrong. Fill time is a separate loss, though the deck notes it can be folded into the average stall figure.",
+      "c": "Wrong. That is k or m.",
+      "d": "Wrong. A branch not taken causes no delay."
+    },
+    "facts": [
+      "t12-058"
+    ]
+  },
+  {
+    "id": "ift-d12-114",
+    "module": 12,
+    "slides": [
+      "Pipe S33"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "what a stall is",
+    "prompt": "A stall is the delay in {{1}} caused by any of the hazards.",
+    "blanks": [
+      {
+        "accept": [
+          "cycles"
+        ],
+        "choices": [
+          "cycles",
+          "stages",
+          "instructions",
+          "seconds"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Cycles. Measuring it in cycles is what lets it appear in the speedup formula.",
+    "facts": [
+      "t12-058"
+    ]
+  },
+  {
+    "id": "ift-d12-115",
+    "module": 12,
+    "slides": [
+      "Pipe S33"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "speedup with stalls",
+    "prompt": "With stalls, speedup is given as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "1 divided by 1 plus pipeline stall per instruction, times the number of stages"
+      },
+      {
+        "id": "b",
+        "text": "1 plus pipeline stall per instruction, times the number of stages"
+      },
+      {
+        "id": "c",
+        "text": "The number of stages divided by the stall per instruction"
+      },
+      {
+        "id": "d",
+        "text": "The number of stages minus the stall per instruction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The ideal speedup, the stage count, scaled down by the factor 1 over 1 plus the stalls. With no stalls the factor is 1 and the ideal is reached.",
+    "why": {
+      "a": "Correct. The ideal speedup, the stage count, scaled down by the factor 1 over 1 plus the stalls.",
+      "b": "Wrong. Stalls would then increase the speedup, which is backwards.",
+      "c": "Wrong. It divides by zero when there are no stalls.",
+      "d": "Wrong. The relationship is multiplicative, not subtractive."
+    },
+    "facts": [
+      "t12-059"
+    ]
+  },
+  {
+    "id": "ift-d12-116",
+    "module": 12,
+    "slides": [
+      "Pipe S33"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "speedup with stalls",
+    "prompt": "Speedup with stalls is 1 over 1 plus the pipeline stall per instruction, times the number of {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "stages"
+        ],
+        "choices": [
+          "stages",
+          "instructions",
+          "cycles",
+          "hazards"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Stages, the ideal speedup that the stall factor then reduces.",
+    "facts": [
+      "t12-059"
+    ]
+  },
+  {
+    "id": "ift-d12-117",
+    "module": 12,
+    "slides": [
+      "Pipe S33"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "counting the fill in the stalls",
+    "prompt": "The number of cycles needed to initially fill up the pipeline could be included in the computation of the average stall per instruction.",
+    "answer": "true",
+    "explanation": "The deck allows it, which is a neat way of folding the fill cost into one figure rather than tracking it separately.",
+    "why": {
+      "true": "Correct. The slide says it could be included.",
+      "false": "Wrong. The deck explicitly offers this as an option."
+    },
+    "facts": [
+      "t12-060"
+    ]
+  },
+  {
+    "id": "ift-d12-118",
+    "module": 12,
+    "slides": [
+      "Pipe S34"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "resources that conflict",
+    "prompt": "Select the examples of resources that can cause a structural hazard.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Register file"
+      },
+      {
+        "id": "b",
+        "text": "Memory"
+      },
+      {
+        "id": "c",
+        "text": "ALU"
+      },
+      {
+        "id": "d",
+        "text": "Program counter"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Three named resources. The program counter causes control hazards rather than resource conflicts.",
+    "why": {
+      "a": "Correct, the register file is named.",
+      "b": "Correct, memory is named, and the deck's illustration is a memory access conflict.",
+      "c": "Correct, the ALU is named.",
+      "d": "Wrong. Instructions affecting the PC give control hazards."
+    },
+    "facts": [
+      "t12-061"
+    ]
+  },
+  {
+    "id": "ift-d12-119",
+    "module": 12,
+    "slides": [
+      "Pipe S34"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "resources that conflict",
+    "prompt": "When more than one instruction in the pipeline needs to access a resource, the {{1}} is said to have a structural hazard.",
+    "blanks": [
+      {
+        "accept": [
+          "datapath"
+        ],
+        "choices": [
+          "datapath",
+          "compiler",
+          "register",
+          "cache"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The datapath. It is a property of the hardware, not of the program.",
+    "facts": [
+      "t12-061"
+    ]
+  },
+  {
+    "id": "ift-d12-120",
+    "module": 12,
+    "slides": [
+      "Pipe S34"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the structural hazard solution",
+    "prompt": "What is the solution to a structural hazard, and what does it produce?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stall the pipeline for one clock cycle when the conflict is detected, which results in a pipeline bubble"
+      },
+      {
+        "id": "b",
+        "text": "Forward the result from the EX/MEM buffer"
+      },
+      {
+        "id": "c",
+        "text": "Predict the branch"
+      },
+      {
+        "id": "d",
+        "text": "Reorder the instructions at compile time"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A one-cycle stall, leaving a bubble. Forwarding fixes data hazards and prediction fixes control hazards, so each family has its own remedy.",
+    "why": {
+      "a": "Correct. A one-cycle stall, leaving a bubble.",
+      "b": "Wrong. Forwarding is the data hazard remedy.",
+      "c": "Wrong. Prediction is the control hazard remedy.",
+      "d": "Wrong. Reordering helps with load-use data hazards, as in Example 2."
+    },
+    "facts": [
+      "t12-062"
+    ]
+  },
+  {
+    "id": "ift-d12-121",
+    "module": 12,
+    "slides": [
+      "Pipe S34"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "the pipeline bubble",
+    "prompt": "Stalling the pipeline for one clock cycle results in a pipeline {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "bubble"
+        ],
+        "choices": [
+          "bubble",
+          "gap",
+          "break",
+          "flush"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A bubble, an empty slot travelling down the pipeline behind the stalled instruction.",
+    "facts": [
+      "t12-062"
+    ]
+  },
+  {
+    "id": "ift-d12-122",
+    "module": 12,
+    "slides": [
+      "Pipe S34"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the one memory port",
+    "prompt": "The underlying problem in the deck's memory access conflict illustration is that there is only one memory port.",
+    "answer": "true",
+    "explanation": "One port, so an instruction fetch and a data access cannot both happen in the same cycle. A Harvard arrangement would remove exactly this conflict.",
+    "why": {
+      "true": "Correct. The deck states the problem as one memory port.",
+      "false": "Wrong. That is the stated cause of the illustrated structural hazard."
+    },
+    "facts": [
+      "t12-063"
+    ]
+  },
+  {
+    "id": "ift-d12-123",
+    "module": 12,
+    "slides": [
+      "Pipe S38"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the data hazard example",
+    "prompt": "In the data hazard example beginning ADD R1,R2,R3, what makes the following instructions dependent?",
+    "options": [
+      {
+        "id": "a",
+        "text": "All of them use R1 after the first instruction writes it"
+      },
+      {
+        "id": "b",
+        "text": "All of them write R1"
+      },
+      {
+        "id": "c",
+        "text": "They all use the same ALU"
+      },
+      {
+        "id": "d",
+        "text": "They all branch on the same condition"
+      }
+    ],
+    "answer": "a",
+    "explanation": "R1 is the result of the ADD, and SUB, AND, OR and XOR all read it. Four dependent instructions in a row.",
+    "why": {
+      "a": "Correct. R1 is the result of the ADD, and SUB, AND, OR and XOR all read it.",
+      "b": "Wrong. Only the ADD writes R1 in this sequence.",
+      "c": "Wrong. Sharing the ALU would be a structural hazard.",
+      "d": "Wrong. No branches appear in the sequence."
+    },
+    "facts": [
+      "t12-064"
+    ]
+  },
+  {
+    "id": "ift-d12-124",
+    "module": 12,
+    "slides": [
+      "Pipe S38"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the data hazard example",
+    "prompt": "In the data hazard example the last of the five instructions is {{1}} R10,R1,R11.",
+    "blanks": [
+      {
+        "accept": [
+          "XOR"
+        ],
+        "choices": [
+          "XOR",
+          "OR",
+          "AND",
+          "SUB"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "XOR. The sequence runs ADD, SUB, AND, OR, XOR, and every one after the ADD reads R1.",
+    "facts": [
+      "t12-064"
+    ]
+  },
+  {
+    "id": "ift-d12-125",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "forwarding",
+    "prompt": "Data hazards are usually solved by data or register forwarding, which is also called:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Bypassing or short-circuiting"
+      },
+      {
+        "id": "b",
+        "text": "Stalling or bubbling"
+      },
+      {
+        "id": "c",
+        "text": "Prediction or speculation"
+      },
+      {
+        "id": "d",
+        "text": "Reordering or scheduling"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Bypassing or short-circuiting. All three names describe the same trick: send the result straight to where it is needed rather than through the register file.",
+    "why": {
+      "a": "Correct. Bypassing or short-circuiting.",
+      "b": "Wrong. Stalling is the fallback when forwarding cannot work.",
+      "c": "Wrong. Prediction addresses control hazards.",
+      "d": "Wrong. Scheduling is what Example 2 does by hand."
+    },
+    "facts": [
+      "t12-065"
+    ]
+  },
+  {
+    "id": "ift-d12-126",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "forwarding",
+    "prompt": "Data or register forwarding is also called bypassing or {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "short-circuiting",
+          "short circuiting"
+        ],
+        "choices": [
+          "short-circuiting",
+          "stalling",
+          "buffering",
+          "scheduling"
+        ],
+        "format": "words"
+      }
+    ],
+    "explanation": "Short-circuiting, because the value takes a short cut back to the ALU.",
+    "facts": [
+      "t12-065"
+    ]
+  },
+  {
+    "id": "ift-d12-127",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why forwarding works",
+    "prompt": "Why does forwarding work at all?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because the data selected is not really used in ID but in the next stage, the ALU, so the result from the EX/MEM buffer can be fed back to the ALU input latches"
+      },
+      {
+        "id": "b",
+        "text": "Because the register file is written before it is read"
+      },
+      {
+        "id": "c",
+        "text": "Because the pipeline is stalled first"
+      },
+      {
+        "id": "d",
+        "text": "Because the compiler reorders the instructions"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The value is not needed until EX, which buys a cycle. That is enough time for the previous instruction's ALU result to be routed back.",
+    "why": {
+      "a": "Correct. The value is not needed until EX, which buys a cycle.",
+      "b": "Wrong. Writing early and reading late is a separate trick, for the instruction three cycles back.",
+      "c": "Wrong. Forwarding exists precisely to avoid stalling.",
+      "d": "Wrong. Forwarding is hardware; reordering is software."
+    },
+    "facts": [
+      "t12-066"
+    ]
+  },
+  {
+    "id": "ift-d12-128",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "why forwarding works",
+    "prompt": "The ALU result from the {{1}} buffer is always fed back to the ALU input latches.",
+    "blanks": [
+      {
+        "accept": [
+          "EX/MEM"
+        ],
+        "choices": [
+          "EX/MEM",
+          "MEM/WB",
+          "IF/ID",
+          "ID/EX"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "EX/MEM, the buffer one cycle behind. MEM/WB, two cycles behind, is forwarded as well.",
+    "facts": [
+      "t12-066"
+    ]
+  },
+  {
+    "id": "ift-d12-129",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how the hardware chooses",
+    "prompt": "If the forwarding hardware detects that its source operand has a new value, what does the logic do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Selects the newer result rather than the value read from the register file"
+      },
+      {
+        "id": "b",
+        "text": "Selects the value read from the register file"
+      },
+      {
+        "id": "c",
+        "text": "Stalls until the register file is updated"
+      },
+      {
+        "id": "d",
+        "text": "Discards the instruction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The newer value wins. The register file copy is stale at that moment, which is exactly the hazard.",
+    "why": {
+      "a": "Correct. The newer value wins.",
+      "b": "Wrong. That stale value is what causes the wrong answer.",
+      "c": "Wrong. Stalling is what forwarding avoids.",
+      "d": "Wrong. Nothing is discarded."
+    },
+    "facts": [
+      "t12-067"
+    ]
+  },
+  {
+    "id": "ift-d12-130",
+    "module": 12,
+    "slides": [
+      "Pipe S39"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how the hardware chooses",
+    "prompt": "When forwarding is active, the value taken from the register file is preferred over the newer forwarded result.",
+    "answer": "false",
+    "explanation": "The newer result is selected. Preferring the register file would reproduce the very stale value the hazard is about.",
+    "why": {
+      "true": "Wrong. The register file has not been updated yet, which is the whole problem.",
+      "false": "Correct. The logic selects the newer result."
+    },
+    "facts": [
+      "t12-067"
+    ]
+  },
+  {
+    "id": "ift-d12-131",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how far back forwarding reaches",
+    "prompt": "Results need to be forwarded not only from the immediately previous instruction but from any instruction that started:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Up to three cycles before"
+      },
+      {
+        "id": "b",
+        "text": "Up to two cycles before"
+      },
+      {
+        "id": "c",
+        "text": "Up to five cycles before"
+      },
+      {
+        "id": "d",
+        "text": "Only one cycle before"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Three cycles back. One and two cycles are covered by the EX/MEM and MEM/WB buffers, and the third by the register file's split-cycle write and read.",
+    "why": {
+      "a": "Correct. Three cycles back.",
+      "b": "Wrong. Two cycles is the MEM/WB case alone.",
+      "c": "Wrong. By five cycles the earlier instruction has left the pipeline.",
+      "d": "Wrong. The deck is explicit that it is not only the immediately previous instruction."
+    },
+    "facts": [
+      "t12-068"
+    ]
+  },
+  {
+    "id": "ift-d12-132",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how far back forwarding reaches",
+    "prompt": "Results are forwarded from any instruction that started up to {{1}} cycles before.",
+    "blanks": [
+      {
+        "accept": [
+          "3",
+          "three"
+        ],
+        "choices": [
+          "3",
+          "2",
+          "1",
+          "5"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Three cycles.",
+    "facts": [
+      "t12-068"
+    ]
+  },
+  {
+    "id": "ift-d12-133",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "the two forwarding buffers",
+    "prompt": "Match each buffer to how far back the instruction it holds started.",
+    "pairs": [
+      {
+        "left": "EX/MEM",
+        "right": "1 cycle before"
+      },
+      {
+        "left": "MEM/WB",
+        "right": "2 cycles before"
+      }
+    ],
+    "explanation": "Both are forwarded to both ALU inputs. The third cycle back is handled differently, by writing the register file early in the cycle and reading it late.",
+    "facts": [
+      "t12-069"
+    ]
+  },
+  {
+    "id": "ift-d12-134",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the two forwarding buffers",
+    "prompt": "The results from EX/MEM and MEM/WB are forwarded to:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Both ALU inputs"
+      },
+      {
+        "id": "b",
+        "text": "One ALU input only"
+      },
+      {
+        "id": "c",
+        "text": "The register file only"
+      },
+      {
+        "id": "d",
+        "text": "The memory port"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Both inputs, because either operand of the next instruction might be the stale one.",
+    "why": {
+      "a": "Correct. Both inputs, because either operand of the next instruction might be the stale one.",
+      "b": "Wrong. Restricting it to one input would leave half the hazards unfixed.",
+      "c": "Wrong. Going through the register file is what forwarding bypasses.",
+      "d": "Wrong. The memory port is not involved."
+    },
+    "facts": [
+      "t12-069"
+    ]
+  },
+  {
+    "id": "ift-d12-135",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the split register file cycle",
+    "prompt": "How is the instruction three cycles before handled?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Writing into the register file is done in the first half of the cycle and reading in the second half"
+      },
+      {
+        "id": "b",
+        "text": "By forwarding from a third buffer"
+      },
+      {
+        "id": "c",
+        "text": "By stalling for one cycle"
+      },
+      {
+        "id": "d",
+        "text": "By reordering the instructions"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Write early, read late, within the same cycle. That single trick removes the need for a third forwarding path.",
+    "why": {
+      "a": "Correct. Write early, read late, within the same cycle.",
+      "b": "Wrong. Only EX/MEM and MEM/WB are named.",
+      "c": "Wrong. No stall is needed at three cycles' distance.",
+      "d": "Wrong. Reordering is a software remedy for a different case."
+    },
+    "facts": [
+      "t12-070"
+    ]
+  },
+  {
+    "id": "ift-d12-136",
+    "module": 12,
+    "slides": [
+      "Pipe S40"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the split register file cycle",
+    "prompt": "Writing into the register file is done in the {{1}} half of the cycle and reading is done in the {{2}} half.",
+    "blanks": [
+      {
+        "accept": [
+          "first"
+        ],
+        "choices": [
+          "first",
+          "second",
+          "third",
+          "last"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "second"
+        ],
+        "choices": [
+          "second",
+          "first",
+          "same",
+          "next"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Write first, read second, so the read sees the value written moments earlier.",
+    "facts": [
+      "t12-070"
+    ]
+  },
+  {
+    "id": "ift-d12-137",
+    "module": 12,
+    "slides": [
+      "Pipe S41"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the add and sub example",
+    "prompt": "In the example add $s0, $t0, $t1 followed by sub $t2, $s0, $t3, with $s0 equal to minus 5 before the add and 8 after it, which value should the sub use?",
+    "options": [
+      {
+        "id": "a",
+        "text": "8"
+      },
+      {
+        "id": "b",
+        "text": "minus 5"
+      },
+      {
+        "id": "c",
+        "text": "3"
+      },
+      {
+        "id": "d",
+        "text": "Either, since both are valid"
+      }
+    ],
+    "answer": "a",
+    "explanation": "8, the value the add produced. The hazard is that without forwarding the sub would read minus 5 instead.",
+    "why": {
+      "a": "Correct. 8, the value the add produced.",
+      "b": "Wrong, and that is precisely the stale value the hazard would deliver.",
+      "c": "Wrong. 3 is neither of the two values in the example.",
+      "d": "Wrong. Only the newer value is correct."
+    },
+    "facts": [
+      "t12-071"
+    ]
+  },
+  {
+    "id": "ift-d12-138",
+    "module": 12,
+    "slides": [
+      "Pipe S41"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the add and sub example",
+    "prompt": "In the example, the second instruction is dependent on the result in {{1}} of the first.",
+    "blanks": [
+      {
+        "accept": [
+          "$s0"
+        ],
+        "choices": [
+          "$s0",
+          "$t0",
+          "$t2",
+          "$t3"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "$s0, the destination of the add and a source of the sub.",
+    "facts": [
+      "t12-071"
+    ]
+  },
+  {
+    "id": "ift-d12-139",
+    "module": 12,
+    "slides": [
+      "Pipe S42"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the clock cycle collision",
+    "prompt": "In the multiple clock cycle diagram, in which clock does the add write to $s0 and in which does the sub read it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The add writes in clock 5 and the sub reads in clock 3"
+      },
+      {
+        "id": "b",
+        "text": "The add writes in clock 3 and the sub reads in clock 5"
+      },
+      {
+        "id": "c",
+        "text": "Both happen in clock 4"
+      },
+      {
+        "id": "d",
+        "text": "The add writes in clock 5 and the sub reads in clock 6"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Write in CC5, read in CC3. The read comes first, which is why the value found there is still minus 5.",
+    "why": {
+      "a": "Correct. Write in CC5, read in CC3.",
+      "b": "Wrong, and reversed, which would give no hazard at all.",
+      "c": "Wrong. The two events are two cycles apart.",
+      "d": "Wrong. Reading after the write would also be safe."
+    },
+    "facts": [
+      "t12-072"
+    ]
+  },
+  {
+    "id": "ift-d12-140",
+    "module": 12,
+    "slides": [
+      "Pipe S42"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the clock cycle collision",
+    "prompt": "The value in $s0 at CC3 is still {{1}} and not the correct value {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "-5",
+          "minus 5"
+        ],
+        "choices": [
+          "-5",
+          "8",
+          "5",
+          "3"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "-5",
+          "5",
+          "13"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Minus 5 instead of 8. The sub reads in its ID stage, which falls in CC3.",
+    "facts": [
+      "t12-072"
+    ]
+  },
+  {
+    "id": "ift-d12-141",
+    "module": 12,
+    "slides": [
+      "Pipe S42"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the backward dependency",
+    "prompt": "In which direction does the dependency in this example run?",
+    "options": [
+      {
+        "id": "a",
+        "text": "From CC5 back to CC3, that is backward"
+      },
+      {
+        "id": "b",
+        "text": "From CC3 forward to CC5"
+      },
+      {
+        "id": "c",
+        "text": "Within CC3 only"
+      },
+      {
+        "id": "d",
+        "text": "Within CC5 only"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Backward, from CC5 to CC3. A dependency that points backwards in time is exactly what cannot be satisfied without forwarding.",
+    "why": {
+      "a": "Correct, and the deck marks it backward.",
+      "b": "Wrong. A forward dependency would be harmless.",
+      "c": "Wrong. Two different cycles are involved.",
+      "d": "Wrong, for the same reason."
+    },
+    "facts": [
+      "t12-073"
+    ]
+  },
+  {
+    "id": "ift-d12-142",
+    "module": 12,
+    "slides": [
+      "Pipe S42"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the backward dependency",
+    "prompt": "The correct value is only available in $s0 at the end of clock {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "5",
+          "five"
+        ],
+        "choices": [
+          "5",
+          "3",
+          "4",
+          "6"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Clock 5, the write back stage of the add.",
+    "facts": [
+      "t12-073"
+    ]
+  },
+  {
+    "id": "ift-d12-143",
+    "module": 12,
+    "slides": [
+      "Pipe S43"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the load-use hazard",
+    "prompt": "Why can forwarding not fix the hazard after LW R1,0(R2) followed by SUB R4,R1,R5?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because the data is not available until MEM/WB, so the subtract ALU cycle has to be stalled, introducing a vertical bubble"
+      },
+      {
+        "id": "b",
+        "text": "Because the two instructions use different registers"
+      },
+      {
+        "id": "c",
+        "text": "Because the load writes memory rather than a register"
+      },
+      {
+        "id": "d",
+        "text": "Because the ALU is busy"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A load gets its value at MEM, one stage later than an ALU instruction, so there is no earlier point to forward from. A stall is unavoidable.",
+    "why": {
+      "a": "Correct, and the deck calls the result a vertical bubble.",
+      "b": "Wrong. Both use R1, which is the dependence.",
+      "c": "Wrong. A load writes a register; a store writes memory.",
+      "d": "Wrong. A busy ALU would be a structural hazard."
+    },
+    "facts": [
+      "t12-074"
+    ]
+  },
+  {
+    "id": "ift-d12-144",
+    "module": 12,
+    "slides": [
+      "Pipe S43"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the load-use hazard",
+    "prompt": "Because the data is not available until MEM/WB, the subtract ALU cycle has to be stalled, introducing a {{1}} bubble.",
+    "blanks": [
+      {
+        "accept": [
+          "vertical"
+        ],
+        "choices": [
+          "vertical",
+          "horizontal",
+          "double",
+          "silent"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A vertical bubble, as the deck names it on the timing diagram.",
+    "facts": [
+      "t12-074"
+    ]
+  },
+  {
+    "id": "ift-d12-145",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "RAW",
+    "prompt": "RAW stands for Read After Write. What else does the deck say about it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It is the most common data hazard and is solved by data forwarding"
+      },
+      {
+        "id": "b",
+        "text": "It is the rarest data hazard"
+      },
+      {
+        "id": "c",
+        "text": "It cannot occur in DLX"
+      },
+      {
+        "id": "d",
+        "text": "It is solved by branch prediction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Most common, solved by forwarding. WAR and WAW are the ones DLX avoids.",
+    "why": {
+      "a": "Correct. Most common, solved by forwarding.",
+      "b": "Wrong. It is explicitly the most common.",
+      "c": "Wrong. WAW and WAR are the ones DLX avoids; RAW is real and must be handled.",
+      "d": "Wrong. Branch prediction addresses control hazards."
+    },
+    "facts": [
+      "t12-075"
+    ]
+  },
+  {
+    "id": "ift-d12-146",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "names"
+    ],
+    "topic": "RAW",
+    "prompt": "RAW means Read After {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "Write"
+        ],
+        "choices": [
+          "Write",
+          "Read",
+          "Wait",
+          "Word"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Write. Read the name as the order of the two operations, with the second letter naming what happens first.",
+    "facts": [
+      "t12-075"
+    ]
+  },
+  {
+    "id": "ift-d12-147",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "WAW",
+    "prompt": "WAW means Write After Write. Why is there no WAW hazard in DLX?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because DLX waits for WB to write to registers"
+      },
+      {
+        "id": "b",
+        "text": "Because DLX has no write instructions"
+      },
+      {
+        "id": "c",
+        "text": "Because DLX reads early in ID"
+      },
+      {
+        "id": "d",
+        "text": "Because DLX forwards from EX/MEM"
+      }
+    ],
+    "answer": "a",
+    "explanation": "All writes happen in WB, so two writes to the same register cannot get out of order.",
+    "why": {
+      "a": "Correct. All writes happen in WB, so two writes to the same register cannot get out of order.",
+      "b": "Wrong. Of course it has writes.",
+      "c": "Wrong, and that is the reason WAR cannot happen, not WAW.",
+      "d": "Wrong. Forwarding addresses RAW."
+    },
+    "facts": [
+      "t12-076"
+    ]
+  },
+  {
+    "id": "ift-d12-148",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "WAW",
+    "prompt": "In the WAW description, instruction i is a {{1}} and instruction j is an add, and both write to the same register.",
+    "blanks": [
+      {
+        "accept": [
+          "load"
+        ],
+        "choices": [
+          "load",
+          "store",
+          "branch",
+          "shift"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A load. It is slower to produce its result, which is what would let the later add finish first.",
+    "facts": [
+      "t12-076"
+    ]
+  },
+  {
+    "id": "ift-d12-149",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "WAR",
+    "prompt": "WAR means Write After Read. Why can it not happen in DLX?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because all instructions read early, in ID, but write late, in WB"
+      },
+      {
+        "id": "b",
+        "text": "Because all instructions write early and read late"
+      },
+      {
+        "id": "c",
+        "text": "Because DLX has no read instructions"
+      },
+      {
+        "id": "d",
+        "text": "Because DLX stalls on every dependence"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Read early, write late. Every read has already happened by the time any later instruction writes.",
+    "why": {
+      "a": "Correct. Read early, write late.",
+      "b": "Wrong, and reversed, which would create the very hazard.",
+      "c": "Wrong. Every instruction reads its operands.",
+      "d": "Wrong. Stalling on everything would remove the point of pipelining."
+    },
+    "facts": [
+      "t12-077"
+    ]
+  },
+  {
+    "id": "ift-d12-150",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "WAR",
+    "prompt": "In WAR, instruction j tries to {{1}} a destination before it is read by instruction i, so i incorrectly gets its value.",
+    "blanks": [
+      {
+        "accept": [
+          "write"
+        ],
+        "choices": [
+          "write",
+          "read",
+          "fetch",
+          "decode"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Write. The later instruction overwrites a value the earlier one had not yet read.",
+    "facts": [
+      "t12-077"
+    ]
+  },
+  {
+    "id": "ift-d12-151",
+    "module": 12,
+    "slides": [
+      "Pipe S47"
+    ],
+    "style": "tf",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "where WAW does happen",
+    "prompt": "The deck says WAW happens in complex instruction sets that have auto-increment mode and require operands to be read in a late cycle.",
+    "answer": "true",
+    "explanation": "It does. Reading late is what breaks the read-early, write-late discipline that keeps DLX safe.",
+    "why": {
+      "true": "Correct, and auto-increment mode is the deck's named example.",
+      "false": "Wrong. The claim closes the data hazard classification slide."
+    },
+    "facts": [
+      "t12-078"
+    ]
+  },
+  {
+    "id": "ift-d12-152",
+    "module": 12,
+    "slides": [
+      "Pipe S48"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the classification exercise",
+    "prompt": "The data hazard classification exercise asks students to do what with the three code snippets?",
+    "options": [
+      {
+        "id": "a",
+        "text": "State which is RAW, WAR or WAW, and indicate how each occurs using an arrow"
+      },
+      {
+        "id": "b",
+        "text": "Rewrite them to remove all hazards"
+      },
+      {
+        "id": "c",
+        "text": "Compute the speedup of each"
+      },
+      {
+        "id": "d",
+        "text": "Convert them to reverse Polish notation"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Classify each and draw the arrow. The arrow is asked for because it shows which instruction depends on which.",
+    "why": {
+      "a": "Correct. Classify each and draw the arrow.",
+      "b": "Wrong. Rewriting is what Example 2 asks for, separately.",
+      "c": "Wrong. No speedup is asked for here.",
+      "d": "Wrong. Reverse Polish notation belongs to the instruction formats topic."
+    },
+    "facts": [
+      "t12-079"
+    ]
+  },
+  {
+    "id": "ift-d12-153",
+    "module": 12,
+    "slides": [
+      "Pipe S49"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "hazard Example 1, I1 and I2",
+    "prompt": "In hazard Example 1, with I1 ADD R1,R2,R3 and I2 SUB R4,R1,R5, what kind of hazard is there between them?",
+    "options": [
+      {
+        "id": "a",
+        "text": "RAW, because I2 reads R1 after I1 writes R1"
+      },
+      {
+        "id": "b",
+        "text": "WAW, because both write R1"
+      },
+      {
+        "id": "c",
+        "text": "WAR, because I2 writes before I1 reads"
+      },
+      {
+        "id": "d",
+        "text": "No hazard"
+      }
+    ],
+    "answer": "a",
+    "explanation": "I1 writes R1 and I2 reads it, so read after write.",
+    "why": {
+      "a": "Correct. I1 writes R1 and I2 reads it, so read after write.",
+      "b": "Wrong. I2 writes R4, not R1.",
+      "c": "Wrong. I2 does not write R1 at all.",
+      "d": "Wrong. R1 is written then read, which is the classic dependence."
+    },
+    "facts": [
+      "t12-080"
+    ]
+  },
+  {
+    "id": "ift-d12-154",
+    "module": 12,
+    "slides": [
+      "Pipe S49"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "hazard Example 1, I1 and I2",
+    "prompt": "Between I1 and I2, I2 reads R1 after I1 writes R1, which is a {{1}} hazard.",
+    "blanks": [
+      {
+        "accept": [
+          "RAW"
+        ],
+        "choices": [
+          "RAW",
+          "WAW",
+          "WAR",
+          "structural"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "RAW, the most common kind and the one forwarding fixes.",
+    "facts": [
+      "t12-080"
+    ]
+  }
+]

@@ -1,0 +1,981 @@
+[
+  {
+    "id": "ift-d10-001",
+    "module": 10,
+    "slides": ["Intro S39"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "system design",
+    "prompt": "In the architecture component called system design, what distinguishes the Von Neumann architecture from the Harvard architecture?",
+    "options": [
+      { "id": "a", "text": "Von Neumann shares memory for data and instructions, Harvard separates them" },
+      { "id": "b", "text": "Von Neumann separates memory for data and instructions, Harvard shares it" },
+      { "id": "c", "text": "Von Neumann has a control unit, Harvard does not" },
+      { "id": "d", "text": "Von Neumann is pipelined, Harvard is not" }
+    ],
+    "answer": "a",
+    "explanation": "Shared against separate. Everything else about the two designs follows from this one difference.",
+    "why": {
+      "a": "Correct. Von Neumann: shared memory for data and instructions. Harvard: separate memory for each.",
+      "b": "Wrong, and exactly reversed. Harvard is the one with two memories.",
+      "c": "Wrong. Both have control units; the Von Neumann configuration is even described as containing one.",
+      "d": "Wrong. Pipelining is a separate technique and is not what defines either architecture."
+    },
+    "facts": ["t10v-001"]
+  },
+  {
+    "id": "ift-d10-002",
+    "module": 10,
+    "slides": ["Intro S39"],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "system design",
+    "prompt": "Match each architecture to its memory arrangement.",
+    "pairs": [
+      { "left": "Von Neumann Architecture", "right": "Shared memory for data and instructions" },
+      { "left": "Harvard Architecture", "right": "Separate memory for data and instructions" }
+    ],
+    "explanation": "System design defines how memory and processing units are structured, and these two are the choices the course gives.",
+    "facts": ["t10v-001"]
+  },
+  {
+    "id": "ift-d10-003",
+    "module": 10,
+    "slides": ["Intro S40"],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": ["lists"],
+    "topic": "the Von Neumann configuration",
+    "prompt": "Select the elements the Von Neumann processor configuration consists of.",
+    "options": [
+      { "id": "a", "text": "A control unit" },
+      { "id": "b", "text": "An arithmetic logic unit" },
+      { "id": "c", "text": "A register set" },
+      { "id": "d", "text": "A memory region containing program instructions and data" },
+      { "id": "e", "text": "A separate instruction memory" }
+    ],
+    "answer": ["a", "b", "c", "d"],
+    "explanation": "Four elements. A separate instruction memory is the Harvard arrangement, and it is what Von Neumann does not have.",
+    "why": {
+      "a": "Correct, the control unit is first.",
+      "b": "Correct, the arithmetic logic unit is second.",
+      "c": "Correct, the register set is third.",
+      "d": "Correct, and the single memory region holding both is the defining feature.",
+      "e": "Wrong. A separate instruction memory would make it a Harvard machine."
+    },
+    "facts": ["t10v-002"]
+  },
+  {
+    "id": "ift-d10-004",
+    "module": 10,
+    "slides": ["Intro S40"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["numbers", "lists"],
+    "topic": "the Von Neumann configuration",
+    "prompt": "The Von Neumann processor configuration consists of a control unit, an arithmetic logic unit, a {{1}} set, and a memory region containing program instructions and data.",
+    "blanks": [
+      {
+        "accept": ["register"],
+        "choices": ["register", "instruction", "control", "buffer"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Register set. Note that the register set is also one of the six components of computer architecture in the revision listing.",
+    "facts": ["t10v-002"]
+  },
+  {
+    "id": "ift-d10-005",
+    "module": 10,
+    "slides": ["Intro S40"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the key distinguishing feature",
+    "prompt": "The key feature distinguishing the Von Neumann architecture from the Harvard architecture is the use of:",
+    "options": [
+      { "id": "a", "text": "A single area of memory for program instructions and the data acted upon by those instructions" },
+      { "id": "b", "text": "A single bus for all transfers" },
+      { "id": "c", "text": "A single control unit" },
+      { "id": "d", "text": "A single arithmetic logic unit" }
+    ],
+    "answer": "a",
+    "explanation": "A single area of memory for both. The single bus follows from that, but the memory is what the deck names as the key feature.",
+    "why": {
+      "a": "Correct, and the deck calls it the key feature in exactly these words.",
+      "b": "Wrong as the stated key feature. Harvard does duplicate buses, but the deck names the memory area first and treats the extra lines as the cost.",
+      "c": "Wrong. Both designs have one control unit.",
+      "d": "Wrong. Both designs have one ALU."
+    },
+    "facts": ["t10v-003"]
+  },
+  {
+    "id": "ift-d10-006",
+    "module": 10,
+    "slides": ["Intro S40"],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "the key distinguishing feature",
+    "prompt": "In the Von Neumann architecture, program instructions and the data acted upon by those instructions live in the same area of memory.",
+    "answer": "true",
+    "explanation": "They do, and that is the stored program idea. It is also the origin of the bottleneck, because instructions and data then compete for one path.",
+    "why": {
+      "true": "Correct. A single area of memory for both is the key feature of Von Neumann.",
+      "false": "Wrong. Separate areas would make it a Harvard machine."
+    },
+    "facts": ["t10v-003"]
+  },
+  {
+    "id": "ift-d10-007",
+    "module": 10,
+    "slides": ["Intro S41"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "why a single memory region is attractive",
+    "prompt": "According to the deck, locating all of the code and data a program requires in a single memory region is:",
+    "options": [
+      { "id": "a", "text": "Conceptually straightforward for programmers and relatively easier for circuit designers" },
+      { "id": "b", "text": "Harder for programmers but easier for circuit designers" },
+      { "id": "c", "text": "Easier for programmers but harder for circuit designers" },
+      { "id": "d", "text": "Harder for both, and done only for cost reasons" }
+    ],
+    "answer": "a",
+    "explanation": "Easier for both. That is why Von Neumann became the general-purpose default, despite the bottleneck.",
+    "why": {
+      "a": "Correct. Conceptually straightforward for programmers, relatively easier for circuit designers.",
+      "b": "Wrong. The deck says it is straightforward for programmers too.",
+      "c": "Wrong. The deck says it is easier for circuit designers as well.",
+      "d": "Wrong. Cost is not the reason given; simplicity on both sides is."
+    },
+    "facts": ["t10v-004"]
+  },
+  {
+    "id": "ift-d10-008",
+    "module": 10,
+    "slides": ["Intro S41"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "why a single memory region is attractive",
+    "prompt": "It is conceptually {{1}} for programmers to locate all of the code and data a program requires in a single memory region.",
+    "blanks": [
+      {
+        "accept": ["straightforward"],
+        "choices": ["straightforward", "difficult", "expensive", "inefficient"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Straightforward. The Von Neumann design trades a performance limit for simplicity at both the programming and the circuit level.",
+    "facts": ["t10v-004"]
+  },
+  {
+    "id": "ift-d10-009",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the strict Harvard architecture",
+    "prompt": "A strict Harvard architecture uses:",
+    "options": [
+      { "id": "a", "text": "One address space and memory bus for program instructions and a separate address space and memory bus for data" },
+      { "id": "b", "text": "One address space with two memory buses" },
+      { "id": "c", "text": "Two address spaces sharing one memory bus" },
+      { "id": "d", "text": "One address space and one memory bus, with instructions cached separately" }
+    ],
+    "answer": "a",
+    "explanation": "Both the address space AND the memory bus are duplicated. That is what strict means here, and it is why the address lines, data lines and control signals all have to be duplicated too.",
+    "why": {
+      "a": "Correct. Separate address space and separate memory bus for each of instructions and data.",
+      "b": "Wrong. The address spaces are separate as well, not just the buses.",
+      "c": "Wrong. Sharing one bus would put the two back into competition, which is what Harvard exists to avoid.",
+      "d": "Wrong. A separate instruction cache on a shared memory is a different arrangement and is not what strict Harvard means."
+    },
+    "facts": ["t10v-005"]
+  },
+  {
+    "id": "ift-d10-010",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the strict Harvard architecture",
+    "prompt": "A strict Harvard architecture uses one {{1}} and memory bus for program instructions and a separate one for {{2}}.",
+    "blanks": [
+      {
+        "accept": ["address space"],
+        "choices": ["address space", "register set", "control unit", "cache line"],
+        "format": "phrase"
+      },
+      {
+        "accept": ["data"],
+        "choices": ["data", "instructions", "operands", "results"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Address space, and data. Two address spaces, two memory buses, one for each kind of content.",
+    "facts": ["t10v-005"]
+  },
+  {
+    "id": "ift-d10-011",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the Harvard benefit",
+    "prompt": "What immediate benefit does the Harvard configuration have?",
+    "options": [
+      { "id": "a", "text": "It enables simultaneous access to instructions and data, implementing a form of parallelism" },
+      { "id": "b", "text": "It halves the amount of memory needed" },
+      { "id": "c", "text": "It removes the need for a control unit" },
+      { "id": "d", "text": "It makes the instruction set smaller" }
+    ],
+    "answer": "a",
+    "explanation": "Simultaneous access, which the deck explicitly calls a form of parallelism. In a Von Neumann machine that access has to be taken in turns.",
+    "why": {
+      "a": "Correct, and the phrase a form of parallelism is the deck's own.",
+      "b": "Wrong. It uses more hardware, not less, and the memory is not reduced.",
+      "c": "Wrong. The control unit is required either way.",
+      "d": "Wrong. Instruction set size is an ISA matter, unrelated to how many memories there are."
+    },
+    "facts": ["t10v-006"]
+  },
+  {
+    "id": "ift-d10-012",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the Harvard benefit",
+    "prompt": "The Harvard configuration enables {{1}} access to instructions and data, implementing a form of parallelism.",
+    "blanks": [
+      {
+        "accept": ["simultaneous"],
+        "choices": ["simultaneous", "sequential", "random", "direct"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Simultaneous. The word to reach for in any exam question about what Harvard buys you.",
+    "facts": ["t10v-006"]
+  },
+  {
+    "id": "ift-d10-013",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "multi",
+    "difficulty": "hard",
+    "facets": ["lists"],
+    "topic": "the cost of the Harvard architecture",
+    "prompt": "The Harvard enhancement comes at the expense of essentially duplicating which of these?",
+    "options": [
+      { "id": "a", "text": "Address lines" },
+      { "id": "b", "text": "Data lines" },
+      { "id": "c", "text": "Control signals" },
+      { "id": "d", "text": "Arithmetic logic units" }
+    ],
+    "answer": ["a", "b", "c"],
+    "explanation": "Three things are duplicated: address lines, data lines and control signals, all so the processor can reach both memory regions. The ALU is not duplicated.",
+    "why": {
+      "a": "Correct, address lines are duplicated.",
+      "b": "Correct, data lines are duplicated.",
+      "c": "Correct, control signals are duplicated.",
+      "d": "Wrong. Nothing in the deck duplicates the ALU; the cost is all in the interconnection."
+    },
+    "facts": ["t10v-007"]
+  },
+  {
+    "id": "ift-d10-014",
+    "module": 10,
+    "slides": ["Intro S42"],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "the cost of the Harvard architecture",
+    "prompt": "The Harvard architecture gives simultaneous access to instructions and data at no additional hardware cost.",
+    "answer": "false",
+    "explanation": "There is a cost, and the deck names it: essentially duplicating the address lines, data lines and control signals the processor must implement.",
+    "why": {
+      "true": "Wrong. The deck is explicit that the enhancement comes at the expense of duplicated lines and signals.",
+      "false": "Correct. The benefit is real but it is paid for in duplicated address lines, data lines and control signals."
+    },
+    "facts": ["t10v-007"]
+  },
+  {
+    "id": "ift-d10-015",
+    "module": 10,
+    "slides": ["Intro S43"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "the figures in the deck",
+    "prompt": "Which figure in the introduction deck shows the layout of a processor implementing the Harvard architecture?",
+    "options": [
+      { "id": "a", "text": "Figure 2" },
+      { "id": "b", "text": "Figure 1" },
+      { "id": "c", "text": "Figure 3" },
+      { "id": "d", "text": "Figure 4" }
+    ],
+    "answer": "a",
+    "explanation": "Figure 1 shows the elements of Von Neumann architecture and Figure 2 shows the Harvard layout, in that order.",
+    "why": {
+      "a": "Correct. Figure 2 is the Harvard diagram.",
+      "b": "Wrong. Figure 1 shows the elements of Von Neumann architecture.",
+      "c": "Wrong. There is no Figure 3 in this deck.",
+      "d": "Wrong. There is no Figure 4 in this deck."
+    },
+    "facts": ["t10v-008"]
+  },
+  {
+    "id": "ift-d10-016",
+    "module": 10,
+    "slides": ["Intro S44"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["names"],
+    "topic": "where each architecture is used",
+    "prompt": "Von Neumann systems are used in:",
+    "options": [
+      { "id": "a", "text": "General-purpose computers such as laptops and desktops" },
+      { "id": "b", "text": "Microcontrollers in washing machines" },
+      { "id": "c", "text": "Microcontrollers in cars" },
+      { "id": "d", "text": "Embedded systems needing faster access" }
+    ],
+    "answer": "a",
+    "explanation": "General-purpose computers. The other three options are all the deck's Harvard examples.",
+    "why": {
+      "a": "Correct. Laptops and desktops are the Von Neumann examples.",
+      "b": "Wrong. Washing machine microcontrollers are given as a Harvard example.",
+      "c": "Wrong. Car microcontrollers are given as a Harvard example.",
+      "d": "Wrong. Embedded systems needing faster access are exactly why Harvard is chosen there."
+    },
+    "facts": ["t10v-009"]
+  },
+  {
+    "id": "ift-d10-017",
+    "module": 10,
+    "slides": ["Intro S44"],
+    "style": "multi",
+    "difficulty": "hard",
+    "facets": ["names"],
+    "topic": "Von Neumann enhancements",
+    "prompt": "Select the enhancements the deck lists alongside Von Neumann systems.",
+    "options": [
+      { "id": "a", "text": "Cache memory" },
+      { "id": "b", "text": "Introduction of DDR memories" },
+      { "id": "c", "text": "Pre-fetching" },
+      { "id": "d", "text": "PIM" },
+      { "id": "e", "text": "Duplicated address lines" }
+    ],
+    "answer": ["a", "b", "c", "d"],
+    "explanation": "Four: cache memory, DDR memories, pre-fetching and PIM. Every one of them is a way of easing the single-memory bottleneck without abandoning the single memory.",
+    "why": {
+      "a": "Correct, cache memory heads the list.",
+      "b": "Correct, the introduction of DDR memories is second.",
+      "c": "Correct, pre-fetching is third.",
+      "d": "Correct, PIM closes the list.",
+      "e": "Wrong. Duplicated address lines are the cost of going Harvard, not a Von Neumann enhancement."
+    },
+    "facts": ["t10v-009"]
+  },
+  {
+    "id": "ift-d10-018",
+    "module": 10,
+    "slides": ["Intro S44"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "where each architecture is used",
+    "prompt": "The deck's example of a Harvard system is:",
+    "options": [
+      { "id": "a", "text": "The microcontroller in a washing machine or a car" },
+      { "id": "b", "text": "A desktop computer" },
+      { "id": "c", "text": "A laptop computer" },
+      { "id": "d", "text": "A cloud server" }
+    ],
+    "answer": "a",
+    "explanation": "Microcontrollers in washing machines or cars. Harvard systems are used in microcontrollers and embedded systems for faster access.",
+    "why": {
+      "a": "Correct. These are the deck's two named Harvard examples.",
+      "b": "Wrong. Desktops are given as Von Neumann.",
+      "c": "Wrong. Laptops are given as Von Neumann.",
+      "d": "Wrong. Cloud servers are not mentioned in this deck."
+    },
+    "facts": ["t10v-010"]
+  },
+  {
+    "id": "ift-d10-019",
+    "module": 10,
+    "slides": ["Intro S44"],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": ["names"],
+    "topic": "where each architecture is used",
+    "prompt": "Harvard systems are used in {{1}} and embedded systems for {{2}} access.",
+    "blanks": [
+      {
+        "accept": ["microcontrollers"],
+        "choices": ["microcontrollers", "mainframes", "laptops", "servers"],
+        "format": "word"
+      },
+      {
+        "accept": ["faster"],
+        "choices": ["faster", "cheaper", "safer", "simpler"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Microcontrollers, and faster access. Speed is the reason a design that costs more in wiring is still worth it in an embedded part.",
+    "facts": ["t10v-010"]
+  },
+  {
+    "id": "ift-d10-020",
+    "module": 10,
+    "slides": ["Data S65"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "the two types of graphics",
+    "prompt": "Which two types of graphics can be represented?",
+    "options": [
+      { "id": "a", "text": "Vector graphics and bitmap graphics" },
+      { "id": "b", "text": "Raster graphics and pixel graphics" },
+      { "id": "c", "text": "Analogue graphics and digital graphics" },
+      { "id": "d", "text": "Compressed graphics and uncompressed graphics" }
+    ],
+    "answer": "a",
+    "explanation": "Vector and bitmap. Everything in this section is a comparison between those two.",
+    "why": {
+      "a": "Correct. These are the two the deck names.",
+      "b": "Wrong. Raster is another word for bitmap, but pixel graphics is not a category the deck uses.",
+      "c": "Wrong. All computer graphics here are digital.",
+      "d": "Wrong. Compression is not a category in this deck."
+    },
+    "facts": ["t10g-001"]
+  },
+  {
+    "id": "ift-d10-021",
+    "module": 10,
+    "slides": ["Data S65"],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": ["numbers"],
+    "topic": "the two types of graphics",
+    "prompt": "The deck says {{1}} types of graphics can be represented.",
+    "blanks": [
+      {
+        "accept": ["2", "two"],
+        "choices": ["2", "3", "4", "5"],
+        "format": "number"
+      }
+    ],
+    "explanation": "Two: vector and bitmap.",
+    "facts": ["t10g-001"]
+  },
+  {
+    "id": "ift-d10-022",
+    "module": 10,
+    "slides": ["Data S65"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["names"],
+    "topic": "pixels",
+    "prompt": "What does the word pixel stand for?",
+    "options": [
+      { "id": "a", "text": "Picture element" },
+      { "id": "b", "text": "Pictorial cell" },
+      { "id": "c", "text": "Pixel element" },
+      { "id": "d", "text": "Picture excerpt" }
+    ],
+    "answer": "a",
+    "explanation": "Picture element. Any graphic is made up from a series of pixels, and each pixel is an individual point on the screen.",
+    "why": {
+      "a": "Correct. The deck spells it out in brackets: Picture Elements.",
+      "b": "Wrong. Cell is not the word used.",
+      "c": "Wrong, and circular, since it uses the word it is meant to expand.",
+      "d": "Wrong. Excerpt is not the word used."
+    },
+    "facts": ["t10g-002"]
+  },
+  {
+    "id": "ift-d10-023",
+    "module": 10,
+    "slides": ["Data S65"],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "pixels",
+    "prompt": "Any graphic is made up from a series of pixels, and each pixel is an individual point on the screen.",
+    "answer": "true",
+    "explanation": "The deck says any graphic, which covers vector images too: a vector image is described by objects but is still drawn onto pixels.",
+    "why": {
+      "true": "Correct, and note the word any, which does not exclude vector graphics.",
+      "false": "Wrong. This is the deck's own sentence introducing the graphics section."
+    },
+    "facts": ["t10g-002"]
+  },
+  {
+    "id": "ift-d10-024",
+    "module": 10,
+    "slides": ["Data S66"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["numbers"],
+    "topic": "black and white bitmaps",
+    "prompt": "In the bitmap illustration, assuming only black and white, how is each pixel stored?",
+    "options": [
+      { "id": "a", "text": "As a single 1 or 0" },
+      { "id": "b", "text": "As four bits" },
+      { "id": "c", "text": "As one byte" },
+      { "id": "d", "text": "As three values for red, green and blue" }
+    ],
+    "answer": "a",
+    "explanation": "One bit per pixel. That assumption is what makes the storage calculation later come out at exactly one bit per pixel.",
+    "why": {
+      "a": "Correct. Black and white means two states, so one bit each.",
+      "b": "Wrong. Four bits would allow sixteen shades, which the illustration does not use.",
+      "c": "Wrong. A byte per pixel would allow 256 levels, again more than needed here.",
+      "d": "Wrong. RGB encoding is mentioned in the introduction deck for multimedia, but this illustration is black and white only."
+    },
+    "facts": ["t10g-003"]
+  },
+  {
+    "id": "ift-d10-025",
+    "module": 10,
+    "slides": ["Data S66"],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": ["numbers"],
+    "topic": "black and white bitmaps",
+    "prompt": "Assuming only black and white for each pixel, a pixel is stored as a single {{1}} or 0.",
+    "blanks": [
+      {
+        "accept": ["1"],
+        "choices": ["1", "2", "8", "16"],
+        "format": "number"
+      }
+    ],
+    "explanation": "1 or 0. Two states, one bit.",
+    "facts": ["t10g-003"]
+  },
+  {
+    "id": "ift-d10-026",
+    "module": 10,
+    "slides": ["Data S67"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "bitmap resolution",
+    "prompt": "The quality of a bitmap image depends on:",
+    "options": [
+      { "id": "a", "text": "The number of pixels" },
+      { "id": "b", "text": "The number of objects" },
+      { "id": "c", "text": "The number of attributes per object" },
+      { "id": "d", "text": "The file format" }
+    ],
+    "answer": "a",
+    "explanation": "The number of pixels: more pixels means higher resolution and a clearer image. Objects and attributes belong to vector graphics.",
+    "why": {
+      "a": "Correct. Quality follows pixel count in a bitmap.",
+      "b": "Wrong. Objects are how a vector image is built.",
+      "c": "Wrong. Attributes define vector objects, not bitmap quality.",
+      "d": "Wrong. File format is not discussed in this deck."
+    },
+    "facts": ["t10g-004"]
+  },
+  {
+    "id": "ift-d10-027",
+    "module": 10,
+    "slides": ["Data S67"],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "bitmap resolution",
+    "prompt": "More pixels means higher resolution and a clearer image.",
+    "answer": "true",
+    "explanation": "Straight from the resolution slide, and it is the reason a bitmap loses quality when it is enlarged: the pixel count does not grow with it.",
+    "why": {
+      "true": "Correct. More pixels, higher resolution, clearer image.",
+      "false": "Wrong. This is the resolution slide's only claim, and it is stated plainly."
+    },
+    "facts": ["t10g-004"]
+  },
+  {
+    "id": "ift-d10-028",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["numbers"],
+    "topic": "the memory storage worked example",
+    "prompt": "In the memory storage worked example, what are the image size and resolution?",
+    "options": [
+      { "id": "a", "text": "4 inches by 6 inches at 300 dots per linear inch" },
+      { "id": "b", "text": "4 inches by 6 inches at 600 dots per linear inch" },
+      { "id": "c", "text": "6 inches by 8 inches at 300 dots per linear inch" },
+      { "id": "d", "text": "3 inches by 5 inches at 300 dots per linear inch" }
+    ],
+    "answer": "a",
+    "explanation": "4 by 6 inches, 300 d.p.i., black and white. Those three facts fix the whole calculation.",
+    "why": {
+      "a": "Correct. These are the figures given.",
+      "b": "Wrong. Doubling the resolution would quadruple the pixel count and give a different answer.",
+      "c": "Wrong. The dimensions are 4 by 6.",
+      "d": "Wrong. The dimensions are 4 by 6."
+    },
+    "facts": ["t10g-005"]
+  },
+  {
+    "id": "ift-d10-029",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["numbers"],
+    "topic": "the memory storage worked example",
+    "prompt": "The worked image is 4 inches by 6 inches, the resolution is {{1}} d.p.i., and the image is black and white.",
+    "blanks": [
+      {
+        "accept": ["300"],
+        "choices": ["300", "150", "600", "1200"],
+        "format": "number"
+      }
+    ],
+    "explanation": "300 dots per linear inch. The words linear inch matter: the count applies along each edge, not to the area.",
+    "facts": ["t10g-005"]
+  },
+  {
+    "id": "ift-d10-030",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["numbers"],
+    "topic": "the pixel count",
+    "prompt": "How many pixels does the 4 inch by 6 inch image at 300 d.p.i. contain?",
+    "options": [
+      { "id": "a", "text": "2,160,000" },
+      { "id": "b", "text": "216,000" },
+      { "id": "c", "text": "21,600,000" },
+      { "id": "d", "text": "7,200" }
+    ],
+    "answer": "a",
+    "explanation": "Length 6 times 300 is 1800, breadth 4 times 300 is 1200, and 1800 times 1200 is 2,160,000 pixels.",
+    "why": {
+      "a": "Correct. 1800 by 1200 gives 2,160,000.",
+      "b": "Wrong by a factor of ten, a decimal slip.",
+      "c": "Wrong by a factor of ten in the other direction.",
+      "d": "Wrong. That is 1800 plus 1200 times a factor, not the product; the pixels form an area, so the two edge counts multiply."
+    },
+    "facts": ["t10g-006"]
+  },
+  {
+    "id": "ift-d10-031",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": ["numbers"],
+    "topic": "the pixel count",
+    "prompt": "Length is 6 times 300, which is {{1}} pixels, and breadth is 4 times 300, which is {{2}} pixels.",
+    "blanks": [
+      {
+        "accept": ["1800"],
+        "choices": ["1800", "1200", "2400", "900"],
+        "format": "number"
+      },
+      {
+        "accept": ["1200"],
+        "choices": ["1200", "1800", "800", "1500"],
+        "format": "number"
+      }
+    ],
+    "explanation": "1800 by 1200. The 6 inch edge is the length and the 4 inch edge is the breadth, exactly as the deck assigns them.",
+    "facts": ["t10g-006"]
+  },
+  {
+    "id": "ift-d10-032",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": ["numbers"],
+    "topic": "the storage requirement",
+    "prompt": "What is the final storage requirement in the worked example?",
+    "options": [
+      { "id": "a", "text": "263.4 KBytes" },
+      { "id": "b", "text": "270 KBytes" },
+      { "id": "c", "text": "2,160 KBytes" },
+      { "id": "d", "text": "2.16 MBytes" }
+    ],
+    "answer": "a",
+    "explanation": "2,160,000 bits is 270,000 bytes, and 270,000 divided by 1024 is 263.4 KBytes. The last division is the step people skip.",
+    "why": {
+      "a": "Correct. 263.4 KBytes is the deck's final answer.",
+      "b": "Wrong, and it is the trap: 270,000 bytes is right, but a KByte is 1024 bytes, not 1000, so it becomes 263.4 KBytes.",
+      "c": "Wrong. That treats the bit count as a byte count.",
+      "d": "Wrong. That is the bit count read as bytes and then converted."
+    },
+    "facts": ["t10g-007"]
+  },
+  {
+    "id": "ift-d10-033",
+    "module": 10,
+    "slides": ["Data S68"],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": ["numbers"],
+    "topic": "the storage requirement",
+    "prompt": "Black and white means 1 bit per pixel, so the storage is 2,160,000 bits, which is {{1}} bytes, that is 263.4 KBytes.",
+    "blanks": [
+      {
+        "accept": ["270000", "270,000"],
+        "choices": ["270000", "263400", "17280000", "2160000"],
+        "format": "number"
+      }
+    ],
+    "explanation": "270,000 bytes, from dividing the bit count by 8. Then dividing by 1024 gives 263.4 KBytes.",
+    "facts": ["t10g-007"]
+  },
+  {
+    "id": "ift-d10-034",
+    "module": 10,
+    "slides": ["Data S69"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "how vector images are built",
+    "prompt": "In vector graphics, each image is made from:",
+    "options": [
+      { "id": "a", "text": "Objects such as a line, a rectangle or a circle" },
+      { "id": "b", "text": "Individual pixels, each stored separately" },
+      { "id": "c", "text": "Rows of bits read from top to bottom" },
+      { "id": "d", "text": "Compressed blocks of colour" }
+    ],
+    "answer": "a",
+    "explanation": "Objects, and every object has attributes which define it. That is the whole difference from a bitmap, which stores the picture point by point.",
+    "why": {
+      "a": "Correct. Line, rect and circle are the deck's examples of objects.",
+      "b": "Wrong. Storing pixels individually is what a bitmap does.",
+      "c": "Wrong. That describes reading a bitmap.",
+      "d": "Wrong. Compression is not part of this deck."
+    },
+    "facts": ["t10g-008"]
+  },
+  {
+    "id": "ift-d10-035",
+    "module": 10,
+    "slides": ["Data S69"],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "how vector images are built",
+    "prompt": "In vector graphics every object has {{1}} which define it.",
+    "blanks": [
+      {
+        "accept": ["attributes", "ATTRIBUTES"],
+        "choices": ["attributes", "pixels", "layers", "coordinates"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Attributes. Coordinates are one attribute among several, so the general word is the one the deck uses.",
+    "facts": ["t10g-008"]
+  },
+  {
+    "id": "ift-d10-036",
+    "module": 10,
+    "slides": ["Data S69"],
+    "style": "multi",
+    "difficulty": "hard",
+    "facets": ["lists"],
+    "topic": "the attributes of a rectangle",
+    "prompt": "To draw the deck's rectangle, which attributes do we need to know?",
+    "options": [
+      { "id": "a", "text": "Start X and Y coordinates" },
+      { "id": "b", "text": "The length" },
+      { "id": "c", "text": "The breadth" },
+      { "id": "d", "text": "The thickness and colour of the lines" },
+      { "id": "e", "text": "The type of line, for example dashed" },
+      { "id": "f", "text": "The fill colour" },
+      { "id": "g", "text": "The number of pixels in the image" }
+    ],
+    "answer": ["a", "b", "c", "d", "e", "f"],
+    "explanation": "Six attributes. Pixel count is nowhere in the list, and that is exactly why a vector image can be enlarged without losing resolution.",
+    "why": {
+      "a": "Correct, the start coordinates come first.",
+      "b": "Correct, the length is needed.",
+      "c": "Correct, the breadth is needed.",
+      "d": "Correct, the thickness and colour of the lines are listed together.",
+      "e": "Correct, the type of line, with dashed as the example.",
+      "f": "Correct, the fill colour closes the list.",
+      "g": "Wrong. A vector object carries no pixel count, which is why it scales cleanly."
+    },
+    "facts": ["t10g-009"]
+  },
+  {
+    "id": "ift-d10-037",
+    "module": 10,
+    "slides": ["Data S69"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["numbers", "lists"],
+    "topic": "the attributes of a rectangle",
+    "prompt": "The deck lists {{1}} attributes needed to draw its rectangle.",
+    "blanks": [
+      {
+        "accept": ["6", "six"],
+        "choices": ["6", "4", "5", "7"],
+        "format": "number",
+        "hint": "coordinates, length, breadth, line thickness and colour, line type, fill colour"
+      }
+    ],
+    "explanation": "Six. The thickness and colour of the lines are given as one item, which is where a miscount usually comes from.",
+    "facts": ["t10g-009"]
+  },
+  {
+    "id": "ift-d10-038",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": ["lists"],
+    "topic": "advantages of vector graphics",
+    "prompt": "Select the advantages of vector graphics, the draw packages.",
+    "options": [
+      { "id": "a", "text": "Images can be enlarged without losing resolution" },
+      { "id": "b", "text": "Objects can be edited by changing their attributes" },
+      { "id": "c", "text": "Objects can be layered on top or behind" },
+      { "id": "d", "text": "Images take up less disc space" },
+      { "id": "e", "text": "Each pixel can be altered" }
+    ],
+    "answer": ["a", "b", "c", "d"],
+    "explanation": "Four advantages, plus a fifth on the slide: ideal for drawing plans, using a library of objects. Altering each pixel is a bitmap advantage.",
+    "why": {
+      "a": "Correct, and it is the headline advantage.",
+      "b": "Correct, editing by attribute is second.",
+      "c": "Correct, layering is third.",
+      "d": "Correct, less disc space is fourth.",
+      "e": "Wrong. Each pixel can be altered is listed under bit-mapped graphics, the paint packages."
+    },
+    "facts": ["t10g-010"]
+  },
+  {
+    "id": "ift-d10-039",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "advantages of vector graphics",
+    "prompt": "Why can a vector image be enlarged without losing resolution?",
+    "options": [
+      { "id": "a", "text": "Because it is stored as objects with attributes rather than as a fixed grid of pixels" },
+      { "id": "b", "text": "Because it stores more pixels than a bitmap" },
+      { "id": "c", "text": "Because it is compressed before being stored" },
+      { "id": "d", "text": "Because it always uses 1 bit per pixel" }
+    ],
+    "answer": "a",
+    "explanation": "Nothing in a vector object fixes a pixel count, so the objects can simply be redrawn larger. A bitmap has only the pixels it was captured with.",
+    "why": {
+      "a": "Correct, and it follows directly from the attribute list for the rectangle.",
+      "b": "Wrong. A vector image stores no pixels at all, only object descriptions.",
+      "c": "Wrong. Compression is not part of this deck, and it would not help with enlargement anyway.",
+      "d": "Wrong. One bit per pixel is the black and white bitmap assumption."
+    },
+    "facts": ["t10g-010"]
+  },
+  {
+    "id": "ift-d10-040",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": ["wording"],
+    "topic": "vector graphics and plans",
+    "prompt": "The deck says vector graphics are ideal for:",
+    "options": [
+      { "id": "a", "text": "Drawing plans, using a library of objects" },
+      { "id": "b", "text": "Storing photographs" },
+      { "id": "c", "text": "Real life images" },
+      { "id": "d", "text": "Altering individual pixels" }
+    ],
+    "answer": "a",
+    "explanation": "Ideal for drawing plans, using a library of objects. Photographs and real life are the bitmap side of the comparison.",
+    "why": {
+      "a": "Correct. Plans, with a library of reusable objects.",
+      "b": "Wrong. Photographs suit bit-mapped graphics, which are more realistic for that purpose.",
+      "c": "Wrong. More realistic when used for photos and real life is a bitmap advantage.",
+      "d": "Wrong. Altering individual pixels is a bitmap advantage."
+    },
+    "facts": ["t10g-011"]
+  },
+  {
+    "id": "ift-d10-041",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": ["wording"],
+    "topic": "vector graphics and plans",
+    "prompt": "Vector graphics are ideal for drawing plans, using a {{1}} of objects.",
+    "blanks": [
+      {
+        "accept": ["library"],
+        "choices": ["library", "grid", "layer", "palette"],
+        "format": "word"
+      }
+    ],
+    "explanation": "Library. Because objects are described rather than drawn, they can be stored once and reused.",
+    "facts": ["t10g-011"]
+  },
+  {
+    "id": "ift-d10-042",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": ["lists"],
+    "topic": "advantages of bit-mapped graphics",
+    "prompt": "Select the advantages of bit-mapped graphics, the paint packages.",
+    "options": [
+      { "id": "a", "text": "Each pixel can be altered" },
+      { "id": "b", "text": "More realistic when used for photos and real life" },
+      { "id": "c", "text": "Images can be enlarged without losing resolution" },
+      { "id": "d", "text": "Images take up less disc space" }
+    ],
+    "answer": ["a", "b"],
+    "explanation": "Just two: each pixel can be altered, and they are more realistic for photos and real life. The other two options are vector advantages.",
+    "why": {
+      "a": "Correct. Pixel by pixel control is what a paint package gives you.",
+      "b": "Correct. Realism for photographs is the second bitmap advantage.",
+      "c": "Wrong. Enlarging without losing resolution is a vector advantage; a bitmap loses quality when enlarged.",
+      "d": "Wrong. Less disc space is a vector advantage."
+    },
+    "facts": ["t10g-012"]
+  },
+  {
+    "id": "ift-d10-043",
+    "module": 10,
+    "slides": ["Data S71"],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": ["lists"],
+    "topic": "vector against bit-mapped",
+    "prompt": "Match each advantage to the kind of graphics it belongs to.",
+    "pairs": [
+      { "left": "Images can be enlarged without losing resolution", "right": "Vector" },
+      { "left": "Objects can be edited by changing their attributes", "right": "Vector" },
+      { "left": "Objects can be layered on top or behind", "right": "Vector" },
+      { "left": "Images take up less disc space", "right": "Vector" },
+      { "left": "Each pixel can be altered", "right": "Bit-mapped" },
+      { "left": "More realistic when used for photos and real life", "right": "Bit-mapped" }
+    ],
+    "explanation": "Four against two. The pattern is worth naming: vector wins on flexibility and size, bitmap wins on fine detail and realism.",
+    "facts": ["t10g-010", "t10g-012"]
+  }
+]

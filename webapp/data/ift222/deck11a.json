@@ -1,0 +1,2378 @@
+[
+  {
+    "id": "ift-d11-001",
+    "module": 11,
+    "slides": [
+      "Cache S2",
+      "Rev S38"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping formula",
+    "prompt": "The direct mapping formula is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cache Line equals Main Memory Block Number mod Number of Cache Addresses"
+      },
+      {
+        "id": "b",
+        "text": "Cache Line equals Main Memory Block Number times Number of Cache Addresses"
+      },
+      {
+        "id": "c",
+        "text": "Cache Line equals Number of Cache Addresses mod Main Memory Block Number"
+      },
+      {
+        "id": "d",
+        "text": "Cache Line equals Main Memory Block Number divided by Block Size"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Block number mod number of lines. The memory deck writes the same rule as i equals j modulo m.",
+    "why": {
+      "a": "Correct. Block number mod number of lines.",
+      "b": "Wrong. Multiplying would give a line number far beyond the cache.",
+      "c": "Wrong, and modulo is not symmetric, so the order matters.",
+      "d": "Wrong. Dividing by the block size converts an address to a block number, which is a different step."
+    },
+    "facts": [
+      "t11-001"
+    ]
+  },
+  {
+    "id": "ift-d11-002",
+    "module": 11,
+    "slides": [
+      "Cache S2",
+      "Rev S38"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping formula",
+    "prompt": "For direct mapping, Cache Line equals the Main Memory Block Number {{1}} the Number of Cache Addresses.",
+    "blanks": [
+      {
+        "accept": [
+          "mod",
+          "modulo"
+        ],
+        "choices": [
+          "mod",
+          "times",
+          "plus",
+          "minus"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Mod, that is the remainder after division. It guarantees the answer falls inside the cache however large the block number is.",
+    "facts": [
+      "t11-001"
+    ]
+  },
+  {
+    "id": "ift-d11-003",
+    "module": 11,
+    "slides": [
+      "Cache S2",
+      "Rev S38"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the direct mapping address format",
+    "prompt": "The direct mapping address format is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tag, Index, Offset"
+      },
+      {
+        "id": "b",
+        "text": "Tag, Offset"
+      },
+      {
+        "id": "c",
+        "text": "Tag, Set Index, Offset"
+      },
+      {
+        "id": "d",
+        "text": "Opcode, Mode, Address"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Three fields, in that order. Fully associative drops the index and set associative renames it the set index.",
+    "why": {
+      "a": "Correct. Three fields, in that order.",
+      "b": "Wrong. That is the fully associative format, which has no index field.",
+      "c": "Wrong. That is the set associative format.",
+      "d": "Wrong. That is the instruction format, from a different topic."
+    },
+    "facts": [
+      "t11-002"
+    ]
+  },
+  {
+    "id": "ift-d11-004",
+    "module": 11,
+    "slides": [
+      "Cache S2",
+      "Cache S8",
+      "Cache S11",
+      "Rev S38"
+    ],
+    "style": "match",
+    "difficulty": "hard",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the three address formats",
+    "prompt": "Match each mapping function to its address format.",
+    "pairs": [
+      {
+        "left": "Direct",
+        "right": "Tag, Index, Offset"
+      },
+      {
+        "left": "Fully associative",
+        "right": "Tag, Offset"
+      },
+      {
+        "left": "Set associative",
+        "right": "Tag, Set Index, Offset"
+      }
+    ],
+    "explanation": "The offset is always there because a block always has to be indexed into. What changes is the middle field: an index, nothing, or a set index.",
+    "facts": [
+      "t11-002",
+      "t11-017",
+      "t11-024"
+    ]
+  },
+  {
+    "id": "ift-d11-005",
+    "module": 11,
+    "slides": [
+      "Cache S3",
+      "Rev S39"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "direct mapping example 1",
+    "prompt": "In direct mapping Example 1, what are the three given quantities?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Main memory 64 KB, cache 1 KB, block 16 bytes"
+      },
+      {
+        "id": "b",
+        "text": "Main memory 128 KB, cache 4 KB, block 32 bytes"
+      },
+      {
+        "id": "c",
+        "text": "Main memory 1 MB, cache 8 KB, block 64 bytes"
+      },
+      {
+        "id": "d",
+        "text": "Main memory 16 KB, cache 1 KB, block 64 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 KB, 1 KB, 16 bytes. The same three numbers return for fully associative Example 1 and 2-way set associative Example 1, so all three mapping functions can be compared on one case.",
+    "why": {
+      "a": "Correct. 64 KB, 1 KB, 16 bytes.",
+      "b": "Wrong. That is direct mapping Example 2.",
+      "c": "Wrong. That is direct mapping Example 3.",
+      "d": "Wrong. No example uses those figures."
+    },
+    "facts": [
+      "t11-003"
+    ]
+  },
+  {
+    "id": "ift-d11-006",
+    "module": 11,
+    "slides": [
+      "Cache S3",
+      "Rev S39"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "direct mapping example 1",
+    "prompt": "A cache size of 1 KB is 1024 bytes, which is 2 to the power {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "10",
+          "ten"
+        ],
+        "choices": [
+          "10",
+          "8",
+          "12",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the power 10. Knowing that 1 KB is 2 to the 10 and 1 MB is 2 to the 20 makes every one of these examples quick.",
+    "facts": [
+      "t11-003"
+    ]
+  },
+  {
+    "id": "ift-d11-007",
+    "module": 11,
+    "slides": [
+      "Cache S3",
+      "Rev S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "address bits from memory size",
+    "prompt": "How many address bits does a main memory of 64 KB need?",
+    "options": [
+      {
+        "id": "a",
+        "text": "16"
+      },
+      {
+        "id": "b",
+        "text": "14"
+      },
+      {
+        "id": "c",
+        "text": "17"
+      },
+      {
+        "id": "d",
+        "text": "10"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 KB is 2 to the power 6 times 2 to the power 10, which is 2 to the power 16 bytes, so the address is 16 bits.",
+    "why": {
+      "a": "Correct. 64 KB is 2 to the power 6 times 2 to the power 10, which is 2 to the power 16 bytes, so the address is 16 bits.",
+      "b": "Wrong. 64 KB is 2 to the 16, not 2 to the 14.",
+      "c": "Wrong. 17 bits is 128 KB, which is Example 2.",
+      "d": "Wrong. 10 bits would address only 1 KB."
+    },
+    "facts": [
+      "t11-004"
+    ]
+  },
+  {
+    "id": "ift-d11-008",
+    "module": 11,
+    "slides": [
+      "Cache S3",
+      "Rev S39"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "address bits from memory size",
+    "prompt": "64 KB is 2 to the power 6 times 2 to the power 10, which is 2 to the power {{1}} bytes, so the address is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "14",
+          "60",
+          "17"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "14",
+          "10",
+          "6"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 16, so 16 address bits. The exponent and the bit count are always the same number, which is the shortcut worth carrying.",
+    "facts": [
+      "t11-004"
+    ]
+  },
+  {
+    "id": "ift-d11-009",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the offset field",
+    "prompt": "With a block size of 16 bytes, how many offset bits are needed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "4"
+      },
+      {
+        "id": "b",
+        "text": "16"
+      },
+      {
+        "id": "c",
+        "text": "5"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 bytes is 2 to the power 4, so the offset is 4 bits, running 0000 up to 1111.",
+    "why": {
+      "a": "Correct. 16 bytes is 2 to the power 4, so the offset is 4 bits, running 0000 up to 1111.",
+      "b": "Wrong. 16 is the block size in bytes, not the bit count.",
+      "c": "Wrong. 5 bits would index 32 bytes.",
+      "d": "Wrong. 8 bits would index 256 bytes, which is the worked example in the memory deck."
+    },
+    "facts": [
+      "t11-005"
+    ]
+  },
+  {
+    "id": "ift-d11-010",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the offset field",
+    "prompt": "The offset bits come from the block size: 16 bytes is 2 to the power {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "5",
+          "8",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 4. The offset always comes from the block size, in every one of the three mapping functions.",
+    "facts": [
+      "t11-005"
+    ]
+  },
+  {
+    "id": "ift-d11-011",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "counting cache lines",
+    "prompt": "How is the number of cache lines found?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cache size divided by block size, so 1024 over 16, which is 64 lines"
+      },
+      {
+        "id": "b",
+        "text": "Cache size times block size"
+      },
+      {
+        "id": "c",
+        "text": "Main memory size divided by cache size"
+      },
+      {
+        "id": "d",
+        "text": "Block size divided by cache size"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Cache size over block size. 1024 over 16 gives 64 lines of 16 bytes each.",
+    "why": {
+      "a": "Correct. Cache size over block size.",
+      "b": "Wrong. Multiplying gives a number far larger than the cache.",
+      "c": "Wrong. That ratio tells you how many caches would fit in main memory.",
+      "d": "Wrong, and it inverts the division."
+    },
+    "facts": [
+      "t11-006"
+    ]
+  },
+  {
+    "id": "ift-d11-012",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "counting cache lines",
+    "prompt": "1024 bytes over 16 bytes is {{1}} lines.",
+    "blanks": [
+      {
+        "accept": [
+          "64"
+        ],
+        "choices": [
+          "64",
+          "32",
+          "128",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "64 lines, each of 16 bytes. This figure returns in the tag directory calculation and in the set count.",
+    "facts": [
+      "t11-006"
+    ]
+  },
+  {
+    "id": "ift-d11-013",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the index field",
+    "prompt": "With 64 cache lines, how many index bits are needed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "6"
+      },
+      {
+        "id": "b",
+        "text": "64"
+      },
+      {
+        "id": "c",
+        "text": "5"
+      },
+      {
+        "id": "d",
+        "text": "4"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 is 2 to the power 6, so the index is 6 bits: the number of bits used to identify each line.",
+    "why": {
+      "a": "Correct. 64 is 2 to the power 6, so the index is 6 bits: the number of bits used to identify each line.",
+      "b": "Wrong. 64 is the line count, not the bit count.",
+      "c": "Wrong. 5 bits identify 32 items, which is the set count in the 2-way example.",
+      "d": "Wrong. 4 bits is the offset here."
+    },
+    "facts": [
+      "t11-007"
+    ]
+  },
+  {
+    "id": "ift-d11-014",
+    "module": 11,
+    "slides": [
+      "Cache S4",
+      "Rev S40"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the index field",
+    "prompt": "Because 64 lines is 2 to the power {{1}}, the index is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "5",
+          "7",
+          "4"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "5",
+          "7",
+          "4"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 to the 6, so 6 index bits. The index is defined as the number of bits used to identify each line.",
+    "facts": [
+      "t11-007"
+    ]
+  },
+  {
+    "id": "ift-d11-015",
+    "module": 11,
+    "slides": [
+      "Cache S5",
+      "Rev S41"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag formula",
+    "prompt": "In direct mapping, the tag bits are found as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Total main memory bits minus the sum of the index and the offset"
+      },
+      {
+        "id": "b",
+        "text": "Total main memory bits minus the offset only"
+      },
+      {
+        "id": "c",
+        "text": "The index plus the offset"
+      },
+      {
+        "id": "d",
+        "text": "Total main memory bits divided by the number of lines"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Subtract both other fields. In fully associative there is no index, so only the offset comes off, and the tag is correspondingly larger.",
+    "why": {
+      "a": "Correct. Subtract both other fields.",
+      "b": "Wrong. That is the fully associative tag formula.",
+      "c": "Wrong. Adding the other two fields does not give the third.",
+      "d": "Wrong. Division has no role in the field widths."
+    },
+    "facts": [
+      "t11-008"
+    ]
+  },
+  {
+    "id": "ift-d11-016",
+    "module": 11,
+    "slides": [
+      "Cache S5",
+      "Rev S41"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag formula",
+    "prompt": "Tag bits equal the total number of main memory bits minus the sum of the {{1}} and the offset.",
+    "blanks": [
+      {
+        "accept": [
+          "index"
+        ],
+        "choices": [
+          "index",
+          "tag",
+          "block",
+          "line size"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "The index. The three fields together always account for the whole address.",
+    "facts": [
+      "t11-008"
+    ]
+  },
+  {
+    "id": "ift-d11-017",
+    "module": 11,
+    "slides": [
+      "Cache S5",
+      "Rev S41"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping answer format",
+    "prompt": "In direct mapping Example 1, what is the complete address format?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tag 6 bits, Index 6 bits, Offset 4 bits"
+      },
+      {
+        "id": "b",
+        "text": "Tag 4 bits, Index 6 bits, Offset 6 bits"
+      },
+      {
+        "id": "c",
+        "text": "Tag 12 bits, Offset 4 bits"
+      },
+      {
+        "id": "d",
+        "text": "Tag 7 bits, Set Index 5 bits, Offset 4 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 minus 6 minus 4 gives a 6-bit tag, so the format is 6, 6, 4, which adds back to 16.",
+    "why": {
+      "a": "Correct. 16 minus 6 minus 4 gives a 6-bit tag, so the format is 6, 6, 4, which adds back to 16.",
+      "b": "Wrong. The offset is 4 and the tag is 6.",
+      "c": "Wrong. That is the fully associative answer for the same machine.",
+      "d": "Wrong. That is the 2-way set associative answer for the same machine."
+    },
+    "facts": [
+      "t11-009"
+    ]
+  },
+  {
+    "id": "ift-d11-018",
+    "module": 11,
+    "slides": [
+      "Cache S5",
+      "Rev S41"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping answer format",
+    "prompt": "In direct mapping Example 1 the tag is 16 minus 6 minus 4, which is {{1}} bits, and the three fields add back to {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "4",
+          "7",
+          "12"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "14",
+          "17",
+          "10"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "A 6-bit tag, and the fields sum to the 16-bit address. Adding them back is the quickest check on any of these answers.",
+    "facts": [
+      "t11-009"
+    ]
+  },
+  {
+    "id": "ift-d11-019",
+    "module": 11,
+    "slides": [
+      "Cache S5",
+      "Rev S41"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "reading an address from the CPU",
+    "prompt": "The worked address from the CPU is 000010 000011 1001. How does the deck read its three fields?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tag 2, index 3, offset 9"
+      },
+      {
+        "id": "b",
+        "text": "Tag 3, index 2, offset 9"
+      },
+      {
+        "id": "c",
+        "text": "Tag 2, index 9, offset 3"
+      },
+      {
+        "id": "d",
+        "text": "Tag 9, index 3, offset 2"
+      }
+    ],
+    "answer": "a",
+    "explanation": "000010 is 2, 000011 is 3, and 1001 is 9, in the field order tag, index, offset.",
+    "why": {
+      "a": "Correct. 000010 is 2, 000011 is 3, and 1001 is 9, in the field order tag, index, offset.",
+      "b": "Wrong. 000010 is 2 and comes first.",
+      "c": "Wrong. The 4-bit group at the end is the offset.",
+      "d": "Wrong. The tag is the leading 6 bits."
+    },
+    "facts": [
+      "t11-010"
+    ]
+  },
+  {
+    "id": "ift-d11-020",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag directory formula",
+    "prompt": "Tag Directory Size equals:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Total cache lines times tag bits"
+      },
+      {
+        "id": "b",
+        "text": "Total cache lines times block size"
+      },
+      {
+        "id": "c",
+        "text": "Tag bits times offset bits"
+      },
+      {
+        "id": "d",
+        "text": "Cache size times tag bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Lines times tag bits, because every line stores a tag of its own. The memory deck writes it as number of tags times tag size.",
+    "why": {
+      "a": "Correct. Lines times tag bits, because every line stores a tag of its own.",
+      "b": "Wrong. That would give the cache's data capacity in bytes.",
+      "c": "Wrong. The offset plays no part in the tag directory.",
+      "d": "Wrong. It is the number of lines, not the size in bytes, that multiplies the tag."
+    },
+    "facts": [
+      "t11-011"
+    ]
+  },
+  {
+    "id": "ift-d11-021",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the tag directory formula",
+    "prompt": "Tag Directory Size equals total cache {{1}} times tag bits.",
+    "blanks": [
+      {
+        "accept": [
+          "lines"
+        ],
+        "choices": [
+          "lines",
+          "blocks",
+          "bytes",
+          "sets"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Lines. Each line needs one tag, so the count of lines is the multiplier even in a set associative cache.",
+    "facts": [
+      "t11-011"
+    ]
+  },
+  {
+    "id": "ift-d11-022",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping tag directory",
+    "prompt": "In direct mapping Example 1, what is the tag directory size?",
+    "options": [
+      {
+        "id": "a",
+        "text": "384 bits, which is 48 bytes"
+      },
+      {
+        "id": "b",
+        "text": "768 bits, which is 96 bytes"
+      },
+      {
+        "id": "c",
+        "text": "448 bits, which is 56 bytes"
+      },
+      {
+        "id": "d",
+        "text": "192 bits, which is 24 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 lines times 6 tag bits is 384 bits, and 384 over 8 is 48 bytes.",
+    "why": {
+      "a": "Correct. 64 lines times 6 tag bits is 384 bits, and 384 over 8 is 48 bytes.",
+      "b": "Wrong. 768 bits is the fully associative answer for the same machine, where the tag is 12 bits.",
+      "c": "Wrong. 448 bits is the 2-way set associative answer, where the tag is 7 bits.",
+      "d": "Wrong. 192 bits is the memory deck's worked example, with 3 tag bits."
+    },
+    "facts": [
+      "t11-012"
+    ]
+  },
+  {
+    "id": "ift-d11-023",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the direct mapping tag directory",
+    "prompt": "The tag directory size is 64 times 6, which is {{1}} bits, or {{2}} bytes when divided by 8.",
+    "blanks": [
+      {
+        "accept": [
+          "384"
+        ],
+        "choices": [
+          "384",
+          "768",
+          "448",
+          "192"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "48"
+        ],
+        "choices": [
+          "48",
+          "96",
+          "56",
+          "24"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "384 bits, 48 bytes. Dividing by 8 at the end is the step most often forgotten.",
+    "facts": [
+      "t11-012"
+    ]
+  },
+  {
+    "id": "ift-d11-024",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "multi",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the full answer to example 1",
+    "prompt": "Select the correct values in the full answer to direct mapping Example 1.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Offset 4 bits"
+      },
+      {
+        "id": "b",
+        "text": "Index 6 bits"
+      },
+      {
+        "id": "c",
+        "text": "Tag 6 bits"
+      },
+      {
+        "id": "d",
+        "text": "Tag directory size 384 bits, that is 48 bytes"
+      },
+      {
+        "id": "e",
+        "text": "Tag 12 bits"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "The four-line answer the deck gives. A 12-bit tag is the fully associative result for the same machine, which is what changes when the index field disappears.",
+    "why": {
+      "a": "Correct, from the 16-byte block.",
+      "b": "Correct, from the 64 lines.",
+      "c": "Correct, from 16 minus 6 minus 4.",
+      "d": "Correct, from 64 times 6.",
+      "e": "Wrong. 12 bits is the tag when there is no index field, that is under fully associative mapping."
+    },
+    "facts": [
+      "t11-013"
+    ]
+  },
+  {
+    "id": "ift-d11-025",
+    "module": 11,
+    "slides": [
+      "Cache S6",
+      "Rev S42"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the full answer to example 1",
+    "prompt": "The full answer to direct mapping Example 1 gives offset 4 bits, index 6 bits, tag {{1}} bits, and a tag directory of 384 bits.",
+    "blanks": [
+      {
+        "accept": [
+          "6",
+          "six"
+        ],
+        "choices": [
+          "6",
+          "4",
+          "12",
+          "7"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "6 bits. In this example the tag and the index happen to be the same width, which is a coincidence of the numbers rather than a rule.",
+    "facts": [
+      "t11-013"
+    ]
+  },
+  {
+    "id": "ift-d11-026",
+    "module": 11,
+    "slides": [
+      "Cache S7",
+      "Rev S43"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "direct mapping example 2",
+    "prompt": "Direct mapping Example 2 gives which figures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Main memory 128 KB, cache 4 KB, block 32 B"
+      },
+      {
+        "id": "b",
+        "text": "Main memory 64 KB, cache 1 KB, block 16 B"
+      },
+      {
+        "id": "c",
+        "text": "Main memory 1 MB, cache 8 KB, block 64 B"
+      },
+      {
+        "id": "d",
+        "text": "Main memory 256 KB, cache 4 KB, block 32 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "128 KB, 4 KB, 32 B. Note how close it is to fully associative Example 2, which uses 256 KB with the same cache and block.",
+    "why": {
+      "a": "Correct. 128 KB, 4 KB, 32 B.",
+      "b": "Wrong. That is direct mapping Example 1.",
+      "c": "Wrong. That is direct mapping Example 3.",
+      "d": "Wrong. 256 KB belongs to fully associative Example 2."
+    },
+    "facts": [
+      "t11-014"
+    ]
+  },
+  {
+    "id": "ift-d11-027",
+    "module": 11,
+    "slides": [
+      "Cache S7",
+      "Rev S43"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "direct mapping example 2",
+    "prompt": "What does direct mapping Example 2 ask you to find?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Offset"
+      },
+      {
+        "id": "b",
+        "text": "Index"
+      },
+      {
+        "id": "c",
+        "text": "Tag bits"
+      },
+      {
+        "id": "d",
+        "text": "Tag Directory Size"
+      },
+      {
+        "id": "e",
+        "text": "Set bits"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four quantities. Set bits only appear in the set associative examples, where a set index replaces the plain index.",
+    "why": {
+      "a": "Correct, offset is first.",
+      "b": "Correct, index is second.",
+      "c": "Correct, tag bits is third.",
+      "d": "Correct, tag directory size closes the list.",
+      "e": "Wrong. Direct mapping has no sets; each block maps to exactly one line."
+    },
+    "facts": [
+      "t11-014"
+    ]
+  },
+  {
+    "id": "ift-d11-028",
+    "module": 11,
+    "slides": [
+      "Cache S7",
+      "Rev S43"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "direct mapping example 3",
+    "prompt": "Direct mapping Example 3 gives which figures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Main memory 1 MB, cache 8 KB, block 64 B"
+      },
+      {
+        "id": "b",
+        "text": "Main memory 2 MB, cache 16 KB, block 64 B"
+      },
+      {
+        "id": "c",
+        "text": "Main memory 4 MB, cache 32 KB, block 64 B"
+      },
+      {
+        "id": "d",
+        "text": "Main memory 128 KB, cache 4 KB, block 32 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "1 MB, 8 KB, 64 B. The other three MB-sized cases belong to fully associative Example 3 and set associative Example 3.",
+    "why": {
+      "a": "Correct. 1 MB, 8 KB, 64 B.",
+      "b": "Wrong. 2 MB with 16 KB is fully associative Example 3.",
+      "c": "Wrong. 4 MB with 32 KB is the 8-way set associative Example 3.",
+      "d": "Wrong. That is direct mapping Example 2."
+    },
+    "facts": [
+      "t11-015"
+    ]
+  },
+  {
+    "id": "ift-d11-029",
+    "module": 11,
+    "slides": [
+      "Cache S7",
+      "Rev S43"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "direct mapping example 3",
+    "prompt": "In direct mapping Example 3 the block size is {{1}} B.",
+    "blanks": [
+      {
+        "accept": [
+          "64"
+        ],
+        "choices": [
+          "64",
+          "32",
+          "16",
+          "128"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "64 bytes, which is 2 to the power 6, so the offset would be 6 bits.",
+    "facts": [
+      "t11-015"
+    ]
+  },
+  {
+    "id": "ift-d11-030",
+    "module": 11,
+    "slides": [
+      "Cache S8",
+      "Rev S44"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "fully associative mapping",
+    "prompt": "In fully associative mapping:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Any memory block can be placed in any cache line"
+      },
+      {
+        "id": "b",
+        "text": "Each block maps to exactly one line"
+      },
+      {
+        "id": "c",
+        "text": "Each block maps to any line within one set"
+      },
+      {
+        "id": "d",
+        "text": "Blocks are placed in order of arrival"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Any block, any line. Direct mapping is the opposite extreme, one line only, and set associative sits between them.",
+    "why": {
+      "a": "Correct. Any block, any line.",
+      "b": "Wrong, and that is direct mapping, which the slide contrasts on the same line.",
+      "c": "Wrong. That is set associative mapping.",
+      "d": "Wrong. Arrival order is not a mapping function."
+    },
+    "facts": [
+      "t11-016"
+    ]
+  },
+  {
+    "id": "ift-d11-031",
+    "module": 11,
+    "slides": [
+      "Cache S8",
+      "Rev S44"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative mapping",
+    "prompt": "The slide contrasts fully associative with direct mapping, where each block goes to exactly {{1}} line.",
+    "blanks": [
+      {
+        "accept": [
+          "1",
+          "one"
+        ],
+        "choices": [
+          "1",
+          "2",
+          "4",
+          "8"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Exactly 1 line, which is what causes thrashing when two hot blocks collide.",
+    "facts": [
+      "t11-016"
+    ]
+  },
+  {
+    "id": "ift-d11-032",
+    "module": 11,
+    "slides": [
+      "Cache S8",
+      "Rev S44"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the fully associative address format",
+    "prompt": "The fully associative address format is Tag then Offset. What is missing compared with direct mapping?",
+    "options": [
+      {
+        "id": "a",
+        "text": "There is no index field"
+      },
+      {
+        "id": "b",
+        "text": "There is no tag field"
+      },
+      {
+        "id": "c",
+        "text": "There is no offset field"
+      },
+      {
+        "id": "d",
+        "text": "There is no set index field"
+      }
+    ],
+    "answer": "a",
+    "explanation": "No index. There is nothing to index, because a block may be anywhere, so those bits go to the tag instead.",
+    "why": {
+      "a": "Correct, and the slide says so explicitly.",
+      "b": "Wrong. The tag is present and larger than in direct mapping.",
+      "c": "Wrong. The offset is always needed to pick a byte inside a block.",
+      "d": "Wrong. A set index exists only in set associative mapping."
+    },
+    "facts": [
+      "t11-017"
+    ]
+  },
+  {
+    "id": "ift-d11-033",
+    "module": 11,
+    "slides": [
+      "Cache S8",
+      "Rev S44"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the fully associative address format",
+    "prompt": "A fully associative cache address has no index field.",
+    "answer": "true",
+    "explanation": "None. Its format is Tag then Offset, and the bits that would have been an index become part of the tag.",
+    "why": {
+      "true": "Correct. The slide states there is no index field.",
+      "false": "Wrong. Since any block can go in any line, there is nothing for an index to select."
+    },
+    "facts": [
+      "t11-017"
+    ]
+  },
+  {
+    "id": "ift-d11-034",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative example 1",
+    "prompt": "In fully associative Example 1, with main memory 64 KB, cache 1 KB and block 16 B, what are the address and offset widths?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Address 16 bits, offset 4 bits"
+      },
+      {
+        "id": "b",
+        "text": "Address 16 bits, offset 6 bits"
+      },
+      {
+        "id": "c",
+        "text": "Address 17 bits, offset 4 bits"
+      },
+      {
+        "id": "d",
+        "text": "Address 10 bits, offset 4 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same 16-bit address and 4-bit offset as the direct mapped case, because those two depend only on the memory size and the block size.",
+    "why": {
+      "a": "Correct. The same 16-bit address and 4-bit offset as the direct mapped case, because those two depend only on the memory size and the block size.",
+      "b": "Wrong. 6 bits was the index in the direct mapped example, not the offset.",
+      "c": "Wrong. 17 bits is 128 KB.",
+      "d": "Wrong. 10 bits would address only the 1 KB cache."
+    },
+    "facts": [
+      "t11-018"
+    ]
+  },
+  {
+    "id": "ift-d11-035",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative example 1",
+    "prompt": "In fully associative Example 1 the address is {{1}} bits, exactly as in the direct mapped case.",
+    "blanks": [
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "12",
+          "17",
+          "10"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "16 bits. Only the split of those bits changes between mapping functions, never the total.",
+    "facts": [
+      "t11-018"
+    ]
+  },
+  {
+    "id": "ift-d11-036",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag",
+    "prompt": "In fully associative Example 1, what is the tag width?",
+    "options": [
+      {
+        "id": "a",
+        "text": "12 bits, from 16 minus 4"
+      },
+      {
+        "id": "b",
+        "text": "6 bits, from 16 minus 6 minus 4"
+      },
+      {
+        "id": "c",
+        "text": "7 bits, from 16 minus 5 minus 4"
+      },
+      {
+        "id": "d",
+        "text": "4 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 minus 4 is 12, because there is no index field to subtract. That is 6 bits more tag than the direct mapped case on the same machine.",
+    "why": {
+      "a": "Correct. 16 minus 4 is 12, because there is no index field to subtract.",
+      "b": "Wrong. That subtraction includes an index, which fully associative does not have.",
+      "c": "Wrong. That is the 2-way set associative calculation.",
+      "d": "Wrong. 4 bits is the offset."
+    },
+    "facts": [
+      "t11-019"
+    ]
+  },
+  {
+    "id": "ift-d11-037",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag",
+    "prompt": "In fully associative mapping the tag is the address width minus the {{1}} only, giving 16 minus 4, which is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "offset"
+        ],
+        "choices": [
+          "offset",
+          "index",
+          "set index",
+          "line number"
+        ],
+        "format": "phrase"
+      },
+      {
+        "accept": [
+          "12"
+        ],
+        "choices": [
+          "12",
+          "6",
+          "7",
+          "10"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "Minus the offset only, giving 12 bits. Every bit not spent on an index has to be spent on the tag.",
+    "facts": [
+      "t11-019"
+    ]
+  },
+  {
+    "id": "ift-d11-038",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag directory",
+    "prompt": "In fully associative Example 1, what is the tag directory size?",
+    "options": [
+      {
+        "id": "a",
+        "text": "768 bits, which is 96 bytes"
+      },
+      {
+        "id": "b",
+        "text": "384 bits, which is 48 bytes"
+      },
+      {
+        "id": "c",
+        "text": "448 bits, which is 56 bytes"
+      },
+      {
+        "id": "d",
+        "text": "576 bits, which is 72 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 lines times 12 tag bits is 768 bits, which is 96 bytes. It is exactly double the direct mapped figure, because the tag is double the width.",
+    "why": {
+      "a": "Correct. 64 lines times 12 tag bits is 768 bits, which is 96 bytes.",
+      "b": "Wrong. 384 bits is the direct mapped answer for the same machine.",
+      "c": "Wrong. 448 bits is the 2-way set associative answer.",
+      "d": "Wrong. 576 bits is the memory deck's associative example, with 9 tag bits."
+    },
+    "facts": [
+      "t11-020"
+    ]
+  },
+  {
+    "id": "ift-d11-039",
+    "module": 11,
+    "slides": [
+      "Cache S9",
+      "Rev S45"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the fully associative tag directory",
+    "prompt": "The fully associative tag directory is 64 times 12, which is 768 bits, that is {{1}} bytes.",
+    "blanks": [
+      {
+        "accept": [
+          "96"
+        ],
+        "choices": [
+          "96",
+          "48",
+          "56",
+          "72"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "96 bytes. Full associativity buys placement freedom and pays for it in tag storage.",
+    "facts": [
+      "t11-020"
+    ]
+  },
+  {
+    "id": "ift-d11-040",
+    "module": 11,
+    "slides": [
+      "Cache S10",
+      "Rev S46"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative example 2",
+    "prompt": "Fully associative Example 2 gives which figures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Main memory 256 KB, cache 4 KB, block 32 B"
+      },
+      {
+        "id": "b",
+        "text": "Main memory 128 KB, cache 4 KB, block 32 B"
+      },
+      {
+        "id": "c",
+        "text": "Main memory 512 KB, cache 8 KB, block 32 B"
+      },
+      {
+        "id": "d",
+        "text": "Main memory 2 MB, cache 16 KB, block 64 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "256 KB, 4 KB, 32 B. It shares its cache and block sizes with direct mapping Example 2, which uses 128 KB of main memory instead.",
+    "why": {
+      "a": "Correct. 256 KB, 4 KB, 32 B.",
+      "b": "Wrong. 128 KB is direct mapping Example 2.",
+      "c": "Wrong. 512 KB is the 4-way set associative Example 2.",
+      "d": "Wrong. That is fully associative Example 3."
+    },
+    "facts": [
+      "t11-021"
+    ]
+  },
+  {
+    "id": "ift-d11-041",
+    "module": 11,
+    "slides": [
+      "Cache S10",
+      "Rev S46"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "fully associative example 2",
+    "prompt": "What do the fully associative examples ask you to find?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Offset bits"
+      },
+      {
+        "id": "b",
+        "text": "Tag bits"
+      },
+      {
+        "id": "c",
+        "text": "Total cache lines"
+      },
+      {
+        "id": "d",
+        "text": "Tag directory size"
+      },
+      {
+        "id": "e",
+        "text": "Index bits"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "explanation": "Four quantities, and index is not among them because a fully associative cache has no index field.",
+    "why": {
+      "a": "Correct, offset bits.",
+      "b": "Correct, tag bits.",
+      "c": "Correct, total cache lines, needed for the tag directory.",
+      "d": "Correct, tag directory size.",
+      "e": "Wrong. There is no index field in fully associative mapping."
+    },
+    "facts": [
+      "t11-021"
+    ]
+  },
+  {
+    "id": "ift-d11-042",
+    "module": 11,
+    "slides": [
+      "Cache S10",
+      "Rev S46"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative example 3",
+    "prompt": "Fully associative Example 3 gives which figures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Main memory 2 MB, cache 16 KB, block 64 B"
+      },
+      {
+        "id": "b",
+        "text": "Main memory 1 MB, cache 8 KB, block 64 B"
+      },
+      {
+        "id": "c",
+        "text": "Main memory 4 MB, cache 32 KB, block 64 B"
+      },
+      {
+        "id": "d",
+        "text": "Main memory 256 KB, cache 4 KB, block 32 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "2 MB, 16 KB, 64 B. All three Example 3 cases use a 64 B block, so the offset is 6 bits in every one of them.",
+    "why": {
+      "a": "Correct. 2 MB, 16 KB, 64 B.",
+      "b": "Wrong. That is direct mapping Example 3.",
+      "c": "Wrong. That is the 8-way set associative Example 3.",
+      "d": "Wrong. That is fully associative Example 2."
+    },
+    "facts": [
+      "t11-022"
+    ]
+  },
+  {
+    "id": "ift-d11-043",
+    "module": 11,
+    "slides": [
+      "Cache S10",
+      "Rev S46"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "fully associative example 3",
+    "prompt": "In fully associative Example 3 the main memory is {{1}} MB.",
+    "blanks": [
+      {
+        "accept": [
+          "2",
+          "two"
+        ],
+        "choices": [
+          "2",
+          "1",
+          "4",
+          "8"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "2 MB, which is 2 to the power 21 bytes, so the address would be 21 bits.",
+    "facts": [
+      "t11-022"
+    ]
+  },
+  {
+    "id": "ift-d11-044",
+    "module": 11,
+    "slides": [
+      "Cache S11",
+      "Rev S47"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative formula",
+    "prompt": "For an n-way set associative cache, the number of sets is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cache Lines divided by n"
+      },
+      {
+        "id": "b",
+        "text": "Cache Lines times n"
+      },
+      {
+        "id": "c",
+        "text": "n divided by Cache Lines"
+      },
+      {
+        "id": "d",
+        "text": "Cache size divided by n"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Lines over n. Each set holds n lines, so dividing the lines among the sets gives the count.",
+    "why": {
+      "a": "Correct. Lines over n.",
+      "b": "Wrong. Multiplying would give more sets than lines.",
+      "c": "Wrong, and it inverts the division.",
+      "d": "Wrong. It is the number of lines, not the size in bytes, that is divided."
+    },
+    "facts": [
+      "t11-023"
+    ]
+  },
+  {
+    "id": "ift-d11-045",
+    "module": 11,
+    "slides": [
+      "Cache S11",
+      "Rev S47"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the set associative formula",
+    "prompt": "For an n-way set associative cache, Number of Sets equals Cache Lines divided by {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "n"
+        ],
+        "choices": [
+          "n",
+          "2",
+          "the block size",
+          "the tag"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "By n, the associativity. With n equal to 1 it reduces to direct mapping, and with n equal to the line count it becomes fully associative.",
+    "facts": [
+      "t11-023"
+    ]
+  },
+  {
+    "id": "ift-d11-046",
+    "module": 11,
+    "slides": [
+      "Cache S11",
+      "Rev S47"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the set associative address format",
+    "prompt": "The set associative address format is:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tag, Set Index, Offset"
+      },
+      {
+        "id": "b",
+        "text": "Tag, Index, Offset"
+      },
+      {
+        "id": "c",
+        "text": "Tag, Offset"
+      },
+      {
+        "id": "d",
+        "text": "Set Index, Tag, Offset"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Tag, Set Index, Offset. It is the direct mapping format with the index selecting a set rather than a single line.",
+    "why": {
+      "a": "Correct. Tag, Set Index, Offset.",
+      "b": "Wrong. In set associative mapping the middle field is a set index, not a line index.",
+      "c": "Wrong. That is the fully associative format.",
+      "d": "Wrong. The tag always comes first."
+    },
+    "facts": [
+      "t11-024"
+    ]
+  },
+  {
+    "id": "ift-d11-047",
+    "module": 11,
+    "slides": [
+      "Cache S11",
+      "Rev S47"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the set associative address format",
+    "prompt": "The set associative address format is Tag, then {{1}} Index, then Offset.",
+    "blanks": [
+      {
+        "accept": [
+          "Set"
+        ],
+        "choices": [
+          "Set",
+          "Line",
+          "Block",
+          "Word"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Set Index. The name changes because the field now picks a group of lines rather than one line.",
+    "facts": [
+      "t11-024"
+    ]
+  },
+  {
+    "id": "ift-d11-048",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 2-way example setup",
+    "prompt": "In the 2-way set associative Example 1, with main memory 64 KB, cache 1 KB and block 16 B, how many cache lines are there?",
+    "options": [
+      {
+        "id": "a",
+        "text": "64"
+      },
+      {
+        "id": "b",
+        "text": "32"
+      },
+      {
+        "id": "c",
+        "text": "128"
+      },
+      {
+        "id": "d",
+        "text": "16"
+      }
+    ],
+    "answer": "a",
+    "explanation": "1024 over 16 is 64 lines, the same as in the direct mapped and fully associative versions. Associativity groups the lines; it does not change how many there are.",
+    "why": {
+      "a": "Correct. 1024 over 16 is 64 lines, the same as in the direct mapped and fully associative versions.",
+      "b": "Wrong. 32 is the number of SETS, once the 64 lines are paired up.",
+      "c": "Wrong. That would need a smaller block or a larger cache.",
+      "d": "Wrong. 16 is the block size in bytes."
+    },
+    "facts": [
+      "t11-025"
+    ]
+  },
+  {
+    "id": "ift-d11-049",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 2-way example setup",
+    "prompt": "In the 2-way set associative Example 1 the address is {{1}} bits and the offset is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "16"
+        ],
+        "choices": [
+          "16",
+          "10",
+          "17",
+          "12"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "16 and 4, unchanged from the other two mapping functions on the same machine. Only the middle field and the tag differ.",
+    "facts": [
+      "t11-025"
+    ]
+  },
+  {
+    "id": "ift-d11-050",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "sets and the set index",
+    "prompt": "With 64 cache lines in a 2-way set associative cache, how many sets are there and how wide is the set index?",
+    "options": [
+      {
+        "id": "a",
+        "text": "32 sets, set index 5 bits"
+      },
+      {
+        "id": "b",
+        "text": "64 sets, set index 6 bits"
+      },
+      {
+        "id": "c",
+        "text": "32 sets, set index 6 bits"
+      },
+      {
+        "id": "d",
+        "text": "16 sets, set index 4 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "64 over 2 is 32 sets, and 32 is 2 to the power 5, so the set index is 5 bits. Doubling the associativity always costs one bit of index.",
+    "why": {
+      "a": "Correct. 64 over 2 is 32 sets, and 32 is 2 to the power 5, so the set index is 5 bits.",
+      "b": "Wrong. 64 sets would be direct mapping, one line per set.",
+      "c": "Wrong. 32 needs 5 bits, not 6.",
+      "d": "Wrong. That would be a 4-way cache on this machine."
+    },
+    "facts": [
+      "t11-026"
+    ]
+  },
+  {
+    "id": "ift-d11-051",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "sets and the set index",
+    "prompt": "In the 2-way example the number of sets is 64 over 2, which is {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "32"
+        ],
+        "choices": [
+          "32",
+          "64",
+          "16",
+          "128"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "32 sets, so 5 set index bits.",
+    "facts": [
+      "t11-026"
+    ]
+  },
+  {
+    "id": "ift-d11-052",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 2-way tag and directory",
+    "prompt": "In the 2-way set associative Example 1, what are the tag width and the tag directory size?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tag 7 bits, directory 448 bits, that is 56 bytes"
+      },
+      {
+        "id": "b",
+        "text": "Tag 6 bits, directory 384 bits, that is 48 bytes"
+      },
+      {
+        "id": "c",
+        "text": "Tag 12 bits, directory 768 bits, that is 96 bytes"
+      },
+      {
+        "id": "d",
+        "text": "Tag 7 bits, directory 224 bits, that is 28 bytes"
+      }
+    ],
+    "answer": "a",
+    "explanation": "16 minus 5 minus 4 gives a 7-bit tag, and 7 times 64 is 448 bits, which is 56 bytes. The multiplier is the line count, 64, not the set count.",
+    "why": {
+      "a": "Correct. 16 minus 5 minus 4 gives a 7-bit tag, and 7 times 64 is 448 bits, which is 56 bytes.",
+      "b": "Wrong. That is the direct mapped answer, where the index is 6 bits.",
+      "c": "Wrong. That is the fully associative answer, with no index at all.",
+      "d": "Wrong. Multiplying by the 32 sets instead of the 64 lines gives this; every line needs its own tag."
+    },
+    "facts": [
+      "t11-027"
+    ]
+  },
+  {
+    "id": "ift-d11-053",
+    "module": 11,
+    "slides": [
+      "Cache S12",
+      "Rev S48"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 2-way tag and directory",
+    "prompt": "The 2-way tag is 16 minus 5 minus 4, which is {{1}} bits, and the tag directory is 7 times 64, which is {{2}} bits.",
+    "blanks": [
+      {
+        "accept": [
+          "7",
+          "seven"
+        ],
+        "choices": [
+          "7",
+          "6",
+          "12",
+          "5"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "448"
+        ],
+        "choices": [
+          "448",
+          "384",
+          "768",
+          "224"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "7 bits and 448 bits, that is 56 bytes. Set it beside the other two answers for the same machine: 384 bits direct, 448 bits 2-way, 768 bits fully associative.",
+    "facts": [
+      "t11-027"
+    ]
+  },
+  {
+    "id": "ift-d11-054",
+    "module": 11,
+    "slides": [
+      "Cache S13",
+      "Rev S49"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "set associative example 2",
+    "prompt": "Set associative Example 2 is which configuration?",
+    "options": [
+      {
+        "id": "a",
+        "text": "4-way, main memory 512 KB, cache 8 KB, block 32 B"
+      },
+      {
+        "id": "b",
+        "text": "2-way, main memory 64 KB, cache 1 KB, block 16 B"
+      },
+      {
+        "id": "c",
+        "text": "8-way, main memory 4 MB, cache 32 KB, block 64 B"
+      },
+      {
+        "id": "d",
+        "text": "4-way, main memory 256 KB, cache 4 KB, block 32 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "4-way, 512 KB, 8 KB, 32 B. The three set associative examples step up the associativity: 2-way, 4-way, 8-way.",
+    "why": {
+      "a": "Correct. 4-way, 512 KB, 8 KB, 32 B.",
+      "b": "Wrong. That is set associative Example 1.",
+      "c": "Wrong. That is set associative Example 3.",
+      "d": "Wrong. 256 KB with 4 KB is fully associative Example 2."
+    },
+    "facts": [
+      "t11-028"
+    ]
+  },
+  {
+    "id": "ift-d11-055",
+    "module": 11,
+    "slides": [
+      "Cache S13",
+      "Rev S49"
+    ],
+    "style": "multi",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "set associative example 2",
+    "prompt": "What do the set associative examples ask you to find?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Address bits"
+      },
+      {
+        "id": "b",
+        "text": "Offset"
+      },
+      {
+        "id": "c",
+        "text": "Cache lines"
+      },
+      {
+        "id": "d",
+        "text": "Set bits"
+      },
+      {
+        "id": "e",
+        "text": "Tag bits"
+      },
+      {
+        "id": "f",
+        "text": "Tag directory size"
+      },
+      {
+        "id": "g",
+        "text": "Tag directory size in bytes rather than bits"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f"
+    ],
+    "explanation": "Six quantities, in the order you have to compute them: address, offset, lines, sets, tag, directory. Each step feeds the next, and the directory is asked for in bits.",
+    "why": {
+      "a": "Correct, address bits come from the main memory size.",
+      "b": "Correct, the offset comes from the block size.",
+      "c": "Correct, cache lines come from cache size over block size.",
+      "d": "Correct, set bits come from lines over n.",
+      "e": "Correct, tag bits are what is left of the address.",
+      "f": "Correct, and it is lines times tag bits.",
+      "g": "Wrong. The examples ask for the tag directory size, and the worked answers give it in bits first, converting to bytes only at the end. It is not a separate quantity the question asks you to find."
+    },
+    "facts": [
+      "t11-028"
+    ]
+  },
+  {
+    "id": "ift-d11-056",
+    "module": 11,
+    "slides": [
+      "Cache S13",
+      "Rev S49"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "set associative example 3",
+    "prompt": "Set associative Example 3 is which configuration?",
+    "options": [
+      {
+        "id": "a",
+        "text": "8-way, main memory 4 MB, cache 32 KB, block 64 B"
+      },
+      {
+        "id": "b",
+        "text": "8-way, main memory 2 MB, cache 16 KB, block 64 B"
+      },
+      {
+        "id": "c",
+        "text": "4-way, main memory 512 KB, cache 8 KB, block 32 B"
+      },
+      {
+        "id": "d",
+        "text": "2-way, main memory 4 MB, cache 32 KB, block 64 B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "8-way, 4 MB, 32 KB, 64 B. It is the largest case in the deck and the one with the deepest associativity.",
+    "why": {
+      "a": "Correct. 8-way, 4 MB, 32 KB, 64 B.",
+      "b": "Wrong. 2 MB with 16 KB is fully associative Example 3.",
+      "c": "Wrong. That is set associative Example 2.",
+      "d": "Wrong associativity: Example 3 is 8-way."
+    },
+    "facts": [
+      "t11-029"
+    ]
+  },
+  {
+    "id": "ift-d11-057",
+    "module": 11,
+    "slides": [
+      "Cache S13",
+      "Rev S49"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "set associative example 3",
+    "prompt": "Set associative Example 3 is {{1}}-way, with a main memory of 4 MB.",
+    "blanks": [
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "2",
+          "4",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "8-way. The three examples run 2-way, 4-way, 8-way, and each doubling moves one bit from the set index into the tag.",
+    "facts": [
+      "t11-029"
+    ]
+  }
+]

@@ -1,0 +1,2107 @@
+[
+  {
+    "id": "ift-d6-001",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what an instruction is made of",
+    "prompt": "An instruction is usually made up of a combination of an operation code and:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Some way of specifying an operand, most commonly by its location or address in memory"
+      },
+      {
+        "id": "b",
+        "text": "The number of cycles it will take"
+      },
+      {
+        "id": "c",
+        "text": "A checksum"
+      },
+      {
+        "id": "d",
+        "text": "The address of the next instruction"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Opcode plus a way of specifying an operand, usually by its location or address in memory. That is the whole shape of an instruction.",
+    "why": {
+      "a": "Correct. Opcode plus a way of specifying an operand, usually by its location or address in memory.",
+      "b": "Wrong. Cycle counts are never encoded in an instruction.",
+      "c": "Wrong. No checksum appears in any instruction format in this course.",
+      "d": "Wrong. The program counter supplies the next address, except when a branch overrides it."
+    },
+    "facts": [
+      "t6-001"
+    ]
+  },
+  {
+    "id": "ift-d6-002",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what an instruction is made of",
+    "prompt": "An operand is most commonly specified by its location or {{1}} in memory.",
+    "blanks": [
+      {
+        "accept": [
+          "address"
+        ],
+        "choices": [
+          "address",
+          "value",
+          "size",
+          "type"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Address. Immediate addressing is the exception that proves the rule: there the value itself sits inside the instruction.",
+    "facts": [
+      "t6-001"
+    ]
+  },
+  {
+    "id": "ift-d6-003",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what an instruction format is",
+    "prompt": "Instruction Format is defined as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The layout of bits in an instruction"
+      },
+      {
+        "id": "b",
+        "text": "The order in which instructions execute"
+      },
+      {
+        "id": "c",
+        "text": "The set of instructions a processor supports"
+      },
+      {
+        "id": "d",
+        "text": "The way operands are accessed at runtime"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The layout of bits in an instruction, for example the pattern 11100011111110000001110000 standing for ADD R1,R2.",
+    "why": {
+      "a": "Correct. The layout of bits in an instruction, for example the pattern 11100011111110000001110000 standing for ADD R1,R2.",
+      "b": "Wrong. Execution order is program flow, not format.",
+      "c": "Wrong. That is the instruction set.",
+      "d": "Wrong. That is the addressing modes."
+    },
+    "facts": [
+      "t6-002"
+    ]
+  },
+  {
+    "id": "ift-d6-004",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what an instruction format is",
+    "prompt": "The deck gives 11100011111110000001110000 as an example of the bit layout for ADD R1,R2.",
+    "answer": "true",
+    "explanation": "It does, and the point of showing it is that an assembly mnemonic is only a readable name for a pattern of bits.",
+    "why": {
+      "true": "Correct. The bit string appears on the instruction format slide against ADD R1,R2.",
+      "false": "Wrong. The example is printed on the slide, immediately under the definition."
+    },
+    "facts": [
+      "t6-002"
+    ]
+  },
+  {
+    "id": "ift-d6-005",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the parts of an instruction",
+    "prompt": "An instruction is divided into which parts?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode, the function"
+      },
+      {
+        "id": "b",
+        "text": "Operands, implicit or explicit"
+      },
+      {
+        "id": "c",
+        "text": "Addressing mode"
+      },
+      {
+        "id": "d",
+        "text": "Condition code"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Three parts. Note implicit or explicit against the operands: a zero-address instruction has operands, they are just implied by the stack.",
+    "why": {
+      "a": "Correct, and function is the deck's gloss on opcode.",
+      "b": "Correct, and implicit operands are what make one-address and zero-address formats possible.",
+      "c": "Correct, the addressing mode is the third part.",
+      "d": "Wrong. The condition code register is read by branch instructions but is not a field of an instruction."
+    },
+    "facts": [
+      "t6-003"
+    ]
+  },
+  {
+    "id": "ift-d6-006",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the parts of an instruction",
+    "prompt": "An instruction is divided into opcode, operands, which may be {{1}} or explicit, and addressing mode.",
+    "blanks": [
+      {
+        "accept": [
+          "implicit"
+        ],
+        "choices": [
+          "implicit",
+          "internal",
+          "indirect",
+          "indexed"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Implicit. The accumulator in a one-address instruction is the clearest case: it is an operand nobody writes down.",
+    "facts": [
+      "t6-003"
+    ]
+  },
+  {
+    "id": "ift-d6-007",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "how many operands",
+    "prompt": "Instructions typically have how many operands?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0, 1, 2 or 3"
+      },
+      {
+        "id": "b",
+        "text": "1, 2 or 3"
+      },
+      {
+        "id": "c",
+        "text": "Exactly 2"
+      },
+      {
+        "id": "d",
+        "text": "Between 1 and 5"
+      }
+    ],
+    "answer": "a",
+    "explanation": "0, 1, 2 or 3, which is exactly why the deck goes on to work the same expression through four address formats.",
+    "why": {
+      "a": "Correct, and zero is on the list because of stack machines.",
+      "b": "Wrong. Zero-address instructions exist, and the deck devotes three slides to them.",
+      "c": "Wrong, though two-address instructions are the most common in commercial computers.",
+      "d": "Wrong. The deck stops at 3."
+    },
+    "facts": [
+      "t6-004"
+    ]
+  },
+  {
+    "id": "ift-d6-008",
+    "module": 6,
+    "slides": [
+      "ISA S22"
+    ],
+    "style": "tf",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how many formats",
+    "prompt": "There is usually more than one instruction format in an instruction set.",
+    "answer": "true",
+    "explanation": "There usually is. Different instructions need different fields, so one fixed layout would waste bits on most of them.",
+    "why": {
+      "true": "Correct. The deck says so directly.",
+      "false": "Wrong. A single format for every instruction is the exception, not the rule."
+    },
+    "facts": [
+      "t6-004"
+    ]
+  },
+  {
+    "id": "ift-d6-009",
+    "module": 6,
+    "slides": [
+      "ISA S23"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "fields",
+    "prompt": "The bits of an instruction are divided into groups called:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Fields"
+      },
+      {
+        "id": "b",
+        "text": "Blocks"
+      },
+      {
+        "id": "c",
+        "text": "Words"
+      },
+      {
+        "id": "d",
+        "text": "Segments"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Fields. Blocks and words are memory units, and segments are pipeline stages in this course, so the word matters.",
+    "why": {
+      "a": "Correct. Fields.",
+      "b": "Wrong. A block is a group of words in memory, from the cache topic.",
+      "c": "Wrong. A word is one or more complete rows of memory.",
+      "d": "Wrong. Segment is the word the pipelining deck uses for a stage."
+    },
+    "facts": [
+      "t6-005"
+    ]
+  },
+  {
+    "id": "ift-d6-010",
+    "module": 6,
+    "slides": [
+      "ISA S23"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "how a format is drawn",
+    "prompt": "The format of an instruction is usually depicted in a {{1}} box symbolizing the bits of the instruction as they appear in memory words or in a control register.",
+    "blanks": [
+      {
+        "accept": [
+          "rectangular"
+        ],
+        "choices": [
+          "rectangular",
+          "circular",
+          "triangular",
+          "layered"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Rectangular, with each field drawn as a slice of it. That drawing convention is why exam questions can ask for field widths in bits.",
+    "facts": [
+      "t6-005"
+    ]
+  },
+  {
+    "id": "ift-d6-011",
+    "module": 6,
+    "slides": [
+      "ISA S23"
+    ],
+    "style": "multi",
+    "difficulty": "medium",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the most common fields",
+    "prompt": "Select the most common fields found in instruction formats.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode"
+      },
+      {
+        "id": "b",
+        "text": "Mode"
+      },
+      {
+        "id": "c",
+        "text": "Address or Operand"
+      },
+      {
+        "id": "d",
+        "text": "Length"
+      }
+    ],
+    "answer": [
+      "a",
+      "b",
+      "c"
+    ],
+    "explanation": "Three fields: Opcode, Mode, Address or Operand. The same three appear on the revision slide.",
+    "why": {
+      "a": "Correct, the opcode field specifies the operation.",
+      "b": "Correct, the mode field says how the effective address is determined.",
+      "c": "Correct, and the deck writes it as one field with two names.",
+      "d": "Wrong. Length is not a field; in a variable-length format the opcode implies it."
+    },
+    "facts": [
+      "t6-006"
+    ]
+  },
+  {
+    "id": "ift-d6-012",
+    "module": 6,
+    "slides": [
+      "ISA S23"
+    ],
+    "style": "match",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the most common fields",
+    "prompt": "Match each of the three common instruction fields to its position in the deck's general structure.",
+    "pairs": [
+      {
+        "left": "First field",
+        "right": "Opcode"
+      },
+      {
+        "left": "Second field",
+        "right": "Mode"
+      },
+      {
+        "left": "Third field",
+        "right": "Address or Operand"
+      }
+    ],
+    "explanation": "Opcode, Mode, Address. The order is worth holding because the address is always last, which is what lets an address field be widened without disturbing the opcode.",
+    "facts": [
+      "t6-006"
+    ]
+  },
+  {
+    "id": "ift-d6-013",
+    "module": 6,
+    "slides": [
+      "ISA S24"
+    ],
+    "style": "match",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what each field does",
+    "prompt": "Match each instruction field to what it specifies.",
+    "pairs": [
+      {
+        "left": "Operation code field",
+        "right": "The operation to be performed"
+      },
+      {
+        "left": "Address field",
+        "right": "A memory address or a processor register"
+      },
+      {
+        "left": "Mode field",
+        "right": "The way the operand or the effective address is determined"
+      }
+    ],
+    "explanation": "Three fields, three jobs. Note that the address field can designate a register, not only memory, which is what makes register addressing fit the same layout.",
+    "facts": [
+      "t6-007"
+    ]
+  },
+  {
+    "id": "ift-d6-014",
+    "module": 6,
+    "slides": [
+      "ISA S24"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "what each field does",
+    "prompt": "The mode field of an instruction specifies:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The way the operand or the effective address is determined"
+      },
+      {
+        "id": "b",
+        "text": "The operation to be performed"
+      },
+      {
+        "id": "c",
+        "text": "A memory address or a processor register"
+      },
+      {
+        "id": "d",
+        "text": "Whether the instruction is privileged"
+      }
+    ],
+    "answer": "a",
+    "explanation": "How the operand is reached. It is the addressing mode written into the instruction itself.",
+    "why": {
+      "a": "Correct. How the operand is reached.",
+      "b": "Wrong. That is the operation code field.",
+      "c": "Wrong. That is the address field.",
+      "d": "Wrong. Privilege levels are not covered in this course."
+    },
+    "facts": [
+      "t6-007"
+    ]
+  },
+  {
+    "id": "ift-d6-015",
+    "module": 6,
+    "slides": [
+      "ISA S25"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 16-bit format example",
+    "prompt": "In the simple 16-bit instruction format example, what are the three field widths?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode 4 bits, Register 4 bits, Address 8 bits"
+      },
+      {
+        "id": "b",
+        "text": "Opcode 8 bits, Register 4 bits, Address 4 bits"
+      },
+      {
+        "id": "c",
+        "text": "Opcode 4 bits, Register 8 bits, Address 4 bits"
+      },
+      {
+        "id": "d",
+        "text": "Opcode 6 bits, Register 4 bits, Address 6 bits"
+      }
+    ],
+    "answer": "a",
+    "explanation": "4 plus 4 plus 8 is 16. The address takes half the instruction, which is typical: addresses need more bits than opcodes.",
+    "why": {
+      "a": "Correct. 4 plus 4 plus 8 is 16.",
+      "b": "Wrong, and it reverses opcode and address.",
+      "c": "Wrong. A register field of 8 bits would allow 256 registers, far more than the format implies.",
+      "d": "Wrong. The widths given are 4, 4 and 8."
+    },
+    "facts": [
+      "t6-008"
+    ]
+  },
+  {
+    "id": "ift-d6-016",
+    "module": 6,
+    "slides": [
+      "ISA S25"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 16-bit format example",
+    "prompt": "In the 16-bit format example the Address field is {{1}} bits wide.",
+    "blanks": [
+      {
+        "accept": [
+          "8",
+          "eight"
+        ],
+        "choices": [
+          "8",
+          "4",
+          "6",
+          "16"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "8 bits, so it can name 256 memory locations. That is what makes 11001010 read as location 202 in the binary example.",
+    "facts": [
+      "t6-008"
+    ]
+  },
+  {
+    "id": "ift-d6-017",
+    "module": 6,
+    "slides": [
+      "ISA S25"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "reading the 16-bit fields",
+    "prompt": "In the 16-bit format example, what does the 4-bit Register field specify?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A register, for example R1 or R2"
+      },
+      {
+        "id": "b",
+        "text": "The operation, for example ADD or SUB"
+      },
+      {
+        "id": "c",
+        "text": "A memory location"
+      },
+      {
+        "id": "d",
+        "text": "The addressing mode"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A register, and with four bits it can name sixteen of them.",
+    "why": {
+      "a": "Correct. A register, and with four bits it can name sixteen of them.",
+      "b": "Wrong. The operation comes from the opcode field, which is also 4 bits.",
+      "c": "Wrong. That is the address field.",
+      "d": "Wrong. This particular example has no separate mode field."
+    },
+    "facts": [
+      "t6-009"
+    ]
+  },
+  {
+    "id": "ift-d6-018",
+    "module": 6,
+    "slides": [
+      "ISA S25"
+    ],
+    "style": "cloze",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "reading the 16-bit fields",
+    "prompt": "In the 16-bit format, the {{1}}-bit opcode defines the operation and the 8-bit field gives the {{2}} location.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "8",
+          "6",
+          "2"
+        ],
+        "format": "number"
+      },
+      {
+        "accept": [
+          "memory"
+        ],
+        "choices": [
+          "memory",
+          "register",
+          "stack",
+          "cache"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "A 4-bit opcode and an 8-bit memory address. Four bits of opcode allow sixteen distinct operations, which is the opcode-space trade-off in miniature.",
+    "facts": [
+      "t6-009"
+    ]
+  },
+  {
+    "id": "ift-d6-019",
+    "module": 6,
+    "slides": [
+      "ISA S26"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the binary example",
+    "prompt": "The binary instruction 1010 0011 11001010 is interpreted as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "ADD R3, [202]"
+      },
+      {
+        "id": "b",
+        "text": "ADD R3, [201]"
+      },
+      {
+        "id": "c",
+        "text": "SUB R3, [202]"
+      },
+      {
+        "id": "d",
+        "text": "ADD R10, [202]"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Opcode 1010 is ADD, register 0011 is R3, and address 11001010 is 202.",
+    "why": {
+      "a": "Correct. Opcode 1010 is ADD, register 0011 is R3, and address 11001010 is 202.",
+      "b": "Wrong. 11001010 is 128 plus 64 plus 8 plus 2, which is 202.",
+      "c": "Wrong. The opcode 1010 stands for ADD in this example.",
+      "d": "Wrong. The register field 0011 is 3, not 10; 1010 is the opcode."
+    },
+    "facts": [
+      "t6-010"
+    ]
+  },
+  {
+    "id": "ift-d6-020",
+    "module": 6,
+    "slides": [
+      "ISA S26"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the binary example",
+    "prompt": "In the binary example the address field 11001010 is memory location {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "202"
+        ],
+        "choices": [
+          "202",
+          "201",
+          "212",
+          "192"
+        ],
+        "format": "number"
+      }
+    ],
+    "explanation": "202. Check it: 128 plus 64 plus 8 plus 2.",
+    "facts": [
+      "t6-010"
+    ]
+  },
+  {
+    "id": "ift-d6-021",
+    "module": 6,
+    "slides": [
+      "ISA S27"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 32-bit binary example",
+    "prompt": "The 32-bit instruction 000001 00001 00010 00011 00000000000 is interpreted as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "ADD R1, R2, R3"
+      },
+      {
+        "id": "b",
+        "text": "ADD R2, R1, R3"
+      },
+      {
+        "id": "c",
+        "text": "SUB R1, R2, R3"
+      },
+      {
+        "id": "d",
+        "text": "ADD R1, R2"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Opcode 000001 is ADD, then R1 as the destination, R2 as operand 1 and R3 as operand 2.",
+    "why": {
+      "a": "Correct, and it is a three-address instruction, hence three register fields.",
+      "b": "Wrong. The first register field after the opcode is the destination, and it holds 00001, which is R1.",
+      "c": "Wrong. The opcode given for ADD is 000001.",
+      "d": "Wrong. Three register fields are present, so it is a three-operand instruction."
+    },
+    "facts": [
+      "t6-011"
+    ]
+  },
+  {
+    "id": "ift-d6-022",
+    "module": 6,
+    "slides": [
+      "ISA S27"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the 32-bit binary example",
+    "prompt": "In the 32-bit example the field 00001 is R1, the {{1}}, and the field 00011 is R3, {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "destination"
+        ],
+        "choices": [
+          "destination",
+          "opcode",
+          "operand 1",
+          "address"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "operand 2"
+        ],
+        "choices": [
+          "operand 2",
+          "operand 1",
+          "destination",
+          "the mode field"
+        ],
+        "format": "phrase"
+      }
+    ],
+    "explanation": "Destination first, then operand 1, then operand 2. The eleven trailing zeros are unused in this instruction.",
+    "facts": [
+      "t6-011"
+    ]
+  },
+  {
+    "id": "ift-d6-023",
+    "module": 6,
+    "slides": [
+      "ISA S33"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the worked expression",
+    "prompt": "Which expression does the deck use to compare the 3, 2, 1 and 0 address instruction formats?",
+    "options": [
+      {
+        "id": "a",
+        "text": "X equals A plus B, times C plus D"
+      },
+      {
+        "id": "b",
+        "text": "X equals A times B, plus C times D"
+      },
+      {
+        "id": "c",
+        "text": "X equals A plus B plus C plus D"
+      },
+      {
+        "id": "d",
+        "text": "X equals A minus B, times C minus D"
+      }
+    ],
+    "answer": "a",
+    "explanation": "X equals A plus B, all times C plus D. Two additions and one multiplication, which is enough to show the difference between the formats without becoming long.",
+    "why": {
+      "a": "Correct. X equals A plus B, all times C plus D.",
+      "b": "Wrong, and it swaps the operations round.",
+      "c": "Wrong. There is a multiplication in the expression.",
+      "d": "Wrong. Both inner operations are additions."
+    },
+    "facts": [
+      "t6-012"
+    ]
+  },
+  {
+    "id": "ift-d6-024",
+    "module": 6,
+    "slides": [
+      "ISA S33"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the worked expression",
+    "prompt": "The same program is written in {{1}} different address formats to compare them.",
+    "blanks": [
+      {
+        "accept": [
+          "4",
+          "four"
+        ],
+        "choices": [
+          "4",
+          "3",
+          "2",
+          "5"
+        ],
+        "format": "number",
+        "hint": "three, two, one and zero address"
+      }
+    ],
+    "explanation": "Four: three-address, two-address, one-address and zero-address.",
+    "facts": [
+      "t6-012"
+    ]
+  },
+  {
+    "id": "ift-d6-025",
+    "module": 6,
+    "slides": [
+      "ISA S34"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the three-address program",
+    "prompt": "How many instructions does the three-address program for X equals A plus B, times C plus D take?",
+    "options": [
+      {
+        "id": "a",
+        "text": "3"
+      },
+      {
+        "id": "b",
+        "text": "6"
+      },
+      {
+        "id": "c",
+        "text": "7"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Three: ADD R1, A, B then ADD R2, C, D then MUL X, R1, R2. That shortness is the format's stated advantage.",
+    "why": {
+      "a": "Correct. Three: ADD R1, A, B then ADD R2, C, D then MUL X, R1, R2.",
+      "b": "Wrong. Six is the two-address program.",
+      "c": "Wrong. Seven is the one-address program.",
+      "d": "Wrong. Eight is the zero-address program."
+    },
+    "facts": [
+      "t6-013"
+    ]
+  },
+  {
+    "id": "ift-d6-026",
+    "module": 6,
+    "slides": [
+      "ISA S34"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the three-address program",
+    "prompt": "In the three-address program the symbol M[A] denotes the {{1}} at the memory address symbolized by A.",
+    "blanks": [
+      {
+        "accept": [
+          "operand"
+        ],
+        "choices": [
+          "operand",
+          "opcode",
+          "register",
+          "offset"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Operand. The notation matters, because M[A] is the value stored at A, not A itself.",
+    "facts": [
+      "t6-013"
+    ]
+  },
+  {
+    "id": "ift-d6-027",
+    "module": 6,
+    "slides": [
+      "ISA S34"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the three-address trade-off",
+    "prompt": "What is the disadvantage of the three-address format?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The binary-coded instructions require too many bits to specify three addresses"
+      },
+      {
+        "id": "b",
+        "text": "The programs are longer than in any other format"
+      },
+      {
+        "id": "c",
+        "text": "It needs a stack"
+      },
+      {
+        "id": "d",
+        "text": "It cannot use registers"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Too many bits per instruction. It is the classic trade: fewer instructions, but each one is larger.",
+    "why": {
+      "a": "Correct. Too many bits per instruction.",
+      "b": "Wrong, and reversed: the advantage is that it results in short programs.",
+      "c": "Wrong. The stack belongs to the zero-address format.",
+      "d": "Wrong. The worked program uses R1 and R2 throughout."
+    },
+    "facts": [
+      "t6-014"
+    ]
+  },
+  {
+    "id": "ift-d6-028",
+    "module": 6,
+    "slides": [
+      "ISA S34"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the three-address trade-off",
+    "prompt": "The advantage of the three-address format is that it results in short programs when evaluating arithmetic expressions.",
+    "answer": "true",
+    "explanation": "It does, and the worked example proves it: three instructions against eight for the stack machine.",
+    "why": {
+      "true": "Correct. Short programs when evaluating arithmetic expressions is the deck's phrase.",
+      "false": "Wrong. That is the stated advantage; the disadvantage is the number of bits each instruction needs."
+    },
+    "facts": [
+      "t6-014"
+    ]
+  },
+  {
+    "id": "ift-d6-029",
+    "module": 6,
+    "slides": [
+      "ISA S35"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "two-address instructions",
+    "prompt": "Two-address instructions are described as:",
+    "options": [
+      {
+        "id": "a",
+        "text": "The most common in commercial computers"
+      },
+      {
+        "id": "b",
+        "text": "The rarest of the four formats"
+      },
+      {
+        "id": "c",
+        "text": "Used only in stack machines"
+      },
+      {
+        "id": "d",
+        "text": "Used only where there is no accumulator"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The most common in commercial computers, and each address field can specify either a processor register or a memory word.",
+    "why": {
+      "a": "Correct. The most common in commercial computers, and each address field can specify either a processor register or a memory word.",
+      "b": "Wrong. It is the most common, not the rarest.",
+      "c": "Wrong. Stack machines use the zero-address format.",
+      "d": "Wrong. The accumulator belongs to the one-address format."
+    },
+    "facts": [
+      "t6-015"
+    ]
+  },
+  {
+    "id": "ift-d6-030",
+    "module": 6,
+    "slides": [
+      "ISA S35"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "two-address instructions",
+    "prompt": "In the two-address format each address field can specify either a processor register or a memory {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "word"
+        ],
+        "choices": [
+          "word",
+          "block",
+          "page",
+          "line"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Memory word. Blocks, pages and lines all belong to the memory hierarchy topic, not to instruction formats.",
+    "facts": [
+      "t6-015"
+    ]
+  },
+  {
+    "id": "ift-d6-031",
+    "module": 6,
+    "slides": [
+      "ISA S35"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the two-address program",
+    "prompt": "How many instructions does the two-address program for X equals A plus B, times C plus D take?",
+    "options": [
+      {
+        "id": "a",
+        "text": "6"
+      },
+      {
+        "id": "b",
+        "text": "3"
+      },
+      {
+        "id": "c",
+        "text": "7"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Six: MOV R1, A then ADD R1, B then MOV R2, C then ADD R2, D then MOL R1, R2 then MOV X, R1.",
+    "why": {
+      "a": "Correct. Six: MOV R1, A then ADD R1, B then MOV R2, C then ADD R2, D then MOL R1, R2 then MOV X, R1.",
+      "b": "Wrong. Three is the three-address program.",
+      "c": "Wrong. Seven is the one-address program.",
+      "d": "Wrong. Eight is the zero-address program."
+    },
+    "facts": [
+      "t6-016"
+    ]
+  },
+  {
+    "id": "ift-d6-032",
+    "module": 6,
+    "slides": [
+      "ISA S35"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the two-address program",
+    "prompt": "The two-address program opens with MOV R1, A then {{1}} R1, B, and closes with MOV X, {{2}}.",
+    "blanks": [
+      {
+        "accept": [
+          "ADD"
+        ],
+        "choices": [
+          "ADD",
+          "MOV",
+          "MUL",
+          "STORE"
+        ],
+        "format": "word"
+      },
+      {
+        "accept": [
+          "R1"
+        ],
+        "choices": [
+          "R1",
+          "R2",
+          "R3",
+          "AC"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "ADD R1, B, and the last instruction is MOV X, R1. R1 accumulates the whole result, which is why it is the register written out at the end.",
+    "facts": [
+      "t6-016"
+    ]
+  },
+  {
+    "id": "ift-d6-033",
+    "module": 6,
+    "slides": [
+      "ISA S36"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the two-address convention",
+    "prompt": "In a two-address instruction, the first symbol listed is assumed to be:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Both a source and the destination where the result is transferred"
+      },
+      {
+        "id": "b",
+        "text": "The source only"
+      },
+      {
+        "id": "c",
+        "text": "The destination only"
+      },
+      {
+        "id": "d",
+        "text": "The opcode"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Both at once. That convention is what makes two addresses enough for an operation that logically needs three.",
+    "why": {
+      "a": "Correct, and it is the reason ADD R1, B overwrites R1.",
+      "b": "Wrong. If it were only a source, the result would have nowhere to go.",
+      "c": "Wrong. It is read as well as written.",
+      "d": "Wrong. The opcode is the mnemonic in front of the operands."
+    },
+    "facts": [
+      "t6-017"
+    ]
+  },
+  {
+    "id": "ift-d6-034",
+    "module": 6,
+    "slides": [
+      "ISA S36"
+    ],
+    "style": "gap",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the MOV instruction",
+    "prompt": "The MOV instruction moves or {{1}} the operands to and from memory and processor registers.",
+    "blanks": [
+      {
+        "accept": [
+          "transfers"
+        ],
+        "choices": [
+          "transfers",
+          "compares",
+          "complements",
+          "shifts"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Transfers. Like all data movement, it copies: the source is unchanged, only the destination is written.",
+    "facts": [
+      "t6-017"
+    ]
+  },
+  {
+    "id": "ift-d6-035",
+    "module": 6,
+    "slides": [
+      "ISA S37"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "one-address instructions",
+    "prompt": "One-address instructions use an implied register for all data manipulation. Which one?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The accumulator, AC"
+      },
+      {
+        "id": "b",
+        "text": "The program counter, PC"
+      },
+      {
+        "id": "c",
+        "text": "The instruction register, IR"
+      },
+      {
+        "id": "d",
+        "text": "The memory address register, MAR"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The accumulator. Because it is implied, it never has to be named in the instruction, which is what leaves room for only one address.",
+    "why": {
+      "a": "Correct. The accumulator.",
+      "b": "Wrong. The PC holds the address of the next instruction.",
+      "c": "Wrong. The IR holds the instruction being executed.",
+      "d": "Wrong. The MAR holds the address of the memory location being accessed."
+    },
+    "facts": [
+      "t6-018"
+    ]
+  },
+  {
+    "id": "ift-d6-036",
+    "module": 6,
+    "slides": [
+      "ISA S37"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "one-address instructions",
+    "prompt": "For multiplication and division in a one-address machine there is a need for a second register.",
+    "answer": "true",
+    "explanation": "There is, and the deck then says it will neglect the second register and assume the AC contains the result of all operations, to keep the worked program simple.",
+    "why": {
+      "true": "Correct. A product can be twice as wide as its operands, which is why a second register is needed.",
+      "false": "Wrong. The deck states the need and then sets it aside for the sake of the example."
+    },
+    "facts": [
+      "t6-018"
+    ]
+  },
+  {
+    "id": "ift-d6-037",
+    "module": 6,
+    "slides": [
+      "ISA S38"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the one-address program",
+    "prompt": "How many instructions does the one-address program for X equals A plus B, times C plus D take?",
+    "options": [
+      {
+        "id": "a",
+        "text": "7"
+      },
+      {
+        "id": "b",
+        "text": "6"
+      },
+      {
+        "id": "c",
+        "text": "3"
+      },
+      {
+        "id": "d",
+        "text": "8"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Seven: LOAD A, ADD B, STORE T, LOAD C, ADD D, MOL T, STORE X.",
+    "why": {
+      "a": "Correct. Seven: LOAD A, ADD B, STORE T, LOAD C, ADD D, MOL T, STORE X.",
+      "b": "Wrong. Six is the two-address program.",
+      "c": "Wrong. Three is the three-address program.",
+      "d": "Wrong. Eight is the zero-address program."
+    },
+    "facts": [
+      "t6-019"
+    ]
+  },
+  {
+    "id": "ift-d6-038",
+    "module": 6,
+    "slides": [
+      "ISA S38"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the one-address program",
+    "prompt": "The one-address program begins {{1}} A, then ADD B, then STORE T.",
+    "blanks": [
+      {
+        "accept": [
+          "LOAD"
+        ],
+        "choices": [
+          "LOAD",
+          "MOV",
+          "PUSH",
+          "MUL"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "LOAD. In a one-address machine the accumulator has to be filled before anything can be done to it.",
+    "facts": [
+      "t6-019"
+    ]
+  },
+  {
+    "id": "ift-d6-039",
+    "module": 6,
+    "slides": [
+      "ISA S38"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the temporary location",
+    "prompt": "In the one-address program, what is T?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The address of a temporary memory location for storing the intermediate result"
+      },
+      {
+        "id": "b",
+        "text": "A second accumulator"
+      },
+      {
+        "id": "c",
+        "text": "The top of the stack"
+      },
+      {
+        "id": "d",
+        "text": "The destination of the final result"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A temporary memory location. With only one accumulator, the first sub-result has to be parked somewhere while the second is computed.",
+    "why": {
+      "a": "Correct. A temporary memory location.",
+      "b": "Wrong. The deck explicitly neglects the second register in this example.",
+      "c": "Wrong. TOS, the top of stack, belongs to the zero-address program.",
+      "d": "Wrong. The final result goes to X."
+    },
+    "facts": [
+      "t6-020"
+    ]
+  },
+  {
+    "id": "ift-d6-040",
+    "module": 6,
+    "slides": [
+      "ISA S38"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "where one-address operations happen",
+    "prompt": "In the one-address format all operations are done between the AC register and a memory operand.",
+    "answer": "true",
+    "explanation": "They are, and that is the defining constraint: one operand is always the accumulator, so only the other needs an address.",
+    "why": {
+      "true": "Correct. The AC and one memory operand, every time.",
+      "false": "Wrong. This is exactly how the deck describes the one-address format."
+    },
+    "facts": [
+      "t6-020"
+    ]
+  },
+  {
+    "id": "ift-d6-041",
+    "module": 6,
+    "slides": [
+      "ISA S39"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the zero-address format",
+    "prompt": "In a stack-organized computer, which instructions still need an address field?",
+    "options": [
+      {
+        "id": "a",
+        "text": "PUSH and POP"
+      },
+      {
+        "id": "b",
+        "text": "ADD and MUL"
+      },
+      {
+        "id": "c",
+        "text": "All of them"
+      },
+      {
+        "id": "d",
+        "text": "None of them"
+      }
+    ],
+    "answer": "a",
+    "explanation": "PUSH and POP need an address to say which operand communicates with the stack. ADD and MUL take their operands from the top of the stack, so they need none.",
+    "why": {
+      "a": "Correct. PUSH and POP need an address to say which operand communicates with the stack.",
+      "b": "Wrong, and reversed: these are the ones that use no address field.",
+      "c": "Wrong. If all of them needed one, it would not be a zero-address machine.",
+      "d": "Wrong. The stack has to be filled from somewhere, and PUSH is how."
+    },
+    "facts": [
+      "t6-021"
+    ]
+  },
+  {
+    "id": "ift-d6-042",
+    "module": 6,
+    "slides": [
+      "ISA S39"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the zero-address format",
+    "prompt": "A stack-organized computer does not use an address field for the instructions ADD and {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "MUL"
+        ],
+        "choices": [
+          "MUL",
+          "PUSH",
+          "POP",
+          "LOAD"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "MUL. Both take their operands from the top of the stack, so there is nothing to name.",
+    "facts": [
+      "t6-021"
+    ]
+  },
+  {
+    "id": "ift-d6-043",
+    "module": 6,
+    "slides": [
+      "ISA S40"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the zero-address program",
+    "prompt": "How many instructions does the zero-address program for X equals A plus B, times C plus D take?",
+    "options": [
+      {
+        "id": "a",
+        "text": "8"
+      },
+      {
+        "id": "b",
+        "text": "7"
+      },
+      {
+        "id": "c",
+        "text": "6"
+      },
+      {
+        "id": "d",
+        "text": "3"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Eight: PUSH A, PUSH B, ADD, PUSH C, PUSH D, ADD, MOL, POP X. It is the longest of the four programs, which is the cost of carrying no addresses.",
+    "why": {
+      "a": "Correct. Eight: PUSH A, PUSH B, ADD, PUSH C, PUSH D, ADD, MOL, POP X.",
+      "b": "Wrong. Seven is the one-address program.",
+      "c": "Wrong. Six is the two-address program.",
+      "d": "Wrong. Three is the three-address program."
+    },
+    "facts": [
+      "t6-022"
+    ]
+  },
+  {
+    "id": "ift-d6-044",
+    "module": 6,
+    "slides": [
+      "ISA S40"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the zero-address program",
+    "prompt": "In the zero-address program, {{1}} stands for top of stack.",
+    "blanks": [
+      {
+        "accept": [
+          "TOS"
+        ],
+        "choices": [
+          "TOS",
+          "AC",
+          "SP",
+          "PC"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "TOS. The deck's comments track it line by line, so you can see the operands stack up and then collapse.",
+    "facts": [
+      "t6-022"
+    ]
+  },
+  {
+    "id": "ift-d6-045",
+    "module": 6,
+    "slides": [
+      "ISA S41"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "names"
+    ],
+    "topic": "reverse Polish notation",
+    "prompt": "To evaluate arithmetic expressions in a stack computer, it is necessary to convert the expression into:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Reverse Polish notation"
+      },
+      {
+        "id": "b",
+        "text": "Scientific notation"
+      },
+      {
+        "id": "c",
+        "text": "Two's complement"
+      },
+      {
+        "id": "d",
+        "text": "Binary coded decimal"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Reverse Polish notation, where the operator follows its operands. That is exactly the order the PUSH, PUSH, ADD sequence takes.",
+    "why": {
+      "a": "Correct. Reverse Polish notation, where the operator follows its operands.",
+      "b": "Wrong. Scientific notation belongs to floating point.",
+      "c": "Wrong. Two's complement is a way of writing negative integers.",
+      "d": "Wrong. BCD codes decimal digits."
+    },
+    "facts": [
+      "t6-023"
+    ]
+  },
+  {
+    "id": "ift-d6-046",
+    "module": 6,
+    "slides": [
+      "ISA S41"
+    ],
+    "style": "tf",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "reverse Polish notation",
+    "prompt": "A stack computer can evaluate an arithmetic expression directly, without converting it to reverse Polish notation first.",
+    "answer": "false",
+    "explanation": "The deck says the conversion is necessary. The stack has no way of holding a pending operator, so the operands must arrive before the operator does.",
+    "why": {
+      "true": "Wrong. The deck says it is necessary to convert the expression into reverse Polish notation.",
+      "false": "Correct. The conversion is required, which is why the worked program pushes both operands before each ADD."
+    },
+    "facts": [
+      "t6-023"
+    ]
+  },
+  {
+    "id": "ift-d6-047",
+    "module": 6,
+    "slides": [
+      "ISA S41"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why it is called zero-address",
+    "prompt": "Why is this type of computer called zero-address?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Because of the absence of an address field in the computational instructions"
+      },
+      {
+        "id": "b",
+        "text": "Because it has no memory addresses at all"
+      },
+      {
+        "id": "c",
+        "text": "Because the stack always starts at address zero"
+      },
+      {
+        "id": "d",
+        "text": "Because every operand is at address zero"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The computational instructions carry no address field. PUSH and POP still do, which is why the name is qualified in exactly that way.",
+    "why": {
+      "a": "Correct, and computational is the word that keeps the claim true.",
+      "b": "Wrong. PUSH A names an address.",
+      "c": "Wrong. Nothing in the deck fixes the stack at address zero.",
+      "d": "Wrong. The operands are at their own addresses; they are simply not named in ADD or MUL."
+    },
+    "facts": [
+      "t6-024"
+    ]
+  },
+  {
+    "id": "ift-d6-048",
+    "module": 6,
+    "slides": [
+      "ISA S41"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "why it is called zero-address",
+    "prompt": "The name zero-address is given because of the absence of an address field in the {{1}} instructions.",
+    "blanks": [
+      {
+        "accept": [
+          "computational"
+        ],
+        "choices": [
+          "computational",
+          "all",
+          "branch",
+          "transfer"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "Computational. PUSH and POP are not computational, and they keep their address fields.",
+    "facts": [
+      "t6-024"
+    ]
+  },
+  {
+    "id": "ift-d6-049",
+    "module": 6,
+    "slides": [
+      "Rev S13"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "the revision summary of formats",
+    "prompt": "The revision class repeats that an instruction is divided into:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode, operands and addressing mode"
+      },
+      {
+        "id": "b",
+        "text": "Opcode and operand only"
+      },
+      {
+        "id": "c",
+        "text": "Opcode, mode and condition code"
+      },
+      {
+        "id": "d",
+        "text": "Registers, memory and addresses"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same three parts as the ISA deck, along with the reminder that instructions typically have 0, 1, 2 or 3 operands.",
+    "why": {
+      "a": "Correct. The same three parts as the ISA deck, along with the reminder that instructions typically have 0, 1, 2 or 3 operands.",
+      "b": "Wrong. The addressing mode is a third part.",
+      "c": "Wrong. The condition code register is not part of an instruction.",
+      "d": "Wrong. These are places operands can live, not the parts of an instruction."
+    },
+    "facts": [
+      "t6-025"
+    ]
+  },
+  {
+    "id": "ift-d6-050",
+    "module": 6,
+    "slides": [
+      "Rev S14"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "lists"
+    ],
+    "topic": "the revision summary of fields",
+    "prompt": "The revision class repeats that the most common fields found in instruction formats are:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Opcode, Mode, and Address or Operand"
+      },
+      {
+        "id": "b",
+        "text": "Opcode, Register, and Address"
+      },
+      {
+        "id": "c",
+        "text": "Tag, Index and Offset"
+      },
+      {
+        "id": "d",
+        "text": "Sign, Exponent and Mantissa"
+      }
+    ],
+    "answer": "a",
+    "explanation": "The same three fields as the ISA deck. The other two options are real three-part layouts from elsewhere in the course, which is what makes them tempting.",
+    "why": {
+      "a": "Correct. The same three fields as the ISA deck.",
+      "b": "Wrong. Register is a field in one worked example, not one of the three general fields.",
+      "c": "Wrong. Tag, Index and Offset is the direct mapping cache address format.",
+      "d": "Wrong. Sign, Exponent and Mantissa is the IEEE 754 layout."
+    },
+    "facts": [
+      "t6-026"
+    ]
+  },
+  {
+    "id": "ift-d6-051",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the revision format exercise",
+    "prompt": "The revision exercise asks for zero, one, two and three address formats for which machine?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A Pentium 4"
+      },
+      {
+        "id": "b",
+        "text": "An MC68000"
+      },
+      {
+        "id": "c",
+        "text": "An IBM 801"
+      },
+      {
+        "id": "d",
+        "text": "A DLX"
+      }
+    ],
+    "answer": "a",
+    "explanation": "A Pentium 4 assembly language program segment. The other three machines all appear elsewhere in the course, which is what makes them plausible distractors.",
+    "why": {
+      "a": "Correct. A Pentium 4 assembly language program segment.",
+      "b": "Wrong. The MC68000 supplies instruction examples in the ISA deck.",
+      "c": "Wrong. The IBM 801 is an early RISC machine.",
+      "d": "Wrong. DLX appears in the data hazard classification."
+    },
+    "facts": [
+      "t6-027"
+    ]
+  },
+  {
+    "id": "ift-d6-052",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "gap",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the revision format exercise",
+    "prompt": "The revision exercise evaluates X equals A times B, plus C over D, all divided by F times G plus J times {{1}}.",
+    "blanks": [
+      {
+        "accept": [
+          "K"
+        ],
+        "choices": [
+          "K",
+          "L",
+          "H",
+          "E"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "K. The expression uses A, B, C, D, F, G, J and K, eight operands, which is why every version of the program is long.",
+    "facts": [
+      "t6-027"
+    ]
+  },
+  {
+    "id": "ift-d6-053",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the revision three-address answer",
+    "prompt": "In the revision worked answer, which instruction opens the three-address version?",
+    "options": [
+      {
+        "id": "a",
+        "text": "MUL R1, A, B"
+      },
+      {
+        "id": "b",
+        "text": "DIV R2, C, D"
+      },
+      {
+        "id": "c",
+        "text": "ADD R1, R1, R2"
+      },
+      {
+        "id": "d",
+        "text": "PUSH A"
+      }
+    ],
+    "answer": "a",
+    "explanation": "MUL R1, A, B, because A times B is the innermost operation of the expression. DIV R2, C, D follows it.",
+    "why": {
+      "a": "Correct. MUL R1, A, B, because A times B is the innermost operation of the expression.",
+      "b": "Wrong. It is the second instruction, not the first.",
+      "c": "Wrong. It is the third, combining the first two results.",
+      "d": "Wrong. PUSH belongs to the zero-address version."
+    },
+    "facts": [
+      "t6-028"
+    ]
+  },
+  {
+    "id": "ift-d6-054",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "cloze",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the revision three-address answer",
+    "prompt": "The revision three-address answer ends with {{1}} X, R2, R3.",
+    "blanks": [
+      {
+        "accept": [
+          "DIV"
+        ],
+        "choices": [
+          "DIV",
+          "MUL",
+          "ADD",
+          "MOV"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "DIV, since the whole expression is one quantity divided by another, so the division is the last thing done.",
+    "facts": [
+      "t6-028"
+    ]
+  },
+  {
+    "id": "ift-d6-055",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "numbers"
+    ],
+    "topic": "the revision zero-address answer",
+    "prompt": "How does the revision zero-address version begin?",
+    "options": [
+      {
+        "id": "a",
+        "text": "PUSH A, PUSH B, MUL"
+      },
+      {
+        "id": "b",
+        "text": "PUSH A, MUL, PUSH B"
+      },
+      {
+        "id": "c",
+        "text": "MUL, PUSH A, PUSH B"
+      },
+      {
+        "id": "d",
+        "text": "LOAD A, MUL B"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Both operands are pushed before the operator, which is reverse Polish order. The program closes with POP X.",
+    "why": {
+      "a": "Correct. Both operands are pushed before the operator, which is reverse Polish order.",
+      "b": "Wrong. MUL would find only one operand on the stack.",
+      "c": "Wrong. MUL would find an empty stack.",
+      "d": "Wrong. LOAD and a one-operand MUL belong to the one-address version."
+    },
+    "facts": [
+      "t6-029"
+    ]
+  },
+  {
+    "id": "ift-d6-056",
+    "module": 6,
+    "slides": [
+      "Rev S15"
+    ],
+    "style": "gap",
+    "difficulty": "medium",
+    "facets": [
+      "names"
+    ],
+    "topic": "the revision zero-address answer",
+    "prompt": "The revision zero-address version ends with {{1}} X.",
+    "blanks": [
+      {
+        "accept": [
+          "POP"
+        ],
+        "choices": [
+          "POP",
+          "PUSH",
+          "STORE",
+          "MOV"
+        ],
+        "format": "word"
+      }
+    ],
+    "explanation": "POP X, taking the single remaining value off the stack and writing it to X.",
+    "facts": [
+      "t6-029"
+    ]
+  }
+]

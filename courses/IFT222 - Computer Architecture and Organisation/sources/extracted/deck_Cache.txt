@@ -1,0 +1,219 @@
+# Cache
+# source file: IFT222 - SOLVED EXAMPLES CACHE.pptx
+# slides: 14
+
+============================================================
+SLIDE 1
+CSC 227Computer Architecture and Organization I
+SOLVED EXAMPLES: CACHE MAPPING FUNCTIONS
+
+============================================================
+SLIDE 2
+DIRECT MAPPING FUNCTION
+Formula
+For Direct Mapping:
+Cache Line=(Main Memory Block Number) mod (Number of Cache Address)
+Format
+Tag | Index |  Offset​
+
+============================================================
+SLIDE 3
+DIRECT MAPPING FUNCTION
+Example 1: 				0000, 0001, 0010….. 1111
+Given
+Main Memory = 64 KB
+Cache Size = 1 KB (1024 bytes = 210 bytes  = 10 bits)
+Block Size/line size = 16 Bytes  = 4bits
+Find
+Address bits of M/M
+64KB = 216 bytes (1KB = 1024 BYTES = 210 BYTES)
+26 X 210 = 216 = LOG2 216
+Address bits:16
+
+============================================================
+SLIDE 4
+[images: 1]
+DIRECT CACHE MAPPING
+Find Offset Bits:
+Offset Bits
+16B = 24
+Offset = 4 bits (0000, 0001, 0010…., 1111)
+Find number of Cache lines:
+Number of Cache Lines
+1024 bytes/16 bytes ​= 64 lines (of size 16bytes each)
+64 = 26
+Index = 6 bits (number of bits used to identify each line)
+(000000, 000001, 000010,……., 111111)
+
+============================================================
+SLIDE 5
+DIRECT CACHE MAPPING
+Find the number of Tag Bits
+tag bit = total no. of m/m bits – ( index + offset)
+Tag = 16 − 6 − 4
+Tag = 6 bits
+Address Format for cache
+Tag	   Index	Offset
+6 bits   6 bits	4 bits
+from cpu      000010 000011 1001 ( 2 , 3, 9)
+
+============================================================
+SLIDE 6
+DIRECT CACHE MAPPING
+5. Determine the Tag Directory Size
+Tag Directory Size = Total cache lines  x  Tag Bits
+64 × 6 = 384 bits
+= 48 bytes (384/8)
+Answer
+Offset = 4 bits
+Index = 6 bits
+Tag = 6 bits
+Tag Directory Size = 384 bits (48 bytes)
+
+============================================================
+SLIDE 7
+DIRECT CACHE MAPPING
+Example 2
+Given
+Main Memory = 128 KB
+Cache = 4 KB
+Block = 32 B
+Find:
+Offset
+Index
+Tag bits
+Tag Directory Size
+Example 3
+Given
+Main Memory = 1 MB
+Cache = 8 KB
+Block = 64 B
+Find:
+Offset
+Index
+Tag bits
+Tag Directory Size
+
+============================================================
+SLIDE 8
+FULLY ASSOCIATIVE CACHE MAPPING FUNCTION
+What are the differences between the three cache mapping functions?
+Direct = each block to exactly 1 line
+Formula
+Any memory block can be placed in any cache line.
+Address Format
+Tag | Offset	​
+There is No index field
+
+============================================================
+SLIDE 9
+FULLY ASSOCIATIVE MAPPING
+Example 1
+Given
+Main Memory = 64 KB
+Cache size = 1 KB
+Block size/line size = 16 B
+Address Bits
+64KB = 216
+Address = 16 bits
+Find Offset bit
+16B = 24
+Offset = 4 bits
+Tag
+16−4 = 12 bits
+Cache Lines
+1024/16​ = 64 lines
+Tag Directory
+64 × 12  = 768 bits
+=  96 bytes
+
+============================================================
+SLIDE 10
+FULLY ASSOCIATIVE MAPPING
+Example 2
+Given
+Main Memory = 256 KB
+Cache = 4 KB
+Block = 32 B
+Find
+Offset bits
+Tag bits
+Total Cache lines
+Tag Directory Size
+Example 3
+Given
+Main Memory = 2 MB
+Cache = 16 KB
+Block = 64 B
+Find
+Offset bits
+Tag bits
+Total Cache lines
+Tag Directory Size
+
+============================================================
+SLIDE 11
+SET ASSOCIATIVE MAPPING
+Formula
+For an n-way set associative cache: (8-way set associative)
+Number of Sets = Cache Lines / n
+Address Format
+Tag | Set Index | Offset
+​
+
+============================================================
+SLIDE 12
+SET ASSOCIATIVE MAPPING
+Example 1 (2-Way Set Associative)
+Given
+Main Memory = 64 KB
+Cache = 1 KB
+Block size = 16 B
+2-Way Set Associative
+Tag Bit = 16 – 5 – 4 = 7 bits
+Tag Directory = 7 x 64 = 448 bits
+= 56bytes
+Address Bits
+64KB = 26 X 210 = 16
+Offset
+16B = 24
+Offset = 4 bits
+Cache Lines
+1024/16 = 64
+Sets
+64/2 = 32
+Set Index = 5 bits
+
+============================================================
+SLIDE 13
+SET ASSOCIATIVE MAPPING
+Example 2 (4-Way Set Associative)
+Given
+Main Memory = 512 KB
+Cache = 8 KB
+Block = 32 B
+4-Way
+Find
+Address bits
+Offset
+Cache lines
+Set bit
+Tag bits
+Tag directory size
+Example 3 (8-Way Set Associative)
+Given
+Main Memory = 4 MB
+Cache = 32 KB
+Block = 64 B
+8-Way
+Find
+Address bits
+Offset
+Cache lines
+Set bit
+Tag bits
+Tag directory size
+
+============================================================
+SLIDE 14
+End of Unit
