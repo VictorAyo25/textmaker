@@ -18,6 +18,19 @@ import i8 from './ift222/module8.json';
 import i9 from './ift222/module9.json';
 import i10 from './ift222/module10.json';
 
+import e1 from './ent221/module1.json';
+import e2 from './ent221/module2.json';
+import e3 from './ent221/module3.json';
+import e4 from './ent221/module4.json';
+import e5 from './ent221/module5.json';
+import e6 from './ent221/module6.json';
+import e7 from './ent221/module7.json';
+import e8 from './ent221/module8.json';
+import e9 from './ent221/module9.json';
+import e10 from './ent221/module10.json';
+import e11 from './ent221/module11.json';
+import e12 from './ent221/module12.json';
+
 // Adding a course later: create data/<code>/*.json in the same shape, import it
 // here, and push one more entry into COURSES. Nothing else in the app changes.
 
@@ -98,6 +111,9 @@ const tmc221: Course = {
     ...(m5 as unknown as Question[]),
   ],
   papers: [realTest as unknown as Paper],
+  // Exam sat. Filed under "Exams already taken" on the landing page; the drill
+  // itself stays open, because it is still the fastest revision there is.
+  taken: true,
 };
 
 const iftFacets: FacetGuide[] = [
@@ -233,6 +249,9 @@ const ift222: Course = {
     },
   ],
   questions: iftQuestions,
+  // Every IFT222 question came from a real test, so the "past questions only"
+  // filter has nothing to filter out and the setup screen hides it.
+  examTags: ['Test 1 Q', 'Test 2 Q'],
   papers: [
     objectiveTest(
       'Test 1',
@@ -249,7 +268,165 @@ const ift222: Course = {
   ],
 };
 
-export const COURSES: Course[] = [tmc221, ift222];
+const entFacets: FacetGuide[] = [
+  {
+    id: 'numbers',
+    label: 'Figures, ranges and thresholds',
+    help: 'pH 6.5 to 8.5, dissolved oxygen 5 to 8 mg/L, feed at 60 to 70% of cost, 20 to 30% water changes, 25 to 34C, 2000 to 2500 mm, 143 palms per hectare, NPKMg 12:12:17:2, 40C for 70 to 80 days, 140 to 150C for 60 to 90 minutes',
+  },
+  {
+    id: 'names',
+    label: 'Named species, organisms and models',
+    help: 'Elaeis guineensis, Dura and Pisifera and Tenera, Nigrescens and Virescens and Albescens, Aeromonas and Pseudomonas, Nitrosomonas and Nitrobacter, Ganoderma, POME and PKC and EFB, SWOT and SMART, NAFDAC',
+  },
+  {
+    id: 'lists',
+    label: 'Enumerated lists and their order',
+    help: 'The 3M, the ten MAKE principles, the 7Ps and 4Cs, the five fish farm departments, the five processing stages, the six types of value addition, the three forms, POCD, the eleven aspects of agriculture',
+  },
+  {
+    id: 'wording',
+    label: 'Exact definitions and the absolutes',
+    help: 'The precise phrasing of agriculture, value chain, water quality, value addition and pisciculture, and the every, all, only and entirely that mark a wrong option',
+  },
+];
+
+const entQuestions: Question[] = [
+  ...(e1 as unknown as Question[]),
+  ...(e2 as unknown as Question[]),
+  ...(e3 as unknown as Question[]),
+  ...(e4 as unknown as Question[]),
+  ...(e5 as unknown as Question[]),
+  ...(e6 as unknown as Question[]),
+  ...(e7 as unknown as Question[]),
+  ...(e8 as unknown as Question[]),
+  ...(e9 as unknown as Question[]),
+  ...(e10 as unknown as Question[]),
+  ...(e11 as unknown as Question[]),
+  ...(e12 as unknown as Question[]),
+];
+
+/**
+ * The two computer-based tests, rebuilt from the bank rather than stored twice.
+ *
+ * Same idea as IFT222: filter on the provenance tag, sort by the examiner's own
+ * question number, and the paper reassembles itself. Test 1 skips question 4
+ * because the examiner omitted it, so that paper is 29 questions and its
+ * numbering has a hole in it exactly where the original did.
+ */
+function entPaper(tag: string, id: string, title: string, note: string, mins: number): Paper {
+  const num = (q: Question) =>
+    Number(q.slides.find((s) => s.startsWith(`${tag} Q`))?.match(/Q(\d+)$/)?.[1] ?? 0);
+  const questions = entQuestions
+    .filter((q) => q.slides.some((s) => s.startsWith(`${tag} Q`)))
+    .sort((a, b) => num(a) - num(b));
+  return { id, title, subtitle: 'The test as it was actually set, in its own order, one mark each.', note, questions, minutes: mins };
+}
+
+const ent221: Course = {
+  code: 'ENT221',
+  title: 'Agripreneurship',
+  tagline:
+    'Every fact in the course text and all three lecture decks, drilled until none of it is new. Each answer says why it is right and why the others are not.',
+  blurb:
+    'Agriculture and agripreneurship, the value chain, fish farming from water quality to the 3M model, oil palm cultivation and processing, agribusiness opportunities, value addition and operations management. Drill any topic, or sit either computer-based test end to end.',
+  moduleNoun: 'Topic',
+  facetGuide: entFacets,
+  examTags: ['Test 1 Q', 'Test 2 Q'],
+  modules: [
+    {
+      number: 1,
+      title: 'Module One: agriculture, its aspects and its importance',
+      blurb:
+        'The definition word for word, the eleven key aspects with their glosses, why agriculture matters, and how livestock, crops and soil feed one another.',
+    },
+    {
+      number: 2,
+      title: 'Module One: agripreneurship and the agricultural value chain',
+      blurb:
+        'Entrepreneurship in agriculture, the seven components, the twelve value chain segments, the Nigerian examples, and the agripreneur against the traditional farmer.',
+    },
+    {
+      number: 3,
+      title: 'Module Two: fish farming, its departments and its investment potential',
+      blurb:
+        'Aquaculture and pisciculture, the five departments including the labour room and the kitchen, the fourteen investment opportunities, and the five indices.',
+    },
+    {
+      number: 4,
+      title: 'Module Two: water quality, physical, chemical and biological',
+      blurb:
+        'The three parameter families with every threshold, iron from silvery film to safe limit, the beneficial and harmful organisms, and the thumb rule.',
+    },
+    {
+      number: 5,
+      title: 'Module Two: aquarium management and fish behaviour',
+      blurb:
+        'The four setup steps, the daily, weekly, monthly and long-term schedule, and the four behaviour categories with their patterns, causes and remedies.',
+    },
+    {
+      number: 6,
+      title: 'Module Two: the 3M model, Make, Manage and Multiply',
+      blurb:
+        'The ten MAKE principles, the five MANAGE elements, the six MULTIPLY tasks, the 7Ps and 4Cs, and SWOT and SMART.',
+    },
+    {
+      number: 7,
+      title: 'Module Two: marketing fresh and processed fish',
+      blurb:
+        'The five marketing steps, the four target markets, the brand trio, the online and offline channels, and the five value addition offerings.',
+    },
+    {
+      number: 8,
+      title: 'Module Three: oil palm cultivation',
+      blurb:
+        'Elaeis guineensis, the environmental figures, the five stages, the Dura by Pisifera cross, spacing and density, the pests, the fruit types and the three varieties.',
+    },
+    {
+      number: 9,
+      title: 'Module Three: oil palm processing and its by-products',
+      blurb:
+        'Sterilisation through clarification, the palm kernel line, the four quality factors, and EFB, PKC and POME with what each becomes.',
+    },
+    {
+      number: 10,
+      title: 'Module Four: agribusiness opportunities and the value chain',
+      blurb:
+        'The six evaluation criteria, the nine chain components, the eight common problems, the five market needs and the four technology trends.',
+    },
+    {
+      number: 11,
+      title: 'Module Four: value addition and agribusiness innovation',
+      blurb:
+        'The six types and three forms of value addition, the process flow, the four drivers and four types of innovation, and the strategies and challenges.',
+    },
+    {
+      number: 12,
+      title: 'Module Four: production and operations management',
+      blurb:
+        'Production against operations, the six components, the POCD scope, the advantages and limitations, and the technologies that run modern agribusiness.',
+    },
+  ],
+  questions: entQuestions,
+  papers: [
+    entPaper(
+      'Test 1',
+      'ent-cbt-1',
+      'Computer-Based Test 1, all 29 questions',
+      'The paper was numbered 1 to 30 but question 4 was omitted by the examiner, so it is 29 questions. This copy was captured unattempted, so it carries no printed key: every answer here is derived from the course text and matches the shipped ENT221 manual. Question 8 asks for a figure that appears nowhere in the course text, and its review says so.',
+      30
+    ),
+    entPaper(
+      'Test 2',
+      'ent-cbt-2',
+      'Computer-Based Test 2, all 30 questions',
+      'Captured as a graded review page marked 30 out of 30, so every answer on this paper is confirmed by the examiner rather than inferred. Question 19 uses the phrase total plate count, which the course text calls Total Bacterial Count; the review notes the difference.',
+      30
+    ),
+  ],
+};
+
+export const COURSES: Course[] = [ent221, ift222, tmc221];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());

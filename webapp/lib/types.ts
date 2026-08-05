@@ -77,6 +77,15 @@ export interface Question {
    * every option, so a question cannot ship half explained.
    */
   why?: Record<string, string>;
+  /**
+   * Ledger fact ids this question tests, for courses that carry a fact ledger.
+   *
+   * The ledger enumerates every atomic testable fact in the course sources, and
+   * the bank gate requires each one to be named by at least one question, so a
+   * fact nothing asks about fails the build rather than quietly going untested.
+   * This field never reaches the screen; it exists to be checked.
+   */
+  facts?: string[];
 }
 
 export interface Paper {
@@ -166,19 +175,49 @@ export interface Course {
   modules: ModuleMeta[];
   questions: Question[];
   papers: Paper[];
+  /**
+   * Provenance prefixes that mark a question as one the examiner actually set,
+   * for example ["Test 1 Q", "Test 2 Q"]. Drives the "past questions only"
+   * filter on the setup screen. A course without them simply loses the filter.
+   */
+  examTags?: string[];
+  /**
+   * Set once the exam has been sat. The landing page files these under
+   * "Exams already taken" instead of listing them with the live courses; the
+   * course itself stays open, because revision does not stop at the exam hall.
+   */
+  taken?: boolean;
 }
 
 // ---- what the setup screen produces ----
 
 export type GapMode = 'typed' | 'choice';
 
+/**
+ * When the student is told how they did.
+ *
+ * 'end' is the real test: answer everything, then mark. 'instant' is the
+ * teaching mode: the moment an answer is committed the page says right or
+ * wrong, why the key is the key, what is wrong with each other option, and
+ * where in the source it came from. Someone who knows nothing about the course
+ * can start on instant and learn the course by sitting it.
+ */
+export type FeedbackMode = 'end' | 'instant';
+
+/** Where the questions may be drawn from. */
+export type SourceFilter =
+  | 'all' // the whole bank
+  | 'exam'; // only questions the examiner actually set, per Course.examTags
+
 export interface TestConfig {
   modules: number[]; // empty means every module
   facets: Facet[]; // empty means no facet restriction
+  source: SourceFilter;
   mix: Record<Difficulty, number>; // percentages, normalised before use
   count: number;
   gapMode: GapMode;
   shuffleOptions: boolean;
+  feedback: FeedbackMode;
 }
 
 // ---- what the runner collects ----

@@ -26,8 +26,16 @@
  * 4. THE VERDICTS. Where a course explains its options, EVERY option must carry
  *    a verdict: why the key is the key, and what is wrong with each of the
  *    others. Half-explained questions do not ship.
+ *
+ * 5. THE LEDGER. ENT221 carries data/ent221/ledger/*.json, an enumeration of
+ *    every atomic testable fact in its sources. Every fact must be named by at
+ *    least one question, and every fact marked hard (numeric, named, listed or
+ *    definitional) must be asked in at least two different styles, so it cannot
+ *    be memorised as a single phrasing. A question may only name a fact whose
+ *    own source reference it also cites, which is what keeps the reference chip
+ *    on screen honest.
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -68,6 +76,68 @@ const IFT_KEY = {
   ).split(''),
 };
 
+/**
+ * The ENT221 answer keys, transcribed here a second time and independently of
+ * the bank. Test 2 was captured as a graded 30 out of 30 review page, so every
+ * one of its answers is confirmed by the examiner. Test 1 was captured
+ * unattempted and carries no printed key, so these are the answers derived from
+ * the course text in the shipped ENT221 manual; keeping them here means the
+ * drill and the manual can never quietly disagree about what the answer is.
+ *
+ * Question 4 is absent from Test 1: the examiner omitted it.
+ */
+const ENT_KEY = {
+  'Test 1': {
+    1: 'd', 2: 'a', 3: 'value chain', 5: 'satiation', 6: 'b', 7: 'd', 8: 'c',
+    9: 'Multiply', 10: 'b', 11: 'a', 12: 'd', 13: 'a', 14: 'Hygiene',
+    15: 'agripreneurship', 16: 'd', 17: 'c', 18: 'a', 19: 'a', 20: 'a', 21: 'b',
+    22: 'd', 23: 'b', 24: 'c', 25: 'd', 26: 'c', 27: 'a', 28: 'b', 29: 'b', 30: 'c',
+  },
+  'Test 2': {
+    1: 'a', 2: 'c', 3: 'a', 4: 'b', 5: 'b', 6: 'b', 7: 'water', 8: 'true', 9: 'a',
+    10: 'a', 11: 'd', 12: 'c', 13: 'high', 14: 'Aquaponic', 15: 'business',
+    16: 'art', 17: 'grading', 18: 'a', 19: 'poor', 20: 'water pollution',
+    21: 'hatchery', 22: '8.5', 23: 'kitchen', 24: 'b', 25: 'c', 26: 'd',
+    27: 'market', 28: 'a', 29: 'false', 30: 'c',
+  },
+};
+
+const ENT_TEST1_NUMBERS = range(1, 30).filter((n) => n !== 4);
+
+/**
+ * ENT221's three lecture decks.
+ *
+ * The files Victor dropped are misnamed: the deck called "oil palm cultivation"
+ * is the PROCESSING deck, the one called "oil palm processing" is the MODULE
+ * FOUR deck, and the one called "value chain" is the CULTIVATION deck. Every
+ * reference below and in the bank names the deck by its CONTENT, never by its
+ * filename. Title, learning-objective, image-only and self-assessment slides
+ * carry nothing testable and are excluded.
+ */
+const ENT_DECK_SLIDES = [
+  ...[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14].map((n) => `Cultivation S${n}`),
+  ...[3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((n) => `Processing S${n}`),
+  ...range(3, 21).filter((n) => n !== 5).map((n) => `Agribusiness S${n}`),
+];
+
+/** Every numbered subsection of the 88-page course text, plus its glossary. */
+const ENT_TEXT_SECTIONS = [
+  ...range(1, 3).map((n) => `Text 1.1.${n}`),
+  ...range(1, 9).map((n) => `Text 2.1.${n}`),
+  ...range(1, 6).map((n) => `Text 3.1.${n}`),
+  ...range(1, 5).map((n) => `Text 3.2.${n}`),
+  ...range(1, 6).map((n) => `Text 4.1.${n}`),
+  ...range(1, 5).map((n) => `Text 4.2.${n}`),
+  ...range(1, 4).map((n) => `Text 4.3.${n}`),
+  'Text 5.1.1',
+  'Text 5.2.1',
+  'Text 5.2.2',
+  'Text 5.3.1',
+  'Text 5.3.2',
+  'Text 5.3.3',
+  'Text Glossary',
+];
+
 const COURSES = [
   {
     code: 'TMC221',
@@ -79,17 +149,19 @@ const COURSES = [
     requireLecture: true,
     minPerModule: 100,
     requireEveryStyle: true,
-    coverage: {
-      kind: 'slides',
-      required: Object.entries({
-        L1: range(2, 20),
-        L2: range(2, 19),
-        L3: range(2, 15),
-        L4: range(2, 19),
-        L5: range(2, 19),
-      }).flatMap(([deck, slides]) => slides.map((n) => `${deck} S${n}`)),
-      noun: 'content slides of the five decks',
-    },
+    coverages: [
+      {
+        kind: 'at-least-once',
+        required: Object.entries({
+          L1: range(2, 20),
+          L2: range(2, 19),
+          L3: range(2, 15),
+          L4: range(2, 19),
+          L5: range(2, 19),
+        }).flatMap(([deck, slides]) => slides.map((n) => `${deck} S${n}`)),
+        noun: 'content slides of the five decks',
+      },
+    ],
   },
   {
     code: 'IFT222',
@@ -102,19 +174,64 @@ const COURSES = [
     // be demanding the drill differ from the exam.
     requireEveryStyle: false,
     requireWhy: true,
-    coverage: {
-      kind: 'exactly-once',
-      required: [
-        ...range(1, 60).map((n) => `Test 1 Q${n}`),
-        ...range(1, 60).map((n) => `Test 2 Q${n}`),
-      ],
-      noun: 'objective questions across the two tests',
-    },
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: [
+          ...range(1, 60).map((n) => `Test 1 Q${n}`),
+          ...range(1, 60).map((n) => `Test 2 Q${n}`),
+        ],
+        noun: 'objective questions across the two tests',
+        pattern: /^Test [12] Q\d+$/,
+      },
+    ],
     key: IFT_KEY,
     // The crash course, converted by scripts/import-crash.mjs. Every drill topic
     // must be taught by some lesson: a topic with questions and no lesson is a
     // hole a reader falls into.
     lessons: 'lessons.json',
+  },
+  {
+    code: 'ENT221',
+    dir: 'ent221',
+    // Three shapes of provenance: a numbered section of the 88-page course
+    // text, a numbered slide of one of the three lecture decks, or a question
+    // from one of the two computer-based tests.
+    slideRef:
+      /^(Text (\d\.\d\.\d|Glossary)|(Cultivation|Processing|Agribusiness) S\d{1,2}|Test [12] Q\d{1,2})$/,
+    slideRefHelp: 'like "Text 2.1.4", "Cultivation S7" or "Test 2 Q22"',
+    requireLecture: false,
+    minPerModule: 30,
+    // The computer-based tests use single-answer MCQ, true or false, and fill
+    // in the gap. Matching and cloze are drill-only, added where a list has to
+    // be learned whole, so demanding all six styles is right here.
+    requireEveryStyle: false,
+    requireStyles: ['mcq', 'tf', 'gap'],
+    requireWhy: true,
+    requireFacts: true,
+    coverages: [
+      {
+        kind: 'at-least-once',
+        required: ENT_TEXT_SECTIONS,
+        noun: 'sections of the course text',
+      },
+      {
+        kind: 'at-least-once',
+        required: ENT_DECK_SLIDES,
+        noun: 'content slides of the three lecture decks',
+      },
+      {
+        kind: 'exactly-once',
+        required: [
+          ...ENT_TEST1_NUMBERS.map((n) => `Test 1 Q${n}`),
+          ...range(1, 30).map((n) => `Test 2 Q${n}`),
+        ],
+        noun: 'questions from the two computer-based tests',
+        pattern: /^Test [12] Q\d+$/,
+      },
+    ],
+    key: ENT_KEY,
+    ledger: 'ledger',
   },
 ];
 
@@ -152,6 +269,11 @@ function validate(q, where, cfg, seenIds) {
     typeof q.explanation === 'string' && q.explanation.length > 10,
     `${at}: explanation missing or too thin to teach from`
   );
+  if (cfg.requireFacts)
+    check(
+      Array.isArray(q.facts) && q.facts.length > 0,
+      `${at}: names no ledger fact, so nothing ties it to anything in the source`
+    );
 
   if (q.style === 'mcq' || q.style === 'multi') {
     const ids = (q.options ?? []).map((o) => o.id);
@@ -204,6 +326,20 @@ function validate(q, where, cfg, seenIds) {
       q.answer === 'true' || q.answer === 'false',
       `${at}: true/false answer must be the string "true" or "false"`
     );
+    // A true or false question has two options even though it carries no
+    // options array, and a reader who guessed needs both explained.
+    if (cfg.requireWhy || q.why) {
+      for (const id of ['true', 'false'])
+        check(
+          typeof q.why?.[id] === 'string' && q.why[id].trim().length > 15,
+          `${at}: no verdict for "${id}", so a reader is never told why that side fails`
+        );
+      for (const id of Object.keys(q.why ?? {}))
+        check(
+          id === 'true' || id === 'false',
+          `${at}: verdict keyed "${id}", but a true/false question only has "true" and "false"`
+        );
+    }
   }
 
   if (q.style === 'match') {
@@ -347,12 +483,121 @@ function checkLessons(cfg, dir, bankModules) {
   );
 }
 
-/** House style, carried over from the manuals: no em dashes, no en dashes. */
+/**
+ * The fact ledger.
+ *
+ * data/<course>/ledger/*.json enumerates every atomic testable fact in the
+ * course sources. This is the leave-no-stone-unturned check, and it bites in
+ * three directions:
+ *
+ *   1. every fact is named by at least one question;
+ *   2. every fact marked hard is asked in at least two different styles, so it
+ *      cannot be learned as one phrasing and then missed when reworded;
+ *   3. a question may only name a fact whose own source reference it also
+ *      cites, so the reference chip printed under the answer is the reference
+ *      the fact actually came from.
+ */
+function checkLedger(cfg, dir, all) {
+  const ledgerDir = join(dir, cfg.ledger);
+  check(existsSync(ledgerDir), `${cfg.code}: no ledger directory at ${ledgerDir}`);
+  if (!existsSync(ledgerDir)) return;
+
+  const byId = new Map();
+  for (const f of readdirSync(ledgerDir).filter((f) => f.endsWith('.json'))) {
+    for (const e of JSON.parse(readFileSync(join(ledgerDir, f), 'utf8'))) {
+      check(!byId.has(e.id), `${cfg.code} ledger ${f}: duplicate fact id ${e.id}`);
+      check(
+        typeof e.fact === 'string' && e.fact.length > 20,
+        `${cfg.code} ledger ${f} [${e.id}]: fact text missing or too thin`
+      );
+      check(
+        typeof e.ref === 'string' && cfg.slideRef.test(e.ref),
+        `${cfg.code} ledger ${f} [${e.id}]: bad source ref ${JSON.stringify(e.ref)}`
+      );
+      byId.set(e.id, e);
+    }
+  }
+
+  const styles = new Map();
+  for (const q of all) {
+    for (const id of q.facts ?? []) {
+      const fact = byId.get(id);
+      if (!fact) {
+        problems.push(`${cfg.code} [${q.id}]: names fact ${id}, which is not in the ledger`);
+        continue;
+      }
+      check(
+        (q.slides ?? []).includes(fact.ref),
+        `${cfg.code} [${q.id}]: tests fact ${id} from ${fact.ref} but never cites ${fact.ref}`
+      );
+      if (!styles.has(id)) styles.set(id, new Set());
+      styles.get(id).add(q.style);
+    }
+  }
+
+  const facts = [...byId.values()];
+  const untested = facts.filter((f) => !styles.has(f.id));
+  const thin = facts.filter((f) => f.hard && (styles.get(f.id)?.size ?? 0) < 2);
+
+  console.log(
+    `    ${untested.length ? 'x' : '.'} ledger: ${facts.length} facts, ${
+      facts.filter((f) => f.hard).length
+    } of them hard, ${facts.length - untested.length} tested`
+  );
+  if (untested.length) {
+    console.log(
+      '        never tested: ' +
+        untested.slice(0, 12).map((f) => f.id).join(', ') +
+        (untested.length > 12 ? ` and ${untested.length - 12} more` : '')
+    );
+    problems.push(
+      `${cfg.code}: ${untested.length} ledger facts are never tested by any question`
+    );
+  }
+  console.log(
+    `    ${thin.length ? 'x' : '.'} ledger: every hard fact asked in two or more styles${
+      thin.length ? `, ${thin.length} asked in only one` : ''
+    }`
+  );
+  if (thin.length) {
+    console.log(
+      '        one style only: ' +
+        thin.slice(0, 12).map((f) => f.id).join(', ') +
+        (thin.length > 12 ? ` and ${thin.length - 12} more` : '')
+    );
+    problems.push(
+      `${cfg.code}: ${thin.length} hard ledger facts are asked in only one style`
+    );
+  }
+}
+
+/**
+ * The same normalisation the app marks typed answers with, so the key check
+ * accepts "8.5" for "8.5 " and "Aquaponic" for "aquaponic" but nothing looser.
+ * Kept in step with normalise() in lib/grading.ts.
+ */
+function normaliseAnswer(raw) {
+  return String(raw)
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/\b(the|a|an)\b/g, '')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * House style, carried over from the manuals: no em dashes, no en dashes.
+ *
+ * One exemption, and only one. A question taken from a real test reproduces the
+ * examiner's stem and options exactly, dashes and all, because a paper that
+ * tidies up its own wording is no longer the paper that was sat. The teaching
+ * around it, the explanation and the verdicts, is ours and is held to the rule.
+ */
 function houseStyle(q, cfg) {
+  const quoted = (q.slides ?? []).some((s) => /^Test [12] Q\d+$/.test(s));
   const texts = [
-    q.prompt,
+    ...(quoted ? [] : [q.prompt, ...(q.options ?? []).map((o) => o.text)]),
     q.explanation,
-    ...(q.options ?? []).map((o) => o.text),
     ...Object.values(q.why ?? {}),
   ];
   for (const t of texts)
@@ -444,42 +689,58 @@ for (const cfg of COURSES) {
   for (const f of FACETS)
     check((facetCounts[f] ?? 0) > 0, `${cfg.code}: no question carries the "${f}" facet`);
 
+  if (cfg.requireStyles)
+    for (const s of cfg.requireStyles)
+      check(
+        (styleCounts[s] ?? 0) > 0,
+        `${cfg.code}: no question anywhere uses style "${s}", which the real test does use`
+      );
+
   // ---- coverage ----
   const cites = new Map();
   for (const q of all)
     for (const s of q.slides ?? []) cites.set(s, (cites.get(s) ?? 0) + 1);
 
-  const missing = cfg.coverage.required.filter((r) => !cites.has(r));
-  if (missing.length) {
-    console.log(
-      `    x coverage: ${missing.length} of ${cfg.coverage.required.length} ${cfg.coverage.noun} are never tested`
-    );
-    console.log('        ' + missing.join(', '));
-    problems.push(
-      `${cfg.code}: ${missing.length} ${cfg.coverage.noun} are not covered by any question`
-    );
-  } else {
-    console.log(
-      `    . coverage: all ${cfg.coverage.required.length} ${cfg.coverage.noun} are tested`
-    );
-  }
+  for (const cov of cfg.coverages) {
+    const missing = cov.required.filter((r) => !cites.has(r));
+    if (missing.length) {
+      console.log(
+        `    x coverage: ${missing.length} of ${cov.required.length} ${cov.noun} are never tested`
+      );
+      console.log('        ' + missing.join(', '));
+      problems.push(
+        `${cfg.code}: ${missing.length} ${cov.noun} are not covered by any question`
+      );
+    } else {
+      console.log(`    . coverage: all ${cov.required.length} ${cov.noun} are tested`);
+    }
 
-  if (cfg.coverage.kind === 'exactly-once') {
-    const dupes = cfg.coverage.required.filter((r) => (cites.get(r) ?? 0) > 1);
-    check(
-      dupes.length === 0,
-      `${cfg.code}: ${dupes.join(', ')} appear more than once, so a paper would repeat a question`
-    );
-    const strays = [...cites.keys()].filter((k) => !cfg.coverage.required.includes(k));
-    check(
-      strays.length === 0,
-      `${cfg.code}: provenance refs outside the two tests: ${strays.join(', ')}`
-    );
-    if (!dupes.length && !strays.length)
-      console.log('    . coverage: each one cited exactly once, no duplicates, no strays');
+    if (cov.kind === 'exactly-once') {
+      const dupes = cov.required.filter((r) => (cites.get(r) ?? 0) > 1);
+      check(
+        dupes.length === 0,
+        `${cfg.code}: ${dupes.join(', ')} appear more than once, so a paper would repeat a question`
+      );
+      // Strays are judged only among refs of this coverage's own shape, so a
+      // course whose bank also cites its textbook is not accused of inventing
+      // exam questions.
+      const strays = [...cites.keys()].filter(
+        (k) => (cov.pattern ? cov.pattern.test(k) : true) && !cov.required.includes(k)
+      );
+      check(
+        strays.length === 0,
+        `${cfg.code}: provenance refs that do not name a real ${cov.noun}: ${strays.join(', ')}`
+      );
+      if (!dupes.length && !strays.length)
+        console.log('    . coverage: each one cited exactly once, no duplicates, no strays');
+    }
   }
 
   // ---- the key ----
+  //
+  // The second transcription lives in this file. Two people reading the same
+  // screenshot and disagreeing must stop the build, because the one thing a
+  // drill may never do is teach the wrong answer.
   if (cfg.key) {
     let checked = 0;
     let wrong = 0;
@@ -487,13 +748,23 @@ for (const cfg of COURSES) {
       for (const ref of q.slides ?? []) {
         const m = ref.match(/^(Test [12]) Q(\d+)$/);
         if (!m) continue;
-        const expected = cfg.key[m[1]]?.[Number(m[2]) - 1];
-        if (!expected) continue;
+        const table = cfg.key[m[1]];
+        const n = Number(m[2]);
+        const expected = Array.isArray(table) ? table[n - 1] : table?.[n];
+        if (expected === undefined) continue;
         checked += 1;
-        if (q.answer !== expected) {
+        // A single-choice or true/false question is keyed by its answer; a
+        // fill-in-the-gap is keyed by the word the examiner wrote in the box.
+        const got =
+          q.style === 'gap' || q.style === 'cloze' ? q.blanks?.[0]?.accept?.[0] : q.answer;
+        const agrees =
+          q.style === 'gap' || q.style === 'cloze'
+            ? normaliseAnswer(got ?? '') === normaliseAnswer(expected)
+            : got === expected;
+        if (!agrees) {
           wrong += 1;
           problems.push(
-            `${cfg.code} [${q.id}] ${ref}: bank says "${q.answer}" but the transcribed key says "${expected}"`
+            `${cfg.code} [${q.id}] ${ref}: bank says "${got}" but the transcribed key says "${expected}"`
           );
         }
       }
@@ -505,14 +776,20 @@ for (const cfg of COURSES) {
     );
   }
 
+  if (cfg.ledger) checkLedger(cfg, dir, all);
+
   if (cfg.lessons) checkLessons(cfg, dir, new Set(Object.keys(perModule).map(Number)));
 
   if (cfg.requireWhy) {
-    const explained = all.filter(
-      (q) => q.why && (q.options ?? []).every((o) => q.why[o.id])
-    ).length;
+    // Only the styles that present options can carry per-option verdicts; a
+    // typed blank has nothing to tick or cross.
+    const withOptions = all.filter((q) => ['mcq', 'multi', 'tf'].includes(q.style));
+    const explained = withOptions.filter((q) => {
+      const ids = q.style === 'tf' ? ['true', 'false'] : (q.options ?? []).map((o) => o.id);
+      return q.why && ids.length > 0 && ids.every((id) => q.why[id]);
+    }).length;
     console.log(
-      `    ${explained === all.length ? '.' : 'x'} verdicts: ${explained} of ${all.length} questions explain every option`
+      `    ${explained === withOptions.length ? '.' : 'x'} verdicts: ${explained} of ${withOptions.length} option-bearing questions explain every option`
     );
   }
 }

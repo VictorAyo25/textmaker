@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { courseByCode } from '@/data/courses';
 import { presentQuestion, selectQuestions, shuffle } from '@/lib/bank';
 import { markAll } from '@/lib/grading';
-import type { GapMode, Marked, Paper, Question, Response } from '@/lib/types';
+import type {
+  FeedbackMode,
+  GapMode,
+  Marked,
+  Paper,
+  Question,
+  Response,
+} from '@/lib/types';
 import Setup, { type StartArgs } from './Setup';
 import Runner from './Runner';
 import Review from './Review';
@@ -43,6 +50,7 @@ export default function App({
   const [initialModules, setInitialModules] = useState<number[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [gapMode, setGapMode] = useState<GapMode>('typed');
+  const [feedback, setFeedback] = useState<FeedbackMode>('end');
   const [timeLimit, setTimeLimit] = useState<number | null>(null);
   const [marked, setMarked] = useState<Marked[]>([]);
   const [title, setTitle] = useState('');
@@ -111,11 +119,18 @@ export default function App({
     }
   };
 
-  const begin = (qs: Question[], mode: GapMode, limit: number | null, label: string) => {
+  const begin = (
+    qs: Question[],
+    mode: GapMode,
+    limit: number | null,
+    label: string,
+    fb: FeedbackMode
+  ) => {
     setQuestions(qs);
     setGapMode(mode);
     setTimeLimit(limit);
     setTitle(label);
+    setFeedback(fb);
     setStage('running');
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   };
@@ -130,16 +145,18 @@ export default function App({
           .sort((a, b) => a - b)
           .join(', ')}`
       : `All ${noun.toLowerCase()}s`;
+    const drawn = config.source === 'exam' ? ' · past questions only' : '';
     begin(
       prepared,
       config.gapMode,
       timeLimitSec,
-      `${mods} · ${sel.actual.easy} easy, ${sel.actual.medium} medium, ${sel.actual.hard} hard`
+      `${mods} · ${sel.actual.easy} easy, ${sel.actual.medium} medium, ${sel.actual.hard} hard${drawn}`,
+      config.feedback
     );
   };
 
-  const onStartPaper = (paper: Paper, limit: number | null) => {
-    begin(paper.questions, 'choice', limit, paper.title);
+  const onStartPaper = (paper: Paper, limit: number | null, fb: FeedbackMode) => {
+    begin(paper.questions, 'choice', limit, paper.title, fb);
   };
 
   const onFinish = (responses: (Response | null)[]) => {
@@ -160,7 +177,7 @@ export default function App({
   };
 
   const retryWrong = (qs: Question[]) => {
-    begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`);
+    begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`, feedback);
   };
 
   return (
@@ -228,7 +245,8 @@ export default function App({
           questions={questions}
           gapMode={gapMode}
           timeLimitSec={timeLimit}
-          moduleNoun={course.moduleNoun}
+          course={course}
+          feedback={feedback}
           onFinish={onFinish}
           onQuit={() => setStage('setup')}
         />

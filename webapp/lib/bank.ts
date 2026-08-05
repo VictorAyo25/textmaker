@@ -11,12 +11,32 @@ export function shuffle<T>(items: T[]): T[] {
   return a;
 }
 
+/**
+ * Did the examiner actually set this one?
+ *
+ * A question counts as a past question when one of its provenance tags starts
+ * with a prefix the course declares in `examTags`, such as "Test 2 Q". That is
+ * the same tag the papers are rebuilt from, so the filter and the papers can
+ * never disagree about what came from a real test.
+ */
+export function isPastQuestion(course: Course, q: Question): boolean {
+  const tags = course.examTags ?? [];
+  if (!tags.length) return false;
+  return q.slides.some((s) => tags.some((t) => s.startsWith(t)));
+}
+
+/** How many of the bank the examiner set. Zero hides the filter. */
+export function pastCount(course: Course): number {
+  return course.questions.filter((q) => isPastQuestion(course, q)).length;
+}
+
 /** Everything the config allows, before the difficulty mix is applied. */
 export function pool(course: Course, config: TestConfig): Question[] {
   return course.questions.filter((q) => {
     if (config.modules.length && !config.modules.includes(q.module)) return false;
     if (config.facets.length && !config.facets.some((f) => q.facets.includes(f)))
       return false;
+    if (config.source === 'exam' && !isPastQuestion(course, q)) return false;
     return true;
   });
 }

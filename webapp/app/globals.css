@@ -761,6 +761,33 @@ input[type='range'] {
 .whyrow.ok .verdict-note {
   color: var(--green-dark);
 }
+/* ---------- teaching mode ----------
+   The verdict panel that opens inside the question card the moment an answer
+   is committed. It is the same block the end-of-test review prints, so what
+   you are taught mid-test and what you read afterwards cannot differ. */
+.instant {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.instant .review {
+  margin-bottom: 0;
+}
+
+/* ---------- exams already taken ----------
+   A course whose exam has been sat drops out of the live list. It stays open,
+   because revision does not stop at the exam hall, but it stops competing for
+   attention with the papers still ahead. */
+.takenhead {
+  margin-top: 26px;
+}
+.taken .modrow {
+  opacity: 0.72;
+}
+.taken .modrow:hover {
+  opacity: 1;
+}
+
 .authbar {
   display: flex;
   justify-content: flex-end;
@@ -1275,13 +1302,21 @@ ul.plain li {
 
 /* ---------- per-course accent ----------
    The palette is the manual's palette: forest green for TMC221, the graphite
-   and violet of the IFT222 book for IFT222. Only the accent moves, so the two
-   courses read as one platform rather than two apps. */
+   and violet of the IFT222 book for IFT222, harvest amber for ENT221, whose
+   manual is agricultural rather than forest green so the two do not read as
+   the same course. Only the accent moves, so the courses stay one platform
+   rather than three apps. */
 .wrap[data-course='IFT222'],
 .courserow[data-course='IFT222'] {
   --green: #6d28d9;
   --green-dark: #5b21b6;
   --green-soft: #f1ebfd;
+}
+.wrap[data-course='ENT221'],
+.courserow[data-course='ENT221'] {
+  --green: #b45309;
+  --green-dark: #92400e;
+  --green-soft: #fdf2e0;
 }
 @media (prefers-color-scheme: dark) {
   .wrap[data-course='IFT222'],
@@ -1289,5 +1324,11 @@ ul.plain li {
     --green: #a78bfa;
     --green-dark: #c4b5fd;
     --green-soft: #1c1430;
+  }
+  .wrap[data-course='ENT221'],
+  .courserow[data-course='ENT221'] {
+    --green: #f59e0b;
+    --green-dark: #fbbf24;
+    --green-soft: #2a1c05;
   }
 }

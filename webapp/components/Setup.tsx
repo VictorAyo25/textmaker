@@ -1,8 +1,17 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import type { Course, Difficulty, Facet, GapMode, Paper, TestConfig } from '@/lib/types';
-import { pool, poolByTier } from '@/lib/bank';
+import type {
+  Course,
+  Difficulty,
+  Facet,
+  FeedbackMode,
+  GapMode,
+  Paper,
+  SourceFilter,
+  TestConfig,
+} from '@/lib/types';
+import { pastCount, pool, poolByTier } from '@/lib/bank';
 
 const PRESETS: { name: string; mix: Record<Difficulty, number> }[] = [
   { name: 'Warm up', mix: { easy: 60, medium: 30, hard: 10 } },
@@ -21,7 +30,7 @@ interface Props {
   /** Preselected topics, set when a crash-course lesson hands off to the drill. */
   initialModules?: number[];
   onStart: (args: StartArgs) => void;
-  onStartPaper: (paper: Paper, timeLimitSec: number | null) => void;
+  onStartPaper: (paper: Paper, timeLimitSec: number | null, fb: FeedbackMode) => void;
 }
 
 export default function Setup({
@@ -32,6 +41,7 @@ export default function Setup({
 }: Props) {
   const [modules, setModules] = useState<number[]>(initialModules);
   const [facets, setFacets] = useState<Facet[]>([]);
+  const [source, setSource] = useState<SourceFilter>('all');
   const [mix, setMix] = useState<Record<Difficulty, number>>({
     easy: 30,
     medium: 40,
@@ -42,14 +52,33 @@ export default function Setup({
   const [timed, setTimed] = useState(false);
   const [minutes, setMinutes] = useState(20);
   const [shuffleOptions, setShuffleOptions] = useState(true);
+  const [feedback, setFeedback] = useState<FeedbackMode>('end');
 
-  const config: TestConfig = { modules, facets, mix, count, gapMode, shuffleOptions };
-  const available = useMemo(() => pool(course, config), [course, modules, facets]);
+  const config: TestConfig = {
+    modules,
+    facets,
+    source,
+    mix,
+    count,
+    gapMode,
+    shuffleOptions,
+    feedback,
+  };
+  const available = useMemo(
+    () => pool(course, config),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [course, modules, facets, source]
+  );
   const tiers = useMemo(() => poolByTier(available), [available]);
 
   const FACETS = course.facetGuide;
   const noun = course.moduleNoun;
   const nouns = `${noun.toLowerCase()}s`;
+  // Offered only where it would actually change the draw: a course with no past
+  // questions has nothing to filter to, and one whose bank IS the past papers
+  // has nothing to filter out.
+  const past = useMemo(() => pastCount(course), [course]);
+  const offerSource = past > 0 && past < course.questions.length;
   // Typed short answers only exist where the bank has gap or cloze questions.
   // An MCQ-only course would otherwise be offered a setting that does nothing.
   const hasBlanks = useMemo(
@@ -57,11 +86,15 @@ export default function Setup({
     [course]
   );
 
+  // Counted through the source filter, so the per-module figure never promises
+  // questions the current draw cannot supply.
   const countPerModule = useMemo(() => {
     const m: Record<number, number> = {};
-    for (const q of course.questions) m[q.module] = (m[q.module] ?? 0) + 1;
+    for (const q of pool(course, { ...config, modules: [], facets: [] }))
+      m[q.module] = (m[q.module] ?? 0) + 1;
     return m;
-  }, [course]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course, source]);
 
   const toggleModule = (n: number) =>
     setModules((prev) => (prev.includes(n) ? prev.filter((x) => x !== n) : [...prev, n]));
@@ -74,6 +107,32 @@ export default function Setup({
 
   return (
     <>
+      {offerSource && (
+        <div className="card">
+          <h2>Where should the questions come from?</h2>
+          <p className="help">
+            The whole bank covers every corner of the course. The past questions are
+            only the ones the examiner actually set, in their own words.
+          </p>
+          <div className="seg">
+            <button
+              type="button"
+              aria-pressed={source === 'all'}
+              onClick={() => setSource('all')}
+            >
+              The whole bank ({course.questions.length})
+            </button>
+            <button
+              type="button"
+              aria-pressed={source === 'exam'}
+              onClick={() => setSource('exam')}
+            >
+              Past test questions only ({past})
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="card">
         <h2>1. What do you want to be tested on?</h2>
         <p className="help">
@@ -245,9 +304,34 @@ export default function Setup({
       <div className="card">
         <h2>5. How should it run?</h2>
 
+        <p className="help" style={{ marginBottom: 6 }}>
+          When do you want to be told how you did?
+        </p>
+        <div className="seg">
+          <button
+            type="button"
+            aria-pressed={feedback === 'end'}
+            onClick={() => setFeedback('end')}
+          >
+            Mark it at the end
+          </button>
+          <button
+            type="button"
+            aria-pressed={feedback === 'instant'}
+            onClick={() => setFeedback('instant')}
+          >
+            Tell me after every question
+          </button>
+        </div>
+        <p className="note" style={{ marginTop: 6 }}>
+          {feedback === 'end'
+            ? 'Exam conditions: answer everything, then see the score and the full review.'
+            : 'Learning mode: the moment you commit an answer the page says right or wrong, why the answer is the answer, what is wrong with each other option, and where in the course it came from. Once shown, that question locks.'}
+        </p>
+
         {hasBlanks && (
           <>
-            <p className="help" style={{ marginBottom: 6 }}>
+            <p className="help" style={{ margin: '16px 0 6px' }}>
               Short-answer blanks: type the answer from memory, or pick it from a
               dropdown like the real Moodle test. Long cloze continuations are always
               dropdowns.
@@ -271,7 +355,7 @@ export default function Setup({
           </>
         )}
 
-        <p className="help" style={{ margin: hasBlanks ? '16px 0 6px' : '0 0 6px' }}>
+        <p className="help" style={{ margin: '16px 0 6px' }}>
           Clock.
         </p>
         <div className="seg">
@@ -346,16 +430,23 @@ export default function Setup({
               <button
                 type="button"
                 className="btn ghost"
-                onClick={() => onStartPaper(p, null)}
+                onClick={() => onStartPaper(p, null, 'end')}
               >
                 Sit it untimed
               </button>
               <button
                 type="button"
                 className="btn ghost"
-                onClick={() => onStartPaper(p, mins * 60)}
+                onClick={() => onStartPaper(p, mins * 60, 'end')}
               >
                 Sit it in {mins} minutes
+              </button>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => onStartPaper(p, null, 'instant')}
+              >
+                Walk me through it
               </button>
             </div>
           </div>
