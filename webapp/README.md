@@ -24,6 +24,9 @@ landing page lists every course loaded; pick one and set up a test.
   ENT221 it is figures and thresholds, named species and models, enumerated lists,
   and the exact definitions with the absolutes that mark a wrong option.
 - Choose **how many questions**, up to and including every question that matches.
+- Choose **how many are on screen at a time**: one, five, ten, or the whole paper on
+  a single page. One at a time is the real test; longer pages let you read ahead and
+  answer in any order without pressing Next between every question.
 - Sit it **timed or untimed**. The clock auto-submits at zero.
 - Be told **at the end, or after every question**. See below.
 - Answer in all six styles the tests use: single choice, multiple response,
@@ -54,6 +57,10 @@ keystroke. A running tally sits in the progress bar.
 
 The panel is the same component the end-of-test review prints (`components/Feedback.tsx`),
 so what you are taught mid-test and what you read afterwards cannot drift apart.
+
+Because a page can hold several questions, **Check answer sits with its question rather
+than in the footer**, and each question opens on its own. The footer's Next always just
+turns the page.
 
 ## Taking it away as a PDF
 

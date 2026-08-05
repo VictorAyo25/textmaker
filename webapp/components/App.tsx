@@ -52,6 +52,7 @@ export default function App({
   const [questions, setQuestions] = useState<Question[]>([]);
   const [gapMode, setGapMode] = useState<GapMode>('typed');
   const [feedback, setFeedback] = useState<FeedbackMode>('end');
+  const [perPage, setPerPage] = useState(1);
   const [timeLimit, setTimeLimit] = useState<number | null>(null);
   const [marked, setMarked] = useState<Marked[]>([]);
   const [title, setTitle] = useState('');
@@ -129,13 +130,15 @@ export default function App({
     mode: GapMode,
     limit: number | null,
     label: string,
-    fb: FeedbackMode
+    fb: FeedbackMode,
+    page: number
   ) => {
     setQuestions(qs);
     setGapMode(mode);
     setTimeLimit(limit);
     setTitle(label);
     setFeedback(fb);
+    setPerPage(page);
     setStage('running');
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   };
@@ -156,12 +159,18 @@ export default function App({
       config.gapMode,
       timeLimitSec,
       `${mods} · ${sel.actual.easy} easy, ${sel.actual.medium} medium, ${sel.actual.hard} hard${drawn}`,
-      config.feedback
+      config.feedback,
+      config.perPage
     );
   };
 
-  const onStartPaper = (paper: Paper, limit: number | null, fb: FeedbackMode) => {
-    begin(paper.questions, 'choice', limit, paper.title, fb);
+  const onStartPaper = (
+    paper: Paper,
+    limit: number | null,
+    fb: FeedbackMode,
+    page: number
+  ) => {
+    begin(paper.questions, 'choice', limit, paper.title, fb, page);
   };
 
   const onFinish = (responses: (Response | null)[]) => {
@@ -188,7 +197,7 @@ export default function App({
   };
 
   const retryWrong = (qs: Question[]) => {
-    begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`, feedback);
+    begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`, feedback, perPage);
   };
 
   return (
@@ -259,6 +268,7 @@ export default function App({
           timeLimitSec={timeLimit}
           course={course}
           feedback={feedback}
+          perPage={perPage}
           onFinish={onFinish}
           onQuit={() => setStage('setup')}
         />

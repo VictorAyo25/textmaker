@@ -52,6 +52,8 @@ interface Props {
   course: Course;
   /** 'instant' tells the student after every question instead of at the end. */
   feedback: FeedbackMode;
+  /** Questions on screen at once. 0 puts the whole paper on one page. */
+  perPage: number;
   onFinish: (responses: (Response | null)[]) => void;
   onQuit: () => void;
 }
@@ -62,11 +64,15 @@ export default function Runner({
   timeLimitSec,
   course,
   feedback,
+  perPage,
   onFinish,
   onQuit,
 }: Props) {
   const instant = feedback === 'instant';
-  const [i, setI] = useState(0);
+  const size = perPage > 0 ? Math.min(perPage, questions.length) : questions.length;
+  const pageCount = Math.max(1, Math.ceil(questions.length / size));
+
+  const [page, setPage] = useState(0);
   const [responses, setResponses] = useState<(Response | null)[]>(() =>
     questions.map(() => null)
   );
@@ -75,8 +81,7 @@ export default function Runner({
   const [checked, setChecked] = useState<boolean[]>(() => questions.map(() => false));
   // 'mixed' is resolved once, here, and never recomputed: a blank that started
   // as a text box must not turn into a dropdown while the student is looking at
-  // it. Runner mounts fresh for every paper, so this initialiser runs once per
-  // sitting, exactly like `responses` above.
+  // it. Runner mounts fresh for every paper, so this runs once per sitting.
   const [blankModes] = useState<GapMode[]>(() =>
     questions.map(() => (Math.random() < 0.5 ? 'typed' : 'choice'))
   );
@@ -113,10 +118,11 @@ export default function Runner({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLimitSec]);
 
-  const q = questions[i];
+  const from = page * size;
+  const shown = questions.slice(from, from + size);
   const answered = responses.filter(Boolean).length;
-  const pct = Math.round(((i + 1) / questions.length) * 100);
-  const shown = instant && checked[i];
+  const pct = Math.round((Math.min(from + size, questions.length) / questions.length) * 100);
+  const last = page === pageCount - 1;
 
   const reveal = (idx: number) =>
     setChecked((prev) => {
@@ -126,26 +132,31 @@ export default function Runner({
       return next;
     });
 
-  const setResponse = (r: Response) => {
-    if (checked[i]) return;
+  const setResponse = (idx: number, q: Question, r: Response) => {
+    if (checked[idx]) return;
     setResponses((prev) => {
       const next = [...prev];
-      next[i] = r;
+      next[idx] = r;
       return next;
     });
     // A single choice and a true or false have nothing left to fill in, so
     // tapping the option is the commitment. Anything else waits for Check.
-    if (instant && (q.style === 'mcq' || q.style === 'tf')) reveal(i);
+    if (instant && (q.style === 'mcq' || q.style === 'tf')) reveal(idx);
   };
 
-  const jumpList = useMemo(
-    () =>
-      questions.map((_, idx) => ({
-        idx,
-        done: responses[idx] != null,
-      })),
-    [questions, responses]
-  );
+  /** Move to the page holding a question, then put it in view. */
+  const goTo = (idx: number) => {
+    setPage(Math.floor(idx / size));
+    if (typeof window === 'undefined') return;
+    window.requestAnimationFrame(() => {
+      document.getElementById(`q${idx}`)?.scrollIntoView({ block: 'start' });
+    });
+  };
+
+  const turn = (to: number) => {
+    setPage(to);
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  };
 
   // The running tally, over what has actually been checked so far.
   const tally = useMemo(() => {
@@ -160,16 +171,15 @@ export default function Runner({
     return { done, earned };
   }, [instant, checked, responses, questions]);
 
-  const marked = shown ? mark(q, responses[i]) : null;
-  const complete = isComplete(q, responses[i]);
-  const last = i === questions.length - 1;
   const low = left != null && left <= 60;
 
   return (
     <>
       <div className="bar">
         <strong style={{ fontSize: '0.9rem' }}>
-          Question {i + 1} of {questions.length}
+          {size === 1
+            ? `Question ${from + 1} of ${questions.length}`
+            : `Questions ${from + 1} to ${Math.min(from + size, questions.length)} of ${questions.length}`}
         </strong>
         <span className="progress">
           <i style={{ width: `${pct}%` }} />
@@ -193,73 +203,74 @@ export default function Runner({
         )}
       </div>
 
-      <div className="card">
-        <div className="qmeta">
-          <span className="tag">{STYLE_LABEL[q.style] ?? q.style}</span>
-          <span className={`tag ${q.difficulty}`}>{q.difficulty}</span>
-          <span className="tag">
-            {course.moduleNoun} {q.module}
-          </span>
-          <span className="tag">{q.topic}</span>
-        </div>
-        <p className="prompt">
-          {q.style === 'cloze' || q.style === 'gap' ? 'Complete the passage.' : q.prompt}
-        </p>
-        <QuestionView
-          question={q}
-          response={responses[i]}
-          onChange={setResponse}
-          gapMode={gapMode === 'mixed' ? blankModes[i] : gapMode}
-          readOnly={shown}
-        />
-        {marked && (
-          <div className="instant" aria-live="polite">
-            <Feedback course={course} m={marked} showPrompt={false} />
+      {shown.map((q, n) => {
+        const idx = from + n;
+        const open = instant && checked[idx];
+        const marked = open ? mark(q, responses[idx]) : null;
+        return (
+          <div className="card" id={`q${idx}`} key={q.id}>
+            <div className="qmeta">
+              <span className="qnum">{idx + 1}</span>
+              <span className="tag">{STYLE_LABEL[q.style] ?? q.style}</span>
+              <span className={`tag ${q.difficulty}`}>{q.difficulty}</span>
+              <span className="tag">
+                {course.moduleNoun} {q.module}
+              </span>
+              <span className="tag">{q.topic}</span>
+            </div>
+            <p className="prompt">
+              {q.style === 'cloze' || q.style === 'gap'
+                ? 'Complete the passage.'
+                : q.prompt}
+            </p>
+            <QuestionView
+              question={q}
+              response={responses[idx]}
+              onChange={(r) => setResponse(idx, q, r)}
+              gapMode={gapMode === 'mixed' ? blankModes[idx] : gapMode}
+              readOnly={open}
+            />
+            {instant && !checked[idx] && (
+              <button
+                type="button"
+                className="btn"
+                style={{ marginTop: 14 }}
+                disabled={!isComplete(q, responses[idx])}
+                onClick={() => reveal(idx)}
+              >
+                Check answer
+              </button>
+            )}
+            {marked && (
+              <div className="instant" aria-live="polite">
+                <Feedback course={course} m={marked} showPrompt={false} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        );
+      })}
 
       <div className="footer-actions">
         <button
           type="button"
           className="btn ghost"
-          disabled={i === 0}
-          onClick={() => setI((n) => Math.max(0, n - 1))}
+          disabled={page === 0}
+          onClick={() => turn(page - 1)}
         >
           Back
         </button>
-
-        {instant && !checked[i] && (
-          <button
-            type="button"
-            className="btn"
-            disabled={!complete}
-            onClick={() => reveal(i)}
-          >
-            Check answer
-          </button>
-        )}
-
         {last ? (
-          <button
-            type="button"
-            className={instant && !checked[i] ? 'btn ghost' : 'btn'}
-            onClick={finish}
-          >
+          <button type="button" className="btn" onClick={finish}>
             Finish and mark
           </button>
         ) : (
-          <button
-            type="button"
-            className={instant && !checked[i] ? 'btn ghost' : 'btn'}
-            onClick={() => setI((n) => Math.min(questions.length - 1, n + 1))}
-          >
-            {instant && !checked[i] ? 'Skip' : 'Next'}
+          <button type="button" className="btn" onClick={() => turn(page + 1)}>
+            Next
           </button>
         )}
-
         <span className="note">
           {answered} of {questions.length} answered
+          {pageCount > 1 ? ` · page ${page + 1} of ${pageCount}` : ''}
         </span>
         <button
           type="button"
@@ -276,21 +287,21 @@ export default function Runner({
           Jump to a question. Filled means answered.
         </p>
         <div className="chips" style={{ marginTop: 10 }}>
-          {jumpList.map((j) => (
+          {questions.map((_, idx) => (
             <button
               type="button"
-              key={j.idx}
+              key={idx}
               className="chip"
-              aria-pressed={j.done}
+              aria-pressed={responses[idx] != null}
               style={{
                 minWidth: 42,
                 justifyContent: 'center',
-                fontWeight: j.idx === i ? 800 : 400,
-                textDecoration: j.idx === i ? 'underline' : 'none',
+                fontWeight: idx >= from && idx < from + size ? 800 : 400,
+                textDecoration: idx >= from && idx < from + size ? 'underline' : 'none',
               }}
-              onClick={() => setI(j.idx)}
+              onClick={() => goTo(idx)}
             >
-              {j.idx + 1}
+              {idx + 1}
             </button>
           ))}
         </div>

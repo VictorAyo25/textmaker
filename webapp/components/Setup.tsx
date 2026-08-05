@@ -31,7 +31,12 @@ interface Props {
   /** Preselected topics, set when a crash-course lesson hands off to the drill. */
   initialModules?: number[];
   onStart: (args: StartArgs) => void;
-  onStartPaper: (paper: Paper, timeLimitSec: number | null, fb: FeedbackMode) => void;
+  onStartPaper: (
+    paper: Paper,
+    timeLimitSec: number | null,
+    fb: FeedbackMode,
+    perPage: number
+  ) => void;
   onExport: (questions: Question[], title: string) => void;
 }
 
@@ -56,6 +61,7 @@ export default function Setup({
   const [minutes, setMinutes] = useState(20);
   const [shuffleOptions, setShuffleOptions] = useState(true);
   const [feedback, setFeedback] = useState<FeedbackMode>('end');
+  const [perPage, setPerPage] = useState(1);
 
   const config: TestConfig = {
     modules,
@@ -66,6 +72,7 @@ export default function Setup({
     gapMode,
     shuffleOptions,
     feedback,
+    perPage,
   };
   const available = useMemo(
     () => pool(course, config),
@@ -383,6 +390,29 @@ export default function Setup({
         )}
 
         <p className="help" style={{ margin: '16px 0 6px' }}>
+          How many questions on screen at a time? One at a time is the real test.
+          Longer pages let you read ahead and answer in any order without pressing
+          Next.
+        </p>
+        <div className="seg">
+          {[
+            { n: 1, label: 'One' },
+            { n: 5, label: 'Five' },
+            { n: 10, label: 'Ten' },
+            { n: 0, label: 'All of them' },
+          ].map((o) => (
+            <button
+              key={o.n}
+              type="button"
+              aria-pressed={perPage === o.n}
+              onClick={() => setPerPage(o.n)}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="help" style={{ margin: '16px 0 6px' }}>
           Clock.
         </p>
         <div className="seg">
@@ -476,21 +506,21 @@ export default function Setup({
               <button
                 type="button"
                 className="btn ghost"
-                onClick={() => onStartPaper(p, null, 'end')}
+                onClick={() => onStartPaper(p, null, 'end', perPage)}
               >
                 Sit it untimed
               </button>
               <button
                 type="button"
                 className="btn ghost"
-                onClick={() => onStartPaper(p, mins * 60, 'end')}
+                onClick={() => onStartPaper(p, mins * 60, 'end', perPage)}
               >
                 Sit it in {mins} minutes
               </button>
               <button
                 type="button"
                 className="btn ghost"
-                onClick={() => onStartPaper(p, null, 'instant')}
+                onClick={() => onStartPaper(p, null, 'instant', perPage)}
               >
                 Walk me through it
               </button>

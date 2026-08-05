@@ -226,6 +226,8 @@ export interface TestConfig {
   gapMode: GapMode;
   shuffleOptions: boolean;
   feedback: FeedbackMode;
+  /** Questions shown on screen at once. 0 means the whole paper on one page. */
+  perPage: number;
 }
 
 // ---- what the runner collects ----
