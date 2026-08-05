@@ -68,6 +68,32 @@ body {
   max-width: 860px;
   margin: 0 auto;
   padding: 24px 18px 96px;
+  /* Notched phones: viewport-fit is cover, so the gutters have to clear the
+     cut-outs themselves or the first and last character of a line vanish. */
+  padding-left: max(18px, env(safe-area-inset-left));
+  padding-right: max(18px, env(safe-area-inset-right));
+  padding-bottom: max(96px, env(safe-area-inset-bottom));
+}
+
+/* Nothing may push the page sideways. Long unbroken tokens are real in this
+   material: 1.0 x 10^5 CFU/mL, NPKMg 12:12:17:2, Ichthyophthirius. */
+.prompt,
+.opt,
+.review,
+.sheetq,
+.whyrow,
+.factrow,
+.clozebody,
+.modrow,
+.courserow {
+  overflow-wrap: anywhere;
+}
+
+/* A visible focus ring everywhere, for anyone driving this from a keyboard. */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ---------- masthead ---------- */
@@ -350,12 +376,20 @@ input[type='range'] {
 }
 
 /* ---------- runner ---------- */
+/* Where you are, how long is left and how you are doing stay on screen while
+   you scroll, which matters most on a phone where a long question fills it. */
 .bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
+  padding: 10px 0;
   flex-wrap: wrap;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
 }
 .progress {
   flex: 1;
@@ -819,6 +853,46 @@ input[type='range'] {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+/* A sticky bar would otherwise sit on top of the question the jump list just
+   scrolled to. */
+.card[id^='q'] {
+  scroll-margin-top: 72px;
+}
+
+/* While a test is running the masthead is pure overhead: you know which course
+   you are in, and the tagline is not going to help you answer. It shrinks to a
+   line, which on a phone is most of a question's worth of screen given back. */
+.wrap[data-stage='running'] .masthead {
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+.wrap[data-stage='running'] .masthead .sub,
+.wrap[data-stage='running'] .masthead .backlink {
+  display: none;
+}
+.wrap[data-stage='running'] .masthead h1 {
+  font-size: 1.06rem;
+}
+
+/* Touch pointers get targets they can actually hit. Apple's floor is 44px and
+   this material is drilled with a thumb on a bus. */
+@media (pointer: coarse) {
+  .opt,
+  .modrow,
+  .courserow {
+    min-height: 48px;
+  }
+  .chip,
+  .seg button,
+  .btn {
+    min-height: 44px;
+  }
+  select,
+  .blank-input {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 620px) {
   .authbar,
   .authrow {
@@ -829,9 +903,29 @@ input[type='range'] {
   }
   .wrap {
     padding: 16px 13px 80px;
+    padding-left: max(13px, env(safe-area-inset-left));
+    padding-right: max(13px, env(safe-area-inset-right));
+  }
+  /* Room for the docked Start button, which is fixed and out of flow. */
+  .wrap[data-stage='setup'] {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
   .card {
     padding: 14px;
+  }
+  /* Comfortable targets by width as well as by pointer: a window this narrow
+     is a phone in all but the rarest case, and a 30px chip is a miss. */
+  .opt,
+  .modrow,
+  .courserow {
+    min-height: 48px;
+  }
+  .chip,
+  .seg button,
+  .btn,
+  select,
+  .blank-input {
+    min-height: 44px;
   }
   .modbar {
     grid-template-columns: 88px 1fr 46px;
@@ -841,11 +935,46 @@ input[type='range'] {
     width: 100%;
   }
   .seg button {
-    flex: 1;
+    flex: 1 1 auto;
     padding: 10px 8px;
   }
   .btn {
     width: 100%;
+  }
+  /* Navigation is a pair, so it gets a row rather than two. Anything with a
+     long label still wraps onto its own line. */
+  .footer-actions .btn {
+    width: auto;
+    flex: 1 1 42%;
+    min-width: 120px;
+  }
+  /* The primary action on a long setup page follows you down it. */
+  .startdock {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 10px 13px;
+    padding-left: max(13px, env(safe-area-inset-left));
+    padding-right: max(13px, env(safe-area-inset-right));
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    box-shadow: 0 -6px 18px rgba(16, 40, 24, 0.08);
+  }
+  .startdock .btn {
+    margin: 0;
+  }
+  .factrow {
+    flex-wrap: wrap;
+  }
+  .factbar {
+    flex-basis: 100%;
+    order: 3;
+  }
+  .stat-tile {
+    flex-basis: calc(50% - 4px);
   }
   .footer-actions .chip {
     margin-left: 0 !important;
@@ -857,6 +986,24 @@ input[type='range'] {
     font-size: 2.8rem;
   }
 }
+
+/* Small phones, 360px and under. Two-up tiles become one-up and the score
+   stops dominating the screen. */
+@media (max-width: 380px) {
+  .stat-tile {
+    flex-basis: 100%;
+  }
+  .bignum {
+    font-size: 2.3rem;
+  }
+  .masthead h1 {
+    font-size: 1.1rem;
+  }
+  .opt {
+    font-size: 0.93rem;
+  }
+}
+
 .filterrow {
   display: flex;
   gap: 8px;
@@ -1317,6 +1464,92 @@ ul.plain li {
 .lockin .sub {
   font-size: 0.87rem;
   color: var(--muted);
+}
+
+/* ---------- where you stand, and the fact map ---------- */
+.statrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stat-tile {
+  flex: 1 1 128px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  min-width: 0;
+}
+.stat-tile b {
+  display: block;
+  font-size: 1.45rem;
+  color: var(--ink);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-tile.ok b {
+  color: var(--green);
+}
+.stat-tile.warn b {
+  color: var(--red);
+}
+
+.factrow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+}
+.factrow .t {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.factrow .b {
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+.factrow .cnt {
+  margin-left: auto;
+  color: var(--green-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.factbar {
+  flex: 0 0 84px;
+  height: 8px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.factbar > i {
+  display: block;
+  height: 100%;
+  background: var(--green);
+}
+.factlist li {
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+
+/* ---------- offline notice ---------- */
+.offlinebar {
+  background: var(--gold-soft);
+  color: var(--gold);
+  border-bottom: 1px solid var(--line);
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  text-align: center;
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
 }
 
 /* ---------- the printable sheet ----------

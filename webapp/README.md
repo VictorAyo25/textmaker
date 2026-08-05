@@ -41,6 +41,8 @@ landing page lists every course loaded; pick one and set up a test.
   objective test, or either ENT221 computer-based test.
 - **Take it away as a PDF**, either the marked results or the questions
   themselves. See below.
+- Have the platform **remember what you get wrong** and drill that. See below.
+- **Install it to a home screen** and use it with no signal.
 
 ## Two ways to sit a test
 
@@ -61,6 +63,58 @@ so what you are taught mid-test and what you read afterwards cannot drift apart.
 Because a page can hold several questions, **Check answer sits with its question rather
 than in the footer**, and each question opens on its own. The footer's Next always just
 turns the page.
+
+## It remembers what you get wrong
+
+Every test used to be a fresh random draw, so a fact you kept missing came round
+exactly as often as one you already knew cold, and **Retry the ones I missed** died
+the moment you left the results screen.
+
+Now every marked paper is folded into a per-question record with a **Leitner box**.
+Miss a question and it drops to box 0 and is due again immediately. Get it right and
+it climbs, and each box rests longer than the last: 1 day, 3, 7, 16, 35. Setup then
+opens with **Where you stand** and a button that drills the questions that are due,
+worst first.
+
+Part marks count as a miss. Three of four blanks is not knowing the fact, and a
+question coming back is cheaper than a mark lost in the hall.
+
+It lives in `localStorage`, like the lesson progress and for the same reason: no
+account, no database and no environment variable, so it works for everyone on day
+one. Clearing site data clears it.
+
+## The fact map
+
+For a course with a ledger, `lib/mastery.ts` can go a level below the score. Because
+every ENT221 question names the facts it tests, the app can say which of the 485 facts
+are **solid**, which are **shaky**, and which have **never come up at all**, then hand
+you the questions that cover them. A fact counts as shaky the moment any question
+testing it sits in box 0, because being right about something once and wrong twice is
+not knowing it.
+
+The fact text is not bundled with the drill. `scripts/build-ledger-index.mjs` writes a
+flat `data/<course>/ledger-index.json`, which the map imports dynamically, so the
+drill pays nothing for a screen most sittings never open:
+
+```bash
+npm run ledger-index    # after any change to data/<course>/ledger/*.json
+```
+
+The committed index is checked against the ledger by the bank gate, so it cannot go
+stale without failing the build.
+
+## Offline and installable
+
+A web app manifest and an icon make it installable to a home screen; `public/sw.js`
+makes it work with no signal. The whole question bank compiles into the JavaScript
+chunks, so caching the static assets caches the course.
+
+The service worker is deliberately conservative, because the failure mode of a careless
+one is serving a stale page forever. Navigations are **network first** and fall back to
+the cache, so a new deploy is picked up the moment there is a network. Only
+`/_next/static/*` is cached first, and those filenames carry a content hash, so a stale
+copy at a given URL is impossible. `/api/*` is never cached at all. A banner appears
+when the network goes, and `/offline` is precached for a cold navigation with no signal.
 
 ## Taking it away as a PDF
 
@@ -239,7 +293,8 @@ that disagree fail the build rather than shipping a wrong answer. For fill-in-th
 questions the comparison runs through the same normalisation the app marks with.
 
 **The ledger.** For ENT221, every one of the 485 enumerated facts must be tested, and
-every hard fact in two or more styles. See above.
+every hard fact in two or more styles. See above. The committed `ledger-index.json`,
+which the fact map reads in the browser, must match the ledger it was built from.
 
 **The verdicts.** Every option of every IFT222 and ENT221 question must carry its own
 explanation, true and false included.
@@ -268,13 +323,18 @@ Every question is worth 1 mark.
 ```
 app/          / lists the courses, /[course] drills one, /[course]/learn/[slug]
               teaches one, plus the auth and attempts APIs
+app/          also manifest.ts and /offline, for the installable, no-signal case
 components/   App, Setup, Runner, QuestionView, Feedback, Review, Sheet,
-              AuthBar, LessonIndex, LessonView
-lib/          types, grading, bank selection, lesson progress, supabase, auth
+              MasteryMap, Offline, AuthBar, LessonIndex, LessonView
+lib/          types, grading, bank selection, mastery (Leitner boxes and the
+              fact map), lesson progress, supabase, auth
 data/         courses.ts registry, lessons.ts registry, tmc221/*.json,
               ift222/*.json and ent221/*.json banks, ift222/lessons.json,
-              ent221/ledger/*.json (gate-only, never bundled)
-scripts/      validate-bank.mjs (the build gate), import-crash.mjs (run by hand)
+              ent221/ledger/*.json (gate-only, never bundled) and
+              ent221/ledger-index.json (loaded on demand by the fact map)
+public/       sw.js and the icons
+scripts/      validate-bank.mjs (the build gate), build-ledger-index.mjs,
+              import-crash.mjs (both run by hand)
 ```
 
 `data/lessons.ts` is deliberately not imported by `data/courses.ts`: the lesson bodies
@@ -282,7 +342,24 @@ are a few hundred kilobytes of teaching HTML, and keeping them out of the regist
 the drill never ships them and a lesson page ships only its own lesson.
 
 Attempt history is stored per course, both in the browser and in Supabase, so one
-course's results never appear under another.
+course's results never appear under another. What you got right and wrong, question by
+question, is browser-only.
+
+## On screen
+
+Options are lettered by the **position they are shown in**, not by their id. Shuffling
+reorders the options but leaves the ids alone, which used to print A, C, B, D down the
+page; the letter now comes from the position, which also keeps a question and its
+review agreeing about which option is which. A real paper is never shuffled, so its
+letters stay the examiner's.
+
+The layout is checked at 320, 375, 390, 768 and 1280 pixels wide, and at the phone
+widths as a touch device: no horizontal scrolling anywhere, and no control under 40
+pixels tall. Long unbroken tokens are real in this material (1.0 x 10^5 CFU/mL, NPKMg
+12:12:17:2, Ichthyophthirius) so they are allowed to break rather than push the page
+sideways. The masthead collapses to a single line while a test is running, the progress
+bar and clock stay stuck to the top of the screen, and on a phone the Start button is
+docked to the bottom rather than sitting below twelve topics.
 
 ## Adding another course later
 

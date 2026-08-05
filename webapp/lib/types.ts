@@ -187,6 +187,12 @@ export interface Course {
    * course itself stays open, because revision does not stop at the exam hall.
    */
   taken?: boolean;
+  /**
+   * True where the course carries a fact ledger, which is what makes the
+   * fact-level mastery map possible. The ledger itself is loaded on demand,
+   * never bundled with the drill.
+   */
+  hasLedger?: boolean;
 }
 
 // ---- what the setup screen produces ----

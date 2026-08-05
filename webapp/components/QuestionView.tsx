@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import type { BlankFormat, GapMode, Question, Response } from '@/lib/types';
-import { matchLabels } from '@/lib/bank';
+import { letterOf, matchLabels, optionsOf } from '@/lib/bank';
 
 /** The on-screen instruction for a typed blank, so nobody guesses the format. */
 export function formatHint(fmt: BlankFormat | undefined, extra?: string): string {
@@ -44,13 +44,7 @@ export default function QuestionView({
   );
 
   if (q.style === 'mcq' || q.style === 'tf') {
-    const opts =
-      q.style === 'tf'
-        ? [
-            { id: 'true', text: 'True' },
-            { id: 'false', text: 'False' },
-          ]
-        : q.options ?? [];
+    const opts = optionsOf(q);
     const chosen = response?.kind === 'choice' ? response.value : null;
     return (
       <div>
@@ -63,7 +57,7 @@ export default function QuestionView({
             disabled={readOnly}
             onClick={() => onChange({ kind: 'choice', value: o.id })}
           >
-            <span className="mk one">{q.style === 'tf' ? '' : o.id.toUpperCase()}</span>
+            <span className="mk one">{q.style === 'tf' ? '' : letterOf(q, o.id)}</span>
             <span>{o.text}</span>
           </button>
         ))}

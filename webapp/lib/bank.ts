@@ -135,6 +135,35 @@ export function selectQuestions(course: Course, config: TestConfig): Selection {
   };
 }
 
+/**
+ * The options in the order they are shown, true and false included.
+ *
+ * A true or false question carries no options array, but it has two options on
+ * screen and both need a letter and a verdict, so it is given one here rather
+ * than being special-cased in three components.
+ */
+export function optionsOf(q: Question): { id: string; text: string }[] {
+  if (q.style === 'tf')
+    return [
+      { id: 'true', text: 'True' },
+      { id: 'false', text: 'False' },
+    ];
+  return q.options ?? [];
+}
+
+/**
+ * The letter an option is shown under.
+ *
+ * Shuffling reorders the options but leaves their ids alone, so labelling by id
+ * printed A, C, B, D down the page. The letter therefore comes from the
+ * position, which also keeps the question and its review agreeing with each
+ * other. A real paper is never shuffled, so its letters stay the examiner's.
+ */
+export function letterOf(q: Question, id: string): string {
+  const i = optionsOf(q).findIndex((o) => o.id === id);
+  return i >= 0 ? String.fromCharCode(65 + i) : id.toUpperCase();
+}
+
 /** Shuffle the options a question presents, without touching the answer keys. */
 export function presentQuestion(q: Question, shuffleOptions: boolean): Question {
   if (!shuffleOptions) return q;

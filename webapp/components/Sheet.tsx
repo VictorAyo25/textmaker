@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Course, Question } from '@/lib/types';
 import { WhyGrid, rightAnswer } from './Feedback';
+import { letterOf, optionsOf } from '@/lib/bank';
 
 /**
  * A printable sheet of questions with their answers.
@@ -27,24 +28,12 @@ function readable(prompt: string): string {
  * left-hand column on its own tells the reader nothing.
  */
 function OptionList({ q }: { q: Question }) {
-  if (q.style === 'tf') {
+  if (q.style === 'tf' || q.options?.length) {
     return (
       <ul className="sheetopts">
-        <li>
-          <b>A.</b> True
-        </li>
-        <li>
-          <b>B.</b> False
-        </li>
-      </ul>
-    );
-  }
-  if (q.options?.length) {
-    return (
-      <ul className="sheetopts">
-        {q.options.map((o) => (
+        {optionsOf(q).map((o) => (
           <li key={o.id}>
-            <b>{o.id.toUpperCase()}.</b> {o.text}
+            <b>{letterOf(q, o.id)}.</b> {o.text}
           </li>
         ))}
       </ul>

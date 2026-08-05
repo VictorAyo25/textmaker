@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { courseByCode } from '@/data/courses';
 import { presentQuestion, selectQuestions, shuffle } from '@/lib/bank';
 import { markAll } from '@/lib/grading';
+import { loadMastery, record, saveMastery } from '@/lib/mastery';
 import type {
   FeedbackMode,
   GapMode,
@@ -17,9 +18,10 @@ import Setup, { type StartArgs } from './Setup';
 import Runner from './Runner';
 import Review from './Review';
 import Sheet from './Sheet';
+import MasteryMap from './MasteryMap';
 import AuthBar from './AuthBar';
 
-type Stage = 'setup' | 'running' | 'review' | 'export';
+type Stage = 'setup' | 'running' | 'review' | 'export' | 'mastery';
 
 interface Attempt {
   title: string;
@@ -60,6 +62,8 @@ export default function App({
     questions: [],
     title: '',
   });
+  // Bumped after every marked paper so the setup screen reloads what it knows.
+  const [masteryVersion, setMasteryVersion] = useState(0);
   const [history, setHistory] = useState<Attempt[]>([]);
   const [synced, setSynced] = useState(false);
 
@@ -177,6 +181,10 @@ export default function App({
     const m = markAll(questions, responses);
     setMarked(m);
     setStage('review');
+    // What you got wrong outlives the session, so the next paper can be built
+    // out of it rather than being another fresh random draw.
+    saveMastery(course.code, record(loadMastery(course.code), m, Date.now()));
+    setMasteryVersion((v) => v + 1);
     const earned = m.reduce((t, x) => t + x.fraction, 0);
     void remember(
       {
@@ -196,12 +204,17 @@ export default function App({
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   };
 
+  const startPicked = (qs: Question[], label: string) => {
+    if (!qs.length) return;
+    begin(shuffle(qs), gapMode, null, label, feedback, perPage);
+  };
+
   const retryWrong = (qs: Question[]) => {
     begin(shuffle(qs), gapMode, null, `Retry: ${qs.length} you missed`, feedback, perPage);
   };
 
   return (
-    <main className="wrap" data-course={course.code}>
+    <main className="wrap" data-course={course.code} data-stage={stage}>
       <header className="masthead">
         <span className="code">{course.code}</span>
         <h1>{course.title}</h1>
@@ -237,6 +250,12 @@ export default function App({
             onStart={onStart}
             onStartPaper={onStartPaper}
             onExport={onExport}
+            onStartWeak={startPicked}
+            onOpenMastery={() => {
+              setStage('mastery');
+              if (typeof window !== 'undefined') window.scrollTo(0, 0);
+            }}
+            masteryVersion={masteryVersion}
           />
           {history.length > 0 && (
             <div className="card" style={{ marginTop: 22 }}>
@@ -284,6 +303,14 @@ export default function App({
             void loadHistory();
             setStage('setup');
           }}
+        />
+      )}
+
+      {stage === 'mastery' && (
+        <MasteryMap
+          course={course}
+          onDrill={startPicked}
+          onBack={() => setStage('setup')}
         />
       )}
 

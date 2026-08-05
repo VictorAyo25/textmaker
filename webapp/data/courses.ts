@@ -333,6 +333,9 @@ const ent221: Course = {
   moduleNoun: 'Topic',
   facetGuide: entFacets,
   examTags: ['Test 1 Q', 'Test 2 Q'],
+  // Every ENT221 question names the ledger facts it tests, which is what lets
+  // the mastery map work fact by fact rather than topic by topic.
+  hasLedger: true,
   modules: [
     {
       number: 1,

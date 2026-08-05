@@ -1,6 +1,7 @@
 'use client';
 
 import type { Course, Marked, Question } from '@/lib/types';
+import { letterOf, optionsOf } from '@/lib/bank';
 
 /**
  * One verdict panel, used in two places.
@@ -26,10 +27,9 @@ export function yourAnswer(m: Marked): string {
       return optText(q, r.value);
     case 'choices':
       return r.value.length
-        ? r.value
-            .slice()
-            .sort()
-            .map((v) => `${v.toUpperCase()}. ${optText(q, v)}`)
+        ? optionsOf(q)
+            .filter((o) => r.value.includes(o.id))
+            .map((o) => `${letterOf(q, o.id)}. ${o.text}`)
             .join('  |  ')
         : 'nothing selected';
     case 'pairs':
@@ -49,15 +49,16 @@ export function yourAnswer(m: Marked): string {
 export function rightAnswer(q: Question): string {
   switch (q.style) {
     case 'mcq':
-      return `${String(q.answer).toUpperCase()}. ${optText(q, String(q.answer))}`;
+      return `${letterOf(q, String(q.answer))}. ${optText(q, String(q.answer))}`;
     case 'tf':
       return q.answer === 'true' ? 'True' : 'False';
-    case 'multi':
-      return ((q.answer as string[]) ?? [])
-        .slice()
-        .sort()
-        .map((v) => `${v.toUpperCase()}. ${optText(q, v)}`)
+    case 'multi': {
+      const want = (q.answer as string[]) ?? [];
+      return optionsOf(q)
+        .filter((o) => want.includes(o.id))
+        .map((o) => `${letterOf(q, o.id)}. ${o.text}`)
         .join('  |  ');
+    }
     case 'match':
       return (q.pairs ?? []).map((p) => `${p.left} -> ${p.right}`).join('  |  ');
     case 'cloze':
@@ -83,17 +84,8 @@ export function isKeyed(q: Question, id: string): boolean {
  */
 export function WhyGrid({ q }: { q: Question }) {
   if (!q.why) return null;
-  const opts =
-    q.style === 'tf'
-      ? [
-          { id: 'true', text: 'True' },
-          { id: 'false', text: 'False' },
-        ]
-      : q.options ?? [];
-  const rows = opts
-    .slice()
-    .sort((a, b) => a.id.localeCompare(b.id))
-    .filter((o) => q.why?.[o.id]);
+  // Presented order, so the letters here are the letters on the question.
+  const rows = optionsOf(q).filter((o) => q.why?.[o.id]);
   if (!rows.length) return null;
   return (
     <div className="whygrid">
@@ -106,7 +98,7 @@ export function WhyGrid({ q }: { q: Question }) {
               {ok ? '✓' : '✗'}
             </span>
             <span>
-              {q.style !== 'tf' && <b>{o.id.toUpperCase()}. </b>}
+              <b>{letterOf(q, o.id)}. </b>
               {o.text}
               <span className="verdict-note">{q.why?.[o.id]}</span>
             </span>

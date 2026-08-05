@@ -38,6 +38,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildIndex, serialise, INDEX_FILE } from './build-ledger-index.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA = join(HERE, '..', 'data');
@@ -533,6 +534,20 @@ function checkLedger(cfg, dir, all) {
       if (!styles.has(id)) styles.set(id, new Set());
       styles.get(id).add(q.style);
     }
+  }
+
+  // The browser-side copy must match the ledger it was built from, or the
+  // mastery map would name facts that no longer exist and miss ones that do.
+  const indexPath = join(dir, INDEX_FILE);
+  const expected = serialise(buildIndex(dir));
+  const actual = existsSync(indexPath) ? readFileSync(indexPath, 'utf8') : null;
+  if (actual !== expected) {
+    problems.push(
+      `${cfg.code}: ${INDEX_FILE} is out of step with the ledger. Run: node scripts/build-ledger-index.mjs`
+    );
+    console.log(`    x ledger index: ${INDEX_FILE} is stale`);
+  } else {
+    console.log(`    . ledger index: ${INDEX_FILE} matches the ledger`);
   }
 
   const facts = [...byId.values()];

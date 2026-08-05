@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type {
   Course,
   Difficulty,
@@ -13,6 +13,7 @@ import type {
   TestConfig,
 } from '@/lib/types';
 import { pastCount, pool, poolByTier } from '@/lib/bank';
+import { loadMastery, summarise, weakSpots, type Mastery } from '@/lib/mastery';
 
 const PRESETS: { name: string; mix: Record<Difficulty, number> }[] = [
   { name: 'Warm up', mix: { easy: 60, medium: 30, hard: 10 } },
@@ -38,6 +39,10 @@ interface Props {
     perPage: number
   ) => void;
   onExport: (questions: Question[], title: string) => void;
+  onStartWeak: (questions: Question[], title: string) => void;
+  onOpenMastery: () => void;
+  /** Bumped after every marked paper so the weak-spot card reloads. */
+  masteryVersion: number;
 }
 
 export default function Setup({
@@ -46,6 +51,9 @@ export default function Setup({
   onStart,
   onStartPaper,
   onExport,
+  onStartWeak,
+  onOpenMastery,
+  masteryVersion,
 }: Props) {
   const [modules, setModules] = useState<number[]>(initialModules);
   const [facets, setFacets] = useState<Facet[]>([]);
@@ -62,6 +70,14 @@ export default function Setup({
   const [shuffleOptions, setShuffleOptions] = useState(true);
   const [feedback, setFeedback] = useState<FeedbackMode>('end');
   const [perPage, setPerPage] = useState(1);
+  // Read after mount: localStorage does not exist on the server, and reading
+  // the clock during render would make the two paints disagree.
+  const [mastery, setMastery] = useState<Mastery>({});
+  const [now, setNow] = useState(0);
+  useEffect(() => {
+    setMastery(loadMastery(course.code));
+    setNow(Date.now());
+  }, [course.code, masteryVersion]);
 
   const config: TestConfig = {
     modules,
@@ -126,8 +142,72 @@ export default function Setup({
     (facets.length ? ` · ${FACETS.filter((f) => facets.includes(f.id)).map((f) => f.label).join(', ')}` : '') +
     (source === 'exam' ? ' · past questions only' : '');
 
+  // now is 0 until the effect has run, which is how we know not to render a
+  // summary the server could not have produced.
+  const summary = useMemo(
+    () => (now ? summarise(course, mastery, now) : null),
+    [course, mastery, now]
+  );
+  const weak = useMemo(
+    () => (now ? weakSpots(course, mastery, now) : []),
+    [course, mastery, now]
+  );
+  const weakTake = Math.min(count, weak.length);
+
   return (
     <>
+      {summary && summary.seen > 0 && (
+        <div className="card">
+          <h2>Where you stand</h2>
+          <p className="help">
+            Kept in this browser as you go. A question you miss comes straight back;
+            one you keep getting right goes quiet for longer and longer.
+          </p>
+          <div className="statrow">
+            <span className="stat-tile">
+              <b>{summary.weak}</b> to drill now
+            </span>
+            <span className="stat-tile">
+              <b>{summary.resting}</b> resting
+            </span>
+            <span className="stat-tile">
+              <b>{summary.mastered}</b> mastered
+            </span>
+            <span className="stat-tile">
+              <b>{summary.unseen}</b> never seen
+            </span>
+          </div>
+          {summary.weak > 0 && (
+            <p className="note" style={{ marginTop: 10 }}>
+              Missed once: {summary.byMisses.once} · twice: {summary.byMisses.twice} ·
+              three or more times: {summary.byMisses.more}
+            </p>
+          )}
+          <div className="footer-actions">
+            <button
+              type="button"
+              className="btn"
+              disabled={weak.length === 0}
+              onClick={() =>
+                onStartWeak(
+                  weak.slice(0, weakTake),
+                  `Weak spots · ${weakTake} of ${weak.length} due`
+                )
+              }
+            >
+              {weak.length
+                ? `Drill ${weakTake} of my ${weak.length} weak spot${weak.length === 1 ? '' : 's'}`
+                : 'No weak spots due'}
+            </button>
+            {course.hasLedger && (
+              <button type="button" className="btn ghost" onClick={onOpenMastery}>
+                What have I not been tested on?
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
       {offerSource && (
         <div className="card">
           <h2>Where should the questions come from?</h2>
@@ -464,15 +544,19 @@ export default function Setup({
         </div>
       </div>
 
-      <button
-        type="button"
-        className="btn wide"
-        disabled={!canStart}
-        onClick={() => onStart({ config, timeLimitSec: timed ? minutes * 60 : null })}
-      >
-        Start test ({effectiveCount} question{effectiveCount === 1 ? '' : 's'}
-        {timed ? `, ${minutes} min` : ', untimed'})
-      </button>
+      {/* Docked to the bottom of the screen on a phone: the setup page is long,
+          and having to scroll back past twelve topics to start is a tax. */}
+      <div className="startdock">
+        <button
+          type="button"
+          className="btn wide"
+          disabled={!canStart}
+          onClick={() => onStart({ config, timeLimitSec: timed ? minutes * 60 : null })}
+        >
+          Start test ({effectiveCount} question{effectiveCount === 1 ? '' : 's'}
+          {timed ? `, ${minutes} min` : ', untimed'})
+        </button>
+      </div>
 
       <div className="card" style={{ marginTop: 22 }}>
         <h2>Take the questions with you</h2>
