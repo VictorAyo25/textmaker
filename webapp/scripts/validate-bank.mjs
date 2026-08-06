@@ -256,6 +256,49 @@ function check(cond, msg) {
   if (!cond) problems.push(msg);
 }
 
+/**
+ * Text may never point at an option by its POSITION.
+ *
+ * Options are shuffled at run time and the letters A, B, C, D are assigned from
+ * the position on screen, not from the stored option id. So an explanation that
+ * says "option A is MULTIPLY" is telling the reader to look at whichever option
+ * happened to land first, which is almost never the one meant. It shipped that
+ * way on ENT221 Test 2 Q28 and read as a flat contradiction of the verdicts
+ * printed directly beneath it.
+ *
+ * The fix is always the same: name the option by its CONTENT. "The marketing
+ * mix answer is MULTIPLY" survives any shuffle. Per-option verdicts are safe
+ * without help, because the `why` map is keyed by option id.
+ */
+const POSITIONAL = [
+  /\b[Oo]ptions?\s+[A-Da-d]\b/,
+  /\b(?:the\s+)?(?:first|second|third|fourth|fifth|last)\s+(?:option|answer|choice)\b/i,
+  // A lowercase "a" is the English article far more often than an option
+  // letter ("choose a location"), so these four accept a bare "a" only when it
+  // is capitalised. The keyword itself is matched either way, which is why the
+  // case-insensitive flag cannot simply be used on the whole pattern.
+  /\b[Aa]nswer\s+(?:[A-D]|[b-d])\b/,
+  /\b[Cc]hoice\s+(?:[A-D]|[b-d])\b/,
+  /\b(?:[Tt]ake|[Pp]ick|[Cc]hoose|[Ss]elect)\s+(?:[A-D]|[b-d])\b/,
+  /\b[Bb]oth\s+(?:[A-D]|[b-d])\s+and\s+[A-Da-d]\b/,
+  /\b(?:[A-D]|[b-d])\s+(?:is|was)\s+(?:the\s+)?(?:correct|right|wrong|answer)\b/,
+];
+
+function noPositionalRefs(q, cfg) {
+  const at = `${cfg.code} [${q.id}]`;
+  const texts = [['explanation', q.explanation ?? '']];
+  for (const [k, v] of Object.entries(q.why ?? {})) texts.push([`why.${k}`, v ?? '']);
+  for (const [where, txt] of texts)
+    for (const re of POSITIONAL) {
+      const m = txt.match(re);
+      if (m)
+        check(
+          false,
+          `${at}: ${where} says ${JSON.stringify(m[0])}, but options are shuffled and letters come from position. Name the option by its content instead.`
+        );
+    }
+}
+
 function validate(q, where, cfg, seenIds) {
   const at = `${cfg.code} ${where} [${q.id ?? '(no id)'}]`;
   check(typeof q.id === 'string' && q.id.length > 0, `${at}: missing id`);
@@ -672,6 +715,7 @@ for (const cfg of COURSES) {
     for (const q of items) {
       validate(q, f, cfg, seenIds);
       houseStyle(q, cfg);
+      noPositionalRefs(q, cfg);
     }
     all.push(...items);
     const n = Number(f.match(/\d+/)[0]);
