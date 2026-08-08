@@ -1,6 +1,7 @@
 'use client';
 
 import type { Course, Marked, Question } from '@/lib/types';
+import { Figure } from '@/components/Figure';
 import { letterOf, optionsOf } from '@/lib/bank';
 
 /**
@@ -191,6 +192,9 @@ export default function Feedback({ course, m, label, showPrompt = true }: Props)
           {q.prompt.replace(/\{\{(\d+)\}\}/g, '____')}
         </p>
       )}
+      {/* The review has to show the diagram too: a verdict about a circuit is
+          unreadable next to a question whose circuit has vanished. */}
+      {q.figure && <Figure figure={q.figure} />}
       {!m.correct && (
         <p className="yours">
           You said: <b>{yourAnswer(m)}</b>

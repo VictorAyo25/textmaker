@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Figure } from '@/components/Figure';
 import type { Course, Question } from '@/lib/types';
 import { WhyGrid, rightAnswer } from './Feedback';
 import { letterOf, optionsOf } from '@/lib/bank';
@@ -98,6 +99,7 @@ export default function Sheet({ course, questions, title, onBack }: Props) {
             <p className="sheetnum">
               {i + 1}. {readable(q.prompt)}
             </p>
+            {q.figure && <Figure figure={q.figure} />}
             <OptionList q={q} />
             <p className="theirs">
               Answer: <b>{rightAnswer(q)}</b>

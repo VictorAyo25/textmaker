@@ -299,6 +299,37 @@ function noPositionalRefs(q, cfg) {
     }
 }
 
+/**
+ * A figure is inline SVG injected into the page, so the gate is what stands
+ * between an authored diagram and the DOM.
+ *
+ * It must: be real SVG, carry a viewBox so it scales to a phone, carry alt
+ * text so it is not invisible to a screen reader, and contain nothing that
+ * executes or reaches the network. The app is installable and used offline,
+ * so a diagram that fetches anything is broken by definition, not merely
+ * unsafe.
+ */
+function checkFigure(q, cfg) {
+  if (!q.figure) return;
+  const at = `${cfg.code} [${q.id}] figure`;
+  const svg = q.figure.svg ?? '';
+  check(typeof svg === 'string' && svg.trim().startsWith('<svg'), `${at}: must start with <svg`);
+  check(/<\/svg>\s*$/.test(svg.trim()), `${at}: must end with </svg>`);
+  check(/viewBox=/.test(svg), `${at}: needs a viewBox, or it cannot scale on a phone`);
+  check(
+    typeof q.figure.alt === 'string' && q.figure.alt.trim().length > 10,
+    `${at}: needs alt text a screen reader can use`
+  );
+  for (const [re, what] of [
+    [/<script/i, 'a script'],
+    [/<foreignObject/i, 'a foreignObject'],
+    [/\son\w+\s*=/i, 'an inline event handler'],
+    [/(?:href|src)\s*=\s*["']?(?:https?:)?\/\//i, 'an external reference'],
+    [/url\(\s*["']?(?:https?:)?\/\//i, 'an external url()'],
+  ])
+    check(!re.test(svg), `${at}: contains ${what}, which must never reach the page`);
+}
+
 function validate(q, where, cfg, seenIds) {
   const at = `${cfg.code} ${where} [${q.id ?? '(no id)'}]`;
   check(typeof q.id === 'string' && q.id.length > 0, `${at}: missing id`);
@@ -716,6 +747,7 @@ for (const cfg of COURSES) {
       validate(q, f, cfg, seenIds);
       houseStyle(q, cfg);
       noPositionalRefs(q, cfg);
+      checkFigure(q, cfg);
     }
     all.push(...items);
     const n = Number(f.match(/\d+/)[0]);

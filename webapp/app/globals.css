@@ -1597,7 +1597,53 @@ ul.plain li {
    Saving a PDF is the browser's own print dialog: the text stays selectable
    and searchable and the bundle carries no PDF library. Everything you would
    tap is hidden, and nothing that teaches is. */
+/* ---- Question figures ---------------------------------------------------
+   A diagram a question cannot be answered without, drawn as inline SVG so it
+   scales, prints and works offline. The SVG is authored with `currentColor`
+   for its strokes and labels, so one drawing reads correctly in both themes
+   without a second copy. Wide circuits scroll inside their own box rather
+   than pushing the page sideways on a phone.                              */
+.qfig {
+  margin: 10px 0 14px;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  overflow-x: auto;
+}
+.qfig-draw {
+  display: flex;
+  justify-content: center;
+  color: var(--ink);
+}
+.qfig-draw svg {
+  max-width: 100%;
+  height: auto;
+  /* A figure with no intrinsic width would collapse inside a flex parent. */
+  min-width: 240px;
+}
+.qfig figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+@media (max-width: 620px) {
+  .qfig { padding: 8px 6px; }
+}
+
 @media print {
+
+  /* Figures must survive the PDF export: never split one across a page, and
+     draw it in black on white whatever the reader's theme is. */
+  .qfig {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #999;
+    background: #fff;
+  }
+  .qfig-draw { color: #000; }
+
   :root {
     --bg: #ffffff;
     --card: #ffffff;

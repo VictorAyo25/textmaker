@@ -53,6 +53,28 @@ export interface Blank {
   hint?: string;
 }
 
+/**
+ * A diagram a question cannot be answered without.
+ *
+ * PHY121 needs these: its Test 1 question 2 shows a capacitor network and asks
+ * for the total capacitance, which is unanswerable from words alone without
+ * doing the reader's work for them. The drawing is held as INLINE SVG rather
+ * than an image file so it scales to any width, prints, survives the PDF
+ * export, and needs no network, which matters because the app is installable
+ * and used offline.
+ *
+ * The gate rejects a figure carrying a script, a foreignObject or any external
+ * reference, so a diagram can never fetch anything or execute anything.
+ */
+export interface Figure {
+  /** Inline SVG markup. Must carry a viewBox so it scales. */
+  svg: string;
+  /** Read out to screen readers, and printed if the SVG cannot render. */
+  alt: string;
+  /** Shown beneath the drawing, e.g. "Figure 1". */
+  caption?: string;
+}
+
 export interface Question {
   id: string;
   module: number; // 1..5 for TMC221, 1..10 for IFT222
@@ -63,6 +85,8 @@ export interface Question {
   facets: Facet[];
   topic: string; // short label, e.g. "OKR", "the 7 Kits"
   prompt: string; // for cloze/gap the blanks are marked {{1}}, {{2}}, ...
+  /** A diagram the question depends on, drawn inline. See Figure above. */
+  figure?: Figure;
   options?: Option[]; // mcq, multi
   answer?: string | string[]; // mcq: 'c'   multi: ['a','b']   tf: 'true' | 'false'
   pairs?: Pair[]; // match

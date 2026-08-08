@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Course, FeedbackMode, GapMode, Question, Response } from '@/lib/types';
 import { mark } from '@/lib/grading';
 import QuestionView from './QuestionView';
+import { Figure } from '@/components/Figure';
 import Feedback from './Feedback';
 
 const STYLE_LABEL: Record<string, string> = {
@@ -223,6 +224,7 @@ export default function Runner({
                 ? 'Complete the passage.'
                 : q.prompt}
             </p>
+            {q.figure && <Figure figure={q.figure} />}
             <QuestionView
               question={q}
               response={responses[idx]}
