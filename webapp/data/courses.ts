@@ -36,6 +36,17 @@ import d12A from './ift222/deck12a.json';
 import d12B from './ift222/deck12b.json';
 import d12C from './ift222/deck12c.json';
 
+import p1 from './phy121/module1.json';
+import p2 from './phy121/module2.json';
+import p3 from './phy121/module3.json';
+import p4 from './phy121/module4.json';
+import p5 from './phy121/module5.json';
+import p6 from './phy121/module6.json';
+import p7 from './phy121/module7.json';
+import p8 from './phy121/module8.json';
+import p9 from './phy121/module9.json';
+import p10 from './phy121/module10.json';
+
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
 import e3 from './ent221/module3.json';
@@ -481,7 +492,101 @@ const ent221: Course = {
   taken: true,
 };
 
-export const COURSES: Course[] = [ent221, ift222, tmc221];
+const phyFacets: FacetGuide[] = [
+  {
+    id: 'numbers',
+    label: 'Calculations and powers of ten',
+    help: 'kQ/r and kQ/r squared, 1/2 CV squared and 1/2 LI squared, mv over qB, mu-nought I over 2 pi r, the turns ratio, and the exponent that decides between 10 to the minus 4 and 10 to the minus 6',
+  },
+  {
+    id: 'names',
+    label: 'Laws, constants and named quantities',
+    help: "Coulomb, Gauss, Ampere, Faraday, Biot-Savart, Lorentz, epsilon-nought, mu-nought, the electronic charge, permittivity, flux, emf, magnetic moment",
+  },
+  {
+    id: 'lists',
+    label: 'Procedures and their order',
+    help: 'Series before parallel in a capacitor network, current before emf when only the terminal p.d. is given, turns per metre before the solenoid field, and the check that runs at the end of each',
+  },
+  {
+    id: 'wording',
+    label: 'Definitions and the exact quantity asked for',
+    help: 'Which charge PRODUCES the field and which merely sits in it, terminal p.d. against emf, flux against field, total turns against turns per metre, and distance measured from the centre rather than the surface',
+  },
+];
+
+const phyQuestions: Question[] = [
+  ...(p1 as unknown as Question[]),
+  ...(p2 as unknown as Question[]),
+  ...(p3 as unknown as Question[]),
+  ...(p4 as unknown as Question[]),
+  ...(p5 as unknown as Question[]),
+  ...(p6 as unknown as Question[]),
+  ...(p7 as unknown as Question[]),
+  ...(p8 as unknown as Question[]),
+  ...(p9 as unknown as Question[]),
+  ...(p10 as unknown as Question[]),
+];
+
+/** Both computer-based tests, rebuilt from the bank by provenance tag. */
+function phyPaper(tag: string, id: string, title: string, note: string, mins: number): Paper {
+  const num = (q: Question) =>
+    Number(q.slides.find((sl) => sl.startsWith(`${tag} Q`))?.match(/Q(\d+)$/)?.[1] ?? 0);
+  const questions = phyQuestions
+    .filter((q) => q.slides.some((sl) => sl.startsWith(`${tag} Q`)))
+    .sort((a, b) => num(a) - num(b));
+  return {
+    id,
+    title,
+    subtitle: 'The test as it was actually set, in its own order, one mark each.',
+    note,
+    questions,
+    minutes: mins,
+  };
+}
+
+const phy121: Course = {
+  code: 'PHY121',
+  title: 'General Physics II',
+  tagline:
+    'Electricity and magnetism drilled as calculations, the way the test sets them. Five options, every one explained, and the working shown in full.',
+  blurb:
+    'Charge and the electric field, potential and work, Gauss and flux, capacitance and dielectrics, DC circuits and internal resistance, magnetic force, Biot-Savart and Ampere, induction and transformers. Drill by topic, or sit either real computer-based test end to end.',
+  moduleNoun: 'Topic',
+  facetGuide: phyFacets,
+  modules: [
+    { number: 1, title: 'Charge, Coulomb and the Electric Field', blurb: 'Quantisation, F = qE, the field of a point charge, and adding two fields at a midpoint.' },
+    { number: 2, title: 'Potential, Work and Energy', blurb: 'V = kQ/r falling as 1/r rather than 1/r squared, and the work done moving a charge.' },
+    { number: 3, title: "Gauss's Law and Flux", blurb: 'Flux as EA cos theta, and why a charged conducting sphere behaves outside as a point charge at its centre.' },
+    { number: 4, title: 'Capacitance and Dielectrics', blurb: 'Reading a network before reaching for a formula, the parallel plate with a dielectric, C = Q/V, and the energy stored.' },
+    { number: 5, title: 'Current, Resistance and DC Circuits', blurb: 'Series resistance and the single current, and Ohm’s law from the terminal p.d.' },
+    { number: 6, title: 'emf, Internal Resistance and Terminal Voltage', blurb: 'E = I(R + r) in both directions, and why the emf always exceeds the terminal p.d.' },
+    { number: 7, title: 'Magnetic Force and Moving Charges', blurb: 'F = qvB sin theta, the torque on a current loop, and the radius of a circular path.' },
+    { number: 8, title: 'Sources of Magnetic Fields', blurb: 'Ampere and symmetry, Biot-Savart and the inverse square, turns per metre in a solenoid, and the long straight wire.' },
+    { number: 9, title: 'Electromagnetic Induction', blurb: 'Energy stored in an inductor, and why it is changing FLUX that induces an emf.' },
+    { number: 10, title: 'Transformers', blurb: 'Efficiency as output over input, and the turns ratio as a step up or a step down.' },
+  ],
+  questions: phyQuestions,
+  examTags: ['Test 1 Q', 'Test 2 Q'],
+  papers: [
+    phyPaper(
+      'Test 1',
+      'phy-cbt-1',
+      'Computer-Based Test 1, all 15 questions',
+      'Captured as a graded review page marked 14 out of 15. Question 9 is quoted as printed and is INCOMPLETE: its stem ends at "represented by" with the figure missing, and it is the one question marked wrong, so the true answer cannot be recovered from the capture. Its review says so on every option.',
+      20
+    ),
+    phyPaper(
+      'Test 2',
+      'phy-cbt-2',
+      'Computer-Based Test 2, all 15 questions',
+      'Captured as a graded review page marked 15 out of 15, so every answer here is confirmed by the examiner. Worth knowing: on this paper the correct choice was the FIRST option every single time. The drill shuffles options by default, which takes that crutch away.',
+      20
+    ),
+  ],
+};
+
+export const COURSES: Course[] = [phy121, ent221, ift222, tmc221];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());

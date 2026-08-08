@@ -104,6 +104,30 @@ const ENT_KEY = {
   },
 };
 
+/**
+ * The PHY121 answer keys, transcribed a second time from the graded review
+ * pages and kept here independently of the bank.
+ *
+ * Test 2 was marked 15 out of 15, so every one of its answers is confirmed by
+ * the examiner. Test 1 was marked 14 out of 15: question 9 is the one marked
+ * WRONG, and its stem is also truncated in the capture with its figure missing,
+ * so no true key exists for it. It is keyed here to the option that was
+ * selected, matching the bank, purely so the paper stays answerable end to end.
+ * The question's own review says plainly that it cannot be judged.
+ */
+const PHY_KEY = {
+  'Test 1': {
+    1: 'e', 2: 'd', 3: 'c', 4: 'c', 5: 'c', 6: 'd', 7: 'c', 8: 'c',
+    9: 'c', 10: 'c', 11: 'a', 12: 'a', 13: 'b', 14: 'b', 15: 'b',
+  },
+  // Every answer on this paper was the first option. That is a real property of
+  // the paper, not a transcription slip, and it is why the drill shuffles.
+  'Test 2': {
+    1: 'a', 2: 'a', 3: 'a', 4: 'a', 5: 'symmetry', 6: 'a', 7: 'a', 8: 'a',
+    9: 'a', 10: 'a', 11: 'flux', 12: 'distance', 13: 'a', 14: 'a', 15: 'a',
+  },
+};
+
 const ENT_TEST1_NUMBERS = range(1, 30).filter((n) => n !== 4);
 
 /**
@@ -205,6 +229,35 @@ const COURSES = [
     // must be taught by some lesson: a topic with questions and no lesson is a
     // hole a reader falls into.
     lessons: 'lessons.json',
+  },
+  {
+    code: 'PHY121',
+    dir: 'phy121',
+    // Stage one is the two computer-based tests only. The manual-derived bank
+    // lands next, and will bring deck refs and a ledger with it.
+    slideRef: /^Test [12] Q\d{1,2}$/,
+    slideRefHelp: 'like "Test 1 Q12"',
+    examRef: /^Test [12] Q\d{1,2}$/,
+    requireLecture: false,
+    minPerModule: 2,
+    // PHY's test is calculation by five-option MCQ, with fill-in-the-gap used
+    // ONLY for concepts, never for a number. Demanding the other four styles
+    // would be demanding the drill differ from the exam.
+    requireEveryStyle: false,
+    requireStyles: ['mcq', 'gap'],
+    requireWhy: true,
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: [
+          ...range(1, 15).map((n) => `Test 1 Q${n}`),
+          ...range(1, 15).map((n) => `Test 2 Q${n}`),
+        ],
+        noun: 'questions across the two computer-based tests',
+        pattern: /^Test [12] Q\d+$/,
+      },
+    ],
+    key: PHY_KEY,
   },
   {
     code: 'ENT221',
