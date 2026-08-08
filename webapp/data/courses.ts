@@ -46,6 +46,15 @@ import p7 from './phy121/module7.json';
 import p8 from './phy121/module8.json';
 import p9 from './phy121/module9.json';
 import p10 from './phy121/module10.json';
+import pd1 from './phy121/deck1.json';
+import pd2 from './phy121/deck2.json';
+import pd3 from './phy121/deck3.json';
+import pd4 from './phy121/deck4.json';
+import pd5 from './phy121/deck5.json';
+import pd6 from './phy121/deck6.json';
+import pd7 from './phy121/deck7.json';
+import pd8 from './phy121/deck8.json';
+import pd9 from './phy121/deck9.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -526,6 +535,15 @@ const phyQuestions: Question[] = [
   ...(p8 as unknown as Question[]),
   ...(p9 as unknown as Question[]),
   ...(p10 as unknown as Question[]),
+  ...(pd1 as unknown as Question[]),
+  ...(pd2 as unknown as Question[]),
+  ...(pd3 as unknown as Question[]),
+  ...(pd4 as unknown as Question[]),
+  ...(pd5 as unknown as Question[]),
+  ...(pd6 as unknown as Question[]),
+  ...(pd7 as unknown as Question[]),
+  ...(pd8 as unknown as Question[]),
+  ...(pd9 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */

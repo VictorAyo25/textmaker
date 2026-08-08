@@ -235,8 +235,12 @@ const COURSES = [
     dir: 'phy121',
     // Stage one is the two computer-based tests only. The manual-derived bank
     // lands next, and will bring deck refs and a ledger with it.
-    slideRef: /^Test [12] Q\d{1,2}$/,
-    slideRefHelp: 'like "Test 1 Q12"',
+    // Two shapes of provenance: a question from one of the two computer-based
+    // tests, or a numbered section of the study manual's reference sheet. The
+    // slide PDFs are almost entirely images, so the 172-page manual is what the
+    // ledger is built from. See data/phy121/BUILD.md.
+    slideRef: /^(Test [12] Q\d{1,2}|Ref R\.\d)$/,
+    slideRefHelp: 'like "Test 1 Q12" or "Ref R.1"',
     examRef: /^Test [12] Q\d{1,2}$/,
     requireLecture: false,
     minPerModule: 2,
@@ -244,7 +248,7 @@ const COURSES = [
     // ONLY for concepts, never for a number. Demanding the other four styles
     // would be demanding the drill differ from the exam.
     requireEveryStyle: false,
-    requireStyles: ['mcq', 'gap'],
+    requireStyles: ['mcq', 'gap', 'tf'],
     requireWhy: true,
     coverages: [
       {
