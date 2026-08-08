@@ -262,6 +262,9 @@ const COURSES = [
       },
     ],
     key: PHY_KEY,
+    // Every drill topic must be taught by some lesson: a topic with questions
+    // and no lesson is a hole a reader falls into.
+    lessons: 'lessons.json',
   },
   {
     code: 'ENT221',

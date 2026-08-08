@@ -79,10 +79,10 @@ armed once the bank covers every fact, exactly as IFT222 was done.
 | Both computer-based tests | 30 | done, both sit to 100 per cent |
 | Batch 1: constants and the must-memorise list | 51 | done |
 | Remaining ledger facts | about 170 | to do |
-| Crash course lessons | | to do |
+| Crash course lessons | 7 lessons | done, every topic taught |
 | Crash manual PDF | | to do |
 
-**81 questions so far.**
+**81 questions and 7 crash-course lessons so far.**
 
 ## Things found in the sources, kept as found
 

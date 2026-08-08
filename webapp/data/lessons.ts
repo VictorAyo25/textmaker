@@ -1,5 +1,6 @@
 import type { Lesson } from '@/lib/types';
 import ift222Lessons from './ift222/lessons.json';
+import phy121Lessons from './phy121/lessons.json';
 
 /**
  * Crash-course lessons, kept OUT of data/courses.ts on purpose.
@@ -14,6 +15,7 @@ import ift222Lessons from './ift222/lessons.json';
  */
 const BY_COURSE: Record<string, Lesson[]> = {
   IFT222: ift222Lessons as unknown as Lesson[],
+  PHY121: phy121Lessons as unknown as Lesson[],
 };
 
 export function lessonsFor(code: string): Lesson[] {
