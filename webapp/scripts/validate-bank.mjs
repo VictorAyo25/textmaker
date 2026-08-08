@@ -603,6 +603,14 @@ function checkLessons(cfg, dir, bankModules) {
           check(Boolean((f.teach ?? '').trim()), `${where}: frame ${j + 1} has no teaching text`);
           // A question with nothing after it is a reader left hanging: the check
           // that answers frame j lives at the head of frame j + 1.
+          // Frame text is rendered as HTML, so a bare caret reaches the
+          // reader as a literal "10^-9" instead of a superscript. In a physics
+          // course that is on nearly every line.
+          for (const [field, txt] of [['check', f.check], ['teach', f.teach], ['ask', f.ask]])
+            check(
+              !/\^-?\d/.test(txt ?? ''),
+              `${where} frame ${j + 1}: ${field} writes an exponent as "^", which renders literally. Use <sup>.`
+            );
           if (f.ask && j === b.frames.length - 1)
             check(false, `${where}: the last frame asks a question nothing answers`);
         });

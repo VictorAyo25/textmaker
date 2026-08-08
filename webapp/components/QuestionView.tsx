@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { Sci } from '@/components/Sci';
 import type { BlankFormat, GapMode, Question, Response } from '@/lib/types';
 import { letterOf, matchLabels, optionsOf } from '@/lib/bank';
 
@@ -58,7 +59,7 @@ export default function QuestionView({
             onClick={() => onChange({ kind: 'choice', value: o.id })}
           >
             <span className="mk one">{q.style === 'tf' ? '' : letterOf(q, o.id)}</span>
-            <span>{o.text}</span>
+            <span><Sci text={o.text} /></span>
           </button>
         ))}
       </div>
@@ -88,7 +89,7 @@ export default function QuestionView({
             onClick={() => toggle(o.id)}
           >
             <span className="mk many">{chosen.includes(o.id) ? '✓' : ''}</span>
-            <span>{o.text}</span>
+            <span><Sci text={o.text} /></span>
           </button>
         ))}
       </div>

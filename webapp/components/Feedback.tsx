@@ -1,6 +1,7 @@
 'use client';
 
 import type { Course, Marked, Question } from '@/lib/types';
+import { Sci, sciText } from '@/components/Sci';
 import { Figure } from '@/components/Figure';
 import { letterOf, optionsOf } from '@/lib/bank';
 
@@ -16,7 +17,7 @@ import { letterOf, optionsOf } from '@/lib/bank';
 
 export function optText(q: Question, id: string): string {
   if (q.style === 'tf') return id === 'true' ? 'True' : 'False';
-  return q.options?.find((o) => o.id === id)?.text ?? id;
+  return sciText(q.options?.find((o) => o.id === id)?.text ?? id);
 }
 
 /** How the student answered, in words. */
@@ -30,7 +31,7 @@ export function yourAnswer(m: Marked): string {
       return r.value.length
         ? optionsOf(q)
             .filter((o) => r.value.includes(o.id))
-            .map((o) => `${letterOf(q, o.id)}. ${o.text}`)
+            .map((o) => `${letterOf(q, o.id)}. ${sciText(o.text)}`)
             .join('  |  ')
         : 'nothing selected';
     case 'pairs':
@@ -57,7 +58,7 @@ export function rightAnswer(q: Question): string {
       const want = (q.answer as string[]) ?? [];
       return optionsOf(q)
         .filter((o) => want.includes(o.id))
-        .map((o) => `${letterOf(q, o.id)}. ${o.text}`)
+        .map((o) => `${letterOf(q, o.id)}. ${sciText(o.text)}`)
         .join('  |  ');
     }
     case 'match':
@@ -100,7 +101,7 @@ export function WhyGrid({ q }: { q: Question }) {
             </span>
             <span>
               <b>{letterOf(q, o.id)}. </b>
-              {o.text}
+              <Sci text={o.text} />
               <span className="verdict-note">{q.why?.[o.id]}</span>
             </span>
           </p>
@@ -184,12 +185,12 @@ export default function Feedback({ course, m, label, showPrompt = true }: Props)
       <div className="qmeta">
         <span className="verdict">
           {label ? `${label} · ` : ''}
-          {v.text}
+          <Sci text={v.text} />
         </span>
       </div>
       {showPrompt && (
         <p style={{ margin: '4px 0 8px', fontWeight: 600, fontSize: '0.97rem' }}>
-          {q.prompt.replace(/\{\{(\d+)\}\}/g, '____')}
+          <Sci text={q.prompt.replace(/\{\{(\d+)\}\}/g, '____')} />
         </p>
       )}
       {/* The review has to show the diagram too: a verdict about a circuit is
@@ -203,7 +204,7 @@ export default function Feedback({ course, m, label, showPrompt = true }: Props)
       <p className="theirs">
         Answer: <b>{rightAnswer(q)}</b>
       </p>
-      <p className="why">{q.explanation}</p>
+      <p className="why"><Sci text={q.explanation} /></p>
       <PartGrid m={m} />
       <WhyGrid q={q} />
       <div className="qmeta" style={{ marginTop: 8 }}>

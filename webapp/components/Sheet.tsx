@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Sci } from '@/components/Sci';
 import { Figure } from '@/components/Figure';
 import type { Course, Question } from '@/lib/types';
 import { WhyGrid, rightAnswer } from './Feedback';
@@ -34,7 +35,7 @@ function OptionList({ q }: { q: Question }) {
       <ul className="sheetopts">
         {optionsOf(q).map((o) => (
           <li key={o.id}>
-            <b>{letterOf(q, o.id)}.</b> {o.text}
+            <b>{letterOf(q, o.id)}.</b> <Sci text={o.text} />
           </li>
         ))}
       </ul>
@@ -97,14 +98,14 @@ export default function Sheet({ course, questions, title, onBack }: Props) {
         {questions.map((q, i) => (
           <div className="sheetq" key={q.id}>
             <p className="sheetnum">
-              {i + 1}. {readable(q.prompt)}
+              {i + 1}. <Sci text={readable(q.prompt)} />
             </p>
             {q.figure && <Figure figure={q.figure} />}
             <OptionList q={q} />
             <p className="theirs">
               Answer: <b>{rightAnswer(q)}</b>
             </p>
-            <p className="why">{q.explanation}</p>
+            <p className="why"><Sci text={q.explanation} /></p>
             <WhyGrid q={q} />
             <div className="qmeta" style={{ marginTop: 6 }}>
               {q.slides.map((s) => (

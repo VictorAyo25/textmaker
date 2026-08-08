@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Sci } from '@/components/Sci';
 import type { Course, FeedbackMode, GapMode, Question, Response } from '@/lib/types';
 import { mark } from '@/lib/grading';
 import QuestionView from './QuestionView';
@@ -222,7 +223,7 @@ export default function Runner({
             <p className="prompt">
               {q.style === 'cloze' || q.style === 'gap'
                 ? 'Complete the passage.'
-                : q.prompt}
+                : <Sci text={q.prompt} />}
             </p>
             {q.figure && <Figure figure={q.figure} />}
             <QuestionView
