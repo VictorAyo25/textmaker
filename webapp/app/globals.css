@@ -1645,6 +1645,33 @@ p.gloss {
   border-left: 2px solid var(--line);
 }
 
+/* A key point: the two or three things a reader must carry out of a lesson.
+   Stated twice per lesson on purpose, once formally and once bluntly, because
+   the blunt one is what survives the exam hall. Loud enough to find when
+   skimming, quiet enough not to shout down the teaching around it. */
+.keypoint {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  /* Gold is this palette's reserved colour for what must be memorised, which
+     is exactly what a key point is. It already has a dark-theme value. */
+  background: var(--gold-soft);
+}
+.keypoint .kplab {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.keypoint p { margin: 0; font-weight: 600; }
+@media print {
+  .keypoint { break-inside: avoid; page-break-inside: avoid; }
+}
+
 @media print {
 
   /* Figures must survive the PDF export: never split one across a page, and
