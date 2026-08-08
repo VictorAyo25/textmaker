@@ -239,7 +239,10 @@ const COURSES = [
     // tests, or a numbered section of the study manual's reference sheet. The
     // slide PDFs are almost entirely images, so the 172-page manual is what the
     // ledger is built from. See data/phy121/BUILD.md.
-    slideRef: /^(Test [12] Q\d{1,2}|Ref R\.\d)$/,
+    // Three shapes of provenance: a numbered slide of one of the five
+    // lecture decks, a section of the manual's reference sheet, or a
+    // question from one of the two computer-based tests.
+    slideRef: /^(Test [12] Q\d{1,2}|Ref R\.\d|M[1-5] S\d{1,3})$/,
     slideRefHelp: 'like "Test 1 Q12" or "Ref R.1"',
     examRef: /^Test [12] Q\d{1,2}$/,
     requireLecture: false,
@@ -802,7 +805,7 @@ for (const cfg of COURSES) {
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => /^(module|deck|slides)\d+[a-z]?\.json$/.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);
