@@ -476,6 +476,9 @@ const ent221: Course = {
       30
     ),
   ],
+  // Exam sat. Filed under "Exams already taken" on the landing page; the drill
+  // itself stays open, because it is still the fastest revision there is.
+  taken: true,
 };
 
 export const COURSES: Course[] = [ent221, ift222, tmc221];
