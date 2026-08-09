@@ -104,6 +104,39 @@
     ],
     "blocks": [
       {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "A <b>database</b> is the data. A <b>DBMS</b> is the software that manages it. A <b>database system</b> is both of those plus the programs and the people. Three different things, and the exam separates them.",
+            "ask": "Which of the three is a piece of software?"
+          },
+          {
+            "check": "the DBMS.",
+            "teach": "Before databases, each department kept its own <b>files</b>. That produced three faults: data <b>separated and isolated</b>, the same fact <b>duplicated</b> in several files, and programs <b>dependent on the file layout</b>.",
+            "ask": "If a customer's address is stored in four files and changed in one, which fault is that?"
+          },
+          {
+            "check": "duplication, and the inconsistency it breeds.",
+            "teach": "A <b>data model</b> is a plan, not a machine: it defines the logical structure and how data is stored, organised and manipulated. It exists before any hardware is chosen.",
+            "ask": "Is a data model a piece of hardware, a plan, or a program?"
+          },
+          {
+            "check": "a plan.",
+            "teach": "A <b>business rule</b> is a constraint written in English before it is written in a schema, and it comes from the people who run the organisation: managers, policy makers and operational procedures.",
+            "ask": "Every employee must belong to exactly one department. Where did that sentence come from?"
+          },
+          {
+            "check": "the business, from managers and its operating procedures.",
+            "teach": "That is the whole of Module One: what a database is, why files failed, what a model is, and where the rules come from. Every question in this lesson tests one of those four.",
+            "ask": ""
+          }
+        ]
+      },
+      {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> tell data from information; describe\r\n  how data is captured, represented, stored, and retrieved; explain the difference between\r\n  privacy, integrity, and security; and judge a system by its scalability, efficiency, and\r\n  effectiveness.</p>"
       },
@@ -251,6 +284,34 @@
       2
     ],
     "blocks": [
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "The <b>ANSI-SPARC</b> architecture has three levels: <b>external</b>, what each user sees; <b>conceptual</b>, the single community view; <b>internal</b>, how it is actually stored.",
+            "ask": "Which level is there MANY of, one per group of users?"
+          },
+          {
+            "check": "the external level.",
+            "teach": "The point of the middle level is insulation. Change how the data is physically stored and the conceptual schema need not change: that is <b>physical data independence</b>.",
+            "ask": "Adding an index changes storage. Which independence protects you?"
+          },
+          {
+            "check": "physical data independence.",
+            "teach": "Its partner protects the users from the middle: change the conceptual schema and the external views survive. That is <b>logical data independence</b>.",
+            "ask": "Name each independence by what it hides you FROM."
+          },
+          {
+            "check": "physical hides storage changes; logical hides conceptual changes.",
+            "teach": "So read each name as what it shields. That is the trick that stops the pair being confusing, and it is worth a mark on its own.",
+            "ask": ""
+          }
+        ]
+      },
       {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> list the limitations of the\r\n  file-based approach and the advantages of the database approach; define a database, a\r\n  DBMS, a schema, and an instance; separate DDL from DML; explain the three levels of data\r\n  abstraction and the two kinds of data independence; and tell a personal database from an\r\n  enterprise one.</p>"
@@ -485,6 +546,49 @@
       3
     ],
     "blocks": [
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "An <b>entity</b> is a person, place, object, event or concept the organisation keeps data about. An <b>attribute</b> describes it. A <b>relationship</b> associates two or more entities.",
+            "ask": "STUDENT, name, and registers-for. Which is which?"
+          },
+          {
+            "check": "STUDENT is the entity, name is an attribute, registers-for is the relationship.",
+            "teach": "<b>Degree</b> counts how many entity TYPES take part: unary one, binary two, ternary three. <b>Cardinality</b> counts INSTANCES: how many of one go with a single one of the other.",
+            "ask": "A relationship joining DOCTOR and PATIENT. What is its degree?"
+          },
+          {
+            "check": "binary, because two entity types take part.",
+            "teach": "Now the phrases that decide almost every question on the test. <b>MUST</b> means mandatory participation, a minimum cardinality of 1. <b>MAY</b>, or <b>or none</b>, means optional, a minimum of 0.",
+            "ask": "A department may exist even if no employee is assigned. Is DEPARTMENT mandatory or optional?"
+          },
+          {
+            "check": "optional, because of the word may.",
+            "teach": "Read every business rule from BOTH ends. One doctor to many patients, one patient to exactly one doctor, so many on one side and one on the other: that is one-to-many, running from the ONE to the MANY.",
+            "ask": "A customer may place many orders; every order is placed by exactly one customer. Which way does the one-to-many run?"
+          },
+          {
+            "check": "from CUSTOMER to ORDER.",
+            "teach": "Attributes come in kinds. <b>Composite</b> splits into parts, as address does. <b>Multivalued</b> holds several at once, as degrees do. <b>Derived</b> is computed from others, as age is from date of birth.",
+            "ask": "One employee, several university degrees. Which kind?"
+          },
+          {
+            "check": "multivalued.",
+            "teach": "A <b>weak entity</b> cannot exist without a parent and has no primary key of its own, so it borrows the parent's. DEPENDENT under EMPLOYEE is the standard case.",
+            "ask": "Weak means small, broken, or dependent?"
+          },
+          {
+            "check": "dependent.",
+            "teach": "Twenty-five of the thirty test questions come from this lesson. If you learn one thing, learn to underline <b>must</b>, <b>may</b> and <b>or none</b> before you look at the options.",
+            "ask": ""
+          }
+        ]
+      },
       {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> extract business rules from a\r\n  description; draw entities, attributes, and relationships in a consistent notation; read\r\n  and set cardinality with the crow's-foot symbols; and turn any of the recurring exam\r\n  scenarios into a correct ER diagram.</p>"
@@ -873,6 +977,39 @@
     ],
     "blocks": [
       {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "<b>Specialisation</b> is TOP DOWN: start with STAFF, notice MANAGER and DRIVER differ, create subclasses. <b>Generalisation</b> is BOTTOM UP: start with CAR and LORRY, notice what they share, create VEHICLE.",
+            "ask": "Which one starts from the general and works down?"
+          },
+          {
+            "check": "specialisation. Special goes down, general goes up.",
+            "teach": "A subclass gets every attribute of its superclass automatically. That is <b>attribute inheritance</b>, and it is why you never repeat name and address on every subclass.",
+            "ask": "Do you write NAME on both VEHICLE and CAR?"
+          },
+          {
+            "check": "no. CAR inherits it.",
+            "teach": "Two constraints, and they are independent questions. <b>Total</b> means every member must belong to some subclass; <b>partial</b> means it need not.",
+            "ask": "Every vehicle must be a car or a lorry. Total or partial?"
+          },
+          {
+            "check": "total.",
+            "teach": "The second question: <b>disjoint</b> means no member may belong to two subclasses; <b>overlapping</b> means it may.",
+            "ask": "No vehicle can be both a car and a lorry. Disjoint or overlapping?"
+          },
+          {
+            "check": "disjoint.",
+            "teach": "So answer them separately and you cannot be caught: must every member belong, and can a member be in two.",
+            "ask": ""
+          }
+        ]
+      },
+      {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> tell a supertype from a subtype;\r\n  distinguish generalization from specialization; apply the completeness (total/partial) and\r\n  disjointness (disjoint/overlap) constraints; use a subtype discriminator; and draw any\r\n  supertype/subtype hierarchy the paper asks for.</p>"
       },
@@ -1229,6 +1366,34 @@
     ],
     "blocks": [
       {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Codd's idea was that everything is a <b>table</b>: two dimensions, rows and columns, no pointers anywhere. A row is a <b>tuple</b>, a column an <b>attribute</b>.",
+            "ask": "How are relationships expressed, if there are no pointers?"
+          },
+          {
+            "check": "by matching values, through keys.",
+            "teach": "A <b>primary key</b> uniquely identifies a row and can never be NULL. A <b>foreign key</b> is a primary key from another table, appearing here to link the two.",
+            "ask": "Which of the two can never be empty?"
+          },
+          {
+            "check": "the primary key.",
+            "teach": "That gives the two integrity rules. <b>Entity integrity</b>: no part of a primary key may be NULL. <b>Referential integrity</b>: a foreign key must either match a real row in the other table, or be wholly NULL.",
+            "ask": "A BOOK row names a publisher that does not exist. Which rule is broken?"
+          },
+          {
+            "check": "referential integrity.",
+            "teach": "Entity to table, instance to row, attribute to column. That trio is the bridge between the ER vocabulary and this one, and the exam moves between them freely.",
+            "ask": ""
+          }
+        ]
+      },
+      {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> define relation, tuple, attribute,\r\n  domain, degree, cardinality, and schema; distinguish super, candidate, primary, alternate,\r\n  and foreign keys; state the entity and referential integrity rules; and list the properties\r\n  of a well-formed relation.</p>"
       },
@@ -1380,6 +1545,39 @@
       7
     ],
     "blocks": [
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Turning a diagram into tables follows one rule for each cardinality. <b>One-to-many</b> is the natural relational shape: put the foreign key on the MANY side.",
+            "ask": "One department, many employees. Which table gets the foreign key?"
+          },
+          {
+            "check": "EMPLOYEE, the many side.",
+            "teach": "<b>One-to-one</b> needs no extra table either: a foreign key on either side will do, and you usually put it on the side with mandatory participation.",
+            "ask": "Does a one-to-one need a third table?"
+          },
+          {
+            "check": "no.",
+            "teach": "<b>Many-to-many</b> will not fit at all, because a column cannot hold a list. It is broken into two one-to-many relationships around a new table in the middle.",
+            "ask": "What is that middle table called?"
+          },
+          {
+            "check": "a bridge, associative, junction or link table.",
+            "teach": "STUDENT and COURSE become STUDENT, <b>ENROLMENT</b> and COURSE, and the middle table holds a foreign key to each side. Its own key is usually the two together.",
+            "ask": "A multivalued attribute cannot fit in a column either. What happens to it?"
+          },
+          {
+            "check": "it becomes a table of its own.",
+            "teach": "So: many side gets the key, many-to-many gets a table, multivalued gets a table. Three rules cover almost every conversion the paper can set.",
+            "ask": ""
+          }
+        ]
+      },
       {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> map entities, every kind of\r\n  relationship, multivalued attributes, and supertype/subtype structures into relations with\r\n  correct primary and foreign keys.</p>"
@@ -1545,6 +1743,44 @@
       8
     ],
     "blocks": [
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Normalisation removes <b>redundancy</b>, and redundancy is what causes three anomalies: <b>insert</b>, <b>update</b> and <b>delete</b>.",
+            "ask": "You delete the last student on a course and lose the course itself. Which anomaly?"
+          },
+          {
+            "check": "the deletion anomaly.",
+            "teach": "<b>First normal form</b>: every value is <b>atomic</b>, one per cell, and there are no repeating groups. A PHONE column holding two numbers breaks it.",
+            "ask": "Columns named PHONE1, PHONE2, PHONE3. Which form is broken?"
+          },
+          {
+            "check": "first normal form, by a repeating group.",
+            "teach": "<b>Second normal form</b> removes <b>partial</b> dependency: a non-key attribute depending on only PART of a composite key. It can only be broken when the key is composite.",
+            "ask": "The key is StaffNo plus PropertyNo, and StaffName depends on StaffNo alone. Which form is broken?"
+          },
+          {
+            "check": "second normal form, by a partial dependency.",
+            "teach": "<b>Third normal form</b> removes <b>transitive</b> dependency: a non-key attribute depending on ANOTHER non-key attribute. StaffNo gives BranchNo, BranchNo gives BranchAddress.",
+            "ask": "Say the one-line test for third normal form."
+          },
+          {
+            "check": "every non-key attribute depends on the key, the whole key, and nothing but the key.",
+            "teach": "Those three clauses ARE the three forms in order: <b>the key</b> is 1NF, <b>the whole key</b> is 2NF, <b>nothing but the key</b> is 3NF.",
+            "ask": "And BCNF? It is the strict version: every what must be a candidate key?"
+          },
+          {
+            "check": "every determinant.",
+            "teach": "A <b>determinant</b> is whatever sits on the left of a functional dependency. So BCNF says nothing may determine anything unless it could have been the key.",
+            "ask": ""
+          }
+        ]
+      },
       {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> define full, partial, and transitive\r\n  functional dependencies; draw a functional-dependency diagram; and normalize any given\r\n  table to 3NF or BCNF, stating every step and the resulting relations.</p>"
@@ -1753,6 +1989,39 @@
     ],
     "blocks": [
       {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "<b>Selection</b>, written with sigma, chooses <b>rows</b> that satisfy a condition. <b>Projection</b>, written with pi, chooses <b>columns</b>.",
+            "ask": "Which one is the WHERE clause of SQL?"
+          },
+          {
+            "check": "selection.",
+            "teach": "Projection also removes duplicates, because a relation is a SET. Drop the identifying column and repeated rows collapse into one.",
+            "ask": "Why can a projection return fewer rows than you started with?"
+          },
+          {
+            "check": "because duplicates collapse.",
+            "teach": "A <b>natural join</b> is three operations in one: Cartesian product, then selection on equality of the shared attributes, then projection to drop the duplicated column.",
+            "ask": "Which operation pairs every row with every row and filters nothing?"
+          },
+          {
+            "check": "the Cartesian product.",
+            "teach": "The set operators, <b>union</b>, <b>intersection</b> and <b>difference</b>, all need the two relations to be <b>union-compatible</b>: same number of attributes, and corresponding attributes from the same domains.",
+            "ask": "Must the two relations have the same number of ROWS?"
+          },
+          {
+            "check": "no. Only the same columns and types.",
+            "teach": "So: sigma for rowS, pi for columns Picked, join is product plus select plus project, and set operators need matching shapes.",
+            "ask": ""
+          }
+        ]
+      },
+      {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> define the six core operations with\r\n  their symbols, and write a relational-algebra expression for any query over a given\r\n  schema.</p>"
       },
@@ -1904,6 +2173,44 @@
       10
     ],
     "blocks": [
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "cover, answer, then slide down",
+        "howto": "Cover the page just below the first line with a card or your hand. Read a frame, answer the small question at the end of it, then slide the card down: the next frame opens with the answer. Do not read ahead. Being wrong here is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "The clauses come in a fixed order: <b>SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY</b>. Write those six down the margin the moment the paper starts.",
+            "ask": "Which clause chooses the columns?"
+          },
+          {
+            "check": "SELECT.",
+            "teach": "<b>WHERE</b> runs BEFORE grouping, so it filters rows and cannot see an aggregate. <b>HAVING</b> runs AFTER, so it filters groups and can.",
+            "ask": "Where does COUNT(*) greater than 3 belong?"
+          },
+          {
+            "check": "in HAVING. It is an aggregate, so WHERE cannot see it.",
+            "teach": "The five aggregates are <b>COUNT, SUM, AVG, MIN, MAX</b>. Each collapses many rows into one value.",
+            "ask": "COUNT(*) and COUNT(column) differ in one way. Which?"
+          },
+          {
+            "check": "COUNT(*) counts every row; COUNT(column) skips rows where that column is NULL.",
+            "teach": "<b>INNER JOIN</b> keeps only matching rows. <b>LEFT OUTER JOIN</b> keeps everything on the left and pads the right with NULLs.",
+            "ask": "List every branch, including those with no staff. Which join?"
+          },
+          {
+            "check": "LEFT OUTER JOIN. An inner join would drop exactly the branches being asked for.",
+            "teach": "Statements fall into four groups. <b>DDL</b> defines structure: CREATE, ALTER, DROP. <b>DML</b> moves data: SELECT, INSERT, UPDATE, DELETE. <b>DCL</b> controls access: GRANT, REVOKE. <b>TCL</b> controls transactions: COMMIT, ROLLBACK.",
+            "ask": "Which group does DROP belong to?"
+          },
+          {
+            "check": "DDL. It changes structure, not data.",
+            "teach": "Learn the four groups with their verbs, because the paper asks which group a statement belongs to more often than it asks what the statement does.",
+            "ask": ""
+          }
+        ]
+      },
       {
         "kind": "prose",
         "html": "<p class=\"lo\"><b>By the end of this unit you can:</b> create, alter, and drop tables with\r\n  keys and constraints; insert, update, and delete rows; and write a SELECT for any request\r\n  using WHERE, ORDER BY, GROUP BY, the aggregate functions, LIKE, IN, BETWEEN, joins,\r\n  subqueries, and views.</p>"
