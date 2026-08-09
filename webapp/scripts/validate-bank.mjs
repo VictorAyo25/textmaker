@@ -386,6 +386,39 @@ const COURSES = [
     teachesLedger: true,
   },
   {
+    code: 'CSC242',
+    dir: 'csc242',
+    // Two objective tests, 45 questions. The bank is those tests; the teaching
+    // and every solved past paper live in the crash course, scoped to the
+    // twelve modules of the CCODEL manual, which is what this paper is set
+    // from. Filed by PAPER rather than by topic, because one test spans several.
+    slideRef: /^Test [12] Q\d{1,2}$/,
+    slideRefHelp: 'like "Test 2 Q14"',
+    examRef: /^Test [12] Q\d{1,2}$/,
+    requireLecture: false,
+    minPerModule: 0,
+    filesAreTopics: false,
+    bankCoversAllTopics: false,
+    requireEveryStyle: false,
+    requireStyles: ['mcq'],
+    requireWhy: true,
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: [
+          ...range(1, 15).map((n) => `Test 1 Q${n}`),
+          ...range(1, 30).map((n) => `Test 2 Q${n}`),
+        ],
+        noun: 'questions across the two objective tests',
+        pattern: /^Test [12] Q\d+$/,
+      },
+    ],
+    lessons: 'lessons.json',
+    plan: 'plan.json',
+    selfSufficient: true,
+    examTagPrefixes: ['Test 1 Q', 'Test 2 Q'],
+  },
+  {
     code: 'DTS224',
     dir: 'dts224',
     // Provenance is the 25/26 objective test. The bank IS that test for now:

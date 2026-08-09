@@ -105,6 +105,10 @@ import dt1 from './dts224/test01.json';
 import dt2 from './dts224/test02.json';
 import dt3 from './dts224/drill01.json';
 import dt4 from './dts224/drill02.json';
+
+import cs1 from './csc242/test01.json';
+import cs2 from './csc242/test02.json';
+import cscPlan from './csc242/plan.json';
 import dtsPlan from './dts224/plan.json';
 
 // Adding a course later: create data/<code>/*.json in the same shape, import it
@@ -506,6 +510,91 @@ const dts224: Course = {
   ],
 };
 
+
+const cscFacets: FacetGuide[] = [
+  {
+    id: 'names',
+    label: 'Definitions and named concepts',
+    help: 'Domain, codomain, range, image, injective, surjective, bijective, lemma, corollary, theorem, conjecture, the normal vocabulary of proof',
+  },
+  {
+    id: 'wording',
+    label: 'Exact statements',
+    help: 'When an implication is false, when a biconditional is true, what onto really requires, what a recurrence needs before it can start',
+  },
+  {
+    id: 'lists',
+    label: 'Methods and their steps',
+    help: 'Base case then inductive step, the proof techniques and what each assumes, the order of a composition',
+  },
+  {
+    id: 'numbers',
+    label: 'Counting and sequences',
+    help: 'n to the power m functions, common difference and common ratio, Fibonacci, permutations and combinations, the binomial expansion',
+  },
+];
+
+const cscQuestions: Question[] = [
+  ...(cs1 as unknown as Question[]),
+  ...(cs2 as unknown as Question[]),
+];
+
+/**
+ * The twelve modules of the CCODEL manual, named by what they CONTAIN.
+ *
+ * The document's own titles are unreliable: Module One is headed "Descriptive
+ * Statistics" and is propositional logic, Module Eight's first subsection is
+ * headed "What is Mathematical Induction?" and is inclusion-exclusion, and every
+ * page header reads "Elementary Differential Equations". Each title below was
+ * checked against that module's subsections and vocabulary.
+ */
+const csc242: Course = {
+  code: 'CSC242',
+  title: 'Discrete Structures',
+  tagline:
+    'The twelve modules of the course manual, taught from zero, with both objective tests answered inside the lessons that teach them.',
+  blurb:
+    'Logic, sets, functions, sequences, proof, induction, counting, probability and recurrence. Scoped to the course manual, which is what the paper is set from, so no graphs, trees or Boolean algebra.',
+  moduleNoun: 'Module',
+  facetGuide: cscFacets,
+  modules: [
+    { number: 1, title: 'Propositional Logic', blurb: 'Propositions, the connectives, truth tables, implication and the biconditional. Headed Descriptive Statistics in the manual, which is an error.' },
+    { number: 2, title: 'Predicate Logic', blurb: 'Predicates, truth sets, the two quantifiers, and what turns a predicate into a proposition.' },
+    { number: 3, title: 'Set', blurb: 'Membership, the types of set, subset and proper subset, union, intersection, difference and complement.' },
+    { number: 4, title: 'Function', blurb: 'Domain, codomain and range; injective, surjective and bijective; composition and inverses. Thirteen of test 2 came from here.' },
+    { number: 5, title: 'Sequences and Progressions', blurb: 'Finite and infinite sequences, arithmetic and geometric progressions, Fibonacci, and generating a rule.' },
+    { number: 6, title: 'Proof Techniques', blurb: 'Direct, contrapositive, contradiction, cases, trivial and vacuous, plus the vocabulary: lemma, corollary, theorem, conjecture.' },
+    { number: 7, title: 'Mathematical Induction', blurb: 'Base case and inductive step, the inductive hypothesis, and the domino analogy.' },
+    { number: 8, title: 'Inclusion-Exclusion and Pigeonhole', blurb: 'Counting a union without double counting, Venn for three sets, and the pigeonhole principle.' },
+    { number: 9, title: 'Permutations and Combinations', blurb: 'The product and sum rules, factorials, arrangements where order matters and selections where it does not.' },
+    { number: 10, title: 'Binomial Theorem', blurb: "The expansion, the coefficients, and Pascal's triangle." },
+    { number: 11, title: 'Discrete Probability', blurb: 'Sample space and events, the axioms, the properties, and conditional probability.' },
+    { number: 12, title: 'Recurrence Relations', blurb: 'Defining a term from earlier ones, initial conditions, and solving homogeneous linear relations.' },
+  ],
+  questions: cscQuestions,
+  examTags: ['Test 1 Q', 'Test 2 Q'],
+  exam: EXAMS.find((e) => e.code === 'CSC242'),
+  plan: cscPlan as unknown as StudySession[],
+  papers: [
+    {
+      id: 'csc-test-1',
+      title: 'Objective test 1, all 15 questions',
+      subtitle: 'The test as it was set: logic and sets, one mark each.',
+      note: 'Transcribed from the captured test, which was captured UNATTEMPTED and so carries no printed key. Every answer is derived and argued in its review. Question 5 offers a loose definition of an infinite set; the review says so rather than pretending the question is clean.',
+      questions: cscQuestions.filter((q) => q.slides.some((sl) => sl.startsWith('Test 1 Q'))),
+      minutes: 15,
+    },
+    {
+      id: 'csc-test-2',
+      title: 'Objective test 2, all 30 questions',
+      subtitle: 'Functions, sequences, proof, induction and recurrence. Thirteen of the thirty are functions.',
+      note: 'Transcribed from the captured test. Questions 19 and 20 were the only two attempted; question 20 was answered "Assumption" and the answer is "Theorem", so the key here follows the mathematics rather than the selection, and the review says why.',
+      questions: cscQuestions.filter((q) => q.slides.some((sl) => sl.startsWith('Test 2 Q'))),
+      minutes: 30,
+    },
+  ],
+};
+
 const ent221: Course = {
   code: 'ENT221',
   title: 'Agripreneurship',
@@ -757,7 +846,7 @@ const phy121: Course = {
   ],
 };
 
-export const COURSES: Course[] = [dts224, ift222, phy121, ent221, tmc221];
+export const COURSES: Course[] = [dts224, csc242, ift222, phy121, ent221, tmc221];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());
