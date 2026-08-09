@@ -220,6 +220,12 @@ function toBlock(node) {
   if (c.includes('box mem') || c.includes('box key') || c.includes('box code'))
     return { kind: 'rules', label: label || 'Must memorise', tag: tag || 'learn this', html: body };
   if (c.includes('box teach')) return { kind: 'teach', label: label || 'Teach', tag, html: body };
+  // ANY other box still carries teaching, and dropping it loses that teaching
+  // silently. A sampling check found several lessons had lost most of their
+  // content this way, and one past-paper lesson had lost all of it. So an
+  // unrecognised box becomes a plain teach block rather than nothing.
+  if (/\bbox\b/.test(c))
+    return { kind: 'teach', label: label || '', tag, html: body || node.inner };
   if (c.includes('lockin'))
     return {
       kind: 'lockin',
@@ -256,9 +262,10 @@ function convert(file, spec) {
       }
       const b = toBlock(n);
       if (b) blocks.push(b);
-      else if (n.tag === 'p' && text(n.inner).length > 30) blocks.push({ kind: 'prose', html: n.raw });
-      else if (['table', 'ol', 'ul', 'figure', 'pre'].includes(n.tag))
-        blocks.push({ kind: 'prose', html: n.raw });
+      // Nothing with real text is thrown away. Whatever the manual put here,
+      // the reader gets: dropping an unrecognised element loses teaching, and
+      // an odd-looking block is far better than a missing one.
+      else if (text(n.inner).length > 20) blocks.push({ kind: 'prose', html: n.raw });
     }
 
     out.push({
