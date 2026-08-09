@@ -1811,6 +1811,11 @@ p.gloss {
 
 .landingauth { margin: 0 0 16px; }
 
+.courseline { display: flex; align-items: stretch; gap: 8px; margin-bottom: 8px; }
+.courseline .courserow { margin-bottom: 0; flex: 1; min-width: 0; }
+.archivebtn { flex: 0 0 auto; align-self: center; font-size: 0.76rem; padding: 6px 10px; color: var(--muted); white-space: nowrap; }
+.archivebtn:hover { border-color: var(--green); color: var(--green-dark); }
+
 /* ---- breadcrumbs: the way out of any page ----
    A reader arriving from a shared link has no history to press back through,
    and a reader three lessons deep should not have to press it four times to
@@ -1829,6 +1834,21 @@ p.gloss {
   padding: 4px 8px;
   border-radius: 999px;
   white-space: nowrap;
+  min-width: 0;
+}
+/* The current page is the only crumb that can be long, because it carries the
+   lesson title. On a 320px phone "9. Resistor Networks, Dividers and
+   Kirchhoff's Laws" is wider than the screen, so this one wraps. */
+.crumb.here {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.crumbs > span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
 }
 .crumb:hover {
   color: var(--green-dark);

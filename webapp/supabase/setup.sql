@@ -42,7 +42,19 @@ create index if not exists lesson_progress_email_idx
   on public.lesson_progress (user_email);
 
 -- ---------------------------------------------------------------------------
--- 3. Lock both tables.
+-- 3. Per-reader settings: one row per account.
+-- ---------------------------------------------------------------------------
+-- A jsonb blob, so the next setting needs no migration. Today it holds which
+-- courses this reader has already sat, because two people using the platform
+-- have sat different papers.
+create table if not exists public.user_settings (
+  user_email  text        primary key,
+  settings    jsonb       not null default '{}'::jsonb,
+  updated_at  timestamptz not null default now()
+);
+
+-- ---------------------------------------------------------------------------
+-- 4. Lock every table.
 -- ---------------------------------------------------------------------------
 -- Row level security is ON with NO public policy, which means the anon key can
 -- read and write nothing. The app never touches these tables from the browser:
@@ -51,3 +63,4 @@ create index if not exists lesson_progress_email_idx
 -- cannot ask for somebody else's rows, because the browser cannot ask at all.
 alter table public.attempts        enable row level security;
 alter table public.lesson_progress enable row level security;
+alter table public.user_settings   enable row level security;
