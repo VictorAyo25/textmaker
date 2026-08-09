@@ -4,6 +4,7 @@ import Timetable from '@/components/Timetable';
 import Providers from '@/components/Providers';
 import AuthBar from '@/components/AuthBar';
 import CourseList, { type CourseCard } from '@/components/CourseList';
+import Dashboard, { type DashCourse } from '@/components/Dashboard';
 import { authEnabled } from '@/lib/auth';
 
 // The landing page. A server component that lists every registered course and
@@ -26,6 +27,29 @@ export default function Page() {
     taken: Boolean(c.taken),
   }));
 
+  // The reading ORDER comes from the dated plan where a course has one, so the
+  // dashboard's "next lesson" is the next one you were actually told to read,
+  // not merely the next in the file.
+  const cards2 = new Map(COURSES.map((c) => [c.code, lessonCards(c.code)]));
+  const dash: DashCourse[] = COURSES.filter((c) => !c.taken).map((c) => {
+    const byslug = new Map((cards2.get(c.code) ?? []).map((l) => [l.slug, l]));
+    const planned = c.plan ? c.plan.flatMap((s) => s.lessons) : [...byslug.keys()];
+    return {
+      code: c.code,
+      title: c.title,
+      examAt: c.exam?.at,
+      examWindow: c.exam?.window,
+      questions: c.questions.length,
+      lessons: byslug.size,
+      minutes: [...byslug.values()].reduce((t, l) => t + l.minutes, 0),
+      order: planned
+        .map((slug) => byslug.get(slug))
+        .filter((l): l is NonNullable<typeof l> => Boolean(l))
+        .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes })),
+      hasCrash: byslug.size > 0,
+    };
+  });
+
   return (
     <main className="wrap">
       <header className="masthead">
@@ -47,6 +71,10 @@ export default function Page() {
           <AuthBar authEnabled={authEnabled} />
         </div>
       </Providers>
+
+      {/* Where you are, before what exists. The dashboard answers the question
+          a reader actually has at six in the morning: what do I open now. */}
+      <Dashboard courses={dash} />
 
       <Timetable onDrill={COURSES.filter((c) => c.plan).map((c) => c.code)} />
 

@@ -1816,6 +1816,54 @@ p.gloss {
 .archivebtn { flex: 0 0 auto; align-self: center; font-size: 0.76rem; padding: 6px 10px; color: var(--muted); white-space: nowrap; }
 .archivebtn:hover { border-color: var(--green); color: var(--green-dark); }
 
+/* ---- imported lesson bodies must never push the page sideways ----
+   Two things in the converted manuals are wider than a phone: a six-column
+   comparison table, and an AS PRINTED block, whose <pre> preserves the
+   examiner's line breaks and so refuses to wrap. One past-paper lesson measured
+   2,989px on a 320px screen. Wide content now scrolls INSIDE its own block. */
+.lbody,
+.lprose,
+.lblock .body {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.lbody table,
+.lprose table {
+  min-width: 0;
+}
+/* The examiner's own words keep their line breaks but may wrap when they must,
+   because an unreadable line is worse than a lost line break. */
+.asprinted,
+.lblock pre,
+.lbody pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---- the dashboard: where you are, and what to open next ---- */
+.dashrow {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+.dashrow:first-of-type { border-top: none; }
+.dashrow header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dashrow .dtitle { font-weight: 600; font-size: 0.95rem; }
+.dashrow .dwhen { margin: 2px 0 8px; font-size: 0.8rem; color: var(--muted); }
+.dashrow .dstat { margin: 6px 0 10px; font-size: 0.82rem; color: var(--muted); }
+.dactions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.dactions .btn { flex: 0 1 auto; }
+
 /* ---- breadcrumbs: the way out of any page ----
    A reader arriving from a shared link has no history to press back through,
    and a reader three lessons deep should not have to press it four times to

@@ -38,6 +38,15 @@ const PAGES = [
   '/ift222/learn/memory',
   '/ift222/learn/past-paper-2425',
   '/ift222/learn/final-paper',
+  '/dts224',
+  '/dts224/learn',
+  '/dts224/learn/er-model',
+  '/dts224/learn/normalization',
+  '/csc242',
+  '/csc242/learn',
+  '/csc242/learn/function-types',
+  '/csc242/learn/proof',
+  '/csc242/learn/paper-2526',
 ];
 
 /** Runs in the page: is anything wider than the window, and what? */
