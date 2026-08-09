@@ -106,6 +106,10 @@ import dt2 from './dts224/test02.json';
 import dt3 from './dts224/drill01.json';
 import dt4 from './dts224/drill02.json';
 
+import in1 from './ins224/test01.json';
+import in2 from './ins224/test02.json';
+import insPlan from './ins224/plan.json';
+
 import cs1 from './csc242/test01.json';
 import cs2 from './csc242/test02.json';
 import cscPlan from './csc242/plan.json';
@@ -595,6 +599,88 @@ const csc242: Course = {
   ],
 };
 
+
+const insFacets: FacetGuide[] = [
+  {
+    id: 'names',
+    label: 'Definitions and named concepts',
+    help: 'Methodologies and their variants, the fact-finding techniques, the four actor types, the DFD symbols, the four ERD elements, the UML diagram types',
+  },
+  {
+    id: 'lists',
+    label: 'Lists, steps and their order',
+    help: 'The eight problem-solving steps, the nine principles, the five phases and their activities, the six selection criteria, the five steps to draw an ERD',
+  },
+  {
+    id: 'wording',
+    label: 'Exact definitions and distinctions',
+    help: 'Analysis against design, predictive against adaptive, include against extend, aggregation against composition, sequence against collaboration',
+  },
+  {
+    id: 'numbers',
+    label: 'Cardinality and counts',
+    help: 'One-to-one, one-to-many, many-to-many, ordinality and multiplicity, plus the counts the manual fixes: exactly one Level 0 DFD, three class compartments, four DFD elements',
+  },
+];
+
+const insQuestions: Question[] = [
+  ...(in1 as unknown as Question[]),
+  ...(in2 as unknown as Question[]),
+];
+
+/**
+ * The ten units of the CCODEL manual, which is what this paper is set from.
+ *
+ * The manual's own contents page lists only six units and stops at Module Two
+ * Unit 3. The body carries four more: Module Two gains a fourth unit on data
+ * modelling, and Module Three exists in full. Everything below was read from the
+ * body rather than the front matter, because the front matter is incomplete.
+ */
+const ins224: Course = {
+  code: 'INS224',
+  title: 'Systems Analysis and Design',
+  tagline:
+    'The whole 117-page course manual taught unit by unit, with both objective tests answered inside the lessons that teach them, and a practical for each theory question.',
+  blurb:
+    'One paper carrying an objective section and three theory questions, one from each module, with no choice. Scoped to the CCODEL manual, which the examiner sets from almost word for word.',
+  moduleNoun: 'Unit',
+  facetGuide: insFacets,
+  modules: [
+    { number: 1, title: 'The Analyst and Information System Development', blurb: 'Module One Unit 1. What analysis and design are, the analyst\u2019s seven roles, the eight-step problem-solving approach, systems and subsystems, and the three kinds of skill.' },
+    { number: 2, title: 'The System Development Life Cycle', blurb: 'Module One Unit 2. Nine principles, predictive against adaptive, and the five phases with their activities and deliverables.' },
+    { number: 3, title: 'System Development Methodology', blurb: 'Module One Unit 3. Waterfall and its two variants, RAD, incremental, both prototypings, Agile, and the six selection criteria. Half of test 1 came from here.' },
+    { number: 4, title: 'Fact Gathering Techniques', blurb: 'Module Two Unit 1. Requirements discovery, the seven fact-finding techniques, interviews, JRP, brainstorming and the ethics.' },
+    { number: 5, title: 'Modelling Requirements with Use Cases', blurb: 'Module Two Unit 2. Four actor types, five relationships, the seven-part narrative, and the four modelling steps.' },
+    { number: 6, title: 'Process Modelling', blurb: 'Module Two Unit 3. The four DFD symbols, the three levels, balancing, the illegal flows and the three process errors.' },
+    { number: 7, title: 'Data Modelling and ER Diagramming', blurb: 'Module Two Unit 4. Entities, attributes, identifiers, relationships, the three cardinalities, and the five steps to draw one. Chen notation.' },
+    { number: 8, title: 'Object Orientation and UML', blurb: 'Module Three Unit 1. Objects and classes, encapsulation, inheritance, polymorphism, the six design activities, and how UML is grouped.' },
+    { number: 9, title: 'Structural and Use-Case Modelling in UML', blurb: 'Module Three Unit 2. The three compartments, the four class relationships, include against extend, and both construction procedures.' },
+    { number: 10, title: 'Behavioural UML Diagrams', blurb: 'Module Three Unit 3. Sequence, state chart, activity, component, deployment and collaboration diagrams, and when each is right.' },
+  ],
+  questions: insQuestions,
+  examTags: ['Test 1 Q', 'Test 2 Q'],
+  exam: EXAMS.find((e) => e.code === 'INS224'),
+  plan: insPlan as unknown as StudySession[],
+  papers: [
+    {
+      id: 'ins-test-1',
+      title: 'Objective test 1, all 30 questions',
+      subtitle: 'Module One entirely: the analyst, the SDLC, and the methodologies.',
+      note: 'Transcribed from the captured test, which was captured UNATTEMPTED and so carries no printed key. Every answer is derived from the course manual and argued in its review, with the page it came from. Question 30 is flagged in its review: the manual names throwaway prototyping as most appropriate for high reliability, but that option was not offered, so the V-model is the intended answer.',
+      questions: insQuestions.filter((q) => q.slides.some((sl) => sl.startsWith('Test 1 Q'))),
+      minutes: 30,
+    },
+    {
+      id: 'ins-test-2',
+      title: 'Objective test 2, all 30 questions',
+      subtitle: 'Modules Two and Three, in the format the exam will use: ten multi-select, ten single answer, ten matching.',
+      note: 'Transcribed from the captured test, also unattempted. The lecturer has said the exam objective section follows THIS format, so the even three-way split matters: a third of the marks are matching, which needs definitions learned beside their names.',
+      questions: insQuestions.filter((q) => q.slides.some((sl) => sl.startsWith('Test 2 Q'))),
+      minutes: 30,
+    },
+  ],
+};
+
 const ent221: Course = {
   code: 'ENT221',
   title: 'Agripreneurship',
@@ -846,7 +932,7 @@ const phy121: Course = {
   ],
 };
 
-export const COURSES: Course[] = [dts224, csc242, ift222, phy121, ent221, tmc221];
+export const COURSES: Course[] = [dts224, csc242, ins224, ift222, phy121, ent221, tmc221];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());
