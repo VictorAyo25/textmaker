@@ -483,6 +483,24 @@ function checkFigure(q, cfg) {
     check(!re.test(svg), `${at}: contains ${what}, which must never reach the page`);
 }
 
+/**
+ * Every question file on disk must actually be imported by data/courses.ts.
+ *
+ * The gate globs the data directory; the app imports each file BY NAME. Those
+ * two can drift, and they did: eight PHY121 slide files passed every check here
+ * while being completely invisible in the running app, so the bank read 30 when
+ * 122 questions existed. Passing the gate had stopped meaning "a reader can see
+ * it", which is the only thing the gate is for.
+ */
+function checkWired(cfg, files) {
+  const src = readFileSync(join(DATA, 'courses.ts'), 'utf8');
+  for (const f of files)
+    check(
+      src.includes(`${cfg.dir}/${f}`),
+      `${cfg.code}: ${f} holds questions but data/courses.ts never imports it, so the app cannot serve them`
+    );
+}
+
 function validate(q, where, cfg, seenIds) {
   const at = `${cfg.code} ${where} [${q.id ?? '(no id)'}]`;
   check(typeof q.id === 'string' && q.id.length > 0, `${at}: missing id`);
@@ -895,11 +913,13 @@ for (const cfg of COURSES) {
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck|slides)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => /^(module|deck|slides|close)\d+[a-z]?\.json$/.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);
     });
+
+  checkWired(cfg, moduleFiles);
 
   for (const f of moduleFiles) {
     const items = JSON.parse(readFileSync(join(dir, f), 'utf8'));
