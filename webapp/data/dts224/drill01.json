@@ -1,0 +1,218 @@
+[
+  { "id": "dts-d8-01", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "why normalise",
+    "prompt": "What is the primary purpose of normalization?",
+    "options": [
+      { "id": "a", "text": "To speed up every query by storing the same value in several tables" },
+      { "id": "b", "text": "To reduce data redundancy and eliminate insertion, update and deletion anomalies" },
+      { "id": "c", "text": "To reduce the number of tables in the database to as few as possible" },
+      { "id": "d", "text": "To encrypt sensitive columns before they are written to disk" }
+    ],
+    "answer": "b",
+    "explanation": "Normalisation exists to kill REDUNDANCY, and redundancy is what causes the three anomalies. Learn them as a set of three: INSERT, you cannot record a new course until somebody enrols on it. UPDATE, you change an address in one row and forget the other four. DELETE, you remove the last student on a course and lose the course itself. Say insert, update, delete every time you are asked why.",
+    "why": {
+      "a": "Wrong, and backwards: storing the same value in several places is exactly the redundancy normalisation removes.",
+      "b": "Correct. Less redundancy, and with it the insertion, update and deletion anomalies.",
+      "c": "Wrong. Normalising usually produces MORE tables, not fewer. That is the price it pays.",
+      "d": "Wrong. Encryption is security, a different concern entirely."
+    } },
+
+  { "id": "dts-d8-02", "module": 8, "slides": ["Manual M4"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "first normal form",
+    "prompt": "A relation is in first normal form when every attribute holds a single {{1}} value and there are no repeating groups.",
+    "blanks": [{ "accept": ["atomic", "indivisible"], "choices": ["atomic", "numeric", "unique", "derived"], "format": "word" }],
+    "explanation": "Atomic means indivisible: one value per cell, not a list. A PHONE column holding 0803..., 0806... breaks 1NF, and so does a repeating group of PHONE1, PHONE2, PHONE3. The fix is a separate row or a separate table. The hook: 1NF is one value per box." },
+
+  { "id": "dts-d8-03", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "second normal form",
+    "prompt": "A relation is in second normal form when it is in 1NF and:",
+    "options": [
+      { "id": "a", "text": "No non-key attribute is partially dependent on the primary key" },
+      { "id": "b", "text": "No non-key attribute is transitively dependent on the primary key" },
+      { "id": "c", "text": "Every determinant is a candidate key" },
+      { "id": "d", "text": "Every attribute contains only atomic values" }
+    ],
+    "answer": "a",
+    "explanation": "2NF removes PARTIAL dependency, meaning a non-key attribute that depends on only PART of a composite key. It can therefore only be broken when the key is composite: with a single-attribute key there is no part to depend on, so a 1NF relation with a simple key is automatically in 2NF. That observation saves time in the exam.",
+    "why": {
+      "a": "Correct. Partial dependency is what 2NF removes.",
+      "b": "Wrong. Transitive dependency is what THIRD normal form removes.",
+      "c": "Wrong. Every determinant being a candidate key is BCNF.",
+      "d": "Wrong. Atomic values are FIRST normal form."
+    } },
+
+  { "id": "dts-d8-04", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "third normal form",
+    "prompt": "A relation is in third normal form when it is in 2NF and:",
+    "options": [
+      { "id": "a", "text": "It has no composite primary key" },
+      { "id": "b", "text": "No non-key attribute is transitively dependent on the primary key" },
+      { "id": "c", "text": "It contains no foreign keys" },
+      { "id": "d", "text": "Every relation has at most three attributes" }
+    ],
+    "answer": "b",
+    "explanation": "3NF removes TRANSITIVE dependency: a non-key attribute that depends on another non-key attribute rather than on the key. STAFF_NO determines BRANCH_NO, and BRANCH_NO determines BRANCH_ADDRESS, so the address depends on the key only through the branch. Split it out. The one-line summary examiners like: every non-key attribute depends on the key, the whole key, and nothing but the key.",
+    "why": {
+      "a": "Wrong. A composite key is perfectly allowed in 3NF.",
+      "b": "Correct. No transitive dependency on the primary key.",
+      "c": "Wrong. Foreign keys are how normalised tables are joined back together; 3NF creates them.",
+      "d": "Wrong. There is no limit on the number of attributes."
+    } },
+
+  { "id": "dts-d8-05", "module": 8, "slides": ["Manual M4"], "style": "gap", "difficulty": "medium", "facets": ["lists"], "topic": "the 3NF sentence",
+    "prompt": "The one-line test for third normal form is that every non-key attribute depends on the key, the whole key, and {{1}} but the key.",
+    "blanks": [{ "accept": ["nothing"], "choices": ["nothing", "everything", "something", "anything"], "format": "word" }],
+    "explanation": "Nothing but the key. Read the sentence as three normal forms in order: THE KEY is 1NF, THE WHOLE KEY is 2NF, and NOTHING BUT THE KEY is 3NF. It is the most compact revision aid in the whole course, and it doubles as the answer to any question asking you to distinguish the three." },
+
+  { "id": "dts-d8-06", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "hard", "facets": ["names"], "topic": "BCNF",
+    "prompt": "A relation is in Boyce-Codd Normal Form when:",
+    "options": [
+      { "id": "a", "text": "It is in 3NF and has no multivalued dependencies" },
+      { "id": "b", "text": "Every determinant in the relation is a candidate key" },
+      { "id": "c", "text": "It is in 2NF and has no repeating groups" },
+      { "id": "d", "text": "All its attributes are functionally dependent on each other" }
+    ],
+    "answer": "b",
+    "explanation": "BCNF is the strict form of 3NF: EVERY determinant must be a candidate key. A determinant is anything on the left of a functional dependency. Most 3NF relations are already in BCNF; the difference only shows up when a relation has several overlapping candidate keys, which is exactly when an examiner sets it.",
+    "why": {
+      "a": "Wrong. Removing multivalued dependencies is FOURTH normal form.",
+      "b": "Correct. Every determinant is a candidate key.",
+      "c": "Wrong. That mixes 2NF with the 1NF condition.",
+      "d": "Wrong, and meaningless as stated: mutual dependence of all attributes is not a normal form."
+    } },
+
+  { "id": "dts-d8-07", "module": 8, "slides": ["Manual M4"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "functional dependency",
+    "prompt": "If attribute A determines attribute B, written A arrow B, then A is called the {{1}} of that functional dependency.",
+    "blanks": [{ "accept": ["determinant"], "choices": ["determinant", "dependent", "candidate", "identifier"], "format": "word" }],
+    "explanation": "The left-hand side is the DETERMINANT, the right-hand side is the dependent. Read A arrow B aloud as: knowing A tells you exactly one B. That reading is the fastest way to test a claimed dependency against a table of sample data, and it is what BCNF is about, since BCNF demands every determinant be a candidate key." },
+
+  { "id": "dts-d8-08", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "spotting a partial dependency",
+    "prompt": "A relation has the composite key (StaffNo, PropertyNo) and includes the attribute StaffName, which depends on StaffNo alone. What is this, and which normal form does it break?",
+    "options": [
+      { "id": "a", "text": "A transitive dependency, breaking 3NF" },
+      { "id": "b", "text": "A partial dependency, breaking 2NF" },
+      { "id": "c", "text": "A multivalued dependency, breaking 4NF" },
+      { "id": "d", "text": "Nothing is broken, because StaffNo is part of the key" }
+    ],
+    "answer": "b",
+    "explanation": "StaffName depends on PART of the composite key, which is the definition of a PARTIAL dependency, so the relation is in 1NF but not 2NF. The fix is to split StaffNo and StaffName into their own STAFF relation and leave StaffNo behind as a foreign key. Spotting this is worth marks on nearly every past paper in the folder.",
+    "why": {
+      "a": "Wrong. Transitive would mean StaffName depended on another NON-key attribute, not on part of the key.",
+      "b": "Correct. Dependence on part of a composite key is partial, and 2NF forbids it.",
+      "c": "Wrong. Multivalued dependency is a different problem, addressed by 4NF.",
+      "d": "Wrong, and it is the trap: depending on part of the key is precisely the fault."
+    } },
+
+  { "id": "dts-d9-01", "module": 9, "slides": ["Manual M5"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "selection",
+    "prompt": "Which relational algebra operation returns only the ROWS that satisfy a condition?",
+    "options": [
+      { "id": "a", "text": "Projection" },
+      { "id": "b", "text": "Selection" },
+      { "id": "c", "text": "Cartesian product" },
+      { "id": "d", "text": "Union" }
+    ],
+    "answer": "b",
+    "explanation": "Selection, written with sigma, chooses ROWS. Projection, written with pi, chooses COLUMNS. The pair is the commonest confusion in the topic, and the hook is the shape of the letters: sigma is the S of Select and of rowS, pi is the P of Project and of columns Picked. In SQL, selection is the WHERE clause and projection is the list after SELECT.",
+    "why": {
+      "a": "Wrong, and it is the classic mix-up: projection picks columns.",
+      "b": "Correct. Selection filters rows on a condition.",
+      "c": "Wrong. Cartesian product pairs every row with every row and filters nothing.",
+      "d": "Wrong. Union combines two whole relations."
+    } },
+
+  { "id": "dts-d9-02", "module": 9, "slides": ["Manual M5"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "projection",
+    "prompt": "The projection operator, written with the Greek letter pi, returns chosen {{1}} from a relation and removes any duplicates that result.",
+    "blanks": [{ "accept": ["columns", "attributes"], "choices": ["columns", "rows", "tables", "keys"], "format": "word" }],
+    "explanation": "Columns, and the duplicate removal matters: a relation is a SET, so once you drop the identifying columns the repeated rows collapse into one. That is the difference between relational algebra and SQL, where SELECT keeps duplicates unless you write DISTINCT. Examiners like asking why the algebra result has fewer rows than expected." },
+
+  { "id": "dts-d9-03", "module": 9, "slides": ["Manual M5"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "natural join",
+    "prompt": "What does a natural join do?",
+    "options": [
+      { "id": "a", "text": "Pairs every row of one relation with every row of the other, with no condition" },
+      { "id": "b", "text": "Combines rows from two relations that have equal values on their common attributes, keeping one copy of each shared column" },
+      { "id": "c", "text": "Returns rows that appear in the first relation but not the second" },
+      { "id": "d", "text": "Stacks two relations on top of each other" }
+    ],
+    "answer": "b",
+    "explanation": "A natural join is a Cartesian product, then a selection on equality of the shared attributes, then a projection that drops the duplicated column. Knowing it is built from those three is worth quoting, because a question often asks you to express a join using the other operators.",
+    "why": {
+      "a": "Wrong. That is the Cartesian product, which the join is built on top of but is not.",
+      "b": "Correct. Match on the common attributes, and keep one copy of them.",
+      "c": "Wrong. That is difference, or MINUS.",
+      "d": "Wrong. Stacking is union, and it needs union-compatible relations."
+    } },
+
+  { "id": "dts-d9-04", "module": 9, "slides": ["Manual M5"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "union compatibility",
+    "prompt": "Two relations can be combined with UNION only if they are union-compatible, which means:",
+    "options": [
+      { "id": "a", "text": "They have the same number of rows" },
+      { "id": "b", "text": "They have the same primary key" },
+      { "id": "c", "text": "They have the same number of attributes, and corresponding attributes are drawn from the same domains" },
+      { "id": "d", "text": "They are stored in the same physical file" }
+    ],
+    "answer": "c",
+    "explanation": "Same number of columns, and matching types column by column. The same requirement applies to INTERSECTION and DIFFERENCE, because all three are set operators and a set operation only makes sense between things of the same shape. Rows are irrelevant, which is what the trap option plays on.",
+    "why": {
+      "a": "Wrong. The row counts can differ freely.",
+      "b": "Wrong. Keys do not enter into it.",
+      "c": "Correct. Same degree, and corresponding attributes from the same domains.",
+      "d": "Wrong. Physical storage is invisible to the algebra."
+    } },
+
+  { "id": "dts-d10-01", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "WHERE against HAVING",
+    "prompt": "In SQL, what is the difference between WHERE and HAVING?",
+    "options": [
+      { "id": "a", "text": "WHERE filters rows before grouping; HAVING filters groups after grouping" },
+      { "id": "b", "text": "WHERE works on numbers; HAVING works on text" },
+      { "id": "c", "text": "They are interchangeable in every query" },
+      { "id": "d", "text": "WHERE is used with JOIN; HAVING is used with ORDER BY" }
+    ],
+    "answer": "a",
+    "explanation": "Order of operations decides it: WHERE runs BEFORE GROUP BY, so it cannot see an aggregate; HAVING runs AFTER, so it can. That is why COUNT(*) > 3 must go in HAVING and never in WHERE. The hook: WHERE filters rows, HAVING filters groups, and the alphabet even puts them in execution order.",
+    "why": {
+      "a": "Correct. Before grouping against after grouping.",
+      "b": "Wrong. Both work on any data type.",
+      "c": "Wrong, and it is the misconception being tested: an aggregate in WHERE is an error.",
+      "d": "Wrong. Neither is tied to JOIN or ORDER BY."
+    } },
+
+  { "id": "dts-d10-02", "module": 10, "slides": ["Manual M5 SQL"], "style": "gap", "difficulty": "medium", "facets": ["lists"], "topic": "clause order",
+    "prompt": "The clauses of a SELECT statement are written in the order SELECT, FROM, WHERE, GROUP BY, {{1}}, ORDER BY.",
+    "blanks": [{ "accept": ["HAVING", "having"], "choices": ["HAVING", "JOIN", "DISTINCT", "LIMIT"], "format": "word" }],
+    "explanation": "HAVING sits between GROUP BY and ORDER BY, because it filters the groups GROUP BY has just made and must happen before the result is sorted. Write the six words down the margin of your answer sheet the moment the paper starts: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY. Every SQL question then becomes filling in the blanks." },
+
+  { "id": "dts-d10-03", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "DDL against DML",
+    "prompt": "Which group do CREATE, ALTER and DROP belong to?",
+    "options": [
+      { "id": "a", "text": "Data Manipulation Language (DML)" },
+      { "id": "b", "text": "Data Definition Language (DDL)" },
+      { "id": "c", "text": "Data Control Language (DCL)" },
+      { "id": "d", "text": "Transaction Control Language (TCL)" }
+    ],
+    "answer": "b",
+    "explanation": "DDL defines STRUCTURE: CREATE, ALTER, DROP. DML moves DATA: SELECT, INSERT, UPDATE, DELETE. DCL controls ACCESS: GRANT, REVOKE. TCL controls TRANSACTIONS: COMMIT, ROLLBACK. Learn the four groups with their verbs, because the exam asks which group a statement belongs to rather than what it does.",
+    "why": {
+      "a": "Wrong. DML is SELECT, INSERT, UPDATE and DELETE, which move data rather than define it.",
+      "b": "Correct. They define and change structure.",
+      "c": "Wrong. DCL is GRANT and REVOKE.",
+      "d": "Wrong. TCL is COMMIT and ROLLBACK."
+    } },
+
+  { "id": "dts-d10-04", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "the SQL join",
+    "prompt": "Which SQL clause returns every row from the left table, and the matching rows from the right table where they exist?",
+    "options": [
+      { "id": "a", "text": "INNER JOIN" },
+      { "id": "b", "text": "LEFT OUTER JOIN" },
+      { "id": "c", "text": "CROSS JOIN" },
+      { "id": "d", "text": "FULL OUTER JOIN" }
+    ],
+    "answer": "b",
+    "explanation": "LEFT OUTER JOIN keeps everything on the left and pads the right with NULLs where there is no match. That is what makes it the right choice for questions such as list every branch, including those with no staff. An INNER JOIN would silently drop exactly the branches the question is asking about.",
+    "why": {
+      "a": "Wrong. INNER JOIN keeps only rows that match on both sides.",
+      "b": "Correct. All the left, plus matches from the right, NULL where there is none.",
+      "c": "Wrong. CROSS JOIN is the Cartesian product with no condition at all.",
+      "d": "Wrong. FULL OUTER keeps unmatched rows from BOTH sides, not just the left."
+    } },
+
+  { "id": "dts-d10-05", "module": 10, "slides": ["Manual M5 SQL"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "aggregate functions",
+    "prompt": "To count how many rows fall in each group after a GROUP BY, you use the aggregate function {{1}}.",
+    "blanks": [{ "accept": ["COUNT", "count"], "choices": ["COUNT", "SUM", "AVG", "MAX"], "format": "word" }],
+    "explanation": "COUNT. The five to know are COUNT, SUM, AVG, MIN and MAX, and every one of them collapses many rows into one value, which is why they can only appear after grouping or over the whole table. Worth remembering: COUNT(*) counts rows including NULLs, while COUNT(column) skips rows where that column is NULL." }
+]

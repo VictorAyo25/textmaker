@@ -393,8 +393,11 @@ const COURSES = [
     // course, where each one is printed as the examiner set it and then solved.
     // So minPerModule is 0 deliberately, and says so rather than pretending the
     // bank already covers all ten topics.
-    slideRef: /^Test 1 Q\d{1,2}$/,
-    slideRefHelp: 'like "Test 1 Q12"',
+    // Two shapes of provenance: a question from the 25/26 objective test, or a
+    // module of the manual, which is where the authored drill questions come
+    // from now that the taught-but-undrilled topics are being closed.
+    slideRef: /^(Test 1 Q\d{1,2}|Manual M[1-5]( U\d| SQL)?)$/,
+    slideRefHelp: 'like "Test 1 Q12" or "Manual M4"',
     examRef: /^Test 1 Q\d{1,2}$/,
     requireLecture: false,
     minPerModule: 0,
@@ -1143,7 +1146,7 @@ for (const cfg of COURSES) {
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck|slides|close|second|test)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => /^(module|deck|slides|close|second|test|drill)\d+[a-z]?\.json$/.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);

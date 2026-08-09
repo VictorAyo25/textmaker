@@ -1,0 +1,118 @@
+[
+  { "id": "dts-d2-01", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["lists"], "topic": "the three-level architecture",
+    "prompt": "The ANSI-SPARC architecture describes a database at three levels. Which are they, from the user's view inwards?",
+    "options": [
+      { "id": "a", "text": "External, conceptual, internal" },
+      { "id": "b", "text": "Physical, logical, virtual" },
+      { "id": "c", "text": "Client, server, storage" },
+      { "id": "d", "text": "Input, process, output" }
+    ],
+    "answer": "a",
+    "explanation": "EXTERNAL is what each user sees, and there are many of them, one per group. CONCEPTUAL is the single community view of the whole database. INTERNAL is how it is actually stored. Read them outside in: many views, one model, one storage. The whole point is that the middle level insulates the users from the storage.",
+    "why": {
+      "a": "Correct. External, conceptual, internal.",
+      "b": "Wrong. These are real words in the field but not the three ANSI-SPARC levels.",
+      "c": "Wrong. That describes deployment, not the architecture of a schema.",
+      "d": "Wrong. That is a general systems model, not this one."
+    } },
+
+  { "id": "dts-d2-02", "module": 2, "slides": ["Manual M1"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "data independence",
+    "prompt": "The ability to change how data is physically stored without altering the conceptual schema is called {{1}} data independence.",
+    "blanks": [{ "accept": ["physical"], "choices": ["physical", "logical", "external", "internal"], "format": "word" }],
+    "explanation": "PHYSICAL data independence protects the conceptual level from changes in storage: add an index, move to a different disk, and no schema above needs touching. LOGICAL data independence protects the EXTERNAL views from changes to the conceptual schema. Read each name as what it hides you FROM, and the pair stops being confusing." },
+
+  { "id": "dts-d2-03", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "the DBMS",
+    "prompt": "What is a DBMS?",
+    "options": [
+      { "id": "a", "text": "The collection of data itself, stored on disk" },
+      { "id": "b", "text": "The software that lets users define, create, maintain and control access to the database" },
+      { "id": "c", "text": "The person responsible for the database's security policy" },
+      { "id": "d", "text": "The physical server on which the data resides" }
+    ],
+    "answer": "b",
+    "explanation": "Three things sit close together and the exam separates them: the DATABASE is the data, the DBMS is the SOFTWARE that manages it, and the DATABASE SYSTEM is the database plus the DBMS plus the application programs and the people. Define, create, maintain and control access is the phrase to quote.",
+    "why": {
+      "a": "Wrong. That is the database, the thing the DBMS manages.",
+      "b": "Correct. The software that defines, creates, maintains and controls access.",
+      "c": "Wrong. That is the database administrator, a person.",
+      "d": "Wrong. That is hardware."
+    } },
+
+  { "id": "dts-d2-04", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["wording"], "topic": "why file systems were abandoned",
+    "prompt": "Which of these is the main problem with the traditional file-based approach that databases were created to solve?",
+    "options": [
+      { "id": "a", "text": "Files cannot be stored on modern hardware" },
+      { "id": "b", "text": "Data is separated and isolated, duplicated across files, and programs depend on the file format" },
+      { "id": "c", "text": "Files are always slower to read than database tables" },
+      { "id": "d", "text": "Files cannot hold numeric data" }
+    ],
+    "answer": "b",
+    "explanation": "Three faults, and they are worth naming in that order: SEPARATION and isolation of data, DUPLICATION with the inconsistency it breeds, and PROGRAM-DATA DEPENDENCE, where changing a file's layout means rewriting every program that reads it. Each department kept its own file, so the same customer's address existed four times and was right in two of them.",
+    "why": {
+      "a": "Wrong. Files work perfectly well on modern hardware; the problem was never the medium.",
+      "b": "Correct. Separation, duplication and program-data dependence.",
+      "c": "Wrong. A raw file read can be very fast. Speed was not the argument.",
+      "d": "Wrong. Files hold numbers happily."
+    } },
+
+  { "id": "dts-d4-01", "module": 4, "slides": ["Manual M2"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "specialisation and generalisation",
+    "prompt": "In the enhanced ER model, what is specialisation?",
+    "options": [
+      { "id": "a", "text": "The top-down process of identifying subclasses that share the attributes of a superclass but also have their own" },
+      { "id": "b", "text": "The bottom-up process of combining several entity types into one general superclass" },
+      { "id": "c", "text": "Splitting a table into smaller tables to remove redundancy" },
+      { "id": "d", "text": "Converting a many-to-many relationship into two one-to-many relationships" }
+    ],
+    "answer": "a",
+    "explanation": "The two run in opposite directions and that is the whole distinction. SPECIALISATION is TOP DOWN: start with STAFF, notice that MANAGER and DRIVER differ, and create subclasses. GENERALISATION is BOTTOM UP: start with CAR and LORRY, notice what they share, and create VEHICLE. Special goes down, general goes up.",
+    "why": {
+      "a": "Correct. Top down, from superclass to subclasses.",
+      "b": "Wrong, and it is the other one: that is generalisation.",
+      "c": "Wrong. Splitting to remove redundancy is normalisation.",
+      "d": "Wrong. That is resolving a many-to-many, a logical design step."
+    } },
+
+  { "id": "dts-d4-02", "module": 4, "slides": ["Manual M2"], "style": "mcq", "difficulty": "hard", "facets": ["names"], "topic": "participation and disjoint constraints",
+    "prompt": "A superclass VEHICLE has subclasses CAR and LORRY. Every vehicle must be one or the other, and none can be both. How are these two constraints named?",
+    "options": [
+      { "id": "a", "text": "Partial and overlapping" },
+      { "id": "b", "text": "Total and disjoint" },
+      { "id": "c", "text": "Total and overlapping" },
+      { "id": "d", "text": "Partial and disjoint" }
+    ],
+    "answer": "b",
+    "explanation": "Two independent questions, so answer them separately. MUST every member belong to a subclass? Yes gives TOTAL, no gives PARTIAL. CAN a member belong to more than one? No gives DISJOINT, yes gives OVERLAPPING. Every vehicle must be one, so total; none can be both, so disjoint.",
+    "why": {
+      "a": "Wrong on both: every vehicle must belong, and none can be both.",
+      "b": "Correct. Total because every vehicle belongs, disjoint because none belongs to two.",
+      "c": "Wrong on the second: overlapping would allow a vehicle to be a car AND a lorry.",
+      "d": "Wrong on the first: partial would allow a vehicle that is neither."
+    } },
+
+  { "id": "dts-d4-03", "module": 4, "slides": ["Manual M2"], "style": "gap", "difficulty": "medium", "facets": ["names"], "topic": "attribute inheritance",
+    "prompt": "A subclass automatically has every attribute of its superclass. This is called attribute {{1}}.",
+    "blanks": [{ "accept": ["inheritance"], "choices": ["inheritance", "aggregation", "specialisation", "duplication"], "format": "word" }],
+    "explanation": "Inheritance, exactly as in object-oriented programming, and that is not a coincidence: the enhanced ER model borrowed the idea. It is why you never repeat NAME and ADDRESS on every subclass. It also means a subclass instance IS a superclass instance, which is the relationship the exam calls is-a." },
+
+  { "id": "dts-d5-01", "module": 5, "slides": ["Manual M2 U3"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "semi-structured data",
+    "prompt": "Why are XML and JSON described as semi-structured rather than structured?",
+    "options": [
+      { "id": "a", "text": "Because they can only hold text, never numbers" },
+      { "id": "b", "text": "Because they carry their structure with the data itself, in tags or keys, rather than in a fixed schema declared in advance" },
+      { "id": "c", "text": "Because they cannot be stored in a file" },
+      { "id": "d", "text": "Because they are always smaller than a relational table" }
+    ],
+    "answer": "b",
+    "explanation": "The structure travels WITH the data. A relational table declares its columns once, in advance, and every row must comply; a JSON document carries its own key names, so two documents in the same collection can differ. That flexibility is the whole appeal, and the cost is that nothing enforces consistency for you.",
+    "why": {
+      "a": "Wrong. Both carry numbers, and JSON has a number type of its own.",
+      "b": "Correct. Self-describing, rather than governed by a schema fixed in advance.",
+      "c": "Wrong. Both are ordinarily stored as files.",
+      "d": "Wrong, and usually the reverse: repeating the key names on every record costs space."
+    } },
+
+  { "id": "dts-d5-02", "module": 5, "slides": ["Manual M2 U3"], "style": "gap", "difficulty": "easy", "facets": ["names"], "topic": "the shape of XML and JSON",
+    "prompt": "Both XML and JSON represent data as a {{1}}, with elements nested inside one another, rather than as flat rows and columns.",
+    "blanks": [{ "accept": ["tree", "hierarchy"], "choices": ["tree", "table", "graph", "list"], "format": "word" }],
+    "explanation": "A tree. That single word explains why they suit an invoice with many lines, or a person with several addresses, better than a table does: the nesting is built in rather than needing a second table and a foreign key. It also explains the cost, since asking a tree the kind of question SQL asks a table is much harder." }
+]

@@ -103,6 +103,8 @@ import e12 from './ent221/module12.json';
 
 import dt1 from './dts224/test01.json';
 import dt2 from './dts224/test02.json';
+import dt3 from './dts224/drill01.json';
+import dt4 from './dts224/drill02.json';
 import dtsPlan from './dts224/plan.json';
 
 // Adding a course later: create data/<code>/*.json in the same shape, import it
@@ -459,6 +461,8 @@ const dtsFacets: FacetGuide[] = [
 const dtsQuestions: Question[] = [
   ...(dt1 as unknown as Question[]),
   ...(dt2 as unknown as Question[]),
+  ...(dt3 as unknown as Question[]),
+  ...(dt4 as unknown as Question[]),
 ];
 
 const dts224: Course = {
@@ -492,7 +496,11 @@ const dts224: Course = {
       title: 'The 25/26 objective test, all 30 questions',
       subtitle: 'The test as it was actually set: same 30 questions, same order, one mark each.',
       note: 'Transcribed from the captured test paper. It was captured UNATTEMPTED, so it carries no printed answer key: every answer here is derived from the course manual and the standard definitions, and each one is argued in full in its review. Where a question turns on a phrase such as "or none", the review says which words decided it.',
-      questions: dtsQuestions,
+      // The paper is the TEST, not the whole bank: the authored drill questions
+      // teach the topics the test never touched and do not belong in it.
+      questions: dtsQuestions.filter((q) =>
+        q.slides.some((sl) => sl.startsWith('Test 1 Q'))
+      ),
       minutes: 30,
     },
   ],
