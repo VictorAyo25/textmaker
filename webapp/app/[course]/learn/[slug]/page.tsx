@@ -64,6 +64,8 @@ export default async function Page({
         moduleCounts={moduleCounts}
         prev={brief(idx - 1)}
         next={brief(idx + 1)}
+        position={idx + 1}
+        total={lessons.length}
       />
     </main>
   );

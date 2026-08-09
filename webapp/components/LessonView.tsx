@@ -252,6 +252,9 @@ interface Props {
   moduleCounts: Record<number, number>;
   prev: { slug: string; title: string } | null;
   next: { slug: string; title: string } | null;
+  /** Which lesson this is, and how many there are, so "Next" has a context. */
+  position: number;
+  total: number;
 }
 
 export default function LessonView({
@@ -261,6 +264,8 @@ export default function LessonView({
   moduleCounts,
   prev,
   next,
+  position,
+  total,
 }: Props) {
   const key = lessonProgressKey(code);
   const [reached, setReached] = useState(1);
@@ -379,6 +384,12 @@ export default function LessonView({
           ))}
         </div>
       </div>
+
+      {/* "Next" on its own tells you nothing about how much is left. Naming the
+          position turns the footer into a progress indicator. */}
+      <p className="lessonpos">
+        Lesson {position} of {total}
+      </p>
 
       <div className="prevnext">
         {prev ? (
