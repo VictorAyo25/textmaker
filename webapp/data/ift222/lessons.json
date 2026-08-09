@@ -1921,13 +1921,101 @@
             "teach": "(280 / 100 = 2.8, below the ceiling of k = 4 stages.) For a whole batch you compare totals instead: 500 &#215; 280 = 140 000 ns without a pipeline, against 50 300 ns with one. The reference card and the two worked examples below sit exactly these; do them with the answers covered.",
             "ask": ""
           }
+        ],
+        "facts": [
+          "t12-002",
+          "t12-003",
+          "t12-011",
+          "t12-016"
         ]
+      },
+      {
+        "kind": "teach",
+        "label": "What pipelining is, and the five stages by name",
+        "tag": "the assembly line",
+        "facts": [
+          "t12-001",
+          "t12-004",
+          "t12-005",
+          "t12-006",
+          "t12-007",
+          "t12-008",
+          "t12-009",
+          "t12-010",
+          "t12-012",
+          "t12-013",
+          "t12-014",
+          "t12-015",
+          "t12-017",
+          "t12-018",
+          "t12-019",
+          "t12-020",
+          "t12-021",
+          "t12-091",
+          "t12-092",
+          "t12-093"
+        ],
+        "html": "<p><b>The goal first.</b> One of the major goals of computer architecture is to <b>improve speed and overall performance without excessively increasing hardware cost</b>. Pipelining is the answer that costs almost nothing: it does not add units, it just stops them standing idle.</p><div class=\"keypoint\"><span class=\"kplab\">Definition, three ways the lecture puts it</span><p><b>1.</b> A performance enhancement technique in which <b>multiple instructions are processed simultaneously</b> by dividing instruction execution into <b>several stages</b>.<br><b>2.</b> An implementation technique where arithmetic sub-operations, or the <b>phases of the instruction cycle, overlap in execution</b>.<br><b>3.</b> Decomposing a <b>sequential process into sub-operations</b>, each executed in a <b>dedicated segment</b> that operates <b>concurrently</b> with all the others.<br><br>It exploits parallelism <b>among instructions</b>, which has a name worth quoting: <b>Instruction Level Parallelism, ILP</b>.</p></div><p>The picture is an <b>automobile assembly line</b>: many <b>steps, stages or segments</b>, each carrying out a different part of the operation, connected to form a pipe. An instruction <b>enters at one end and progresses through the stages to exit at the other</b>.</p><p><b>The five stages, and this list is examined by name.</b></p><table><tr><th>Stage</th><th>What it does</th></tr><tr><td><b>IF</b>, Instruction Fetch</td><td><b>Retrieves the instruction from memory</b>, and increments the PC</td></tr><tr><td><b>ID</b>, Instruction Decode</td><td><b>Interprets it</b>: translates the opcode into control signals and reads the registers</td></tr><tr><td><b>EX</b>, Execute</td><td><b>Performs the decoded operation</b>: the ALU work, and computing any jump or branch target</td></tr><tr><td><b>MEM</b>, Memory Access</td><td><b>Accesses memory if required</b></td></tr><tr><td><b>WB</b>, Write Back</td><td><b>Stores the result back into a register</b>, updating the register file</td></tr></table><p class=\"gloss\">That is the <b>five-stage RISC load-store pipeline</b>, and it is the same five in the RISC lesson. IF, ID, EX, MEM, WB. Say them in order until they come out as one word.</p><div class=\"keypoint\"><span class=\"kplab\">What it buys, and the vocabulary that goes with it</span><p>By letting different instructions <b>occupy different stages simultaneously</b>, pipelining increases the <b>THROUGHPUT</b> of the processor, so more instructions complete in less time.<br><br><b>Throughput</b> is the number of items, cars or instructions, that <b>exit the pipeline per unit time</b>: 1 instruction per clock cycle, or 10 cars per hour.</p></div><p><b>The designer's goal is a balanced pipeline</b>, meaning every stage takes about the same time. In general the <b>stage time is the time per instruction on a non-pipelined machine divided by the number of stages</b>, and in practice it is the <b>maximum of all the stage times</b>. A pipeline yields a reduction in <b>cycles per instruction</b>, with <b>CPI roughly equal to the stage time</b>.</p><p><b>Pipelining is one of several kinds of parallelism.</b> Speedup in a real system comes from parallelism at all levels: <b>multi-user, multitasking, multi-processing, multi-programming, multi-threading and compiler optimizations</b>. And there are <b>three types of pipeline</b> to name: the <b>instruction pipeline</b>, the <b>operation pipeline</b>, and <b>multi-issue pipelines</b>.</p><p><b>What it costs.</b> Pipelining introduces <b>pipeline hazards, data dependencies, branch instructions and resource conflicts</b>. Architects answer those with <b>forwarding, stalling and branch prediction</b>, all of which come later in this lesson. It is used by every modern processor, <b>Intel and AMD included</b>, because it improves CPU utilization, instruction throughput and overall speed.</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "example",
+        "label": "Why overlapping wins, from the laundry to the algebra",
+        "tag": "the analogies, then the formula they produce",
+        "facts": [
+          "t12-022",
+          "t12-023",
+          "t12-024",
+          "t12-025",
+          "t12-026",
+          "t12-028",
+          "t12-029",
+          "t12-030",
+          "t12-031",
+          "t12-032",
+          "t12-033",
+          "t12-034",
+          "t12-035",
+          "t12-036",
+          "t12-037",
+          "t12-038",
+          "t12-039",
+          "t12-040",
+          "t12-043",
+          "t12-044",
+          "t12-045",
+          "t12-046",
+          "t12-047",
+          "t12-048",
+          "t12-049"
+        ],
+        "problem": "Ann, Brian, Cathy and Dave each have one load of washing. Washing, drying, folding and stashing take 30 minutes each. How long does it take done one at a time, and how long overlapped?",
+        "working": "<p><b>Step 1: one at a time</b></p><span class=\"eqn\">one load = 30 min x 4 stages = <b>120 minutes</b></span><span class=\"eqn\">four loads = 4 x 120 = <b>480 minutes, that is 8 hours</b></span><p><b>Step 2: overlapped</b></p><p>The moment Ann's load leaves the washer, Brian's goes in. The machines never sit idle.</p><span class=\"eqn\">four loads overlapped = <b>3.5 hours</b></span><span class=\"eqn\">speedup = 8 / 3.5 = <b>2.1</b></span><div class=\"keypoint\"><span class=\"kplab\">Four sentences that carry the whole topic</span><p><b>1.</b> Pipelining <b>does not help the latency of a single task</b>. Ann still waits two hours.<br><b>2.</b> It helps the <b>throughput of the entire workload</b>.<br><b>3.</b> The rate is <b>limited by the slowest stage</b>.<br><b>4.</b> The potential speedup <b>equals the number of stages</b> as the number of tasks grows. <b>Unbalanced stage lengths reduce it</b>, and so do the time to <b>fill</b> the pipe and the time to <b>drain</b> it.</p></div><p><b>Step 3: the same idea in a classroom.</b> One hundred students sit an exam of five problems. Five markers each grade <b>one problem only</b>, passing each script on as soon as they finish their part. Each problem takes 12 minutes, so <b>any one script still takes an hour</b>, but all hundred are graded <b>five times quicker</b>. Latency unchanged, throughput multiplied.</p><p><b>Step 4: what it looks like in hardware.</b> The key idea is to <b>break a big computation into pieces and separate each piece with a pipeline register</b>, so a <b>1 ns computation becomes five 200 ps stages</b>. (A nanosecond is 10<sup>-9</sup> s and a picosecond is 10<sup>-12</sup> s.) In the load example each of the <b>five stages has its own functional unit, used once</b>, and the second load starts <b>as soon as the first finishes its fetch</b>. Each load still takes five cycles; the throughput is far higher. Comparing three lw instructions: the non-pipelined machine takes <b>800 ps per instruction</b>, the pipelined one <b>advances every 200 ps</b>.</p><p><b>Step 5: now the algebra, which every numeric question uses.</b> Let <b>n</b> be the number of tasks, <b>k</b> the number of stages, <b>T</b> the time per stage.</p><table><tr><th>Quantity</th><th>Formula</th></tr><tr><td>Time per task</td><td>T x k</td></tr><tr><td>Total, <b>not</b> pipelined</td><td><b>T x k x n</b>, or n x t<sub>n</sub> where t<sub>n</sub> is the clock cycle</td></tr><tr><td>Total, pipelined</td><td><b>T x k + T x (n - 1)</b>, that is <b>(k + n - 1) x t<sub>p</sub></b></td></tr><tr><td>Speedup</td><td><b>S<sub>k</sub> = n x t<sub>n</sub> / ((k + n - 1) x t<sub>p</sub>)</b>, which is <b>kn / (k + n - 1)</b> and <b>approaches k</b> when n is far greater than k</td></tr></table><p><b>Step 6: three worked cases from the deck.</b></p><p><b>Case A, a 4-stage pipeline, t<sub>p</sub> = 20 ns, 100 tasks.</b> One task non-pipelined is 20 x 4 = <b>80 ns</b>.</p><span class=\"eqn\">pipelined = (4 + 99) x 20 = <b>2060 ns</b> &nbsp;&nbsp; non-pipelined = 100 x 80 = <b>8000 ns</b></span><span class=\"eqn\">speedup = 8000 / 2060 = <b>3.88</b></span><p class=\"gloss\">Note it is 3.88 and not 4. A 4-stage pipeline <b>is basically identical to a system with 4 identical functional units</b>, so 4 is the ceiling, and the fill time keeps you just below it.</p><p><b>Case B, two designs compared.</b> Design 1's average instruction time is clock cycle x CPI:</p><span class=\"eqn\">10 ns x (4 x 0.4 + 4 x 0.2 + 5 x 0.4) = <b>44 ns</b></span><p>Design 2 at steady state costs one clock cycle plus <b>1 ns for setup and clock skew</b>, that is <b>11 ns</b>, so the speedup is 44 / 11 = <b>4</b>.</p><p><b>Case C, unequal stages.</b> Functional units of <b>10, 8, 10, 10 and 7 ns</b> with <b>1 ns overhead per stage</b>.</p><span class=\"eqn\">pipelined stage time = max(10, 8, 10, 10, 7) + 1 = <b>11 ns</b></span><span class=\"eqn\">non-pipelined = 10 + 8 + 10 + 10 + 7 = <b>45 ns</b> &nbsp;&nbsp; speedup = 45 / 11 = <b>4.1 times</b></span><p class=\"gloss\">Look at what the 8 ns and 7 ns stages bought you: nothing. The clock runs at the <b>slowest</b> stage, so every fast stage simply waits. That is why a balanced pipeline is the designer's goal.</p>",
+        "answer": "480 minutes sequential, 3.5 hours overlapped, a speedup of 2.1",
+        "redo": "Redo the laundry with eight loads instead of four. Sequential is 960 minutes; overlapped is (4 + 8 - 1) x 30 = 330 minutes, a speedup of 2.9. Twelve loads give 3.3. The speedup climbs towards 4, the number of stages, and never reaches it, which is exactly what kn / (k + n - 1) says."
+      },
+      {
+        "kind": "rules",
+        "label": "Efficiency and throughput",
+        "tag": "must memorise",
+        "facts": [
+          "t12-050",
+          "t12-051",
+          "t12-052",
+          "t12-053"
+        ],
+        "html": "<p>Speedup is not the only measure the paper asks for. Two more, and both are ratios you can reason about rather than memorise.</p><table><tr><th>Measure</th><th>Definition</th><th>Formula</th></tr><tr><td><b>Efficiency</b>, E</td><td>The ratio of the <b>busy time span</b> to the <b>total time span including idle time</b></td><td><b>E = n / (m + n - 1)</b></td></tr><tr><td><b>Throughput</b>, T</td><td>The number of <b>results achieved per unit time</b></td><td><b>T = n / ((m + n - 1) x c) = E / c</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">Read the efficiency formula and it explains itself</span><p><b>E = n / (m + n - 1)</b><br><br>The top is the work done. The bottom is the cycles spent, including the <b>m - 1</b> cycles wasted filling the pipe.<br><br>As <b>n tends to infinity, E becomes 1</b>: run enough tasks and the fill cost disappears into the average. Run one task and it is 1/m, the worst case.</p></div><p><b>Throughput denotes the computing power of the pipeline.</b> It is efficiency divided by the cycle time, so it says results per second where efficiency says results per cycle.</p><p class=\"gloss\">Maximum speedup, maximum efficiency and maximum throughput are all <b>ideal cases</b>. They assume no hazards, perfectly balanced stages, and an endless stream of independent instructions. The next section is about all three of those assumptions failing.</p>"
       },
       {
         "kind": "rules",
         "label": "Must do",
         "tag": "The pipeline sums",
-        "html": "<ul class=\"bul\">\n<li><b>Cycle time</b> = slowest stage + latch delay.</li>\n<li><b>Pipelined time for n tasks</b> = <b>(k + n &#8722; 1) &#215; cycle time</b>. (It takes k\ncycles to fill with the first task, then one more cycle for each of the other n &#8722; 1.)</li>\n<li><b>Non-pipelined time for n tasks</b> = n &#215; (time for one instruction). One\ninstruction takes the sum of all the stage times, or the given per-instruction time.</li>\n<li><b>Speedup</b> = non-pipelined time / pipelined time. Its ceiling is k.</li>\n</ul>\n<p><b>Memory hook:</b> \"k + n &#8722; 1\", and the clock runs at the <b>slowest</b> stage, never\nthe average.</p>"
+        "html": "<ul class=\"bul\">\n<li><b>Cycle time</b> = slowest stage + latch delay.</li>\n<li><b>Pipelined time for n tasks</b> = <b>(k + n &#8722; 1) &#215; cycle time</b>. (It takes k\ncycles to fill with the first task, then one more cycle for each of the other n &#8722; 1.)</li>\n<li><b>Non-pipelined time for n tasks</b> = n &#215; (time for one instruction). One\ninstruction takes the sum of all the stage times, or the given per-instruction time.</li>\n<li><b>Speedup</b> = non-pipelined time / pipelined time. Its ceiling is k.</li>\n</ul>\n<p><b>Memory hook:</b> \"k + n &#8722; 1\", and the clock runs at the <b>slowest</b> stage, never\nthe average.</p>",
+        "facts": [
+          "t12-027",
+          "t12-041",
+          "t12-042"
+        ]
       },
       {
         "kind": "worked",
@@ -1937,7 +2025,52 @@
         "problem": "<p>A pipeline has 4 phases of 60, 50, 90, 80 ns, with a 10 ns latch delay.\nFind the cycle time, the one-task time, the speedup, and the times for 500 tasks. <b>The exam\nsets exactly this; sit it verbatim in the final mock.</b></p>",
         "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 4 phases 60, 50, 90, 80 ns &middot; latch\n10 ns &middot; 500 tasks</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch &middot; pipe(n) =\n(k + n &#8722; 1) &#215; cycle &middot; seq(n) = n &#215; &#931;phases &middot; speedup =\n&#931;phases / cycle</div>\n</div>\n<pre class=\"calc\">Cycle    = max(60,50,90,80) + 10 = 90 + 10 = 100 ns\nOne task = 60 + 50 + 90 + 80 = 280 ns\nSpeedup  = 280 / 100 = 2.8\nPipe 500 = (4 + 500 - 1) x 100 = 503 x 100 = 50 300 ns\nSeq 500  = 500 x 280 = 140 000 ns</pre>",
         "answer": "Cycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined\n50 300 ns against sequential 140 000 ns.",
-        "redo": ""
+        "redo": "",
+        "facts": [
+          "t12-101",
+          "t12-102",
+          "t12-103",
+          "t12-104",
+          "t12-105"
+        ]
+      },
+      {
+        "kind": "teach",
+        "label": "Hazards in full: structural, data, and the three orderings",
+        "tag": "what forwarding fixes and what it cannot",
+        "facts": [
+          "t12-059",
+          "t12-060",
+          "t12-061",
+          "t12-063",
+          "t12-064",
+          "t12-066",
+          "t12-067",
+          "t12-068",
+          "t12-069",
+          "t12-070",
+          "t12-071",
+          "t12-072",
+          "t12-073",
+          "t12-074",
+          "t12-075",
+          "t12-076",
+          "t12-077",
+          "t12-078",
+          "t12-079",
+          "t12-080",
+          "t12-081",
+          "t12-082",
+          "t12-083",
+          "t12-084",
+          "t12-085",
+          "t12-086",
+          "t12-087",
+          "t12-088",
+          "t12-089",
+          "t12-090"
+        ],
+        "html": "<p><b>A stall is the delay in cycles caused by a hazard</b>, and it feeds straight into the speedup:</p><span class=\"eqn\">speedup with stalls = [1 / (1 + stalls per instruction)] x number of stages</span><p>The cycles needed to <b>fill</b> the pipe can be folded into that average stall figure too.</p><div class=\"keypoint\"><span class=\"kplab\">Structural hazards: two instructions, one piece of hardware</span><p>When more than one instruction in the pipeline <b>needs to access the same resource</b>, the datapath has a <b>structural hazard</b>. The resources in question are the <b>register file, memory and the ALU</b>.<br><br>The classic illustration is one instruction fetching while another reads data, and the underlying problem is stated plainly: <b>there is only one memory port</b>.<br><br><b>The solution:</b> <b>stall the pipeline for one clock cycle</b> when the conflict is detected. That gap has a name: a <b>pipeline bubble</b>.</p></div><p>The same idea appears again as <b>resource constraints</b>: if one common memory serves both data and instructions and you need to read or write while fetching, <b>only one can proceed and the other waits</b>. Or a limited resource such as an <b>execution unit may simply be busy</b> at the moment it is wanted.</p><p><b>Data hazards</b> are different: nothing is contended, but an instruction <b>depends on the result of a previous one</b>. It cannot start until that result comes back, or both try to modify the same data object.</p><p><b>Watch it happen.</b></p><pre>ADD R1, R2, R3     ; result goes into R1\nSUB R4, R5, R1     ; uses R1\nAND R6, R1, R7     ; uses R1\nOR  R8, R1, R9     ; uses R1\nXOR R10, R1, R11   ; uses R1</pre><p>Every one of the next four instructions wants the R1 the first has not finished writing.</p><div class=\"keypoint\"><span class=\"kplab\">Forwarding, and why it works</span><p>Data hazards are usually solved by <b>data or register forwarding</b>, also called <b>bypassing</b> or <b>short-circuiting</b>.<br><br><b>The trick:</b> the data selected in ID is <b>not really used in ID</b>. It is used in the <b>next</b> stage, the ALU. So the <b>ALU result is fed back from the EX/MEM buffer to the ALU input latches</b>, and if the forwarding hardware sees that a source operand has a <b>newer value</b> in flight, it <b>selects that instead of the register file value</b>.<br><br>The answer never went to the register file and back. It went sideways.</p></div><p><b>How far back does it reach?</b> Results must be forwarded not only from the immediately previous instruction but from <b>any instruction that started up to three cycles before</b>.</p><ul><li>From <b>EX/MEM</b>, one cycle before, to both ALU inputs.</li><li>From <b>MEM/WB</b>, two cycles before, to both ALU inputs.</li><li>Three cycles before is covered by a timing trick: the register file is <b>written in the first half of the cycle and read in the second half</b>, so the value is already there.</li></ul><p><b>Why it is needed, in clock numbers.</b> Take <b>add $s0, $t0, $t1</b> followed by <b>sub $t2, $s0, $t3</b>, where $s0 is minus 5 before the add and 8 after it. The <b>add writes $s0 in clock 5</b>, but the <b>sub reads $s0 in clock 3</b>. So CC3 reads <b>minus 5</b>, the stale value, when it needed <b>8</b>. The correct value only exists at the <b>end of clock 5</b>, so the dependency arrow runs from <b>CC5 back to CC3</b>: <b>backward in time</b>, which is exactly why it cannot be satisfied by waiting.</p><div class=\"keypoint\"><span class=\"kplab\">The one forwarding cannot fix</span><p><b>LW R1, 0(R2)</b> followed by <b>SUB R4, R1, R5</b>.<br><br>A load's data is not available until <b>MEM/WB</b>. The subtract needs it in EX, which is <b>earlier</b>. There is nothing to forward yet, so the subtract's ALU cycle <b>must be stalled</b>, introducing a <b>vertical bubble</b>.<br><br>This is the <b>load-use hazard</b>, and it is the reason schedulers exist.</p></div><p><b>And the fix for that.</b> Move an <b>independent instruction between the dependent pair</b>. Given</p><pre>I1  LOAD R1, 0(R2)\nI2  ADD  R3, R1, R4     ; depends on I1, stalls\nI3  SUB  R5, R6, R7     ; independent\nI4  MUL  R8, R3, R9</pre><p>reorder to <b>LOAD, SUB, ADD, MUL</b>. The SUB <b>fills the delay slot</b> and the stall disappears. Nothing was removed; the order was changed.</p><p><b>The three orderings, which the exam asks you to name and classify.</b></p><table><tr><th>Name</th><th>Meaning</th><th>Status</th></tr><tr><td><b>RAW</b></td><td><b>Read After Write</b></td><td>The <b>most common</b>, a true dependency, <b>solved by data forwarding</b></td></tr><tr><td><b>WAW</b></td><td><b>Write After Write</b>: instruction i, a load, and instruction j, an add, both write the same register</td><td><b>Cannot happen in DLX</b>, because DLX waits for WB to write registers. It appears in complex instruction sets with auto-increment modes that read operands late</td></tr><tr><td><b>WAR</b></td><td><b>Write After Read</b>: j writes a destination before i has read it, so i gets the wrong value</td><td><b>Cannot happen in DLX</b>, since all instructions <b>read early in ID and write late in WB</b></td></tr></table><p><b>Worked classification, and this exact shape is set as an exercise.</b></p><pre>I1  ADD R1, R2, R3\nI2  SUB R4, R1, R5\nI3  MUL R1, R6, R7\nI4  DIV R8, R1, R9</pre><ul class=\"vals\"><li><b>I1 to I2:</b> I2 <b>reads</b> R1 after I1 <b>wrote</b> it, so <b>RAW</b></li><li><b>I1 to I3:</b> I3 <b>writes</b> R1 after I1 <b>wrote</b> it, so <b>WAW</b></li><li><b>I3 to I4:</b> I4 <b>reads</b> R1 after I3 <b>wrote</b> it, so <b>RAW</b></li></ul><p class=\"gloss\">The method never changes: <b>find the register that appears on both lines, then read the order of write and read</b>. Never classify by the instruction names. The exercise asks you to describe all three and mark each occurrence with an arrow, so draw the arrow from the earlier instruction to the later one.</p><p><b>Where the topic lands.</b> By dividing execution into stages and overlapping them, pipelining <b>increases throughput and makes better use of CPU resources</b>. The hazards and synchronisation problems are real, and modern systems answer them with <b>sophisticated hardware and software techniques</b> to reduce delays. As processor technology evolves, pipelining <b>remains a foundational concept</b> in high-performance computing.</p>"
       },
       {
         "kind": "worked",
@@ -1947,7 +2080,16 @@
         "problem": "<p>A non-pipelined processor takes 60 ns per instruction. Redesigned as a\n6-stage pipeline with a 12 ns cycle time, running 50 instructions. Find both times and the\nspeedup. (This is the one question on the revision deck that is not on any past paper, so learn\nit fresh.)</p>",
         "working": "<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> non-pipelined 60 ns/instruction &middot;\nk = 6 stages &middot; cycle 12 ns &middot; n = 50</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> non-pipe = n &#215; time/instruction\n&middot; pipe = (k + n &#8722; 1) &#215; cycle &middot; speedup = non-pipe / pipe</div>\n</div>\n<pre class=\"calc\">Without pipelining = 50 x 60 = 3000 ns\nWith pipelining    = (6 + 50 - 1) x 12\n                   = 55 x 12\n                   = 660 ns      (fill 6x12=72, then 49x12=588)\nSpeedup            = 3000 / 660 = 4.55</pre>",
         "answer": "Without pipelining 3000 ns; with pipelining 660 ns; speedup 4.55.",
-        "redo": "<b>Now redo it:</b> n &#215; per-instruction time without, (k + n &#8722; 1)\n&#215; cycle with, then divide."
+        "redo": "<b>Now redo it:</b> n &#215; per-instruction time without, (k + n &#8722; 1)\n&#215; cycle with, then divide.",
+        "facts": [
+          "t12-094",
+          "t12-095",
+          "t12-096",
+          "t12-097",
+          "t12-098",
+          "t12-099",
+          "t12-100"
+        ]
       },
       {
         "kind": "frames",
@@ -1995,6 +2137,14 @@
             "teach": "(write then read is exactly read-after-write). That is every hazard idea in place. The box just below shows how to draw the pipeline timing diagram the paper sometimes asks for; after it, sit the two \"your turn\" boxes with the answers covered.",
             "ask": ""
           }
+        ],
+        "facts": [
+          "t12-054",
+          "t12-055",
+          "t12-056",
+          "t12-057",
+          "t12-062",
+          "t12-106"
         ]
       },
       {
@@ -2008,20 +2158,31 @@
         "label": "Your turn",
         "tag": "classify the hazards",
         "question": "<p class=\"q\">Find the one register on both lines and read its order.\n(i) R3 &#8592; R1 op R2, then R5 &#8592; R3 op R4. (ii) R3 &#8592; R1 op R2, then\nR1 &#8592; R4 op R5. (iii) R3 &#8592; R1 op R2, then R3 &#8592; R6 op R7.</p>",
-        "answer": "<p>(i) R3 is written then read, so <b>RAW</b>. (ii) R1 is read then written, so <b>WAR</b>.\n(iii) R3 is written then written, so <b>WAW</b>. Only RAW is a real data dependency; the other\ntwo are naming clashes.</p>"
+        "answer": "<p>(i) R3 is written then read, so <b>RAW</b>. (ii) R1 is read then written, so <b>WAR</b>.\n(iii) R3 is written then written, so <b>WAW</b>. Only RAW is a real data dependency; the other\ntwo are naming clashes.</p>",
+        "facts": [
+          "t12-108",
+          "t12-109"
+        ]
       },
       {
         "kind": "recall",
         "label": "Your turn",
         "tag": "MCQ, pipelining",
         "question": "<p class=\"q\">(1) The main objective of branch prediction and speculative\nexecution is to? (2) A read-after-write clash is eased by which technique?</p>",
-        "answer": "<p>(1) <b>reduce pipeline stalls caused by control hazards</b> (keep the pipe full across\nbranches). (2) <b>forwarding</b> (feed the result straight to where it is needed).</p>"
+        "answer": "<p>(1) <b>reduce pipeline stalls caused by control hazards</b> (keep the pipe full across\nbranches). (2) <b>forwarding</b> (feed the result straight to where it is needed).</p>",
+        "facts": [
+          "t12-065"
+        ]
       },
       {
         "kind": "trap",
         "label": "Trap",
         "tag": "",
-        "html": "<p>The clock runs at the <b>slowest</b> stage plus latch, not the average or\nthe sum. For n tasks the count is <b>k + n &#8722; 1</b>, so 500 tasks in a 4-stage pipe is\n503 cycles, not 504. Classify data hazards by the shared <b>register</b> and the order it is\nwritten and read, never by the instruction name.</p>"
+        "html": "<p>The clock runs at the <b>slowest</b> stage plus latch, not the average or\nthe sum. For n tasks the count is <b>k + n &#8722; 1</b>, so 500 tasks in a 4-stage pipe is\n503 cycles, not 504. Classify data hazards by the shared <b>register</b> and the order it is\nwritten and read, never by the instruction name.</p>",
+        "facts": [
+          "t12-058",
+          "t12-107"
+        ]
       },
       {
         "kind": "lockin",
@@ -2138,17 +2299,204 @@
             "teach": "That is the whole method: address bits from the\nmemory, offset from the block, lines from cache over block, tag is whatever is left, then the tag\ndirectory and AMAT. Now watch it on real numbers in the three worked examples below, then drill the\nsix extra caches with a card over each row.",
             "ask": ""
           }
+        ],
+        "facts": [
+          "t8m-013",
+          "t8m-015",
+          "t8m-016",
+          "t8m-017"
         ]
       },
       {
+        "kind": "teach",
+        "label": "The organs of the CPU, and the wires between them",
+        "tag": "the components of computer organization",
+        "facts": [
+          "t8c-001",
+          "t8c-002",
+          "t8c-003",
+          "t8c-004",
+          "t8c-005",
+          "t8c-006",
+          "t8c-007",
+          "t8c-008",
+          "t8c-009",
+          "t8c-010",
+          "t8c-011",
+          "t8c-012",
+          "t8c-013",
+          "t8c-014",
+          "t8c-015"
+        ],
+        "html": "<p>Computer organization deals with <b>how architectural features are physically implemented</b>. It has six components, and the exam asks for each by name, with an example of where it matters.</p><table><tr><th>Component</th><th>What it does</th><th>Where it shows up in life</th></tr><tr><td><b>Control unit</b></td><td><b>Coordinates all operations of the CPU</b>: fetching instructions, decoding instructions, and <b>generating control signals</b></td><td>Every program that runs at all; <b>industrial automation</b>, where machines act on control signals; <b>robotics</b>, where it drives sensors and actuators</td></tr><tr><td><b>ALU</b></td><td><b>Arithmetic</b> such as addition and subtraction, and <b>logic</b> such as AND, OR and NOT</td><td><b>Digital calculators</b>; <b>gaming</b>, whose physics depends on it; <b>artificial intelligence</b>, whose neural networks are massive arithmetic</td></tr><tr><td><b>Registers</b></td><td><b>Small, fast storage inside the CPU</b>: general-purpose registers, and special-purpose ones such as the <b>Program Counter</b> and the <b>Stack Pointer</b></td><td>Programs run faster with data in registers than in memory; <b>air traffic control</b> depends on it; efficient register use improves <b>battery life</b> on mobiles</td></tr><tr><td><b>Memory organization</b></td><td>Arranged hierarchically: <b>cache</b> (fastest), then <b>main memory or RAM</b>, then <b>secondary storage</b></td><td><b>Smartphones</b>, whose app speed depends on it; <b>web browsers</b>, where cache speeds page loading; <b>cloud systems</b></td></tr><tr><td><b>Input/output systems</b></td><td>Handle <b>communication between the computer and external devices</b></td><td>Keyboard in and monitor out; <b>medical devices</b>, sensors in and displays out; <b>smart homes</b></td></tr><tr><td><b>Buses</b></td><td>Transfer <b>data, addresses and control signals</b></td><td><b>Motherboards</b>, where everything talks over buses; <b>gaming computers</b>, where fast buses lift graphics; <b>servers</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The three buses, and the division of labour</span><p><b>Data bus</b> carries the value.<br><b>Address bus</b> carries which location is wanted.<br><b>Control bus</b> carries the signals that say read or write, and when.<br><br>Three questions about any transfer: what, where, and when. One bus each.</p></div><p><b>And the seventh item on the organization list, which gets its own lesson later:</b> <b>pipelining</b> is the <b>overlapping of instruction execution</b>, while <b>parallelism</b> is the <b>executing of multiple tasks simultaneously</b>. Modern CPUs run several instructions at once, multicore processors give real multitasking, and AI and big-data systems lean on both.</p><p class=\"gloss\">Read that list against the architecture list from Part A and the split is exact: architecture named the instruction set, data types, addressing modes and registers a program can see. Organization names the control unit, the ALU, the memory organization, the I/O systems, the buses and the pipelining. Nothing appears twice.</p>"
+      },
+      {
+        "kind": "teach",
+        "label": "How memory is reached, and what it costs",
+        "tag": "four access methods, three constraints",
+        "facts": [
+          "t8m-001",
+          "t8m-002",
+          "t8m-003",
+          "t8m-004",
+          "t8m-005",
+          "t8m-006",
+          "t8m-007",
+          "t8m-008",
+          "t8m-009",
+          "t8m-010",
+          "t8m-011",
+          "t8m-012",
+          "t8m-014",
+          "t8m-018",
+          "t8m-019"
+        ],
+        "html": "<p>Memory has a set of <b>characteristics</b> the lecture lists: its <b>location</b>, its <b>access method</b>, its <b>performance</b> such as transfer rate, and its <b>capacity or size</b>. Start with the access methods, because each has a device attached to it.</p><table><tr><th>Method</th><th>How it reaches a location</th><th>Example</th></tr><tr><td><b>Sequential</b></td><td>Reads locations <b>one after another, in sequence</b></td><td><b>Magnetic tape</b></td></tr><tr><td><b>Random</b></td><td><b>All locations</b> accessible in <b>constant time</b></td><td><b>RAM</b></td></tr><tr><td><b>Direct</b></td><td>Like <b>locating a street</b>: find the vicinity or block first, then search within it</td><td><b>Hard disk drive</b></td></tr><tr><td><b>Associative</b></td><td>Holds the <b>address and the content together</b>, so you search by content</td><td><b>Cache</b></td></tr></table><p class=\"gloss\">Remember them by the device, not the definition. Tape has to wind, so sequential. RAM is the R in its own name. A disk head swings to a track then waits, so direct. And cache has to answer \"do you have address X?\" without being told where to look, so associative.</p><div class=\"keypoint\"><span class=\"kplab\">The three design constraints, as three questions</span><p><b>How much</b> space? If memory exists, applications will likely be developed to use it.<br><b>How fast</b> is the access time? Best performance is when <b>memory keeps up with the processor</b>, so the processor is not left <b>pausing or waiting</b> for instructions or operands.<br><b>How expensive</b>? The cost must be <b>reasonable in relation to other components</b>.</p></div><p><b>The trade-off that makes all three impossible at once:</b></p><ul><li>Faster access time means <b>greater cost per bit</b>.</li><li>Greater capacity means <b>slower access</b>.</li><li>Smaller cost per bit means <b>slower access</b>.</li></ul><p><b>So the way out is not a single memory.</b> It is a <b>memory hierarchy</b>: a structured arrangement of different storage types <b>designed to optimize performance and cost</b>, supplementing smaller, more expensive, faster memories with larger, cheaper, slower ones.</p><p>Going <b>down</b> the hierarchy, three things fall and two rise: cost per bit <b>decreases</b>, capacity <b>increases</b>, access time <b>increases</b>, and, the one that makes the whole scheme work, the <b>frequency of access by the processor decreases</b>.</p><div class=\"keypoint\"><span class=\"kplab\">The in-class question</span><p><i>Why do we not use only cache memory in a computer system?</i><br><br>Because cache is <b>very expensive</b> and has <b>limited capacity</b>. A machine built entirely of cache would be superb and unaffordable, and too small to hold anything.</p></div>"
+      },
+      {
+        "kind": "worked",
+        "mode": "example",
+        "label": "Locality of reference, and why 95 per cent is nearly all of it",
+        "tag": "the two-level calculation",
+        "facts": [
+          "t8m-020",
+          "t8m-021",
+          "t8m-022",
+          "t8m-023",
+          "t8m-024",
+          "t8m-025",
+          "t8m-026",
+          "t8m-027",
+          "t8m-028",
+          "t8m-029"
+        ],
+        "problem": "Level 1 holds 1000 words with an access time of 0.01 microseconds. Level 2 holds 100,000 words at 0.1 microseconds. If 95 per cent of accesses are found in L1, what is the average access time?",
+        "working": "<p><b>First, why any of this works at all.</b> The hierarchy would be useless if programs jumped about memory at random. They do not, and the reason has a name.</p><table><tr><th>Locality</th><th>What it says</th><th>Where it comes from</th></tr><tr><td><b>Spatial</b></td><td>If we access a location, <b>close by addresses will very likely be accessed</b></td><td>Marching along an array in a loop</td></tr><tr><td><b>Temporal</b></td><td>If we access a location, <b>we will very likely access it again</b></td><td>The loop counter, read every pass</td></tr></table><p>Both are a <b>consequence of using iterative loops and subroutines</b>, because instructions and data get accessed many times over.</p><p><b>Step 1: what each access costs</b></p><ul class=\"vals\"><li>Word is <b>in L1</b>: the processor accesses it directly, <b>0.01</b> microseconds</li><li>Word is <b>in L2</b>: it is <b>first transferred to L1</b>, then accessed, so <b>0.01 + 0.1</b></li></ul><p class=\"gloss\">Note the miss cost includes the L1 time as well. You still read it from L1 in the end. The time to work out which level holds the word is ignored, for simplicity.</p><p><b>Step 2: name the symbols</b></p><table><tr><th>Symbol</th><th>Meaning</th></tr><tr><td><b>H</b></td><td>The <b>fraction of all accesses found in L1</b></td></tr><tr><td><b>T1</b></td><td>Access time to L1</td></tr><tr><td><b>T2</b></td><td>Access time to L2</td></tr></table><p><b>Step 3: weigh the two cases</b></p><span class=\"eqn\">average = 0.95 x 0.01 &nbsp;+&nbsp; 0.05 x (0.01 + 0.1)</span><span class=\"eqn\">= 0.0095 + 0.0055</span><span class=\"eqn\">= <b>0.015 microseconds</b></span><div class=\"keypoint\"><span class=\"kplab\">Look at where that answer sits</span><p>L1 costs 0.01 and L2 costs 0.11, yet the average is <b>0.015</b>, almost on top of L1.<br><br>For <b>high percentages of L1 access, the average is much closer to L1 than to L2</b>. That is the whole justification for the hierarchy: you do not need to be right every time, only nearly every time.</p></div><p><b>And the strategy that produces the 95 per cent:</b> organize the data across the levels so the <b>percentage of accesses to lower levels is substantially less</b> than to upper ones. L2 holds <b>all</b> program instructions and data; data <b>currently in use</b> is held in L1; and eventually L1 data is <b>swapped out to L2</b> to make room. On average, most references land in L1.</p>",
+        "answer": "0.015 microseconds, far closer to L1 than to L2",
+        "redo": "Redo it at a 50 per cent hit rate: 0.5 x 0.01 + 0.5 x 0.11 = 0.005 + 0.055 = 0.06 microseconds, four times worse. Then try 99 per cent: 0.0099 + 0.0011 = 0.011, nearly L1 exactly. Plot those three in your head and you can see why cache designers fight so hard for the last few per cent of hit rate."
+      },
+      {
+        "kind": "teach",
+        "label": "Cache in detail: hit, miss, lines, tags and the bus",
+        "tag": "the heaviest topic on the paper",
+        "facts": [
+          "t8m-030",
+          "t8m-031",
+          "t8m-032",
+          "t8m-033",
+          "t8m-034",
+          "t8m-035",
+          "t8m-036",
+          "t8m-037",
+          "t8m-038",
+          "t8m-039",
+          "t8m-040",
+          "t8m-041",
+          "t8m-042",
+          "t8m-043",
+          "t8m-044",
+          "t8m-045",
+          "t8m-046",
+          "t8m-047",
+          "t8m-048",
+          "t8m-049",
+          "t8m-050",
+          "t8m-051",
+          "t8m-052",
+          "t8m-053",
+          "t8m-054",
+          "t8m-055",
+          "t8m-056",
+          "t8m-057",
+          "t8m-058"
+        ],
+        "html": "<p><b>Three levels, said precisely.</b> <b>Processor registers</b> are the fastest, smallest and most expensive memory. <b>Main memory</b> is the principal internal memory system, and <b>each of its locations has a unique address</b>. Between them sits the <b>cache</b>, which <b>stages data movement between registers and main memory</b>, improves performance, and is <b>not usually visible to the processor or the programmer</b>.</p><div class=\"keypoint\"><span class=\"kplab\">What cache is for, in one sentence</span><p>Cache is designed to <b>combine the access time of expensive, high-speed memory with the size of less expensive, lower-speed memory</b>. It does that by holding <b>a copy of portions of main memory</b>.<br><br>Typical sizes make the point: cache <b>1 to 2 MB</b>, main memory <b>up to 64 GB</b>.</p></div><p><b>The units, since questions are set in them.</b> A <b>nibble</b> is 4 bits, a <b>byte</b> is 8 bits, a <b>word</b> is one or more complete rows of memory, and a <b>block</b> is a collection of words, <b>typically 2, 4 or 8</b>.</p><table><tr><th>Size</th><th>Working</th><th>Bits</th></tr><tr><td>4 MB</td><td>4 x 1024 x 1024 x 8</td><td><b>33,554,432</b></td></tr><tr><td>10 KB</td><td>10 x 1024 x 8</td><td><b>81,920</b></td></tr></table><p><b>Now the operation, and it is four lines.</b></p><ol><li>The processor generates the <b>read address RA</b> of the word it wants.</li><li>A check is made to see whether the word is in the cache.</li><li><b>Hit:</b> the word is <b>delivered to the processor</b>.</li><li><b>Miss:</b> the <b>block of main memory containing the word is read into the cache</b>, and the cache then delivers the word. Those last two happen <b>in parallel</b>.</li></ol><p>Why fetch a whole block for one word? Because of <b>locality of reference</b>: once a block is in the cache it is likely there will be <b>future references to that same location</b>, and to its neighbours.</p><div class=\"keypoint\"><span class=\"kplab\">How the two sides are counted</span><p><b>Main memory</b> has <b>2<sup>n</sup> addressable words</b>, each with a unique <b>n-bit address</b>, organised into fixed-length blocks of <b>K words</b> each. So the number of blocks is<br><b>M = 2<sup>n</sup> / K</b><br><br><b>Cache</b> has <b>m blocks, called LINES</b>. Each line holds <b>K words</b> and some <b>control bits</b>.<br><br>Because <b>m is much less than M</b>, the cache cannot permanently hold any block, so it must <b>identify which block it is currently holding</b>. That identification is the <b>tag field</b>.</p></div><p>And when a word in a block is read, <b>the whole block is transferred to a cache line</b>. Line, not block, is the word to use on the cache side.</p><p><b>What happens on the bus, which is examined directly.</b> The cache connects to the processor by <b>data, control and address lines</b>. The data and address lines also attach to <b>data and address buffers</b>, which attach to a <b>system bus</b> leading to main memory.</p><table><tr><th>Event</th><th>What happens on the bus</th></tr><tr><td><b>Cache hit</b></td><td>The data and address buffers are <b>disabled</b>. Communication is <b>only between processor and cache</b>. There is <b>no system bus traffic</b></td></tr><tr><td><b>Cache miss</b></td><td>The desired address is <b>loaded onto the system bus</b>, and the data return through the data buffer to <b>both the cache and the processor</b></td></tr></table><p class=\"gloss\">That is the real benefit stated in hardware terms: a hit does not merely save time, it keeps the system bus free for everything else.</p><p><b>Multiple levels.</b> The idea improves by adding more: <b>L2 is slower and typically larger than L1</b>, and <b>L3 is slower and typically larger than L2</b>. The same trade repeated at each step.</p><div class=\"keypoint\"><span class=\"kplab\">Physical against logical addresses</span><p><b>Physical</b> addresses are <b>actual memory addresses</b>. <b>Logical</b> addresses are <b>virtual-memory addresses</b>.<br><br><b>Virtual memory</b> performs the <b>mapping between the logical addresses a program uses and physical addresses</b>, and its main idea is to <b>disregard the amount of main memory available</b>, so a program can be written as though memory were unlimited.</p></div><p>A <b>virtual cache</b> stores data using <b>logical addresses</b>, so the processor reaches it <b>without going through the MMU</b>.</p><table><tr><th>Advantage</th><th>Disadvantage</th></tr><tr><td><b>Faster access</b>, since the cache can respond without an MMU address translation</td><td>The <b>same virtual address in two applications refers to two different physical addresses</b>. So the cache must be <b>flushed at every context switch</b>, or extra bits added to each line to say <b>which virtual address space</b> the address belongs to</td></tr></table><p><b>Finally, how big should a cache be?</b> Two bounds, pulling opposite ways:</p><ul><li><b>Small enough</b> that the overall <b>average cost per bit is close to main memory alone</b>.</li><li><b>Large enough</b> that the overall <b>average access time is close to the cache alone</b>.</li></ul><p>And a third pressure: <b>the larger the cache, the more complex the addressing logic</b>, so <b>large caches tend to be slightly slower than small ones</b>. Available chip and board area limits it further.</p>"
+      },
+      {
+        "kind": "teach",
+        "label": "The three mapping functions, and why a mapping is needed at all",
+        "tag": "direct, associative, set associative",
+        "facts": [
+          "t11m-001",
+          "t11m-002",
+          "t11m-003",
+          "t11m-004",
+          "t11m-005",
+          "t11m-006",
+          "t11m-007",
+          "t11m-008",
+          "t11m-009",
+          "t11m-011",
+          "t11m-017",
+          "t11m-018",
+          "t11m-019",
+          "t11m-020",
+          "t11m-021",
+          "t11m-022",
+          "t11m-031",
+          "t11m-032",
+          "t11m-033",
+          "t11-001",
+          "t11-016"
+        ],
+        "html": "<p><b>Start with the arithmetic of the problem.</b> There are <b>far fewer cache lines than main memory blocks</b>. Sixty-four lines, say, and thousands of blocks. So a rule is needed to decide <b>which line a given block is allowed to occupy</b>. That rule is the <b>mapping function</b>, and there are <b>three techniques</b>: <b>direct</b>, <b>associative</b> and <b>set associative</b>.</p><p class=\"gloss\">One piece of vocabulary before the detail: <b>block size, frame size and line size all mean the same thing</b> in these questions. The examiner uses them interchangeably and expects you to follow.</p><div class=\"keypoint\"><span class=\"kplab\">1. Direct mapping: one block, one possible line</span><p>The <b>simplest</b> technique. Each block of main memory maps into <b>only one possible cache line</b>, given by<br><br><b>i = j modulo m</b><br>where <b>i</b> is the cache line number, <b>j</b> is the main memory block number, and <b>m</b> is the number of lines in the cache.<br><br>Modulo is the clue: block 0, block m, block 2m and so on all land on line 0. Like house numbers on a street of m hooks, going round and round.</p></div><p><b>How a lookup works.</b> Use the <b>line field</b> of the memory address to index the cache line, then <b>compare the tag</b> from the address with the tag stored in that line.</p><ul><li><b>Tags match:</b> a <b>hit</b>, and the word is retrieved from that indexed line.</li><li><b>Tags do not match:</b> a <b>miss</b>, and the indexed line is <b>updated with the word and the tag</b>.</li></ul><table><tr><th>Advantage</th><th>Disadvantage</th></tr><tr><td><b>Simple and inexpensive</b> to implement. One index, one comparison</td><td>There is a <b>fixed location</b> for any given block. If a program repeatedly references words from <b>two different blocks that map to the same line</b>, those blocks are <b>continually swapped</b> and the hit ratio collapses. That is <b>thrashing</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">2. Associative mapping: any block, any line</span><p>It <b>overcomes the disadvantage of direct mapping</b> by permitting <b>each main memory block to be loaded into any line</b> of the cache.<br><br>With no fixed line, there is <b>no index field</b>. The control logic reads an address as just two parts: a <b>Tag</b> of <b>s</b> bits, which <b>uniquely identifies a block of main memory</b>, and a <b>Word</b> field of <b>w</b> bits, which identifies a word inside the block.</p></div><p><b>The cost of that freedom.</b> To find out whether a block is present, the control logic must <b>simultaneously examine EVERY line's tag</b> for a match. That is a lot of comparators, which is why fully associative caches are small and expensive.</p><ul><li><b>Match:</b> a <b>hit</b>, and the tag field is used to index the line and retrieve the word.</li><li><b>No match:</b> a <b>miss</b>, and a line must be <b>chosen</b>, then updated with the word and the tag.</li></ul><p class=\"gloss\">Notice the extra decision on a miss. Direct mapping never has to choose, because there is only one candidate. Associative mapping must pick a victim, which is why replacement policies exist at all.</p><div class=\"keypoint\"><span class=\"kplab\">3. Set associative: the compromise that is actually used</span><p>An <b>enhanced form of direct mapping in which its drawbacks are removed</b>, and specifically the <b>thrashing</b> problem.<br><br>Instead of exactly one line per block, <b>a few lines are grouped into a SET</b>, and a memory block can map to <b>any one line of its specific set</b>.<br><br>So each index address can now hold <b>two or more</b> words from main memory at once. It <b>combines the best of the direct and associative techniques</b>: a short search, but no forced eviction when two hot blocks collide.</p></div><table><tr><th>Mapping</th><th>Address splits into</th><th>How many tags to compare</th></tr><tr><td><b>Direct</b></td><td>Tag, <b>Index</b>, Offset</td><td><b>One</b></td></tr><tr><td><b>Fully associative</b></td><td>Tag, Offset. <b>No index</b></td><td><b>All of them</b></td></tr><tr><td><b>n-way set associative</b></td><td>Tag, <b>Set index</b>, Offset</td><td><b>n</b>, the ones in that set</td></tr></table><p class=\"gloss\">Read the middle column down and the whole topic is there. Every bit you take off the index has to go somewhere, and it goes into the tag. That is why a fully associative cache has the longest tags and the biggest tag directory.</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "example",
+        "label": "The same cache, mapped three ways",
+        "tag": "16 KB cache, 256 B block, 128 KB memory",
+        "facts": [
+          "t11m-010",
+          "t11m-012",
+          "t11m-013",
+          "t11m-014",
+          "t11m-015",
+          "t11m-016",
+          "t11m-023",
+          "t11m-024",
+          "t11m-025",
+          "t11m-026",
+          "t11m-027",
+          "t11m-028",
+          "t11m-029",
+          "t11m-030",
+          "t11m-034",
+          "t11m-035",
+          "t11m-036",
+          "t11m-037",
+          "t11-010",
+          "t11-018",
+          "t11-019",
+          "t11-020",
+          "t11-025",
+          "t11-026",
+          "t11-027"
+        ],
+        "problem": "A cache of 16 KB with block size 256 bytes serves a main memory of 128 KB. Find the tag bits and the tag directory size when the cache is direct mapped, fully associative, and 2-way set associative.",
+        "working": "<p><b>Step 0: the two numbers that never change, whatever the mapping</b></p><p>Memory is taken to be <b>byte addressable</b> throughout.</p><table><tr><th>Quantity</th><th>Working</th><th>Result</th></tr><tr><td>Physical address</td><td>128 KB = 2<sup>17</sup> bytes</td><td><b>17 bits</b></td></tr><tr><td>Block offset</td><td>256 B = 2<sup>8</sup> bytes</td><td><b>8 bits</b></td></tr><tr><td>Lines in cache</td><td>16 KB / 256 B = 2<sup>14</sup> / 2<sup>8</sup> = 2<sup>6</sup></td><td><b>64 lines</b></td></tr></table><p class=\"gloss\">Those three come from the sizes alone. The mapping decides only what happens to the bits that are left over.</p><p><b>Case 1: DIRECT mapped</b></p><p>64 lines is 2<sup>6</sup>, so the line number takes <b>6 bits</b>.</p><span class=\"eqn\">tag = 17 - (6 + 8) = 17 - 14 = <b>3 bits</b></span><span class=\"eqn\">tag directory = lines x tag = 2<sup>6</sup> x 3 = <b>192 bits = 24 bytes</b></span><p><b>Case 2: FULLY ASSOCIATIVE</b></p><p>There is <b>no index at all</b>, so nothing is subtracted but the offset.</p><span class=\"eqn\">tag = 17 - 8 = <b>9 bits</b></span><span class=\"eqn\">tag directory = 2<sup>6</sup> x 9 = <b>576 bits = 72 bytes</b></span><p class=\"gloss\">Three times the tag directory of the direct case, for exactly the same cache. The six index bits did not vanish; they moved into the tag.</p><p><b>Case 3: 2-WAY SET ASSOCIATIVE</b></p><p>The set size is 2, so the 64 lines group into sets:</p><span class=\"eqn\">sets = lines / set size = 64 / 2 = 32 = 2<sup>5</sup>, so the set number is <b>5 bits</b></span><span class=\"eqn\">tag = 17 - (5 + 8) = <b>4 bits</b></span><p>Exactly between the two: one bit more tag than direct, five fewer than fully associative.</p><div class=\"keypoint\"><span class=\"kplab\">The method, once, for any numbers</span><p><b>1.</b> address bits = log<sub>2</sub>(memory size)<br><b>2.</b> offset = log<sub>2</sub>(block size)<br><b>3.</b> lines = cache size / block size<br><b>4.</b> index = log<sub>2</sub>(lines) &nbsp;|&nbsp; sets = lines / n, set bits = log<sub>2</sub>(sets) &nbsp;|&nbsp; fully associative: none<br><b>5.</b> <b>tag = whatever is left</b><br><b>6.</b> tag directory = lines x tag bits</p></div><p><b>Two more from the deck, worth checking with the same six steps.</b></p><table><tr><th>Case</th><th>Address</th><th>Offset</th><th>Tag</th></tr><tr><td>Fully associative, block 4 KB, memory <b>16 GB</b></td><td>16 GB = 2<sup>34</sup>, so <b>34 bits</b></td><td>4 KB = 2<sup>12</sup>, so <b>12 bits</b></td><td>34 - 12 = <b>22 bits</b></td></tr><tr><td>Direct, memory 64 KB, cache 1 KB, block 16 B</td><td><b>16 bits</b></td><td><b>4 bits</b></td><td>16 - 6 - 4 = <b>6 bits</b></td></tr></table><p><b>And reading one real address.</b> In that last cache the CPU issues <b>000010 000011 1001</b>. Split it by the field widths, 6 then 6 then 4:</p><ul class=\"vals\"><li><b>tag</b> = 000010 = <b>2</b></li><li><b>index</b> = 000011 = <b>3</b></li><li><b>offset</b> = 1001 = <b>9</b></li></ul><p>So: go to line 3, check whether its stored tag is 2, and if it is, take byte 9 of that line.</p><p><b>The same 64 KB / 1 KB / 16 B cache, made fully associative:</b> the offset stays 4 bits, the tag becomes 16 - 4 = <b>12 bits</b>, there are still 1024/16 = <b>64 lines</b>, and the tag directory is 64 x 12 = <b>768 bits, that is 96 bytes</b>. Made <b>2-way set associative</b> instead: 64 lines give 32 sets, so the set index is <b>5 bits</b>, the tag is 16 - 5 - 4 = <b>7 bits</b>, and the directory is 7 x 64 = <b>448 bits, that is 56 bytes</b>.</p>",
+        "answer": "Direct: tag 3 bits, directory 192 bits. Fully associative: tag 9 bits, directory 576 bits. 2-way: set 5 bits, tag 4 bits.",
+        "redo": "Redo all three with a 32 KB cache instead of 16 KB. The address and offset do not move, but the lines double to 128, so the direct index becomes 7 bits and its tag falls to 2. The fully associative tag stays at 9, because it never depended on the line count, and only its directory grows. That contrast is the fastest way to check you have understood which quantity depends on what."
+      },
+      {
         "kind": "prose",
-        "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 140\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <text x=\"12\" y=\"17\" font-size=\"10.5\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.7\">A MEMORY ADDRESS SPLITS INTO THREE</text>\n  <rect x=\"12\" y=\"30\" width=\"186\" height=\"44\" fill=\"#b45309\"/>\n  <rect x=\"198\" y=\"30\" width=\"186\" height=\"44\" fill=\"#0e7490\"/>\n  <rect x=\"384\" y=\"30\" width=\"124\" height=\"44\" fill=\"#33566e\"/>\n  <rect x=\"12\" y=\"30\" width=\"496\" height=\"44\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1.1\"/>\n  <text x=\"105\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">tag (6)</text>\n  <text x=\"291\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">index (6)</text>\n  <text x=\"446\" y=\"57\" font-size=\"11.5\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">offset (4)</text>\n  <g font-size=\"10.5\" fill=\"#41505f\" text-anchor=\"middle\">\n    <text x=\"105\" y=\"92\">which block</text>\n    <text x=\"291\" y=\"92\">which hook (line)</text>\n    <text x=\"446\" y=\"92\">which byte</text>\n  </g>\n  <text x=\"260\" y=\"120\" font-size=\"10.5\" fill=\"#20262f\" text-anchor=\"middle\">example: 64 KB memory, 1 KB cache, 16 B block, direct mapped</text>\n</svg>\n<figcaption>The high bits pick the block (tag), the middle bits the line (index), the low bits the byte\n(offset). Their sizes come from the memory, cache and block sizes.</figcaption>\n</figure>"
+        "html": "<figure class=\"strip\">\n<svg viewBox=\"0 0 520 140\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\n  <text x=\"12\" y=\"17\" font-size=\"10.5\" fill=\"#67707a\" font-weight=\"bold\" letter-spacing=\"0.7\">A MEMORY ADDRESS SPLITS INTO THREE</text>\n  <rect x=\"12\" y=\"30\" width=\"186\" height=\"44\" fill=\"#b45309\"/>\n  <rect x=\"198\" y=\"30\" width=\"186\" height=\"44\" fill=\"#0e7490\"/>\n  <rect x=\"384\" y=\"30\" width=\"124\" height=\"44\" fill=\"#33566e\"/>\n  <rect x=\"12\" y=\"30\" width=\"496\" height=\"44\" fill=\"none\" stroke=\"#20262f\" stroke-width=\"1.1\"/>\n  <text x=\"105\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">tag (6)</text>\n  <text x=\"291\" y=\"57\" font-size=\"12\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">index (6)</text>\n  <text x=\"446\" y=\"57\" font-size=\"11.5\" fill=\"#fff\" text-anchor=\"middle\" font-weight=\"bold\">offset (4)</text>\n  <g font-size=\"10.5\" fill=\"#41505f\" text-anchor=\"middle\">\n    <text x=\"105\" y=\"92\">which block</text>\n    <text x=\"291\" y=\"92\">which hook (line)</text>\n    <text x=\"446\" y=\"92\">which byte</text>\n  </g>\n  <text x=\"260\" y=\"120\" font-size=\"10.5\" fill=\"#20262f\" text-anchor=\"middle\">example: 64 KB memory, 1 KB cache, 16 B block, direct mapped</text>\n</svg>\n<figcaption>The high bits pick the block (tag), the middle bits the line (index), the low bits the byte\n(offset). Their sizes come from the memory, cache and block sizes.</figcaption>\n</figure>",
+        "facts": [
+          "t11-002"
+        ]
       },
       {
         "kind": "rules",
         "label": "Must do",
         "tag": "the cache split on one card",
-        "html": "<ul class=\"bul\">\n<li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>\n<li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>\n<li><b>Number of lines</b> = cache size / block size.</li>\n<li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>\ncache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully\nassociative</b> has no index at all.</li>\n<li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The\n<b>tag directory</b> is lines &#215; tag bits.</li>\n</ul>\n<div class=\"answerbox\">Hierarchical (cache first): AMAT = T<sub>c</sub> + (1 &#8722; h) &#215;\nT<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +\n(1 &#8722; h) &#215; T<sub>m</sub>.</div>"
+        "html": "<ul class=\"bul\">\n<li><b>Address bits</b> = log<sub>2</sub>(main memory size).</li>\n<li><b>Offset</b> = log<sub>2</sub>(block size). It picks the byte inside a block.</li>\n<li><b>Number of lines</b> = cache size / block size.</li>\n<li><b>Index bits</b> (direct) = log<sub>2</sub>(lines). For a <b>k-way set associative</b>\ncache, <b>sets</b> = lines / k and <b>set bits</b> = log<sub>2</sub>(sets). <b>Fully\nassociative</b> has no index at all.</li>\n<li><b>Tag bits</b> = address bits &#8722; index (or set) bits &#8722; offset bits. The\n<b>tag directory</b> is lines &#215; tag bits.</li>\n</ul>\n<div class=\"answerbox\">Hierarchical (cache first): AMAT = T<sub>c</sub> + (1 &#8722; h) &#215;\nT<sub>m</sub>. &nbsp; Simultaneous (both at once): AMAT = h &#215; T<sub>c</sub> +\n(1 &#8722; h) &#215; T<sub>m</sub>.</div>",
+        "facts": [
+          "t11-008",
+          "t11-011",
+          "t11-017",
+          "t11-023",
+          "t11-024"
+        ]
       },
       {
         "kind": "worked",
@@ -2158,7 +2506,17 @@
         "problem": "<p>Main memory 64 KB, cache 1 KB, block 16 B, direct mapped. Find the\naddress split and the tag-directory size.</p>",
         "working": "<pre class=\"calc\">Address = log2(64 KB) = log2(2¹⁶)     = 16 bits\nOffset  = log2(16)                     = 4 bits\nLines   = cache/block = 1024/16 = 64\nIndex   = log2(64)                     = 6 bits\nTag     = 16 - 6 - 4                   = 6 bits\nTag dir = lines x tag = 64 x 6 = 384 bits = 48 bytes</pre>",
         "answer": "Offset 4, index 6, tag 6; tag directory 384 bits (48 bytes).",
-        "redo": "<b>Now redo it:</b> address from the memory size, offset from the block, lines\nfrom cache over block, and the tag is whatever is left. This works for any numbers."
+        "redo": "<b>Now redo it:</b> address from the memory size, offset from the block, lines\nfrom cache over block, and the tag is whatever is left. This works for any numbers.",
+        "facts": [
+          "t11-003",
+          "t11-004",
+          "t11-005",
+          "t11-006",
+          "t11-007",
+          "t11-009",
+          "t11-012",
+          "t11-013"
+        ]
       },
       {
         "kind": "worked",
@@ -2178,7 +2536,15 @@
         "problem": "<p>The lecturer's revision deck sets six more cache problems (Examples 2 and 3\nof each mapping). They are not on the 2025/2026 paper, so drill the method on these fresh\nnumbers. Cover a row, rebuild it from the four sizes, then check.</p>\n<table class=\"data\">\n<tr><th>Cache (memory / cache / block)</th><th>Offset</th><th>Index/Set</th><th>Tag</th><th>Lines</th><th>Tag directory</th></tr>\n<tr><td>Direct, 128 KB / 4 KB / 32 B</td><td>5</td><td>index 7</td><td>5</td><td>128</td><td>640 bits (80 bytes)</td></tr>\n<tr><td>Direct, 1 MB / 8 KB / 64 B</td><td>6</td><td>index 7</td><td>7</td><td>128</td><td>896 bits (112 bytes)</td></tr>\n<tr><td>Fully assoc, 256 KB / 4 KB / 32 B</td><td>5</td><td>none</td><td>13</td><td>128</td><td>1664 bits (208 bytes)</td></tr>\n<tr><td>Fully assoc, 2 MB / 16 KB / 64 B</td><td>6</td><td>none</td><td>15</td><td>256</td><td>3840 bits (480 bytes)</td></tr>\n<tr><td>4-way, 512 KB / 8 KB / 32 B</td><td>5</td><td>set 6</td><td>8</td><td>256</td><td>2048 bits (256 bytes)</td></tr>\n<tr><td>8-way, 4 MB / 32 KB / 64 B</td><td>6</td><td>set 6</td><td>10</td><td>512</td><td>5120 bits (640 bytes)</td></tr>\n</table>",
         "working": "",
         "answer": "The lines are set by cache over block; the tag directory grows as the\nmapping gets more associative, because dropping the index lengthens the tag on every line.",
-        "redo": ""
+        "redo": "",
+        "facts": [
+          "t11-014",
+          "t11-015",
+          "t11-021",
+          "t11-022",
+          "t11-028",
+          "t11-029"
+        ]
       },
       {
         "kind": "recall",

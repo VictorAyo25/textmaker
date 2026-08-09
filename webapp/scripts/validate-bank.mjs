@@ -320,6 +320,9 @@ const COURSES = [
     // must be taught by some lesson: a topic with questions and no lesson is a
     // hole a reader falls into.
     lessons: 'lessons.json',
+    // And every one of the 600 ledger facts must be taught by some lesson
+    // BLOCK, not merely have its topic mentioned. Armed once all 600 were.
+    teachesLedger: true,
   },
   {
     code: 'PHY121',
