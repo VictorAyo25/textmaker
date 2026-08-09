@@ -67,6 +67,12 @@ import pc02 from './phy121/close02.json';
 import pc03 from './phy121/close03.json';
 import pc04 from './phy121/close04.json';
 import pc05 from './phy121/close05.json';
+import pc01 from './phy121/close01.json';
+import pc07 from './phy121/close07.json';
+import pc08 from './phy121/close08.json';
+import pc09 from './phy121/close09.json';
+import pc10 from './phy121/close10.json';
+import pc11 from './phy121/close11.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -568,6 +574,12 @@ const phyQuestions: Question[] = [
   ...(pc03 as unknown as Question[]),
   ...(pc04 as unknown as Question[]),
   ...(pc05 as unknown as Question[]),
+  ...(pc01 as unknown as Question[]),
+  ...(pc07 as unknown as Question[]),
+  ...(pc08 as unknown as Question[]),
+  ...(pc09 as unknown as Question[]),
+  ...(pc10 as unknown as Question[]),
+  ...(pc11 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */
