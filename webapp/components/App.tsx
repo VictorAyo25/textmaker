@@ -14,6 +14,7 @@ import type {
   Question,
   Response,
 } from '@/lib/types';
+import Crumbs from './Crumbs';
 import Setup, { type StartArgs } from './Setup';
 import Runner from './Runner';
 import Review from './Review';
@@ -223,6 +224,15 @@ export default function App({
           All courses
         </Link>
       </header>
+
+      <Crumbs
+        trail={[{ label: course.code }]}
+        aside={
+          hasCrashCourse
+            ? { label: 'Crash course', href: `/${course.code.toLowerCase()}/learn` }
+            : undefined
+        }
+      />
 
       {stage === 'setup' && (
         <>

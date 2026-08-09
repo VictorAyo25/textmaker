@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { LessonCard } from '@/data/lessons';
-import { lessonProgressKey, readProgress, type ProgressMap } from '@/lib/progress';
+import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from '@/lib/progress';
 
 export default function LessonIndex({
   code,
@@ -16,6 +16,7 @@ export default function LessonIndex({
 
   useEffect(() => {
     setProgress(readProgress(lessonProgressKey(code)));
+    void pullProgress(lessonProgressKey(code)).then(setProgress);
   }, [code]);
 
   const doneCount = cards.filter((c) => progress[c.slug]?.done).length;

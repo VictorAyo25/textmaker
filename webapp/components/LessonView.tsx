@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { Course, Frame, Lesson, LessonBlock, Question } from '@/lib/types';
-import { lessonProgressKey, readProgress, writeProgress } from '@/lib/progress';
+import {
+  lessonProgressKey,
+  pullProgress,
+  pushProgress,
+  readProgress,
+  writeProgress,
+} from '@/lib/progress';
 import LessonDrill from '@/components/LessonDrill';
 
 /** Repository HTML lifted from the manual, never user input. */
@@ -294,13 +300,26 @@ export default function LessonView({
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const p = readProgress(key)[lesson.slug];
-    if (p) {
-      setReached(p.frames || 1);
-      setMarks(p.marks ?? {});
-      setDone(Boolean(p.done));
-    }
+    // Local first, so the lesson opens where you left it with no wait. Then the
+    // account's copy is folded in, which is what makes picking this up on
+    // another device work.
+    const apply = (map: ReturnType<typeof readProgress>) => {
+      const p = map[lesson.slug];
+      if (p) {
+        setReached((r) => Math.max(r, p.frames || 1));
+        setMarks((m) => ({ ...p.marks, ...m }));
+        setDone((d) => d || Boolean(p.done));
+      }
+    };
+    apply(readProgress(key));
     setLoaded(true);
+    let live = true;
+    void pullProgress(key).then((map) => {
+      if (live) apply(map);
+    });
+    return () => {
+      live = false;
+    };
   }, [key, lesson.slug]);
 
   const save = useCallback(
@@ -309,6 +328,7 @@ export default function LessonView({
       const all = readProgress(key);
       all[lesson.slug] = { ...(all[lesson.slug] ?? {}), ...patch };
       writeProgress(key, all);
+      pushProgress(key, all);
     },
     [key, lesson.slug, loaded]
   );
@@ -337,12 +357,8 @@ export default function LessonView({
 
   return (
     <>
-      <div className="crumbs">
-        <Link href={`/${code.toLowerCase()}/learn`}>Crash course</Link>
-        <span>/</span>
-        <span>{lesson.title}</span>
-      </div>
-
+      {/* The trail lives in the page's own Crumbs now, which also carries a
+          route home; this used to be a partial one that only went up a level. */}
       <div className="card lessonhead">
         <span className="kick">{lesson.kick}</span>
         <h1>{lesson.title}</h1>

@@ -6,6 +6,7 @@ import { lessonBySlug, lessonsFor } from '@/data/lessons';
 import LessonView from '@/components/LessonView';
 import type { Question } from '@/lib/types';
 import { drillQuestions } from '@/lib/lessondrill';
+import Crumbs from '@/components/Crumbs';
 
 export function generateStaticParams() {
   return COURSES.flatMap((c) =>
@@ -66,6 +67,14 @@ export default async function Page({
           All lessons
         </Link>
       </header>
+      <Crumbs
+        trail={[
+          { label: found.code, href: `/${found.code.toLowerCase()}` },
+          { label: 'Crash course', href: `/${found.code.toLowerCase()}/learn` },
+          { label: `${idx + 1}. ${lesson.title}` },
+        ]}
+        aside={{ label: 'The drill', href: `/${found.code.toLowerCase()}` }}
+      />
       <LessonView
         code={found.code}
         lesson={lesson}

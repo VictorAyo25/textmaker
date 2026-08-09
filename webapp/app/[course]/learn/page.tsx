@@ -5,6 +5,7 @@ import { COURSES, findCourse } from '@/data/courses';
 import { courseHasCrashCourse, lessonCards } from '@/data/lessons';
 import LessonIndex from '@/components/LessonIndex';
 import StudyPlan from '@/components/StudyPlan';
+import Crumbs from '@/components/Crumbs';
 
 // Only courses that actually have a crash course get a route. The others 404,
 // which is what the platform already claims by hiding every link to it.
@@ -47,6 +48,13 @@ export default async function Page({
           The drill
         </Link>
       </header>
+      <Crumbs
+        trail={[
+          { label: found.code, href: `/${found.code.toLowerCase()}` },
+          { label: 'Crash course' },
+        ]}
+        aside={{ label: 'The drill', href: `/${found.code.toLowerCase()}` }}
+      />
       {found.plan && (
         <StudyPlan
           code={found.code}

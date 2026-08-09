@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { ExamSlot, StudySession } from '@/lib/types';
 import type { LessonCard } from '@/data/lessons';
 import { countdown, longDate } from '@/data/timetable';
-import { lessonProgressKey, readProgress, type ProgressMap } from '@/lib/progress';
+import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from '@/lib/progress';
 
 /**
  * The crash course as a dated timetable rather than a pile of lessons.
@@ -35,6 +35,7 @@ export default function StudyPlan({
     ).padStart(2, '0')}`;
     setToday(iso);
     setProgress(readProgress(lessonProgressKey(code)));
+    void pullProgress(lessonProgressKey(code)).then(setProgress);
   }, [code]);
 
   const byslug = new Map(cards.map((c) => [c.slug, c]));
