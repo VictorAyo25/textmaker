@@ -1668,6 +1668,33 @@ p.gloss {
   color: var(--gold);
 }
 .keypoint p { margin: 0; font-weight: 600; }
+/* A displayed equation: its own line, centred, and bigger than the prose.
+   An equation buried mid-sentence is read as words and skimmed. Set apart, it
+   is read as a step and worked. This is the single biggest readability gap
+   between a wall of working and a solution someone can follow. */
+.eqn {
+  display: block;
+  margin: 10px 0;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+/* The values a step is about to substitute, listed before the arithmetic. */
+.vals {
+  margin: 6px 0 10px;
+  padding-left: 18px;
+  list-style: none;
+}
+.vals li { margin: 2px 0; }
+/* Literal bullet, not an escape: 2 without a trailing delimiter is
+   ambiguous to the CSS parser and rendered as a box followed by a 2. */
+.vals li::before { content: '•'; margin-right: 8px; color: var(--muted); }
+@media print { .eqn { background: none; border: 1px solid #ddd; } }
+
 @media print {
   .keypoint { break-inside: avoid; page-break-inside: avoid; }
 }
