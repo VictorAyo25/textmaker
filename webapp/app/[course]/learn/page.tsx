@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { COURSES, findCourse } from '@/data/courses';
 import { courseHasCrashCourse, lessonCards } from '@/data/lessons';
 import LessonIndex from '@/components/LessonIndex';
+import StudyPlan from '@/components/StudyPlan';
 
 // Only courses that actually have a crash course get a route. The others 404,
 // which is what the platform already claims by hiding every link to it.
@@ -46,6 +47,14 @@ export default async function Page({
           The drill
         </Link>
       </header>
+      {found.plan && (
+        <StudyPlan
+          code={found.code}
+          plan={found.plan}
+          exam={found.exam}
+          cards={cards}
+        />
+      )}
       <LessonIndex code={found.code} cards={cards} />
     </main>
   );

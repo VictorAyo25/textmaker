@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { COURSES, findCourse } from '@/data/courses';
 import { lessonBySlug, lessonsFor } from '@/data/lessons';
 import LessonView from '@/components/LessonView';
+import type { Question } from '@/lib/types';
+import { drillQuestions } from '@/lib/lessondrill';
 
 export function generateStaticParams() {
   return COURSES.flatMap((c) =>
@@ -44,6 +46,13 @@ export default async function Page({
     moduleCounts[m] = found.questions.filter((q) => q.module === m).length;
   }
 
+  // Each drill block's questions are selected here, on the server, so the page
+  // ships only the questions this lesson actually asks rather than the bank.
+  const drills: Record<number, Question[]> = {};
+  lesson.blocks.forEach((b, i) => {
+    if (b.kind === 'drill') drills[i] = drillQuestions(found, lesson, b);
+  });
+
   const brief = (i: number) =>
     lessons[i] ? { slug: lessons[i].slug, title: lessons[i].title } : null;
 
@@ -64,6 +73,8 @@ export default async function Page({
         moduleCounts={moduleCounts}
         prev={brief(idx - 1)}
         next={brief(idx + 1)}
+        course={{ ...found, questions: [] }}
+        drills={drills}
         position={idx + 1}
         total={lessons.length}
       />

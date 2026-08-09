@@ -1,0 +1,68 @@
+[
+  { "id": "phy-s3-01", "module": 3, "slides": ["Ref R.1"], "style": "mcq", "difficulty": "medium", "facets": ["numbers"], "topic": "flux at an angle",
+    "prompt": "A field of 200 N/C crosses an area of 2 square metres at 60 degrees to the normal. What is the flux?",
+    "options": [
+      { "id": "a", "text": "200 N m^2/C" },
+      { "id": "b", "text": "400 N m^2/C" },
+      { "id": "c", "text": "346 N m^2/C" },
+      { "id": "d", "text": "0 N m^2/C" },
+      { "id": "e", "text": "100 N m^2/C" }
+    ],
+    "answer": "a",
+    "explanation": "Phi = EA cos theta = 200 x 2 x cos 60 = 200 x 2 x 0.5 = 200 N m squared per C. Test 1 question 5 is this same setup at 0 degrees, where cos 0 = 1 and the answer is the full 400. Tilting to 60 degrees halves it, because cos 60 is exactly 0.5.",
+    "why": {
+      "a": "Correct. Half of the 400 you would get face on.",
+      "b": "Wrong. 400 is the answer at 0 degrees, with the surface square to the field.",
+      "c": "Wrong. 346 uses SIN 60, not cos, which is the angle-from-the-surface error.",
+      "d": "Wrong. Zero needs 90 degrees, with the field skimming along the surface.",
+      "e": "Wrong. This halves it twice over."
+    },
+    "facts": ["r-017"] },
+
+  { "id": "phy-s3-02", "module": 3, "slides": ["Ref R.1", "Ref R.2"], "style": "tf", "difficulty": "medium", "facets": ["wording"], "topic": "Gauss and external charge",
+    "prompt": "A charge sitting outside a closed surface contributes nothing to the net flux through it.",
+    "answer": "true",
+    "explanation": "True. Every field line an external charge sends into the surface comes out again somewhere else, so the ins and outs cancel exactly. Gauss's law counts only ENCLOSED charge, which is what makes it useful: you can ignore everything outside the surface you drew.",
+    "why": { "true": "Correct. What goes in comes out, so the net contribution is zero.", "false": "Wrong. Its field certainly passes THROUGH the surface, but it enters and leaves in equal measure." },
+    "facts": ["r-018", "r-115"] },
+
+  { "id": "phy-s3-03", "module": 3, "slides": ["Ref R.1"], "style": "gap", "difficulty": "medium", "facets": ["numbers"], "topic": "the line charge",
+    "prompt": "The field of an infinite line charge is E = lambda over 2 pi epsilon-nought r, which falls as 1 over r to the power {{1}}.",
+    "blanks": [{ "accept": ["1", "one"], "choices": ["1", "2", "3", "0"], "format": "number" }],
+    "explanation": "One. A line spreads its field over a cylinder whose area grows in proportion to r, so the field falls as 1/r, more slowly than a point charge's 1/r squared. The magnetic field of a straight wire falls the same way and for the same geometric reason.",
+    "facts": ["r-019", "r-081"] },
+
+  { "id": "phy-s3-04", "module": 3, "slides": ["Ref R.1"], "style": "tf", "difficulty": "hard", "facets": ["numbers"], "topic": "the plane sheet",
+    "prompt": "The field of an infinite charged plane sheet, E = sigma over 2 epsilon-nought, is the same however far from the sheet you stand.",
+    "answer": "true",
+    "explanation": "True, and it is genuinely surprising. There is no r in the formula at all. The reason is geometric: a point spreads its field over a growing sphere and a line over a growing cylinder, but an infinite plane does not spread it at all, so moving away gains you nothing. It is what makes the uniform field between capacitor plates possible.",
+    "why": { "true": "Correct. No r appears in the formula, so distance does not enter.", "false": "Wrong. Look at the formula: sigma and epsilon-nought are the only quantities in it." },
+    "facts": ["r-020"] },
+
+  { "id": "phy-s3-05", "module": 3, "slides": ["Ref R.1", "Ref R.2"], "style": "mcq", "difficulty": "medium", "facets": ["wording"], "topic": "the Faraday cage",
+    "prompt": "Why is the electric field zero inside a hollow conductor?",
+    "options": [
+      { "id": "a", "text": "Because no charge is enclosed, so by Gauss's law there is no flux and no field" },
+      { "id": "b", "text": "Because the metal absorbs the field" },
+      { "id": "c", "text": "Because conductors carry no charge at all" },
+      { "id": "d", "text": "Because the field is cancelled by the earth" },
+      { "id": "e", "text": "Because air inside is an insulator" }
+    ],
+    "answer": "a",
+    "explanation": "Charge on a conductor sits on its OUTER surface, so any Gaussian surface drawn inside encloses nothing, and Gauss's law then forces the field to zero. That is the Faraday cage: it is why a car protects you from lightning and why sensitive electronics are wrapped in metal.",
+    "why": {
+      "a": "Correct, and it is a consequence of Gauss's law rather than a separate rule.",
+      "b": "Wrong. Nothing is absorbed; the charges rearrange until the interior field cancels.",
+      "c": "Wrong. A charged conductor carries plenty; it just keeps it on the surface.",
+      "d": "Wrong. It works whether or not the conductor is earthed.",
+      "e": "Wrong. The effect is the same with a vacuum inside."
+    },
+    "facts": ["r-021", "r-116"] },
+
+  { "id": "phy-s3-06", "module": 3, "slides": ["Ref R.4"], "style": "tf", "difficulty": "easy", "facets": ["names"], "topic": "the Gaussian surface",
+    "prompt": "A Gaussian surface is a real physical shell that must be built around the charge before Gauss's law can be applied.",
+    "answer": "false",
+    "explanation": "It is IMAGINARY, a mathematical surface you draw on the diagram and choose to suit the symmetry: a sphere around a point charge, a cylinder around a line. Nothing is constructed. The Amperian loop in magnetism is the same idea, and both are chosen purely to make the algebra come out.",
+    "why": { "true": "Wrong. It is a construction on paper, not an object.", "false": "Correct. Imaginary, and chosen for convenience." },
+    "facts": ["r-171", "r-161"] }
+]

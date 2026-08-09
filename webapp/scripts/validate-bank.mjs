@@ -310,6 +310,12 @@ const COURSES = [
     ],
     key: IFT_KEY,
     ledger: 'ledger',
+    // The crash course split into dated sittings, checked against the week.
+    plan: 'plan.json',
+    // Every question the examiner set must be asked inside the lesson that
+    // teaches it, so the crash course stands on its own.
+    selfSufficient: true,
+    examTagPrefixes: ['Test 1 Q', 'Test 2 Q'],
     // The crash course, converted by scripts/import-crash.mjs. Every drill topic
     // must be taught by some lesson: a topic with questions and no lesson is a
     // hole a reader falls into.
@@ -355,9 +361,26 @@ const COURSES = [
       },
     ],
     key: PHY_KEY,
+    // The ledger of the manual's reference sheet: 122 facts, 113 of them hard.
+    // Armed once every one of them was tested, so it now holds the line.
+    ledger: 'ledger',
+    // The 30 computer-based-test questions are transcriptions, not derivations,
+    // so they are exempt: their provenance is the paper itself.
+    requireFacts: 'non-exam',
     // Every drill topic must be taught by some lesson: a topic with questions
     // and no lesson is a hole a reader falls into.
     lessons: 'lessons.json',
+    // The crash course split into dated sittings, checked against the week.
+    plan: 'plan.json',
+    // Every question the examiner set must be asked inside the lesson that
+    // teaches it, so the crash course stands on its own.
+    selfSufficient: true,
+    examTagPrefixes: ['Test 1 Q', 'Test 2 Q'],
+    // And every fact the drill tests must be taught by some lesson BLOCK. The
+    // topic-level check passed while Kirchhoff's laws, the dividers, the
+    // dividers' traps, equipotentials and the plane wave were never taught at
+    // all. This is what closes that.
+    teachesLedger: true,
   },
   {
     code: 'ENT221',
@@ -678,11 +701,12 @@ function validate(q, where, cfg, seenIds) {
  * never given the answer to, and that every drill topic is actually taught by
  * some lesson.
  */
-function checkLessons(cfg, dir, bankModules) {
+function checkLessons(cfg, dir, bankModules, ledger, all) {
   const path = join(dir, cfg.lessons);
   const lessons = JSON.parse(readFileSync(path, 'utf8'));
   const slugs = new Set();
   const taught = new Set();
+  const taughtFacts = new Set();
   let frames = 0;
   let recalls = 0;
   let worked = 0;
@@ -707,6 +731,22 @@ function checkLessons(cfg, dir, bankModules) {
 
     for (const [i, b] of (l.blocks ?? []).entries()) {
       const where = `${at} block ${i} (${b.kind})`;
+
+      // A block may declare the ledger facts it TEACHES, the mirror of the
+      // facts a question declares it TESTS. Same discipline, opposite side.
+      for (const id of b.facts ?? []) {
+        const fact = ledger?.get(id);
+        if (!fact) {
+          problems.push(`${where}: teaches fact ${id}, which is not in the ledger`);
+          continue;
+        }
+        check(
+          (l.modules ?? []).includes(fact.topic),
+          `${where}: teaches fact ${id}, which belongs to topic ${fact.topic}, but this lesson covers topic ${(l.modules ?? []).join(', ') || 'nothing'}`
+        );
+        taughtFacts.add(id);
+      }
+
       if (b.kind === 'frames') {
         check((b.frames ?? []).length >= 2, `${where}: fewer than 2 frames`);
         frames += (b.frames ?? []).length;
@@ -751,6 +791,112 @@ function checkLessons(cfg, dir, bankModules) {
     }
   }
 
+  // The crash course must be SELF-SUFFICIENT: every question the examiner
+  // actually set is asked inside the lesson that teaches it, and asked once.
+  // A lesson that teaches a skill and then sends the reader elsewhere to be
+  // tested on it is a lesson the reader finishes without ever being tested.
+  if (cfg.selfSufficient) {
+    const examQs = all.filter((q) =>
+      (q.slides ?? []).some((s) => cfg.examTagPrefixes.some((t) => s.startsWith(t)))
+    );
+    const asked = new Map();
+    for (const l of lessons) {
+      for (const [i, b] of (l.blocks ?? []).entries()) {
+        if (b.kind !== 'drill') continue;
+        const where = `${cfg.code} lesson [${l.slug}] block ${i} (drill)`;
+        check(['exam', 'all'].includes(b.pick), `${where}: pick must be 'exam' or 'all'`);
+        check((b.label ?? '').length > 10, `${where}: label missing or too thin`);
+        const topics = b.topics ?? l.modules ?? [];
+        for (const t of topics)
+          check(
+            (l.modules ?? []).includes(t),
+            `${where}: drills topic ${t}, which this lesson does not teach`
+          );
+        const picked = examQs.filter(
+          (q) => topics.includes(q.module) || (b.ids ?? []).includes(q.id)
+        );
+        check(picked.length > 0, `${where}: asks no questions at all`);
+        for (const q of picked) {
+          if (asked.has(q.id))
+            problems.push(
+              `${cfg.code}: question ${q.id} is asked by two lessons, ${asked.get(q.id)} and ${l.slug}`
+            );
+          else asked.set(q.id, l.slug);
+        }
+      }
+    }
+    const never = examQs.filter((q) => !asked.has(q.id));
+    console.log(
+      `    ${never.length ? 'x' : '.'} crash course asks: ${asked.size} of ${
+        examQs.length
+      } questions the examiner set, each in the lesson that teaches it${
+        never.length ? `, ${never.length} asked nowhere` : ''
+      }`
+    );
+    for (const q of never.slice(0, 20))
+      problems.push(
+        `${cfg.code}: ${q.id} (topic ${q.module}, ${q.slides[0]}) is an exam question no lesson asks`
+      );
+  }
+
+  // The dated reading plan. A plan that has drifted from the lessons is worse
+  // than no plan: it sends a reader who is short of time to a lesson that does
+  // not exist, or quietly drops one they needed.
+  if (cfg.plan) {
+    const plan = JSON.parse(readFileSync(join(dir, cfg.plan), 'utf8'));
+    // The paper's date comes from data/timetable.ts, the single place the week
+    // is written down, so a plan can never outlive a rescheduled exam.
+    const timetable = readFileSync(join(dir, '..', 'timetable.ts'), 'utf8');
+    const exam = timetable
+      .match(/code:\s*'([A-Z]{3}\d{3})',[\s\S]{0,200}?at:\s*'([0-9T:-]+)'/g)
+      ?.map((m) => m.match(/code:\s*'([A-Z]{3}\d{3})'[\s\S]*at:\s*'([0-9T:-]+)'/))
+      ?.find((m) => m?.[1] === cfg.code)?.[2];
+    check(
+      Boolean(exam),
+      `${cfg.code}: carries a reading plan but the timetable has no paper for it`
+    );
+    const slugs = new Set(lessons.map((l) => l.slug));
+    const scheduled = plan.flatMap((s) => s.lessons);
+    const seen = new Set();
+
+    for (const slug of scheduled) {
+      check(slugs.has(slug), `${cfg.code} plan: schedules "${slug}", which is not a lesson`);
+      check(!seen.has(slug), `${cfg.code} plan: schedules "${slug}" more than once`);
+      seen.add(slug);
+    }
+    const unscheduled = [...slugs].filter((s) => !seen.has(s));
+    check(
+      unscheduled.length === 0,
+      `${cfg.code} plan: ${unscheduled.length} lesson(s) are in no sitting: ${unscheduled.join(', ')}`
+    );
+
+    let previous = '';
+    for (const s of plan) {
+      check(
+        /^\d{4}-\d{2}-\d{2}$/.test(s.date ?? ''),
+        `${cfg.code} plan: bad date ${JSON.stringify(s.date)}`
+      );
+      check(
+        s.date >= previous,
+        `${cfg.code} plan: ${s.date} comes after ${previous}, so the sittings are out of order`
+      );
+      previous = s.date;
+      check((s.goal ?? '').length > 20, `${cfg.code} plan ${s.date}: goal missing or too thin`);
+      check(Boolean(s.window), `${cfg.code} plan ${s.date}: no time window`);
+      check((s.lessons ?? []).length > 0, `${cfg.code} plan ${s.date}: schedules nothing`);
+      if (exam)
+        check(
+          s.date <= exam.slice(0, 10),
+          `${cfg.code} plan: a sitting on ${s.date} falls after the paper on ${exam.slice(0, 10)}`
+        );
+    }
+    console.log(
+      `    . reading plan: ${plan.length} dated sittings cover all ${slugs.size} lessons${
+        exam ? `, none after the paper on ${exam.slice(0, 10)}` : ''
+      }`
+    );
+  }
+
   const untaught = [...bankModules].filter((m) => !taught.has(m)).sort((a, b) => a - b);
   console.log(
     `    ${untaught.length ? 'x' : '.'} crash course: ${lessons.length} lessons, ${frames} frames, ${worked} worked, ${recalls} recalls, ${
@@ -761,6 +907,29 @@ function checkLessons(cfg, dir, bankModules) {
     untaught.length === 0,
     `${cfg.code}: topics ${untaught.join(', ')} have questions but no lesson teaches them`
   );
+
+  // "Every topic is taught" is a weak claim: a lesson that mentions topic 5
+  // satisfies it while saying nothing about Kirchhoff's laws. This is the real
+  // one. Anything the drill TESTS, the crash course must TEACH, fact by fact,
+  // or a reader who works through every lesson still meets questions on
+  // material they were never shown.
+  if (cfg.teachesLedger && ledger) {
+    const drilled = [...ledger.values()].filter((f) => f.tested);
+    const missing = drilled.filter((f) => !taughtFacts.has(f.id));
+    console.log(
+      `    ${missing.length ? 'x' : '.'} crash course teaches: ${
+        drilled.length - missing.length
+      } of ${drilled.length} drilled facts${
+        missing.length ? `, ${missing.length} never taught` : ', none left untaught'
+      }`
+    );
+    for (const f of missing.slice(0, 40))
+      problems.push(
+        `${cfg.code}: fact ${f.id} (topic ${f.topic}) is drilled but no lesson teaches it: "${f.fact.slice(0, 70)}"`
+      );
+    if (missing.length > 40)
+      problems.push(`${cfg.code}: ...and ${missing.length - 40} more facts drilled but never taught`);
+  }
 }
 
 /**
@@ -863,6 +1032,11 @@ function checkLedger(cfg, dir, all) {
       `${cfg.code}: ${thin.length} hard ledger facts are asked in only one style`
     );
   }
+
+  // Handed to checkLessons, which asks the opposite question: of everything the
+  // drill tests, what does the crash course never teach?
+  for (const f of facts) f.tested = styles.has(f.id);
+  return byId;
 }
 
 /**
@@ -913,7 +1087,7 @@ for (const cfg of COURSES) {
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck|slides|close)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => /^(module|deck|slides|close|second)\d+[a-z]?\.json$/.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);
@@ -1083,9 +1257,10 @@ for (const cfg of COURSES) {
     );
   }
 
-  if (cfg.ledger) checkLedger(cfg, dir, all);
+  const ledger = cfg.ledger ? checkLedger(cfg, dir, all) : null;
 
-  if (cfg.lessons) checkLessons(cfg, dir, new Set(Object.keys(perModule).map(Number)));
+  if (cfg.lessons)
+    checkLessons(cfg, dir, new Set(Object.keys(perModule).map(Number)), ledger, all);
 
   if (cfg.requireWhy) {
     // Only the styles that present options can carry per-option verdicts; a

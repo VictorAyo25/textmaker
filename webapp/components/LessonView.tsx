@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import type { Frame, Lesson, LessonBlock } from '@/lib/types';
+import type { Course, Frame, Lesson, LessonBlock, Question } from '@/lib/types';
 import { lessonProgressKey, readProgress, writeProgress } from '@/lib/progress';
+import LessonDrill from '@/components/LessonDrill';
 
 /** Repository HTML lifted from the manual, never user input. */
 function Html({ html, className }: { html: string; className?: string }) {
@@ -184,6 +185,8 @@ function Block({
   onReach,
   marks,
   onMark,
+  course,
+  drills,
 }: {
   block: LessonBlock;
   idx: number;
@@ -191,6 +194,8 @@ function Block({
   onReach: (n: number) => void;
   marks: Record<string, 'right' | 'wrong'>;
   onMark: (key: string, m: 'right' | 'wrong') => void;
+  course: Course;
+  drills: Record<number, Question[]>;
 }) {
   switch (block.kind) {
     case 'frames':
@@ -240,6 +245,15 @@ function Block({
       );
     case 'heading':
       return <h2 className="lheading">{block.text}</h2>;
+    case 'drill':
+      return (
+        <LessonDrill
+          course={course}
+          questions={drills[idx] ?? []}
+          label={block.label}
+          tag={block.tag}
+        />
+      );
     default:
       return <Html className="lprose" html={block.html} />;
   }
@@ -255,6 +269,10 @@ interface Props {
   /** Which lesson this is, and how many there are, so "Next" has a context. */
   position: number;
   total: number;
+  /** The course, with its bank stripped: the drill blocks carry their own. */
+  course: Course;
+  /** Questions for each drill block, selected on the server by block index. */
+  drills: Record<number, Question[]>;
 }
 
 export default function LessonView({
@@ -266,6 +284,8 @@ export default function LessonView({
   next,
   position,
   total,
+  course,
+  drills,
 }: Props) {
   const key = lessonProgressKey(code);
   const [reached, setReached] = useState(1);
@@ -351,6 +371,8 @@ export default function LessonView({
             onReach={onReach}
             marks={marks}
             onMark={onMark}
+            course={course}
+            drills={drills}
           />
         ))}
       </div>

@@ -1704,6 +1704,105 @@ p.gloss {
   color: var(--muted);
 }
 
+/* ---- the exam timetable and the dated reading plan ----
+   A reader who is short of time should never have to work out what to do
+   tonight. Both of these answer that question before anything else on the
+   page does, so they lead with a date and carry a countdown. */
+.timetable .tday { margin-top: 16px; }
+.timetable .tday.past { opacity: 0.45; }
+.timetable h3 {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cdown {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+.examrow.flat { cursor: default; }
+.examrow.next { border-color: var(--gold); }
+
+.plan .examline {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sitting {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.sitting.past { opacity: 0.5; }
+.sitting.now { border-color: var(--gold); }
+.sitting.alldone { opacity: 0.6; }
+.sitting header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.sitting .when { font-weight: 700; }
+.sitting .win,
+.sitting .mins { font-size: 0.82rem; color: var(--muted); }
+.sitting .tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 1px 8px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}
+.sitting .tag.ok { border-color: var(--muted); color: var(--muted); }
+.sitting .goal { margin: 4px 0 10px; font-size: 0.88rem; color: var(--muted); }
+.sitlist { list-style: none; margin: 0; padding: 0; }
+.sitlist li { margin: 0; }
+.sitlist a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 2px;
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid var(--line);
+}
+.sitlist li:first-child a { border-top: none; }
+.sitlist a:hover { color: var(--gold); }
+.sitlist .t { flex: 1; font-size: 0.9rem; }
+.sitlist .stat { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.drillline { margin: 10px 0 0; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .sitting { padding: 10px; }
+  .sitting header { gap: 6px; }
+}
+
+
+/* ---- the examiner questions, asked inside the lesson ---- */
+.lessondrill { margin: 26px 0; }
+.ldq { padding: 16px 0; border-top: 1px solid var(--line); }
+.ldq:first-of-type { border-top: none; }
+.ldnum { margin: 0 0 6px; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.ldsrc { margin-left: 10px; color: var(--gold); }
+.ldprompt { margin: 0 0 12px; font-weight: 600; font-size: 0.97rem; }
+
 @media print { .eqn { background: none; border: 1px solid #ddd; } }
 
 @media print {

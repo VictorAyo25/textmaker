@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Course } from '@/lib/types';
 import { COURSES } from '@/data/courses';
 import { lessonCards } from '@/data/lessons';
+import Timetable from '@/components/Timetable';
 
 // The landing page. A plain server component: it lists every registered course
 // and links into its drill. Registering a course in data/courses.ts is enough
@@ -52,6 +53,8 @@ export default function Page() {
           the reason the right answer is right and the reason each other option is not.
         </span>
       </header>
+
+      <Timetable onDrill={COURSES.filter((c) => c.plan).map((c) => c.code)} />
 
       <div className="card">
         <h2>Your courses</h2>

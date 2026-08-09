@@ -170,6 +170,25 @@ export type LessonBlock =
   | { kind: 'rules' | 'trap' | 'teach'; label: string; tag: string; html: string }
   | { kind: 'prose'; html: string }
   | { kind: 'heading'; text: string }
+  /**
+   * The examiner's own questions on this lesson's topics, asked inside the
+   * lesson. `pick` decides what is drawn from the course bank:
+   *   'exam' - every question whose provenance is one of the course's examTags
+   *   'all'  - every question in the lesson's topics, exam-set or authored
+   * The questions themselves are never copied here; they are selected from the
+   * one bank at render time, so a correction cannot reach one and miss the
+   * other. `ids` adds questions that fall outside this lesson's topics.
+   */
+  | {
+      kind: 'drill';
+      label: string;
+      tag: string;
+      pick: 'exam' | 'all';
+      /** Topics to draw from. Defaults to the lesson's own. Given explicitly
+       *  where lessons share a topic, so no question is asked twice. */
+      topics?: number[];
+      ids?: string[];
+    }
   | { kind: 'lockin'; big: string; sub: string };
 
 export interface Lesson {
@@ -217,6 +236,40 @@ export interface Course {
    * never bundled with the drill.
    */
   hasLedger?: boolean;
+  /** When this paper is actually sat. Drives the countdown and the plan. */
+  exam?: ExamSlot;
+  /**
+   * The crash course split into dated sittings, so a reader never has to decide
+   * what to read tonight. Every lesson belongs to exactly one session and no
+   * session falls after the paper: the bank gate enforces both.
+   */
+  plan?: StudySession[];
+}
+
+/** One paper on the timetable, whether or not the course is on the drill. */
+export interface ExamSlot {
+  code: string;
+  title: string;
+  /** Local date and time the paper starts, as 'YYYY-MM-DDTHH:mm'. */
+  at: string;
+  /** The window exactly as the timetable prints it. */
+  window: string;
+  /** Where the material lives when the course is not on the drill. */
+  studyWith?: string;
+}
+
+/** One dated sitting of the crash course. */
+export interface StudySession {
+  /** 'YYYY-MM-DD'. */
+  date: string;
+  /** When in that day, and what it is squeezed between. */
+  window: string;
+  /** What this sitting buys you, in one line. */
+  goal: string;
+  /** Lesson slugs, in reading order. */
+  lessons: string[];
+  /** What to drill once the reading is done, if anything. */
+  drill?: string;
 }
 
 // ---- what the setup screen produces ----

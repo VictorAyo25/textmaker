@@ -1,4 +1,7 @@
-import type { Course, FacetGuide, Paper, Question } from '@/lib/types';
+import type { Course, FacetGuide, Paper, Question, StudySession } from '@/lib/types';
+import { EXAMS } from './timetable';
+import iftPlan from './ift222/plan.json';
+import phyPlan from './phy121/plan.json';
 
 import m1 from './tmc221/module1.json';
 import m2 from './tmc221/module2.json';
@@ -73,6 +76,17 @@ import pc08 from './phy121/close08.json';
 import pc09 from './phy121/close09.json';
 import pc10 from './phy121/close10.json';
 import pc11 from './phy121/close11.json';
+import pn01 from './phy121/second01.json';
+import pn02 from './phy121/second02.json';
+import pn03 from './phy121/second03.json';
+import pn05 from './phy121/second05.json';
+import pn04 from './phy121/second04.json';
+import pn06 from './phy121/second06.json';
+import pn07 from './phy121/second07.json';
+import pn08 from './phy121/second08.json';
+import pn09 from './phy121/second09.json';
+import pn10 from './phy121/second10.json';
+import pn11 from './phy121/second11.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -339,6 +353,10 @@ const ift222: Course = {
   // rebuild them; the rest of the bank comes from the eight lecture decks.
   examTags: ['Test 1 Q', 'Test 2 Q'],
   hasLedger: true,
+  exam: EXAMS.find((e) => e.code === 'IFT222'),
+  // The dated sittings live in data/ift222/plan.json so the bank gate reads
+  // the same file the app does, and neither can drift from the other.
+  plan: iftPlan as unknown as StudySession[],
   papers: [
     objectiveTest(
       'Test 1',
@@ -580,6 +598,17 @@ const phyQuestions: Question[] = [
   ...(pc09 as unknown as Question[]),
   ...(pc10 as unknown as Question[]),
   ...(pc11 as unknown as Question[]),
+  ...(pn01 as unknown as Question[]),
+  ...(pn02 as unknown as Question[]),
+  ...(pn03 as unknown as Question[]),
+  ...(pn05 as unknown as Question[]),
+  ...(pn04 as unknown as Question[]),
+  ...(pn06 as unknown as Question[]),
+  ...(pn07 as unknown as Question[]),
+  ...(pn08 as unknown as Question[]),
+  ...(pn09 as unknown as Question[]),
+  ...(pn10 as unknown as Question[]),
+  ...(pn11 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */
@@ -628,6 +657,10 @@ const phy121: Course = {
   ],
   questions: phyQuestions,
   examTags: ['Test 1 Q', 'Test 2 Q'],
+  hasLedger: true,
+  exam: EXAMS.find((e) => e.code === 'PHY121'),
+  // As above: the sittings are data, in data/phy121/plan.json.
+  plan: phyPlan as unknown as StudySession[],
   papers: [
     phyPaper(
       'Test 1',
