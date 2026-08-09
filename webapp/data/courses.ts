@@ -55,6 +55,14 @@ import pd6 from './phy121/deck6.json';
 import pd7 from './phy121/deck7.json';
 import pd8 from './phy121/deck8.json';
 import pd9 from './phy121/deck9.json';
+import ps01 from './phy121/slides01.json';
+import ps04 from './phy121/slides04.json';
+import ps05 from './phy121/slides05.json';
+import ps06 from './phy121/slides06.json';
+import ps07 from './phy121/slides07.json';
+import ps08 from './phy121/slides08.json';
+import ps09 from './phy121/slides09.json';
+import ps11 from './phy121/slides11.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -544,6 +552,14 @@ const phyQuestions: Question[] = [
   ...(pd7 as unknown as Question[]),
   ...(pd8 as unknown as Question[]),
   ...(pd9 as unknown as Question[]),
+  ...(ps01 as unknown as Question[]),
+  ...(ps04 as unknown as Question[]),
+  ...(ps05 as unknown as Question[]),
+  ...(ps06 as unknown as Question[]),
+  ...(ps07 as unknown as Question[]),
+  ...(ps08 as unknown as Question[]),
+  ...(ps09 as unknown as Question[]),
+  ...(ps11 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */
@@ -583,6 +599,12 @@ const phy121: Course = {
     { number: 8, title: 'Sources of Magnetic Fields', blurb: 'Ampere and symmetry, Biot-Savart and the inverse square, turns per metre in a solenoid, and the long straight wire.' },
     { number: 9, title: 'Electromagnetic Induction', blurb: 'Energy stored in an inductor, and why it is changing FLUX that induces an emf.' },
     { number: 10, title: 'Transformers', blurb: 'Efficiency as output over input, and the turns ratio as a step up or a step down.' },
+    {
+      number: 11,
+      title: "Maxwell's Equations and Electromagnetic Waves",
+      blurb:
+        'The wave equation Maxwell found, and the moment two laboratory constants gave the speed of light exactly. E = cB, c = f lambda, intensity and the Poynting vector.',
+    },
   ],
   questions: phyQuestions,
   examTags: ['Test 1 Q', 'Test 2 Q'],
