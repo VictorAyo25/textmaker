@@ -65,6 +65,8 @@ import ps09 from './phy121/slides09.json';
 import ps11 from './phy121/slides11.json';
 import pc02 from './phy121/close02.json';
 import pc03 from './phy121/close03.json';
+import pc04 from './phy121/close04.json';
+import pc05 from './phy121/close05.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -564,6 +566,8 @@ const phyQuestions: Question[] = [
   ...(ps11 as unknown as Question[]),
   ...(pc02 as unknown as Question[]),
   ...(pc03 as unknown as Question[]),
+  ...(pc04 as unknown as Question[]),
+  ...(pc05 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */
