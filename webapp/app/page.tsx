@@ -3,6 +3,9 @@ import type { Course } from '@/lib/types';
 import { COURSES } from '@/data/courses';
 import { lessonCards } from '@/data/lessons';
 import Timetable from '@/components/Timetable';
+import Providers from '@/components/Providers';
+import AuthBar from '@/components/AuthBar';
+import { authEnabled } from '@/lib/auth';
 
 // The landing page. A plain server component: it lists every registered course
 // and links into its drill. Registering a course in data/courses.ts is enough
@@ -54,6 +57,17 @@ export default function Page() {
         </span>
       </header>
 
+      {/* Sign-in used to live only inside a course, which was fine when one
+          person used one laptop. Anyone arriving at the platform should be able
+          to sign in before choosing a course, so their progress is carried from
+          the first lesson they read rather than from whenever they happened to
+          find the control. */}
+      <Providers>
+        <div className="authbar landingauth">
+          <AuthBar authEnabled={authEnabled} />
+        </div>
+      </Providers>
+
       <Timetable onDrill={COURSES.filter((c) => c.plan).map((c) => c.code)} />
 
       <div className="card">
@@ -80,8 +94,8 @@ export default function Page() {
       )}
 
       <p className="note">
-        Results are kept in this browser. Sign in inside a course to carry them between
-        devices.
+        Sign in above to carry your results, and your place in every crash course,
+        between devices. Without it everything still works, kept in this browser.
       </p>
     </main>
   );
