@@ -312,6 +312,7 @@ const COURSES = [
     ledger: 'ledger',
     // The crash course split into dated sittings, checked against the week.
     plan: 'plan.json',
+    requireFrames: true,
     // Every question the examiner set must be asked inside the lesson that
     // teaches it, so the crash course stands on its own.
     selfSufficient: true,
@@ -375,6 +376,7 @@ const COURSES = [
     lessons: 'lessons.json',
     // The crash course split into dated sittings, checked against the week.
     plan: 'plan.json',
+    requireFrames: true,
     // Every question the examiner set must be asked inside the lesson that
     // teaches it, so the crash course stands on its own.
     selfSufficient: true,
@@ -415,6 +417,7 @@ const COURSES = [
     ],
     lessons: 'lessons.json',
     plan: 'plan.json',
+    requireFrames: true,
     selfSufficient: true,
     examTagPrefixes: ['Test 1 Q', 'Test 2 Q'],
   },
@@ -452,6 +455,7 @@ const COURSES = [
     ],
     lessons: 'lessons.json',
     plan: 'plan.json',
+    requireFrames: true,
     selfSufficient: true,
     examTagPrefixes: ['Test 1 Q'],
   },
@@ -987,6 +991,27 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
     console.log(
       `    . note: topics ${list} are TAUGHT but not yet drilled, so their questions live only in the solved past papers inside the lessons`
     );
+  }
+
+  // A lesson that teaches a topic must ASK before it tells. Guessing wrong
+  // first measurably improves what sticks, and it is the one discipline a book
+  // can only request while a screen can enforce it. Courses converted from a
+  // manual arrive with none, which is exactly how DTS224 and CSC242 shipped
+  // their first version, so this stops it happening again silently.
+  if (cfg.requireFrames) {
+    const bare = lessons
+      .filter((l) => (l.modules ?? []).length > 0)
+      .filter((l) => !(l.blocks ?? []).some((b) => b.kind === 'frames'))
+      .map((l) => l.slug);
+    console.log(
+      `    ${bare.length ? 'x' : '.'} frames: every topic lesson opens by asking${
+        bare.length ? `, except ${bare.join(', ')}` : ''
+      }`
+    );
+    for (const slug of bare)
+      problems.push(
+        `${cfg.code} lesson [${slug}]: teaches a topic but never asks before it tells, so it has no programmed frames`
+      );
   }
 
   const untaught = [...bankModules].filter((m) => !taught.has(m)).sort((a, b) => a - b);
