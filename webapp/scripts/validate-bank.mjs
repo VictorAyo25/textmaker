@@ -434,6 +434,8 @@ const COURSES = [
     // from now that the taught-but-undrilled topics are being closed.
     slideRef: /^(Test 1 Q\d{1,2}|Manual M[1-5]( U\d| SQL)?)$/,
     slideRefHelp: 'like "Test 1 Q12" or "Manual M4"',
+    // Every question the manual prints must reach the crash course.
+    printedFrom: 'DTS224 - Data Management I/build/content',
     examRef: /^Test 1 Q\d{1,2}$/,
     requireLecture: false,
     minPerModule: 0,
@@ -998,6 +1000,33 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
   // can only request while a screen can enforce it. Courses converted from a
   // manual arrive with none, which is exactly how DTS224 and CSC242 shipped
   // their first version, so this stops it happening again silently.
+  // Every past-paper question the MANUAL prints must reach the platform. The
+  // manual's own build gate refuses to pass while any question in any source is
+  // unsolved, so the manual is the authority on what exists; this checks the
+  // conversion did not quietly drop any on the way. It found 28 of DTS224's 79
+  // missing, all because one "As printed" box can hold several years' wording
+  // of the same question and the converter took only the first.
+  if (cfg.printedFrom) {
+    const dirPath = join(HERE, '..', '..', 'courses', cfg.printedFrom);
+    if (existsSync(dirPath)) {
+      const tags = new Set();
+      for (const f of readdirSync(dirPath).filter((x) => x.endsWith('.html')))
+        for (const m of readFileSync(join(dirPath, f), 'utf8').matchAll(/data-src="([^"]+)"/g))
+          tags.add(m[1]);
+      const whole = readFileSync(join(dir, cfg.lessons), 'utf8');
+      const absent = [...tags].filter(
+        (t) => !whole.includes(t) && !whole.includes(t.replace(/:/g, ', '))
+      );
+      console.log(
+        `    ${absent.length ? 'x' : '.'} past papers: ${tags.size - absent.length} of ${
+          tags.size
+        } printed questions in the manual reached the crash course`
+      );
+      for (const a of absent.slice(0, 15))
+        problems.push(`${cfg.code}: the manual prints ${a} but the crash course does not`);
+    }
+  }
+
   if (cfg.requireFrames) {
     const bare = lessons
       .filter((l) => (l.modules ?? []).length > 0)

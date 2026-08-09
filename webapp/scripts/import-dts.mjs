@@ -87,6 +87,15 @@ const PARTS = [
     modules: [[], []],
     minutes: [60, 60],
   },
+  // The three mock papers, each a question paper and its answers. They were
+  // left out of the first import; six full papers of practice is too much to
+  // leave on the floor when the reader has one day.
+  { file: 'mock1.html', slugs: ['mock-1'], part: 'Part E: prove it', modules: [[]], minutes: [90] },
+  { file: 'mock1_answers.html', slugs: ['mock-1-answers'], part: 'Part E: prove it', modules: [[]], minutes: [30] },
+  { file: 'mock2.html', slugs: ['mock-2'], part: 'Part E: prove it', modules: [[]], minutes: [90] },
+  { file: 'mock2_answers.html', slugs: ['mock-2-answers'], part: 'Part E: prove it', modules: [[]], minutes: [30] },
+  { file: 'mock3.html', slugs: ['mock-3'], part: 'Part E: prove it', modules: [[]], minutes: [90] },
+  { file: 'mock3_answers.html', slugs: ['mock-3-answers'], part: 'Part E: prove it', modules: [[]], minutes: [30] },
 ];
 
 const VOID = new Set(['hr', 'br', 'img', 'input', 'meta', 'link', 'col', 'source']);
@@ -167,6 +176,31 @@ const bodyOf = (rest) => {
   return (b ? b.inner : rest).trim();
 };
 
+/**
+ * A box may CONTAIN other boxes: an answer box often wraps the printed question
+ * it answers. The first import walked only the top level and silently lost 28
+ * of the manual's 79 printed past-paper questions that way, which is the exact
+ * failure the manual's own coverage gate exists to prevent. So a container is
+ * now flattened into the blocks inside it.
+ */
+function flatten(node) {
+  const c = cls(node);
+  const inner = bodyOf(barOf(node.inner).rest);
+  const kids = nodes(inner).filter((n) => /\bbox\b/.test(cls(n)));
+  // A wrapper is a box whose body is mostly other boxes: unwrap it, keeping its
+  // own text as a lead-in only if it has any outside those children.
+  if (c.includes('box ans') && kids.length) {
+    return kids.flatMap(flatten);
+  }
+  if ((c.includes('box work') || c.includes('box unpack')) && kids.some((k) => /box (paper|qpaper)/.test(cls(k)))) {
+    const papers = kids.filter((k) => /box (paper|qpaper)/.test(cls(k)));
+    const rest = { ...node, inner: papers.reduce((h, p) => h.replace(p.raw, ''), node.inner) };
+    return [...papers.flatMap(flatten), toBlock(rest)].filter(Boolean);
+  }
+  const b = toBlock(node);
+  return b ? [b] : [];
+}
+
 /** One manual box becomes one lesson block. */
 function toBlock(node) {
   const c = cls(node);
@@ -174,13 +208,38 @@ function toBlock(node) {
   const body = bodyOf(rest);
 
   if (c.includes('box paper') || c.includes('box qpaper')) {
-    const ap = nodes(body).find((n) => has(n, 'asprinted'));
+    // ONE box often holds SEVERAL printed variants: the same question as it
+    // appeared in 25/26, 20/21 and 15/16, each with its own source line. Taking
+    // only the first lost 28 of the manual's 79 printed questions, which is
+    // most of the older papers. Keep them all, each under its own label, so the
+    // reader sees how the examiner rephrases the same question year to year.
+    const parts = nodes(body);
+    const printed = [];
+    let pending = null;
+    for (const n of parts) {
+      if (has(n, 'asprinted')) {
+        if (pending) printed.push(pending);
+        pending = { text: n.inner.trim(), src: (n.attrs.match(/data-src="([^"]+)"/) ?? [])[1] ?? '' };
+      } else if (has(n, 'src') && pending) {
+        pending.label = text(n.inner);
+      }
+    }
+    if (pending) printed.push(pending);
+
+    const srcs = printed.map((p) => p.src).filter(Boolean);
     return {
       kind: 'asprinted',
       label: label || 'As printed',
       tag: tag || "the examiner's words",
-      src: (node.inner.match(/data-src="([^"]+)"/) ?? [])[1] ?? '',
-      printed: ap ? `<pre>${ap.inner.trim()}</pre>` : `<pre>${body}</pre>`,
+      src: srcs.join(' · ').replace(/:/g, ', '),
+      printed: printed.length
+        ? printed
+            .map(
+              (p) =>
+                (p.label ? `<p class="src">${p.label}</p>` : '') + `<pre>${p.text}</pre>`
+            )
+            .join('')
+        : `<pre>${body}</pre>`,
     };
   }
   if (c.includes('box work') || c.includes('box ans') || c.includes('box unpack')) {
@@ -242,8 +301,8 @@ function convert(file, spec) {
         blocks.push({ kind: 'heading', text: text(n.inner) });
         continue;
       }
-      const b = toBlock(n);
-      if (b) blocks.push(b);
+      const made = /\bbox\b/.test(cls(n)) ? flatten(n) : [];
+      if (made.length) blocks.push(...made);
       else if (n.tag === 'p' && text(n.inner).length > 30)
         blocks.push({ kind: 'prose', html: n.raw });
       else if (n.tag === 'table' || n.tag === 'ol' || n.tag === 'ul' || n.tag === 'figure')
