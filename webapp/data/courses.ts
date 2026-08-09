@@ -101,6 +101,10 @@ import e10 from './ent221/module10.json';
 import e11 from './ent221/module11.json';
 import e12 from './ent221/module12.json';
 
+import dt1 from './dts224/test01.json';
+import dt2 from './dts224/test02.json';
+import dtsPlan from './dts224/plan.json';
+
 // Adding a course later: create data/<code>/*.json in the same shape, import it
 // here, and push one more entry into COURSES. Nothing else in the app changes.
 
@@ -428,6 +432,72 @@ function entPaper(tag: string, id: string, title: string, note: string, mins: nu
   return { id, title, subtitle: 'The test as it was actually set, in its own order, one mark each.', note, questions, minutes: mins };
 }
 
+
+const dtsFacets: FacetGuide[] = [
+  {
+    id: 'names',
+    label: 'Definitions and named concepts',
+    help: 'Entity, attribute, relationship, degree, cardinality, weak entity, derived and composite and multivalued attributes, the normal forms',
+  },
+  {
+    id: 'wording',
+    label: 'Reading business rules exactly',
+    help: 'Must against may, or none, at least one: the phrases that decide mandatory from optional and one-to-many from many-to-many',
+  },
+  {
+    id: 'lists',
+    label: 'Lists, steps and notations',
+    help: "Chen's shapes, the steps of normalisation, the relational algebra operators, the clauses of a SELECT",
+  },
+  {
+    id: 'numbers',
+    label: 'Cardinalities and keys',
+    help: '1:1, 1:M, M:N, minimum and maximum cardinality, degree, primary and foreign keys',
+  },
+];
+
+const dtsQuestions: Question[] = [
+  ...(dt1 as unknown as Question[]),
+  ...(dt2 as unknown as Question[]),
+];
+
+const dts224: Course = {
+  code: 'DTS224',
+  title: 'Data Management I',
+  tagline:
+    'The whole course taught from the manual, with every past paper printed as the examiner set it and then solved.',
+  blurb:
+    'Databases from zero: what a database is, the ER and enhanced ER models, the relational model, normalisation, relational algebra and SQL. Every past-paper question is solved inside the lesson that teaches it.',
+  moduleNoun: 'Topic',
+  facetGuide: dtsFacets,
+  modules: [
+    { number: 1, title: 'Foundations of Data Management', blurb: 'What data, information and a database are, why file systems were abandoned, and where business rules come from.' },
+    { number: 2, title: 'Database Systems and Architecture', blurb: 'The three-level ANSI-SPARC architecture, data independence, the DBMS and the people around it.' },
+    { number: 3, title: 'The Entity-Relationship Model', blurb: "Entities, attributes and relationships; degree, cardinality and participation; Chen's notation and crow's foot." },
+    { number: 4, title: 'The Enhanced E-R Model', blurb: 'Specialisation and generalisation, superclass and subclass, disjoint and overlapping, total and partial.' },
+    { number: 5, title: 'Semi-Structured Models: XML and JSON', blurb: 'Where the relational model stops, and how tree-shaped data is written instead.' },
+    { number: 6, title: 'The Relational Model', blurb: 'Relations, tuples, attributes, domains, keys, and the integrity rules that hold it together.' },
+    { number: 7, title: 'From Conceptual to Logical Design', blurb: 'Turning an ER diagram into tables: where foreign keys go, and how a many-to-many is resolved.' },
+    { number: 8, title: 'Normalization', blurb: 'Functional dependency, first, second and third normal form, and BCNF, worked on the papers the examiner actually sets.' },
+    { number: 9, title: 'Relational Algebra', blurb: 'Selection, projection, join and the set operators, and how a query is built from them.' },
+    { number: 10, title: 'Structured Query Language', blurb: 'SELECT, WHERE, JOIN, GROUP BY and HAVING, plus the data definition and control statements.' },
+  ],
+  questions: dtsQuestions,
+  examTags: ['Test 1 Q'],
+  exam: EXAMS.find((e) => e.code === 'DTS224'),
+  plan: dtsPlan as unknown as StudySession[],
+  papers: [
+    {
+      id: 'dts-test-1',
+      title: 'The 25/26 objective test, all 30 questions',
+      subtitle: 'The test as it was actually set: same 30 questions, same order, one mark each.',
+      note: 'Transcribed from the captured test paper. It was captured UNATTEMPTED, so it carries no printed answer key: every answer here is derived from the course manual and the standard definitions, and each one is argued in full in its review. Where a question turns on a phrase such as "or none", the review says which words decided it.',
+      questions: dtsQuestions,
+      minutes: 30,
+    },
+  ],
+};
+
 const ent221: Course = {
   code: 'ENT221',
   title: 'Agripreneurship',
@@ -679,7 +749,7 @@ const phy121: Course = {
   ],
 };
 
-export const COURSES: Course[] = [phy121, ent221, ift222, tmc221];
+export const COURSES: Course[] = [dts224, ift222, phy121, ent221, tmc221];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());

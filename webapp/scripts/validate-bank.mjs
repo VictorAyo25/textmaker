@@ -386,6 +386,40 @@ const COURSES = [
     teachesLedger: true,
   },
   {
+    code: 'DTS224',
+    dir: 'dts224',
+    // Provenance is the 25/26 objective test. The bank IS that test for now:
+    // the teaching, and every past-paper THEORY question, live in the crash
+    // course, where each one is printed as the examiner set it and then solved.
+    // So minPerModule is 0 deliberately, and says so rather than pretending the
+    // bank already covers all ten topics.
+    slideRef: /^Test 1 Q\d{1,2}$/,
+    slideRefHelp: 'like "Test 1 Q12"',
+    examRef: /^Test 1 Q\d{1,2}$/,
+    requireLecture: false,
+    minPerModule: 0,
+    // Filed by PAPER, not by topic: one objective test split across two files,
+    // whose 30 questions come from four different topics.
+    filesAreTopics: false,
+    // The bank is the objective test only; the lessons teach all ten topics.
+    bankCoversAllTopics: false,
+    requireEveryStyle: false,
+    requireStyles: ['mcq'],
+    requireWhy: true,
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: range(1, 30).map((n) => `Test 1 Q${n}`),
+        noun: 'questions on the 25/26 objective test',
+        pattern: /^Test 1 Q\d+$/,
+      },
+    ],
+    lessons: 'lessons.json',
+    plan: 'plan.json',
+    selfSufficient: true,
+    examTagPrefixes: ['Test 1 Q'],
+  },
+  {
     code: 'ENT221',
     dir: 'ent221',
     // Three shapes of provenance: a numbered section of the 88-page course
@@ -709,6 +743,7 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
   const lessons = JSON.parse(readFileSync(path, 'utf8'));
   const slugs = new Set();
   const taught = new Set();
+  const undrilled = new Set();
   const taughtFacts = new Set();
   let frames = 0;
   let recalls = 0;
@@ -728,7 +763,18 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
     check((l.blocks ?? []).length > 0, `${at}: no blocks, the conversion dropped it`);
 
     for (const m of l.modules ?? []) {
-      check(bankModules.has(m), `${at}: teaches topic ${m}, which has no questions`);
+      // A lesson teaching a topic the bank never asks about is normally a
+      // mistake. Where a course's bank is only its objective test, though, the
+      // crash course legitimately runs ahead of it: the reader is taught
+      // normalisation and SQL from the manual and from solved past papers even
+      // though no objective question on this paper touched them. Such a course
+      // says so with bankCoversAllTopics: false, and the shortfall is printed
+      // rather than hidden.
+      if (cfg.bankCoversAllTopics === false) {
+        if (!bankModules.has(m)) undrilled.add(m);
+      } else {
+        check(bankModules.has(m), `${at}: teaches topic ${m}, which has no questions`);
+      }
       taught.add(m);
     }
 
@@ -897,6 +943,13 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
       `    . reading plan: ${plan.length} dated sittings cover all ${slugs.size} lessons${
         exam ? `, none after the paper on ${exam.slice(0, 10)}` : ''
       }`
+    );
+  }
+
+  if (cfg.bankCoversAllTopics === false && undrilled.size) {
+    const list = [...undrilled].sort((a, b) => a - b).join(', ');
+    console.log(
+      `    . note: topics ${list} are TAUGHT but not yet drilled, so their questions live only in the solved past papers inside the lessons`
     );
   }
 
@@ -1090,7 +1143,7 @@ for (const cfg of COURSES) {
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck|slides|close|second)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => /^(module|deck|slides|close|second|test)\d+[a-z]?\.json$/.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);
@@ -1108,15 +1161,23 @@ for (const cfg of COURSES) {
       checkFigure(q, cfg);
     }
     all.push(...items);
-    const n = Number(f.match(/\d+/)[0]);
-    // Two files can share a topic number now (module1 and deck01), so add
-    // rather than assign, or the second silently hides the first.
-    perModule[n] = (perModule[n] ?? 0) + items.length;
-    for (const q of items)
-      check(
-        q.module === n,
-        `${cfg.code} ${f} [${q.id}]: module field says ${q.module} but the file is module ${n}`
-      );
+    // Most banks are filed BY TOPIC, so the number in the filename is the topic
+    // and any disagreement is a filing mistake worth catching: that rule caught
+    // a whole PHY file sitting under the wrong topic. A bank filed by PAPER
+    // instead, like DTS224's single objective test split across two files,
+    // carries questions from many topics on purpose and says so with
+    // filesAreTopics: false.
+    const byTopic = cfg.filesAreTopics !== false;
+    for (const q of items) {
+      perModule[q.module] = (perModule[q.module] ?? 0) + 1;
+      if (byTopic) {
+        const n = Number(f.match(/\d+/)[0]);
+        check(
+          q.module === n,
+          `${cfg.code} ${f} [${q.id}]: module field says ${q.module} but the file is module ${n}`
+        );
+      }
+    }
   }
 
   for (const f of readdirSync(dir).filter((f) => f.endsWith('-test.json'))) {

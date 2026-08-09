@@ -1,0 +1,256 @@
+[
+  { "id": "dts-t1-16", "module": 3, "slides": ["Test 1 Q16"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "cardinality and participation together",
+    "prompt": "A library maintains information about BOOKS and PUBLISHERS. The business rules state: every book is published by exactly one publisher; a publisher may publish many books or none. Which cardinality constraint best describes this relationship?",
+    "options": [
+      { "id": "a", "text": "Many-to-one from BOOK to PUBLISHER, with mandatory participation for PUBLISHER" },
+      { "id": "b", "text": "One-to-one between BOOK and PUBLISHER" },
+      { "id": "c", "text": "Many-to-many between BOOK and PUBLISHER" },
+      { "id": "d", "text": "One-to-many from PUBLISHER to BOOK, with optional participation for PUBLISHER" }
+    ],
+    "answer": "d",
+    "explanation": "Two things are being asked at once, so answer them separately. Cardinality: one publisher to many books, so one-to-many from PUBLISHER to BOOK. Participation: the words OR NONE mean a publisher need not appear at all, so PUBLISHER is optional. Only one option gets both right, and the trap option gets the cardinality right and the participation backwards.",
+    "why": {
+      "a": "Wrong on participation, and that is the whole trap. The phrase or none makes PUBLISHER optional, not mandatory.",
+      "b": "Wrong. One-to-one would stop a publisher having many books.",
+      "c": "Wrong. Many-to-many would need a book to have several publishers, and the rule says exactly one.",
+      "d": "Correct. One-to-many from publisher to book, and optional for publisher because of or none."
+    } },
+
+  { "id": "dts-t1-17", "module": 1, "slides": ["Test 1 Q17"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "where business rules come from",
+    "prompt": "In a database, who or what typically provides the source for establishing business rules?",
+    "options": [
+      { "id": "a", "text": "The default configuration settings of the relational database management system (RDBMS)." },
+      { "id": "b", "text": "Managers, policy makers, and operational procedures within an organization." },
+      { "id": "c", "text": "The network architecture and router configurations." },
+      { "id": "d", "text": "Standard open-source libraries downloaded from the internet." }
+    ],
+    "answer": "b",
+    "explanation": "Business rules come from the BUSINESS, which means the people who run it and the procedures they follow. That is why gathering requirements is interviewing, not reading a manual. Every cardinality and participation constraint on this paper began life as somebody in an organisation saying every patient must have a doctor.",
+    "why": {
+      "a": "Wrong, and backwards: the DBMS is configured to enforce the rules, it does not invent them.",
+      "b": "Correct. Managers, policy makers and operational procedures.",
+      "c": "Wrong. Network hardware is infrastructure and has no view on how the business works.",
+      "d": "Wrong. A library is code somebody else wrote, not a statement of your organisation's policy."
+    } },
+
+  { "id": "dts-t1-18", "module": 3, "slides": ["Test 1 Q18"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "entity",
+    "prompt": "What does an \"Entity\" represent in an Entity-Relationship Model?",
+    "options": [
+      { "id": "a", "text": "A specific physical hard drive sector where data resides." },
+      { "id": "b", "text": "The software interface used to log into a database." },
+      { "id": "c", "text": "A person, place, object, event, or concept in the real world about which data is captured." },
+      { "id": "d", "text": "A specific database query execution plan." }
+    ],
+    "answer": "c",
+    "explanation": "Person, place, object, event or concept. Learn that list as a list, because it is quoted in the definition and because it is what tells you an ACCOUNT and a BOOKING are entities as surely as a STUDENT is. The test for whether something belongs in your model is simple: does the organisation need to keep data about it?",
+    "why": {
+      "a": "Wrong. Sectors are physical storage, which the conceptual model deliberately ignores.",
+      "b": "Wrong. That is an application, not something you keep data about.",
+      "c": "Correct. Person, place, object, event or concept.",
+      "d": "Wrong. An execution plan is how the DBMS answers a query, an internal matter."
+    } },
+
+  { "id": "dts-t1-19", "module": 3, "slides": ["Test 1 Q19"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "reading business rules",
+    "prompt": "An online shopping system maintains CUSTOMERS and ORDERS. The business rules state: a customer may place many orders or none; every order must be placed by exactly one customer. Which relationship should be represented in the ER diagram?",
+    "options": [
+      { "id": "a", "text": "One-to-one relationship between CUSTOMER and ORDER" },
+      { "id": "b", "text": "Many-to-many relationship between CUSTOMER and ORDER" },
+      { "id": "c", "text": "Unary relationship on CUSTOMER" },
+      { "id": "d", "text": "One-to-many relationship from CUSTOMER to ORDER with optional participation for CUSTOMER" }
+    ],
+    "answer": "d",
+    "explanation": "Same two-part method as the publisher question. Cardinality: many orders per customer, one customer per order, so one-to-many from CUSTOMER to ORDER. Participation: OR NONE again, so CUSTOMER is optional. Notice the examiner reuses one phrasing across several questions, which means learning to spot or none is worth several marks on its own.",
+    "why": {
+      "a": "Wrong. One-to-one would stop a customer placing more than one order.",
+      "b": "Wrong. Many-to-many would need an order to belong to several customers, and the rule says exactly one.",
+      "c": "Wrong. Unary means an entity related to itself, and there are two types here.",
+      "d": "Correct. One-to-many from customer to order, optional for customer."
+    } },
+
+  { "id": "dts-t1-20", "module": 1, "slides": ["Test 1 Q20"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "purpose of business rules",
+    "prompt": "What is the primary purpose of a business rule in database design?",
+    "options": [
+      { "id": "a", "text": "To automate the payroll system for database administrators." },
+      { "id": "b", "text": "To define the precise policies, constraints, and operational principles that the database data must conform to." },
+      { "id": "c", "text": "To measure the speed of transaction processing in the database engine." },
+      { "id": "d", "text": "To dictate the pricing strategy of the company's products stored in the database." }
+    ],
+    "answer": "b",
+    "explanation": "A business rule is a constraint written in English before it is written in a schema. Every employee must belong to exactly one department is a business rule; NOT NULL and a foreign key are how the database enforces it. Rule first, constraint second, and the exam tests the translation between them constantly.",
+    "why": {
+      "a": "Wrong. Payroll is an application that might use the database, not a purpose of the rules.",
+      "b": "Correct. The policies, constraints and operational principles the data must conform to.",
+      "c": "Wrong. Speed measurement is performance tuning.",
+      "d": "Wrong. Pricing is a commercial decision; a rule about it would only enter as a constraint on stored values."
+    } },
+
+  { "id": "dts-t1-21", "module": 3, "slides": ["Test 1 Q21"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "relationship",
+    "prompt": "What does a \"Relationship\" express in an ER model?",
+    "options": [
+      { "id": "a", "text": "The speed differential between the database and the web server." },
+      { "id": "b", "text": "The code compatibility between two different SQL dialects." },
+      { "id": "c", "text": "The synchronization schedule between a primary database and its backup replica." },
+      { "id": "d", "text": "An association or link between two or more entities." }
+    ],
+    "answer": "d",
+    "explanation": "An association between entities, and the phrase TWO OR MORE is doing real work: it is what allows ternary relationships. A relationship is usually a verb in the business's own words, teaches, places, is published by, which is why reading the business rules aloud is the fastest way to find them.",
+    "why": {
+      "a": "Wrong. Nothing in the conceptual model concerns servers or their speeds.",
+      "b": "Wrong. Dialect differences are an implementation problem.",
+      "c": "Wrong. Replication is an operational concern, not a modelling one.",
+      "d": "Correct. An association or link between two or more entities."
+    } },
+
+  { "id": "dts-t1-22", "module": 3, "slides": ["Test 1 Q22"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "connectivity and direction",
+    "prompt": "If a company policy states \"Each employee is assigned to exactly one department, and each department can employ many employees,\" what type of relationship connectivity exists from Department to Employee?",
+    "options": [
+      { "id": "a", "text": "Many-to-Many (M:N)" },
+      { "id": "b", "text": "One-to-One (1:1)" },
+      { "id": "c", "text": "One-to-Many (1:M)" },
+      { "id": "d", "text": "Many-to-One (M:1)" }
+    ],
+    "answer": "c",
+    "explanation": "The direction is stated, and it decides the answer. FROM Department TO Employee: one department, many employees, so one-to-many. Read it the other way, from employee to department, and the same facts are many-to-one. Same relationship, opposite name, and the only thing that settles it is which end the question starts from. Underline the direction words before you look at the options.",
+    "why": {
+      "a": "Wrong. An employee is in exactly one department, so it cannot be many-to-many.",
+      "b": "Wrong. One-to-one would stop a department employing many people.",
+      "c": "Correct. From department to employee is one to many.",
+      "d": "Wrong only because of the direction asked: many-to-one is the same relationship read from Employee to Department."
+    } },
+
+  { "id": "dts-t1-23", "module": 3, "slides": ["Test 1 Q23"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "composite attribute",
+    "prompt": "What is a \"Composite Attribute\"?",
+    "options": [
+      { "id": "a", "text": "An attribute that can be subdivided into smaller, meaningful sub-components." },
+      { "id": "b", "text": "An attribute that serves as a foreign key to another table." },
+      { "id": "c", "text": "An attribute whose value is calculated dynamically from other attributes." },
+      { "id": "d", "text": "An attribute that holds multiple distinct values for a single entity instance." }
+    ],
+    "answer": "a",
+    "explanation": "ADDRESS is the standard example: it breaks into street, city and postcode, each meaningful on its own. Keep the three attribute types apart by asking one question each. Composite: can I split it? Multivalued: can there be several of them? Derived: is it worked out from something else?",
+    "why": {
+      "a": "Correct. It subdivides into smaller meaningful parts, as address does.",
+      "b": "Wrong. That is a foreign key, a relational concept rather than an attribute type.",
+      "c": "Wrong. Calculated from others is DERIVED.",
+      "d": "Wrong. Several values at once is MULTIVALUED, which is the very next question."
+    } },
+
+  { "id": "dts-t1-24", "module": 3, "slides": ["Test 1 Q24"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "ternary relationship",
+    "prompt": "When three distinct entity types participate simultaneously in a single relationship, it is called a:",
+    "options": [
+      { "id": "a", "text": "Binary relationship" },
+      { "id": "b", "text": "Ternary relationship" },
+      { "id": "c", "text": "Multi-valued relationship" },
+      { "id": "d", "text": "Trilateral relationship" }
+    ],
+    "answer": "b",
+    "explanation": "This is DEGREE again: unary one, binary two, ternary three, and beyond that n-ary. The prefixes are the ordinary Latin ones, the same uni, bi and ter you already know from unicycle, bicycle and tercentenary.",
+    "why": {
+      "a": "Wrong. Binary is two entity types, which is the commonest case by far.",
+      "b": "Correct. Three participating entity types.",
+      "c": "Wrong. Multivalued describes an ATTRIBUTE, not a relationship.",
+      "d": "Wrong. Trilateral is not database vocabulary at all; it is there because it sounds plausible."
+    } },
+
+  { "id": "dts-t1-25", "module": 3, "slides": ["Test 1 Q25"], "style": "mcq", "difficulty": "easy", "facets": ["numbers"], "topic": "minimum cardinality of zero",
+    "prompt": "If the minimum cardinality for a relationship is 0, it means that the relationship is:",
+    "options": [
+      { "id": "a", "text": "Mandatory" },
+      { "id": "b", "text": "Optional" },
+      { "id": "c", "text": "Corrupted" },
+      { "id": "d", "text": "Redundant" }
+    ],
+    "answer": "b",
+    "explanation": "Zero means none is allowed, and being allowed to have none is exactly what optional means. Learn it as a pair: minimum 0 is optional, minimum 1 is mandatory. Every or none in a business rule is a minimum of 0 in disguise.",
+    "why": {
+      "a": "Wrong, and it is the other half of the pair: mandatory is a minimum of 1.",
+      "b": "Correct. A minimum of zero means participation is optional.",
+      "c": "Wrong. Corruption is a data integrity failure, not a cardinality.",
+      "d": "Wrong. Redundancy is about duplicated data, a different topic entirely."
+    } },
+
+  { "id": "dts-t1-26", "module": 7, "slides": ["Test 1 Q26"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "resolving many-to-many",
+    "prompt": "Which type of relationship typically requires a bridge (associative) table to resolve it into a relational database structure?",
+    "options": [
+      { "id": "a", "text": "One-to-One (1:1)" },
+      { "id": "b", "text": "One-to-Many (1:M)" },
+      { "id": "c", "text": "Unary One-to-One (1:1)" },
+      { "id": "d", "text": "Many-to-Many (M:N)" }
+    ],
+    "answer": "d",
+    "explanation": "A relational table cannot hold many values in one column, so a many-to-many will not fit directly. It is split into two one-to-many relationships around a new table in the middle, called a bridge, associative, junction or link table, holding a foreign key to each side. STUDENT and COURSE become STUDENT, ENROLMENT and COURSE.",
+    "why": {
+      "a": "Wrong. One-to-one is implemented by putting a foreign key on either side; no third table is needed.",
+      "b": "Wrong. One-to-many is the natural relational shape: the foreign key goes on the many side.",
+      "c": "Wrong. A unary one-to-one still needs only a foreign key, pointing back at the same table.",
+      "d": "Correct. Many-to-many is the one that must be broken into two one-to-many relationships."
+    } },
+
+  { "id": "dts-t1-27", "module": 3, "slides": ["Test 1 Q27"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "multivalued attribute",
+    "prompt": "Which of the following is the best example of a multivalued attribute?",
+    "options": [
+      { "id": "a", "text": "Employee Monthly Salary" },
+      { "id": "b", "text": "Employee College Degrees (where an employee can have multiple degrees)" },
+      { "id": "c", "text": "Employee Date of Birth" },
+      { "id": "d", "text": "Employee Social Security Number" }
+    ],
+    "answer": "b",
+    "explanation": "Multivalued means several values at once for ONE instance. One employee, one salary, one birth date, one social security number, but possibly three degrees. It is drawn as a double ellipse, and when the model is turned into tables it becomes a table of its own, because a column cannot hold a list.",
+    "why": {
+      "a": "Wrong. One employee has one monthly salary at a time, so it is single-valued.",
+      "b": "Correct. One employee can hold several degrees at once.",
+      "c": "Wrong. Everyone has exactly one date of birth.",
+      "d": "Wrong. One number per person, and it is a candidate key at that."
+    } },
+
+  { "id": "dts-t1-28", "module": 3, "slides": ["Test 1 Q28"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "unary relationship",
+    "prompt": "A relationship between instances of a single entity type is called a:",
+    "options": [
+      { "id": "a", "text": "Binary relationship" },
+      { "id": "b", "text": "Ternary relationship" },
+      { "id": "c", "text": "Unary (or Recursive) relationship" },
+      { "id": "d", "text": "Quaternary relationship" }
+    ],
+    "answer": "c",
+    "explanation": "One entity type related to itself, which is why it is also called recursive. EMPLOYEE manages EMPLOYEE is the standard case, and so is COURSE is a prerequisite for COURSE. On the diagram it is the relationship whose two lines both run back to the same box.",
+    "why": {
+      "a": "Wrong. Binary needs two distinct entity types.",
+      "b": "Wrong. Ternary needs three.",
+      "c": "Correct. One entity type related to itself, also called recursive.",
+      "d": "Wrong. Quaternary would be four entity types."
+    } },
+
+  { "id": "dts-t1-29", "module": 3, "slides": ["Test 1 Q29"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "cardinality and participation together",
+    "prompt": "A university maintains records of STUDENTS and COURSES. The business rules state: a student may register for many courses or none; every course must have at least one student registered. Which cardinality best represents the relationship between STUDENT and COURSE?",
+    "options": [
+      { "id": "a", "text": "Many-to-one, with mandatory participation for STUDENT only" },
+      { "id": "b", "text": "One-to-one, with optional participation for both entities" },
+      { "id": "c", "text": "Many-to-many, with optional participation for STUDENT and mandatory participation for COURSE" },
+      { "id": "d", "text": "One-to-many, with mandatory participation for both entities" }
+    ],
+    "answer": "c",
+    "explanation": "Cardinality first: a student takes many courses, and since every course has students registered and courses are shared, it is many-to-many. Participation next: OR NONE makes STUDENT optional, and MUST HAVE AT LEAST ONE makes COURSE mandatory. Note that at least one is the same phrase as a minimum cardinality of 1, said in English.",
+    "why": {
+      "a": "Wrong on both counts: the cardinality is not many-to-one, and it is COURSE that is mandatory, not STUDENT.",
+      "b": "Wrong. One-to-one would let a student take only one course.",
+      "c": "Correct. Many-to-many, optional for student, mandatory for course.",
+      "d": "Wrong. Both mandatory contradicts or none, which makes the student side optional."
+    } },
+
+  { "id": "dts-t1-30", "module": 3, "slides": ["Test 1 Q30"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "primary key",
+    "prompt": "In an ER diagram, an attribute that uniquely identifies each entity instance is known as the:",
+    "options": [
+      { "id": "a", "text": "Derived Key" },
+      { "id": "b", "text": "Foreign Key" },
+      { "id": "c", "text": "Composite Value" },
+      { "id": "d", "text": "Identifier or Primary Key" }
+    ],
+    "answer": "d",
+    "explanation": "UNIQUELY IDENTIFIES is the phrase that always means key. In the conceptual model it is called the identifier and underlined on the diagram; in the relational model it becomes the primary key. It can never be NULL, which ties this question back to the first one on the paper about required attributes.",
+    "why": {
+      "a": "Wrong. Derived describes a value computed from others, and no such thing as a derived key is defined here.",
+      "b": "Wrong. A foreign key identifies a row in ANOTHER table; it points outward rather than identifying its own row.",
+      "c": "Wrong. Composite describes an attribute that splits into parts. A composite KEY exists, but composite value is not the term.",
+      "d": "Correct. The identifier, which becomes the primary key."
+    } }
+]

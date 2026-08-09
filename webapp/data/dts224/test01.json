@@ -1,0 +1,256 @@
+[
+  { "id": "dts-t1-01", "module": 3, "slides": ["Test 1 Q1"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "required attribute",
+    "prompt": "An attribute that must have a value and cannot be left empty is called a:",
+    "options": [
+      { "id": "a", "text": "Single-valued attribute" },
+      { "id": "b", "text": "Optional attribute" },
+      { "id": "c", "text": "Required attribute" },
+      { "id": "d", "text": "Nullable attribute" }
+    ],
+    "answer": "c",
+    "explanation": "Required means exactly what it says: the value must be there, so the column cannot be NULL. The word to hold on to is NULL, because that is what optional and nullable both allow and required forbids. Every primary key is required, which is why a key can never be NULL.",
+    "why": {
+      "a": "Wrong. Single-valued is about HOW MANY values, one rather than several. It says nothing about whether the one value has to exist.",
+      "b": "Wrong, and it is the exact opposite: optional means the value may be left out.",
+      "c": "Correct. Required forbids NULL, so a value must be supplied.",
+      "d": "Wrong, and also the opposite: nullable is the word for a column that IS allowed to be empty."
+    } },
+
+  { "id": "dts-t1-02", "module": 3, "slides": ["Test 1 Q2"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "entity instance",
+    "prompt": "What is an \"Entity Instance\" (or Entity Occurrence)?",
+    "options": [
+      { "id": "a", "text": "The process of converting a conceptual model into a physical database." },
+      { "id": "b", "text": "The total number of tables defined within a database schema." },
+      { "id": "c", "text": "The temporary file created when a database crashes." },
+      { "id": "d", "text": "A single, specific occurrence of a particular entity type, corresponding to a single row in a table." }
+    ],
+    "answer": "d",
+    "explanation": "Entity TYPE is the class, entity INSTANCE is one member of it. STUDENT is the type; the particular student sitting next to you is an instance, and in the finished database it is one row. Type is the form; instance is a filled-in form.",
+    "why": {
+      "a": "Wrong. That is logical or physical DESIGN, a stage of the process rather than a thing in the model.",
+      "b": "Wrong. A count of tables is a property of the schema, not an occurrence of anything.",
+      "c": "Wrong. Nothing in the ER model is about crash files; that is recovery, a different topic entirely.",
+      "d": "Correct. One occurrence of the type, and in the relational implementation, one row."
+    } },
+
+  { "id": "dts-t1-03", "module": 3, "slides": ["Test 1 Q3"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "cardinality",
+    "prompt": "What does \"Cardinality\" express in an ER model?",
+    "options": [
+      { "id": "a", "text": "The alphabetical ordering of table names in a database catalog." },
+      { "id": "b", "text": "The total storage bytes allocated to an indexed column." },
+      { "id": "c", "text": "The number of characters allowed in a variable-length text field." },
+      { "id": "d", "text": "The specific number of instances of one entity that can be associated with a single instance of another entity." }
+    ],
+    "answer": "d",
+    "explanation": "Cardinality answers HOW MANY. One student to how many courses? That is the number of instances of one entity that can go with a single instance of the other, and it is what 1:1, 1:M and M:N are shorthand for. Keep it apart from DEGREE, which counts how many entity TYPES are in the relationship rather than how many instances.",
+    "why": {
+      "a": "Wrong. Catalog ordering is housekeeping in the DBMS and has nothing to do with the model.",
+      "b": "Wrong. Storage size is physical design, invisible in a conceptual ER diagram.",
+      "c": "Wrong. Field width is a data type decision, again physical rather than conceptual.",
+      "d": "Correct. How many instances of one go with a single instance of the other."
+    } },
+
+  { "id": "dts-t1-04", "module": 3, "slides": ["Test 1 Q4"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "degree of a relationship",
+    "prompt": "What is the \"Degree\" of a relationship in database modeling?",
+    "options": [
+      { "id": "a", "text": "The number of attributes assigned to the relationship itself." },
+      { "id": "b", "text": "The depth of the hierarchy tree in a nested data model." },
+      { "id": "c", "text": "The number of entity types participating in the relationship." },
+      { "id": "d", "text": "The total number of rows present in the connected tables." }
+    ],
+    "answer": "c",
+    "explanation": "Degree counts the entity TYPES taking part: one is unary, two is binary, three is ternary. Cardinality counts INSTANCES. The pair is the classic trap on this paper, and the way to keep them apart is that degree is a property of the diagram while cardinality is a property of the data.",
+    "why": {
+      "a": "Wrong. A relationship may carry attributes, but counting them is not the degree.",
+      "b": "Wrong. Nesting depth belongs to hierarchical and semi-structured models, not to ER degree.",
+      "c": "Correct. Unary is one type, binary two, ternary three.",
+      "d": "Wrong. Counting rows is counting instances, which is nearer to cardinality and still not the degree."
+    } },
+
+  { "id": "dts-t1-05", "module": 3, "slides": ["Test 1 Q5"], "style": "mcq", "difficulty": "medium", "facets": ["wording"], "topic": "one-to-one",
+    "prompt": "Which of the following describes a One-to-One (1:1) relationship?",
+    "options": [
+      { "id": "a", "text": "A bookstore where a single book can be purchased by many different customers over time." },
+      { "id": "b", "text": "A university where one professor teaches many different classes each semester." },
+      { "id": "c", "text": "A social media platform where a user can follow many other distinct profiles." },
+      { "id": "d", "text": "A retail store where each manager can manage only one store, and each store is managed by only one manager." }
+    ],
+    "answer": "d",
+    "explanation": "Test both directions. One-to-one needs ONLY ONE on each side, and the manager and store example says only one both ways. The reliable method is to read the sentence twice, once from each end: one manager to how many stores, and one store to how many managers.",
+    "why": {
+      "a": "Wrong. One book to many customers, so it is one-to-many at best and really many-to-many once you notice a customer buys many books.",
+      "b": "Wrong. One professor to many classes is the definition of one-to-many.",
+      "c": "Wrong. A user follows many profiles and is followed by many, which is many-to-many, and unary at that since both sides are users.",
+      "d": "Correct. Only one in each direction, which is what one-to-one means."
+    } },
+
+  { "id": "dts-t1-06", "module": 3, "slides": ["Test 1 Q6"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "abstract entity",
+    "prompt": "Which of the following is an example of an abstract or conceptual entity?",
+    "options": [
+      { "id": "a", "text": "Computer Server" },
+      { "id": "b", "text": "Account" },
+      { "id": "c", "text": "Automobile" },
+      { "id": "d", "text": "Employee" }
+    ],
+    "answer": "b",
+    "explanation": "The test is whether you could trip over it. A server, a car and a person are all physical things you could photograph. An ACCOUNT is an idea: it exists because an organisation agreed it does, and it has no physical existence at all. Concrete entities you can touch; abstract or conceptual ones exist only as concepts.",
+    "why": {
+      "a": "Wrong. A server is a physical machine in a rack, so it is concrete.",
+      "b": "Correct. An account is a concept, with no physical existence.",
+      "c": "Wrong. An automobile is a tangible object, so it is concrete.",
+      "d": "Wrong. An employee is a person, and a person is concrete."
+    } },
+
+  { "id": "dts-t1-07", "module": 3, "slides": ["Test 1 Q7"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "minimum cardinality",
+    "prompt": "What is \"Minimum Cardinality\"?",
+    "options": [
+      { "id": "a", "text": "The minimum number of columns required to create a valid table." },
+      { "id": "b", "text": "The smallest integer value allowed inside a numeric field." },
+      { "id": "c", "text": "The minimum number of users required to keep a database active." },
+      { "id": "d", "text": "The smallest number of instances of entity B that can be associated with each instance of entity A (usually 0 or 1)." }
+    ],
+    "answer": "d",
+    "explanation": "Minimum cardinality is the FEWEST allowed, and it is almost always 0 or 1. That is the whole of participation: a minimum of 0 means optional, a minimum of 1 means mandatory. So when a question asks about participation and another about minimum cardinality, they are asking the same thing in two vocabularies.",
+    "why": {
+      "a": "Wrong. That is a rule about table structure, not about how instances associate.",
+      "b": "Wrong. That is a data type's range, physical design rather than the conceptual model.",
+      "c": "Wrong. Nothing in cardinality is about users or activity.",
+      "d": "Correct. The smallest number allowed, and 0 or 1 is what decides optional against mandatory."
+    } },
+
+  { "id": "dts-t1-08", "module": 3, "slides": ["Test 1 Q8"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "participation constraints",
+    "prompt": "A company keeps records of EMPLOYEES and DEPARTMENTS. The business rules state: every employee must belong to exactly one department; a department may exist even if no employee is assigned to it. Which statement correctly describes the participation constraints?",
+    "options": [
+      { "id": "a", "text": "EMPLOYEE has optional participation, while DEPARTMENT has mandatory participation." },
+      { "id": "b", "text": "Both EMPLOYEE and DEPARTMENT have optional participation." },
+      { "id": "c", "text": "EMPLOYEE has mandatory participation, while DEPARTMENT has optional participation." },
+      { "id": "d", "text": "Both EMPLOYEE and DEPARTMENT have mandatory participation." }
+    ],
+    "answer": "c",
+    "explanation": "Take the rules one at a time. MUST belong to exactly one department is the word must, so EMPLOYEE is mandatory. MAY exist even if no employee is assigned is the word may, so DEPARTMENT is optional. The hook: hunt for MUST and MAY. Must means mandatory, minimum 1. May, or the phrase or none, means optional, minimum 0.",
+    "why": {
+      "a": "Wrong, and reversed on both sides.",
+      "b": "Wrong. Every employee MUST belong somewhere, so that side cannot be optional.",
+      "c": "Correct. Must for employee, may for department.",
+      "d": "Wrong. A department is allowed to sit empty, so it cannot be mandatory."
+    } },
+
+  { "id": "dts-t1-09", "module": 1, "slides": ["Test 1 Q9"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "what a data model is",
+    "prompt": "Which of the following best describes a data model in a database context?",
+    "options": [
+      { "id": "a", "text": "A backup strategy used to prevent data loss during system failures." },
+      { "id": "b", "text": "A conceptual framework that defines the logical structure of a database and how data is stored, organized, and manipulated." },
+      { "id": "c", "text": "A hardware specification detailing the physical storage drives used by a database server." },
+      { "id": "d", "text": "A software application used exclusively for writing SQL queries." }
+    ],
+    "answer": "b",
+    "explanation": "A data model is a plan, not a machine and not a program. It says what the structure IS and how data may be stored, organised and manipulated, and it exists before any hardware is bought or any SQL is typed. Architect's drawing, not the building.",
+    "why": {
+      "a": "Wrong. Backup is recovery, a running concern rather than a design one.",
+      "b": "Correct. A conceptual framework for structure and manipulation.",
+      "c": "Wrong. Drives are physical implementation, which the model deliberately says nothing about.",
+      "d": "Wrong. That describes a client tool, not a model."
+    } },
+
+  { "id": "dts-t1-10", "module": 3, "slides": ["Test 1 Q10"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "attribute",
+    "prompt": "What is an attribute in the context of an ER model?",
+    "options": [
+      { "id": "a", "text": "A characteristic or property that describes a particular entity." },
+      { "id": "b", "text": "A function that calculates the total database storage size." },
+      { "id": "c", "text": "A command used to grant access permissions to database users." },
+      { "id": "d", "text": "A line connecting two different database schemas together." }
+    ],
+    "answer": "a",
+    "explanation": "An attribute describes an entity: a STUDENT has a name, a matric number, a date of birth. In the finished table it becomes a column. Entity to table, instance to row, attribute to column, and that trio is worth memorising as a set because the exam moves between the two vocabularies freely.",
+    "why": {
+      "a": "Correct. A property that describes the entity, and a column once implemented.",
+      "b": "Wrong. That is an administrative function, nothing to do with the model.",
+      "c": "Wrong. Granting permissions is GRANT, part of SQL's data control language.",
+      "d": "Wrong. A line in an ER diagram joins an entity to a relationship, not schema to schema."
+    } },
+
+  { "id": "dts-t1-11", "module": 6, "slides": ["Test 1 Q11"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "the relational model",
+    "prompt": "The relational data model represents data in the form of:",
+    "options": [
+      { "id": "a", "text": "Unstructured text documents indexed by a search engine." },
+      { "id": "b", "text": "Interconnected nodes with many-to-many pointer paths." },
+      { "id": "c", "text": "Two-dimensional tables consisting of rows and columns." },
+      { "id": "d", "text": "Parent-child nesting tags similar to XML files." }
+    ],
+    "answer": "c",
+    "explanation": "Codd's whole idea was that everything can be a TABLE: two dimensions, rows and columns, and no pointers anywhere. Rows are tuples, columns are attributes, and relationships are expressed by matching values rather than by links. That last point is what separates it from the network and hierarchical models it replaced.",
+    "why": {
+      "a": "Wrong. Unstructured documents are what a document store or search engine handles.",
+      "b": "Wrong. Nodes joined by pointers describe the NETWORK model, which the relational model displaced.",
+      "c": "Correct. Two-dimensional tables of rows and columns.",
+      "d": "Wrong. Parent-child nesting describes the HIERARCHICAL model, and XML in the semi-structured unit."
+    } },
+
+  { "id": "dts-t1-12", "module": 3, "slides": ["Test 1 Q12"], "style": "mcq", "difficulty": "easy", "facets": ["lists"], "topic": "Chen notation",
+    "prompt": "In an ER diagram using Chen's notation, how is an entity typically represented?",
+    "options": [
+      { "id": "a", "text": "By a rectangle" },
+      { "id": "b", "text": "By a triangle" },
+      { "id": "c", "text": "By an ellipse" },
+      { "id": "d", "text": "By a diamond" }
+    ],
+    "answer": "a",
+    "explanation": "Chen's shapes are worth learning as a set, because a question can ask for any of them: entity is a RECTANGLE, relationship is a DIAMOND, attribute is an ELLIPSE, and a weak entity is a double rectangle. The hook: a rectangle is a box, and an entity is a thing you can put in a box.",
+    "why": {
+      "a": "Correct. A rectangle is the entity.",
+      "b": "Wrong. Chen's notation uses no triangle at all.",
+      "c": "Wrong. An ellipse is an attribute.",
+      "d": "Wrong. A diamond is a relationship."
+    } },
+
+  { "id": "dts-t1-13", "module": 3, "slides": ["Test 1 Q13"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "derived attribute",
+    "prompt": "What is a \"Derived Attribute\"?",
+    "options": [
+      { "id": "a", "text": "An attribute that uniquely identifies an entity instance." },
+      { "id": "b", "text": "An attribute whose value is computed or calculated using data from other attributes." },
+      { "id": "c", "text": "An attribute inherited from a parent class in an object-oriented database." },
+      { "id": "d", "text": "An attribute that contains text written in a foreign language." }
+    ],
+    "answer": "b",
+    "explanation": "Age is the standard example: it is not stored, it is worked out from date of birth and today's date. Derived attributes are drawn with a DASHED ellipse in Chen's notation, and the design advice is usually not to store them, because a stored copy can fall out of step with what it was derived from.",
+    "why": {
+      "a": "Wrong. That is a key, or identifier.",
+      "b": "Correct. Computed from other attributes, such as age from date of birth.",
+      "c": "Wrong. Inheritance belongs to the enhanced ER model, and what is inherited is not called derived.",
+      "d": "Wrong. The language of the text has nothing to do with it."
+    } },
+
+  { "id": "dts-t1-14", "module": 3, "slides": ["Test 1 Q14"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "reading business rules",
+    "prompt": "A hospital database includes DOCTORS and PATIENTS. The business rules are: a doctor may treat many patients; every patient must be treated by exactly one doctor. Which relationship correctly models this business rule?",
+    "options": [
+      { "id": "a", "text": "Many-to-many relationship between DOCTOR and PATIENT" },
+      { "id": "b", "text": "Unary relationship involving DOCTOR" },
+      { "id": "c", "text": "One-to-one relationship between DOCTOR and PATIENT" },
+      { "id": "d", "text": "One-to-many relationship from DOCTOR to PATIENT" }
+    ],
+    "answer": "d",
+    "explanation": "Read each rule as a direction. One doctor to MANY patients. One patient to exactly ONE doctor. Many on one side and one on the other is one-to-many, running from the one to the many, so from DOCTOR to PATIENT. The method never changes: read the sentence from each end and write down the two numbers.",
+    "why": {
+      "a": "Wrong. Many-to-many would need a patient to have many doctors, and the rule says exactly one.",
+      "b": "Wrong. Unary means one entity type related to itself, and there are two types here.",
+      "c": "Wrong. One-to-one would stop a doctor treating more than one patient.",
+      "d": "Correct. Many patients per doctor, exactly one doctor per patient."
+    } },
+
+  { "id": "dts-t1-15", "module": 3, "slides": ["Test 1 Q15"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "weak entity",
+    "prompt": "What is a \"Weak Entity\" in an ER model?",
+    "options": [
+      { "id": "a", "text": "An entity that lacks a relationship with any other entity in the schema." },
+      { "id": "b", "text": "An entity that contains corrupted or incomplete data rows." },
+      { "id": "c", "text": "An entity that has very few attributes assigned to it." },
+      { "id": "d", "text": "An entity that cannot exist without depending on a strong parent entity and does not have its own primary key." }
+    ],
+    "answer": "d",
+    "explanation": "Weak means DEPENDENT, not small and not broken. It has no key of its own, so it borrows the parent's key and adds a partial key of its own. DEPENDENT under an EMPLOYEE is the standard case: delete the employee and the dependent has no meaning. It is drawn with a double rectangle.",
+    "why": {
+      "a": "Wrong, and backwards: a weak entity depends on a relationship, it does not lack one.",
+      "b": "Wrong. Weak is about identity, not about data quality.",
+      "c": "Wrong. How many attributes it has is irrelevant.",
+      "d": "Correct. It cannot exist independently and has no primary key of its own."
+    } }
+]
