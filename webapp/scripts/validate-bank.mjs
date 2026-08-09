@@ -164,6 +164,91 @@ const ENT_TEXT_SECTIONS = [
   'Text Glossary',
 ];
 
+/**
+ * Every PHY121 lecture slide that carries a question the lecturer actually set.
+ *
+ * The five decks are 68 per cent images, so these were recovered by rendering
+ * each page and reading it. That work is expensive and easy to lose: a careless
+ * edit could drop a question and nothing would notice. Listing the slides here
+ * and requiring each to be cited turns the recovery into something the build
+ * enforces rather than something a commit message claims.
+ *
+ * Not a claim that these are the ONLY question slides. It is a floor: what has
+ * been found stays found. Add to this list as more are recovered.
+ */
+const PHY_SLIDE_QUESTIONS = [
+  "M1 S55",
+  "M1 S56",
+  "M1 S57",
+  "M1 S58",
+  "M1 S59",
+  "M1 S60",
+  "M1 S61",
+  "M1 S62",
+  "M1 S63",
+  "M1 S64",
+  "M1 S65",
+  "M1 S66",
+  "M1 S67",
+  "M1 S68",
+  "M1 S69",
+  "M1 S70",
+  "M1 S75",
+  "M2 S11",
+  "M2 S17",
+  "M2 S18",
+  "M2 S19",
+  "M2 S20",
+  "M2 S21",
+  "M2 S23",
+  "M2 S24",
+  "M3 S6",
+  "M3 S8",
+  "M3 S9",
+  "M3 S18",
+  "M3 S19",
+  "M3 S23",
+  "M3 S37",
+  "M3 S38",
+  "M3 S46",
+  "M3 S47",
+  "M3 S51",
+  "M3 S52",
+  "M3 S55",
+  "M3 S57",
+  "M3 S62",
+  "M3 S63",
+  "M3 S64",
+  "M3 S66",
+  "M3 S67",
+  "M3 S92",
+  "M3 S93",
+  "M3 S95",
+  "M3 S96",
+  "M3 S97",
+  "M3 S98",
+  "M3 S99",
+  "M4 S35",
+  "M4 S36",
+  "M4 S50",
+  "M4 S63",
+  "M4 S84",
+  "M4 S86",
+  "M4 S89",
+  "M4 S90",
+  "M4 S104",
+  "M5 S29",
+  "M5 S30",
+  "M5 S32",
+  "M5 S34",
+  "M5 S36",
+  "M5 S37",
+  "M5 S42",
+  "M5 S43",
+  "M5 S44",
+  "M5 S45"
+];
+
 const COURSES = [
   {
     code: 'TMC221',
@@ -254,6 +339,11 @@ const COURSES = [
     requireStyles: ['mcq', 'gap', 'tf'],
     requireWhy: true,
     coverages: [
+      {
+        kind: 'at-least-once',
+        required: PHY_SLIDE_QUESTIONS,
+        noun: 'lecture slides carrying a question the lecturer set',
+      },
       {
         kind: 'exactly-once',
         required: [
