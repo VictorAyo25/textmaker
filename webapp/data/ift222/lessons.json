@@ -3148,6 +3148,312 @@
     ]
   },
   {
+    "slug": "past-paper-2425",
+    "part": "Part C: prove it",
+    "kick": "Past paper",
+    "title": "The 2024 to 2025 Paper, Solved in Full",
+    "lead": "The other paper the lecturer sets from. Same shape as 2025/26, different numbers, and between them they cover every question type this course has ever asked. Sit it closed-book, then read only the parts you could not finish.",
+    "minutes": 120,
+    "modules": [],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "How to sit this paper",
+        "tag": "two hours, closed book",
+        "html": "<p><b>The whole 2024/25 paper, question by question.</b> Question One is <b>compulsory and carries 30 marks</b>. You then answer <b>any two of Questions Two to Five</b>, 20 marks each, for <b>70 marks in 2 hours</b>.</p><p>Work each question yourself before reading the solution. The question is printed first, <b>in the examiner's words, unedited</b>, then broken down, then answered.</p><div class=\"keypoint\"><span class=\"kplab\">Why the wording is left exactly as it was set</span><p>This paper writes hex with a lower case <b>h</b>, marks parts as <b>9mks</b> rather than \"(9 marks)\", and phrases some parts loosely. Reading the examiner's own habits is half of reading the question, so nothing has been tidied.</p></div>"
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q1(a)",
+        "src": "2024-2025, Q1a",
+        "printed": "<pre>a. Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format. X = C1400000h, Y = 42100000h, Z = 41400000h Convert X, Y and Z to decimal numbers and determine which of the following is true. <span class=\"qmark\">9mks</span> i. (Y-Z)&gt;0 ii. X + Z = 0 iii. Z= X + Y</pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q1(a), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> three 32-bit hex words, and the statement that they are IEEE 754 <i>single</i> precision. That fixes the split as 1 sign bit, 8 exponent bits, 23 mantissa bits, and the bias as 127.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> two things, not one. First <i>convert</i> all three to decimal. Then <i>determine which of the following is true</i>. The second verb is the one that earns the marks: a script that converts correctly and stops has answered half the question.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 9 for the part, and there are three conversions plus three tests. Read that as roughly 2 marks per conversion and 1 per verdict, so the conversions carry the weight and must be shown, not asserted.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the question says \"which of the following is true\", singular in feel, and a reader in a hurry stops at the first true claim. Two of the three are true here. Test all three and say so for each.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> X = C1400000H, Y = 42100000H, Z = 41400000H &middot; IEEE-754 single precision &middot; bias 127</div> <div class=\"prow\"><span class=\"plab\">Find</span> the decimal value of each, then the truth of the three statements</div> <div class=\"prow\"><span class=\"plab\">Formula</span> value = &#177;1.M &#215; 2<sup>(E &#8722; 127)</sup></div> </div> <table class=\"data\"> <tr><th>Hex</th><th>Sign / E / e</th><th>1.M &#215; 2<sup>e</sup></th><th>Decimal</th></tr> <tr><td>C1400000</td><td>1 / 130 / 3</td><td>&#8722;1.1 &#215; 2<sup>3</sup> = &#8722;1100</td><td>&#8722;12</td></tr> <tr><td>42100000</td><td>0 / 132 / 5</td><td>1.0001 &#215; 2<sup>5</sup> = 100100</td><td>36</td></tr> <tr><td>41400000</td><td>0 / 130 / 3</td><td>1.1 &#215; 2<sup>3</sup> = 1100</td><td>12</td></tr> </table>",
+        "answer": "X = &#8722;12, Y = 36, Z = 12. (i) Y &#8722; Z = 36 &#8722; 12 = 24 &gt; 0, so <b>TRUE</b>. (ii) X + Z = &#8722;12 + 12 = 0, so <b>TRUE</b>. (iii) X + Y = &#8722;12 + 36 = 24, and Z = 12, so <b>FALSE</b>.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q1(b)",
+        "src": "2024-2025, Q1b",
+        "printed": "<pre>b. Determine the average memory access time for a machine with a cache hit rate of 80% and cache access time of 5 ns and main memory access time of 100 ns when: i. Simultaneous access memory organization is used. <span class=\"qmark\">2mks</span> ii. Hierarchical access memory organization is used. <span class=\"qmark\">2mks</span> iii.Draw the diagrams representing the two scenarios <span class=\"qmark\">3mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q1(b), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> a cache hit rate of 80%, a cache access time of 5 ns and a main memory access time of 100 ns. Nothing else, so the miss rate 20% is yours to derive.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>determine</i> the average access time twice, once under each organisation, and then <i>draw</i> both. Three separate deliverables under one part.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 2 + 2 + 3 = 7. The 3 sits on the diagrams, which is the largest single share, so a part answered with numbers only throws away nearly half of it.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Three Unit 3, Cache Memory Design.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> using one formula for both. Simultaneous access starts cache and main memory together, so the cache time is not paid twice; hierarchical pays the cache time on every access and the memory time again on a miss. The answers differ by 1 ns, and a copied formula scores zero on one of the two.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> h = 0.80 &middot; T<sub>c</sub> = 5 ns &middot; T<sub>m</sub> = 100 ns</div> <div class=\"prow\"><span class=\"plab\">Find</span> AMAT under both organisations</div> <div class=\"prow\"><span class=\"plab\">Formula</span> simultaneous = h&#215;T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub> &middot; hierarchical = T<sub>c</sub> + (1&#8722;h)&#215;T<sub>m</sub></div> </div>",
+        "answer": "Simultaneous = 0.8(5) + 0.2(100) = 4 + 20 = <b>24 ns</b>. Hierarchical = 5 + 0.2(100) = 5 + 20 = <b>25 ns</b>. Diagrams: simultaneous shows the CPU addressing cache and main memory in parallel; hierarchical shows the CPU reaching main memory only through the cache. Hierarchical is 1 ns slower here because the cache time is paid on every access, hit or miss.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q1(c)",
+        "src": "2024-2025, Q1c",
+        "printed": "<pre>c. Assume a computer has 24-bit addresses. Each block stores 16 words. A direct-mapped cache has 256 blocks. In which block (line) of the cache would you look for each of the following addresses? (Addresses are given in hexadecimal for convenience). <span class=\"qmark\">6mks</span> a. 1A2BC0 b. FFFF00 c. 123456 d. C109D5</pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q1(c), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> a 24-bit address, 16 words per block, a direct-mapped cache of 256 blocks, and four addresses written in hexadecimal.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> in which block (line) each address lands. One number per address, four numbers in all.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6 for four addresses, so roughly 1½ each with the remainder for showing the field split once. Do the split once, then apply it four times.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Three Unit 3, Cache Memory Design.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> counting bits when you could count hex digits. 4 offset bits are exactly one hex digit and 8 index bits are exactly two, so the line is the two digits before the last. Also give the answer in decimal and say so, since the paper leaves the base of the answer open.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> address = 24 bits &middot; block = 16 words &middot; cache = 256 blocks &middot; mapping = direct</div> <div class=\"prow\"><span class=\"plab\">Find</span> the cache block (line) for each address</div> <div class=\"prow\"><span class=\"plab\">Formula</span> offset = log<sub>2</sub>16 = 4 bits &middot; index = log<sub>2</sub>256 = 8 bits &middot; tag = 24 &#8722; 8 &#8722; 4 = 12 bits &middot; the index field is the line number</div> </div> <div class=\"wheredef\"><span class=\"wlab\">reading it off the hex</span> 4 offset bits are exactly <b>one hex digit</b>, and 8 index bits are exactly <b>two</b>. So in a 6-digit address, drop the last digit and the next two digits are the line.</div> <table class=\"data\"> <tr><th>Address</th><th>Offset (last digit)</th><th>Line (next two digits)</th><th>Line in decimal</th></tr> <tr><td>1A2BC0</td><td>0</td><td>BC</td><td>188</td></tr> <tr><td>FFFF00</td><td>0</td><td>F0</td><td>240</td></tr> <tr><td>123456</td><td>6</td><td>45</td><td>69</td></tr> <tr><td>C109D5</td><td>5</td><td>9D</td><td>157</td></tr> </table>",
+        "answer": "Blocks: 1A2BC0 &#8594; <b>188</b>, FFFF00 &#8594; <b>240</b>, 123456 &#8594; <b>69</b>, C109D5 &#8594; <b>157</b>. Address format: tag 12, line 8, offset 4.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q1(d)",
+        "src": "2024-2025, Q1d",
+        "printed": "<pre>d. Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below. For each format determine the number of bytes required. <span class=\"qmark\">8mks</span> X = ((A * B) +C/D)/(F*G+J*K)</pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q1(d), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one arithmetic expression and four instruction formats to write it in. The paper does not state the opcode or address field sizes, so you state them yourself: 1 byte per opcode and 2 bytes per address is the usual convention and the one used here.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> two things joined by \"For each format\": <i>write</i> the program segment, and <i>determine</i> the byte count. Four programs and four totals.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 8, which is 2 per format. A format with a listing and no byte count is half answered.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> assuming fewer address fields always means fewer bytes. It does not: 1-address needs 51 bytes against 2-address at 60 but 3-address at only 49, because shortening each instruction lengthens the program. Count instructions first, then multiply.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> the expression &middot; opcode = 1 byte &middot; each address = 2 bytes</div> <div class=\"prow\"><span class=\"plab\">Find</span> the four programs and their byte totals</div> <div class=\"prow\"><span class=\"plab\">Formula</span> bytes per instruction = opcode bytes + (address fields &#215; bytes per address); total = count &#215; that</div> </div> <table class=\"data\"> <tr><th>Format</th><th>Instructions</th><th>Bytes</th></tr> <tr><td>3-address</td><td>7</td><td>7 &#215; (1 + 3&#215;2) = 7 &#215; 7 = 49</td></tr> <tr><td>2-address</td><td>12</td><td>12 &#215; (1 + 2&#215;2) = 12 &#215; 5 = 60</td></tr> <tr><td>1-address</td><td>17</td><td>17 &#215; (1 + 1&#215;2) = 17 &#215; 3 = 51</td></tr> <tr><td>0-address</td><td>16</td><td>8 pushes &#215; 3 + 1 pop &#215; 3 + 7 ops &#215; 1 = 34</td></tr> </table>",
+        "answer": "The full listings are worked in Module One Unit 4. Totals: <b>49, 60, 51 and 34 bytes</b> for 3, 2, 1 and 0 address respectively. Fewer address fields shortens each instruction but needs more of them, which is why the totals stay close.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q2(a)",
+        "src": "2024-2025, Q2a",
+        "printed": "<pre>a. i) Describe how cache memory improves the performance of a computer system. <span class=\"qmark\">2mks</span> ii) Using the specifications below, design a cache system for each of Direct, Fully Associative and 2-way Set Associative Mapping. iii) State one advantage and one disadvantage of each method. <span class=\"qmark\">8mks</span> specifications: - Cache size: 1 KB = 1024 bytes - Block size: 16 bytes - Main memory size: 64 KB = 65,536 bytes - Address size: 16 bits</pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q2(a), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> cache 1 KB, block 16 bytes, main memory 64 KB, address 16 bits, and three mapping schemes to apply them to.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> three verbs. <i>Describe</i> how cache improves performance, <i>design</i> the cache under each of three mappings, and <i>state</i> one advantage and one disadvantage of each. Nine separate statements in the last part alone.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 2 + 8 = 10, half of Question Two. The design and the trade offs share 8, so budget roughly 5 for the three address formats and 3 for the six verdicts.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Three Unit 3, Cache Memory Design.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> recomputing the line count for each mapping. It is 1 KB / 16 B = 64 lines under all three; only the way those lines are addressed changes. The other trap is answering \"design\" with prose: the mark is for a tag, index and offset split in bits.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> cache = 1 KB &middot; block = 16 bytes &middot; main memory = 64 KB &middot; address = 16 bits</div> <div class=\"prow\"><span class=\"plab\">Find</span> the address format under each of the three mappings, plus one advantage and one disadvantage each</div> <div class=\"prow\"><span class=\"plab\">Formula</span> lines = cache / block &middot; offset = log<sub>2</sub>(block) &middot; sets = lines / k &middot; tag = address &#8722; index (or set) &#8722; offset &middot; tag directory = lines &#215; tag bits</div> </div> <div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span> <b>lines</b> = 1 KB / 16 B = <b>64</b>, the same under all three mappings &middot; <b>offset</b> = log<sub>2</sub>16 = <b>4</b> bits &middot; <b>k</b> = the ways per set, 2 for the 2-way case &middot; 64 KB = 2<sup>16</sup>, which is why the address is 16 bits</div> <table class=\"data\"> <tr><th>Mapping</th><th>Tag</th><th>Index / set</th><th>Offset</th><th>Tag directory</th></tr> <tr><td>Direct</td><td>6</td><td>6 (index, 64 lines)</td><td>4</td><td>64 &#215; 6 = 384 bits = 48 bytes</td></tr> <tr><td>Fully associative</td><td>12</td><td>none</td><td>4</td><td>64 &#215; 12 = 768 bits = 96 bytes</td></tr> <tr><td>2-way set assoc.</td><td>7</td><td>5 (set, 32 sets)</td><td>4</td><td>64 &#215; 7 = 448 bits = 56 bytes</td></tr> </table>",
+        "answer": "<b>Direct:</b> simplest and fastest lookup (one line to check, one comparator), but two blocks mapping to the same line evict each other, causing conflict misses. <b>Fully associative:</b> no conflict misses, any block may sit anywhere, but every line's tag must be compared at once, which is expensive and slow, and the tag directory doubles to 96 bytes. <b>2-way:</b> the compromise, most conflict misses removed for only two comparators and a modest tag growth to 56 bytes.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q2(b)",
+        "src": "2024-2025, Q2b",
+        "printed": "<pre>b. i) Explain the following terms: <span class=\"qmark\">4½mks</span> 1. Locality of reference 2. Temporal locality 3. Special Locality ii) What happens when there is a Cache Miss? <span class=\"qmark\">1½ mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q2(b), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing numeric. This is a definitions part, four terms in all if you count the cache miss.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>explain</i>, not merely name, three terms, then say what <i>happens</i> on a cache miss. The second verb wants a sequence of events, not a definition.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4½ + 1½ = 6, so 1½ per term in (i). That is two or three sentences each, with an example, not one line.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Three Unit 1, Computer Memory Overview.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> correcting the paper. Answer the third term as spatial locality, but keep the examiner's numbering and do not waste a line pointing out the spelling. The other trap is defining temporal and spatial without first defining locality of reference, which is the term the other two are special cases of.</div> </div></div>",
+        "answer": "(i) Locality of reference is the tendency of a program to access a small, predictable set of memory locations during any short period. <b>Temporal:</b> a location used now is likely to be used again soon, so cache keeps recently used items. <b>Spatial:</b> locations near one just used are likely to be used soon, so cache fetches a whole block of neighbours at once. (ii) On a miss the word is not in cache, so the address goes onto the system bus, main memory returns the <b>whole block</b> containing it, that block is loaded into a cache line (evicting one if necessary), and the required word is delivered to the CPU at the same time.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q2(c)",
+        "src": "2024-2025, Q2c",
+        "printed": "<pre>c. Provide an assembly language program to add two numbers and store the result. <span class=\"qmark\">4mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q2(c), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing at all. Two numbers exist only as names you choose.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>provide</i> a program: three operations, load, add, store. \"store the result\" is a separate demand from \"add\", so an answer that ends at ADD is incomplete.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4, which for three instructions means roughly one per instruction plus one for the assumption you state.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> leaving the machine unstated. Write the accumulator assumption on the line above the code and the same three lines become unambiguous. Comment each line: comments cost nothing and show the marker you know what the accumulator holds.</div> </div></div>",
+        "answer": "On a one-address (accumulator) machine: <br>LOAD A &nbsp;&nbsp;; accumulator = A <br>ADD&nbsp; B &nbsp;&nbsp;; accumulator = A + B <br>STORE C &nbsp;; C = A + B <br>On a three-address machine it is the single instruction ADD C, A, B. Either scores full marks provided you state which machine you assume.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q3(a)",
+        "src": "2024-2025, Q3a",
+        "printed": "<pre>a. i) What do you understand by Von Neumann Concept? <span class=\"qmark\">1mk</span> ii) Mention any 2 significant aspects of Von Neumann Architecture. <span class=\"qmark\">2mks</span> iii) Describe the Von Neumann architecture bottleneck. <span class=\"qmark\">2mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q3(a), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing but the name of the architecture. This is a recall part from end to end.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> three different verbs on the same topic: what you <i>understand</i> by the concept, <i>mention</i> two aspects, and <i>describe</i> the bottleneck. Mention wants a list, describe wants a mechanism.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 1 + 2 + 2 = 5. The single mark on (i) tells you one sentence is enough there; the two marks on (iii) tell you a bare phrase is not.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 1, Architecture versus Organization.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> describing the bottleneck as \"the CPU is faster than memory\". That is a different problem. The bottleneck named here is the single shared path that instructions and data must both travel, so no instruction fetch and data access can happen in the same instant.</div> </div></div>",
+        "answer": "The Von Neumann concept: a computer stores its program (instructions) and its data together in the <b>same</b> memory, and executes instructions one after another by fetching them from that memory. Two aspects: (a) a single shared memory holds both instructions and data; (b) instructions execute sequentially, one at a time, under the stored-program idea. The bottleneck: because one bus is shared between instructions and data, the CPU cannot fetch an instruction and access data at the same instant, so that single path limits overall speed however fast the CPU is.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q3(b)",
+        "src": "2024-2025, Q3b",
+        "printed": "<pre>b. i) Complete table 1. Show all necessary work done to arrive at the answer. Use 12 bits. <span class=\"qmark\">6mks</span> <table class=\"astab\"><tr><th>Value</th><th>Unsigned</th><th>S-M</th><th>1's Complement</th><th>2's Complement</th></tr><tr><td>204</td><td></td><td></td><td></td><td></td></tr><tr><td>-139</td><td></td><td></td><td></td><td></td></tr><tr><td>1101 00110 11</td><td></td><td></td><td></td><td></td></tr></table> ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte. <span class=\"qmark\">3mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q3(b), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> two decimal values, 204 and -139, one bit pattern, four representation schemes and a width of 12 bits.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>complete</i> the table and \"Show all necessary work done to arrive at the answer\", which is an explicit instruction that a filled grid with no working will not score. Part (ii) then switches subject entirely to an image size calculation.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6 + 3 = 9. The 6 covers eight or more cells plus the working, so a cell is worth well under a mark: speed matters more than elegance here.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> writing \"not representable\" and moving on. Unsigned genuinely cannot hold -139, and saying so earns the mark, but every other cell must still be filled. The second trap is the 11-bit row: pad it to 12 on the left, state that you have done so, and read it in all four schemes.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> values 204 and &#8722;139 &middot; n = 12 bits &middot; four schemes</div> <div class=\"prow\"><span class=\"plab\">Find</span> each value in each scheme</div> <div class=\"prow\"><span class=\"plab\">Formula</span> sign-magnitude = sign bit + magnitude &middot; one's complement = invert all n bits &middot; two's complement = invert then add 1</div> </div> <table class=\"data\"> <tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr> <tr><td>204</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td></tr> <tr><td>&#8722;139</td><td>not representable</td><td>1000 1000 1011</td><td>1111 0111 0100</td><td>1111 0111 0101</td></tr> </table>",
+        "answer": "Reading 1111 0111 0101 back as two's complement: the leading 1 says negative, so invert and add 1, giving 0000 1000 1011 = 139, so the value is <b>&#8722;139</b>. The recipe reverses itself, which is the check to write down.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q3(b)(ii)",
+        "src": "2024-2025, Q3b",
+        "printed": "<pre>ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte. <span class=\"qmark\">3mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q3(b)(ii), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> 17.12 inches by 9.45 inches at 250 dots per inch. No colour depth, which is the number you need and are not given.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>calculate</i> the memory requirement and <i>express</i> it in megabytes. Two instructions, and the second one is a unit conversion that carries its own mark.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 3. One for the pixel count, one for the conversion to bytes, one for reaching megabytes.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the silent choice of 1 MB. Dividing by 1024 twice gives about 1.21 MB; dividing by one million gives about 1.26 MB. Both are defensible, neither is safe unstated, so name your convention on the page.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> 17.12 in &#215; 9.45 in &middot; 250 dpi &middot; 1 bit per pixel (black and white, not stated so assumed)</div> <div class=\"prow\"><span class=\"plab\">Find</span> the memory in MB</div> <div class=\"prow\"><span class=\"plab\">Formula</span> bits = (w&#215;dpi)(h&#215;dpi)&#215;bpp, then &#247;8, &#247;1024, &#247;1024</div> </div>",
+        "answer": "4280 &#215; 2362.5 = 10 111 500 pixels &#215; 1 bit = 10 111 500 bits = 1 263 937.5 bytes &#8776; <b>1.21 MB</b> (dividing by 1024 twice). State your convention: dividing by one million instead gives about 1.26 MB.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q3(c)",
+        "src": "2024-2025, Q3c",
+        "printed": "<pre>c. Represent the following -1240.56 using Single Precision IEEE format for floating point numbers. <span class=\"qmark\">6mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q3(c), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one decimal value, -1240.56, and the target format, IEEE single precision.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>represent</i> it. The verb wants the 32-bit pattern, and by convention the hexadecimal equivalent alongside it.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6, which is the whole of a five part question's third part. Expect a mark each for the sign, the integer part in binary, the fraction in binary, the normalisation, the biased exponent and the assembled pattern.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the fraction. 0.56 never terminates in binary, so it must be expanded by repeated doubling until the mantissa is full, and then rounded or truncated. Say which you did: the last hex digit changes.</div> </div></div>",
+        "answer": "Sign 1. 1240 = 100 1101 1000 and 0.56 = 0.10001111010111... Normalising gives 1.001101100010001111010111... &#215; 2<sup>10</sup>, so E = 10 + 127 = 137 = 1000 1001, and the first 23 mantissa bits are 0011 0110 0010 0011 1101 011. Pattern 1 10001001 00110110001000111101011 = <b>C49B11EBH</b> (truncated). Rounding the last bit instead gives C49B11ECH, which is what hardware stores; either is accepted if you state the method.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q4(a)",
+        "src": "2024-2025, Q4a",
+        "printed": "<pre>a. i) Compare Von Neumann Architecture and Harvard Architecture. Include diagram for each. <span class=\"qmark\">3mk</span> ii) Mention any four (4) clear differences between RISC and CISC. Give two (2) examples of processors in each category. <span class=\"qmark\">4mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q4(a), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> four architecture names and nothing numeric.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>compare</i> two architectures with diagrams, then <i>mention</i> four differences and <i>give</i> four example processors. Three verbs, and the diagrams are compulsory, not decoration.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 3 + 4 = 7. In part (ii) that is four differences plus four processors for 4 marks, so half a mark a line: write in a two column table, not prose.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 1 for the architectures, Module Four Unit 1 for RISC and CISC.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> forgetting the diagrams. They are explicitly asked for and carry their own marks, and a compare answered as prose alone cannot score full marks however good the prose is. The second trap is naming processors nobody can check: ARM and MIPS against x86 and 68000 are safe.</div> </div></div>",
+        "answer": "(i) Von Neumann uses <b>one</b> memory and <b>one</b> bus for instructions and data, so it is simpler and cheaper but the shared bus carries only one at a time. Harvard uses <b>separate</b> memories and buses, so an instruction fetch and a data access happen simultaneously: faster, but more hardware and less flexible. Draw both diagrams; they carry marks of their own.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q4(b)",
+        "src": "2024-2025, Q4b",
+        "printed": "<pre>b. i) Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in a 10-bit register. <span class=\"qmark\">4mks</span> ii) What do you understand by Overflow and Underflow in data representation? Give one example for each. <span class=\"qmark\">3mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q4(b), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> 153 and 142, a 10-bit register, and one's complement arithmetic. Part (ii) is given nothing at all.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>describe</i> end-around carry and then <i>illustrate</i> it, so a worked subtraction with no explanation, or an explanation with no subtraction, each lose half. Part (ii) wants two definitions and one example each, four items.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4 + 3 = 7. The example in (ii) is worth as much as the definition, so never skip it.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> discarding the carry. In one's complement the carry out of the top bit is added back into the lowest bit, and that end-around step is the entire point of the question; in two's complement the same carry is thrown away. Mixing the two rules gives an answer one short.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> 153 &#8722; 142 &middot; n = 10 bits &middot; one's complement</div> <div class=\"prow\"><span class=\"plab\">Find</span> the difference as a pattern and in decimal</div> <div class=\"prow\"><span class=\"plab\">Formula</span> a &#8722; b = a + (&#8722;b) with &#8722;b the bitwise inversion; a carry out of the top is <b>added back</b> into the lowest bit</div> </div>",
+        "answer": "153 = 00 1001 1001; +142 = 00 1000 1110 so &#8722;142 = 11 0111 0001. Adding: 00 1001 1001 + 11 0111 0001 = 1 00 0000 1010, with a carry out. End-around: 00 0000 1010 + 1 = <b>00 0000 1011 = 11</b>, and 153 &#8722; 142 = 11. Correct. (ii) <b>Overflow</b> is a result too large for the available bits (in 8-bit two's complement, 100 + 50 = 150 overflows the +127 limit). <b>Underflow</b> is a result too small to represent: for integers more negative than the smallest storable value (&#8722;100 &#8722; 50 = &#8722;150 below &#8722;128), and for floating point a value so close to zero it rounds away to nothing.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q4(c)",
+        "src": "2024-2025, Q4c",
+        "printed": "<pre>c. By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h <span class=\"qmark\">6mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q4(c), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one 32-bit hexadecimal word and the statement that it is IEEE single precision.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>determine</i> the base 10 value, by running the conversion procedure backwards. The words \"Base 10\" and \"base 16\" are spelled out so that no answer in binary or hex will do.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6. Roughly one each for the sign, the exponent field, the unbiased exponent, restoring the hidden 1, the shifted binary value and the decimal total.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> forgetting the hidden bit. The stored mantissa is the fraction after an implied leading 1, so 1.11100101110 is what you shift, not 0.11100101110. Miss it and the answer halves.</div> </div></div>",
+        "answer": "C4F2E000 = 1100 0100 1111 0010 1110 0000 0000 0000. Sign 1, so negative. E = 1000 1001 = 137, so e = 137 &#8722; 127 = 10. Restoring the hidden 1 gives 1.11100101110 &#215; 2<sup>10</sup> = 11110010111<sub>2</sub> = 1024+512+256+128+16+4+2+1 = 1943. So the value is <b>&#8722;1943</b>.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q5(a)",
+        "src": "2024-2025, Q5a",
+        "printed": "<pre>a. i) Describe three (3) categories of Instructions that we have. Give two (2) examples for each. <span class=\"qmark\">4½mks</span> ii) Discuss the characteristics of computer memory based on Access Methods. Give one example for each method. <span class=\"qmark\">4mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q5(a), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing numeric. Two recall parts.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>describe</i> three instruction categories and <i>give</i> two examples of each, six examples in all, then <i>discuss</i> memory by access method with <i>one</i> example each.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4½ + 4 = 8½, the largest recall block on the paper. That is 1½ per instruction category, so a name with two examples and a sentence of description.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4 for the instruction categories, Module Three Unit 1 for the access methods.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> answering (ii) with RAM, ROM and cache. Those are technologies. The access methods are sequential, direct, random and associative, and each wants its own example device.</div> </div></div>",
+        "answer": "(i) <b>Data transfer:</b> LOAD, STORE (also MOVE, PUSH, POP). <b>Arithmetic and logic:</b> ADD, AND (also SUB, MUL, OR, NOT, shifts). <b>Control (test and branch):</b> JUMP, BEQ (also CALL, RETURN). (ii) <b>Sequential:</b> read in order from the start, access time depends on position, as in magnetic tape. <b>Direct:</b> jump near the item then search a small region, as on a disk. <b>Random:</b> every location takes the same time via its address, as in RAM. <b>Associative:</b> located by content rather than address, all locations compared at once, as in a cache tag search.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q5(b)",
+        "src": "2024-2025, Q5b",
+        "printed": "<pre>b. Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate- i. Pipeline cycle time <span class=\"qmark\">1mk</span> ii. Non-pipeline execution time <span class=\"qmark\">1mk</span> iii. Speed up ratio <span class=\"qmark\">1mk</span> iv. Pipeline time for 500 tasks <span class=\"qmark\">1mk</span> v. Sequential time for 500 tasks <span class=\"qmark\">1mk</span> vi. Throughput <span class=\"qmark\">1mk</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q5(b), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> four stage durations, 60, 50, 90 and 80 ns, a latch delay of 10 ns, and 500 tasks.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> six numbers, in the paper's order. Nothing here asks for explanation, so every mark is a figure with its unit.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6, one per item. Answer all six even if one is guessed: an omitted line cannot score, a wrong line costs only itself.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Two Unit 3, Pipelining.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> leaving the latch out of the cycle time. The cycle is the slowest stage <i>plus</i> the latch, 90 + 10 = 100 ns, and every later item depends on it, so one omission poisons five answers. The second trap is the k + n - 1 formula: 500 tasks through 4 stages take 503 cycles, not 504.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> k = 4 stages &middot; 60, 50, 90, 80 ns &middot; latch = 10 ns &middot; n = 500 tasks</div> <div class=\"prow\"><span class=\"plab\">Find</span> cycle time, one-task non-pipelined time, speedup, 500-task pipelined and sequential times, throughput</div> <div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch &middot; pipelined = (k + n &#8722; 1) &#215; cycle &middot; sequential = n &#215; &#931;stages &middot; throughput = n / pipelined time</div> </div>",
+        "answer": "Cycle = 90 + 10 = <b>100 ns</b>. Non-pipelined one task = 60+50+90+80 = <b>280 ns</b>. Ideal speedup = 280/100 = <b>2.8</b>. For 500 tasks: pipelined = (4 + 499) &#215; 100 = <b>50 300 ns</b>; sequential = 500 &#215; 280 = <b>140 000 ns</b>. Throughput = 500 / 50 300 ns, which in the steady state is one task per cycle, that is 1/100 ns = 10 million tasks per second.",
+        "redo": ""
+      },
+      {
+        "kind": "asprinted",
+        "label": "As printed",
+        "tag": "24/25 Q5(c)",
+        "src": "2024-2025, Q5c",
+        "printed": "<pre>c. Perform the calculation below in using Single Precision IEEE format. All bits after the first 12 bits of the Mantissa should be 0. -421.55 (all operations must be done in binary). <span class=\"qmark\">5½mks</span></pre>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "24/25 Q5(c), broken down and answered",
+        "tag": "cover this, attempt the question, then check",
+        "problem": "",
+        "working": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> the value -421.55, the single precision format, and a truncation rule: everything after the first 12 mantissa bits is zero.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> the 32-bit pattern, in binary, with the mantissa truncated as instructed. The truncation is not a simplification you are being offered, it is a requirement you are being marked on.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 5½. Sign, integer part, fraction, normalisation, exponent field and the truncated assembly, so about a mark each with a half for the unit of the answer.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> truncating at the wrong place. \"the first 12 bits of the Mantissa\" means the 23-bit stored fraction, not the 24 bits including the hidden 1, so you keep 12 fraction bits and set the remaining 11 to zero. Say what the truncated pattern now reads back as: that is what the question is testing.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> value = &#8722;421.55 &middot; IEEE-754 single precision &middot; keep only the first <b>12</b> mantissa bits, rest zero</div> <div class=\"prow\"><span class=\"plab\">Find</span> the full 32-bit pattern in binary</div> <div class=\"prow\"><span class=\"plab\">Formula</span> normalise to 1.<i>m</i> &#215; 2<sup>e</sup>, E = e + 127, then truncate the mantissa as instructed</div> </div> <ol class=\"steps\"> <li>Sign: negative, so <b>1</b>.</li> <li>421 = 1 1010 0101, and 0.55 = 0.100011001100... so 421.55 = 110100101.100011001100...</li> <li>Normalise: 1.10100101100011001100110 &#215; 2<sup>8</sup>, so e = 8.</li> <li>Exponent field: 8 + 127 = 135 = <b>1000 0111</b>.</li> <li>Mantissa, first 12 bits: 1010 0101 1000, then eleven zeros: <b>1010 0101 1000 0000 0000 000</b>.</li> </ol>",
+        "answer": "&#8722;421.55 &#8776; <b>1 10000111 10100101100000000000000</b> = C3D2C000H. Truncating at 12 mantissa bits loses precision: this pattern reads back as &#8722;421.5 exactly, against the untruncated C3D2C666H. Say so, because the question is testing that you know truncation costs accuracy.",
+        "redo": ""
+      }
+    ]
+  },
+  {
     "slug": "night-before",
     "part": "Part C: prove it",
     "kick": "Prove It",
