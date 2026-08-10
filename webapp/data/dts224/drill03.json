@@ -1,0 +1,313 @@
+[
+  { "id": "dts-x1-01", "module": 1, "slides": ["Manual M1"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "data against information",
+    "prompt": "Which of the following BEST distinguishes data from information?",
+    "options": [
+      { "id": "a", "text": "Data is raw, unprocessed facts; information is data that has been processed so a decision can be made from it" },
+      { "id": "b", "text": "Data is stored electronically; information is stored on paper" },
+      { "id": "c", "text": "Data is always numeric; information is always text" },
+      { "id": "d", "text": "Data belongs to the DBMS; information belongs to the operating system" }
+    ],
+    "answer": "a",
+    "explanation": "Data is the input, information is the output you can act on. 8500 is data. \"Ada spent 18,200 this month\" is information, because it supports a decision. The processing in between is what a database exists to do.",
+    "why": { "a": "Correct. Raw facts against processed, decision-ready output.", "b": "Wrong. The medium is irrelevant to the distinction.", "c": "Wrong. Both can be either.", "d": "Wrong. Neither is defined by which software owns it." } },
+
+  { "id": "dts-x1-02", "module": 1, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["wording"], "topic": "why databases replaced files",
+    "prompt": "Which problem of the traditional file-based approach does a database system MOST directly solve?",
+    "options": [
+      { "id": "a", "text": "Data redundancy and inconsistency, because each fact is stored once in one place" },
+      { "id": "b", "text": "The need for backup, which databases remove entirely" },
+      { "id": "c", "text": "The cost of hardware, which databases always reduce" },
+      { "id": "d", "text": "The need to write application programs, which databases remove" }
+    ],
+    "answer": "a",
+    "explanation": "In a file-based system each program keeps its own file, so the same customer address sits in three places and drifts apart. A database holds it once and shares it, which is the root cure for both redundancy and inconsistency.",
+    "why": { "a": "Correct. One fact, one place, shared by all applications.", "b": "Wrong. Databases still need backup, and provide it as a service rather than removing the need.", "c": "Wrong. A DBMS often needs MORE hardware, which is one of its stated disadvantages.", "d": "Wrong. Applications are still written; they just share the data." } },
+
+  { "id": "dts-x1-03", "module": 1, "slides": ["Manual M1"], "style": "mcq", "difficulty": "easy", "facets": ["names"], "topic": "the index",
+    "prompt": "What is the purpose of an index in a database?",
+    "options": [
+      { "id": "a", "text": "A lookup structure mapping column values to the locations of the rows holding them, so a query avoids reading every row" },
+      { "id": "b", "text": "A backup copy of the table kept in case of failure" },
+      { "id": "c", "text": "A list of every user permitted to access the table" },
+      { "id": "d", "text": "A constraint preventing duplicate values in a column" }
+    ],
+    "answer": "a",
+    "explanation": "Exactly like the index at the back of a book: it maps a topic to its page numbers so you do not read the whole book. Without one, finding every row where city = 'Glasgow' means a full table scan, which on a million rows is a million reads.",
+    "why": { "a": "Correct. Value to row location, avoiding the full table scan.", "b": "Wrong. That is a backup.", "c": "Wrong. That is access control.", "d": "Wrong. That is a UNIQUE constraint, though a unique index enforces one." } },
+
+  { "id": "dts-x2-01", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "schema against instance",
+    "prompt": "Which pair correctly describes a database schema and a database instance?",
+    "options": [
+      { "id": "a", "text": "The schema is the structure or design; the instance is the data held at a particular moment" },
+      { "id": "b", "text": "The schema is the data held now; the instance is the design" },
+      { "id": "c", "text": "The schema is the physical file; the instance is the running program" },
+      { "id": "d", "text": "They are two words for the same thing" }
+    ],
+    "answer": "a",
+    "explanation": "The schema is the empty form; the instance is that form filled in today. The schema changes rarely, when the design changes. The instance changes every time a row is inserted.",
+    "why": { "a": "Correct. Design against snapshot.", "b": "Wrong, and reversed.", "c": "Wrong. Neither term is about files or processes.", "d": "Wrong. The distinction is exactly what the question tests." } },
+
+  { "id": "dts-x2-02", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "hard", "facets": ["lists"], "topic": "the three-schema architecture",
+    "prompt": "In the three-schema architecture, which level describes how the data is actually stored?",
+    "options": [
+      { "id": "a", "text": "The internal level" },
+      { "id": "b", "text": "The external level" },
+      { "id": "c", "text": "The conceptual level" },
+      { "id": "d", "text": "The view level" }
+    ],
+    "answer": "a",
+    "explanation": "Three levels, and the hook is window, blueprint, foundation. EXTERNAL is each user's own view, the window. CONCEPTUAL is the whole logical design, the blueprint. INTERNAL is physical storage, the foundation nobody sees.",
+    "why": { "a": "Correct. Internal is the storage level.", "b": "Wrong. External is the individual user's view.", "c": "Wrong. Conceptual is the whole logical design, independent of storage.", "d": "Wrong. View level is another name for the EXTERNAL level." } },
+
+  { "id": "dts-x2-03", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["wording"], "topic": "DBA against database manager",
+    "prompt": "Which statement correctly separates the Database Administrator from the database manager?",
+    "options": [
+      { "id": "a", "text": "The DBA is a person with central control over the data; the database manager is a software module inside the DBMS" },
+      { "id": "b", "text": "The DBA is a software module; the database manager is a person" },
+      { "id": "c", "text": "Both are software components of the DBMS" },
+      { "id": "d", "text": "Both are job titles within the IT department" }
+    ],
+    "answer": "a",
+    "explanation": "A person has a job title; a module is code. The DBA decides who may see what and how the database is structured. The database manager is the part of the DBMS that sits between the stored data and the programs asking for it.",
+    "why": { "a": "Correct. Person against module.", "b": "Wrong, and exactly reversed.", "c": "Wrong. The DBA is a person.", "d": "Wrong. The database manager is software." } },
+
+  { "id": "dts-x2-04", "module": 2, "slides": ["Manual M1"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "data independence",
+    "prompt": "What does data independence mean in a database system?",
+    "options": [
+      { "id": "a", "text": "The ability to change one level of the architecture without having to change the level above it" },
+      { "id": "b", "text": "The ability of two databases to run without communicating" },
+      { "id": "c", "text": "The ability of data to exist without a schema" },
+      { "id": "d", "text": "The ability of each user to own a private copy of the data" }
+    ],
+    "answer": "a",
+    "explanation": "Re-lay the foundation and the window still works. Change how a table is physically stored, and the programs reading it carry on unchanged. That insulation is the main practical payoff of the three-schema architecture.",
+    "why": { "a": "Correct. Insulation between levels.", "b": "Wrong. Nothing to do with separate databases.", "c": "Wrong. Data always has a schema in the relational model.", "d": "Wrong. Private copies are the redundancy databases exist to remove." } },
+
+  { "id": "dts-x3-01", "module": 3, "slides": ["Manual M2 U1"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "the degree of a relationship",
+    "prompt": "A relationship connects three entity types at once. What is its degree called?",
+    "options": [
+      { "id": "a", "text": "Ternary" },
+      { "id": "b", "text": "Binary" },
+      { "id": "c", "text": "Unary" },
+      { "id": "d", "text": "Composite" }
+    ],
+    "answer": "a",
+    "explanation": "The DEGREE of a relationship is the number of entity types it joins. One is unary, also called recursive, where an entity relates to itself, such as an employee supervising an employee. Two is binary, by far the commonest. Three is ternary.",
+    "why": { "a": "Correct. Three entity types is ternary.", "b": "Wrong. Binary joins two.", "c": "Wrong. Unary joins an entity to itself.", "d": "Wrong. Composite describes an ATTRIBUTE made of smaller ones, not a relationship." } },
+
+  { "id": "dts-x3-02", "module": 3, "slides": ["Manual M2 U1"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "participation",
+    "prompt": "An ERD shows that a MEMBER need not borrow any BOOK, but every BORROWING must involve a member. What does this describe?",
+    "options": [
+      { "id": "a", "text": "Optional participation for MEMBER and mandatory participation for BORROWING" },
+      { "id": "b", "text": "A many-to-many relationship between MEMBER and BOOK" },
+      { "id": "c", "text": "A transitive dependency between MEMBER and BORROWING" },
+      { "id": "d", "text": "A weak entity relationship" }
+    ],
+    "answer": "a",
+    "explanation": "PARTICIPATION, also called optionality or ordinality, is the MINIMUM: must an instance take part at all. A member who has borrowed nothing is still a member, so optional. A borrowing with no member is meaningless, so mandatory. Cardinality is the maximum, participation the minimum.",
+    "why": { "a": "Correct. Optional on one side, mandatory on the other.", "b": "Wrong. That is cardinality, and this question is about the minimum.", "c": "Wrong. Transitive dependency belongs to normalization.", "d": "Wrong. A weak entity is one that cannot exist without another and has no key of its own." } },
+
+  { "id": "dts-x3-03", "module": 3, "slides": ["Manual M2 U1"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "composite and multivalued attributes",
+    "prompt": "An ADDRESS attribute is broken into Street, City and State. What kind of attribute is ADDRESS?",
+    "options": [
+      { "id": "a", "text": "Composite" },
+      { "id": "b", "text": "Multivalued" },
+      { "id": "c", "text": "Derived" },
+      { "id": "d", "text": "Key" }
+    ],
+    "answer": "a",
+    "explanation": "COMPOSITE means it splits into smaller attributes. Keep three kinds apart: composite splits (address into street, city, state); MULTIVALUED holds several values at once (a person with two phone numbers); DERIVED is calculated from something else (age, from date of birth).",
+    "why": { "a": "Correct. It divides into smaller component attributes.", "b": "Wrong. Multivalued means several values of the SAME attribute.", "c": "Wrong. Derived means calculated from another attribute.", "d": "Wrong. A key identifies; it need not be composite." } },
+
+  { "id": "dts-x4-01", "module": 4, "slides": ["Manual M2 U2"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "specialization and generalization",
+    "prompt": "You notice STUDENT can be split into GRADUATE and UNDERGRADUATE, each with its own attributes. Working from the general entity downward, what is this process called?",
+    "options": [
+      { "id": "a", "text": "Specialization" },
+      { "id": "b", "text": "Generalization" },
+      { "id": "c", "text": "Normalization" },
+      { "id": "d", "text": "Aggregation" }
+    ],
+    "answer": "a",
+    "explanation": "The direction is the whole answer. SPECIALIZATION works TOP DOWN: you start with the general entity and identify subgroups inside it. GENERALIZATION works BOTTOM UP: you notice CAR and TRUCK share attributes and invent VEHICLE above them.",
+    "why": { "a": "Correct. Top down, from the supertype to its subtypes.", "b": "Wrong direction. Generalization builds the supertype up from existing entities.", "c": "Wrong. Normalization splits TABLES to remove redundancy.", "d": "Wrong. Aggregation treats a relationship as if it were an entity." } },
+
+  { "id": "dts-x4-02", "module": 4, "slides": ["Manual M2 U2"], "style": "mcq", "difficulty": "hard", "facets": ["names"], "topic": "the discriminator",
+    "prompt": "In an EER diagram, what is the role of the discriminator (subtype discriminator)?",
+    "options": [
+      { "id": "a", "text": "An attribute of the supertype whose value determines which subtype an instance belongs to" },
+      { "id": "b", "text": "The primary key of the supertype" },
+      { "id": "c", "text": "A constraint stating that subtypes may not overlap" },
+      { "id": "d", "text": "The foreign key joining a subtype to its supertype" }
+    ],
+    "answer": "a",
+    "explanation": "It is the attribute that answers \"which kind is this one?\". For a disjoint specialization one value is enough, such as student_type holding G or U. For an OVERLAP specialization one value is not enough, so the discriminator becomes a set of yes/no flags, one per subtype.",
+    "why": { "a": "Correct. Its value selects the subtype.", "b": "Wrong. The key identifies the instance, not its type.", "c": "Wrong. That is the disjointness constraint.", "d": "Wrong. Subtypes inherit the supertype's key rather than needing a separate foreign key concept here." } },
+
+  { "id": "dts-x5-01", "module": 5, "slides": ["Manual M2 U3"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "semi-structured data",
+    "prompt": "Why are XML and JSON described as semi-structured rather than structured?",
+    "options": [
+      { "id": "a", "text": "They carry their own description of structure through tags or keys, instead of conforming to a fixed schema fixed in advance" },
+      { "id": "b", "text": "They can only hold half of the data a table can hold" },
+      { "id": "c", "text": "They cannot represent relationships between records" },
+      { "id": "d", "text": "They must always be converted to tables before they can be read" }
+    ],
+    "answer": "a",
+    "explanation": "A table's structure is decided before any data arrives, and every row must fit it. An XML or JSON document brings its labels with it, so two documents in the same file can carry different fields. Hook: a parcel with the contents written on the outside.",
+    "why": { "a": "Correct. Self-describing, rather than schema-first.", "b": "Wrong. Capacity is not the distinction.", "c": "Wrong. Nesting expresses relationships directly.", "d": "Wrong. They are read natively by many systems." } },
+
+  { "id": "dts-x6-01", "module": 6, "slides": ["Manual M3"], "style": "mcq", "difficulty": "medium", "facets": ["numbers"], "topic": "degree and cardinality",
+    "prompt": "A relation has 6 columns and 40 rows. What are its degree and cardinality?",
+    "options": [
+      { "id": "a", "text": "Degree 6, cardinality 40" },
+      { "id": "b", "text": "Degree 40, cardinality 6" },
+      { "id": "c", "text": "Degree 240, cardinality 6" },
+      { "id": "d", "text": "Degree 6, cardinality 6" }
+    ],
+    "answer": "a",
+    "explanation": "DEGREE is the number of ATTRIBUTES, which is columns. CARDINALITY is the number of TUPLES, which is rows. They are swapped every year, so fix it with the hook: cardinality COUNTS the rows.",
+    "why": { "a": "Correct. Degree counts columns, cardinality counts rows.", "b": "Wrong, and it is the standard swap.", "c": "Wrong. Nothing is multiplied.", "d": "Wrong. The two numbers differ here." } },
+
+  { "id": "dts-x6-02", "module": 6, "slides": ["Manual M3"], "style": "mcq", "difficulty": "hard", "facets": ["names"], "topic": "candidate and primary keys",
+    "prompt": "Which statement about candidate keys is correct?",
+    "options": [
+      { "id": "a", "text": "A candidate key uniquely identifies a tuple and contains no attribute that could be removed while keeping uniqueness" },
+      { "id": "b", "text": "A relation may have only one candidate key" },
+      { "id": "c", "text": "A candidate key may contain null values provided they are rare" },
+      { "id": "d", "text": "A candidate key is any set of attributes that uniquely identifies a tuple, whether or not it is minimal" }
+    ],
+    "answer": "a",
+    "explanation": "MINIMALITY is what separates a candidate key from a super key. Any set that identifies uniquely is a SUPER key; strip it back until removing one more attribute would break uniqueness, and you have a CANDIDATE key. Choose one of the candidates and it becomes the PRIMARY key.",
+    "why": { "a": "Correct. Unique and minimal.", "b": "Wrong. A relation can have several candidate keys; only one is chosen as primary.", "c": "Wrong. The chosen primary key may never be null, which is entity integrity.", "d": "Wrong. That describes a SUPER key, which need not be minimal." } },
+
+  { "id": "dts-x7-01", "module": 7, "slides": ["Manual M3"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "mapping a one-to-many",
+    "prompt": "A one-to-many relationship exists between DEPARTMENT and EMPLOYEE. When this is converted to tables, where does the foreign key go?",
+    "options": [
+      { "id": "a", "text": "Into EMPLOYEE, the many side, holding the department number" },
+      { "id": "b", "text": "Into DEPARTMENT, the one side, holding the employee numbers" },
+      { "id": "c", "text": "Into a new third table holding both keys" },
+      { "id": "d", "text": "Into both tables, so each can find the other" }
+    ],
+    "answer": "a",
+    "explanation": "Think physically. One department has many employees, so you cannot write a hundred employee numbers into one department row. But you can write one department number onto each employee row. THE MANY SIDE CARRIES THE KEY, always.",
+    "why": { "a": "Correct. The many side carries the foreign key.", "b": "Wrong. A single cell cannot hold many values; that would break 1NF.", "c": "Wrong. A third table is how a MANY-TO-MANY is resolved, not a one-to-many.", "d": "Wrong. Duplicating it in both places creates exactly the redundancy this course removes." } },
+
+  { "id": "dts-x7-02", "module": 7, "slides": ["Manual M3"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "referential integrity",
+    "prompt": "Referential integrity is violated when:",
+    "options": [
+      { "id": "a", "text": "A foreign key holds a value that matches no primary key value in the referenced table" },
+      { "id": "b", "text": "A table contains two rows with identical values in a non-key column" },
+      { "id": "c", "text": "An attribute holds more than one value in a single cell" },
+      { "id": "d", "text": "A non-key attribute depends on another non-key attribute" }
+    ],
+    "answer": "a",
+    "explanation": "A foreign key is a borrowed key, and it must open a door that exists. Every foreign key value must either match a real primary key value or be null. Delete a department while employees still point at it and you have broken it.",
+    "why": { "a": "Correct. A dangling reference is the violation.", "b": "Wrong. Duplicate non-key values are perfectly legal.", "c": "Wrong. That breaks 1NF, a different rule.", "d": "Wrong. That is a transitive dependency, which breaks 3NF." } },
+
+  { "id": "dts-x8-01", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "1NF",
+    "prompt": "A table has a column PHONE_NUMBERS holding \"0803..., 0701...\" in one cell. Which normal form does this break, and what is the fix?",
+    "options": [
+      { "id": "a", "text": "1NF, because values must be atomic; separate the numbers into their own rows or their own table" },
+      { "id": "b", "text": "2NF, because the column depends on part of the key; remove the partial dependency" },
+      { "id": "c", "text": "3NF, because of a transitive dependency; move the column to another table" },
+      { "id": "d", "text": "It breaks nothing, since the values are still in one column" }
+    ],
+    "answer": "a",
+    "explanation": "First normal form demands ATOMIC values: one box, one value, and no repeating groups. Two numbers in a cell means you cannot search, sort or count them without splitting the text first, which is the practical reason the rule exists.",
+    "why": { "a": "Correct. Atomicity is the 1NF condition.", "b": "Wrong. Partial dependency is the 2NF issue and needs a composite key.", "c": "Wrong. Transitive dependency is the 3NF issue.", "d": "Wrong. Multiple values in one cell is the textbook 1NF violation." } },
+
+  { "id": "dts-x8-02", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "2NF",
+    "prompt": "A table has composite primary key (order_no, item_no) and an attribute item_price that depends only on item_no. Which normal form is violated?",
+    "options": [
+      { "id": "a", "text": "2NF, because item_price is partially dependent on the composite key" },
+      { "id": "b", "text": "1NF, because the key has two attributes" },
+      { "id": "c", "text": "3NF, because item_price depends on a non-key attribute" },
+      { "id": "d", "text": "None, because item_price is a non-key attribute" }
+    ],
+    "answer": "a",
+    "explanation": "Second normal form requires every non-key attribute to depend on the WHOLE key. Here half the key, item_no, is enough to determine the price, which is a PARTIAL dependency. Fix it by moving item_price into an ITEM table keyed on item_no.",
+    "why": { "a": "Correct. Partial dependency on a composite key is precisely the 2NF violation.", "b": "Wrong. Composite keys are perfectly legal in 1NF.", "c": "Wrong. item_no is PART OF THE KEY, not a non-key attribute, so this is not transitive.", "d": "Wrong. Being non-key is what makes the rule apply to it." } },
+
+  { "id": "dts-x8-03", "module": 8, "slides": ["Manual M4"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "3NF",
+    "prompt": "A SALE table is keyed on sale_no and holds staff_no and staff_name. Which normal form does it violate, and why?",
+    "options": [
+      { "id": "a", "text": "3NF, because staff_name depends on staff_no, a non-key attribute, rather than directly on sale_no" },
+      { "id": "b", "text": "2NF, because staff_name depends on part of the key" },
+      { "id": "c", "text": "1NF, because two staff columns appear in one table" },
+      { "id": "d", "text": "None, because both columns describe the sale" }
+    ],
+    "answer": "a",
+    "explanation": "This is a TRANSITIVE dependency: sale_no determines staff_no, and staff_no determines staff_name, so the name reaches the key through a middleman. Third normal form forbids it. Fix it by moving staff_name into a STAFF table keyed on staff_no.",
+    "why": { "a": "Correct. A non-key attribute depending on another non-key attribute.", "b": "Wrong. The key is a single attribute, so no PARTIAL dependency is possible.", "c": "Wrong. Two related columns break nothing in 1NF.", "d": "Wrong. staff_name describes the STAFF MEMBER, not the sale, which is exactly the problem." } },
+
+  { "id": "dts-x9-01", "module": 9, "slides": ["Manual M5"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "selection and projection",
+    "prompt": "Which relational algebra operation returns only chosen COLUMNS of a relation?",
+    "options": [
+      { "id": "a", "text": "Projection" },
+      { "id": "b", "text": "Selection" },
+      { "id": "c", "text": "Join" },
+      { "id": "d", "text": "Union" }
+    ],
+    "answer": "a",
+    "explanation": "PROJECTION, written pi, keeps columns and discards the rest, removing duplicate rows afterwards. SELECTION, written sigma, keeps rows matching a condition. Hook: sigma cuts across, pi has two legs standing on columns.",
+    "why": { "a": "Correct. Projection selects columns.", "b": "Wrong. Selection filters ROWS.", "c": "Wrong. Join combines two relations.", "d": "Wrong. Union stacks two union-compatible relations." } },
+
+  { "id": "dts-x9-02", "module": 9, "slides": ["Manual M5"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "union compatibility",
+    "prompt": "Two relations may be combined with UNION only if they are union compatible. What does that require?",
+    "options": [
+      { "id": "a", "text": "The same number of attributes, with corresponding attributes drawn from the same domains" },
+      { "id": "b", "text": "The same number of tuples in each relation" },
+      { "id": "c", "text": "That both relations share a primary key" },
+      { "id": "d", "text": "That both relations are stored in the same database file" }
+    ],
+    "answer": "a",
+    "explanation": "You cannot stack two tables unless the columns line up in count and in type. The same requirement governs INTERSECTION and DIFFERENCE, which is why the three are always taught together.",
+    "why": { "a": "Correct. Same degree, matching domains.", "b": "Wrong. Row counts are irrelevant.", "c": "Wrong. No shared key is needed; that is a JOIN.", "d": "Wrong. Physical storage is not part of the algebra." } },
+
+  { "id": "dts-x10-01", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "medium", "facets": ["names"], "topic": "DDL against DML",
+    "prompt": "Which list contains ONLY Data Definition Language statements?",
+    "options": [
+      { "id": "a", "text": "CREATE, ALTER, DROP" },
+      { "id": "b", "text": "SELECT, INSERT, UPDATE" },
+      { "id": "c", "text": "CREATE, SELECT, DELETE" },
+      { "id": "d", "text": "GRANT, REVOKE, COMMIT" }
+    ],
+    "answer": "a",
+    "explanation": "DDL DEFINES the structure; DML MANIPULATES the data. Hook: DDL builds the shelves, DML moves the stock. CREATE, ALTER and DROP all change what exists rather than what is in it.",
+    "why": { "a": "Correct. All three change structure.", "b": "Wrong. All three are DML.", "c": "Wrong. It mixes DDL with DML.", "d": "Wrong. GRANT and REVOKE are Data Control Language; COMMIT is transaction control." } },
+
+  { "id": "dts-x10-02", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "WHERE against HAVING",
+    "prompt": "Which statement correctly distinguishes WHERE from HAVING?",
+    "options": [
+      { "id": "a", "text": "WHERE filters individual rows before grouping; HAVING filters groups after they have been formed" },
+      { "id": "b", "text": "WHERE works on numbers; HAVING works on text" },
+      { "id": "c", "text": "HAVING filters rows before grouping; WHERE filters groups afterwards" },
+      { "id": "d", "text": "They are interchangeable in any query" }
+    ],
+    "answer": "a",
+    "explanation": "The order the database actually runs the clauses settles it: FROM, then JOIN, then WHERE, then GROUP BY, then HAVING, then SELECT. So WHERE runs before the groups exist, and HAVING is the only place an aggregate such as COUNT(*) can be tested.",
+    "why": { "a": "Correct. Before grouping against after grouping.", "b": "Wrong. Neither is tied to a data type.", "c": "Wrong, and exactly reversed.", "d": "Wrong. Putting an aggregate in WHERE is an error." } },
+
+  { "id": "dts-x10-03", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "medium", "facets": ["numbers"], "topic": "aggregate functions",
+    "prompt": "Which SQL clause must accompany an aggregate function when you want one result per category rather than one result overall?",
+    "options": [
+      { "id": "a", "text": "GROUP BY" },
+      { "id": "b", "text": "ORDER BY" },
+      { "id": "c", "text": "DISTINCT" },
+      { "id": "d", "text": "JOIN" }
+    ],
+    "answer": "a",
+    "explanation": "COUNT, SUM, AVG, MIN and MAX collapse many rows into one value. Without GROUP BY you get a single number for the whole table; with GROUP BY course_id you get one number per course. Every non-aggregated column in SELECT must appear in the GROUP BY.",
+    "why": { "a": "Correct. GROUP BY forms the categories.", "b": "Wrong. ORDER BY only sorts the finished result.", "c": "Wrong. DISTINCT removes duplicate rows.", "d": "Wrong. JOIN combines tables; it does not group." } },
+
+  { "id": "dts-x10-04", "module": 10, "slides": ["Manual M5 SQL"], "style": "mcq", "difficulty": "hard", "facets": ["wording"], "topic": "the JOIN",
+    "prompt": "A query must list every student's name alongside the title of each course they are enrolled on, where enrolment is recorded in a separate ENROL table. What is the minimum needed?",
+    "options": [
+      { "id": "a", "text": "Two joins: STUDENT to ENROL, and ENROL to COURSE" },
+      { "id": "b", "text": "One join, directly from STUDENT to COURSE" },
+      { "id": "c", "text": "No join; a WHERE clause across three tables is enough" },
+      { "id": "d", "text": "Three joins, one for each table involved" }
+    ],
+    "answer": "a",
+    "explanation": "STUDENT and COURSE share no column, because their relationship is many-to-many and was resolved into the ENROL table. So you travel through the middle: STUDENT to ENROL on student id, then ENROL to COURSE on course id. N tables in a chain need N minus 1 joins.",
+    "why": { "a": "Correct. Three tables in a chain need two joins.", "b": "Wrong. There is no shared column to join them directly on.", "c": "Wrong. Listing tables without join conditions produces a Cartesian product.", "d": "Wrong. Three joins would need four tables." } }
+]

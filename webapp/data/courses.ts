@@ -105,6 +105,7 @@ import dt1 from './dts224/test01.json';
 import dt2 from './dts224/test02.json';
 import dt3 from './dts224/drill01.json';
 import dt4 from './dts224/drill02.json';
+import dt5 from './dts224/drill03.json';
 
 import in1 from './ins224/test01.json';
 import in2 from './ins224/test02.json';
@@ -471,6 +472,7 @@ const dtsQuestions: Question[] = [
   ...(dt2 as unknown as Question[]),
   ...(dt3 as unknown as Question[]),
   ...(dt4 as unknown as Question[]),
+  ...(dt5 as unknown as Question[]),
 ];
 
 const dts224: Course = {
