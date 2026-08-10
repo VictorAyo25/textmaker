@@ -55,6 +55,19 @@ export default async function Page({
         ]}
         aside={{ label: 'The drill', href: `/${found.code.toLowerCase()}` }}
       />
+      {/* With hours left rather than days, navigating between lessons is friction.
+          This offers the whole course as one continuous scroll instead. */}
+      <div className="card">
+        <h2>Short of time?</h2>
+        <p className="help">
+          Read <b>everything on one page</b>: every lesson, the solved past paper, every
+          test question and every drill, in reading order, with nothing to click between
+          them.
+        </p>
+        <Link className="chip" href={`/${found.code.toLowerCase()}/learn/everything`}>
+          Open everything on one page
+        </Link>
+      </div>
       {found.plan && (
         <StudyPlan
           code={found.code}
