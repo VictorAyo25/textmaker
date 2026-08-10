@@ -5,6 +5,7 @@ import { COURSES, findCourse } from '@/data/courses';
 import { lessonsFor } from '@/data/lessons';
 import LessonView from '@/components/LessonView';
 import Crumbs from '@/components/Crumbs';
+import LessonDrill from '@/components/LessonDrill';
 import type { Course, Question } from '@/lib/types';
 
 /**
@@ -149,8 +150,8 @@ export default async function Page({ params }: { params: Promise<{ course: strin
       <div className="card">
         <h2>What is on this page</h2>
         <p className="help">
-          Answers are already shown here, with the reasoning written out and every wrong
-          option explained. This is for learning something the first time. When you want
+          Parts 1 to 3 show their answers already, with the reasoning written out and every wrong
+          option explained, which is what you want when meeting something the first time. Part 4 is the opposite: you answer first, then it explains. When you want
           to be tested instead, use the drill, which hides the answer until you commit.
         </p>
         <ol className="solmap">
@@ -167,8 +168,11 @@ export default async function Page({ params }: { params: Promise<{ course: strin
             and explained option by option.
           </li>
           <li>
-            <b>Every authored question,</b> {authored.length} more, covering the corners
-            of the manual the examiner has not asked about yet.
+            <b>Every authored question, answered by you first.</b> {authored.length} more
+            covering every unit of the manual, grouped by unit. These do not show the
+            answer until you have chosen, because being wrong once teaches more than
+            reading a correct answer. Then the answer and every wrong option are
+            explained.
           </li>
         </ol>
       </div>
@@ -231,18 +235,21 @@ export default async function Page({ params }: { params: Promise<{ course: strin
         </section>
       )}
 
+      {/* Part 4 is ANSWERED, not read. Showing the answer before the reader has
+          committed teaches far less than making them choose and be wrong first,
+          which is the whole reason the drill exists. So these are live. */}
       {topics.map((t, ti) => (
         <section key={t} className="everysec">
           <h2 className="everyhead">
             <span className="everynum">4.{ti + 1}</span>
             {titles[t] ?? `Topic ${t}`}
           </h2>
-          <p className="note">
-            {byTopic.get(t)!.length} authored questions on this topic.
-          </p>
-          {byTopic.get(t)!.map((q, i) => (
-            <Solved key={q.id} q={q} n={i + 1} course={found} />
-          ))}
+          <LessonDrill
+            course={empty}
+            questions={byTopic.get(t)!}
+            label={`Answer these first: ${titles[t] ?? `Topic ${t}`}`}
+            tag={`${byTopic.get(t)!.length} questions. Choose, then the answer and every wrong option are explained`}
+          />
         </section>
       ))}
     </main>
