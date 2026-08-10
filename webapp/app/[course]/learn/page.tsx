@@ -64,9 +64,19 @@ export default async function Page({
           test question and every drill, in reading order, with nothing to click between
           them.
         </p>
-        <Link className="chip" href={`/${found.code.toLowerCase()}/learn/everything`}>
-          Open everything on one page
-        </Link>
+        <div className="chips">
+          <Link className="chip" href={`/${found.code.toLowerCase()}/learn/everything`}>
+            Open everything on one page
+          </Link>
+          <Link className="chip" href={`/${found.code.toLowerCase()}/learn/solutions`}>
+            Every question solved and explained
+          </Link>
+        </div>
+        <p className="note">
+          The first is the course in reading order. The second shows every answer
+          already, with the reasoning written out, which is what you want when you are
+          meeting something for the first time rather than testing yourself on it.
+        </p>
       </div>
       {found.plan && (
         <StudyPlan
