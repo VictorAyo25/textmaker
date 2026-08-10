@@ -960,7 +960,12 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
             (l.modules ?? []).includes(t),
             `${where}: drills topic ${t}, which this lesson does not teach`
           );
-        const picked = examQs.filter(
+        // Respect the block's own selection. Checking every drill against the
+        // EXAM questions alone reported "asks no questions" for a pick:'all'
+        // block on a topic the examiner never set, which is precisely the case
+        // a pick:'all' block exists to serve.
+        const pool = b.pick === 'all' ? all : examQs;
+        const picked = pool.filter(
           (q) => topics.includes(q.module) || (b.ids ?? []).includes(q.id)
         );
         check(picked.length > 0, `${where}: asks no questions at all`);

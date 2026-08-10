@@ -16,7 +16,26 @@
  *
  * The cache name carries a version. Bump it to evict everything.
  */
-const CACHE = 'cu-drill-v1';
+/* v2 evicts every entry written by v1, which could poison itself: see below. */
+const CACHE = 'cu-drill-v2';
+
+/* Only ever store a response that actually succeeded.
+ *
+ * v1 cached whatever came back, including errors. During a deploy a request for
+ * an asset URL can 404, that 404 was written to the cache, and because static
+ * assets are served cache-first it was then handed back forever. Victor hit
+ * exactly this: the page rendered with no stylesheet on production while the
+ * same URL returned a perfectly good 200 to anything but his browser, and only
+ * clearing site data could evict it. */
+const keep = (req, res) => {
+  if (!res || !res.ok || res.status !== 200 || res.type === 'opaque') return res;
+  const copy = res.clone();
+  caches
+    .open(CACHE)
+    .then((c) => c.put(req, copy))
+    .catch(() => undefined);
+  return res;
+};
 const SHELL = ['/', '/offline'];
 
 self.addEventListener('install', (event) => {
@@ -52,11 +71,7 @@ self.addEventListener('fetch', (event) => {
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => undefined);
-          return res;
-        })
+        .then((res) => keep(req, res))
         .catch(() =>
           caches.match(req).then((hit) => hit || caches.match('/offline') || caches.match('/'))
         )
@@ -66,15 +81,13 @@ self.addEventListener('fetch', (event) => {
 
   if (url.pathname.startsWith('/_next/static/') || url.pathname.startsWith('/icon')) {
     event.respondWith(
-      caches.match(req).then(
-        (hit) =>
-          hit ||
-          fetch(req).then((res) => {
-            const copy = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => undefined);
-            return res;
-          })
-      )
+      caches.match(req).then((hit) => {
+        // A cached entry is only trusted if it succeeded. Anything else is
+        // discarded and refetched, so a bad entry can never become permanent.
+        if (hit && hit.ok) return hit;
+        if (hit) caches.open(CACHE).then((c) => c.delete(req)).catch(() => undefined);
+        return fetch(req).then((res) => keep(req, res));
+      })
     );
   }
 });
