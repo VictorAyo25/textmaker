@@ -2055,3 +2055,9 @@ p.gloss {
 .solexp { margin: 0; font-size: 0.92rem; line-height: 1.6; border-left: 3px solid var(--green); padding-left: 12px; white-space: pre-line; }
 .solmap { margin: 0; padding-left: 22px; }
 .solmap li { margin-bottom: 6px; }
+
+/* Past papers transcribe their tables in monospace characters. Wrapping them
+   destroys the alignment and the table stops being readable, so the block
+   scrolls sideways instead and the examiner alignment is preserved exactly. */
+.asprinted pre, .lblock pre { white-space: pre; overflow-x: auto; max-width: 100%; font-size: 0.82rem; line-height: 1.5; -webkit-overflow-scrolling: touch; }
+@media (max-width: 640px) { .asprinted pre, .lblock pre { font-size: 0.74rem; } }
