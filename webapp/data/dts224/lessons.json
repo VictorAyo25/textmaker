@@ -124,6 +124,118 @@
     ]
   },
   {
+    "slug": "in-the-hall",
+    "part": "In the Hall",
+    "kick": "Recipes",
+    "title": "What To Write, Step By Step, Whatever They Ask",
+    "lead": "Eight recipes. Find the one that matches the question in front of you, and follow it line by line. No understanding required to start; the steps carry you.",
+    "blurb": "A procedure for every kind of question this paper can ask, written as instructions you can execute cold.",
+    "minutes": 15,
+    "modules": [
+      1,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "How to use this page",
+        "tag": "read these six lines first",
+        "html": "<p>Every question on this paper is one of <b>eight kinds</b>. Read the question, decide which kind it is, turn to that recipe, and follow it.</p><table><tr><th>If the question says...</th><th>Use recipe</th></tr><tr><td>\"Explain\", \"Define\", \"What is meant by\"</td><td><b>1. Define</b></td></tr><tr><td>\"Justify\", \"Would you\", \"When would it\"</td><td><b>2. Justify</b></td></tr><tr><td>\"Draw an ER / EER diagram for the following description\"</td><td><b>3. Draw an ERD</b></td></tr><tr><td>\"Draw the functional dependency diagram\"</td><td><b>4. FD diagram</b></td></tr><tr><td>\"Normalise to 3NF\", \"Remove the anomalies\"</td><td><b>5. Normalise</b></td></tr><tr><td>\"Transform / map the EER into relations\"</td><td><b>6. Map to relations</b></td></tr><tr><td>\"Write the relational algebra\"</td><td><b>7. Algebra</b></td></tr><tr><td>\"Write the SQL query\"</td><td><b>8. SQL</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">Three rules that apply to every answer on the paper</span><p><b>1.</b> Start a definition with the term and the word <b>is</b>. Never \"This is when...\".<br><b>2.</b> Whenever you produce a table or relation, <b>write its primary key underneath it</b>. Unasked, it still earns.<br><b>3.</b> If you produce more than one relation, <b>list the foreign keys</b>. They are marked separately.</p></div>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "name the question before you answer it",
+        "howto": "Cover the page, read, answer, then slide down one line to check.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Before writing anything, NAME the kind of question. One that says <b>Explain</b>, <b>Define</b> or <b>What is meant by</b> wants a definition.",
+            "ask": "A question says \"Describe the relational data model\". Which recipe?"
+          },
+          {
+            "check": "Recipe 1, define.",
+            "teach": "One that gives you a written scenario and says <b>Draw</b> wants a diagram built from the nouns and verbs in that scenario.",
+            "ask": "A question says \"Draw an EER diagram for the following description of a law firm\". Which recipe?"
+          },
+          {
+            "check": "Recipe 3, draw an ERD.",
+            "teach": "One that hands you a single table with data repeated down it wants you to split that table up.",
+            "ask": "A question says \"Normalise the relation to third normal form\". Which recipe?"
+          },
+          {
+            "check": "Recipe 5, normalise.",
+            "teach": "And one that hands you several table definitions and then asks a business question in English wants either algebra or SQL, whichever it names.",
+            "ask": "Which single habit applies to EVERY answer on this paper?"
+          },
+          {
+            "check": "write the primary key underneath anything you produce.",
+            "teach": "And list the foreign keys whenever you produce more than one relation. They are marked separately from the tables themselves, so they are free marks that most candidates leave behind.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 1. Define or explain a term",
+        "tag": "\"Explain the following...\"",
+        "html": "<p><b>Step 1.</b> Write the term, then the word <b>is</b>, then one sentence saying what category of thing it is and what makes it different.</p><pre>A tuple IS a single row of a relation, that is one complete\nrecord, consisting of one value for each attribute.</pre><p><b>Step 2.</b> Add the CONTRAST, one clause, beginning \"as distinct from\" or \"unlike\".</p><pre>...as distinct from an attribute, which is a column.</pre><p><b>Step 3.</b> If the question says \"with examples\" or \"symbolic examples\", add one line beginning <i>Example:</i> using any entity you like. STUDENT, STAFF, VEHICLE.</p><pre>Example: in STUDENT(studentNo, name, level),\nthe row (S001, Ada, 200) is one tuple.</pre><div class=\"keypoint\"><span class=\"kplab\">If you do not know the term at all</span><p>Write what CATEGORY it belongs to, then guess the difference from its name. \"An alternate key <b>is</b> a kind of key...\" earns something. A blank earns nothing. Never leave a definition blank.</p></div>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 2. Justify or argue",
+        "tag": "\"Would you...\", \"When would it make sense not to...\"",
+        "html": "<p><b>Step 1.</b> Answer the question directly in the first line. <i>Yes, I would choose a database system.</i> Do not build up to it.</p><p><b>Step 2.</b> Give the number of points asked for, each with a <b>bold heading</b>, then two or three sentences.</p><pre>(1) Control of redundancy and inconsistency.\n    In a file-based system each application keeps its own copy,\n    so the same fact is stored several times and the copies\n    disagree when one is updated. A database stores each fact\n    once and shares it.</pre><p><b>Step 3.</b> If the question asks when NOT to, or for limitations, use these four, which fit almost any \"when not\" question in this subject:</p><ul><li><b>Cost and complexity</b> not justified for a small, simple application</li><li><b>Single user, no concurrency</b>, so the DBMS services go unused</li><li><b>Real-time or embedded</b> requirements that the overhead would break</li><li><b>Stable, well-defined data</b> that will never change structure</li></ul>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 3. Draw an ER or EER diagram from a description",
+        "tag": "\"Draw an EER diagram for the following...\"",
+        "html": "<p><b>Step 1.</b> Read the description once with a pen. <b>Underline every noun</b> the organisation keeps data about. Those are your entities. Write them as a list.</p><p><b>Step 2.</b> Under each noun, write the things stated about it. Those are attributes. <b>Circle the one described as \"unique\"</b>; that is the primary key.</p><p><b>Step 3.</b> Draw each entity as a <b>rectangle</b> with its name in capitals, and hang its attributes off it as ovals, underlining the key.</p><p><b>Step 4.</b> Find the verbs joining two nouns. Each is a relationship. Draw a <b>diamond</b> on the line between the two rectangles and write the verb in it.</p><p><b>Step 5.</b> For each relationship ask TWO SEPARATE questions and write the answer on the line:</p><pre>Can ONE of these have MANY of those?   yes / no\nCan ONE of those have MANY of these?   yes / no\n\nyes + yes  =  M : N\nyes + no   =  1 : M   (the many is on the yes side)\nno  + no   =  1 : 1</pre><p><b>Step 6.</b> Look for the words <b>\"may be a X or a Y\"</b> or \"there are three types of\". That is a supertype. Draw the general entity above, a circle below it, and the subtypes under the circle.</p><p><b>Step 7.</b> Mark the two constraints on that circle:</p><pre>Must EVERY one belong to a subtype?\n   yes -> TOTAL      -> double line into the circle\n   no  -> PARTIAL    -> single line\n\nCan one belong to MORE THAN ONE subtype?\n   no  -> DISJOINT   -> write d in the circle\n   yes -> OVERLAP    -> write o in the circle</pre><p><b>Step 8.</b> If an attribute belongs to the RELATIONSHIP rather than either entity, hang it off the diamond. Test: does it need both sides to make sense? A grade needs a student AND a course, so it belongs to the relationship.</p><p><b>Step 9.</b> Write one sentence under the diagram naming your choices: <i>The specialisation is total and disjoint because every offering is either a product or a service and none is both.</i></p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 4. Draw a functional dependency diagram",
+        "tag": "\"Draw the FD diagram for the relation\"",
+        "html": "<p><b>Step 1.</b> Write every attribute of the relation in one row across the page, in the order given.</p><p><b>Step 2.</b> <b>Underline the primary key attributes.</b> If not stated, find it: which attributes together pin down exactly one row?</p><p><b>Step 3.</b> Draw one arc ABOVE the row, starting at the key and pointing to every non-key attribute. Label it <b>fd1, full functional dependency</b>.</p><p><b>Step 4.</b> Now go along the non-key attributes one at a time and ask: <b>does anything smaller than the whole key fix this?</b></p><pre>Fixed by PART of the key      -> draw an arc BELOW,\n                                 label PARTIAL\n\nFixed by a NON-KEY attribute  -> draw an arc BELOW,\n                                 label TRANSITIVE</pre><p><b>Step 5.</b> Number them fd2, fd3, fd4 and write them out as a list underneath as well, because the list earns marks even if the drawing is untidy:</p><pre>fd1  (propertyNo, iDate) -> iTime, comments, staffNo, carReg\nfd2  propertyNo          -> pAddress          (partial)\nfd3  staffNo             -> staffName         (transitive)</pre>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 5. Normalise to 3NF",
+        "tag": "\"Normalise the relation to third normal form\"",
+        "html": "<p><b>Step 1.</b> Write the relation and its primary key. If the key is not given, it is usually two attributes together.</p><pre>R (a, b, c, d, e)      Primary key: (a, b)</pre><p><b>Step 2.</b> Write this line, which is a mark on its own:</p><pre>1NF: every attribute holds a single atomic value and there\nare no repeating groups, so the relation is already in 1NF.</pre><p><b>Step 3. To 2NF.</b> Take each non-key attribute in turn and ask: <b>does it need the WHOLE key?</b></p><pre>If NO, it is a partial dependency. Take it OUT, together\nwith the part of the key that determines it. That part\nbecomes the primary key of the new relation.\nLeave a copy of it behind as a foreign key.</pre><p><b>Step 4.</b> Write out the relations you now have, with their keys.</p><p><b>Step 5. To 3NF.</b> Take each non-key attribute in turn and ask: <b>does it depend on another NON-KEY attribute?</b></p><pre>If YES, it is a transitive dependency. Take it OUT, together\nwith the non-key attribute that determines it, which becomes\nthe primary key of the new relation.\nLeave that attribute behind as a foreign key.</pre><p><b>Step 6.</b> Write the final set of relations. Under each, write <b>Primary key:</b> and <b>Foreign key:</b> lines.</p><p><b>Step 7.</b> Close with this sentence:</p><pre>All relations are now in 3NF: every value is atomic, every\nnon-key attribute depends on the whole primary key of its\nrelation, and none depends on another non-key attribute.</pre><div class=\"keypoint\"><span class=\"kplab\">The sentence that tells you what to do at every step</span><p><b>Every non-key attribute must depend on the key, the whole key, and nothing but the key.</b></p><p>\"The whole key\" is step 3. \"Nothing but the key\" is step 5.</p></div>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 6. Map an ER or EER diagram to relations",
+        "tag": "\"Transform the diagram into relational schemas\"",
+        "html": "<p>Go through the diagram construct by construct and apply the matching rule. Write each relation in short text notation with the key underlined.</p><table><tr><th>On the diagram</th><th>Write</th></tr><tr><td>A rectangle (entity)</td><td>One relation. Attributes become columns, the underlined one becomes the primary key</td></tr><tr><td>A line marked <b>1 : M</b></td><td>NO new relation. Put the key of the <b>1</b> side into the <b>M</b> side as a foreign key</td></tr><tr><td>A line marked <b>M : N</b></td><td>A NEW relation holding both keys together as its primary key, plus any attribute hanging off the diamond</td></tr><tr><td>A line marked <b>1 : 1</b></td><td>Put the key of one side into the other as a foreign key, choosing the side that must participate</td></tr><tr><td>A double oval (multivalued)</td><td>A NEW relation: owner's key plus the attribute, both together as the key</td></tr><tr><td>A circle with subtypes</td><td>One relation for the supertype, plus one for EACH subtype holding the supertype's key as both its primary key and a foreign key</td></tr></table><p><b>Then, before you stop:</b> write the primary key under every relation, and list every foreign key. Both are marked separately from the relations themselves.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 7. Write relational algebra",
+        "tag": "\"Write the relational algebra for...\"",
+        "html": "<p><b>Step 1.</b> List the columns the question asks you to OUTPUT. That is your final projection.</p><p><b>Step 2.</b> List the columns the question uses to FILTER. That is your selection.</p><p><b>Step 3.</b> Find which relations hold those columns. <b>If more than one relation, you must join</b>, matching the foreign key to the primary key.</p><p><b>Step 4.</b> Write it in named steps, not one long line. Partial credit is given for the steps.</p><pre>R1     &lt;- SELECT the rows        sigma condition (Relation)\nR2     &lt;- JOIN what is needed    R1 join on key=key Other\nRESULT &lt;- PROJECT the columns    pi col, col (R2)</pre><p><b>Always select BEFORE you project</b>, or you may throw away the column you needed to filter on.</p><div class=\"keypoint\"><span class=\"kplab\">Two phrases that name their operator</span><p><b>\"who do NOT\", \"none\", \"never\"</b> means <b>DIFFERENCE</b>. Build the whole set, build the set to exclude, subtract.</p><p><b>\"ALL of the\"</b>, as in works on all the projects, means <b>DIVISION</b>.</p></div><p>The symbols, if you cannot remember which is which: <b>sigma cuts rows, pi keeps columns.</b> Writing the words SELECT and PROJECT beside your symbols costs nothing and protects you if you draw the wrong one.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 8. Write SQL",
+        "tag": "\"Write the SQL query for...\"",
+        "html": "<p><b>Step 1.</b> Write the skeleton down the page, then delete the lines you do not need.</p><pre>SELECT\nFROM\nJOIN            ON\nWHERE\nGROUP BY\nHAVING\nORDER BY                     ;</pre><p><b>Step 2.</b> Fill it in by translating the question's own words:</p><table><tr><th>The question says</th><th>Write</th></tr><tr><td>\"list\", \"display\", \"show\"</td><td>the columns after <code>SELECT</code></td></tr><tr><td>\"all details\"</td><td><code>SELECT *</code></td></tr><tr><td>\"greater than\", \"in Lagos\", \"whose type is\"</td><td><code>WHERE</code></td></tr><tr><td>\"for each\", \"per branch\", \"in each\"</td><td><code>GROUP BY</code> that column</td></tr><tr><td>\"number of\", \"total\", \"average\", \"highest\", \"lowest\"</td><td><code>COUNT(*)</code>, <code>SUM</code>, <code>AVG</code>, <code>MAX</code>, <code>MIN</code></td></tr><tr><td>\"only those with more than N\"</td><td><code>HAVING</code></td></tr><tr><td>\"ordered by\", \"highest to lowest\"</td><td><code>ORDER BY col DESC</code></td></tr><tr><td>\"with no...\", \"who have none\"</td><td><code>WHERE key NOT IN (SELECT ...)</code></td></tr><tr><td>a column from a table you have not named</td><td>add a <code>JOIN</code></td></tr></table><p><b>Step 3.</b> Two rules that break most answers:</p><pre>Every non-aggregated column in SELECT must also appear\nin GROUP BY.\n\nAn aggregate such as COUNT(*) can NEVER go in WHERE.\nIt goes in HAVING.</pre><p><b>Step 4.</b> End with a semicolon.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Name the kind of question, find the recipe, follow the steps. Then write the primary key underneath.\"",
+        "sub": "Define: term, is, contrast, example. Draw: nouns, attributes, verbs, cardinality both ways, then the circle. Normalise: whole key, then middleman. Algebra: select before project. SQL: for each means GROUP BY, aggregates go in HAVING."
+      }
+    ]
+  },
+  {
     "slug": "q1",
     "part": "Solve a Question",
     "kick": "Question 1",
