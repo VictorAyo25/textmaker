@@ -837,6 +837,7 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
   const taught = new Set();
   const undrilled = new Set();
   const taughtFacts = new Set();
+  const noProblem = [];
   let frames = 0;
   let recalls = 0;
   let worked = 0;
@@ -912,6 +913,12 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
           Boolean(b.working || b.answer),
           `${where}: nothing to reveal, so the worked example teaches nothing`
         );
+        // A worked example with no VISIBLE question is a button and nothing
+        // else. The renderer prints `problem` above the button and hides
+        // `working` behind it, so a question left inside `working` is hidden
+        // behind the very button meant to answer it. Victor found this in
+        // prod on a DTS224 indexing example.
+        if (!(b.problem ?? '').replace(/<[^>]+>/g, '').trim()) noProblem.push(where);
         check(['model', 'example'].includes(b.mode), `${where}: unknown mode ${b.mode}`);
       } else if (b.kind === 'recall') {
         recalls += 1;
@@ -1056,6 +1063,12 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
   // conversion did not quietly drop any on the way. It found 28 of DTS224's 79
   // missing, all because one "As printed" box can hold several years' wording
   // of the same question and the converter took only the first.
+  if (noProblem.length)
+    console.log(
+      `    ! STILL OWED, not a pass: ${noProblem.length} worked example(s) show a button with no visible question`
+    );
+  else console.log('    . worked examples: every one shows its question above the button');
+
   if (cfg.printedFrom) {
     const dirPath = join(HERE, '..', '..', 'courses', cfg.printedFrom);
     if (existsSync(dirPath)) {
