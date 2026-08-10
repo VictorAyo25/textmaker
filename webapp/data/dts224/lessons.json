@@ -1,5 +1,129 @@
 [
   {
+    "slug": "zero",
+    "part": "Start Here",
+    "kick": "From zero",
+    "title": "The Whole Course in One Sitting, From Nothing",
+    "lead": "You have not read a page and the paper is today. Start here: what a database is, what the ten topics are, and a hook for every idea so it sticks the first time.",
+    "blurb": "Every idea in DTS224, built from a shop you already understand, with a memory hook on each one.",
+    "minutes": 40,
+    "modules": [
+      1,
+      2,
+      3,
+      6,
+      8,
+      9,
+      10
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "One shop, and the whole course comes out of it",
+        "tag": "read this once, slowly",
+        "html": "<p>Imagine a small shop. It sells things to people, and it needs to remember three kinds of thing: <b>who its customers are</b>, <b>what it stocks</b>, and <b>which customer bought what, when</b>.</p><p>You could keep that in one big notebook, one line per sale:</p><table><tr><th>Customer</th><th>Phone</th><th>Item</th><th>Price</th><th>Date</th></tr><tr><td>Ada Bello</td><td>0803...</td><td>Rice 5kg</td><td>8500</td><td>3 Aug</td></tr><tr><td>Ada Bello</td><td>0803...</td><td>Milk</td><td>1200</td><td>3 Aug</td></tr><tr><td>Ada Bello</td><td>0803...</td><td>Rice 5kg</td><td>8500</td><td>9 Aug</td></tr></table><p>That notebook works, and it is also the source of every problem this course exists to solve. Look at what has gone wrong already:</p><div class=\"keypoint\"><span class=\"kplab\">The three anomalies, which is the whole reason the course exists</span><p><b>Ada's phone number is written three times.</b> Change it once and miss the others, and the shop now holds two different truths. That is an <b>UPDATE anomaly</b>.</p><p><b>A new customer who has not bought anything yet cannot be recorded at all</b>, because every line needs an item. That is an <b>INSERTION anomaly</b>.</p><p><b>Delete the last sale of Rice 5kg and you lose the fact that Rice 5kg exists</b> and what it costs. That is a <b>DELETION anomaly</b>.</p></div><p>The fix is to stop keeping one notebook and keep <b>three</b>: one for customers, one for items, one for sales. Each fact written <b>once</b>, in the place it belongs.</p><p class=\"gloss\"><b>Hook:</b> one fact, one place. Every technique in this course is a way of working out what the places should be.</p><p>That is the entire course. Everything else is vocabulary for doing it carefully.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "The ten topics, and what each is actually for",
+        "tag": "the map, so nothing is a surprise",
+        "html": "<p>Read this table once. It is the whole syllabus, in the order it is taught, with what each topic is FOR.</p><table><tr><th>#</th><th>Topic</th><th>What it is for</th><th>Hook</th></tr><tr><td>1</td><td><b>Foundations</b></td><td>Data against information, why we use databases instead of files</td><td>Data is the raw ingredient; information is the cooked meal</td></tr><tr><td>2</td><td><b>Database systems and architecture</b></td><td>The DBMS, the three-schema architecture, who does what</td><td>DBMS is the librarian; you never touch the shelves yourself</td></tr><tr><td>3</td><td><b>The E-R model</b></td><td>Drawing what the shop must remember, before any computer</td><td>Nouns become boxes, verbs become lines</td></tr><tr><td>4</td><td><b>The Enhanced E-R model</b></td><td>When one kind of thing has special kinds inside it</td><td>STAFF, and inside it TEACHER and DRIVER</td></tr><tr><td>5</td><td><b>XML and JSON</b></td><td>Data that carries its own labels instead of a fixed table</td><td>A parcel with the contents written on the outside</td></tr><tr><td>6</td><td><b>The relational model</b></td><td>The table, defined precisely: rows, columns, keys</td><td>A relation is just a table with rules about it</td></tr><tr><td>7</td><td><b>Logical design</b></td><td>Turning the drawing into actual tables</td><td>Each box becomes a table; each line becomes a shared column</td></tr><tr><td>8</td><td><b>Normalization</b></td><td>Splitting tables until no fact is stored twice</td><td>The three anomalies above, cured in three steps</td></tr><tr><td>9</td><td><b>Relational algebra</b></td><td>The maths of asking questions of tables</td><td>Cut rows, cut columns, glue tables</td></tr><tr><td>10</td><td><b>SQL</b></td><td>The language that actually does all of it on a computer</td><td>Write the algebra in English-looking words</td></tr></table><p class=\"gloss\">Notice the shape: <b>topics 3 to 5 draw it, 6 to 8 make it correct, 9 to 10 ask questions of it.</b> Draw, tidy, ask. If you remember nothing else, remember that order, because it is also the order an exam question walks through.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "the vocabulary, built from the shop",
+        "howto": "Cover the page below the first line. Read a frame, answer out loud, then slide down one line to check. Do not skip; each frame uses the one before.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "A <b>database</b> is a shared collection of related data. A <b>DBMS</b> is the software that lets you define, create, maintain and control access to it. The database is the shop's records; the DBMS is the clerk who fetches and files them.",
+            "ask": "Which one is the software, the database or the DBMS?"
+          },
+          {
+            "check": "the DBMS.",
+            "teach": "<b>Data</b> is raw facts: 8500, Ada Bello, 3 Aug. <b>Information</b> is data processed so a decision can be made: \"Ada spent 18,200 this month\".",
+            "ask": "Which of those two would you put on a report for the shop owner?"
+          },
+          {
+            "check": "information.",
+            "teach": "Now the drawing. An <b>ENTITY</b> is a thing the organisation keeps data about, and it always has more than one instance. Customer, Item, Sale. It is drawn as a <b>rectangle</b> and named with a singular noun.",
+            "ask": "Is \"Ada Bello\" an entity?"
+          },
+          {
+            "check": "no. Ada is one INSTANCE; CUSTOMER is the entity.",
+            "teach": "An <b>ATTRIBUTE</b> is a property of an entity: a customer's name, phone, address. Drawn as an <b>oval</b> hanging off the box.",
+            "ask": "In the shop, name two attributes of ITEM."
+          },
+          {
+            "check": "item name and price, for instance.",
+            "teach": "The <b>IDENTIFIER</b>, or <b>primary key</b>, is the attribute that tells one instance from every other. Two customers can share a name, so name is a bad key; an assigned customer_id is a good one.",
+            "ask": "Why is a phone number a poor primary key?"
+          },
+          {
+            "check": "because it can change, and a key must never change.",
+            "teach": "A <b>RELATIONSHIP</b> is an association between entities, drawn as a line and named with a verb, so the diagram reads as a sentence: <b>CUSTOMER places SALE</b>.",
+            "ask": "Read this as a sentence: SALE, ITEM, and the verb contains."
+          },
+          {
+            "check": "a SALE contains an ITEM.",
+            "teach": "Now the part everyone loses marks on: <b>CARDINALITY</b>, how many of one relate to how many of the other. Ask it in TWO separate directions, never as a pair.",
+            "ask": "Can one customer have many sales? And can one sale have many customers?"
+          },
+          {
+            "check": "yes, and no. So it is ONE-to-MANY.",
+            "teach": "Two yeses means <b>many-to-many</b>. One yes means <b>one-to-many</b>, with the many on the yes side. No yeses means <b>one-to-one</b>.",
+            "ask": "Can one sale contain many items? Can one item appear on many sales?"
+          },
+          {
+            "check": "yes and yes, so many-to-many.",
+            "teach": "A many-to-many cannot become tables directly, so you insert a new table in the middle, an <b>associative entity</b>, here SALE LINE. It holds the keys of both sides.",
+            "ask": "How many tables do you end up with for SALE and ITEM?"
+          },
+          {
+            "check": "three: SALE, ITEM, and SALE LINE between them.",
+            "teach": "That is the whole of logical design in one move: <b>each box becomes a table, each one-to-many becomes a borrowed key, each many-to-many becomes a new table.</b> The borrowed key is called a <b>FOREIGN KEY</b>.",
+            "ask": "Which table holds the foreign key in a one-to-many: the one side or the many side?"
+          },
+          {
+            "check": "the MANY side.",
+            "teach": "Think of it physically: one customer, many sales. You cannot write a hundred sale numbers into one customer row, but you can write one customer number onto each sale. <b>The many side carries the key.</b>",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Normalization, in the only way it ever needs explaining",
+        "tag": "three forms, three sentences, three hooks",
+        "html": "<p>Normalization is splitting tables until no fact is stored twice. There are three forms you must be able to state and apply, and they come in order: you cannot be in 2NF unless you are already in 1NF.</p><table><tr><th>Form</th><th>The condition</th><th>The shop version</th><th>Hook</th></tr><tr><td><b>1NF</b></td><td>Every value is <b>atomic</b>, and there are no repeating groups</td><td>One cell must not hold \"Rice, Milk, Sugar\". Split into separate rows</td><td><b>One box, one value</b></td></tr><tr><td><b>2NF</b></td><td>In 1NF, and every non-key attribute depends on the <b>WHOLE</b> key, not part of it</td><td>If the key is (sale_no, item_no), then item price depends only on item_no, so it must move out</td><td><b>No half-keys</b></td></tr><tr><td><b>3NF</b></td><td>In 2NF, and no non-key attribute depends on <b>another non-key</b> attribute</td><td>Sale holds staff_no, and staff_no gives staff_name. Name depends on staff, not on the sale, so it moves out</td><td><b>No middlemen</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The sentence that gets you through any normalization question</span><p>Say it aloud, in the examiner's own words:<br><b>\"Every non-key attribute must depend on the key, the whole key, and nothing but the key.\"</b></p><p><b>The key</b> gets you to 1NF and 2NF. <b>The whole key</b> is 2NF, no partial dependency. <b>Nothing but the key</b> is 3NF, no transitive dependency.</p><p>It is one sentence and it contains all three forms in order. If you learn one thing today, learn this.</p></div><p><b>The vocabulary you must be able to define:</b></p><ul><li><b>Functional dependency:</b> A determines B means each value of A has exactly one value of B. Hook: <i>give me A and I can tell you B without asking</i>.</li><li><b>Partial dependency:</b> a non-key attribute depends on only PART of a composite key. Hook: <i>half a key is not enough</i>.</li><li><b>Transitive dependency:</b> a non-key attribute depends on another non-key attribute. Hook: <i>the fact came through a middleman</i>.</li></ul>"
+      },
+      {
+        "kind": "rules",
+        "label": "Asking questions: algebra, then SQL",
+        "tag": "the same three moves in two languages",
+        "html": "<p>Relational algebra has many operations, but almost everything you will be asked is <b>three moves</b>.</p><table><tr><th>Move</th><th>Algebra</th><th>SQL</th><th>Hook</th></tr><tr><td>Keep some <b>ROWS</b></td><td>Selection, sigma</td><td><code>WHERE</code></td><td>Sigma is a horizontal knife: it cuts rows</td></tr><tr><td>Keep some <b>COLUMNS</b></td><td>Projection, pi</td><td><code>SELECT col1, col2</code></td><td>Pi has two legs, standing on columns</td></tr><tr><td><b>Glue</b> two tables</td><td>Join</td><td><code>JOIN ... ON</code></td><td>Join where the shared key matches</td></tr></table><p class=\"gloss\">Sigma cuts across, pi cuts down. That single picture separates the two operations people most often swap.</p><p><b>SQL, the shape of every answer you will write:</b></p><pre>SELECT   which columns\nFROM     which table\nJOIN     which other table  ON  what matches\nWHERE    which rows\nGROUP BY which grouping\nORDER BY what order;</pre><div class=\"keypoint\"><span class=\"kplab\">The order the computer reads it, which is NOT the order you write it</span><p>You write SELECT first, but the database does <b>FROM, then JOIN, then WHERE, then GROUP BY, then SELECT, then ORDER BY</b>.</p><p>That is why you cannot use a column alias from SELECT inside WHERE: when WHERE runs, SELECT has not happened yet. Hook: <b>fetch the table, filter the rows, then decide what to show.</b></p></div><p><b>The five aggregate functions:</b> COUNT, SUM, AVG, MIN, MAX. They collapse many rows into one value, which is why they pair with GROUP BY.</p><p><b>DDL against DML,</b> asked directly on this paper: <b>DDL DEFINES</b> the structure, CREATE, ALTER, DROP. <b>DML MANIPULATES</b> the data, SELECT, INSERT, UPDATE, DELETE. Hook: <i>DDL builds the shelves, DML moves the stock</i>.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "The rest of the vocabulary, each with its hook",
+        "tag": "everything else that gets asked",
+        "html": "<table><tr><th>Term</th><th>Definition</th><th>Hook</th></tr><tr><td><b>DBMS</b></td><td>The software layer between users and the stored data</td><td>The librarian. You ask; it fetches</td></tr><tr><td><b>Schema</b></td><td>The structure of the database, its design</td><td>The empty form</td></tr><tr><td><b>Instance</b></td><td>The data held at a particular moment, a snapshot</td><td>The filled-in form, today</td></tr><tr><td><b>Data abstraction</b></td><td>Hiding storage detail, showing each user only what they need</td><td>You drive a car without seeing the engine</td></tr><tr><td><b>Three-schema architecture</b></td><td>External (each user's view), conceptual (the whole logical design), internal (how it is stored)</td><td>Window, blueprint, foundation</td></tr><tr><td><b>Data independence</b></td><td>Changing one level without disturbing the level above</td><td>Re-lay the foundation, the window still works</td></tr><tr><td><b>DBA</b></td><td>The PERSON with central control over data and access</td><td>A person has a job title</td></tr><tr><td><b>Database manager</b></td><td>The software MODULE between stored data and programs</td><td>A module is code, not a chair</td></tr><tr><td><b>Index</b></td><td>A lookup structure mapping column values to row locations</td><td>The index at the back of a book</td></tr><tr><td><b>Candidate key</b></td><td>A minimal set of attributes that uniquely identifies a row</td><td>All the applicants for the job</td></tr><tr><td><b>Primary key</b></td><td>The candidate key chosen; never null, never changing</td><td>The applicant who got the job</td></tr><tr><td><b>Foreign key</b></td><td>An attribute matching the primary key of another table</td><td>A borrowed key that opens someone else's door</td></tr><tr><td><b>Referential integrity</b></td><td>Every foreign key value must match an existing primary key, or be null</td><td>No borrowed key to a door that does not exist</td></tr><tr><td><b>Degree</b></td><td>The number of ATTRIBUTES (columns) of a relation</td><td>Degree is across the top</td></tr><tr><td><b>Cardinality</b></td><td>The number of TUPLES (rows) of a relation</td><td>Cardinality is counting down the side</td></tr><tr><td><b>Domain</b></td><td>The set of permitted values of an attribute</td><td>The list of what is legal in that column</td></tr><tr><td><b>Supertype / subtype</b></td><td>The general entity, and a specialised subgroup that inherits from it</td><td>VEHICLE, and inside it CAR and TRUCK</td></tr></table><p class=\"gloss\"><b>Degree and cardinality get swapped every year.</b> Degree is <b>d</b> for <b>d</b>own the top row of column headings; cardinality <b>counts</b> the rows. If you can only hold one: cardinality counts.</p>"
+      },
+      {
+        "kind": "trap",
+        "label": "The traps, before you sit down",
+        "tag": "",
+        "html": "<ul><li><b>Ask cardinality in two separate directions,</b> never as a pair. Two yeses is many-to-many.</li><li><b>The foreign key lives on the MANY side.</b> One customer, many sales, so the customer number goes onto each sale.</li><li><b>A many-to-many always becomes a third table.</b> If your answer has no middle table, you have not finished.</li><li><b>Degree is columns, cardinality is rows.</b></li><li><b>The DBA is a person; the database manager is software.</b></li><li><b>Sigma cuts rows, pi cuts columns.</b></li><li><b>Normal forms are cumulative.</b> You cannot be in 3NF without being in 2NF first, so say so when you answer.</li><li><b>Lead a definition answer with the term and \"is\".</b> The marker must see which term you are defining.</li></ul>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"One fact, one place. Draw it, tidy it, ask it.\"",
+        "sub": "Nouns become boxes and verbs become lines. Each box becomes a table, each one-to-many lends a key to the many side, each many-to-many becomes a third table. Then: the key, the whole key, and nothing but the key. Then sigma cuts rows and pi cuts columns."
+      }
+    ]
+  },
+  {
     "slug": "how-to-pass",
     "part": "Start here",
     "kick": "Before you start",
