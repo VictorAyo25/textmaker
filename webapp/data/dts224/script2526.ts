@@ -88,7 +88,7 @@ WHERE  b.branch_no NOT IN (SELECT branch_no
     question: `<p><b>a.</b> Explain two (2) limitations of the file-based approach to data processing. <i>(2 mks)</i></p>
 <p><b>b.</b> What is a Database Management System (DBMS)? <i>(2 mks)</i></p>
 <p><b>c.</b> What is meant by data abstraction? Explain the three (3) levels of data abstraction with examples. <i>(5&frac12; mks)</i></p>
-<p><b>d.</b> Transform the EER diagram given into relations. <i>(8 mks)</i></p>`,
+<p><b>d.</b> Transform the EER for a University Dining Service in Figure 2 into a set of relational schemas. Show the primary keys (use the short text notation). <i>(8 mks)</i></p>`,
     answer: `<p><b>2a.</b></p>
 <p><b>(i) Data redundancy and inconsistency.</b> In a file-based system each application keeps its own file, so the same data is duplicated in several places. When one copy is updated and the others are not, the copies disagree and the organisation holds two different versions of the same fact.</p>
 <p><b>(ii) Program-data dependence.</b> Each application program contains the description of the file it accesses, so any change to the structure of that file requires every program that uses it to be modified and recompiled.</p>
@@ -105,14 +105,14 @@ WHERE  b.branch_no NOT IN (SELECT branch_no
 <i>Example:</i> STUDENT records stored as fixed-length records in a B-tree indexed on studentNo.</p>
 <p>Separating these levels provides data independence: logical data independence allows the conceptual schema to change without altering external views, and physical data independence allows the internal schema to change without altering the conceptual schema.</p>
 
-<p><b>2d.</b> The EER diagram is transformed into relations using the following rules:</p>
+<p><b>2d.</b> The EER for the University Dining Service is transformed into relational schemas by applying the following rules to each construct on the diagram:</p>
 <p>1. Each regular entity type becomes a relation; its attributes become the columns and its identifier becomes the primary key.<br>
 2. For a one-to-many relationship, the primary key of the entity on the "one" side is placed in the relation on the "many" side as a foreign key.<br>
 3. For a many-to-many relationship, a new relation is created containing the primary keys of both participating entities as a composite primary key, together with any attributes of the relationship itself.<br>
 4. For a one-to-one relationship, the primary key of one entity is placed in the other as a foreign key, preferably in the relation with mandatory participation.<br>
 5. Each multivalued attribute becomes a new relation containing the primary key of its owner entity together with the attribute; both form the composite primary key.<br>
 6. For a super type and its subtypes, one relation is created for the super type holding the common attributes, and one relation for each subtype holding its own attributes plus the primary key of the super type, which serves as both the primary key and a foreign key of the subtype relation.</p>
-<p><i>For example, for a super type VEHICLE with subtypes CAR and TRUCK:</i></p>
+<p>Applied to a dining service, an entity such as MEAL_PLAN becomes MEAL_PLAN(planID, planName, price) with planID as the primary key; a one-to-many between STUDENT and MEAL_PLAN places planID into STUDENT as a foreign key; and a many-to-many between STUDENT and MEAL becomes a new relation carrying both keys. Where the diagram shows a super type with subtypes, for example an OFFERING or a PLAN with specialised kinds, the rule is:</p>
 <pre>VEHICLE (vehicleId, make, year)          PK vehicleId
 CAR     (vehicleId, bootCapacity)        PK vehicleId, FK vehicleId -&gt; VEHICLE
 TRUCK   (vehicleId, payload)             PK vehicleId, FK vehicleId -&gt; VEHICLE</pre>`,
