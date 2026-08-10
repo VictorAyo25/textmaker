@@ -55,6 +55,22 @@ export default async function Page({
         ]}
         aside={{ label: 'The drill', href: `/${found.code.toLowerCase()}` }}
       />
+      {/* The finished paper, answered end to end. Given its own card and a loud
+          button because it is the single thing most worth reading last. */}
+      {found.code === 'DTS224' && (
+        <div className="card">
+          <h2>The 2025/26 paper, answered</h2>
+          <p className="help">
+            All six questions, written out as you would put them on the answer script.
+            No teaching and no commentary, just the answers, from Question One to
+            Question Six.
+          </p>
+          <Link className="bigbtn" href={`/${found.code.toLowerCase()}/learn/answer-script`}>
+            Open the answer script
+          </Link>
+        </div>
+      )}
+
       {/* With hours left rather than days, navigating between lessons is friction.
           This offers the whole course as one continuous scroll instead. */}
       <div className="card">
