@@ -124,6 +124,190 @@
     ]
   },
   {
+    "slug": "q4",
+    "part": "Solve a Question",
+    "kick": "Question 4",
+    "title": "Question Four, Built From Nothing",
+    "lead": "The relational model, the six algebra operations with examples, and writing algebra expressions against a real schema. Seventeen and a half marks.",
+    "blurb": "The relational data model and relational algebra, including writing expressions for given tasks.",
+    "minutes": 35,
+    "modules": [
+      6,
+      9
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "The question",
+        "tag": "",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Four</span><p><b>(a)</b> Describe the relational data model. <i>(2.5 marks)</i><br><b>(b)</b> Explain six relational algebra operations with examples. <i>(6 marks)</i><br><b>(c)</b> Write the relational algebra for tasks (i) to (iii) against: <i>(9 marks)</i></p><pre>Emp  (Fname, Lname, SSN, Dno)\nDept (DName, DNum, Mgr_SSN)\nD_Loc(DNo, Loc)</pre></div><p>Part (b) is six marks for six definitions, one each. Part (c) is nine marks for three expressions. Learn the six operations properly and you have fifteen of the seventeen and a half.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "the operations, one at a time",
+        "howto": "Cover the page, read, answer, slide down.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Relational algebra is a set of operations that take one or two <b>relations</b> and produce a <b>new relation</b>. That closure property matters: the output is a table, so you can feed it into the next operation.",
+            "ask": "If every operation returns a table, can you chain them?"
+          },
+          {
+            "check": "yes. That is the whole point.",
+            "teach": "First operation. <b>SELECTION</b>, written with sigma. It keeps the ROWS that satisfy a condition. sigma with Dno=5 applied to Emp gives every employee in department 5.",
+            "ask": "Does selection change the number of columns?"
+          },
+          {
+            "check": "no. Same columns, fewer rows.",
+            "teach": "Second. <b>PROJECTION</b>, written with pi. It keeps the COLUMNS you name and throws the rest away, then removes duplicate rows.",
+            "ask": "Sigma cuts one way and pi cuts the other. Which cuts rows?"
+          },
+          {
+            "check": "sigma cuts rows; pi cuts columns.",
+            "teach": "Hook: <b>pi has two legs, standing on columns</b>. Third operation. <b>CARTESIAN PRODUCT</b>, written with a multiplication cross. It pairs every row of one relation with every row of the other.",
+            "ask": "Relation A has 3 rows, B has 4. How many rows in A times B?"
+          },
+          {
+            "check": "twelve. Every pairing.",
+            "teach": "Most of those pairings are nonsense, which is why the fourth operation exists. <b>JOIN</b> combines rows from two relations only where a stated condition holds, usually that a foreign key matches a primary key.",
+            "ask": "A join is really a product followed by which other operation?"
+          },
+          {
+            "check": "a selection.",
+            "teach": "Exactly: join equals product then select on the matching condition. A <b>NATURAL JOIN</b> is the special case that joins on all shared attribute names and keeps one copy of each.",
+            "ask": "Fifth and sixth are set operations. What does UNION do to two tables?"
+          },
+          {
+            "check": "stacks them, removing duplicates.",
+            "teach": "<b>UNION</b> gives rows in either. <b>INTERSECTION</b> gives rows in both. <b>DIFFERENCE</b>, written with a minus, gives rows in the first but not the second. All three demand <b>UNION COMPATIBILITY</b>.",
+            "ask": "What does union compatible mean?"
+          },
+          {
+            "check": "same number of attributes, and corresponding attributes from the same domains.",
+            "teach": "That is six: selection, projection, Cartesian product, join, union, and difference or intersection. Enough for part (b).",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Parts (a) and (b), answered",
+        "tag": "eight and a half marks",
+        "html": "<p><b>(a) Describe the relational data model.</b></p><div class=\"keypoint\"><span class=\"kplab\">Write this</span><p>The relational data model <b>is</b> a logical data model in which all data is represented as a collection of <b>relations</b>, that is two-dimensional tables of rows and columns. Each row is a <b>tuple</b>, each column an <b>attribute</b> drawn from a <b>domain</b> of permitted values, and rows are identified by a <b>primary key</b> rather than by position, since both rows and columns are unordered. Relationships between relations are represented by <b>foreign keys</b> rather than by physical pointers, and the model is manipulated by relational algebra and relational calculus. It was proposed by E. F. Codd in 1970.</p></div><p><b>(b) Six operations, with an example each.</b> Use the question's own schema for the examples; it costs nothing and shows you read it.</p><table><tr><th>Operation</th><th>What it does</th><th>Example</th></tr><tr><td><b>Selection</b> (sigma)</td><td>Returns the rows satisfying a condition. Same columns, fewer rows</td><td>sigma Dno=5 (Emp), every employee in department 5</td></tr><tr><td><b>Projection</b> (pi)</td><td>Returns the named columns, duplicates removed. Same rows, fewer columns</td><td>pi Fname, Lname (Emp), just the names</td></tr><tr><td><b>Cartesian product</b> (times)</td><td>Pairs every row of one relation with every row of the other</td><td>Emp times Dept, every employee against every department</td></tr><tr><td><b>Join</b></td><td>Combines rows from two relations where a condition holds; a product followed by a selection</td><td>Emp join on Dno=DNum Dept, each employee with their own department</td></tr><tr><td><b>Union</b> (cup)</td><td>All rows appearing in either relation, duplicates removed. Needs union compatibility</td><td>Managers cup Technicians, everyone in either group</td></tr><tr><td><b>Difference</b> (minus)</td><td>Rows in the first relation that are not in the second. Needs union compatibility</td><td>Emp minus Managers, employees who are not managers</td></tr></table><p class=\"gloss\">If you would rather offer INTERSECTION as the sixth, it returns rows appearing in both and also needs union compatibility. Either scores; do not give both and drop one of the others.</p>"
+      },
+      {
+        "kind": "worked",
+        "label": "Part (c), writing the expressions",
+        "tag": "attempt each before revealing",
+        "mode": "model",
+        "problem": "<p>Against this schema:</p><pre>Emp  (Fname, Lname, SSN, Dno)\nDept (DName, DNum, Mgr_SSN)\nD_Loc(DNo, Loc)</pre><p>Write relational algebra for:<br><b>(i)</b> The first and last names of all employees in the department named 'Research'.<br><b>(ii)</b> The locations of every department.<br><b>(iii)</b> The names of the managers of every department.</p><p><b>Write all three on paper first.</b></p>",
+        "working": "<p><b>The method, every time, in three moves.</b></p><ol><li><b>Which tables hold the columns I need?</b> If more than one, I must join.</li><li><b>Join them on the matching keys.</b></li><li><b>Select the rows, then project the columns.</b> Selection before projection, or you may throw away the column you needed to filter on.</li></ol><p><b>(i) Names of employees in the 'Research' department.</b></p><p>Names are in Emp. The department NAME is in Dept. Two tables, so join, on Emp.Dno = Dept.DNum.</p><pre>RESULT &larr; pi Fname, Lname ( sigma DName='Research'\n              ( Emp join Dno=DNum Dept ) )</pre><p>Or in steps, which is safer under pressure and equally acceptable:</p><pre>R1 &larr; sigma DName='Research' (Dept)\nR2 &larr; Emp join Dno=DNum R1\nRESULT &larr; pi Fname, Lname (R2)</pre><p><b>(ii) Locations of every department.</b></p><p>Locations are in D_Loc. If the department NAME is wanted, join to Dept; if only the locations, project straight from D_Loc.</p><pre>RESULT &larr; pi DName, Loc ( Dept join DNum=DNo D_Loc )</pre><p><b>(iii) Names of the managers of every department.</b></p><p>Dept holds Mgr_SSN, which is an employee's SSN. So join Dept to Emp on Mgr_SSN = SSN, then project the names.</p><pre>RESULT &larr; pi DName, Fname, Lname\n          ( Dept join Mgr_SSN=SSN Emp )</pre><div class=\"keypoint\"><span class=\"kplab\">The habit that earns the marks</span><p><b>Selection before projection.</b> Filter the rows while you still have the column you are filtering on, then keep only the columns asked for.</p><p>And <b>name your intermediate results</b>. R1, R2, RESULT. It makes a long expression readable and lets the examiner give you partial credit for the steps that are right.</p></div>"
+      },
+      {
+        "kind": "recall",
+        "label": "Now do these alone",
+        "tag": "same schema",
+        "question": "Write relational algebra for:<br>(1) The SSNs of all employees who work in a department located in 'Houston'.<br>(2) The last names of employees who are NOT managers.<br>(3) The names of departments that have no location recorded.",
+        "answer": "<p><b>1.</b> Loc is in D_Loc, SSN is in Emp, and they meet through the department number.</p><pre>R1 &larr; sigma Loc='Houston' (D_Loc)\nR2 &larr; Emp join Dno=DNo R1\nRESULT &larr; pi SSN (R2)</pre><p><b>2.</b> Managers are the SSNs appearing in Dept.Mgr_SSN. Take all employee SSNs and subtract them, then get the names.</p><pre>ALL   &larr; pi SSN (Emp)\nMGRS  &larr; pi Mgr_SSN (Dept)\nNONM  &larr; ALL minus MGRS\nRESULT &larr; pi Lname ( Emp join SSN=SSN NONM )</pre><p>Note the difference operation needs both sides to be single SSN columns, which is why each is projected first. That is union compatibility doing its job.</p><p><b>3.</b> Same shape: all department numbers, minus those that appear in D_Loc.</p><pre>ALLD  &larr; pi DNum (Dept)\nWITHL &larr; pi DNo (D_Loc)\nNOLOC &larr; ALLD minus WITHL\nRESULT &larr; pi DName ( Dept join DNum=DNum NOLOC )</pre><p class=\"gloss\">Both of the last two use the same trick: <b>\"not\" in relational algebra is DIFFERENCE.</b> Build the full set, build the set to exclude, subtract. If a question says none, no, or not, reach for minus.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Sigma cuts rows, pi cuts columns, join glues on a matching key, and 'not' means difference.\"",
+        "sub": "Which tables hold what I need, join them, select then project. Name intermediate results so partial credit is possible. Union, intersection and difference all need union compatibility."
+      }
+    ]
+  },
+  {
+    "slug": "q2",
+    "part": "Solve a Question",
+    "kick": "Question 2",
+    "title": "Question Two, Built From Nothing",
+    "lead": "Why databases replaced files, what a DBMS is, the three levels of abstraction, and turning an EER diagram into tables. Nine and a half marks of definition, then the mapping.",
+    "blurb": "File-based limitations, the DBMS, data abstraction, and EER to relational mapping.",
+    "minutes": 30,
+    "modules": [
+      1,
+      2,
+      7
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "The question",
+        "tag": "",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Two</span><p><b>(a)</b> Explain two limitations of the file-based approach to data processing. <i>(2 marks)</i><br><b>(b)</b> What is a Database Management System? <i>(2 marks)</i><br><b>(c)</b> What is meant by data abstraction? Explain the three levels with examples. <i>(5.5 marks)</i><br><b>(d)</b> Transform the EER diagram into relations. <i>(marks vary)</i></p></div><p>Parts (a) to (c) are <b>nine and a half marks of pure definition</b>. No thinking required once you know them, which makes this the cheapest question on the paper. Part (d) uses the same mapping rules you met in Question Six.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "before files, and after",
+        "howto": "Cover the page, read, answer, then slide down one line.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Before databases, each department kept its own <b>file</b>. Sales had a customer file. Accounts had its own customer file. Dispatch had another.",
+            "ask": "Ada moves house and tells Sales. What is now wrong in Accounts and Dispatch?"
+          },
+          {
+            "check": "they still hold her old address.",
+            "teach": "Two faults, and they are the two the examiner wants. The same fact stored in several places is <b>DATA REDUNDANCY</b>. Those copies disagreeing is <b>DATA INCONSISTENCY</b>.",
+            "ask": "Which of those two causes the other?"
+          },
+          {
+            "check": "redundancy causes inconsistency.",
+            "teach": "A third fault: each program was written against its own file layout, so changing the layout meant rewriting every program that touched it. That is <b>PROGRAM-DATA DEPENDENCE</b>.",
+            "ask": "And if Sales cannot read Accounts' file at all, what is that called?"
+          },
+          {
+            "check": "data isolation, or difficulty in accessing data.",
+            "teach": "Now the cure. A <b>DBMS</b> is software that lets you define, create, maintain and control access to a database, with the data held ONCE and shared by every application.",
+            "ask": "So which of the faults above does sharing one copy remove?"
+          },
+          {
+            "check": "redundancy, and therefore inconsistency.",
+            "teach": "Now abstraction. You drive a car without knowing how the engine works: the detail is <b>hidden</b> behind a steering wheel. A database does the same.",
+            "ask": "What word describes hiding complex detail and showing only what is needed?"
+          },
+          {
+            "check": "abstraction.",
+            "teach": "There are <b>THREE LEVELS</b>. Hook: <b>window, blueprint, foundation</b>. The <b>EXTERNAL</b> level is each user's own view, the window they look through.",
+            "ask": "The middle level describes the whole logical design of the database. What is it called?"
+          },
+          {
+            "check": "the conceptual level.",
+            "teach": "And the <b>INTERNAL</b> level describes how the data is physically stored: files, indexes, blocks. The foundation, which nobody sees.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Parts (a) to (c), answered",
+        "tag": "write these as they stand",
+        "html": "<p><b>(a) Two limitations of the file-based approach.</b> Give the name, then one sentence.</p><ul><li><b>Data redundancy and inconsistency.</b> The same data is duplicated across separate files held by different departments, wasting space and allowing the copies to disagree when one is updated and the others are not.</li><li><b>Program-data dependence.</b> Each program contains the structure of the file it reads, so any change to that structure requires every program using it to be rewritten.</li></ul><p class=\"gloss\">Others you could give instead: data isolation, since data is scattered across files in different formats; difficulty in enforcing integrity constraints; concurrent access and security problems.</p><p><b>(b) What is a DBMS.</b></p><div class=\"keypoint\"><span class=\"kplab\">Write this</span><p>A Database Management System <b>is</b> the software that enables users to define, create, maintain and control access to a database. It sits between the users and the physical data, providing the languages to define and manipulate it, and services such as security, concurrency control, backup and recovery.</p></div><p><b>(c) Data abstraction and the three levels.</b></p><p>Data abstraction <b>is</b> the hiding of the complex details of how data is stored, showing each user only the data they need in a form they can understand.</p><table><tr><th>Level</th><th>What it describes</th><th>Example</th></tr><tr><td><b>External</b><br>(view level)</td><td>The individual user's view. Several different views of the same database, each showing only part of it</td><td>A lecturer sees student names and grades; the bursary sees names and fees. Neither sees the other's columns</td></tr><tr><td><b>Conceptual</b><br>(logical level)</td><td>The whole logical structure of the database: what data is stored and what relationships hold, for all users together</td><td>Student(studentId, name, level), Course(courseCode, title), and the enrolment relationship between them</td></tr><tr><td><b>Internal</b><br>(physical level)</td><td>How the data is actually stored: file organisation, indexes, blocks, compression</td><td>Student rows stored in a B-tree indexed on studentId, in 4 KB blocks</td></tr></table><p><b>Add the payoff sentence,</b> because it is where the remaining marks are: separating the levels gives <b>data independence</b>. Logical data independence lets the conceptual level change without disturbing external views; physical data independence lets storage change without disturbing the conceptual level.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Part (d), EER to relations",
+        "tag": "the mapping rules, which are the same every time",
+        "html": "<p>Mapping is mechanical once you know the four rules. Apply them in order.</p><table><tr><th>What you see</th><th>What you write</th></tr><tr><td><b>A regular entity</b></td><td>One relation. Its attributes become columns, its identifier becomes the primary key</td></tr><tr><td><b>A one-to-many relationship</b></td><td>No new table. Put the primary key of the ONE side into the MANY side as a foreign key</td></tr><tr><td><b>A many-to-many relationship</b></td><td>A NEW relation holding the primary keys of both sides as foreign keys; together they form its primary key. Any attribute of the relationship goes here too</td></tr><tr><td><b>A one-to-one relationship</b></td><td>Put the key of one side into the other as a foreign key, preferring the side with mandatory participation</td></tr><tr><td><b>A multivalued attribute</b></td><td>A new relation holding the owner's key plus the attribute; both together are its primary key</td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The EER part: supertypes and subtypes</span><p>The commonest approach, and the one to state: <b>one relation for the supertype holding the common attributes, and one relation for each subtype holding its own attributes plus the supertype's primary key as both its primary key AND a foreign key.</b></p><p>So VEHICLE(vehicleId, make, year), CAR(vehicleId, bootSize), TRUCK(vehicleId, payload). vehicleId is the primary key of all three and a foreign key in the last two.</p></div><p class=\"gloss\">Always finish by listing every primary key and every foreign key explicitly. Examiners award those separately from the tables.</p>"
+      },
+      {
+        "kind": "recall",
+        "label": "Test yourself",
+        "tag": "no notes",
+        "question": "(1) Name and explain two limitations of the file-based approach. (2) Define a DBMS in one sentence. (3) Name the three levels of abstraction and say what each describes. (4) An EER diagram has EMPLOYEE as a supertype with MANAGER and TECHNICIAN as subtypes, and a many-to-many between EMPLOYEE and PROJECT. How many relations do you produce, and what are their keys?",
+        "answer": "<p><b>1.</b> Redundancy and inconsistency, since the same fact is duplicated across departmental files and the copies drift apart. Program-data dependence, since each program embeds the file structure so any structural change forces rewrites.</p><p><b>2.</b> A DBMS is the software that enables users to define, create, maintain and control access to a database.</p><p><b>3.</b> External, each user's own view. Conceptual, the whole logical structure for all users. Internal, how the data is physically stored.</p><p><b>4.</b> <b>Four relations.</b><br>EMPLOYEE(<u>empNo</u>, ...) primary key empNo<br>MANAGER(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>TECHNICIAN(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>WORKS_ON(<u>empNo, projNo</u>, hours) primary key both together, both foreign keys</p><p>The many-to-many produced the fourth table. If you wrote three, you left the relationship with nowhere to live.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Files duplicate and drift; a DBMS holds it once. Window, blueprint, foundation.\"",
+        "sub": "Redundancy and inconsistency, program-data dependence. External, conceptual, internal, and the payoff is data independence. Mapping: entity becomes a table, one-to-many lends a key to the many side, many-to-many becomes a new table, subtype gets the supertype's key as its own."
+      }
+    ]
+  },
+  {
     "slug": "q6",
     "part": "Solve a Question",
     "kick": "Question 6",
