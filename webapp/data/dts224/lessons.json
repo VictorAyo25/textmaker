@@ -124,6 +124,280 @@
     ]
   },
   {
+    "slug": "q1",
+    "part": "Solve a Question",
+    "kick": "Question 1",
+    "title": "Question One, Built From Nothing",
+    "lead": "Supertypes and specialisation, determinants, and six SQL queries. The SQL alone is nine marks, and it is the most mechanical thing on the paper.",
+    "blurb": "EER vocabulary, determinants in normalization, and writing standard SQL.",
+    "minutes": 40,
+    "modules": [
+      4,
+      8,
+      10
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "The question",
+        "tag": "",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question One</span><p><b>(a)</b> Briefly explain with symbolic examples: supertype, specialisation, total specialisation, disjoint rule. <i>(4 marks)</i><br><b>(b)</b> Use Figure 1 to explain the determinant in normalization; show all determinants, the attributes they determine, and the type of functional dependency. <i>(2.5 marks)</i><br><b>(c)</b> Write SQL for six business questions against: <i>(9 marks)</i></p><pre>BRANCH          (branch_no, street, city, postcode)\nSTAFF           (staff_no, fName, lName, position, sex,\n                 DOB, salary, branch_no)\nPROPERTYFORRENT (property_no, street, city, postcode, type,\n                 rooms, rent, staff_no, branch_no)</pre></div><p>Part (c) is nine of the fifteen and a half marks and it is the most mechanical work on the paper. Learn one SQL skeleton and six queries fall out of it.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "the EER words, then determinants",
+        "howto": "Cover the page, read, answer, slide down.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Think of STAFF at a university. Some are LECTURERS, some are DRIVERS, some are NURSES. They all share a staff number and a name, but each kind has attributes the others do not.",
+            "ask": "What would you call STAFF, the general one that holds what they all share?"
+          },
+          {
+            "check": "the supertype.",
+            "teach": "A <b>SUPERTYPE</b> is the general entity type holding the attributes common to all its subgroups. Each subgroup is a <b>SUBTYPE</b>, holding its own extra attributes and inheriting the supertype's.",
+            "ask": "Working DOWNWARD, from STAFF to LECTURER and DRIVER, what is that process called?"
+          },
+          {
+            "check": "specialisation.",
+            "teach": "<b>SPECIALISATION</b> is top down: you take a general entity and identify subgroups within it. Its opposite, <b>GENERALISATION</b>, is bottom up: you notice CAR and TRUCK share attributes and invent VEHICLE above them.",
+            "ask": "Which direction is specialisation again?"
+          },
+          {
+            "check": "top down, from the general to the specific.",
+            "teach": "Now two constraints, and they answer two different questions. The first asks: must EVERY member of the supertype belong to some subtype?",
+            "ask": "If every single member of STAFF must be a lecturer, a driver or a nurse, what is that called?"
+          },
+          {
+            "check": "TOTAL specialisation.",
+            "teach": "<b>TOTAL</b> means every supertype instance belongs to at least one subtype, drawn as a double line. <b>PARTIAL</b> means some may belong to none, drawn as a single line, and is the default.",
+            "ask": "The second question: may one member belong to MORE THAN ONE subtype at once?"
+          },
+          {
+            "check": "that is the disjoint rule.",
+            "teach": "<b>DISJOINT</b>, marked d, means an instance belongs to AT MOST ONE subtype. <b>OVERLAP</b>, marked o, means it may belong to several. A person is either a car or a truck, never both, so that is disjoint.",
+            "ask": "So the two constraints are independent. How many combinations does that give?"
+          },
+          {
+            "check": "four: total disjoint, total overlap, partial disjoint, partial overlap.",
+            "teach": "Now part (b). A <b>DETERMINANT</b> is simply the attribute or group of attributes on the LEFT of a functional dependency arrow: the thing that fixes the value of something else.",
+            "ask": "In staffNo determines staffName, which is the determinant?"
+          },
+          {
+            "check": "staffNo.",
+            "teach": "And the type of dependency is judged by WHAT the determinant is: the whole key is a full dependency, part of the key is PARTIAL, and a non-key attribute is TRANSITIVE.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Parts (a) and (b), answered",
+        "tag": "give a symbolic example for each, as the question asks",
+        "html": "<table><tr><th>Term</th><th>Write this, with the example</th></tr><tr><td><b>Supertype</b></td><td>A supertype <b>is</b> the generic entity type that holds the attributes common to all its subgroups, which inherit them. <i>Example: STAFF(staffNo, name) is the supertype of LECTURER and DRIVER.</i></td></tr><tr><td><b>Specialisation</b></td><td>Specialisation <b>is</b> the top-down process of identifying subgroups within a general entity type, each with attributes the others do not share. <i>Example: STAFF specialises into LECTURER(rank) and DRIVER(licenceClass).</i></td></tr><tr><td><b>Total specialisation</b></td><td>Total specialisation <b>is</b> the constraint that every instance of the supertype must belong to at least one subtype, drawn as a double line. <i>Example: every STAFF member must be a LECTURER or a DRIVER; there is no staff member who is neither.</i></td></tr><tr><td><b>Disjoint rule</b></td><td>The disjoint rule <b>is</b> the constraint that an instance of the supertype may belong to at most ONE subtype, marked with a d in the circle. <i>Example: a VEHICLE is either a CAR or a TRUCK, never both.</i> Its opposite is the overlap rule, marked o.</td></tr></table><p class=\"gloss\">The question says <b>with symbolic examples</b>, so an answer with no example cannot score full marks however good the definition. Give both, every time.</p><div class=\"keypoint\"><span class=\"kplab\">Part (b), the determinant, in the shape the question asks for</span><p>A determinant <b>is</b> the attribute or set of attributes on the left-hand side of a functional dependency, that is the attribute whose value determines the value of another.</p><p>Then present it as a TABLE, because the question asks for all three things at once:</p></div><table><tr><th>Determinant</th><th>Attributes it determines</th><th>Type of dependency</th></tr><tr><td>The whole primary key</td><td>All the remaining non-key attributes</td><td>Full functional dependency</td></tr><tr><td>Part of a composite key</td><td>Whatever it alone fixes</td><td><b>Partial</b> dependency, breaks 2NF</td></tr><tr><td>A non-key attribute</td><td>Another non-key attribute</td><td><b>Transitive</b> dependency, breaks 3NF</td></tr></table>"
+      },
+      {
+        "kind": "worked",
+        "label": "Part (c), the six SQL queries",
+        "tag": "attempt each before revealing",
+        "mode": "model",
+        "problem": "<p>Write standard SQL against BRANCH, STAFF and PROPERTYFORRENT for:</p><p><b>(i)</b> All staff whose salary is greater than 100,000, highest salary first.<br><b>(ii)</b> The total number of staff working in each branch, including the branch number.<br>And the remaining parts of the question in the same style: counts, averages, groupings and joins.</p><p><b>Write them out on paper first.</b> Every one of them is the same skeleton with different clauses filled in.</p>",
+        "working": "<p><b>The skeleton. Every SQL answer you write is this, with parts left out.</b></p><pre>SELECT    which columns\nFROM      which table\nJOIN      which other table  ON  what matches\nWHERE     which rows          (before grouping)\nGROUP BY  which grouping\nHAVING    which groups        (after grouping)\nORDER BY  what order          ASC or DESC</pre><div class=\"keypoint\"><span class=\"kplab\">The order the database runs it, which is NOT the order you write it</span><p><b>FROM, JOIN, WHERE, GROUP BY, HAVING, SELECT, ORDER BY.</b></p><p>That single fact answers most SQL confusions. WHERE runs before the groups exist, so an aggregate like COUNT(*) can never go there; it goes in HAVING. And ORDER BY runs last, which is why it may use a column alias when WHERE may not.</p></div><p><b>(i) Staff earning over 100,000, highest first.</b> One table, a row filter, and a sort. No grouping.</p><pre>SELECT   staff_no, fName, lName, position, salary\nFROM     STAFF\nWHERE    salary &gt; 100000\nORDER BY salary DESC;</pre><p class=\"gloss\">DESC is the mark here. \"Highest to lowest\" is descending; leave it out and you get the default, which is ascending.</p><p><b>(ii) Total number of staff in each branch, showing the branch number.</b> The words <b>each</b> and <b>number of</b> together mean GROUP BY plus COUNT.</p><pre>SELECT   branch_no, COUNT(*) AS total_staff\nFROM     STAFF\nGROUP BY branch_no;</pre><p>If the branch CITY is wanted as well, that column lives in BRANCH, so join first:</p><pre>SELECT   b.branch_no, b.city, COUNT(*) AS total_staff\nFROM     STAFF s\nJOIN     BRANCH b ON s.branch_no = b.branch_no\nGROUP BY b.branch_no, b.city;</pre><p class=\"gloss\">Every non-aggregated column in SELECT must also appear in GROUP BY. That is the rule people break most often.</p><p><b>The rest of the question, by pattern.</b> Read the words and they tell you the clause:</p><table><tr><th>The words</th><th>The clause</th></tr><tr><td>\"greater than\", \"in Lagos\", \"whose type is Flat\"</td><td><code>WHERE</code></td></tr><tr><td>\"for each\", \"per branch\", \"grouped by\"</td><td><code>GROUP BY</code></td></tr><tr><td>\"number of\", \"total\", \"average\", \"highest\", \"lowest\"</td><td><code>COUNT, SUM, AVG, MAX, MIN</code></td></tr><tr><td>\"only those branches with more than 5 staff\"</td><td><code>HAVING</code>, because it filters GROUPS</td></tr><tr><td>\"ordered by\", \"from highest to lowest\"</td><td><code>ORDER BY ... DESC</code></td></tr><tr><td>A column from a table you have not named yet</td><td><code>JOIN</code></td></tr></table><p><b>Two more worked, in the styles the question uses:</b></p><pre>-- Average staff salary per branch, only branches averaging over 80,000\nSELECT   branch_no, AVG(salary) AS avg_salary\nFROM     STAFF\nGROUP BY branch_no\nHAVING   AVG(salary) &gt; 80000;\n\n-- Each property with the name of the staff member managing it\nSELECT   p.property_no, p.city, p.rent, s.fName, s.lName\nFROM     PROPERTYFORRENT p\nJOIN     STAFF s ON p.staff_no = s.staff_no\nORDER BY p.rent DESC;</pre><p><b>Finish every SQL answer with a semicolon.</b> It is free and examiners notice.</p>"
+      },
+      {
+        "kind": "recall",
+        "label": "Now do these alone",
+        "tag": "same three tables",
+        "question": "Write SQL for:<br>(1) All properties in 'Lagos' with more than 3 rooms, cheapest first.<br>(2) The number of properties managed by each member of staff, showing their last name.<br>(3) The highest and lowest rent in the whole PROPERTYFORRENT table.",
+        "answer": "<pre>-- 1. A row filter with two conditions, and an ascending sort.\nSELECT   property_no, street, city, rooms, rent\nFROM     PROPERTYFORRENT\nWHERE    city = 'Lagos' AND rooms &gt; 3\nORDER BY rent ASC;\n\n-- 2. \"each member of staff\" means GROUP BY; lName lives in STAFF, so JOIN.\nSELECT   s.staff_no, s.lName, COUNT(*) AS properties_managed\nFROM     PROPERTYFORRENT p\nJOIN     STAFF s ON p.staff_no = s.staff_no\nGROUP BY s.staff_no, s.lName;\n\n-- 3. Whole table, so aggregates with NO grouping at all.\nSELECT MAX(rent) AS highest_rent,\n       MIN(rent) AS lowest_rent\nFROM   PROPERTYFORRENT;</pre><p class=\"gloss\">Question 3 is the one people overthink. \"In the whole table\" means one answer for everything, so there is nothing to group by. Aggregates without GROUP BY collapse the entire table to a single row, which is exactly what was asked.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Read the words and they name the clause. For each means GROUP BY; filtering groups means HAVING.\"",
+        "sub": "Supertype is the general one; specialisation is top down; total means everyone belongs somewhere; disjoint means at most one. A determinant is whatever sits left of the arrow, and what it is decides whether the dependency is full, partial or transitive."
+      }
+    ]
+  },
+  {
+    "slug": "q2",
+    "part": "Solve a Question",
+    "kick": "Question 2",
+    "title": "Question Two, Built From Nothing",
+    "lead": "Why databases replaced files, what a DBMS is, the three levels of abstraction, and turning an EER diagram into tables. Nine and a half marks of definition, then the mapping.",
+    "blurb": "File-based limitations, the DBMS, data abstraction, and EER to relational mapping.",
+    "minutes": 30,
+    "modules": [
+      1,
+      2,
+      7
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "The question",
+        "tag": "",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Two</span><p><b>(a)</b> Explain two limitations of the file-based approach to data processing. <i>(2 marks)</i><br><b>(b)</b> What is a Database Management System? <i>(2 marks)</i><br><b>(c)</b> What is meant by data abstraction? Explain the three levels with examples. <i>(5.5 marks)</i><br><b>(d)</b> Transform the EER diagram into relations. <i>(marks vary)</i></p></div><p>Parts (a) to (c) are <b>nine and a half marks of pure definition</b>. No thinking required once you know them, which makes this the cheapest question on the paper. Part (d) uses the same mapping rules you met in Question Six.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "before files, and after",
+        "howto": "Cover the page, read, answer, then slide down one line.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Before databases, each department kept its own <b>file</b>. Sales had a customer file. Accounts had its own customer file. Dispatch had another.",
+            "ask": "Ada moves house and tells Sales. What is now wrong in Accounts and Dispatch?"
+          },
+          {
+            "check": "they still hold her old address.",
+            "teach": "Two faults, and they are the two the examiner wants. The same fact stored in several places is <b>DATA REDUNDANCY</b>. Those copies disagreeing is <b>DATA INCONSISTENCY</b>.",
+            "ask": "Which of those two causes the other?"
+          },
+          {
+            "check": "redundancy causes inconsistency.",
+            "teach": "A third fault: each program was written against its own file layout, so changing the layout meant rewriting every program that touched it. That is <b>PROGRAM-DATA DEPENDENCE</b>.",
+            "ask": "And if Sales cannot read Accounts' file at all, what is that called?"
+          },
+          {
+            "check": "data isolation, or difficulty in accessing data.",
+            "teach": "Now the cure. A <b>DBMS</b> is software that lets you define, create, maintain and control access to a database, with the data held ONCE and shared by every application.",
+            "ask": "So which of the faults above does sharing one copy remove?"
+          },
+          {
+            "check": "redundancy, and therefore inconsistency.",
+            "teach": "Now abstraction. You drive a car without knowing how the engine works: the detail is <b>hidden</b> behind a steering wheel. A database does the same.",
+            "ask": "What word describes hiding complex detail and showing only what is needed?"
+          },
+          {
+            "check": "abstraction.",
+            "teach": "There are <b>THREE LEVELS</b>. Hook: <b>window, blueprint, foundation</b>. The <b>EXTERNAL</b> level is each user's own view, the window they look through.",
+            "ask": "The middle level describes the whole logical design of the database. What is it called?"
+          },
+          {
+            "check": "the conceptual level.",
+            "teach": "And the <b>INTERNAL</b> level describes how the data is physically stored: files, indexes, blocks. The foundation, which nobody sees.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Parts (a) to (c), answered",
+        "tag": "write these as they stand",
+        "html": "<p><b>(a) Two limitations of the file-based approach.</b> Give the name, then one sentence.</p><ul><li><b>Data redundancy and inconsistency.</b> The same data is duplicated across separate files held by different departments, wasting space and allowing the copies to disagree when one is updated and the others are not.</li><li><b>Program-data dependence.</b> Each program contains the structure of the file it reads, so any change to that structure requires every program using it to be rewritten.</li></ul><p class=\"gloss\">Others you could give instead: data isolation, since data is scattered across files in different formats; difficulty in enforcing integrity constraints; concurrent access and security problems.</p><p><b>(b) What is a DBMS.</b></p><div class=\"keypoint\"><span class=\"kplab\">Write this</span><p>A Database Management System <b>is</b> the software that enables users to define, create, maintain and control access to a database. It sits between the users and the physical data, providing the languages to define and manipulate it, and services such as security, concurrency control, backup and recovery.</p></div><p><b>(c) Data abstraction and the three levels.</b></p><p>Data abstraction <b>is</b> the hiding of the complex details of how data is stored, showing each user only the data they need in a form they can understand.</p><table><tr><th>Level</th><th>What it describes</th><th>Example</th></tr><tr><td><b>External</b><br>(view level)</td><td>The individual user's view. Several different views of the same database, each showing only part of it</td><td>A lecturer sees student names and grades; the bursary sees names and fees. Neither sees the other's columns</td></tr><tr><td><b>Conceptual</b><br>(logical level)</td><td>The whole logical structure of the database: what data is stored and what relationships hold, for all users together</td><td>Student(studentId, name, level), Course(courseCode, title), and the enrolment relationship between them</td></tr><tr><td><b>Internal</b><br>(physical level)</td><td>How the data is actually stored: file organisation, indexes, blocks, compression</td><td>Student rows stored in a B-tree indexed on studentId, in 4 KB blocks</td></tr></table><p><b>Add the payoff sentence,</b> because it is where the remaining marks are: separating the levels gives <b>data independence</b>. Logical data independence lets the conceptual level change without disturbing external views; physical data independence lets storage change without disturbing the conceptual level.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Part (d), EER to relations",
+        "tag": "the mapping rules, which are the same every time",
+        "html": "<p>Mapping is mechanical once you know the four rules. Apply them in order.</p><table><tr><th>What you see</th><th>What you write</th></tr><tr><td><b>A regular entity</b></td><td>One relation. Its attributes become columns, its identifier becomes the primary key</td></tr><tr><td><b>A one-to-many relationship</b></td><td>No new table. Put the primary key of the ONE side into the MANY side as a foreign key</td></tr><tr><td><b>A many-to-many relationship</b></td><td>A NEW relation holding the primary keys of both sides as foreign keys; together they form its primary key. Any attribute of the relationship goes here too</td></tr><tr><td><b>A one-to-one relationship</b></td><td>Put the key of one side into the other as a foreign key, preferring the side with mandatory participation</td></tr><tr><td><b>A multivalued attribute</b></td><td>A new relation holding the owner's key plus the attribute; both together are its primary key</td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The EER part: supertypes and subtypes</span><p>The commonest approach, and the one to state: <b>one relation for the supertype holding the common attributes, and one relation for each subtype holding its own attributes plus the supertype's primary key as both its primary key AND a foreign key.</b></p><p>So VEHICLE(vehicleId, make, year), CAR(vehicleId, bootSize), TRUCK(vehicleId, payload). vehicleId is the primary key of all three and a foreign key in the last two.</p></div><p class=\"gloss\">Always finish by listing every primary key and every foreign key explicitly. Examiners award those separately from the tables.</p>"
+      },
+      {
+        "kind": "recall",
+        "label": "Test yourself",
+        "tag": "no notes",
+        "question": "(1) Name and explain two limitations of the file-based approach. (2) Define a DBMS in one sentence. (3) Name the three levels of abstraction and say what each describes. (4) An EER diagram has EMPLOYEE as a supertype with MANAGER and TECHNICIAN as subtypes, and a many-to-many between EMPLOYEE and PROJECT. How many relations do you produce, and what are their keys?",
+        "answer": "<p><b>1.</b> Redundancy and inconsistency, since the same fact is duplicated across departmental files and the copies drift apart. Program-data dependence, since each program embeds the file structure so any structural change forces rewrites.</p><p><b>2.</b> A DBMS is the software that enables users to define, create, maintain and control access to a database.</p><p><b>3.</b> External, each user's own view. Conceptual, the whole logical structure for all users. Internal, how the data is physically stored.</p><p><b>4.</b> <b>Four relations.</b><br>EMPLOYEE(<u>empNo</u>, ...) primary key empNo<br>MANAGER(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>TECHNICIAN(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>WORKS_ON(<u>empNo, projNo</u>, hours) primary key both together, both foreign keys</p><p>The many-to-many produced the fourth table. If you wrote three, you left the relationship with nowhere to live.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Files duplicate and drift; a DBMS holds it once. Window, blueprint, foundation.\"",
+        "sub": "Redundancy and inconsistency, program-data dependence. External, conceptual, internal, and the payoff is data independence. Mapping: entity becomes a table, one-to-many lends a key to the many side, many-to-many becomes a new table, subtype gets the supertype's key as its own."
+      }
+    ]
+  },
+  {
+    "slug": "q3",
+    "part": "Solve a Question",
+    "kick": "Question 3",
+    "title": "Question Three, Built From Nothing",
+    "lead": "When a database beats files and when it does not, then drawing an EER diagram for a law firm from a written description.",
+    "blurb": "Justifying a database system, its limitations, and turning a description into an EER diagram.",
+    "minutes": 32,
+    "modules": [
+      1,
+      3,
+      4
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "The question",
+        "tag": "",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Three</span><p><b>(a)(i)</b> Would you choose a database system instead of storing data in operating system files? Justify with two points. <i>(5 marks)</i><br><b>(a)(ii)</b> When would it make sense NOT to use a database system? <i>(2.5 marks)</i><br><b>(b)</b> Draw an EER diagram for a law firm, from the description given.</p></div><p>Part (a)(ii) is the one people leave blank, and it is two and a half marks for knowing that a DBMS has costs. Do not skip it.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "turning words into a diagram",
+        "howto": "Cover the page, read, answer, slide down.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Drawing an EER from a description is a translation job with fixed rules. Rule one: <b>nouns the firm keeps data about become ENTITIES</b>, drawn as rectangles.",
+            "ask": "In \"each case handled by the firm has a unique case number\", what is the entity?"
+          },
+          {
+            "check": "CASE.",
+            "teach": "Rule two: <b>the things you know about that noun become ATTRIBUTES</b>. Case number, date opened, date closed, judgment description.",
+            "ask": "Which of those four is the identifier?"
+          },
+          {
+            "check": "case number, because it is stated to be unique.",
+            "teach": "Rule three: <b>verbs joining two nouns become RELATIONSHIPS</b>. The sentence \"a case is brought by one or more plaintiffs\" joins CASE to PLAINTIFF.",
+            "ask": "One or more plaintiffs, and the same plaintiff may be in many cases. What cardinality is that?"
+          },
+          {
+            "check": "many-to-many.",
+            "teach": "Read it in both directions, always. One case has many plaintiffs, yes. One plaintiff has many cases, yes. Two yeses means many-to-many.",
+            "ask": "\"A case is against one or more defendants, and the same defendant may be in many cases.\" Cardinality?"
+          },
+          {
+            "check": "many-to-many again.",
+            "teach": "Now the part that makes this an EER rather than an ER. \"A plaintiff or defendant may be a person OR an organisation\", and both are identified by an entity number with shared attributes.",
+            "ask": "One general thing with two specific kinds inside it. What construct is that?"
+          },
+          {
+            "check": "a supertype with subtypes.",
+            "teach": "So LEGAL ENTITY is the supertype, holding entity number, name and address. PERSON and ORGANISATION are its subtypes.",
+            "ask": "\"Over time the same person or organisation may be a defendant OR a plaintiff.\" Does that make the roles disjoint?"
+          },
+          {
+            "check": "no. The same legal entity can be both, over different cases.",
+            "teach": "That is why plaintiff and defendant are best drawn as ROLES in two relationships from LEGAL ENTITY to CASE, rather than as two subtypes. The subtyping is PERSON against ORGANISATION, which IS disjoint.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Part (a), answered",
+        "tag": "seven and a half marks of judgement",
+        "html": "<p><b>(a)(i) Yes, and here are two points.</b> Name each, then explain it.</p><ul><li><b>Control of redundancy and inconsistency.</b> With operating system files each application keeps its own copy of the data, so the same fact is stored several times and the copies drift apart when one is updated and the others are not. A database holds each fact once and shares it, so there is one version of the truth.</li><li><b>Data independence, integrity and shared access.</b> Files embed their structure in every program that reads them, so a change forces rewrites; a DBMS separates the logical structure from the physical storage, enforces integrity constraints centrally, and manages concurrent access, security, backup and recovery, none of which a plain file gives you.</li></ul><p class=\"gloss\">Other valid points: efficient query processing through indexes and an optimiser; standard languages rather than bespoke file-handling code; central administration.</p><div class=\"keypoint\"><span class=\"kplab\">(a)(ii) When NOT to use a database system</span><p>Say plainly that a DBMS carries costs, then list when they are not worth paying:</p><p><b>Cost and complexity.</b> The software, the hardware to run it and the expertise to administer it are expensive, so a small, simple, single-user application does not justify them.<br><b>Simple, stable, single-user data.</b> If the data is small, its structure will not change, only one application touches it, and there is no concurrent access, plain files are simpler and faster.<br><b>Real-time and embedded requirements.</b> Where the overhead of a general-purpose DBMS would break strict timing requirements, direct file access is preferred.<br><b>No need for the DBMS services.</b> If concurrency, recovery, security and multi-user integrity are not required, you are paying for machinery you will not use.</p></div>"
+      },
+      {
+        "kind": "rules",
+        "label": "Part (b), the law firm EER, and the method for any description",
+        "tag": "",
+        "html": "<p><b>The five-step method, which works on any description you are given.</b></p><ol><li><b>Underline every noun</b> the firm keeps data about. Those are your entities.</li><li><b>List the attributes</b> stated for each, and mark the one described as unique as the identifier.</li><li><b>Find the verbs joining two nouns.</b> Those are relationships; name each with the verb.</li><li><b>For each relationship, ask cardinality in BOTH directions,</b> one question at a time. Two yeses is many-to-many.</li><li><b>Look for \"may be a X or a Y\"</b> phrasing. That is a supertype with subtypes, and it is what makes the diagram an EER.</li></ol><p><b>Applied to the law firm:</b></p><table><tr><th>Entity</th><th>Attributes</th><th>Identifier</th></tr><tr><td><b>CASE</b></td><td>case number, date opened, date closed, judgment description</td><td>case number</td></tr><tr><td><b>LEGAL ENTITY</b> (supertype)</td><td>entity number, name, address</td><td>entity number</td></tr><tr><td><b>PERSON</b> (subtype)</td><td>its own attributes, e.g. date of birth</td><td>entity number</td></tr><tr><td><b>ORGANISATION</b> (subtype)</td><td>its own attributes, e.g. registration number</td><td>entity number</td></tr></table><p><b>Relationships:</b></p><ul><li><b>BRINGS</b>, between LEGAL ENTITY acting as plaintiff and CASE. <b>M:N</b>, since a case has one or more plaintiffs and a plaintiff may be in many cases. The plaintiff's <i>requested judgment</i> is an attribute OF THIS RELATIONSHIP, not of the legal entity, because it belongs to that plaintiff in that case.</li><li><b>IS AGAINST</b>, between LEGAL ENTITY acting as defendant and CASE. <b>M:N</b>, for the same reason.</li></ul><div class=\"keypoint\"><span class=\"kplab\">The two things that earn the EER marks here</span><p><b>1. The specialisation.</b> LEGAL ENTITY as supertype with PERSON and ORGANISATION as subtypes, joined by a circle. It is <b>disjoint</b>, since a legal entity is one or the other and never both, and <b>total</b>, since every legal entity must be one of them. Mark it <b>d</b> with a double line.</p><p><b>2. Plaintiff and defendant are ROLES, not subtypes.</b> The description says the same person may be a defendant in one case and a plaintiff in another, so they cannot be disjoint subtypes. Draw two separate M:N relationships from LEGAL ENTITY to CASE and label the roles on the lines.</p><p>Say both of those in a sentence beside your diagram. Examiners award the reasoning as well as the drawing.</p></div><p class=\"gloss\">Remember that each M:N relationship becomes its own table when mapped: PLAINTIFF_IN(entityNo, caseNo, requestedJudgment) and DEFENDANT_IN(entityNo, caseNo). If the question goes on to ask for relations, that is where the requested judgment lives.</p>"
+      },
+      {
+        "kind": "recall",
+        "label": "Test yourself",
+        "tag": "a different description",
+        "question": "Draw the EER for this: A hospital keeps records of PATIENTS, each with a unique patient number, name and date of birth. A patient may be an IN-PATIENT, who has a ward number and admission date, or an OUT-PATIENT, who has an appointment date. Every patient is one or the other. A patient is treated by one or more DOCTORS, and a doctor treats many patients. Each treatment has a date and a diagnosis.",
+        "answer": "<p><b>Entities and attributes.</b></p><ul><li><b>PATIENT</b> (supertype): <u>patientNo</u>, name, dateOfBirth</li><li><b>IN-PATIENT</b> (subtype): <u>patientNo</u>, wardNo, admissionDate</li><li><b>OUT-PATIENT</b> (subtype): <u>patientNo</u>, appointmentDate</li><li><b>DOCTOR</b>: <u>doctorNo</u>, name, and so on</li></ul><p><b>The specialisation.</b> PATIENT specialises into IN-PATIENT and OUT-PATIENT. It is <b>total</b>, because every patient is one or the other, so draw a double line. It is <b>disjoint</b>, because no patient is both at once, so mark the circle <b>d</b>.</p><p><b>The relationship.</b> TREATS, between DOCTOR and PATIENT. Ask both ways: does one doctor treat many patients? Yes. Does one patient have many doctors? Yes. So <b>M:N</b>.</p><p><b>Where do date and diagnosis go?</b> On the RELATIONSHIP, not on either entity, because a diagnosis belongs to one doctor treating one patient on one date. When mapped it becomes TREATMENT(<u>doctorNo, patientNo, date</u>, diagnosis).</p><p class=\"gloss\">If you put the diagnosis on PATIENT you have said a patient has exactly one diagnosis ever, which the description does not say. Attributes of a many-to-many relationship always live on the relationship.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Nouns become boxes, verbs become lines, and 'may be an X or a Y' means a supertype.\"",
+        "sub": "Ask cardinality one direction at a time. Attributes of a many-to-many live on the relationship. Total means a double line, disjoint means a d. And a database is not always right: small, simple, single-user data is cheaper in files."
+      }
+    ]
+  },
+  {
     "slug": "q4",
     "part": "Solve a Question",
     "kick": "Question 4",
@@ -219,91 +493,74 @@
     ]
   },
   {
-    "slug": "q2",
+    "slug": "q5",
     "part": "Solve a Question",
-    "kick": "Question 2",
-    "title": "Question Two, Built From Nothing",
-    "lead": "Why databases replaced files, what a DBMS is, the three levels of abstraction, and turning an EER diagram into tables. Nine and a half marks of definition, then the mapping.",
-    "blurb": "File-based limitations, the DBMS, data abstraction, and EER to relational mapping.",
-    "minutes": 30,
+    "kick": "Question 5",
+    "title": "Question Five, Built From Nothing",
+    "lead": "The data definition language, the data manipulation language, and the data model, told apart precisely.",
+    "blurb": "DDL, DML and the data model, and which of them represents the real world.",
+    "minutes": 20,
     "modules": [
-      1,
       2,
-      7
+      10
     ],
     "blocks": [
       {
         "kind": "teach",
         "label": "The question",
         "tag": "",
-        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Two</span><p><b>(a)</b> Explain two limitations of the file-based approach to data processing. <i>(2 marks)</i><br><b>(b)</b> What is a Database Management System? <i>(2 marks)</i><br><b>(c)</b> What is meant by data abstraction? Explain the three levels with examples. <i>(5.5 marks)</i><br><b>(d)</b> Transform the EER diagram into relations. <i>(marks vary)</i></p></div><p>Parts (a) to (c) are <b>nine and a half marks of pure definition</b>. No thinking required once you know them, which makes this the cheapest question on the paper. Part (d) uses the same mapping rules you met in Question Six.</p>"
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Five</span><p><b>(a)</b> Given: <b>I</b> the data definition language, <b>II</b> the data manipulation language, <b>III</b> the data model.<br><b>(i)</b> Which plays an important role in representing information about the real world in a database? <i>(0.5 marks)</i><br><b>(ii)</b> Explain each concept briefly, and your explanation should reflect the difference between them.</p></div><p>Part (i) is half a mark and one word. Part (ii) is marked on the DIFFERENCE, so an answer that defines all three correctly but never contrasts them will not score full marks.</p>"
       },
       {
         "kind": "frames",
         "label": "Work it frame by frame",
-        "tag": "before files, and after",
-        "howto": "Cover the page, read, answer, then slide down one line.",
+        "tag": "three things that sound alike",
+        "howto": "Cover the page, read, answer, slide down.",
         "frames": [
           {
             "check": "",
-            "teach": "Before databases, each department kept its own <b>file</b>. Sales had a customer file. Accounts had its own customer file. Dispatch had another.",
-            "ask": "Ada moves house and tells Sales. What is now wrong in Accounts and Dispatch?"
+            "teach": "Think of building a house. Before anything, you need a way of THINKING about houses: rooms, walls, doors, and how they connect. Nothing is built yet; this is the set of concepts.",
+            "ask": "Which of the three is that, in database terms?"
           },
           {
-            "check": "they still hold her old address.",
-            "teach": "Two faults, and they are the two the examiner wants. The same fact stored in several places is <b>DATA REDUNDANCY</b>. Those copies disagreeing is <b>DATA INCONSISTENCY</b>.",
-            "ask": "Which of those two causes the other?"
+            "check": "the data model.",
+            "teach": "A <b>DATA MODEL</b> is a collection of concepts for describing data, the relationships between it, and the constraints on it. The relational model gives you tables, rows, columns, keys.",
+            "ask": "Now you draw a specific plan for a specific house. Which language writes that structure into the database?"
           },
           {
-            "check": "redundancy causes inconsistency.",
-            "teach": "A third fault: each program was written against its own file layout, so changing the layout meant rewriting every program that touched it. That is <b>PROGRAM-DATA DEPENDENCE</b>.",
-            "ask": "And if Sales cannot read Accounts' file at all, what is that called?"
+            "check": "the DDL.",
+            "teach": "The <b>DDL</b> DEFINES structure: CREATE, ALTER, DROP. It builds the shelves. Nothing is on them yet.",
+            "ask": "And the language for putting things on the shelves and taking them off?"
           },
           {
-            "check": "data isolation, or difficulty in accessing data.",
-            "teach": "Now the cure. A <b>DBMS</b> is software that lets you define, create, maintain and control access to a database, with the data held ONCE and shared by every application.",
-            "ask": "So which of the faults above does sharing one copy remove?"
+            "check": "the DML.",
+            "teach": "The <b>DML</b> MANIPULATES data: SELECT, INSERT, UPDATE, DELETE. Hook: <b>DDL builds the shelves, DML moves the stock.</b>",
+            "ask": "Now part (i). Which of the three REPRESENTS INFORMATION ABOUT THE REAL WORLD?"
           },
           {
-            "check": "redundancy, and therefore inconsistency.",
-            "teach": "Now abstraction. You drive a car without knowing how the engine works: the detail is <b>hidden</b> behind a steering wheel. A database does the same.",
-            "ask": "What word describes hiding complex detail and showing only what is needed?"
-          },
-          {
-            "check": "abstraction.",
-            "teach": "There are <b>THREE LEVELS</b>. Hook: <b>window, blueprint, foundation</b>. The <b>EXTERNAL</b> level is each user's own view, the window they look through.",
-            "ask": "The middle level describes the whole logical design of the database. What is it called?"
-          },
-          {
-            "check": "the conceptual level.",
-            "teach": "And the <b>INTERNAL</b> level describes how the data is physically stored: files, indexes, blocks. The foundation, which nobody sees.",
+            "check": "the data model.",
+            "teach": "Because the model is the set of concepts you use to describe reality, before any particular database exists. The DDL merely records a design in a system, and the DML moves data around inside it.",
             "ask": ""
           }
         ]
       },
       {
         "kind": "rules",
-        "label": "Parts (a) to (c), answered",
-        "tag": "write these as they stand",
-        "html": "<p><b>(a) Two limitations of the file-based approach.</b> Give the name, then one sentence.</p><ul><li><b>Data redundancy and inconsistency.</b> The same data is duplicated across separate files held by different departments, wasting space and allowing the copies to disagree when one is updated and the others are not.</li><li><b>Program-data dependence.</b> Each program contains the structure of the file it reads, so any change to that structure requires every program using it to be rewritten.</li></ul><p class=\"gloss\">Others you could give instead: data isolation, since data is scattered across files in different formats; difficulty in enforcing integrity constraints; concurrent access and security problems.</p><p><b>(b) What is a DBMS.</b></p><div class=\"keypoint\"><span class=\"kplab\">Write this</span><p>A Database Management System <b>is</b> the software that enables users to define, create, maintain and control access to a database. It sits between the users and the physical data, providing the languages to define and manipulate it, and services such as security, concurrency control, backup and recovery.</p></div><p><b>(c) Data abstraction and the three levels.</b></p><p>Data abstraction <b>is</b> the hiding of the complex details of how data is stored, showing each user only the data they need in a form they can understand.</p><table><tr><th>Level</th><th>What it describes</th><th>Example</th></tr><tr><td><b>External</b><br>(view level)</td><td>The individual user's view. Several different views of the same database, each showing only part of it</td><td>A lecturer sees student names and grades; the bursary sees names and fees. Neither sees the other's columns</td></tr><tr><td><b>Conceptual</b><br>(logical level)</td><td>The whole logical structure of the database: what data is stored and what relationships hold, for all users together</td><td>Student(studentId, name, level), Course(courseCode, title), and the enrolment relationship between them</td></tr><tr><td><b>Internal</b><br>(physical level)</td><td>How the data is actually stored: file organisation, indexes, blocks, compression</td><td>Student rows stored in a B-tree indexed on studentId, in 4 KB blocks</td></tr></table><p><b>Add the payoff sentence,</b> because it is where the remaining marks are: separating the levels gives <b>data independence</b>. Logical data independence lets the conceptual level change without disturbing external views; physical data independence lets storage change without disturbing the conceptual level.</p>"
-      },
-      {
-        "kind": "rules",
-        "label": "Part (d), EER to relations",
-        "tag": "the mapping rules, which are the same every time",
-        "html": "<p>Mapping is mechanical once you know the four rules. Apply them in order.</p><table><tr><th>What you see</th><th>What you write</th></tr><tr><td><b>A regular entity</b></td><td>One relation. Its attributes become columns, its identifier becomes the primary key</td></tr><tr><td><b>A one-to-many relationship</b></td><td>No new table. Put the primary key of the ONE side into the MANY side as a foreign key</td></tr><tr><td><b>A many-to-many relationship</b></td><td>A NEW relation holding the primary keys of both sides as foreign keys; together they form its primary key. Any attribute of the relationship goes here too</td></tr><tr><td><b>A one-to-one relationship</b></td><td>Put the key of one side into the other as a foreign key, preferring the side with mandatory participation</td></tr><tr><td><b>A multivalued attribute</b></td><td>A new relation holding the owner's key plus the attribute; both together are its primary key</td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The EER part: supertypes and subtypes</span><p>The commonest approach, and the one to state: <b>one relation for the supertype holding the common attributes, and one relation for each subtype holding its own attributes plus the supertype's primary key as both its primary key AND a foreign key.</b></p><p>So VEHICLE(vehicleId, make, year), CAR(vehicleId, bootSize), TRUCK(vehicleId, payload). vehicleId is the primary key of all three and a foreign key in the last two.</p></div><p class=\"gloss\">Always finish by listing every primary key and every foreign key explicitly. Examiners award those separately from the tables.</p>"
+        "label": "Answered, with the contrast the question demands",
+        "tag": "",
+        "html": "<p><b>(i)</b> The <b>data model (III)</b>.</p><table><tr><th>Concept</th><th>What it is</th><th>What it is NOT</th></tr><tr><td><b>Data model</b></td><td>A collection of concepts for describing data, the relationships between it, and the constraints on it. It is a way of representing the real world, independent of any particular database or product. The relational model provides relations, tuples, attributes, domains and keys</td><td>Not a language. You cannot type a data model at a database</td></tr><tr><td><b>Data Definition Language</b></td><td>The part of a database language used to DEFINE and change the structure of the database: creating tables, altering columns, dropping objects and stating constraints. CREATE, ALTER, DROP. Its output is stored in the data dictionary</td><td>Not concerned with the data values themselves</td></tr><tr><td><b>Data Manipulation Language</b></td><td>The part used to work with the DATA held in that structure: inserting new rows, updating and deleting existing ones, and retrieving them. SELECT, INSERT, UPDATE, DELETE</td><td>Cannot change the structure. It can empty a table but not remove it</td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The sentence that shows the difference, which is what is being marked</span><p>The <b>data model</b> supplies the CONCEPTS used to represent the real world; the <b>DDL</b> records a particular design built from those concepts into the database; and the <b>DML</b> operates on the data held inside that design. Model, then structure, then contents.</p></div><p class=\"gloss\">One more distinction worth a line if there is room: DELETE is DML and removes ROWS; DROP is DDL and removes the TABLE. Examiners like that pair because it separates the two languages in one example.</p>"
       },
       {
         "kind": "recall",
         "label": "Test yourself",
-        "tag": "no notes",
-        "question": "(1) Name and explain two limitations of the file-based approach. (2) Define a DBMS in one sentence. (3) Name the three levels of abstraction and say what each describes. (4) An EER diagram has EMPLOYEE as a supertype with MANAGER and TECHNICIAN as subtypes, and a many-to-many between EMPLOYEE and PROJECT. How many relations do you produce, and what are their keys?",
-        "answer": "<p><b>1.</b> Redundancy and inconsistency, since the same fact is duplicated across departmental files and the copies drift apart. Program-data dependence, since each program embeds the file structure so any structural change forces rewrites.</p><p><b>2.</b> A DBMS is the software that enables users to define, create, maintain and control access to a database.</p><p><b>3.</b> External, each user's own view. Conceptual, the whole logical structure for all users. Internal, how the data is physically stored.</p><p><b>4.</b> <b>Four relations.</b><br>EMPLOYEE(<u>empNo</u>, ...) primary key empNo<br>MANAGER(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>TECHNICIAN(<u>empNo</u>, ...) primary key empNo, foreign key empNo references EMPLOYEE<br>WORKS_ON(<u>empNo, projNo</u>, hours) primary key both together, both foreign keys</p><p>The many-to-many produced the fourth table. If you wrote three, you left the relationship with nowhere to live.</p>"
+        "tag": "",
+        "question": "(1) Sort these: CREATE, SELECT, ALTER, UPDATE, DROP, INSERT. (2) Explain the difference between DELETE and DROP. (3) Which of the three concepts is not a language, and why does that matter? (4) In one sentence, state the relationship between all three.",
+        "answer": "<p><b>1.</b> DDL: CREATE, ALTER, DROP. DML: SELECT, UPDATE, INSERT.</p><p><b>2.</b> DELETE is DML and removes rows from a table, leaving the table itself in place. DROP is DDL and removes the table, its structure and all its data.</p><p><b>3.</b> The data model. It is a set of concepts rather than a language, so it exists before and independently of any database product; the two languages only make sense once you have chosen a model.</p><p><b>4.</b> The data model supplies the concepts for representing the real world, the DDL writes a particular design built from those concepts into the database, and the DML operates on the data held within it.</p>"
       },
       {
         "kind": "lockin",
-        "big": "\"Files duplicate and drift; a DBMS holds it once. Window, blueprint, foundation.\"",
-        "sub": "Redundancy and inconsistency, program-data dependence. External, conceptual, internal, and the payoff is data independence. Mapping: entity becomes a table, one-to-many lends a key to the many side, many-to-many becomes a new table, subtype gets the supertype's key as its own."
+        "big": "\"Model, then structure, then contents. DDL builds the shelves, DML moves the stock.\"",
+        "sub": "The data model is concepts, not a language, and it is the one that represents the real world. DELETE removes rows and is DML; DROP removes the table and is DDL."
       }
     ]
   },
