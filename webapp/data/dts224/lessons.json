@@ -124,6 +124,235 @@
     ]
   },
   {
+    "slug": "q6",
+    "part": "Solve a Question",
+    "kick": "Question 6",
+    "title": "Question Six, Built From Nothing",
+    "lead": "Every idea Question Six needs, in order, each one asked before it is told, with the whole normalization worked at the end. Start here knowing nothing.",
+    "blurb": "Relations, keys, functional dependency, the FD diagram, and normalising to 3NF. The 25/26 Question Six, and any question like it.",
+    "minutes": 45,
+    "modules": [
+      6,
+      8
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "What you are being asked to do",
+        "tag": "read this once, then we build up to it",
+        "html": "<p>This is the question, as the examiner set it.</p><div class=\"keypoint\"><span class=\"kplab\">DTS224 2025/2026, Question Six</span><p><b>(a)</b> Explain the following relational terms briefly: <b>(i)</b> Schema <b>(ii)</b> Alternate key <b>(iii)</b> Tuple &nbsp;<i>(3 marks)</i></p><p><b>(b)</b> Given the StaffPropertyInspection relation:<br><b>(i)</b> Draw the functional dependency diagram &nbsp;<i>(2.5 marks)</i><br><b>(ii)</b> Briefly explain transitive functional dependency &nbsp;<i>(2 marks)</i><br><b>(iii)</b> Normalise the relation to 3NF. The primary key must be identified &nbsp;<i>(10 marks)</i></p></div><p><b>Notice where the marks are.</b> Ten of the seventeen are in the last part. So the plan is: learn the words for part (a), learn the one idea behind (b)(i) and (b)(ii), and then spend most of the effort on doing (b)(iii) correctly.</p><p>Here is the table the question hands you. Do not try to understand it yet. Just look at the <b>column names</b>, because normalization is decided entirely by columns, never by the values in them.</p><table><tr><th>Column</th><th>What it holds</th></tr><tr><td><b>propertyNo</b></td><td>Which property, e.g. PG4</td></tr><tr><td><b>pAddress</b></td><td>That property's address</td></tr><tr><td><b>iDate</b></td><td>Date of an inspection</td></tr><tr><td><b>iTime</b></td><td>Time of that inspection</td></tr><tr><td><b>comments</b></td><td>What the inspector wrote</td></tr><tr><td><b>staffNo</b></td><td>Which member of staff inspected it</td></tr><tr><td><b>staffName</b></td><td>That member of staff's name</td></tr><tr><td><b>carReg</b></td><td>The car they used that day</td></tr></table><p class=\"gloss\">One sentence describes the whole thing: <b>a member of staff inspects a property on a date, and writes a comment.</b> Everything else hangs off that.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Step 1. The words in part (a)",
+        "tag": "cover the page, answer, then slide down one line",
+        "howto": "Cover everything below the first line with your hand. Read the frame, answer OUT LOUD or on paper, then slide down one line to check. Do not read ahead; being wrong once is the point.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "A <b>RELATION</b> is a table. That is all. It has named columns and rows, and the rows are in no particular order.",
+            "ask": "In relational language, what everyday word does \"relation\" mean?"
+          },
+          {
+            "check": "a table.",
+            "teach": "A row of that table is called a <b>TUPLE</b>. One tuple is one complete record: one inspection, with all its details.",
+            "ask": "So how many tuples does a table with 5 rows have?"
+          },
+          {
+            "check": "five.",
+            "teach": "A column is called an <b>ATTRIBUTE</b>. So propertyNo is an attribute, and iDate is an attribute.",
+            "ask": "Tuple means row. Attribute means what?"
+          },
+          {
+            "check": "column.",
+            "teach": "Two more counting words, which are asked every year and swapped every year. <b>DEGREE</b> is the number of ATTRIBUTES, so the number of columns. <b>CARDINALITY</b> is the number of TUPLES, so the number of rows.",
+            "ask": "Our table has 8 columns and 5 rows. What is its degree, and its cardinality?"
+          },
+          {
+            "check": "degree 8, cardinality 5.",
+            "teach": "Hook so you never swap them: <b>cardinality COUNTS the rows</b>. Both words start with a hard C sound, and counting is what you do down the side.",
+            "ask": "Now the third term the question asks for. A SCHEMA. Guess: is it the design of the table, or the data in it?"
+          },
+          {
+            "check": "the design.",
+            "teach": "A <b>SCHEMA</b> is the STRUCTURE of the database: the tables, their columns, the types, and the constraints. It is the empty form. The data sitting in it right now is called an <b>INSTANCE</b>, which is the filled-in form today.",
+            "ask": "You insert 200 new rows. Has the schema changed?"
+          },
+          {
+            "check": "no. Only the instance changed.",
+            "teach": "Now keys. A <b>PRIMARY KEY</b> is the column, or combination of columns, that identifies each row uniquely. No two rows may share it, and it may never be empty.",
+            "ask": "Why would staffName be a bad primary key?"
+          },
+          {
+            "check": "because two staff could share a name.",
+            "teach": "Sometimes SEVERAL columns could each have served as the primary key. Each of those is a <b>CANDIDATE KEY</b>. You pick one to be the primary key.",
+            "ask": "So what do you call the candidate keys you did NOT pick?"
+          },
+          {
+            "check": "alternate keys.",
+            "teach": "That is part (a)(ii) answered. An <b>ALTERNATE KEY</b> is a candidate key that was not chosen as the primary key. If a Student table could be keyed on student_id OR national_id, and you choose student_id, then national_id is the alternate key.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Part (a), answered. Write it exactly like this",
+        "tag": "3 marks, one mark each",
+        "html": "<p>The examiner wants one recognisable sentence per term. Lead with the term, then <b>is</b>, then the definition.</p><table><tr><th>Term</th><th>Write this</th></tr><tr><td><b>(i) Schema</b></td><td>A schema <b>is</b> the structure or design of a database: its tables, the attributes in each, their data types and the constraints on them. It is distinct from the instance, which is the data held at a particular moment.</td></tr><tr><td><b>(ii) Alternate key</b></td><td>An alternate key <b>is</b> a candidate key that was not selected as the primary key. A relation may have several candidate keys; one is chosen as the primary key and the remainder are the alternate keys.</td></tr><tr><td><b>(iii) Tuple</b></td><td>A tuple <b>is</b> a single row of a relation, that is one complete record, made up of one value for each attribute.</td></tr></table><div class=\"keypoint\"><span class=\"kplab\">The extra half sentence that earns the mark</span><p>For each term, add the CONTRAST. Schema against instance. Alternate against primary. Tuple against attribute. It shows you know the boundary of the word, not just the word, and it costs you six extra words.</p></div>"
+      },
+      {
+        "kind": "recall",
+        "label": "Test yourself",
+        "tag": "part (a), no notes",
+        "question": "Without looking back: (1) Define a tuple. (2) Define an alternate key. (3) A relation has 7 columns and 120 rows. State its degree and its cardinality. (4) You change a column's data type. Have you changed the schema or the instance?",
+        "answer": "<p><b>1.</b> A tuple is a single row of a relation, one complete record with one value for each attribute.</p><p><b>2.</b> An alternate key is a candidate key that was not chosen as the primary key.</p><p><b>3.</b> Degree 7, cardinality 120. Degree counts columns; cardinality counts rows.</p><p><b>4.</b> The schema, because you changed the structure rather than the data.</p><p>If you missed any, cover the answer and do it again before moving on. Part (a) is three easy marks and people lose them by being vague.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Step 2. Functional dependency, the one idea behind everything else",
+        "tag": "this is the whole of part (b)",
+        "howto": "Same again. Cover, read, answer, slide down.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Here is the only idea in normalization. If I tell you a <b>propertyNo</b>, say PG4, can you tell me its <b>pAddress</b> without asking anyone?",
+            "ask": "Yes or no?"
+          },
+          {
+            "check": "yes. PG4 has exactly one address.",
+            "teach": "That is a <b>FUNCTIONAL DEPENDENCY</b>. We write it <b>propertyNo &rarr; pAddress</b> and say \"propertyNo DETERMINES pAddress\".",
+            "ask": "Now the other way. If I tell you the address, can you tell me the propertyNo?"
+          },
+          {
+            "check": "yes, in this case.",
+            "teach": "Careful: a dependency can hold both ways, but usually does not. The test is always ONE DIRECTION AT A TIME: given the left-hand side, is the right-hand side fixed?",
+            "ask": "If I tell you a staffNo, can you tell me the staffName?"
+          },
+          {
+            "check": "yes.",
+            "teach": "So <b>staffNo &rarr; staffName</b>. Note what this is really saying: the name belongs to the STAFF MEMBER. It has nothing to do with which property was inspected.",
+            "ask": "Now: if I tell you a propertyNo, can you tell me the iDate of the inspection?"
+          },
+          {
+            "check": "no. A property is inspected many times.",
+            "teach": "Good. So propertyNo alone does NOT determine iDate. To pin down a single inspection you need the property AND the date together.",
+            "ask": "So what is the primary key of this relation?"
+          },
+          {
+            "check": "(propertyNo, iDate) together.",
+            "teach": "A key made of more than one attribute is a <b>COMPOSITE KEY</b>. And once you have it, everything about that one inspection is determined: <b>(propertyNo, iDate) &rarr; iTime, comments, staffNo, carReg</b>.",
+            "ask": "Is (propertyNo, iDate) enough to tell you pAddress too?"
+          },
+          {
+            "check": "yes, but only because propertyNo alone already does.",
+            "teach": "That is the crack the whole question is built on. pAddress depends on only <b>PART</b> of the key. It does not need the date at all. A dependency on part of a composite key has a name.",
+            "ask": "What is it called?"
+          },
+          {
+            "check": "a PARTIAL dependency.",
+            "teach": "Now the other crack. staffName depends on staffNo. And staffNo depends on the key. So staffName reaches the key <b>through</b> staffNo, which is not itself a key attribute.",
+            "ask": "What is that called?"
+          },
+          {
+            "check": "a TRANSITIVE dependency.",
+            "teach": "Two cracks, two names, and they are exactly what 2NF and 3NF remove. <b>Partial: half a key is enough. Transitive: the fact arrived through a middleman.</b>",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "teach",
+        "label": "Step 3. Draw the FD diagram, part (b)(i)",
+        "tag": "2.5 marks, and it is quick once you see the shape",
+        "html": "<p>An FD diagram is just the arrows you have already worked out, drawn under the list of columns. The key goes on the left, and every arrow starts at what determines and points at what is determined.</p><figure><svg viewBox=\"0 0 640 250\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"sans-serif\" font-size=\"12\" role=\"img\" aria-label=\"Functional dependency diagram for StaffPropertyInspection\"><rect x=\"8\" y=\"10\" width=\"624\" height=\"32\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"92\" y1=\"10\" x2=\"92\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"156\" y1=\"10\" x2=\"156\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"250\" y1=\"10\" x2=\"250\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"312\" y1=\"10\" x2=\"312\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"400\" y1=\"10\" x2=\"400\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"476\" y1=\"10\" x2=\"476\" y2=\"42\" stroke=\"currentColor\"/><line x1=\"556\" y1=\"10\" x2=\"556\" y2=\"42\" stroke=\"currentColor\"/><text x=\"14\" y=\"30\" font-weight=\"bold\">propertyNo</text><text x=\"98\" y=\"30\" font-weight=\"bold\">iDate</text><text x=\"162\" y=\"30\">pAddress</text><text x=\"256\" y=\"30\">iTime</text><text x=\"318\" y=\"30\">comments</text><text x=\"406\" y=\"30\">staffNo</text><text x=\"482\" y=\"30\">staffName</text><text x=\"562\" y=\"30\">carReg</text><defs><marker id=\"ah\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L7,3 L0,6 z\" fill=\"currentColor\"/></marker></defs><text x=\"14\" y=\"66\" font-weight=\"bold\">fd1</text><line x1=\"50\" y1=\"62\" x2=\"50\" y2=\"78\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"50\" y1=\"78\" x2=\"600\" y2=\"78\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"120\" y1=\"62\" x2=\"120\" y2=\"78\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"280\" y1=\"78\" x2=\"280\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><line x1=\"356\" y1=\"78\" x2=\"356\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><line x1=\"432\" y1=\"78\" x2=\"432\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><line x1=\"600\" y1=\"78\" x2=\"600\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><text x=\"60\" y=\"92\" font-style=\"italic\">the whole key determines the inspection</text><text x=\"14\" y=\"128\" font-weight=\"bold\">fd2</text><line x1=\"50\" y1=\"124\" x2=\"50\" y2=\"140\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"50\" y1=\"140\" x2=\"200\" y2=\"140\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"200\" y1=\"140\" x2=\"200\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><text x=\"215\" y=\"144\" font-style=\"italic\">propertyNo alone determines pAddress: PARTIAL</text><text x=\"14\" y=\"180\" font-weight=\"bold\">fd3</text><line x1=\"432\" y1=\"176\" x2=\"432\" y2=\"192\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"432\" y1=\"192\" x2=\"518\" y2=\"192\" stroke=\"currentColor\" stroke-width=\"1.4\"/><line x1=\"518\" y1=\"192\" x2=\"518\" y2=\"58\" stroke=\"currentColor\" stroke-width=\"1.4\" marker-end=\"url(#ah)\"/><text x=\"60\" y=\"196\" font-style=\"italic\">staffNo determines staffName: TRANSITIVE</text><text x=\"14\" y=\"232\" font-style=\"italic\">Bold attributes are the primary key. Every arrow starts at the determinant.</text></svg><figcaption>The FD diagram for StaffPropertyInspection. fd1 comes from the whole key, fd2 from part of it, fd3 from a non-key attribute.</figcaption></figure><div class=\"keypoint\"><span class=\"kplab\">How to draw it in the exam, in four moves</span><p><b>1.</b> Write every attribute in a row across the top, and <b>underline or embolden the primary key</b>.<br><b>2.</b> Draw fd1 from the WHOLE key to everything it determines.<br><b>3.</b> Draw any arrow that starts at PART of the key. Label it partial.<br><b>4.</b> Draw any arrow that starts at a NON-KEY attribute. Label it transitive.</p><p>Three arrows here, and the examiner can see at a glance that you found both faults. That is the 2.5 marks.</p></div>"
+      },
+      {
+        "kind": "recall",
+        "label": "Test yourself",
+        "tag": "spot the dependency type",
+        "question": "For each, say whether it is a PARTIAL dependency, a TRANSITIVE dependency, or neither. The key is (orderNo, itemNo).<br>(1) itemNo &rarr; itemPrice<br>(2) (orderNo, itemNo) &rarr; quantity<br>(3) orderNo &rarr; customerNo, and customerNo &rarr; customerName<br>(4) (orderNo, itemNo) &rarr; lineTotal",
+        "answer": "<p><b>1. Partial.</b> itemNo is only part of the composite key, and itemPrice depends on it alone.</p><p><b>2. Neither.</b> It depends on the whole key, which is exactly what it should do.</p><p><b>3. Both, in a chain.</b> orderNo &rarr; customerNo is PARTIAL, because orderNo is part of the key. Then customerNo &rarr; customerName is TRANSITIVE, because customerNo is not a key attribute.</p><p><b>4. Neither.</b> Whole key again.</p><p class=\"gloss\">The test, every time: look at what is on the LEFT of the arrow. Part of the key means partial. A non-key attribute means transitive. The whole key means fine.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Part (b)(ii), answered",
+        "tag": "2 marks",
+        "html": "<div class=\"keypoint\"><span class=\"kplab\">Write this</span><p>A transitive functional dependency <b>is</b> a dependency in which a non-key attribute depends on another non-key attribute rather than directly on the primary key. That is, if A &rarr; B and B &rarr; C, where B and C are not key attributes, then C is transitively dependent on A through B.</p><p><b>Example from this relation:</b> (propertyNo, iDate) &rarr; staffNo, and staffNo &rarr; staffName. So staffName is transitively dependent on the primary key through staffNo. Removing transitive dependencies is what takes a relation from 2NF to 3NF.</p></div><p class=\"gloss\">Give the definition, the A to B to C form, AND an example from the relation in front of you. Two marks, three things: they are not going to give you both marks for one sentence.</p>"
+      },
+      {
+        "kind": "frames",
+        "label": "Step 4. The three normal forms",
+        "tag": "before we normalise anything",
+        "howto": "Cover, read, answer, slide down.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "Normalization is <b>splitting a table until no fact is stored twice</b>. It happens in numbered steps, and each step assumes the one before is done.",
+            "ask": "A cell contains \"Rice, Milk, Sugar\". Which rule does that break?"
+          },
+          {
+            "check": "first normal form.",
+            "teach": "<b>1NF</b>: every value is ATOMIC, one value per cell, and there are no repeating groups. Hook: <b>one box, one value</b>.",
+            "ask": "Our StaffPropertyInspection table: does any cell hold a list?"
+          },
+          {
+            "check": "no. So it is already in 1NF.",
+            "teach": "<b>2NF</b>: in 1NF, AND every non-key attribute depends on the WHOLE key, so no partial dependencies. Hook: <b>no half-keys</b>.",
+            "ask": "Which attribute in our table breaks 2NF, and why?"
+          },
+          {
+            "check": "pAddress, because it depends on propertyNo alone, which is only part of the key.",
+            "teach": "<b>3NF</b>: in 2NF, AND no non-key attribute depends on another non-key attribute, so no transitive dependencies. Hook: <b>no middlemen</b>.",
+            "ask": "Which attribute breaks 3NF here?"
+          },
+          {
+            "check": "staffName, because it depends on staffNo.",
+            "teach": "Now the sentence that carries all three in order, and it is the single most useful thing to memorise for this paper: <b>every non-key attribute must depend on the key, the whole key, and nothing but the key</b>.",
+            "ask": "Which part of that sentence is 2NF, and which is 3NF?"
+          },
+          {
+            "check": "\"the whole key\" is 2NF; \"nothing but the key\" is 3NF.",
+            "teach": "And \"the key\" is 1NF, because you cannot have a key at all until the values are atomic. One sentence, three forms, in order.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "worked",
+        "label": "Step 5. Part (b)(iii), the ten marks, worked in full",
+        "tag": "attempt it first, then reveal",
+        "mode": "model",
+        "problem": "<p>Normalise <b>StaffPropertyInspection (propertyNo, pAddress, iDate, iTime, comments, staffNo, staffName, carReg)</b> to third normal form. Present the tables clearly and identify the primary key of each.</p><p><b>Do it on paper now.</b> You have everything you need: the key is (propertyNo, iDate), pAddress is partial, staffName is transitive. Write the tables out, then reveal.</p>",
+        "working": "<p><b>Step 1: state the starting relation and its key.</b> Always write this line first; it frames everything after it.</p><pre>StaffPropertyInspection (propertyNo, iDate, pAddress, iTime,\n                         comments, staffNo, staffName, carReg)\nPrimary key: (propertyNo, iDate)</pre><p><b>Step 2: 1NF. Check atomicity.</b> Every cell holds a single value and there are no repeating groups, so the relation is <b>already in 1NF</b>. Say so; it is a mark for one line.</p><p><b>Step 3: 2NF. Remove partial dependencies.</b> Ask of every non-key attribute: does it need the WHOLE key?</p><table><tr><th>Attribute</th><th>Needs the whole key?</th><th>Verdict</th></tr><tr><td>pAddress</td><td>No, propertyNo alone fixes it</td><td><b>PARTIAL, move it out</b></td></tr><tr><td>iTime</td><td>Yes, which property AND which date</td><td>Stays</td></tr><tr><td>comments</td><td>Yes</td><td>Stays</td></tr><tr><td>staffNo</td><td>Yes</td><td>Stays</td></tr><tr><td>staffName</td><td>Yes, via staffNo</td><td>Stays for now</td></tr><tr><td>carReg</td><td>Yes</td><td>Stays</td></tr></table><p>So split off the partial one, taking its determinant with it as the new key:</p><pre>Property (propertyNo, pAddress)\nPrimary key: propertyNo\n\nPropertyInspection (propertyNo, iDate, iTime, comments,\n                    staffNo, staffName, carReg)\nPrimary key: (propertyNo, iDate)\nForeign key: propertyNo references Property(propertyNo)</pre><p class=\"gloss\">Notice the rule you just used, and it is the rule for every split: <b>the attribute that determines goes with the attributes it determines, and becomes the key of the new table. A copy of it stays behind as a foreign key.</b></p><p><b>Step 4: 3NF. Remove transitive dependencies.</b> Ask of every non-key attribute: does it depend on another non-key attribute?</p><p>staffName depends on staffNo, and staffNo is not a key attribute. That is transitive. Split it out the same way:</p><pre>Property (propertyNo, pAddress)\nPrimary key: propertyNo\n\nStaff (staffNo, staffName)\nPrimary key: staffNo\n\nPropertyInspection (propertyNo, iDate, iTime, comments,\n                    staffNo, carReg)\nPrimary key: (propertyNo, iDate)\nForeign keys: propertyNo references Property(propertyNo)\n              staffNo    references Staff(staffNo)</pre><p><b>Step 5: state that you are done, and why.</b> One sentence, and it collects marks:</p><div class=\"keypoint\"><span class=\"kplab\">The closing sentence</span><p>All three relations are now in 3NF: every value is atomic, every non-key attribute depends on the whole primary key of its relation, and no non-key attribute depends on another non-key attribute.</p></div><p><b>One honest note on carReg,</b> which a careful examiner may probe. The car a staff member drove is arguably determined by (staffNo, iDate) rather than by the inspection, since the same member of staff uses one car on a given day. If you spot that, say it in a sentence and you gain rather than lose: <i>if carReg is determined by (staffNo, iDate), a further relation StaffCar (staffNo, iDate, carReg) would be justified.</i> The three-table answer above is the expected one; the extra sentence shows you understood rather than memorised.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "The method, in six lines you can carry into the hall",
+        "tag": "works on ANY normalization question",
+        "html": "<ol><li><b>Write the relation and identify the primary key.</b> If one attribute is not enough to pin down a row, the key is composite.</li><li><b>1NF:</b> check every cell holds one value. Say so explicitly.</li><li><b>2NF:</b> for each non-key attribute ask <i>does it need the whole key?</i> If not, split it out with its determinant.</li><li><b>3NF:</b> for each non-key attribute ask <i>does it depend on another non-key attribute?</i> If so, split it out with its determinant.</li><li><b>Every split leaves a foreign key behind.</b> Write the foreign keys down; they are marks.</li><li><b>Close with the sentence</b> saying all relations are now in 3NF and why.</li></ol><div class=\"keypoint\"><span class=\"kplab\">The two questions that do all the work</span><p><b>Does it need the whole key?</b> No means partial means 2NF.<br><b>Does it come through another non-key attribute?</b> Yes means transitive means 3NF.</p><p>Ask those two of every column, in that order, and you cannot get a normalization question wrong.</p></div>"
+      },
+      {
+        "kind": "recall",
+        "label": "Now do one alone",
+        "tag": "a question like it, from a different scenario",
+        "question": "Normalise to 3NF, identifying every primary and foreign key:<br><br><b>StudentCourseGrade (studentId, courseCode, courseTitle, lecturerId, lecturerName, grade)</b><br><br>A student takes many courses and a course has many students. A course has one title and one lecturer. A lecturer has one name.",
+        "answer": "<p><b>Key.</b> Neither studentId nor courseCode alone identifies a row, so the key is composite: <b>(studentId, courseCode)</b>.</p><p><b>1NF.</b> Every cell holds a single value, so it is already in 1NF.</p><p><b>2NF, partial dependencies.</b> Ask of each non-key attribute whether it needs the whole key.</p><ul><li>courseTitle: needs only courseCode. <b>Partial.</b></li><li>lecturerId: needs only courseCode. <b>Partial.</b></li><li>lecturerName: needs only courseCode, via lecturerId. <b>Partial.</b></li><li>grade: needs BOTH, since it is this student's grade in this course. Stays.</li></ul><pre>Course (courseCode, courseTitle, lecturerId, lecturerName)\nPrimary key: courseCode\n\nStudentCourse (studentId, courseCode, grade)\nPrimary key: (studentId, courseCode)\nForeign key: courseCode references Course(courseCode)</pre><p><b>3NF, transitive dependencies.</b> In Course, lecturerName depends on lecturerId, which is not a key attribute. Transitive. Split it out.</p><pre>Lecturer (lecturerId, lecturerName)\nPrimary key: lecturerId\n\nCourse (courseCode, courseTitle, lecturerId)\nPrimary key: courseCode\nForeign key: lecturerId references Lecturer(lecturerId)\n\nStudentCourse (studentId, courseCode, grade)\nPrimary key: (studentId, courseCode)\nForeign key: courseCode references Course(courseCode)\n\nStudent (studentId, ...)   if student details are held\nPrimary key: studentId</pre><p><b>Close:</b> all relations are now in 3NF, since every value is atomic, every non-key attribute depends on the whole key of its relation, and none depends on another non-key attribute.</p><p class=\"gloss\">If you got the three tables and the two foreign keys, you would score full marks on a ten-mark question. If you missed lecturerName, re-read the transitive test and try the StaffPropertyInspection one again from a blank page.</p>"
+      },
+      {
+        "kind": "trap",
+        "label": "What loses marks on this question",
+        "tag": "",
+        "html": "<ul><li><b>Not identifying the primary key</b> of every table you produce. The question says to; it is the easiest mark on the paper.</li><li><b>Forgetting the foreign keys.</b> A split without a foreign key has thrown the relationship away.</li><li><b>Splitting without taking the determinant.</b> pAddress must leave WITH propertyNo, or the new table has no key.</li><li><b>Stopping at 2NF</b> and calling it 3NF. Do both passes and say which you are doing.</li><li><b>Not saying the relation was already in 1NF.</b> One line, one mark.</li><li><b>Swapping partial and transitive.</b> Partial is about PART OF THE KEY. Transitive is about a NON-KEY attribute.</li></ul>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Every non-key attribute must depend on the key, the whole key, and nothing but the key.\"",
+        "sub": "Find the key first. Ask each column: does it need the whole key? Then: does it come through a middleman? Split with the determinant, leave a foreign key, name every primary key, and close by saying why you are in 3NF."
+      }
+    ]
+  },
+  {
     "slug": "how-to-pass",
     "part": "Start here",
     "kick": "Before you start",
