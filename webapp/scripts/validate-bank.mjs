@@ -1063,11 +1063,13 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
   // conversion did not quietly drop any on the way. It found 28 of DTS224's 79
   // missing, all because one "As printed" box can hold several years' wording
   // of the same question and the converter took only the first.
-  if (noProblem.length)
-    console.log(
-      `    ! STILL OWED, not a pass: ${noProblem.length} worked example(s) show a button with no visible question`
-    );
-  else console.log('    . worked examples: every one shows its question above the button');
+  // Now that every course is clean, this is a hard rule again: a worked example
+  // that shows a button and nothing to attempt is a defect, not a shortfall.
+  for (const w of noProblem)
+    problems.push(`${w}: a worked example with no visible question, only a button`);
+  console.log(
+    `    ${noProblem.length ? 'x' : '.'} worked examples: every one shows its question above the button`
+  );
 
   if (cfg.printedFrom) {
     const dirPath = join(HERE, '..', '..', 'courses', cfg.printedFrom);
