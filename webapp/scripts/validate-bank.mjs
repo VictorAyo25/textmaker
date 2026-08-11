@@ -889,6 +889,18 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
         taughtFacts.add(id);
       }
 
+      // A caret is not a superscript. This was checked inside frames only, so
+      // "a r^(n-1)" sat in a rules block on the CSC242 recipes page, reaching
+      // the reader as a literal caret in the one place an exponent matters
+      // most. Every field that renders as HTML is checked now.
+      for (const k of ['html', 'working', 'answer', 'problem', 'redo']) {
+        if (typeof b[k] !== 'string') continue;
+        check(
+          !/\^-?[A-Za-z0-9(]/.test(b[k]),
+          `${where}: ${k} writes an exponent as "^", which renders literally. Use <sup>.`
+        );
+      }
+
       if (b.kind === 'frames') {
         check((b.frames ?? []).length >= 2, `${where}: fewer than 2 frames`);
         frames += (b.frames ?? []).length;
