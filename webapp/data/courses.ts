@@ -514,6 +514,10 @@ const dts224: Course = {
       minutes: 30,
     },
   ],
+  // Exam sat on 10 August 2026. Filed under "Exams already taken" on the
+  // landing page; the drill itself stays open, because it is still the
+  // fastest revision there is for anyone else taking this course.
+  taken: true,
 };
 
 

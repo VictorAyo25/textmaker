@@ -9,6 +9,12 @@
     "modules": [],
     "blocks": [
       {
+        "kind": "trap",
+        "label": "Read this before anything else",
+        "tag": "the scope changed",
+        "html": "<p><b>This paper is generated from the CCODEL course manual.</b> The lecturer produces the questions by feeding that manual to a model, exactly as he did for the two objective tests you have already seen, which is why those tests quote it almost word for word.</p><p>So the manual is the syllabus. <b>Graphs, trees, Boolean algebra, posets and lattices are not in it</b>, and older papers that asked about them are no longer a guide to what you will be asked. Those sections have been taken out of the cram sheet and the two past-paper lessons have been taken out of the reading plan.</p><p>What remains is the twelve modules of the manual: logic, sets, functions, sequences, proof, induction, counting, probability and recurrence. Learn those and you have the paper.</p>"
+      },
+      {
         "kind": "heading",
         "text": "The thing you need to know first"
       },
@@ -147,6 +153,124 @@
         "label": "Trap",
         "tag": "Before you start revising",
         "html": "<p>You choose four questions out of six, so it is tempting to plan on\n      dodging a topic. Look at what that costs on the 2025/2026 paper: graphs\n      appear in Q1, Q4, Q5 and Q6, and counting appears in Q3, Q4 and Q6. There\n      is no set of four questions you can answer while avoiding graph theory,\n      and no honest way to avoid counting either.</p>\n      <p>The choice protects you against a bad day on one topic. It does not let\n      you leave one out.</p>"
+      }
+    ]
+  },
+  {
+    "slug": "in-the-hall",
+    "part": "In the Hall",
+    "kick": "Recipes",
+    "title": "What To Write, Step By Step, Whatever They Ask",
+    "lead": "Nine recipes covering every kind of question the manual can generate. Name the question, find the recipe, follow it line by line.",
+    "blurb": "A procedure for each question type on this paper, written as instructions you can execute cold.",
+    "minutes": 15,
+    "modules": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "How to use this page",
+        "tag": "name the question first",
+        "html": "<p>This paper is generated from the manual, so every question is one of <b>nine kinds</b>. Read it, decide which, follow that recipe.</p><table><tr><th>If the question says...</th><th>Use recipe</th></tr><tr><td>\"Define\", \"What is\", \"Explain the term\"</td><td><b>1. Define</b></td></tr><tr><td>\"Construct a truth table\", \"Is it a tautology\"</td><td><b>2. Truth table</b></td></tr><tr><td>\"Show that P is equivalent to Q\", \"Simplify\"</td><td><b>3. Equivalence</b></td></tr><tr><td>\"Write in symbols\", \"Negate the statement\"</td><td><b>4. Quantifiers</b></td></tr><tr><td>\"Find A union B\", \"List the power set\"</td><td><b>5. Set operations</b></td></tr><tr><td>\"Is f one-one / onto\", \"Find f of g\"</td><td><b>6. Functions</b></td></tr><tr><td>\"Find the nth term\", \"How many terms\"</td><td><b>7. Sequences</b></td></tr><tr><td>\"Prove by induction\"</td><td><b>8. Induction</b></td></tr><tr><td>\"How many ways\", \"In how many arrangements\"</td><td><b>9. Counting</b></td></tr></table><div class=\"keypoint\"><span class=\"kplab\">Three rules for every answer</span><p><b>1.</b> Start a definition with the term and the word <b>is</b>.<br><b>2.</b> Show the substitution before the arithmetic. The working carries marks even when the number is wrong.<br><b>3.</b> State the formula you are using by name before you use it.</p></div>"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "naming the question",
+        "howto": "Cover the page, read, answer, slide down one line to check.",
+        "frames": [
+          {
+            "check": "",
+            "teach": "The first move is always to NAME the kind of question, not to start solving it.",
+            "ask": "A question says \"In how many ways can 5 people be seated in a row?\". Which recipe?"
+          },
+          {
+            "check": "Recipe 9, counting.",
+            "teach": "Anything asking HOW MANY WAYS is counting: product rule, permutation or combination.",
+            "ask": "\"Show that not(P and Q) is equivalent to notP or notQ.\" Which recipe?"
+          },
+          {
+            "check": "Recipe 3, equivalence.",
+            "teach": "You may do it by truth table or by naming the law. Naming the law is faster and scores the same.",
+            "ask": "And what is the name of that particular law?"
+          },
+          {
+            "check": "De Morgan's law.",
+            "teach": "A question that gives you a formula and says \"prove for all n\" is always induction, and always earns marks for the base case alone.",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 1. Define a term",
+        "tag": "\"Define\", \"What is\"",
+        "html": "<p><b>Step 1.</b> Term, then <b>is</b>, then the category and what makes it different.</p><pre>A tautology IS a compound proposition that is true for\nevery possible assignment of truth values to its variables.</pre><p><b>Step 2.</b> Add the contrast: a contradiction is false in every row, a contingency is neither.</p><p><b>Step 3.</b> Give one tiny example. <code>p or not p</code> is a tautology.</p><p>Never leave a definition blank. Naming the category alone earns something.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 2. Construct a truth table",
+        "tag": "\"Construct a truth table\", \"Is it a tautology\"",
+        "html": "<p><b>Step 1.</b> Count the variables. <b>n variables means 2 to the power n rows.</b> Two variables, four rows. Three variables, eight.</p><p><b>Step 2.</b> Fill the variable columns mechanically, never by thinking:</p><pre>p:  T T F F          p:  T T T T F F F F\nq:  T F T F          q:  T T F F T T F F\n                     r:  T F T F T F T F</pre><p><b>Step 3.</b> Add one column per connective, working from the innermost bracket outwards. Do NOT jump to the final column.</p><p><b>Step 4.</b> Read the last column:</p><pre>all T          -> TAUTOLOGY\nall F          -> CONTRADICTION\nmixed          -> CONTINGENCY\nsame as another column -> the two are EQUIVALENT</pre><div class=\"keypoint\"><span class=\"kplab\">The four connective rules, in one place</span><p><b>AND</b> is true only when both are true.<br><b>OR</b> is false only when both are false.<br><b>IMPLIES</b> is false only when true implies false.<br><b>IF AND ONLY IF</b> is true when both sides agree.</p></div>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 3. Show two statements are equivalent",
+        "tag": "\"Show that\", \"Simplify\"",
+        "html": "<p>Two routes. Either is acceptable; the second is faster.</p><p><b>Route A, truth table.</b> Build a column for each side and show the two columns are identical. Then write: <i>the two columns agree in every row, therefore the statements are logically equivalent.</i></p><p><b>Route B, name the laws.</b> Transform one side into the other, writing the law used beside each line:</p><pre>not(p and q)\n= not p or not q          De Morgan\n</pre><p><b>The laws worth knowing by name:</b></p><table><tr><th>Law</th><th>What it says</th></tr><tr><td><b>De Morgan</b></td><td>not(p and q) = not p or not q, and not(p or q) = not p and not q</td></tr><tr><td><b>Distributive</b></td><td>p and (q or r) = (p and q) or (p and r)</td></tr><tr><td><b>Implication</b></td><td>p implies q = not p or q</td></tr><tr><td><b>Contrapositive</b></td><td>p implies q = not q implies not p</td></tr><tr><td><b>Double negation</b></td><td>not(not p) = p</td></tr><tr><td><b>Identity, domination</b></td><td>p and T = p, p or T = T</td></tr></table><p class=\"gloss\">If you cannot see which law applies, fall back to Route A. A correct truth table always scores.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 4. Quantifiers and negation",
+        "tag": "\"Write in symbols\", \"Negate\"",
+        "html": "<p><b>Step 1.</b> Identify the domain and the predicate. \"All students passed\" gives domain = students, P(x) = x passed.</p><p><b>Step 2.</b> Choose the quantifier. <b>All, every, each</b> means the universal one. <b>Some, there exists, at least one</b> means the existential one.</p><p><b>Step 3.</b> To NEGATE, apply the one rule that does all of it:</p><pre>Swap the quantifier, and negate the inside.\n\nnot ( for all x, P(x) )    =    there exists x, not P(x)\nnot ( exists x, P(x) )     =    for all x, not P(x)</pre><p>In words: the opposite of \"everyone passed\" is not \"everyone failed\", it is <b>\"someone did not pass\"</b>. That is the marked point.</p><p><b>Step 4.</b> If asked whether it is true, remember: a universal statement dies to ONE counterexample; an existential statement lives on ONE example.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 5. Set operations and power sets",
+        "tag": "\"Find A union B\", \"List the power set\"",
+        "html": "<p><b>Union:</b> everything in either, listed once. <b>Intersection:</b> only what is in both. <b>Difference A minus B:</b> start with A, remove anything also in B. <b>Complement:</b> everything in the universal set not in A.</p><p><b>Power set, step by step.</b> For a set with n elements there are <b>2 to the power n</b> subsets, and listing them has an order that stops you missing any:</p><pre>A = {a, b, c}          2^3 = 8 subsets\n\nsize 0:  { }\nsize 1:  {a}  {b}  {c}\nsize 2:  {a,b}  {a,c}  {b,c}\nsize 3:  {a,b,c}\n\nCount them: 1 + 3 + 3 + 1 = 8. Correct.</pre><p><b>Always check your count against 2 to the n before moving on.</b> That single check catches almost every mistake in this question type.</p><p>Cardinality of a union, when asked: <b>|A union B| = |A| + |B| minus |A intersect B|</b>. For three sets, add the singles, subtract the pairs, add the triple back.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 6. Functions",
+        "tag": "\"Is f one-one\", \"Find f of g\"",
+        "html": "<p><b>Domain in, codomain allowed out, range actually out.</b> Say that sentence before answering anything about functions.</p><p><b>Is it one-one (injective)?</b> Ask: can two different inputs give the same output? If yes, it is NOT one-one, and you must give the pair as evidence. For x squared, 2 and minus 2 both give 4.</p><p><b>Is it onto (surjective)?</b> Ask: is every element of the codomain hit? Equivalently, does range equal codomain?</p><p><b>Is it bijective?</b> Both. And only then does an inverse exist.</p><p><b>Composition.</b> g of f means apply <b>f first</b>. Substitute the whole of f into g:</p><pre>f(x) = x + 1,  g(x) = 2x\n\ng(f(x)) = 2(x + 1) = 2x + 2\nf(g(x)) = 2x + 1          different, so order matters</pre><p><b>How many functions from a set of m to a set of n?</b> <b>n to the power m</b>. Test it on tiny numbers: 2 inputs into 3 outputs gives 3 squared = 9.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 7. Sequences and progressions",
+        "tag": "\"Find the nth term\", \"Find the sum\"",
+        "html": "<p><b>Step 1. Name the sequence.</b> Subtract consecutive terms; if constant, it is ARITHMETIC and that constant is d. Divide consecutive terms; if constant, it is GEOMETRIC and that constant is r.</p><p><b>Step 2. Write the formula by name before substituting.</b></p><pre>Arithmetic   nth term:  a + (n - 1)d\n             sum:       n/2 [ 2a + (n - 1)d ]\n\nGeometric    nth term:  a r^(n-1)\n             sum:       a(r^n - 1) / (r - 1)</pre><p><b>Step 3. Write down a, d or r, and n explicitly</b> before you substitute. Most lost marks here are from putting the wrong number in the wrong slot, not from the algebra.</p><p><b>Fibonacci</b> is neither: each term is the sum of the two before it, 1, 1, 2, 3, 5, 8. If a question gives that pattern, say so and continue the sequence rather than hunting for d or r.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 8. Prove by induction",
+        "tag": "\"Prove that... for all n\"",
+        "html": "<p>Write these four headings on your script before you think. Each earns marks on its own.</p><pre>BASE CASE\n   Show it holds for n = 1. Substitute and check both\n   sides give the same number. Say \"true for n = 1\".\n\nINDUCTIVE HYPOTHESIS\n   \"Assume the statement is true for n = k\", and write\n   the statement out with k in place of n.\n\nINDUCTIVE STEP\n   Show it holds for n = k + 1. Write the k + 1 statement,\n   then SUBSTITUTE the hypothesis into it.\n\nCONCLUSION\n   \"By the principle of mathematical induction, the\n   statement holds for all natural numbers n.\"</pre><div class=\"keypoint\"><span class=\"kplab\">The move that makes the step work</span><p>In the step, you always take the sum to k + 1, split off the last term, and <b>replace the sum to k with what the hypothesis says it equals</b>. That substitution IS the proof; everything after it is algebra.</p></div><p>Never skip the base case even when it is obviously true. It is a separate mark.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "Recipe 9. Counting",
+        "tag": "\"How many ways\"",
+        "html": "<p><b>Step 1. Does order matter?</b> That one question chooses your formula.</p><table><tr><th>Situation</th><th>Use</th></tr><tr><td>Order matters, arranging</td><td><b>Permutation:</b> nPr = n! / (n - r)!</td></tr><tr><td>Order does not matter, choosing</td><td><b>Combination:</b> nCr = n! / [ r!(n - r)! ]</td></tr><tr><td>Several stages, each with choices</td><td><b>Product rule:</b> multiply them</td></tr><tr><td>Either this OR that, no overlap</td><td><b>Sum rule:</b> add them</td></tr><tr><td>All n arranged in a row</td><td><b>n!</b></td></tr></table><p class=\"gloss\">A committee is a combination, because swapping two members changes nothing. A password or a seating order is a permutation, because swapping changes it.</p><p><b>Step 2. Write the formula, then the substitution, then the number.</b></p><pre>Choose 3 from 8, order irrelevant:\n\n8C3 = 8! / (3! x 5!)\n    = (8 x 7 x 6) / (3 x 2 x 1)\n    = 336 / 6\n    = 56</pre><p><b>Binomial theorem,</b> if asked to expand: the coefficients of (a + b) to the n are nC0, nC1, ... nCn, the powers of a fall from n to 0 and the powers of b rise from 0 to n, and there are n + 1 terms.</p>"
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Name the question, find the recipe, follow the steps, and show the substitution.\"",
+        "sub": "Truth tables: 2 to the n rows, filled mechanically. Negation: swap the quantifier and negate inside. Power set: list by size and check against 2 to the n. Induction: base, hypothesis, step, conclusion, four headings. Counting: does order matter."
       }
     ]
   },
@@ -3897,43 +4021,12 @@
         "text": "The trap index"
       },
       {
-        "kind": "teach",
-        "label": "Teach",
-        "tag": "Every trap in this book, and its correction",
-        "html": "<p>Read the middle column and see whether the right-hand column is already\n      in your head. Anywhere it is not, go back to that section.</p>\n      <table class=\"data\">\n        <tr><th>Section</th><th>The trap</th><th>The correction</th></tr>\n        <tr><td>F.1</td><td>whether &#8469; starts at 0 or 1</td><td>either is defensible; <b>state which you use</b>, and it cannot be marked wrong</td></tr>\n        <tr><td>F.1</td><td>repeating an element, or reordering a set</td><td>{1, 2, 2, 3} and {3, 1, 2} are both just {1, 2, 3}</td></tr>\n        <tr><td>F.2</td><td>\"whenever\" and \"only if\"</td><td>\"q whenever p\" is p &#8594; q; \"p only if q\" is also p &#8594; q, not the reverse</td></tr>\n        <tr><td>F.2</td><td>\"differentiate\" answered with two definitions</td><td>write the contrasting sentence: the one with \"whereas\" in it</td></tr>\n        <tr><td>1.1</td><td>rejecting the rows where p is false</td><td>p &#8594; q is <b>true</b> whenever p is false; the only false row is T then F</td></tr>\n        <tr><td>1.2</td><td>negating by opposites</td><td>the negation of \"stay at home\" is \"not stay at home\", not \"go out\"</td></tr>\n        <tr><td>1.3</td><td>\"nearly equivalent\"</td><td>agreement in every row or none; one differing row settles it</td></tr>\n        <tr><td>1.4</td><td>&#8704; with an \"and\"</td><td>&#8704; takes an <b>arrow</b>, &#8707; takes an <b>and</b></td></tr>\n        <tr><td>1.4</td><td>reordering nested quantifiers</td><td>&#8704;x&#8707;y allows a different y each time; &#8707;y&#8704;x demands one y for all</td></tr>\n        <tr><td>1.5</td><td>affirming the consequent, denying the antecedent</td><td>both invalid; only modus ponens and modus tollens go those ways</td></tr>\n        <tr><td>2.1</td><td>equal versus equivalent sets</td><td>equal means same elements; equivalent means same <b>number</b> of them</td></tr>\n        <tr><td>2.1</td><td>&#8709; against {&#8709;}</td><td>n(&#8709;) = 0 but n({&#8709;}) = 1; the second is a singleton</td></tr>\n        <tr><td>2.1</td><td>&#8712; against &#8838;</td><td>an element on the left of &#8712;, a set on the left of &#8838;; never mix</td></tr>\n        <tr><td>2.3</td><td>a power set missing its two free members</td><td>&#8709; and A itself are always in it; count 2<sup>n</sup> first, then list</td></tr>\n        <tr><td>3.1</td><td>reading (a, b) either way round</td><td>(a, b) means a relates to b; the pair is the direction of the arrow</td></tr>\n        <tr><td>3.2</td><td>antisymmetric as the opposite of symmetric</td><td>a relation can be <b>both</b>; antisymmetry only forbids two <i>different</i> elements pointing at each other</td></tr>\n        <tr><td>3.2</td><td>reflexive on most elements</td><td>every element needs its loop; three out of four is a fail</td></tr>\n        <tr><td>3.4</td><td>antisymmetric as \"not symmetric\" again</td><td>loops are always allowed and never break antisymmetry</td></tr>\n        <tr><td>4.1</td><td>calling any relation a function</td><td>every input used, and each used exactly once</td></tr>\n        <tr><td>4.3</td><td>assuming f &#8728; g = g &#8728; f</td><td>they are usually different; the exam asks for both to see whether you noticed</td></tr>\n        <tr><td>5.1</td><td>reading English \"or\" as the sum rule</td><td>the sum rule needs the groups to be <b>disjoint</b> and one of them chosen</td></tr>\n        <tr><td>5.2</td><td>permutation where a combination is meant</td><td>ask: if I swap two chosen objects, is that a different answer? yes means permutation</td></tr>\n        <tr><td>6.4</td><td>presenting an unreadable figure as read</td><td>state the reading you tabulate, and say the arrowheads should be re-checked</td></tr>\n        <tr><td>6.6</td><td>Euler against Hamilton</td><td>Euler uses each <b>edge</b> once, Hamilton each <b>vertex</b> once</td></tr>\n        <tr><td>6.8</td><td>nearest-neighbour offered as the minimum</td><td>a minimum is a claim about every alternative; list all 12 tours</td></tr>\n        <tr><td>7.3</td><td>prefix as the expression reversed</td><td>both prefix and postfix are read off the <b>tree</b>, never by moving symbols</td></tr>\n        <tr><td>9.1</td><td>one letter for two arbitrary integers</td><td>m = 2a + 1 and n = 2b + 1; the same letter proves only the case m = n</td></tr>\n        <tr><td>9.1</td><td>copying the course text's proof-by-cases algebra</td><td>8k<sup>3</sup> &#8722; 2k = 2(4k<sup>3</sup> &#8722; k), and (2k + 1)<sup>3</sup> has 12k<sup>2</sup>, not 6k<sup>2</sup></td></tr>\n        <tr><td>9.1</td><td>a claim whose truth depends on a convention</td><td>state the convention first; for n<sup>2</sup> + 3n + 2 it decides the answer outright</td></tr>\n        <tr><td>9.2</td><td>circular induction, unused hypothesis, asserted base case</td><td>start from one side, cite P(k) by name, and evaluate both sides of the base case</td></tr>\n        <tr><td>9.3</td><td>mixing the two indexing conventions</td><td>say whether the first term is a<sub>0</sub> or a<sub>1</sub>, then count the list to be sure</td></tr>\n        <tr><td>10.1</td><td>quoting the mean when there is an outlier</td><td>the median resists outliers, the mean does not; say which you quote and why</td></tr>\n        <tr><td>10.2</td><td>the course text's \"mutually exclusive or disjoint\"</td><td>that sentence defines <b>independence</b>; for real events the two are opposites</td></tr>\n        <tr><td>10.2</td><td>the course text's P(A &#8746; B) = P(A) + P(B)</td><td>that is the <b>disjoint</b> case; in general subtract P(A &#8745; B)</td></tr>\n        <tr><td>11.1</td><td>writing code as though it will be run</td><td>comment the numbered steps, indent consistently, end every block with a colon, and keep the paper's own names</td></tr>\n        <tr><td>R.2</td><td>stopping at a defective question</td><td>state the reading in one sentence, answer it in full, add the alternative if cheap</td></tr>\n      </table>"
-      },
-      {
         "kind": "heading",
         "text": "The drills the examiners repeat"
       },
       {
-        "kind": "rules",
-        "label": "Must memorise",
-        "tag": "Fourteen questions that keep coming back",
-        "html": "<p>Compiled by walking all five papers and counting. If your revision time\n      runs out, this is the order to spend it in.</p>\n      <table class=\"data\">\n        <tr><th>Drill</th><th>Appeared in</th><th>Section</th></tr>\n        <tr><td>Types of undirected graph, with diagrams</td><td>20/21, 21/22, 23/24</td><td>6.2</td></tr>\n        <tr><td>The travelling missionary, minimum tour from Detroit</td><td>20/21, 21/22, 23/24</td><td>6.8</td></tr>\n        <tr><td>Chain letter or convocation cards, m-ary counting</td><td>20/21, 21/22, 23/24</td><td>7.2</td></tr>\n        <tr><td>Handshaking: state it, prove it, apply it</td><td>21/22, 23/24, 24/25</td><td>6.3</td></tr>\n        <tr><td>R1 to R6 relation classification</td><td>20/21, 23/24, 24/25</td><td>3.2</td></tr>\n        <tr><td>Rooted-tree terminology, traversals, prefix and postfix</td><td>20/21, 21/22, 24/25</td><td>7.1, 7.3</td></tr>\n        <tr><td>Truth tables, converse, inverse, contrapositive</td><td>every year</td><td>1.2, 1.3</td></tr>\n        <tr><td>Counting: passwords, chairs, PIN codes, word arrangements</td><td>most years</td><td>5.1, 5.2</td></tr>\n        <tr><td>In-degree and out-degree of a digraph, in tabular form</td><td>21/22, 23/24, 25/26</td><td>6.4</td></tr>\n        <tr><td>The five function correspondence types, with a diagram</td><td>20/21, 21/22</td><td>4.2</td></tr>\n        <tr><td>Bit-string representation of a set</td><td>23/24, 24/25</td><td>2.3</td></tr>\n        <tr><td>Inclusion and exclusion word problems</td><td>21/22, 25/26</td><td>5.3</td></tr>\n        <tr><td>Balanced m-ary tree, leaves at height h</td><td>20/21, 21/22, 24/25</td><td>7.2</td></tr>\n        <tr><td>f &#8728; g and g &#8728; f for f(x) = x<sup>2</sup> + 1, g(x) = x + 2</td><td>23/24 and 24/25, word for word</td><td>4.3</td></tr>\n      </table>\n      <div class=\"wheredef\"><span class=\"wlab\">Where</span>\n      <span class=\"sym\">\"every year\"</span> means it appears on all five papers\n      we hold.\n      <span class=\"sym\">\"word for word\"</span> on the last row is literal: the\n      2023/2024 and 2024/2025 papers set the identical composition question,\n      the later one adding \"State if f &#8728; g = g &#8728; f.\"\n      <span class=\"sym\">the section column</span> is where the drill is taught\n      and worked; each of those sections carries the quoted question itself.</div>\n      <p><b>What the table is really telling you.</b> Six of the fourteen are\n      graph or tree questions, and the official course text teaches none of\n      them. That is the whole shape of this course in one observation.</p>\n      <p class=\"hook\"><b>Memory hook:</b> <b>graphs, trees, relations and\n      counting are most of the paper, and none of the first three is in the\n      course text.</b></p>"
-      },
-      {
         "kind": "heading",
         "text": "The cram sheet"
-      },
-      {
-        "kind": "rules",
-        "label": "Must memorise",
-        "tag": "Twenty facts to walk in with",
-        "html": "<table class=\"data\">\n        <tr><th></th><th>Fact</th><th>Section</th></tr>\n        <tr><td>1</td><td>p &#8594; q is false in exactly one row: p true, q false</td><td>1.2</td></tr>\n        <tr><td>2</td><td>The contrapositive &#172;q &#8594; &#172;p is the only one of the three that agrees with p &#8594; q</td><td>1.2</td></tr>\n        <tr><td>3</td><td>&#172;(p &#8743; q) &#8801; &#172;p &#8744; &#172;q, and the same law in sets and in Boolean</td><td>1.3</td></tr>\n        <tr><td>4</td><td>&#8704; takes an arrow, &#8707; takes an and</td><td>1.4</td></tr>\n        <tr><td>5</td><td>A set of n elements has 2<sup>n</sup> subsets, and a truth table with n letters has 2<sup>n</sup> rows</td><td>2.1</td></tr>\n        <tr><td>6</td><td>n(A &#8746; B) = n(A) + n(B) &#8722; n(A &#8745; B)</td><td>2.2</td></tr>\n        <tr><td>7</td><td>Reflexive needs every element; antisymmetric allows loops; a relation may be symmetric and antisymmetric at once</td><td>3.2</td></tr>\n        <tr><td>8</td><td>An equivalence relation is reflexive, symmetric and transitive, and it partitions the set</td><td>3.3</td></tr>\n        <tr><td>9</td><td>P(n, r) = n! / (n &#8722; r)! orders; C(n, r) = n! / (r!(n &#8722; r)!) does not</td><td>5.2</td></tr>\n        <tr><td>10</td><td>\"At least one\" means total minus none</td><td>5.1, 5.2</td></tr>\n        <tr><td>11</td><td><b>&#931; deg(v) = 2|E|</b>, so the degree sum is always even and the odd-degree vertices always even in number</td><td>6.3</td></tr>\n        <tr><td>12</td><td>K<sub>n</sub> has C(n, 2) = n(n &#8722; 1) / 2 edges</td><td>6.2</td></tr>\n        <tr><td>13</td><td>Euler circuit: every degree even. Euler path: exactly two odd</td><td>6.6</td></tr>\n        <tr><td>14</td><td>v &#8722; e + f = 2, and a simple planar graph obeys e &#8804; 3v &#8722; 6</td><td>6.7</td></tr>\n        <tr><td>15</td><td>A tree has e = v &#8722; 1; a full m-ary tree has n = mi + 1 and l = (m &#8722; 1)i + 1</td><td>7.1, 7.2</td></tr>\n        <tr><td>16</td><td>An m-ary tree of height h has at most m<sup>h</sup> leaves</td><td>7.2</td></tr>\n        <tr><td>17</td><td>Preorder is root first, inorder root in the middle, postorder root last, and all three come off the tree</td><td>7.3</td></tr>\n        <tr><td>18</td><td>Induction is base case, hypothesis, step, and the step must cite the hypothesis</td><td>9.2</td></tr>\n        <tr><td>19</td><td>a<sub>n</sub> = a + (n &#8722; 1)d and a<sub>n</sub> = ar<sup>n&#8722;1</sup>; the n &#8722; 1 is the number of steps taken</td><td>9.3</td></tr>\n        <tr><td>20</td><td>P(A&#8746;B) = P(A) + P(B) &#8722; P(A&#8745;B), and P(B|A) = P(A&#8745;B) / P(A)</td><td>10.2</td></tr>\n      </table>\n      <div class=\"wheredef\"><span class=\"wlab\">Where</span>\n      <span class=\"sym\">|E|</span> and <span class=\"sym\">|V|</span> are the\n      numbers of edges and vertices.\n      <span class=\"sym\">i</span> is the count of <b>internal</b> vertices of a\n      full m-ary tree and <span class=\"sym\">l</span> its leaves.\n      <span class=\"sym\">d</span> is a common difference and\n      <span class=\"sym\">r</span> a common ratio.\n      <span class=\"sym\">n</span> means \"how many\" throughout, and its meaning is\n      fixed by the sentence it sits in, not by the letter.</div>\n      <p class=\"hook\"><b>Memory hook for the graph block:</b> <b>degrees double\n      the edges, complete graphs pick two, Euler counts odd vertices, and a tree\n      is one edge short.</b></p>"
-      },
-      {
-        "kind": "teach",
-        "label": "Teach",
-        "tag": "The sanity checks, in one place",
-        "html": "<p>Run these on every answer before you leave it. Each one has caught a\n      real error while this book was being written.</p>\n      <table class=\"data\">\n        <tr><th>If you computed</th><th>It must be</th><th>Because</th></tr>\n        <tr><td>a sum of degrees</td><td>even</td><td>it equals 2|E|</td></tr>\n        <tr><td>the number of odd-degree vertices</td><td>even</td><td>the same theorem</td></tr>\n        <tr><td>a probability</td><td>between 0 and 1</td><td>the first axiom</td></tr>\n        <tr><td>two complementary probabilities</td><td>adding to 1</td><td>the complement rule</td></tr>\n        <tr><td>a count of arrangements</td><td>a whole number</td><td>you are counting objects</td></tr>\n        <tr><td>C(n, r)</td><td>equal to C(n, n &#8722; r)</td><td>choosing r is choosing which n &#8722; r to leave</td></tr>\n        <tr><td>the edges of a tree</td><td>one fewer than the vertices</td><td>e = v &#8722; 1</td></tr>\n        <tr><td>the leaves of a full m-ary tree</td><td>agreeing with both formulas</td><td>n = mi + 1 and l = (m &#8722; 1)i + 1 must give the same tree</td></tr>\n        <tr><td>a set of deviations from a mean</td><td>summing to zero</td><td>that is what the mean is</td></tr>\n        <tr><td>a minimum tour</td><td>no longer than every tour you listed</td><td>a minimum is a claim about all of them</td></tr>\n      </table>"
-      },
-      {
-        "kind": "recall",
-        "label": "Recall and check",
-        "tag": "answer before you look",
-        "question": "<p class=\"q\">1. Which of the converse, inverse and contrapositive agrees\n      with the original conditional?</p>\n      <p class=\"q\">2. State the Handshaking theorem and one thing it\n      immediately tells you.</p>\n      <p class=\"q\">3. When is a relation both symmetric and antisymmetric?</p>\n      <p class=\"q\">4. Give the two conditions for an Euler circuit and for an\n      Euler path.</p>\n      <p class=\"q\">5. How many edges has a tree on 30 vertices?</p>\n      <p class=\"q\">6. What is the difference between the mean and the median in\n      the presence of an outlier?</p>\n      <p class=\"q\">7. Name three drills that have appeared on at least three of\n      the five papers.</p>\n      <hr class=\"cut\">\n      <div class=\"alabel\">Answers</div>\n      <p>1. Only the contrapositive.<br>\n      2. &#931; deg(v) = 2|E|. It tells you at once that the degree sum is even,\n      so no graph can have an odd degree sum, and that the number of odd-degree\n      vertices is even.<br>\n      3. When no two <b>different</b> elements are related in both directions,\n      which includes any relation made only of loops.<br>\n      4. Circuit: connected and every vertex of even degree. Path: connected and\n      exactly two vertices of odd degree.<br>\n      5. 29, since e = v &#8722; 1.<br>\n      6. The median is unaffected by an extreme value; the mean is dragged\n      towards it.<br>\n      7. Any three of: types of undirected graph, the minimum tour, the chain\n      letter, Handshaking, the R1 to R6 classification, rooted-tree terminology\n      and traversals, the digraph tabulation, balanced m-ary trees.</p>",
-        "answer": "See the section above."
       }
     ]
   },
