@@ -889,6 +889,17 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
         taughtFacts.add(id);
       }
 
+      // An HTML entity in a PLAIN TEXT field is never decoded, so it reaches
+      // the reader as literal characters. The part label is uppercased by CSS
+      // too, which is how "PART NINE &MIDDOT; 9.1" appeared in prod: entity
+      // names are case sensitive, so nothing could have decoded it.
+      for (const k of ['tag', 'label', 'text', 'big', 'sub', 'howto', 'question']) {
+        if (typeof b[k] !== 'string') continue;
+        const bad = b[k].match(/&[a-zA-Z]+;|&#\d+;/);
+        if (bad)
+          check(false, `${where}: ${k} contains the entity ${bad[0]} in a plain-text field, which renders literally. Store the character itself.`);
+      }
+
       // A caret is not a superscript. This was checked inside frames only, so
       // "a r^(n-1)" sat in a rules block on the CSC242 recipes page, reaching
       // the reader as a literal caret in the one place an exponent matters

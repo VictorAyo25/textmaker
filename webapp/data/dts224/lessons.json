@@ -774,7 +774,7 @@
           },
           {
             "check": "yes. PG4 has exactly one address.",
-            "teach": "That is a <b>FUNCTIONAL DEPENDENCY</b>. We write it <b>propertyNo &rarr; pAddress</b> and say \"propertyNo DETERMINES pAddress\".",
+            "teach": "That is a <b>FUNCTIONAL DEPENDENCY</b>. We write it <b>propertyNo → pAddress</b> and say \"propertyNo DETERMINES pAddress\".",
             "ask": "Now the other way. If I tell you the address, can you tell me the propertyNo?"
           },
           {
@@ -784,7 +784,7 @@
           },
           {
             "check": "yes.",
-            "teach": "So <b>staffNo &rarr; staffName</b>. Note what this is really saying: the name belongs to the STAFF MEMBER. It has nothing to do with which property was inspected.",
+            "teach": "So <b>staffNo → staffName</b>. Note what this is really saying: the name belongs to the STAFF MEMBER. It has nothing to do with which property was inspected.",
             "ask": "Now: if I tell you a propertyNo, can you tell me the iDate of the inspection?"
           },
           {
@@ -794,7 +794,7 @@
           },
           {
             "check": "(propertyNo, iDate) together.",
-            "teach": "A key made of more than one attribute is a <b>COMPOSITE KEY</b>. And once you have it, everything about that one inspection is determined: <b>(propertyNo, iDate) &rarr; iTime, comments, staffNo, carReg</b>.",
+            "teach": "A key made of more than one attribute is a <b>COMPOSITE KEY</b>. And once you have it, everything about that one inspection is determined: <b>(propertyNo, iDate) → iTime, comments, staffNo, carReg</b>.",
             "ask": "Is (propertyNo, iDate) enough to tell you pAddress too?"
           },
           {
@@ -824,7 +824,7 @@
         "kind": "recall",
         "label": "Test yourself",
         "tag": "spot the dependency type",
-        "question": "For each, say whether it is a PARTIAL dependency, a TRANSITIVE dependency, or neither. The key is (orderNo, itemNo).<br>(1) itemNo &rarr; itemPrice<br>(2) (orderNo, itemNo) &rarr; quantity<br>(3) orderNo &rarr; customerNo, and customerNo &rarr; customerName<br>(4) (orderNo, itemNo) &rarr; lineTotal",
+        "question": "For each, say whether it is a PARTIAL dependency, a TRANSITIVE dependency, or neither. The key is (orderNo, itemNo).<br>(1) itemNo → itemPrice<br>(2) (orderNo, itemNo) → quantity<br>(3) orderNo → customerNo, and customerNo → customerName<br>(4) (orderNo, itemNo) → lineTotal",
         "answer": "<p><b>1. Partial.</b> itemNo is only part of the composite key, and itemPrice depends on it alone.</p><p><b>2. Neither.</b> It depends on the whole key, which is exactly what it should do.</p><p><b>3. Both, in a chain.</b> orderNo &rarr; customerNo is PARTIAL, because orderNo is part of the key. Then customerNo &rarr; customerName is TRANSITIVE, because customerNo is not a key attribute.</p><p><b>4. Neither.</b> Whole key again.</p><p class=\"gloss\">The test, every time: look at what is on the LEFT of the arrow. Part of the key means partial. A non-key attribute means transitive. The whole key means fine.</p>"
       },
       {
@@ -1001,7 +1001,7 @@
   {
     "slug": "foundations",
     "part": "Part A: what a database is",
-    "kick": "Module One &middot; Unit 1",
+    "kick": "Module One · Unit 1",
     "title": "Foundations of Data Management",
     "lead": "Before a single table is drawn, three questions: what is data, what do we\r\n  actually do with it, and what makes a system that holds it good rather than merely\r\n  large.",
     "minutes": 18,
@@ -1188,7 +1188,7 @@
   {
     "slug": "architecture",
     "part": "Part A: what a database is",
-    "kick": "Module One &middot; Unit 2",
+    "kick": "Module One · Unit 2",
     "title": "Database Systems and Architecture",
     "lead": "Why organisations abandoned loose files for databases, what a DBMS is and\r\n  what sits inside it, and the layered architecture that lets the data and the programs\r\n  change independently.",
     "minutes": 18,
@@ -1263,7 +1263,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 25/26 Q2a &middot; also PQ 20/21 Q1a , PQ 15/16 Q1c",
+        "tag": "PQ 25/26 Q2a · also PQ 20/21 Q1a , PQ 15/16 Q1c",
         "problem": "<p>Explain two limitations of the file-based approach to data processing.</b>\r\n      (25/26 asks for two; 20/21 asks for three; 15/16 asks for five. One answer, scaled to\r\n      the marks.)</p>",
         "working": "\r\n      <p class=\"marks\">Model answer (two, stated then explained)</p>\r\n      <p><b>1. Data redundancy and inconsistency.</b> Because each program keeps its own\r\n      files, the same data is duplicated across them. When one copy is updated and another\r\n      is not, the files disagree, and there is no single correct version.</p>\r\n      <p><b>2. Program-data dependence.</b> The physical structure of a file (its fields and\r\n      their order) is embedded in the code of every program that reads it. A change as small\r\n      as widening a field forces a change to every one of those programs.</p>\r\n      <p class=\"small\">For three, add <b>data isolation</b> (data scattered in incompatible\r\n      formats is hard to combine). For five, add <b>difficulty of concurrent access</b> and\r\n      <b>weak security and integrity control</b>. Naming the limitation and then explaining\r\n      it in a sentence is what earns the mark; a bare list does not.</p>",
         "answer": "Work the steps above.",
@@ -1294,7 +1294,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q4c &middot; PQ 19/20 Q2c",
+        "tag": "PQ 24/25 Q4c · PQ 19/20 Q2c",
         "problem": "<p>With two examples, describe a Database Management System. (24/25 Q4c) And\r\n      define: data model, database instance, DBMS. (19/20 Q2c)</b></p>",
         "working": "\r\n      <p>A <b>DBMS</b> is the software layer between the users and the stored data. It lets\r\n      them define the structure (through a data-definition language), put data in and take\r\n      it out (through a data-manipulation language), and it controls access, enforces\r\n      integrity, and manages concurrency and recovery, so the applications do not each have\r\n      to. Two examples: <b>MySQL</b> and <b>Oracle Database</b> (also acceptable: PostgreSQL,\r\n      Microsoft SQL Server, IBM Db2).</p>\r\n      <p>A <b>data model</b> is a collection of concepts used to describe the structure of a\r\n      database, that is, the data, the relationships between it, and the constraints on it.\r\n      The relational model (tables) is the one this course centres on.</p>\r\n      <p>A <b>database instance</b> is the information held in the database at a particular\r\n      point in time, a snapshot of its current contents.</p>",
         "answer": "Work the steps above.",
@@ -1325,7 +1325,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q4d &middot; PQ 25/26 Q5a",
+        "tag": "PQ 24/25 Q4d · PQ 25/26 Q5a",
         "problem": "<p>Differentiate between data definition language (DDL) and data manipulation\r\n      language (DML).</b></p>",
         "working": "\r\n      <p><b>DDL</b> is the part of a database language used to <i>define and change the\r\n      structure</i> of the database: creating tables, altering columns, dropping objects,\r\n      and stating constraints. Its statements are <code>CREATE</code>, <code>ALTER</code>,\r\n      and <code>DROP</code>, and their effect is recorded in the data dictionary.</p>\r\n      <p><b>DML</b> is the part used to <i>work with the data itself</i>: inserting new rows,\r\n      updating and deleting existing ones, and retrieving them. Its statements are\r\n      <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>SELECT</code>.</p>\r\n      <p>In short: DDL changes the container, DML changes the contents.</p>",
         "answer": "Work the steps above.",
@@ -1356,7 +1356,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 19/20 Q4b &middot; PQ 21/22 Q5a(i)",
+        "tag": "PQ 19/20 Q4b · PQ 21/22 Q5a(i)",
         "problem": "<p>Explain the Database Manager and its responsibilities, and differentiate it\r\n      from the Database Administrator.</b></p>",
         "working": "\r\n      <p>The <b>Database Manager</b> is a <i>software module</i> inside the DBMS. It is the\r\n      interface between the low-level data stored on disk and the application programs and\r\n      queries that ask for it. Its responsibilities are moving data between disk and main\r\n      memory, and enforcing, at run time, the integrity and access controls the database is\r\n      set up with. It is a program.</p>\r\n      <p>The <b>Database Administrator (DBA)</b> is a <i>person</i> with central control over\r\n      the data and the programs that access it. Their responsibilities are: defining the\r\n      schema, granting authorisation for data access, specifying integrity constraints,\r\n      defining storage structures and access methods, and modifying the schema or physical\r\n      organisation as needs change.</p>\r\n      <p class=\"small\">The one-line separation: the Database Manager is a <b>program</b>\r\n      inside the DBMS; the Database Administrator is a <b>person</b> who runs the database.</p>",
         "answer": "Work the steps above.",
@@ -1391,7 +1391,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 25/26 Q2c &middot; PQ 19/20 Q1b",
+        "tag": "PQ 25/26 Q2c · PQ 19/20 Q1b",
         "problem": "<p>What is meant by data abstraction? Explain the three levels of data\r\n      abstraction with examples. (25/26 Q2c) Equivalently: explain the differences between\r\n      user views, a conceptual schema, and an internal schema as different perspectives of\r\n      the same database. (19/20 Q1b)</b></p>",
         "working": "\r\n      <p><b>Data abstraction</b> is the hiding of the complex details of how data is stored,\r\n      showing each user only what they need. It is what lets a user work with a table without\r\n      knowing anything about disks or files.</p>\r\n      <ol class=\"steps\">\r\n        <li><b>External level (user views).</b> What one user or program sees: a customised\r\n        subset of the data. Example: the \"Student\" view shows a student their courses and\r\n        results but not other students' records, and not any salary data.</li>\r\n        <li><b>Conceptual level (conceptual schema).</b> The community view: every table and\r\n        relationship in the database, described independently of storage. Example: the whole\r\n        university schema, STUDENT, COURSE, LECTURER, DEPARTMENT, and how they relate.</li>\r\n        <li><b>Internal level (internal schema).</b> The storage view: how those tables are\r\n        physically held, which files, which indexes, which access method. Example: STUDENT is\r\n        stored as an indexed file with a B+ tree index on matricNo.</li>\r\n      </ol>\r\n      <p>They are three perspectives on one database: the same STUDENT data, seen as a\r\n      tailored view, as a logical table, and as bytes in an indexed file.</p>",
         "answer": "Work the steps above.",
@@ -1465,7 +1465,7 @@
   {
     "slug": "er-model",
     "part": "Part B: modelling",
-    "kick": "Module Two &middot; Unit 1",
+    "kick": "Module Two · Unit 1",
     "title": "The Entity-Relationship Model",
     "lead": "A business hands you a description in words. Your job is to draw it: the\r\n  things it cares about, how they connect, and the rules governing those connections. That\r\n  drawing is the entity-relationship diagram, and drawing it correctly is half of this\r\n  course's marks.",
     "minutes": 26,
@@ -1555,7 +1555,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 23/24 Q2b &middot; PQ 21/22 Q6b",
+        "tag": "PQ 23/24 Q2b · PQ 21/22 Q6b",
         "problem": "<p>State four qualities you would consider in making a good business rule (21/22\r\n      asks for four characteristics of a good business rule).</b></p>",
         "working": "\r\n      <p>Any four of the seven above, each named and given a phrase: a good business rule is\r\n      <b>declarative</b> (states what is true, not how to enforce it), <b>precise</b> (one\r\n      unambiguous meaning), <b>atomic</b> (states a single fact), and\r\n      <b>business-oriented</b> (expressed in the organisation's own terms). Naming and\r\n      explaining four earns full marks; a bare list of words does not.</p>",
         "answer": "Work the steps above.",
@@ -1589,7 +1589,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "TEST 1 C(a) &middot; concept definitions",
+        "tag": "TEST 1 C(a) · concept definitions",
         "problem": "<p>Explain, with an example: weak entity type, strong entity type, unary\r\n      relationship.</b></p>",
         "working": "\r\n      <p><b>Weak entity type:</b> an entity type whose existence depends on another entity\r\n      type; a dependent entity that has no business meaning in the diagram without its owner.\r\n      Example: a DEPENDENT of an employee (it exists only while the EMPLOYEE does).</p>\r\n      <p><b>Strong entity type:</b> an entity type that exists independently of any other; an\r\n      independent entity with its own identifier. Example: EMPLOYEE.</p>\r\n      <p><b>Unary relationship:</b> a relationship between the instances of a single entity\r\n      type; also called a recursive relationship. Example: an EMPLOYEE \"manages\" another\r\n      EMPLOYEE. (Diagram in section 1.5.)</p>",
         "answer": "Work the steps above.",
@@ -1620,7 +1620,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q2a(ii) &middot; PQ 21/22 Q1(iv)",
+        "tag": "PQ 24/25 Q2a(ii) · PQ 21/22 Q1(iv)",
         "problem": "<p>Differentiate, with an example: (i) multivalued vs derived attribute;\r\n      (ii) composite vs multivalued attribute.</b></p>",
         "working": "\r\n      <p>A <b>multivalued attribute</b> can take several values at once for one instance, for\r\n      example an employee's {skills} = {Java, SQL, French}. A <b>derived attribute</b> holds\r\n      a value worked out from other stored data, not stored in its own right, for example\r\n      [age] computed from dateOfBirth and today's date. One holds many real values; the other\r\n      holds a computed one.</p>\r\n      <p>A <b>composite attribute</b> is one attribute divided into sub-parts, for example\r\n      Address into (street, city, postcode). A <b>multivalued attribute</b> is one attribute\r\n      with several values of the same kind, for example {phoneNumbers}. Composite is one value\r\n      in parts; multivalued is several values.</p>",
         "answer": "Work the steps above.",
@@ -1667,7 +1667,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "TEST 1 A(a) &middot; TEST 1 B(a) concept definitions",
+        "tag": "TEST 1 A(a) · TEST 1 B(a) concept definitions",
         "problem": "<p>Explain with an example: attribute; ternary relationship; entity; multivalued\r\n      attribute; associative entity; binary relationship.</b> (Combined from Test 1 A and B.)</p>",
         "working": "\r\n      <p><b>Attribute:</b> a property or characteristic of an entity type of interest to the\r\n      organisation (a PATIENT's Patient Name). <b>Entity:</b> a person, place, object, event,\r\n      or concept about which the organisation keeps data (PATIENT). <b>Ternary\r\n      relationship:</b> a simultaneous relationship among the instances of three entity types\r\n      (CHEMIST uses EQUIPMENT on a PROJECT). <b>Binary relationship:</b> a relationship\r\n      between the instances of two entity types, the most common kind (STUDENT enrols in\r\n      COURSE). <b>Multivalued attribute:</b> an attribute that may take more than one value\r\n      for one instance ({skills}). <b>Associative entity:</b> an entity type that associates\r\n      instances of other entity types and holds attributes peculiar to that relationship\r\n      (ENROLMENT, holding grade).</p>",
         "answer": "Work the steps above.",
@@ -1705,7 +1705,7 @@
       {
         "kind": "asprinted",
         "label": "Exam question",
-        "tag": "PQ 20/21 Q1c &middot; PQ 19/20 Q2b &middot; PQ 15/16 Q2b",
+        "tag": "PQ 20/21 Q1c · PQ 19/20 Q2b · PQ 15/16 Q2b",
         "src": "",
         "printed": "<pre><p>Use the following business rules to create the ERD for a consulting company named\r\n      ConsultCo, showing all entities, relationships, optionalities and cardinalities. A\r\n      client can contract many projects, but each project is contracted by one client. Some\r\n      clients have not yet contracted any project. A project may have many employees assigned,\r\n      and each employee may be assigned to many projects; some employees are assigned to none.\r\n      One employee leads each project, and an employee may lead more than one. One employee\r\n      coordinates each project, and may coordinate more than one. Some employees never lead or\r\n      coordinate. Employees have many job skills, and each job description fits many employees;\r\n      some job descriptions are unfilled and some employees have no job classification.</p></pre>"
       },
@@ -1733,7 +1733,7 @@
       {
         "kind": "asprinted",
         "label": "Exam question",
-        "tag": "PQ 24/25 Q2c &middot; TEST 1 A(b)",
+        "tag": "PQ 24/25 Q2c · TEST 1 A(b)",
         "src": "",
         "printed": "<pre><p>A hospital has many PHYSICIANs (Physician ID, Specialty) and many PATIENTs (Patient\r\n      ID, Patient Name). A patient who is admitted has exactly one admitting physician; a\r\n      physician may admit any number of patients or none. Once admitted, a patient must be\r\n      treated by at least one physician; a physician may treat any number of patients or none.\r\n      When a physician treats a patient, the hospital records Treatment Detail (Date, Time,\r\n      Results). A patient is assigned to one WARD (Name, Type); a ward holds many patients or\r\n      is vacant. Draw one connected ER diagram showing degree and cardinalities.</p></pre>"
       },
@@ -1761,7 +1761,7 @@
       {
         "kind": "asprinted",
         "label": "Exam question",
-        "tag": "PQ 21/22 Q2a &middot; PQ 20/21 Q3a",
+        "tag": "PQ 21/22 Q2a · PQ 20/21 Q3a",
         "src": "",
         "printed": "<pre><p>UPS tracks shipped items. A SHIPPED ITEM has itemNumber (unique), weight, dimensions,\r\n      insuranceAmount, destination, and finalDeliveryDate. Each shipped item is received into\r\n      the system at a single RETAIL CENTER (type, uniqueID, address). A shipped item travels to\r\n      its destination via one or more TRANSPORTATION EVENTs (scheduleNumber unique, type, e.g.\r\n      flight or truck, deliveryRoute). Create an ER diagram with identifiers and cardinality\r\n      constraints.</p></pre>"
       },
@@ -1901,7 +1901,7 @@
   {
     "slug": "eer-model",
     "part": "Part B: modelling",
-    "kick": "Module Two &middot; Unit 2",
+    "kick": "Module Two · Unit 2",
     "title": "The Enhanced E-R Model",
     "lead": "When some things are special kinds of other things, an employee who is\r\n  either hourly or salaried, an offering that is either a product or a service, the plain ER\r\n  model is not enough. The enhanced ER model adds one construct, the supertype and its\r\n  subtypes, and four rules that go with it. Those rules are examined every single year.",
     "minutes": 20,
@@ -1987,7 +1987,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q4a &middot; PQ 23/24 Q4a",
+        "tag": "PQ 24/25 Q4a · PQ 23/24 Q4a",
         "problem": "<p>Differentiate: (i) supertype and subtype; (ii) generalization and\r\n      specialization.</b></p>",
         "working": "\r\n      <p><b>Supertype vs subtype:</b> a supertype is the general entity type holding common\r\n      attributes; a subtype is a specialised subgroup of it holding its own extra attributes\r\n      and inheriting the supertype's. VEHICLE is a supertype; CAR and TRUCK are subtypes.</p>\r\n      <p><b>Generalization vs specialization:</b> both build the same hierarchy but from\r\n      opposite ends. <b>Generalization</b> is <i>bottom-up</i>: you start with specialised\r\n      entity types (CAR, TRUCK) and define a general supertype (VEHICLE) from what they share.\r\n      <b>Specialization</b> is <i>top-down</i>: you start with a general entity type (VEHICLE)\r\n      and define subtypes (CAR, TRUCK) for the parts that differ.</p>",
         "answer": "Work the steps above.",
@@ -2028,7 +2028,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q6b &middot; PQ 23/24 Q2a definitions",
+        "tag": "PQ 24/25 Q6b · PQ 23/24 Q2a definitions",
         "problem": "<p>Explain: total vs partial specialization; disjoint rule vs overlap rule; entity\r\n      type; required attribute.</b></p>",
         "working": "\r\n      <p><b>Total specialization:</b> every instance of the supertype must be a member of at\r\n      least one subtype. <b>Partial specialization:</b> a supertype instance need not be a\r\n      member of any subtype. <b>Disjoint rule:</b> a supertype instance that is in one subtype\r\n      cannot at the same time be in another. <b>Overlap rule:</b> a supertype instance may be a\r\n      member of two or more subtypes at the same time. <b>Entity type:</b> a collection of\r\n      entities sharing common properties, described once (EMPLOYEE). <b>Required attribute:</b>\r\n      an attribute that must have a value for every instance (an employee's empID).</p>",
         "answer": "Work the steps above.",
@@ -2053,7 +2053,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Answer",
-        "tag": "PQ 21/22 Test &middot; PQ 21/22 Q5b &middot; PQ 19/20 Q6d",
+        "tag": "PQ 21/22 Test · PQ 21/22 Q5b · PQ 19/20 Q6d",
         "problem": "<figure>\r\n        <svg viewBox=\"0 0 520 320\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\">\r\n          <!-- helper: 4 quadrants -->\r\n          <!-- (a) exactly one = total + disjoint -->\r\n          <g>\r\n            <text x=\"130\" y=\"14\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\" fill=\"#065f46\">(a) must be exactly one = total + disjoint</text>\r\n            <rect x=\"95\" y=\"22\" width=\"70\" height=\"22\" rx=\"2\" fill=\"#eef3ff\" stroke=\"#1d4ed8\" stroke-width=\"1.2\"/><text x=\"130\" y=\"37\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#1e3a8a\">PERSON</text>\r\n            <line x1=\"127\" y1=\"44\" x2=\"127\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/><line x1=\"133\" y1=\"44\" x2=\"133\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/>\r\n            <circle cx=\"130\" cy=\"67\" r=\"9\" fill=\"#fff\" stroke=\"#18232b\" stroke-width=\"1.2\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#b91c1c\">d</text>\r\n            <path d=\"M130 76 v10 h-90 v8 M130 76 v18 M130 76 v10 h90 v8\" fill=\"none\" stroke=\"#18232b\" stroke-width=\"1.1\"/>\r\n            <g font-size=\"7\" fill=\"#1e3a8a\" text-anchor=\"middle\" font-weight=\"bold\">\r\n              <rect x=\"14\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"40\" y=\"114\">CAMPER</text>\r\n              <rect x=\"104\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"130\" y=\"114\">BIKER</text>\r\n              <rect x=\"194\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"220\" y=\"114\">RUNNER</text>\r\n            </g>\r\n          </g>\r\n          <!-- (b) may or may not, not two = partial + disjoint -->\r\n          <g transform=\"translate(260,0)\">\r\n            <text x=\"130\" y=\"14\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\" fill=\"#065f46\">(b) optional, not two = partial + disjoint</text>\r\n            <rect x=\"95\" y=\"22\" width=\"70\" height=\"22\" rx=\"2\" fill=\"#eef3ff\" stroke=\"#1d4ed8\" stroke-width=\"1.2\"/><text x=\"130\" y=\"37\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#1e3a8a\">PERSON</text>\r\n            <line x1=\"130\" y1=\"44\" x2=\"130\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/>\r\n            <circle cx=\"130\" cy=\"67\" r=\"9\" fill=\"#fff\" stroke=\"#18232b\" stroke-width=\"1.2\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#b91c1c\">d</text>\r\n            <path d=\"M130 76 v10 h-90 v8 M130 76 v18 M130 76 v10 h90 v8\" fill=\"none\" stroke=\"#18232b\" stroke-width=\"1.1\"/>\r\n            <g font-size=\"7\" fill=\"#1e3a8a\" text-anchor=\"middle\" font-weight=\"bold\">\r\n              <rect x=\"14\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"40\" y=\"114\">CAMPER</text>\r\n              <rect x=\"104\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"130\" y=\"114\">BIKER</text>\r\n              <rect x=\"194\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"220\" y=\"114\">RUNNER</text>\r\n            </g>\r\n          </g>\r\n          <!-- (c) optional, may be several = partial + overlap -->\r\n          <g transform=\"translate(0,160)\">\r\n            <text x=\"130\" y=\"14\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\" fill=\"#065f46\">(c) optional, may be several = partial + overlap</text>\r\n            <rect x=\"95\" y=\"22\" width=\"70\" height=\"22\" rx=\"2\" fill=\"#eef3ff\" stroke=\"#1d4ed8\" stroke-width=\"1.2\"/><text x=\"130\" y=\"37\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#1e3a8a\">PERSON</text>\r\n            <line x1=\"130\" y1=\"44\" x2=\"130\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/>\r\n            <circle cx=\"130\" cy=\"67\" r=\"9\" fill=\"#fff\" stroke=\"#18232b\" stroke-width=\"1.2\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#0e7490\">o</text>\r\n            <path d=\"M130 76 v10 h-90 v8 M130 76 v18 M130 76 v10 h90 v8\" fill=\"none\" stroke=\"#18232b\" stroke-width=\"1.1\"/>\r\n            <g font-size=\"7\" fill=\"#1e3a8a\" text-anchor=\"middle\" font-weight=\"bold\">\r\n              <rect x=\"14\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"40\" y=\"114\">CAMPER</text>\r\n              <rect x=\"104\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"130\" y=\"114\">BIKER</text>\r\n              <rect x=\"194\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"220\" y=\"114\">RUNNER</text>\r\n            </g>\r\n          </g>\r\n          <!-- (d) at least one = total + overlap -->\r\n          <g transform=\"translate(260,160)\">\r\n            <text x=\"130\" y=\"14\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\" fill=\"#065f46\">(d) at least one = total + overlap</text>\r\n            <rect x=\"95\" y=\"22\" width=\"70\" height=\"22\" rx=\"2\" fill=\"#eef3ff\" stroke=\"#1d4ed8\" stroke-width=\"1.2\"/><text x=\"130\" y=\"37\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#1e3a8a\">PERSON</text>\r\n            <line x1=\"127\" y1=\"44\" x2=\"127\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/><line x1=\"133\" y1=\"44\" x2=\"133\" y2=\"58\" stroke=\"#18232b\" stroke-width=\"1.2\"/>\r\n            <circle cx=\"130\" cy=\"67\" r=\"9\" fill=\"#fff\" stroke=\"#18232b\" stroke-width=\"1.2\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\" fill=\"#0e7490\">o</text>\r\n            <path d=\"M130 76 v10 h-90 v8 M130 76 v18 M130 76 v10 h90 v8\" fill=\"none\" stroke=\"#18232b\" stroke-width=\"1.1\"/>\r\n            <g font-size=\"7\" fill=\"#1e3a8a\" text-anchor=\"middle\" font-weight=\"bold\">\r\n              <rect x=\"14\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"40\" y=\"114\">CAMPER</text>\r\n              <rect x=\"104\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"130\" y=\"114\">BIKER</text>\r\n              <rect x=\"194\" y=\"102\" width=\"52\" height=\"18\" rx=\"2\" fill=\"#fff\" stroke=\"#1d4ed8\" stroke-width=\"1\"/><text x=\"220\" y=\"114\">RUNNER</text>\r\n            </g>\r\n          </g>\r\n        </svg>\r\n        <figcaption>Figure 2.12. The four PERSON segments. \"Exactly one\" is total (double\r\n        line) and disjoint (d). \"May or may not, but not two\" keeps disjoint but drops to\r\n        partial (single line). \"May be several\" switches to overlap (o) and stays partial.\r\n        \"At least one\" is total (double line) with overlap (o).</figcaption>\r\n      </figure>",
         "working": "",
         "answer": "Work the steps above.",
@@ -2146,7 +2146,7 @@
   {
     "slug": "xml-json",
     "part": "Part B: modelling",
-    "kick": "Module Two &middot; Unit 3",
+    "kick": "Module Two · Unit 3",
     "title": "Semi-Structured Models: XML and JSON",
     "lead": "Not all data fits neatly into a table with fixed columns. Semi-structured\r\n  models keep some structure, tags and nesting, while letting every record differ. XML and\r\n  JSON are the two you must be able to read and write.",
     "minutes": 12,
@@ -2251,7 +2251,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 21/22 Q1(iii) &middot; PQ 21/22 Q5a",
+        "tag": "PQ 21/22 Q1(iii) · PQ 21/22 Q5a",
         "problem": "<p>Differentiate between SQL and NoSQL databases.</b></p>",
         "working": "\r\n      <p>A <b>SQL (relational)</b> database stores data in tables with a fixed schema and\r\n      relationships enforced by keys, and is queried with SQL; it favours strong consistency\r\n      and structured data. A <b>NoSQL</b> database stores data in flexible forms (documents,\r\n      key-value pairs, wide-columns, graphs) with little or no fixed schema, and scales out\r\n      across many machines; it favours flexibility and horizontal scaling over strict\r\n      structure. Use SQL when the data is regular and integrity matters most; use NoSQL when\r\n      the data is varied, huge, or rapidly changing.</p>",
         "answer": "Work the steps above.",
@@ -2278,7 +2278,7 @@
   {
     "slug": "worked-models",
     "part": "Part B: modelling",
-    "kick": "Module Two &middot; Unit 4",
+    "kick": "Module Two · Unit 4",
     "title": "Worked Conceptual Models",
     "lead": "Everything in this module, applied. Five everyday systems, each turned from\r\n  a sentence into an ER diagram. If you can do these cold, you can do any modelling question\r\n  the paper sets.",
     "minutes": 16,
@@ -2387,7 +2387,7 @@
   {
     "slug": "relational-model",
     "part": "Part C: the relational model",
-    "kick": "Module Three &middot; Unit 1",
+    "kick": "Module Three · Unit 1",
     "title": "The Relational Model",
     "lead": "A relation is a table, and that is nearly the whole idea. The marks are in\r\n  the precise vocabulary, the several kinds of key, and the two integrity rules, all of which\r\n  the examiner asks for by their exact names.",
     "minutes": 22,
@@ -2454,7 +2454,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 25/26 Q4a &middot; PQ 24/25 Q1a &middot; PQ 15/16 Q4a",
+        "tag": "PQ 25/26 Q4a · PQ 24/25 Q1a · PQ 15/16 Q4a",
         "problem": "<p>Describe the relational data model; and define relation, relational algebra,\r\n      data model, attribute and tuple, domain, degree and cardinality.</b></p>",
         "working": "\r\n      <p>The <b>relational data model</b> represents all data as a collection of\r\n      <b>relations</b> (two-dimensional tables of rows and columns), where relationships\r\n      between data are expressed by common values, not by pointers. A <b>relation</b> is a\r\n      table with named columns and unordered rows. <b>Relational algebra</b> is the set of\r\n      operations (select, project, join, and so on) used to query relations, covered in Module\r\n      Five. A <b>data model</b> is a collection of concepts for describing data, its\r\n      relationships, and its constraints. An <b>attribute</b> is a column; a <b>tuple</b> is a\r\n      row. A <b>domain</b> is the set of permitted values of an attribute. <b>Degree</b> is the\r\n      number of attributes; <b>cardinality</b> is the number of tuples.</p>",
         "answer": "Work the steps above.",
@@ -2481,7 +2481,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q5a &middot; PQ 23/24 Q1a &middot; PQ 25/26 Q6a",
+        "tag": "PQ 24/25 Q5a · PQ 23/24 Q1a · PQ 25/26 Q6a",
         "problem": "<p>Define: primary key, candidate key, foreign key, super key, alternate key,\r\n      schema, tuple.</b></p>",
         "working": "\r\n      <p>All are in the boxes above. Compact model answers: a <b>super key</b> uniquely\r\n      identifies a row but may carry spare attributes; a <b>candidate key</b> is a super key\r\n      with nothing spare; the <b>primary key</b> is the chosen candidate key and is never\r\n      null; an <b>alternate key</b> is a candidate key not chosen; a <b>foreign key</b> matches\r\n      a primary key elsewhere and links the two relations; a <b>schema</b> is a relation's\r\n      name and its attributes; a <b>tuple</b> is one row.</p>",
         "answer": "Work the steps above.",
@@ -2573,7 +2573,7 @@
   {
     "slug": "logical-design",
     "part": "Part C: the relational model",
-    "kick": "Module Three &middot; Unit 2",
+    "kick": "Module Three · Unit 2",
     "title": "From Conceptual to Logical Design",
     "lead": "The mechanical step every year: an ER or EER diagram is handed to you and\r\n  you turn it into relations. There is a fixed set of rules; learn them and the question\r\n  becomes bookkeeping.",
     "minutes": 18,
@@ -2733,7 +2733,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 23/24 Q4c &middot; PQ 23/24 Q4b",
+        "tag": "PQ 23/24 Q4c · PQ 23/24 Q4b",
         "problem": "<p><b>Vacation Property Rentals.</b> RENTER signs a RENTAL AGREEMENT which books a\r\n      PROPERTY; PROPERTY is a disjoint supertype over BEACH (Blocks to Beach) and MOUNTAINS\r\n      (Activity), and has a unary relationship on itself.</p>",
         "working": "\r\n<pre class=\"code\">RENTER(RenterID, FirstName, MI, LastName, Address, Phone)   PK RenterID\r\nRENTAL_AGREEMENT(AgreementID, BeginDate, EndDate, RenterID, PropertyID)\r\n   PK AgreementID  FK RenterID -> RENTER  FK PropertyID -> PROPERTY\r\nPROPERTY(PropertyID, Street, City, State, Zip, Rooms, BaseRate, PropertyType, NearbyID)\r\n   PK PropertyID   FK NearbyID -> PROPERTY   (the recursive link)\r\nBEACH_PROPERTY(PropertyID, BlocksToBeach)      PK PropertyID  FK -> PROPERTY\r\nMOUNTAINS_PROPERTY(PropertyID, Activity)       PK PropertyID  FK -> PROPERTY</pre>\r\n      <p><b>Patient and treatment (23/24 Q4b).</b> PHYSICIAN treats PATIENT through the\r\n      associative PATIENT TREATMENT, which references a TREATMENT catalogue.</p>\r\n<pre class=\"code\">PHYSICIAN(PhysicianID, PhysicianName)          PK PhysicianID\r\nPATIENT(PatientID, PatientName)                PK PatientID\r\nTREATMENT(TreatmentCode, Description)          PK TreatmentCode\r\nPATIENT_TREATMENT(PatientID, PhysicianID, TreatmentCode, PTDate, PTTime, PTResults)\r\n   PK (PatientID, PhysicianID, PTDate)\r\n   FK PatientID -> PATIENT  FK PhysicianID -> PHYSICIAN  FK TreatmentCode -> TREATMENT</pre>",
         "answer": "Work the steps above.",
@@ -2750,7 +2750,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 20/21 mid Q1 &middot; PQ 15/16 Q1d convert ER to tables",
+        "tag": "PQ 20/21 mid Q1 · PQ 15/16 Q1d convert ER to tables",
         "problem": "<p>The general recipe applies to the Project/Organisation/Employee diagrams these\r\n      questions give. Work top-down through the mapping rules: every entity a relation, every\r\n      one-to-many a foreign key on the many side, every many-to-many a link relation, every\r\n      subtype a relation sharing the supertype key. For example, an ORGANISATION executes many\r\n      PROJECTs and employs many EMPLOYEEs, with a WorksFor link and a payment history:</p>",
         "working": "\r\n<pre class=\"code\">ORGANISATION(OrgID, Name, Address, City, State)   PK OrgID\r\nPROJECT(ProjectID, Name, Purpose, StartDate, EndDate, OrgID)\r\n   PK ProjectID   FK OrgID -> ORGANISATION            (Executes, 1:M)\r\nEMPLOYEE(SSN, Name, DOB, Address, City)            PK SSN\r\nWORKS_FOR(SSN, OrgID, Cost)                         PK (SSN, OrgID)\r\n   FK SSN -> EMPLOYEE  FK OrgID -> ORGANISATION       (WorksFor, M:N)</pre>",
         "answer": "Work the steps above.",
@@ -2777,7 +2777,7 @@
   {
     "slug": "normalization",
     "part": "Part C: the relational model",
-    "kick": "Module Four &middot; Unit 1",
+    "kick": "Module Four · Unit 1",
     "title": "Normalization",
     "lead": "A procedure with a fixed set of steps. You are given a table and its\r\n  functional dependencies; you produce a set of relations in third normal form, or Boyce-Codd\r\n  normal form, showing your working. Master one worked example and the rest are the same\r\n  moves.",
     "minutes": 26,
@@ -2866,7 +2866,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q3b &middot; PQ 23/24 Q3b &middot; PQ 25/26 Q1b (determinant)",
+        "tag": "PQ 24/25 Q3b · PQ 23/24 Q3b · PQ 25/26 Q1b (determinant)",
         "problem": "<p>Explain full, partial, and transitive functional dependency with examples; and\r\n      explain a determinant.</b></p>",
         "working": "\r\n      <p>A <b>determinant</b> is the attribute (or set of attributes) on the left of a\r\n      functional dependency, the thing that determines another. In fd propertyNo &rarr;\r\n      pAddress, propertyNo is the determinant. The three dependency types are in the box above;\r\n      the one-line hooks are: <b>full</b> needs the whole composite key, <b>partial</b> needs\r\n      only part of it, <b>transitive</b> reaches the key only through a non-key attribute.\r\n      (For 25/26's EMPLOYEE2, the determinants are EmpID &rarr; Name, DeptName, Salary, and\r\n      the composite (EmpID, CourseTitle) &rarr; DateCompleted, the only full dependency.)</p>",
         "answer": "Work the steps above.",
@@ -2893,7 +2893,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 24/25 Q3a &middot; PQ 23/24 Q3a",
+        "tag": "PQ 24/25 Q3a · PQ 23/24 Q3a",
         "problem": "<p>What is normalization?</b> Normalization is a step-by-step process that\r\n      organises the attributes of a database into well-structured relations by removing\r\n      redundancy and the update, insertion, and deletion anomalies it causes, using functional\r\n      dependencies to decide how to split the tables.</p>",
         "working": "",
         "answer": "Work the steps above.",
@@ -2913,7 +2913,7 @@
       {
         "kind": "asprinted",
         "label": "Exam question",
-        "tag": "PQ 25/26 Q6 &middot; PQ 24/25 Q3c",
+        "tag": "PQ 25/26 Q6 · PQ 24/25 Q3c",
         "src": "",
         "printed": "<pre><p>Given StaffPropertyInspection(propertyNo, pAddress, iDate, iTime, comments, staffNo,\r\n      carReg, sName) with primary key (propertyNo, iDate): draw the FD diagram, explain\r\n      transitive dependency, and normalize to 3NF.</p>\r\n      <p class=\"small\">FDs: fd1 (propertyNo, iDate) &rarr; iTime, comments, staffNo, carReg,\r\n      sName; fd2 propertyNo &rarr; pAddress; fd3 staffNo &rarr; sName; fd4 (staffNo, iDate)\r\n      &rarr; carReg.</p></pre>"
       },
@@ -2941,7 +2941,7 @@
       {
         "kind": "asprinted",
         "label": "Exam question",
-        "tag": "PQ 20/21 Q2b &middot; PQ 19/20 Q3 &middot; PQ 15/16 Q3 &middot; DECK",
+        "tag": "PQ 20/21 Q2b · PQ 19/20 Q3 · PQ 15/16 Q3 · DECK",
         "src": "",
         "printed": "<pre><p>Patient_Appointment(StaffNo, DentistName, PNo, PName, ADate, ATime, SurgeonNo).\r\n      Determine the candidate keys and normalize to Boyce-Codd normal form. FDs: (PNo, ADate)\r\n      &rarr; StaffNo, ATime, DentistName, SurgeonNo; PNo &rarr; PName; StaffNo &rarr;\r\n      DentistName; (StaffNo, ADate) &rarr; SurgeonNo; (ADate, ATime, SurgeonNo) &rarr; PNo,\r\n      PName, StaffNo, DentistName; (StaffNo, ADate, ATime) &rarr; PNo, PName.</p></pre>"
       },
@@ -3004,7 +3004,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 20/21 mid Q3 Wellmeadows &middot; TEXT M4U1",
+        "tag": "PQ 20/21 mid Q3 Wellmeadows · TEXT M4U1",
         "problem": "<p><b>Wellmeadows patient-medication form (20/21 mid).</b> Same method: from the form,\r\n      the FDs are patientNo &rarr; patient details; drugNo &rarr; drug name, description; and\r\n      (patientNo, drugNo) &rarr; the prescription details. Normalizing to 3NF gives Patient,\r\n      Drug, and Prescription relations, with the prescription keyed by (patientNo, drugNo).</p>",
         "working": "\r\n      <p><b>The course text's normalization exercises</b> (Pine Valley INVOICE, DreamHome\r\n      Customer_Rental) follow the identical UNF &rarr; 1NF &rarr; 2NF &rarr; 3NF path: remove\r\n      repeating groups, then partial dependencies, then transitive dependencies, ending in\r\n      CUSTOMER, PRODUCT, ORDER, ORDER_LINE (Pine Valley) or Customer, Property, Rental, Owner\r\n      (DreamHome).</p>",
         "answer": "Work the steps above.",
@@ -3020,7 +3020,7 @@
         "kind": "recall",
         "label": "Recall",
         "tag": "Cover the answers",
-        "question": "<p class=\"q\">1. Which anomaly loses data when you delete a row?</p>\r\n      <p class=\"q\">2. What does 2NF remove? 3NF? BCNF?</p>\r\n      <p class=\"q\">3. staffNo is not part of the key; staffNo &rarr; sName. Partial or\r\n      transitive?</p>\r\n      <p class=\"q\">4. Give the BCNF condition in one line.</p>\r\n      <p class=\"q\">5. For R(ABCD) with B &rarr; C &rarr; A, C &rarr; D, what is the candidate\r\n      key?</p>\r\n      <hr class=\"cut\">\r\n      <p class=\"alabel\">Answers</p>\r\n      <p class=\"small\">1. The deletion anomaly. 2. 2NF removes partial dependencies; 3NF\r\n      removes transitive dependencies; BCNF removes determinants that are not candidate keys.\r\n      3. Transitive (the determinant is a non-key attribute). 4. Every determinant is a\r\n      candidate key. 5. B.</p>",
+        "question": "<p class=\"q\">1. Which anomaly loses data when you delete a row?</p>\r\n      <p class=\"q\">2. What does 2NF remove? 3NF? BCNF?</p>\r\n      <p class=\"q\">3. staffNo is not part of the key; staffNo → sName. Partial or\r\n      transitive?</p>\r\n      <p class=\"q\">4. Give the BCNF condition in one line.</p>\r\n      <p class=\"q\">5. For R(ABCD) with B → C → A, C → D, what is the candidate\r\n      key?</p>\r\n      <hr class=\"cut\">\r\n      <p class=\"alabel\">Answers</p>\r\n      <p class=\"small\">1. The deletion anomaly. 2. 2NF removes partial dependencies; 3NF\r\n      removes transitive dependencies; BCNF removes determinants that are not candidate keys.\r\n      3. Transitive (the determinant is a non-key attribute). 4. Every determinant is a\r\n      candidate key. 5. B.</p>",
         "answer": "See the section above."
       },
       {
@@ -3037,7 +3037,7 @@
   {
     "slug": "relational-algebra",
     "part": "Part D: asking questions of it",
-    "kick": "Module Five &middot; Unit 1",
+    "kick": "Module Five · Unit 1",
     "title": "Relational Algebra",
     "lead": "A small set of operations that each take one or two relations and produce a\r\n  new relation. Chain them and you can express any query. The exam asks you to define the\r\n  operations and to write expressions, so this unit does both.",
     "minutes": 20,
@@ -3109,7 +3109,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 25/26 Q4b &middot; PQ 15/16 Q5a",
+        "tag": "PQ 25/26 Q4b · PQ 15/16 Q5a",
         "problem": "<p>Explain six relational algebra operations with examples (15/16 asks for the\r\n      three basic ones).</b></p>",
         "working": "\r\n      <p>The three <b>basic</b> ones the older paper wants are <b>selection</b> (&#963;, choose\r\n      rows), <b>projection</b> (&#960;, choose columns), and <b>join</b> (&#8904;, combine two\r\n      relations on a match). The full six add <b>union</b> (&#8746;, combine two\r\n      union-compatible relations), <b>set difference</b> (&#8722;, rows in one but not the\r\n      other), and <b>Cartesian product</b> (&#215;, all pairings). Each takes relations and\r\n      returns a relation, which is why they chain.</p>",
         "answer": "Work the steps above.",
@@ -3220,7 +3220,7 @@
         "kind": "recall",
         "label": "Recall",
         "tag": "Cover the answers",
-        "question": "<p class=\"q\">1. Which operation chooses rows? Which chooses columns?</p>\r\n      <p class=\"q\">2. What symbol is a join? A selection?</p>\r\n      <p class=\"q\">3. When do you reach for division?</p>\r\n      <p class=\"q\">4. Boys has 2 rows, Girls has 3. How many rows in Boys &#215; Girls?</p>\r\n      <hr class=\"cut\">\r\n      <p class=\"alabel\">Answers</p>\r\n      <p class=\"small\">1. Selection (&#963;) chooses rows; projection (&#960;) chooses columns.\r\n      2. Join is &#8904;; selection is &#963;. 3. For \"works on all / for every\" queries.\r\n      4. 6 (2 &#215; 3).</p>",
+        "question": "<p class=\"q\">1. Which operation chooses rows? Which chooses columns?</p>\r\n      <p class=\"q\">2. What symbol is a join? A selection?</p>\r\n      <p class=\"q\">3. When do you reach for division?</p>\r\n      <p class=\"q\">4. Boys has 2 rows, Girls has 3. How many rows in Boys × Girls?</p>\r\n      <hr class=\"cut\">\r\n      <p class=\"alabel\">Answers</p>\r\n      <p class=\"small\">1. Selection (σ) chooses rows; projection (π) chooses columns.\r\n      2. Join is ⋈; selection is σ. 3. For \"works on all / for every\" queries.\r\n      4. 6 (2 × 3).</p>",
         "answer": "See the section above."
       },
       {
@@ -3237,7 +3237,7 @@
   {
     "slug": "sql",
     "part": "Part D: asking questions of it",
-    "kick": "Module Five &middot; Unit 2",
+    "kick": "Module Five · Unit 2",
     "title": "Structured Query Language (SQL)",
     "lead": "The language you actually type. SQL both defines the tables (DDL) and works\r\n  with the data in them (DML). The exam gives you a schema and a list of English requests;\r\n  your job is to write the statement for each. Every keyword below is introduced before it is\r\n  used.",
     "minutes": 24,
@@ -3422,7 +3422,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 20/21 Q1b &middot; PQ 15/16 Q5b",
+        "tag": "PQ 20/21 Q1b · PQ 15/16 Q5b",
         "problem": "<p>Hotel(hotelNo, hotelName, city); Room(roomNo, hotelNo, type, price); Booking(hotelNo,\r\n      guestNo, dateFrom, dateTo, roomNo); Guest(guestNo, guestName, guestAddress).</p>",
         "working": "\r\n<pre class=\"code\">-- how many hotels\r\nSELECT COUNT(*) FROM Hotel;\r\n-- full details of all hotels in London\r\nSELECT * FROM Hotel WHERE city = 'London';\r\n-- number of rooms in each hotel\r\nSELECT hotelNo, COUNT(*) AS rooms FROM Room GROUP BY hotelNo;\r\n-- guests in London, alphabetically by name (pattern match)\r\nSELECT guestName, guestAddress FROM Guest\r\nWHERE  guestAddress LIKE '%London%' ORDER BY guestName;\r\n-- double or family rooms below 40 per night, cheapest first\r\nSELECT * FROM Room WHERE type IN ('double','family') AND price &lt; 40\r\nORDER BY price;\r\n-- bookings with no dateTo\r\nSELECT * FROM Booking WHERE dateTo IS NULL;</pre>",
         "answer": "Work the steps above.",
@@ -3443,7 +3443,7 @@
         "kind": "worked",
         "mode": "model",
         "label": "Worked",
-        "tag": "PQ 19/20 Q4a &middot; PQ 21/22 Q1c",
+        "tag": "PQ 19/20 Q4a · PQ 21/22 Q1c",
         "problem": "<p>Product_t(Product_ID, Product_Description, Product_Finish, Standard_Price,\r\n      Product_Line_ID); Customer_t(Customer_ID, Customer_Name, Customer_Address, ...);\r\n      Orderline_t(Order_ID, Product_ID, Order_Quantity).</p>",
         "working": "\r\n<pre class=\"code\">-- desks and tables costing more than 300\r\nSELECT Product_Description, Product_Finish, Standard_Price FROM Product_t\r\nWHERE  Product_Description IN ('Desk','Table') AND Standard_Price &gt; 300;\r\n-- products priced between 200 and 300\r\nSELECT * FROM Product_t WHERE Standard_Price BETWEEN 200 AND 300;\r\n-- how many different items on order 1004\r\nSELECT COUNT(*) FROM Orderline_t WHERE Order_ID = 1004;\r\n-- address of a named customer, aliasing the table as NAME\r\nSELECT Customer_Address FROM Customer_t AS NAME\r\nWHERE  Customer_Name = 'Home Furnishings';\r\n-- average standard price\r\nSELECT AVG(Standard_Price) FROM Product_t;</pre>\r\n      <p>The 21/22 paper adds a <b>correlated subquery</b>: find staff earning more than every\r\n      staff member at branch B003:</p>\r\n<pre class=\"code\">SELECT * FROM Staff\r\nWHERE  salary &gt; ALL (SELECT salary FROM Staff WHERE branchNo = 'B003');</pre>",
         "answer": "Work the steps above.",
@@ -3478,7 +3478,7 @@
     "part": "Part E: prove it",
     "kick": "Worked Paper 2025/2026",
     "title": "Questions One to Three",
-    "lead": "Rubric as printed: <b>Attempt QUESTION ONE and any three (3) questions</b>,\r\n  in <b>3 hours</b>. Question One is compulsory and carries 17&frac12; marks, as does every\r\n  other question. Each question below appears three times over: the examiner's words, a\r\n  reading of them, then the answer.",
+    "lead": "Rubric as printed: <b>Attempt QUESTION ONE and any three (3) questions</b>,\r\n  in <b>3 hours</b>. Question One is compulsory and carries 17½ marks, as does every\r\n  other question. Each question below appears three times over: the examiner's words, a\r\n  reading of them, then the answer.",
     "minutes": 60,
     "modules": [],
     "blocks": [
@@ -3792,7 +3792,7 @@
     "part": "Part E: prove it",
     "kick": "Mock Examination Two",
     "title": "Question Paper",
-    "lead": "DTS224 Data Management I. Time: 2 hours. Answer Question One (compulsory) and\n  any three others. Each question carries 17&frac12; marks.",
+    "lead": "DTS224 Data Management I. Time: 2 hours. Answer Question One (compulsory) and\n  any three others. Each question carries 17½ marks.",
     "minutes": 90,
     "modules": [],
     "blocks": [
