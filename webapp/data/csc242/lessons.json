@@ -20,7 +20,7 @@
       },
       {
         "kind": "prose",
-        "html": "<p>This course has an official course text of 161 pages. <b>It does not\n  contain the exam.</b> That is not a complaint, it is a measurement. Every\n  past paper leans heavily on graph theory, trees, the properties of relations,\n  ordered sets and Boolean algebra. The official text covers none of them.\n  Searched end to end, it contains <span class=\"mention\">the word \"vertex\" zero\n  times, \"reflexive\" zero times, \"adjacency\" zero times, \"Handshaking\" zero\n  times, \"planar\" zero times</span>. Its five uses of the word \"graph\" are all\n  about plotting a function,\n  and its twelve uses of \"tree\" all belong to one worked example about trees\n  growing in a street.</p>"
+        "html": "<p>This course has an official course text of 161 pages, and <b>the text is the exam</b>. The lecturer generates the questions by feeding it to a model, which is how the two objective tests you have already sat were written, and it is why they quote the text almost word for word.</p><p>That was not always true. Every older paper leaned heavily on graph theory, trees, the properties of relations, ordered sets and Boolean algebra, none of which the text covers, and this crash course was originally built to teach those from zero. <b>They are no longer worth your time.</b> What the text contains is what you will be asked, and nothing else is.</p>"
       },
       {
         "kind": "prose",
@@ -301,7 +301,7 @@
         "kind": "teach",
         "label": "Teach",
         "tag": "Where each part goes in computing",
-        "html": "<p>Keep this map in your head. It also answers a question the examiner\n      likes to ask directly (2025/2026 Q2a asks for five justifications for\n      including discrete structures in a computer science curriculum).</p>\n      <table class=\"data\">\n        <tr><th>Topic</th><th>What it is for in computing</th></tr>\n        <tr><td>Logic</td><td>Circuit design, conditions in programs, database queries, proving a program correct, artificial intelligence</td></tr>\n        <tr><td>Sets</td><td>Data types, database tables, collections, search spaces</td></tr>\n        <tr><td>Relations</td><td>Relational databases, dependency between tasks, equivalence of states</td></tr>\n        <tr><td>Functions</td><td>Every subprogram, hashing, encryption, compression</td></tr>\n        <tr><td>Counting</td><td>Algorithm complexity, password strength, probability of collisions</td></tr>\n        <tr><td>Graphs</td><td>Networks, routing, the web, social networks, scheduling, compilers</td></tr>\n        <tr><td>Trees</td><td>File systems, search structures, parsing, decision procedures</td></tr>\n        <tr><td>Proof and induction</td><td>Showing an algorithm always works, not just on the cases you tried</td></tr>\n        <tr><td>Recurrence</td><td>The running time of a recursive algorithm</td></tr>\n      </table>"
+        "html": "<p>Keep this map in your head. It also answers a question the examiner\n      likes to ask directly (2025/2026 Q2a asks for five justifications for\n      including discrete structures in a computer science curriculum).</p>\n      <table class=\"data\">\n        <tr><th>Topic</th><th>What it is for in computing</th></tr>\n        <tr><td>Logic</td><td>Circuit design, conditions in programs, database queries, proving a program correct, artificial intelligence</td></tr>\n        <tr><td>Sets</td><td>Data types, database tables, collections, search spaces</td></tr>\n        \n        <tr><td>Functions</td><td>Every subprogram, hashing, encryption, compression</td></tr>\n        <tr><td>Counting</td><td>Algorithm complexity, password strength, probability of collisions</td></tr>\n        \n        \n        <tr><td>Proof and induction</td><td>Showing an algorithm always works, not just on the cases you tried</td></tr>\n        <tr><td>Recurrence</td><td>The running time of a recursive algorithm</td></tr>\n      </table><p class=\"gloss\">Graphs, trees and relations are deliberately absent from this map. They appear in older papers, but the CCODEL manual has twelve modules and none of them is graphs, trees, relations, posets or Boolean algebra, and the manual is what generates this paper.</p>"
       },
       {
         "kind": "asprinted",
@@ -3801,16 +3801,6 @@
       {
         "kind": "heading",
         "text": "The examined one"
-      },
-      {
-        "kind": "worked",
-        "mode": "model",
-        "label": "Worked example",
-        "tag": "PQ 24/25 Q6(b) vii, in the induction template",
-        "problem": "<p>The 2024/2025 paper asked for a proof that an m-ary tree of height h\r\n      has at most m<sup>h</sup> leaves. That question is quoted as printed and\r\n      answered in section 7.2, where the tree vocabulary lives. It is repeated\r\n      here in the three-step layout so you can see the same proof through this\r\n      section's frame, because the two are the same argument written for two\r\n      different markers.</p>",
-        "working": "\r\n      <dl class=\"params\">\r\n        <dt>Given</dt><dd>An m-ary tree of height h, that is a rooted tree in\r\n        which every vertex has at most m children.</dd>\r\n        <dt>Find</dt><dd>A proof that it has at most m<sup>h</sup> leaves.</dd>\r\n        <dt>Formula</dt><dd>Induction on the <b>height</b> h, not on the number\r\n        of vertices.</dd>\r\n      </dl>\r\n      <p class=\"marks\">Step 1. Base case, h = 0</p>\r\n      <p>A tree of height 0 is a single vertex, which is both the root and a\r\n      leaf. It has 1 leaf, and m<sup>0</sup> = 1, so the bound holds with\r\n      equality.</p>\r\n      <p class=\"marks\">Step 2. Inductive hypothesis</p>\r\n      <p>Assume every m-ary tree of height k has at most m<sup>k</sup>\r\n      leaves.</p>\r\n      <p class=\"marks\">Step 3. Inductive step</p>\r\n      <p>Let T be an m-ary tree of height k + 1. Remove the root. What remains\r\n      is at most m subtrees, one per child of the root, and each has height at\r\n      most k. By the hypothesis each has at most m<sup>k</sup> leaves. Every\r\n      leaf of T lies in one of them, so</p>\r\n      <p style=\"margin-left:12pt\">leaves of T &#8804;\r\n      m &#215; m<sup>k</sup> = m<sup>k+1</sup></p>\r\n      <p><b>Conclusion.</b> By induction the bound holds at every height.\r\n      &#9633;</p>\r\n      <p><b>Note what the induction was on.</b> Choosing the right quantity to\r\n      induct on is most of the skill. Inducting on the number of vertices here\r\n      would be painful, because removing a vertex from an m-ary tree need not\r\n      leave an m-ary tree of any convenient height. Height was the quantity that\r\n      made the step easy.</p>",
-        "answer": "Work the steps above.",
-        "redo": ""
       },
       {
         "kind": "heading",
