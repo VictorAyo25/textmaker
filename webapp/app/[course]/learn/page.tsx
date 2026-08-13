@@ -84,6 +84,9 @@ export default async function Page({
           <Link className="chip" href={`/${found.code.toLowerCase()}/learn/everything`}>
             Open everything on one page
           </Link>
+          <Link className="chip" href={`/${found.code.toLowerCase()}/learn/question-book`}>
+            The question book: every question by topic
+          </Link>
           <Link className="chip" href={`/${found.code.toLowerCase()}/learn/solutions`}>
             Every question solved and explained
           </Link>
