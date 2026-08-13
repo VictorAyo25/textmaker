@@ -63,15 +63,40 @@ const SPEED = {
 const esc = (s) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/** Carets to real superscripts, and "a over b" to a drawn fraction. */
+/**
+ * Carets to real superscripts, and "a over b" to a drawn fraction.
+ *
+ * Must behave exactly as components/Sci.tsx does, or the page and the printed
+ * manual disagree about the same sentence. Two rules matter: "+" counts as part
+ * of a term, so a denominator like (R1 + R2) survives; and BOTH sides must look
+ * like algebra, because "over" is an ordinary English word and the matcher was
+ * drawing prose as fractions.
+ */
+const MATH_WORDS = /^(sin|cos|tan|log|ln|exp|emf|sqrt)$/;
+const isAlgebra = (side) => {
+  // By this point carets are already <sup> tags, and "sup" would otherwise read
+  // as an English word and veto its own fraction.
+  const bare = side.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/g, ' ');
+  return (
+    bare.trim().length > 0 &&
+    !bare
+      .split(/[^A-Za-z]+/)
+      .some((w) => w.length >= 3 && w === w.toLowerCase() && !MATH_WORDS.test(w))
+  );
+};
+
 const sci = (raw) => {
   let s = esc(raw).replace(/\^(-?\d+)/g, (_, d) => `<sup>${d}</sup>`);
-  if ((s.split(' over ').length) === 2) {
-    const T = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻<>\\/\\w()\\s-]';
+  if (s.split(' over ').length === 2) {
+    const T = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻<>\\/\\w()+\\s-]';
     const re = new RegExp(
       `(${T}+?)\\s+over\\s+((?:${T}|\\.(?=\\d))+?)(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`
     );
-    s = s.replace(re, (_, a, b) => `<span class="frac"><span>${a.trim()}</span><span>${b.trim()}</span></span>`);
+    s = s.replace(re, (whole, a, b) =>
+      isAlgebra(a) && isAlgebra(b)
+        ? `<span class="frac"><span>${a.trim()}</span><span>${b.trim()}</span></span>`
+        : whole
+    );
   }
   return s;
 };

@@ -8,11 +8,13 @@ import { Worked, type WorkedSolution } from '@/components/Worked';
 import { Figure } from '@/components/Figure';
 import WORKED_TEST1 from '@/data/phy121/worked/test1.json';
 import WORKED_TEST2 from '@/data/phy121/worked/test2.json';
+import WORKED_DECKS from '@/data/phy121/worked/decks.json';
 
-/** Structured solutions, keyed by question id. Authored test by test. */
+/** Structured solutions, keyed by question id. Both real tests, then the decks. */
 const WORKED: Record<string, WorkedSolution> = {
   ...(WORKED_TEST1 as Record<string, WorkedSolution>),
   ...(WORKED_TEST2 as Record<string, WorkedSolution>),
+  ...(WORKED_DECKS as Record<string, WorkedSolution>),
 };
 import { buildBook, SPEED } from '@/lib/questionbook';
 

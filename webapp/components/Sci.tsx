@@ -34,11 +34,32 @@ const EXP = /\^(-?\d+)/g;
  */
 // The lookahead must NOT stop at a decimal point: "1500 over 0.5" was ending
 // the denominator at the dot and drawing a division by zero.
-const TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()\\s-]';
+// "+" belongs in a term: a denominator like (R₁ + R₂) is ordinary algebra, and
+// without it the match died at the plus and the word "over" printed literally.
+const TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()+\\s-]';
 const FRACTION = new RegExp(
   `(${TERM}+?)\\s+over\\s+((?:${TERM}|\\.(?=\\d))+?)` +
     `(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`
 );
+
+/**
+ * "over" is an ordinary English word as well as a fraction bar, and the matcher
+ * cannot tell them apart on its own. It was drawing "the influence of a point
+ * charge spreads OVER the surface of a sphere" as a stacked fraction, which is
+ * worse than not drawing one at all.
+ *
+ * So both sides must look like algebra before a rule is drawn. A side is
+ * algebra when it holds no run of three or more lowercase letters, since every
+ * symbol in this course is one or two letters (m, g, q, kQ, mv, emf) while
+ * every English word that matters here is longer. The few genuine three-letter
+ * maths words are named rather than guessed at.
+ */
+const MATH_WORDS = /^(sin|cos|tan|log|ln|exp|emf|sqrt)$/;
+const isAlgebra = (side: string) =>
+  side.trim().length > 0 &&
+  !side
+    .split(/[^A-Za-z]+/)
+    .some((w) => w.length >= 3 && w === w.toLowerCase() && !MATH_WORDS.test(w));
 
 function sup(text: string): React.ReactNode[] {
   const out: React.ReactNode[] = [];
@@ -63,7 +84,7 @@ export function Sci({ text }: { text: string }) {
   // simply wrong maths. Wrong is far worse than plain, so those stay as words.
   if (text.includes(' over ') && text.split(' over ').length === 2) {
     const m = FRACTION.exec(text);
-    if (m && m[1].trim() && m[2].trim()) {
+    if (m && isAlgebra(m[1]) && isAlgebra(m[2])) {
       const before = text.slice(0, m.index);
       const after = text.slice(m.index + m[0].length);
       return (

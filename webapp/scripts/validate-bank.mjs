@@ -1186,6 +1186,31 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
  *      the fact actually came from.
  */
 /**
+ * Would this line draw as a stacked fraction, or print the word "over"?
+ *
+ * A copy of components/Sci.tsx, deliberately. The gate has to answer the same
+ * question the renderer will answer at read time, and a gate that approximates
+ * the renderer passes lines the renderer then refuses.
+ */
+const FRAC_TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()+\\s-]';
+const FRAC = new RegExp(
+  `(${FRAC_TERM}+?)\\s+over\\s+((?:${FRAC_TERM}|\\.(?=\\d))+?)` +
+    `(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`
+);
+const FRAC_MATH_WORDS = /^(sin|cos|tan|log|ln|exp|emf|sqrt)$/;
+const fracSideIsAlgebra = (side) =>
+  side.trim().length > 0 &&
+  !side
+    .split(/[^A-Za-z]+/)
+    .some((x) => x.length >= 3 && x === x.toLowerCase() && !FRAC_MATH_WORDS.test(x));
+
+function drawsAFraction(text) {
+  if (text.split(' over ').length !== 2) return false;
+  const m = FRAC.exec(text);
+  return Boolean(m && fracSideIsAlgebra(m[1]) && fracSideIsAlgebra(m[2]));
+}
+
+/**
  * The structured worked solutions in data/<course>/worked/.
  *
  * These are the model answers: Given, the formula with every symbol defined,
@@ -1227,11 +1252,13 @@ function checkWorked(cfg, dir, all) {
     check(s.steps?.length >= 2, `${w}: fewer than two working lines, so it is not worked`);
     check(Boolean(s.check), `${w}: no check, so a slipped power of ten would go unnoticed`);
     check(Boolean(s.background), `${w}: no background, so it can only be crammed`);
-    // The fraction drawer needs exactly one "over" to know numerator from
-    // denominator; with two it gives up and the word prints literally.
+    // A formula line that SAYS "over" must actually draw as a fraction. Two
+    // separate things stop it: more than one "over" in the line, which the
+    // drawer refuses outright, and a side the drawer cannot parse as algebra.
+    // Either way the reader is shown the bare word, which looks like a typo.
     check(
-      (s.formula ?? '').split(' over ').length <= 2,
-      `${w}: two fractions in one formula line, so "over" would print as a word`
+      !(s.formula ?? '').includes(' over ') || drawsAFraction(s.formula),
+      `${w}: the formula says "over" but would print it as a word, not draw a fraction`
     );
     for (const [field, arr] of [
       ['steps', s.steps],
