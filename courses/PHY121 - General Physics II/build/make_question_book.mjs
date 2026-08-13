@@ -121,6 +121,21 @@ const sourceOf = (q) => {
   return t.join(', ') || 'Authored for this course';
 };
 
+/**
+ * A gap question stores its holes as {{1}}, which the drill turns into an input
+ * box. On paper there is no box, so the braces reached the reader raw. And its
+ * answer is not in `answer` at all, it is the accepted word of each blank, so
+ * the Answer line came out EMPTY on all 76 of them: 76 questions asked and
+ * never answered. Mirrors lib/questionbook.ts.
+ */
+const blanked = (p) => String(p ?? '').replace(/\{\{\d+\}\}/g, ' ______ ');
+const answerText = (q) => {
+  if (q.blanks?.length)
+    return q.blanks.map((b) => b.accept?.[0] ?? '').filter(Boolean).join(', ');
+  const a = Array.isArray(q.answer) ? q.answer : [q.answer];
+  return a.filter(Boolean).join(', ');
+};
+
 // Repeats, so they can be labelled rather than dropped.
 const norm = (q) => q.prompt.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 90);
 const groups = new Map();
@@ -173,7 +188,31 @@ for (const [num, title] of TOPICS) {
     body += `<span class="src">${esc(sourceOf(q))}</span></div>`;
     if (repeat.get(q.id))
       body += `<p class="rep"><b>Asked twice.</b> Also set as: ${esc(repeat.get(q.id))}.</p>`;
-    body += `<p class="prompt">${sci(q.prompt)}</p>`;
+    body += `<p class="prompt">${sci(blanked(q.prompt))}</p>`;
+
+    // The paper's own options first, lettered and unmarked, so the question can
+    // be attempted. A ticked green row above crossed red ones answers it before
+    // the reader has finished the stem.
+    if (q.options) {
+      body += '<ol class="rawopts">';
+      for (const o of q.options) body += `<li>${sci(o.text)}</li>`;
+      body += '</ol>';
+    } else if (q.blanks?.some((b) => b.choices?.length)) {
+      // A gap question offers its words in the blank, so it is attemptable too.
+      q.blanks.forEach((b, bi) => {
+        if (!b.choices?.length) return;
+        if (q.blanks.length > 1) body += `<p class="blanklab">Blank ${bi + 1}</p>`;
+        body += '<ol class="rawopts">';
+        for (const c of b.choices) body += `<li>${sci(c)}</li>`;
+        body += '</ol>';
+      });
+    }
+
+    // Everything past this line gives the answer away, so it is the same line on
+    // every question, options or not.
+    body += `<p class="attemptgap"><span>${
+      q.options ? 'Answer, and why each option is right or wrong' : 'Answer'
+    }</span></p>`;
 
     if (q.options) {
       body += '<ul class="opts">';
@@ -190,7 +229,7 @@ for (const [num, title] of TOPICS) {
         body += `<tr><td><b>${esc(p.left)}</b></td><td>${esc(p.right)}</td></tr>`;
       body += '</tbody></table>';
     } else {
-      body += `<p class="ans">Answer: <b>${esc(ans.join(', '))}</b></p>`;
+      body += `<p class="ans">Answer: <b>${esc(answerText(q))}</b></p>`;
     }
 
     const w = WORKED[q.id];
@@ -256,7 +295,17 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
    solution box; the article as a whole may break between them. */
 .q { border: 1px solid #d8e2da; border-radius: 6px; padding: 9px 11px; margin: 0 0 9px; }
 .qh, .prompt { page-break-after: avoid; }
-.opts, .pairs { page-break-inside: avoid; }
+.opts, .pairs, .rawopts { page-break-inside: avoid; }
+/* The options as the paper prints them: lettered, unmarked, uncoloured, so the
+   question can be attempted before the verdicts below give it away. */
+.rawopts { margin: 0 0 2px; padding-left: 20px; list-style: lower-alpha; }
+.rawopts li { padding: 1.5px 0; }
+.rawopts li::marker { color: #5b6b60; font-weight: 700; }
+.blanklab { font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #5b6b60; margin: 5px 0 1px; }
+/* The line that separates attempting from checking. */
+.attemptgap { display: flex; align-items: center; gap: 8px; margin: 11px 0 7px; page-break-after: avoid; }
+.attemptgap span { font-size: 6.6pt; letter-spacing: .1em; text-transform: uppercase; color: #5b6b60; white-space: nowrap; }
+.attemptgap::before, .attemptgap::after { content: ''; flex: 1; height: 1px; background: #d8e2da; }
 .qh { display: flex; gap: 8px; align-items: baseline; margin-bottom: 5px; flex-wrap: wrap; }
 .qn { background: #16261c; color: #fff; font-size: 7.6pt; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
 .pill { font-size: 7pt; text-transform: uppercase; letter-spacing: .05em; padding: 1px 7px; border-radius: 99px; border: 1px solid #d8e2da; color: #5b6b60; }

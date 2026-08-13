@@ -2043,6 +2043,28 @@ p.gloss {
 .solsrc { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.03em; }
 .soltopic { font-size: 0.72rem; color: var(--muted); margin-left: auto; }
 .solprompt { font-weight: 600; margin: 0 0 10px; overflow-wrap: anywhere; }
+/* The options exactly as the paper prints them: lettered, unmarked, uncoloured.
+   A reader has to be able to ATTEMPT the question, and a green row above a red
+   one answers it before they have read the stem. The verdicts come after. */
+.rawopts { margin: 0 0 4px; padding-left: 26px; list-style: lower-alpha; }
+.rawopts li { padding: 3px 0; overflow-wrap: anywhere; }
+.rawopts li::marker { color: var(--muted); font-weight: 600; }
+.blanklab { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 8px 0 2px; }
+/* The gap that separates attempting from checking, with a line you have to
+   cross deliberately. */
+.attemptgap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.attemptgap::before,
+.attemptgap::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
 .solopts { list-style: none; margin: 0 0 10px; padding: 0; }
 .solopt { display: flex; gap: 10px; padding: 7px 9px; border-radius: 8px; margin-bottom: 5px; background: var(--red-soft); overflow-wrap: anywhere; }
 .solopt.right { background: var(--green-soft); }

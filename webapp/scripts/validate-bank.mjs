@@ -718,6 +718,18 @@ function validate(q, where, cfg, seenIds) {
       );
   }
 
+  // Every question must be able to state its own answer in one line, because
+  // the question book prints exactly that. A gap question keeps its answer in
+  // blanks[].accept, NOT in `answer`, and reading the wrong field printed
+  // "Answer:" followed by nothing on all 76 of PHY121's gap questions: 76
+  // questions asked and never answered, in a book whose whole point is that
+  // every question is solved.
+  const stated = (q.blanks ?? []).length
+    ? (q.blanks ?? []).every((b) => (b.accept ?? []).some((x) => String(x ?? '').trim()))
+    : q.pairs?.length ||
+      (Array.isArray(q.answer) ? q.answer : [q.answer]).some((x) => String(x ?? '').trim());
+  check(Boolean(stated), `${at}: states no answer, so the question book would print a blank`);
+
   if (q.style === 'mcq' || q.style === 'multi') {
     const ids = (q.options ?? []).map((o) => o.id);
     check(ids.length >= 3, `${at}: needs at least 3 options`);

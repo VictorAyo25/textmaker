@@ -24,7 +24,7 @@ const WORKED: Record<string, WorkedSolution> = {
   ...(WORKED_RECALL as Record<string, WorkedSolution>),
   ...(WORKED_TUTORIAL as Record<string, WorkedSolution>),
 };
-import { buildBook, SPEED } from '@/lib/questionbook';
+import { answerText, blankedPrompt, buildBook, SPEED } from '@/lib/questionbook';
 
 /**
  * Every question this course owns, solved, arranged by topic and ordered easy
@@ -133,11 +133,50 @@ export default async function Page({ params }: { params: Promise<{ course: strin
                   </p>
                 )}
                 <p className="solprompt">
-                  <Sci text={q.prompt} />
+                  <Sci text={blankedPrompt(q)} />
                 </p>
                 {/* A question that carried a diagram on the slide or the test
                     must carry it here too, or it cannot be answered. */}
                 {q.figure && <Figure figure={q.figure} />}
+
+                {/* The paper's own options first, unmarked, so the question can
+                    be attempted. Only then the verdicts. */}
+                {q.options && (
+                  <ol className="rawopts">
+                    {q.options.map((o) => (
+                      <li key={o.id}>
+                        <Sci text={o.text} />
+                      </li>
+                    ))}
+                  </ol>
+                )}
+
+                {/* A gap question offers its words in the blank, so it is
+                    attemptable too, and should not be the one style that
+                    hands over its answer unasked. */}
+                {!q.options &&
+                  q.blanks?.map((b, bi) =>
+                    b.choices?.length ? (
+                      <div key={bi}>
+                        {(q.blanks?.length ?? 0) > 1 && (
+                          <p className="blanklab">Blank {bi + 1}</p>
+                        )}
+                        <ol className="rawopts">
+                          {b.choices.map((c) => (
+                            <li key={c}>
+                              <Sci text={c} />
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    ) : null
+                  )}
+
+                {/* Everything below this line gives the answer away, so it is
+                    the same line on every question, options or not. */}
+                <p className="attemptgap">
+                  {q.options ? 'Answer, and why each option is right or wrong' : 'Answer'}
+                </p>
 
                 {q.options && (
                   <ul className="solopts">
@@ -177,7 +216,7 @@ export default async function Page({ params }: { params: Promise<{ course: strin
 
                 {!q.options && !q.pairs && (
                   <p className="solans">
-                    Answer: <b>{answers.join(', ')}</b>
+                    Answer: <b>{answerText(q)}</b>
                   </p>
                 )}
 

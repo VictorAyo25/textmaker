@@ -56,6 +56,30 @@ export function sourceOf(q: Question): string {
   return tags.join(', ') || 'Authored for this course';
 }
 
+/**
+ * The prompt with its blanks drawn as blanks.
+ *
+ * A gap question stores its holes as {{1}}, {{2}}, which the drill turns into
+ * input boxes. On a printed page there is no box, and the raw braces reached
+ * the reader as "write the unknown with a {{1}} mark", which reads like a bug.
+ */
+export const blankedPrompt = (q: Question): string =>
+  (q.prompt ?? '').replace(/\{\{\d+\}\}/g, ' ______ ');
+
+/**
+ * What to print on the Answer line.
+ *
+ * For a gap question the answer is NOT in `answer`; it is the accepted word of
+ * each blank. Reading `answer` gave an empty line on all 76 of them, so the
+ * book asked 76 questions it never answered.
+ */
+export function answerText(q: Question): string {
+  if (q.blanks?.length)
+    return q.blanks.map((b) => b.accept?.[0] ?? '').filter(Boolean).join(', ');
+  const a = Array.isArray(q.answer) ? q.answer : [q.answer];
+  return a.filter(Boolean).join(', ');
+}
+
 const norm = (q: Question) =>
   (q.prompt ?? '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 90);
 
