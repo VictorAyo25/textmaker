@@ -1,0 +1,386 @@
+{
+  "phy-t2-01": {
+    "background": "A coil does not store energy in the wire, it stores it in the magnetic field filling the space around and inside the coil. Building that field takes work, because while the current is rising the coil fights back with an induced emf that opposes the change. Once the current is steady the fighting stops and the energy sits in the field, ready to be given back the instant you open the switch. That is why a switch sparks: the field collapses and dumps its energy across the gap.",
+    "given": [
+      "L = 2 H   (the inductance, in henries)",
+      "I = 5 A   (the steady current in the coil)"
+    ],
+    "find": "The energy U stored in the inductor, in joules (J)",
+    "formula": "U = ½LI²",
+    "why": "An inductance and a current are given and an energy is asked for, and this is the only formula joining those three. Notice its shape: a half, a property of the device, and the square of what flows through it. The capacitor version U = ½CV² has exactly the same shape, which is worth memorising as one pattern rather than two formulas.",
+    "symbols": [
+      "U = the stored magnetic energy, in joules",
+      "L = the inductance, in henries (H)",
+      "I = the current, in amperes, and it is SQUARED"
+    ],
+    "steps": [
+      "U = ½ × L × I²",
+      "I² = 5² = 25",
+      "U = ½ × 2 × 25",
+      "½ × 2 = 1",
+      "U = 1 × 25 = 25 J"
+    ],
+    "check": "The current is squared, so doubling the current to 10 A would give 100 J, four times as much, not twice. If halving or doubling a current changes your energy by the same factor, you dropped the square."
+  },
+
+  "phy-t2-02": {
+    "background": "A magnetic field only pushes on a charge that is MOVING, and only on the part of that motion which cuts across the field. Move exactly along the field lines and there is no force at all. Move exactly across them and the force is at its largest. Every angle in between is handled by sin θ, which is 0 when you move along the field and 1 when you move across it. That is the opposite of the flux formula, which uses cos θ, and mixing them up is the commonest way to lose this mark.",
+    "given": [
+      "F = 3.2 × 10⁻¹⁴ N   (the magnetic force felt by the proton)",
+      "B = 0.2 T   (the field strength, in teslas)",
+      "θ = 60°   (the angle between the velocity and the field)",
+      "q = 1.6 × 10⁻¹⁹ C   (the charge on a proton, given in the question)"
+    ],
+    "find": "The speed v of the proton, in m s⁻¹",
+    "formula": "F = qvB sin θ,  so  v = F over (qB sin θ)",
+    "why": "The question names a moving charge, a field, an angle and a force, which is exactly the four quantities this formula ties together. It is not the wire formula F = BIL, because nothing here carries a current along a length; it is a single particle. Rearranging for v means everything except F moves to the bottom.",
+    "symbols": [
+      "F = the magnetic force, in newtons",
+      "q = the charge on the particle, in coulombs",
+      "v = the speed of the particle, in m s⁻¹, which is what we want",
+      "B = the magnetic flux density, in teslas",
+      "θ = the angle between v and B, taking SINE not cosine"
+    ],
+    "steps": [
+      "Rearrange:  v = F ÷ (q B sin θ)",
+      "sin 60° = 0.866",
+      "Bottom, step one:  q × B = 1.6 × 10⁻¹⁹ × 0.2 = 3.2 × 10⁻²⁰",
+      "Bottom, step two:  3.2 × 10⁻²⁰ × 0.866 = 2.771 × 10⁻²⁰",
+      "v = (3.2 × 10⁻¹⁴) ÷ (2.771 × 10⁻²⁰)",
+      "Front numbers:  3.2 ÷ 2.771 = 1.155",
+      "Powers of ten:  10⁻¹⁴ ÷ 10⁻²⁰ = 10⁶",
+      "v = 1.155 × 10⁶ m s⁻¹"
+    ],
+    "check": "sin 60° is less than 1, so dividing by it makes the answer BIGGER than it would be at 90°. At 90° you would get 1.0 × 10⁶, and 1.155 × 10⁶ is duly larger. An answer smaller than the perpendicular case means you multiplied by the sine instead of dividing."
+  },
+
+  "phy-t2-03": {
+    "background": "A cell is not a perfect source. The chemicals inside it have resistance of their own, so some of the push the cell generates is used up driving current through the cell itself, before any of it reaches the circuit outside. The full push is the emf; what is left over at the terminals is the terminal p.d. This is why a torch battery that works fine dims when you add a second bulb: more current means more of the emf is lost inside.",
+    "given": [
+      "R = 5 Ω   (the external resistor)",
+      "r = 0.5 Ω   (the internal resistance of the cell)",
+      "I = 1 A   (the current flowing)"
+    ],
+    "find": "The emf E of the cell, in volts",
+    "formula": "E = I(R + r)",
+    "why": "The emf has to push the current through EVERYTHING in the loop, and the current meets the outside resistor and the inside of the cell one after the other. Resistances met one after the other simply add, so the total the emf works against is R + r. This is just Ohm's law applied to the whole circuit rather than to one component.",
+    "symbols": [
+      "E = the electromotive force, the full push of the cell, in volts",
+      "I = the current in the circuit, in amperes",
+      "R = the external or load resistance, in ohms",
+      "r = the internal resistance of the cell, in ohms"
+    ],
+    "steps": [
+      "Add the two resistances first:  R + r = 5 + 0.5 = 5.5 Ω",
+      "E = I × (R + r)",
+      "E = 1 × 5.5",
+      "E = 5.5 V"
+    ],
+    "check": "The emf must be LARGER than the terminal p.d., which here is IR = 1 × 5 = 5 V. It is, by exactly the 0.5 V lost inside the cell. If your emf ever comes out below IR, you subtracted where you should have added."
+  },
+
+  "phy-t2-04": {
+    "background": "This is the same cell idea as before, read from the other end. You are told what the outside world actually receives, the terminal p.d., and asked to work back to the full push the cell was generating. The lost volts, the part burned inside the cell, are exactly Ir. So emf = what got out + what was lost inside.",
+    "given": [
+      "r = 2 Ω   (internal resistance)",
+      "R = 5 Ω   (external resistor)",
+      "V = 1 V   (terminal p.d., the voltage actually across the 5 Ω)"
+    ],
+    "find": "The emf E of the cell, in volts",
+    "formula": "E = V + Ir",
+    "why": "The terminal p.d. is given, not the current, so the circuit has to be entered through Ohm's law on the external resistor first: the terminal p.d. is what sits across R, so I = V ÷ R. Once the current is known, the volts lost inside are Ir, and adding them back to V rebuilds the emf.",
+    "symbols": [
+      "E = the emf, the total push generated, in volts",
+      "V = the terminal p.d., what the outside circuit receives, in volts",
+      "I = the current, in amperes, found from V and R",
+      "r = the internal resistance, in ohms",
+      "Ir = the lost volts, the part used up inside the cell"
+    ],
+    "steps": [
+      "The terminal p.d. sits across R, so find I from Ohm's law:",
+      "I = V ÷ R = 1 ÷ 5 = 0.2 A",
+      "Lost volts inside the cell:  Ir = 0.2 × 2 = 0.4 V",
+      "E = V + Ir = 1 + 0.4",
+      "E = 1.4 V"
+    ],
+    "check": "Cross-check with the other form:  E = I(R + r) = 0.2 × (5 + 2) = 0.2 × 7 = 1.4 V. Two independent routes to the same number is the strongest check there is, and it costs one line."
+  },
+
+  "phy-t2-05": {
+    "background": "Ampère's law says that if you walk right around any closed loop and add up the magnetic field along your path, the total equals μ₀ times the current threaded through that loop. It is ALWAYS true. But being true and being useful are different things. To actually get B out of it you need the field to have the same size everywhere on your loop and to point along it, so it can be pulled outside the sum. That only happens when the arrangement has a shape that repeats itself: a long straight wire, a solenoid, a toroid.",
+    "find": "The word that completes: conductors with high ___",
+    "why": "Gauss's law for electricity has the identical restriction: always true, only solvable for spherical, cylindrical or flat charge distributions. If you can remember why Gauss's law needs a nicely shaped surface, you already know why Ampère's law needs a nicely shaped loop. They are the same argument in different clothes.",
+    "steps": [
+      "The answer is SYMMETRY.",
+      "Why not resistance: Ampère's law contains no resistance at all, only current and field.",
+      "Why not permeability: μ₀ appears as a constant of the medium, but a high value does not make the law easier to solve.",
+      "Why not current: a big current gives a big field, but it does nothing to make the field uniform along a loop, which is the actual difficulty."
+    ],
+    "check": "Test it on a real case. For a long straight wire you can draw a circle around it on which B is constant and tangential, so the law collapses to B × 2πr = μ₀I and B falls straight out. Try the same on a bent, lumpy conductor and there is no such circle, so the law still holds but gives you nothing. Symmetry is what made the difference."
+  },
+
+  "phy-t2-06": {
+    "background": "A transformer is judged by how much of the power fed in actually comes out the other side. Nothing is perfect: some energy heats the core through eddy currents, some is lost reversing the magnetisation, some warms the windings. Efficiency is simply the fraction that survives the trip, written as a percentage. Note that a transformer changes voltage and current but can never create power.",
+    "given": [
+      "Primary voltage Vp = 240 V",
+      "Primary current Ip = 1 A",
+      "Eight lamps, each rated 12 V and 24 W"
+    ],
+    "find": "The efficiency, as a percentage",
+    "formula": "efficiency = output power over input power",
+    "why": "Both powers can be built from what is given, so no transformer turns ratio is needed at all. The lamp voltage of 12 V is a distractor here: the lamps are rated 24 W each, and a wattage is already a power, so it can be used directly without touching the voltage.",
+    "symbols": [
+      "Output power = the total power the lamps actually consume, in watts",
+      "Input power = VpIp, what the mains delivers to the primary, in watts",
+      "Efficiency = the ratio of the two, multiplied by 100 to make a percentage"
+    ],
+    "steps": [
+      "Output power = 8 lamps × 24 W each",
+      "Output power = 192 W",
+      "Input power = Vp × Ip = 240 × 1",
+      "Input power = 240 W",
+      "efficiency = 192 ÷ 240 = 0.8",
+      "As a percentage:  0.8 × 100 = 80 %"
+    ],
+    "check": "Efficiency can never exceed 100 %, because a transformer has no source of energy of its own. If your fraction comes out above 1, you divided input by output instead of output by input. Here 192 is comfortably less than 240, so the answer is safely under 100 %."
+  },
+
+  "phy-t2-07": {
+    "background": "A current loop sitting in a magnetic field behaves exactly like a small compass needle. It has a magnetic moment, an arrow saying which way it is facing and how strongly, and the field tries to twist that arrow into line with itself. That twist is the torque. When the loop already lies along the field there is nothing left to twist, so the torque is zero; when it sits across the field the twist is greatest. This is precisely how an electric motor turns.",
+    "given": [
+      "τ = 4.8 × 10⁻³ N m   (the torque on the loop)",
+      "B = 0.6 T   (the field strength)",
+      "θ = 30°   (the angle between the magnetic moment and the field)"
+    ],
+    "find": "The magnetic dipole moment m of the loop, in A m²",
+    "formula": "τ = mB sin θ,  so  m = τ over (B sin θ)",
+    "why": "A torque, a field and an angle are given and a moment is wanted, and this formula is the only one linking those four. It takes SINE because the twist is greatest when the moment lies across the field and vanishes when it lies along it, which is exactly what sine does: sin 90° = 1 and sin 0° = 0.",
+    "symbols": [
+      "τ = the torque, in newton metres (N m)",
+      "m = the magnetic dipole moment, in ampere metres squared (A m²)",
+      "B = the magnetic flux density, in teslas",
+      "θ = the angle between the moment and the field"
+    ],
+    "steps": [
+      "Rearrange:  m = τ ÷ (B sin θ)",
+      "sin 30° = 0.5   (worth knowing by heart, no calculator needed)",
+      "Bottom:  B × sin θ = 0.6 × 0.5 = 0.3",
+      "m = (4.8 × 10⁻³) ÷ 0.3",
+      "Front numbers:  4.8 ÷ 0.3 = 16",
+      "m = 16 × 10⁻³ = 1.6 × 10⁻² A m²"
+    ],
+    "check": "16 × 10⁻³ and 1.6 × 10⁻² are the same number written two ways, so recognise your answer even when the options move the decimal point. If the angle had been 90° the moment needed would be only half as large, since a square-on loop feels the full twist from a smaller moment."
+  },
+
+  "phy-t2-08": {
+    "background": "A magnetic force always acts at right angles to the direction of travel. A force that is permanently sideways can never speed a particle up or slow it down, it can only bend it, so the particle keeps its speed and curls into a circle forever. That is the principle behind the cyclotron and behind the way a mass spectrometer separates isotopes: heavier particles have more momentum, so they curve more gently and land further along.",
+    "given": [
+      "m = 9.1 × 10⁻³¹ kg   (the mass of the electron)",
+      "q = 1.6 × 10⁻¹⁹ C   (the charge on the electron)",
+      "B = 0.03 T",
+      "v = 4 × 10⁶ m s⁻¹, entering PERPENDICULAR to the field"
+    ],
+    "find": "The radius r of the circular path, in metres",
+    "formula": "r = mv over (qB)",
+    "why": "It comes from setting the magnetic force equal to the centripetal force the circle requires: qvB = mv² ÷ r. Cancel one v from both sides and rearrange, and r = mv ÷ qB drops out. Because the particle enters perpendicular, sin θ = 1 and the angle disappears from the problem entirely. The top line, mv, is just momentum, which is the useful way to remember it: more momentum means a wider curve.",
+    "symbols": [
+      "r = the radius of the circular path, in metres",
+      "m = the mass of the particle, in kilograms",
+      "v = its speed, in m s⁻¹",
+      "q = its charge, in coulombs",
+      "B = the flux density, in teslas"
+    ],
+    "steps": [
+      "Top:  m × v = 9.1 × 10⁻³¹ × 4 × 10⁶",
+      "Front numbers:  9.1 × 4 = 36.4",
+      "Powers of ten:  10⁻³¹ × 10⁶ = 10⁻²⁵",
+      "Top = 36.4 × 10⁻²⁵ = 3.64 × 10⁻²⁴",
+      "Bottom:  q × B = 1.6 × 10⁻¹⁹ × 0.03 = 4.8 × 10⁻²¹",
+      "r = (3.64 × 10⁻²⁴) ÷ (4.8 × 10⁻²¹)",
+      "Front numbers:  3.64 ÷ 4.8 = 0.758",
+      "Powers of ten:  10⁻²⁴ ÷ 10⁻²¹ = 10⁻³",
+      "r = 0.758 × 10⁻³ = 7.58 × 10⁻⁴ m"
+    ],
+    "check": "Every option in this question is 7.58 with a different power of ten, so the whole mark rides on the exponent arithmetic and not on the multiplication. Do the powers of ten on their own line, as above, and the trap disappears. Sanity: 7.58 × 10⁻⁴ m is under a millimetre, which is believable for a light electron in a real laboratory field."
+  },
+
+  "phy-t2-09": {
+    "background": "A solenoid is a wire wound into a long tube. Each turn makes its own small circular field, and stacked side by side they reinforce each other inside the tube and largely cancel outside it. The result is a nearly uniform field down the middle, like a bar magnet made of wire. What matters is not how many turns you have but how tightly they are packed, which is why the formula uses turns PER METRE.",
+    "given": [
+      "L = 0.4 m   (the length of the solenoid)",
+      "N = 800 turns",
+      "B = 2.5 × 10⁻⁴ T   (the field inside)",
+      "μ₀ = 4π × 10⁻⁷ T m A⁻¹"
+    ],
+    "find": "The current I flowing through the solenoid, in amperes",
+    "formula": "B = μ₀nI,  so  I = B over (μ₀n)",
+    "why": "The word solenoid picks this formula out from its neighbours by a single feature: there is no π on the bottom. The long straight wire has 2πr underneath and the toroid has 2πr too, but the solenoid does not, because its field does not spread out radially. Spot the word solenoid and you have already halved the work.",
+    "symbols": [
+      "B = the field inside the solenoid, in teslas",
+      "μ₀ = the permeability of free space, 4π × 10⁻⁷",
+      "n = the number of turns PER METRE, found as N ÷ L",
+      "I = the current, in amperes",
+      "N = the total number of turns, which is NOT the same as n"
+    ],
+    "steps": [
+      "First turn N into n, turns per metre:",
+      "n = N ÷ L = 800 ÷ 0.4 = 2000 turns per metre",
+      "Bottom:  μ₀ × n = 4π × 10⁻⁷ × 2000",
+      "4π = 12.566, so 12.566 × 10⁻⁷ × 2000 = 2.513 × 10⁻³",
+      "I = B ÷ (μ₀n) = (2.5 × 10⁻⁴) ÷ (2.513 × 10⁻³)",
+      "Front numbers:  2.5 ÷ 2.513 = 0.995",
+      "Powers of ten:  10⁻⁴ ÷ 10⁻³ = 10⁻¹",
+      "I = 0.995 × 10⁻¹ = 0.0995 ≈ 0.1 A"
+    ],
+    "check": "The commonest error is feeding in 800 instead of 2000, which would make the current 2.5 times larger, about 0.25 A, and none of the options match that. Whenever a solenoid question gives a LENGTH, that length exists to convert N into n. If you never used it, you have made this mistake."
+  },
+
+  "phy-t2-10": {
+    "background": "The terminal voltage is what a voltmeter across the battery would actually read while current is flowing. It is always less than the emf, because part of the push is spent driving current through the cell's own internal resistance. Open the circuit so no current flows and the loss vanishes, which is why a flat battery can still read its full voltage until you put it under load.",
+    "given": [
+      "E = 9 V   (the emf)",
+      "r = 1 Ω   (the internal resistance)",
+      "I = 2 A   (the current in the circuit)"
+    ],
+    "find": "The terminal voltage V of the cell, in volts",
+    "formula": "V = E − Ir",
+    "why": "The emf is given and the terminal voltage is wanted, so this is the subtraction form, not E = I(R + r). The lost volts are Ir, and they are taken away because they are consumed inside the cell before anything reaches the terminals. Watching the sign is the whole question.",
+    "symbols": [
+      "V = the terminal voltage, what the external circuit gets, in volts",
+      "E = the emf, the total push, in volts",
+      "I = the current, in amperes",
+      "r = the internal resistance, in ohms",
+      "Ir = the volts lost inside the cell"
+    ],
+    "steps": [
+      "Lost volts:  I × r = 2 × 1 = 2 V",
+      "V = E − Ir",
+      "V = 9 − 2",
+      "V = 7 V"
+    ],
+    "check": "The answer must be below 9 V, always. One of the options is 11 V, which is the trap for anyone who added instead of subtracting, and 9 V is the trap for anyone who forgot the internal resistance entirely. Both are impossible: a cell cannot deliver more than it generates."
+  },
+
+  "phy-t2-11": {
+    "background": "Faraday found that it is not the magnetic field that makes an emf, but the CHANGE in how much of it passes through a loop. Hold a magnet still inside a coil, however strong, and nothing happens; move it and a voltage appears. The quantity that has to change is the flux, Φ = BA cos θ, which bundles three things at once: the strength of the field, the area of the loop, and the angle between them.",
+    "find": "The word that completes: a changing magnetic ___ induces an emf",
+    "formula": "emf = −N ΔΦ over Δt,   where Φ = BA cos θ",
+    "why": "Writing the law out shows exactly why the missing word is flux and not field. Because flux contains B, A and cos θ, an emf can be produced in three different ways: change the field strength, change the area of the loop, or simply rotate the loop in a steady field. A generator uses the third, spinning a coil between fixed magnets, and no answer built on the word field can explain that.",
+    "symbols": [
+      "emf = the induced voltage, in volts",
+      "N = the number of turns in the coil",
+      "Φ = the magnetic flux, in webers (Wb)",
+      "ΔΦ ÷ Δt = the RATE of change of flux, which is what actually matters",
+      "the minus sign = Lenz's law, saying the induced effect opposes the change that caused it"
+    ],
+    "steps": [
+      "The answer is FLUX.",
+      "Why not force: a force is a push on a charge or a wire, and it has nothing to change through a loop.",
+      "Why not moment: a magnetic moment describes a current loop as a source of field, not what passes through one.",
+      "Why not permeability: that is a property of the material and it is not what varies with time here."
+    ],
+    "check": "Two words earn the marks in Faraday questions: RATE and FLUX. Say rate of change of flux, and you have stated the law. Say a strong magnetic field induces an emf and you have said something false, because a strong field held still induces nothing at all."
+  },
+
+  "phy-t2-12": {
+    "background": "The Biot-Savart law is the magnetic twin of Coulomb's law. Coulomb tells you the electric field produced by one small piece of charge; Biot-Savart tells you the magnetic field produced by one small piece of current. Both spread their influence over the surface of a sphere as they travel outwards, and a sphere's area grows as r², so both are diluted by the same factor.",
+    "find": "The word that completes: decreases with the square of the ___",
+    "formula": "dB = μ₀I dl sin θ over (4πr²)",
+    "why": "The r² sitting on the bottom is the whole answer, and it is worth writing the law out to see it rather than trying to recall a sentence about it. The same r² appears in Coulomb's law for the same geometric reason, so the two laws can be remembered as one idea.",
+    "symbols": [
+      "dB = the tiny field contributed by one small piece of the wire",
+      "I = the current in the wire, in amperes",
+      "dl = the length of that small piece, in metres",
+      "r = the distance from that piece to the point of interest, and it is SQUARED",
+      "θ = the angle between the piece of wire and the line joining it to the point"
+    ],
+    "steps": [
+      "The answer is DISTANCE.",
+      "Why not current: the field is directly proportional to current, not inversely, and there is no square on it.",
+      "Why not permeability: μ₀ is a constant and does not vary from point to point.",
+      "Why not angle: the angle enters through sin θ, which is not a square at all."
+    ],
+    "check": "Guard against a real trap here. One small ELEMENT of current gives a field falling as 1/r², but a whole infinite straight WIRE gives a field falling as 1/r, because it is the sum of countless elements stretching away in both directions. The question says current element, so the square is right; had it said long straight wire, it would not be."
+  },
+
+  "phy-t2-13": {
+    "background": "The terminal p.d. of a cell is not measured inside the cell, it is what appears at the terminals, and that is the same voltage that sits across whatever is connected to them. So the moment a question gives you the terminal p.d. and the external resistor, Ohm's law on that resistor alone gives the current. The internal resistance has already had its effect: it is the reason the terminal p.d. is only 2 V instead of the full emf.",
+    "given": [
+      "R = 10 Ω   (the external resistor)",
+      "r = 5 Ω   (internal resistance of the battery)",
+      "V = 2 V   (the p.d. ACROSS THE TERMINALS)",
+      "t = 2 s   (the time given in the question)"
+    ],
+    "find": "The current I flowing through the 10 Ω resistor, in amperes",
+    "formula": "I = V over R",
+    "why": "The voltage given is the terminal p.d., and the terminal p.d. is precisely what is across the external resistor, so the current follows from Ohm's law on that resistor by itself. The 5 Ω is a distractor: dividing by 15 would answer a different question, the one where the EMF was 2 V rather than the terminal p.d. Reading which voltage you have been handed is the whole difficulty.",
+    "symbols": [
+      "I = the current, in amperes",
+      "V = the terminal p.d., in volts, equal to the p.d. across R",
+      "R = the external resistance, in ohms"
+    ],
+    "steps": [
+      "I = V ÷ R",
+      "I = 2 ÷ 10",
+      "I = 0.2 A"
+    ],
+    "check": "The 2 seconds never enters the calculation. In a steady d.c. circuit the current is the same at every instant, so a time can only matter if the question asks for charge (Q = It) or energy. It asks for current, so the time is there to be ignored. Notice too that dividing by 15 would give 0.133 A, which is not among the options, further confirming the reading."
+  },
+
+  "phy-t2-14": {
+    "background": "Current in a long straight wire wraps a magnetic field around itself in circles, like ripples round a stick in water. Grip the wire with your right hand, thumb along the current, and your fingers curl the way the field points. The field weakens as you move away, but only as 1/r, not 1/r², because the wire is a line rather than a point and there is always more of it stretching away to help.",
+    "given": [
+      "r = 5 cm = 0.05 m   (distance from the wire; convert first)",
+      "B = 4.0 × 10⁻⁵ T   (the measured field)",
+      "μ₀ = 4π × 10⁻⁷ T m A⁻¹"
+    ],
+    "find": "The current I in the wire, in amperes",
+    "formula": "B = μ₀I over (2πr)",
+    "why": "Long straight wire is the signature phrase for this formula. Its distinguishing mark against the solenoid is the 2πr underneath, which is the circumference of the circular field line you are standing on: the field spreads itself evenly around that circle, so the longer the circle, the weaker the field.",
+    "symbols": [
+      "B = the field at distance r, in teslas",
+      "μ₀ = the permeability of free space, 4π × 10⁻⁷",
+      "I = the current in the wire, in amperes",
+      "r = the perpendicular distance from the wire, in metres, NOT squared",
+      "2πr = the circumference of the field circle at that distance"
+    ],
+    "steps": [
+      "Convert:  5 cm = 0.05 m",
+      "Rearrange:  I = (2πrB) ÷ μ₀",
+      "I = (2π × 0.05 × 4.0 × 10⁻⁵) ÷ (4π × 10⁻⁷)",
+      "π cancels top and bottom, which is the tidy way to do it:",
+      "I = (2 × 0.05 × 4.0 × 10⁻⁵) ÷ (4 × 10⁻⁷)",
+      "Top:  2 × 0.05 = 0.1, then 0.1 × 4.0 × 10⁻⁵ = 4.0 × 10⁻⁶",
+      "I = (4.0 × 10⁻⁶) ÷ (4 × 10⁻⁷)",
+      "Front numbers:  4 ÷ 4 = 1",
+      "Powers of ten:  10⁻⁶ ÷ 10⁻⁷ = 10¹",
+      "I = 1 × 10 = 10 A"
+    ],
+    "check": "Cancelling π before touching the calculator removes the commonest slip in this question, which is keying 4π as 4 and then multiplying by π again. Sanity: 10 A is a large but ordinary current, and a field of tens of microteslas at 5 cm is the right order, being comparable to the Earth's own field."
+  },
+
+  "phy-t2-15": {
+    "background": "A transformer trades voltage against current using nothing but the number of turns on each coil. The primary's alternating current makes a changing flux in the iron core, the core carries that flux to the secondary, and every turn on the secondary picks up the same share of it. More turns therefore means more volts. Nothing is gained: whatever the voltage goes up by, the current comes down by, because power in equals power out in the ideal case.",
+    "given": [
+      "Ns = 1000 turns   (secondary)",
+      "Np = 100 turns   (primary)",
+      "Ep = 240 V   (primary voltage)"
+    ],
+    "find": "The secondary voltage Es, in volts",
+    "formula": "Es / Ep = Ns / Np",
+    "why": "The turns ratio and one voltage are given and the other voltage is wanted, which is exactly what this relation provides. The question also tells you which way the answer must go before any arithmetic: Ns is greater than Np, so this is a STEP-UP transformer and the secondary voltage must be larger than 240 V.",
+    "symbols": [
+      "Es = the secondary or output voltage, in volts",
+      "Ep = the primary or input voltage, in volts",
+      "Ns = the number of turns on the secondary coil",
+      "Np = the number of turns on the primary coil"
+    ],
+    "steps": [
+      "Rearrange:  Es = Ep × (Ns ÷ Np)",
+      "Turns ratio:  Ns ÷ Np = 1000 ÷ 100 = 10",
+      "Es = 240 × 10",
+      "Es = 2400 V"
+    ],
+    "check": "Decide step-up or step-down BEFORE calculating and half the options die immediately. Ns is bigger than Np, so the answer must be bigger than 240 V, which eliminates 24 V, 240 V and 2.4 V in one stroke. That leaves only 2400 V and 24000 V, and the ratio is 10, not 100."
+  }
+}

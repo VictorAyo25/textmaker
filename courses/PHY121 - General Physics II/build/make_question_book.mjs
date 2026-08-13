@@ -14,7 +14,11 @@ import { dirname, join } from 'node:path';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA = join(HERE, '..', '..', '..', 'webapp', 'data', 'phy121');
 
-const WORKED = JSON.parse(readFileSync(join(DATA, 'worked', 'test1.json'), 'utf8'));
+/** Structured solutions, keyed by question id. Same files the platform reads. */
+const WORKED = {};
+for (const f of readdirSync(join(DATA, 'worked')))
+  if (f.endsWith('.json'))
+    Object.assign(WORKED, JSON.parse(readFileSync(join(DATA, 'worked', f), 'utf8')));
 
 const qs = [];
 for (const f of readdirSync(DATA)) {

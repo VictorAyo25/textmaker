@@ -1185,6 +1185,72 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
  *      cites, so the reference chip printed under the answer is the reference
  *      the fact actually came from.
  */
+/**
+ * The structured worked solutions in data/<course>/worked/.
+ *
+ * These are the model answers: Given, the formula with every symbol defined,
+ * the working line by line, then a check. They live outside the bank because a
+ * question can be asked without being fully worked, so the two files can drift
+ * apart in four ways, and each one is silent unless something looks for it.
+ *
+ *   1. a solution keyed to an id that no question has, so it renders nowhere;
+ *   2. a stub with a heading and no working, which looks finished in a diff;
+ *   3. two fractions in one formula line, which the drawer refuses to render
+ *      and prints as the literal word "over" instead;
+ *   4. a repeated line inside one solution, which React keys by its text.
+ *
+ * The count of solved questions is printed either way, so a course that is
+ * only part-way through says so out loud rather than implying completeness.
+ */
+function checkWorked(cfg, dir, all) {
+  const workedDir = join(dir, 'worked');
+  if (!existsSync(workedDir)) return;
+
+  const ids = new Set(all.map((q) => q.id));
+  const solutions = new Map();
+  for (const f of readdirSync(workedDir).filter((f) => f.endsWith('.json'))) {
+    for (const [id, s] of Object.entries(
+      JSON.parse(readFileSync(join(workedDir, f), 'utf8'))
+    )) {
+      check(!solutions.has(id), `${cfg.code} worked/${f}: ${id} is solved twice`);
+      solutions.set(id, { ...s, file: f });
+    }
+  }
+
+  for (const [id, s] of solutions) {
+    const w = `${cfg.code} worked/${s.file} [${id}]`;
+    if (!ids.has(id)) {
+      problems.push(`${w}: solves a question that is not in the bank, so it renders nowhere`);
+      continue;
+    }
+    // A solution with no working is a heading, not an answer.
+    check(s.steps?.length >= 2, `${w}: fewer than two working lines, so it is not worked`);
+    check(Boolean(s.check), `${w}: no check, so a slipped power of ten would go unnoticed`);
+    check(Boolean(s.background), `${w}: no background, so it can only be crammed`);
+    // The fraction drawer needs exactly one "over" to know numerator from
+    // denominator; with two it gives up and the word prints literally.
+    check(
+      (s.formula ?? '').split(' over ').length <= 2,
+      `${w}: two fractions in one formula line, so "over" would print as a word`
+    );
+    for (const [field, arr] of [
+      ['steps', s.steps],
+      ['given', s.given],
+      ['symbols', s.symbols],
+    ])
+      check(
+        !arr || new Set(arr).size === arr.length,
+        `${w}: two identical lines in ${field}, which collide as React keys`
+      );
+  }
+
+  const exam = all.filter((q) => (q.slides ?? []).some((r) => /^Test \d+ Q/.test(r)));
+  const solvedExam = exam.filter((q) => solutions.has(q.id)).length;
+  console.log(
+    `    ${solvedExam === exam.length ? '.' : '!'} worked: ${solutions.size} model answers, covering ${solvedExam} of the ${exam.length} real test questions`
+  );
+}
+
 function checkLedger(cfg, dir, all) {
   const ledgerDir = join(dir, cfg.ledger);
   check(existsSync(ledgerDir), `${cfg.code}: no ledger directory at ${ledgerDir}`);
@@ -1508,6 +1574,8 @@ for (const cfg of COURSES) {
       }`
     );
   }
+
+  checkWorked(cfg, dir, all);
 
   const ledger = cfg.ledger ? checkLedger(cfg, dir, all) : null;
 

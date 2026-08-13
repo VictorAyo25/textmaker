@@ -121,5 +121,289 @@
       "|E| = 5.39"
     ],
     "check": "A magnitude is always LARGER than the biggest single component and SMALLER than their sum. Here 4 < 5.39 < 9. If your answer fails that, you added instead of squaring. Note the minus vanished when squared, which is why a magnitude can never be negative."
+  },
+
+  "phy-t1-02": {
+    "background": "Capacitors combine the OPPOSITE way round to resistors, and the reason is physical rather than arbitrary. Put two capacitors side by side across the same two points and you have simply built one capacitor with more plate area, so the capacitance adds. String them one after the other and the charge has to cross both gaps in turn, which is like building one capacitor with a wider gap, so the capacitance falls. Wide gap, weak capacitor.",
+    "given": [
+      "C₁ = 1 µF and C₂ = 5 µF, drawn one above the other in the SAME branch",
+      "C₃ = 8 µF, drawn in its own branch beside them",
+      "Both branches connect the same top wire to the same bottom wire"
+    ],
+    "find": "The total capacitance of the network, in µF",
+    "formula": "1/Cs = 1/C₁ + 1/C₂,   then   C = Cs + C₃",
+    "why": "Read the picture before reaching for a formula. C₁ and C₂ sit one after the other with no junction between them, which is the definition of SERIES, so their reciprocals add. That combined branch and C₃ both run from the top wire to the bottom wire, sharing the same two ends, which is the definition of PARALLEL, so those simply add. Series first, parallel last: work from the inside of the picture outwards.",
+    "symbols": [
+      "C₁, C₂ = the two capacitors in series, in microfarads",
+      "Cs = their combined series value, always SMALLER than either of them",
+      "C₃ = the capacitor in parallel with that branch",
+      "C = the total capacitance seen at the terminals"
+    ],
+    "steps": [
+      "Series pair first:  1/Cs = 1/C₁ + 1/C₂",
+      "1/Cs = 1/1 + 1/5",
+      "Common denominator:  1/Cs = 5/5 + 1/5 = 6/5",
+      "Turn it up the other way:  Cs = 5/6 = 0.833 µF",
+      "Now the parallel step:  C = Cs + C₃",
+      "C = 0.833 + 8",
+      "C = 8.83 ≈ 8.8 µF"
+    ],
+    "check": "Two guards, both instant. A series combination must come out SMALLER than the smallest capacitor in it, and 0.833 is duly under 1. And adding anything in parallel can only INCREASE the total, so the final answer must exceed 8. That single fact kills 5.1, 3.43 and 0.8 without any arithmetic at all. The remaining trap, 14.0, is what you get by adding all three as if they were parallel."
+  },
+
+  "phy-t1-04": {
+    "background": "Potential answers a different question from field. Field asks how hard a charge placed here would be pushed; potential asks how much energy it took to bring it here from far away. Because energy is a scalar there is no direction to worry about, only a sign. The key structural difference to hold on to: potential has a plain r underneath, field has r SQUARED. That one difference decides most questions in this topic.",
+    "given": [
+      "Q = +4 µC = 4 × 10⁻⁶ C",
+      "r₁ = 5 cm = 0.05 m",
+      "r₂ = 20 cm = 0.20 m",
+      "k = 9 × 10⁹ N m² C⁻²"
+    ],
+    "find": "The absolute potential V at each of the two distances, in volts",
+    "formula": "V = kQ over r",
+    "why": "The question asks for POTENTIAL, so r appears to the first power. Absolute potential means measured against infinity, where the potential is taken as zero, which is exactly what this formula gives, so no difference between two points is being asked for. Only one charge is named, so nothing has to be added vectorially.",
+    "symbols": [
+      "V = the absolute potential at that point, in volts",
+      "k = the Coulomb constant, 9 × 10⁹ N m² C⁻²",
+      "Q = the charge creating the potential, in coulombs",
+      "r = the distance from the charge, in metres, NOT squared"
+    ],
+    "steps": [
+      "kQ is the same for both parts, so compute it once:",
+      "kQ = 9 × 10⁹ × 4 × 10⁻⁶ = 36 × 10³ = 3.6 × 10⁴",
+      "At r₁:  V₁ = (3.6 × 10⁴) ÷ 0.05",
+      "V₁ = 720 000 V = 720 kV",
+      "At r₂:  V₂ = (3.6 × 10⁴) ÷ 0.20",
+      "V₂ = 180 000 V = 180 kV"
+    ],
+    "check": "The second distance is FOUR times the first, and potential goes as 1/r, so the second potential must be exactly a QUARTER of the first. 720 ÷ 4 = 180, which it is. Had the question asked for the field instead, the same four times further would have made it SIXTEEN times weaker, because of the square. Computing kQ once and dividing twice also saves half a minute under exam pressure."
+  },
+
+  "phy-t1-06": {
+    "background": "A parallel plate capacitor stores more charge when the plates are big, when the gap is small, and when the space between them is filled with an insulator rather than air. The insulator is called a dielectric, and it works because its molecules line up against the field and partly cancel it, which lowers the voltage for the same charge, and less voltage for the same charge means more capacitance. Its relative permittivity is simply the factor by which it improves things.",
+    "given": [
+      "A = 4 × 10⁻² m²   (area of each plate)",
+      "d = 10⁻³ m   (thickness of the dielectric, which is the plate separation)",
+      "εr = 7   (relative permittivity of the dielectric, a pure number)",
+      "ε₀ = 8.85 × 10⁻¹² F m⁻¹"
+    ],
+    "find": "The capacitance C, in farads",
+    "formula": "C = ε₀ εr A over d",
+    "why": "Plate area and plate separation are given, which is the signature of the parallel plate formula, and a dielectric is named, which supplies the εr factor. Without a dielectric the formula would be just ε₀A ÷ d; the dielectric multiplies it by 7. Note that the thickness of the dielectric IS the gap, because the dielectric fills the gap completely.",
+    "symbols": [
+      "C = the capacitance, in farads (F)",
+      "ε₀ = the permittivity of free space, 8.85 × 10⁻¹² F m⁻¹",
+      "εr = the relative permittivity, how many times better than vacuum, no unit",
+      "A = the area of ONE plate, in m²",
+      "d = the separation of the plates, in metres"
+    ],
+    "steps": [
+      "Top, part one:  ε₀ × εr = 8.85 × 10⁻¹² × 7 = 61.95 × 10⁻¹² = 6.195 × 10⁻¹¹",
+      "Top, part two:  × A = 6.195 × 10⁻¹¹ × 4 × 10⁻²",
+      "Front numbers:  6.195 × 4 = 24.78",
+      "Powers of ten:  10⁻¹¹ × 10⁻² = 10⁻¹³",
+      "Top = 24.78 × 10⁻¹³ = 2.478 × 10⁻¹²",
+      "Divide by d:  C = (2.478 × 10⁻¹²) ÷ 10⁻³",
+      "Powers of ten:  10⁻¹² ÷ 10⁻³ = 10⁻⁹",
+      "C = 2.478 × 10⁻⁹ F   (that is 2.478 nF)"
+    ],
+    "check": "The options are the same digits with the sign of the exponent flipped, so the exponent is the whole mark. A capacitance of 2.478 × 10⁺⁹ F would be larger than every capacitor ever built; real ones live in the picofarad to microfarad range, so a negative exponent is the only physically possible answer. That reasoning alone eliminates two options and the 4.77 F."
+  },
+
+  "phy-t1-07": {
+    "background": "The electric field is defined as the force felt per unit charge, so it is force divided by charge. Turn that definition around and it becomes a way of finding the force: put a charge in a known field and the force is simply the field times the charge. The field belongs to the region and exists whether or not anything is there to feel it; the force only appears when a charge is placed in it.",
+    "given": [
+      "q = +1.5 × 10⁻⁹ C",
+      "E = 2500 N C⁻¹   (uniform, so the same everywhere)"
+    ],
+    "find": "The magnitude of the force F on the charge, in newtons",
+    "formula": "F = qE",
+    "why": "ONE charge is named, not two, and a field is given rather than a second charge and a distance. That count decides it: two charges and a separation would need Coulomb's law, but one charge sitting in a ready-made field needs only this. Uniform means E does not change from place to place, so no distance is needed at all.",
+    "symbols": [
+      "F = the electric force, in newtons",
+      "q = the charge placed in the field, in coulombs",
+      "E = the field strength, in N C⁻¹, which is the same unit as V m⁻¹"
+    ],
+    "steps": [
+      "F = q × E",
+      "F = 1.5 × 10⁻⁹ × 2500",
+      "Write 2500 in standard form:  2.5 × 10³",
+      "Front numbers:  1.5 × 2.5 = 3.75",
+      "Powers of ten:  10⁻⁹ × 10³ = 10⁻⁶",
+      "F = 3.75 × 10⁻⁶ N"
+    ],
+    "check": "No distance appears anywhere in the question, which is the giveaway that no inverse square is involved. If you found yourself squaring something, you reached for Coulomb's law by reflex. The answer is a few micronewtons, which is right for a nanocoulomb sitting in an ordinary laboratory field."
+  },
+
+  "phy-t1-08": {
+    "background": "Two equal and opposite charges a short distance apart make a dipole, the arrangement at the heart of every polar molecule. The field lines leave the positive charge and land on the negative one, so between the two charges they all point the same way, from plus to minus. That is why the two fields at the midpoint REINFORCE instead of cancelling, which is the exact opposite of what most people guess on first reading.",
+    "given": [
+      "Q₁ = +3.0 × 10⁻⁶ C",
+      "Q₂ = −3.0 × 10⁻⁶ C",
+      "separation = 0.10 m, so the midpoint is at r = 0.05 m from EACH charge",
+      "k = 9 × 10⁹ N m² C⁻²"
+    ],
+    "find": "The net electric field at the midpoint, in N C⁻¹",
+    "formula": "E = kQ over r²,  then add the two as vectors",
+    "why": "This is a FIELD question, so r is squared, and there are two sources, so the two fields must be combined by direction rather than simply added as numbers. Here the directions happen to coincide, so the combination reduces to doubling. Getting the direction right before the arithmetic is what makes this a hard question rather than an easy one.",
+    "symbols": [
+      "E = the field due to one charge, in N C⁻¹",
+      "k = 9 × 10⁹ N m² C⁻²",
+      "Q = the size of that charge, sign handled by the direction argument",
+      "r = the distance from that charge to the point, and it is SQUARED",
+      "r = 0.05 m here, HALF the separation, not the whole 0.10 m"
+    ],
+    "steps": [
+      "Distance from each charge to the midpoint:  r = 0.10 ÷ 2 = 0.05 m",
+      "Square it once, for both:  r² = 0.05² = 0.0025 m²",
+      "Field from the positive charge, pointing away from it, so towards Q₂:",
+      "E₁ = (9 × 10⁹ × 3.0 × 10⁻⁶) ÷ 0.0025",
+      "Top:  9 × 3 = 27, and 10⁹ × 10⁻⁶ = 10³, so top = 27 × 10³ = 2.7 × 10⁴",
+      "E₁ = (2.7 × 10⁴) ÷ 0.0025 = 1.08 × 10⁷ N C⁻¹",
+      "Field from the negative charge, pointing TOWARDS it, which is the same direction:",
+      "E₂ = 1.08 × 10⁷ N C⁻¹, identical in size because the charges are equal",
+      "Same direction, so ADD:  E = 1.08 × 10⁷ + 1.08 × 10⁷",
+      "E = 2.16 × 10⁷ N C⁻¹, directed from the positive charge towards the negative"
+    ],
+    "check": "The two traps are both in the option list. 1.08 × 10⁷ is what you get by finding one field and forgetting to add the second, and using the full 0.10 m instead of the half would divide the answer by four. Remember the rule: between UNLIKE charges the fields add, between LIKE charges they cancel and the midpoint field is zero."
+  },
+
+  "phy-t1-11": {
+    "background": "Capacitance is not about how much charge something is holding at this moment; it is about how much charge it holds PER VOLT. A big capacitance means you can pile on a lot of charge without the voltage climbing much. Even an isolated metal sphere has a capacitance, because raising its charge raises its potential above its surroundings, and the ratio of the two is fixed by its size and shape alone.",
+    "given": [
+      "Q = 4.5 nC = 4.5 × 10⁻⁹ C",
+      "V = 180 V   (the potential above the surroundings)"
+    ],
+    "find": "The capacitance C, in picofarads (pF)",
+    "formula": "C = Q over V",
+    "why": "This is the definition of capacitance itself, so it needs no derivation and no geometry. The question gives one charge and one voltage and asks for capacitance, which is exactly the ratio. The sphere and the insulating rod are scene-setting: they explain WHY there is a capacitance to speak of, but they add no numbers to the calculation.",
+    "symbols": [
+      "C = the capacitance, in farads (F)",
+      "Q = the charge stored, in coulombs",
+      "V = the potential difference that charge produces, in volts",
+      "1 pF = 10⁻¹² F, and 1 nF = 10⁻⁹ F"
+    ],
+    "steps": [
+      "Convert the charge:  4.5 nC = 4.5 × 10⁻⁹ C",
+      "C = Q ÷ V",
+      "C = (4.5 × 10⁻⁹) ÷ 180",
+      "Front numbers:  4.5 ÷ 180 = 0.025",
+      "C = 0.025 × 10⁻⁹ F",
+      "Move to picofarads:  0.025 × 10⁻⁹ = 25 × 10⁻¹²",
+      "C = 25 pF"
+    ],
+    "check": "Every option is in picofarads, so the conversion from 10⁻⁹ to 10⁻¹² is compulsory and is where the mark is won. The rule: to go from nano to pico, multiply by 1000. And 25 pF is a believable capacitance for a small isolated sphere, being about what a short length of coaxial cable has."
+  },
+
+  "phy-t1-12": {
+    "background": "In a series circuit there is only one path, so every electron that leaves the source must pass through every component in turn. That means the CURRENT is the same everywhere, while the voltage divides itself among the resistors in proportion to their size. Parallel circuits are the mirror image: same voltage everywhere, current divides. Knowing which quantity is shared is most of circuit analysis.",
+    "given": [
+      "R₁ = 7 Ω, R₂ = 6 Ω, R₃ = 3 Ω, all in SERIES",
+      "V = 48 V"
+    ],
+    "find": "The current through R₃, in amperes",
+    "formula": "R = R₁ + R₂ + R₃,   then   I = V over R",
+    "why": "Series resistances add directly, because the current meets them one after the other and each takes its share of the voltage. Once the total resistance is known, Ohm's law gives the single current that flows round the whole loop, and that same current is what passes through R₃.",
+    "symbols": [
+      "R = the total series resistance, in ohms",
+      "V = the source voltage, in volts",
+      "I = the current, the SAME through every component in a series loop"
+    ],
+    "steps": [
+      "Total resistance:  R = 7 + 6 + 3",
+      "R = 16 Ω",
+      "Ohm's law for the whole loop:  I = V ÷ R",
+      "I = 48 ÷ 16",
+      "I = 3 A",
+      "Series means one path, so the current through R₃ is that same 3 A"
+    ],
+    "check": "The question singles out R₃, which invites you to do something extra with the 3 Ω, and there is nothing extra to do. In series the answer is identical for R₁, R₂ or R₃. Verify by adding the individual voltages: 3 × 7 = 21 V, 3 × 6 = 18 V, 3 × 3 = 9 V, and 21 + 18 + 9 = 48 V, the full supply. The voltages account for themselves exactly."
+  },
+
+  "phy-t1-13": {
+    "background": "A field is created by a charge and exists in the space around it whether or not anything is there to feel it. So when a question asks for the field PRODUCED BY one charge AT the position of another, the second charge is only a place marker. It tells you where to stand and nothing more. Its own size never enters, because a charge does not produce a field on itself.",
+    "given": [
+      "The field-producing charge:  Q = 2.0 × 10⁻⁸ C, negative",
+      "r = 0.40 m",
+      "k = 9 × 10⁹ N m² C⁻²",
+      "The 8 × 10⁻⁸ C charge is only the LOCATION, and is not used"
+    ],
+    "find": "The electric field E at the position of the positive charge, in N C⁻¹",
+    "formula": "E = kQ over r²",
+    "why": "Only the charge that PRODUCES the field goes into the formula. Reading the question decides which one that is: it says the field produced by the negative charge, so Q is 2.0 × 10⁻⁸ C. Had it asked for the FORCE between them, both charges would have been needed and Coulomb's law would apply instead. Field means one charge, force means two.",
+    "symbols": [
+      "E = the field strength at that point, in N C⁻¹",
+      "k = 9 × 10⁹ N m² C⁻²",
+      "Q = the charge producing the field, in coulombs",
+      "r = the distance from the producing charge to the point, and it is SQUARED"
+    ],
+    "steps": [
+      "Square the distance first:  r² = 0.40² = 0.16 m²",
+      "Top:  kQ = 9 × 10⁹ × 2.0 × 10⁻⁸",
+      "Front numbers:  9 × 2 = 18",
+      "Powers of ten:  10⁹ × 10⁻⁸ = 10¹",
+      "Top = 18 × 10¹ = 180",
+      "E = 180 ÷ 0.16",
+      "E ≈ 1125 N C⁻¹, and the direction is TOWARDS the negative charge"
+    ],
+    "check": "Two habits protect this mark. First, if you find yourself using both charges, re-read the question, because it says produced BY the negative charge. Second, r² = 0.16 and not 0.4, which is the slip that would give 450 and appears nowhere in the options. The direction is towards the negative charge, since field lines always end on negative charge."
+  },
+
+  "phy-t1-14": {
+    "background": "Gauss's law delivers one enormously useful result for spheres: from OUTSIDE, a uniformly charged sphere behaves exactly as though all its charge were squeezed into a point at its centre. So its radius is irrelevant to the field outside it. Inside a conducting sphere the field is zero instead, because the charges rearrange until they cancel any field within the metal, which is why a car protects you in a thunderstorm.",
+    "given": [
+      "Sphere radius R = 0.25 m",
+      "Q = 6 × 10⁻⁶ C",
+      "The point of interest is r = 0.50 m from the CENTRE",
+      "k = 9 × 10⁹ N m² C⁻²"
+    ],
+    "find": "The electric field E at that point, in N C⁻¹",
+    "formula": "E = kQ over r²",
+    "why": "The first job is to check where the point is. r = 0.50 m is greater than the radius 0.25 m, so the point lies OUTSIDE the sphere, and outside a sphere the point-charge formula applies without modification. Had the point been inside the conductor, the answer would have been zero instead, whatever the charge.",
+    "symbols": [
+      "E = the field at the point, in N C⁻¹",
+      "k = 9 × 10⁹ N m² C⁻²",
+      "Q = the total charge on the sphere, in coulombs",
+      "r = the distance from the CENTRE of the sphere, not from its surface"
+    ],
+    "steps": [
+      "Check first:  is r > R?  0.50 > 0.25, yes, so the point is outside",
+      "Square the distance:  r² = 0.50² = 0.25 m²",
+      "Top:  kQ = 9 × 10⁹ × 6 × 10⁻⁶",
+      "Front numbers:  9 × 6 = 54",
+      "Powers of ten:  10⁹ × 10⁻⁶ = 10³",
+      "Top = 54 × 10³ = 5.4 × 10⁴",
+      "E = (5.4 × 10⁴) ÷ 0.25",
+      "E = 2.16 × 10⁵ N C⁻¹"
+    ],
+    "check": "The trap is measuring from the surface instead of the centre. Using 0.50 − 0.25 = 0.25 m would give four times the answer, 8.64 × 10⁵, which is not offered. Always start a sphere question by asking whether the point is inside or outside, and always measure r from the centre. Note also that 0.25 appears twice in this question meaning two different things, the radius and r², so label your lines."
+  },
+
+  "phy-t1-15": {
+    "background": "Charging a capacitor is not free. The first charge crosses easily, but each new charge has to be pushed against the ones already sitting there, so the work builds up as the voltage rises. Averaging that over the whole process is where the half comes from in the energy formula. That stored energy is what a camera flash releases in a millisecond, and what makes a large charged capacitor genuinely dangerous long after the power is off.",
+    "given": [
+      "U = 2.25 mJ = 2.25 × 10⁻³ J",
+      "V = 30 V"
+    ],
+    "find": "The capacitance C, in microfarads",
+    "formula": "U = ½CV²,  so  C = 2U over V²",
+    "why": "An energy and a voltage are given and a capacitance is wanted, and this is the formula joining exactly those three. Rearranging it moves the half across as a doubling on top, and the V² down to the bottom. The other energy forms, U = ½QV and U = Q² ÷ 2C, would need the charge, which is not given.",
+    "symbols": [
+      "U = the energy stored, in joules",
+      "C = the capacitance, in farads",
+      "V = the voltage the capacitor was charged to, in volts, and it is SQUARED",
+      "1 mJ = 10⁻³ J and 1 µF = 10⁻⁶ F"
+    ],
+    "steps": [
+      "Convert the energy:  2.25 mJ = 2.25 × 10⁻³ J",
+      "Rearrange:  C = (2 × U) ÷ V²",
+      "Top:  2 × 2.25 × 10⁻³ = 4.5 × 10⁻³",
+      "Bottom:  V² = 30² = 900",
+      "C = (4.5 × 10⁻³) ÷ 900",
+      "Front numbers:  4.5 ÷ 900 = 0.005",
+      "C = 0.005 × 10⁻³ = 5 × 10⁻⁶ F",
+      "C = 5 µF"
+    ],
+    "check": "Forgetting to double gives 2.5 µF and forgetting to square the 30 gives a wildly different number; both wrong routes are sitting in the option list waiting. Verify forwards in one line: ½ × 5 × 10⁻⁶ × 900 = 2.25 × 10⁻³ J, which is the energy given. Substituting your answer back into the original formula takes seconds and catches nearly every rearrangement error."
   }
 }
