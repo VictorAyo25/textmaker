@@ -9,12 +9,18 @@ import { Figure } from '@/components/Figure';
 import WORKED_TEST1 from '@/data/phy121/worked/test1.json';
 import WORKED_TEST2 from '@/data/phy121/worked/test2.json';
 import WORKED_DECKS from '@/data/phy121/worked/decks.json';
+import WORKED_RECALL from '@/data/phy121/worked/recall.json';
 
-/** Structured solutions, keyed by question id. Both real tests, then the decks. */
+/**
+ * Structured solutions, keyed by question id: both real tests, then the deck
+ * calculations, then the recall drills whose one-line answers said WHAT without
+ * saying why.
+ */
 const WORKED: Record<string, WorkedSolution> = {
   ...(WORKED_TEST1 as Record<string, WorkedSolution>),
   ...(WORKED_TEST2 as Record<string, WorkedSolution>),
   ...(WORKED_DECKS as Record<string, WorkedSolution>),
+  ...(WORKED_RECALL as Record<string, WorkedSolution>),
 };
 import { buildBook, SPEED } from '@/lib/questionbook';
 
