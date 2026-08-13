@@ -603,6 +603,9 @@ const csc242: Course = {
       minutes: 30,
     },
   ],
+  // Exam sat on 11 August 2026. Filed under "Exams already taken" on the
+  // landing page; the drill stays open for anyone else on this course.
+  taken: true,
 };
 
 
