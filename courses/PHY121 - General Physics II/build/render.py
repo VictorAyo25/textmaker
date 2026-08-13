@@ -48,4 +48,95 @@ with sync_playwright() as p:
             prefer_css_page_size=False,
         )
     b.close()
+
+
+def link_contents(pdf_path, toc_path):
+    """Make the Contents page clickable, and give the PDF a sidebar outline.
+
+    Chromium keeps external URLs when it prints but silently DROPS same-document
+    anchors, so href="#t4" survives in the HTML and reaches the PDF as ordinary
+    printed text. In a 220-page book that is the difference between a usable
+    document and one you scroll.
+
+    Both are rebuilt here from the sidecar the generator wrote, not by parsing
+    the rendered page back out, so the links cannot drift from the sections they
+    point at. Each entry's landing page is found by searching for its title on
+    the pages AFTER the Contents, since the Contents lists every title too.
+    """
+    import json
+
+    import fitz
+
+    entries = json.load(open(toc_path, encoding='utf8'))
+    doc = fitz.open(pdf_path)
+
+    # The Contents page is the first one carrying that heading.
+    contents_no = next(
+        (p.number for p in doc if p.get_text().lstrip().startswith('Contents')), None
+    )
+    if contents_no is None:
+        contents_no = next((p.number for p in doc if 'Contents' in p.get_text()), None)
+    if contents_no is None:
+        print('  links: no Contents page found, skipped')
+        doc.close()
+        return
+
+    def section_page(title):
+        """The page where this section's HEADING is, not merely its words.
+
+        Searching for the title alone is wrong, and quietly so: "Transformers"
+        and "EMF and Internal Resistance" both appear inside question text
+        pages before their own sections begin, so a plain search sent two of
+        eleven links to the wrong place while reporting success. The heading is
+        set much larger than body text, so the biggest span wins.
+        """
+        best = None
+        for p in doc:
+            if p.number <= contents_no:
+                continue
+            for block in p.get_text('dict')['blocks']:
+                for line in block.get('lines', []):
+                    for span in line['spans']:
+                        if title in span['text'] and (best is None or span['size'] > best[1]):
+                            best = (p.number, span['size'])
+        return best[0] if best else None
+
+    page = doc[contents_no]
+    toc, made, missed = [], 0, []
+    for e in entries:
+        title = e['title']
+        dest = section_page(title)
+        if dest is None:
+            missed.append(title)
+            continue
+        toc.append([1, f"{e['num']}. {title}", dest + 1])
+
+        hits = page.search_for(title)
+        if not hits:
+            missed.append(f'{title} (no entry rect)')
+            continue
+        # Widen the hit to the whole line so the number and the count are
+        # clickable too, not just the words of the title.
+        r = hits[0]
+        rect = fitz.Rect(r.x0 - 18, r.y0 - 2, page.rect.x1 - 40, r.y1 + 2)
+        page.insert_link({'kind': fitz.LINK_GOTO, 'from': rect, 'page': dest, 'to': fitz.Point(0, 0)})
+        made += 1
+
+    if toc:
+        doc.set_toc(toc)
+    doc.saveIncr()
+    doc.close()
+    print(f'  contents: {made} of {len(entries)} entries linked, {len(toc)} outline entries')
+    if missed:
+        print(f'  contents: NOT linked: {", ".join(missed)}')
+
+
+if not NOFOOTER:
+    toc_file = os.path.splitext(out)[0] + '.toc.json'
+    if os.path.exists(toc_file):
+        try:
+            link_contents(out, toc_file)
+        except ImportError:
+            print('  contents: PyMuPDF not available, links skipped')
+
 print('rendered', out)

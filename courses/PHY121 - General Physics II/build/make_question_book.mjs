@@ -7,7 +7,7 @@
  * bank directly rather than importing the app, so the manual can be built
  * without a running server.
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -141,6 +141,16 @@ const today = process.argv[2] ?? '';
 let body = '';
 let total = 0;
 let contents = '';
+/**
+ * The topic titles, written out beside the HTML for the renderer.
+ *
+ * Chromium's print-to-PDF keeps external URLs but silently drops same-document
+ * anchors, so the Contents came out as printed text with nothing behind it.
+ * render.py rebuilds the links afterwards, and it does that from THIS list
+ * rather than by parsing the page back out of the PDF, so the two cannot
+ * disagree about what the sections are called.
+ */
+const tocEntries = [];
 
 for (const [num, title] of TOPICS) {
   const mine = qs
@@ -148,9 +158,12 @@ for (const [num, title] of TOPICS) {
     .sort((a, b) => (RANK[a.difficulty] ?? 1) - (RANK[b.difficulty] ?? 1));
   if (!mine.length) continue;
   total += mine.length;
-  contents += `<li><b>${num}. ${esc(title)}</b> <span class="mut">${mine.length} questions</span></li>`;
+  tocEntries.push({ num, title, questions: mine.length });
+  // The anchor is kept for the HTML, which honours it; the PDF's links are
+  // rebuilt from the sidecar by render.py because Chromium drops these.
+  contents += `<li><a href="#t${num}"><b>${num}. ${esc(title)}</b> <span class="mut">${mine.length} questions</span></a></li>`;
 
-  body += `<section class="topic"><h2><span class="tnum">${num}</span>${esc(title)}</h2>`;
+  body += `<section class="topic" id="t${num}"><h2><span class="tnum">${num}</span>${esc(title)}</h2>`;
   if (SPEED[num]) body += `<p class="speed"><b>Speed tip.</b> ${esc(SPEED[num])}</p>`;
 
   mine.forEach((q, i) => {
@@ -230,9 +243,20 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
 .contents { page-break-after: always; }
 .contents li { margin-bottom: 4px; list-style: none; }
 .contents ul { padding: 0; }
+/* The entries are links, but a printed page should not turn blue and
+   underlined to say so. They inherit the surrounding type and stay clickable. */
+.contents a { color: inherit; text-decoration: none; }
 .topic { page-break-before: always; }
 .speed { background: #fdf6e3; border-left: 3px solid #9a6a00; padding: 8px 11px; margin: 0 0 12px; }
-.q { border: 1px solid #d8e2da; border-radius: 6px; padding: 9px 11px; margin: 0 0 9px; page-break-inside: avoid; }
+/* A question keeps itself together, but only while it FITS. Once a question
+   carries a full worked solution it can be taller than the space under a
+   section heading, and "avoid" then pushed the whole thing to the next page,
+   leaving three sections opening on a page holding nothing but their title and
+   a speed tip. The parts that must not split are the option list and the
+   solution box; the article as a whole may break between them. */
+.q { border: 1px solid #d8e2da; border-radius: 6px; padding: 9px 11px; margin: 0 0 9px; }
+.qh, .prompt { page-break-after: avoid; }
+.opts, .pairs { page-break-inside: avoid; }
 .qh { display: flex; gap: 8px; align-items: baseline; margin-bottom: 5px; flex-wrap: wrap; }
 .qn { background: #16261c; color: #fff; font-size: 7.6pt; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
 .pill { font-size: 7pt; text-transform: uppercase; letter-spacing: .05em; padding: 1px 7px; border-radius: 99px; border: 1px solid #d8e2da; color: #5b6b60; }
@@ -279,3 +303,5 @@ sup { font-size: 0.72em; }
 <div class="contents"><h2><span class="tnum">C</span>Contents</h2><ul>${contents}</ul></div>
 ${body}
 </body></html>`);
+
+writeFileSync(join(HERE, 'question_book.toc.json'), `${JSON.stringify(tocEntries, null, 2)}\n`, 'utf8');
