@@ -4,6 +4,14 @@ import { notFound } from 'next/navigation';
 import { findCourse } from '@/data/courses';
 import Crumbs from '@/components/Crumbs';
 import { Sci } from '@/components/Sci';
+import { Worked, type WorkedSolution } from '@/components/Worked';
+import { Figure } from '@/components/Figure';
+import WORKED_TEST1 from '@/data/phy121/worked/test1.json';
+
+/** Structured solutions, keyed by question id. Authored test by test. */
+const WORKED: Record<string, WorkedSolution> = {
+  ...(WORKED_TEST1 as Record<string, WorkedSolution>),
+};
 import { buildBook, SPEED } from '@/lib/questionbook';
 
 /**
@@ -115,6 +123,9 @@ export default async function Page({ params }: { params: Promise<{ course: strin
                 <p className="solprompt">
                   <Sci text={q.prompt} />
                 </p>
+                {/* A question that carried a diagram on the slide or the test
+                    must carry it here too, or it cannot be answered. */}
+                {q.figure && <Figure figure={q.figure} />}
 
                 {q.options && (
                   <ul className="solopts">
@@ -157,6 +168,8 @@ export default async function Page({ params }: { params: Promise<{ course: strin
                     Answer: <b>{answers.join(', ')}</b>
                   </p>
                 )}
+
+                {WORKED[q.id] && <Worked s={WORKED[q.id]} />}
 
                 {q.explanation && (
                   <p className="solexp">

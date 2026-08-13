@@ -14,6 +14,8 @@ import { dirname, join } from 'node:path';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA = join(HERE, '..', '..', '..', 'webapp', 'data', 'phy121');
 
+const WORKED = JSON.parse(readFileSync(join(DATA, 'worked', 'test1.json'), 'utf8'));
+
 const qs = [];
 for (const f of readdirSync(DATA)) {
   if (!f.endsWith('.json') || f === 'lessons.json' || f === 'plan.json') continue;
@@ -143,6 +145,32 @@ for (const [num, title] of TOPICS) {
       body += `<p class="ans">Answer: <b>${esc(ans.join(', '))}</b></p>`;
     }
 
+    const w = WORKED[q.id];
+    if (w) {
+      body += '<div class="wsol">';
+      if (w.background)
+        body += `<div class="wp"><span class="wl">Background, so this is not just a formula</span><p>${sci(w.background)}</p></div>`;
+      if (w.given?.length || w.find) {
+        body += '<div class="wp wg">';
+        if (w.given?.length)
+          body += `<span class="wl">Given</span><ul>${w.given.map((g) => `<li>${sci(g)}</li>`).join('')}</ul>`;
+        if (w.find) body += `<p><b>Find:</b> ${sci(w.find)}</p>`;
+        body += '</div>';
+      }
+      if (w.formula) {
+        body += `<div class="wp"><span class="wl">Formula</span><p class="weq">${sci(w.formula)}</p>`;
+        if (w.why) body += `<p><b>Why this one.</b> ${sci(w.why)}</p>`;
+        if (w.symbols?.length)
+          body += `<span class="wl">What each symbol means</span><ul class="wsy">${w.symbols.map((x) => `<li>${sci(x)}</li>`).join('')}</ul>`;
+        body += '</div>';
+      }
+      if (w.steps?.length)
+        body += `<div class="wp ws"><span class="wl">The working, line by line</span><ol>${w.steps.map((x) => `<li>${sci(x)}</li>`).join('')}</ol></div>`;
+      if (w.check)
+        body += `<div class="wp wc"><span class="wl">Check it</span><p>${sci(w.check)}</p></div>`;
+      body += '</div>';
+    }
+
     if (q.explanation) body += `<p class="exp">${sci(q.explanation)}</p>`;
     body += '</article>';
   });
@@ -192,6 +220,19 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
 .frac span:first-child { padding: 0 .3em 1px; }
 .frac span:last-child { padding: 1px .3em 0; border-top: 1.2px solid currentColor; }
 sup { font-size: 0.72em; }
+.wsol { border: 1.2px solid #15803d; border-radius: 6px; overflow: hidden; margin: 8px 0 0; page-break-inside: avoid; }
+.wp { padding: 7px 10px; border-top: 1px solid #d8e2da; }
+.wp:first-child { border-top: none; }
+.wl { display: block; font-size: 6.8pt; letter-spacing: .09em; text-transform: uppercase; color: #0f5f2d; font-weight: 700; margin-bottom: 4px; }
+.wp p { margin: 0 0 4px; }
+.wg { background: #eaf6ee; }
+.wg ul, .wsy { margin: 0 0 4px; padding-left: 15px; }
+.wg li { font-family: "DejaVu Sans Mono", monospace; font-size: 8.4pt; }
+.weq { font-family: "DejaVu Sans Mono", monospace; font-size: 10pt; font-weight: 700; text-align: center; padding: 5px 0; background: #fff; border-radius: 4px; }
+.ws ol { margin: 0; padding-left: 18px; }
+.ws li { font-family: "DejaVu Sans Mono", monospace; font-size: 8.6pt; padding: 1.5px 0; }
+.wc { background: #fdf6e3; }
+.wc .wl { color: #9a6a00; }
 </style></head><body>
 <div class="cover">
 <span class="code">PHY121</span>
