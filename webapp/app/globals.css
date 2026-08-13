@@ -2093,3 +2093,9 @@ p.gloss {
 .eerfig { margin: 14px 0; overflow-x: auto; }
 .eerfig svg { max-width: 100%; height: auto; min-width: 560px; color: var(--ink); }
 .eerfig figcaption { font-size: 0.84rem; color: var(--muted); margin-top: 6px; }
+
+/* The drill header ran its label and tag together, so it read as one word:
+   "Test yourself on this topic16 questions". They are two separate spans with
+   no whitespace between them in the markup, so the gap has to come from here. */
+.blabel { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.blabel .btag { color: var(--muted); font-size: 0.86rem; font-weight: 400; }
