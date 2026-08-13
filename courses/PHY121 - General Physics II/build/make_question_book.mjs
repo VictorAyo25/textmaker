@@ -103,8 +103,14 @@ const sci = (raw) => {
 
 const sourceOf = (q) => {
   const t = q.slides ?? [];
+  // Mirrors lib/questionbook.ts. A test question that also carries a tutorial
+  // tag says so: eighteen of the thirty were lifted straight off that deck.
+  const tut = t.find((x) => /^Tut S\d+$/.test(x));
+  const fromTut = tut ? `, set on tutorial slide ${tut.replace('Tut S', '')}` : '';
   const test = t.find((x) => /^Test [12] Q/.test(x));
-  if (test) return `The real ${test.replace(/^Test (\d) Q(\d+)$/, 'test $1, question $2')}`;
+  if (test)
+    return `The real ${test.replace(/^Test (\d) Q(\d+)$/, 'test $1, question $2')}${fromTut}`;
+  if (tut) return `The tutorial deck, slide ${tut.replace('Tut S', '')}, never yet set on a test`;
   const sl = t.find((x) => /^M\d+ S\d+/.test(x));
   if (sl) {
     const m = /^M(\d+) S(\d+)/.exec(sl);

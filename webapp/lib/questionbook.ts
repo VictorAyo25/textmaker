@@ -28,11 +28,24 @@ export interface BookTopic {
 
 const RANK: Record<string, number> = { easy: 0, medium: 1, hard: 2 };
 
-/** "Test 1 Q3" and "M1 S69" are tags; a reader wants to be told what they mean. */
+/**
+ * "Test 1 Q3" and "M1 S69" are tags; a reader wants to be told what they mean.
+ *
+ * A test question that also carries a "Tut S" tag says so, because that is the
+ * single most useful fact about this course: eighteen of the thirty test
+ * questions were lifted straight off the tutorial deck, so a question appearing
+ * in both places is one the examiner has now used twice.
+ */
 export function sourceOf(q: Question): string {
   const tags = q.slides ?? [];
+  const tut = tags.find((t) => /^Tut S\d+$/.test(t));
+  const fromTut = tut ? `, set on tutorial slide ${tut.replace('Tut S', '')}` : '';
+
   const test = tags.find((t) => /^Test [12] Q/.test(t));
-  if (test) return `The real ${test.replace(/^Test (\d) Q(\d+)$/, 'test $1, question $2')}`;
+  if (test)
+    return `The real ${test.replace(/^Test (\d) Q(\d+)$/, 'test $1, question $2')}${fromTut}`;
+  if (tut) return `The tutorial deck, slide ${tut.replace('Tut S', '')}, never yet set on a test`;
+
   const slide = tags.find((t) => /^M\d+ S\d+/.test(t));
   if (slide) {
     const m = /^M(\d+) S(\d+)/.exec(slide);

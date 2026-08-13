@@ -1,0 +1,179 @@
+{
+  "phy-tut-03a": {
+    "background": "Capacitors combine the opposite way round to resistors, and the reason is physical. Two capacitors side by side across the same two points act as one capacitor with MORE plate area, so the capacitance adds. Two in a row act as one capacitor with a WIDER gap, which makes it worse, hence the reciprocals. The method for any network is always the same: find a group you can already name, collapse it to one value, and repeat from the inside outwards.",
+    "given": [
+      "C₁ = 3 µF, alone in the upper branch",
+      "C₂ = 6 µF and C₃ = 2 µF, one after the other in the lower branch",
+      "V = 24 V across the whole network, from A to B"
+    ],
+    "find": "The equivalent capacitance C, and the total charge Q stored",
+    "formula": "1/Cs = 1/C₂ + 1/C₃,   then   C = C₁ + Cs,   then   Q = CV",
+    "why": "Read the picture, not the labels. C₂ and C₃ have a junction only with each other, which is the definition of SERIES, so their reciprocals add. That combined branch and C₁ both run from A to B, sharing the same two ends, which is the definition of PARALLEL, so those simply add. Series first because it is the innermost group.",
+    "symbols": [
+      "Cs = the series pair as one capacitor, always SMALLER than either of them",
+      "C = the equivalent capacitance of the whole network, in µF",
+      "Q = the total charge stored, in coulombs",
+      "V = the battery voltage, in volts"
+    ],
+    "steps": [
+      "Series pair first:  1/Cs = 1/6 + 1/2",
+      "Common denominator:  1/Cs = 1/6 + 3/6 = 4/6",
+      "Turn it up the other way:  Cs = 6/4 = 1.5 µF",
+      "Parallel step:  C = C₁ + Cs = 3 + 1.5",
+      "C = 4.5 µF",
+      "Charge:  Q = C × V = 4.5 × 10⁻⁶ × 24",
+      "Q = 1.08 × 10⁻⁴ C = 108 µC"
+    ],
+    "check": "Two guards, both instant and both worth using every time. A series combination must be SMALLER than its smallest member, and 1.5 is duly under 2. Adding anything in parallel can only INCREASE the total, so the final answer must exceed 3, which kills the 1.5 µF option at once. And do not forget the second half of the question: it asks for the charge as well, so Q = CV is not optional."
+  },
+
+  "phy-tut-04a": {
+    "background": "This is the same method as the simpler network, run one step further. Real networks are almost never purely series or purely parallel; they are nested, and the way through is always to collapse the innermost group you can name, redraw in your head, and look again. Three steps here rather than two, and the shape is series, then parallel, then series.",
+    "given": [
+      "C₁ = 6 µF, alone in the upper branch",
+      "C₂ = 3 µF and C₃ = 6 µF, in series in the lower branch",
+      "C₅ = 12 µF, after that whole block on the way to B",
+      "V = 48 V"
+    ],
+    "find": "The equivalent capacitance, and the total charge supplied",
+    "formula": "1/CT = 1/Cp + 1/C₅",
+    "why": "C₂ and C₃ share a junction only with each other, so they are in series and collapse to one value. That branch and C₁ span the same two nodes, so they are in parallel and add. What is left is that block followed by C₅, which is series again. Each step is decided by looking at what shares terminals with what, never by the order of the labels.",
+    "symbols": [
+      "Cs = the C₂ and C₃ series pair collapsed to one value",
+      "Cp = that pair in parallel with C₁, the whole left block",
+      "CT = the equivalent capacitance of everything, in µF",
+      "Q = the total charge supplied by the battery"
+    ],
+    "steps": [
+      "Step one, the series pair:  1/Cs = 1/3 + 1/6 = 2/6 + 1/6 = 3/6",
+      "Cs = 6/3 = 2 µF",
+      "Step two, the parallel block:  Cp = C₁ + Cs = 6 + 2 = 8 µF",
+      "Step three, in series with C₅:  1/CT = 1/8 + 1/12",
+      "Common denominator 24:  1/CT = 3/24 + 2/24 = 5/24",
+      "CT = 24/5 = 4.8 µF",
+      "Charge:  Q = CT × V = 4.8 × 10⁻⁶ × 48",
+      "Q = 2.304 × 10⁻⁴ C = 230.4 µC"
+    ],
+    "check": "Step three is the lecturer's own line on the slide, 1/CT = 1/8 + 1/12, so the working can be checked against his. Guard the last step the same way as the first: a series result must be smaller than both of its parts, and 4.8 is under 8 and under 12. The trap in the options is 8 µF, which is the block before C₅ is brought in; stopping one step early is the commonest way to lose this mark."
+  },
+
+  "phy-tut-04b": {
+    "background": "Charging a capacitor costs work, because each new charge has to be pushed against the ones already sitting there. Averaging that over the whole process is where the half in the energy formula comes from. Notice how the network question and the energy question fit together: the network reduces to a single capacitor, and once you have that single value the energy formula treats it as though it were one component, which is exactly what an equivalent capacitance means.",
+    "given": [
+      "C₁ = 4 µF and C₂ = 8 µF, between the same two nodes",
+      "C₃ = 5 µF, after that pair",
+      "V = 30 V"
+    ],
+    "find": "The equivalent capacitance, and the total energy stored",
+    "formula": "U = ½CV²",
+    "why": "First the network: C₁ and C₂ span the same two nodes so they are parallel and add, then that pair sits one after C₃ so those are series. Then the energy, which needs an energy formula rather than a charge one because the question asks for joules. U = ½CV² is the form to use since the capacitance and the voltage are what you have; U = ½QV would need the charge first.",
+    "symbols": [
+      "Cp = C₁ and C₂ combined in parallel, in µF",
+      "CT = the equivalent capacitance of the whole network",
+      "U = the energy stored, in joules",
+      "V = the source voltage, in volts, and it is SQUARED"
+    ],
+    "steps": [
+      "Parallel pair:  Cp = 4 + 8 = 12 µF",
+      "In series with C₃:  1/CT = 1/12 + 1/5",
+      "Common denominator 60:  1/CT = 5/60 + 12/60 = 17/60",
+      "CT = 60/17 = 3.53 µF",
+      "Energy:  U = ½ × CT × V²",
+      "V² = 30² = 900",
+      "U = 0.5 × 3.53 × 10⁻⁶ × 900",
+      "U = 1.59 × 10⁻³ J = 1.59 mJ"
+    ],
+    "check": "Two things can go wrong in the last line and both are in the option list. Forgetting to square the 30 gives about 0.053 mJ, and forgetting the half gives 3.18 mJ. Guard the network step too: 3.53 µF must be smaller than both 12 and 5, and it is. Notice that adding C₃ in series made the whole network WORSE than the 12 µF pair alone, which is what putting a capacitor in the path always does."
+  },
+
+  "phy-tut-22": {
+    "background": "A current loop behaves like a small bar magnet, and its magnetic moment says how strongly. Three things raise it: more current, more area enclosed, and more turns, since each turn contributes on top of the others. That is why motors and galvanometers use coils of many turns rather than single loops, and it is why the number of turns is never a decoration in these questions.",
+    "given": [
+      "I = 3 A",
+      "r = 5 cm = 0.05 m   (the coil is CIRCULAR)",
+      "N = 20 turns"
+    ],
+    "find": "The magnetic dipole moment m, in A m²",
+    "formula": "m = NIA,   where   A = πr²",
+    "why": "The unit gives the first formula away: A m² is amperes times metres squared, so it must be current times area, with the turns multiplying because each contributes equally. The second formula is the one people skip: the question gives a RADIUS, not an area, and a circle's area is πr². No magnetic field appears in the question and none is needed, because the moment belongs to the coil itself.",
+    "symbols": [
+      "m = the magnetic dipole moment, in A m²",
+      "N = the number of turns",
+      "I = the current, in amperes",
+      "A = the area enclosed by ONE turn, in m²",
+      "r = the radius of the coil, in METRES, and it is squared"
+    ],
+    "steps": [
+      "Convert first:  5 cm = 0.05 m",
+      "Area of the circle:  A = π × 0.05²",
+      "0.05² = 0.0025, so A = π × 0.0025",
+      "A = 7.854 × 10⁻³ m²",
+      "m = N × I × A = 20 × 3 × 7.854 × 10⁻³",
+      "20 × 3 = 60",
+      "m = 60 × 7.854 × 10⁻³ = 0.471 A m²"
+    ],
+    "check": "Convert BEFORE squaring, which is where this question is won or lost: 5 cm squared is 0.0025 m², not 0.05. Then check the pieces are all present, since each missing one has its own wrong option waiting: leaving out the π gives 0.15, using r where A belongs gives 9.42, and dropping the 20 turns gives 0.0236. Read the question back against your working and confirm all three appear."
+  },
+
+  "phy-tut-26": {
+    "background": "A solenoid stores energy in the magnetic field filling its inside, and the amount depends on how good it is at making a field for a given current, which is its inductance. So this is a two-formula question: build the inductance from the geometry, then use it to get the energy. The inductance formula has N SQUARED in it, for a double reason: more turns make more field, and more turns also link more of that field.",
+    "given": [
+      "l = 0.5 m, the length",
+      "N = 1000 turns",
+      "I = 3 A",
+      "A = 0.001 m², the cross-sectional area",
+      "μ₀ = 4π × 10⁻⁷ T m A⁻¹"
+    ],
+    "find": "The energy U stored in the solenoid, in joules",
+    "formula": "L = μ₀N²A over l,   then   U = ½LI²",
+    "why": "The energy formula needs an inductance, and the question does not give one, so it has to be built first from the solenoid's geometry. Everything supplied, the length, the turns and the area, is exactly what that first formula consumes, which is the signal that this is the intended route rather than a shortcut.",
+    "symbols": [
+      "L = the inductance, in henries",
+      "μ₀ = the permeability of free space, 4π × 10⁻⁷",
+      "N = the number of turns, and it is SQUARED here",
+      "A = the cross-sectional area, in m²",
+      "l = the length of the solenoid, in metres",
+      "U = the energy stored, in joules, with I squared in its turn"
+    ],
+    "steps": [
+      "Inductance first:  L = (μ₀ × N² × A) ÷ l",
+      "N² = 1000² = 10⁶",
+      "N² × A = 10⁶ × 0.001 = 1000",
+      "Top:  4π × 10⁻⁷ × 1000 = 12.566 × 10⁻⁷ × 1000 = 1.2566 × 10⁻³",
+      "Divide by l:  L = (1.2566 × 10⁻³) ÷ 0.5 = 2.513 × 10⁻³ H",
+      "Energy next:  U = ½ × L × I²",
+      "I² = 3² = 9",
+      "U = 0.5 × 2.513 × 10⁻³ × 9",
+      "U = 1.13 × 10⁻² J = 0.0113 J"
+    ],
+    "check": "Two squares have to survive this question, N in the inductance and I in the energy, and dropping either one has its own wrong option. Label your intermediate value: 2.513 × 10⁻³ is an inductance in HENRIES, and one of the options offers that same number as though it were joules. Sanity check the size as well: a few millijoules is right for a small coil at a few amps."
+  },
+
+  "phy-tut-27": {
+    "background": "A transformer trades voltage against current and creates nothing. At 100% efficiency the power going in equals the power coming out, so whatever the voltage is multiplied by, the current is divided by. That is the whole physics, and it means you can often name the direction of the answer before doing any arithmetic at all. Step the voltage up and the current comes down, always.",
+    "given": [
+      "Vp = 120 V, the primary voltage",
+      "Vs = 600 V, the secondary voltage",
+      "Ip = 5 A, the primary current",
+      "Efficiency = 100%, so no power is lost"
+    ],
+    "find": "The secondary current Is, in amperes",
+    "formula": "VpIp = VsIs",
+    "why": "The word assuming 100% efficiency is the instruction: it says power in equals power out, which is exactly this equation. No turns are given and none are needed, because the voltage ratio already carries the same information the turns ratio would.",
+    "symbols": [
+      "Vp, Ip = the primary voltage and current, in volts and amperes",
+      "Vs, Is = the secondary voltage and current",
+      "VpIp = the power fed in, in watts",
+      "VsIs = the power delivered out, in watts"
+    ],
+    "steps": [
+      "Power in:  Vp × Ip = 120 × 5 = 600 W",
+      "At 100% efficiency the power out is the same:  Vs × Is = 600 W",
+      "Is = 600 ÷ Vs = 600 ÷ 600",
+      "Is = 1 A",
+      "By ratio as a second route:  the voltage went up by 600 ÷ 120 = 5",
+      "So the current must come down by 5:  Is = 5 ÷ 5 = 1 A"
+    ],
+    "check": "Decide the direction first and most of the options die without arithmetic. This is a step-UP transformer, so the secondary current must be BELOW the 5 A primary current, which eliminates 25 A, 5 A and 600 A at a glance. Of what remains, the ratio enters once, not twice: dividing by 25 instead of 5 gives 0.2 A. And check the unit on your answer, because 600 in this question is a power in watts, not a current."
+  }
+}

@@ -109,16 +109,22 @@ const ENT_KEY = {
  * pages and kept here independently of the bank.
  *
  * Test 2 was marked 15 out of 15, so every one of its answers is confirmed by
- * the examiner. Test 1 was marked 14 out of 15: question 9 is the one marked
- * WRONG, and its stem is also truncated in the capture with its figure missing,
- * so no true key exists for it. It is keyed here to the option that was
- * selected, matching the bank, purely so the paper stays answerable end to end.
- * The question's own review says plainly that it cannot be judged.
+ * the examiner. Test 1 was marked 14 out of 15, and question 9 is the one
+ * marked WRONG.
+ *
+ * Q9 was unanswerable for a long time: the capture truncates its stem at
+ * "represented by" and loses the figure, so it was keyed here to the option
+ * that was selected, with a note saying no true key existed. The CCODeL
+ * tutorial deck settles it. Slide 7 sets the same question and supplies the
+ * missing figure: Ex = 6, Ey = 8, Ez = -2, so the magnitude is the square root
+ * of 104, which is 10.198, or 10.2 Vm^-1. That is option a, and it explains
+ * the zero: 10 Vm^-1 was chosen, and rounding the root of 104 to 10 is exactly
+ * the trap the distractor was built for.
  */
 const PHY_KEY = {
   'Test 1': {
     1: 'e', 2: 'd', 3: 'c', 4: 'c', 5: 'c', 6: 'd', 7: 'c', 8: 'c',
-    9: 'c', 10: 'c', 11: 'a', 12: 'a', 13: 'b', 14: 'b', 15: 'b',
+    9: 'a', 10: 'c', 11: 'a', 12: 'a', 13: 'b', 14: 'b', 15: 'b',
   },
   // Every answer on this paper was the first option. That is a real property of
   // the paper, not a transcription slip, and it is why the drill shuffles.
@@ -337,8 +343,11 @@ const COURSES = [
     // Three shapes of provenance: a numbered slide of one of the five
     // lecture decks, a section of the manual's reference sheet, or a
     // question from one of the two computer-based tests.
-    slideRef: /^(Test [12] Q\d{1,2}|Ref R\.\d|M[1-5] S\d{1,3})$/,
-    slideRefHelp: 'like "Test 1 Q12" or "Ref R.1"',
+    // A fourth shape: the CCODeL tutorial deck, which turns out to be where
+    // most of both tests came from, so a question can cite its tutorial origin
+    // as well as the paper it was later set on.
+    slideRef: /^(Test [12] Q\d{1,2}|Ref R\.\d|M[1-5] S\d{1,3}|Tut S\d{1,2})$/,
+    slideRefHelp: 'like "Test 1 Q12", "Ref R.1" or "Tut S22"',
     examRef: /^Test [12] Q\d{1,2}$/,
     requireLecture: false,
     minPerModule: 2,
@@ -369,8 +378,11 @@ const COURSES = [
     // Armed once every one of them was tested, so it now holds the line.
     ledger: 'ledger',
     // The 30 computer-based-test questions are transcriptions, not derivations,
-    // so they are exempt: their provenance is the paper itself.
+    // so they are exempt: their provenance is the paper itself. The tutorial
+    // deck counts the same way, and for the same reason: those questions are
+    // the lecturer's own, copied down, not built from the reference sheet.
     requireFacts: 'non-exam',
+    transcriptionRef: /^(Test [12] Q\d{1,2}|Tut S\d{1,2})$/,
     // Every drill topic must be taught by some lesson: a topic with questions
     // and no lesson is a hole a reader falls into.
     lessons: 'lessons.json',
@@ -687,11 +699,18 @@ function validate(q, where, cfg, seenIds) {
     // the two objective tests range wider than the eight lecture decks do, so
     // forcing a deck ref onto all 120 would mean inventing a source that is
     // not there. Deck-drilled questions are still held to the rule.
+    //
+    // transcriptionRef widens that to any source the question was COPIED from
+    // rather than derived from. PHY121 needs it because its tutorial deck turns
+    // out to be where most of both papers came from, and a test question that
+    // also records its tutorial origin is no less a transcription for saying
+    // where the examiner found it. Courses without the field are unaffected.
+    const source = cfg.transcriptionRef ?? cfg.examRef;
     const examOnly =
       cfg.requireFacts === 'non-exam' &&
-      cfg.examRef &&
+      source &&
       (q.slides ?? []).length > 0 &&
-      (q.slides ?? []).every((s) => cfg.examRef.test(s));
+      (q.slides ?? []).every((s) => source.test(s));
     if (!examOnly)
       check(
         Array.isArray(q.facts) && q.facts.length > 0,
@@ -1423,14 +1442,38 @@ for (const cfg of COURSES) {
   // from the lecture material. A topic whose deck questions outgrew one file
   // splits into deck08a, deck08b and so on; the letter is presentation only,
   // since every question carries its own `module` number.
+  const BANK_FILE = /^(module|deck|slides|close|second|test|drill|tutorial)\d+[a-z]?\.json$/;
   const moduleFiles = readdirSync(dir)
-    .filter((f) => /^(module|deck|slides|close|second|test|drill)\d+[a-z]?\.json$/.test(f))
+    .filter((f) => BANK_FILE.test(f))
     .sort((a, b) => {
       const n = (f) => Number(f.match(/\d+/)[0]);
       return n(a) - n(b) || a.localeCompare(b);
     });
 
   checkWired(cfg, moduleFiles);
+
+  // A file this pattern does not recognise is a file the gate never opens, so
+  // its questions are unvalidated AND unchecked for wiring while the app serves
+  // them happily. That is how six tutorial questions went live having passed
+  // nothing: tutorial.json matched no prefix. Anything in the directory that
+  // looks like a bank file must therefore be claimed by the pattern or named
+  // in KNOWN_NON_BANK, so the next one cannot slip through in silence.
+  const KNOWN_NON_BANK = new Set([cfg.lessons, cfg.plan, INDEX_FILE, 'paper.json']);
+  for (const f of readdirSync(dir)) {
+    if (!f.endsWith('.json') || BANK_FILE.test(f) || KNOWN_NON_BANK.has(f)) continue;
+    let items;
+    try {
+      items = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+    } catch {
+      continue;
+    }
+    const looksLikeQuestions =
+      Array.isArray(items) && items.some((x) => x && typeof x === 'object' && x.id && x.prompt);
+    check(
+      !looksLikeQuestions,
+      `${cfg.code}: ${f} holds questions but its name matches no bank pattern, so this gate never opens it`
+    );
+  }
 
   for (const f of moduleFiles) {
     const items = JSON.parse(readFileSync(join(dir, f), 'utf8'));

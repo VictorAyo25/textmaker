@@ -87,6 +87,12 @@ import pn08 from './phy121/second08.json';
 import pn09 from './phy121/second09.json';
 import pn10 from './phy121/second10.json';
 import pn11 from './phy121/second11.json';
+// The CCODeL tutorial deck. Eighteen of the thirty test questions came straight
+// off it; these six are the ones the examiner has NOT used yet.
+import ptut04 from './phy121/tutorial04.json';
+import ptut07 from './phy121/tutorial07.json';
+import ptut09 from './phy121/tutorial09.json';
+import ptut10 from './phy121/tutorial10.json';
 
 import e1 from './ent221/module1.json';
 import e2 from './ent221/module2.json';
@@ -871,6 +877,10 @@ const phyQuestions: Question[] = [
   ...(pn09 as unknown as Question[]),
   ...(pn10 as unknown as Question[]),
   ...(pn11 as unknown as Question[]),
+  ...(ptut04 as unknown as Question[]),
+  ...(ptut07 as unknown as Question[]),
+  ...(ptut09 as unknown as Question[]),
+  ...(ptut10 as unknown as Question[]),
 ];
 
 /** Both computer-based tests, rebuilt from the bank by provenance tag. */
