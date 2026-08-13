@@ -1,41 +1,88 @@
 import { Fragment } from 'react';
 
 /**
- * Renders exponents written as carets, so "2.478 x 10^-9 F" reaches the reader
- * as 2.478 x 10⁻⁹ F.
+ * Renders maths written in plain text: exponents as carets, and fractions
+ * written with the word "over", so "2.478 x 10^-9 F" reaches the reader as
+ * 2.478 x 10⁻⁹ F and "q1 q2 over 4 π ε₀ r²" is drawn as a real fraction with
+ * the numerator above the denominator and a rule between them.
  *
  * Question text is deliberately NOT html: prompts, options and verdicts are
  * plain strings rendered as React children, which is what keeps a bank file
- * from being an injection surface. So superscripts cannot be marked up the way
- * the crash-course lessons mark them up. This turns the caret notation into
- * real <sup> at render time instead, with no dangerouslySetInnerHTML anywhere
- * near the drill.
+ * from being an injection surface. So none of this can be marked up in the
+ * data the way the crash-course lessons mark it up. It is turned into real
+ * <sup> and a stacked fraction at render time instead, with no
+ * dangerouslySetInnerHTML anywhere near the drill.
  *
  * The caret notation is also what the examiner uses: PHY121's own Test 1 prints
  * its options as "2.478 x 10^-9 F". Keeping it in the data means the stored
  * question stays verbatim, and only the presentation improves.
  *
+ * "over" stays in the data rather than being replaced by a slash because a
+ * slash is ambiguous the moment the denominator has more than one term:
+ * "μ₀ N I / 2 π r" can be read three ways and "μ₀ N I over 2 π r" cannot. The
+ * word says exactly where the denominator starts, which is what lets this
+ * component draw the rule in the right place.
+ *
  * Applies to every course. IFT222 is full of 2^32 and 10^-9 too.
  */
 const EXP = /\^(-?\d+)/g;
 
-export function Sci({ text }: { text: string }) {
-  if (!text || !text.includes('^')) return <>{text}</>;
+/**
+ * A fraction: everything up to "over", and everything after it until the
+ * expression ends. The numerator runs back to the last separator, and the
+ * denominator runs forward to the next one, so surrounding prose is untouched.
+ */
+// The lookahead must NOT stop at a decimal point: "1500 over 0.5" was ending
+// the denominator at the dot and drawing a division by zero.
+const TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()\\s-]';
+const FRACTION = new RegExp(
+  `(${TERM}+?)\\s+over\\s+((?:${TERM}|\\.(?=\\d))+?)` +
+    `(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`
+);
 
+function sup(text: string): React.ReactNode[] {
   const out: React.ReactNode[] = [];
   let last = 0;
   let m: RegExpExecArray | null;
   EXP.lastIndex = 0;
   while ((m = EXP.exec(text)) !== null) {
     if (m.index > last) out.push(text.slice(last, m.index));
-    out.push(<sup key={m.index}>{m[1]}</sup>);
+    out.push(<sup key={`s${m.index}`}>{m[1]}</sup>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(text.slice(last));
+  return out;
+}
 
+export function Sci({ text }: { text: string }) {
+  if (!text) return <>{text}</>;
+
+  // Draw a fraction only when there is exactly ONE in the sentence. With
+  // several, as in "1 over C = 1 over C1 + 1 over C2", the matcher pairs the
+  // first numerator with the last denominator and draws 1 over C2, which is
+  // simply wrong maths. Wrong is far worse than plain, so those stay as words.
+  if (text.includes(' over ') && text.split(' over ').length === 2) {
+    const m = FRACTION.exec(text);
+    if (m && m[1].trim() && m[2].trim()) {
+      const before = text.slice(0, m.index);
+      const after = text.slice(m.index + m[0].length);
+      return (
+        <>
+          {before && <Sci text={before} />}
+          <span className="frac">
+            <span className="fnum">{sup(m[1].trim()).map((p, i) => <Fragment key={i}>{p}</Fragment>)}</span>
+            <span className="fden">{sup(m[2].trim()).map((p, i) => <Fragment key={i}>{p}</Fragment>)}</span>
+          </span>
+          {after && <Sci text={after} />}
+        </>
+      );
+    }
+  }
+
+  if (!text.includes('^')) return <>{text}</>;
   return (
     <>
-      {out.map((piece, i) => (
+      {sup(text).map((piece, i) => (
         <Fragment key={i}>{piece}</Fragment>
       ))}
     </>
