@@ -156,6 +156,7 @@ const today = process.argv[2] ?? '';
 let body = '';
 let total = 0;
 let contents = '';
+let figuresDrawn = 0;
 /**
  * The topic titles, written out beside the HTML for the renderer.
  *
@@ -183,12 +184,27 @@ for (const [num, title] of TOPICS) {
 
   mine.forEach((q, i) => {
     const ans = Array.isArray(q.answer) ? q.answer : [q.answer];
-    body += `<article class="q"><div class="qh"><span class="qn">${num}.${i + 1}</span>`;
+    // The number, the stem and the diagram are one unit. Split them and the
+    // reader meets "the field represented by" at the foot of a page with the
+    // picture overleaf, which is the same as having no picture at all.
+    body += `<article class="q"><div class="qtop"><div class="qh"><span class="qn">${num}.${i + 1}</span>`;
     body += `<span class="pill ${q.difficulty}">${q.difficulty}</span>`;
     body += `<span class="src">${esc(sourceOf(q))}</span></div>`;
     if (repeat.get(q.id))
       body += `<p class="rep"><b>Asked twice.</b> Also set as: ${esc(repeat.get(q.id))}.</p>`;
     body += `<p class="prompt">${sci(blanked(q.prompt))}</p>`;
+
+    // A question that depends on a diagram cannot be answered without it. The
+    // SVG is authored in the bank and drawn inline, exactly as the platform
+    // draws it, so the two outputs cannot show different pictures.
+    if (q.figure?.svg) {
+      body += '<figure class="qfig">';
+      body += q.figure.svg;
+      if (q.figure.caption) body += `<figcaption>${esc(q.figure.caption)}</figcaption>`;
+      body += '</figure>';
+      figuresDrawn++;
+    }
+    body += '</div>';
 
     // The paper's own options first, lettered and unmarked, so the question can
     // be attempted. A ticked green row above crossed red ones answers it before
@@ -294,6 +310,7 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
    a speed tip. The parts that must not split are the option list and the
    solution box; the article as a whole may break between them. */
 .q { border: 1px solid #d8e2da; border-radius: 6px; padding: 9px 11px; margin: 0 0 9px; }
+.qtop { page-break-inside: avoid; page-break-after: avoid; }
 .qh, .prompt { page-break-after: avoid; }
 .opts, .pairs, .rawopts { page-break-inside: avoid; }
 /* The options as the paper prints them: lettered, unmarked, uncoloured, so the
@@ -301,6 +318,11 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
 .rawopts { margin: 0 0 2px; padding-left: 20px; list-style: lower-alpha; }
 .rawopts li { padding: 1.5px 0; }
 .rawopts li::marker { color: #5b6b60; font-weight: 700; }
+/* A question's diagram. currentColor in the SVG picks up the ink colour, so it
+   prints as line art rather than as a grey block. */
+.qfig { margin: 6px 0 8px; padding: 7px; border: 1px solid #d8e2da; border-radius: 5px; background: #fff; text-align: center; page-break-inside: avoid; }
+.qfig svg { max-width: 78mm; height: auto; color: #1e2430; }
+.qfig figcaption { font-size: 7pt; color: #5b6b60; margin-top: 4px; }
 .blanklab { font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #5b6b60; margin: 5px 0 1px; }
 /* The line that separates attempting from checking. */
 .attemptgap { display: flex; align-items: center; gap: 8px; margin: 11px 0 7px; page-break-after: avoid; }
@@ -354,3 +376,22 @@ ${body}
 </body></html>`);
 
 writeFileSync(join(HERE, 'question_book.toc.json'), `${JSON.stringify(tocEntries, null, 2)}\n`, 'utf8');
+
+/*
+ * Two counts that must agree, checked here rather than trusted.
+ *
+ * The printed book carried NO diagrams for months while the platform carried
+ * them all, because this generator simply never looked at q.figure. Nothing
+ * complained: the page count was plausible, the questions were all present, and
+ * the only symptom was a question reading "the magnitude of the field
+ * represented by" with nothing after it. A count that has to match turns that
+ * into a build failure instead of a reader's problem.
+ */
+const expectedFigures = qs.filter((q) => q.figure?.svg).length;
+if (figuresDrawn !== expectedFigures)
+  throw new Error(
+    `figures: ${expectedFigures} questions carry one but ${figuresDrawn} were drawn`
+  );
+if (total !== qs.length)
+  throw new Error(`questions: ${qs.length} in the bank but ${total} reached the book`);
+process.stderr.write(`  ${total} questions, ${expectedFigures} figures, ${tocEntries.length} topics\n`);
