@@ -34,9 +34,27 @@ const EXP = /\^(-?\d+)/g;
  */
 // The lookahead must NOT stop at a decimal point: "1500 over 0.5" was ending
 // the denominator at the dot and drawing a division by zero.
-// "+" belongs in a term: a denominator like (R₁ + R₂) is ordinary algebra, and
-// without it the match died at the plus and the word "over" printed literally.
-const TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()+\\s-]';
+/**
+ * What counts as part of a term, written as ranges rather than as a hand-typed
+ * list of the symbols someone happened to think of.
+ *
+ * The list was the bug. εᵣ uses U+1D63, a phonetic subscript r that nobody had
+ * added, so the matcher began AFTER it and drew "ε₀ A over d" with the εᵣ left
+ * stranded outside the fraction, in a formula whose whole meaning is that the
+ * relative permittivity multiplies the rest. Ranges cover the symbols that have
+ * not come up yet as well as the ones that have.
+ *
+ *   00B2 00B3 00B9  superscript two, three and one. Unicode puts 0 and 4 to 9
+ *                   in the superscript block but left these three back in
+ *                   Latin-1, so a tidy range silently drops r squared
+ *   00B0 00B5       the degree sign, and the micro sign, which is NOT the Greek
+ *                   mu even though it looks identical and is what µF uses
+ *   0370-03FF       all Greek, so ε Ω θ Φ λ σ ρ τ π Δ μ and the rest
+ *   1D62-1D6A       the phonetic subscripts, ᵢ ᵣ ᵤ ᵥ and friends
+ *   2070-209F       the remaining superscripts and all subscripts
+ */
+const TERM =
+  '[A-Za-z0-9\\u00B0\\u00B2\\u00B3\\u00B5\\u00B9\\u0370-\\u03FF\\u1D62-\\u1D6A\\u2070-\\u209F^()+\\s-]';
 const FRACTION = new RegExp(
   `(${TERM}+?)\\s+over\\s+((?:${TERM}|\\.(?=\\d))+?)` +
     `(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`

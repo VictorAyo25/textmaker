@@ -1223,7 +1223,8 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
  * question the renderer will answer at read time, and a gate that approximates
  * the renderer passes lines the renderer then refuses.
  */
-const FRAC_TERM = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻^()+\\s-]';
+const FRAC_TERM =
+  '[A-Za-z0-9\\u00B0\\u00B2\\u00B3\\u00B5\\u00B9\\u0370-\\u03FF\\u1D62-\\u1D6A\\u2070-\\u209F^()+\\s-]';
 const FRAC = new RegExp(
   `(${FRAC_TERM}+?)\\s+over\\s+((?:${FRAC_TERM}|\\.(?=\\d))+?)` +
     `(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`

@@ -88,7 +88,12 @@ const isAlgebra = (side) => {
 const sci = (raw) => {
   let s = esc(raw).replace(/\^(-?\d+)/g, (_, d) => `<sup>${d}</sup>`);
   if (s.split(' over ').length === 2) {
-    const T = '[A-Za-z0-9εμθΦλσρτπΔ₀₁₂₃₄₅₆₇₈₉²³⁻<>\\/\\w()+\\s-]';
+    // Ranges, not a hand-typed list: εᵣ uses U+1D63 and was missing, so the
+    // matcher started after it and stranded it outside its own fraction.
+    // Mirrors components/Sci.tsx, with <>/ added for the sup tags already
+    // substituted in by this point.
+    const T =
+      '[A-Za-z0-9\\u00B0\\u00B2\\u00B3\\u00B5\\u00B9\\u0370-\\u03FF\\u1D62-\\u1D6A\\u2070-\\u209F<>\\/\\w()+\\s-]';
     const re = new RegExp(
       `(${T}+?)\\s+over\\s+((?:${T}|\\.(?=\\d))+?)(?=[,;]|\\.(?!\\d)|\\s+(?:where|which|and|so|if|is|means|gives|equals|then)\\b|$)`
     );
@@ -346,9 +351,16 @@ h2 { font-size: 13pt; margin: 0 0 10px; padding-top: 10px; border-top: 2.5px sol
 .ans { margin: 0 0 7px; }
 .pairs { width: 100%; border-collapse: collapse; margin-bottom: 7px; }
 .pairs td { border-top: 1px solid #d8e2da; padding: 3px 6px; vertical-align: top; }
-.frac { display: inline-flex; flex-direction: column; vertical-align: -0.55em; text-align: center; margin: 0 .22em; }
-.frac span:first-child { padding: 0 .3em 1px; }
-.frac span:last-child { padding: 1px .3em 0; border-top: 1.2px solid currentColor; }
+/* A fraction is two lines tall inside a one-line paragraph, so the line it sits
+   in needs room or the sentence reads as broken rather than as mathematics. */
+/* "middle" centres the two-line box on the parent's own mid-line, which is
+   where a fraction belongs. A fixed em offset guesses, and guessed low: the
+   numerator sat under the baseline so the formula read as though it had
+   slipped off the line. */
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 .26em; line-height: 1.15; }
+.frac span:first-child { padding: 0 .34em 1px; }
+.frac span:last-child { padding: 1px .34em 0; border-top: 1.2px solid currentColor; }
+.prompt, .weq, .wp p { line-height: 1.75; }
 sup { font-size: 0.72em; }
 .wsol { border: 1.2px solid #15803d; border-radius: 6px; overflow: hidden; margin: 8px 0 0; page-break-inside: avoid; }
 .wp { padding: 7px 10px; border-top: 1px solid #d8e2da; }

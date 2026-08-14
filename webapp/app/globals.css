@@ -2125,9 +2125,25 @@ p.gloss {
 /* A real fraction, drawn rather than written with the word over. The
    numerator sits above a rule and the denominator below it, inline with
    the surrounding text. */
-.frac { display: inline-flex; flex-direction: column; vertical-align: -0.55em; text-align: center; margin: 0 0.25em; }
-.frac .fnum { padding: 0 0.35em 1px; }
-.frac .fden { padding: 1px 0.35em 0; border-top: 1.4px solid currentColor; }
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  /* "middle" centres the two-line box on the parent's own mid-line, which is
+     where a fraction belongs. A fixed em offset guesses, and guessed low: the
+     numerator sat under the baseline so the formula read as though it had
+     slipped off the line. */
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 0.3em;
+  /* A fraction is two lines tall inside a one-line paragraph. Without this it
+     collides with the line above and the sentence looks broken rather than
+     mathematical. */
+  line-height: 1.15;
+}
+.frac .fnum { padding: 0 0.4em 1px; }
+.frac .fden { padding: 1px 0.4em 0; border-top: 1.4px solid currentColor; }
+/* Give a line of prose enough height to hold one without crowding. */
+.solprompt, .qtext, .wwhy, .wpart p { line-height: 1.75; }
 
 /* The question book: a difficulty pill, a repeat notice and a speed tip. */
 .speedtip { background: var(--gold-soft); border-left: 3px solid var(--gold); border-radius: 8px; padding: 11px 14px; margin: 0 0 14px; font-size: 0.92rem; }
