@@ -1,0 +1,914 @@
+/*
+ * The Quira skin.
+ *
+ * Every value here was read off the fourteen screenshots in
+ * "side quest/ui of the app". The point is that sitting a mock here should feel
+ * exactly like sitting the real thing tomorrow: same counter in the header,
+ * same progress pill, same unlettered white option cards turning pale blue when
+ * chosen, same Previous / grid / Next bar, same trophy screen with three stat
+ * tiles, same green and red question breakdown.
+ *
+ * Deliberately scoped under .qx so none of it can leak into the CU Drill pages,
+ * which have their own look and must keep it.
+ */
+
+.qx {
+  --blue: #1652f0;
+  --blue-bright: #2f6bff;
+  --blue-deep: #0b3fc4;
+  --sel-bg: #e8eefc;
+  --sel-border: #a9c0f5;
+  --navy: #0f2942;
+  --page: #f7f8fa;
+  --tint: #f2f7fd;
+  --card: #ffffff;
+  --line: #e5e7eb;
+  --ink: #10151c;
+  --muted: #7a8b99;
+  --muted-2: #98a5b1;
+  --green: #22a45d;
+  --green-bg: #e6f5ec;
+  --red: #e5484d;
+  --red-bg: #fdecec;
+  --amber: #f5a524;
+  --r: 14px;
+
+  --head: var(--qx-head), 'Poppins', 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+  --body: var(--qx-body), 'Inter', 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--page);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* The app is a phone app. On a laptop it sits in a phone-width column so the
+     line breaks in a question stem match what the real thing will show. */
+  max-width: 560px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+@media (min-width: 620px) {
+  .qx {
+    min-height: 100dvh;
+  }
+}
+
+.qx *,
+.qx *::before,
+.qx *::after {
+  box-sizing: border-box;
+}
+
+.qx h1,
+.qx h2,
+.qx h3,
+.qx .headfont {
+  font-family: var(--head);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- top bar ---------- */
+
+.qx-top {
+  background: #fff;
+  padding: 14px 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.qx-top-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  min-height: 44px;
+}
+
+.qx-back {
+  border: 0;
+  background: transparent;
+  color: #4a86c8;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  justify-self: start;
+}
+
+.qx-back:disabled {
+  color: #cfd8e0;
+  cursor: default;
+}
+
+.qx-back.chip {
+  background: #d7e8fb;
+  color: #2b6cb0;
+  width: 44px;
+  height: 44px;
+}
+
+.qx-title {
+  text-align: center;
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+}
+
+.qx-dot {
+  justify-self: end;
+  width: 22px;
+  height: 22px;
+  background: var(--blue-bright);
+  clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+}
+
+/* the progress pill under the header */
+.qx-bar {
+  height: 9px;
+  background: #e0e0e0;
+  border-radius: 999px;
+  margin: 16px 0 0;
+  overflow: hidden;
+}
+
+.qx-bar > i {
+  display: block;
+  height: 100%;
+  background: var(--blue-bright);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+/* ---------- scrolling body ---------- */
+
+.qx-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 18px 28px;
+}
+
+.qx-body.tint {
+  background: var(--tint);
+}
+
+/* ---------- the question ---------- */
+
+.qx-qlabel {
+  font-family: var(--head);
+  color: #8595a3;
+  font-size: 17px;
+  margin: 6px 0 10px;
+}
+
+.qx-stem {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 1.22;
+  margin: 0 0 34px;
+}
+
+.qx-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.qx-opt {
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  font: inherit;
+  font-weight: 500;
+  font-size: 15.5px;
+  line-height: 1.42;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.qx-opt:hover:not(:disabled) {
+  border-color: #cbd5e1;
+}
+
+.qx-opt[aria-pressed='true'] {
+  background: var(--sel-bg);
+  border-color: var(--sel-border);
+}
+
+/* instant-feedback mode only */
+.qx-opt.right {
+  background: var(--green-bg);
+  border-color: #9bd8b5;
+}
+
+.qx-opt.wrong {
+  background: var(--red-bg);
+  border-color: #f3b4b6;
+}
+
+.qx-opt:disabled {
+  cursor: default;
+}
+
+/* ---------- bottom action bar ---------- */
+
+.qx-foot {
+  background: #fff;
+  border-top: 1px solid var(--line);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.qx-prev {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: var(--navy);
+  cursor: pointer;
+  justify-self: start;
+  padding: 10px 4px;
+}
+
+.qx-prev:disabled {
+  color: #c2ccd4;
+  cursor: default;
+}
+
+.qx-grid {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 11px);
+  gap: 4px;
+  justify-self: center;
+}
+
+.qx-grid i {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: #b9cdf7;
+  display: block;
+}
+
+.qx-grid i:first-child {
+  background: var(--blue);
+}
+
+.qx-next {
+  justify-self: end;
+  border: 0;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--head);
+  font-weight: 600;
+  font-size: 17px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.qx-next:hover {
+  background: var(--blue-deep);
+}
+
+.qx-next:disabled {
+  background: #a8bff2;
+  cursor: default;
+}
+
+/* ---------- the jump-to-question sheet ---------- */
+
+.qx-sheet-back {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 41, 66, 0.4);
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.qx-sheet {
+  background: #fff;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 18px 18px 0 0;
+  padding: 20px 18px calc(24px + env(safe-area-inset-bottom));
+  max-height: 72dvh;
+  overflow-y: auto;
+}
+
+.qx-sheet h3 {
+  margin: 0 0 14px;
+  font-size: 18px;
+}
+
+.qx-jump {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.qx-jump button {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.qx-jump button.done {
+  background: var(--sel-bg);
+  border-color: var(--sel-border);
+  color: var(--blue);
+}
+
+.qx-jump button.here {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+/* ---------- completion screen ---------- */
+
+.qx-done {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.qx-trophy {
+  width: 118px;
+  height: auto;
+  margin: 6px auto 18px;
+  display: block;
+}
+
+.qx-done h2 {
+  color: var(--blue-bright);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.qx-done .sub {
+  color: #5c6b78;
+  font-size: 15px;
+  margin: 0 0 26px;
+}
+
+.qx-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.qx-tile {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid;
+  background: #fff;
+}
+
+.qx-tile .cap {
+  color: #fff;
+  font-size: 12.5px;
+  padding: 7px 4px;
+  font-weight: 500;
+}
+
+.qx-tile .val {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 21px;
+  padding: 14px 4px;
+}
+
+.qx-tile.grade {
+  border-color: #6cb7ef;
+}
+.qx-tile.grade .cap {
+  background: #52aef0;
+}
+.qx-tile.grade .val {
+  color: #2f8fdc;
+}
+
+.qx-tile.score {
+  border-color: var(--blue);
+}
+.qx-tile.score .cap {
+  background: var(--blue);
+}
+.qx-tile.score .val {
+  color: var(--blue);
+}
+
+.qx-tile.time {
+  border-color: var(--navy);
+}
+.qx-tile.time .cap {
+  background: var(--navy);
+}
+.qx-tile.time .val {
+  color: var(--navy);
+}
+
+.qx-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qx-btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: var(--head);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  background: var(--blue);
+  width: 100%;
+}
+
+.qx-btn:hover {
+  background: var(--blue-deep);
+}
+
+.qx-btn.dark {
+  background: var(--navy);
+}
+
+.qx-btn.dark:hover {
+  background: #05192b;
+}
+
+.qx-btn.plain {
+  background: transparent;
+  color: #5c6b78;
+  font-weight: 500;
+}
+
+.qx-btn.plain:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+/* the pace verdict, which the real app does not give you */
+.qx-pace {
+  border-radius: 10px;
+  padding: 13px 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.qx-pace.good {
+  background: var(--green-bg);
+  color: #14603a;
+}
+
+.qx-pace.slow {
+  background: #fff4e0;
+  color: #8a5a06;
+}
+
+/* ---------- results ---------- */
+
+.qx-summary {
+  background: #fff;
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+.qx-summary .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--muted);
+  font-family: var(--head);
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.qx-summary .big {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.qx-summary .num {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.qx-summary .num small {
+  font-size: 19px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.qx-pct {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--head);
+  font-weight: 600;
+  font-size: 19px;
+  flex: none;
+}
+
+.qx-pct.good {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.qx-pct.bad {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.qx-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #eceff2;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.qx-track > i {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  border-radius: 999px;
+}
+
+/* A green bar under a red percentage reads as a pass. Match the bar to the
+   verdict so a 40% paper looks like a 40% paper at a glance. */
+.qx-track.bad > i {
+  background: var(--red);
+}
+
+.qx-note {
+  background: #eef2fe;
+  border-radius: 10px;
+  padding: 13px 15px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  margin-bottom: 22px;
+  color: #23324a;
+}
+
+.qx-h {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0 0 14px;
+}
+
+.qx-rcard {
+  background: #fff;
+  border: 1px solid #eef1f4;
+  border-radius: var(--r);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.qx-rcard.miss {
+  border-color: #f6d9da;
+}
+
+.qx-rhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.qx-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex: none;
+}
+
+.qx-mark.ok {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.qx-mark.no {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.qx-rhead .n {
+  font-family: var(--head);
+  color: var(--muted);
+  font-size: 15px;
+  flex: 1;
+}
+
+.qx-pill {
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.qx-pill.ok {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.qx-pill.no {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.qx-rstem {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+
+.qx-rcard hr {
+  border: 0;
+  border-top: 1px solid #eef1f4;
+  margin: 0 0 12px;
+}
+
+.qx-line {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+
+.qx-line dt {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.qx-line dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.qx-line dd.good {
+  color: var(--green);
+}
+
+.qx-line dd.bad {
+  color: var(--red);
+}
+
+/* the part Quira does not give you: why every option is what it is */
+.qx-why {
+  margin-top: 14px;
+  border-top: 1px dashed #e3e8ee;
+  padding-top: 13px;
+}
+
+.qx-why > p {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #26313d;
+}
+
+.qx-why ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.qx-why li {
+  font-size: 13.8px;
+  line-height: 1.5;
+  color: #46535f;
+  padding-left: 13px;
+  border-left: 2px solid #e3e8ee;
+}
+
+.qx-why li.key {
+  border-left-color: var(--green);
+  color: #22313c;
+}
+
+.qx-src {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--muted-2);
+}
+
+/* ---------- home ---------- */
+
+.qx-hero {
+  background: linear-gradient(150deg, var(--blue) 0%, #2a6bff 55%, #4b86ff 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.qx-hero h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.qx-hero p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+
+.qx-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.qx-stat {
+  background: #fff;
+  border: 1px solid #eef1f4;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.qx-stat b {
+  font-family: var(--head);
+  font-size: 22px;
+  display: block;
+  line-height: 1.1;
+}
+
+.qx-stat span {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.qx-section {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 26px 0 12px;
+}
+
+.qx-lens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.qx-chip {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 9px 15px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  color: #3c4956;
+}
+
+.qx-chip[aria-pressed='true'] {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  font-weight: 600;
+}
+
+.qx-topic {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #eef1f4;
+  border-radius: 12px;
+  padding: 14px 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font: inherit;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.qx-topic[aria-pressed='true'] {
+  background: var(--sel-bg);
+  border-color: var(--sel-border);
+}
+
+.qx-topic b {
+  font-family: var(--head);
+  font-size: 15.5px;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.qx-topic span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  display: block;
+}
+
+.qx-topic em {
+  font-style: normal;
+  color: var(--blue);
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.qx-hint {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.qx-warn {
+  background: #fff4e0;
+  color: #7a5106;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+/* ---------- study list ---------- */
+
+.qx-study {
+  background: #fff;
+  border: 1px solid #eef1f4;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.qx-study .q {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 0 0 10px;
+}
+
+.qx-study .a {
+  color: var(--green);
+  font-weight: 600;
+  font-size: 14.5px;
+  margin: 0 0 8px;
+}
+
+.qx-study .e {
+  color: #46535f;
+  font-size: 13.8px;
+  line-height: 1.55;
+  margin: 0;
+}

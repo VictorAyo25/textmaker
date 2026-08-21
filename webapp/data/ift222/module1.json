@@ -1,14 +1,482 @@
 [
-{"id":"ift-t1-16","module":1,"slides":["Test 1 Q16"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Architecture as blueprint","prompt":"An engineer describes computer architecture as the \"blueprint\" of a system. Which analogy best represents computer organization?","options":[{"id":"a","text":"The owner of the building"},{"id":"b","text":"The cost estimate"},{"id":"c","text":"The construction process implementing the design"},{"id":"d","text":"The building design"}],"answer":"c","explanation":"Architecture is what the machine looks like to the programmer, the blueprint. Organization is how that blueprint is actually built and wired up, the construction process.","why":{"a":"Wrong. The owner commissions the building. That is neither the design nor the act of building, so it maps to nothing in this pair.","b":"Wrong. A cost estimate is a budget. Organization is about how the design is realised in hardware, not what it costs.","c":"Correct. Organization is the construction: the buses, the cache, the control paths that turn the blueprint into a working machine.","d":"Wrong. The building design IS the blueprint, and the stem has already given the blueprint to architecture. Choosing d says architecture and organization are the same thing."}},
-{"id":"ift-t1-24","module":1,"slides":["Test 1 Q24"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Architecture components","prompt":"Which of the following is NOT an example of a computer architecture component?","options":[{"id":"a","text":"Memory technology used"},{"id":"b","text":"Addressing modes"},{"id":"c","text":"Register organization"},{"id":"d","text":"Instruction set"}],"answer":"a","explanation":"Architecture is the programmer-visible contract: instruction set, addressing modes, registers. Which memory technology is fitted is an implementation choice, so it belongs to organization.","why":{"a":"Correct, and note the question asks which is NOT. Whether the machine uses SRAM, DRAM or flash cannot be seen from any program, so it is an organization decision.","b":"Wrong choice, because addressing modes ARE architecture. They are the ways an instruction may name its operand, written into the ISA.","c":"Wrong choice, because register organization IS architecture. The programmer-visible registers are named directly in instructions.","d":"Wrong choice, because the instruction set IS the architecture, the very heart of it."}},
-{"id":"ift-t1-33","module":1,"slides":["Test 1 Q33"],"style":"mcq","difficulty":"easy","facets":["wording"],"topic":"Memory organization","prompt":"A cloud computing provider improves application response time by introducing multiple levels of cache memory. This improvement is mainly related to:","options":[{"id":"a","text":"Data representation"},{"id":"b","text":"Character encoding"},{"id":"c","text":"ISA design"},{"id":"d","text":"Memory organization"}],"answer":"d","explanation":"Adding cache levels changes nothing a programmer can see in the instruction set. It changes how memory is arranged behind the scenes.","why":{"a":"Wrong. Data representation is how numbers are encoded in bits. No number changed here.","b":"Wrong. Character encoding is ASCII and Unicode, which have nothing to do with cache levels.","c":"Wrong. The instruction set is untouched. Programs run unmodified, they just run faster.","d":"Correct. Levels of cache are an arrangement of memory, which is precisely what memory organization means."}},
-{"id":"ift-t1-34","module":1,"slides":["Test 1 Q34"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Same ISA, different speed","prompt":"A laptop and a desktop both use x86 processors. The desktop performs significantly better due to more CPU cores and larger caches. This performance difference arises mainly from:","options":[{"id":"a","text":"Organizational differences"},{"id":"b","text":"Different programming languages"},{"id":"c","text":"Different operating systems"},{"id":"d","text":"Architectural incompatibility"}],"answer":"a","explanation":"Both run the same x86 instruction set, so the architecture is identical. Cores and cache size are organization, and organization is where performance comes from.","why":{"a":"Correct. The stem names cores and caches, and both are organization.","b":"Wrong. No language is mentioned, and the same program is assumed on both machines.","c":"Wrong. No operating system is mentioned, and an OS would not account for a hardware gap of this kind.","d":"Wrong, and impossible. Both are x86, so the architectures are identical, not incompatible."}},
-{"id":"ift-t1-35","module":1,"slides":["Test 1 Q35"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"What changed","prompt":"A bank upgrades its servers to processors with larger caches and faster RAM while retaining the same x86 instruction set. What has primarily changed?","options":[{"id":"a","text":"Architecture only"},{"id":"b","text":"Organization only"},{"id":"c","text":"Both architecture and organization"},{"id":"d","text":"Neither architecture nor organization"}],"answer":"b","explanation":"The instruction set is untouched, so the architecture is untouched. Bigger caches and faster RAM are pure organization. The giveaway phrase is \"retaining the same instruction set\".","why":{"a":"Wrong, and backwards. The one thing explicitly UNCHANGED is the instruction set, which is the architecture.","b":"Correct. Cache size and RAM speed are implementation, so only the organization moved.","c":"Wrong. It would need the ISA to have changed too, and the stem rules that out.","d":"Wrong. Something did change: the caches and the memory. Only its category is in question."}},
-{"id":"ift-t1-41","module":1,"slides":["Test 1 Q41"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Why both are studied","prompt":"A computer scientist states that architecture and organization must be studied together because:","options":[{"id":"a","text":"Organization alone determines functionality."},{"id":"b","text":"Architecture alone determines performance."},{"id":"c","text":"Both concepts refer to the same thing."},{"id":"d","text":"Architecture defines capabilities, while organization determines efficiency and performance."}],"answer":"d","explanation":"The one-line rule for this whole topic: architecture says WHAT the machine can do, organization says HOW WELL it does it.","why":{"a":"Wrong, the two are swapped. Functionality, what the machine can do at all, comes from the architecture.","b":"Wrong, swapped the other way. Performance comes from the organization, which is why two x86 chips differ in speed.","c":"Wrong. If they were the same thing there would be nothing to study together, and the whole distinction would collapse.","d":"Correct, and this is the sentence to memorise for every question in this topic."}},
-{"id":"ift-t2-26","module":1,"slides":["Test 2 Q26"],"style":"mcq","difficulty":"hard","facets":["wording"],"topic":"Evaluating two designs","prompt":"A national supercomputing center is evaluating two competing processor designs. Processor X achieves higher benchmark performance but consumes significantly more power. Processor Y delivers slightly lower performance while offering substantially better energy efficiency and scalability. Considering contemporary computer architecture principles for high-performance computing, which evaluation is the most appropriate?","options":[{"id":"a","text":"Processor Y may represent the superior architectural choice because modern processor evaluation considers performance/scalability, power efficiency, thermal constraints, and total cost of ownership rather than peak speed alone."},{"id":"b","text":"Both processors are architecturally equivalent."},{"id":"c","text":"Processor X is always preferable because peak performance is the sole design objective."},{"id":"d","text":"Energy efficiency has no relevance in processor architecture."}],"answer":"a","explanation":"Modern evaluation weighs performance per watt, thermal limits, scalability and total cost of ownership, not peak speed alone. On this paper, any option containing an absolute such as \"always\", \"sole\" or \"no relevance\" is the wrong one.","why":{"a":"Correct, and note the hedged verb \"may represent\". It weighs several criteria instead of crowning one.","b":"Wrong. The stem itself lists differences in performance, power and scalability, so they cannot be equivalent.","c":"Wrong on two counts: \"always\" admits no trade-off, and peak performance is not the sole objective in a facility that must be powered and cooled.","d":"Wrong, and the strongest claim of the four. Power is a first-order constraint in high-performance computing, since a machine that cannot be cooled cannot be run."}},
-{"id":"ift-t2-27","module":1,"slides":["Test 2 Q27"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Domain-specific architecture","prompt":"A research laboratory designs a custom processor specifically optimized for matrix multiplication in artificial intelligence workloads. This design illustrates which architectural principle?","options":[{"id":"a","text":"General-purpose optimization always outperforms specialization."},{"id":"b","text":"Matrix operations require no architectural optimization."},{"id":"c","text":"Specialized architectures eliminate software dependence."},{"id":"d","text":"Domain-specific architectures can significantly improve efficiency for targeted applications."}],"answer":"d","explanation":"Building the silicon around one workload is the definition of a domain-specific architecture, and the payoff is efficiency on that workload.","why":{"a":"Wrong, and contradicted by the stem. If general-purpose always won, nobody would build the custom chip described.","b":"Wrong. The entire scenario exists because matrix work rewards architectural optimisation.","c":"Wrong. A specialised chip still needs drivers, libraries and compilers. Hardware never removes the software.","d":"Correct. Narrow the workload, and you may spend the transistors where that workload actually needs them."}},
-{"id":"ift-t2-31","module":1,"slides":["Test 2 Q31"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Architecture vs engineering","prompt":"Which statement best characterizes the distinction between computer architecture and computer engineering?","options":[{"id":"a","text":"Computer engineering excludes hardware design."},{"id":"b","text":"Both disciplines are identical."},{"id":"c","text":"Computer architecture concerns only software."},{"id":"d","text":"Computer architecture focuses primarily on the conceptual design and operational behavior of computing systems, whereas computer engineering encompasses the broader design, implementation, and integration of hardware systems."}],"answer":"d","explanation":"Architecture is the conceptual and operational design. Engineering is the wider job of designing, implementing and integrating real hardware.","why":{"a":"Wrong, and the reverse of the truth. Hardware design is the core of computer engineering.","b":"Wrong. Architecture is one concern inside the broader engineering discipline, not a synonym for it.","c":"Wrong. Architecture is the interface BETWEEN hardware and software, so it can never be software only.","d":"Correct. Conceptual and operational design on one side, the broader build and integration of hardware on the other."}},
-{"id":"ift-t2-38","module":1,"slides":["Test 2 Q38"],"style":"mcq","difficulty":"hard","facets":["wording"],"topic":"Same ISA, different time","prompt":"Two processors implement exactly the same Instruction Set Architecture but exhibit significantly different execution times when running identical benchmark applications. Which explanation best accounts for this observation?","options":[{"id":"a","text":"Different ISAs always produce identical performance."},{"id":"b","text":"The compiler determines all performance differences regardless of hardware."},{"id":"c","text":"Identical ISAs require identical transistor layouts."},{"id":"d","text":"Variations in clock frequency, cache hierarchy, execution units, and pipeline organization influence performance despite identical ISAs."}],"answer":"d","explanation":"A shared ISA guarantees the same instructions, never the same speed. Clock, cache, execution units and pipeline depth are microarchitecture, and they are free to differ.","why":{"a":"Wrong, and it answers a question that was not asked. The stem says the ISAs are the SAME, and the claim itself is false anyway.","b":"Wrong. The benchmark is identical on both machines, so the compiler is a constant here, not a variable.","c":"Wrong, and it is the exact misconception being tested. An ISA fixes the interface, never the transistors under it.","d":"Correct. This is the microarchitecture, and it is where identical-ISA machines diverge."}},
-{"id":"ift-t2-46","module":1,"slides":["Test 2 Q46"],"style":"mcq","difficulty":"medium","facets":["wording"],"topic":"Abstraction","prompt":"Which statement most accurately reflects the role of abstraction in computer architecture?","options":[{"id":"a","text":"Abstraction eliminates hardware complexity entirely."},{"id":"b","text":"Abstraction reduces processor speed."},{"id":"c","text":"Abstraction only applies to programming languages."},{"id":"d","text":"Abstraction enables designers to separate concerns across different layers, allowing software developers and hardware engineers to work independently while maintaining compatibility."}],"answer":"d","explanation":"Abstraction hides complexity behind a stable interface, it does not delete it. That separation of layers is what lets the two sides of the industry work independently and still interoperate.","why":{"a":"Wrong. The complexity is still there, it is merely hidden behind the interface. \"Entirely\" gives this away.","b":"Wrong. Abstraction is a design principle, not a runtime cost imposed on the processor.","c":"Wrong. The layering runs from transistors up through logic, microarchitecture, ISA, operating system and applications.","d":"Correct. Separation of concerns across layers, with compatibility preserved at each interface."}},
-{"id":"ift-t2-54","module":1,"slides":["Test 2 Q54"],"style":"mcq","difficulty":"hard","facets":["wording"],"topic":"Backward compatibility","prompt":"A processor supports backward compatibility with software written twenty years ago despite significant improvements in hardware implementation. Which architectural philosophy is primarily responsible for this capability?","options":[{"id":"a","text":"Eliminating compiler optimizations."},{"id":"b","text":"Maintaining a stable ISA while evolving the underlying organization and microarchitecture."},{"id":"c","text":"Replacing the ISA every processor generation."},{"id":"d","text":"Increasing clock frequency only."}],"answer":"b","explanation":"Old binaries keep running because the programmer-visible contract, the ISA, is frozen. Everything under it is free to be rebuilt generation after generation.","why":{"a":"Wrong. Twenty-year-old binaries were compiled long ago, so nothing the compiler does now affects whether they run.","b":"Correct. Freeze the interface, evolve the implementation. That is the whole trick of backward compatibility.","c":"Wrong, and it is the opposite policy. A new ISA every generation would break every old program.","d":"Wrong. A faster clock makes old software run faster, it does not make it run at all."}}
+  {
+    "id": "ift-t1-16",
+    "module": 1,
+    "slides": [
+      "Test 1 Q16"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Architecture as blueprint",
+    "prompt": "An engineer describes computer architecture as the \"blueprint\" of a system. Which analogy best represents computer organization?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The owner of the building"
+      },
+      {
+        "id": "b",
+        "text": "The cost estimate"
+      },
+      {
+        "id": "c",
+        "text": "The construction process implementing the design"
+      },
+      {
+        "id": "d",
+        "text": "The building design"
+      }
+    ],
+    "answer": "c",
+    "explanation": "Architecture is what the machine looks like to the programmer, the blueprint. Organization is how that blueprint is actually built and wired up, the construction process.",
+    "why": {
+      "a": "Wrong. The owner commissions the building. That is neither the design nor the act of building, so it maps to nothing in this pair.",
+      "b": "Wrong. A cost estimate is a budget. Organization is about how the design is realised in hardware, not what it costs.",
+      "c": "Correct. Organization is the construction: the buses, the cache, the control paths that turn the blueprint into a working machine.",
+      "d": "Wrong. The building design IS the blueprint, and the stem has already given the blueprint to architecture. Choosing the building design says architecture and organization are the same thing."
+    }
+  },
+  {
+    "id": "ift-t1-24",
+    "module": 1,
+    "slides": [
+      "Test 1 Q24"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Architecture components",
+    "prompt": "Which of the following is NOT an example of a computer architecture component?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Memory technology used"
+      },
+      {
+        "id": "b",
+        "text": "Addressing modes"
+      },
+      {
+        "id": "c",
+        "text": "Register organization"
+      },
+      {
+        "id": "d",
+        "text": "Instruction set"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Architecture is the programmer-visible contract: instruction set, addressing modes, registers. Which memory technology is fitted is an implementation choice, so it belongs to organization.",
+    "why": {
+      "a": "Correct, and note the question asks which is NOT. Whether the machine uses SRAM, DRAM or flash cannot be seen from any program, so it is an organization decision.",
+      "b": "Wrong choice, because addressing modes ARE architecture. They are the ways an instruction may name its operand, written into the ISA.",
+      "c": "Wrong choice, because register organization IS architecture. The programmer-visible registers are named directly in instructions.",
+      "d": "Wrong choice, because the instruction set IS the architecture, the very heart of it."
+    }
+  },
+  {
+    "id": "ift-t1-33",
+    "module": 1,
+    "slides": [
+      "Test 1 Q33"
+    ],
+    "style": "mcq",
+    "difficulty": "easy",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Memory organization",
+    "prompt": "A cloud computing provider improves application response time by introducing multiple levels of cache memory. This improvement is mainly related to:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Data representation"
+      },
+      {
+        "id": "b",
+        "text": "Character encoding"
+      },
+      {
+        "id": "c",
+        "text": "ISA design"
+      },
+      {
+        "id": "d",
+        "text": "Memory organization"
+      }
+    ],
+    "answer": "d",
+    "explanation": "Adding cache levels changes nothing a programmer can see in the instruction set. It changes how memory is arranged behind the scenes.",
+    "why": {
+      "a": "Wrong. Data representation is how numbers are encoded in bits. No number changed here.",
+      "b": "Wrong. Character encoding is ASCII and Unicode, which have nothing to do with cache levels.",
+      "c": "Wrong. The instruction set is untouched. Programs run unmodified, they just run faster.",
+      "d": "Correct. Levels of cache are an arrangement of memory, which is precisely what memory organization means."
+    }
+  },
+  {
+    "id": "ift-t1-34",
+    "module": 1,
+    "slides": [
+      "Test 1 Q34"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Same ISA, different speed",
+    "prompt": "A laptop and a desktop both use x86 processors. The desktop performs significantly better due to more CPU cores and larger caches. This performance difference arises mainly from:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Organizational differences"
+      },
+      {
+        "id": "b",
+        "text": "Different programming languages"
+      },
+      {
+        "id": "c",
+        "text": "Different operating systems"
+      },
+      {
+        "id": "d",
+        "text": "Architectural incompatibility"
+      }
+    ],
+    "answer": "a",
+    "explanation": "Both run the same x86 instruction set, so the architecture is identical. Cores and cache size are organization, and organization is where performance comes from.",
+    "why": {
+      "a": "Correct. The stem names cores and caches, and both are organization.",
+      "b": "Wrong. No language is mentioned, and the same program is assumed on both machines.",
+      "c": "Wrong. No operating system is mentioned, and an OS would not account for a hardware gap of this kind.",
+      "d": "Wrong, and impossible. Both are x86, so the architectures are identical, not incompatible."
+    }
+  },
+  {
+    "id": "ift-t1-35",
+    "module": 1,
+    "slides": [
+      "Test 1 Q35"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "What changed",
+    "prompt": "A bank upgrades its servers to processors with larger caches and faster RAM while retaining the same x86 instruction set. What has primarily changed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Architecture only"
+      },
+      {
+        "id": "b",
+        "text": "Organization only"
+      },
+      {
+        "id": "c",
+        "text": "Both architecture and organization"
+      },
+      {
+        "id": "d",
+        "text": "Neither architecture nor organization"
+      }
+    ],
+    "answer": "b",
+    "explanation": "The instruction set is untouched, so the architecture is untouched. Bigger caches and faster RAM are pure organization. The giveaway phrase is \"retaining the same instruction set\".",
+    "why": {
+      "a": "Wrong, and backwards. The one thing explicitly UNCHANGED is the instruction set, which is the architecture.",
+      "b": "Correct. Cache size and RAM speed are implementation, so only the organization moved.",
+      "c": "Wrong. It would need the ISA to have changed too, and the stem rules that out.",
+      "d": "Wrong. Something did change: the caches and the memory. Only its category is in question."
+    }
+  },
+  {
+    "id": "ift-t1-41",
+    "module": 1,
+    "slides": [
+      "Test 1 Q41"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Why both are studied",
+    "prompt": "A computer scientist states that architecture and organization must be studied together because:",
+    "options": [
+      {
+        "id": "a",
+        "text": "Organization alone determines functionality."
+      },
+      {
+        "id": "b",
+        "text": "Architecture alone determines performance."
+      },
+      {
+        "id": "c",
+        "text": "Both concepts refer to the same thing."
+      },
+      {
+        "id": "d",
+        "text": "Architecture defines capabilities, while organization determines efficiency and performance."
+      }
+    ],
+    "answer": "d",
+    "explanation": "The one-line rule for this whole topic: architecture says WHAT the machine can do, organization says HOW WELL it does it.",
+    "why": {
+      "a": "Wrong, the two are swapped. Functionality, what the machine can do at all, comes from the architecture.",
+      "b": "Wrong, swapped the other way. Performance comes from the organization, which is why two x86 chips differ in speed.",
+      "c": "Wrong. If they were the same thing there would be nothing to study together, and the whole distinction would collapse.",
+      "d": "Correct, and this is the sentence to memorise for every question in this topic."
+    }
+  },
+  {
+    "id": "ift-t2-26",
+    "module": 1,
+    "slides": [
+      "Test 2 Q26"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Evaluating two designs",
+    "prompt": "A national supercomputing center is evaluating two competing processor designs. Processor X achieves higher benchmark performance but consumes significantly more power. Processor Y delivers slightly lower performance while offering substantially better energy efficiency and scalability. Considering contemporary computer architecture principles for high-performance computing, which evaluation is the most appropriate?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Processor Y may represent the superior architectural choice because modern processor evaluation considers performance/scalability, power efficiency, thermal constraints, and total cost of ownership rather than peak speed alone."
+      },
+      {
+        "id": "b",
+        "text": "Both processors are architecturally equivalent."
+      },
+      {
+        "id": "c",
+        "text": "Processor X is always preferable because peak performance is the sole design objective."
+      },
+      {
+        "id": "d",
+        "text": "Energy efficiency has no relevance in processor architecture."
+      }
+    ],
+    "answer": "a",
+    "explanation": "Modern evaluation weighs performance per watt, thermal limits, scalability and total cost of ownership, not peak speed alone. On this paper, any option containing an absolute such as \"always\", \"sole\" or \"no relevance\" is the wrong one.",
+    "why": {
+      "a": "Correct, and note the hedged verb \"may represent\". It weighs several criteria instead of crowning one.",
+      "b": "Wrong. The stem itself lists differences in performance, power and scalability, so they cannot be equivalent.",
+      "c": "Wrong on two counts: \"always\" admits no trade-off, and peak performance is not the sole objective in a facility that must be powered and cooled.",
+      "d": "Wrong, and the strongest claim of the four. Power is a first-order constraint in high-performance computing, since a machine that cannot be cooled cannot be run."
+    }
+  },
+  {
+    "id": "ift-t2-27",
+    "module": 1,
+    "slides": [
+      "Test 2 Q27"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Domain-specific architecture",
+    "prompt": "A research laboratory designs a custom processor specifically optimized for matrix multiplication in artificial intelligence workloads. This design illustrates which architectural principle?",
+    "options": [
+      {
+        "id": "a",
+        "text": "General-purpose optimization always outperforms specialization."
+      },
+      {
+        "id": "b",
+        "text": "Matrix operations require no architectural optimization."
+      },
+      {
+        "id": "c",
+        "text": "Specialized architectures eliminate software dependence."
+      },
+      {
+        "id": "d",
+        "text": "Domain-specific architectures can significantly improve efficiency for targeted applications."
+      }
+    ],
+    "answer": "d",
+    "explanation": "Building the silicon around one workload is the definition of a domain-specific architecture, and the payoff is efficiency on that workload.",
+    "why": {
+      "a": "Wrong, and contradicted by the stem. If general-purpose always won, nobody would build the custom chip described.",
+      "b": "Wrong. The entire scenario exists because matrix work rewards architectural optimisation.",
+      "c": "Wrong. A specialised chip still needs drivers, libraries and compilers. Hardware never removes the software.",
+      "d": "Correct. Narrow the workload, and you may spend the transistors where that workload actually needs them."
+    }
+  },
+  {
+    "id": "ift-t2-31",
+    "module": 1,
+    "slides": [
+      "Test 2 Q31"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Architecture vs engineering",
+    "prompt": "Which statement best characterizes the distinction between computer architecture and computer engineering?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Computer engineering excludes hardware design."
+      },
+      {
+        "id": "b",
+        "text": "Both disciplines are identical."
+      },
+      {
+        "id": "c",
+        "text": "Computer architecture concerns only software."
+      },
+      {
+        "id": "d",
+        "text": "Computer architecture focuses primarily on the conceptual design and operational behavior of computing systems, whereas computer engineering encompasses the broader design, implementation, and integration of hardware systems."
+      }
+    ],
+    "answer": "d",
+    "explanation": "Architecture is the conceptual and operational design. Engineering is the wider job of designing, implementing and integrating real hardware.",
+    "why": {
+      "a": "Wrong, and the reverse of the truth. Hardware design is the core of computer engineering.",
+      "b": "Wrong. Architecture is one concern inside the broader engineering discipline, not a synonym for it.",
+      "c": "Wrong. Architecture is the interface BETWEEN hardware and software, so it can never be software only.",
+      "d": "Correct. Conceptual and operational design on one side, the broader build and integration of hardware on the other."
+    }
+  },
+  {
+    "id": "ift-t2-38",
+    "module": 1,
+    "slides": [
+      "Test 2 Q38"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Same ISA, different time",
+    "prompt": "Two processors implement exactly the same Instruction Set Architecture but exhibit significantly different execution times when running identical benchmark applications. Which explanation best accounts for this observation?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Different ISAs always produce identical performance."
+      },
+      {
+        "id": "b",
+        "text": "The compiler determines all performance differences regardless of hardware."
+      },
+      {
+        "id": "c",
+        "text": "Identical ISAs require identical transistor layouts."
+      },
+      {
+        "id": "d",
+        "text": "Variations in clock frequency, cache hierarchy, execution units, and pipeline organization influence performance despite identical ISAs."
+      }
+    ],
+    "answer": "d",
+    "explanation": "A shared ISA guarantees the same instructions, never the same speed. Clock, cache, execution units and pipeline depth are microarchitecture, and they are free to differ.",
+    "why": {
+      "a": "Wrong, and it answers a question that was not asked. The stem says the ISAs are the SAME, and the claim itself is false anyway.",
+      "b": "Wrong. The benchmark is identical on both machines, so the compiler is a constant here, not a variable.",
+      "c": "Wrong, and it is the exact misconception being tested. An ISA fixes the interface, never the transistors under it.",
+      "d": "Correct. This is the microarchitecture, and it is where identical-ISA machines diverge."
+    }
+  },
+  {
+    "id": "ift-t2-46",
+    "module": 1,
+    "slides": [
+      "Test 2 Q46"
+    ],
+    "style": "mcq",
+    "difficulty": "medium",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Abstraction",
+    "prompt": "Which statement most accurately reflects the role of abstraction in computer architecture?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Abstraction eliminates hardware complexity entirely."
+      },
+      {
+        "id": "b",
+        "text": "Abstraction reduces processor speed."
+      },
+      {
+        "id": "c",
+        "text": "Abstraction only applies to programming languages."
+      },
+      {
+        "id": "d",
+        "text": "Abstraction enables designers to separate concerns across different layers, allowing software developers and hardware engineers to work independently while maintaining compatibility."
+      }
+    ],
+    "answer": "d",
+    "explanation": "Abstraction hides complexity behind a stable interface, it does not delete it. That separation of layers is what lets the two sides of the industry work independently and still interoperate.",
+    "why": {
+      "a": "Wrong. The complexity is still there, it is merely hidden behind the interface. \"Entirely\" gives this away.",
+      "b": "Wrong. Abstraction is a design principle, not a runtime cost imposed on the processor.",
+      "c": "Wrong. The layering runs from transistors up through logic, microarchitecture, ISA, operating system and applications.",
+      "d": "Correct. Separation of concerns across layers, with compatibility preserved at each interface."
+    }
+  },
+  {
+    "id": "ift-t2-54",
+    "module": 1,
+    "slides": [
+      "Test 2 Q54"
+    ],
+    "style": "mcq",
+    "difficulty": "hard",
+    "facets": [
+      "wording"
+    ],
+    "topic": "Backward compatibility",
+    "prompt": "A processor supports backward compatibility with software written twenty years ago despite significant improvements in hardware implementation. Which architectural philosophy is primarily responsible for this capability?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Eliminating compiler optimizations."
+      },
+      {
+        "id": "b",
+        "text": "Maintaining a stable ISA while evolving the underlying organization and microarchitecture."
+      },
+      {
+        "id": "c",
+        "text": "Replacing the ISA every processor generation."
+      },
+      {
+        "id": "d",
+        "text": "Increasing clock frequency only."
+      }
+    ],
+    "answer": "b",
+    "explanation": "Old binaries keep running because the programmer-visible contract, the ISA, is frozen. Everything under it is free to be rebuilt generation after generation.",
+    "why": {
+      "a": "Wrong. Twenty-year-old binaries were compiled long ago, so nothing the compiler does now affects whether they run.",
+      "b": "Correct. Freeze the interface, evolve the implementation. That is the whole trick of backward compatibility.",
+      "c": "Wrong, and it is the opposite policy. A new ISA every generation would break every old program.",
+      "d": "Wrong. A faster clock makes old software run faster, it does not make it run at all."
+    }
+  }
 ]
