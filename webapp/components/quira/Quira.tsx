@@ -9,10 +9,13 @@ import { QUIRA_TOPICS, type QuiraQuestion } from '@/data/quira';
  * Two things are being judged tomorrow: speed and accuracy. So this does two
  * things the real app does not.
  *
- * 1. It keeps a clock on every single question, not just on the paper, and
- *    tells you afterwards which questions cost you time. Quiz 2 in the
- *    screenshots was ten questions in 02:54, which is 17.4 seconds each, so
- *    that is the pace to beat.
+ * 1. It keeps a clock on every single question, not just on the paper, shows it
+ *    live while you answer, and tells you afterwards which questions cost you
+ *    time. The practice run was ten questions in 02:54, which is 17.4 seconds
+ *    each, but that is what was DONE rather than what wins. The target here is
+ *    5 seconds, which is recognition speed: you either know the stem on sight
+ *    or you are reading, and reading is what loses. The live chip exists
+ *    because at five seconds there is no time to pace yourself by feel.
  * 2. It remembers what you got wrong and weights those questions to the front
  *    of the next paper, so repeat practice is not repeat of the easy ones.
  *
@@ -40,6 +43,11 @@ interface Store {
 
 const KEY = 'quira-mental-exploits-v1';
 const EMPTY: Store = { seen: {}, papers: [] };
+
+/** The goal: five seconds a question. Recognition, not reading. */
+const TARGET = 5000;
+/** What the practice run actually managed, kept only as a reference point. */
+const BENCH = 17400;
 
 function load(): Store {
   if (typeof window === 'undefined') return EMPTY;
@@ -105,11 +113,23 @@ export default function Quira({ questions }: Props) {
   const started = useRef(0);
   const landed = useRef(0);
   const [total, setTotal] = useState(0);
+  /** Milliseconds on the question currently open, ticked for the live chip. */
+  const [onNow, setOnNow] = useState(0);
 
   useEffect(() => {
     setStore(load());
     setReady(true);
   }, []);
+
+  // The live per-question clock. Five seconds is too short to feel, so it has
+  // to be shown. It resets whenever the question changes, and stops mattering
+  // outside the runner.
+  useEffect(() => {
+    if (screen !== 'run') return;
+    setOnNow(0);
+    const id = window.setInterval(() => setOnNow(Date.now() - landed.current), 100);
+    return () => window.clearInterval(id);
+  }, [screen, at]);
 
   const pool = useMemo(
     () => (topics.length ? questions.filter((q) => topics.includes(q.module)) : questions),
@@ -265,8 +285,9 @@ export default function Quira({ questions }: Props) {
             <h2>Win the challenge</h2>
             <p>
               {questions.length} questions built from all 79 pages, asked the way their generator
-              asks them. Ten questions took 02:54 on the practice run, so the pace to beat is
-              about 17 seconds each.
+              asks them. The target is <strong>5 seconds a question</strong>: recognition, not
+              reading. The practice run managed 17.4s, and that is the pace to beat rather than
+              the pace to match.
             </p>
           </div>
 
@@ -405,7 +426,15 @@ export default function Quira({ questions }: Props) {
         </header>
 
         <div className="qx-body">
-          <p className="qx-qlabel">Question {String(at + 1).padStart(2, '0')}</p>
+          <div className="qx-qrow">
+            <p className="qx-qlabel">Question {String(at + 1).padStart(2, '0')}</p>
+            <span
+              className={`qx-tick ${onNow > BENCH ? 'over' : onNow > TARGET ? 'warn' : 'ok'}`}
+              aria-label="Seconds on this question"
+            >
+              {(onNow / 1000).toFixed(1)}s
+            </span>
+          </div>
           <h2 className="qx-stem">{cur.q.prompt}</h2>
 
           <div className="qx-opts">
@@ -497,7 +526,11 @@ export default function Quira({ questions }: Props) {
   // ------------------------------------------------------------- results ----
 
   if (screen === 'done') {
-    const fast = perQ > 0 && perQ <= 17400;
+    // Three bands rather than pass/fail, because 5s is deliberately hard and a
+    // flat "too slow" on every early paper teaches nothing. `slow` counts the
+    // questions that actually blew the target, which is the number to work on.
+    const band = perQ <= TARGET ? 'good' : perQ <= BENCH ? 'near' : 'slow';
+    const overTarget = paper.filter(({ q }) => (spent[q.id] ?? 0) > TARGET).length;
     return (
       <div className="qx">
         <header className="qx-top">
@@ -547,18 +580,30 @@ export default function Quira({ questions }: Props) {
             </div>
           </div>
 
-          <div className={`qx-pace ${fast ? 'good' : 'slow'}`}>
-            {fast ? (
+          <div className={`qx-pace ${band}`}>
+            <strong>Pace: {(perQ / 1000).toFixed(1)}s a question.</strong>{' '}
+            {band === 'good' && (
               <>
-                <strong>Pace: {(perQ / 1000).toFixed(1)}s a question.</strong> That is at or under
-                the 17.4s benchmark from the practice run. Hold this and speed will not be what
-                costs you the prize.
+                That is the 5s target. This is recognition speed, not reading speed, and it is
+                the pace that wins a contest judged on time. Hold it.
               </>
-            ) : (
+            )}
+            {band === 'near' && (
               <>
-                <strong>Pace: {(perQ / 1000).toFixed(1)}s a question.</strong> The benchmark is
-                17.4s. Speed comes from recognising the stem, not from reading faster, so the fix
-                is more reps rather than more hurry.
+                The target is 5s. You are inside the 17.4s the practice run managed, but that is
+                the pace to beat, not the pace to match.{' '}
+                {overTarget > 0 && (
+                  <>
+                    {overTarget} of {paper.length} went over 5s, and they are marked below.
+                  </>
+                )}
+              </>
+            )}
+            {band === 'slow' && (
+              <>
+                The target is 5s and the practice run managed 17.4s, so this paper is slower than
+                both. Speed here comes from recognising the stem on sight, never from reading
+                faster, so the fix is more reps rather than more hurry.
               </>
             )}
           </div>
@@ -668,7 +713,10 @@ export default function Quira({ questions }: Props) {
                   </ul>
                 )}
                 <p className="qx-src">
-                  {q.slides.join(' · ')} · {(t / 1000).toFixed(1)}s spent
+                  {q.slides.join(' · ')} ·{' '}
+                  <span className={t > TARGET ? 'slowq' : undefined}>
+                    {(t / 1000).toFixed(1)}s spent{t > TARGET ? ', over the 5s target' : ''}
+                  </span>
                 </p>
               </div>
             </div>

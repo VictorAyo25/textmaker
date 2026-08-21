@@ -80,6 +80,21 @@ export default function Page() {
 
       <CourseList courses={cards} />
 
+      {/* The side quest. Not a course, not on the timetable, and deliberately
+          not in COURSES, so it gets its own way in rather than a course card
+          beside the Omega papers. */}
+      <a className="sidequest" href="/quira">
+        <span className="sq-tag">Side quest</span>
+        <strong>Towards Mental Exploits</strong>
+        <span className="sq-sub">
+          Practice for the Quira challenge, in their app&apos;s own look and against its own
+          clock. 419 questions from all 79 pages, target 5 seconds each.
+        </span>
+        <span className="sq-go" aria-hidden>
+          Open the trainer →
+        </span>
+      </a>
+
       <p className="note">
         Sign in above to carry your results, your place in every crash course, and
         which papers you have sat, between devices. Without it everything still works,

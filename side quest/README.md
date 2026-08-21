@@ -64,11 +64,18 @@ self-help answer** was chosen over **what the book literally says**.
 The bank is built around this. Wherever a familiar-sounding wrong answer exists, it
 is *in the options*, and the review says why it is wrong.
 
-## The pace to beat
+## The pace: target 5 seconds
 
-The app reported **02:54 for ten questions**, which is **17.4 seconds each**,
-including reading four options. The trainer times every question and grades the pace
-against that benchmark on the completion screen.
+The app reported **02:54 for ten questions**, which is **17.4 seconds each**. That is
+what was *done*, not what wins a contest judged on time, so **the target here is 5
+seconds a question**.
+
+Five seconds is recognition speed. You either know the stem on sight or you are
+reading it, and reading is what loses. So the trainer shows a **live clock on every
+question**, green under 5s, amber past it, red past 17.4s, because at five seconds
+there is no time to pace yourself by feel. The completion screen bands the result
+(5s target / inside 17.4s / slower than both) and the breakdown marks every question
+that went over 5s.
 
 Quiz lengths seen: **10 and 30**. Grade A+ is awarded at **100%**.
 
@@ -76,12 +83,24 @@ Quiz lengths seen: **10 and 30**. Grade A+ is awarded at **100%**.
 
     cd webapp && npm run dev      # then open /quira
 
+Or click the blue **Side quest** panel on the drill homepage, under the course list.
+
 - **Exam mode** behaves like the real thing: answer everything, then mark.
 - **Coach mode** marks each question the moment you commit and shows why each of the
   other three is wrong. This is where the traps get learned.
 - **Study** lists every question with its key, reason and page reference.
 - Anything missed is **weighted to the front of the next paper** until it is cold.
 - Options are **shuffled every time**, so nothing can be memorised by position.
+
+## Responsive
+
+Verified with Playwright at ten viewports, portrait and landscape: 320x568, 360x640,
+390x844, 430x932, 768x1024, 1024x768, 1440x900, 1920x1080, 844x390 and 667x375. At
+every one: nothing scrolls the page sideways or vertically, the header and the
+Previous/Next bar stay pinned while only the question body scrolls, nothing overflows
+the viewport, and every control clears 44px. Type is fluid, hover styling is dropped
+on touch, motion respects `prefers-reduced-motion`, and the study list prints without
+the chrome.
 
 ## What the gate enforces
 
