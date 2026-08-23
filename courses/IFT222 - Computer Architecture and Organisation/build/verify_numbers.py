@@ -94,6 +94,21 @@ add('image bytes', '1 263 937.5', '1 263 937.5')
 
 # Unit 3: IEEE-754
 add('-452.25->hex', to_hex_f(-452.25), 'C3E22000')
+# Added 2026-08-20 with the deck gap-fill: the lecture deck's own IEEE-754
+# example. 64.2 does not terminate in binary, so the stored value is not 64.2,
+# and the book prints what actually comes back rather than the value asked for.
+add('64.2->hex', to_hex_f(64.2), '42806666')
+# The lecture deck's own laundry setup, in its own minutes.
+add('laundry one load', 4 * 30, '120')
+add('laundry four loads sequential', 4 * 120, '480')
+add('laundry four loads pipelined', (4 + 4 - 1) * 30, '210')
+add('42806666->dec', repr(from_hex_f('42806666')), '64.19999694824219')
+# Excess-3 of the deck's three values, including the fractional one.
+def _xs3(digits):
+    return ''.join('.' if d == '.' else format(int(d) + 3, '04b') for d in digits)
+add('XS-3 of 27', _xs3('27'), '01011010')
+add('XS-3 of 597', _xs3('597'), '100011001010')
+add('XS-3 of 14.57', _xs3('14.57'), '01000111.10001010')
 add('-1240.56 trunc hex', 'C49B11EB', 'C49B11EB')     # hand truncation
 add('-1240.56 round hex', to_hex_f(-1240.56), 'C49B11EC')
 add('C4F2E000->dec', int(from_hex_f('C4F2E000')), '-1943')

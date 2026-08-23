@@ -47,6 +47,12 @@
   /* FROM THE SLIDES: a slate document tone, a sibling of --paper but clearly
      lighter, for the lecturer's own lecture deck (never the reserved violet). */
   --slide:#334155;      --slide-bg:#f5f6f8;
+  /* KEY POINT: gold. Distinct from the reserved violet on purpose, because the
+     two make different promises. Violet says learn these exact words; gold says
+     this is the one idea the unit hangs on. */
+  --keypt:#a16207;      --keypt-bg:#fdfaf0;  --keypt-ink:#7a4a06;
+  /* The objective half: indigo, a sibling of the violet without being it. */
+  --obj:#3730a3;        --obj-bg:#f4f4fb;
   --rule:#d5dae0;
 }
 
@@ -225,6 +231,94 @@ h3.sub:first-child{ margin-top:0; }
 .mem .bar .tag{ background:rgba(0,0,0,.22); color:var(--mem-ink); }
 .mem .bar span:first-child::before{ content:"\25CF\00A0"; }      /* filled circle */
 .trap .bar span:first-child::before{ content:"\26A0\00A0"; }     /* warning sign */
+
+/* ---------- KEY POINT ----------
+   Two or three per module, never ten, and each said twice: once in formal words
+   and once bluntly, because the blunt version is the one that survives the hall.
+   Gold, so it cannot be confused with the reserved violet of MUST MEMORISE:
+   memorise means learn these exact words, key point means this is the idea the
+   unit was built around. */
+.keypoint > .bar{ background:var(--keypt); }
+.keypoint .body{ background:var(--keypt-bg); }
+.keypoint { border-color:#e4d3a4; }
+.keypoint .bar span:first-child::before{ content:"\25C6\00A0"; }  /* filled diamond */
+.keypoint .formal{ margin:0 0 .42em; }
+.keypoint .blunt{ margin:0; color:var(--keypt-ink); }
+.keypoint .blunt b{ font-family:'DejaVu Sans',sans-serif; font-size:8.1pt;
+  letter-spacing:.13em; text-transform:uppercase; }
+
+/* ---------- the anchor ----------
+   An ordinary-life image that arrives BEFORE the first symbol. Not decoration:
+   it is what the reader reaches for when the formal sentence has gone. */
+.anchor{ border-left:3px solid var(--keypt); background:#fcfaf3; padding:6pt 11pt;
+  margin:.5em 0 .7em; break-inside:avoid; }
+.anchor .alab{ font-family:'DejaVu Sans',sans-serif; font-size:7.4pt; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--keypt); font-weight:bold; display:block;
+  margin-bottom:.25em; }
+.anchor p{ margin:0; }
+
+/* ---------- programmed frames ----------
+   One step per frame, each ending in a task, the next frame opening with the
+   answer. Cover the page and slide down. break-inside:avoid, never auto: auto
+   lets a programme that would have fitted whole on the next page get cut, which
+   qa_layout.py correctly fails. */
+.prog{ counter-reset:fr; break-inside:avoid; border-color:#bfdbe4; }
+.prog > .bar{ background:var(--fill); }
+.prog .body{ background:var(--fill-bg); }
+.prog .howto{ font-size:9pt; color:var(--muted); font-style:italic; margin:0 0 .5em; }
+.prog .fr{ counter-increment:fr; position:relative; padding:6pt 0 6pt 27pt;
+  border-top:1px dashed #a9c4cf; break-inside:avoid; }
+.prog .fr:first-of-type{ border-top:none; padding-top:2pt; }
+.prog .fr > :first-child{ margin-top:0; }
+.prog .fr > :last-child{ margin-bottom:0; }
+.prog .fr::before{ content:counter(fr); position:absolute; left:0; top:6pt;
+  width:18pt; height:18pt; border-radius:50%; background:var(--fill); color:#fff;
+  font-family:'DejaVu Sans',sans-serif; font-weight:bold; font-size:8.9pt;
+  text-align:center; line-height:18pt; }
+.prog .fr:first-of-type::before{ top:2pt; }
+.prog .chk{ font-weight:bold; color:var(--ans); }
+.prog .chk::before{ content:"\2713\00A0"; }
+.prog .ask{ font-weight:bold; color:var(--fill); }
+.prog pre.mini{ font-family:'DejaVu Sans Mono',monospace; font-size:8.7pt; line-height:1.35;
+  margin:.35em 0; padding:4pt 8pt; white-space:pre; background:#fff; border:1px solid #cfe0e6;
+  border-left:3px solid var(--fill); break-inside:avoid; }
+
+/* ---------- lock it in ----------
+   The capstone card that closes a unit: one vivid hook, one line of recap. The
+   label is the cover's lightened violet, NOT the reserved #6d28d9. */
+.lockin{ background:var(--head); color:#fff; padding:8.8pt 12pt; margin:.6em 0 .2em;
+  border-left:3px solid #a78bfa; break-inside:avoid; }
+.lockin .clab{ font-family:'DejaVu Sans',sans-serif; font-size:7.6pt; letter-spacing:.18em;
+  text-transform:uppercase; color:#a78bfa; font-weight:bold; display:block; margin-bottom:.3em; }
+.lockin .big{ font-size:11.3pt; line-height:1.4; font-weight:bold; margin:0; }
+.lockin .sub{ font-size:9pt; color:#c9d5e2; margin:.42em 0 0; }
+.lockin .sub b{ color:#fff; }
+
+/* ---------- the objective half ----------
+   The question lists carry letters, because a printed option has a fixed place.
+   The answer blocks never do: they name an option by its words, which is the
+   only form that survives being shuffled on a screen. */
+/* A topic here runs past question 9, and a two-digit marker at the 1.5em padding
+   ol.qlist gives sets the number outside the left margin. Measured: 2.4em clears
+   a two-digit marker and its point. Layout QA fails on this, correctly. */
+ol.qlist.objq{ padding-left:2.4em; }
+.objq > li{ margin:.34em 0; }
+.qsrc{ font-family:'DejaVu Sans',sans-serif; font-size:6.9pt; letter-spacing:.1em;
+  background:#eceff3; color:var(--muted); padding:.7pt 3.4pt; border-radius:2pt;
+  margin-right:3pt; white-space:nowrap; }
+.obj > .bar{ background:var(--obj); }
+.obj .body{ background:var(--obj-bg); }
+.obj { border-color:#c5c8e8; }
+.obj .oq{ margin:.62em 0 .2em; }
+.obj .oq:first-child{ margin-top:0; }
+.obj .whys{ list-style:none; margin:0 0 .1em; padding:0; font-size:9.1pt; }
+.obj .whys > li{ position:relative; padding-left:13.5pt; margin:.16em 0;
+  color:var(--muted); break-inside:avoid; }
+.obj .whys > li b{ color:var(--ink); }
+.obj .whys > li.ok::before{ content:"\2713"; position:absolute; left:0;
+  color:var(--ans); font-weight:bold; }
+.obj .whys > li.no::before{ content:"\2715"; position:absolute; left:0;
+  color:var(--trap); font-weight:bold; }
 
 /* ---------- code, the spine of this manual ----------
    Every code block is monospace, always. The source manual sets some code in a

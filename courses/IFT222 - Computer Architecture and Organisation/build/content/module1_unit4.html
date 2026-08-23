@@ -79,6 +79,33 @@ then R1, R2, R3, giving <b>ADD R1, R2, R3</b>.</p>
 widths, chop the bits, translate each field. 1010 0011 11001010 = ADD R3, [202].</div>
 </div></div>
 
+<div class="box slide"><div class="bar"><span>From the slides</span><span class="tag">the deck's own instruction examples</span></div>
+<div class="body">
+<p class="src">the lecturer's own examples, named processor and all</p>
+<p>The deck does not leave the instruction types abstract. It names a real processor
+family and prints the actual mnemonics, and the revision class repeats them
+unchanged, which on this course is the strongest signal there is that they are worth
+knowing.</p>
+<table class="data">
+<tr><th>Instruction type</th><th>What it does</th><th>The deck's examples</th></tr>
+<tr><td><b>Load and store</b></td><td>move a value between memory and a register
+without changing it</td><td>LDA, STA, LDB, STB, LDD, STD</td></tr>
+<tr><td><b>Arithmetic and logic</b></td><td>combine two operands and produce a
+result</td><td>ADDB, SUBA, SUBD, ANDA, EORA</td></tr>
+</table>
+<p>The mnemonics decode themselves once you see the pattern. <b>LD</b> is load and
+<b>ST</b> is store, and the letter after it names the register: LDA loads accumulator
+A, STB stores accumulator B, LDD loads the double accumulator D. On the arithmetic
+side <b>ADDB</b> adds into accumulator B, <b>SUBA</b> subtracts from accumulator A,
+<b>ANDA</b> ands into accumulator A, and <b>EORA</b> is exclusive-OR into accumulator
+A. Each of these two-operand instructions requires one of its operands to already be
+in an accumulator, which is the one-address style this unit is about to formalise.</p>
+<p class="note2"><b>Note.</b> The slides write the load and store family as MC68009
+and the arithmetic family as MC6809. The processor family is the Motorola 6809; the
+extra zero is a slip on the slide. It is recorded here rather than tidied away,
+because a question quoting the slide will quote the slip too.</p>
+</div></div>
+
 <h3 class="sub">Zero, one, two and three address formats</h3>
 <p>Processors differ in how many operands one instruction may name. Fewer addresses
 means shorter instructions but more of them. Learn the four by translating one
@@ -195,6 +222,12 @@ byte totals here are close precisely because of that trade.</p>
 <p class="small"><b>Seen again:</b> the same expression is on the lecturer's revision deck,
 worked once more in the Revision Class section near the back (the revision drops the
 byte-count part, which is the part struck out by hand on the exam paper).</p>
+</div></div>
+
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">The number of addresses an instruction carries trades instruction WIDTH against instruction COUNT. Three addresses name everything at once, so each instruction is long and few are needed; zero addresses name nothing, so each instruction is tiny and many are needed. The total work is conserved.</p>
+<p class="blunt"><b>Blunt version:</b> pay in instruction width or pay in instruction count. You do not get to skip both.</p>
 </div></div>
 
 <h3 class="sub">Addressing modes: where the operand really is</h3>

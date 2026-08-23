@@ -86,6 +86,11 @@ GLOSSARY = {
     # It entered the glossary when the verbatim rule brought the examiner's own
     # "Operand Fetch (OF)" into the book, where the rot-guard found it undeclared.
     'OF':   r'operand fetch',
+    # Added 2026-08-20 with the deck gap-fill. Both are used by the objective
+    # section, and the audit found them typeset as defined acronyms while
+    # sitting outside this list, which is the exact rot it exists to catch.
+    'ILP':  r'instruction[\s-]level parallelism',
+    'EEPROM': r'electrically erasable',
 }
 
 # Tokens the rot-guard must not mistake for undefined course terms. A 200-level
@@ -98,7 +103,8 @@ ASSUMED = {'CPU', 'RAM', 'ROM', 'KB', 'MB', 'GB', 'TB', 'PB', 'SSD', 'HDD',
 OPERATORS = {'AND', 'OR', 'NOT', 'XOR', 'NAND', 'NOR', 'XNOR'}
 MNEMONICS = {'ADD', 'SUB', 'MUL', 'DIV', 'MOV', 'MOVE', 'LOAD', 'STORE', 'PUSH',
              'POP', 'CALL', 'RET', 'RETURN', 'JUMP', 'JMP', 'BEQ', 'BNE', 'LW',
-             'SW', 'NOP', 'CMP', 'INC', 'DEC', 'MULTIPLY', 'DIVIDE', 'SUBTRACT'}
+             'SW', 'NOP', 'CMP', 'INC', 'DEC', 'MULTIPLY', 'DIVIDE', 'SUBTRACT',
+             'SHIFT', 'ROTATE'}
 STANDARDS = {'IEEE', 'ASCII', 'EBCDIC', 'ARM', 'SPARC', 'ANSI', 'BCH'}
 
 
@@ -173,6 +179,14 @@ def is_ignorable(tok):
         return True                       # hex literal, e.g. FF4A, C3E22000H, D6H
     if re.fullmatch(r'[A-D]{2,4}', tok):
         return True                       # Boolean product / register, e.g. AB, ABC
+    if re.fullmatch(r'[A-F]{2,6}', tok):
+        # A hex value spelled with letters only: FF, FE, AE, EBB, EAB. The rule
+        # above it needs a digit or a trailing H and so cannot see these, and the
+        # objective section is full of them because its options are set inline.
+        # The cost of this rule is that a future acronym built only from the
+        # letters A to F would be waved through; every one in this book is in the
+        # glossary, which is tested first, so nothing live is affected.
+        return True
     if re.fullmatch(r'R\d+', tok):
         return True                       # a register operand in an example, e.g. R1
     if re.fullmatch(r'[QI]\d+', tok):

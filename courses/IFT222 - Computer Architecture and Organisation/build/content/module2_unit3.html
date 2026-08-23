@@ -18,6 +18,40 @@ next enters it, so after the pipeline fills, <b>one instruction completes every 
 cycle</b>. The clock cycle is set by the slowest stage plus the small latch delay
 between stages.</p>
 
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">the deck's definition, and where pipelining sits</span></div>
+<div class="body">
+<p>The deck states it formally, and the wording is worth having, because a definition
+question wants this exact shape: <b>pipelining is a technique of decomposing a
+sequential process into sub-operations, with each sub-process executed in a special
+dedicated segment that operates concurrently with all other segments</b>.</p>
+<p>What a pipeline exploits is the parallelism <i>among instructions</i>, found by
+overlapping them, and that has a name: <b>Instruction Level Parallelism (ILP)</b>.
+It is one level among several. The deck lists where a typical system finds its
+speedup:</p>
+<ul class="bul">
+<li><b>Multi-user:</b> one machine serving many people at once.</li>
+<li><b>Multitasking:</b> one user running several programs at once.</li>
+<li><b>Multi-processing:</b> several processors working at once.</li>
+<li><b>Multi-programming:</b> several programs resident in memory together, the CPU
+switching between them.</li>
+<li><b>Multi-threading:</b> several threads of one program running at once.</li>
+<li><b>Compiler optimizations:</b> the compiler rearranging code so the hardware can
+overlap more of it.</li>
+</ul>
+<p>Pipelining is the hardware end of that list, and Instruction Level Parallelism is
+what it buys.</p>
+</div></div>
+
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">Pipelining does not shorten one instruction. It raises throughput,
+the number of instructions completed per unit time, while the latency of any single
+instruction stays the same, or slightly worsens because of the latches between
+stages.</p>
+<p class="blunt"><b>Blunt version:</b> no single load of washing dries any faster. You
+just get more loads through the evening.</p>
+</div></div>
+
 <figure>
 <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10">
   <g fill="#67707a" text-anchor="end">
@@ -198,7 +232,13 @@ speedup is below 5 because only 4 tasks run, so the fill time still dominates.</
 metrics the papers can ask for by name: <b>efficiency</b> and <b>throughput</b>. The
 intuition is the laundry from the top of this unit: four loads that take <b>8 hours</b>
 done one after another finish in <b>3.5 hours</b> overlapped, a speedup of 8 / 3.5 =
-<b>2.29</b> (the slide rounds this to about 2.1). The speedup is short of the ideal 4
+<b>2.29</b> (the slide rounds this to about 2.1). The deck sets it out in
+full, and the numbers are worth having because they are the lecturer's own: <b>Ann,
+Brian, Cathy and Dave</b> each have one load to <b>wash, dry, stash and fold</b>, and
+the washer, the dryer, the folder and the stasher each take <b>30 minutes</b>. So one
+load is 4 &#215; 30 = <b>120 minutes</b>, four loads run one after another are
+4 &#215; 120 = <b>480 minutes</b>, which is the 8 hours, and overlapped they take
+(4 + 4 &#8722; 1) &#215; 30 = <b>210 minutes</b>, which is the 3.5 hours. The speedup is short of the ideal 4
 because, with only four loads, the time to fill and drain the pipe still counts. Push many
 loads through and it climbs toward 4.</p>
 

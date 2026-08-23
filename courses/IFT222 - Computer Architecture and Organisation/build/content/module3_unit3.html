@@ -36,6 +36,15 @@ time, not the clock cycle time T of the CPU-performance formula</div>
 <p><b>Memory hook:</b> a high hit ratio pulls the average toward the fast cache time;
 even a small miss rate hurts, because a miss pays the full slow memory cost.</p></div></div>
 
+<div class="anchor"><span class="alab">Anchor</span>
+<p>A coat-check ticket answers three questions with one number: which rail your coat
+is on, which hook on that rail, and, if several coats hang on that hook, which one is
+yours. A memory address does the same job in the same order. The offset says which
+byte inside the block, the index says which slot of the cache the block may occupy,
+and the tag says which of the many blocks that share that slot is actually sitting
+there. Read the split in that order and it stops being three formulas.</p>
+</div>
+
 <h3 class="sub">Splitting the address: tag, index, offset</h3>
 <p>Main memory is divided into blocks; cache is divided into lines the same size as a
 block. A memory address is split into fields that say which block, which line, and
@@ -464,6 +473,12 @@ full every time (hierarchical, cache searched first)</div>
 cache time on every access (even misses), so it is slightly slower here.</div>
 <p class="redo"><b>Now redo it:</b> the difference is only whether the cache time is
 always paid (hierarchical) or only on hits (simultaneous). Learn both formulas.</p>
+</div></div>
+
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">The three fields of an address are not three separate calculations. The offset is fixed by the block size, the index is fixed by the number of slots, and the tag is whatever is left of the address. Work them out in that order and the tag never needs its own formula.</p>
+<p class="blunt"><b>Blunt version:</b> which byte, which slot, which block. Offset and index first, tag is the remainder.</p>
 </div></div>
 
 <h3 class="sub">Elements of cache design</h3>

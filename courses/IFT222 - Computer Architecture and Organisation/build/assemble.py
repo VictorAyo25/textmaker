@@ -33,6 +33,7 @@ BODY_PARTS = ['front.html', 'module1.html', 'module1_unit2.html',
               'module4.html', 'supplement.html', 'reference.html',
               'papers.html',
               'revision.html',
+              'objective.html',
               'mock1.html', 'mock1_answers.html',
               'mock2.html', 'mock2_answers.html',
               'mock3.html', 'mock3_answers.html']
@@ -248,6 +249,17 @@ def main():
         r = subprocess.run([sys.executable, fg])
         if r.returncode != 0:
             stop('formula gate failed: a formula is stated without defining its symbols.')
+
+    # ---- deck coverage gate: nothing examinable is left to the slides alone.
+    #      Held against the 600-fact ledger built from the same eight decks for the
+    #      drill, which is an outside checklist rather than this book's own notes.
+    #      Reads content/, so it runs before anything is assembled. ----
+    dc = os.path.join(HERE, 'qa_deckcoverage.py')
+    if os.path.exists(dc):
+        r = subprocess.run([sys.executable, dc])
+        if r.returncode != 0:
+            stop('deck coverage gate failed: a lecture slide carries something the '
+                 'manual does not.')
 
     # ---- verbatim gate: a past question is quoted as the examiner printed it, or
     #      not at all. Compares content/ against the by-eye transcripts in

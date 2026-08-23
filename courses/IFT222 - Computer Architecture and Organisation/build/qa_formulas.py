@@ -66,6 +66,9 @@ NON_FORMULA_MEM = {
     'Memory hook', 'Hex letters', 'Powers of two',
     'The four formats', 'The hierarchy', 'Example processors',
     'The four-line answer',   # how to lay an answer out, no symbols of its own
+    # Added 2026-08-20 with the deck gap-fill: prose definitions of architecture
+    # and organization, in the deck's own words. No symbols, so nothing to key.
+    'the two definitions, formally',
 }
 
 # Worked examples that compute nothing: they ask for definitions, differences or a

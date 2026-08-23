@@ -18,6 +18,43 @@ notation: write a number as a sign, a fraction between 1 and 2 (the
 6.02 &#215; 10<sup>23</sup> does in base 10. The standard that fixes exactly how
 those three parts are packed into bits is <b>IEEE-754</b>.</p>
 
+<div class="anchor"><span class="alab">Anchor</span>
+<p>A kitchen scale reads 1.2 kg whether the pan holds 1.19 kg or 1.24 kg. It is not
+broken. It has a fixed number of digits, so anything falling between two of its steps
+is pushed to the nearest step it can show. Floating point is that scale, built with
+24 binary digits of precision, and anything finer than its smallest step is rounded
+away the moment it is stored.</p></div>
+
+<div class="box trap"><div class="bar"><span>Trap</span><span class="tag">what the rounding actually costs</span></div>
+<div class="body">
+<p>The lecture deck opens this topic with two real failures, and they are worth
+carrying, because they are the answer to "why does a rounding error matter" that the
+examiner has already read.</p>
+<p><b>Ariane 5, 4 June 1996.</b> An unmanned rocket exploded forty seconds after
+lift-off, on its first voyage, after a decade of development costing 7 billion
+dollars. The cause was a software error. A 64-bit floating point number holding the
+rocket's horizontal velocity with respect to the platform was converted into a 16-bit
+signed integer. The value was larger than the largest integer a 16-bit signed field
+can hold, so the conversion failed and the guidance system stopped.</p>
+<p><b>The Vancouver stock exchange, 1982.</b> A new index was started at 1000.000 and
+recomputed after every transaction. Each recomputation threw away the digits it could
+not hold instead of rounding them, so every transaction lost a sliver. Twenty two
+months later the deck records the index at 520. Recomputed correctly it stood at
+about 1098, so truncation alone had eaten more than half of it.</p>
+<p>Both are one fault in two costumes. A stored floating point number is an
+approximation; convert it into a narrower type, or accumulate it over enough steps,
+and it becomes a wrong answer that the arithmetic itself never flags.</p>
+</div></div>
+
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">Floating point trades exactness for range. It holds numbers far
+larger and far smaller than an integer field of the same width, and in exchange
+almost none of them are stored exactly.</p>
+<p class="blunt"><b>Blunt version:</b> integers are small and exact, floats are huge
+and approximate. Never test two floats for equality.</p>
+</div></div>
+
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">IEEE-754 single precision</span></div>
 <div class="body"><p>Single precision uses <b>32 bits</b> in three fields:</p>
 <figure>
@@ -94,6 +131,43 @@ So the true exponent is 8.</li>
 &nbsp;(check: converting C3E22000H back gives &#8722;452.25 exactly).</div>
 <p class="redo"><b>Now redo it:</b> the five steps never change. Sign, binary,
 normalise, exponent plus 127, mantissa to 23 bits.</p>
+</div></div>
+
+<div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: the deck's own value</span></div>
+<div class="body"><p>Represent <b>64.2</b> in IEEE-754 single precision. The previous
+example terminated. This one does <b>not</b>, which is exactly why the deck sets it.</p>
+<div class="params">
+<div class="prow"><span class="plab">Given</span> value = 64.2 &middot; format =
+IEEE-754 single precision &middot; layout S=1, E=8, M=23 bits &middot; bias = 127</div>
+<div class="prow"><span class="plab">Find</span> the 32-bit stored pattern, written in hex</div>
+<div class="prow"><span class="plab">Formula</span> normalise to 1.<i>m</i> &#215;
+2<sup>e</sup>, then E = e + bias, and the stored bits are S | E | M</div>
+</div>
+<div class="wheredef"><span class="wlab">what each symbol means</span>
+<b>S</b> = sign bit &middot; <b>e</b> = the true exponent found by normalising &middot;
+<b>E</b> = the stored exponent field, e + 127 &middot; <b>M</b> = the 23 bits after the
+hidden leading 1 &middot; <b>bias</b> = 127</div>
+<ol class="steps">
+<li>Sign: the number is positive, so the sign bit is <b>0</b>.</li>
+<li>Binary: 64 = 1000000. For the fraction, double 0.2 again and again and read off
+the whole part each time: 0.4, 0.8, 1.6, 1.2, and then 0.4 once more. It has come back
+to where it started, so the bits repeat: 0.2 = 0.0011 0011 0011&#8230; for ever.
+So 64.2 = 1000000.0011001100110011&#8230;</li>
+<li>Normalise: move the point 6 places left. 64.2 =
+1.0000000011001100110011&#8230; &#215; 2<sup>6</sup>, so the true exponent is 6.</li>
+<li>Exponent field: 6 + 127 = 133 = 1000 0101.</li>
+<li>Mantissa: take the first 23 bits after the hidden leading 1. That is the six
+remaining bits of the integer part, then the repeating pattern:
+0000 0000 1100 1100 1100 110. The next bit along is 0, so nothing rounds up.</li>
+<li>Assemble sign, exponent, mantissa, then group into fours:
+0 1000 0101 0000 0000 1100 1100 1100 110 = 0100 0010 1000 0000 0110 0110 0110 0110.</li>
+</ol>
+<div class="answerbox">64.2 = 0 10000101 00000000110011001100110 = <b>42806666h</b>
+&nbsp;(read that pattern back and you get 64.19999694824219, not 64.2, which is the
+whole point of the example).</div>
+<p class="redo"><b>Now redo it:</b> and then say out loud what the machine is actually
+holding. 64.2 cannot be stored exactly in 32 bits, so what goes in is the nearest
+value that can be.</p>
 </div></div>
 
 <div class="box paper"><div class="bar"><span>As printed</span><span class="tag">25/26 Q5(a)</span></div>

@@ -244,6 +244,12 @@ lecturer's revision deck, so it is worked a second time in the Revision Class se
 the back. It is one to have cold.</p>
 </div></div>
 
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">A bit pattern carries no meaning by itself. 1111 1111 is 255 as an unsigned integer, minus 1 in two's complement, minus 127 in sign and magnitude, and a perfectly ordinary character in a text file. The interpretation is a decision made outside the bits, and every question of this type tells you which one to make.</p>
+<p class="blunt"><b>Blunt version:</b> the bits do not know what they are. Read the question for the code before you read the pattern.</p>
+</div></div>
+
 <h3 class="sub">Adding in binary, and when it overflows</h3>
 <p>Binary addition is column addition with carries, exactly like decimal but with
 only 0 and 1. The danger is <b>overflow</b>: when the true sum needs more bits than
@@ -488,7 +494,8 @@ shapes, each described by attributes: coordinates, length and breadth, line thic
 colour and fill. The image is redrawn from the maths at any size with no loss, and the
 file holds a few objects rather than millions of pixels, so line art and logos are far
 smaller as vectors. A photograph, having no simple shapes, does not reduce to vectors.</li>
-</ul></div></div>
+</ul>
+<p>The deck states the bitmap side positively, and it is the phrasing to give back: the advantages of bit-mapped graphics, the ones the paint packages use, are that <b>every single pixel is yours to alter</b>, and that they look <b>more realistic for photographs and real-life images</b>. Vector wins on size and on scaling; bitmap wins on fine control and on realism.</p></div></div>
 
 <div class="box work"><div class="bar"><span>Worked example</span><span class="tag">Slide: bitmap size</span></div>
 <div class="body"><p>A black-and-white bitmap is 4 inches by 6 inches at 300 dpi. How much
@@ -582,6 +589,23 @@ between 0011 (for 0) and 1100 (for 9)</div>
 <div class="answerbox">24 in Excess-3 is <b>0101 0111</b>; the code 0100 0110 decodes to
 <b>13</b>. Going in, add 3 to each digit; coming out, subtract 3 from each nibble.</div>
 </div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span><span class="tag">Slide: the deck's own values</span></div>
+<div class="body"><p class="q">Encode <b>27</b>, <b>597</b> and <b>14.57</b> in
+Excess-3. Do all three before you look, and watch what happens at the point.</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>Add 3 to each decimal digit, then write that sum in four bits. Nothing else
+changes, and the decimal point stays exactly where it was.</p>
+<ul class="bul">
+<li><b>27</b>: 2 and 7 become 5 and 10, so 0101 1010 = <b>01011010</b>.</li>
+<li><b>597</b>: 5, 9 and 7 become 8, 12 and 10, so 1000 1100 1010 =
+<b>100011001010</b>.</li>
+<li><b>14.57</b>: 1, 4, 5 and 7 become 4, 7, 8 and 10, so
+<b>01000111.10001010</b>. The point sits where it sat in the decimal, between the
+digit-4 group and the digit-5 group.</li>
+</ul>
+<p>Excess-3 of 14.57 is the one worth practising: a fractional value is where people
+lose the point, and this code makes no special case of it.</p></div></div>
 
 <div class="box teach"><div class="bar"><span>Teach</span><span class="tag">Character codes: Morse to Unicode</span></div>
 <div class="body"><p>Text is stored by an agreed table mapping each symbol to a number.
