@@ -38,6 +38,11 @@
   --fill:#7c3aed;       --fill-bg:#f5f0fe;
   --qpaper:#18232b;     --qpaper-bg:#ffffff;
   --ans:#0e7490;        --ans-bg:#eff9fb;                          /* teal, clear of the reserved green */
+  /* KEY POINT: gold. The reserved hue here is emerald and means MUST
+     MEMORISE, so a key point has to be visibly something else. */
+  --keypt:#a16207;      --keypt-bg:#fdfaf0;  --keypt-ink:#7a4a06;
+  /* The objective half: a slate document tone, clear of the reserved green. */
+  --obj:#334155;        --obj-bg:#f5f6f8;
   --rule:#d7dbe2;
 }
 
@@ -303,3 +308,62 @@ ol.qlist li{ margin:.18em 0; padding-left:.15em; }
 .cover .rulebar{ width:38mm; height:3pt; background:var(--mem); margin:9mm 0 7mm; }
 .cover .who{ font-family:'DejaVu Sans',sans-serif; font-size:10pt; color:#dbe6f2; letter-spacing:.05em; }
 .cover .motif{ margin-top:auto; opacity:.98; }
+
+/* ================= added 2026-08-20 with the objective section ================= */
+
+/* ---------- KEY POINT ----------
+   Two or three per unit, never ten, and each said twice: once formally and once
+   bluntly, because the blunt version is what survives the examination hall.
+   Gold, because the reserved hue in this book is emerald and means MUST MEMORISE.
+   Emerald says learn these exact words; gold says this is the idea the unit hangs
+   on. */
+.keypoint > .bar{ background:var(--keypt); }
+.keypoint .body{ background:var(--keypt-bg); }
+.keypoint { border-color:#e4d3a4; }
+.keypoint .bar span:first-child::before{ content:"\25C6\00A0"; }  /* filled diamond */
+.keypoint .formal{ margin:0 0 .42em; }
+.keypoint .blunt{ margin:0; color:var(--keypt-ink); }
+.keypoint .blunt b{ font-family:'DejaVu Sans',sans-serif; font-size:8.1pt;
+  letter-spacing:.13em; text-transform:uppercase; }
+
+/* ---------- the anchor ----------
+   An ordinary-life image that arrives BEFORE the first symbol. Not decoration:
+   it is what the reader reaches for once the formal sentence has gone. */
+.anchor{ border-left:3px solid var(--keypt); background:#fcfaf3; padding:6pt 11pt;
+  margin:.5em 0 .7em; break-inside:avoid; }
+.anchor .alab{ font-family:'DejaVu Sans',sans-serif; font-size:7.4pt; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--keypt); font-weight:bold; display:block;
+  margin-bottom:.25em; }
+.anchor p{ margin:0; }
+
+/* ---------- the objective half ----------
+   The question list carries letters, because a printed option has a fixed place.
+   The answer blocks never do: an explanation names an option by its words, which
+   is the only form that survives the options being shuffled on a screen.
+   A group here runs past question 9, and a two-digit marker at the 1.5em padding
+   ol.qlist gives would set the number outside the left margin. */
+ol.qlist.objq{ padding-left:2.4em; }
+.objq > li{ margin:.4em 0 .55em; }
+.qsrc{ font-family:'DejaVu Sans',sans-serif; font-size:6.9pt; letter-spacing:.1em;
+  background:#eceff3; color:var(--muted); padding:.7pt 3.4pt; border-radius:2pt;
+  margin-right:3pt; white-space:nowrap; }
+.ostyle{ font-family:'DejaVu Sans',sans-serif; font-size:6.9pt; letter-spacing:.12em;
+  text-transform:uppercase; background:var(--obj); color:#fff; padding:.9pt 4pt;
+  border-radius:2pt; white-space:nowrap; }
+table.data.matchtab{ font-size:8.9pt; margin:.35em 0 .2em; }
+.obj > .bar{ background:var(--obj); }
+.obj .body{ background:var(--obj-bg); }
+.obj { border-color:#c3cbd6; }
+.obj .oq{ margin:.62em 0 .2em; }
+.obj .oq:first-child{ margin-top:0; }
+.obj .whys{ list-style:none; margin:0 0 .1em; padding:0; font-size:9.1pt; }
+.obj .whys > li{ position:relative; padding-left:13.5pt; margin:.16em 0;
+  color:var(--muted); break-inside:avoid; }
+.obj .whys > li b{ color:var(--ink); }
+.obj .whys > li.ok::before{ content:"\2713"; position:absolute; left:0;
+  color:var(--ans); font-weight:bold; }
+.obj .whys > li.no::before{ content:"\2715"; position:absolute; left:0;
+  color:var(--trap); font-weight:bold; }
+.obj .whys.match > li::before{ content:"\2192"; position:absolute; left:0;
+  color:var(--ans); font-weight:bold; }
+.obj .whys.match > li{ padding-left:13.5pt; }

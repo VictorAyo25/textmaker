@@ -26,7 +26,7 @@ from contents import (ANCHOR, TOC, build_contents, check_toc, heading_text,
 COVER = 'cover.html'
 # CHECKPOINT SCOPE: front + Module One. Add modules/paper/mocks as authored, in
 # step with contents.py TOC (every part here must supply the headings the TOC names).
-BODY_PARTS = ['front.html', 'module1.html', 'module2.html', 'module3.html', 'module4.html', 'module5.html', 'module6.html', 'reference.html', 'paper2526.html', 'paper2425.html', 'mock1.html', 'mock2.html', 'mock3.html']
+BODY_PARTS = ['front.html', 'module1.html', 'module2.html', 'module3.html', 'module4.html', 'module5.html', 'module6.html', 'reference.html', 'paper2526.html', 'paper2425.html', 'objective.html', 'mock1.html', 'mock2.html', 'mock3.html']
 
 MAX_PASSES = 5
 
