@@ -1,0 +1,466 @@
+<!-- ===================== REFERENCE (divider) ===================== -->
+<div class="part">
+  <div class="kicker">Reference</div>
+  <h1>The Card, the List<br>and the Cram Sheet</h1>
+  <p class="blurb">Everything the modules taught, compressed into what you actually carry
+  into the hall: every function and method this course uses with what it hands back, the
+  definitions the examiner wants word for word, a plan for the three hours, and the
+  mistakes that cost marks. Read this part last, and read R.4 again the night before.</p>
+  <div class="divider-motif">
+    <svg viewBox="0 0 620 140" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="70" width="620" height="2" fill="#306998" opacity=".25"/>
+      <g font-family="DejaVu Sans Mono" font-size="14">
+        <text x="0" y="26" fill="#306998" opacity=".9">len(x)</text>
+        <text x="150" y="26" fill="#1a2332" opacity=".55">how many items</text>
+        <text x="0" y="52" fill="#306998" opacity=".9">xs.sort()</text>
+        <text x="150" y="52" fill="#1a2332" opacity=".55">in place, returns None</text>
+        <text x="0" y="96" fill="#306998" opacity=".9">s[1:4]</text>
+        <text x="150" y="96" fill="#1a2332" opacity=".55">stops before 4</text>
+        <text x="0" y="122" fill="#306998" opacity=".9">7 / 2</text>
+        <text x="150" y="122" fill="#1a2332" opacity=".55">3.5, always a float</text>
+      </g>
+      <rect x="0" y="132" width="440" height="2" fill="#ffd43b"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===================== R.1 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.1</div>
+<h2 class="title">The Python Reference Card</h2>
+<hr class="rule">
+<p class="lead">Every keyword, built-in function and method this manual uses, in one
+place, with the thing people actually get wrong about each one: what it hands back.</p>
+<p class="lo">By the end of this section you can say, for any name in this course, what
+it does, what it returns, and whether it changes the thing it was called on.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">the question to ask of every call</span></div>
+<div class="body"><p>Three questions, and they answer most of the paper's tracing
+questions before you trace anything.</p>
+<ol class="qlist">
+<li><b>What does it RETURN?</b> A call that returns None cannot be assigned to
+anything useful.</li>
+<li><b>Does it CHANGE the thing it was called on?</b> A list method usually does. A
+string method never does.</li>
+<li><b>What TYPE comes back?</b> input() gives a string. A single slash gives a float.
+A slice of a list gives a list.</li>
+</ol></div></div>
+
+<h3 class="sub">The 27 keywords this course uses</h3>
+
+<table class="data">
+<tr><th>Keyword</th><th>What it does</th><th>Taught in</th></tr>
+<tr><td><b>if</b>, <b>elif</b>, <b>else</b></td><td>Choose a branch. Only the FIRST
+true test in a chain runs.</td><td>M3 U1</td></tr>
+<tr><td><b>for</b> ... <b>in</b></td><td>Repeat once per item of a sequence.</td><td>M3 U2</td></tr>
+<tr><td><b>while</b></td><td>Repeat while a condition stays true. Needs something in
+the body to make it stop.</td><td>M3 U2</td></tr>
+<tr><td><b>break</b></td><td>Leave the loop immediately.</td><td>M3 U2</td></tr>
+<tr><td><b>continue</b></td><td>Abandon this pass, start the next.</td><td>M3 U2</td></tr>
+<tr><td><b>def</b></td><td>Define a function.</td><td>M4 U1</td></tr>
+<tr><td><b>return</b></td><td>Hand a value back and leave the function. With no value,
+and with no return at all, the function gives back None.</td><td>M4 U1</td></tr>
+<tr><td><b>import</b>, <b>from</b> ... <b>import</b>, <b>as</b></td><td>Bring in a
+module. import math needs the math. prefix; from math import sqrt does not.</td><td>M4 U2</td></tr>
+<tr><td><b>with</b></td><td>Open something and guarantee it is closed on the way out,
+even if the block raises.</td><td>M4 U3</td></tr>
+<tr><td><b>try</b>, <b>except</b>, <b>else</b>, <b>finally</b></td><td>Catch an error.
+else runs when nothing was raised; finally runs either way.</td><td>M4 U4</td></tr>
+<tr><td><b>raise</b></td><td>Signal an error yourself.</td><td>M4 U4</td></tr>
+<tr><td><b>and</b>, <b>or</b>, <b>not</b></td><td>Combine conditions. Precedence: not,
+then and, then or.</td><td>M2 U3</td></tr>
+<tr><td><b>in</b></td><td>Membership. Substring on a string, item on a list or set,
+KEY on a dictionary.</td><td>M3 U3</td></tr>
+<tr><td><b>is</b></td><td>The very same object, not merely equal. Use it only with
+None.</td><td>M2 U2</td></tr>
+<tr><td><b>del</b></td><td>Remove: by index on a list, by key on a dictionary.</td><td>M3 U3</td></tr>
+<tr><td><b>class</b></td><td>Define a class. This course meets it mainly through the
+GUI widgets.</td><td>M5 U2</td></tr>
+</table>
+
+<h3 class="sub">The 16 built-in functions</h3>
+
+<table class="data">
+<tr><th>Call</th><th>What it does</th><th>What it RETURNS</th></tr>
+<tr><td><b>print(...)</b></td><td>Display on screen. sep and end control what goes
+between and after.</td><td>None. It shows, it does not hand back.</td></tr>
+<tr><td><b>input(prompt)</b></td><td>Read one line typed by the user.</td><td>Always a
+<b>str</b>, however numeric it looks.</td></tr>
+<tr><td><b>int(x)</b></td><td>Convert to a whole number. On a float it TRUNCATES
+towards zero, it does not round.</td><td>int, or raises ValueError on "abc".</td></tr>
+<tr><td><b>float(x)</b></td><td>Convert to a decimal number.</td><td>float</td></tr>
+<tr><td><b>str(x)</b></td><td>Convert to text so it can be joined with +.</td><td>str</td></tr>
+<tr><td><b>len(x)</b></td><td>How many items, or how many characters.</td><td>int. On a
+nested list it counts the OUTER items.</td></tr>
+<tr><td><b>range(a, b, step)</b></td><td>The whole numbers from a up to but NOT
+including b.</td><td>a range object; wrap in list() to see it.</td></tr>
+<tr><td><b>list(x)</b></td><td>Build a list from any sequence. Also the way to COPY a
+list.</td><td>a new list</td></tr>
+<tr><td><b>set(x)</b></td><td>Build a set, discarding duplicates.</td><td>a new set,
+unordered</td></tr>
+<tr><td><b>sorted(x)</b></td><td>Sort ANYTHING and give back a new list. The original
+is untouched.</td><td>a new list, always</td></tr>
+<tr><td><b>sum(x)</b></td><td>Add up the numbers in a sequence.</td><td>int or float</td></tr>
+<tr><td><b>max(x)</b>, <b>min(x)</b></td><td>Largest and smallest.</td><td>one item of
+the sequence</td></tr>
+<tr><td><b>enumerate(x)</b></td><td>Walk a sequence giving index and item together.</td>
+<td>pairs, used as for i, v in enumerate(xs)</td></tr>
+<tr><td><b>type(x)</b></td><td>What kind of thing this is.</td><td>a type object;
+type(x).__name__ is the plain name</td></tr>
+<tr><td><b>open(name, mode)</b></td><td>Open a file. Modes: r read, w write and
+TRUNCATE, a append.</td><td>a file object</td></tr>
+</table>
+
+<div class="box trap"><div class="bar"><span>Trap</span><span class="tag">the two that look alike</span></div>
+<div class="body"><p><b>sorted(xs)</b> returns a new sorted list and leaves xs alone.
+<b>xs.sort()</b> sorts xs itself and returns <b>None</b>. Writing ys = xs.sort() puts
+None in ys, silently, and the bug shows up several lines later.</p></div></div>
+
+<h3 class="sub">The methods, by the type they belong to</h3>
+
+<table class="data">
+<tr><th>String method</th><th>What it does</th><th>Changes the string?</th></tr>
+<tr><td><b>.upper()</b>, <b>.lower()</b>, <b>.title()</b></td><td>Change case.</td>
+<td>No. Strings are immutable: a NEW string comes back.</td></tr>
+<tr><td><b>.strip()</b></td><td>Remove whitespace from both ends.</td><td>No, new
+string.</td></tr>
+<tr><td><b>.split(sep)</b></td><td>Cut into pieces. With no argument, splits on any run
+of whitespace.</td><td>No. Returns a LIST.</td></tr>
+<tr><td><b>sep.join(list)</b></td><td>Glue a list of strings together with sep between
+them. The separator is what you call it on.</td><td>No. Returns a string.</td></tr>
+<tr><td><b>.replace(old, new)</b></td><td>Swap every occurrence.</td><td>No, new
+string.</td></tr>
+<tr><td><b>.find(sub)</b></td><td>Position of sub.</td><td>No. Returns the index, or
+&#8722;1 if it is absent.</td></tr>
+<tr><td><b>.startswith(x)</b>, <b>.isalpha()</b></td><td>Ask a yes or no question about
+the text.</td><td>No. Returns True or False.</td></tr>
+<tr><td><b>.count(x)</b></td><td>How many times x occurs.</td><td>No. Returns an
+int.</td></tr>
+</table>
+
+<table class="data">
+<tr><th>List method</th><th>What it does</th><th>What it RETURNS</th></tr>
+<tr><td><b>.append(x)</b></td><td>Add one item to the end.</td><td><b>None.</b> It
+changes the list.</td></tr>
+<tr><td><b>.remove(x)</b></td><td>Delete the first item EQUAL to x. Raises ValueError
+if there is none.</td><td>None</td></tr>
+<tr><td><b>.sort()</b></td><td>Order the list in place. reverse=True for
+descending.</td><td><b>None</b></td></tr>
+<tr><td><b>.index(x)</b></td><td>Where x is.</td><td>an int, or raises ValueError</td></tr>
+<tr><td><b>.count(x)</b></td><td>How many times x appears.</td><td>an int</td></tr>
+</table>
+
+<table class="data">
+<tr><th>Dictionary method</th><th>What it does</th><th>What it RETURNS</th></tr>
+<tr><td><b>.get(key)</b></td><td>Look up a key WITHOUT raising if it is missing.</td>
+<td>the value, or None. This is the safe alternative to d[key].</td></tr>
+<tr><td><b>.keys()</b>, <b>.values()</b></td><td>All the keys, all the values.</td>
+<td>a view you can loop over or wrap in list()</td></tr>
+<tr><td><b>.items()</b></td><td>Key and value together.</td><td>pairs, used as
+for k, v in d.items()</td></tr>
+</table>
+
+<table class="data">
+<tr><th>File and database</th><th>What it does</th><th>What it RETURNS</th></tr>
+<tr><td><b>f.read()</b></td><td>The whole file.</td><td>one str, newlines included</td></tr>
+<tr><td><b>f.readline()</b></td><td>The next line.</td><td>one str, ending in a
+newline; empty string at the end of the file</td></tr>
+<tr><td><b>f.readlines()</b></td><td>Every line.</td><td>a LIST of str, each still
+carrying its newline</td></tr>
+<tr><td><b>f.write(s)</b></td><td>Write text. It does not add a newline for you.</td>
+<td>the number of characters written</td></tr>
+<tr><td><b>f.close()</b></td><td>Flush and close. with does this for you.</td><td>None</td></tr>
+<tr><td><b>sqlite3.connect(name)</b></td><td>Open or create the database file.</td>
+<td>a connection</td></tr>
+<tr><td><b>conn.cursor()</b></td><td>Get the object that runs SQL.</td><td>a cursor</td></tr>
+<tr><td><b>cur.execute(sql, params)</b></td><td>Run one SQL statement. Use ? placeholders
+and pass the values.</td><td>the cursor</td></tr>
+<tr><td><b>cur.executemany(sql, seq)</b></td><td>Run the SAME statement once per
+parameter tuple.</td><td>the cursor</td></tr>
+<tr><td><b>cur.fetchone()</b></td><td>The next row.</td><td>a tuple, or None when the
+rows run out</td></tr>
+<tr><td><b>cur.fetchall()</b></td><td>All remaining rows.</td><td>a list of tuples</td></tr>
+<tr><td><b>conn.commit()</b></td><td>Make the changes permanent.</td><td>None. Skip it
+and the rows are lost with no error.</td></tr>
+<tr><td><b>conn.close()</b></td><td>Close the connection.</td><td>None</td></tr>
+</table>
+
+<table class="data">
+<tr><th>tkinter</th><th>What it does</th></tr>
+<tr><td><b>tkinter.Tk()</b></td><td>Create the main window.</td></tr>
+<tr><td><b>Label</b>, <b>Entry</b>, <b>Button</b></td><td>Show text, take one line of
+typed text, run a command when clicked.</td></tr>
+<tr><td><b>.pack()</b>, <b>.grid()</b>, <b>.place()</b></td><td>The three geometry
+managers. Do not mix pack and grid in one container.</td></tr>
+<tr><td><b>.config(...)</b></td><td>Change a widget's settings after it has been
+made.</td></tr>
+<tr><td><b>entry.get()</b></td><td>Read what the user typed.</td></tr>
+<tr><td><b>root.mainloop()</b></td><td>Start the event loop. Without it the window
+appears and vanishes.</td></tr>
+</table>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">Name every call in this course that returns None, and
+say why that matters.</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>print(), .append(), .remove(), .sort(), .write() to a degree, .close(), .commit(),
+and any function with no return statement. It matters because assigning one of them to
+a variable stores None, which then fails much later and a long way from the mistake.</p>
+</div></div>
+</section>
+
+<!-- ===================== R.2 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.2</div>
+<h2 class="title">The Must-Memorise List</h2>
+<hr class="rule">
+<p class="lead">The definitions and properties this paper asks for by name, in the
+words to give back. If you can write this page from memory you have the recall half of
+the paper already.</p>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">the properties, by type</span></div>
+<div class="body">
+<table class="data">
+<tr><th>Type</th><th>Ordered?</th><th>Mutable?</th><th>Duplicates?</th><th>Written</th></tr>
+<tr><td><b>list</b></td><td>Yes</td><td>Yes</td><td>Yes</td><td>[1, 2, 3]</td></tr>
+<tr><td><b>tuple</b></td><td>Yes</td><td><b>No</b></td><td>Yes</td><td>(1, 2, 3)</td></tr>
+<tr><td><b>set</b></td><td><b>No</b></td><td>Yes</td><td><b>No</b></td><td>{1, 2, 3}</td></tr>
+<tr><td><b>dict</b></td><td>Insertion order</td><td>Yes</td><td>Keys no, values
+yes</td><td>{"a": 1}</td></tr>
+<tr><td><b>str</b></td><td>Yes</td><td><b>No</b></td><td>Yes</td><td>"abc"</td></tr>
+</table>
+<p>That one table answers more marks on this paper than any other single thing in
+this book. Copy it out by hand until you can draw it blank.</p>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">the sentences, as sentences</span></div>
+<div class="body">
+<ul class="bul">
+<li><b>Python is</b> an interpreted, high-level, general-purpose programming language,
+known for readable syntax and dynamic typing.</li>
+<li><b>Dynamically typed</b> means the type belongs to the value, not to the name, so a
+variable may be rebound to a value of a different type and no declaration is needed.</li>
+<li><b>Lists are ordered</b> means every item has a position, that position is fixed
+until you change it, and items can be reached and sliced by that position.</li>
+<li><b>Strings are immutable</b> means a string object cannot be altered after it is
+created. Every string operation returns a NEW string, and s[0] = "X" raises TypeError.
+To change a string you rebind the name.</li>
+<li><b>Sets are unique</b> means a set holds at most one copy of any value, so adding a
+value already present changes nothing and len() does not grow.</li>
+<li><b>A KeyError</b> is raised when a dictionary is asked for a key it does not hold.
+d.get(key) returns None instead of raising.</li>
+<li><b>A function</b> is a named block of code that runs when it is called, takes
+parameters and may return a value. It is the unit of reuse.</li>
+<li><b>Modularising a program</b> gives reuse, independent testing, readability,
+easier maintenance, and division of work across a team. It does not make the program
+run faster.</li>
+<li><b>An exception</b> is an error detected while the program runs. try and except let
+the program handle it instead of stopping.</li>
+<li><b>A module</b> is a file of Python code that can be imported; a package is a
+directory of modules.</li>
+</ul>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">which error is which</span></div>
+<div class="body">
+<table class="data">
+<tr><th>Exception</th><th>Raised when</th><th>Standard example</th></tr>
+<tr><td><b>SyntaxError</b></td><td>Python cannot parse the line. Found BEFORE anything
+runs.</td><td>a missing colon</td></tr>
+<tr><td><b>NameError</b></td><td>A name is used before it is assigned.</td><td>print(x)
+with no x</td></tr>
+<tr><td><b>TypeError</b></td><td>The wrong KIND of thing.</td><td>"5" + 5</td></tr>
+<tr><td><b>ValueError</b></td><td>The right kind, an impossible value.</td><td>int("abc")</td></tr>
+<tr><td><b>IndexError</b></td><td>A sequence index out of range.</td><td>[1,2,3][5]</td></tr>
+<tr><td><b>KeyError</b></td><td>A dictionary key that is not there.</td><td>d["missing"]</td></tr>
+<tr><td><b>ZeroDivisionError</b></td><td>Dividing by zero.</td><td>1 / 0</td></tr>
+<tr><td><b>IndentationError</b></td><td>The indentation does not line up.</td><td>a
+stray space before a line</td></tr>
+<tr><td><b>FileNotFoundError</b></td><td>Opening a file for reading that is not
+there.</td><td>open("no.txt")</td></tr>
+</table>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">the SQL this course needs</span></div>
+<div class="body">
+<pre class="code">CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT, score REAL)
+INSERT INTO students VALUES (?, ?, ?)
+SELECT * FROM students WHERE score &gt; 50 ORDER BY score DESC
+UPDATE students SET score = 60 WHERE name = 'Ada'
+DELETE FROM students WHERE score &lt; 30
+SELECT COUNT(*), MAX(score), MIN(score), AVG(score) FROM students</pre>
+<p>Six lines. WHERE is optional on UPDATE and DELETE, and leaving it out applies the
+statement to <b>every row in the table</b>.</p>
+</div></div>
+</section>
+
+<!-- ===================== R.3 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.3</div>
+<h2 class="title">Exam Day Strategy</h2>
+<hr class="rule">
+<p class="lead">Three hours, one paper carrying an objective section and long questions,
+and no computer. How to spend the time, and how to write code that earns marks on
+paper.</p>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">the plan for the three hours</span></div>
+<div class="body">
+<ol class="steps">
+<li><b>First five minutes: read the whole paper.</b> Mark every question you can
+already do. That is not wasted time, it is the difference between answering the
+questions you know and running out of time before you reach them.</li>
+<li><b>Do the objective section first, at pace.</b> Roughly 45 seconds a question. Any
+one you cannot settle in that time gets a mark in the margin and your best guess now,
+because there is no negative marking and a blank scores nothing.</li>
+<li><b>Then the long question you marked as easiest.</b> Confidence is worth real
+marks, and an early complete answer stops you spending the whole paper on your worst
+topic.</li>
+<li><b>Watch the marks, not the question numbers.</b> A part worth 2 marks wants two
+sentences. A part worth 8.5 wants a whole program. Writing an essay for 2 marks is how
+people run out of time.</li>
+<li><b>Leave ten minutes.</b> Go back to the marked objective questions and to any
+part you left blank. Something written is always worth more than nothing.</li>
+</ol>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">writing code by hand</span></div>
+<div class="body">
+<p>The examiner cannot run your program, so what earns the marks is that it is
+readable and obviously correct. Five habits do most of that work.</p>
+<ul class="bul">
+<li><b>Indent visibly.</b> Four clear spaces, or a ruled line down the block. An
+examiner who cannot see which lines are inside the loop cannot give you the loop
+mark.</li>
+<li><b>Write the colons.</b> Every if, for, while, def and except ends its header with
+a colon, and it is the most commonly dropped character under time pressure.</li>
+<li><b>Name things properly.</b> total, count, student_name. A program full of a, b and
+c reads as a guess even when it is right.</li>
+<li><b>Convert your input.</b> Any number read with input() gets int() or float()
+around it. This single line appears in almost every program this paper asks for.</li>
+<li><b>Trace your own answer once</b> with a small value before you move on. Three
+lines of a trace table in the margin catch an off-by-one that would otherwise cost the
+whole part.</li>
+</ul>
+</div></div>
+
+<div class="box teach"><div class="bar"><span>Teach</span><span class="tag">how to answer the four question shapes</span></div>
+<div class="body">
+<table class="data">
+<tr><th>Shape</th><th>What earns the marks</th></tr>
+<tr><td><b>Explain a property</b> (lists are ordered, strings are immutable)</td>
+<td>Define it in one sentence, then give a two-line example that SHOWS it, then say
+what it means in practice. The example is usually worth as much as the sentence.</td></tr>
+<tr><td><b>What is the output</b></td><td>Trace it line by line in the margin with a
+small table of variables. Write the output exactly as Python would print it,
+including quotes and brackets on a list.</td></tr>
+<tr><td><b>Identify and correct the errors</b></td><td>Say WHERE (the line number),
+WHAT (the fault), and WHY it is wrong, then write the corrected line. Three parts, and
+most people give only the correction.</td></tr>
+<tr><td><b>Write a program</b></td><td>Input, then process, then output, in that order,
+with a comment above each stage. Handle the obvious bad input if the marks are
+generous enough to imply it.</td></tr>
+</table>
+</div></div>
+
+<div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">Marks are awarded for demonstrated understanding, not for a program
+that would compile. A partly written answer with correct structure and clear naming
+scores; a blank scores nothing at all.</p>
+<p class="blunt"><b>Blunt version:</b> never leave a part empty. Write the input line
+and the loop header even if you cannot finish.</p>
+</div></div>
+</section>
+
+<!-- ===================== R.4 ===================== -->
+<section>
+<div class="kick">Reference &middot; R.4</div>
+<h2 class="title">The Trap Index and Cram Sheet</h2>
+<hr class="rule">
+<p class="lead">Every trap in this book on one page, then the whole course compressed
+into what fits on a single sheet. This is the section to read the night before and
+again in the last ten minutes.</p>
+
+<div class="box trap"><div class="bar"><span>Trap</span><span class="tag">the index: every one, in one place</span></div>
+<div class="body">
+<table class="data">
+<tr><th>The trap</th><th>What actually happens</th></tr>
+<tr><td>Adding 5 to what input() gave you</td><td>TypeError. input() returns a string;
+wrap it in int().</td></tr>
+<tr><td>Expecting 7 / 2 to be 3</td><td>It is 3.5. A single slash always gives a float.
+Floor division is the double slash.</td></tr>
+<tr><td>Expecting numbers[1:3] to include index 3</td><td>A slice stops BEFORE its stop
+index. range() does the same.</td></tr>
+<tr><td>ys = xs.sort()</td><td>ys is None. sort() changes xs and returns nothing. Use
+sorted(xs) for a new list.</td></tr>
+<tr><td>b = a on a list, then changing b</td><td>a changes too. Assignment does not
+copy. Use list(a) or a[:].</td></tr>
+<tr><td>Looking a dictionary up by its value</td><td>KeyError. The subscript takes a
+KEY. Use .get() to avoid raising.</td></tr>
+<tr><td>s[0] = "X" on a string</td><td>TypeError. Strings are immutable; build a new
+one.</td></tr>
+<tr><td>Expecting "ab" * 3 to be an error</td><td>It is "ababab". Star repeats a
+string; it is "ab" + 3 that raises.</td></tr>
+<tr><td>A second if where elif was meant</td><td>Both blocks run. An elif chain runs at
+most one.</td></tr>
+<tr><td>Opening an existing file with "w"</td><td>It is emptied immediately. Append is
+"a".</td></tr>
+<tr><td>Forgetting conn.commit()</td><td>The rows vanish and nothing is reported.</td></tr>
+<tr><td>UPDATE or DELETE with no WHERE</td><td>It applies to every row in the
+table.</td></tr>
+<tr><td>command=run() on a button</td><td>It runs once, immediately, and attaches the
+result. Pass command=run, with no brackets.</td></tr>
+<tr><td>Forgetting mainloop()</td><td>The window appears and disappears at once.</td></tr>
+<tr><td>Expecting int(3.9) to be 4</td><td>It is 3. int() truncates; round() rounds.</td></tr>
+<tr><td>A recursion with no base case</td><td>RecursionError. Every recursion needs a
+stopping condition and a step towards it.</td></tr>
+</table>
+</div></div>
+
+<div class="box mem"><div class="bar"><span>Must memorise</span><span class="tag">the cram sheet, one page</span></div>
+<div class="body">
+<table class="data">
+<tr><th>Topic</th><th>The one thing</th><th>The hook</th></tr>
+<tr><td>Types</td><td>list ordered mutable, tuple ordered immutable, set unique
+unordered, dict key to value, str immutable</td><td>Square changeable, round fixed,
+curly unique</td></tr>
+<tr><td>input()</td><td>Always a string</td><td>The keyboard has no number key that
+Python believes</td></tr>
+<tr><td>Division</td><td>/ float, // floor, % remainder</td><td>One slash one point</td></tr>
+<tr><td>Slices</td><td>Stop is excluded, negative counts from the end, [::-1]
+reverses</td><td>Up to, never including</td></tr>
+<tr><td>In-place methods</td><td>sort, append, remove, reverse return None</td><td>If it
+changes the thing, it hands back nothing</td></tr>
+<tr><td>Assignment</td><td>Binds a name, does not copy</td><td>One object, two
+labels</td></tr>
+<tr><td>if chain</td><td>Only the first true branch runs</td><td>elif is a queue, if is
+a crowd</td></tr>
+<tr><td>Loops</td><td>break leaves, continue skips, else runs if no break</td><td>Break
+out, continue on</td></tr>
+<tr><td>Functions</td><td>print shows, return hands back; no return means None</td>
+<td>Show or give</td></tr>
+<tr><td>Scope</td><td>Assigning inside a function makes it local</td><td>What happens
+in the function stays in the function</td></tr>
+<tr><td>Files</td><td>r read, w truncate, a append; with closes for you</td><td>w wipes</td></tr>
+<tr><td>Exceptions</td><td>try, except by name, finally always</td><td>Finally means
+finally</td></tr>
+<tr><td>Database</td><td>connect, cursor, execute, commit, close</td><td>No commit, no
+data</td></tr>
+<tr><td>SQL</td><td>SELECT cols FROM table WHERE condition</td><td>WHERE or
+everywhere</td></tr>
+<tr><td>tkinter</td><td>Tk, widgets, geometry manager, mainloop</td><td>No loop, no
+window</td></tr>
+</table>
+</div></div>
+
+<div class="box recall"><div class="bar"><span>Recall and check</span></div>
+<div class="body"><p class="q">Without looking: what does each of these return, and does
+it change what it was called on? sorted(xs), xs.sort(), s.upper(), xs.append(3),
+d.get("k"), cur.fetchone().</p>
+<hr class="cut"><p class="alabel">Answer</p>
+<p>sorted(xs) returns a new list, xs unchanged. xs.sort() returns None, xs sorted.
+s.upper() returns a new string, s unchanged, because strings are immutable.
+xs.append(3) returns None, xs one item longer. d.get("k") returns the value or None,
+d unchanged. cur.fetchone() returns the next row as a tuple, or None when they run
+out.</p></div></div>
+</section>

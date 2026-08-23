@@ -1891,6 +1891,32 @@ print(f"Volume: {v:.2f}")
 print("Large tank" if v > 1000 else "Small tank")''',
       'Volume: 1539.38\nLarge tank')
 
+# ======================= the objective section =======================
+# The objective half is generated from objective_bank.py, and every question in
+# it that shows a code snippet claims that snippet's output as its answer. Those
+# claims are checked here so they cannot drift after the section is written.
+#
+# It uses gen_objective.run rather than check() above, for two reasons that are
+# real differences and not fussiness: an option is written without the trailing
+# space an `end=" "` loop leaves behind, and a question whose answer IS the
+# exception names the exception class alone, while check() would compare against
+# "IndexError: list index out of range". One comparison rule, defined once, in
+# the generator that also refuses to publish a mismatch.
+try:
+    from objective_bank import Q as _OBJ
+    from gen_objective import run as _objrun
+except Exception as _e:                                    # pragma: no cover
+    _OBJ, _objrun = [], None
+    print(f'CODE GATE: objective bank not importable ({_e})')
+for _item in _OBJ:
+    if not _item.get('runs') or _objrun is None:
+        continue
+    n += 1
+    _want = _item['options'][_item['answer']].strip()
+    _got = _objrun(_item['code'])
+    if _got != _want:
+        fails.append(('objective ' + _item['id'], _want, _got))
+
 # ======================= report =======================
 print(f'CODE GATE: {n} claimed outputs checked against a real interpreter')
 if fails:

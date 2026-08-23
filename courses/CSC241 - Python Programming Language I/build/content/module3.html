@@ -218,7 +218,13 @@ Delulu - Not divisible by 3 or 5</pre>
   <code>continue</code>, explain <code>for</code>/<code>else</code>, avoid infinite loops,
   and write both of the "accept any number of inputs" patterns.</p>
 
-  <h3 class="sub">while</h3>
+  <div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">In an if / elif / else chain, the first test that is true runs its block and the whole chain is then finished. Replacing an elif with a second if changes that: independent ifs are all tested, so two blocks can run.</p>
+<p class="blunt"><b>Blunt version:</b> elif is a queue, one gets served. Separate ifs are a crowd, they all get in.</p>
+</div></div>
+
+<h3 class="sub">while</h3>
 
   <div class="box teach">
     <div class="bar"><span>Teach</span></div>
@@ -677,7 +683,13 @@ ValueError: list.remove(x): x not in list</pre>
     </div>
   </div>
 
-  <h3 class="sub">Tuples</h3>
+  <div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">A slice and a range both EXCLUDE their stop. xs[1:4] gives the items at 1, 2 and 3, and range(1, 4) gives 1, 2 and 3. A negative index counts back from the end, and [::-1] walks the whole thing backwards.</p>
+<p class="blunt"><b>Blunt version:</b> up to, never including. Every off-by-one on this paper is that sentence not yet learned.</p>
+</div></div>
+
+<h3 class="sub">Tuples</h3>
 
   <div class="box mem">
     <div class="bar"><span>Must memorise</span><span class="tag">List vs tuple</span></div>
@@ -860,7 +872,16 @@ unique_students = <span class="k">set</span>(students)
     </div>
   </div>
 
-  <h3 class="sub">Dictionaries</h3>
+  <div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">Assignment binds a name; it never copies. After b = a there is ONE list with two names, so a change made through either name is visible through the other. To get a genuine copy, use list(a), a[:] or a.copy().</p>
+<p class="blunt"><b>Blunt version:</b> one object, two labels. If you did not ask for a copy, you did not get one.</p>
+</div></div>
+
+<div class="anchor"><span class="alab">Anchor</span>
+<p>A hotel guest register is a dictionary. You look a guest up by room number, not by walking the corridor. The room number is the key, the guest is the value, one room holds one guest at a time, and asking for a room the hotel does not have is an error rather than an empty answer. That last part is exactly what a KeyError is.</p></div>
+
+<h3 class="sub">Dictionaries</h3>
 
   <div class="box mem">
     <div class="bar"><span>Must memorise</span><span class="tag">Key and value</span></div>

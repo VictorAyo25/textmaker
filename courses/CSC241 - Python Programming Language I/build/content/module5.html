@@ -34,7 +34,10 @@
   <code>DELETE</code>, summarise a column with <code>COUNT</code>, <code>MAX</code> and
   <code>AVG</code>, and write the programs it sets.</p>
 
-  <h3 class="sub">What a database is</h3>
+  <div class="anchor"><span class="alab">Anchor</span>
+<p>A text file of records is a shoebox of receipts: everything is in there, and finding one means going through them all. A database is a filing cabinet with an index, where you ask for what you want and the cabinet finds it. That difference, asking rather than searching, is what SQL is for, and it is why a database is worth the extra setup.</p></div>
+
+<h3 class="sub">What a database is</h3>
 
   <div class="box mem">
     <div class="bar"><span>Must memorise</span><span class="tag">Asked in these words</span></div>
@@ -225,7 +228,13 @@ conn.close()</pre>
     </div>
   </div>
 
-  <h3 class="sub">Reading rows back</h3>
+  <div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">Changes made through a cursor live in a transaction and are not permanent until commit() is called. Closing the connection without committing rolls them back, and nothing is reported: the program appears to have worked.</p>
+<p class="blunt"><b>Blunt version:</b> no commit, no data, and no error message to tell you.</p>
+</div></div>
+
+<h3 class="sub">Reading rows back</h3>
 
   <div class="box mem">
     <div class="bar"><span>Must memorise</span><span class="tag">SELECT and fetchall</span></div>
@@ -284,7 +293,13 @@ conn.commit()</pre>
     </div>
   </div>
 
-  <h3 class="sub">Filtering, changing and summarising</h3>
+  <div class="box keypoint"><div class="bar"><span>Key point</span></div>
+<div class="body">
+<p class="formal">UPDATE and DELETE apply to every row that matches the WHERE clause, and a statement with no WHERE clause matches every row in the table. The clause is optional to SQL and not optional to you.</p>
+<p class="blunt"><b>Blunt version:</b> WHERE or everywhere. Write the WHERE before you write the SET.</p>
+</div></div>
+
+<h3 class="sub">Filtering, changing and summarising</h3>
 
   <div class="box mem">
     <div class="bar"><span>Must memorise</span><span class="tag">WHERE picks the rows</span></div>
