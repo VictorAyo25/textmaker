@@ -83,11 +83,75 @@ To rebuild or update:  cd "courses/ENT221 - Agripreneurship/build"
                        && python assemble.py
 
 -------------------------------------------------------------------------------
-INS224 - Systems Analysis and Design - Study Manual.pdf   101 pp   published 2026-07-23
+INS224 - Systems Analysis and Design - Study Manual.pdf   152 pp   updated 2026-08-20
 -------------------------------------------------------------------------------
-INS224 Systems Analysis and Design, a complete manual for the current three-hour
-paper: answer ONE question in Section A and ANY THREE in Section B. Course lineage
-CSC317 -> INS224 (older papers and the 24/25 Alpha sitting are printed as CSC317).
+INS224 Systems Analysis and Design. Course lineage CSC317 -> INS224 (older papers
+and the 24/25 Alpha sitting are printed as CSC317).
+
+THE EXAM SHAPE WAS WRONG, AND IS NOW FIXED (2026-08-20). Every edition before this
+one described the paper as one question from Section A and any three from Section B.
+That is what the 2025/2026 and 2024/2025 papers really printed, and both are still
+reproduced here exactly as set. It is NOT the paper being sat on 12 September. The
+student confirmed the shape on 2026-08-09: an OBJECTIVE SECTION plus THREE WRITTEN
+QUESTIONS WITH NO CHOICE, one from Module One, one from Module Two, one from Module
+Three. A manual that leaves a reader expecting a choice, and expecting no objective
+half, is worse than no manual on the rubric.
+
+AND THE MODULE MAPPING WAS WRONG TOO, WHICH MATTERED MORE. The first attempt at this
+correction mapped "module one, two, three" onto THIS BOOK's parts, which made the
+compulsory Question Three a data flow diagram question. Checking it against the
+course text itself, sources/extracted/coursetext.txt, its contents page and its unit
+headings, showed that is not what the lecturer means. He means the COURSE TEXT's
+modules, because that is the document he sets from, and the two numberings differ:
+
+  Text Module One   analyst, life cycle, methodology          = this book's Module One
+  Text Module Two   fact gathering, use cases, process
+                    modelling, AND data modelling with ERDs   = Modules Two, Three, Four
+  Text Module Three object orientation, structural UML,
+                    behavioural UML                           = Module Five
+
+So compulsory Question Three is OBJECT ORIENTATION AND UML, not data flow diagrams,
+and Modules One to Five must all be ready to write and to draw. Module Six, system
+design and architecture and project management, is the only part outside the written
+half, and the course text does not carry it either. A new front-matter box, "Whose
+Module One? The course text's, not this book's", sets the whole mapping out in a
+table, because the mismatch is invisible until it costs a question. The course text's
+own heading slip is recorded there too: it heads its Module Three Unit 1 "Data
+Modelling and Entity-Relationship Diagramming", reusing the Module Two Unit 4
+heading, while that unit's content is object orientation.
+
+THE OBJECTIVE SECTION, 81 questions. Both class tests are reproduced whole, 60
+questions, grouped by the part of this book that teaches them rather than by which
+test they came from. Every option is explained, right and wrong alike, and no
+explanation names an option by its letter. The three forms the tests use are all
+here: single answer, MULTI-SELECT ("which TWO"), and matching. The multi-select form
+is the one the lecturer named for the examination, and it gets its own trap box,
+because a candidate who knows the topic and stops at one option scores nothing.
+
+The tests stop where the course had got to when they were set: between them they
+never reach entity-relationship diagrams, object orientation or UML, which are
+exactly compulsory Question Two and compulsory Question Three. So 21 further
+questions were AUTHORED to cover that gap, in the same which-two form, each carrying
+an AUTHORED chip rather than a test number so it can never be mistaken for the
+examiner's. Stems and options for the 60 real ones were read off the test screenshots
+by eye, which is a weaker guarantee than the two written papers carry, and the
+section says so on its own opening page.
+
+KEY POINTS AND ANCHORS, the house pedagogy owed to the manuals since 2026-08-08.
+Fourteen additions: one KEY POINT closing each of the ten teaching units, each stated
+twice, once formally and once bluntly ("the test is what survives, not what owns";
+"a process must earn its outputs from its inputs"; "read the far end"), plus four
+ordinary-life anchors where the book opened straight onto the abstraction: a
+restaurant for what a system is, asking a friend what they want for dinner for why
+fact-finding needs seven techniques, following one form through an office for the
+four DFD elements, and a car and its wheels against a house and its rooms for
+aggregation against composition.
+
+Page count 101 to 152. Body still renders at its designed 10.50pt with nothing
+scaled. The layout gate caught a recall box left sitting flush with the page bottom
+by the new insertions, and it was cured by trimming two lines above it, not by
+weakening the check.
+
 
 Contents: How-to + Exam-at-a-Glance, Modules One to Six (the analyst and the life
 cycle; requirements and use cases; data flow diagrams; entity-relationship
@@ -226,9 +290,61 @@ To rebuild or update:  cd "courses/TMC221 - Personal Development and Capacity
                        Building/build" && python assemble.py
 
 -------------------------------------------------------------------------------
-COS221 - Computer Programming I (Java) - Study Manual.pdf   347 pp   updated 2026-07-22
+COS221 - Computer Programming I (Java) - Study Manual.pdf   382 pp   updated 2026-08-20
 -------------------------------------------------------------------------------
 COS221 Computer Programming I (Java), complete manual, Modules 1 to 10.
+
+THE OBJECTIVE HALF AND KEY POINTS (2026-08-20), for the resit sitting on 10
+September.
+
+THE OBJECTIVE SECTION, which this book did not have. The student confirmed on
+2026-08-09 that every paper this semester except the physics one is a SINGLE paper
+carrying an objective section AND a theory section. This manual shipped at 347
+pages of theory practice and no objective practice at all, so a reader could work
+all forty question parts in it and still meet the first third of the paper cold.
+A new Part XIV carries 51 questions across the ten modules, grouped as O.1 to
+O.10, every option explained, right and wrong alike, and no explanation naming an
+option by its letter.
+
+This course has no computer-based test among its sources, so unlike IFT222 there
+was nothing to transcribe: the questions are AUTHORED, and the section's opening
+page says so in those words rather than letting a reader assume they are the
+examiner's. They are grounded in what the book teaches and what the two papers ask
+about, and they copy the paper's habits: output of a fragment, find the error,
+define with an example, distinguish two things that look alike.
+
+NOTHING IN IT WAS TYPED FROM MEMORY. 37 of the 51 questions show a complete
+program, and the answer to each is what a real JVM produced. gen_objective.py
+compiles every one with javac, runs it, and refuses to write the section on any
+mismatch. Two questions claim a program does NOT compile; those name the phrase
+javac must produce and are checked the same way. The listings then go into the
+book in its own markup, produced by its own highlighter, each declaring its
+contract, so check_code.py compiles and runs them AGAIN as part of the standing
+gate: 262 listings, 184 ok, 42 skipped, 0 failures. The gate refused two earlier
+drafts of this section, first for using a listing class it cannot see and then for
+markup the highlighter had not produced, which is the gate doing exactly its job.
+
+Those 37 listings do raise 36 WARNINGS, and it is worth saying what they mean
+rather than leaving them to be discovered: "runs, but the box claims no output to
+check". That is true and intended. The output of an objective question IS its
+answer, so printing it beside the question would give the game away. The output is
+checked, by gen_objective.py, on every regeneration.
+
+KEY POINTS AND ANCHORS, the house pedagogy owed to the manuals since 2026-08-08.
+Fifteen additions: eleven KEY POINT boxes closing the Foundations and each of the
+ten modules, each stated twice, once formally and once bluntly ("int over int
+stays int"; "the variable decides what you may call; the object decides what
+actually happens"; "the last index is always length minus one"), plus four
+ordinary-life anchors where the book opened straight onto the abstraction: a
+labelled pigeonhole for a variable, a photocopied form and a library card for pass
+by value against passing a reference, and a smoke alarm for what an exception is
+for. Key points use indigo, never the reserved cyan, because cyan means learn
+these exact words and indigo means this is the idea the module hangs on.
+
+Page count 347 to 382. Body still renders at its design size with nothing scaled,
+and all five standing gates stayed green: check_code, qa_verbatim, qa_firstuse
+(153 APIs), qa_reference (both directions), and qa.
+
 
 Contents: Foundations F.1-F.11, Modules 1 to 10, both past papers solved in full
 (2024/25 six-of-which-attempt-four, and 2025/26 three-sections), mock papers in
@@ -324,9 +440,70 @@ To rebuild or update:  see "courses/COS221 - Computer Programming I (Java)/READM
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-CSC241 - Python Programming Language I - Study Manual.pdf   200 pp   updated 2026-07-22
+CSC241 - Python Programming Language I - Study Manual.pdf   255 pp   updated 2026-08-20
 -------------------------------------------------------------------------------
 CSC241 Python Programming Language I, complete manual, Modules 1 to 5.
+
+OBJECTIVE HALF, A REFERENCE PART AND KEY POINTS (2026-08-20). Three changes, made
+for the resit sitting on 11 September.
+
+1. THE OBJECTIVE SECTION, which this book did not have. The student confirmed on
+2026-08-09 that every paper this semester except the physics one is a SINGLE paper
+carrying an objective section AND a theory section, and every edition of this manual
+before today drilled the theory half only. Unlike IFT222 this course has no
+computer-based test among its sources, so there was nothing to transcribe: the 70
+questions are AUTHORED, and the section's own opening page says so in those words
+rather than letting a reader assume they are the examiner's. They are grounded in
+what this manual teaches and what the ten past papers ask about, and they copy the
+paper's habits deliberately: output-tracing, identify-and-correct-the-error, and
+asking for a property by name. Every option is explained, right and wrong alike, and
+no explanation names an option by its letter, only by its words.
+
+NOTHING IN IT WAS TYPED FROM MEMORY. 40 of the 70 questions show a code snippet, and
+the answer to each is what a real interpreter produced. gen_objective.py executes
+every one and refuses to write the section on any mismatch, and verify_code.py
+imports the same bank so the standing gate covers them too: the code gate went from
+367 claims to 407, still 0 failures.
+
+2. A REFERENCE PART, R.1 to R.4, which this book also did not have while COS221 and
+IFT222 did. R.1 is the Python reference card: all 27 keywords, 16 built-in functions
+and 34 methods this course uses, each with the thing people actually get wrong,
+which is what it RETURNS and whether it changes what it was called on. The inventory
+is not invented; it is what qa_firstuse.py finds the book actually using. R.2 is the
+must-memorise list: the ordered/mutable/duplicates table for the five types, the
+definitions the paper asks for word for word, which exception is which, and the six
+lines of SQL. R.3 is exam day strategy, including how to write code by hand that
+earns marks and what each of the four question shapes wants. R.4 is the trap index,
+sixteen traps in one table, and a one-page cram sheet with a memory hook per topic.
+
+3. KEY POINTS AND ANCHORS, the house pedagogy owed to the manuals since 2026-08-08.
+Twelve KEY POINT boxes now close the teaching across the five modules, each stated
+twice, once formally and once bluntly ("one object, two labels"; "w wipes"; "no
+commit, no data"; "up to, never including"). Four ordinary-life anchors were added
+where the book opened straight onto the abstraction: a written recipe for what a
+program is, a label on a box in a storeroom for a variable, a hotel guest register
+for a dictionary, and a filing cabinet with an index for a database. Key points use
+indigo, never the reserved Python yellow, because yellow means learn these exact
+words and indigo means this is the idea the unit hangs on.
+
+Page count 200 to 255. Body still renders at its designed 10.50pt with nothing
+scaled.
+
+ONE GATE FINDING WORTH RECORDING. The verbatim gate's third direction fired on the
+new objective section: its how-to prose mentioned the paper and put a phrase in
+quotation marks, and the gate holds every quoted run inside a paper-citing box
+against the transcripts. The phrase was a description of the paper's habits, not a
+quotation of its wording, so the quotation marks came off rather than the check. A
+quotation mark is a promise, and this is the third book in which that gate has
+caught one being made carelessly.
+
+STILL OWED, recorded honestly: only the 2025/2026 paper is solved in full. The other
+nine papers in sources/exams are drawn on for teaching and for the mocks but are not
+each worked end to end. Four of them carry a PDF text layer, but it is OCR, not a
+digital original: the 2022/2023 layer reads "Question Two" as "uestion I wo" and
+"[8.5 Marks]" as "18.5 Marks]", so it is rejected under the same rule that rejected
+IFT222's. Solving them means eye-transcribing the scans first, which is the next
+piece of work on this book.
 
 What changed from the 182 pp edition (18 July): PAST QUESTIONS ARE NOW QUOTED.
 
@@ -505,11 +682,76 @@ To rebuild or update:  see "courses/DTS224 - Data Management I/README.md"
                        (cd build && python assemble.py)
 
 -------------------------------------------------------------------------------
-IFT222 - Computer Architecture and Organisation - Study Manual.pdf   206 pp   updated 2026-08-01
+IFT222 - Computer Architecture and Organisation - Study Manual.pdf   254 pp   updated 2026-08-20
 -------------------------------------------------------------------------------
 IFT222 Computer Architecture and Organisation, complete manual: Foundations,
 Modules 1 to 4, a Digital Logic supplement, a Reference part, both priority past
 papers solved in full, a Revision Class section, and three mock examinations.
+
+OBJECTIVE HALF, DECK GAP-FILL AND KEY POINTS (2026-08-20). Three changes, made for
+the resit sitting on 9 September.
+
+1. THE OBJECTIVE SECTION, which this book did not have. The student confirmed on
+2026-08-09 that every paper this semester except the physics one is a SINGLE paper
+carrying an objective section AND a theory section. Every edition before this one
+taught and drilled the theory half only, so a reader could work every past question
+in the book and still meet the first third of the paper cold. A new part now carries
+all 120 questions from both computer-based tests, grouped into the ten topics the
+manual teaches, each group sat as a timed set and then answered in full. EVERY
+option is explained, right and wrong alike, and no explanation names an option by
+its letter, only by its words, because the same question shuffles its options on the
+drill platform. The stems come from the drill build's transcription of the test
+screenshots, with every numeric answer recomputed; there is no eye-verified
+transcript FILE for the tests as there is for the four written papers, so
+qa_verbatim.py cannot gate them, and the section says so on its own opening page
+rather than leaving the reader to assume otherwise. It also opens with a method for
+attacking an objective question and two traps, one of which records that a Test 1
+question on floating point field order was marked Sign, Mantissa, Exponent while the
+true IEEE 754 order, which the rest of this book uses, is Sign, Exponent, Mantissa.
+
+2. THE DECK GAP-FILL, and a new gate that proves it. The student asked whether all
+the lecture decks really had been blended in. They had been, deck by deck, but that
+was a memory rather than a measurement, so the 600-fact ledger built independently
+from the same eight decks for the drill (webapp/data/ift222/ledger, at least one
+fact per content slide over 326 content slides) was run against this book's prose as
+an outside checklist. 42 of 600 facts were unsupported. Most were not manual
+material: a reading list, motivational slides, an in-class question. Ten were real
+and are now in, each of them the lecturer's own example, list or case study, which
+on a course whose lecturer reuses himself is the material most worth carrying: the
+Ariane 5 explosion and the Vancouver stock exchange index as the two floating-point
+case studies; the deck's own 64.2 stored as 42806666h, which does not terminate;
+its Excess-3 values for 27, 597 and 14.57; the stated advantages of bit-mapped
+graphics; the MC68009 and MC6809 mnemonics for the load/store and arithmetic/logic
+instruction types, which the revision deck repeats; the formal definition of
+pipelining, Instruction Level Parallelism by name, and the six levels of
+parallelism; the named laundry setup with its 30-minute stages, 120, 480 and 210
+minutes; the three machines RISC actually grew from (IBM 801, Stanford MIPS,
+Berkeley RISC 1 and 2); binary compatibility as x86 against ARM; and the smartphone
+worked as an architecture against organization example. The whole ROM family (ROM,
+PROM, EPROM, EEPROM, flash) went in too: the Semiconductor Memory unit had not
+carried it at all, which surfaced when EEPROM appeared in the new objective section
+and the teach-before-use audit caught it. 42 unsupported facts became 8, and all 8
+are named in the gate's ALLOWED list with a reason.
+
+3. KEY POINTS AND ANCHORS, the house pedagogy owed to the manuals since 2026-08-08.
+Sixteen KEY POINT boxes now close the teaching in fifteen units, each stated twice,
+once formally and once bluntly, because the blunt version is what survives the hall
+("if you can name it in the instruction set it is architecture, if you can only
+measure it it is organization"; "fast, big, cheap: pick two"; "the bits do not know
+what they are"). Three ordinary-life anchors were added where the book opened
+straight onto the abstraction: a kitchen scale for floating point precision, a desk
+and drawer and shelf for the memory hierarchy, and a coat-check ticket for the cache
+address split. The units that already had one keep it: the car for architecture
+against organization, the laundry for pipelining.
+
+Page count 206 to 254. Body still renders at its designed 10.50pt with nothing
+scaled, and the two-digit list markers in the objective section were caught by
+layout QA poking 3.6pt outside the left margin and fixed at 2.4em padding.
+
+AN EIGHTH GATE, qa_deckcoverage.py, now runs on every build: every one of the 600
+deck facts must be carried by the manual's prose, or be named in ALLOWED with a
+reason. Control-tested by deleting a carried fact's vocabulary from the book text
+and requiring the gate to fail AND name that fact.
 
 REVISION-CLASS BLEND (2026-08-01). The lecturer released a whole-course revision
 deck. Almost every question on it was already in this book, so a new part,
