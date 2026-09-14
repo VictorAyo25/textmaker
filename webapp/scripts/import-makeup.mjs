@@ -30,7 +30,7 @@
  *                    verdict on every option carried across, so review can say
  *                    why each wrong option is wrong.
  */
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -932,6 +932,38 @@ function run(code) {
   }
 
   const { questions, problems } = convertObjective(join(manual, cfg.objective), cfg);
+
+  // The manual's objective questions are asked by topic at the lesson named in
+  // drillAt. They are named by id rather than by topic, so the questions
+  // written for single lessons below are not pulled in a second time.
+  for (const l of lessons)
+    for (const b of l.blocks)
+      if (b.kind === 'drill' && (b.topics ?? []).length) {
+        b.ids = questions.filter((q) => b.topics.includes(q.module)).map((q) => q.id);
+        b.topics = [];
+      }
+
+  // Questions written for one lesson (scripts/author/*.py, every program run
+  // before it was written out) cite it as "Lesson 1.3" and are asked at the end
+  // of that lesson, before its lock-in. The bank gate checks each is asked there.
+  const authored = readdirSync(outDir)
+    .filter((f) => /^drill\d+[a-z]?\.json$/.test(f) && f !== 'drill01.json')
+    .flatMap((f) => JSON.parse(readFileSync(join(outDir, f), 'utf8')));
+  for (const l of lessons) {
+    const num = (l.kick.match(/^Lesson (\d+\.\d+)/) ?? [])[1];
+    if (!num) continue;
+    const ids = authored.filter((q) => (q.slides ?? []).includes(`Lesson ${num}`)).map((q) => q.id);
+    if (!ids.length) continue;
+    const at = l.blocks.findIndex((b) => b.kind === 'lockin');
+    l.blocks.splice(at === -1 ? l.blocks.length : at, 0, {
+      kind: 'drill',
+      label: 'Practise this lesson',
+      tag: `${ids.length} questions on exactly this lesson, every program run for real`,
+      pick: 'all',
+      topics: [],
+      ids,
+    });
+  }
 
   // ---- report, so nothing is dropped in silence ----
   for (const l of lessons) {

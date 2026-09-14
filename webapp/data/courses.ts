@@ -4,6 +4,7 @@ import iftPlan from './ift222/plan.json';
 import cosObjective from './cos221/drill01.json';
 import cosPlan from './cos221/plan.json';
 import cscObjective from './csc241/drill01.json';
+import cscLessonQs from './csc241/drill02.json';
 import cscPlan241 from './csc241/plan.json';
 
 import phyPlan from './phy121/plan.json';
@@ -469,7 +470,7 @@ const csc241: Course = {
     { number: 4, title: 'Functions, Modules, Files and Exceptions', blurb: 'void against value returning, math.pi, the file modes and reading back, and try except else finally.' },
     { number: 5, title: 'Databases and GUI Development', blurb: 'The seven line SQLite skeleton end to end, and tkinter widgets and geometry managers at recognition level.' },
   ],
-  questions: cscObjective as unknown as Question[],
+  questions: [...cscObjective, ...cscLessonQs] as unknown as Question[],
   exam: slotFor('CSC241'),
   plan: cscPlan241 as unknown as StudySession[],
   papers: [],

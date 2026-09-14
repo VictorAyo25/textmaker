@@ -491,8 +491,11 @@ const COURSES = [
     // names the manual's objective section and the question's place in it. The
     // two past theory papers are lesson content, answered in the reader's book,
     // not bank questions, so they are held to the lesson checks instead.
-    slideRef: /^Manual O\.\d{1,2} Q\d{1,2}$/,
-    slideRefHelp: 'like "Manual O.3 Q7"',
+    // ...or, for a question written for one crash lesson, that lesson's number,
+    // "Lesson 2.8", which the lesson-ref rule checks is asked by that lesson.
+    slideRef: /^(Manual O\.\d{1,2} Q\d{1,2}|Lesson \d\.\d{1,2})$/,
+    slideRefHelp: 'like "Manual O.3 Q7" or "Lesson 2.8"',
+    lessonRefsAsked: true,
     requireLecture: false,
     minPerModule: 3,
     filesAreTopics: false,
@@ -524,8 +527,9 @@ const COURSES = [
     // is the study manual's seventy objective questions, the lessons are the
     // makeup crash course whose every listing was run, and all 23 parts of the
     // 2025/2026 paper are theory to answer in the reader's book.
-    slideRef: /^Manual O\.\d{1,2} Q\d{1,2}$/,
-    slideRefHelp: 'like "Manual O.2 Q14"',
+    slideRef: /^(Manual O\.\d{1,2} Q\d{1,2}|Lesson \d\.\d{1,2})$/,
+    slideRefHelp: 'like "Manual O.2 Q14" or "Lesson 1.3"',
+    lessonRefsAsked: true,
     requireLecture: false,
     minPerModule: 5,
     filesAreTopics: false,
@@ -1212,6 +1216,33 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
       problems.push(
         `${cfg.code}: ${q.id} (topic ${q.module}, ${q.slides[0]}) is an exam question no lesson asks`
       );
+  }
+
+  // A question written for one crash lesson cites it, "Lesson 1.3", and must
+  // be asked INSIDE that lesson: a reader following the dated plan meets the
+  // lessons, and a question parked only in the separate drill is one they may
+  // never see. The citation must also name a lesson that exists.
+  if (cfg.lessonRefsAsked) {
+    const byNum = new Map(
+      lessons
+        .map((l) => [((l.kick ?? '').match(/^Lesson (\d+\.\d+)/) ?? [])[1], l])
+        .filter(([k]) => k)
+    );
+    let cited = 0;
+    for (const q of all)
+      for (const s of q.slides ?? []) {
+        const m = s.match(/^Lesson (\d+\.\d+)$/);
+        if (!m) continue;
+        cited += 1;
+        const l = byNum.get(m[1]);
+        check(Boolean(l), `${cfg.code} [${q.id}]: cites ${s}, but no lesson is numbered ${m[1]}`);
+        if (l)
+          check(
+            (l.blocks ?? []).some((b) => b.kind === 'drill' && (b.ids ?? []).includes(q.id)),
+            `${cfg.code} [${q.id}]: cites ${s}, but lesson [${l.slug}] never asks it`
+          );
+      }
+    if (cited) console.log(`    . lesson refs: ${cited} questions written for a lesson, each asked inside it`);
   }
 
   // The dated reading plan. A plan that has drifted from the lessons is worse

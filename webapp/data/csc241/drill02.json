@@ -1,0 +1,5349 @@
+[
+ {
+  "id": "csc-l11-01",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "running order",
+  "prompt": "What does this print?",
+  "code": "x = 4\ny = x * 3\nprint(x)\nx = 10\nprint(y)",
+  "options": [
+   {
+    "id": "a",
+    "text": "12\n4"
+   },
+   {
+    "id": "b",
+    "text": "4\n12"
+   },
+   {
+    "id": "c",
+    "text": "4\n10"
+   },
+   {
+    "id": "d",
+    "text": "4\n30"
+   }
+  ],
+  "answer": "b",
+  "explanation": "Python runs one line at a time, top to bottom, and each line uses the values that exist at that moment. y became 12 on line 2 and stays 12.",
+  "why": {
+   "a": "Wrong. Lines run top to bottom, so x is printed before y.",
+   "b": "Correct. y is worked out as 4 * 3 = 12 when that line runs; changing x later does not go back and change y.",
+   "c": "Wrong. The second print shows y, not the new x.",
+   "d": "Wrong. y was calculated when x was 4. Reassigning x afterwards does not recalculate y."
+  }
+ },
+ {
+  "id": "csc-l11-02",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "print",
+  "prompt": "What does this print?",
+  "code": "print(\"A\", \"B\")\nprint(\"A\" + \"B\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "A B\nAB"
+   },
+   {
+    "id": "b",
+    "text": "AB\nAB"
+   },
+   {
+    "id": "c",
+    "text": "A B\nA B"
+   },
+   {
+    "id": "d",
+    "text": "A,B\nAB"
+   }
+  ],
+  "answer": "a",
+  "explanation": "print('A', 'B') prints its items separated by a single space. 'A' + 'B' is one string, AB, before print ever sees it.",
+  "why": {
+   "a": "Correct. A comma in print puts one space between the items; + joins two strings with nothing between.",
+   "b": "Wrong. The comma form adds a space between the two items.",
+   "c": "Wrong. + joins the strings end to end with no space.",
+   "d": "Wrong. The comma separates the arguments; it is not printed."
+  }
+ },
+ {
+  "id": "csc-l11-03",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "indentation",
+  "prompt": "What does this print?",
+  "code": "t = 15\nif t > 20:\n    print(\"hot\")\n    print(\"stay inside\")\nprint(\"done\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "hot\nstay inside\ndone"
+   },
+   {
+    "id": "b",
+    "text": "stay inside\ndone"
+   },
+   {
+    "id": "c",
+    "text": "done"
+   },
+   {
+    "id": "d",
+    "text": "hot\ndone"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Indentation decides which lines belong to the if. The two indented prints are the block; the unindented print is outside it.",
+  "why": {
+   "a": "Wrong. The indented lines only run when the condition is True, and 15 > 20 is False.",
+   "b": "Wrong. Both indented lines belong to the if, so they are skipped together.",
+   "c": "Correct. t > 20 is False, so both indented lines are skipped; print('done') is back at the margin and always runs.",
+   "d": "Wrong. Neither indented line runs; they belong to the same block."
+  }
+ },
+ {
+  "id": "csc-l11-04",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "errors while running",
+  "prompt": "The variable name on line 3 is misspelt. What happens when this runs?",
+  "code": "print(\"start\")\ntotal = 5\nprint(totl)\nprint(\"end\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "start is printed, then a NameError stops the program"
+   },
+   {
+    "id": "b",
+    "text": "Nothing is printed; the NameError is found before anything runs"
+   },
+   {
+    "id": "c",
+    "text": "start and end are both printed, with a warning"
+   },
+   {
+    "id": "d",
+    "text": "start is printed, then end, and the misspelt line is skipped"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Python interprets as it goes, so everything before the faulty line runs normally. A name error is found only when the line using the name is reached.",
+  "why": {
+   "a": "Correct. Python runs line by line: line 1 prints, line 3 raises NameError, and the program stops before line 4.",
+   "b": "Wrong. A misspelt NAME is only discovered when that line runs, so line 1 has already printed.",
+   "c": "Wrong. An unhandled error stops the program; line 4 never runs.",
+   "d": "Wrong. Python does not skip a failing line; it stops there."
+  }
+ },
+ {
+  "id": "csc-l11-05",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "what Python is",
+  "prompt": "What does it mean that Python is INTERPRETED?",
+  "options": [
+   {
+    "id": "a",
+    "text": "An interpreter reads and carries out the code line by line, rather than translating the whole program into machine code first"
+   },
+   {
+    "id": "b",
+    "text": "The whole program must be compiled into machine code before any of it runs"
+   },
+   {
+    "id": "c",
+    "text": "Every variable must be declared with its type before use"
+   },
+   {
+    "id": "d",
+    "text": "Python code can only be run on the computer it was written on"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Interpreted means the interpreter executes the source line by line. That is why a runtime error on line 40 appears only after lines 1 to 39 have run.",
+  "why": {
+   "a": "Correct. That is the course's definition of an interpreted language.",
+   "b": "Wrong. That describes a COMPILED language.",
+   "c": "Wrong. Python is dynamically typed; no declarations are needed.",
+   "d": "Wrong. Being interpreted says nothing of that kind."
+  }
+ },
+ {
+  "id": "csc-l11-06",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "multi",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "colons",
+  "prompt": "Which two of these lines must end with a colon?",
+  "options": [
+   {
+    "id": "a",
+    "text": "if score >= 50"
+   },
+   {
+    "id": "b",
+    "text": "total = total + 1"
+   },
+   {
+    "id": "c",
+    "text": "def greet(name)"
+   },
+   {
+    "id": "d",
+    "text": "print(\"done\")"
+   }
+  ],
+  "answer": [
+   "a",
+   "c"
+  ],
+  "explanation": "Every line that opens a block, if, elif, else, for, while, def, try, except, ends with a colon, and the block under it is indented.",
+  "why": {
+   "a": "Correct. An if opens a block, so its line ends with a colon.",
+   "b": "Wrong. An assignment does not open a block.",
+   "c": "Correct. A def opens a block, so its line ends with a colon.",
+   "d": "Wrong. A print call does not open a block."
+  }
+ },
+ {
+  "id": "csc-l11-07",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "case sensitivity",
+  "prompt": "True or false: Python is case sensitive, so Print(\"hi\") works exactly like print(\"hi\").",
+  "answer": "false",
+  "explanation": "Case sensitive means name, Name and NAME are three different names. print exists; Print does not.",
+  "why": {
+   "true": "Wrong. Because Python IS case sensitive, Print and print are different names, and Print is not defined.",
+   "false": "Correct. Print is a different name from print, so Print(\"hi\") raises a NameError."
+  }
+ },
+ {
+  "id": "csc-l11-08",
+  "module": 1,
+  "slides": [
+   "Lesson 1.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "input, process, output",
+  "prompt": "What are the three parts of almost every program on this paper, in order?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Input, processing, output"
+   },
+   {
+    "id": "b",
+    "text": "Output, input, processing"
+   },
+   {
+    "id": "c",
+    "text": "Processing, output, input"
+   },
+   {
+    "id": "d",
+    "text": "Compile, link, run"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Every long question is input, then processing, then output, however elaborate the story around it.",
+  "why": {
+   "a": "Correct. Read something in, work something out, print the answer.",
+   "b": "Wrong. The output comes last.",
+   "c": "Wrong. You cannot process before you have the input.",
+   "d": "Wrong. Python is interpreted; there is no separate compile and link step to write."
+  }
+ },
+ {
+  "id": "csc-l12-01",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types",
+  "prompt": "What does this print?",
+  "code": "print(type(3.0).__name__, type(\"3\").__name__, type(3 > 2).__name__)",
+  "options": [
+   {
+    "id": "a",
+    "text": "float float bool"
+   },
+   {
+    "id": "b",
+    "text": "float str str"
+   },
+   {
+    "id": "c",
+    "text": "int str bool"
+   },
+   {
+    "id": "d",
+    "text": "float str bool"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The decimal point makes a float; quotes make a str; a comparison makes a bool. type(x).__name__ gives the plain name.",
+  "why": {
+   "a": "Wrong. \"3\" is in quotes, so it is a str.",
+   "b": "Wrong. 3 > 2 is a comparison, which gives True, a bool.",
+   "c": "Wrong. 3.0 is a float, not an int, because of its decimal point.",
+   "d": "Correct. 3.0 has a decimal point, \"3\" is in quotes, and a comparison gives a bool."
+  }
+ },
+ {
+  "id": "csc-l12-02",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "input is text",
+  "prompt": "The user types 5 at the prompt, so a holds \"5\". What does this print?",
+  "code": "a = \"5\"      # what input() handed back\nb = 2\nprint(a * b)",
+  "options": [
+   {
+    "id": "a",
+    "text": "7"
+   },
+   {
+    "id": "b",
+    "text": "10"
+   },
+   {
+    "id": "c",
+    "text": "55"
+   },
+   {
+    "id": "d",
+    "text": "an error, because text cannot be multiplied"
+   }
+  ],
+  "answer": "c",
+  "explanation": "input() always returns a string. \"5\" * 2 repeats the text, which is the silent version of the conversion mistake: it runs and gives the wrong answer.",
+  "why": {
+   "a": "Wrong. Nothing here adds 5 and 2.",
+   "b": "Wrong. That would need int(a) * 2. a is text.",
+   "c": "Correct. a is the string \"5\", and * on a string repeats it: \"5\" twice is 55.",
+   "d": "Wrong. A string times a whole number is allowed; it repeats the string."
+  }
+ },
+ {
+  "id": "csc-l12-03",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "conversion",
+  "prompt": "What does this print?",
+  "code": "print(int(\"12\") + float(\"0.5\"))",
+  "options": [
+   {
+    "id": "a",
+    "text": "12.5"
+   },
+   {
+    "id": "b",
+    "text": "12"
+   },
+   {
+    "id": "c",
+    "text": "an error"
+   },
+   {
+    "id": "d",
+    "text": "\"12\"0.5"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Convert first, then calculate. Mixing an int and a float gives a float.",
+  "why": {
+   "a": "Correct. int(\"12\") is 12 and float(\"0.5\") is 0.5; an int plus a float gives a float.",
+   "b": "Wrong. Adding 0.5 cannot give a whole number.",
+   "c": "Wrong. Both conversions succeed.",
+   "d": "Wrong. Both strings were converted to numbers, so + adds rather than joins."
+  }
+ },
+ {
+  "id": "csc-l12-04",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "int truncates",
+  "prompt": "What does this print?",
+  "code": "print(int(-3.7))",
+  "options": [
+   {
+    "id": "a",
+    "text": "4"
+   },
+   {
+    "id": "b",
+    "text": "-3"
+   },
+   {
+    "id": "c",
+    "text": "-4"
+   },
+   {
+    "id": "d",
+    "text": "-3.7"
+   }
+  ],
+  "answer": "b",
+  "explanation": "int() truncates: it removes the fractional part and does not round. int(7.9) is 7 and int(-3.7) is -3.",
+  "why": {
+   "a": "Wrong. The sign is kept.",
+   "b": "Correct. int() chops off the decimal part, towards zero, so -3.7 becomes -3.",
+   "c": "Wrong. int() does not round down; it simply drops the fraction.",
+   "d": "Wrong. int() returns a whole number."
+  }
+ },
+ {
+  "id": "csc-l12-05",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "wording"
+  ],
+  "topic": "dynamic typing",
+  "prompt": "What does this print?",
+  "code": "x = 7\nprint(type(x).__name__)\nx = \"seven\"\nprint(type(x).__name__)",
+  "options": [
+   {
+    "id": "a",
+    "text": "int\nstr"
+   },
+   {
+    "id": "b",
+    "text": "str\nstr"
+   },
+   {
+    "id": "c",
+    "text": "int\nint"
+   },
+   {
+    "id": "d",
+    "text": "an error, because x changed type"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Dynamically typed means the type belongs to the value, not the name, so no declaration is needed and a name can be rebound to a different type.",
+  "why": {
+   "a": "Correct. The type belongs to the value. x first holds an int, then is rebound to a str.",
+   "b": "Wrong. At the first print x holds the whole number 7.",
+   "c": "Wrong. After the reassignment x holds text.",
+   "d": "Wrong. Python is dynamically typed, so a name may be rebound to any type."
+  }
+ },
+ {
+  "id": "csc-l12-06",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "comparing text",
+  "prompt": "What does this print?",
+  "code": "print(\"9\" > \"10\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "an error, because strings cannot be compared"
+   },
+   {
+    "id": "b",
+    "text": "10"
+   },
+   {
+    "id": "c",
+    "text": "True"
+   },
+   {
+    "id": "d",
+    "text": "False"
+   }
+  ],
+  "answer": "c",
+  "explanation": "This is the silent trap: comparing unconverted input compares text, so \"9\" > \"10\" is True.",
+  "why": {
+   "a": "Wrong. Strings can be compared; they compare in dictionary order.",
+   "b": "Wrong. A comparison gives a bool.",
+   "c": "Correct. Text compares character by character, and \"9\" comes after \"1\".",
+   "d": "Wrong. That would be true of the NUMBERS 9 and 10, but these are strings."
+  }
+ },
+ {
+  "id": "csc-l12-07",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "choosing a conversion",
+  "prompt": "A program reads a person's height in metres, such as 1.75. Which line is correct?",
+  "options": [
+   {
+    "id": "a",
+    "text": "height = int(input(\"Height: \"))"
+   },
+   {
+    "id": "b",
+    "text": "height = input(\"Height: \")"
+   },
+   {
+    "id": "c",
+    "text": "height = str(input(\"Height: \"))"
+   },
+   {
+    "id": "d",
+    "text": "height = float(input(\"Height: \"))"
+   }
+  ],
+  "answer": "d",
+  "explanation": "int for counts, float for measurements, str to turn a number back into text.",
+  "why": {
+   "a": "Wrong. int would make 1.75 into 1, silently wrong.",
+   "b": "Wrong. input alone gives a string, which cannot be used in arithmetic.",
+   "c": "Wrong. input already returns a string; str changes nothing.",
+   "d": "Correct. A height has a fractional part, so it needs float."
+  }
+ },
+ {
+  "id": "csc-l12-08",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "input is text",
+  "prompt": "True or false: input() returns an int when the user types only digits.",
+  "answer": "false",
+  "explanation": "The keyboard has no number key that Python believes: input() returns text, always.",
+  "why": {
+   "true": "Wrong. input() always returns a string, whatever the user types.",
+   "false": "Correct. It always returns a str; you must convert it with int() or float()."
+  }
+ },
+ {
+  "id": "csc-l12-09",
+  "module": 2,
+  "slides": [
+   "Lesson 1.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "conversion",
+  "prompt": "What does this print?",
+  "code": "n = int(\"3\") * 2\ns = str(n) + \"0\"\nprint(s, type(s).__name__)",
+  "options": [
+   {
+    "id": "a",
+    "text": "6 str"
+   },
+   {
+    "id": "b",
+    "text": "60 str"
+   },
+   {
+    "id": "c",
+    "text": "60 int"
+   },
+   {
+    "id": "d",
+    "text": "12 str"
+   }
+  ],
+  "answer": "b",
+  "explanation": "str() turns a number into text so it can be joined; the result is text, even when it looks like a number.",
+  "why": {
+   "a": "Wrong. The \"0\" is joined on the end.",
+   "b": "Correct. n is 3 * 2 = 6; str(6) + \"0\" is the text \"60\", a str.",
+   "c": "Wrong. Joining with + on strings gives a str, not an int.",
+   "d": "Wrong. n is 6, not 12."
+  }
+ },
+ {
+  "id": "csc-l13-01",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "floor division and remainder",
+  "prompt": "What does this print?",
+  "code": "print(23 // 4, 23 % 4)",
+  "options": [
+   {
+    "id": "a",
+    "text": "5.75 3"
+   },
+   {
+    "id": "b",
+    "text": "5 3"
+   },
+   {
+    "id": "c",
+    "text": "5 0.75"
+   },
+   {
+    "id": "d",
+    "text": "6 3"
+   }
+  ],
+  "answer": "b",
+  "explanation": "// is floor division, the whole part; % is modulus, the remainder.",
+  "why": {
+   "a": "Wrong. // throws the fraction away, so it is 5, not 5.75.",
+   "b": "Correct. 23 divided by 4 is 5 remainder 3: // gives 5 and % gives 3.",
+   "c": "Wrong. % gives the remainder as a whole number, 3.",
+   "d": "Wrong. // does not round up."
+  }
+ },
+ {
+  "id": "csc-l13-02",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "true division",
+  "prompt": "What does this print?",
+  "code": "print(9 / 3)",
+  "options": [
+   {
+    "id": "a",
+    "text": "3"
+   },
+   {
+    "id": "b",
+    "text": "3.0"
+   },
+   {
+    "id": "c",
+    "text": "3.00"
+   },
+   {
+    "id": "d",
+    "text": "an error"
+   }
+  ],
+  "answer": "b",
+  "explanation": "One slash, one point: / always gives a float.",
+  "why": {
+   "a": "Wrong. That would be 9 // 3.",
+   "b": "Correct. / always returns a float, even when the division is exact.",
+   "c": "Wrong. Python prints the float as 3.0.",
+   "d": "Wrong. 9 / 3 is perfectly valid."
+  }
+ },
+ {
+  "id": "csc-l13-03",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "precedence",
+  "prompt": "What does this print?",
+  "code": "print(10 - 4 / 2 * 3)",
+  "options": [
+   {
+    "id": "a",
+    "text": "1.0"
+   },
+   {
+    "id": "b",
+    "text": "4.0"
+   },
+   {
+    "id": "c",
+    "text": "9.0"
+   },
+   {
+    "id": "d",
+    "text": "4"
+   }
+  ],
+  "answer": "b",
+  "explanation": "Precedence: ** first, then * / // %, left to right, then + and -.",
+  "why": {
+   "a": "Wrong. That multiplies 2 * 3 before dividing, but / and * go left to right.",
+   "b": "Correct. / and * first, left to right: 4 / 2 = 2.0, then 2.0 * 3 = 6.0, then 10 - 6.0 = 4.0.",
+   "c": "Wrong. That does the subtraction first, which is the wrong order.",
+   "d": "Wrong. / made a float, so the answer is 4.0."
+  }
+ },
+ {
+  "id": "csc-l13-04",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "precedence",
+  "prompt": "What does this print?",
+  "code": "print(3 + 2 ** 2 * 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "11"
+   },
+   {
+    "id": "b",
+    "text": "14"
+   },
+   {
+    "id": "c",
+    "text": "18"
+   },
+   {
+    "id": "d",
+    "text": "50"
+   }
+  ],
+  "answer": "a",
+  "explanation": "** is done first of all, then *, then +.",
+  "why": {
+   "a": "Correct. Power first, 2 ** 2 = 4; then 4 * 2 = 8; then 3 + 8 = 11.",
+   "b": "Wrong. That squares 2 * 2 in the wrong order.",
+   "c": "Wrong. That adds 3 + 2 first.",
+   "d": "Wrong. That treats the whole thing as (3 + 2) ** 2 * 2."
+  }
+ },
+ {
+  "id": "csc-l13-05",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "logical operators",
+  "prompt": "What does this print?",
+  "code": "x = 3\nprint(x > 1 and x < 3, x > 1 or x > 5, not x == 3)",
+  "options": [
+   {
+    "id": "a",
+    "text": "False True False"
+   },
+   {
+    "id": "b",
+    "text": "True False True"
+   },
+   {
+    "id": "c",
+    "text": "True True False"
+   },
+   {
+    "id": "d",
+    "text": "False False True"
+   }
+  ],
+  "answer": "a",
+  "explanation": "and is True only when both sides are True; or when at least one is; not flips it.",
+  "why": {
+   "a": "Correct. x < 3 is False so the and is False; x > 1 is True so the or is True; x == 3 is True so not gives False.",
+   "b": "Wrong. Check each part: and needs both, or needs one, not flips.",
+   "c": "Wrong. 3 < 3 is False, so the and is False.",
+   "d": "Wrong. The or needs only one True side, and x > 1 is True."
+  }
+ },
+ {
+  "id": "csc-l13-06",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "augmented assignment",
+  "prompt": "What does this print?",
+  "code": "total = 4\ntotal *= 3\ntotal -= 2\ntotal /= 2\nprint(total)",
+  "options": [
+   {
+    "id": "a",
+    "text": "5"
+   },
+   {
+    "id": "b",
+    "text": "10.0"
+   },
+   {
+    "id": "c",
+    "text": "5.0"
+   },
+   {
+    "id": "d",
+    "text": "4.0"
+   }
+  ],
+  "answer": "c",
+  "explanation": "total += 5 means total = total + 5, and likewise for the others. /= divides with /, so the result is a float.",
+  "why": {
+   "a": "Wrong. /= uses true division, which always gives a float.",
+   "b": "Wrong. The last step halves 10.",
+   "c": "Correct. 4 * 3 = 12, minus 2 = 10, then /= 2 gives 5.0, a float because of the single slash.",
+   "d": "Wrong. Work each line in order: 12, 10, 5.0."
+  }
+ },
+ {
+  "id": "csc-l13-07",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "wording"
+  ],
+  "topic": "short circuiting",
+  "prompt": "What does this print?",
+  "code": "def check():\n    print(\"checked\")\n    return True\n\nprint(False and check())\nprint(True or check())",
+  "options": [
+   {
+    "id": "a",
+    "text": "checked\nFalse\nchecked\nTrue"
+   },
+   {
+    "id": "b",
+    "text": "False\nchecked\nTrue"
+   },
+   {
+    "id": "c",
+    "text": "checked\nFalse\nTrue"
+   },
+   {
+    "id": "d",
+    "text": "False\nTrue"
+   }
+  ],
+  "answer": "d",
+  "explanation": "and and or short circuit: if the left side settles the answer, the right side is never evaluated.",
+  "why": {
+   "a": "Wrong. Neither call runs, because both expressions short circuit.",
+   "b": "Wrong. True or ... already knows it is True, so the right side is skipped.",
+   "c": "Wrong. False and ... already knows it is False, so check() is never called.",
+   "d": "Correct. and stops at a False left side and or stops at a True left side, so check() is never called."
+  }
+ },
+ {
+  "id": "csc-l13-08",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "remainder",
+  "prompt": "What does this print?",
+  "code": "n = 38\nprint(n % 10, n // 10)",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 8"
+   },
+   {
+    "id": "b",
+    "text": "8 3"
+   },
+   {
+    "id": "c",
+    "text": "0 38"
+   },
+   {
+    "id": "d",
+    "text": "3.8 8"
+   }
+  ],
+  "answer": "b",
+  "explanation": "n % 10 gives the last digit and n // 10 drops it: a pair that turns up in digit questions.",
+  "why": {
+   "a": "Wrong. The first value is the remainder, 8.",
+   "b": "Correct. 38 % 10 is the last digit, 8, and 38 // 10 is 3.",
+   "c": "Wrong. 38 % 10 is 8, not 0.",
+   "d": "Wrong. // gives a whole number."
+  }
+ },
+ {
+  "id": "csc-l13-09",
+  "module": 2,
+  "slides": [
+   "Lesson 1.3"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "= against ==",
+  "prompt": "True or false: = compares two values and == assigns a value.",
+  "answer": "false",
+  "explanation": "= puts a value into a name; == asks whether two values are equal. Using = inside an if is a syntax error.",
+  "why": {
+   "true": "Wrong. It is the other way round.",
+   "false": "Correct. = assigns; == compares and gives True or False."
+  }
+ },
+ {
+  "id": "csc-l14-01",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "indexing and slicing",
+  "prompt": "What does this print?",
+  "code": "s = \"COMPUTER\"\nprint(s[3], s[-3], s[2:5])",
+  "options": [
+   {
+    "id": "a",
+    "text": "M T MPU"
+   },
+   {
+    "id": "b",
+    "text": "P E MPUT"
+   },
+   {
+    "id": "c",
+    "text": "P T MPU"
+   },
+   {
+    "id": "d",
+    "text": "P T OMP"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Indexes start at 0, negatives count from the end, and a slice includes its start and excludes its stop.",
+  "why": {
+   "a": "Wrong. Index 3 is the fourth character, P.",
+   "b": "Wrong. -3 is T, and a slice stops BEFORE its stop index.",
+   "c": "Correct. Index 3 is P, -3 counts back to T, and [2:5] takes indexes 2, 3 and 4: M, P, U.",
+   "d": "Wrong. [2:5] starts at index 2, M."
+  }
+ },
+ {
+  "id": "csc-l14-02",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "count and find",
+  "prompt": "What does this print?",
+  "code": "s = \"banana\"\nprint(s.count(\"a\"), s.find(\"n\"), s.find(\"z\"))",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 3 -1"
+   },
+   {
+    "id": "b",
+    "text": "2 2 -1"
+   },
+   {
+    "id": "c",
+    "text": "3 2 None"
+   },
+   {
+    "id": "d",
+    "text": "3 2 -1"
+   }
+  ],
+  "answer": "d",
+  "explanation": "count(x) counts occurrences; find(x) gives the index of the first match, or -1.",
+  "why": {
+   "a": "Wrong. find gives the FIRST n, at index 2.",
+   "b": "Wrong. Count them: b-a-n-a-n-a has three a's.",
+   "c": "Wrong. find returns -1, not None, when nothing is found.",
+   "d": "Correct. banana has three a's; the first n is at index 2; find gives -1 when the text is absent."
+  }
+ },
+ {
+  "id": "csc-l14-03",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "immutability",
+  "prompt": "What does this print?",
+  "code": "s = \"hello\"\ns.upper()\nprint(s)",
+  "options": [
+   {
+    "id": "a",
+    "text": "None"
+   },
+   {
+    "id": "b",
+    "text": "Hello"
+   },
+   {
+    "id": "c",
+    "text": "HELLO"
+   },
+   {
+    "id": "d",
+    "text": "hello"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Strings are immutable. A string method hands back a NEW string; to keep it you must assign it, s = s.upper().",
+  "why": {
+   "a": "Wrong. s still holds its original string.",
+   "b": "Wrong. Nothing here capitalises one letter.",
+   "c": "Wrong. The upper-case copy was never assigned to anything.",
+   "d": "Correct. upper() returns a new string, which was thrown away; s itself never changes."
+  }
+ },
+ {
+  "id": "csc-l14-04",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "strip and len",
+  "prompt": "What does this print?",
+  "code": "w = \"  data  \"\nprint(len(w), len(w.strip()))",
+  "options": [
+   {
+    "id": "a",
+    "text": "4 4"
+   },
+   {
+    "id": "b",
+    "text": "8 8"
+   },
+   {
+    "id": "c",
+    "text": "8 4"
+   },
+   {
+    "id": "d",
+    "text": "6 4"
+   }
+  ],
+  "answer": "c",
+  "explanation": "len counts every character, spaces included. strip() returns a copy without the whitespace at the ends.",
+  "why": {
+   "a": "Wrong. len counts the spaces too.",
+   "b": "Wrong. strip() removes the spaces at both ends.",
+   "c": "Correct. The string has two spaces, four letters and two spaces: 8 characters; strip() removes the spaces, leaving 4.",
+   "d": "Wrong. Count the spaces on both sides: two and two."
+  }
+ },
+ {
+  "id": "csc-l14-05",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "split and join",
+  "prompt": "What does this print?",
+  "code": "words = \"red green blue\".split()\nprint(len(words))\nprint(\"-\".join(words))",
+  "options": [
+   {
+    "id": "a",
+    "text": "14\nred-green-blue"
+   },
+   {
+    "id": "b",
+    "text": "3\nred green blue"
+   },
+   {
+    "id": "c",
+    "text": "1\nred-green-blue"
+   },
+   {
+    "id": "d",
+    "text": "3\nred-green-blue"
+   }
+  ],
+  "answer": "d",
+  "explanation": "split() returns a list; sep.join(list) returns a string, with sep between the items.",
+  "why": {
+   "a": "Wrong. len(words) counts the list's items, not the characters.",
+   "b": "Wrong. join puts the separator it is called on, the dash, between the words.",
+   "c": "Wrong. split() gives a list of three separate words.",
+   "d": "Correct. split() cuts on spaces into a list of three words, and \"-\".join glues them back with dashes."
+  }
+ },
+ {
+  "id": "csc-l14-06",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "reversing and slicing",
+  "prompt": "What does this print?",
+  "code": "s = \"Python\"\nprint(s[::-1], s[:-2])",
+  "options": [
+   {
+    "id": "a",
+    "text": "nohtyP Pyth"
+   },
+   {
+    "id": "b",
+    "text": "Python Pyth"
+   },
+   {
+    "id": "c",
+    "text": "nohtyP thon"
+   },
+   {
+    "id": "d",
+    "text": "nohtyP Pytho"
+   }
+  ],
+  "answer": "a",
+  "explanation": "A negative step reverses; a negative stop counts from the end and, as always, is excluded.",
+  "why": {
+   "a": "Correct. [::-1] reverses the string, and [:-2] stops two characters before the end.",
+   "b": "Wrong. [::-1] reverses it.",
+   "c": "Wrong. [:-2] keeps the START and drops the last two.",
+   "d": "Wrong. [:-2] drops two characters, not one."
+  }
+ },
+ {
+  "id": "csc-l14-07",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "replace",
+  "prompt": "What does this print?",
+  "code": "s = \"cat\"\nt = s.replace(\"c\", \"b\")\nprint(s, t)",
+  "options": [
+   {
+    "id": "a",
+    "text": "cat cat"
+   },
+   {
+    "id": "b",
+    "text": "bat cat"
+   },
+   {
+    "id": "c",
+    "text": "cat bat"
+   },
+   {
+    "id": "d",
+    "text": "bat bat"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Every string method returns a new value and leaves the original alone.",
+  "why": {
+   "a": "Wrong. t holds the replaced copy.",
+   "b": "Wrong. The order printed is s then t.",
+   "c": "Correct. replace returns a new string, bat, in t; s is untouched.",
+   "d": "Wrong. s never changes; strings are immutable."
+  }
+ },
+ {
+  "id": "csc-l14-08",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "index against find",
+  "prompt": "What happens when this runs?",
+  "code": "print(\"abc\".index(\"d\"))",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints 0"
+   },
+   {
+    "id": "b",
+    "text": "It prints -1"
+   },
+   {
+    "id": "c",
+    "text": "It prints None"
+   },
+   {
+    "id": "d",
+    "text": "It raises ValueError, because index() raises when the text is absent"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Use find() when a miss is expected: it returns -1. index() raises ValueError instead.",
+  "why": {
+   "a": "Wrong. \"d\" is not in \"abc\" at all.",
+   "b": "Wrong. That is what find() would return.",
+   "c": "Wrong. Neither method returns None.",
+   "d": "Correct. index() does the same job as find() but raises ValueError on a miss."
+  }
+ },
+ {
+  "id": "csc-l14-09",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "indexing past the end",
+  "prompt": "What happens when this runs?",
+  "code": "print(\"Hello\"[5])",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises IndexError, because the last index of a five-letter string is 4"
+   },
+   {
+    "id": "b",
+    "text": "It prints o"
+   },
+   {
+    "id": "c",
+    "text": "It prints H"
+   },
+   {
+    "id": "d",
+    "text": "It prints an empty string"
+   }
+  ],
+  "answer": "a",
+  "explanation": "A slice that starts past the end quietly gives \"\", but a single index past the end is an IndexError.",
+  "why": {
+   "a": "Correct. Indexes run 0 to 4, so index 5 is out of range.",
+   "b": "Wrong. o is at index 4.",
+   "c": "Wrong. H is at index 0.",
+   "d": "Wrong. A SLICE past the end gives an empty string; a single INDEX past the end raises."
+  }
+ },
+ {
+  "id": "csc-l14-10",
+  "module": 2,
+  "slides": [
+   "Lesson 1.4"
+  ],
+  "style": "tf",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "negative zero",
+  "prompt": "True or false: s[-0] gives the last character of s.",
+  "answer": "false",
+  "explanation": "The paper's broken program used my_string[-0] for the last character. It is the first; the last is -1.",
+  "why": {
+   "true": "Wrong. -0 is just 0, so it gives the FIRST character.",
+   "false": "Correct. -0 equals 0, the first character; the last is s[-1]."
+  }
+ },
+ {
+  "id": "csc-l15-01",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "syntax sweep",
+  "prompt": "Which fault stops this program from running at all?",
+  "code": "total = 0\nfor n in range(3)\n    total += n\nprint(total)",
+  "options": [
+   {
+    "id": "a",
+    "text": "range(3) should be range(1, 3)"
+   },
+   {
+    "id": "b",
+    "text": "total += n should be total = n"
+   },
+   {
+    "id": "c",
+    "text": "The for line has no colon at the end"
+   },
+   {
+    "id": "d",
+    "text": "print(total) should be indented"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Sweep one is syntax: quotes, colons, commas, brackets. Every block-opening line needs its colon.",
+  "why": {
+   "a": "Wrong. range(3) is valid; it gives 0, 1, 2.",
+   "b": "Wrong. += is the correct way to accumulate.",
+   "c": "Correct. A missing colon is a SyntaxError, found before anything runs.",
+   "d": "Wrong. The print belongs after the loop, so it is correctly unindented."
+  }
+ },
+ {
+  "id": "csc-l15-02",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "name sweep",
+  "prompt": "What happens when this runs?",
+  "code": "student_name = \"Ada\"\nprint(\"Hi\", Student_name)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints Hi Ada"
+   },
+   {
+    "id": "b",
+    "text": "SyntaxError, because of the capital letter"
+   },
+   {
+    "id": "c",
+    "text": "It prints Hi Student_name"
+   },
+   {
+    "id": "d",
+    "text": "NameError, because Student_name is not the same name as student_name"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Sweep two is names: check every name letter for letter and capital for capital against where it was defined.",
+  "why": {
+   "a": "Wrong. The two names differ in case, so Python treats them as different names.",
+   "b": "Wrong. A capital letter in a name is legal; the name simply does not exist.",
+   "c": "Wrong. Without quotes it is a name, not text.",
+   "d": "Correct. Python is case sensitive, so Student_name was never defined."
+  }
+ },
+ {
+  "id": "csc-l15-03",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "key sweep",
+  "prompt": "What happens when this runs?",
+  "code": "person = {\"name\": \"Ada\"}\nprint(person[\"Name\"])",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises KeyError: 'Name', and the program stops"
+   },
+   {
+    "id": "b",
+    "text": "It prints Name"
+   },
+   {
+    "id": "c",
+    "text": "It prints None"
+   },
+   {
+    "id": "d",
+    "text": "It prints Ada"
+   }
+  ],
+  "answer": "a",
+  "explanation": "A dictionary key is a string, so it is case sensitive, and a missing key stops the program with KeyError.",
+  "why": {
+   "a": "Correct. Keys are case sensitive; 'Name' is not a key, so the lookup raises KeyError.",
+   "b": "Wrong. The lookup fails; nothing is printed.",
+   "c": "Wrong. d[key] raises; only d.get(key) returns None.",
+   "d": "Wrong. The key stored is 'name', lower case."
+  }
+ },
+ {
+  "id": "csc-l15-04",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "missing comma",
+  "prompt": "Which fault is in this line, and what kind of error is it?",
+  "code": "total = 5\nprint(\"Total:\" total)",
+  "options": [
+   {
+    "id": "a",
+    "text": "A missing comma between the two items: a SyntaxError"
+   },
+   {
+    "id": "b",
+    "text": "A missing colon: a SyntaxError"
+   },
+   {
+    "id": "c",
+    "text": "Text cannot be printed with a number: a TypeError"
+   },
+   {
+    "id": "d",
+    "text": "total is undefined: a NameError"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Missing commas and colons are the syntax faults the examiner plants most often.",
+  "why": {
+   "a": "Correct. The two things being printed need a comma between them.",
+   "b": "Wrong. A print call does not open a block, so it needs no colon.",
+   "c": "Wrong. print can show text and numbers together, separated by a comma.",
+   "d": "Wrong. total is defined on the first line; the problem is the missing comma."
+  }
+ },
+ {
+  "id": "csc-l15-05",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "= in a condition",
+  "prompt": "What is wrong with this program?",
+  "code": "x = 5\nif x = 5:\n    print(\"five\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "= should be == in the if, and that is a syntax error"
+   },
+   {
+    "id": "b",
+    "text": "print must not be indented"
+   },
+   {
+    "id": "c",
+    "text": "x must be declared as an int first"
+   },
+   {
+    "id": "d",
+    "text": "The if needs brackets around the condition"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Using = where == was meant is a planted fault; inside an if it will not even run.",
+  "why": {
+   "a": "Correct. = assigns; a condition needs == to compare.",
+   "b": "Wrong. The indented print is the if's block, as it should be.",
+   "c": "Wrong. Python needs no declarations.",
+   "d": "Wrong. Brackets are optional in Python."
+  }
+ },
+ {
+  "id": "csc-l15-06",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "mismatched quotes",
+  "prompt": "What happens when this runs?",
+  "code": "msg = \"Hello'\nprint(msg)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints Hello'"
+   },
+   {
+    "id": "b",
+    "text": "A NameError, because msg is undefined"
+   },
+   {
+    "id": "c",
+    "text": "A SyntaxError, because the string opens with a double quote and closes with a single quote"
+   },
+   {
+    "id": "d",
+    "text": "It prints Hello"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Line 1 of the paper's broken program had exactly this: \"Serve Jesus Now'.",
+  "why": {
+   "a": "Wrong. The single quote does not close a double-quoted string.",
+   "b": "Wrong. The fault is found before any name is used.",
+   "c": "Correct. The string never closes, so Python cannot read the line.",
+   "d": "Wrong. The line cannot be parsed, so nothing runs."
+  }
+ },
+ {
+  "id": "csc-l15-07",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "meaning sweep",
+  "prompt": "The programmer wanted the LAST character. What does this print?",
+  "code": "s = \"Python\"\nlast = s[-0]\nprint(last)",
+  "options": [
+   {
+    "id": "a",
+    "text": "an error"
+   },
+   {
+    "id": "b",
+    "text": "o"
+   },
+   {
+    "id": "c",
+    "text": "n"
+   },
+   {
+    "id": "d",
+    "text": "P"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Sweep three is meaning: the program runs and quietly gives the wrong answer. The last character is s[-1].",
+  "why": {
+   "a": "Wrong. It runs; it just gives the wrong character.",
+   "b": "Wrong. o is at index 4.",
+   "c": "Wrong. That is what s[-1] would give.",
+   "d": "Correct. -0 is 0, so s[-0] is the first character, P."
+  }
+ },
+ {
+  "id": "csc-l15-08",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "type sweep",
+  "prompt": "The user typed 20, so age holds \"20\". What happens next?",
+  "code": "age = \"20\"      # what input() handed back\nprint(age + 1)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints 20 1"
+   },
+   {
+    "id": "b",
+    "text": "TypeError, because text and a number cannot be added"
+   },
+   {
+    "id": "c",
+    "text": "It prints 21"
+   },
+   {
+    "id": "d",
+    "text": "It prints 201"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The fix is age = int(input(\"Age: \")). Unconverted input is the commonest planted type error.",
+  "why": {
+   "a": "Wrong. + does not insert a space; it fails here.",
+   "b": "Correct. \"20\" + 1 mixes a str and an int, which + refuses.",
+   "c": "Wrong. age was never converted with int().",
+   "d": "Wrong. That would need str(1); + will not join text to a number."
+  }
+ },
+ {
+  "id": "csc-l15-09",
+  "module": 2,
+  "slides": [
+   "Lesson 1.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "the three sweeps",
+  "prompt": "In what order does the checklist sweep a broken listing?",
+  "options": [
+   {
+    "id": "a",
+    "text": "All at once, in a single careful read"
+   },
+   {
+    "id": "b",
+    "text": "Meaning, then names, then syntax"
+   },
+   {
+    "id": "c",
+    "text": "Names, then syntax, then meaning"
+   },
+   {
+    "id": "d",
+    "text": "Syntax, then names, then meaning"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Three sweeps, and count your findings against the marks before you stop.",
+  "why": {
+   "a": "Wrong. One pass looking for everything finds one or two errors, not all of them.",
+   "b": "Wrong. Syntax comes first, because nothing runs until it is fixed.",
+   "c": "Wrong. Syntax comes before names.",
+   "d": "Correct. First what stops it running, then names checked against their definitions, then indexes, types and logic."
+  }
+ },
+ {
+  "id": "csc-l21-01",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "grading chain",
+  "prompt": "What does this print?",
+  "code": "score = 50\nif score >= 70:\n    grade = \"A\"\nelif score >= 60:\n    grade = \"B\"\nelif score >= 50:\n    grade = \"C\"\nelif score >= 45:\n    grade = \"D\"\nelse:\n    grade = \"F\"\nprint(\"Grade:\", grade)",
+  "options": [
+   {
+    "id": "a",
+    "text": "Grade: D"
+   },
+   {
+    "id": "b",
+    "text": "Grade: F"
+   },
+   {
+    "id": "c",
+    "text": "Grade: C"
+   },
+   {
+    "id": "d",
+    "text": "Grade: B"
+   }
+  ],
+  "answer": "c",
+  "explanation": "In an if / elif chain exactly one block runs: the first whose condition is True.",
+  "why": {
+   "a": "Wrong. The chain stops at the first True test, which is >= 50.",
+   "b": "Wrong. else is reached only if every test fails.",
+   "c": "Correct. 50 fails >= 70 and >= 60, then matches >= 50, and the chain stops.",
+   "d": "Wrong. 50 is not >= 60."
+  }
+ },
+ {
+  "id": "csc-l21-02",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "chain order",
+  "prompt": "The chain below is in the wrong order. What does it print?",
+  "code": "score = 80\nif score >= 40:\n    grade = \"D\"\nelif score >= 50:\n    grade = \"C\"\nelif score >= 70:\n    grade = \"A\"\nprint(\"Grade:\", grade)",
+  "options": [
+   {
+    "id": "a",
+    "text": "Grade: D"
+   },
+   {
+    "id": "b",
+    "text": "Grade: C"
+   },
+   {
+    "id": "c",
+    "text": "Grade: A"
+   },
+   {
+    "id": "d",
+    "text": "Grade: A then Grade: D"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Order a chain from the most demanding test to the least, or a high score is caught by a low band.",
+  "why": {
+   "a": "Correct. 80 >= 40 is True at the first test, so the chain stops there and gives D.",
+   "b": "Wrong. The chain stopped at the first test.",
+   "c": "Wrong. The A test is never reached; the first True test wins.",
+   "d": "Wrong. An elif chain runs at most one block."
+  }
+ },
+ {
+  "id": "csc-l21-03",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "if against elif",
+  "prompt": "What does this print?",
+  "code": "x = 15\nif x > 10:\n    print(\"big\")\nif x > 5:\n    print(\"medium\")\nelse:\n    print(\"small\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "big\nmedium\nsmall"
+   },
+   {
+    "id": "b",
+    "text": "medium"
+   },
+   {
+    "id": "c",
+    "text": "big"
+   },
+   {
+    "id": "d",
+    "text": "big\nmedium"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Separate ifs are all tested, so more than one can run. An elif chain runs at most one.",
+  "why": {
+   "a": "Wrong. The else belongs to the second if, which was True.",
+   "b": "Wrong. x > 10 is also True, so big prints first.",
+   "c": "Wrong. That would be true with elif; separate ifs are each tested.",
+   "d": "Correct. These are two SEPARATE if statements, so both conditions are tested and both are True."
+  }
+ },
+ {
+  "id": "csc-l21-04",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "if against elif",
+  "prompt": "The same test written with elif. What does this print?",
+  "code": "x = 15\nif x > 10:\n    print(\"big\")\nelif x > 5:\n    print(\"medium\")\nelse:\n    print(\"small\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "medium"
+   },
+   {
+    "id": "b",
+    "text": "big"
+   },
+   {
+    "id": "c",
+    "text": "big\nmedium"
+   },
+   {
+    "id": "d",
+    "text": "small"
+   }
+  ],
+  "answer": "b",
+  "explanation": "elif is a queue, if is a crowd: in a chain, only the first True branch runs.",
+  "why": {
+   "a": "Wrong. x > 10 is tested first and is True.",
+   "b": "Correct. The first True branch runs and the rest of the chain is skipped.",
+   "c": "Wrong. elif is part of one chain, so only one branch runs.",
+   "d": "Wrong. else runs only when every test fails."
+  }
+ },
+ {
+  "id": "csc-l21-05",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "nested decisions",
+  "prompt": "What does this print?",
+  "code": "age = 16\nmember = True\nif age >= 18:\n    if member:\n        print(\"Full\")\n    else:\n        print(\"Guest\")\nelse:\n    print(\"Too young\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "Guest"
+   },
+   {
+    "id": "b",
+    "text": "Too young"
+   },
+   {
+    "id": "c",
+    "text": "Full\nToo young"
+   },
+   {
+    "id": "d",
+    "text": "Full"
+   }
+  ],
+  "answer": "b",
+  "explanation": "An else belongs to the if at the same indentation. The inner decision only happens inside the outer True branch.",
+  "why": {
+   "a": "Wrong. The inner else belongs to the inner if, which is never reached.",
+   "b": "Correct. age >= 18 is False, so the outer else runs and the inner if is never reached.",
+   "c": "Wrong. Exactly one outer branch runs.",
+   "d": "Wrong. The inner if is only reached when age is at least 18."
+  }
+ },
+ {
+  "id": "csc-l21-06",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "validating a range",
+  "prompt": "What does this print?",
+  "code": "score = 105\nif 0 <= score <= 100:\n    print(\"ok\")\nelse:\n    print(\"invalid\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "ok\ninvalid"
+   },
+   {
+    "id": "b",
+    "text": "invalid"
+   },
+   {
+    "id": "c",
+    "text": "an error, because comparisons cannot be chained"
+   },
+   {
+    "id": "d",
+    "text": "ok"
+   }
+  ],
+  "answer": "b",
+  "explanation": "A chained comparison is the neatest way to test a range: good when at least 0 AND at most 100.",
+  "why": {
+   "a": "Wrong. if and else never both run.",
+   "b": "Correct. 0 <= 105 <= 100 is False because 105 is above 100.",
+   "c": "Wrong. Python allows 0 <= score <= 100.",
+   "d": "Wrong. 105 is outside the range."
+  }
+ },
+ {
+  "id": "csc-l21-07",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "catching a bad value",
+  "prompt": "Which condition correctly catches a score that is NOT between 0 and 100?",
+  "options": [
+   {
+    "id": "a",
+    "text": "0 <= score <= 100"
+   },
+   {
+    "id": "b",
+    "text": "score > 0 or score < 100"
+   },
+   {
+    "id": "c",
+    "text": "score < 0 and score > 100"
+   },
+   {
+    "id": "d",
+    "text": "score < 0 or score > 100"
+   }
+  ],
+  "answer": "d",
+  "explanation": "To catch a bad value use or; to confirm a good value use and.",
+  "why": {
+   "a": "Wrong. That tests for a GOOD score.",
+   "b": "Wrong. This is True for almost every number, good or bad.",
+   "c": "Wrong. No number is below 0 and above 100 at once, so this is never True.",
+   "d": "Correct. A score is bad if it is below 0 OR above 100."
+  }
+ },
+ {
+  "id": "csc-l21-08",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "control structures",
+  "prompt": "for and while loops belong to which of the three control structures?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Decomposition"
+   },
+   {
+    "id": "b",
+    "text": "Iteration"
+   },
+   {
+    "id": "c",
+    "text": "Selection"
+   },
+   {
+    "id": "d",
+    "text": "Sequence"
+   }
+  ],
+  "answer": "b",
+  "explanation": "Sequence, selection, iteration: one after another, choose one, do it again.",
+  "why": {
+   "a": "Wrong. That is not one of the three control structures.",
+   "b": "Correct. Iteration repeats a block while a condition holds or for each item.",
+   "c": "Wrong. Selection is if, elif and else.",
+   "d": "Wrong. Sequence is statements one after another."
+  }
+ },
+ {
+  "id": "csc-l21-09",
+  "module": 3,
+  "slides": [
+   "Lesson 2.1"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "else",
+  "prompt": "True or false: an else can carry its own condition, as in else score < 50:",
+  "answer": "false",
+  "explanation": "Writing a condition after else is a planted syntax error.",
+  "why": {
+   "true": "Wrong. else takes no condition; that needs an elif.",
+   "false": "Correct. else catches everything left and takes no condition. A condition makes it an elif."
+  }
+ },
+ {
+  "id": "csc-l22-01",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "range with a step",
+  "prompt": "What does this print?",
+  "code": "for i in range(2, 10, 3):\n    print(i, end=\" \")",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 6 9"
+   },
+   {
+    "id": "b",
+    "text": "2 5 8 11"
+   },
+   {
+    "id": "c",
+    "text": "2 3 4 5 6 7 8 9"
+   },
+   {
+    "id": "d",
+    "text": "2 5 8"
+   }
+  ],
+  "answer": "d",
+  "explanation": "range(start, stop, step) starts at start and stops BEFORE stop. end=\" \" keeps the output on one line.",
+  "why": {
+   "a": "Wrong. The sequence starts at 2.",
+   "b": "Wrong. 11 is beyond the stop of 10.",
+   "c": "Wrong. The third number is the step, 3.",
+   "d": "Correct. Start at 2, step 3, stop before 10: 2, 5, 8."
+  }
+ },
+ {
+  "id": "csc-l22-02",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "counting down",
+  "prompt": "What does this print?",
+  "code": "print(list(range(5, 0, -2)))",
+  "options": [
+   {
+    "id": "a",
+    "text": "[5, 3, 1, -1]"
+   },
+   {
+    "id": "b",
+    "text": "[5, 4, 3, 2, 1]"
+   },
+   {
+    "id": "c",
+    "text": "[]"
+   },
+   {
+    "id": "d",
+    "text": "[5, 3, 1]"
+   }
+  ],
+  "answer": "d",
+  "explanation": "A negative step counts down, and the stop is still excluded.",
+  "why": {
+   "a": "Wrong. The stop, 0, is excluded, and -1 is past it.",
+   "b": "Wrong. The step is -2, not -1.",
+   "c": "Wrong. A negative step makes a descending range work.",
+   "d": "Correct. A negative step counts down, stopping before 0."
+  }
+ },
+ {
+  "id": "csc-l22-03",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "accumulator",
+  "prompt": "What does this print?",
+  "code": "total = 0\nfor n in [4, 7, 1]:\n    total += n\nprint(total)",
+  "options": [
+   {
+    "id": "a",
+    "text": "4"
+   },
+   {
+    "id": "b",
+    "text": "12"
+   },
+   {
+    "id": "c",
+    "text": "1"
+   },
+   {
+    "id": "d",
+    "text": "0"
+   }
+  ],
+  "answer": "b",
+  "explanation": "Zero it before, add inside, print after: the accumulator pattern.",
+  "why": {
+   "a": "Wrong. The loop adds all three numbers.",
+   "b": "Correct. total starts at 0 before the loop and adds 4, 7 and 1.",
+   "c": "Wrong. That is what happens if total is reset inside the loop.",
+   "d": "Wrong. The additions happen inside the loop."
+  }
+ },
+ {
+  "id": "csc-l22-04",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "accumulator trap",
+  "prompt": "total is reset INSIDE the loop. What does this print?",
+  "code": "for n in [4, 7, 1]:\n    total = 0\n    total += n\nprint(total)",
+  "options": [
+   {
+    "id": "a",
+    "text": "12"
+   },
+   {
+    "id": "b",
+    "text": "1"
+   },
+   {
+    "id": "c",
+    "text": "an error"
+   },
+   {
+    "id": "d",
+    "text": "0"
+   }
+  ],
+  "answer": "b",
+  "explanation": "Initialising the total inside the loop resets it every pass, so the answer is always the last number.",
+  "why": {
+   "a": "Wrong. The reset throws away the earlier additions.",
+   "b": "Correct. Each pass sets total back to 0 and adds one number, so only the last, 1, survives.",
+   "c": "Wrong. It runs; it just gives the wrong answer.",
+   "d": "Wrong. The last pass adds 1 after resetting."
+  }
+ },
+ {
+  "id": "csc-l22-05",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "while loop",
+  "prompt": "What does this print?",
+  "code": "n = 3\nwhile n > 0:\n    print(n)\n    n -= 1\nprint(\"go\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "3\n2\n1\ngo"
+   },
+   {
+    "id": "b",
+    "text": "3\n2\n1\n0\ngo"
+   },
+   {
+    "id": "c",
+    "text": "go"
+   },
+   {
+    "id": "d",
+    "text": "2\n1\n0\ngo"
+   }
+  ],
+  "answer": "a",
+  "explanation": "A while loop repeats while its condition is True; something in the body must eventually make it False.",
+  "why": {
+   "a": "Correct. n prints then drops by 1 each pass; when n reaches 0 the test fails and the loop ends.",
+   "b": "Wrong. When n is 0 the condition n > 0 is False, so 0 is not printed.",
+   "c": "Wrong. n > 0 is True at the start, so the body runs.",
+   "d": "Wrong. The print comes before the decrease."
+  }
+ },
+ {
+  "id": "csc-l22-06",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "break and continue",
+  "prompt": "What does this print?",
+  "code": "for n in range(1, 8):\n    if n == 5:\n        break\n    if n % 2 == 0:\n        continue\n    print(n)",
+  "options": [
+   {
+    "id": "a",
+    "text": "1\n3\n5\n7"
+   },
+   {
+    "id": "b",
+    "text": "1\n2\n3\n4"
+   },
+   {
+    "id": "c",
+    "text": "1\n3"
+   },
+   {
+    "id": "d",
+    "text": "1\n3\n5"
+   }
+  ],
+  "answer": "c",
+  "explanation": "break leaves the loop at once; continue skips the rest of this pass.",
+  "why": {
+   "a": "Wrong. break stops the loop at 5.",
+   "b": "Wrong. continue skips the even numbers.",
+   "c": "Correct. Even numbers are skipped by continue, and at 5 break ends the loop before printing.",
+   "d": "Wrong. break runs before 5 can be printed."
+  }
+ },
+ {
+  "id": "csc-l22-07",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "nested loops",
+  "prompt": "What does this print?",
+  "code": "count = 0\nfor i in range(3):\n    for j in range(4):\n        count += 1\nprint(count)",
+  "options": [
+   {
+    "id": "a",
+    "text": "7"
+   },
+   {
+    "id": "b",
+    "text": "3"
+   },
+   {
+    "id": "c",
+    "text": "4"
+   },
+   {
+    "id": "d",
+    "text": "12"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The inner loop runs completely for every pass of the outer one, so multiply the counts.",
+  "why": {
+   "a": "Wrong. The counts multiply; they do not add.",
+   "b": "Wrong. That counts only the outer passes.",
+   "c": "Wrong. That counts only one pass of the inner loop.",
+   "d": "Correct. The inner loop runs 4 times for each of the 3 outer passes: 3 x 4 = 12."
+  }
+ },
+ {
+  "id": "csc-l22-08",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "sentinel loop",
+  "prompt": "The user types 5, then 8, then 0, then 3. The list stands in for input(). What does this print?",
+  "code": "typed = [5, 8, 0, 3]     # stands in for four input() calls\ni = 0\ntotal = 0\ncount = 0\nnumber = typed[i]\nwhile number != 0:\n    total += number\n    count += 1\n    i += 1\n    number = typed[i]\nprint(total, count)",
+  "options": [
+   {
+    "id": "a",
+    "text": "13 2"
+   },
+   {
+    "id": "b",
+    "text": "16 4"
+   },
+   {
+    "id": "c",
+    "text": "13 3"
+   },
+   {
+    "id": "d",
+    "text": "16 3"
+   }
+  ],
+  "answer": "a",
+  "explanation": "A sentinel loop reads once before the loop and again at the bottom. The sentinel itself is never added or counted.",
+  "why": {
+   "a": "Correct. 5 and 8 are added; the 0 stops the loop before it is added or counted, and the 3 is never read.",
+   "b": "Wrong. Neither the 0 nor the 3 is counted.",
+   "c": "Wrong. The 0 is not counted, because the body never runs for it.",
+   "d": "Wrong. The loop stops at 0, so 3 is never added."
+  }
+ },
+ {
+  "id": "csc-l22-09",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "infinite loop",
+  "prompt": "What is wrong with this loop?",
+  "code": "n = 1\nwhile n < 5:\n    print(n)",
+  "options": [
+   {
+    "id": "a",
+    "text": "n never changes, so n < 5 stays True and it loops forever"
+   },
+   {
+    "id": "b",
+    "text": "The print should come after the loop"
+   },
+   {
+    "id": "c",
+    "text": "while cannot compare numbers"
+   },
+   {
+    "id": "d",
+    "text": "range() is missing"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Forgetting to update the variable in the condition is how an infinite loop is written by accident.",
+  "why": {
+   "a": "Correct. Nothing in the body updates n, so the condition never becomes False.",
+   "b": "Wrong. Moving the print does not fix the missing update.",
+   "c": "Wrong. while works with any condition.",
+   "d": "Wrong. A while loop does not use range."
+  }
+ },
+ {
+  "id": "csc-l22-10",
+  "module": 3,
+  "slides": [
+   "Lesson 2.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "count controlled loop",
+  "prompt": "What is a count controlled loop?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A loop that never ends"
+   },
+   {
+    "id": "b",
+    "text": "A loop that counts how many errors occurred"
+   },
+   {
+    "id": "c",
+    "text": "A loop that repeats a fixed, known number of times, decided before the loop begins"
+   },
+   {
+    "id": "d",
+    "text": "A loop that runs until the user types a sentinel"
+   }
+  ],
+  "answer": "c",
+  "explanation": "for when you know how many times; while when you are waiting for something to happen.",
+  "why": {
+   "a": "Wrong. That is an infinite loop.",
+   "b": "Wrong. Not the definition.",
+   "c": "Correct. That is the definition, written in Python with for and usually range().",
+   "d": "Wrong. That is a sentinel, or condition, controlled loop."
+  }
+ },
+ {
+  "id": "csc-l23-01",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "changing a list",
+  "prompt": "What does this print?",
+  "code": "xs = [5, 3, 8]\nxs.append(1)\nxs.insert(1, 9)\nprint(xs)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[5, 9, 3, 8]"
+   },
+   {
+    "id": "b",
+    "text": "[5, 9, 3, 8, 1]"
+   },
+   {
+    "id": "c",
+    "text": "[9, 5, 3, 8, 1]"
+   },
+   {
+    "id": "d",
+    "text": "[5, 3, 8, 1, 9]"
+   }
+  ],
+  "answer": "b",
+  "explanation": "append(x) adds at the end; insert(i, x) adds at position i.",
+  "why": {
+   "a": "Wrong. append added 1 at the end.",
+   "b": "Correct. append puts 1 at the end, then insert(1, 9) puts 9 at index 1.",
+   "c": "Wrong. insert(1, ...) places the item at index 1, the second position.",
+   "d": "Wrong. insert places 9 at index 1, not at the end."
+  }
+ },
+ {
+  "id": "csc-l23-02",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "remove",
+  "prompt": "What does this print?",
+  "code": "xs = [4, 2, 4, 1]\nxs.remove(4)\nprint(xs)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[2, 4, 1]"
+   },
+   {
+    "id": "b",
+    "text": "[4, 2, 4]"
+   },
+   {
+    "id": "c",
+    "text": "[4, 2, 1]"
+   },
+   {
+    "id": "d",
+    "text": "[2, 1]"
+   }
+  ],
+  "answer": "a",
+  "explanation": "remove(x) deletes the first item equal to x, and raises ValueError if there is none.",
+  "why": {
+   "a": "Correct. remove deletes the FIRST item equal to 4 and leaves the second.",
+   "b": "Wrong. remove takes a value, not an index.",
+   "c": "Wrong. The first 4 is the one removed.",
+   "d": "Wrong. remove deletes only one matching item."
+  }
+ },
+ {
+  "id": "csc-l23-03",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "append against +=",
+  "prompt": "What does this print?",
+  "code": "a = [1, 2]\na.append([3, 4])\nb = [1, 2]\nb += [3, 4]\nprint(len(a), len(b))",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 3"
+   },
+   {
+    "id": "b",
+    "text": "4 4"
+   },
+   {
+    "id": "c",
+    "text": "4 3"
+   },
+   {
+    "id": "d",
+    "text": "3 4"
+   }
+  ],
+  "answer": "d",
+  "explanation": "append adds one item; += and extend add the items of the other list one by one.",
+  "why": {
+   "a": "Wrong. += extends the list item by item.",
+   "b": "Wrong. append adds the whole list as a single item.",
+   "c": "Wrong. The two results are the other way round.",
+   "d": "Correct. append adds [3, 4] as ONE item, giving 3; += adds 3 and 4 as separate items, giving 4."
+  }
+ },
+ {
+  "id": "csc-l23-04",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "sorted against sort",
+  "prompt": "What does this print?",
+  "code": "xs = [3, 1, 2]\nys = sorted(xs)\nprint(xs, ys)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[1, 2, 3] [1, 2, 3]"
+   },
+   {
+    "id": "b",
+    "text": "[3, 1, 2] [1, 2, 3]"
+   },
+   {
+    "id": "c",
+    "text": "[1, 2, 3] None"
+   },
+   {
+    "id": "d",
+    "text": "[3, 1, 2] None"
+   }
+  ],
+  "answer": "b",
+  "explanation": "sorted(xs) gives a new list; xs.sort() sorts in place and returns None.",
+  "why": {
+   "a": "Wrong. sorted() does not change xs.",
+   "b": "Correct. sorted() returns a NEW sorted list and leaves xs alone.",
+   "c": "Wrong. xs is unchanged and ys holds the sorted copy.",
+   "d": "Wrong. sorted() returns a list; it is .sort() that returns None."
+  }
+ },
+ {
+  "id": "csc-l23-05",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "nested lists",
+  "prompt": "What does this print?",
+  "code": "n = [[1, [2, 3]], [4, 5]]\nprint(n[0][1][0], len(n[0]))",
+  "options": [
+   {
+    "id": "a",
+    "text": "2 2"
+   },
+   {
+    "id": "b",
+    "text": "1 2"
+   },
+   {
+    "id": "c",
+    "text": "2 3"
+   },
+   {
+    "id": "d",
+    "text": "[2, 3] 2"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Peel a nested index one bracket at a time and write down what you have after each; len counts items, not the numbers inside them.",
+  "why": {
+   "a": "Correct. n[0] is [1, [2, 3]]; [1] of that is [2, 3]; [0] of that is 2. n[0] has two items.",
+   "b": "Wrong. Peel one bracket at a time: n[0], then [1], then [0].",
+   "c": "Wrong. len counts items: n[0] holds a number and a list, two items.",
+   "d": "Wrong. The last [0] reaches inside [2, 3]."
+  }
+ },
+ {
+  "id": "csc-l23-06",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "one-item tuple",
+  "prompt": "What does this print?",
+  "code": "t = (5,)\nu = (5)\nprint(type(t).__name__, type(u).__name__)",
+  "options": [
+   {
+    "id": "a",
+    "text": "tuple tuple"
+   },
+   {
+    "id": "b",
+    "text": "int int"
+   },
+   {
+    "id": "c",
+    "text": "tuple int"
+   },
+   {
+    "id": "d",
+    "text": "int tuple"
+   }
+  ],
+  "answer": "c",
+  "explanation": "A tuple of one item needs a comma: (5,) is a tuple, (5) is 5.",
+  "why": {
+   "a": "Wrong. Without a comma the brackets are only grouping.",
+   "b": "Wrong. The comma makes t a tuple.",
+   "c": "Correct. (5,) is a tuple because of the comma; (5) is just the number 5 in brackets.",
+   "d": "Wrong. They are the other way round."
+  }
+ },
+ {
+  "id": "csc-l23-07",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "pop",
+  "prompt": "What does this print?",
+  "code": "xs = [10, 20, 30]\nprint(xs.pop(), xs)",
+  "options": [
+   {
+    "id": "a",
+    "text": "30 [10, 20, 30]"
+   },
+   {
+    "id": "b",
+    "text": "10 [20, 30]"
+   },
+   {
+    "id": "c",
+    "text": "30 [10, 20]"
+   },
+   {
+    "id": "d",
+    "text": "None [10, 20]"
+   }
+  ],
+  "answer": "c",
+  "explanation": "pop(i) removes and returns; with no index it takes the last item.",
+  "why": {
+   "a": "Wrong. pop removes the item as well as returning it.",
+   "b": "Wrong. With no index, pop takes the LAST item.",
+   "c": "Correct. pop() with no argument removes and returns the last item.",
+   "d": "Wrong. Unlike append and sort, pop returns the item it removed."
+  }
+ },
+ {
+  "id": "csc-l23-08",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "repeating a list",
+  "prompt": "What does this print?",
+  "code": "print([0] * 3 + [1])",
+  "options": [
+   {
+    "id": "a",
+    "text": "[3, 1]"
+   },
+   {
+    "id": "b",
+    "text": "[0, 0, 0, 1]"
+   },
+   {
+    "id": "c",
+    "text": "[0, 0, 0, [1]]"
+   },
+   {
+    "id": "d",
+    "text": "[0, 1, 0, 1, 0, 1]"
+   }
+  ],
+  "answer": "b",
+  "explanation": "* on a list repeats it; + joins two lists into one.",
+  "why": {
+   "a": "Wrong. * repeats the list; it does not multiply the item.",
+   "b": "Correct. [0] * 3 repeats to [0, 0, 0], and + joins [1] on the end.",
+   "c": "Wrong. + joins the items of [1], not the list itself.",
+   "d": "Wrong. Only [0] is repeated, before [1] is joined."
+  }
+ },
+ {
+  "id": "csc-l23-09",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "tuples are fixed",
+  "prompt": "What happens when this runs?",
+  "code": "t = (1, 2, 3)\nt[1] = 9\nprint(t)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises TypeError, because a tuple cannot be changed"
+   },
+   {
+    "id": "b",
+    "text": "It prints (1, 9, 3)"
+   },
+   {
+    "id": "c",
+    "text": "It raises IndexError"
+   },
+   {
+    "id": "d",
+    "text": "It prints (1, 2, 3)"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Round brackets are fixed: assigning to a tuple item raises TypeError, as with a string.",
+  "why": {
+   "a": "Correct. A tuple is immutable, so item assignment is refused.",
+   "b": "Wrong. The assignment is refused.",
+   "c": "Wrong. Index 1 exists; the problem is changing it.",
+   "d": "Wrong. The error stops the program before the print."
+  }
+ },
+ {
+  "id": "csc-l23-10",
+  "module": 3,
+  "slides": [
+   "Lesson 2.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "copying a list",
+  "prompt": "What does this print?",
+  "code": "a = [1, 2]\nb = list(a)\nb.append(3)\nprint(a, b)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[1, 2, 3] [1, 2]"
+   },
+   {
+    "id": "b",
+    "text": "[1, 2] [1, 2]"
+   },
+   {
+    "id": "c",
+    "text": "[1, 2, 3] [1, 2, 3]"
+   },
+   {
+    "id": "d",
+    "text": "[1, 2] [1, 2, 3]"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Assignment does not copy: b = a gives one list two names. list(a) or a[:] makes a real copy.",
+  "why": {
+   "a": "Wrong. a is the one left unchanged.",
+   "b": "Wrong. b did get the 3.",
+   "c": "Wrong. That is what b = a would do; list(a) is a copy.",
+   "d": "Correct. list(a) makes a NEW list, so appending to b leaves a alone."
+  }
+ },
+ {
+  "id": "csc-l24-01",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "sets",
+  "prompt": "What does this print?",
+  "code": "print(len(set(\"hello\")))",
+  "options": [
+   {
+    "id": "a",
+    "text": "3"
+   },
+   {
+    "id": "b",
+    "text": "an error, because a string cannot become a set"
+   },
+   {
+    "id": "c",
+    "text": "5"
+   },
+   {
+    "id": "d",
+    "text": "4"
+   }
+  ],
+  "answer": "d",
+  "explanation": "A set holds at most one copy of any value, so len() counts distinct items.",
+  "why": {
+   "a": "Wrong. Count the distinct letters: h, e, l, o.",
+   "b": "Wrong. set() accepts any sequence, including a string.",
+   "c": "Wrong. Duplicates vanish, so the two l's count once.",
+   "d": "Correct. The set of \"hello\" keeps h, e, l and o, with the repeated l stored once."
+  }
+ },
+ {
+  "id": "csc-l24-02",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "set operations",
+  "prompt": "What does this print?",
+  "code": "a = {1, 2, 3}\nb = {2, 3, 4}\nprint(sorted(a - b), sorted(b - a), sorted(a | b))",
+  "options": [
+   {
+    "id": "a",
+    "text": "[1, 4] [1, 4] [1, 2, 3, 4]"
+   },
+   {
+    "id": "b",
+    "text": "[4] [1] [1, 2, 3, 4]"
+   },
+   {
+    "id": "c",
+    "text": "[1] [4] [2, 3]"
+   },
+   {
+    "id": "d",
+    "text": "[1] [4] [1, 2, 3, 4]"
+   }
+  ],
+  "answer": "d",
+  "explanation": "a - b in a not b, a & b in both, a | b in either. Read the phrase left to right and write the sets in that order.",
+  "why": {
+   "a": "Wrong. A difference is one-sided.",
+   "b": "Wrong. The order of a difference matters.",
+   "c": "Wrong. | is the union; [2, 3] would be the intersection, &.",
+   "d": "Correct. a - b is in a but not b; b - a is in b but not a; | is everything in either."
+  }
+ },
+ {
+  "id": "csc-l24-03",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "get",
+  "prompt": "What does this print?",
+  "code": "d = {\"a\": 1}\nprint(d.get(\"b\"), d.get(\"a\"))",
+  "options": [
+   {
+    "id": "a",
+    "text": "b 1"
+   },
+   {
+    "id": "b",
+    "text": "0 1"
+   },
+   {
+    "id": "c",
+    "text": "None 1"
+   },
+   {
+    "id": "d",
+    "text": "KeyError"
+   }
+  ],
+  "answer": "c",
+  "explanation": "d.get(key) is the safe lookup: the value, or None. d[key] raises KeyError.",
+  "why": {
+   "a": "Wrong. get() returns the value, not the key.",
+   "b": "Wrong. get() returns None, not 0, unless told otherwise.",
+   "c": "Correct. get() returns None for a missing key instead of raising, and the value for a present one.",
+   "d": "Wrong. d[\"b\"] would raise; get() does not."
+  }
+ },
+ {
+  "id": "csc-l24-04",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "changing a dictionary",
+  "prompt": "What does this print?",
+  "code": "d = {\"x\": 5, \"y\": 7}\nd[\"x\"] = 6\nd[\"z\"] = 1\nprint(len(d), d[\"x\"])",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 6"
+   },
+   {
+    "id": "b",
+    "text": "4 6"
+   },
+   {
+    "id": "c",
+    "text": "2 6"
+   },
+   {
+    "id": "d",
+    "text": "3 5"
+   }
+  ],
+  "answer": "a",
+  "explanation": "d[key] = value adds a new pair or changes an existing one. Keys are unique.",
+  "why": {
+   "a": "Correct. Assigning to an existing key replaces its value; assigning to a new key adds a pair.",
+   "b": "Wrong. x was replaced, not duplicated; keys are unique.",
+   "c": "Wrong. z is a new key, so there are three pairs.",
+   "d": "Wrong. d[\"x\"] = 6 replaced the 5."
+  }
+ },
+ {
+  "id": "csc-l24-05",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "empty braces",
+  "prompt": "What does this print?",
+  "code": "print(type({}).__name__, type(set()).__name__)",
+  "options": [
+   {
+    "id": "a",
+    "text": "set set"
+   },
+   {
+    "id": "b",
+    "text": "dict dict"
+   },
+   {
+    "id": "c",
+    "text": "dict set"
+   },
+   {
+    "id": "d",
+    "text": "set dict"
+   }
+  ],
+  "answer": "c",
+  "explanation": "{} alone is an empty dictionary, not an empty set.",
+  "why": {
+   "a": "Wrong. {} is a dictionary.",
+   "b": "Wrong. set() makes a set.",
+   "c": "Correct. {} on its own is an empty DICTIONARY; an empty set must be written set().",
+   "d": "Wrong. They are the other way round."
+  }
+ },
+ {
+  "id": "csc-l24-06",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "walking a dictionary",
+  "prompt": "What does this print?",
+  "code": "marks = {\"Ada\": 58, \"Ben\": 71, \"Cy\": 60}\nfor name, m in marks.items():\n    if m >= 60:\n        print(name)",
+  "options": [
+   {
+    "id": "a",
+    "text": "Ada\nBen\nCy"
+   },
+   {
+    "id": "b",
+    "text": "Cy\nBen"
+   },
+   {
+    "id": "c",
+    "text": "Ben"
+   },
+   {
+    "id": "d",
+    "text": "Ben\nCy"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Walk the pairs, test the value, print the ones that pass: the shape of every 'display those which' requirement.",
+  "why": {
+   "a": "Wrong. Ada's 58 fails the test.",
+   "b": "Wrong. A dictionary keeps insertion order, Ben before Cy.",
+   "c": "Wrong. 60 >= 60 is True, so Cy prints too.",
+   "d": "Correct. items() walks each pair in insertion order, and only marks of 60 and above print."
+  }
+ },
+ {
+  "id": "csc-l24-07",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "wording"
+  ],
+  "topic": "keys must be hashable",
+  "prompt": "What happens when this runs?",
+  "code": "d = {[1, 2]: \"a\"}\nprint(d)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises TypeError, because a list cannot be a dictionary key"
+   },
+   {
+    "id": "b",
+    "text": "It raises KeyError"
+   },
+   {
+    "id": "c",
+    "text": "It prints {[1, 2]: 'a'}"
+   },
+   {
+    "id": "d",
+    "text": "It prints a"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Strings, numbers and tuples can be keys; lists and sets cannot, because they can change.",
+  "why": {
+   "a": "Correct. A key must be hashable, which means immutable; a list is mutable.",
+   "b": "Wrong. Nothing is looked up; the key itself is rejected.",
+   "c": "Wrong. The dictionary cannot be built.",
+   "d": "Wrong. The error happens when the dictionary is made."
+  }
+ },
+ {
+  "id": "csc-l24-08",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "membership in a dictionary",
+  "prompt": "What does this print?",
+  "code": "d = {\"x\": 1}\nprint(1 in d, \"x\" in d)",
+  "options": [
+   {
+    "id": "a",
+    "text": "True True"
+   },
+   {
+    "id": "b",
+    "text": "False True"
+   },
+   {
+    "id": "c",
+    "text": "True False"
+   },
+   {
+    "id": "d",
+    "text": "False False"
+   }
+  ],
+  "answer": "b",
+  "explanation": "in means a substring on a string, an item on a list or set, and a KEY on a dictionary.",
+  "why": {
+   "a": "Wrong. 1 is a value, and in does not look at values.",
+   "b": "Correct. in on a dictionary checks the KEYS. 1 is a value, not a key; \"x\" is a key.",
+   "c": "Wrong. They are the other way round.",
+   "d": "Wrong. \"x\" is a key, so that test is True."
+  }
+ },
+ {
+  "id": "csc-l24-09",
+  "module": 3,
+  "slides": [
+   "Lesson 2.4"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "choosing a container",
+  "prompt": "Each student's matric number is paired with that student's name. Which container suits this?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A tuple, because the data is fixed"
+   },
+   {
+    "id": "b",
+    "text": "A list, because it is ordered"
+   },
+   {
+    "id": "c",
+    "text": "A dictionary, because each name is paired with its number and can be looked up by it"
+   },
+   {
+    "id": "d",
+    "text": "A set, because the numbers are unique"
+   }
+  ],
+  "answer": "c",
+  "explanation": "List grows, tuple is fixed, set is unique, dictionary pairs. Give the reason: the reason carries the mark.",
+  "why": {
+   "a": "Wrong. A tuple is one fixed record, not a lookup of many pairs.",
+   "b": "Wrong. A list would make you search for each pair.",
+   "c": "Correct. Paired data is key to value, which is exactly a dictionary.",
+   "d": "Wrong. A set holds single values, not pairs."
+  }
+ },
+ {
+  "id": "csc-l31-01",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "value returning functions",
+  "prompt": "What does this print?",
+  "code": "def area(l, w):\n    return l * w\n\nprint(area(3, 4) + area(1, 2))",
+  "options": [
+   {
+    "id": "a",
+    "text": "14"
+   },
+   {
+    "id": "b",
+    "text": "None"
+   },
+   {
+    "id": "c",
+    "text": "12"
+   },
+   {
+    "id": "d",
+    "text": "7"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Because a value returning function hands back its result, a call can be used anywhere a value can.",
+  "why": {
+   "a": "Correct. area(3, 4) returns 12 and area(1, 2) returns 2; 12 + 2 is 14.",
+   "b": "Wrong. The function returns its result, so the calls can be added.",
+   "c": "Wrong. The second call adds 2 more.",
+   "d": "Wrong. The function multiplies, it does not add."
+  }
+ },
+ {
+  "id": "csc-l31-02",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "wording"
+  ],
+  "topic": "void functions",
+  "prompt": "What does this print?",
+  "code": "def greet(name):\n    print(\"Hi\", name)\n\nresult = greet(\"Ada\")\nprint(result)",
+  "options": [
+   {
+    "id": "a",
+    "text": "None"
+   },
+   {
+    "id": "b",
+    "text": "Hi Ada"
+   },
+   {
+    "id": "c",
+    "text": "Hi Ada\nHi Ada"
+   },
+   {
+    "id": "d",
+    "text": "Hi Ada\nNone"
+   }
+  ],
+  "answer": "d",
+  "explanation": "A void function performs an action and returns None. Assigning its call stores None.",
+  "why": {
+   "a": "Wrong. The call prints Hi Ada first.",
+   "b": "Wrong. The second print shows result, which is None.",
+   "c": "Wrong. The call runs once; result is what it returned, which is None.",
+   "d": "Correct. greet prints, then returns nothing, so result holds None."
+  }
+ },
+ {
+  "id": "csc-l31-03",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "default and named arguments",
+  "prompt": "What does this print?",
+  "code": "def power(base, exp=2):\n    return base ** exp\n\nprint(power(3), power(2, 3), power(exp=1, base=9))",
+  "options": [
+   {
+    "id": "a",
+    "text": "6 8 9"
+   },
+   {
+    "id": "b",
+    "text": "9 8 1"
+   },
+   {
+    "id": "c",
+    "text": "9 6 9"
+   },
+   {
+    "id": "d",
+    "text": "9 8 9"
+   }
+  ],
+  "answer": "d",
+  "explanation": "A parameter with a default can be left out; arguments passed by name can come in any order.",
+  "why": {
+   "a": "Wrong. ** is power, so 3 ** 2 is 9.",
+   "b": "Wrong. exp=1, base=9 is 9 to the power 1, which is 9.",
+   "c": "Wrong. 2 ** 3 is 8.",
+   "d": "Correct. power(3) uses the default exponent 2; power(2, 3) is 8; named arguments give 9 ** 1."
+  }
+ },
+ {
+  "id": "csc-l31-04",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "returning two values",
+  "prompt": "What does this print?",
+  "code": "def stats(xs):\n    return min(xs), max(xs)\n\nlo, hi = stats([4, 9, 2])\nprint(hi - lo)",
+  "options": [
+   {
+    "id": "a",
+    "text": "11"
+   },
+   {
+    "id": "b",
+    "text": "2 9"
+   },
+   {
+    "id": "c",
+    "text": "(2, 9)"
+   },
+   {
+    "id": "d",
+    "text": "7"
+   }
+  ],
+  "answer": "d",
+  "explanation": "return a, b hands back two values, unpacked with two names on the left.",
+  "why": {
+   "a": "Wrong. The program subtracts, it does not add.",
+   "b": "Wrong. The print shows hi - lo, one number.",
+   "c": "Wrong. The two values were unpacked into separate names.",
+   "d": "Correct. stats returns 2 and 9, which unpack into lo and hi; 9 - 2 is 7."
+  }
+ },
+ {
+  "id": "csc-l31-05",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "wording"
+  ],
+  "topic": "scope",
+  "prompt": "What does this print?",
+  "code": "count = 5\n\ndef reset():\n    count = 0\n\nreset()\nprint(count)",
+  "options": [
+   {
+    "id": "a",
+    "text": "0"
+   },
+   {
+    "id": "b",
+    "text": "5"
+   },
+   {
+    "id": "c",
+    "text": "None"
+   },
+   {
+    "id": "d",
+    "text": "an error"
+   }
+  ],
+  "answer": "b",
+  "explanation": "A name assigned inside a function is local and disappears when the function ends: what happens in the function stays in the function.",
+  "why": {
+   "a": "Wrong. Assigning inside a function makes a new local name.",
+   "b": "Correct. The count inside reset() is local to it, so the outer count is untouched.",
+   "c": "Wrong. The outer count still holds 5.",
+   "d": "Wrong. It runs without error."
+  }
+ },
+ {
+  "id": "csc-l31-06",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "return ends the function",
+  "prompt": "What does this print?",
+  "code": "def f():\n    return 1\n    print(\"after\")\n\nprint(f())",
+  "options": [
+   {
+    "id": "a",
+    "text": "1\nafter"
+   },
+   {
+    "id": "b",
+    "text": "None"
+   },
+   {
+    "id": "c",
+    "text": "after\n1"
+   },
+   {
+    "id": "d",
+    "text": "1"
+   }
+  ],
+  "answer": "d",
+  "explanation": "return hands a value back AND leaves the function.",
+  "why": {
+   "a": "Wrong. Nothing after return runs.",
+   "b": "Wrong. The function returns 1.",
+   "c": "Wrong. The line after return is never reached.",
+   "d": "Correct. return hands back 1 and leaves the function at once, so the print after it never runs."
+  }
+ },
+ {
+  "id": "csc-l31-07",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "defining is not calling",
+  "prompt": "What does this print?",
+  "code": "def hello():\n    print(\"hello\")\n\nprint(\"bye\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "hello"
+   },
+   {
+    "id": "b",
+    "text": "hello\nbye"
+   },
+   {
+    "id": "c",
+    "text": "nothing at all"
+   },
+   {
+    "id": "d",
+    "text": "bye"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Nothing inside a function happens until it is called.",
+  "why": {
+   "a": "Wrong. print(\"bye\") runs; the function body does not.",
+   "b": "Wrong. A definition on its own produces no output.",
+   "c": "Wrong. The last line does print.",
+   "d": "Correct. hello is defined but never called, so its body never runs."
+  }
+ },
+ {
+  "id": "csc-l31-08",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "parameter and argument",
+  "prompt": "In def cube(num): and the call cube(4), which is the ARGUMENT?",
+  "options": [
+   {
+    "id": "a",
+    "text": "return, the keyword"
+   },
+   {
+    "id": "b",
+    "text": "cube, the function's name"
+   },
+   {
+    "id": "c",
+    "text": "num, the name in the definition"
+   },
+   {
+    "id": "d",
+    "text": "4, the value supplied at the call"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The parameter is the name in the definition; the argument is the value supplied at the call.",
+  "why": {
+   "a": "Wrong. return hands a value back.",
+   "b": "Wrong. That is the function's name.",
+   "c": "Wrong. num is the PARAMETER.",
+   "d": "Correct. The argument is the value passed in when you call."
+  }
+ },
+ {
+  "id": "csc-l31-09",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "multi",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "benefits of functions",
+  "prompt": "Which two of these are benefits of modularising a program with functions?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Easier maintenance: a change made in one place takes effect everywhere"
+   },
+   {
+    "id": "b",
+    "text": "The program always runs faster"
+   },
+   {
+    "id": "c",
+    "text": "Reusability: write once, call from many places"
+   },
+   {
+    "id": "d",
+    "text": "Every variable becomes global"
+   }
+  ],
+  "answer": [
+   "a",
+   "c"
+  ],
+  "explanation": "Five benefits: reusability, readability, easier debugging and testing, easier maintenance, teamwork and simpler design.",
+  "why": {
+   "a": "Correct. Easier maintenance is one of the five benefits.",
+   "b": "Wrong. The course says modularising does NOT make the program run faster.",
+   "c": "Correct. Reusability is one of the five benefits.",
+   "d": "Wrong. Names made inside a function are local."
+  }
+ },
+ {
+  "id": "csc-l31-10",
+  "module": 4,
+  "slides": [
+   "Lesson 3.1"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "void functions",
+  "prompt": "True or false: a function with no return statement gives back None.",
+  "answer": "true",
+  "explanation": "Show or give: print shows, return hands back, and no return means None.",
+  "why": {
+   "true": "Correct. No return, or a bare return, means the function returns None.",
+   "false": "Wrong. It does return something: the special value None."
+  }
+ },
+ {
+  "id": "csc-l32-01",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "ceil and floor",
+  "prompt": "What does this print?",
+  "code": "import math\nprint(math.ceil(2.1), math.floor(2.9))",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 2"
+   },
+   {
+    "id": "b",
+    "text": "2 2"
+   },
+   {
+    "id": "c",
+    "text": "3 3"
+   },
+   {
+    "id": "d",
+    "text": "2 3"
+   }
+  ],
+  "answer": "a",
+  "explanation": "math.ceil rounds up, math.floor rounds down, round goes to the nearest.",
+  "why": {
+   "a": "Correct. ceil always rounds UP to the next whole number and floor always rounds DOWN.",
+   "b": "Wrong. ceil(2.1) goes up to 3.",
+   "c": "Wrong. floor(2.9) goes down to 2.",
+   "d": "Wrong. They are the other way round."
+  }
+ },
+ {
+  "id": "csc-l32-02",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "from import",
+  "prompt": "What does this print?",
+  "code": "from math import sqrt\nprint(sqrt(49))",
+  "options": [
+   {
+    "id": "a",
+    "text": "an error, because sqrt needs the math. prefix"
+   },
+   {
+    "id": "b",
+    "text": "49"
+   },
+   {
+    "id": "c",
+    "text": "7.0"
+   },
+   {
+    "id": "d",
+    "text": "7"
+   }
+  ],
+  "answer": "c",
+  "explanation": "from math import sqrt gives you sqrt alone; import math gives you math.sqrt.",
+  "why": {
+   "a": "Wrong. The from form brings the name in, so no prefix is needed.",
+   "b": "Wrong. sqrt is the square root, not the square.",
+   "c": "Correct. from math import sqrt brings sqrt in directly, and sqrt always returns a float.",
+   "d": "Wrong. sqrt returns a float, 7.0."
+  }
+ },
+ {
+  "id": "csc-l32-03",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "math.pi",
+  "prompt": "What does this print?",
+  "code": "import math\nprint(round(math.pi, 3))",
+  "options": [
+   {
+    "id": "a",
+    "text": "3"
+   },
+   {
+    "id": "b",
+    "text": "3.1416"
+   },
+   {
+    "id": "c",
+    "text": "3.142"
+   },
+   {
+    "id": "d",
+    "text": "3.14"
+   }
+  ],
+  "answer": "c",
+  "explanation": "When the paper says use the math module, use math.pi, rounded as asked.",
+  "why": {
+   "a": "Wrong. round with 3 keeps three decimal places.",
+   "b": "Wrong. That is four decimal places.",
+   "c": "Correct. round(math.pi, 3) keeps three decimal places.",
+   "d": "Wrong. That is two decimal places."
+  }
+ },
+ {
+  "id": "csc-l32-04",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "mixing the two imports",
+  "prompt": "What happens when this runs?",
+  "code": "from math import pi\nprint(math.pi)",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises NameError, because the name math was never imported"
+   },
+   {
+    "id": "b",
+    "text": "It raises ImportError"
+   },
+   {
+    "id": "c",
+    "text": "It prints 3.14"
+   },
+   {
+    "id": "d",
+    "text": "It prints 3.141592653589793"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The two forms are not interchangeable: after from math import pi, write pi, not math.pi.",
+  "why": {
+   "a": "Correct. from math import pi brings in pi alone; math itself is not a name in the program.",
+   "b": "Wrong. The import itself succeeded.",
+   "c": "Wrong. The line fails before printing anything.",
+   "d": "Wrong. math.pi needs import math."
+  }
+ },
+ {
+  "id": "csc-l32-05",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "import as",
+  "prompt": "What does this print?",
+  "code": "import math as m\nprint(m.sqrt(9))",
+  "options": [
+   {
+    "id": "a",
+    "text": "9"
+   },
+   {
+    "id": "b",
+    "text": "3"
+   },
+   {
+    "id": "c",
+    "text": "an error, because math was renamed"
+   },
+   {
+    "id": "d",
+    "text": "3.0"
+   }
+  ],
+  "answer": "d",
+  "explanation": "import math as m gives the module a shorter name; everything is then reached through m.",
+  "why": {
+   "a": "Wrong. sqrt is the square root.",
+   "b": "Wrong. sqrt returns a float.",
+   "c": "Wrong. Renaming is allowed; you then use the new name.",
+   "d": "Correct. import math as m renames the module, so m.sqrt(9) is 3.0."
+  }
+ },
+ {
+  "id": "csc-l32-06",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "what a module is",
+  "prompt": "What is a module, in the course's words?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A single function inside a program"
+   },
+   {
+    "id": "b",
+    "text": "A file of Python definitions and statements that other programs can import and reuse"
+   },
+   {
+    "id": "c",
+    "text": "A folder of databases"
+   },
+   {
+    "id": "d",
+    "text": "A window in a graphical interface"
+   }
+  ],
+  "answer": "b",
+  "explanation": "A module is a file of Python code that can be imported; a package is a directory of modules.",
+  "why": {
+   "a": "Wrong. A module is a whole file, which may hold many functions.",
+   "b": "Correct. That is the definition.",
+   "c": "Wrong. A directory of MODULES is a package.",
+   "d": "Wrong. That is a tkinter window."
+  }
+ },
+ {
+  "id": "csc-l32-07",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "random",
+  "prompt": "What can random.randint(1, 6) return?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Always 1"
+   },
+   {
+    "id": "b",
+    "text": "A decimal between 1 and 6"
+   },
+   {
+    "id": "c",
+    "text": "A whole number from 1 to 6, with both 1 and 6 possible"
+   },
+   {
+    "id": "d",
+    "text": "A whole number from 1 to 5"
+   }
+  ],
+  "answer": "c",
+  "explanation": "random.randint(a, b) gives a whole number from a to b inclusive; random.choice(seq) picks one item.",
+  "why": {
+   "a": "Wrong. It is random.",
+   "b": "Wrong. randint gives whole numbers.",
+   "c": "Correct. randint(a, b) includes both ends.",
+   "d": "Wrong. Unlike range, randint includes its upper limit."
+  }
+ },
+ {
+  "id": "csc-l32-08",
+  "module": 4,
+  "slides": [
+   "Lesson 3.2"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "import math",
+  "prompt": "True or false: after import math you can write sqrt(16) without the math. prefix.",
+  "answer": "false",
+  "explanation": "import math gives math dot something; from math import sqrt gives sqrt alone.",
+  "why": {
+   "true": "Wrong. import math gives you the module, so you must write math.sqrt(16).",
+   "false": "Correct. The prefix is needed; only from math import sqrt lets you write sqrt alone."
+  }
+ },
+ {
+  "id": "csc-l33-01",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "write mode truncates",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    f.write(\"one\\n\")\nwith open(\"t.txt\", \"w\") as f:\n    f.write(\"two\\n\")\nprint(open(\"t.txt\").read().strip())",
+  "options": [
+   {
+    "id": "a",
+    "text": "an error, because the file already exists"
+   },
+   {
+    "id": "b",
+    "text": "two"
+   },
+   {
+    "id": "c",
+    "text": "one"
+   },
+   {
+    "id": "d",
+    "text": "one\ntwo"
+   }
+  ],
+  "answer": "b",
+  "explanation": "w wipes, a adds, r reads.",
+  "why": {
+   "a": "Wrong. \"w\" happily opens an existing file, and empties it.",
+   "b": "Correct. Opening with \"w\" a second time empties the file, so only the second line is left.",
+   "c": "Wrong. The second \"w\" replaced the first line.",
+   "d": "Wrong. That is what append mode, \"a\", would give."
+  }
+ },
+ {
+  "id": "csc-l33-02",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "append mode",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    f.write(\"one\\n\")\nwith open(\"t.txt\", \"a\") as f:\n    f.write(\"two\\n\")\nprint(open(\"t.txt\").read().strip())",
+  "options": [
+   {
+    "id": "a",
+    "text": "one\ntwo"
+   },
+   {
+    "id": "b",
+    "text": "two"
+   },
+   {
+    "id": "c",
+    "text": "one"
+   },
+   {
+    "id": "d",
+    "text": "two\none"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Append adds new data at the end and leaves everything already there.",
+  "why": {
+   "a": "Correct. \"a\" opens at the end of the file, so the new line goes after the old one.",
+   "b": "Wrong. Append keeps the existing content.",
+   "c": "Wrong. The appended line is there too.",
+   "d": "Wrong. Appended data goes at the end."
+  }
+ },
+ {
+  "id": "csc-l33-03",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "write adds no newline",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    f.write(\"a\")\n    f.write(\"b\")\nprint(open(\"t.txt\").read())",
+  "options": [
+   {
+    "id": "a",
+    "text": "a\nb"
+   },
+   {
+    "id": "b",
+    "text": "b"
+   },
+   {
+    "id": "c",
+    "text": "ab"
+   },
+   {
+    "id": "d",
+    "text": "a b"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Always write the newline yourself: without \\n every record runs into the next.",
+  "why": {
+   "a": "Wrong. write() does not add a newline for you.",
+   "b": "Wrong. Both writes happen inside the same open file.",
+   "c": "Correct. write() puts exactly what it is given; with no \\n the two pieces join.",
+   "d": "Wrong. No space was written."
+  }
+ },
+ {
+  "id": "csc-l33-04",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "readlines",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    f.write(\"x\\ny\\nz\\n\")\nprint(len(open(\"t.txt\").readlines()))",
+  "options": [
+   {
+    "id": "a",
+    "text": "1"
+   },
+   {
+    "id": "b",
+    "text": "6"
+   },
+   {
+    "id": "c",
+    "text": "5"
+   },
+   {
+    "id": "d",
+    "text": "3"
+   }
+  ],
+  "answer": "d",
+  "explanation": "read() gives one string, readline() one line, readlines() a list of every line.",
+  "why": {
+   "a": "Wrong. That is how many strings read() returns.",
+   "b": "Wrong. len counts lines here, not characters.",
+   "c": "Wrong. There are three lines.",
+   "d": "Correct. readlines() returns a list with one string per line: x, y and z."
+  }
+ },
+ {
+  "id": "csc-l33-05",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "readline",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    f.write(\"x\\ny\\n\")\nwith open(\"t.txt\") as f:\n    print(repr(f.readline()))",
+  "options": [
+   {
+    "id": "a",
+    "text": "x"
+   },
+   {
+    "id": "b",
+    "text": "'x\\n'"
+   },
+   {
+    "id": "c",
+    "text": "'x'"
+   },
+   {
+    "id": "d",
+    "text": "['x\\n']"
+   }
+  ],
+  "answer": "b",
+  "explanation": "readline() returns one line including its newline; readlines() returns a list of such strings.",
+  "why": {
+   "a": "Wrong. repr shows the quotes and the newline marker.",
+   "b": "Correct. readline() gives the next line as a string, still carrying its newline, which repr shows as \\n.",
+   "c": "Wrong. The newline is kept.",
+   "d": "Wrong. readline() gives a string, not a list."
+  }
+ },
+ {
+  "id": "csc-l33-06",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "reading a missing file",
+  "prompt": "No file called gone.txt exists. What happens when this runs?",
+  "code": "f = open(\"gone.txt\", \"r\")\nprint(f.read())",
+  "options": [
+   {
+    "id": "a",
+    "text": "It raises FileNotFoundError"
+   },
+   {
+    "id": "b",
+    "text": "It creates an empty gone.txt"
+   },
+   {
+    "id": "c",
+    "text": "It raises KeyError"
+   },
+   {
+    "id": "d",
+    "text": "It prints an empty line"
+   }
+  ],
+  "answer": "a",
+  "explanation": "\"r\" raises FileNotFoundError if the file is missing; \"w\" and \"a\" create it.",
+  "why": {
+   "a": "Correct. Read mode needs the file to exist.",
+   "b": "Wrong. Only \"w\" and \"a\" create a missing file.",
+   "c": "Wrong. KeyError is for dictionaries.",
+   "d": "Wrong. The open fails before any read."
+  }
+ },
+ {
+  "id": "csc-l33-07",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "the first records",
+  "prompt": "The file holds seven records. What does this print?",
+  "code": "with open(\"r.txt\", \"w\") as f:\n    for i in range(1, 8):\n        f.write(f\"Student {i}\\n\")\nwith open(\"r.txt\") as f:\n    lines = f.readlines()\nfor line in lines[:2]:\n    print(line.strip())",
+  "options": [
+   {
+    "id": "a",
+    "text": "Student 1\nStudent 2"
+   },
+   {
+    "id": "b",
+    "text": "Student 1\nStudent 2\nStudent 3"
+   },
+   {
+    "id": "c",
+    "text": "Student 1"
+   },
+   {
+    "id": "d",
+    "text": "Student 7"
+   }
+  ],
+  "answer": "a",
+  "explanation": "Given a list of lines, lines[:5] is the first five: a one-line answer to the paper's requirement.",
+  "why": {
+   "a": "Correct. lines[:2] takes the first two lines, and strip() removes each newline.",
+   "b": "Wrong. A slice stops before its stop index, 2.",
+   "c": "Wrong. Two lines are taken.",
+   "d": "Wrong. [:2] takes from the start."
+  }
+ },
+ {
+  "id": "csc-l33-08",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "file modes",
+  "prompt": "Which mode opens a file for BOTH reading and writing, at the start, without truncating it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "\"a\""
+   },
+   {
+    "id": "b",
+    "text": "\"w\""
+   },
+   {
+    "id": "c",
+    "text": "\"r\""
+   },
+   {
+    "id": "d",
+    "text": "\"r+\""
+   }
+  ],
+  "answer": "d",
+  "explanation": "The four modes the paper asks for: r read, w write and truncate, a append, r+ read and write.",
+  "why": {
+   "a": "Wrong. a writes at the end.",
+   "b": "Wrong. w erases the file.",
+   "c": "Wrong. r reads only.",
+   "d": "Correct. r+ reads and writes, keeps the content, and raises if the file is missing."
+  }
+ },
+ {
+  "id": "csc-l33-09",
+  "module": 4,
+  "slides": [
+   "Lesson 3.3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "write returns a count",
+  "prompt": "What does this print?",
+  "code": "with open(\"t.txt\", \"w\") as f:\n    n = f.write(\"hello\\n\")\nprint(n)",
+  "options": [
+   {
+    "id": "a",
+    "text": "hello"
+   },
+   {
+    "id": "b",
+    "text": "6"
+   },
+   {
+    "id": "c",
+    "text": "5"
+   },
+   {
+    "id": "d",
+    "text": "None"
+   }
+  ],
+  "answer": "b",
+  "explanation": "f.write(s) writes the text and returns how many characters it wrote.",
+  "why": {
+   "a": "Wrong. It returns a number, not the text.",
+   "b": "Correct. write() returns the number of characters written: five letters and the newline.",
+   "c": "Wrong. The newline counts as a character.",
+   "d": "Wrong. write() returns a count."
+  }
+ },
+ {
+  "id": "csc-l34-01",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "where the error jumps",
+  "prompt": "What does this print?",
+  "code": "try:\n    print(\"a\")\n    x = int(\"b\")\n    print(\"c\")\nexcept ValueError:\n    print(\"d\")\nprint(\"e\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "a\nd\ne"
+   },
+   {
+    "id": "b",
+    "text": "a\nd"
+   },
+   {
+    "id": "c",
+    "text": "d\ne"
+   },
+   {
+    "id": "d",
+    "text": "a\nc\nd\ne"
+   }
+  ],
+  "answer": "a",
+  "explanation": "When a line in try raises, the rest of the try is skipped and the matching except runs; then the program continues.",
+  "why": {
+   "a": "Correct. a prints, int(\"b\") raises ValueError, the rest of the try is skipped, except prints d, and the program carries on to e.",
+   "b": "Wrong. After a handled exception the program continues.",
+   "c": "Wrong. a printed before the error.",
+   "d": "Wrong. c is skipped: the error jumps straight to except."
+  }
+ },
+ {
+  "id": "csc-l34-02",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "else and finally",
+  "prompt": "What does this print?",
+  "code": "try:\n    n = 10 // 2\nexcept ZeroDivisionError:\n    print(\"zero\")\nelse:\n    print(\"ok\", n)\nfinally:\n    print(\"end\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "zero\nend"
+   },
+   {
+    "id": "b",
+    "text": "ok 5\nend"
+   },
+   {
+    "id": "c",
+    "text": "end"
+   },
+   {
+    "id": "d",
+    "text": "ok 5"
+   }
+  ],
+  "answer": "b",
+  "explanation": "else runs when nothing was raised; finally runs either way.",
+  "why": {
+   "a": "Wrong. 10 // 2 does not divide by zero.",
+   "b": "Correct. Nothing is raised, so else runs; finally runs every time.",
+   "c": "Wrong. else runs because the try succeeded.",
+   "d": "Wrong. finally always runs."
+  }
+ },
+ {
+  "id": "csc-l34-03",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "lists"
+  ],
+  "topic": "else and finally",
+  "prompt": "Now the division is by zero. What does this print?",
+  "code": "try:\n    n = 10 // 0\nexcept ZeroDivisionError:\n    print(\"zero\")\nelse:\n    print(\"ok\")\nfinally:\n    print(\"end\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "ok\nend"
+   },
+   {
+    "id": "b",
+    "text": "end"
+   },
+   {
+    "id": "c",
+    "text": "zero\nend"
+   },
+   {
+    "id": "d",
+    "text": "zero"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Finally means finally: it runs whether the try worked or not.",
+  "why": {
+   "a": "Wrong. else runs only when nothing was raised.",
+   "b": "Wrong. The except block prints first.",
+   "c": "Correct. The except runs, else is skipped because the try failed, and finally still runs.",
+   "d": "Wrong. finally always runs."
+  }
+ },
+ {
+  "id": "csc-l34-04",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "catching the wrong exception",
+  "prompt": "What happens when this runs?",
+  "code": "try:\n    d = {\"a\": 1}\n    print(d[\"b\"])\nexcept ValueError:\n    print(\"bad value\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints None"
+   },
+   {
+    "id": "b",
+    "text": "It prints bad value"
+   },
+   {
+    "id": "c",
+    "text": "It prints nothing and carries on"
+   },
+   {
+    "id": "d",
+    "text": "A KeyError stops the program, because except ValueError does not catch it"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Name the exception you expect. An exception you did not name passes straight through.",
+  "why": {
+   "a": "Wrong. d[\"b\"] raises; it does not give None.",
+   "b": "Wrong. The lookup raises KeyError, not ValueError.",
+   "c": "Wrong. An exception that is not caught stops the program.",
+   "d": "Correct. except only catches the exception it names; this one is a KeyError."
+  }
+ },
+ {
+  "id": "csc-l34-05",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "lists"
+  ],
+  "topic": "raise",
+  "prompt": "What does this print?",
+  "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"insufficient funds\")\n    return balance - amount\n\ntry:\n    print(withdraw(50, 80))\nexcept ValueError as e:\n    print(\"Error:\", e)",
+  "options": [
+   {
+    "id": "a",
+    "text": "an unhandled ValueError"
+   },
+   {
+    "id": "b",
+    "text": "Error: insufficient funds"
+   },
+   {
+    "id": "c",
+    "text": "-30"
+   },
+   {
+    "id": "d",
+    "text": "insufficient funds"
+   }
+  ],
+  "answer": "b",
+  "explanation": "raise signals an error yourself; except ValueError as e gives you its message in e.",
+  "why": {
+   "a": "Wrong. The ValueError is caught.",
+   "b": "Correct. raise signals the error, and the except catches it and prints its message.",
+   "c": "Wrong. The raise stops the function before it subtracts.",
+   "d": "Wrong. The print adds \"Error:\" in front."
+  }
+ },
+ {
+  "id": "csc-l34-06",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "which exception",
+  "prompt": "Which exception does this raise?",
+  "code": "print(\"5\" + 5)",
+  "options": [
+   {
+    "id": "a",
+    "text": "NameError"
+   },
+   {
+    "id": "b",
+    "text": "ValueError"
+   },
+   {
+    "id": "c",
+    "text": "SyntaxError"
+   },
+   {
+    "id": "d",
+    "text": "TypeError"
+   }
+  ],
+  "answer": "d",
+  "explanation": "TypeError is the wrong kind; ValueError is the right kind with an impossible value.",
+  "why": {
+   "a": "Wrong. Nothing here is undefined.",
+   "b": "Wrong. ValueError is the right kind with an impossible value, like int(\"abc\").",
+   "c": "Wrong. The line is legal Python; it fails only when run.",
+   "d": "Correct. + cannot join a string and a number: the wrong KIND of thing."
+  }
+ },
+ {
+  "id": "csc-l34-07",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "syntax errors are not exceptions",
+  "prompt": "Can try and except catch a missing colon in the same file?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Yes, with a bare except"
+   },
+   {
+    "id": "b",
+    "text": "Yes, with except SyntaxError"
+   },
+   {
+    "id": "c",
+    "text": "Only inside a function"
+   },
+   {
+    "id": "d",
+    "text": "No: a syntax error stops the program from running at all, so no try block ever runs"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Syntax errors stop it starting. Exceptions stop it finishing, and only those can be caught.",
+  "why": {
+   "a": "Wrong. Nothing runs at all.",
+   "b": "Wrong. The try block never gets the chance to run.",
+   "c": "Wrong. A syntax error anywhere stops the whole file.",
+   "d": "Correct. Python cannot parse the file, so nothing runs, the try included."
+  }
+ },
+ {
+  "id": "csc-l34-08",
+  "module": 4,
+  "slides": [
+   "Lesson 3.4"
+  ],
+  "style": "multi",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "runtime exceptions",
+  "prompt": "Which two of these are exceptions raised while a program RUNS, rather than syntax errors?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ZeroDivisionError, from 10 / 0"
+   },
+   {
+    "id": "b",
+    "text": "A string that opens with \" and closes with '"
+   },
+   {
+    "id": "c",
+    "text": "KeyError, from d[\"missing\"]"
+   },
+   {
+    "id": "d",
+    "text": "A missing colon after an if"
+   }
+  ],
+  "answer": [
+   "a",
+   "c"
+  ],
+  "explanation": "An exception is an error detected during execution; a syntax error is bad grammar found first.",
+  "why": {
+   "a": "Correct. 10 / 0 is legal code that fails only when it runs.",
+   "b": "Wrong. That is a syntax error too.",
+   "c": "Correct. A missing key is found only when the lookup runs.",
+   "d": "Wrong. That is a syntax error, found before anything runs."
+  }
+ },
+ {
+  "id": "csc-l35-01",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "SELECT with WHERE",
+  "prompt": "The table t holds Ada 70, Ben 55 and Cy 82. What does this print?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"SELECT name FROM t WHERE score > ? ORDER BY score DESC\", (60,))\nprint(cur.fetchall())",
+  "options": [
+   {
+    "id": "a",
+    "text": "[('Ada',), ('Cy',)]"
+   },
+   {
+    "id": "b",
+    "text": "[('Cy',), ('Ada',)]"
+   },
+   {
+    "id": "c",
+    "text": "[('Cy',), ('Ada',), ('Ben',)]"
+   },
+   {
+    "id": "d",
+    "text": "['Cy', 'Ada']"
+   }
+  ],
+  "answer": "b",
+  "explanation": "fetchall() gives every matching row as a list of tuples, even when each row has one column.",
+  "why": {
+   "a": "Wrong. ORDER BY score DESC puts 82 before 70.",
+   "b": "Correct. Only scores above 60 match, ordered highest first, and each row comes back as a one-item tuple.",
+   "c": "Wrong. Ben's 55 fails the WHERE.",
+   "d": "Wrong. fetchall() returns a list of TUPLES."
+  }
+ },
+ {
+  "id": "csc-l35-02",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "aggregate functions",
+  "prompt": "The same table. What does this print?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"SELECT COUNT(*), MAX(score), AVG(score) FROM t\")\nprint(cur.fetchone())",
+  "options": [
+   {
+    "id": "a",
+    "text": "3 82.0 69.0"
+   },
+   {
+    "id": "b",
+    "text": "(3, 82, 69)"
+   },
+   {
+    "id": "c",
+    "text": "[(3, 82.0, 69.0)]"
+   },
+   {
+    "id": "d",
+    "text": "(3, 82.0, 69.0)"
+   }
+  ],
+  "answer": "d",
+  "explanation": "COUNT(*), MAX() and AVG() in one query return a single row, collected with fetchone().",
+  "why": {
+   "a": "Wrong. The row is printed as a tuple.",
+   "b": "Wrong. score is REAL, so MAX and AVG are floats.",
+   "c": "Wrong. fetchone() gives one row, not a list.",
+   "d": "Correct. The three functions come back as ONE row, a tuple, and the REAL column gives floats."
+  }
+ },
+ {
+  "id": "csc-l35-03",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "UPDATE with no WHERE",
+  "prompt": "The same table. What does this print?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"UPDATE t SET score = 50\")\ncur.execute(\"SELECT score FROM t\")\nprint(cur.fetchall())",
+  "options": [
+   {
+    "id": "a",
+    "text": "[(50.0,), (50.0,), (50.0,)]"
+   },
+   {
+    "id": "b",
+    "text": "[(70.0,), (55.0,), (82.0,)]"
+   },
+   {
+    "id": "c",
+    "text": "[(50.0,), (55.0,), (82.0,)]"
+   },
+   {
+    "id": "d",
+    "text": "[(50.0,)]"
+   }
+  ],
+  "answer": "a",
+  "explanation": "WHERE or everywhere: UPDATE and DELETE without WHERE apply to every row.",
+  "why": {
+   "a": "Correct. With no WHERE, UPDATE changes every row in the table.",
+   "b": "Wrong. The UPDATE ran and changed the scores.",
+   "c": "Wrong. Nothing limits the UPDATE to the first row.",
+   "d": "Wrong. All three rows are still there, all changed."
+  }
+ },
+ {
+  "id": "csc-l35-04",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "numbers"
+  ],
+  "topic": "DELETE with WHERE",
+  "prompt": "The same table. What does this print?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"DELETE FROM t WHERE score < ?\", (60,))\ncur.execute(\"SELECT COUNT(*) FROM t\")\nprint(cur.fetchone()[0])",
+  "options": [
+   {
+    "id": "a",
+    "text": "1"
+   },
+   {
+    "id": "b",
+    "text": "3"
+   },
+   {
+    "id": "c",
+    "text": "0"
+   },
+   {
+    "id": "d",
+    "text": "2"
+   }
+  ],
+  "answer": "d",
+  "explanation": "DELETE FROM t WHERE ... removes only the matching rows.",
+  "why": {
+   "a": "Wrong. Ada and Cy both stay.",
+   "b": "Wrong. The DELETE removed Ben.",
+   "c": "Wrong. WHERE limits the DELETE to matching rows.",
+   "d": "Correct. Only Ben's row has a score below 60, so one row goes and two remain."
+  }
+ },
+ {
+  "id": "csc-l35-05",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "fetchone when nothing matches",
+  "prompt": "The same table. What does this print?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"SELECT name FROM t WHERE score > 100\")\nprint(cur.fetchone())",
+  "options": [
+   {
+    "id": "a",
+    "text": "()"
+   },
+   {
+    "id": "b",
+    "text": "[]"
+   },
+   {
+    "id": "c",
+    "text": "None"
+   },
+   {
+    "id": "d",
+    "text": "an error"
+   }
+  ],
+  "answer": "c",
+  "explanation": "fetchone() gives the next row as a tuple, or None when the rows run out.",
+  "why": {
+   "a": "Wrong. It returns None, not an empty tuple.",
+   "b": "Wrong. That is what fetchall() returns for no rows.",
+   "c": "Correct. fetchone() returns None when there is no row to give.",
+   "d": "Wrong. An empty result is not an error."
+  }
+ },
+ {
+  "id": "csc-l35-06",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "names"
+  ],
+  "topic": "the one-item tuple",
+  "prompt": "What happens when this runs?",
+  "code": "import sqlite3\nconn = sqlite3.connect(\":memory:\")\ncur = conn.cursor()\ncur.execute(\"CREATE TABLE t (name TEXT, score REAL)\")\ncur.executemany(\"INSERT INTO t VALUES (?, ?)\", [(\"Ada\", 70), (\"Ben\", 55), (\"Cy\", 82)])\nconn.commit()\n\ncur.execute(\"SELECT * FROM t WHERE name = ?\", (\"Ada\"))\nprint(cur.fetchone())",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints every row"
+   },
+   {
+    "id": "b",
+    "text": "It prints Ada's row"
+   },
+   {
+    "id": "c",
+    "text": "An error, because (\"Ada\") is only a string; the placeholder needs the tuple (\"Ada\",)"
+   },
+   {
+    "id": "d",
+    "text": "It prints None"
+   }
+  ],
+  "answer": "c",
+  "explanation": "(\"SS2\") is a string; (\"SS2\",) is a tuple, and the placeholder needs the tuple.",
+  "why": {
+   "a": "Wrong. The query fails.",
+   "b": "Wrong. The parameters are wrong, so the query never runs.",
+   "c": "Correct. Without the comma the brackets are just grouping, so SQLite receives three characters instead of one value.",
+   "d": "Wrong. The error happens before any fetch."
+  }
+ },
+ {
+  "id": "csc-l35-07",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "SQL types",
+  "prompt": "Which SQL column type suits a score that can have a decimal part?",
+  "options": [
+   {
+    "id": "a",
+    "text": "REAL"
+   },
+   {
+    "id": "b",
+    "text": "TEXT"
+   },
+   {
+    "id": "c",
+    "text": "BLOB"
+   },
+   {
+    "id": "d",
+    "text": "INTEGER"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The four SQL types: INTEGER, TEXT, REAL, BLOB.",
+  "why": {
+   "a": "Correct. REAL is SQL's floating point type.",
+   "b": "Wrong. TEXT holds strings.",
+   "c": "Wrong. BLOB holds raw binary data.",
+   "d": "Wrong. INTEGER holds whole numbers only."
+  }
+ },
+ {
+  "id": "csc-l35-08",
+  "module": 5,
+  "slides": [
+   "Lesson 3.5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "IF NOT EXISTS",
+  "prompt": "Why write CREATE TABLE IF NOT EXISTS rather than plain CREATE TABLE?",
+  "options": [
+   {
+    "id": "a",
+    "text": "So the columns get types automatically"
+   },
+   {
+    "id": "b",
+    "text": "So commit() is not needed"
+   },
+   {
+    "id": "c",
+    "text": "So running the program a second time does not fail because the table is already there"
+   },
+   {
+    "id": "d",
+    "text": "So the table is emptied each time"
+   }
+  ],
+  "answer": "c",
+  "explanation": "IF NOT EXISTS makes the create safe to run again.",
+  "why": {
+   "a": "Wrong. You still write the column types.",
+   "b": "Wrong. commit() is still needed to keep inserted rows.",
+   "c": "Correct. Without it, the second run fails, and the paper asks for tables created 'if they do not already exist'.",
+   "d": "Wrong. It does not empty anything."
+  }
+ },
+ {
+  "id": "csc-l36-01",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "geometry managers",
+  "prompt": "You are laying out a form of labels beside entry boxes. Which geometry manager suits it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "place(), because it uses exact pixels"
+   },
+   {
+    "id": "b",
+    "text": "grid(), because a form is rows and columns"
+   },
+   {
+    "id": "c",
+    "text": "pack(), because it stacks widgets"
+   },
+   {
+    "id": "d",
+    "text": "mainloop()"
+   }
+  ],
+  "answer": "b",
+  "explanation": "pack stacks, grid uses rows and columns, place uses exact x and y.",
+  "why": {
+   "a": "Wrong. place works, but fixing every pixel is fragile.",
+   "b": "Correct. grid places widgets by row and column numbers, which is what a form is.",
+   "c": "Wrong. pack stacks widgets in the order added; it does not line up columns.",
+   "d": "Wrong. mainloop starts the event loop; it does not arrange anything."
+  }
+ },
+ {
+  "id": "csc-l36-02",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "geometry managers",
+  "prompt": "Which geometry manager positions a widget at exact x and y coordinates?",
+  "options": [
+   {
+    "id": "a",
+    "text": "grid()"
+   },
+   {
+    "id": "b",
+    "text": "pack()"
+   },
+   {
+    "id": "c",
+    "text": "place()"
+   },
+   {
+    "id": "d",
+    "text": "config()"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The three geometry managers: pack, grid and place.",
+  "why": {
+   "a": "Wrong. grid uses rows and columns.",
+   "b": "Wrong. pack stacks widgets.",
+   "c": "Correct. place uses exact pixel coordinates.",
+   "d": "Wrong. config changes a widget's settings."
+  }
+ },
+ {
+  "id": "csc-l36-03",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "widgets",
+  "prompt": "Which widget gives the user a MULTI-line area to type in?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Button"
+   },
+   {
+    "id": "b",
+    "text": "Label"
+   },
+   {
+    "id": "c",
+    "text": "Text"
+   },
+   {
+    "id": "d",
+    "text": "Entry"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Entry for one line, Text for several, Label to show, Button to click.",
+  "why": {
+   "a": "Wrong. A Button is clicked, not typed in.",
+   "b": "Wrong. A Label displays text the user cannot edit.",
+   "c": "Correct. Text is a multi line typing area.",
+   "d": "Wrong. Entry takes a single line."
+  }
+ },
+ {
+  "id": "csc-l36-04",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "widgets",
+  "prompt": "What is a Frame used for?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Starting the event loop"
+   },
+   {
+    "id": "b",
+    "text": "Reading typed text"
+   },
+   {
+    "id": "c",
+    "text": "Grouping other widgets together as a container"
+   },
+   {
+    "id": "d",
+    "text": "Showing a picture only"
+   }
+  ],
+  "answer": "c",
+  "explanation": "Frame groups; Label shows; Entry and Text take typing; Button clicks.",
+  "why": {
+   "a": "Wrong. That is mainloop().",
+   "b": "Wrong. That is entry.get().",
+   "c": "Correct. A Frame is a container that groups other widgets.",
+   "d": "Wrong. Not its purpose in the course."
+  }
+ },
+ {
+  "id": "csc-l36-05",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "the two rules",
+  "prompt": "What does the course warn happens if you mix pack() and grid() in the same container?",
+  "options": [
+   {
+    "id": "a",
+    "text": "The window closes immediately"
+   },
+   {
+    "id": "b",
+    "text": "The widgets are drawn twice"
+   },
+   {
+    "id": "c",
+    "text": "Nothing; they combine neatly"
+   },
+   {
+    "id": "d",
+    "text": "The program can freeze"
+   }
+  ],
+  "answer": "d",
+  "explanation": "Two rules: no mainloop, no window; and never mix pack with grid inside the same container.",
+  "why": {
+   "a": "Wrong. That is what happens without mainloop().",
+   "b": "Wrong. Not what the course says.",
+   "c": "Wrong. That is exactly what the rule forbids.",
+   "d": "Correct. The rule is never to mix pack and grid in one container."
+  }
+ },
+ {
+  "id": "csc-l36-06",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "multi",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "geometry managers",
+  "prompt": "Which two of these are tkinter geometry managers?",
+  "options": [
+   {
+    "id": "a",
+    "text": "pack()"
+   },
+   {
+    "id": "b",
+    "text": "grid()"
+   },
+   {
+    "id": "c",
+    "text": "mainloop()"
+   },
+   {
+    "id": "d",
+    "text": "Entry()"
+   }
+  ],
+  "answer": [
+   "a",
+   "b"
+  ],
+  "explanation": "pack, grid and place arrange widgets; mainloop keeps the window alive.",
+  "why": {
+   "a": "Correct. pack is a geometry manager.",
+   "b": "Correct. grid is a geometry manager.",
+   "c": "Wrong. mainloop starts the event loop.",
+   "d": "Wrong. Entry is a widget."
+  }
+ },
+ {
+  "id": "csc-l36-07",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "reading an entry",
+  "prompt": "How does a program read what the user typed into an Entry called entry?",
+  "options": [
+   {
+    "id": "a",
+    "text": "entry.mainloop()"
+   },
+   {
+    "id": "b",
+    "text": "entry.get()"
+   },
+   {
+    "id": "c",
+    "text": "entry.read()"
+   },
+   {
+    "id": "d",
+    "text": "input(entry)"
+   }
+  ],
+  "answer": "b",
+  "explanation": "entry.get() reads what the user typed.",
+  "why": {
+   "a": "Wrong. mainloop belongs to the window.",
+   "b": "Correct. get() returns the typed text.",
+   "c": "Wrong. read() is for files.",
+   "d": "Wrong. input() reads the text console, not a widget."
+  }
+ },
+ {
+  "id": "csc-l36-08",
+  "module": 5,
+  "slides": [
+   "Lesson 3.6"
+  ],
+  "style": "tf",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "mainloop",
+  "prompt": "True or false: without window.mainloop(), the window appears and vanishes at once.",
+  "answer": "true",
+  "explanation": "No loop, no window: mainloop starts the event loop that waits for clicks and typing.",
+  "why": {
+   "true": "Correct. The program reaches its end and exits, taking the window with it.",
+   "false": "Wrong. mainloop is what keeps the window alive and waiting for the user."
+  }
+ }
+]
