@@ -3454,6 +3454,350 @@
     ]
   },
   {
+    "slug": "mock-1",
+    "part": "Mock papers",
+    "kick": "Mock paper",
+    "title": "Mock Paper One",
+    "lead": "A full practice paper in the shape of the real one, written from the course and not from a past paper. Sit it in your book against the clock, one question at a time, and only then open each model answer and mark yourself honestly.",
+    "minutes": 60,
+    "modules": [],
+    "blocks": [
+      {
+        "kind": "heading",
+        "text": "Question One"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Compulsory · 30 marks",
+        "html": "<p><b>(a)</b> (i) Differentiate computer architecture from computer organization. (2)\n(ii) Compare the Von Neumann and Harvard architectures, with a diagram for each. (3)</p>\n<p><b>(b)</b> A processor runs 2 million instructions with this mix and cycle cost:\nALU 45% at 1 cycle, Load 25% at 4 cycles, Store 15% at 2 cycles, Branch 15% at 3 cycles.\n(i) Find the average CPI. (ii) Find the total clock cycles. (iii) If Load is optimised to\n2 cycles, find the new CPI. (iv) Find the percentage performance improvement. (6)</p>\n<p><b>(c)</b> Using a <b>12-bit</b> register, represent <b>150</b> and <b>&#8722;95</b> in\nunsigned, sign-magnitude, one's complement and two's complement. (6)</p>\n<p><b>(d)</b> (i) Represent <b>39.5</b> in IEEE-754 single precision, giving the hex.\n(ii) Find the decimal value of <b>42480000H</b> under IEEE-754. (9)</p>\n<p><b>(e)</b> A 32-bit machine has a direct-mapped cache of 1024 lines with 32-byte\nblocks. Give the number of tag, index and offset bits. (4)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question One",
+        "problem": "<p>Write your full answer to <b>Question One</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question One</div><p class=\"marks\">(a) Architecture vs organization; Von Neumann vs Harvard (see M1 U1)</p>\n<p>Architecture is the programmer-visible design (instruction set, registers, addressing\nmodes): what the machine does. Organization is how that is built in hardware (control\nsignals, buses, memory technology): how it does it. Von Neumann uses one memory and one\nbus for instructions and data (simple, but the bus is a bottleneck); Harvard uses\nseparate memories and buses (simultaneous access, faster, costlier). Draw both diagrams.</p>\n<p class=\"marks\">(b) CPI (see M2 U2)</p>\n<p>(i) CPI = 0.45(1) + 0.25(4) + 0.15(2) + 0.15(3) = 0.45 + 1.00 + 0.30 + 0.45 =\n<b>2.20</b>. (ii) Total cycles = 2 000 000 &#215; 2.20 = <b>4 400 000</b>. (iii) With Load\nat 2 cycles: CPI = 0.45 + 0.25(2) + 0.30 + 0.45 = <b>1.70</b>. (iv) Improvement =\n(2.20 &#8722; 1.70) / 2.20 = <b>22.73%</b>.</p>\n<p class=\"marks\">(c) 12-bit representations (see M1 U2)</p>\n<p>150 = 0000 1001 0110 (positive, so identical in all four schemes). For &#8722;95:\n+95 = 0000 0101 1111.</p>\n<table class=\"data\">\n<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>\n<tr><td>150</td><td>0000 1001 0110</td><td>0000 1001 0110</td><td>0000 1001 0110</td><td>0000 1001 0110</td></tr>\n<tr><td>&#8722;95</td><td>not representable</td><td>1000 0101 1111</td><td>1111 1010 0000</td><td>1111 1010 0001</td></tr>\n</table>\n<p class=\"marks\">(d) IEEE-754 (see M1 U3)</p>\n<p>(i) 39.5 = 100111.1 = 1.001111 &#215; 2<sup>5</sup>. Exponent 5 + 127 = 132 =\n1000 0100. Sign 0. Mantissa 001111 padded to 23 bits. Word = 0 10000100\n00111100000000000000000 = <b>421E0000H</b>. (ii) 42480000H = 0100 0010 0100 1000&#8230;:\nsign 0, exponent 1000 0100 = 132 so e = 5, mantissa 1001&#8230;, value = 1.1001 &#215;\n2<sup>5</sup> = 110010 = <b>50.0</b>.</p>\n<p class=\"marks\">(e) Cache fields (see M3 U3)</p>\n<p>Offset = log<sub>2</sub>32 = 5 bits; index = log<sub>2</sub>1024 = 10 bits; tag =\n32 &#8722; 10 &#8722; 5 = <b>17 bits</b>.</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Two"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> A 5-stage pipeline has stage times 20, 15, 25, 20 and 10 ns with a 5 ns\nlatch delay. For 1000 tasks find (i) the cycle time, (ii) the non-pipeline time for one\ntask, (iii) the pipeline time for 1000 tasks, (iv) the sequential time for 1000 tasks,\n(v) the speedup. (10)</p>\n<p><b>(b)</b> Explain the three kinds of pipeline hazard, and say how forwarding and a\nsingle stall handle a load-use data hazard. (6)</p>\n<p><b>(c)</b> Why is the speedup of a real pipeline always less than the number of\nstages? (4)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Two",
+        "problem": "<p>Write your full answer to <b>Question Two</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Two</div><p class=\"marks\">(a) Pipeline timing (see M2 U3)</p>\n<p>(i) Cycle time = slowest stage + latch = 25 + 5 = <b>30 ns</b>. (ii) Non-pipeline one\ntask = 20 + 15 + 25 + 20 + 10 = <b>90 ns</b>. (iii) Pipeline for 1000 tasks =\n(5 + 999) &#215; 30 = 1004 &#215; 30 = <b>30 120 ns</b>. (iv) Sequential for 1000 =\n1000 &#215; 90 = <b>90 000 ns</b>. (v) Speedup = 90 000 / 30 120 = <b>2.99</b>.</p>\n<p class=\"marks\">(b) Hazards (see M2 U3, M4 U2)</p>\n<p>Structural (two instructions need the same hardware: duplicate it), data (a value is\nneeded before it is written back: use forwarding, and one stall for a load-use case),\ncontrol (a branch changes the next instruction: resolve early or flush). Forwarding feeds\na result straight from where it is produced; a load value is not ready until the memory\nstage, so the very next instruction still needs one stall.</p>\n<p class=\"marks\">(c) Why speedup &lt; stages</p>\n<p>The pipeline must first fill (the first task still takes k cycles), and hazards insert\nstalls, so the ideal ceiling of k is never quite reached, especially for few tasks.</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Three"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> A system has 256 MB main memory, a 64 KB cache with 32-byte blocks, using\n4-way set associative mapping. Find (i) the number of cache blocks, (ii) the number of\nsets, (iii) the tag, set and offset field widths. (8)</p>\n<p><b>(b)</b> The cache hit ratio is 90%, cache access is 3 ns and main memory is 60 ns.\nFind the average memory access time for simultaneous and for hierarchical organisation. (6)</p>\n<p><b>(c)</b> Explain locality of reference, distinguishing temporal from spatial\nlocality, and say how each shapes cache design. (6)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Three",
+        "problem": "<p>Write your full answer to <b>Question Three</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Three</div><p class=\"marks\">(a) Cache configuration (see M3 U3)</p>\n<p>(i) Blocks = cache / block = 64 KB / 32 B = 2<sup>16</sup> / 2<sup>5</sup> =\n<b>2048 blocks</b>. (ii) Sets = 2048 / 4 = <b>512 sets</b>. (iii) Address = 256 MB =\n2<sup>28</sup>, so 28 bits. Offset = log<sub>2</sub>32 = 5, set = log<sub>2</sub>512 = 9,\ntag = 28 &#8722; 9 &#8722; 5 = <b>14 bits</b>. Format: tag 14, set 9, offset 5.</p>\n<p class=\"marks\">(b) AMAT (see M3 U3)</p>\n<p>Simultaneous = 0.9(3) + 0.1(60) = 2.7 + 6 = <b>8.7 ns</b>. Hierarchical =\n3 + 0.1(60) = 3 + 6 = <b>9.0 ns</b>.</p>\n<p class=\"marks\">(c) Locality (see M3 U1)</p>\n<p>Locality of reference is the clustering of accesses in a small region over any short\ntime. Temporal: a location used now is likely used again soon (so cache keeps recently\nused data). Spatial: nearby locations are likely used soon (so cache fetches whole blocks\nof neighbours).</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Four"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> Write <b>Y = (A + B) &#215; (C &#8722; D)</b> in the 3-address, 2-address,\n1-address and 0-address instruction formats. (10)</p>\n<p><b>(b)</b> Given PC = 4000, R1 = 2500, an address field of 3200, and memory where\nM[1500] = 700, M[2500] = 900, M[3200] = 1500 and M[7200] = 350, give the effective\naddress and operand for direct, indirect, register-indirect (R1) and relative\naddressing. (6)</p>\n<p><b>(c)</b> State four differences between RISC and CISC, with one example processor of\neach. (4)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Four",
+        "problem": "<p>Write your full answer to <b>Question Four</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Four</div><p class=\"marks\">(a) Y = (A + B) &#215; (C &#8722; D) in four formats (see M1 U4)</p>\n<table class=\"data\">\n<tr><th>3-address</th><th>2-address</th><th>1-address</th><th>0-address</th></tr>\n<tr>\n<td>ADD T1,A,B<br>SUB T2,C,D<br>MUL Y,T1,T2</td>\n<td>MOV T1,A<br>ADD T1,B<br>MOV T2,C<br>SUB T2,D<br>MUL T1,T2<br>MOV Y,T1</td>\n<td>LOAD A<br>ADD B<br>STORE T1<br>LOAD C<br>SUB D<br>MUL T1<br>STORE Y</td>\n<td>PUSH A<br>PUSH B<br>ADD<br>PUSH C<br>PUSH D<br>SUB<br>MUL<br>POP Y</td>\n</tr>\n</table>\n<p class=\"marks\">(b) Addressing modes (see M1 U4)</p>\n<table class=\"data\">\n<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>\n<tr><td>Direct</td><td>3200</td><td>M[3200] = 1500</td></tr>\n<tr><td>Indirect</td><td>M[3200] = 1500</td><td>M[1500] = 700</td></tr>\n<tr><td>Register-indirect (R1)</td><td>R1 = 2500</td><td>M[2500] = 900</td></tr>\n<tr><td>Relative</td><td>PC + 3200 = 7200</td><td>M[7200] = 350</td></tr>\n</table>\n<p class=\"marks\">(c) RISC vs CISC (see M4 U1)</p>\n<p>RISC: few simple fixed-length one-cycle instructions, load-store, many registers\n(example ARM or MIPS). CISC: many complex variable-length multi-cycle instructions,\ndirect memory access, fewer registers (example Intel x86 or Motorola 68000).</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Five"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> State Amdahl's law. A program has 90% of its work parallelised to run 8\ntimes faster. Find the overall speedup. (6)</p>\n<p><b>(b)</b> State four differences between DRAM and SRAM, and say which is used for\ncache and which for main memory, and why. (8)</p>\n<p><b>(c)</b> Describe the four memory access methods, with one example device each. (6)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Five",
+        "problem": "<p>Write your full answer to <b>Question Five</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Five</div><p class=\"marks\">(a) Amdahl's law (see M2 U2)</p>\n<p><b>Stating it</b> (the question says \"state\", so a formula alone does not answer it):\n<i>the gain in overall performance from improving one part of a system is limited by the\nfraction of the total time that part accounts for.</i> If a fraction f of the execution\ntime is made s times faster and the rest is unchanged, the overall speedup is\nS = 1 / ((1 &#8722; f) + f/s); and as s grows without bound S tends to 1 / (1 &#8722; f),\nwhich is the ceiling no improvement to that part can pass.</p>\n<p><b>Applying it.</b> With f = 0.90 and s = 8:\nSpeedup = 1 / (0.10 + 0.90 / 8) = 1 / (0.10 + 0.1125) = 1 / 0.2125 = <b>4.71</b>.\nSanity check against the ceiling: 1 / (1 &#8722; 0.90) = 10, and 4.71 is below it, as it\nmust be.</p>\n<p class=\"marks\">(b) DRAM vs SRAM (see M3 U2)</p>\n<p>DRAM stores a bit as capacitor charge, needs refresh, is slower, denser and cheaper,\nand is used for <b>main memory</b>. SRAM stores a bit in a transistor latch, needs no\nrefresh, is faster, less dense and dearer, and is used for <b>cache</b>. Cache needs\nspeed; main memory needs cheap capacity.</p>\n<p class=\"marks\">(c) Memory access methods (see M3 U1)</p>\n<p>Sequential (read in order, example magnetic tape), direct (jump near then search,\nexample disk), random (any location in equal time, example RAM), associative (located by\ncontent, example a cache tag store).</p></div>",
+        "answer": "",
+        "redo": ""
+      }
+    ]
+  },
+  {
+    "slug": "mock-2",
+    "part": "Mock papers",
+    "kick": "Mock paper",
+    "title": "Mock Paper Two",
+    "lead": "A full practice paper in the shape of the real one, written from the course and not from a past paper. Sit it in your book against the clock, one question at a time, and only then open each model answer and mark yourself honestly.",
+    "minutes": 60,
+    "modules": [],
+    "blocks": [
+      {
+        "kind": "heading",
+        "text": "Question One"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Compulsory · 30 marks",
+        "html": "<p><b>(a)</b> (i) State the Von Neumann concept and two of its significant aspects. (3)\n(ii) What is the Von Neumann bottleneck, and give two ways to reduce it? (2)</p>\n<p><b>(b)</b> A 16-bit two's complement processor stores 300, &#8722;200 and &#8722;5000.\n(i) Give the representable range and confirm all three fit. (ii) Represent each in binary\nand hexadecimal. (iii) Compute 300 + (&#8722;200) in two's complement. (9)</p>\n<p><b>(c)</b> (i) Represent <b>85.75</b> in IEEE-754 single precision (hex). (ii) Find the\ndecimal value of <b>C2960000H</b> under IEEE-754. (8)</p>\n<p><b>(d)</b> Write <b>Z = (A + B) &#215; (C + D) + E</b> in the 3-address and 0-address\nformats, and count the bytes of each assuming 1 byte per opcode and 2 bytes per address. (8)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question One",
+        "problem": "<p>Write your full answer to <b>Question One</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question One</div><p class=\"marks\">(a) Von Neumann (see M1 U1)</p>\n<p>(i) The Von Neumann concept: a stored-program computer keeps instructions and data in\nthe same memory and executes instructions sequentially. Two aspects: a single shared\nmemory for code and data; sequential fetch-execute of a stored program. (ii) The\nbottleneck: the single shared bus lets only instructions or data move at a time, so the\nCPU waits on memory. Reduce it with cache and with separate instruction and data caches\n(or wider buses).</p>\n<p class=\"marks\">(b) 16-bit two's complement (see M1 U2)</p>\n<p>(i) Range = &#8722;2<sup>15</sup> to +(2<sup>15</sup>&#8722;1) = &#8722;32768 to 32767;\n300, &#8722;200 and &#8722;5000 all fit.</p>\n<table class=\"data\">\n<tr><th>Value</th><th>Binary (16-bit two's complement)</th><th>Hex</th></tr>\n<tr><td>300</td><td>0000 0001 0010 1100</td><td>012C</td></tr>\n<tr><td>&#8722;200</td><td>1111 1111 0011 1000</td><td>FF38</td></tr>\n<tr><td>&#8722;5000</td><td>1110 1100 0111 1000</td><td>EC78</td></tr>\n</table>\n<p>(iii) 300 + (&#8722;200): add the patterns 012C + FF38 = 1 0064, discard the carry out\nof bit 16, leaving 0064H = <b>100</b>. Check: 300 &#8722; 200 = 100.</p>\n<p class=\"marks\">(c) IEEE-754 (see M1 U3)</p>\n<p>(i) 85.75 = 1010101.11 = 1.01010111 &#215; 2<sup>6</sup>. Exponent 6 + 127 = 133 =\n1000 0101. Mantissa 01010111 to 23 bits. Word = 0 10000101 01010111000000000000000 =\n<b>42AB8000H</b>. (ii) C2960000H: sign 1, exponent 1000 0101 = 133 so e = 6, mantissa\n0010110, value = &#8722;1.0010110 &#215; 2<sup>6</sup> = &#8722;1001011 = <b>&#8722;75.0</b>.</p>\n<p class=\"marks\">(d) Instruction formats and bytes (see M1 U4)</p>\n<p>3-address (opcode 1, three addresses 2 each = 7 bytes each):</p>\n<pre class=\"code\">ADD T1, A, B      ADD T2, C, D      MUL T1, T1, T2      ADD Z, T1, E</pre>\n<p>4 instructions &#215; 7 = <b>28 bytes</b>. 0-address (postfix A B + C D + &#215; E +):\nPUSH A, PUSH B, ADD, PUSH C, PUSH D, ADD, MUL, PUSH E, ADD, POP Z = 10 instructions =\n5 pushes &#215; 3 + 1 pop &#215; 3 + 4 ops &#215; 1 = <b>22 bytes</b>.</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Two"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> A 32-bit machine has a direct-mapped cache in which each block holds 8 words\nand there are 512 blocks. (i) Give the offset, index and tag field widths. (ii) In which\ncache block do the addresses ABCD1234H and 5678FEDCH fall? (10)</p>\n<p><b>(b)</b> Explain the three cache mapping functions (direct, fully associative, set\nassociative), with one advantage and one disadvantage of each. (10)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Two",
+        "problem": "<p>Write your full answer to <b>Question Two</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Two</div><p class=\"marks\">(a) Cache fields and block lookup (see M3 U3)</p>\n<p>(i) Offset = log<sub>2</sub>8 = 3, index = log<sub>2</sub>512 = 9, tag =\n32 &#8722; 9 &#8722; 3 = <b>20</b>. (ii) Block = (address with the low 3 offset bits\nremoved) mod 512, that is (address &#247; 8) mod 512. ABCD1234H gives block <b>70</b>;\n5678FEDCH gives block <b>475</b>.</p>\n<p class=\"marks\">(b) The three mapping functions (see M3 U3)</p>\n<p>Direct: one line per block (fast and simple, but conflict misses). Fully associative:\na block may go anywhere (no conflict misses, but every tag must be searched, costly).\nSet associative: a block maps to one set of k lines (the compromise, fewer conflicts than\ndirect at less cost than fully associative).</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Three"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> Using a <b>10-bit</b> register, complete the unsigned, sign-magnitude, one's\ncomplement and two's complement forms of <b>200</b> and <b>&#8722;75</b>. (8)</p>\n<p><b>(b)</b> Using end-around carry in one's complement, compute <b>200 &#8722; 75</b> in\na 10-bit register. (6)</p>\n<p><b>(c)</b> Find the memory needed for a black-and-white image of 8 inches by 10 inches\nat 200 dpi. Give the answer in megabytes. (6)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Three",
+        "problem": "<p>Write your full answer to <b>Question Three</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Three</div><p class=\"marks\">(a) 10-bit representations (see M1 U2)</p>\n<p>200 = 0011001000 (positive, same in all four). For &#8722;75: +75 = 0001001011.</p>\n<table class=\"data\">\n<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>\n<tr><td>200</td><td>0011001000</td><td>0011001000</td><td>0011001000</td><td>0011001000</td></tr>\n<tr><td>&#8722;75</td><td>not representable</td><td>1001001011</td><td>1110110100</td><td>1110110101</td></tr>\n</table>\n<p class=\"marks\">(b) End-around carry (see M1 U2)</p>\n<p>200 &#8722; 75 = 200 + (&#8722;75). 200 = 0011001000; &#8722;75 in one's complement =\n1110110100. Add: 0011001000 + 1110110100 = 1 0001111100, a carry out of bit 10. End-around:\ndrop it and add 1 to the low bit: 0001111100 + 1 = 0001111101 = <b>125</b>. Check:\n200 &#8722; 75 = 125.</p>\n<p class=\"marks\">(c) Image memory (see M1 U2)</p>\n<p>Pixels = (8 &#215; 200) &#215; (10 &#215; 200) = 1600 &#215; 2000 = 3 200 000. At 1 bit\nper pixel that is 3 200 000 bits = 400 000 bytes = 400 000 / 1 048 576 = <b>0.381 MB</b>\n(about 0.38 MB).</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Four"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> Find the decimal value of <b>43A00000H</b> under IEEE-754 single\nprecision. (6)</p>\n<p><b>(b)</b> Name the three categories of instructions, with two examples of each. (6)</p>\n<p><b>(c)</b> Describe the immediate, direct, indirect and register-indirect addressing\nmodes, saying where the operand is in each. (8)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Four",
+        "problem": "<p>Write your full answer to <b>Question Four</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Four</div><p class=\"marks\">(a) IEEE-754 reverse (see M1 U3)</p>\n<p>43A00000H = 0100 0011 1010 0000&#8230;: sign 0, exponent 1000 0111 = 135 so e = 8,\nmantissa 0100000. Value = 1.0100000 &#215; 2<sup>8</sup> = 101000000 = <b>320.0</b>.</p>\n<p class=\"marks\">(b) Instruction categories (see M1 U4)</p>\n<p>Data transfer (LOAD, STORE, MOVE, PUSH, POP), arithmetic and logic (ADD, SUB, MUL, AND,\nOR), control or test-and-branch (JUMP, BEQ, CALL, RETURN).</p>\n<p class=\"marks\">(c) Addressing modes (see M1 U4)</p>\n<p>Immediate: the operand is the address field itself (a constant). Direct: the operand is\nM[address field]. Indirect: the field points to a location that holds the address, so the\noperand is M[M[address field]]. Register-indirect: a register holds the address, so the\noperand is M[register].</p></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Five"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "20 marks",
+        "html": "<p><b>(a)</b> A 4-stage pipeline has stage times 40, 30, 50 and 35 ns with a 5 ns latch.\nFor 200 tasks, find the cycle time, the pipeline time, the sequential time and the\nspeedup. (8)</p>\n<p><b>(b)</b> Draw and describe the memory hierarchy, from registers to secondary storage,\nsaying how speed, size and cost change down it. (6)</p>\n<p><b>(c)</b> A cache has an 85% hit ratio, 4 ns cache access and 70 ns main memory\naccess. Find the average memory access time for a hierarchical organisation. (6)</p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Five",
+        "problem": "<p>Write your full answer to <b>Question Five</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Five</div><p class=\"marks\">(a) Pipeline timing (see M2 U3)</p>\n<p>Cycle time = slowest stage + latch = 50 + 5 = <b>55 ns</b>. Pipeline time for 200 tasks\n= (4 + 199) &#215; 55 = 203 &#215; 55 = <b>11 165 ns</b>. Sequential time =\n200 &#215; (40 + 30 + 50 + 35) = 200 &#215; 155 = <b>31 000 ns</b>. Speedup =\n31 000 / 11 165 = <b>2.78</b>.</p>\n<p class=\"marks\">(b) Memory hierarchy (see M3 U1)</p>\n<p>Registers, then cache (L1, L2, L3), then main memory (RAM), then secondary storage\n(disk, SSD), then tertiary (tape). Going down: bigger, slower and cheaper per byte. Going\nup: smaller, faster and dearer.</p>\n<p class=\"marks\">(c) AMAT (see M3 U3)</p>\n<p>Hierarchical: AMAT = T<sub>cache</sub> + (1 &#8722; h) &#215; T<sub>memory</sub> =\n4 + 0.15 &#215; 70 = 4 + 10.5 = <b>14.5 ns</b>.</p></div>",
+        "answer": "",
+        "redo": ""
+      }
+    ]
+  },
+  {
+    "slug": "mock-3",
+    "part": "Mock papers",
+    "kick": "Mock paper",
+    "title": "Mock Paper Three",
+    "lead": "A full practice paper in the shape of the real one, written from the course and not from a past paper. Sit it in your book against the clock, one question at a time, and only then open each model answer and mark yourself honestly.",
+    "minutes": 60,
+    "modules": [],
+    "blocks": [
+      {
+        "kind": "heading",
+        "text": "Question One"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Question One (compulsory, 30 marks)",
+        "html": "<p><b>(a)</b> Differentiate between computer architecture and computer organization, and\ngive one example that shows the difference. <b>(2 marks)</b></p>\n<p><b>(b)</b> Using <b>11 bits</b>, represent <b>178</b> and <b>&#8722;92</b> in unsigned,\nsign-magnitude, one's complement and two's complement. State the range of 11-bit two's\ncomplement and say whether both values fit. <b>(6 marks)</b></p>\n<p><b>(c)</b> Represent <b>92.375</b> in IEEE-754 single precision. Give the answer in\nbinary and in hexadecimal. <b>(5 marks)</b></p>\n<p><b>(d)</b> A processor executes <b>2 500 000</b> instructions with the mix below.\nFind (i) the average CPI, (ii) the total clock cycles, (iii) the new average CPI if the\n4-cycle class is optimised to 2 cycles, and (iv) the percentage improvement.\n<b>(6 marks)</b></p>\n<table class=\"data\">\n<tr><th>Class</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>\n<tr><th>Share</th><td>35%</td><td>25%</td><td>20%</td><td>12%</td><td>8%</td></tr>\n<tr><th>Cycles</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>\n</table>\n<p><b>(e)</b> A machine has <b>24-bit</b> addresses, a block size of <b>32 bytes</b> and a\ndirect-mapped cache of <b>512 lines</b>. Give the address format, then state the cache\nline each of these addresses maps to: <b>A5C3E7</b>, <b>7F0044</b>, <b>C0FFEE</b>.\n<b>(6 marks)</b></p>\n<p><b>(f)</b> Given PC = 4000, R2 = 2600, address field = 900, and the memory table below,\nfind the effective address and the operand under immediate, direct, indirect, register\nindirect (R2) and relative addressing. <b>(5 marks)</b></p>\n<table class=\"data\">\n<tr><th>Address</th><td>900</td><td>2600</td><td>3100</td><td>4900</td><td>4000</td></tr>\n<tr><th>Value</th><td>3100</td><td>4900</td><td>750</td><td>88</td><td>900</td></tr>\n</table>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question One",
+        "problem": "<p>Write your full answer to <b>Question One</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question One</div><p class=\"marks\">(a) Architecture versus organization (2 marks) &nbsp;[M1 U1]</p>\n<p>Architecture is the set of attributes visible to the programmer (instruction set,\nregisters, addressing modes): <b>what</b> the machine does. Organization is how those are\nrealised in hardware (control signals, buses, memory technology): <b>how</b> it does it.\nExample: the architecture says a MULTIPLY instruction exists; the organization decides\nwhether a dedicated multiplier or repeated addition carries it out.</p>\n\n<p class=\"marks\">(b) 178 and &#8722;92 in 11 bits (6 marks) &nbsp;[M1 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> values 178 and &#8722;92 &middot; n = 11\nbits &middot; four schemes</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> each value in each scheme, plus the\ntwo's complement range</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> sign-magnitude = sign bit + magnitude\n&middot; one's complement = invert all n bits &middot; two's complement = invert then add\n1 &middot; range = &#8722;2<sup>n&#8722;1</sup> to +(2<sup>n&#8722;1</sup>&#8722;1)</div>\n</div>\n<ol class=\"steps\">\n<li>178 = 128+32+16+2, so in 11 bits 178 = 000 1011 0010. Positive, so identical in all\nfour schemes.</li>\n<li>For &#8722;92, first write +92 = 64+16+8+4 = 000 0101 1100.</li>\n<li>Sign-magnitude: set the sign bit, keep the magnitude: 100 0101 1100.</li>\n<li>One's complement: invert all 11 bits of +92: 111 1010 0011.</li>\n<li>Two's complement: add 1 to that: 111 1010 0100.</li>\n</ol>\n<table class=\"data\">\n<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>\n<tr><td>178</td><td>000 1011 0010</td><td>000 1011 0010</td><td>000 1011 0010</td><td>000 1011 0010</td></tr>\n<tr><td>&#8722;92</td><td>not representable</td><td>100 0101 1100</td><td>111 1010 0011</td><td>111 1010 0100</td></tr>\n</table>\n<div class=\"answerbox\">11-bit two's complement range = &#8722;2<sup>10</sup> to\n+(2<sup>10</sup>&#8722;1) = <b>&#8722;1024 to 1023</b>. Both 178 and &#8722;92 fall well\ninside it, so both are representable.</div>\n\n<p class=\"marks\">(c) 92.375 in IEEE-754 single precision (5 marks) &nbsp;[M1 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> value = 92.375 &middot; IEEE-754 single\nprecision &middot; bias 127</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the 32-bit pattern, in binary and hex</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> normalise to 1.<i>m</i> &#215;\n2<sup>e</sup>, then E = e + 127</div>\n</div>\n<ol class=\"steps\">\n<li>Sign: positive, so <b>0</b>.</li>\n<li>Binary: 92 = 1011100 and 0.375 = 0.011, so 92.375 = 1011100.011.</li>\n<li>Normalise: move the point 6 places left, 1.011100011 &#215; 2<sup>6</sup>, so e = 6.\n<span class=\"note\">This one terminates, so it is exact.</span></li>\n<li>Exponent field: 6 + 127 = 133 = 1000 0101.</li>\n<li>Mantissa: 011100011 padded to 23 bits = 0111 0001 1000 0000 0000 000.</li>\n</ol>\n<div class=\"answerbox\">92.375 = <b>0 10000101 01110001100000000000000</b>\n= 0100 0010 1011 1000 1100 0000 0000 0000 = <b>42B8C000H</b>. Converting back gives\n92.375 exactly, which is the check to write down.</div>\n\n<p class=\"marks\">(d) CPI over 2 500 000 instructions (6 marks) &nbsp;[M2 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> IC = 2 500 000 &middot; A 35% at 1,\nB 25% at 2, C 20% at 3, D 12% at 4, E 8% at 5 &middot; for (iii), class D falls to 2\ncycles</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> average CPI, total cycles, new CPI,\npercentage improvement</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> CPI = &#931;(fraction<sub>i</sub>\n&#215; CPI<sub>i</sub>) &middot; cycles = IC &#215; CPI &middot; improvement = (old\n&#8722; new)/old</div>\n</div>\n<ol class=\"steps\">\n<li>CPI = 0.35(1) + 0.25(2) + 0.20(3) + 0.12(4) + 0.08(5)\n= 0.35 + 0.50 + 0.60 + 0.48 + 0.40 = <b>2.33</b>.</li>\n<li>Total cycles = 2 500 000 &#215; 2.33 = <b>5 825 000</b>.</li>\n<li>Class D from 4 to 2 cycles: CPI = 2.33 &#8722; 0.12(4) + 0.12(2)\n= 2.33 &#8722; 0.48 + 0.24 = <b>2.09</b>.</li>\n<li>Improvement = (2.33 &#8722; 2.09) / 2.33 = 0.24 / 2.33 = <b>10.30%</b>.</li>\n</ol>\n<div class=\"answerbox\">CPI 2.33; 5 825 000 cycles; new CPI 2.09; improvement 10.30%.\nNote the improvement is measured against the <b>old</b> CPI.</div>\n\n<p class=\"marks\">(e) 24-bit address, 32-byte block, 512-line direct-mapped cache (6 marks)\n&nbsp;[M3 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> address = 24 bits &middot; block = 32\nbytes &middot; 512 lines &middot; direct mapped</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the address format and the line each\naddress maps to</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> offset = log<sub>2</sub>(block)\n&middot; index = log<sub>2</sub>(lines) &middot; tag = address &#8722; index &#8722;\noffset &middot; the index field is the line number</div>\n</div>\n<ol class=\"steps\">\n<li>Offset = log<sub>2</sub>32 = <b>5</b> bits. Index = log<sub>2</sub>512 = <b>9</b>\nbits. Tag = 24 &#8722; 9 &#8722; 5 = <b>10</b> bits.</li>\n<li>Line = (address &#247; 32) mod 512, that is shift right 5 and keep the low 9 bits.</li>\n<li>A5C3E7 = 10 863 591. Shift right 5: 339 487. mod 512 = <b>31</b>.</li>\n<li>7F0044 = 8 323 140. Shift right 5: 260 098. mod 512 = <b>2</b>.</li>\n<li>C0FFEE = 12 648 430. Shift right 5: 395 263. mod 512 = <b>511</b>.</li>\n</ol>\n<div class=\"answerbox\">Format: <b>tag 10 / line 9 / offset 5</b>. Lines: A5C3E7 &#8594;\n<b>31</b>, 7F0044 &#8594; <b>2</b>, C0FFEE &#8594; <b>511</b>.\n<span class=\"note\">Here the fields do not fall on hex-digit boundaries (9 index bits is\nnot a whole number of hex digits), so convert to decimal and divide rather than reading\ndigits off, which is the trap this part sets.</span></div>\n\n<p class=\"marks\">(f) Effective addresses (5 marks) &nbsp;[M1 U4]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> PC = 4000 &middot; R2 = 2600 &middot;\naddress field = 900 &middot; M[900] = 3100, M[2600] = 4900, M[3100] = 750, M[4900] = 88</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the effective address and operand in each\nmode</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> immediate: operand = the field\n&middot; direct: EA = field &middot; indirect: EA = M[field] &middot; register indirect:\nEA = register &middot; relative: EA = PC + field</div>\n</div>\n<table class=\"data\">\n<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>\n<tr><td>Immediate</td><td>none</td><td>900, the field itself</td></tr>\n<tr><td>Direct</td><td>900</td><td>M[900] = 3100</td></tr>\n<tr><td>Indirect</td><td>M[900] = 3100</td><td>M[3100] = 750</td></tr>\n<tr><td>Register indirect (R2)</td><td>R2 = 2600</td><td>M[2600] = 4900</td></tr>\n<tr><td>Relative</td><td>PC + 900 = 4900</td><td>M[4900] = 88</td></tr>\n</table></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Two"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Question Two (20 marks)",
+        "html": "<p><b>(a)</b> A 5-stage pipeline has stage times <b>40, 55, 45, 60 and 50 ns</b> with a\n<b>5 ns</b> latch delay. Find (i) the cycle time, (ii) the non-pipelined time for one\ntask, (iii) the ideal speedup, (iv) the pipelined and sequential times for <b>800</b>\ntasks, and (v) the steady-state throughput. <b>(10 marks)</b></p>\n<p><b>(b)</b> Name and explain the three classes of pipeline hazard, and state which one\nforwarding cannot remove. <b>(4 marks)</b></p>\n<p><b>(c)</b> A compiler optimisation speeds up <b>75%</b> of a program by a factor of\n<b>8</b>. Find the overall speedup by Amdahl's law, and explain why it is not 8.\n<b>(6 marks)</b></p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Two",
+        "problem": "<p>Write your full answer to <b>Question Two</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Two</div><p class=\"marks\">(a) Pipeline timing (10 marks) &nbsp;[M2 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> k = 5 stages &middot; stage times 40,\n55, 45, 60, 50 ns &middot; latch = 5 ns &middot; n = 800 tasks</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> cycle time, one-task non-pipelined time,\nideal speedup, 800-task pipelined and sequential times, throughput</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest stage + latch &middot;\npipelined = (k + n &#8722; 1) &#215; cycle &middot; sequential = n &#215; &#931;(stage\ntimes) &middot; speedup = sequential / pipelined &middot; throughput = 1 / cycle in the\nsteady state</div>\n</div>\n<ol class=\"steps\">\n<li>Cycle time = slowest stage + latch = 60 + 5 = <b>65 ns</b>.</li>\n<li>Non-pipelined, one task = 40+55+45+60+50 = <b>250 ns</b>.</li>\n<li>Ideal speedup = 250 / 65 = <b>3.85</b> (its ceiling is k = 5; the latch and the uneven\nstages cost the rest).</li>\n<li>800 tasks pipelined = (5 + 800 &#8722; 1) &#215; 65 = 804 &#215; 65 =\n<b>52 260 ns</b>.</li>\n<li>800 tasks sequentially = 800 &#215; 250 = <b>200 000 ns</b>, so the realised speedup\nis 200 000 / 52 260 = <b>3.83</b>.</li>\n<li>Throughput = 800 / 52 260 ns = <b>15.31 million tasks per second</b>; in the steady\nstate this is one task per cycle, 1 / 65 ns = 15.38 million per second.</li>\n</ol>\n<div class=\"answerbox\">Cycle 65 ns; one task 250 ns; ideal speedup 3.85; 800 tasks\n52 260 ns pipelined against 200 000 ns sequential, a speedup of 3.83; throughput about\n15.31 million tasks per second.</div>\n\n<p class=\"marks\">(b) The three hazards (4 marks) &nbsp;[M2 U3]</p>\n<div class=\"answerbox\"><b>Structural:</b> two instructions need the same hardware in the\nsame cycle (one memory serving a fetch and a data access); cured by duplicating the\nresource, as with separate instruction and data memories. <b>Data:</b> an instruction\nneeds a result the one ahead has not produced yet (read after write); mostly cured by\n<b>forwarding</b>. <b>Control:</b> a branch changes what runs next after the pipeline has\nalready fetched the following instructions; cured by resolving the branch early,\npredicting it, or flushing. Forwarding <b>cannot</b> remove the <b>load-use</b> data\nhazard: the loaded value is still being fetched from memory, so exactly one stall\nremains.</div>\n\n<p class=\"marks\">(c) Amdahl's law (6 marks) &nbsp;[M2 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> f = 0.75 &middot; s = 8</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the overall speedup, and why it is not 8</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> speedup = 1 / ((1 &#8722; f) + f/s)</div>\n</div>\n<ol class=\"steps\">\n<li>Untouched part: 1 &#8722; f = 0.25, still at full cost.</li>\n<li>Sped-up part: f / s = 0.75 / 8 = 0.09375.</li>\n<li>Speedup = 1 / (0.25 + 0.09375) = 1 / 0.34375 = <b>2.91</b>.</li>\n</ol>\n<div class=\"answerbox\">Overall speedup <b>2.91</b>, not 8. The 25% that was not improved\nstill takes its original time, and it alone caps the total gain at 1/0.25 = 4 even if the\nother 75% were made infinitely fast. That ceiling is the whole content of Amdahl's\nlaw.</div></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Three"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Question Three (20 marks)",
+        "html": "<p><b>(a)</b> A cache of <b>32 KB</b> with <b>64-byte</b> blocks backs a <b>16 MB</b> main\nmemory, <b>8-way</b> set associative. Find the number of lines, the number of sets, the\naddress format, and the size of the tag directory. <b>(10 marks)</b></p>\n<p><b>(b)</b> The cache has a hit ratio of <b>92%</b>, an access time of <b>3 ns</b>, and\nmain memory takes <b>70 ns</b>. Find the average memory access time under hierarchical\nand under simultaneous organisation. <b>(6 marks)</b></p>\n<p><b>(c)</b> Explain locality of reference, and distinguish temporal from spatial\nlocality with one example of each. <b>(4 marks)</b></p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Three",
+        "problem": "<p>Write your full answer to <b>Question Three</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Three</div><p class=\"marks\">(a) 8-way set-associative cache design (10 marks) &nbsp;[M3 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> cache = 32 KB &middot; block = 64 bytes\n&middot; main memory = 16 MB &middot; k = 8 ways</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> lines, sets, address format, tag directory\nsize</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> address bits =\nlog<sub>2</sub>(memory) &middot; lines = cache / block &middot; sets = lines / k &middot;\noffset = log<sub>2</sub>(block) &middot; tag = address &#8722; set &#8722; offset &middot;\ntag directory = lines &#215; tag bits</div>\n</div>\n<ol class=\"steps\">\n<li>Address: 16 MB = 2<sup>24</sup>, so <b>24-bit</b> addresses.</li>\n<li>Lines = 32 KB / 64 B = 32768 / 64 = <b>512</b>.</li>\n<li>Sets = 512 / 8 = <b>64</b>.</li>\n<li>Offset = log<sub>2</sub>64 = <b>6</b>. Set field = log<sub>2</sub>64 = <b>6</b>.\nTag = 24 &#8722; 6 &#8722; 6 = <b>12</b>.</li>\n<li>Tag directory = 512 lines &#215; 12 bits = 6144 bits = <b>768 bytes</b>.</li>\n</ol>\n<div class=\"answerbox\">512 lines in 64 sets of 8. Format <b>tag 12 / set 6 / offset 6</b>.\nTag directory <b>768 bytes</b>, which is the storage overhead the cache pays on top of its\n32 KB of data.</div>\n\n<p class=\"marks\">(b) AMAT both ways (6 marks) &nbsp;[M3 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> h = 0.92 &middot; T<sub>c</sub> = 3 ns\n&middot; T<sub>m</sub> = 70 ns</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> AMAT under hierarchical and simultaneous\norganisation</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> hierarchical = T<sub>c</sub> +\n(1&#8722;h)&#215;T<sub>m</sub> &middot; simultaneous = h&#215;T<sub>c</sub> +\n(1&#8722;h)&#215;T<sub>m</sub></div>\n</div>\n<ol class=\"steps\">\n<li>Miss ratio = 1 &#8722; 0.92 = 0.08.</li>\n<li>Hierarchical = 3 + 0.08(70) = 3 + 5.6 = <b>8.6 ns</b>.</li>\n<li>Simultaneous = 0.92(3) + 0.08(70) = 2.76 + 5.6 = <b>8.36 ns</b>.</li>\n</ol>\n<div class=\"answerbox\">Hierarchical <b>8.6 ns</b>, simultaneous <b>8.36 ns</b>. The\ndifference is only whether the cache time is paid on every access or only on hits; say\nwhich organisation you assumed and you cannot lose the mark.</div>\n\n<p class=\"marks\">(c) Locality of reference (4 marks) &nbsp;[M3 U1]</p>\n<div class=\"answerbox\">Locality of reference is the tendency of a program to concentrate\nits memory accesses in a small, predictable set of locations during any short period.\n<b>Temporal locality:</b> a location used now is likely to be used again soon, for example\na loop counter read on every iteration, which is why cache keeps recently used data.\n<b>Spatial locality:</b> locations near one just used are likely to be used soon, for\nexample successive elements of an array, which is why cache fetches a whole block of\nneighbouring words rather than a single one.</div></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Four"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Question Four (20 marks)",
+        "html": "<p><b>(a)</b> Use end-around carry in one's complement to compute <b>245 &#8722; 178</b> in\na <b>10-bit</b> register. Show every step. <b>(6 marks)</b></p>\n<p><b>(b)</b> (i) Encode <b>507</b> in Excess-3. (ii) Decode <b>0111 1001 0110</b> from\nExcess-3. (iii) State the property that makes Excess-3 self-complementing.\n<b>(4 marks)</b></p>\n<p><b>(c)</b> Write <b>Y = (P + Q) &#215; (R &#8722; S) / T</b> in the 3, 2, 1 and 0\naddress formats, and count the bytes of each, taking <b>1 byte per opcode</b> and\n<b>2 bytes per address</b>. <b>(10 marks)</b></p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Four",
+        "problem": "<p>Write your full answer to <b>Question Four</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Four</div><p class=\"marks\">(a) 245 &#8722; 178 by end-around carry (6 marks) &nbsp;[M1 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 245 &#8722; 178 &middot; n = 10 bits\n&middot; one's complement</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the difference as a pattern and in decimal</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> a &#8722; b = a + (&#8722;b) with\n&#8722;b the bitwise inversion; a carry out of the top is <b>added back</b> into the\nlowest bit</div>\n</div>\n<ol class=\"steps\">\n<li>245 in 10 bits: 245 = 128+64+32+16+4+1 = 00 1111 0101.</li>\n<li>178 in 10 bits: 178 = 128+32+16+2 = 00 1011 0010.</li>\n<li>&#8722;178 in one's complement: invert every bit: 11 0100 1101.</li>\n<li>Add: 00 1111 0101 + 11 0100 1101 = 1 00 0100 0010.\n<span class=\"note\">A 1 has carried out of the 10th bit.</span></li>\n<li>End-around carry: drop it and add it into the lowest bit:\n00 0100 0010 + 1 = 00 0100 0011.</li>\n<li>Read back: 00 0100 0011 = 64 + 2 + 1 = <b>67</b>, and 245 &#8722; 178 = 67. Correct.</li>\n</ol>\n<div class=\"answerbox\">245 &#8722; 178 = <b>00 0100 0011 = 67</b>. The signature of one's\ncomplement is that the carry never vanishes, it comes back in at the bottom.</div>\n\n<p class=\"marks\">(b) Excess-3 (4 marks) &nbsp;[M1 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> (i) 507 to encode, (ii) 0111 1001 0110\nto decode &middot; code = Excess-3, 4 bits per digit</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the code, the decimal, and the\nself-complementing property</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> encode: digit + 3 in 4 bits &middot;\ndecode: nibble value &#8722; 3</div>\n</div>\n<ol class=\"steps\">\n<li>507: 5+3 = 8 = 1000; 0+3 = 3 = 0011; 7+3 = 10 = 1010. So 507 =\n<b>1000 0011 1010</b>.</li>\n<li>Decode 0111 1001 0110: 0111 = 7, minus 3 = 4; 1001 = 9, minus 3 = 6; 0110 = 6, minus\n3 = 3. So it reads <b>463</b>.</li>\n</ol>\n<div class=\"answerbox\">507 &#8594; <b>1000 0011 1010</b>; 0111 1001 0110 &#8594;\n<b>463</b>. (iii) Excess-3 is <b>self-complementing</b>: the code of (9 &#8722; d) is the\nbit-by-bit complement of the code of d. For example 4 is 0111 and 5 is 1000, which are\nexact complements, so taking the nine's complement of a digit is just inverting its bits.\nThat is what made the code attractive for decimal subtraction hardware.</div>\n\n<p class=\"marks\">(c) Y = (P + Q) &#215; (R &#8722; S) / T in four formats (10 marks)\n&nbsp;[M1 U4]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> Y = (P + Q) &#215; (R &#8722; S) / T\n&middot; opcode = 1 byte &middot; each address = 2 bytes</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the four programs and their byte totals</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> bytes per instruction = opcode bytes +\n(address fields &#215; bytes per address); total = instruction count &#215; that</div>\n</div>\n<table class=\"data\">\n<tr><th>3-address<br>op d,s1,s2</th><th>2-address<br>op d,s</th><th>1-address<br>accumulator</th><th>0-address<br>stack</th></tr>\n<tr>\n<td>ADD T1,P,Q<br>SUB T2,R,S<br>MUL T1,T1,T2<br>DIV Y,T1,T</td>\n<td>MOV T1,P<br>ADD T1,Q<br>MOV T2,R<br>SUB T2,S<br>MUL T1,T2<br>DIV T1,T<br>MOV Y,T1</td>\n<td>LOAD P<br>ADD Q<br>STORE T1<br>LOAD R<br>SUB S<br>MUL T1<br>DIV T<br>STORE Y</td>\n<td>PUSH P<br>PUSH Q<br>ADD<br>PUSH R<br>PUSH S<br>SUB<br>MUL<br>PUSH T<br>DIV<br>POP Y</td>\n</tr>\n<tr><td>4 instructions</td><td>7 instructions</td><td>8 instructions</td><td>10 instructions</td></tr>\n</table>\n<table class=\"data\">\n<tr><th>Format</th><th>Bytes per instruction</th><th>Total</th></tr>\n<tr><td>3-address</td><td>1 + 3&#215;2 = 7</td><td>4 &#215; 7 = <b>28</b></td></tr>\n<tr><td>2-address</td><td>1 + 2&#215;2 = 5</td><td>7 &#215; 5 = <b>35</b></td></tr>\n<tr><td>1-address</td><td>1 + 1&#215;2 = 3</td><td>8 &#215; 3 = <b>24</b></td></tr>\n<tr><td>0-address</td><td>3 for PUSH/POP, 1 for an operator</td><td>5&#215;3 + 1&#215;3 + 4&#215;1 = <b>22</b></td></tr>\n</table>\n<div class=\"answerbox\">Totals: <b>28, 35, 24 and 22 bytes</b> for 3, 2, 1 and 0 address.\nThe postfix form for the stack machine is <b>P Q + R S &#8722; &#215; T /</b>. Note the\n0-address machine wins here on bytes: its five PUSHes and one POP carry addresses, but its\nfour operators carry none.</div></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "Question Five"
+      },
+      {
+        "kind": "teach",
+        "label": "Mock question",
+        "tag": "Question Five (20 marks)",
+        "html": "<p><b>(a)</b> Find the decimal value of <b>C2C60000H</b> under IEEE-754 single precision.\n<b>(6 marks)</b></p>\n<p><b>(b)</b> A computer uses <b>21 address lines</b> and a word size of <b>4 bytes</b>,\nword-addressable. Find the address space, the total memory in MB, and the width of the\nprogram counter. <b>(5 marks)</b></p>\n<p><b>(c)</b> Find the memory needed for a black-and-white image <b>8.5 by 11 inches</b>\nat <b>200 dpi</b>, in KB. <b>(4 marks)</b></p>\n<p><b>(d)</b> State four differences between RISC and CISC, and name two example\nprocessors of each. <b>(5 marks)</b></p>"
+      },
+      {
+        "kind": "worked",
+        "mode": "model",
+        "label": "Model answer",
+        "tag": "Question Five",
+        "problem": "<p>Write your full answer to <b>Question Five</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>",
+        "working": "<div class=\"mpart\"><div class=\"mlab\">Answer · Question Five</div><p class=\"marks\">(a) C2C60000H in IEEE-754 single precision (6 marks) &nbsp;[M1 U3]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> pattern = C2C60000H &middot; IEEE-754\nsingle precision &middot; bias 127</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the decimal value</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = &#177;1.M &#215;\n2<sup>(E &#8722; 127)</sup></div>\n</div>\n<ol class=\"steps\">\n<li>Expand: C2C60000 = 1100 0010 1100 0110 0000 0000 0000 0000.</li>\n<li>Split 1 / 8 / 23: sign = 1; E = 1000 0101; M = 100 0110 0000... (rest zeros).</li>\n<li>Sign 1 means negative.</li>\n<li>E = 1000 0101 = 133, so e = 133 &#8722; 127 = 6.</li>\n<li>Restore the hidden 1: 1.1000110 &#215; 2<sup>6</sup>. Move the point 6 places right:\n1100011.0.</li>\n<li>Evaluate 1100011 = 64 + 32 + 2 + 1 = 99.</li>\n</ol>\n<div class=\"answerbox\">C2C60000H = <b>&#8722;99</b>. The two marks most often dropped here\nare forgetting the hidden 1 and forgetting to subtract the bias. Do both, every time.</div>\n\n<p class=\"marks\">(b) 21 address lines, 4-byte words (5 marks) &nbsp;[M2 U1]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> k = 21 address lines &middot; word = 4\nbytes &middot; word-addressable</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> address space, total memory in MB, PC\nwidth</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> address space = 2<sup>k</sup> &middot;\ncapacity = 2<sup>k</sup> &#215; bytes per location &middot; PC width = k</div>\n</div>\n<ol class=\"steps\">\n<li>Address space = 2<sup>21</sup> = <b>2 097 152</b> locations (words).</li>\n<li>Each word is 4 bytes, so capacity = 2 097 152 &#215; 4 = 8 388 608 bytes.</li>\n<li>8 388 608 &#247; 1024 &#247; 1024 = <b>8 MB</b>.</li>\n<li>The PC must hold any address, so it is <b>21 bits</b> wide.</li>\n</ol>\n<div class=\"answerbox\">2 097 152 words, <b>8 MB</b> in total, PC <b>21 bits</b>. Because\nthe machine is word-addressable, each address names a 4-byte word, so the byte capacity is\nfour times the number of locations.</div>\n\n<p class=\"marks\">(c) Image size (4 marks) &nbsp;[M1 U2]</p>\n<div class=\"params\">\n<div class=\"prow\"><span class=\"plab\">Given</span> 8.5 in &#215; 11 in &middot; 200 dpi\n&middot; black and white, 1 bit per pixel</div>\n<div class=\"prow\"><span class=\"plab\">Find</span> the memory required, in KB</div>\n<div class=\"prow\"><span class=\"plab\">Formula</span> bits = (w&#215;dpi) &#215;\n(h&#215;dpi) &#215; bpp, then &#247;8 for bytes and &#247;1024 for KB</div>\n</div>\n<ol class=\"steps\">\n<li>Pixels across: 8.5 &#215; 200 = 1700. Pixels down: 11 &#215; 200 = 2200.</li>\n<li>Total pixels = 1700 &#215; 2200 = <b>3 740 000</b>.</li>\n<li>At 1 bit per pixel: 3 740 000 bits &#247; 8 = <b>467 500</b> bytes.</li>\n<li>467 500 &#247; 1024 = <b>456.54 KB</b>.</li>\n</ol>\n<div class=\"answerbox\">3 740 000 pixels = 467 500 bytes &#8776; <b>456.54 KB</b>. Had a\ncolour depth been given, say 24-bit, you would multiply the pixel count by 24 before\ndividing by 8.</div>\n\n<p class=\"marks\">(d) RISC versus CISC (5 marks) &nbsp;[M4 U1]</p>\n<table class=\"data\">\n<tr><th>RISC</th><th>CISC</th></tr>\n<tr><td>Few, simple, fixed-length instructions</td><td>Many, complex, variable-length instructions</td></tr>\n<tr><td>Mostly one cycle per instruction</td><td>An instruction may take many cycles</td></tr>\n<tr><td>Load/store: only those instructions touch memory</td><td>Arithmetic may act directly on memory</td></tr>\n<tr><td>Many registers, hardwired control, easy to pipeline</td><td>Fewer registers, microcoded control, harder to pipeline</td></tr>\n</table>\n<div class=\"answerbox\">Examples: RISC, <b>ARM</b> and <b>MIPS</b> (also SPARC, RISC-V).\nCISC, <b>Intel x86</b> and <b>Motorola 68000</b> (also VAX). The compiler does more work on\na RISC machine; the hardware does more on a CISC one.</div></div>",
+        "answer": "",
+        "redo": ""
+      },
+      {
+        "kind": "heading",
+        "text": "After you have marked it"
+      },
+      {
+        "kind": "recall",
+        "label": "Your turn",
+        "tag": "",
+        "question": "<p class=\"q\">In Question One (e) you could not read the cache line off\nthe hex digits, though you could in the past papers. Why, and what is the general rule?</p>",
+        "answer": "<p>Reading fields off hex digits only works when each field is a whole number of hex\ndigits, that is a multiple of <b>4 bits</b>. There the offset was 5 bits and the index 9,\nneither a multiple of 4, so the fields straddle hex-digit boundaries. The general rule:\nconvert to decimal (or to full binary) and use line = (address &#247; block size) mod\nnumber of lines. Use the hex shortcut only when the offset and index are multiples of\n4 bits, as they were with a 16-word block and 256 lines.</p>"
+      }
+    ]
+  },
+  {
     "slug": "night-before",
     "part": "Part C: prove it",
     "kick": "Prove It",

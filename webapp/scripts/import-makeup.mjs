@@ -78,6 +78,11 @@ const CONFIG = {
       ['paper-2425', 'The 2024/2025 Paper, Every Question', ['sol_2425_a.html', 'sol_2425_b.html', 'sol_2425_c.html']],
     ],
     reference: ['reference', 'The Reference Card', 'content_crash/d4_reference.html'],
+    // [slug, title, question files, answer files]: practice papers, sat in the book
+    mocks: [
+      ['mock-b', 'Mock Paper B, in the Current Shape', ['mock_b.html'], ['mock_b_sol.html']],
+      ['mock-a', 'Mock Paper A, in the Older Shape', ['mock_a.html'], ['mock_a_sol.html']],
+    ],
     // Each topic's drill sits at the end of the last lesson of that topic that
     // the dated plan actually has you read. Put it on an optional lesson and a
     // reader who is short of time loses the questions along with the lesson.
@@ -123,6 +128,11 @@ const CONFIG = {
     ],
     theory: [['paper-2526', 'The 2025/2026 Paper, Every Question', ['paper2526.html']]],
     reference: ['reference', 'The Reference Card and Cram Sheet', 'content_crash/d4_reference.html'],
+    mocks: [
+      ['mock-1', 'Mock Paper One', ['mock1.html'], ['mock1_answers.html']],
+      ['mock-2', 'Mock Paper Two', ['mock2.html'], ['mock2_answers.html']],
+      ['mock-3', 'Mock Paper Three', ['mock3.html'], ['mock3_answers.html']],
+    ],
     drillAt: { 1: 'how-python-runs', 2: 'finding-errors', 3: 'lists-tuples', 4: 'files', 5: 'databases' },
     objective: 'objective.html',
     topicOf: (title) =>
@@ -156,6 +166,29 @@ const CONFIG = {
     // Six questions a paper, answered in outline: the list points in full and
     // each diagram sketched, which is what three hours on Wednesday morning allow.
     theoryMinutes: 60,
+    mocks: [
+      ['mock-1', 'Mock Paper One', ['mock1.html'], []],
+      ['mock-2', 'Mock Paper Two', ['mock2.html'], []],
+      ['mock-3', 'Mock Paper Three', ['mock3.html'], []],
+    ],
+    // written before the format changed, like both past papers
+    mockLead:
+      'Six practice questions in the older shape of the paper. <b>Your paper is three written questions with no choice, one from each module</b>, so answer all six here: each one is practice on one module. Write or draw your answer in your book first, then open the model answer.',
+  },
+  // IFT222's lessons come from import-crash.mjs; only its three mock papers are
+  // brought in here, merged in before the last-hour sheet.
+  IFT222: {
+    dir: 'ift222',
+    folder: 'IFT222 - Computer Architecture and Organisation',
+    manual: 'build/content',
+    theoryOnly: true,
+    theory: [],
+    insertBefore: 'night-before',
+    mocks: [
+      ['mock-1', 'Mock Paper One', ['mock1.html'], ['mock1_answers.html']],
+      ['mock-2', 'Mock Paper Two', ['mock2.html'], ['mock2_answers.html']],
+      ['mock-3', 'Mock Paper Three', ['mock3.html'], ['mock3_answers.html']],
+    ],
   },
 };
 
@@ -701,6 +734,131 @@ function convertTheory(files, slug, title, part, lead) {
   return lesson;
 }
 
+const WORDS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+/** The question a label belongs to: "Question Two", "Q2 A", "Mock 1 · Q2" all give 2. */
+function questionNo(label) {
+  const w = label.match(/Question (One|Two|Three|Four|Five|Six|Seven|Eight)\b/);
+  if (w) return WORDS.indexOf(w[1]) + 1;
+  const n = label.match(/\bQ(\d+)\b/) ?? label.match(/Question (\d+)\b/);
+  return n ? Number(n[1]) : null;
+}
+
+/**
+ * A mock paper as a lesson: every question in full, then its model answer
+ * behind the button, to be sat in the reader's book first.
+ *
+ * The manuals lay mocks out three ways (one box per question with a separate
+ * answers file; one box per PART under a "Question One" heading, with a
+ * solutions file whose "Question One, worked in full" heading gathers the
+ * answer, its code, its dry run and its traps; or questions and answers in one
+ * file), but in every one a label names the question: "Question One", "Q1 A",
+ * "Mock 1 · Q1". So each box is filed under its question number and nothing
+ * depends on the order the files happen to use. A question with no answer, or
+ * an answer with no question, stops the import.
+ */
+function convertMock(qFiles, aFiles, slug, title, part, minutes, lead) {
+  const questions = new Map(); // n -> { tag, parts: [] }
+  const answers = new Map(); // n -> [html]
+  const intro = [];
+  const notes = [];
+  const addQ = (n, tag, html) => {
+    if (!questions.has(n)) questions.set(n, { tag: '', parts: [] });
+    const q = questions.get(n);
+    if (tag && !q.tag) q.tag = tag;
+    q.parts.push(html);
+  };
+  const addA = (n, html) => {
+    if (!answers.has(n)) answers.set(n, []);
+    answers.get(n).push(html);
+  };
+  const part_ = (label, tag, body) =>
+    `<div class="mpart">${label || tag ? `<div class="mlab">${[label, tag].filter(Boolean).join(' · ')}</div>` : ''}${body}</div>`;
+
+  const walk = (file, inAnswers) => {
+    const raw = readFileSync(file, 'utf8');
+    let current = null;
+    let answering = inAnswers;
+    const top = nodes(raw).flatMap((n) => (n.tag === 'section' ? nodes(n.inner) : [n]));
+    for (const n of top) {
+      if (n.tag === 'h2' && has(n, 'title')) {
+        const t = text(n.inner);
+        if (/^Answers?$/i.test(t)) answering = true;
+        const k = questionNo(t);
+        current = k ?? (answering ? current : null);
+        continue;
+      }
+      if (!has(n, 'box')) continue;
+      const kind = cls(n).replace('box', '').trim().split(/\s+/)[0];
+      const children = nodes(n.inner);
+      const { label, tag } = barOf(children);
+      // span by span: "Question One" and "17.5 marks" must not run together
+      const barNode = children.find((c) => has(c, 'bar'));
+      const rawBar = barNode
+        ? nodes(barNode.inner)
+            .filter((s) => s.tag === 'span')
+            .map((s) => text(s.inner))
+            .join(' · ')
+        : '';
+      const body = tidy(bodyOf(n)?.inner ?? '');
+      const k = questionNo(rawBar) ?? current;
+      if (kind === 'qpaper' || (kind === 'qgroup' && !answering)) {
+        if (!k) throw new Error(`${file}: a question box with no question number: ${rawBar}`);
+        if (kind === 'qpaper') addQ(k, tag, body);
+        else addQ(k, '', part_(rawBar.split(' · ')[0].replace(/\s+/g, ' '), tag, body));
+      } else if (kind === 'ans' || answering) {
+        if (!k) {
+          notes.push(convertBox(n, file));
+          continue;
+        }
+        const lbl = kind === 'ans' ? `Answer${tag ? ' · ' + tag : ''}` : label;
+        addA(k, part_(lbl, kind === 'ans' ? '' : tag, body));
+      } else {
+        (questions.size ? notes : intro).push(convertBox(n, file));
+      }
+    }
+  };
+  for (const f of qFiles) walk(f, false);
+  for (const f of aFiles) walk(f, true);
+
+  const nums = [...questions.keys()].sort((a, b) => a - b);
+  const orphans = [...answers.keys()].filter((k) => !questions.has(k));
+  const unanswered = nums.filter((k) => !answers.has(k));
+  if (orphans.length || unanswered.length)
+    throw new Error(`${slug}: answers for missing questions ${orphans.join(',')}; questions with no answer ${unanswered.join(',')}`);
+
+  const blocks = [...intro];
+  for (const k of nums) {
+    const q = questions.get(k);
+    const name = `Question ${WORDS[k - 1]}`;
+    blocks.push({ kind: 'heading', text: name });
+    blocks.push({ kind: 'teach', label: 'Mock question', tag: q.tag || name, html: q.parts.join('\n') });
+    blocks.push({
+      kind: 'worked',
+      mode: 'model',
+      label: 'Model answer',
+      tag: name,
+      problem: `<p>Write your full answer to <b>${name}</b> in your book first, one clear point for every mark. Then open the model answer and mark yourself against it.</p>`,
+      working: answers.get(k).join('\n'),
+      answer: '',
+      redo: '',
+    });
+  }
+  if (notes.length) blocks.push({ kind: 'heading', text: 'After you have marked it' }, ...notes);
+  return {
+    slug,
+    part,
+    kick: 'Mock paper',
+    title,
+    lead:
+      lead ??
+      'A full practice paper in the shape of the real one, written from the course and not from a past paper. Sit it in your book against the clock, one question at a time, and only then open each model answer and mark yourself honestly.',
+    minutes,
+    modules: [],
+    blocks: joinStages(blocks).map(cleanPlainFields),
+    questions: nums.length,
+  };
+}
+
 /** The reference card, from the manual's reference part, all as teaching. */
 function convertReference(file, slug, title) {
   const raw = readFileSync(file, 'utf8');
@@ -872,7 +1030,8 @@ function run(code) {
 
   if (cfg.theoryOnly) {
     const file = join(outDir, 'lessons.json');
-    const slugs = new Set(cfg.theory.map(([s]) => s));
+    // papers and mocks are replaced, not duplicated, on a re-run
+    const slugs = new Set([...cfg.theory, ...(cfg.mocks ?? [])].map(([s]) => s));
     const kept = JSON.parse(readFileSync(file, 'utf8')).filter((l) => !slugs.has(l.slug));
     const papers = cfg.theory.map(([slug, title, files]) => {
       const l = convertTheory(files.map((f) => join(manual, f)), slug, title, 'Past theory questions', cfg.theoryLead);
@@ -882,6 +1041,12 @@ function run(code) {
       delete l.questions;
       return l;
     });
+    for (const [slug, title, qf, af] of cfg.mocks ?? []) {
+      const l = convertMock(qf.map((f) => join(manual, f)), af.map((f) => join(manual, f)), slug, title, 'Mock papers', 60, cfg.mockLead);
+      console.log(`  ${slug.padEnd(16)} ${String(l.blocks.length).padStart(3)} blocks, ${l.questions} mock questions`);
+      delete l.questions;
+      papers.push(l);
+    }
     const at = kept.findIndex((l) => l.slug === cfg.insertBefore);
     kept.splice(at === -1 ? kept.length : at, 0, ...papers);
     if (unknown.length) {
@@ -910,6 +1075,9 @@ function run(code) {
   }
   for (const [slug, title, files] of cfg.theory) {
     lessons.push(convertTheory(files.map((f) => join(manual, f)), slug, title, 'Past theory questions'));
+  }
+  for (const [slug, title, qf, af] of cfg.mocks ?? []) {
+    lessons.push(convertMock(qf.map((f) => join(manual, f)), af.map((f) => join(manual, f)), slug, title, 'Mock papers', 60));
   }
   const [rslug, rtitle, rfile] = cfg.reference;
   lessons.push(convertReference(join(root, 'makeup', rfile), rslug, rtitle));

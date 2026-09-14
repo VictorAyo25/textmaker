@@ -38,10 +38,12 @@ export interface DashSession {
   lessons: { slug: string; title: string; minutes: number }[];
 }
 
-/** Minutes after midnight of the first clock time in a window, for ordering. */
+/** Minutes after midnight of the first clock time in a window, for ordering.
+ *  A window with no clock time, an optional "if you finish early" sitting,
+ *  goes after every timed one. */
 function startOf(window: string): number {
   const m = window.match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
-  if (!m) return 0;
+  if (!m) return 24 * 60;
   const h = (Number(m[1]) % 12) + (m[3].toLowerCase() === 'pm' ? 12 : 0);
   return h * 60 + Number(m[2]);
 }

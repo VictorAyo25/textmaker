@@ -62,6 +62,9 @@ const PAGES = [
   '/ins224',
   '/ins224/learn',
   '/ins224/learn/dfd',
+  '/cos221/learn/mock-b',
+  '/csc241/learn/mock-1',
+  '/ift222/learn/mock-1',
 ];
 
 /** Runs in the page: is anything wider than the window, and what? */
