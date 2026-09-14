@@ -2,6 +2,7 @@ import type { Course, FacetGuide, Paper, Question, StudySession } from '@/lib/ty
 import { slotFor } from './timetable';
 import iftPlan from './ift222/plan.json';
 import cosObjective from './cos221/drill01.json';
+import cosLessonQs from './cos221/drill02.json';
 import cosPlan from './cos221/plan.json';
 import cscObjective from './csc241/drill01.json';
 import cscLessonQs from './csc241/drill02.json';
@@ -441,7 +442,7 @@ const cos221: Course = {
     { number: 8, title: 'Recursion', blurb: 'Base case and recursive case, the two column trace, and recursion against iteration.' },
     { number: 9, title: 'Exceptions and File Input and Output', blurb: 'Checked against unchecked, try catch finally, throw against throws, and writing, appending and reading a file.' },
   ],
-  questions: cosObjective as unknown as Question[],
+  questions: [...cosObjective, ...cosLessonQs] as unknown as Question[],
   exam: slotFor('COS221'),
   plan: cosPlan as unknown as StudySession[],
   papers: [],
