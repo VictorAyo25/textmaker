@@ -1,14 +1,46 @@
 import type { ExamSlot } from '@/lib/types';
 
 /**
- * The Omega semester timetable, every paper, in the order they are sat.
+ * The makeup papers, 16 to 18 September 2026: the only four still ahead.
  *
- * Two of these courses are on the drill and carry a dated crash-course plan.
- * The rest are revised from their manual, and the slot still says when, so
- * nothing on the week is left undated. Times are local and inclusive of the
- * whole window the paper occupies.
+ * All four are on the drill and each carries a dated crash-course plan, built
+ * backwards from these slots. Times are local and cover the whole window the
+ * paper occupies. INS224 and CSC241 share the Wednesday, so their plans have
+ * to share Monday and Tuesday; Java then has Thursday to itself.
  */
 export const EXAMS: ExamSlot[] = [
+  {
+    code: 'INS224',
+    title: 'Systems Analysis and Design',
+    at: '2026-09-16T10:00',
+    window: '10:00 AM to 12:00 PM',
+  },
+  {
+    code: 'CSC241',
+    title: 'Python Programming Language I',
+    at: '2026-09-16T15:00',
+    window: '03:00 PM to 05:00 PM',
+  },
+  {
+    code: 'COS221',
+    title: 'Computer Programming I, Java',
+    at: '2026-09-17T15:00',
+    window: '03:00 PM to 05:00 PM',
+  },
+  {
+    code: 'IFT222',
+    title: 'Computer Architecture and Organization',
+    at: '2026-09-18T15:00',
+    window: '03:00 PM to 05:00 PM',
+  },
+];
+
+/**
+ * The August sittings, kept for the courses that are now filed away. A hidden
+ * course still opens by its URL, and its dated plan is still checked against
+ * the paper it was built for, so its slot cannot simply vanish.
+ */
+export const PAST_EXAMS: ExamSlot[] = [
   {
     code: 'DTS224',
     title: 'Data Management I',
@@ -94,4 +126,10 @@ export function countdown(fromISO: string, examISO: string): string {
   if (n === 0) return 'today';
   if (n === 1) return 'tomorrow';
   return `in ${n} days`;
+}
+
+/** The slot a course is sat in: this week's makeup paper if it has one, else its
+ *  August sitting. */
+export function slotFor(code: string): ExamSlot | undefined {
+  return EXAMS.find((e) => e.code === code) ?? PAST_EXAMS.find((e) => e.code === code);
 }

@@ -1841,6 +1841,51 @@ p.gloss {
   word-break: break-word;
 }
 
+/* The code courses' tables are words, not figures: "static | it belongs to the
+   class itself...". The numeric rule above keeps a row on one line and centres
+   it, which for a sentence means a table you must scroll sideways to read. */
+[data-course='COS221'] .lbody table.data,
+[data-course='CSC241'] .lbody table.data {
+  white-space: normal;
+}
+[data-course='COS221'] .lbody table.data th,
+[data-course='COS221'] .lbody table.data td,
+[data-course='CSC241'] .lbody table.data th,
+[data-course='CSC241'] .lbody table.data td {
+  text-align: left;
+  vertical-align: top;
+}
+[data-course='COS221'] .lbody table.data code,
+[data-course='CSC241'] .lbody table.data code {
+  white-space: nowrap;
+}
+
+/* ---- a code question's listing, and output options that span lines ----
+   The listing is plain text with its own indentation, so it keeps every space.
+   An option that is several lines of program output, "5", "6", "7", is stored
+   with line breaks and must show them: run together as "5 6 7" it is a
+   different answer. pre-line keeps the breaks and still wraps long lines. */
+.qcode {
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
+  tab-size: 4;
+}
+.opt > span:last-child,
+.rawopts li,
+.solopt > span,
+.sheetopts li {
+  white-space: pre-line;
+}
+
 /* ---- the dashboard: where you are, and what to open next ---- */
 .dashrow {
   padding: 14px 0;
@@ -1863,6 +1908,59 @@ p.gloss {
   align-items: center;
 }
 .dactions .btn { flex: 0 1 auto; }
+
+/* ---- today: the dated plan's sittings for the day, across every course ---- */
+.today {
+  margin: -4px 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--green);
+}
+.today h3 { margin: 0 0 10px; font-size: 1.15rem; }
+.sitting {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin: 0 0 12px;
+  background: var(--bg);
+}
+.sitting.behind { border-color: var(--gold); background: var(--gold-soft); }
+.sitting .swhen { margin: 0 0 4px; font-weight: 600; font-size: 0.9rem; }
+.sitting .sgoal { margin: 0 0 8px; font-size: 0.85rem; color: var(--muted); }
+.today .badge,
+.dashrow .badge {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  padding: 3px 7px;
+  border-radius: 6px;
+  vertical-align: 1px;
+}
+.sitting .badge { margin-right: 6px; }
+.slessons { margin: 8px 0 12px; padding-left: 1.3em; font-size: 0.9rem; }
+.slessons li { margin: 4px 0; }
+.slessons li a { text-decoration: none; color: var(--ink); }
+.slessons li a:hover { text-decoration: underline; }
+.slessons li.isdone a { color: var(--green); }
+.slessons .smin { margin-left: 8px; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.sitting.behind .slessons { list-style: none; padding-left: 0; }
+
+/* the date a lesson is meant to be read on, at the top of the lesson */
+.lwhen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  font-size: 0.85rem;
+}
+.lwhen span { color: var(--muted); }
 
 /* ---- breadcrumbs: the way out of any page ----
    A reader arriving from a shared link has no history to press back through,
@@ -2244,4 +2342,157 @@ p.gloss {
   .sidequest:focus-visible {
     transform: none;
   }
+}
+
+/* ============================================================
+   CODE, for the Java and Python courses.
+
+   Java listings arrive as <pre class="jsrc"> with one <span class="l"> per
+   line, so line numbers come from a CSS counter and never enter the text you
+   copy. Python listings arrive as <pre class="code">. Program output is
+   <pre class="out">, drawn as a terminal so it can never be mistaken for code
+   you are meant to write. Every listing on the page was compiled or run before
+   it was published; the output shown is what it actually printed.
+   ============================================================ */
+:root {
+  --tok-k: #1d4ed8;
+  --tok-t: #7c3aed;
+  --tok-s: #b45309;
+  --tok-n: #0e7490;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tok-k: #7aa2ff;
+    --tok-t: #c4a1ff;
+    --tok-s: #f0b35c;
+    --tok-n: #5fd0e0;
+  }
+}
+.lesson pre.jsrc,
+.lesson pre.code,
+.lesson pre.repl,
+.lesson pre.out {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre;
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  max-width: 100%;
+}
+.lesson pre.jsrc,
+.lesson pre.code,
+.lesson pre.repl {
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.lesson pre.jsrc {
+  counter-reset: ln;
+}
+.lesson pre.jsrc .l {
+  display: block;
+  counter-increment: ln;
+  min-height: 1.5em;
+}
+.lesson pre.jsrc:not(.nonum) .l::before {
+  content: counter(ln);
+  display: inline-block;
+  width: 2em;
+  margin-right: 0.9em;
+  text-align: right;
+  color: var(--muted);
+  opacity: 0.55;
+  user-select: none;
+}
+.lesson pre.out {
+  background: #10151c;
+  color: #e6edf3;
+  border: 1px solid #10151c;
+}
+.lesson pre.out .olabel {
+  display: block;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8b98a5;
+  margin-bottom: 4px;
+}
+.lesson pre .k {
+  color: var(--tok-k);
+  font-weight: 700;
+}
+.lesson pre .t {
+  color: var(--tok-t);
+}
+.lesson pre .s {
+  color: var(--tok-s);
+}
+.lesson pre .n {
+  color: var(--tok-n);
+}
+.lesson pre .c {
+  color: var(--muted);
+  font-style: italic;
+}
+.lesson pre .p {
+  color: var(--muted);
+}
+.lesson pre .bad,
+.lesson pre .l.bad {
+  background: var(--red-soft);
+}
+.lesson pre .good,
+.lesson pre .l.good {
+  background: var(--green-soft);
+}
+/* output is on a dark ground in both themes, so its tokens stay light */
+.lesson pre.out .k,
+.lesson pre.out .t,
+.lesson pre.out .s,
+.lesson pre.out .n {
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* A frame whose teaching holds paragraphs and listings renders as a block. */
+.frame .frbody > :first-child {
+  margin-top: 0;
+}
+.frame .frbody p {
+  margin: 0 0 6px;
+}
+
+/* The model answer to a past theory question gathers several of the manual's
+   boxes (the answer, its listing, its dry run); each keeps its own small label. */
+.mpart {
+  margin: 0 0 12px;
+}
+.mpart:last-child {
+  margin-bottom: 0;
+}
+.mlab {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+/* A drawn diagram inside a lesson scales to the column and never overflows. */
+.lesson figure {
+  margin: 10px 0;
+  text-align: center;
+}
+.lesson figure svg {
+  max-width: 100%;
+  height: auto;
+}
+.lesson figcaption {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 4px;
 }

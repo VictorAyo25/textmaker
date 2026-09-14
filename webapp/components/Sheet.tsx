@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Sci } from '@/components/Sci';
 import { Figure } from '@/components/Figure';
+import { QCode } from '@/components/QCode';
 import type { Course, Question } from '@/lib/types';
 import { WhyGrid, rightAnswer } from './Feedback';
 import { letterOf, optionsOf } from '@/lib/bank';
@@ -101,6 +102,7 @@ export default function Sheet({ course, questions, title, onBack }: Props) {
               {i + 1}. <Sci text={readable(q.prompt)} />
             </p>
             {q.figure && <Figure figure={q.figure} />}
+            <QCode code={q.code} />
             <OptionList q={q} />
             <p className="theirs">
               Answer: <b>{rightAnswer(q)}</b>

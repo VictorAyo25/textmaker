@@ -1,0 +1,2132 @@
+[
+ {
+  "id": "cos-o02-01",
+  "module": 1,
+  "slides": [
+   "Manual O.2 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "the language, the toolchain and objects",
+  "prompt": "What does javac produce, and what runs it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Machine code for your processor, run directly by the operating system"
+   },
+   {
+    "id": "b",
+    "text": "A .java file, run by javac itself"
+   },
+   {
+    "id": "c",
+    "text": "An executable .exe file, run by double clicking it"
+   },
+   {
+    "id": "d",
+    "text": "Bytecode in a .class file, run by the Java Virtual Machine"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is Bytecode in a .class file, run by the Java Virtual Machine. Source to bytecode by javac, bytecode to behaviour by the JVM. Java is compiled AND interpreted, and saying only one of those loses half the mark.",
+  "why": {
+   "a": "Wrong. Compiling straight to machine code is the C model, and it is exactly what Java avoids, because machine code runs on one kind of processor only.",
+   "b": "Wrong. The .java file is what you WRITE and what javac consumes. It is the input, not the output.",
+   "c": "Wrong. Java deliberately does not produce a platform executable. That is the whole point of write once, run anywhere.",
+   "d": "Correct. javac turns your .java source into bytecode in a .class file, and the java command starts a JVM that executes that bytecode. The JVM is what makes the same .class file run on any machine that has one."
+  }
+ },
+ {
+  "id": "cos-o02-02",
+  "module": 1,
+  "slides": [
+   "Manual O.2 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "the language, the toolchain and objects",
+  "prompt": "Which signature does the JVM look for to start a program?",
+  "options": [
+   {
+    "id": "a",
+    "text": "public static void main(String[] args)"
+   },
+   {
+    "id": "b",
+    "text": "public void main(String[] args)"
+   },
+   {
+    "id": "c",
+    "text": "static void Main(String[] args)"
+   },
+   {
+    "id": "d",
+    "text": "public static int main(String args)"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is public static void main(String[] args). public static void main(String[] args). Write it out by hand until it is automatic; a paper answer that gets it wrong has failed before the first statement.",
+  "why": {
+   "a": "Correct. public so the JVM can reach it, static so it runs with no object, void because it returns nothing, and a String array for the command line arguments.",
+   "b": "Wrong. Without static the JVM would need an object to call it on, and no object exists yet when the program starts.",
+   "c": "Wrong on two counts: Java is case sensitive so Main is a different name, and without public the JVM cannot reach it.",
+   "d": "Wrong on two counts: main returns void, and the parameter is an ARRAY of String, not a single String."
+  }
+ },
+ {
+  "id": "cos-o02-03",
+  "module": 1,
+  "slides": [
+   "Manual O.2 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "the language, the toolchain and objects",
+  "prompt": "Which statement best distinguishes a class from an object?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A class is a running instance and an object is its definition"
+   },
+   {
+    "id": "b",
+    "text": "A class is a blueprint; an object is an instance of it, with its own values"
+   },
+   {
+    "id": "c",
+    "text": "A class and an object are two words for the same thing"
+   },
+   {
+    "id": "d",
+    "text": "A class can have only one object at a time"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is A class is a blueprint; an object is an instance of it, with its own values. Class is the blueprint, object is the building. new is what turns one into the other.",
+  "why": {
+   "a": "Wrong, and it is exactly backwards. The definition is the class; the running instance is the object.",
+   "b": "Correct. The class says what every instance will have and be able to do; each object made with new has its own copy of the fields.",
+   "c": "Wrong. If they were the same, new would have nothing to do.",
+   "d": "Wrong. A class exists so that many objects can be created from it."
+  }
+ },
+ {
+  "id": "cos-o02-04",
+  "module": 1,
+  "slides": [
+   "Manual O.2 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "the language, the toolchain and objects",
+  "prompt": "Java is described as an object-oriented language. Which TWO features below are the reason? Choose the single option naming BOTH correctly.",
+  "options": [
+   {
+    "id": "a",
+    "text": "Pointers and manual memory management"
+   },
+   {
+    "id": "b",
+    "text": "Preprocessor directives and macros"
+   },
+   {
+    "id": "c",
+    "text": "Encapsulation and inheritance"
+   },
+   {
+    "id": "d",
+    "text": "Goto statements and labels"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is Encapsulation and inheritance. Encapsulation, inheritance, polymorphism, abstraction. Those four are the answer to any what-makes-it-object-oriented question.",
+  "why": {
+   "a": "Wrong. Java deliberately has neither: references replace pointers and the garbage collector replaces manual freeing.",
+   "b": "Wrong. Those are C and C++ features. Java has no preprocessor at all.",
+   "c": "Correct. Bundling data with the methods that act on it, and letting one class extend another, are two of the four pillars, alongside abstraction and polymorphism.",
+   "d": "Wrong. goto is a reserved word in Java that is not usable, kept reserved precisely so nobody writes one."
+  }
+ },
+ {
+  "id": "cos-o02-05",
+  "module": 1,
+  "slides": [
+   "Manual O.2 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "the language, the toolchain and objects",
+  "prompt": "Which statement is TRUE?",
+  "options": [
+   {
+    "id": "a",
+    "text": "The JVM contains the JRE, which contains the JDK"
+   },
+   {
+    "id": "b",
+    "text": "The JDK and the JRE are two names for the same thing"
+   },
+   {
+    "id": "c",
+    "text": "The JRE is needed to compile, the JDK only to run"
+   },
+   {
+    "id": "d",
+    "text": "The JDK contains the JRE, which contains the JVM"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is The JDK contains the JRE, which contains the JVM. JDK contains JRE contains JVM. Compile needs the JDK, run needs only the JRE.",
+  "why": {
+   "a": "Wrong, and it inverts the nesting. The smallest of the three is the JVM.",
+   "b": "Wrong. The JRE can only RUN programs. Only the JDK carries javac.",
+   "c": "Wrong, and it swaps them: you compile with the JDK and can run with the JRE alone.",
+   "d": "Correct. The JDK is the developer kit and holds the compiler; inside it is the runtime environment, and inside that is the virtual machine that actually executes bytecode."
+  }
+ },
+ {
+  "id": "cos-o03-01",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q301 {\n    public static void main(String[] args) {\n        System.out.println(7 / 2);\n        System.out.println(7 % 2);\n        System.out.println(7.0 / 2);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "3.5\n1\n3.5"
+   },
+   {
+    "id": "b",
+    "text": "3\n1\n3"
+   },
+   {
+    "id": "c",
+    "text": "3\n1\n3.5"
+   },
+   {
+    "id": "d",
+    "text": "3.5\n3.5\n3.5"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 3 then 1 then 3.5. int divided by int gives int, and the fraction is discarded, not rounded. One double operand promotes the whole expression.",
+  "why": {
+   "a": "Wrong on the first line. Integer division truncates in Java; it does not produce a decimal. That is the single most common Java arithmetic error.",
+   "b": "Wrong on the last line. 7.0 is a double, so the division is done in doubles.",
+   "c": "Correct. Two ints divide as ints, so the fraction is thrown away and 7 / 2 is 3. The remainder is 1. Making either operand a double promotes the whole expression, so 7.0 / 2 is 3.5.",
+   "d": "Wrong throughout. % is the remainder operator, not a division."
+  }
+ },
+ {
+  "id": "cos-o03-02",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q302 {\n    public static void main(String[] args) {\n        System.out.println(-7 / 2);\n        System.out.println(-7 % 2);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "-4\n1"
+   },
+   {
+    "id": "b",
+    "text": "-4\n-1"
+   },
+   {
+    "id": "c",
+    "text": "-3\n1"
+   },
+   {
+    "id": "d",
+    "text": "-3\n-1"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is -3 then -1. Java truncates towards zero and % takes the sign of the left operand. Both differ from some other languages, so this is worth knowing exactly rather than by feel.",
+  "why": {
+   "a": "Wrong. Java truncates towards ZERO, so -7 / 2 is -3, not -4. Flooring to -4 is what Python does, and the difference is a real exam trap.",
+   "b": "Wrong on the division for the same reason: Java truncates towards zero.",
+   "c": "Wrong on the remainder. In Java the result of % has the sign of the dividend, so a negative dividend gives a negative remainder.",
+   "d": "Correct. Division truncates towards zero giving -3, and the remainder takes the sign of the LEFT operand, giving -1."
+  }
+ },
+ {
+  "id": "cos-o03-03",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q303 {\n    public static void main(String[] args) {\n        char c = 'A';\n        System.out.println(c + 1);\n        System.out.println((char) (c + 1));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "66\nB"
+   },
+   {
+    "id": "b",
+    "text": "B\nB"
+   },
+   {
+    "id": "c",
+    "text": "A1\nB"
+   },
+   {
+    "id": "d",
+    "text": "66\n66"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 66 then B. A char is a number with a costume on. Arithmetic strips the costume; a cast back to char puts it on again.",
+  "why": {
+   "a": "Correct. c + 1 promotes the char to its code, 65, and adds 1 to give 66. The cast on the second line turns 66 back into a char, which prints as B.",
+   "b": "Wrong on the first line. A char in arithmetic is promoted to int, so the result is a number, not a letter.",
+   "c": "Wrong. Plus between a char and an int is ARITHMETIC, not joining. Joining would need one side to be a String.",
+   "d": "Wrong on the second line: the cast to char is what makes it print as a letter."
+  }
+ },
+ {
+  "id": "cos-o03-04",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q304 {\n    public static void main(String[] args) {\n        System.out.println(\"Total: \" + 1 + 2);\n        System.out.println(\"Total: \" + (1 + 2));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "Total: 3\nTotal: 3"
+   },
+   {
+    "id": "b",
+    "text": "Total: 12\nTotal: 3"
+   },
+   {
+    "id": "c",
+    "text": "Total: 12\nTotal: 12"
+   },
+   {
+    "id": "d",
+    "text": "Total: 3\nTotal: 12"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Total: 12 then Total: 3. Plus is left-associative, and once a String is involved every later plus joins. Bracket the arithmetic and this whole class of bug goes away.",
+  "why": {
+   "a": "Wrong on the first line. Nothing adds 1 and 2 there: by the time the 2 is reached the left side is already a String.",
+   "b": "Correct. Plus groups left to right. The first plus has a String on its left, so it JOINS, producing \"Total: 1\", and the next plus joins the 2 onto that. The brackets on the second line force the addition first.",
+   "c": "Wrong on the second line. The brackets change the answer, which is the whole point of the question.",
+   "d": "Wrong, and it has the two lines swapped."
+  }
+ },
+ {
+  "id": "cos-o03-05",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q305 {\n    public static void main(String[] args) {\n        int big = Integer.MAX_VALUE;\n        System.out.println(big);\n        System.out.println(big + 1);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "2147483647\n2147483648"
+   },
+   {
+    "id": "b",
+    "text": "2147483647\nerror at run time"
+   },
+   {
+    "id": "c",
+    "text": "2147483647\n-2147483648"
+   },
+   {
+    "id": "d",
+    "text": "2147483648\n-2147483648"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 2147483647 then -2147483648. int holds -2147483648 to 2147483647, and overflow wraps silently. Use long when a value might exceed it.",
+  "why": {
+   "a": "Wrong. An int cannot hold 2147483648. The type does not grow to fit.",
+   "b": "Wrong. There is no exception for integer overflow in Java. That silence is exactly what makes it dangerous.",
+   "c": "Correct. int is 32 bits, so its maximum is 2147483647, and adding 1 wraps round to the most negative value. Java does not report this: it just gives the wrong number quietly.",
+   "d": "Wrong on the first line. MAX_VALUE is 2147483647, one less than 2 to the power 31."
+  }
+ },
+ {
+  "id": "cos-o03-06",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q306 {\n    public static void main(String[] args) {\n        double a = 0.1 + 0.2;\n        System.out.println(a);\n        System.out.println(a == 0.3);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "0.3\ntrue"
+   },
+   {
+    "id": "b",
+    "text": "0.3\nfalse"
+   },
+   {
+    "id": "c",
+    "text": "0.30000000000000004\ntrue"
+   },
+   {
+    "id": "d",
+    "text": "0.30000000000000004\nfalse"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 0.30000000000000004 then false. Never compare two doubles with ==. Compare the size of their difference against a small tolerance instead.",
+  "why": {
+   "a": "Wrong on both lines. Binary floating point cannot hold 0.1 or 0.2 exactly, so their sum is not exactly 0.3.",
+   "b": "Wrong on the first line: println shows the true stored value, tiny error and all.",
+   "c": "Wrong on the second line: if the value printed is not 0.3, it cannot equal 0.3.",
+   "d": "Correct. The stored sum is very slightly above 0.3 and prints in full, so the equality test is false."
+  }
+ },
+ {
+  "id": "cos-o03-07",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q307 {\n    public static void main(String[] args) {\n        int i = 5;\n        System.out.println(i++);\n        System.out.println(i);\n        System.out.println(++i);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "5\n6\n7"
+   },
+   {
+    "id": "b",
+    "text": "6\n6\n7"
+   },
+   {
+    "id": "c",
+    "text": "5\n5\n6"
+   },
+   {
+    "id": "d",
+    "text": "6\n7\n7"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 5 then 6 then 7. Post says use it then change it; pre says change it then use it. The variable ends up the same either way, and what the EXPRESSION gives back is what differs.",
+  "why": {
+   "a": "Correct. i++ yields the OLD value 5 and then makes i 6. The second line shows that 6. ++i increments first, to 7, and yields 7.",
+   "b": "Wrong on the first line. The post-increment gives back the value BEFORE the increment.",
+   "c": "Wrong on the second line. The increment did happen, so i is 6 by then.",
+   "d": "Wrong on the first line, for the same reason as 6, 6, 7: the post-increment gives back the value BEFORE the increment, so the first line is 5."
+  }
+ },
+ {
+  "id": "cos-o03-08",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q308 {\n    public static void main(String[] args) {\n        System.out.println(2 + 3 * 4);\n        System.out.println((2 + 3) * 4);\n        System.out.println(10 - 2 - 3);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "20\n20\n5"
+   },
+   {
+    "id": "b",
+    "text": "14\n20\n5"
+   },
+   {
+    "id": "c",
+    "text": "14\n20\n11"
+   },
+   {
+    "id": "d",
+    "text": "14\n14\n5"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 14 then 20 then 5. Multiply and divide before add and subtract, then left to right. When in doubt, write the brackets yourself.",
+  "why": {
+   "a": "Wrong on the first line. Multiplication binds tighter than addition without any brackets.",
+   "b": "Correct. Multiply before add gives 14, brackets force 20, and subtraction groups left to right so 10 - 2 is 8 and 8 - 3 is 5.",
+   "c": "Wrong on the last line. Left to right gives 5; grouping the right pair first would give 11, and no operator in Java does that.",
+   "d": "Wrong on the second line: the brackets really do change it."
+  }
+ },
+ {
+  "id": "cos-o03-09",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q9"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q309 {\n    static boolean shout(String s) {\n        System.out.println(s);\n        return true;\n    }\n    public static void main(String[] args) {\n        if (false && shout(\"left\")) { }\n        if (true || shout(\"right\")) { }\n        System.out.println(\"done\");\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "left\nright\ndone"
+   },
+   {
+    "id": "b",
+    "text": "left\ndone"
+   },
+   {
+    "id": "c",
+    "text": "done"
+   },
+   {
+    "id": "d",
+    "text": "right\ndone"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is done. && and || evaluate the right side only when they must. That is what makes if (s != null && s.length() > 0) safe.",
+  "why": {
+   "a": "Wrong. Neither call happens, which is the whole point of short circuiting.",
+   "b": "Wrong. false && anything is already decided, so the right side is skipped.",
+   "c": "Correct. && stops as soon as its left side is false, and || stops as soon as its left side is true, so neither shout is ever called.",
+   "d": "Wrong. true || anything is already decided, so the right side is skipped."
+  }
+ },
+ {
+  "id": "cos-o03-10",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q10"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "A program reads an integer with a Scanner named in. Which line is correct?",
+  "options": [
+   {
+    "id": "a",
+    "text": "int n = in.nextInt();"
+   },
+   {
+    "id": "b",
+    "text": "int n = in.next();"
+   },
+   {
+    "id": "c",
+    "text": "int n = in.nextLine();"
+   },
+   {
+    "id": "d",
+    "text": "int n = Scanner.nextInt();"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is int n = in.nextInt();. nextInt for an int, nextDouble for a double, nextLine for a whole line of text. Mixing nextInt with nextLine leaves the newline behind, which is the classic Scanner bug.",
+  "why": {
+   "a": "Correct. nextInt() reads the next token and returns it as an int, which is what the variable needs.",
+   "b": "Wrong. next() returns a String, and a String cannot be assigned to an int without conversion.",
+   "c": "Wrong for the same reason: nextLine() also returns a String. It would need Integer.parseInt around it.",
+   "d": "Wrong. nextInt is an instance method, called on your Scanner object, not on the class."
+  }
+ },
+ {
+  "id": "cos-o03-11",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q11"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q311 {\n    public static void main(String[] args) {\n        System.out.printf(\"%.2f%n\", 3.14159);\n        System.out.printf(\"%5d|%n\", 42);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "3.142\n42 |"
+   },
+   {
+    "id": "b",
+    "text": "3.14\n42|"
+   },
+   {
+    "id": "c",
+    "text": "3.14\n42 |"
+   },
+   {
+    "id": "d",
+    "text": "3.1\n42|"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 3.14 then 42|. %.2f fixes the decimals, %5d fixes the width and right-aligns, %-5d left-aligns, and %n is the newline that works everywhere.",
+  "why": {
+   "a": "Wrong on both counts: .2f is two decimals, and %5d right-aligns.",
+   "b": "Correct. %.2f gives two decimal places, and %5d pads the number to five characters on the LEFT, so the spaces come first.",
+   "c": "Wrong on the padding. A width without a minus sign right-aligns; %-5d would pad on the right.",
+   "d": "Wrong on the decimals: two were asked for, not one."
+  }
+ },
+ {
+  "id": "cos-o03-12",
+  "module": 2,
+  "slides": [
+   "Manual O.3 Q12"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "types, operators, input and output",
+  "prompt": "Which assignment compiles WITHOUT a cast?",
+  "options": [
+   {
+    "id": "a",
+    "text": "int n = 3.5;"
+   },
+   {
+    "id": "b",
+    "text": "int n = 7L;"
+   },
+   {
+    "id": "c",
+    "text": "double d = 7;"
+   },
+   {
+    "id": "d",
+    "text": "char c = \"A\";"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is double d = 7;. Widening is automatic, narrowing needs a cast. Remember the direction: small into big is safe, big into small is your responsibility.",
+  "why": {
+   "a": "Wrong. A double into an int loses information, so Java requires you to say so with an explicit cast.",
+   "b": "Wrong. long to int is narrowing, so it needs a cast.",
+   "c": "Correct. int to double is a WIDENING conversion: nothing can be lost, so Java does it silently.",
+   "d": "Wrong. Double quotes make a String, and a String is not a char. A char literal uses single quotes."
+  }
+ },
+ {
+  "id": "cos-o04-01",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q401 {\n    public static void main(String[] args) {\n        int day = 2;\n        switch (day) {\n            case 1: System.out.println(\"Mon\");\n            case 2: System.out.println(\"Tue\");\n            case 3: System.out.println(\"Wed\");\n                    break;\n            default: System.out.println(\"Other\");\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "Tue"
+   },
+   {
+    "id": "b",
+    "text": "Tue\nWed"
+   },
+   {
+    "id": "c",
+    "text": "Tue\nWed\nOther"
+   },
+   {
+    "id": "d",
+    "text": "Mon\nTue\nWed"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Tue then Wed. A switch enters at the matching label and runs on until a break. Missing breaks are the classic switch bug and a favourite exam question.",
+  "why": {
+   "a": "Wrong. Without a break at the end of case 2, execution falls straight into case 3.",
+   "b": "Correct. It enters at case 2, prints Tue, falls through into case 3 and prints Wed, and the break there stops it.",
+   "c": "Wrong. The break at the end of case 3 stops it before default.",
+   "d": "Wrong. It ENTERS at the matching case; the cases above it are skipped entirely."
+  }
+ },
+ {
+  "id": "cos-o04-02",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q402 {\n    public static void main(String[] args) {\n        int x = 5;\n        if (x > 10)\n            if (x > 20) System.out.println(\"big\");\n        else System.out.println(\"small\");\n        System.out.println(\"end\");\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "small\nend"
+   },
+   {
+    "id": "b",
+    "text": "big\nend"
+   },
+   {
+    "id": "c",
+    "text": "end"
+   },
+   {
+    "id": "d",
+    "text": "small"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is end. An else binds to the nearest if, whatever the indentation says. Braces on every if remove the ambiguity, and they cost nothing.",
+  "why": {
+   "a": "Wrong, and it is what the INDENTATION suggests, which is why the question is here. The else does not belong to the outer if.",
+   "b": "Wrong. x is 5, so the outer condition is already false.",
+   "c": "Correct. An else attaches to the nearest unmatched if, which is the INNER one. Since x is not greater than 10, neither if is entered and nothing but end prints.",
+   "d": "Wrong. The last println is outside every if and always runs."
+  }
+ },
+ {
+  "id": "cos-o04-03",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q403 {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i <= 5; i++) sum += i;\n        System.out.println(sum);\n        int j = 1, prod = 1;\n        while (j <= 4) { prod *= j; j++; }\n        System.out.println(prod);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "10\n24"
+   },
+   {
+    "id": "b",
+    "text": "15\n10"
+   },
+   {
+    "id": "c",
+    "text": "21\n24"
+   },
+   {
+    "id": "d",
+    "text": "15\n24"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 15 then 24. The three parts of a for header, initialise, test, update, are exactly the three pieces you place by hand when converting to a while. This conversion is worth 10 marks on the 2024/25 paper.",
+  "why": {
+   "a": "Wrong. The loop includes 5, because the test is i <= 5, not i < 5.",
+   "b": "Wrong on the second: the while loop multiplies rather than adds.",
+   "c": "Wrong. 21 would be summing to 6, and the loop stops at 5.",
+   "d": "Correct. 1+2+3+4+5 is 15, and 1x2x3x4 is 24."
+  }
+ },
+ {
+  "id": "cos-o04-04",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q404 {\n    public static void main(String[] args) {\n        int n = 10;\n        while (n < 5) { System.out.println(\"while \" + n); n++; }\n        do { System.out.println(\"do \" + n); n++; } while (n < 5);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "do 10"
+   },
+   {
+    "id": "b",
+    "text": "nothing is printed"
+   },
+   {
+    "id": "c",
+    "text": "while 10\ndo 10"
+   },
+   {
+    "id": "d",
+    "text": "do 10\ndo 11"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is do 10. while tests first and may run zero times; do-while runs at least once. That difference is the whole reason both exist.",
+  "why": {
+   "a": "Correct. The while loop tests first, finds 10 is not less than 5, and never runs. The do-while runs its body once, prints do 10, and only then tests.",
+   "b": "Wrong. The do-while body runs before its condition is ever looked at.",
+   "c": "Wrong. The while loop prints nothing at all.",
+   "d": "Wrong. After the single pass n is 11, the condition fails, and the loop ends."
+  }
+ },
+ {
+  "id": "cos-o04-05",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q405 {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 5; i++) {\n            if (i == 2) continue;\n            if (i == 4) break;\n            System.out.print(i + \" \");\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "1 2 3"
+   },
+   {
+    "id": "b",
+    "text": "1 3"
+   },
+   {
+    "id": "c",
+    "text": "1 3 5"
+   },
+   {
+    "id": "d",
+    "text": "1 3 4"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 1 3 . continue abandons this pass, break abandons the loop. Read the order of the statements carefully: whether the break is before or after the print changes the answer.",
+  "why": {
+   "a": "Wrong. The continue skips the print for 2.",
+   "b": "Correct. 1 prints, 2 is skipped by continue, 3 prints, and at 4 the break leaves the loop before 5 is reached.",
+   "c": "Wrong. The break at 4 stops the loop, so 5 never happens.",
+   "d": "Wrong. The break happens BEFORE the print, so 4 is never printed."
+  }
+ },
+ {
+  "id": "cos-o04-06",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "What does this print?",
+  "code": "public class Q406 {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 3; i++) {\n            for (int j = 1; j <= i; j++) System.out.print(\"*\");\n            System.out.println();\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "***\n***\n***"
+   },
+   {
+    "id": "b",
+    "text": "*\n*\n*"
+   },
+   {
+    "id": "c",
+    "text": "*\n**\n***"
+   },
+   {
+    "id": "d",
+    "text": "***\n**\n*"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is * then ** then ***. Triangle patterns are a standing favourite. Trace the inner limit for each value of the outer variable and write the row out; three rows of tracing settles any pattern question.",
+  "why": {
+   "a": "Wrong. The inner limit is i, not 3, so it grows with each outer pass.",
+   "b": "Wrong. That would need the inner loop to run exactly once each time.",
+   "c": "Correct. The inner loop runs i times, so one star, then two, then three.",
+   "d": "Wrong, and it is upside down: i grows, so the rows get longer."
+  }
+ },
+ {
+  "id": "cos-o04-07",
+  "module": 3,
+  "slides": [
+   "Manual O.4 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control structures",
+  "prompt": "How many times does the body run?",
+  "code": "public class Q407 {\n    public static void main(String[] args) {\n        int count = 0;\n        for (int i = 0; i < 10; i += 2) count++;\n        System.out.println(count);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "4"
+   },
+   {
+    "id": "b",
+    "text": "6"
+   },
+   {
+    "id": "c",
+    "text": "10"
+   },
+   {
+    "id": "d",
+    "text": "5"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 5. When a loop steps by more than one, write the values out rather than dividing in your head. The last value is the one people get wrong.",
+  "why": {
+   "a": "Wrong. Count them out: 0, 2, 4, 6, 8. That is five values, not four.",
+   "b": "Wrong. 10 is not less than 10, so it never enters with i at 10.",
+   "c": "Wrong. The step is 2, so it runs half as often as a step of 1 would.",
+   "d": "Correct. i takes 0, 2, 4, 6 and 8, then 10 fails the test i < 10, so the body runs five times."
+  }
+ },
+ {
+  "id": "cos-o05-01",
+  "module": 4,
+  "slides": [
+   "Manual O.5 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "methods",
+  "prompt": "What does this print?",
+  "code": "public class Q501 {\n    static void change(int n) { n = 99; }\n    public static void main(String[] args) {\n        int x = 5;\n        change(x);\n        System.out.println(x);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "5"
+   },
+   {
+    "id": "b",
+    "text": "99"
+   },
+   {
+    "id": "c",
+    "text": "0"
+   },
+   {
+    "id": "d",
+    "text": "it does not compile"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 5. Java is pass by value, always. For an object the VALUE passed is the reference, which is why an object's contents can be changed by a method while the caller's variable still points at the same object.",
+  "why": {
+   "a": "Correct. Java passes arguments BY VALUE. The parameter n is a separate variable holding a copy of 5, so assigning to it cannot reach x.",
+   "b": "Wrong. The method changed its own copy of the value, not the caller's variable.",
+   "c": "Wrong. x was assigned 5 and nothing since has touched it.",
+   "d": "Wrong. The code is perfectly legal; it simply does not do what it looks like it does."
+  }
+ },
+ {
+  "id": "cos-o05-02",
+  "module": 4,
+  "slides": [
+   "Manual O.5 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "methods",
+  "prompt": "What does this print?",
+  "code": "public class Q502 {\n    static void fill(int[] a) { a[0] = 99; }\n    static void replace(int[] a) { a = new int[]{7, 7}; }\n    public static void main(String[] args) {\n        int[] nums = {1, 2};\n        fill(nums);\n        replace(nums);\n        System.out.println(nums[0] + \" \" + nums[1]);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "1 2"
+   },
+   {
+    "id": "b",
+    "text": "99 2"
+   },
+   {
+    "id": "c",
+    "text": "7 7"
+   },
+   {
+    "id": "d",
+    "text": "99 7"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 99 2. Through the reference you can change the object; assigning to the parameter only changes where that copy points. This one pair of methods is the clearest statement of what pass by value means in Java.",
+  "why": {
+   "a": "Wrong. fill really did change the array, because both names refer to the same array object.",
+   "b": "Correct. fill reaches through the reference and changes element 0. replace only rebinds its own copy of the reference, so the caller's array is untouched.",
+   "c": "Wrong. replace cannot change which array the caller's variable points at.",
+   "d": "Wrong for the same reason: nothing from replace escapes the method."
+  }
+ },
+ {
+  "id": "cos-o05-03",
+  "module": 4,
+  "slides": [
+   "Manual O.5 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "methods",
+  "prompt": "What does this print?",
+  "code": "public class Q503 {\n    static String f(int n) { return \"int\"; }\n    static String f(double d) { return \"double\"; }\n    static String f(String s) { return \"String\"; }\n    public static void main(String[] args) {\n        System.out.println(f(1));\n        System.out.println(f(1.0));\n        System.out.println(f(\"1\"));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "double\ndouble\nString"
+   },
+   {
+    "id": "b",
+    "text": "int\nint\nString"
+   },
+   {
+    "id": "c",
+    "text": "int\ndouble\nString"
+   },
+   {
+    "id": "d",
+    "text": "it does not compile, because three methods share a name"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is int then double then String. Overloading is same name, different parameter list, resolved at compile time by the argument types. Return type alone cannot distinguish two overloads.",
+  "why": {
+   "a": "Wrong. 1 is an int literal and an exact int match exists, so no widening is needed.",
+   "b": "Wrong. 1.0 is a double literal, so the double version matches exactly.",
+   "c": "Correct. Overload resolution picks by the argument TYPES: 1 is an int, 1.0 is a double, \"1\" is a String.",
+   "d": "Wrong. Sharing a name with different parameter lists is exactly what overloading IS."
+  }
+ },
+ {
+  "id": "cos-o05-04",
+  "module": 4,
+  "slides": [
+   "Manual O.5 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "methods",
+  "prompt": "Why can a static method not use an instance field directly?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Because static methods are private"
+   },
+   {
+    "id": "b",
+    "text": "Because instance fields are always final"
+   },
+   {
+    "id": "c",
+    "text": "Because static methods run before the class is loaded"
+   },
+   {
+    "id": "d",
+    "text": "Because a static method may run with no object in existence, so there is no instance whose field it could mean"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is Because a static method may run with no object in existence, so there is no instance whose field it could mean. Static belongs to the class, instance belongs to the object. This is exactly why main is static: the JVM calls it before any object of your class exists.",
+  "why": {
+   "a": "Wrong. static and private are unrelated: a static method can be public.",
+   "b": "Wrong. Instance fields are ordinarily variable; final is a separate choice.",
+   "c": "Wrong. The class is loaded before any of its methods run.",
+   "d": "Correct. Static belongs to the class, so it can be called with no object at all. An instance field only exists inside an object, so the reference would be to nothing."
+  }
+ },
+ {
+  "id": "cos-o05-05",
+  "module": 4,
+  "slides": [
+   "Manual O.5 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "methods",
+  "prompt": "What does this print?",
+  "code": "public class Q505 {\n    static int addUp(int n) {\n        int total = 0;\n        for (int i = 1; i <= n; i++) {\n            total += i;\n            if (total > 6) return total;\n        }\n        return -1;\n    }\n    public static void main(String[] args) {\n        System.out.println(addUp(5));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "10"
+   },
+   {
+    "id": "b",
+    "text": "15"
+   },
+   {
+    "id": "c",
+    "text": "-1"
+   },
+   {
+    "id": "d",
+    "text": "6"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 10. return leaves the method at once, loop and all. Note the strictness of the comparison: greater than 6 excludes 6 itself.",
+  "why": {
+   "a": "Correct. The totals are 1, 3, 6, 10. The first that is greater than 6 is 10, and return hands it back immediately.",
+   "b": "Wrong. 15 is the full sum to 5, but the method leaves as soon as the running total passes 6.",
+   "c": "Wrong. The final return is only reached if the loop finishes without the condition ever being true.",
+   "d": "Wrong. 6 is not GREATER than 6, so the loop continues one more pass."
+  }
+ },
+ {
+  "id": "cos-o06-01",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "What does this print?",
+  "code": "public class Q601 {\n    static class Dog {\n        String name;\n        Dog() { this(\"unnamed\"); }\n        Dog(String n) { name = n; }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Dog().name);\n        System.out.println(new Dog(\"Rex\").name);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "null\nRex"
+   },
+   {
+    "id": "b",
+    "text": "unnamed\nunnamed"
+   },
+   {
+    "id": "c",
+    "text": "it does not compile"
+   },
+   {
+    "id": "d",
+    "text": "unnamed\nRex"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is unnamed then Rex. A constructor has the class name, no return type, and runs on new. this(...) chains to another constructor and must be the first statement in the body.",
+  "why": {
+   "a": "Wrong. The no-argument constructor does not leave name unset: it calls the other constructor with a default.",
+   "b": "Wrong. The second call passes Rex explicitly, and that is what is stored.",
+   "c": "Wrong. Constructor chaining with this(...) is legal, provided it is the first statement.",
+   "d": "Correct. this(\"unnamed\") chains to the other constructor, so the first object gets unnamed and the second gets Rex."
+  }
+ },
+ {
+  "id": "cos-o06-02",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "Which pair of choices implements encapsulation?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Private fields with public getters and setters"
+   },
+   {
+    "id": "b",
+    "text": "Public fields and no methods"
+   },
+   {
+    "id": "c",
+    "text": "Static fields with a public constructor"
+   },
+   {
+    "id": "d",
+    "text": "Final fields with no constructor"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is Private fields with public getters and setters. Private data, public methods. Hiding the data is only half of it: the point of the getter and setter is that they are a place to check.",
+  "why": {
+   "a": "Correct. The data is hidden and every route to it goes through a method, which is where validation can live.",
+   "b": "Wrong, and it is the opposite: public fields let anything change the object into an invalid state with no check possible.",
+   "c": "Wrong. static concerns whether the field belongs to the class or the object, and has nothing to do with hiding it.",
+   "d": "Wrong. final stops reassignment; it does not hide anything, and a class with no constructor still gets the default one."
+  }
+ },
+ {
+  "id": "cos-o06-03",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "What does this print?",
+  "code": "public class Q603 {\n    static class Animal {\n        void speak() { System.out.println(\"some sound\"); }\n    }\n    static class Dog extends Animal {\n        @Override void speak() { System.out.println(\"woof\"); }\n    }\n    public static void main(String[] args) {\n        Animal a = new Dog();\n        a.speak();\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "some sound"
+   },
+   {
+    "id": "b",
+    "text": "woof"
+   },
+   {
+    "id": "c",
+    "text": "it does not compile"
+   },
+   {
+    "id": "d",
+    "text": "both lines print, superclass first"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is woof. The variable's type decides what you may CALL; the object's type decides what actually RUNS. That sentence answers most polymorphism questions on this paper.",
+  "why": {
+   "a": "Wrong. The DECLARED type is Animal, but the method that runs is chosen by the object's ACTUAL type at run time.",
+   "b": "Correct. The object is a Dog, so Dog's override runs. This is polymorphism, and it is exactly what makes inheritance useful.",
+   "c": "Wrong. Assigning a subclass object to a superclass variable is always allowed: a Dog IS an Animal.",
+   "d": "Wrong. An override replaces the superclass version. Running both would need an explicit super.speak() call."
+  }
+ },
+ {
+  "id": "cos-o06-04",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "What does this print?",
+  "code": "public class Q604 {\n    static class A {\n        A() { System.out.println(\"A\"); }\n    }\n    static class B extends A {\n        B() { System.out.println(\"B\"); }\n    }\n    public static void main(String[] args) { new B(); }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "B"
+   },
+   {
+    "id": "b",
+    "text": "B\nA"
+   },
+   {
+    "id": "c",
+    "text": "A\nB"
+   },
+   {
+    "id": "d",
+    "text": "nothing prints"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is A then B. Constructors run from the top of the hierarchy down. A subclass object cannot exist until the superclass part of it has been built.",
+  "why": {
+   "a": "Wrong. The superclass constructor always runs first, whether or not you wrote super().",
+   "b": "Wrong, and it is the wrong way round: the base is built before the part built on top of it.",
+   "c": "Correct. Java inserts an implicit super() at the top of B's constructor, so A's constructor completes before B's body starts.",
+   "d": "Wrong. new B() runs both constructors."
+  }
+ },
+ {
+  "id": "cos-o06-05",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "Which statement is TRUE of an abstract class?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It can be instantiated directly with new"
+   },
+   {
+    "id": "b",
+    "text": "All of its methods must be abstract"
+   },
+   {
+    "id": "c",
+    "text": "A class may extend several abstract classes at once"
+   },
+   {
+    "id": "d",
+    "text": "It may contain both abstract methods and fully implemented methods"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is It may contain both abstract methods and fully implemented methods. Abstract class for shared state and partial implementation; interface for a contract that many unrelated classes can sign. One superclass, many interfaces.",
+  "why": {
+   "a": "Wrong. An abstract class is incomplete by definition, so new on it is a compile error. Its subclasses are what get instantiated.",
+   "b": "Wrong. It may have none at all and still be marked abstract.",
+   "c": "Wrong. Java allows single inheritance of classes. Several INTERFACES may be implemented, which is how the restriction is worked around.",
+   "d": "Correct. That is the difference from an interface in the classic form: an abstract class can carry shared state and shared behaviour alongside the methods it leaves to subclasses."
+  }
+ },
+ {
+  "id": "cos-o06-06",
+  "module": 5,
+  "slides": [
+   "Manual O.6 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "object-oriented programming",
+  "prompt": "What does this print?",
+  "code": "public class Q606 {\n    static class Point {\n        int x = 1, y = 2;\n        @Override public String toString() { return \"(\" + x + \", \" + y + \")\"; }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Point());\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "(1, 2)"
+   },
+   {
+    "id": "b",
+    "text": "Point@1b6d3586"
+   },
+   {
+    "id": "c",
+    "text": "Point"
+   },
+   {
+    "id": "d",
+    "text": "it does not compile"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is (1, 2). println on an object calls toString(). Override it and your objects become printable; forget to, and you get the class name and a hash.",
+  "why": {
+   "a": "Correct. println on an object calls its toString(), and this class overrides it.",
+   "b": "Wrong for THIS class. That class-name-and-hash form is what the INHERITED toString gives, and it is what you see when you forget to override it.",
+   "c": "Wrong. Nothing prints just the class name.",
+   "d": "Wrong. Overriding toString is ordinary and expected."
+  }
+ },
+ {
+  "id": "cos-o07-01",
+  "module": 6,
+  "slides": [
+   "Manual O.7 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "strings",
+  "prompt": "What does this print?",
+  "code": "public class Q701 {\n    public static void main(String[] args) {\n        String a = \"hello\";\n        String b = \"hello\";\n        String c = new String(\"hello\");\n        System.out.println(a == b);\n        System.out.println(a == c);\n        System.out.println(a.equals(c));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "true\ntrue\ntrue"
+   },
+   {
+    "id": "b",
+    "text": "false\nfalse\ntrue"
+   },
+   {
+    "id": "c",
+    "text": "true\nfalse\ntrue"
+   },
+   {
+    "id": "d",
+    "text": "true\nfalse\nfalse"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is true then false then true. == asks whether they are the same OBJECT; equals asks whether they read the same. For strings, always use equals. This is the most asked string question there is.",
+  "why": {
+   "a": "Wrong on the second line. new String() deliberately builds a separate object, so the two references differ.",
+   "b": "Wrong on the first line: string literals are interned, so both names point at the same pooled object.",
+   "c": "Correct. Two identical literals share one pooled object, so a == b is true. new String makes a distinct object, so a == c is false. equals compares the CHARACTERS, so it is true.",
+   "d": "Wrong on the last line. equals compares contents, and the contents are the same."
+  }
+ },
+ {
+  "id": "cos-o07-02",
+  "module": 6,
+  "slides": [
+   "Manual O.7 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "strings",
+  "prompt": "What does this print?",
+  "code": "public class Q702 {\n    public static void main(String[] args) {\n        String s = \"java\";\n        s.toUpperCase();\n        System.out.println(s);\n        System.out.println(s.toUpperCase());\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "JAVA\nJAVA"
+   },
+   {
+    "id": "b",
+    "text": "java\njava"
+   },
+   {
+    "id": "c",
+    "text": "JAVA\njava"
+   },
+   {
+    "id": "d",
+    "text": "java\nJAVA"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is java then JAVA. A String method never changes the string. If you do not catch what it returns, nothing happened. A statement that is only a method call on a String is almost always a bug.",
+  "why": {
+   "a": "Wrong on the first line. The result of the first call was thrown away, because nothing was assigned.",
+   "b": "Wrong on the second line: the value returned by the call is what is printed, and it is uppercase.",
+   "c": "Wrong, and it has the two lines the wrong way round.",
+   "d": "Correct. Strings are immutable, so toUpperCase returns a NEW string and leaves s alone. The first call changes nothing; the second prints its result directly."
+  }
+ },
+ {
+  "id": "cos-o07-03",
+  "module": 6,
+  "slides": [
+   "Manual O.7 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "strings",
+  "prompt": "What does this print?",
+  "code": "public class Q703 {\n    public static void main(String[] args) {\n        String s = \"PROGRAM\";\n        System.out.println(s.length());\n        System.out.println(s.charAt(0));\n        System.out.println(s.substring(1, 4));\n        System.out.println(s.indexOf(\"G\"));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "7\nP\nROG\n3"
+   },
+   {
+    "id": "b",
+    "text": "7\nP\nROGR\n3"
+   },
+   {
+    "id": "c",
+    "text": "7\nR\nROG\n4"
+   },
+   {
+    "id": "d",
+    "text": "6\nP\nROG\n3"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 7 then P then ROG then 3. length() has brackets on a String and none on an array, index from zero, and substring excludes its end index. Those three answer most string questions.",
+  "why": {
+   "a": "Correct. Seven characters; index 0 is P; substring(1, 4) takes indexes 1, 2 and 3, stopping BEFORE 4; and the first G is at index 3.",
+   "b": "Wrong. substring stops before its second index, so it takes three characters, not four.",
+   "c": "Wrong. charAt(0) is the first character, P. Java indexes from zero.",
+   "d": "Wrong. PROGRAM has seven letters."
+  }
+ },
+ {
+  "id": "cos-o07-04",
+  "module": 6,
+  "slides": [
+   "Manual O.7 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "strings",
+  "prompt": "Why is StringBuilder preferred to String for building text in a loop?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It is shorter to type"
+   },
+   {
+    "id": "b",
+    "text": "String is immutable, so each join creates a new object, while StringBuilder changes one buffer in place"
+   },
+   {
+    "id": "c",
+    "text": "StringBuilder can hold more characters than String"
+   },
+   {
+    "id": "d",
+    "text": "String cannot be used inside a loop"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is String is immutable, so each join creates a new object, while StringBuilder changes one buffer in place. Immutable means every join allocates. In a loop of n joins that is n objects created and discarded, which is why StringBuilder exists.",
+  "why": {
+   "a": "Wrong. It is longer to type, which is why the reason has to be a real one.",
+   "b": "Correct. Joining strings in a loop makes a fresh object every pass and throws the previous one away. StringBuilder appends to a single mutable buffer.",
+   "c": "Wrong. Neither has a practical limit you will meet on this course.",
+   "d": "Wrong. It can be used, it is just wasteful."
+  }
+ },
+ {
+  "id": "cos-o08-01",
+  "module": 7,
+  "slides": [
+   "Manual O.8 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "arrays",
+  "prompt": "What does this print?",
+  "code": "public class Q801 {\n    public static void main(String[] args) {\n        int[] a = new int[3];\n        a[0] = 5;\n        System.out.println(a.length);\n        System.out.println(a[1]);\n        System.out.println(a[0]);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "3\nnull\n5"
+   },
+   {
+    "id": "b",
+    "text": "3\n0\n5"
+   },
+   {
+    "id": "c",
+    "text": "2\n0\n5"
+   },
+   {
+    "id": "d",
+    "text": "3\n0\n0"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 3 then 0 then 5. a.length with no brackets for an array, s.length() with brackets for a String. Arrays are created filled with the zero of their type: 0, 0.0, false or null.",
+  "why": {
+   "a": "Wrong. null is the default for an OBJECT array. A numeric array defaults to zero.",
+   "b": "Correct. length is a FIELD on an array, with no brackets. An int array is filled with 0 when created, and a[0] was then set to 5.",
+   "c": "Wrong. new int[3] gives three elements, indexed 0, 1 and 2.",
+   "d": "Wrong. a[0] was assigned 5 on the second line."
+  }
+ },
+ {
+  "id": "cos-o08-02",
+  "module": 7,
+  "slides": [
+   "Manual O.8 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "arrays",
+  "prompt": "What does this print?",
+  "code": "public class Q802 {\n    public static void main(String[] args) {\n        int[] a = {1, 2, 3};\n        try {\n            System.out.println(a[3]);\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.out.println(\"caught \" + e.getMessage());\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "3"
+   },
+   {
+    "id": "b",
+    "text": "caught null"
+   },
+   {
+    "id": "c",
+    "text": "caught Index 3 out of bounds for length 3"
+   },
+   {
+    "id": "d",
+    "text": "0"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is caught Index 3 out of bounds for length 3. An array of length n has indexes 0 to n minus 1. The last valid index is always length minus one, and this off-by-one is the most common runtime error in the whole course.",
+  "why": {
+   "a": "Wrong. Index 3 is the FOURTH element, and there are only three.",
+   "b": "Wrong. The exception carries a message describing the index and the length.",
+   "c": "Correct. Valid indexes are 0, 1 and 2, so a[3] throws, and the catch prints the exception's own message.",
+   "d": "Wrong. Reading past the end does not return a default; it throws."
+  }
+ },
+ {
+  "id": "cos-o08-03",
+  "module": 7,
+  "slides": [
+   "Manual O.8 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "arrays",
+  "prompt": "What does this print?",
+  "code": "public class Q803 {\n    public static void main(String[] args) {\n        int[][] m = {{1, 2, 3}, {4, 5, 6}};\n        System.out.println(m.length);\n        System.out.println(m[0].length);\n        System.out.println(m[1][2]);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "3\n2\n6"
+   },
+   {
+    "id": "b",
+    "text": "2\n3\n5"
+   },
+   {
+    "id": "c",
+    "text": "6\n3\n6"
+   },
+   {
+    "id": "d",
+    "text": "2\n3\n6"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 2 then 3 then 6. Outer index is the row, inner index is the column, and both count from zero. m.length is rows; m[i].length is the width of row i.",
+  "why": {
+   "a": "Wrong, and it swaps rows and columns. The outer length is always the number of rows.",
+   "b": "Wrong. m[1][2] is the third element of the second row, which is 6, not 5.",
+   "c": "Wrong. m.length counts rows, not the total number of elements.",
+   "d": "Correct. m.length is the number of ROWS, two. m[0].length is the length of the first row, three. m[1][2] is row 1, column 2, which is 6."
+  }
+ },
+ {
+  "id": "cos-o08-04",
+  "module": 7,
+  "slides": [
+   "Manual O.8 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "arrays",
+  "prompt": "What does this print?",
+  "code": "public class Q804 {\n    public static void main(String[] args) {\n        int[] a = {-5, -2, -9};\n        int max = 0;\n        for (int x : a) if (x > max) max = x;\n        System.out.println(max);\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "0"
+   },
+   {
+    "id": "b",
+    "text": "-2"
+   },
+   {
+    "id": "c",
+    "text": "-9"
+   },
+   {
+    "id": "d",
+    "text": "-5"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 0. Start max at the FIRST ELEMENT, never at zero. This exact fault is a standing exam favourite, and the fix is one line: int max = a[0], then loop from index 1.",
+  "why": {
+   "a": "Correct, and it is the bug. Starting max at 0 means no negative value can ever beat it, so 0 survives even though it is not in the array.",
+   "b": "Wrong, and it is the answer the program was MEANT to give. It does not, because of the way max was initialised.",
+   "c": "Wrong. -9 is the smallest, not the largest.",
+   "d": "Wrong. -2 is larger than -5, so -5 could not win even with a correct start."
+  }
+ },
+ {
+  "id": "cos-o09-01",
+  "module": 8,
+  "slides": [
+   "Manual O.9 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "recursion",
+  "prompt": "What does this print?",
+  "code": "public class Q901 {\n    static int fact(int n) {\n        if (n <= 1) return 1;\n        return n * fact(n - 1);\n    }\n    public static void main(String[] args) {\n        System.out.println(fact(5));\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "120"
+   },
+   {
+    "id": "b",
+    "text": "15"
+   },
+   {
+    "id": "c",
+    "text": "5"
+   },
+   {
+    "id": "d",
+    "text": "StackOverflowError"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 120. Every recursion needs a base case and a step that moves towards it. Remove either and you get StackOverflowError, which is what the paper asks you to identify.",
+  "why": {
+   "a": "Correct. 5 x 4 x 3 x 2 x 1 is 120, and the base case at n <= 1 stops the recursion.",
+   "b": "Wrong. 15 is the SUM 1+2+3+4+5. This method multiplies.",
+   "c": "Wrong. The method does not simply return its argument.",
+   "d": "Wrong. There IS a base case and each call moves towards it, so the recursion terminates."
+  }
+ },
+ {
+  "id": "cos-o09-02",
+  "module": 8,
+  "slides": [
+   "Manual O.9 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "recursion",
+  "prompt": "What does this print?",
+  "code": "public class Q902 {\n    static int fib(int n) {\n        if (n <= 1) return n;\n        return fib(n - 1) + fib(n - 2);\n    }\n    public static void main(String[] args) {\n        for (int i = 0; i < 7; i++) System.out.print(fib(i) + \" \");\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "1 1 2 3 5 8 13"
+   },
+   {
+    "id": "b",
+    "text": "0 1 1 2 3 5 8"
+   },
+   {
+    "id": "c",
+    "text": "0 1 2 3 4 5 6"
+   },
+   {
+    "id": "d",
+    "text": "1 2 3 5 8 13 21"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 0 1 1 2 3 5 8 . Two base cases here, folded into one line: fib(0) is 0 and fib(1) is 1. Trace the first four calls on paper and the pattern becomes obvious.",
+  "why": {
+   "a": "Wrong. This version starts at 0, because fib(0) returns 0.",
+   "b": "Correct. The base case returns n itself for 0 and 1, so the sequence starts 0, 1, and each later term is the sum of the two before it.",
+   "c": "Wrong. That is just the counting numbers, not a sum of the two previous terms.",
+   "d": "Wrong. Seven terms from index 0 ends at 8, not 21."
+  }
+ },
+ {
+  "id": "cos-o09-03",
+  "module": 8,
+  "slides": [
+   "Manual O.9 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "recursion",
+  "prompt": "Which statement about recursion compared with iteration is TRUE?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Recursion is always faster because it uses fewer instructions"
+   },
+   {
+    "id": "b",
+    "text": "Any recursive method is impossible to write as a loop"
+   },
+   {
+    "id": "c",
+    "text": "Recursion uses stack space for every pending call, so a deep recursion can exhaust it"
+   },
+   {
+    "id": "d",
+    "text": "Recursion never needs a stopping condition"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is Recursion uses stack space for every pending call, so a deep recursion can exhaust it. Recursion buys clarity on naturally recursive problems and pays for it in stack space and call overhead. Both sides of that trade earn marks.",
+  "why": {
+   "a": "Wrong. Recursion is usually SLOWER: every call costs a stack frame and the work of calling.",
+   "b": "Wrong. Anything recursive can be written iteratively, sometimes with an explicit stack of your own.",
+   "c": "Correct. Each call in progress keeps its frame until it returns, so depth costs memory, and running out of it is StackOverflowError.",
+   "d": "Wrong. Without a base case it never stops, and the program dies."
+  }
+ },
+ {
+  "id": "cos-o10-01",
+  "module": 9,
+  "slides": [
+   "Manual O.10 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "exceptions and file input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q1001 {\n    static int f() {\n        try {\n            return 1;\n        } finally {\n            System.out.println(\"finally\");\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(f());\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "1"
+   },
+   {
+    "id": "b",
+    "text": "1\nfinally"
+   },
+   {
+    "id": "c",
+    "text": "finally\n1"
+   },
+   {
+    "id": "d",
+    "text": "finally"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is finally then 1. finally runs on every path out of a try, including a return. That is why it is where cleanup belongs.",
+  "why": {
+   "a": "Wrong. The finally block runs even when the try block returns.",
+   "b": "Wrong on the order. finally runs BEFORE the method actually returns to its caller, so its output appears first.",
+   "c": "Correct. The return value is computed, then finally runs on the way out, and only then does the caller receive the 1 and print it.",
+   "d": "Wrong. The method does return 1, and main prints it."
+  }
+ },
+ {
+  "id": "cos-o10-02",
+  "module": 9,
+  "slides": [
+   "Manual O.10 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "exceptions and file input and output",
+  "prompt": "What happens when this is compiled?",
+  "code": "public class Q1002 {\n    public static void main(String[] args) {\n        try {\n            int x = 1 / 0;\n        } catch (Exception e) {\n            System.out.println(\"general\");\n        } catch (ArithmeticException e) {\n            System.out.println(\"arithmetic\");\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "It prints general"
+   },
+   {
+    "id": "b",
+    "text": "It prints arithmetic"
+   },
+   {
+    "id": "c",
+    "text": "It prints both lines"
+   },
+   {
+    "id": "d",
+    "text": "It does not compile: the second catch can never be reached"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is It does not compile: the second catch can never be reached. Catch the most specific exception FIRST and the general one last. Reversing them is a compile error, not a subtle bug, which is the helpful part.",
+  "why": {
+   "a": "Wrong. It never runs at all, because it does not compile.",
+   "b": "Wrong for the same reason, and the general catch would win in any case.",
+   "c": "Wrong. At most one catch clause ever runs for a given exception.",
+   "d": "Correct. Exception is the superclass of ArithmeticException, so the first catch already covers everything the second could. Java rejects unreachable catch clauses at compile time."
+  }
+ },
+ {
+  "id": "cos-o10-03",
+  "module": 9,
+  "slides": [
+   "Manual O.10 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "exceptions and file input and output",
+  "prompt": "Which statement is TRUE?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A checked exception must be caught or declared with throws"
+   },
+   {
+    "id": "b",
+    "text": "An unchecked exception must always be caught"
+   },
+   {
+    "id": "c",
+    "text": "All exceptions in Java are checked"
+   },
+   {
+    "id": "d",
+    "text": "A checked exception cannot be caught"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is A checked exception must be caught or declared with throws. Checked means the compiler makes you deal with it. Unchecked means it is your job to avoid it, and the commonest ones, null pointer and array index, are bugs rather than conditions.",
+  "why": {
+   "a": "Correct. The compiler insists: handle it, or declare that your method may throw it. IOException is the one this course meets most.",
+   "b": "Wrong. Unchecked exceptions, the RuntimeException family, need neither. NullPointerException is the standard example.",
+   "c": "Wrong. Everything descending from RuntimeException and Error is unchecked.",
+   "d": "Wrong. It can be caught; it simply may not be ignored."
+  }
+ },
+ {
+  "id": "cos-o10-04",
+  "module": 9,
+  "slides": [
+   "Manual O.10 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "exceptions and file input and output",
+  "prompt": "Which class does this course use to read a text file line by line, and what must surround it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "System.out, inside a for loop"
+   },
+   {
+    "id": "b",
+    "text": "Scanner or BufferedReader, inside a try block that handles IOException"
+   },
+   {
+    "id": "c",
+    "text": "FileWriter, inside a switch"
+   },
+   {
+    "id": "d",
+    "text": "String, with no exception handling needed"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Scanner or BufferedReader, inside a try block that handles IOException. Reading needs a reader and reading can fail, so it needs a catch. Both halves of that sentence earn marks.",
+  "why": {
+   "a": "Wrong. System.out is the output stream, not a way in.",
+   "b": "Correct. Either class can read lines, and file work throws a CHECKED exception, so it must be caught or declared.",
+   "c": "Wrong. FileWriter writes. Reading needs a reader.",
+   "d": "Wrong. String is a type, not a file, and the exception handling is not optional for file access."
+  }
+ },
+ {
+  "id": "cos-o10-05",
+  "module": 9,
+  "slides": [
+   "Manual O.10 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "exceptions and file input and output",
+  "prompt": "What does this print?",
+  "code": "public class Q1005 {\n    public static void main(String[] args) {\n        String s = null;\n        try {\n            System.out.println(s.length());\n        } catch (NullPointerException e) {\n            System.out.println(\"null pointer\");\n        }\n    }\n}",
+  "options": [
+   {
+    "id": "a",
+    "text": "0"
+   },
+   {
+    "id": "b",
+    "text": "null"
+   },
+   {
+    "id": "c",
+    "text": "null pointer"
+   },
+   {
+    "id": "d",
+    "text": "it does not compile"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is null pointer. null means the reference points at no object. Reading it is fine; calling a method on it is not. Check for null before you dereference.",
+  "why": {
+   "a": "Wrong. There is no object to measure, so nothing returns 0.",
+   "b": "Wrong. Printing s alone would show null; calling a METHOD on it throws.",
+   "c": "Correct. s refers to no object, so calling a method on it throws NullPointerException, which the catch handles.",
+   "d": "Wrong. It compiles perfectly. The fault only appears when it runs, which is what unchecked means."
+  }
+ }
+]

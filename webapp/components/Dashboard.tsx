@@ -26,7 +26,111 @@ export interface DashCourse {
   minutes: number;
   /** Lesson slugs in reading order, from the dated plan where there is one. */
   order: { slug: string; title: string; minutes: number }[];
+  /** The dated plan's sittings, so the page can say what TODAY holds. */
+  sessions: DashSession[];
   hasCrash: boolean;
+}
+
+export interface DashSession {
+  date: string;
+  window: string;
+  goal: string;
+  lessons: { slug: string; title: string; minutes: number }[];
+}
+
+/** Minutes after midnight of the first clock time in a window, for ordering. */
+function startOf(window: string): number {
+  const m = window.match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
+  if (!m) return 0;
+  const h = (Number(m[1]) % 12) + (m[3].toLowerCase() === 'pm' ? 12 : 0);
+  return h * 60 + Number(m[2]);
+}
+
+/**
+ * Today's sittings across every course, in clock order, with anything an
+ * earlier day left unread listed first as catch-up. When nothing is planned for
+ * today it shows the next day that has something, so the card is never empty
+ * while there is work ahead.
+ */
+function Today({
+  courses,
+  today,
+  done,
+}: {
+  courses: DashCourse[];
+  today: string;
+  done: (code: string, slug: string) => boolean;
+}) {
+  const all = courses.flatMap((c) => c.sessions.map((s) => ({ ...s, code: c.code })));
+  const behind = all
+    .filter((s) => s.date < today)
+    .map((s) => ({ ...s, lessons: s.lessons.filter((l) => !done(s.code, l.slug)) }))
+    .filter((s) => s.lessons.length);
+  const ahead = [...new Set(all.filter((s) => s.date >= today).map((s) => s.date))].sort();
+  const day = ahead[0];
+  if (!day && !behind.length) return null;
+  const sittings = all
+    .filter((s) => s.date === day)
+    .sort((a, b) => startOf(a.window) - startOf(b.window));
+
+  return (
+    <div className="today">
+      <h3>{day === today ? 'Today' : 'Next'}, {day ? longDate(`${day}T00:00`) : ''}</h3>
+      {behind.length > 0 && (
+        <div className="sitting behind">
+          <p className="swhen">
+            <b>Catch up first:</b> {behind.reduce((t, s) => t + s.lessons.length, 0)} lesson
+            {behind.reduce((t, s) => t + s.lessons.length, 0) === 1 ? '' : 's'} from an earlier day,
+            not yet marked done
+          </p>
+          <ul className="slessons">
+            {behind.flatMap((s) =>
+              s.lessons.map((l) => (
+                <li key={s.code + l.slug}>
+                  <Link href={`/${s.code.toLowerCase()}/learn/${l.slug}`}>
+                    <span className="badge">{s.code}</span> {l.title}
+                  </Link>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      )}
+      {sittings.map((s) => {
+        const left = s.lessons.filter((l) => !done(s.code, l.slug));
+        const read = s.lessons.length - left.length;
+        return (
+          <div className="sitting" key={s.code + s.window} data-course={s.code}>
+            <p className="swhen">
+              <span className="badge">{s.code}</span> {s.window}
+            </p>
+            <p className="sgoal">{s.goal}</p>
+            <div className="frametrack">
+              <i style={{ width: `${Math.round((read / s.lessons.length) * 100)}%` }} />
+            </div>
+            <ol className="slessons">
+              {s.lessons.map((l) => (
+                <li key={l.slug} className={done(s.code, l.slug) ? 'isdone' : ''}>
+                  <Link href={`/${s.code.toLowerCase()}/learn/${l.slug}`}>
+                    {done(s.code, l.slug) ? '✓ ' : ''}
+                    {l.title}
+                  </Link>
+                  <span className="smin">{l.minutes} min</span>
+                </li>
+              ))}
+            </ol>
+            {left[0] ? (
+              <Link className="btn" href={`/${s.code.toLowerCase()}/learn/${left[0].slug}`}>
+                {read ? 'Carry on' : 'Start'}: {left[0].title}
+              </Link>
+            ) : (
+              <p className="note">All {s.lessons.length} read. Well done.</p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 interface Attempt {
@@ -79,8 +183,11 @@ export default function Dashboard({ courses }: { courses: DashCourse[] }) {
 
   if (!courses.length) return null;
 
+  const isDone = (code: string, slug: string) => Boolean(progress[code]?.[slug]?.done);
+
   return (
     <div className="card dash">
+      {today && <Today courses={courses} today={today} done={isDone} />}
       <h2>Where you are</h2>
       <p className="help">
         Progress is yours and follows you between devices once you are signed in.

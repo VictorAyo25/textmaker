@@ -5,6 +5,7 @@ import type { Course, Question, Response } from '@/lib/types';
 import QuestionView from '@/components/QuestionView';
 import Feedback from '@/components/Feedback';
 import { Figure } from '@/components/Figure';
+import { QCode } from '@/components/QCode';
 import { Sci } from '@/components/Sci';
 import { mark } from '@/lib/grading';
 
@@ -46,8 +47,8 @@ export default function LessonDrill({
         {tag && <span className="btag">{tag}</span>}
       </div>
       <p className="help">
-        Every question the examiner set on this lesson. Answer each one, then check
-        it: the verdict explains why the key is the key and what is wrong with each
+        Every question on what this lesson taught. Answer each one, then check it:
+        the verdict explains why the key is the key and what is wrong with each
         other option.
       </p>
       {done > 0 && (
@@ -70,6 +71,7 @@ export default function LessonDrill({
               <Sci text={q.prompt.replace(/\{\{(\d+)\}\}/g, '____')} />
             </p>
             {q.figure && <Figure figure={q.figure} />}
+            <QCode code={q.code} />
             <QuestionView
               question={q}
               response={r}

@@ -15,7 +15,10 @@ import { authEnabled } from '@/lib/auth';
 export default function Page() {
   // Only what the list draws crosses to the client. The banks themselves are
   // thousands of questions and have no business on this page.
-  const cards: CourseCard[] = COURSES.map((c) => ({
+  // Only the papers still ahead. Hidden courses stay registered and open at
+  // their own URL; they simply do not crowd the front page this week.
+  const visible = COURSES.filter((c) => !c.hidden);
+  const cards: CourseCard[] = visible.map((c) => ({
     code: c.code,
     title: c.title,
     blurb: c.blurb,
@@ -30,8 +33,8 @@ export default function Page() {
   // The reading ORDER comes from the dated plan where a course has one, so the
   // dashboard's "next lesson" is the next one you were actually told to read,
   // not merely the next in the file.
-  const cards2 = new Map(COURSES.map((c) => [c.code, lessonCards(c.code)]));
-  const dash: DashCourse[] = COURSES.filter((c) => !c.taken).map((c) => {
+  const cards2 = new Map(visible.map((c) => [c.code, lessonCards(c.code)]));
+  const dash: DashCourse[] = visible.filter((c) => !c.taken).map((c) => {
     const byslug = new Map((cards2.get(c.code) ?? []).map((l) => [l.slug, l]));
     const planned = c.plan ? c.plan.flatMap((s) => s.lessons) : [...byslug.keys()];
     return {
@@ -46,6 +49,15 @@ export default function Page() {
         .map((slug) => byslug.get(slug))
         .filter((l): l is NonNullable<typeof l> => Boolean(l))
         .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes })),
+      sessions: (c.plan ?? []).map((s) => ({
+        date: s.date,
+        window: s.window,
+        goal: s.goal,
+        lessons: s.lessons
+          .map((slug) => byslug.get(slug))
+          .filter((l): l is NonNullable<typeof l> => Boolean(l))
+          .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes })),
+      })),
       hasCrash: byslug.size > 0,
     };
   });
@@ -54,10 +66,11 @@ export default function Page() {
     <main className="wrap">
       <header className="masthead">
         <span className="code">CU DRILL</span>
-        <h1>Active recall, built from the study manuals</h1>
+        <h1>Makeup week: four papers, from scratch</h1>
         <span className="sub">
-          Pick a course. Every question is marked instantly and reviewed in full, with
-          the reason the right answer is right and the reason each other option is not.
+          INS224 and Python on Wednesday, Java on Thursday, IFT222 on Friday. Each course
+          teaches you frame by frame, drills you on every objective question with every
+          option explained, and gives you the past theory questions to answer in your book.
         </span>
       </header>
 
@@ -76,24 +89,12 @@ export default function Page() {
           a reader actually has at six in the morning: what do I open now. */}
       <Dashboard courses={dash} />
 
-      <Timetable onDrill={COURSES.filter((c) => c.plan).map((c) => c.code)} />
+      <Timetable onDrill={visible.filter((c) => c.plan).map((c) => c.code)} />
 
       <CourseList courses={cards} />
 
-      {/* The side quest. Not a course, not on the timetable, and deliberately
-          not in COURSES, so it gets its own way in rather than a course card
-          beside the Omega papers. */}
-      <a className="sidequest" href="/quira">
-        <span className="sq-tag">Side quest</span>
-        <strong>Towards Mental Exploits</strong>
-        <span className="sq-sub">
-          Practice for the Quira challenge, in their app&apos;s own look and against its own
-          clock. 419 questions from all 79 pages, target 5 seconds each.
-        </span>
-        <span className="sq-go" aria-hidden>
-          Open the trainer →
-        </span>
-      </a>
+      {/* The Quira side quest is filed away for the makeup week. It still
+          opens at /quira; it is simply not on the front page. */}
 
       <p className="note">
         Sign in above to carry your results, your place in every crash course, and

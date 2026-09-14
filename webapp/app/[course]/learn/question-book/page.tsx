@@ -6,6 +6,7 @@ import Crumbs from '@/components/Crumbs';
 import { Sci } from '@/components/Sci';
 import { Worked, type WorkedSolution } from '@/components/Worked';
 import { Figure } from '@/components/Figure';
+import { QCode } from '@/components/QCode';
 import WORKED_TEST1 from '@/data/phy121/worked/test1.json';
 import WORKED_TEST2 from '@/data/phy121/worked/test2.json';
 import WORKED_DECKS from '@/data/phy121/worked/decks.json';
@@ -138,6 +139,7 @@ export default async function Page({ params }: { params: Promise<{ course: strin
                 {/* A question that carried a diagram on the slide or the test
                     must carry it here too, or it cannot be answered. */}
                 {q.figure && <Figure figure={q.figure} />}
+                <QCode code={q.code} />
 
                 {/* The paper's own options first, unmarked, so the question can
                     be attempted. Only then the verdicts. */}

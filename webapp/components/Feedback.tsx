@@ -3,6 +3,7 @@
 import type { Course, Marked, Question } from '@/lib/types';
 import { Sci, sciText } from '@/components/Sci';
 import { Figure } from '@/components/Figure';
+import { QCode } from '@/components/QCode';
 import { letterOf, optionsOf } from '@/lib/bank';
 
 /**
@@ -196,6 +197,9 @@ export default function Feedback({ course, m, label, showPrompt = true }: Props)
       {/* The review has to show the diagram too: a verdict about a circuit is
           unreadable next to a question whose circuit has vanished. */}
       {q.figure && <Figure figure={q.figure} />}
+      {/* The listing goes with the prompt: in review the reader needs the program
+          back to follow the verdict; while answering, it is already on screen. */}
+      {showPrompt && <QCode code={q.code} />}
       {!m.correct && (
         <p className="yours">
           You said: <b>{yourAnswer(m)}</b>

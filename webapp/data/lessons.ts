@@ -4,6 +4,8 @@ import phy121Lessons from './phy121/lessons.json';
 import dts224Lessons from './dts224/lessons.json';
 import csc242Lessons from './csc242/lessons.json';
 import ins224Lessons from './ins224/lessons.json';
+import cos221Lessons from './cos221/lessons.json';
+import csc241Lessons from './csc241/lessons.json';
 
 /**
  * Crash-course lessons, kept OUT of data/courses.ts on purpose.
@@ -22,6 +24,8 @@ const BY_COURSE: Record<string, Lesson[]> = {
   DTS224: dts224Lessons as unknown as Lesson[],
   CSC242: csc242Lessons as unknown as Lesson[],
   INS224: ins224Lessons as unknown as Lesson[],
+  COS221: cos221Lessons as unknown as Lesson[],
+  CSC241: csc241Lessons as unknown as Lesson[],
 };
 
 export function lessonsFor(code: string): Lesson[] {

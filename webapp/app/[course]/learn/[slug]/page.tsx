@@ -33,10 +33,22 @@ export default async function Page({
   const { course, slug } = await params;
   const found = findCourse(course);
   if (!found) notFound();
-  const lessons = lessonsFor(found.code);
+  // Back and Next follow the DATED plan where there is one, so finishing a
+  // lesson leads to the next one you were told to read, not the next in the
+  // file, which for Java would have jumped from loops to an optional lesson.
+  const inFile = lessonsFor(found.code);
+  const planned = (found.plan ?? []).flatMap((s) => s.lessons);
+  const lessons = planned.length
+    ? [
+        ...planned.map((s) => inFile.find((l) => l.slug === s)!).filter(Boolean),
+        ...inFile.filter((l) => !planned.includes(l.slug)),
+      ]
+    : inFile;
   const idx = lessons.findIndex((l) => l.slug === slug);
   if (idx === -1) notFound();
   const lesson = lessons[idx];
+  const session = found.plan?.find((s) => s.lessons.includes(slug));
+  const when = session ? { date: session.date, window: session.window } : null;
 
   // The lesson hands off to the drill, so it needs to name the topics it taught
   // and say how many real questions are waiting on each.
@@ -86,6 +98,7 @@ export default async function Page({
         drills={drills}
         position={idx + 1}
         total={lessons.length}
+        when={when}
       />
     </main>
   );

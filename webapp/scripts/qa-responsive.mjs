@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Responsive gate: no page may scroll sideways, at any width, on any device.
  *
  *     node scripts/qa-responsive.mjs            # against http://localhost:3000
@@ -47,6 +47,21 @@ const PAGES = [
   '/csc242/learn/function-types',
   '/csc242/learn/proof',
   '/csc242/learn/paper-2526',
+  '/cos221',
+  '/cos221/learn',
+  '/cos221/learn/first-program',
+  '/cos221/learn/methods',
+  '/cos221/learn/arrays',
+  '/cos221/learn/paper-2526',
+  '/cos221/learn/reference',
+  '/csc241',
+  '/csc241/learn',
+  '/csc241/learn/strings',
+  '/csc241/learn/databases',
+  '/csc241/learn/paper-2526',
+  '/ins224',
+  '/ins224/learn',
+  '/ins224/learn/dfd',
 ];
 
 /** Runs in the page: is anything wider than the window, and what? */
@@ -80,7 +95,7 @@ const AUDIT = () => {
 };
 
 const problems = [];
-const browser = await chromium.launch();
+const browser = await chromium.launch(process.env.PW_EXE ? { executablePath: process.env.PW_EXE } : {});
 
 for (const width of WIDTHS) {
   const ctx = await browser.newContext({

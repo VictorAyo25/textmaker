@@ -11,6 +11,7 @@ import {
   writeProgress,
 } from '@/lib/progress';
 import LessonDrill from '@/components/LessonDrill';
+import { longDate } from '@/data/timetable';
 
 /** Repository HTML lifted from the manual, never user input. */
 function Html({ html, className }: { html: string; className?: string }) {
@@ -27,6 +28,18 @@ function Html({ html, className }: { html: string; className?: string }) {
  */
 function Inline({ html, className }: { html: string; className?: string }) {
   return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+/** Does this frame's teaching hold block content: paragraphs, listings, tables? */
+const BLOCK_RE = /<(p|pre|table|ul|ol|div|figure|h\d)\b/i;
+const isBlock = (html: string) => BLOCK_RE.test(html);
+
+/** Put the check back at the head of the frame's first paragraph, or on a line
+ *  of its own when the frame opens with something that is not a paragraph. */
+function withCheck(check: string, teach: string): string {
+  if (!check) return teach;
+  const chk = `<span class="chk">${check}</span> `;
+  return /^\s*<p>/.test(teach) ? teach.replace(/^\s*<p>/, `<p>${chk}`) : `<p>${chk}</p>${teach}`;
 }
 
 /**
@@ -66,10 +79,19 @@ function Frames({
 
         {block.frames.slice(0, shown).map((f, i) => (
           <div className={`frame ${i === shown - 1 ? 'live' : 'past'}`} key={i}>
-            <p>
-              {f.check && <Inline className="chk" html={f.check} />}{' '}
-              <Inline html={f.teach} />
-            </p>
+            {isBlock(f.teach) ? (
+              // A code course's frame holds paragraphs, a listing and the output it
+              // printed. A <pre> cannot live inside a <p>: on a server render the
+              // browser would close the paragraph early and scatter the frame. So a
+              // frame with block content is a div, with the check opening its first
+              // paragraph exactly where the print edition put it.
+              <Html className="frbody" html={withCheck(f.check, f.teach)} />
+            ) : (
+              <p>
+                {f.check && <Inline className="chk" html={f.check} />}{' '}
+                <Inline html={f.teach} />
+              </p>
+            )}
             {f.ask && (
               <p className="askrow">
                 <span className="asklab">Your turn</span>
@@ -279,6 +301,8 @@ interface Props {
   course: Course;
   /** Questions for each drill block, selected on the server by block index. */
   drills: Record<number, Question[]>;
+  /** The dated sitting this lesson belongs to, where the course has a plan. */
+  when?: { date: string; window: string } | null;
 }
 
 export default function LessonView({
@@ -292,6 +316,7 @@ export default function LessonView({
   total,
   course,
   drills,
+  when,
 }: Props) {
   const key = lessonProgressKey(code);
   const [reached, setReached] = useState(1);
@@ -360,6 +385,12 @@ export default function LessonView({
       {/* The trail lives in the page's own Crumbs now, which also carries a
           route home; this used to be a partial one that only went up a level. */}
       <div className="card lessonhead">
+        {when && (
+          <p className="lwhen">
+            <b>Read on {longDate(when.date)}</b>
+            <span>{when.window}</span>
+          </p>
+        )}
         <span className="kick">{lesson.kick}</span>
         <h1>{lesson.title}</h1>
         <Html className="lead" html={lesson.lead} />

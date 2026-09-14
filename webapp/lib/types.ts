@@ -87,6 +87,13 @@ export interface Question {
   prompt: string; // for cloze/gap the blanks are marked {{1}}, {{2}}, ...
   /** A diagram the question depends on, drawn inline. See Figure above. */
   figure?: Figure;
+  /**
+   * A program listing the question depends on, "what does this print?". Plain
+   * text with its own line breaks and indentation, drawn in a monospace block
+   * under the prompt. Plain text for the same reason the prompt is: a bank
+   * file is never HTML.
+   */
+  code?: string;
   options?: Option[]; // mcq, multi
   answer?: string | string[]; // mcq: 'c'   multi: ['a','b']   tf: 'true' | 'false'
   pairs?: Pair[]; // match
@@ -230,6 +237,12 @@ export interface Course {
    * course itself stays open, because revision does not stop at the exam hall.
    */
   taken?: boolean;
+  /**
+   * Hidden from the landing page, the dashboard and the timetable, but not
+   * deleted: the course still opens at its own URL and its bank still passes the
+   * gate. Used to clear the front page down to the papers still ahead.
+   */
+  hidden?: boolean;
   /**
    * True where the course carries a fact ledger, which is what makes the
    * fact-level mastery map possible. The ledger itself is loaded on demand,

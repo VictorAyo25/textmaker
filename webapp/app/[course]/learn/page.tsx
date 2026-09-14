@@ -71,6 +71,16 @@ export default async function Page({
         </div>
       )}
 
+      {/* The dated plan first: which lesson, on which day, in which window. */}
+      {found.plan && (
+        <StudyPlan
+          code={found.code}
+          plan={found.plan}
+          exam={found.exam}
+          cards={cards}
+        />
+      )}
+
       {/* With hours left rather than days, navigating between lessons is friction.
           This offers the whole course as one continuous scroll instead. */}
       <div className="card">
@@ -97,14 +107,6 @@ export default async function Page({
           meeting something for the first time rather than testing yourself on it.
         </p>
       </div>
-      {found.plan && (
-        <StudyPlan
-          code={found.code}
-          plan={found.plan}
-          exam={found.exam}
-          cards={cards}
-        />
-      )}
       <LessonIndex code={found.code} cards={cards} />
     </main>
   );

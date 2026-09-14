@@ -484,6 +484,73 @@ const COURSES = [
     ledgerDrill: 'report',
   },
   {
+    code: 'COS221',
+    dir: 'cos221',
+    // The makeup week's Java course. This course has no objective test to
+    // transcribe, so the bank is the study manual's own objective questions,
+    // one set per topic, each carrying a verdict on every option. Provenance
+    // names the manual's objective section and the question's place in it. The
+    // two past theory papers are lesson content, answered in the reader's book,
+    // not bank questions, so they are held to the lesson checks instead.
+    slideRef: /^Manual O\.\d{1,2} Q\d{1,2}$/,
+    slideRefHelp: 'like "Manual O.3 Q7"',
+    requireLecture: false,
+    minPerModule: 3,
+    filesAreTopics: false,
+    // every one of the nine topics is both taught and asked about
+    bankCoversAllTopics: true,
+    requireEveryStyle: false,
+    requireStyles: ['mcq'],
+    requireWhy: true,
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: [
+          ...[[2, 5], [3, 12], [4, 7], [5, 5], [6, 6], [7, 4], [8, 4], [9, 3], [10, 5]].flatMap(
+            ([s, n]) => range(1, n).map((k) => `Manual O.${s} Q${k}`)
+          ),
+        ],
+        noun: 'objective questions in the Java study manual',
+        pattern: /^Manual O\.\d+ Q\d+$/,
+      },
+    ],
+    lessons: 'lessons.json',
+    plan: 'plan.json',
+    requireFrames: true,
+  },
+  {
+    code: 'CSC241',
+    dir: 'csc241',
+    // The makeup week's Python course, built the same way as COS221: the bank
+    // is the study manual's seventy objective questions, the lessons are the
+    // makeup crash course whose every listing was run, and all 23 parts of the
+    // 2025/2026 paper are theory to answer in the reader's book.
+    slideRef: /^Manual O\.\d{1,2} Q\d{1,2}$/,
+    slideRefHelp: 'like "Manual O.2 Q14"',
+    requireLecture: false,
+    minPerModule: 5,
+    filesAreTopics: false,
+    bankCoversAllTopics: true,
+    requireEveryStyle: false,
+    requireStyles: ['mcq'],
+    requireWhy: true,
+    coverages: [
+      {
+        kind: 'exactly-once',
+        required: [
+          ...[[1, 8], [2, 18], [3, 18], [4, 14], [5, 12]].flatMap(([s, n]) =>
+            range(1, n).map((k) => `Manual O.${s} Q${k}`)
+          ),
+        ],
+        noun: 'objective questions in the Python study manual',
+        pattern: /^Manual O\.\d+ Q\d+$/,
+      },
+    ],
+    lessons: 'lessons.json',
+    plan: 'plan.json',
+    requireFrames: true,
+  },
+  {
     code: 'DTS224',
     dir: 'dts224',
     // Provenance is the 25/26 objective test. The bank IS that test for now:
@@ -600,6 +667,36 @@ const POSITIONAL = [
   /\b[Bb]oth\s+(?:[A-D]|[b-d])\s+and\s+[A-Da-d]\b/,
   /\b(?:[A-D]|[b-d])\s+(?:is|was)\s+(?:the\s+)?(?:correct|right|wrong|answer)\b/,
 ];
+
+/**
+ * A question's text is PLAIN TEXT wherever it is drawn: the drill, the lesson
+ * drill, the review, the printable sheet and the solutions page all render it
+ * as React text, never as HTML. Markup in a bank therefore reaches the reader
+ * as literal tags. That is how the first Java import showed "<pre class=..."
+ * in the middle of a question. A listing belongs in `code`, a line break in an
+ * option is a real newline, and emphasis is not available.
+ */
+// Real HTML tag names only: "python <filename>" is a placeholder meant literally.
+const MARKUP =
+  /<\/?(?:b|i|u|em|strong|code|pre|br|p|span|div|sup|sub|ul|ol|li|table|thead|tbody|tr|td|th|a|img|small|kbd|var|mark|h[1-6])(?:\s[^<>]*)?\/?>|&(?:[a-z]+|#\d+);/i;
+function noMarkup(q, cfg) {
+  const at = `${cfg.code} [${q.id}]`;
+  const texts = [
+    ['prompt', q.prompt ?? ''],
+    ['code', q.code ?? ''],
+    ['explanation', q.explanation ?? ''],
+  ];
+  for (const o of q.options ?? []) texts.push([`option ${o.id}`, o.text ?? '']);
+  for (const [k, v] of Object.entries(q.why ?? {})) texts.push([`why.${k}`, v ?? '']);
+  for (const [where, txt] of texts) {
+    // Inside a listing, "<" is code ("i < n", "List<String>"): only an entity,
+    // which would print as "&lt;", is wrong there.
+    const re = where === 'code' ? /&(?:[a-z]+|#\d+);/i : MARKUP;
+    const m = txt.match(re);
+    if (m)
+      check(false, `${at}: ${where} contains ${JSON.stringify(m[0])}, which the drill prints literally. Question text is plain text.`);
+  }
+}
 
 function noPositionalRefs(q, cfg) {
   const at = `${cfg.code} [${q.id}]`;
@@ -1495,6 +1592,7 @@ for (const cfg of COURSES) {
       validate(q, f, cfg, seenIds);
       houseStyle(q, cfg);
       noPositionalRefs(q, cfg);
+      noMarkup(q, cfg);
       checkFigure(q, cfg);
     }
     all.push(...items);

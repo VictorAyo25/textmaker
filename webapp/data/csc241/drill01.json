@@ -1,0 +1,2872 @@
+[
+ {
+  "id": "csc-o01-01",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "Python is best described as which kind of language?",
+  "options": [
+   {
+    "id": "a",
+    "text": "An interpreted, high-level, general-purpose language"
+   },
+   {
+    "id": "b",
+    "text": "A compiled language, translated to machine code before it runs"
+   },
+   {
+    "id": "c",
+    "text": "A markup language for describing documents"
+   },
+   {
+    "id": "d",
+    "text": "An assembly language for a specific processor family"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is An interpreted, high-level, general-purpose language. Interpreted, high-level, general-purpose. Those three words are the definition the paper wants back.",
+  "why": {
+   "a": "Correct. Interpreted means a program runs it line by line; high-level means it hides the machine; general-purpose means it is not tied to one kind of task.",
+   "b": "Wrong. Compilation to machine code ahead of running is the C and Java model. Python translates and runs statement by statement through an interpreter, which is why an error can appear only when that line runs.",
+   "c": "Wrong. A markup language describes how content is structured, like HTML. Python computes, it does not mark up.",
+   "d": "Wrong. Assembly is tied to one processor and its instruction set. Python code runs unchanged wherever the interpreter runs."
+  }
+ },
+ {
+  "id": "csc-o01-02",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "A Python script contains a syntax error on its last line. What happens when you run it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "The first lines run, then the error is reported when that line is reached"
+   },
+   {
+    "id": "b",
+    "text": "Nothing runs: the whole file is checked before any of it executes"
+   },
+   {
+    "id": "c",
+    "text": "The error is ignored and the script finishes normally"
+   },
+   {
+    "id": "d",
+    "text": "The line is skipped and the rest of the script continues"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Nothing runs: the whole file is checked before any of it executes. Syntax errors are found at parse time, before execution. Runtime errors are found when their line runs. Knowing which is which explains why some faulty scripts print nothing at all.",
+  "why": {
+   "a": "Wrong, and it is the trap. This is true of a NAME error or a type error, which are found only when the line runs, but a SYNTAX error is found while the file is being parsed, before anything executes.",
+   "b": "Correct. Python parses the whole file first. A syntax error anywhere stops it before the first line runs, which is why a stray colon can produce no output at all.",
+   "c": "Wrong. Python never ignores an error. Something is always reported.",
+   "d": "Wrong. Python does not skip statements it cannot parse. There is no \"carry on regardless\" mode."
+  }
+ },
+ {
+  "id": "csc-o01-03",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "Which of these is NOT a stated advantage of Python?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It is easy to read, with a syntax close to English"
+   },
+   {
+    "id": "b",
+    "text": "It is portable: the same code runs on different platforms"
+   },
+   {
+    "id": "c",
+    "text": "It is the fastest executing language available"
+   },
+   {
+    "id": "d",
+    "text": "It has a large standard library and a large community"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is It is the fastest executing language available. Speed of execution is a DISadvantage of Python, not an advantage. Everything else on that list is real.",
+  "why": {
+   "a": "Wrong choice, because readability IS an advantage. The whitespace rules exist to force it.",
+   "b": "Wrong choice, because portability IS an advantage. The interpreter hides the platform.",
+   "c": "Correct, and this is the one to remember. Interpretation costs speed. Python is chosen for programmer time, not for execution time, and a paper listing slow execution as a disadvantage of Python is common.",
+   "d": "Wrong choice, because the standard library IS an advantage. It is the \"batteries included\" claim."
+  }
+ },
+ {
+  "id": "csc-o01-04",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "At the interactive prompt you type 2 + 3 and press enter. Why does 5 appear even though you never wrote print?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Python adds a print automatically to every line of every program"
+   },
+   {
+    "id": "b",
+    "text": "The plus operator prints its result"
+   },
+   {
+    "id": "c",
+    "text": "It does not appear; the prompt shows nothing without print"
+   },
+   {
+    "id": "d",
+    "text": "The prompt echoes the value of any expression you type"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is The prompt echoes the value of any expression you type. The prompt echoes; a script does not. This is why the manual marks its three kinds of block differently, and why copying prompt examples into a file makes the output vanish.",
+  "why": {
+   "a": "Wrong, and this is the trap. Inside a SCRIPT, 2 + 3 on its own line computes 5 and throws it away silently. Only the prompt echoes.",
+   "b": "Wrong. The plus operator produces a value and does nothing else with it.",
+   "c": "Wrong. The prompt does echo. Try it: this is the difference between the three kinds of code block this manual sets out.",
+   "d": "Correct. The interactive prompt evaluates what you type and displays the result. That is a feature of the prompt, not of the language."
+  }
+ },
+ {
+  "id": "csc-o01-05",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "What is the correct way to run a saved file called grades.py from the command line?",
+  "options": [
+   {
+    "id": "a",
+    "text": "python grades.py"
+   },
+   {
+    "id": "b",
+    "text": "run grades.py"
+   },
+   {
+    "id": "c",
+    "text": "grades.py run"
+   },
+   {
+    "id": "d",
+    "text": "execute python grades.py"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is python grades.py. python <filename>. The interpreter is the program; your file is the input to it.",
+  "why": {
+   "a": "Correct. You launch the interpreter, python, and give it the file to run as its argument.",
+   "b": "Wrong. There is no run command. The interpreter is the program you launch, and the script is what you hand it.",
+   "c": "Wrong. The order is wrong and run is not a Python word.",
+   "d": "Wrong. There is no execute command wrapping it."
+  }
+ },
+ {
+  "id": "csc-o01-06",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "Which line is a valid single-line comment in Python?",
+  "options": [
+   {
+    "id": "a",
+    "text": "// this is a comment"
+   },
+   {
+    "id": "b",
+    "text": "# this is a comment"
+   },
+   {
+    "id": "c",
+    "text": "/* this is a comment */"
+   },
+   {
+    "id": "d",
+    "text": "-- this is a comment"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is # this is a comment. Hash to end of line. Python has no block comment: a run of hashes, or a string used as a docstring, is how several lines are done.",
+  "why": {
+   "a": "Wrong. Two slashes are the C, Java and JavaScript comment. In Python two slashes are the floor division operator, so this line is an error.",
+   "b": "Correct. The hash starts a comment that runs to the end of the line.",
+   "c": "Wrong. Slash-star is the C block comment. Python has no block comment syntax at all.",
+   "d": "Wrong. Two hyphens are the SQL comment, which matters here because this course also writes SQL through Python. The two languages do not share it."
+  }
+ },
+ {
+  "id": "csc-o01-07",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "In Python, what does indentation do?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nothing: it is style only, as in C or Java"
+   },
+   {
+    "id": "b",
+    "text": "It sets how far output is printed from the left edge"
+   },
+   {
+    "id": "c",
+    "text": "It marks which statements belong to a block, and is part of the syntax"
+   },
+   {
+    "id": "d",
+    "text": "It is required only inside functions"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is It marks which statements belong to a block, and is part of the syntax. Indentation is syntax, not decoration. It replaces the braces that other languages use to group statements.",
+  "why": {
+   "a": "Wrong, and it is the single biggest habit to break coming from another language. In Python the indentation IS the block structure, so getting it wrong changes the meaning of the program or stops it running.",
+   "b": "Wrong. Output position is decided by what you print, not by how the source is laid out.",
+   "c": "Correct. Where C uses braces, Python uses the indentation itself. An inconsistent indent raises IndentationError.",
+   "d": "Wrong. Every block needs it: if, else, for, while, def, class, try, with."
+  }
+ },
+ {
+  "id": "csc-o01-08",
+  "module": 1,
+  "slides": [
+   "Manual O.1 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "introduction to python programming",
+  "prompt": "Which of these is a VALID Python variable name?",
+  "options": [
+   {
+    "id": "a",
+    "text": "2nd_score"
+   },
+   {
+    "id": "b",
+    "text": "class"
+   },
+   {
+    "id": "c",
+    "text": "total score"
+   },
+   {
+    "id": "d",
+    "text": "_total2"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is _total2. Start with a letter or underscore, then letters, digits or underscores, and never a keyword. Names are case sensitive, so Total and total are two different variables.",
+  "why": {
+   "a": "Wrong. A name may not start with a digit. Letters and the underscore only, then digits are allowed after the first character.",
+   "b": "Wrong. class is a reserved keyword, so it cannot be used as a name. The same applies to if, for, def, and the rest.",
+   "c": "Wrong. A space separates two names, so Python reads this as two things and reports a syntax error. Use an underscore.",
+   "d": "Correct. It starts with an underscore, which is allowed, and the digit is not in first position."
+  }
+ },
+ {
+  "id": "csc-o02-01",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What does it mean to say Python is dynamically typed?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A variable must be declared with its type before use"
+   },
+   {
+    "id": "b",
+    "text": "Types are checked by the compiler before the program runs"
+   },
+   {
+    "id": "c",
+    "text": "Every value in Python is a string until converted"
+   },
+   {
+    "id": "d",
+    "text": "The type belongs to the value, and a name may be rebound to a value of another type"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is The type belongs to the value, and a name may be rebound to a value of another type. The value carries the type; the name is only a label. That is why type() reports on the value and why a name can change type mid-program.",
+  "why": {
+   "a": "Wrong, and this is the static-typing model of C and Java. Python needs no declaration at all: assignment creates the name.",
+   "b": "Wrong. There is no compiler pass checking types ahead of time. A type error surfaces when the offending line runs.",
+   "c": "Wrong. This describes what input() returns, not what Python does generally. 5 is an int the moment you write it.",
+   "d": "Correct. x = 5 then x = \"five\" is legal, because the type travels with the value, not with the name."
+  }
+ },
+ {
+  "id": "csc-o02-02",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "A program does age = input() and the user types 20. What is printed?",
+  "code": "age = \"20\"        # this is exactly what input() hands back\r\nprint(type(age).__name__)\r\nprint(age * 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "str\n2020"
+   },
+   {
+    "id": "b",
+    "text": "int\n40"
+   },
+   {
+    "id": "c",
+    "text": "str\n40"
+   },
+   {
+    "id": "d",
+    "text": "int\n2020"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is str then 2020. input() always returns a string. That is why age + 5 raises TypeError and age * 2 gives 2020, and it is the single most common first-program bug in this course. Wrap it in int() or float().",
+  "why": {
+   "a": "Correct. input() always returns a str, so type reports str, and \"20\" * 2 repeats the characters to give 2020.",
+   "b": "Wrong on both lines. input() never returns an int, and star on a string repeats rather than multiplies.",
+   "c": "Wrong on the second line. 40 would need age to be a number; it is a string, so star repeats it.",
+   "d": "Wrong on the first line. The value came from input(), so it is a string however numeric it looks."
+  }
+ },
+ {
+  "id": "csc-o02-03",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(7 / 2)\r\nprint(7 // 2)\r\nprint(7 % 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "3\n3\n1"
+   },
+   {
+    "id": "b",
+    "text": "3.5\n3\n1"
+   },
+   {
+    "id": "c",
+    "text": "3.5\n3.5\n1"
+   },
+   {
+    "id": "d",
+    "text": "3.5\n3\n3.5"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 3.5 then 3 then 1. Slash gives a float, double slash floors, percent is the remainder. Note 7 // 2 is 3 but -7 // 2 is -4, because flooring goes DOWN, not towards zero.",
+  "why": {
+   "a": "Wrong. A single slash never truncates in Python 3. 7 / 2 is 3.5, not 3. That was Python 2 behaviour, and the change is a favourite exam point.",
+   "b": "Correct. A single slash is true division and always gives a float, even when it divides exactly. Double slash floors the result to an integer. The percent sign gives the remainder.",
+   "c": "Wrong. Double slash is floor division, so it produces 3, not 3.5.",
+   "d": "Wrong. The percent sign is remainder, not division, so 7 % 2 is 1."
+  }
+ },
+ {
+  "id": "csc-o02-04",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(2 + 3 * 4 ** 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "80"
+   },
+   {
+    "id": "b",
+    "text": "400"
+   },
+   {
+    "id": "c",
+    "text": "50"
+   },
+   {
+    "id": "d",
+    "text": "100"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 50. Exponent, then multiply and divide, then add and subtract. When in doubt in the exam, write the brackets in yourself: they cost nothing and remove the question.",
+  "why": {
+   "a": "Wrong. That is (2 + 3) * 4 ** 2, which adds before multiplying. Addition is last, not first.",
+   "b": "Wrong. That is ((2 + 3) * 4) ** 2, which applies the exponent to everything.",
+   "c": "Correct. Exponent first: 4 ** 2 is 16. Then multiply: 3 * 16 is 48. Then add: 2 + 48 is 50.",
+   "d": "Wrong. That is (2 + 3 * 4) ** 2, exponent applied last."
+  }
+ },
+ {
+  "id": "csc-o02-05",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(2 ** 3 ** 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "64"
+   },
+   {
+    "id": "b",
+    "text": "18"
+   },
+   {
+    "id": "c",
+    "text": "12"
+   },
+   {
+    "id": "d",
+    "text": "512"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 512. Exponent is right-associative, and it is the only common operator that is. Everything else in this course groups left to right.",
+  "why": {
+   "a": "Wrong. 64 is (2 ** 3) ** 2, grouping from the left. The exponent operator is the exception: it groups from the RIGHT.",
+   "b": "Wrong. 18 would be 2 * 3 * 3, which is not what any part of this expression does.",
+   "c": "Wrong. There is no reading of this expression that gives 12.",
+   "d": "Correct. It reads as 2 ** (3 ** 2), which is 2 ** 9, which is 512."
+  }
+ },
+ {
+  "id": "csc-o02-06",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "x = 10\r\nx += 5\r\nx -= 3\r\nx *= 2\r\nprint(x)",
+  "options": [
+   {
+    "id": "a",
+    "text": "24"
+   },
+   {
+    "id": "b",
+    "text": "12"
+   },
+   {
+    "id": "c",
+    "text": "30"
+   },
+   {
+    "id": "d",
+    "text": "17"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 24. x += 5 is exactly x = x + 5. Work these line by line and write the running value in the margin; the exam asks this shape often.",
+  "why": {
+   "a": "Correct. 10 plus 5 is 15, minus 3 is 12, times 2 is 24. Each line uses the value the line before it left behind.",
+   "b": "Wrong. 12 is the value after the subtraction. The multiplication still has to happen.",
+   "c": "Wrong. 30 would be 15 times 2, which skips the subtraction.",
+   "d": "Wrong. 17 would be 10 plus 5 plus 2, which misreads two of the three operators."
+  }
+ },
+ {
+  "id": "csc-o02-07",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "x = 5\r\nprint(1 < x < 10)\r\nprint(x == 5 and x != 5)",
+  "options": [
+   {
+    "id": "a",
+    "text": "True\nTrue"
+   },
+   {
+    "id": "b",
+    "text": "True\nFalse"
+   },
+   {
+    "id": "c",
+    "text": "False\nFalse"
+   },
+   {
+    "id": "d",
+    "text": "TypeError"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is True then False. Chained comparison is real Python and reads exactly as it does in mathematics. Most languages do not have it, so it is worth a mark when the paper shows one.",
+  "why": {
+   "a": "Wrong. The second line cannot be True: x == 5 and x != 5 contradict each other by construction.",
+   "b": "Correct. Python allows a chained comparison, and 1 < 5 < 10 is True. The second line asks for something and its own opposite at once, which can never be True.",
+   "c": "Wrong. The first line is True, because chaining is legal in Python and 5 does lie between 1 and 10.",
+   "d": "Wrong. Nothing here is a type error; all the operands are numbers."
+  }
+ },
+ {
+  "id": "csc-o02-08",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(True and False or True)\r\nprint(not True and False)",
+  "options": [
+   {
+    "id": "a",
+    "text": "False\nFalse"
+   },
+   {
+    "id": "b",
+    "text": "True\nTrue"
+   },
+   {
+    "id": "c",
+    "text": "True\nFalse"
+   },
+   {
+    "id": "d",
+    "text": "False\nTrue"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is True then False. Precedence among the three: not, then and, then or. Read them in that order and these questions become mechanical.",
+  "why": {
+   "a": "Wrong. The first line is True, because the or rescues it: only one side of an or needs to be true.",
+   "b": "Wrong. The second line is False. not True is False, and False and anything is False.",
+   "c": "Correct. and binds tighter than or, so the first line is (True and False) or True, which is False or True, which is True. On the second, not binds tightest, so it is (not True) and False, which is False and False.",
+   "d": "Wrong on both counts, and it has the precedence backwards."
+  }
+ },
+ {
+  "id": "csc-o02-09",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q9"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(int(\"7\") + int(3.9))\r\nprint(float(\"2.5\") * 2)\r\nprint(str(4) + \"2\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "10.9\n5.0\n6"
+   },
+   {
+    "id": "b",
+    "text": "11\n5.0\n42"
+   },
+   {
+    "id": "c",
+    "text": "10\n5\n42"
+   },
+   {
+    "id": "d",
+    "text": "10\n5.0\n42"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 10 then 5.0 then 42. int() truncates towards zero and round() rounds. Mixing an int with a float gives a float. Plus on two strings joins them.",
+  "why": {
+   "a": "Wrong. int() applied to a float does not keep the fraction. It truncates towards zero.",
+   "b": "Wrong. int(3.9) is 3, not 4. int() truncates, it does not round; round() is the function that rounds.",
+   "c": "Wrong. Multiplying a float by an int gives a float, so it prints 5.0, with the point.",
+   "d": "Correct. int(\"7\") is 7 and int(3.9) TRUNCATES to 3, so the sum is 10. float(\"2.5\") * 2 is 5.0, a float because one operand is. str(4) + \"2\" joins two strings into \"42\"."
+  }
+ },
+ {
+  "id": "csc-o02-10",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q10"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is meant by saying that Python strings are immutable?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A string cannot be printed twice"
+   },
+   {
+    "id": "b",
+    "text": "Once created, a string object cannot be changed; operations return a new string"
+   },
+   {
+    "id": "c",
+    "text": "A string cannot be assigned to a variable more than once"
+   },
+   {
+    "id": "d",
+    "text": "A string cannot contain numbers"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Once created, a string object cannot be changed; operations return a new string. Immutable means the object cannot be modified in place. This is a question the paper asks in words (\"Strings are Immutable. Explain and with reasons.\"), so have the sentence ready and an example with it.",
+  "why": {
+   "a": "Wrong. Printing does not change anything, and there is no limit on how often you may print.",
+   "b": "Correct. s.upper() hands back a NEW string and leaves s untouched, and s[0] = \"X\" raises TypeError. To \"change\" a string you must rebind the name to a new one.",
+   "c": "Wrong. Rebinding a name is always allowed. That changes what the name points to, not the string it used to point at.",
+   "d": "Wrong. \"abc123\" is a perfectly ordinary string. The characters in it are irrelevant to mutability."
+  }
+ },
+ {
+  "id": "csc-o02-11",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q11"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "s = \"PYTHON\"\r\nprint(s[0], s[-1], s[1:4], s[::-1])",
+  "options": [
+   {
+    "id": "a",
+    "text": "P N YTHO NOHTYP"
+   },
+   {
+    "id": "b",
+    "text": "Y N YTH NOHTYP"
+   },
+   {
+    "id": "c",
+    "text": "P N YTH NOHTYP"
+   },
+   {
+    "id": "d",
+    "text": "P O YTH NOHTYP"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is P N YTH NOHTYP. Index from 0, negative counts from the end, a slice excludes its stop, and [::-1] reverses. Those four facts answer most string questions on this paper.",
+  "why": {
+   "a": "Wrong. The slice s[1:4] does not include index 4, so it is three characters, not four.",
+   "b": "Wrong. s[0] is P. Python indexes from 0, not from 1.",
+   "c": "Correct. Index 0 is the first character, minus 1 is the last, a slice stops BEFORE its end index so 1:4 gives characters 1, 2 and 3, and a step of minus 1 walks the string backwards.",
+   "d": "Wrong. s[-1] is the last character, N, not the second to last."
+  }
+ },
+ {
+  "id": "csc-o02-12",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q12"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "s = \"  Hello World  \"\r\nprint(s.strip().upper())\r\nprint(s.strip().split())\r\nprint(\"-\".join([\"a\", \"b\", \"c\"]))",
+  "options": [
+   {
+    "id": "a",
+    "text": "HELLO WORLD\n['Hello World']\na-b-c"
+   },
+   {
+    "id": "b",
+    "text": "HELLO WORLD\n['Hello', 'World']\na-b-c"
+   },
+   {
+    "id": "c",
+    "text": "Hello World\n['Hello', 'World']\nabc"
+   },
+   {
+    "id": "d",
+    "text": "HELLO WORLD\n['Hello', 'World']\na-b-c"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is HELLO WORLD then ['Hello', 'World'] then a-b-c. strip, upper, lower, split, join, replace, find. Those seven cover nearly every string question this course has ever set.",
+  "why": {
+   "a": "Wrong. split() with no argument splits on EVERY run of whitespace, so two words come back as two items.",
+   "b": "Wrong. strip() really does remove the outer spaces. That is its only job.",
+   "c": "Wrong on two counts: upper() does uppercase, and join() really does put the hyphen between the items.",
+   "d": "Correct. strip() removes the leading and trailing spaces, upper() uppercases what is left, split() with no argument splits on whitespace into a list of words, and join() glues a list together with the string it is called on as the separator."
+  }
+ },
+ {
+  "id": "csc-o02-13",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q13"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(\"ab\" * 3)\r\nprint(\"ab\" + \"3\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "ababab\nab3"
+   },
+   {
+    "id": "b",
+    "text": "ab3\nababab"
+   },
+   {
+    "id": "c",
+    "text": "abababab\nab3"
+   },
+   {
+    "id": "d",
+    "text": "TypeError\nab3"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is ababab then ab3. Star repeats, plus joins, and \"ab\" + 3 is the error. The operator means different things for numbers and for strings, which is what operator overloading is.",
+  "why": {
+   "a": "Correct. A string times an integer repeats it. A string plus a string joins them. Both operators are overloaded for strings.",
+   "b": "Wrong, and it has the two operators swapped. Star repeats, plus joins.",
+   "c": "Wrong. Times 3 gives three copies, not four.",
+   "d": "Wrong. String times int is perfectly legal. It is string PLUS int that raises TypeError."
+  }
+ },
+ {
+  "id": "csc-o02-14",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q14"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "name = \"Ada\"\r\nscore = 87.456\r\nprint(f\"{name} scored {score:.1f}\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "Ada scored 87.456"
+   },
+   {
+    "id": "b",
+    "text": "Ada scored 87.5"
+   },
+   {
+    "id": "c",
+    "text": "Ada scored 87.4"
+   },
+   {
+    "id": "d",
+    "text": "{name} scored {score:.1f}"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is Ada scored 87.5. f\"...\" substitutes; :.2f fixes the decimal places. Forgetting the f is the classic error and the output tells you at once.",
+  "why": {
+   "a": "Wrong. The .1f asks for one decimal place, so the full value is not printed.",
+   "b": "Correct. The f before the quote turns it into a formatted string, the braces are replaced by the values, and .1f rounds to one decimal place, giving 87.5.",
+   "c": "Wrong. Formatting ROUNDS, it does not truncate, and 87.456 rounds up to 87.5.",
+   "d": "Wrong. That is what you get WITHOUT the f prefix, which is a real and common slip: the braces then print literally."
+  }
+ },
+ {
+  "id": "csc-o02-15",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q15"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "print(\"a\\tb\")\r\nprint(\"c\\nd\")\r\nprint(\"e\\\\f\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "a\\tb\nc\\nd\ne\\\\f"
+   },
+   {
+    "id": "b",
+    "text": "ab\ncd\nef"
+   },
+   {
+    "id": "c",
+    "text": "a b\nc\nd\ne\\f"
+   },
+   {
+    "id": "d",
+    "text": "a b\ncd\nef"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is a b then c then d then e\\f. Backslash n newline, backslash t tab, double backslash for a real backslash. This matters for file paths, where a Windows path needs doubling or a raw string.",
+  "why": {
+   "a": "Wrong. That is what a RAW string would print, written r\"a\\tb\". Without the r, the escapes are interpreted.",
+   "b": "Wrong. The escapes produce real whitespace: a tab and a line break, not nothing.",
+   "c": "Correct. Backslash t is a tab, backslash n is a newline, and two backslashes print one literal backslash.",
+   "d": "Wrong. Backslash t is a tab character, which is wider than a single space, and the last line keeps its backslash."
+  }
+ },
+ {
+  "id": "csc-o02-16",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q16"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "a = [1, 2]\r\nb = [1, 2]\r\nprint(a == b)\r\nprint(a is b)",
+  "options": [
+   {
+    "id": "a",
+    "text": "True\nTrue"
+   },
+   {
+    "id": "b",
+    "text": "False\nFalse"
+   },
+   {
+    "id": "c",
+    "text": "False\nTrue"
+   },
+   {
+    "id": "d",
+    "text": "True\nFalse"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is True then False. == is equal in value, is is the very same object. Use is only for None, and use == for everything else.",
+  "why": {
+   "a": "Wrong. is asks whether they are the SAME object, and two separately written lists are two objects however alike they look.",
+   "b": "Wrong. == on two lists compares them item by item, and these match.",
+   "c": "Wrong, and it has the two operators exactly backwards.",
+   "d": "Correct. == compares contents, so it is True. is compares identity, so it is False: a and b name two different list objects."
+  }
+ },
+ {
+  "id": "csc-o02-17",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q17"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "What is printed?",
+  "code": "a, b = 1, 2\r\na, b = b, a\r\nprint(a, b)",
+  "options": [
+   {
+    "id": "a",
+    "text": "2 1"
+   },
+   {
+    "id": "b",
+    "text": "1 2"
+   },
+   {
+    "id": "c",
+    "text": "2 2"
+   },
+   {
+    "id": "d",
+    "text": "1 1"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 2 1. a, b = b, a swaps in one line because the right side is built completely before anything is assigned.",
+  "why": {
+   "a": "Correct. The right-hand side is evaluated first, into the pair (2, 1), and only then unpacked into a and b. So the swap needs no temporary variable.",
+   "b": "Wrong. That is the value before the swap.",
+   "c": "Wrong. That is what happens in a language where a = b runs first and destroys the old a. Python does not: it builds the whole right side first.",
+   "d": "Wrong, for the same reason: nothing is overwritten before it is read."
+  }
+ },
+ {
+  "id": "csc-o02-18",
+  "module": 2,
+  "slides": [
+   "Manual O.2 Q18"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "python basics, syntax, operators and strings",
+  "prompt": "Which error does Python raise for int(\"abc\")?",
+  "options": [
+   {
+    "id": "a",
+    "text": "TypeError"
+   },
+   {
+    "id": "b",
+    "text": "ValueError"
+   },
+   {
+    "id": "c",
+    "text": "SyntaxError"
+   },
+   {
+    "id": "d",
+    "text": "NameError"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is ValueError. TypeError is the wrong type, ValueError is the right type carrying an impossible value. int(\"abc\") is the standard example of the second.",
+  "why": {
+   "a": "Wrong. TypeError is for the wrong KIND of thing, such as \"5\" + 5. Here the kind is right, a string, and int() does accept strings.",
+   "b": "Correct. The type is acceptable but the VALUE is not: \"abc\" is a string that does not spell a number. That is exactly what ValueError means.",
+   "c": "Wrong. The line parses perfectly. A syntax error would mean Python could not read the line at all.",
+   "d": "Wrong. NameError means a name was used before it was assigned. Every name here exists."
+  }
+ },
+ {
+  "id": "csc-o03-01",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "score = 75\r\nif score >= 70:\r\n    print(\"A\")\r\nelif score >= 60:\r\n    print(\"B\")\r\nelse:\r\n    print(\"C\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "B"
+   },
+   {
+    "id": "b",
+    "text": "A\nB"
+   },
+   {
+    "id": "c",
+    "text": "A"
+   },
+   {
+    "id": "d",
+    "text": "C"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is A. elif tests only if everything above it failed. Replacing elif with a second if changes the answer, and the paper has asked for exactly that comparison.",
+  "why": {
+   "a": "Wrong. 75 is at or above 60, but the chain never reaches that test: it stopped at the first true one.",
+   "b": "Wrong. An if/elif chain runs AT MOST one block. Separate if statements would print both, which is exactly the trap the paper sets.",
+   "c": "Correct. The first condition that is true wins, its block runs, and the whole chain is then finished.",
+   "d": "Wrong. else runs only when every test above it failed."
+  }
+ },
+ {
+  "id": "csc-o03-02",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "for i in range(1, 6, 2):\r\n    print(i, end=\" \")",
+  "options": [
+   {
+    "id": "a",
+    "text": "1 2 3 4 5"
+   },
+   {
+    "id": "b",
+    "text": "1 3 5 7"
+   },
+   {
+    "id": "c",
+    "text": "2 4"
+   },
+   {
+    "id": "d",
+    "text": "1 3 5"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 1 3 5. range(stop), range(start, stop), range(start, stop, step), and the stop is never included. That last part is the one people lose marks on.",
+  "why": {
+   "a": "Wrong. That ignores the third argument, the step of 2.",
+   "b": "Wrong. 7 is past the stop value, so it is never produced.",
+   "c": "Wrong. The start is 1, not 2. range starts where you tell it to.",
+   "d": "Correct. range(start, stop, step) begins at 1, adds 2 each time, and stops BEFORE 6. So 1, 3, 5."
+  }
+ },
+ {
+  "id": "csc-o03-03",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "n = 0\r\nwhile True:\r\n    n += 1\r\n    if n == 3:\r\n        break\r\nprint(n)",
+  "options": [
+   {
+    "id": "a",
+    "text": "3"
+   },
+   {
+    "id": "b",
+    "text": "0"
+   },
+   {
+    "id": "c",
+    "text": "2"
+   },
+   {
+    "id": "d",
+    "text": "the loop never ends"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is 3. break leaves the loop at once; continue jumps to the next iteration. while True with a break inside is the standard way to write a menu loop.",
+  "why": {
+   "a": "Correct. n reaches 3, the if fires, break leaves the loop immediately, and print sees 3.",
+   "b": "Wrong. n is incremented before anything else in the body, so it can never still be 0 at the end.",
+   "c": "Wrong. break happens AFTER the increment that made n equal to 3, so 3 is the value that survives.",
+   "d": "Wrong. while True does loop forever unless something leaves it, and break is exactly that something."
+  }
+ },
+ {
+  "id": "csc-o03-04",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "for i in range(5):\r\n    if i % 2 == 0:\r\n        continue\r\n    print(i, end=\" \")",
+  "options": [
+   {
+    "id": "a",
+    "text": "0 2 4"
+   },
+   {
+    "id": "b",
+    "text": "1 3"
+   },
+   {
+    "id": "c",
+    "text": "0 1 2 3 4"
+   },
+   {
+    "id": "d",
+    "text": "1 3 5"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 1 3. continue abandons this pass and starts the next. Reading it as \"skip the rest of the body\" is the reliable way to trace it.",
+  "why": {
+   "a": "Wrong, and it is backwards: continue SKIPS the even numbers, so they are the ones that never print.",
+   "b": "Correct. When i is even the continue skips the print, so only the odd values 1 and 3 appear. range(5) stops at 4.",
+   "c": "Wrong. The continue means not every value reaches the print.",
+   "d": "Wrong. range(5) produces 0 to 4, so 5 is never reached."
+  }
+ },
+ {
+  "id": "csc-o03-05",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "for i in range(3):\r\n    print(i, end=\" \")\r\nelse:\r\n    print(\"done\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "0 1 2"
+   },
+   {
+    "id": "b",
+    "text": "done"
+   },
+   {
+    "id": "c",
+    "text": "0 1 2 done"
+   },
+   {
+    "id": "d",
+    "text": "0 1 2 3 done"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 0 1 2 done. A loop else means \"no break happened\". It is Python-specific and a favourite for a \"what is the output\" question because it looks like an if else and is not.",
+  "why": {
+   "a": "Wrong. The else does run, because there is no break in this loop.",
+   "b": "Wrong. The loop body runs first, three times.",
+   "c": "Correct. A loop else runs when the loop finished normally, that is without a break. Nothing breaks here, so it runs.",
+   "d": "Wrong. range(3) gives 0, 1 and 2. It never reaches 3."
+  }
+ },
+ {
+  "id": "csc-o03-06",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "xs = [3, 1, 2]\r\nxs.append(4)\r\nxs.sort()\r\nprint(xs)\r\nprint(xs[0], xs[-1])",
+  "options": [
+   {
+    "id": "a",
+    "text": "[3, 1, 2, 4]\n3 4"
+   },
+   {
+    "id": "b",
+    "text": "[4, 3, 2, 1]\n4 1"
+   },
+   {
+    "id": "c",
+    "text": "[1, 2, 3]\n1 3"
+   },
+   {
+    "id": "d",
+    "text": "[1, 2, 3, 4]\n1 4"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is [1, 2, 3, 4] then 1 4. Lists are ORDERED, so position has meaning, and MUTABLE, so they can be changed in place. The paper asks for both properties by name.",
+  "why": {
+   "a": "Wrong. sort() really does reorder the list. It changes it and returns None.",
+   "b": "Wrong. sort() ascends by default. Descending needs reverse=True.",
+   "c": "Wrong. The 4 that append added is still there. append modifies the list itself.",
+   "d": "Correct. append adds to the end, sort orders the list IN PLACE, and the first and last items are then 1 and 4."
+  }
+ },
+ {
+  "id": "csc-o03-07",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "xs = [3, 1, 2]\r\nys = xs.sort()\r\nprint(ys)",
+  "options": [
+   {
+    "id": "a",
+    "text": "None"
+   },
+   {
+    "id": "b",
+    "text": "[1, 2, 3]"
+   },
+   {
+    "id": "c",
+    "text": "[3, 1, 2]"
+   },
+   {
+    "id": "d",
+    "text": "TypeError"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is None. Methods that change a list in place return None: sort, append, reverse, extend. The functions that return a NEW value are sorted() and reversed().",
+  "why": {
+   "a": "Correct. sort() returns None. If you want a new sorted list without touching the original, use sorted(xs).",
+   "b": "Wrong, and this is the trap. sort() changes xs and hands back nothing, so the sorted list is in xs, not in ys.",
+   "c": "Wrong. xs itself IS sorted now; it is ys that is empty of meaning.",
+   "d": "Wrong. Nothing raises here. It runs and quietly gives you None, which is what makes the bug hard to see."
+  }
+ },
+ {
+  "id": "csc-o03-08",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "numbers = [1, 2, 3, 4, 5]\r\nprint(numbers[-3:])\r\nprint(numbers[:2])\r\nprint(numbers[-3:] * 2)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[2, 3, 4]\n[1, 2]\n[6, 8, 10]"
+   },
+   {
+    "id": "b",
+    "text": "[3, 4, 5]\n[1, 2]\n[3, 4, 5, 3, 4, 5]"
+   },
+   {
+    "id": "c",
+    "text": "[3, 4, 5]\n[1, 2, 3]\n[6, 8, 10]"
+   },
+   {
+    "id": "d",
+    "text": "[3, 4, 5]\n[1, 2]\n[6, 8, 10]"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is [3, 4, 5] then [1, 2] then [3, 4, 5, 3, 4, 5]. This exact shape, numbers[-3:] * 2, is on a past paper. A slice excludes its stop, and star repeats rather than scales.",
+  "why": {
+   "a": "Wrong. numbers[-3:] counts three back from the end, giving 3, 4 and 5.",
+   "b": "Correct. Minus 3 to the end is the last three items. Up to 2 stops before index 2, so two items. A list times 2 REPEATS the list, it does not multiply the numbers in it.",
+   "c": "Wrong. numbers[:2] excludes index 2, so it is two items, not three.",
+   "d": "Wrong on the last line. Star on a list repeats the list; to multiply each number you would need a loop or a comprehension."
+  }
+ },
+ {
+  "id": "csc-o03-09",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q9"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "m = [[1, 2], [3, 4, 5], [6]]\r\nprint(m[1][2])\r\nprint(len(m))",
+  "options": [
+   {
+    "id": "a",
+    "text": "4\n3"
+   },
+   {
+    "id": "b",
+    "text": "5\n6"
+   },
+   {
+    "id": "c",
+    "text": "5\n3"
+   },
+   {
+    "id": "d",
+    "text": "3\n3"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 5 then 3. Read a nested index left to right: first pick the sublist, then index into it. The paper prints a three-deep version of this, so do it one bracket at a time on paper.",
+  "why": {
+   "a": "Wrong. Index 2 of [3, 4, 5] is 5. Index 1 would be 4.",
+   "b": "Wrong. len() of a nested list counts the sublists, not the numbers inside them.",
+   "c": "Correct. m[1] is the middle list, [3, 4, 5], and its index 2 is 5. len(m) counts the OUTER items, of which there are three.",
+   "d": "Wrong. m[1][2] reaches into the second list and takes its third item."
+  }
+ },
+ {
+  "id": "csc-o03-10",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q10"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "Which statement about tuples is TRUE?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A tuple is ordered and immutable, and can be used as a dictionary key"
+   },
+   {
+    "id": "b",
+    "text": "A tuple can be changed after creation, like a list"
+   },
+   {
+    "id": "c",
+    "text": "A tuple cannot contain more than two items"
+   },
+   {
+    "id": "d",
+    "text": "A tuple is written with square brackets"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is A tuple is ordered and immutable, and can be used as a dictionary key. List against tuple is a guaranteed question. Ordered both, mutable only the list, and only the tuple can be a dictionary key.",
+  "why": {
+   "a": "Correct. Ordered like a list, immutable unlike one, and because it cannot change it can be hashed, so it may be a dictionary key where a list may not.",
+   "b": "Wrong. That is a list. Assigning to t[0] on a tuple raises TypeError.",
+   "c": "Wrong. The name comes from the general mathematical term, not from two. A tuple can hold any number of items, including none.",
+   "d": "Wrong. Round brackets, or in fact just commas: 1, 2 is already a tuple. Square brackets make a list."
+  }
+ },
+ {
+  "id": "csc-o03-11",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q11"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "s = {3, 1, 2, 3, 1}\r\nprint(len(s))\r\nprint(sorted(s))",
+  "options": [
+   {
+    "id": "a",
+    "text": "5\n[1, 1, 2, 3, 3]"
+   },
+   {
+    "id": "b",
+    "text": "3\n[1, 2, 3]"
+   },
+   {
+    "id": "c",
+    "text": "3\n[3, 1, 2]"
+   },
+   {
+    "id": "d",
+    "text": "5\n[1, 2, 3]"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 3 then [1, 2, 3]. Sets are unique and unordered. That is why the manual compares set answers as sets, never by printed order: Python randomises string hashing per run.",
+  "why": {
+   "a": "Wrong. A set discards duplicates the moment it is built, so it never held five items.",
+   "b": "Correct. The duplicates collapse, leaving three items, and sorted() puts them in order for printing, which is how you show a set reliably.",
+   "c": "Wrong. sorted() returns an ordered LIST, so it prints in ascending order whatever order the set happened to be in.",
+   "d": "Wrong. len() of that set is 3, not 5, because uniqueness is enforced."
+  }
+ },
+ {
+  "id": "csc-o03-12",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q12"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "a = {1, 2, 3, 4}\r\nb = {3, 4, 5}\r\nprint(sorted(a & b))\r\nprint(sorted(a | b))\r\nprint(sorted(a - b))",
+  "options": [
+   {
+    "id": "a",
+    "text": "[1, 2]\n[1, 2, 3, 4, 5]\n[3, 4]"
+   },
+   {
+    "id": "b",
+    "text": "[3, 4]\n[1, 2, 5]\n[1, 2]"
+   },
+   {
+    "id": "c",
+    "text": "[3, 4]\n[1, 2, 3, 4, 5]\n[1, 2]"
+   },
+   {
+    "id": "d",
+    "text": "[3, 4]\n[1, 2, 3, 3, 4, 4, 5]\n[1, 2]"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is [3, 4] then [1, 2, 3, 4, 5] then [1, 2]. Ampersand intersection, bar union, minus difference, caret symmetric difference. The named methods are intersection(), union(), difference() and they mean the same thing.",
+  "why": {
+   "a": "Wrong, and it has intersection and difference swapped.",
+   "b": "Wrong. Union is EVERYTHING from both, not only the items unique to one.",
+   "c": "Correct. The ampersand is intersection, what is in both. The bar is union, everything once. The minus is difference, what is in a and not in b.",
+   "d": "Wrong. A union is still a set, so nothing appears twice in it."
+  }
+ },
+ {
+  "id": "csc-o03-13",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q13"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "d = {\"a\": 1, \"b\": 2}\r\nd[\"c\"] = 3\r\nd[\"a\"] = 9\r\nprint(d)\r\nprint(len(d))",
+  "options": [
+   {
+    "id": "a",
+    "text": "{'a': 1, 'b': 2, 'c': 3}\n3"
+   },
+   {
+    "id": "b",
+    "text": "{'a': 9, 'b': 2, 'c': 3}\n4"
+   },
+   {
+    "id": "c",
+    "text": "{'a': 1, 'a': 9, 'b': 2, 'c': 3}\n4"
+   },
+   {
+    "id": "d",
+    "text": "{'a': 9, 'b': 2, 'c': 3}\n3"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is {'a': 9, 'b': 2, 'c': 3} then 3. Keys are unique; assigning to an existing key replaces its value. Since Python 3.7 a dictionary also keeps insertion order, which is why the printed order is predictable.",
+  "why": {
+   "a": "Wrong. d[\"a\"] = 9 really does overwrite the 1.",
+   "b": "Wrong. There are three keys, not four. Overwriting a key does not add one.",
+   "c": "Wrong. A dictionary cannot hold the same key twice. That is what makes it a mapping.",
+   "d": "Correct. Assigning to a key that does not exist ADDS it; assigning to one that does REPLACES its value. Three keys remain."
+  }
+ },
+ {
+  "id": "csc-o03-14",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q14"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "months = {\"Jan\": 1, \"Feb\": 2}\r\ntry:\r\n    print(months[2])\r\nexcept KeyError as e:\r\n    print(\"KeyError\", e)",
+  "options": [
+   {
+    "id": "a",
+    "text": "KeyError 2"
+   },
+   {
+    "id": "b",
+    "text": "2"
+   },
+   {
+    "id": "c",
+    "text": "Feb"
+   },
+   {
+    "id": "d",
+    "text": "None"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is KeyError 2. months[2] asks for the KEY 2. Use months.get(2) to get None instead of a KeyError. This exact confusion is on a past paper.",
+  "why": {
+   "a": "Correct. The subscript is a KEY lookup, the key 2 is absent, KeyError is raised and caught, and the missing key is what the exception carries.",
+   "b": "Wrong. Looking up 2 asks for a KEY equal to 2, and there is no such key. The values are 1 and 2, but you cannot look a dictionary up by its value.",
+   "c": "Wrong. Nothing here searches the values to find the key that maps to 2. That would need a loop or a reversed dictionary.",
+   "d": "Wrong. A missing key raises rather than returning None. It is get() that returns None instead of raising."
+  }
+ },
+ {
+  "id": "csc-o03-15",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q15"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "lists"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "d = {\"x\": 1, \"y\": 2}\r\nfor k in d:\r\n    print(k, end=\" \")\r\nprint()\r\nfor k, v in d.items():\r\n    print(k, v, end=\" \")",
+  "options": [
+   {
+    "id": "a",
+    "text": "1 2\nx 1 y 2"
+   },
+   {
+    "id": "b",
+    "text": "x y\nx 1 y 2"
+   },
+   {
+    "id": "c",
+    "text": "('x', 1) ('y', 2)\nx 1 y 2"
+   },
+   {
+    "id": "d",
+    "text": "x y\n1 2"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is x y then x 1 y 2 . for k in d gives keys. d.keys(), d.values(), d.items() give what they say. Forgetting items() and then trying to unpack a key is a common exam slip.",
+  "why": {
+   "a": "Wrong. The plain loop gives keys, not values. For values you would write d.values().",
+   "b": "Correct. Iterating a dictionary directly gives its KEYS. items() gives key and value pairs, which unpack into the two loop variables.",
+   "c": "Wrong. The plain loop yields keys alone, not pairs. Pairs come from items().",
+   "d": "Wrong on the second line: items() gives both parts, and both are printed."
+  }
+ },
+ {
+  "id": "csc-o03-16",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q16"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "a = [1, 2, 3]\r\nb = a\r\nb.append(4)\r\nprint(a)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[1, 2, 3]"
+   },
+   {
+    "id": "b",
+    "text": "[4]"
+   },
+   {
+    "id": "c",
+    "text": "[1, 2, 3, 4]"
+   },
+   {
+    "id": "d",
+    "text": "[[1, 2, 3], 4]"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is [1, 2, 3, 4]. Assignment binds a name, it does not copy. To copy, use a[:] or list(a) or a.copy(). This is the most expensive misunderstanding in the whole course.",
+  "why": {
+   "a": "Wrong. b = a does not copy anything. It gives the same list a second name, so a change through one name is visible through the other.",
+   "b": "Wrong. append adds to the existing contents; it does not replace them.",
+   "c": "Correct. There is only ONE list here with two names, so appending through b shows up in a.",
+   "d": "Wrong. append adds an item to the list, it does not nest the old list inside a new one."
+  }
+ },
+ {
+  "id": "csc-o03-17",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q17"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "print(\"a\" in \"cat\")\r\nprint(2 in [1, 2, 3])\r\nprint(\"x\" in {\"x\": 1})",
+  "options": [
+   {
+    "id": "a",
+    "text": "True\nTrue\nFalse"
+   },
+   {
+    "id": "b",
+    "text": "False\nTrue\nTrue"
+   },
+   {
+    "id": "c",
+    "text": "True\nFalse\nTrue"
+   },
+   {
+    "id": "d",
+    "text": "True\nTrue\nTrue"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is True then True then True. in means substring on a string, membership on a list or set, and KEY membership on a dictionary. That last one is the trap.",
+  "why": {
+   "a": "Wrong on the third line. in on a dictionary searches the keys, and \"x\" is a key here.",
+   "b": "Wrong on the first line. \"a\" is one of the characters of \"cat\", so it is found.",
+   "c": "Wrong on the second line. 2 is an item of that list.",
+   "d": "Correct. On a string, in tests for a substring. On a list, for an item. On a dictionary, for a KEY."
+  }
+ },
+ {
+  "id": "csc-o03-18",
+  "module": 3,
+  "slides": [
+   "Manual O.3 Q18"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "control flow, lists, tuples, sets and dictionaries",
+  "prompt": "What is printed?",
+  "code": "xs = [10, 20, 30, 40]\r\ndel xs[1]\r\nprint(xs)\r\nd = {\"a\": 1, \"b\": 2}\r\ndel d[\"a\"]\r\nprint(d)",
+  "options": [
+   {
+    "id": "a",
+    "text": "[10, 30, 40]\n{'b': 2}"
+   },
+   {
+    "id": "b",
+    "text": "[20, 30, 40]\n{'b': 2}"
+   },
+   {
+    "id": "c",
+    "text": "[10, 20, 30]\n{'a': 1}"
+   },
+   {
+    "id": "d",
+    "text": "[10, 30, 40]\n{'a': 1}"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is [10, 30, 40] then {'b': 2}. del removes by index on a list and by key on a dictionary. remove() removes by VALUE on a list, and pop() removes and gives the item back.",
+  "why": {
+   "a": "Correct. del removes by POSITION on a list, so index 1 (the 20) goes, and by KEY on a dictionary.",
+   "b": "Wrong. Index 1 is the second item. Index 0 is the 10.",
+   "c": "Wrong. del xs[1] takes out the second item, not the last, and del d[\"a\"] takes out the \"a\" entry.",
+   "d": "Wrong on the dictionary: del d[\"a\"] removes the key it names."
+  }
+ },
+ {
+  "id": "csc-o04-01",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "def add(a, b=10):\r\n    return a + b\r\n\r\nprint(add(5))\r\nprint(add(5, 1))\r\nprint(add(b=2, a=3))",
+  "options": [
+   {
+    "id": "a",
+    "text": "15\n6\n6"
+   },
+   {
+    "id": "b",
+    "text": "15\n6\n5"
+   },
+   {
+    "id": "c",
+    "text": "5\n6\n5"
+   },
+   {
+    "id": "d",
+    "text": "TypeError\n6\n5"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 15 then 6 then 5. A parameter with a default may be omitted. Keyword arguments name their target, so order stops mattering. Defaults must come after non-defaults in the definition.",
+  "why": {
+   "a": "Wrong on the last line: 3 + 2 is 5, not 6.",
+   "b": "Correct. The default fills in for b when only one argument is given. Positional arguments fill left to right. Keyword arguments may be given in any order because they name their parameter.",
+   "c": "Wrong on the first line. b defaults to 10, so add(5) is 15.",
+   "d": "Wrong. add(5) is legal precisely BECAUSE b has a default."
+  }
+ },
+ {
+  "id": "csc-o04-02",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "def f(x):\r\n    print(x * 2)\r\n\r\ndef g(x):\r\n    return x * 2\r\n\r\na = f(3)\r\nb = g(3)\r\nprint(a, b)",
+  "options": [
+   {
+    "id": "a",
+    "text": "6\n6 6"
+   },
+   {
+    "id": "b",
+    "text": "6 6\nNone 6"
+   },
+   {
+    "id": "c",
+    "text": "6\nNone 6"
+   },
+   {
+    "id": "d",
+    "text": "None 6"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is 6 then None 6. print SHOWS a value, return HANDS IT BACK. A function that only prints returns None, and using that None later is a standard exam bug.",
+  "why": {
+   "a": "Wrong. a is None. A function with no return statement gives back None.",
+   "b": "Wrong. f prints once, when it is called; the value it gives back is still None.",
+   "c": "Correct. f prints 6 and returns nothing, so a is None. g returns 6 silently, so b is 6. The last line then prints None 6.",
+   "d": "Wrong. The 6 printed inside f appears first, on its own line."
+  }
+ },
+ {
+  "id": "csc-o04-03",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "x = 1\r\n\r\ndef f():\r\n    x = 2\r\n    print(x)\r\n\r\nf()\r\nprint(x)",
+  "options": [
+   {
+    "id": "a",
+    "text": "2\n2"
+   },
+   {
+    "id": "b",
+    "text": "1\n1"
+   },
+   {
+    "id": "c",
+    "text": "1\n2"
+   },
+   {
+    "id": "d",
+    "text": "2\n1"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 2 then 1. Assigning to a name inside a function makes it local. To change a global you must say global x, and this pair of prints is exactly how the paper tests it.",
+  "why": {
+   "a": "Wrong. Assigning inside a function does not change the global unless the function declares global x.",
+   "b": "Wrong. Inside f, the local x shadows the global one, so 2 prints first.",
+   "c": "Wrong, and it has the two the wrong way round.",
+   "d": "Correct. The assignment inside f creates a LOCAL x. The global x is untouched, so it is still 1 afterwards."
+  }
+ },
+ {
+  "id": "csc-o04-04",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "Which of these is NOT a benefit of breaking a program into functions?",
+  "options": [
+   {
+    "id": "a",
+    "text": "The program runs measurably faster because it is shorter"
+   },
+   {
+    "id": "b",
+    "text": "The same code can be reused instead of repeated"
+   },
+   {
+    "id": "c",
+    "text": "Each piece can be tested on its own"
+   },
+   {
+    "id": "d",
+    "text": "The program is easier to read and to maintain"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is The program runs measurably faster because it is shorter. Every benefit of modularising is a benefit to the person reading or changing the code. Speed is not one, and a question offering it is offering the distractor.",
+  "why": {
+   "a": "Correct. Calling a function costs a little time rather than saving it. The benefits of modularising are all about the PROGRAMMER: reuse, testing, readability, maintainability, teamwork. Speed is not among them.",
+   "b": "Wrong choice, because reuse IS a benefit, and usually the first one listed.",
+   "c": "Wrong choice, because testing a piece in isolation IS a benefit.",
+   "d": "Wrong choice, because readability and maintenance ARE benefits, and the paper lists them."
+  }
+ },
+ {
+  "id": "csc-o04-05",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "import math\r\nfrom math import sqrt\r\nprint(math.sqrt(16), sqrt(16))",
+  "options": [
+   {
+    "id": "a",
+    "text": "4 4"
+   },
+   {
+    "id": "b",
+    "text": "4.0 4.0"
+   },
+   {
+    "id": "c",
+    "text": "4.0 4"
+   },
+   {
+    "id": "d",
+    "text": "NameError"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is 4.0 4.0. import math needs the math. prefix; from math import sqrt puts the name in directly. Both are examinable and the difference is which name you must then write.",
+  "why": {
+   "a": "Wrong. math.sqrt returns a float even for a perfect square, so the point and zero are printed.",
+   "b": "Correct. Both forms reach the same function. sqrt always returns a float, so both print 4.0.",
+   "c": "Wrong. Both calls are the same function and give the same value.",
+   "d": "Wrong. Both imports are valid, and each makes its name available in its own way."
+  }
+ },
+ {
+  "id": "csc-o04-06",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "A file is opened with open(\"data.txt\", \"w\") when data.txt already exists and contains text. What happens?",
+  "options": [
+   {
+    "id": "a",
+    "text": "The new text is added after the existing text"
+   },
+   {
+    "id": "b",
+    "text": "Python raises FileExistsError"
+   },
+   {
+    "id": "c",
+    "text": "The existing contents are erased"
+   },
+   {
+    "id": "d",
+    "text": "The file is opened read-only"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is The existing contents are erased. \"r\" read, \"w\" write and TRUNCATE, \"a\" append, \"x\" create only if absent. Choosing \"w\" where you meant \"a\" destroys the file, and the paper asks about this.",
+  "why": {
+   "a": "Wrong, and this is the mode people mean when they choose \"w\" by mistake. Appending is \"a\".",
+   "b": "Wrong. \"w\" is perfectly happy for the file to exist. It just empties it. The mode that refuses to overwrite is \"x\".",
+   "c": "Correct. \"w\" truncates the file to nothing the moment it is opened, before you write a single character. Data is lost even if the program then crashes.",
+   "d": "Wrong. \"w\" is write-only. Reading is \"r\", which is also the default."
+  }
+ },
+ {
+  "id": "csc-o04-07",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "Why is with open(...) as f preferred to f = open(...)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It is faster to type"
+   },
+   {
+    "id": "b",
+    "text": "It is the only way to read a file line by line"
+   },
+   {
+    "id": "c",
+    "text": "It opens the file in a special faster mode"
+   },
+   {
+    "id": "d",
+    "text": "It closes the file automatically, even if an error is raised inside the block"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is It closes the file automatically, even if an error is raised inside the block. with guarantees the close. It is the same guarantee finally gives, written more briefly, and saying that in the exam earns the mark.",
+  "why": {
+   "a": "Wrong. Brevity is not the reason, and it is barely shorter anyway.",
+   "b": "Wrong. A plain open() can be iterated line by line just as well. The difference is only about closing.",
+   "c": "Wrong. The mode is whatever you pass to open. with changes nothing about how the file is opened.",
+   "d": "Correct. The with block guarantees f.close() runs on the way out, whether the block finished normally or raised. Without it, an exception can leave the file open and its buffer unwritten."
+  }
+ },
+ {
+  "id": "csc-o04-08",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "A text file holds three lines. Which call gives a LIST of those three lines?",
+  "options": [
+   {
+    "id": "a",
+    "text": "f.readlines()"
+   },
+   {
+    "id": "b",
+    "text": "f.read()"
+   },
+   {
+    "id": "c",
+    "text": "f.readline()"
+   },
+   {
+    "id": "d",
+    "text": "f.line()"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is f.readlines(). read whole, readline one, readlines list. Note the newline stays on each item, so print() of one adds a blank line unless you strip.",
+  "why": {
+   "a": "Correct. readlines() gives a list with one string per line, each still carrying its trailing newline unless you strip it.",
+   "b": "Wrong. read() gives the WHOLE file as one string, newlines and all.",
+   "c": "Wrong. readline() gives ONE line, the next one, as a string.",
+   "d": "Wrong. There is no such method."
+  }
+ },
+ {
+  "id": "csc-o04-09",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q9"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "try:\r\n    x = 1 / 0\r\nexcept ZeroDivisionError:\r\n    print(\"caught\")\r\nfinally:\r\n    print(\"always\")",
+  "options": [
+   {
+    "id": "a",
+    "text": "always"
+   },
+   {
+    "id": "b",
+    "text": "caught\nalways"
+   },
+   {
+    "id": "c",
+    "text": "caught"
+   },
+   {
+    "id": "d",
+    "text": "the program crashes"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is caught then always. try, except by exception type, else if nothing was raised, finally always. finally is where you put the cleanup that must happen either way.",
+  "why": {
+   "a": "Wrong. The except block ran too, and its print came first.",
+   "b": "Correct. The division raises, the matching except handles it, and finally runs afterwards as it always does.",
+   "c": "Wrong. finally runs whether or not anything was raised. That is its whole point.",
+   "d": "Wrong. The exception was caught, so nothing propagates and nothing crashes."
+  }
+ },
+ {
+  "id": "csc-o04-10",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q10"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "Which exception does this raise?",
+  "code": "xs = [1, 2, 3]\r\nprint(xs[5])",
+  "options": [
+   {
+    "id": "a",
+    "text": "KeyError"
+   },
+   {
+    "id": "b",
+    "text": "ValueError"
+   },
+   {
+    "id": "c",
+    "text": "TypeError"
+   },
+   {
+    "id": "d",
+    "text": "IndexError"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is IndexError. IndexError for a sequence, KeyError for a mapping. Naming the right exception is worth marks on its own in this paper.",
+  "why": {
+   "a": "Wrong. KeyError is for a missing DICTIONARY key. A list is indexed by position, not by key.",
+   "b": "Wrong. ValueError is for a value of the right type that cannot be used, such as int(\"abc\").",
+   "c": "Wrong. TypeError would be xs[\"a\"], where the index is the wrong KIND of thing entirely.",
+   "d": "Correct. The index is outside the range of the list, which is exactly what IndexError means."
+  }
+ },
+ {
+  "id": "csc-o04-11",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q11"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "wording"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "Why is except: on its own considered bad practice?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It catches everything, including errors you did not anticipate, and hides real bugs"
+   },
+   {
+    "id": "b",
+    "text": "It is slower than naming the exception"
+   },
+   {
+    "id": "c",
+    "text": "It is not valid Python"
+   },
+   {
+    "id": "d",
+    "text": "It can only be used once per program"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is It catches everything, including errors you did not anticipate, and hides real bugs. Catch the exception you expect and no more. A bare except turns a loud failure into a silent wrong answer.",
+  "why": {
+   "a": "Correct. A bare except swallows every exception, including a typo raising NameError, so the program keeps going in a broken state and the real fault is invisible.",
+   "b": "Wrong. Speed is not the issue and the difference is immeasurable.",
+   "c": "Wrong. It is valid, which is exactly why it is dangerous.",
+   "d": "Wrong. There is no such limit."
+  }
+ },
+ {
+  "id": "csc-o04-12",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q12"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "numbers",
+   "names",
+   "lists"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "def check(age):\r\n    if age < 0:\r\n        raise ValueError(\"negative age\")\r\n    return age\r\n\r\ntry:\r\n    check(-1)\r\nexcept ValueError as e:\r\n    print(e)",
+  "options": [
+   {
+    "id": "a",
+    "text": "ValueError"
+   },
+   {
+    "id": "b",
+    "text": "negative age"
+   },
+   {
+    "id": "c",
+    "text": "-1"
+   },
+   {
+    "id": "d",
+    "text": "nothing is printed"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is negative age. raise makes your own error, and validating input this way is what the paper means by defensive programming.",
+  "why": {
+   "a": "Wrong. Printing the exception object shows its MESSAGE, not the name of its class. For the class name you would print type(e).__name__.",
+   "b": "Correct. raise creates the exception with that message, the except catches it and binds it to e, and printing an exception prints its message.",
+   "c": "Wrong. The argument is never returned, because the raise happens first.",
+   "d": "Wrong. The except block does run and does print."
+  }
+ },
+ {
+  "id": "csc-o04-13",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q13"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is a docstring?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A comment starting with a hash inside a function"
+   },
+   {
+    "id": "b",
+    "text": "A special variable holding the function name"
+   },
+   {
+    "id": "c",
+    "text": "A string literal as the first statement of a function, module or class, describing what it does"
+   },
+   {
+    "id": "d",
+    "text": "A file that documents the whole program"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is A string literal as the first statement of a function, module or class, describing what it does. First statement, a string, becomes __doc__. It is the \"self-documenting\" part of the modularisation answer.",
+  "why": {
+   "a": "Wrong. A hash comment is stripped and cannot be read back at run time. A docstring survives into the object.",
+   "b": "Wrong. That is __name__, a different attribute entirely.",
+   "c": "Correct. It sits directly under the def line, usually in triple quotes, and becomes the object's __doc__, which is what help() shows you.",
+   "d": "Wrong. A docstring lives inside the code, not beside it."
+  }
+ },
+ {
+  "id": "csc-o04-14",
+  "module": 4,
+  "slides": [
+   "Manual O.4 Q14"
+  ],
+  "style": "mcq",
+  "difficulty": "hard",
+  "facets": [
+   "numbers",
+   "names"
+  ],
+  "topic": "functions, modules, files and exceptions",
+  "prompt": "What is printed?",
+  "code": "def fact(n):\r\n    if n <= 1:\r\n        return 1\r\n    return n * fact(n - 1)\r\n\r\nprint(fact(5))",
+  "options": [
+   {
+    "id": "a",
+    "text": "15"
+   },
+   {
+    "id": "b",
+    "text": "5"
+   },
+   {
+    "id": "c",
+    "text": "RecursionError"
+   },
+   {
+    "id": "d",
+    "text": "120"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is 120. Every recursion needs a base case and a step that moves towards it. Missing the base case gives RecursionError, and the paper has asked for exactly that fault to be identified.",
+  "why": {
+   "a": "Wrong. 15 is 1+2+3+4+5, the SUM. This function multiplies.",
+   "b": "Wrong. The function does not simply return its argument; it multiplies down to the base case.",
+   "c": "Wrong. There IS a base case, so the recursion terminates. Without one, RecursionError would be right.",
+   "d": "Correct. 5 * 4 * 3 * 2 * 1 is 120. The base case at n <= 1 stops the recursion."
+  }
+ },
+ {
+  "id": "csc-o05-01",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q1"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "lists"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "What is the correct order for working with a database in Python?",
+  "options": [
+   {
+    "id": "a",
+    "text": "connect, cursor, execute, commit, close"
+   },
+   {
+    "id": "b",
+    "text": "cursor, connect, commit, execute, close"
+   },
+   {
+    "id": "c",
+    "text": "connect, execute, cursor, close, commit"
+   },
+   {
+    "id": "d",
+    "text": "open, read, write, close"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is connect, cursor, execute, commit, close. connect, cursor, execute, commit, close. Forget the commit and the rows vanish when the program ends, which is the classic lost mark.",
+  "why": {
+   "a": "Correct. Connect to the database, get a cursor from the connection, execute SQL through the cursor, commit so the change is saved, then close the connection.",
+   "b": "Wrong. A cursor is obtained FROM a connection, so the connection must exist first.",
+   "c": "Wrong. You cannot execute before you have a cursor, and committing after closing is too late.",
+   "d": "Wrong. That is the file-handling pattern, not the database one."
+  }
+ },
+ {
+  "id": "csc-o05-02",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q2"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "A program inserts three rows and then closes the connection without calling commit. What is in the table?",
+  "options": [
+   {
+    "id": "a",
+    "text": "All three rows"
+   },
+   {
+    "id": "b",
+    "text": "No rows"
+   },
+   {
+    "id": "c",
+    "text": "The first row only"
+   },
+   {
+    "id": "d",
+    "text": "An error is raised"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is No rows. Commit is what makes a change permanent. No commit, no data, and no error message to tell you.",
+  "why": {
+   "a": "Wrong. Uncommitted work is not saved. It lived only in the transaction.",
+   "b": "Correct. Without a commit the transaction is rolled back when the connection closes, so the table is unchanged.",
+   "c": "Wrong. There is nothing special about the first row; all three are in the same uncommitted transaction.",
+   "d": "Wrong. Nothing raises. The program appears to work, which is what makes this bug expensive."
+  }
+ },
+ {
+  "id": "csc-o05-03",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q3"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "Which SQL statement retrieves only the students whose score is above 50?",
+  "options": [
+   {
+    "id": "a",
+    "text": "SELECT * FROM students IF score > 50"
+   },
+   {
+    "id": "b",
+    "text": "GET * FROM students WHERE score > 50"
+   },
+   {
+    "id": "c",
+    "text": "SELECT * FROM students WHERE score > 50"
+   },
+   {
+    "id": "d",
+    "text": "SELECT students WHERE score > 50"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is SELECT * FROM students WHERE score > 50. SELECT columns FROM table WHERE condition. That one line is most of what this course asks of SQL.",
+  "why": {
+   "a": "Wrong. SQL filters with WHERE. IF is not part of a SELECT statement.",
+   "b": "Wrong. There is no GET in SQL. Retrieval is SELECT.",
+   "c": "Correct. SELECT names the columns, FROM names the table, WHERE filters the rows.",
+   "d": "Wrong. The table must be named after FROM, and the columns before it."
+  }
+ },
+ {
+  "id": "csc-o05-04",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q4"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names",
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "Why is cur.execute(\"INSERT INTO t VALUES (?, ?)\", (a, b)) preferred to building the SQL string with the values in it?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It runs faster on small tables"
+   },
+   {
+    "id": "b",
+    "text": "It is the only form sqlite3 accepts"
+   },
+   {
+    "id": "c",
+    "text": "It commits automatically"
+   },
+   {
+    "id": "d",
+    "text": "It keeps the values separate from the SQL, so a value cannot be read as SQL"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is It keeps the values separate from the SQL, so a value cannot be read as SQL. The question mark placeholder separates data from code. It is the standard answer to \"how do you prevent SQL injection\".",
+  "why": {
+   "a": "Wrong. Speed is not the reason, though prepared statements can help on repeated inserts.",
+   "b": "Wrong. String building is accepted. It is accepted and unsafe, which is the point.",
+   "c": "Wrong. You still have to commit yourself.",
+   "d": "Correct. The placeholder keeps data as data. Pasting a value into the text of a statement lets a value containing a quote change the statement, which is SQL injection."
+  }
+ },
+ {
+  "id": "csc-o05-05",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q5"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "What does cur.executemany() do that execute() does not?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It runs the same statement once for each item in a sequence of parameter tuples"
+   },
+   {
+    "id": "b",
+    "text": "It runs several DIFFERENT statements in one call"
+   },
+   {
+    "id": "c",
+    "text": "It commits after every row"
+   },
+   {
+    "id": "d",
+    "text": "It returns all the rows of a table"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is It runs the same statement once for each item in a sequence of parameter tuples. One statement, many parameter sets. It is the tidy way to insert a list of records and this manual teaches it because the paper reached for it.",
+  "why": {
+   "a": "Correct. You give it one statement and a list of parameter tuples, and it runs the statement once per tuple, which is how a batch insert is done.",
+   "b": "Wrong. The statement is the same every time. Only the parameters change.",
+   "c": "Wrong. It does not commit at all. You still call commit yourself.",
+   "d": "Wrong. Retrieving rows is fetchall(), after a SELECT."
+  }
+ },
+ {
+  "id": "csc-o05-06",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q6"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "After executing a SELECT that matches five rows, what does fetchone() return?",
+  "options": [
+   {
+    "id": "a",
+    "text": "All five rows as a list"
+   },
+   {
+    "id": "b",
+    "text": "The first row, as a tuple"
+   },
+   {
+    "id": "c",
+    "text": "The number 5"
+   },
+   {
+    "id": "d",
+    "text": "None"
+   }
+  ],
+  "answer": "b",
+  "explanation": "The answer is The first row, as a tuple. fetchone next row or None, fetchall the rest as a list of tuples. A row is a tuple, so index it by position.",
+  "why": {
+   "a": "Wrong. That is fetchall(). fetchone gets one.",
+   "b": "Correct. fetchone() hands back the next row as a tuple, and returns None once the rows run out.",
+   "c": "Wrong. Counting rows is done in SQL, with COUNT(*).",
+   "d": "Wrong. None comes back only when there are no rows left, and here there are five."
+  }
+ },
+ {
+  "id": "csc-o05-07",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q7"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "Which SQL function returns the number of rows matching a query?",
+  "options": [
+   {
+    "id": "a",
+    "text": "SUM()"
+   },
+   {
+    "id": "b",
+    "text": "TOTAL()"
+   },
+   {
+    "id": "c",
+    "text": "COUNT()"
+   },
+   {
+    "id": "d",
+    "text": "LEN()"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is COUNT(). COUNT how many, SUM the total, AVG the mean, MAX and MIN the extremes. The paper has asked for all five.",
+  "why": {
+   "a": "Wrong. SUM() adds up the values in a column. It answers how much, not how many.",
+   "b": "Wrong. There is no standard TOTAL() in this course.",
+   "c": "Correct. COUNT(*) counts rows; COUNT(column) counts the rows where that column is not null.",
+   "d": "Wrong. LEN() is not SQL. Python has len(); SQL has COUNT()."
+  }
+ },
+ {
+  "id": "csc-o05-08",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q8"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "What does UPDATE students SET score = 0 do, with no WHERE clause?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nothing: a WHERE clause is required"
+   },
+   {
+    "id": "b",
+    "text": "It sets score to 0 for the first row only"
+   },
+   {
+    "id": "c",
+    "text": "It deletes the score column"
+   },
+   {
+    "id": "d",
+    "text": "It sets score to 0 for EVERY row in the table"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is It sets score to 0 for EVERY row in the table. No WHERE means every row. Write the WHERE first and the SET second if that helps you never forget it.",
+  "why": {
+   "a": "Wrong. WHERE is optional, and that is precisely the danger.",
+   "b": "Wrong. SQL is set-based: it acts on every row that matches, and with no WHERE every row matches.",
+   "c": "Wrong. Removing a column is ALTER TABLE. UPDATE changes values.",
+   "d": "Correct. With no WHERE, the statement applies to the whole table. The same is true of DELETE FROM students, which empties it."
+  }
+ },
+ {
+  "id": "csc-o05-09",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q9"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "In tkinter, what does the mainloop() call do?",
+  "options": [
+   {
+    "id": "a",
+    "text": "It starts the event loop, which waits for and dispatches user actions"
+   },
+   {
+    "id": "b",
+    "text": "It draws the window once and returns"
+   },
+   {
+    "id": "c",
+    "text": "It creates the main window object"
+   },
+   {
+    "id": "d",
+    "text": "It closes the application"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is It starts the event loop, which waits for and dispatches user actions. Tk() makes the window, widgets are created and placed, mainloop() runs the event loop. Without the last one nothing stays on screen.",
+  "why": {
+   "a": "Correct. mainloop() keeps the program running, watching for clicks and keystrokes and calling the handlers bound to them, until the window is closed.",
+   "b": "Wrong. Drawing once and returning would make the window appear and vanish immediately, which is exactly what happens if you forget mainloop.",
+   "c": "Wrong. Creating the window is Tk(). mainloop is what makes it live.",
+   "d": "Wrong. It is what keeps the application OPEN."
+  }
+ },
+ {
+  "id": "csc-o05-10",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q10"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "names"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "Which tkinter widget is used to collect a single line of typed text?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Label"
+   },
+   {
+    "id": "b",
+    "text": "Button"
+   },
+   {
+    "id": "c",
+    "text": "Entry"
+   },
+   {
+    "id": "d",
+    "text": "Canvas"
+   }
+  ],
+  "answer": "c",
+  "explanation": "The answer is Entry. Label shows, Entry takes one line, Text takes many, Button acts. Read what was typed with entry.get().",
+  "why": {
+   "a": "Wrong. A Label DISPLAYS text. The user cannot type into it.",
+   "b": "Wrong. A Button is clicked; it does not accept typing.",
+   "c": "Correct. Entry is the one-line text box, and its get() method reads what was typed.",
+   "d": "Wrong. A Canvas is a drawing surface for shapes and images."
+  }
+ },
+ {
+  "id": "csc-o05-11",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q11"
+  ],
+  "style": "mcq",
+  "difficulty": "easy",
+  "facets": [
+   "wording"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "In Button(root, text=\"Go\", command=run), when is run called?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Immediately, as the button is created"
+   },
+   {
+    "id": "b",
+    "text": "When mainloop() starts"
+   },
+   {
+    "id": "c",
+    "text": "Never, unless bind() is also used"
+   },
+   {
+    "id": "d",
+    "text": "When the button is clicked"
+   }
+  ],
+  "answer": "d",
+  "explanation": "The answer is When the button is clicked. Pass the function, not a call to it. command=run attaches it; command=run() runs it once immediately and attaches its result.",
+  "why": {
+   "a": "Wrong, and this is the trap. It WOULD be immediate if you wrote command=run(), with brackets: that calls the function and hands its return value to command.",
+   "b": "Wrong. mainloop starts the waiting; it does not fire the handlers by itself.",
+   "c": "Wrong. command= is a complete way to attach a handler to a button. bind() is for other events.",
+   "d": "Correct. command is given the function ITSELF, without brackets, and tkinter calls it later, each time the button is pressed."
+  }
+ },
+ {
+  "id": "csc-o05-12",
+  "module": 5,
+  "slides": [
+   "Manual O.5 Q12"
+  ],
+  "style": "mcq",
+  "difficulty": "medium",
+  "facets": [
+   "names"
+  ],
+  "topic": "databases and gui development",
+  "prompt": "Which of these is NOT a tkinter geometry manager?",
+  "options": [
+   {
+    "id": "a",
+    "text": "align"
+   },
+   {
+    "id": "b",
+    "text": "pack"
+   },
+   {
+    "id": "c",
+    "text": "grid"
+   },
+   {
+    "id": "d",
+    "text": "place"
+   }
+  ],
+  "answer": "a",
+  "explanation": "The answer is align. pack, grid, place. Three of them, and mixing pack with grid in one container makes the window hang while they argue.",
+  "why": {
+   "a": "Correct. There is no align manager. The three are pack, grid and place, and you should not mix pack and grid in the same container.",
+   "b": "Wrong choice, because pack IS one: it stacks widgets in the space available.",
+   "c": "Wrong choice, because grid IS one: it places widgets by row and column.",
+   "d": "Wrong choice, because place IS one: it positions by exact coordinates."
+  }
+ }
+]

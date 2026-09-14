@@ -1,6 +1,11 @@
 import type { Course, FacetGuide, Paper, Question, StudySession } from '@/lib/types';
-import { EXAMS } from './timetable';
+import { slotFor } from './timetable';
 import iftPlan from './ift222/plan.json';
+import cosObjective from './cos221/drill01.json';
+import cosPlan from './cos221/plan.json';
+import cscObjective from './csc241/drill01.json';
+import cscPlan241 from './csc241/plan.json';
+
 import phyPlan from './phy121/plan.json';
 
 import m1 from './tmc221/module1.json';
@@ -149,6 +154,8 @@ const tmcFacets: FacetGuide[] = [
 ];
 
 const tmc221: Course = {
+  // Filed away for the makeup week: off the landing page, still at its URL.
+  hidden: true,
   code: 'TMC221',
   title: 'Personal Development and Capacity Building',
   tagline:
@@ -374,7 +381,7 @@ const ift222: Course = {
   // rebuild them; the rest of the bank comes from the eight lecture decks.
   examTags: ['Test 1 Q', 'Test 2 Q'],
   hasLedger: true,
-  exam: EXAMS.find((e) => e.code === 'IFT222'),
+  exam: slotFor('IFT222'),
   // The dated sittings live in data/ift222/plan.json so the bank gate reads
   // the same file the app does, and neither can drift from the other.
   plan: iftPlan as unknown as StudySession[],
@@ -392,6 +399,69 @@ const ift222: Course = {
       'Transcribed from the captured test and its verified answer key, with every calculation recomputed. This paper leans conceptual: memory hierarchy, ISA against microarchitecture, addressing modes and performance, with only a handful of calculations.'
     ),
   ],
+};
+
+
+const javaFacets: FacetGuide[] = [
+  { id: 'numbers', label: 'What a program prints', help: 'dry runs, integer division, a++ against ++a, the value left in a variable after a loop, string methods on a given string' },
+  { id: 'names', label: 'Named keywords and classes', help: 'public static void main, Scanner and JOptionPane, String and StringBuilder, the eight primitives, extends and super, the exception classes' },
+  { id: 'lists', label: 'Rules, orders and sequences', help: 'start, test and step in a loop, the fall through of a switch, the order try, catch and finally run in, which exceptions are checked' },
+  { id: 'wording', label: 'Exact definitions and distinctions', help: 'overloading against overriding, a class against an object, == against equals, checked against unchecked, what the method signature is' },
+];
+
+const cos221: Course = {
+  code: 'COS221',
+  title: 'Computer Programming I (Java)',
+  tagline:
+    'Twenty two frame-by-frame lessons from nothing, every listing compiled and run on a real JVM, both past papers to answer in your book, and every objective question with every option explained.',
+  blurb:
+    'From the class wrapper and main to arrays, methods, objects and exceptions. The paper is one question from each of three sections, so the lessons are weighted to what you will actually choose: the dry run and loop conversion, the array walk, and switch with methods.',
+  moduleNoun: 'Topic',
+  facetGuide: javaFacets,
+  modules: [
+    { number: 1, title: 'The Language, the Toolchain and Objects', blurb: 'The program skeleton word by word, what javac and the JVM do, and the JDK against the JRE.' },
+    { number: 2, title: 'Types, Operators, Input and Output', blurb: 'The eight primitives, casting, integer division, the increment trap, the plus that joins, Scanner, JOptionPane and printf.' },
+    { number: 3, title: 'Control Structures', blurb: 'if and the ladder, switch and fall through, the three loops, converting a for into a while, break and continue, and the dry run.' },
+    { number: 4, title: 'Methods', blurb: 'void against value returning, parameters against arguments, pass by value, overloading and the method signature, static.' },
+    { number: 5, title: 'Object-Oriented Programming', blurb: 'Classes, objects and constructors, encapsulation, inheritance with super, polymorphism, and overriding against overloading.' },
+    { number: 6, title: 'Strings', blurb: 'Why == destroys programs, the eight string methods, immutability, and StringBuilder.' },
+    { number: 7, title: 'Arrays', blurb: 'The walk, the four patterns the exam wants as methods that return, the neighbour comparison, and two dimensions.' },
+    { number: 8, title: 'Recursion', blurb: 'Base case and recursive case, the two column trace, and recursion against iteration.' },
+    { number: 9, title: 'Exceptions and File Input and Output', blurb: 'Checked against unchecked, try catch finally, throw against throws, and writing, appending and reading a file.' },
+  ],
+  questions: cosObjective as unknown as Question[],
+  exam: slotFor('COS221'),
+  plan: cosPlan as unknown as StudySession[],
+  papers: [],
+};
+
+const pyFacets: FacetGuide[] = [
+  { id: 'numbers', label: 'What a program prints', help: 'dry runs, slicing and indexing, // and %, what a list holds after a sequence of statements, nested indexes' },
+  { id: 'names', label: 'Named functions, methods and modules', help: 'input and int, the string methods, append against extend, set operations, open and its modes, sqlite3 and commit, math.pi' },
+  { id: 'lists', label: 'Rules, orders and patterns', help: 'the if ladder from the top, the accumulator pattern, the seven line database skeleton, try except else finally' },
+  { id: 'wording', label: 'Exact definitions and distinctions', help: 'immutable, void against value returning, list against tuple against set against dict, reading against appending, syntax error against exception' },
+];
+
+const csc241: Course = {
+  code: 'CSC241',
+  title: 'Python Programming Language I',
+  tagline:
+    'Fifteen frame-by-frame lessons from nothing, every listing run by a real interpreter, all 23 parts of the last paper to answer in your book, and every objective question with every option explained.',
+  blurb:
+    'Values and strings, decisions and loops, the four collections, functions, files and SQLite. You answer any four of six on the paper, so the lessons point at the four you will choose: databases, files, functions, and the short-parts question.',
+  moduleNoun: 'Topic',
+  facetGuide: pyFacets,
+  modules: [
+    { number: 1, title: 'Introduction to Python Programming', blurb: 'What Python is, how a program runs top to bottom, indentation and the colon, print and input.' },
+    { number: 2, title: 'Python Basics, Syntax, Operators and Strings', blurb: 'Types and conversion, every operator and what it returns, slicing and the string methods, immutability, and sweeping a listing for errors.' },
+    { number: 3, title: 'Control Flow, Lists, Tuples, Sets and Dictionaries', blurb: 'The if ladder, for and while, the accumulator, lists and tuples, sets and dictionaries, and choosing the right container.' },
+    { number: 4, title: 'Functions, Modules, Files and Exceptions', blurb: 'void against value returning, math.pi, the file modes and reading back, and try except else finally.' },
+    { number: 5, title: 'Databases and GUI Development', blurb: 'The seven line SQLite skeleton end to end, and tkinter widgets and geometry managers at recognition level.' },
+  ],
+  questions: cscObjective as unknown as Question[],
+  exam: slotFor('CSC241'),
+  plan: cscPlan241 as unknown as StudySession[],
+  papers: [],
 };
 
 const entFacets: FacetGuide[] = [
@@ -482,6 +552,8 @@ const dtsQuestions: Question[] = [
 ];
 
 const dts224: Course = {
+  // Filed away for the makeup week: off the landing page, still at its URL.
+  hidden: true,
   code: 'DTS224',
   title: 'Data Management I',
   tagline:
@@ -504,7 +576,7 @@ const dts224: Course = {
   ],
   questions: dtsQuestions,
   examTags: ['Test 1 Q'],
-  exam: EXAMS.find((e) => e.code === 'DTS224'),
+  exam: slotFor('DTS224'),
   plan: dtsPlan as unknown as StudySession[],
   papers: [
     {
@@ -565,6 +637,8 @@ const cscQuestions: Question[] = [
  * checked against that module's subsections and vocabulary.
  */
 const csc242: Course = {
+  // Filed away for the makeup week: off the landing page, still at its URL.
+  hidden: true,
   code: 'CSC242',
   title: 'Discrete Structures',
   tagline:
@@ -589,7 +663,7 @@ const csc242: Course = {
   ],
   questions: cscQuestions,
   examTags: ['Test 1 Q', 'Test 2 Q'],
-  exam: EXAMS.find((e) => e.code === 'CSC242'),
+  exam: slotFor('CSC242'),
   plan: cscPlan as unknown as StudySession[],
   papers: [
     {
@@ -674,7 +748,7 @@ const ins224: Course = {
   ],
   questions: insQuestions,
   examTags: ['Test 1 Q', 'Test 2 Q'],
-  exam: EXAMS.find((e) => e.code === 'INS224'),
+  exam: slotFor('INS224'),
   plan: insPlan as unknown as StudySession[],
   papers: [
     {
@@ -697,6 +771,8 @@ const ins224: Course = {
 };
 
 const ent221: Course = {
+  // Filed away for the makeup week: off the landing page, still at its URL.
+  hidden: true,
   code: 'ENT221',
   title: 'Agripreneurship',
   tagline:
@@ -901,6 +977,8 @@ function phyPaper(tag: string, id: string, title: string, note: string, mins: nu
 }
 
 const phy121: Course = {
+  // Filed away for the makeup week: off the landing page, still at its URL.
+  hidden: true,
   code: 'PHY121',
   title: 'General Physics II',
   tagline:
@@ -930,7 +1008,7 @@ const phy121: Course = {
   questions: phyQuestions,
   examTags: ['Test 1 Q', 'Test 2 Q'],
   hasLedger: true,
-  exam: EXAMS.find((e) => e.code === 'PHY121'),
+  exam: slotFor('PHY121'),
   // As above: the sittings are data, in data/phy121/plan.json.
   plan: phyPlan as unknown as StudySession[],
   papers: [
@@ -951,7 +1029,12 @@ const phy121: Course = {
   ],
 };
 
-export const COURSES: Course[] = [dts224, csc242, ins224, ift222, phy121, ent221, tmc221];
+// The four makeup papers first, in the order they are sat; the rest stay
+// registered but hidden, so their URLs and their gates keep working.
+export const COURSES: Course[] = [
+  ins224, csc241, cos221, ift222,
+  dts224, csc242, phy121, ent221, tmc221,
+];
 
 export function findCourse(code: string): Course | undefined {
   return COURSES.find((c) => c.code.toLowerCase() === code.toLowerCase());

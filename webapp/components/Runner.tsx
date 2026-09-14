@@ -6,6 +6,7 @@ import type { Course, FeedbackMode, GapMode, Question, Response } from '@/lib/ty
 import { mark } from '@/lib/grading';
 import QuestionView from './QuestionView';
 import { Figure } from '@/components/Figure';
+import { QCode } from '@/components/QCode';
 import Feedback from './Feedback';
 
 const STYLE_LABEL: Record<string, string> = {
@@ -226,6 +227,7 @@ export default function Runner({
                 : <Sci text={q.prompt} />}
             </p>
             {q.figure && <Figure figure={q.figure} />}
+            <QCode code={q.code} />
             <QuestionView
               question={q}
               response={responses[idx]}

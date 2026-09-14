@@ -6,6 +6,7 @@ import { lessonsFor } from '@/data/lessons';
 import LessonView from '@/components/LessonView';
 import Crumbs from '@/components/Crumbs';
 import LessonDrill from '@/components/LessonDrill';
+import { QCode } from '@/components/QCode';
 import type { Course, Question } from '@/lib/types';
 
 /**
@@ -53,6 +54,7 @@ function Solved({ q, n, course }: { q: Question; n: number; course: Course }) {
         {topic && <span className="soltopic">{topic}</span>}
       </div>
       <p className="solprompt">{q.prompt}</p>
+      <QCode code={q.code} />
 
       {q.options && (
         <ul className="solopts">
