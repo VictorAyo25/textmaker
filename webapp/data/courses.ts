@@ -120,6 +120,17 @@ import dt5 from './dts224/drill03.json';
 
 import in1 from './ins224/test01.json';
 import in2 from './ins224/test02.json';
+import inD01 from './ins224/drill01.json';
+import inD02 from './ins224/drill02.json';
+import inD03 from './ins224/drill03.json';
+import inD04 from './ins224/drill04.json';
+import inD05 from './ins224/drill05.json';
+import inD06 from './ins224/drill06.json';
+import inD07 from './ins224/drill07.json';
+import inD08 from './ins224/drill08.json';
+import inD09 from './ins224/drill09.json';
+import inD10 from './ins224/drill10.json';
+import inD11 from './ins224/drill11.json';
 import insPlan from './ins224/plan.json';
 
 import cs1 from './csc242/test01.json';
@@ -715,6 +726,17 @@ const insFacets: FacetGuide[] = [
 const insQuestions: Question[] = [
   ...(in1 as unknown as Question[]),
   ...(in2 as unknown as Question[]),
+  ...(inD01 as unknown as Question[]),
+  ...(inD02 as unknown as Question[]),
+  ...(inD03 as unknown as Question[]),
+  ...(inD04 as unknown as Question[]),
+  ...(inD05 as unknown as Question[]),
+  ...(inD06 as unknown as Question[]),
+  ...(inD07 as unknown as Question[]),
+  ...(inD08 as unknown as Question[]),
+  ...(inD09 as unknown as Question[]),
+  ...(inD10 as unknown as Question[]),
+  ...(inD11 as unknown as Question[]),
 ];
 
 /**
@@ -729,7 +751,7 @@ const ins224: Course = {
   code: 'INS224',
   title: 'Systems Analysis and Design',
   tagline:
-    'The whole 117-page course manual taught unit by unit, with both objective tests answered inside the lessons that teach them, and a practical for each theory question.',
+    'The whole 117-page course manual taught unit by unit. All 287 of its facts drilled in at least two forms, 444 questions in all, with both objective tests and both past papers inside the lessons.',
   blurb:
     'One paper carrying an objective section and three theory questions, one from each module, with no choice. Scoped to the CCODEL manual, which the examiner sets from almost word for word.',
   moduleNoun: 'Unit',

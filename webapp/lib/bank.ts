@@ -174,8 +174,31 @@ export function presentQuestion(q: Question, shuffleOptions: boolean): Question 
   return out;
 }
 
-/** Every right-hand label a match question offers, correct ones plus decoys. */
+/**
+ * Every right-hand label a match question offers, correct ones plus decoys.
+ *
+ * The order is shuffled, so it never lines up with the rows, but shuffled by a
+ * seed taken from the question's id rather than by Math.random. A lesson drill
+ * is rendered on the server and then again in the browser; with a random order
+ * the two renders disagreed, React threw a hydration error, and the dropdowns
+ * could change order under the reader. A seeded order is identical in both.
+ */
 export function matchLabels(q: Question): string[] {
   const base = (q.pairs ?? []).map((p) => p.right);
-  return shuffle([...new Set([...base, ...(q.extraLabels ?? [])])]);
+  return seededShuffle([...new Set([...base, ...(q.extraLabels ?? [])])], q.id);
+}
+
+function seededShuffle<T>(items: T[], seed: string): T[] {
+  let h = 2166136261;
+  for (const ch of seed) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+  const next = () => {
+    h = (Math.imul(h, 1664525) + 1013904223) >>> 0;
+    return h / 4294967296;
+  };
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(next() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }

@@ -455,6 +455,45 @@ const WHY_FIX = {
   },
 };
 
+/**
+ * The print edition runs to its own calendar, "Day 1" to "Day 4", 9 to 12
+ * September, and says "tomorrow's lesson" meaning its own next day. On the
+ * platform the dated plan owns the schedule and every lesson carries its real
+ * date, so a reference to the book's days is wrong here and is rewritten to
+ * name the lesson instead. Each fix must still match: a fix that finds
+ * nothing stops the import, so a changed source cannot let the old wording
+ * through unnoticed. The bank gate backs this with a schedule-word rule.
+ */
+const TEXT_FIX = {
+  COS221: [
+    ['first-program', /before you read tomorrow's lesson/g, 'before your next Java sitting'],
+    ['classes', /Everything else on Day 3 is built on this page\./g, 'Everything else in the object lessons is built on this page.'],
+  ],
+  CSC241: [
+    ['types', /(<code>(?:list|tuple)<\/code>[\s\S]*?)<td>Day 2<\/td>/g, '$1<td>see Lists and Tuples</td>'],
+    ['types', /(<code>(?:set|dict)<\/code>[\s\S]*?)<td>Day 2<\/td>/g, '$1<td>see Sets and Dictionaries</td>'],
+    ['operators', /which is Day 2's work/g, 'which is the work of the loops lesson'],
+    ['sets-dicts', /the trap from Day 1's error lesson/g, 'the trap from the Finding the Errors lesson'],
+    ['gui', /objective questions of Day 3/g, 'objective questions of the course'],
+  ],
+};
+
+function applyTextFixes(code, lessons) {
+  for (const [slug, re, to] of TEXT_FIX[code] ?? []) {
+    const l = lessons.find((x) => x.slug === slug);
+    if (!l) throw new Error(`TEXT_FIX: no lesson ${slug}`);
+    let hits = 0;
+    const walk = (v) => {
+      if (typeof v === 'string') return v.replace(re, (...m) => (hits++, to.replace(/\$(\d)/g, (_, n) => m[Number(n)])));
+      if (Array.isArray(v)) return v.map(walk);
+      if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)]));
+      return v;
+    };
+    Object.assign(l, walk(l));
+    if (!hits) throw new Error(`TEXT_FIX: ${slug} ${re} matched nothing; the source changed, so review this fix`);
+  }
+}
+
 function convertBox(box, file) {
   const kind = cls(box).replace('box', '').trim().split(/\s+/)[0];
   const bodyNode = bodyOf(box);
@@ -875,6 +914,7 @@ function run(code) {
   const [rslug, rtitle, rfile] = cfg.reference;
   lessons.push(convertReference(join(root, 'makeup', rfile), rslug, rtitle));
   for (const l of lessons) l.blocks = joinStages(l.blocks).map(cleanPlainFields);
+  applyTextFixes(code, lessons);
 
   // The lesson list groups by part, so the part is the DAY the dated plan puts
   // the lesson on. Anything the plan does not place keeps its own part.

@@ -476,12 +476,11 @@ const COURSES = [
     ledger: 'ledger',
     requireFacts: 'non-exam',
     teachesLedger: true,
-    // The ledger is the TEACHING gate here and it passes: all 287 facts are
-    // taught. The drill bank is still the two objective tests only, so most
-    // facts are taught but not yet drilled. That shortfall is printed on every
-    // run as STILL OWED rather than being hidden, and it comes out the moment
-    // the authored questions land.
-    ledgerDrill: 'report',
+    // The ledger was the TEACHING gate only while the bank was the two tests,
+    // with the undrilled facts printed as STILL OWED. The authored questions
+    // landed on 2026-09-14 (drill01 to drill11, one or more per fact, every
+    // hard fact in two styles), so the drill rule is strict again: a fact left
+    // untested, or a hard fact in one style, now fails the build.
   },
   {
     code: 'COS221',
@@ -958,6 +957,78 @@ function validate(q, where, cfg, seenIds) {
  * never given the answer to, and that every drill topic is actually taught by
  * some lesson.
  */
+/**
+ * The dated plan owns the schedule, and lesson text must agree with it.
+ *
+ * Lessons are converted from manuals written for an earlier sitting, and they
+ * carry that sitting's calendar in their prose. When the papers moved to the
+ * makeup week, the plan and the date at the top of every lesson were redated,
+ * but IFT222's opening lesson went on saying "How to pass this in a weekend",
+ * "the exam is on Tuesday" and "Saturday, Part A" inside a lesson dated
+ * Monday 14 September. Victor found it. So, for any course with a plan:
+ *
+ *   - a full date, "Friday 18 September", must be a day the plan or the paper
+ *     falls on, with the right weekday;
+ *   - a bare weekday, "on Friday morning", must be a day of the plan or the
+ *     paper;
+ *   - "weekend", "three-day" and a book's own "Day 3" are refused outright:
+ *     the platform has no weekend and no book days, only dated sittings.
+ *
+ * The examiner's words (AS PRINTED), model answers to past papers, program
+ * listings and quoted text are exempt: "Monday" as data in a tuple, or a
+ * question about ticket prices for "Day 1, Day 2, or Day 3", is not a schedule.
+ */
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function weekdayOf(iso) {
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number);
+  return WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+}
+function checkScheduleWords(cfg, plan, exam, lessons) {
+  const days = new Set(plan.map((s) => s.date));
+  if (exam) days.add(exam.slice(0, 10));
+  const weekdays = new Set([...days].map(weekdayOf));
+  const prose = (s) =>
+    String(s)
+      .replace(/<pre[\s\S]*?<\/pre>/g, ' ')
+      .replace(/<code[\s\S]*?<\/code>/g, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      // whitespace first: the manuals wrap lines inside quotations
+      .replace(/\s+/g, ' ')
+      .replace(/"[^"]{0,300}"|“[^”]{0,300}”|&ldquo;.{0,300}?&rdquo;/g, ' ');
+  let checked = 0;
+  for (const l of lessons) {
+    const texts = [['title', l.title], ['lead', l.lead]];
+    (l.blocks ?? []).forEach((b, i) => {
+      if (b.kind === 'asprinted' || (b.kind === 'worked' && b.mode === 'model')) return;
+      for (const [k, v] of Object.entries(b)) {
+        if (k === 'frames') (v ?? []).forEach((f, j) => ['check', 'teach', 'ask'].forEach((x) => texts.push([`block ${i} frame ${j + 1} ${x}`, f[x]])));
+        else if (typeof v === 'string') texts.push([`block ${i} ${k}`, v]);
+      }
+    });
+    for (const [where, raw] of texts) {
+      if (typeof raw !== 'string') continue;
+      const t = prose(raw);
+      checked += 1;
+      const at = `${cfg.code} lesson [${l.slug}] ${where}`;
+      for (const m of t.matchAll(/\b(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\b(?:,? (\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December))?/g)) {
+        const [, wd, d, mon] = m;
+        if (d) {
+          const iso = [...days].find((x) => Number(x.slice(8, 10)) === Number(d) && MONTHS[Number(x.slice(5, 7)) - 1] === mon);
+          check(Boolean(iso), `${at}: names ${wd} ${d} ${mon}, which is no sitting in the plan and not the paper`);
+          if (iso) check(weekdayOf(iso) === wd, `${at}: says ${wd} ${d} ${mon}, but that date is a ${weekdayOf(iso)}`);
+        } else {
+          check(weekdays.has(wd), `${at}: says "${wd}", but no sitting or paper falls on a ${wd}. The dated plan owns the schedule.`);
+        }
+      }
+      const stale = t.match(/\bweekend\b|\b(?:two|three|four)-day\b|\bDay [1-9]\b/i);
+      if (stale)
+        check(false, `${at}: says "${stale[0]}", a schedule from the book this lesson was converted from. Name the lesson or the dated sitting instead.`);
+    }
+  }
+  console.log(`    . schedule words: ${checked} lesson texts agree with the dated plan`);
+}
+
 function checkLessons(cfg, dir, bankModules, ledger, all) {
   const path = join(dir, cfg.lessons);
   const lessons = JSON.parse(readFileSync(path, 'utf8'));
@@ -1199,6 +1270,7 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
         exam ? `, none after the paper on ${exam.slice(0, 10)}` : ''
       }`
     );
+    checkScheduleWords(cfg, plan, exam, lessons);
   }
 
   if (cfg.bankCoversAllTopics === false && undrilled.size) {
