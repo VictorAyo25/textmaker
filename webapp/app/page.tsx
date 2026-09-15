@@ -68,9 +68,10 @@ export default function Page() {
         <span className="code">CU DRILL</span>
         <h1>Makeup week: four papers, from scratch</h1>
         <span className="sub">
-          INS224 and Python on Wednesday, Java on Thursday, IFT222 on Friday. Each course
-          teaches you frame by frame, drills you on every objective question with every
-          option explained, and gives you the past theory questions to answer in your book.
+          IFT222 on Wednesday, Python on Thursday, then Java and INS224 on Friday. Each
+          course teaches you frame by frame, drills you on every objective question with
+          every option explained, and gives you the past theory questions to answer in your
+          book.
         </span>
       </header>
 

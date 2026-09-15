@@ -5,31 +5,35 @@ import type { ExamSlot } from '@/lib/types';
  *
  * All four are on the drill and each carries a dated crash-course plan, built
  * backwards from these slots. Times are local and cover the whole window the
- * paper occupies. INS224 and CSC241 share the Wednesday, so their plans have
- * to share Monday and Tuesday; Java then has Thursday to itself.
+ * paper occupies.
+ *
+ * Rescheduled on 15 September, in Victor's order: IFT222 Wednesday, Python
+ * Thursday, then Java and INS224 on the same Friday. That Friday is the squeeze:
+ * Java and INS224 would otherwise share one evening and one morning, so INS224's
+ * first two modules are studied on Tuesday and Wednesday evenings instead.
  */
 export const EXAMS: ExamSlot[] = [
   {
-    code: 'INS224',
-    title: 'Systems Analysis and Design',
-    at: '2026-09-16T10:00',
-    window: '10:00 AM to 12:00 PM',
+    code: 'IFT222',
+    title: 'Computer Architecture and Organization',
+    at: '2026-09-16T15:00',
+    window: '03:00 PM to 05:00 PM',
   },
   {
     code: 'CSC241',
     title: 'Python Programming Language I',
-    at: '2026-09-16T15:00',
+    at: '2026-09-17T15:00',
     window: '03:00 PM to 05:00 PM',
   },
   {
     code: 'COS221',
     title: 'Computer Programming I, Java',
-    at: '2026-09-17T15:00',
-    window: '03:00 PM to 05:00 PM',
+    at: '2026-09-18T10:00',
+    window: '10:00 AM to 12:00 PM',
   },
   {
-    code: 'IFT222',
-    title: 'Computer Architecture and Organization',
+    code: 'INS224',
+    title: 'Systems Analysis and Design',
     at: '2026-09-18T15:00',
     window: '03:00 PM to 05:00 PM',
   },

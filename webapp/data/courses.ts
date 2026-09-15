@@ -1056,7 +1056,8 @@ const phy121: Course = {
 // The four makeup papers first, in the order they are sat; the rest stay
 // registered but hidden, so their URLs and their gates keep working.
 export const COURSES: Course[] = [
-  ins224, csc241, cos221, ift222,
+  // the makeup papers, in the order they are sat
+  ift222, csc241, cos221, ins224,
   dts224, csc242, phy121, ent221, tmc221,
 ];
 
