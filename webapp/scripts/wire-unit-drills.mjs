@@ -24,6 +24,7 @@ if (!code) {
 }
 const dir = join(dirname(fileURLToPath(import.meta.url)), '..', 'data', code);
 const LABEL = 'Drill every fact in this unit';
+const STYLE_ORDER = ['match', 'multi', 'mcq', 'tf'];
 
 const authored = [];
 for (const f of readdirSync(dir).filter((f) => /^drill\d+[a-z]?\.json$/.test(f)))
@@ -39,12 +40,17 @@ for (const l of lessons) {
   // A unit taught by a lesson and ALSO by a practical keeps its drill on the
   // teaching lesson, the first one in the file.
   if (lessons.find((x) => (x.modules ?? []).length === 1 && x.modules[0] === unit) !== l) continue;
-  const ids = authored.filter((q) => q.module === unit).map((q) => q.id);
+  // Matching and "which two" first: each tests several facts at once, so a
+  // reader who only has time for the first twenty covers the most ground.
+  const ids = authored
+    .filter((q) => q.module === unit)
+    .sort((a, b) => STYLE_ORDER.indexOf(a.style) - STYLE_ORDER.indexOf(b.style))
+    .map((q) => q.id);
   if (!ids.length) continue;
   const block = {
     kind: 'drill',
     label: LABEL,
-    tag: `${ids.length} questions from the course text, every option explained`,
+    tag: `${ids.length} questions from the course text, matching and "which two" first, every option explained`,
     pick: 'all',
     topics: [],
     ids,

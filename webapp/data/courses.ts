@@ -755,7 +755,7 @@ const ins224: Course = {
   tagline:
     'The whole 117-page course manual taught unit by unit. All 287 of its facts drilled in at least two forms, 444 questions in all, with both objective tests and both past papers inside the lessons.',
   blurb:
-    'One paper carrying an objective section and three theory questions, one from each module, with no choice. Scoped to the CCODEL manual, which the examiner sets from almost word for word.',
+    'One paper: thirty objective questions from all three modules, then three theory questions, one per module, each with a practical scenario, of which you answer two. Scoped to the CCODEL manual, which the examiner sets from almost word for word.',
   moduleNoun: 'Unit',
   facetGuide: insFacets,
   modules: [
@@ -787,7 +787,7 @@ const ins224: Course = {
       id: 'ins-test-2',
       title: 'Objective test 2, all 30 questions',
       subtitle: 'Modules Two and Three, in the format the exam will use: ten multi-select, ten single answer, ten matching.',
-      note: 'Transcribed from the captured test, also unattempted. The lecturer has said the exam objective section follows THIS format, so the even three-way split matters: a third of the marks are matching, which needs definitions learned beside their names.',
+      note: 'Transcribed from the captured test, also unattempted. The exam’s objective section is thirty questions from all three modules; this test shows the forms they can take, an even three-way split of multi-select, single answer and matching, so learn definitions beside their names.',
       questions: insQuestions.filter((q) => q.slides.some((sl) => sl.startsWith('Test 2 Q'))),
       minutes: 30,
     },

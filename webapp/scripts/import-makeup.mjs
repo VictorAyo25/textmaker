@@ -158,10 +158,12 @@ const CONFIG = {
       ['paper-2526', 'The 2025/2026 Paper, Every Question', ['paper2526.html']],
       ['paper-2425', 'The 2024/2025 Paper, Every Question', ['paper2425.html']],
     ],
-    // The format changed after both papers were set. Saying so here stops a
-    // reader from practising the choice of questions they will not be given.
+    // The format changed after both papers were set. Confirmed on 15 September:
+    // thirty objective questions from all three modules, then three theory
+    // questions, one per module, each with a practical scenario, answer any two.
+    // Saying so here stops a reader from practising the old paper's choices.
     theoryLead:
-      'Every question on this paper, quoted exactly as the examiner set it. <b>Your paper is not in this format:</b> it is an objective section, then THREE written questions with no choice, one from each module of the course text. So do not practise choosing. Answer every question here, because each one is a question on one of those three modules. For each: read it, write or draw your full answer in your book, and only then open the model answer.',
+      'Every question on this paper, quoted exactly as the examiner set it. <b>Your paper is not in this format:</b> it is thirty objective questions from all three modules, then THREE theory questions, one from each module of the course text, each with a practical scenario, of which you answer two. Your two are Modules One and Two, so practise every question here that belongs to them, the scenarios above all. For each: read it, write or draw your full answer in your book, and only then open the model answer.',
     insertBefore: 'cram',
     // Six questions a paper, answered in outline: the list points in full and
     // each diagram sketched, which is what three hours on Wednesday morning allow.
@@ -173,7 +175,7 @@ const CONFIG = {
     ],
     // written before the format changed, like both past papers
     mockLead:
-      'Six practice questions in the older shape of the paper. <b>Your paper is three written questions with no choice, one from each module</b>, so answer all six here: each one is practice on one module. Write or draw your answer in your book first, then open the model answer.',
+      'Six practice questions in the older shape of the paper. <b>Your paper is three theory questions, one from each module, each with a practical scenario, and you answer two</b>: Modules One and Two. So practise the questions here on those two modules first, the scenarios above all. Write or draw your answer in your book, then open the model answer.',
   },
   // IFT222's lessons come from import-crash.mjs; only its three mock papers are
   // brought in here, merged in before the last-hour sheet.

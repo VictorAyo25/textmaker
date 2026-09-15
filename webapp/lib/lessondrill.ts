@@ -33,8 +33,13 @@ export function drillQuestions(
     return block.pick === 'all' || isExamQuestion(course, q);
   });
   // Exam order, so the reader meets them as the paper set them, then anything
-  // authored afterwards.
-  return picked.sort((a, b) => order(course, a) - order(course, b));
+  // authored afterwards. A block that is purely a list of ids keeps the order
+  // it was listed in, so its author can put the questions worth most first.
+  const rank = new Map((block.ids ?? []).map((id, i) => [id, i] as const));
+  const listed = picked.every((q) => rank.has(q.id));
+  return picked.sort(
+    (a, b) => order(course, a) - order(course, b) || (listed ? rank.get(a.id)! - rank.get(b.id)! : 0)
+  );
 }
 
 function order(course: Course, q: Question): number {
