@@ -208,6 +208,22 @@ function build(code) {
   const cfg = COURSES[code];
   if (!cfg) throw new Error(`no Learn by doing config for ${code}`);
   const dir = join(HERE, '..', 'data', code);
+  // A drawing question is answered with a drawing. An authored answer marks the
+  // place with {{fig:key}} and the figure comes from data/<course>/figures.json,
+  // which scripts/author/<course>_figures.py draws and validates.
+  const figFile = join(dir, 'figures.json');
+  const figures = existsSync(figFile) ? JSON.parse(readFileSync(figFile, 'utf8')) : {};
+  const drawIn = (value) => {
+    if (typeof value === 'string')
+      return value.replace(/\{\{fig:([a-z0-9-]+)\}\}/g, (whole, key) => {
+        if (!figures[key]) throw new Error(`${code}: no figure called ${key}`);
+        return figures[key];
+      });
+    if (Array.isArray(value)) return value.map(drawIn);
+    if (value && typeof value === 'object')
+      return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, drawIn(v)]));
+    return value;
+  };
   const bank = [];
   const pattern = cfg.bank ?? /^(drill\d+[a-z]?|test\d+)\.json$/;
   for (const f of readdirSync(dir).filter((f) => pattern.test(f)))
@@ -216,7 +232,7 @@ function build(code) {
   const lessons = JSON.parse(readFileSync(join(dir, 'lessons.json'), 'utf8'));
   const made = [];
   for (const set of cfg.sets) {
-    const authored = JSON.parse(readFileSync(join(dir, 'doing', `${set.dir}.json`), 'utf8'));
+    const authored = drawIn(JSON.parse(readFileSync(join(dir, 'doing', `${set.dir}.json`), 'utf8')));
     const pool = set.partA === false ? [] : bank.filter((q) => set.units.includes(q.module));
     const { picked, covered } =
       set.partA === false ? { picked: [], covered: new Set() } : choose(pool, cfg.size, cfg);

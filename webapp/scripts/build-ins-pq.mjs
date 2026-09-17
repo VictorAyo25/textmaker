@@ -54,6 +54,42 @@ const TAUGHT = {
 const WEBAPP = join(HERE, '..');
 const OUT = join(WEBAPP, 'data', 'ins224', 'doing');
 
+/**
+ * The diagrams each past question answer was missing. Some answers already
+ * carry one from the manual, so only the gaps are named here: the warehouse
+ * answer had its Level 0 DFD but no ERD, the landlord answer had its ERD and
+ * Level 0 but no context diagram and no Level 1.
+ */
+const FIGS = {
+  'clothing-line': [],
+  retail: [],
+  'restaurant-car': ['restaurant-erd', 'carrental-erd'],
+  'sports-centre': ['sportscentre-usecase'],
+  'paper-2425:8': ['warehouse-erd'],
+  'paper-2526:1': ['landlord-context', 'landlord-dfd1'],
+  'paper-2425:12': ['ie-cardinality', 'sales-erd', 'researchers-erd'],
+  'paper-2425:18': ['appointments-usecase'],
+  'paper-2526:5': ['hospital-billing-usecase'],
+};
+
+const FIGURES = JSON.parse(
+  readFileSync(new URL('../data/ins224/figures.json', import.meta.url), 'utf8')
+);
+
+/** The drawings, under the answer that asks for them. */
+function drawings(keys) {
+  if (!keys?.length) return '';
+  return (
+    '<p><b>The diagram' +
+    (keys.length > 1 ? 's' : '') +
+    ' this question asks for, drawn.</b> Copy the shape, not the wording: the entity names and the cardinalities are what carry the marks.</p>' +
+    keys.map((k) => {
+      if (!FIGURES[k]) throw new Error(`no figure called ${k}`);
+      return FIGURES[k];
+    }).join('')
+  );
+}
+
 /** A part by part map, rendered as the label above each question. */
 const P = (part, module, do_, what) => ({ part, module, do: do_, what });
 
@@ -414,7 +450,9 @@ function build() {
         },
         exam: {
           problem: `<p>Answer the assignment above in full in your book, then open this.</p>`,
-          answer: balanceHtml([model.working, model.answer].filter(Boolean).join('\n')),
+          answer:
+            balanceHtml([model.working, model.answer].filter(Boolean).join('\n')) +
+            drawings(FIGS[a.teaches ?? ''] ?? []),
         },
         frames: a.teaches ? FRAMES[a.teaches] : [],
       };
@@ -445,7 +483,9 @@ function build() {
           problem: balanceHtml(
             worked.problem || `<p>Answer the parts marked yours above, then open the model answer.</p>`
           ),
-          answer: balanceHtml([worked.working, worked.answer].filter(Boolean).join('\n')),
+          answer:
+            balanceHtml([worked.working, worked.answer].filter(Boolean).join('\n')) +
+            drawings(FIGS[`${q.from[0]}:${q.from[1]}`] ?? []),
         },
         frames: q.teaches ? FRAMES[q.teaches] : [],
       };
