@@ -7,11 +7,15 @@ import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from 
 
 export default function LessonIndex({
   code,
-  cards,
+  cards: all,
 }: {
   code: string;
   cards: LessonCard[];
 }) {
+  // Learn by doing is its own section, so it never appears among the lessons
+  // or in their counts. The crash course teaches; that section sits papers.
+  const cards = all.filter((c) => !c.revision);
+  const papers = all.filter((c) => c.revision);
   const [progress, setProgress] = useState<ProgressMap>({});
 
   useEffect(() => {
@@ -25,6 +29,18 @@ export default function LessonIndex({
 
   return (
     <>
+      {papers.length > 0 && (
+        <Link className="card doingband" href={`/${code.toLowerCase()}/doing`}>
+          <span className="dkick">Learn by doing</span>
+          <h2>Sit each module as a paper</h2>
+          <p>
+            {papers.length} papers. Objective questions on the module, then the theory
+            questions with their practicals, each answered as you would write it and then
+            taught from nothing.
+          </p>
+          <span className="btn">Open Learn by doing</span>
+        </Link>
+      )}
       <div className="card">
         <h2>The crash course</h2>
         <p className="help">

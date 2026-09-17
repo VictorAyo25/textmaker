@@ -48,6 +48,8 @@ export interface LessonCard {
   frames: number;
   worked: number;
   recalls: number;
+  /** A Learn by doing paper, which lives in its own section. */
+  revision: boolean;
 }
 
 export function lessonCards(code: string): LessonCard[] {
@@ -64,9 +66,28 @@ export function lessonCards(code: string): LessonCard[] {
       .reduce((t, b) => t + (b.kind === 'frames' ? b.frames.length : 0), 0),
     worked: l.blocks.filter((b) => b.kind === 'worked').length,
     recalls: l.blocks.filter((b) => b.kind === 'recall').length,
+    revision: Boolean(l.revision),
   }));
 }
 
 export function courseHasCrashCourse(code: string): boolean {
   return lessonsFor(code).length > 0;
+}
+
+/** The Learn by doing papers: one module sat whole, in their own section. */
+export function doingCards(code: string): LessonCard[] {
+  return lessonCards(code).filter((c) => c.revision);
+}
+
+export function courseHasDoing(code: string): boolean {
+  return lessonsFor(code).some((l) => l.revision);
+}
+
+/**
+ * Where a lesson lives. A Learn by doing paper has its own section and its own
+ * route, so every link to one has to be built here rather than by hand, or a
+ * link sends the reader to a page that no longer serves it.
+ */
+export function lessonHref(code: string, lesson: { slug: string; revision?: boolean }): string {
+  return `/${code.toLowerCase()}/${lesson.revision ? 'doing' : 'learn'}/${lesson.slug}`;
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { ExamSlot, StudySession } from '@/lib/types';
-import type { LessonCard } from '@/data/lessons';
+import { lessonHref, type LessonCard } from '@/data/lessons';
 import { countdown, longDate } from '@/data/timetable';
 import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from '@/lib/progress';
 
@@ -77,11 +77,14 @@ export default function StudyPlan({
                 if (!c) return null;
                 return (
                   <li key={slug}>
-                    <Link href={`/${code.toLowerCase()}/learn/${slug}`}>
+                    <Link href={lessonHref(code, c)}>
                       <span className={`box ${progress[slug]?.done ? 'ticked' : ''}`}>
                         {progress[slug]?.done ? '✓' : ''}
                       </span>
-                      <span className="t">{c.title}</span>
+                      <span className="t">
+                        {c.title}
+                        {c.revision && <span className="pill">Learn by doing</span>}
+                      </span>
                       <span className="stat">{c.minutes} min</span>
                     </Link>
                   </li>

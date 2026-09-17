@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import { COURSES } from '@/data/courses';
-import { lessonCards } from '@/data/lessons';
+import { courseHasDoing, doingCards, lessonCards } from '@/data/lessons';
 import Timetable from '@/components/Timetable';
 import Providers from '@/components/Providers';
 import AuthBar from '@/components/AuthBar';
@@ -48,7 +49,7 @@ export default function Page() {
       order: planned
         .map((slug) => byslug.get(slug))
         .filter((l): l is NonNullable<typeof l> => Boolean(l))
-        .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes })),
+        .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes, revision: l.revision })),
       sessions: (c.plan ?? []).map((s) => ({
         date: s.date,
         window: s.window,
@@ -56,11 +57,17 @@ export default function Page() {
         lessons: s.lessons
           .map((slug) => byslug.get(slug))
           .filter((l): l is NonNullable<typeof l> => Boolean(l))
-          .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes })),
+          .map((l) => ({ slug: l.slug, title: l.title, minutes: l.minutes, revision: l.revision })),
       })),
       hasCrash: byslug.size > 0,
     };
   });
+
+  // Learn by doing, named at the top of the page rather than found inside a
+  // course: it is the thing to open when there is a paper this week.
+  const doing = visible
+    .filter((c) => !c.taken && courseHasDoing(c.code))
+    .map((c) => ({ code: c.code, papers: doingCards(c.code).length }));
 
   return (
     <main className="wrap">
@@ -74,6 +81,27 @@ export default function Page() {
           book.
         </span>
       </header>
+
+      {doing.length > 0 && (
+        <section className="doingtop">
+          <span className="dkick">Learn by doing</span>
+          <h2>Sit each module as a paper, then see it worked and taught</h2>
+          <p>
+            The objective questions on that module, the examiner's own first. Then the
+            theory questions with their practical scenarios, each answered twice: the
+            answer you would write in the hall, then the same question taught from
+            nothing, one step at a time.
+          </p>
+          <div className="doinglinks">
+            {doing.map((d) => (
+              <Link key={d.code} className="dlink" href={`/${d.code.toLowerCase()}/doing`}>
+                <b>{d.code}</b>
+                <span>{d.papers} papers</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Sign-in used to live only inside a course, which was fine when one
           person used one laptop. Anyone arriving at the platform should be able

@@ -303,6 +303,11 @@ interface Props {
   drills: Record<number, Question[]>;
   /** The dated sitting this lesson belongs to, where the course has a plan. */
   when?: { date: string; window: string } | null;
+  /**
+   * Which section this page is served from, "learn" or "doing", so Back and
+   * Next stay inside it. A Learn by doing paper lives under /doing.
+   */
+  base?: 'learn' | 'doing';
 }
 
 export default function LessonView({
@@ -317,6 +322,7 @@ export default function LessonView({
   course,
   drills,
   when,
+  base = 'learn',
 }: Props) {
   const key = lessonProgressKey(code);
   const [reached, setReached] = useState(1);
@@ -457,19 +463,19 @@ export default function LessonView({
       {/* "Next" on its own tells you nothing about how much is left. Naming the
           position turns the footer into a progress indicator. */}
       <p className="lessonpos">
-        Lesson {position} of {total}
+        {base === 'doing' ? 'Paper' : 'Lesson'} {position} of {total}
       </p>
 
       <div className="prevnext">
         {prev ? (
-          <Link className="chip" href={`/${code.toLowerCase()}/learn/${prev.slug}`}>
+          <Link className="chip" href={`/${code.toLowerCase()}/${base}/${prev.slug}`}>
             Back: {prev.title}
           </Link>
         ) : (
           <span />
         )}
         {next && (
-          <Link className="chip" href={`/${code.toLowerCase()}/learn/${next.slug}`}>
+          <Link className="chip" href={`/${code.toLowerCase()}/${base}/${next.slug}`}>
             Next: {next.title}
           </Link>
         )}

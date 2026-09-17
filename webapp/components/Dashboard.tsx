@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { countdown, longDate } from '@/data/timetable';
+import { lessonHref } from '@/data/lessons';
 import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from '@/lib/progress';
 
 /**
@@ -25,7 +26,7 @@ export interface DashCourse {
   lessons: number;
   minutes: number;
   /** Lesson slugs in reading order, from the dated plan where there is one. */
-  order: { slug: string; title: string; minutes: number }[];
+  order: DashLesson[];
   /** The dated plan's sittings, so the page can say what TODAY holds. */
   sessions: DashSession[];
   hasCrash: boolean;
@@ -35,7 +36,15 @@ export interface DashSession {
   date: string;
   window: string;
   goal: string;
-  lessons: { slug: string; title: string; minutes: number }[];
+  lessons: DashLesson[];
+}
+
+/** A lesson as the dashboard needs it. `revision` decides which section serves it. */
+export interface DashLesson {
+  slug: string;
+  title: string;
+  minutes: number;
+  revision?: boolean;
 }
 
 /** Minutes after midnight of the first clock time in a window, for ordering.
@@ -89,7 +98,7 @@ function Today({
             {behind.flatMap((s) =>
               s.lessons.map((l) => (
                 <li key={s.code + l.slug}>
-                  <Link href={`/${s.code.toLowerCase()}/learn/${l.slug}`}>
+                  <Link href={lessonHref(s.code, l)}>
                     <span className="badge">{s.code}</span> {l.title}
                   </Link>
                 </li>
@@ -113,7 +122,7 @@ function Today({
             <ol className="slessons">
               {s.lessons.map((l) => (
                 <li key={l.slug} className={done(s.code, l.slug) ? 'isdone' : ''}>
-                  <Link href={`/${s.code.toLowerCase()}/learn/${l.slug}`}>
+                  <Link href={lessonHref(s.code, l)}>
                     {done(s.code, l.slug) ? '✓ ' : ''}
                     {l.title}
                   </Link>
@@ -122,7 +131,7 @@ function Today({
               ))}
             </ol>
             {left[0] ? (
-              <Link className="btn" href={`/${s.code.toLowerCase()}/learn/${left[0].slug}`}>
+              <Link className="btn" href={lessonHref(s.code, left[0])}>
                 {read ? 'Carry on' : 'Start'}: {left[0].title}
               </Link>
             ) : (
@@ -260,7 +269,7 @@ export default function Dashboard({ courses }: { courses: DashCourse[] }) {
 
             <div className="dactions">
               {next ? (
-                <Link className="btn" href={`/${c.code.toLowerCase()}/learn/${next.slug}`}>
+                <Link className="btn" href={lessonHref(c.code, next)}>
                   Next: {next.title}
                 </Link>
               ) : c.hasCrash ? (

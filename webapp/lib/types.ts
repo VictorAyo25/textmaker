@@ -208,6 +208,12 @@ export interface Lesson {
   minutes: number;
   /** Drill topics this skill teaches, so a lesson can hand off to the bank. */
   modules: number[];
+  /**
+   * A "Learn by doing" paper rather than a lesson: one module sat whole, its
+   * questions deliberately met for the second time. These live in their own
+   * section, not among the crash course lessons, and have their own route.
+   */
+  revision?: boolean;
   blocks: LessonBlock[];
 }
 
