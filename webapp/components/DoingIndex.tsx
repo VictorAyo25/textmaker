@@ -31,6 +31,10 @@ export default function DoingIndex({
 
   const minutes = cards.reduce((t, c) => t + c.minutes, 0);
   const done = cards.filter((c) => progress[c.slug]?.done).length;
+  // A course may hold more than one kind of paper: INS224 has the module
+  // papers and, separately, the past questions filed by module. They are kept
+  // in the lesson's own `part`, so grouping needs no new field.
+  const groups = [...new Set(cards.map((c) => c.part))];
 
   return (
     <>
@@ -46,7 +50,16 @@ export default function DoingIndex({
         </p>
       </div>
 
-      {cards.map((c) => (
+      {groups.map((group) => (
+        <div key={group}>
+          {groups.length > 1 && (
+            <h3 className="doinggroup">
+              {group.replace(/^Learn by doing:?\s*/i, '') || 'Sit each module'}
+            </h3>
+          )}
+          {cards
+            .filter((c) => c.part === group)
+            .map((c) => (
         <Link className="card doingrow" key={c.slug} href={`/${code.toLowerCase()}/doing/${c.slug}`}>
           <span className="dkick">{c.kick}</span>
           <h3>
@@ -59,6 +72,8 @@ export default function DoingIndex({
           </p>
           <span className="btn">{progress[c.slug]?.done ? 'Sit it again' : 'Sit this paper'}</span>
         </Link>
+            ))}
+        </div>
       ))}
     </>
   );

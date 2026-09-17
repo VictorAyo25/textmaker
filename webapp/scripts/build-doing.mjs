@@ -45,6 +45,11 @@ const COURSES = {
       { slug: 'doing-m1', dir: 'm1', units: [1, 2, 3], planAfter: 'practical-one' },
       { slug: 'doing-m2', dir: 'm2', units: [4, 5, 6, 7], planAfter: 'practical-two' },
       { slug: 'doing-m3', dir: 'm3', units: [8, 9, 10], planAfter: 'cram' },
+      // Past questions only, filed by the module of the parts he will answer.
+      // No Part A: these papers are the examiner's own questions and nothing else.
+      { slug: 'pq-m1', dir: 'pq1', partA: false, part: 'Learn by doing: past questions', planAfter: 'practical-one' },
+      { slug: 'pq-m2', dir: 'pq2', partA: false, part: 'Learn by doing: past questions', planAfter: 'practical-two' },
+      { slug: 'pq-off', dir: 'pq3', partA: false, part: 'Learn by doing: past questions', planAfter: 'paper-2526' },
     ],
   },
   ift222: {
@@ -212,21 +217,26 @@ function build(code) {
   const made = [];
   for (const set of cfg.sets) {
     const authored = JSON.parse(readFileSync(join(dir, 'doing', `${set.dir}.json`), 'utf8'));
-    const pool = bank.filter((q) => set.units.includes(q.module));
-    const { picked, covered } = choose(pool, cfg.size, cfg);
+    const pool = set.partA === false ? [] : bank.filter((q) => set.units.includes(q.module));
+    const { picked, covered } =
+      set.partA === false ? { picked: [], covered: new Set() } : choose(pool, cfg.size, cfg);
     const tests = picked.filter((q) => (q.slides ?? []).some((s) => cfg.examTag.test(s))).length;
     const blocks = [
       { kind: 'teach', label: 'How to sit this', tag: 'read this first', html: authored.intro },
-      {
-        kind: 'drill',
-        label: `Part A: ${picked.length} objective questions on this module`,
-        tag: `${tests} of them ${cfg.examNoun}, then ${
-          picked.length - tests
-        } more chosen so the set reaches ${covered.size} separate points`,
-        pick: 'all',
-        topics: [],
-        ids: picked.map((q) => q.id),
-      },
+      ...(set.partA === false
+        ? []
+        : [
+            {
+              kind: 'drill',
+              label: `Part A: ${picked.length} objective questions on this module`,
+              tag: `${tests} of them ${cfg.examNoun}, then ${
+                picked.length - tests
+              } more chosen so the set reaches ${covered.size} separate points`,
+              pick: 'all',
+              topics: [],
+              ids: picked.map((q) => q.id),
+            },
+          ]),
       ...(authored.questions.length
         ? [
             {
@@ -256,7 +266,7 @@ function build(code) {
     ];
     made.push({
       slug: set.slug,
-      part: cfg.part,
+      part: set.part ?? cfg.part,
       kick: authored.kick,
       title: authored.title,
       lead: authored.lead,
@@ -269,9 +279,7 @@ function build(code) {
       blocks,
     });
     console.log(
-      `  ${set.slug.padEnd(9)} Part A ${picked.length} questions (${tests} real test), ${
-        covered.size
-      } facts; Part B ${authored.questions.length} theory questions, ${
+      `  ${set.slug.padEnd(9)} Part A ${set.partA === false ? 'none' : `${picked.length} questions (${tests} real test), ${covered.size} facts`}; Part B ${authored.questions.length} theory questions, ${
         authored.questions.reduce((t, q) => t + (q.frames?.length ?? 0), 0) +
         (authored.methodFrames?.length ?? 0)
       } frames`
