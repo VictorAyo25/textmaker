@@ -47,6 +47,7 @@ const COURSES = {
       { slug: 'doing-m3', dir: 'm3', units: [8, 9, 10], planAfter: 'cram' },
       // Past questions only, filed by the module of the parts he will answer.
       // No Part A: these papers are the examiner's own questions and nothing else.
+      { slug: 'pq-how', dir: 'pq0', partA: false, part: 'Learn by doing: past questions', planAfter: 'practical-two' },
       { slug: 'pq-m1', dir: 'pq1', partA: false, part: 'Learn by doing: past questions', planAfter: 'practical-one' },
       { slug: 'pq-m2', dir: 'pq2', partA: false, part: 'Learn by doing: past questions', planAfter: 'practical-two' },
       { slug: 'pq-off', dir: 'pq3', partA: false, part: 'Learn by doing: past questions', planAfter: 'paper-2526' },
@@ -239,6 +240,9 @@ function build(code) {
     const tests = picked.filter((q) => (q.slides ?? []).some((s) => cfg.examTag.test(s))).length;
     const blocks = [
       { kind: 'teach', label: 'How to sit this', tag: 'read this first', html: authored.intro },
+      // A paper may carry its own teaching blocks between the introduction and
+      // Part B: the Module Two procedure page is all teaching and no questions.
+      ...(authored.extraBlocks ?? []),
       ...(set.partA === false
         ? []
         : [
@@ -269,7 +273,11 @@ function build(code) {
       // them, rather than repeating it under every question that uses it.
       ...(authored.methodFrames?.length
         ? [
-            { kind: 'heading', text: 'Part 2: the method behind these, taught from nothing' },
+            {
+              kind: 'heading',
+              text:
+                authored.framesHeading ?? 'Part 2: the method behind these, taught from nothing',
+            },
             {
               kind: 'frames',
               label: 'Work it frame by frame',

@@ -2918,6 +2918,148 @@
     ]
   },
   {
+    "slug": "pq-how",
+    "part": "Learn by doing: past questions",
+    "kick": "The procedure",
+    "title": "Module Two From Nothing: the Procedure",
+    "lead": "Six steps that answer any Module Two question, including one you have never seen, without knowing the topic in advance: read the ask, mark the scenario, run the artefact's recipe, validate, and write the habits that carry marks.",
+    "minutes": 25,
+    "modules": [],
+    "revision": true,
+    "blocks": [
+      {
+        "kind": "teach",
+        "label": "How to sit this",
+        "tag": "read this first",
+        "html": "<p><b>Module Two is the one module where a procedure genuinely substitutes for knowledge.</b> Every question asks for an artefact, and every artefact has a numbered recipe the course text prints. Learn the recipes and the routing, and an unseen scenario is just new nouns.</p><div class=\"keypoint\"><span class=\"kplab\">How to use this page</span><p>Read it once tonight, then work the questions in <b>Past Questions: Module Two</b> with it open beside you. In the hall, run the six steps in order and do not improvise.</p></div>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 0: read the ask, not the story"
+      },
+      {
+        "kind": "teach",
+        "label": "Where the marks are decided",
+        "tag": "two minutes, before anything else",
+        "html": "<p>Find the imperative verbs: <b>draw, identify, list, explain, state, read, outline</b>. The story is raw material; <b>the ask names the artefact</b>, and the artefact decides everything you do next.</p><p>Write the marks beside each part before you start. The conversion is reliable: <b>one mark is one labelled item or one sentence</b>. A 4.5 mark ERD wants roughly four or five labelled things, not a page of prose.</p>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 1: route the question"
+      },
+      {
+        "kind": "rules",
+        "label": "The router",
+        "tag": "what the ask means",
+        "html": "<table><tr><th>The ask contains</th><th>Artefact</th><th>Recipe</th></tr><tr><td>ERD, entities, attributes, cardinality, \"keep track of\"</td><td>Entity relationship diagram</td><td>Step 3A</td></tr><tr><td>context diagram, Level 0, Level 1, \"processes involved\"</td><td>Data flow diagram</td><td>Step 3B</td></tr><tr><td>use case diagram, actors, narrative</td><td>Use case diagram</td><td>Step 3C</td></tr><tr><td>\"read and interpret\", \"state the cardinal relationships\", a printed figure</td><td>Read a diagram back</td><td>Step 3D</td></tr><tr><td>elicitation, gather requirements, techniques, functional</td><td>Requirements</td><td>Step 3E</td></tr><tr><td>\"state four\", \"define\", \"explain the following\"</td><td>A theory list</td><td>Step 3F</td></tr></table>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 2: the three minute markup"
+      },
+      {
+        "kind": "rules",
+        "label": "Mark the question paper itself",
+        "tag": "this alone answers most of the drawing marks",
+        "html": "<ol><li><b>Underline every noun the system keeps data about.</b> Those become entities, data stores or classes. Someone who only hands something in is an external agent, not an entity.</li><li><b>Underline every verb an actor performs.</b> Those become processes, use cases or relationship names.</li><li><b>Circle every counting phrase:</b> one, many, one of many, only one, at least, may or may not, over time. Those are your cardinality and ordinality, and they are the examiner's own words, so quote them back.</li><li><b>Mark who is inside and who is outside.</b> Anyone whose work the system records is inside it; anyone who submits or receives is outside.</li></ol><p>None of that needs you to know the topic. It needs you to read carefully, which is the skill this module actually tests.</p>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 3: the recipes"
+      },
+      {
+        "kind": "rules",
+        "label": "3A. ERD, five steps",
+        "tag": "four sightings across the two papers",
+        "html": "<ol><li><b>Entities.</b> One rectangle per underlined noun, named with a SINGULAR noun. Test it: does it have more than one instance? If not, it is not an entity.</li><li><b>Attributes.</b> Three or four per entity as ovals, joined to it by a line, with the <b>identifier marked</b>. Add the line that earns its own mark: an identifier should never be blank and never need to change.</li><li><b>Relationships.</b> A diamond between two entities, named with an ACTIVE VERB, so the diagram reads as a sentence: Customer <b>Places</b> Order.</li><li><b>Cardinality, asking each direction separately.</b> \"Can one customer place many orders? Yes. Can one order belong to many customers? No.\" That is 1:M. Yes and yes is M:N, and <b>a many to many needs an associative entity</b> to hold whatever belongs to the pairing.</li><li><b>Ordinality.</b> Optional is a minimum of zero, mandatory a minimum of one. Cardinality is the maximum, ordinality the minimum. State both for every line, and name your notation: this course text draws <b>Chen</b>, diamonds and ovals.</li></ol>"
+      },
+      {
+        "kind": "rules",
+        "label": "3B. DFD, three levels in order",
+        "tag": "and the sentence that earns a mark in ten seconds",
+        "html": "<ol><li><b>Context diagram.</b> One rounded box numbered <b>0</b>, the whole system, external agents around it, only the flows that cross the boundary, and <b>no data stores</b>.</li><li><b>Level 0.</b> The major processes numbered 1.0, 2.0, 3.0, plus the data stores. <b>Exactly one Level 0 exists per system</b>, which is asked directly.</li><li><b>Level 1.</b> Explodes ONE process into 1.1, 1.2, 1.3. Only the one the question names.</li><li><b>The balancing sentence:</b> \"the flows into and out of process 3.0 are conserved by 3.1 to 3.3, so the diagrams balance.\"</li></ol><p><b>Naming, which carries its own marks:</b> agents are singular nouns, flows are nouns, processes are VERBS and never procedural (\"Increment counter\", not \"Add 1 to the counter\"), stores are nouns with no verbs.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "3C. Use case diagram, four steps",
+        "tag": "three sightings",
+        "html": "<ol><li><b>Actors</b>, named with nouns, found by five questions: who provides input, who receives output, are interfaces to other systems needed, is anything triggered automatically at a set time, who maintains the information. If payment or notification is mentioned, that outside party is an actor too.</li><li><b>Use cases</b>, one oval per verb phrase an actor performs.</li><li><b>The boundary</b>, a labelled rectangle with every oval inside it and <b>every actor outside</b>. An undrawn boundary loses marks on its own.</li><li><b>Include and extend.</b> Happens every time is an <b>include</b>; happens only under a condition is an <b>extend</b>, and its arrow points FROM the extension TO the base. Both are dashed, so the label and the direction are all you have.</li></ol><p>If a narrative is also asked, its seven parts are: name and identifier, actors, description and goal, preconditions, main flow, <b>alternative flows</b>, postconditions. The alternative flows are the part most answers drop and the reason the technique exists.</p>"
+      },
+      {
+        "kind": "rules",
+        "label": "3D, 3E and 3F. Reading back, requirements, and theory lists",
+        "tag": "the non drawing marks",
+        "html": "<p><b>3D. Read a diagram back.</b> Read every line TWICE, once in each direction: \"one Customer places many Orders\", then \"each Order is placed by exactly one Customer\". That is the whole answer to any read and interpret question.</p><p><b>3E. Requirements.</b> Per technique, four clauses: <b>who</b> you would use it on, <b>what</b> it collects, <b>why</b> it suits this project, one <b>limitation</b>. The seven techniques: sampling existing documentation, research and site visits, observation, questionnaires, interviews, prototyping, JRP. Choose by cost to the user: documents cost nothing, questionnaires reach many cheaply, interviews are expensive, and observation is the only one that reveals the workaround nobody mentions.</p><p>The categories, one line each: <b>business</b> what the organisation wants, <b>user</b> what a person can do, <b>functional</b> what the system does, <b>non functional</b> how well it does it, <b>system</b> what it must run on or integrate with.</p><p><b>3F. Theory lists.</b> Name the list, then tie one clause of it to the scenario in front of you. A list with no scenario earns the definition mark and nothing else.</p>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 4: the two minute validation pass"
+      },
+      {
+        "kind": "trap",
+        "label": "Run this before you hand anything in",
+        "tag": "every line is a mark somebody loses",
+        "html": "<ul><li>Every data flow <b>touches a process</b>. No store to store, agent to agent, or store to agent.</li><li>No <b>black hole</b> (in, no out), <b>miracle</b> (out, no in) or <b>gray hole</b> (inputs too thin for the outputs).</li><li>Entities are <b>singular</b>; processes are <b>verbs</b>; stores carry no verbs.</li><li>Every relationship has a <b>verb name</b> and cardinality <b>in both directions</b>, with ordinality stated.</li><li>Boundary drawn, actors outside, include and extend labelled and pointing the right way.</li><li>The <b>balancing sentence</b> is written under the levelled DFD.</li></ul>"
+      },
+      {
+        "kind": "heading",
+        "text": "Step 5: the four habits that earn marks without knowledge"
+      },
+      {
+        "kind": "rules",
+        "label": "Write it the way it is marked",
+        "tag": "worth doing on every question",
+        "html": "<ol><li><b>Write the recipe's step names as headings</b> and answer under each. The course text numbers every procedure, and an examiner marking to a scheme is looking for those steps.</li><li><b>Quote the scenario's own phrase</b> beside each decision: \"a truck <i>may or may not</i> be carrying stock, so participation is optional\".</li><li><b>State any assumption</b> rather than hiding it: \"the colour depth is not given, so 24 bits is assumed\".</li><li><b>Name your notation</b>, and if the paper asks for another one, draw the fork on the many end and keep the same reasoning.</li></ol>"
+      },
+      {
+        "kind": "heading",
+        "text": "Drill the routing: five questions he has actually set"
+      },
+      {
+        "kind": "frames",
+        "label": "Work it frame by frame",
+        "tag": "for a reader who has never read the course",
+        "frames": [
+          {
+            "check": "",
+            "teach": "<p>The routing is the only part you must do from memory, so drill it here. Every question below is one you have actually been set.</p>",
+            "ask": "\"Draw an ERD to model the relationships between the identified entities.\" Which recipe, and what is your first move?"
+          },
+          {
+            "check": "The ERD recipe. First move: underline every noun the system keeps data about.",
+            "teach": "<p>That is 2025/2026 Question One (a). The nouns are the landlord, the house, the agent, the supervisor and the payment, and the supervisor is the tenant, which the wording hides.</p>",
+            "ask": "\"Draw a Context diagram to model the entire system.\" What goes on it, and what must NOT?"
+          },
+          {
+            "check": "One process numbered 0, the external agents, and the flows across the boundary. No data stores.",
+            "teach": "<p>2025/2026 Question One (b)(i). The commonest error is drawing stores on a context diagram, and the second commonest is numbering the process 1 instead of 0.</p>",
+            "ask": "\"Read and interpret the following ERD by providing the cardinal relationships between the entities.\" What do you write?"
+          },
+          {
+            "check": "Each line as two sentences, one in each direction.",
+            "teach": "<p>2024/2025 Question Three (c). One Customer places many Orders; each Order is placed by exactly one Customer. Two sentences per line, and nothing else is needed.</p>",
+            "ask": "\"Identify and briefly explain two appropriate requirement elicitation techniques you would use.\" How many clauses per technique?"
+          },
+          {
+            "check": "Four: who, what it collects, why it suits this project, and one limitation.",
+            "teach": "<p>2024/2025 Question One (a), where the question itself asks for an advantage and a limitation. Answer in the shape the question names, in that order.</p>",
+            "ask": "Last one. \"Create a use case diagram for the sports centre booking system.\" Which two things do most answers leave out?"
+          },
+          {
+            "check": "The boundary rectangle, and the include and extend relationships.",
+            "teach": "<p>Actors outside the boundary, ovals inside it, include for what happens every time and extend for what happens only under a condition. Draw the box first, before any oval, and it cannot be forgotten.</p>",
+            "ask": ""
+          }
+        ]
+      },
+      {
+        "kind": "lockin",
+        "big": "\"Read the ask, mark the scenario, run the recipe, validate, and write the steps as headings. The topic is new; the procedure never is.\"",
+        "sub": "ERD five steps. DFD three levels and the balancing sentence. Use case four steps with the boundary drawn first. Read a diagram back in both directions. Requirements in four clauses."
+      }
+    ]
+  },
+  {
     "slug": "pq-m1",
     "part": "Learn by doing: past questions",
     "kick": "Past questions, Module One",

@@ -121,7 +121,10 @@ function Frames({
 }
 
 function Worked({ block }: { block: Extract<LessonBlock, { kind: 'worked' }> }) {
-  const [open, setOpen] = useState(false);
+  // Shown by default, on Victor's instruction: he is revising against the clock
+  // and wants to read, not click. The button still hides it, so the discipline
+  // of attempting it first is a choice rather than something the page enforces.
+  const [open, setOpen] = useState(true);
   const model = block.mode === 'model';
   return (
     <div className={`lblock worked ${model ? 'model' : ''}`}>
@@ -137,6 +140,9 @@ function Worked({ block }: { block: Extract<LessonBlock, { kind: 'worked' }> }) 
           </button>
         ) : (
           <>
+            <button type="button" className="btn ghost hideans" onClick={() => setOpen(false)}>
+              {model ? 'Hide the model answer' : 'Hide the working'}
+            </button>
             {block.working && <Html html={block.working} />}
             {block.answer && <Html className="answerbox" html={block.answer} />}
             {block.redo && <Html className="redo" html={block.redo} />}
@@ -163,7 +169,7 @@ function Recall({
   mark: 'right' | 'wrong' | null;
   onMark: (m: 'right' | 'wrong') => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div className={`lblock recall ${mark ?? ''}`}>
       <div className="lbar">
@@ -178,6 +184,9 @@ function Recall({
           </button>
         ) : (
           <>
+            <button type="button" className="btn ghost hideans" onClick={() => setOpen(false)}>
+              Hide the answer
+            </button>
             <p className="alabel">Answer</p>
             <Html html={block.answer} />
             <div className="markrow">
