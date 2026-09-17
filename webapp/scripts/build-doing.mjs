@@ -11,10 +11,11 @@
  *           each step the question that tests the most facts nothing in the set
  *           has tested yet. So fifty questions reach further than fifty picked
  *           by hand would.
- *   Part B  the theory questions, each with the practical scenario the lecturer
- *           confirmed every question carries, and each answered TWICE: the
- *           answer to write in the hall, then the same ground taught from
- *           scratch in frames for a reader who has never read the course.
+ *   Part B  the written questions, in whatever shape THIS paper sets them: INS224
+ *           pairs every theory question with a practical, IFT222 and COS221 carry
+ *           past questions only. Each is answered TWICE: the answer to write in
+ *           the hall, then the same ground taught from scratch in frames, for a
+ *           reader who has never read the course.
  *
  * Part B is authored, in data/<course>/doing/<set>.json. Part A is chosen here,
  * because a hand-picked fifty cannot be checked and this can: rerun it and the
@@ -31,6 +32,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 
 const COURSES = {
   ins224: {
+    partBHeading: 'Part B: the theory questions, each with its practical',
     part: 'Learn by doing',
     // After the practicals, before the past papers: teach, practise the skill,
     // then sit the whole module, then meet the real papers.
@@ -46,6 +48,7 @@ const COURSES = {
     ],
   },
   ift222: {
+    partBHeading: 'Part B: every past question the examiner has set on this topic',
     part: 'Learn by doing',
     insertBefore: 'final-paper',
     // Capped rather than exhaustive: this bank holds 1,245 questions over twelve
@@ -72,6 +75,7 @@ const COURSES = {
     ],
   },
   cos221: {
+    partBHeading: 'Part B: the past questions on this topic, from both papers',
     part: 'Learn by doing',
     insertBefore: 'paper-2526',
     size: 50,
@@ -90,6 +94,7 @@ const COURSES = {
     ],
   },
   csc241: {
+    partBHeading: 'Part B: the written questions, in the shape this paper sets them',
     part: 'Learn by doing',
     insertBefore: 'paper-2526',
     size: 50,
@@ -226,7 +231,10 @@ function build(code) {
         ? [
             {
               kind: 'heading',
-              text: authored.partBHeading ?? 'Part B: the theory questions, each with its practical',
+              // Each paper says what its own Part B is: only INS224 pairs every
+              // theory question with a practical, and saying so on a course that
+              // does not is simply wrong.
+              text: authored.partBHeading ?? cfg.partBHeading ?? 'Part B: the written questions',
             },
             ...authored.questions.flatMap((q, i) => questionBlocks(q, i + 1)),
           ]

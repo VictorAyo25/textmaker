@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { COURSES, findCourse } from '@/data/courses';
 import { courseHasDoing, doingCards } from '@/data/lessons';
+import { doingCopy } from '@/data/doing';
 import DoingIndex from '@/components/DoingIndex';
 import Crumbs from '@/components/Crumbs';
 
@@ -10,8 +11,10 @@ import Crumbs from '@/components/Crumbs';
  * Learn by doing: its own section, not a part of the crash course.
  *
  * The crash course teaches. This sits each module as a paper: the objective
- * questions on that module, then the theory questions with their practicals,
- * every one answered twice, as you would write it and then taught from nothing.
+ * questions on that module, then the written questions in whatever shape that
+ * course's paper sets them, every one answered twice, as you would write it in
+ * the hall and then taught from nothing. What Part B holds differs by course,
+ * so the words come from data/doing.ts rather than from this page.
  */
 export function generateStaticParams() {
   return COURSES.filter((c) => courseHasDoing(c.code)).map((c) => ({
@@ -59,7 +62,7 @@ export default async function Page({
         ]}
         aside={{ label: 'Crash course', href: `/${found.code.toLowerCase()}/learn` }}
       />
-      <DoingIndex code={found.code} cards={cards} />
+      <DoingIndex code={found.code} cards={cards} copy={doingCopy(found.code)} />
     </main>
   );
 }

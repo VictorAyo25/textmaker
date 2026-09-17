@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { LessonCard } from '@/data/lessons';
+import type { DoingCopy } from '@/data/doing';
 import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from '@/lib/progress';
 
 /**
@@ -12,7 +13,15 @@ import { lessonProgressKey, pullProgress, readProgress, type ProgressMap } from 
  * paper is a thing you sit, so each row says what is inside it, and the page
  * says once, at the top, how the two parts work.
  */
-export default function DoingIndex({ code, cards }: { code: string; cards: LessonCard[] }) {
+export default function DoingIndex({
+  code,
+  cards,
+  copy,
+}: {
+  code: string;
+  cards: LessonCard[];
+  copy: DoingCopy;
+}) {
   const [progress, setProgress] = useState<ProgressMap>({});
 
   useEffect(() => {
@@ -28,11 +37,8 @@ export default function DoingIndex({ code, cards }: { code: string; cards: Lesso
       <div className="card doinghead">
         <h2>Learn by doing</h2>
         <p className="help">
-          One paper for each module, in the shape of the real one. <b>Part A</b> is the
-          objective questions on that module, the examiner's own first, every option
-          explained as you answer. <b>Part B</b> is the theory questions, each with its
-          practical scenario, and each answered twice: the answer you would write in the
-          hall, then the same question taught from nothing in steps.
+          One paper for each module, in the shape of the real one. <b>Part A</b> is{' '}
+          {copy.partA}. <b>Part B</b> is {copy.partB}.
         </p>
         <p className="note">
           {cards.length} papers &middot; about {Math.round(minutes / 60)} hours end to end

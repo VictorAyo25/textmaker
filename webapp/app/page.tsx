@@ -88,7 +88,7 @@ export default function Page() {
           <h2>Sit each module as a paper, then see it worked and taught</h2>
           <p>
             The objective questions on that module, the examiner's own first. Then the
-            theory questions with their practical scenarios, each answered twice: the
+            written questions in the shape that paper sets them, each answered twice: the
             answer you would write in the hall, then the same question taught from
             nothing, one step at a time.
           </p>
