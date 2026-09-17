@@ -36,16 +36,41 @@ const COURSES = {
     // then sit the whole module, then meet the real papers.
     insertBefore: 'paper-2526',
     size: 50,
+    // What counts as a question the examiner actually set, which goes first.
+    examTag: /^Test [12] Q/,
+    examNoun: "the examiner's own test questions",
     sets: [
-      { slug: 'doing-m1', dir: 'm1', units: [1, 2, 3], planDate: '2026-09-15' },
-      { slug: 'doing-m2', dir: 'm2', units: [4, 5, 6, 7], planDate: '2026-09-16' },
-      { slug: 'doing-m3', dir: 'm3', units: [8, 9, 10], planDate: '2026-09-18' },
+      { slug: 'doing-m1', dir: 'm1', units: [1, 2, 3], planAfter: 'practical-one' },
+      { slug: 'doing-m2', dir: 'm2', units: [4, 5, 6, 7], planAfter: 'practical-two' },
+      { slug: 'doing-m3', dir: 'm3', units: [8, 9, 10], planAfter: 'cram' },
+    ],
+  },
+  csc241: {
+    part: 'Learn by doing',
+    insertBefore: 'paper-2526',
+    size: 50,
+    // This bank's objective half came from the manual's own objective sections,
+    // which is the closest thing the course has to a set paper, so those lead.
+    examTag: /^Manual O\./,
+    examNoun: "from the manual's objective sections",
+    sets: [
+      { slug: 'doing-m1', dir: 'm1', units: [1], planAfter: 'sets-dicts' },
+      { slug: 'doing-m2', dir: 'm2', units: [2], planAfter: 'sets-dicts' },
+      { slug: 'doing-m3', dir: 'm3', units: [3], planAfter: 'sets-dicts' },
+      { slug: 'doing-m4', dir: 'm4', units: [4], planAfter: 'databases' },
+      { slug: 'doing-m5', dir: 'm5', units: [5], planAfter: 'databases' },
     ],
   },
 };
 
 const STYLE_ORDER = ['match', 'multi', 'mcq', 'tf'];
-const isTest = (q) => (q.slides ?? []).some((s) => /^Test [12] Q/.test(s));
+
+/**
+ * What a question covers, for the greedy fill. A course with a fact ledger says
+ * so itself; one without is spread across its provenance instead, so the fifty
+ * still reach every lesson rather than piling into the first few.
+ */
+const keysOf = (q) => ((q.facts ?? []).length ? q.facts : (q.slides ?? []));
 
 /**
  * The examiner's own questions first, in the order the tests set them, then a
@@ -53,19 +78,20 @@ const isTest = (q) => (q.slides ?? []).some((s) => /^Test [12] Q/.test(s));
  * broken by the style that carries the most facts per question, then by id so
  * the choice is stable.
  */
-function choose(pool, size) {
-  const picked = pool.filter(isTest).sort((a, b) => {
-    const n = (q) => Number((q.slides.find((s) => /^Test [12] Q/.test(s)) ?? '').match(/Q(\d+)/)?.[1] ?? 0);
-    const t = (q) => (q.slides.some((s) => s.startsWith('Test 1')) ? 1 : 2);
-    return t(a) - t(b) || n(a) - n(b);
+function choose(pool, size, cfg) {
+  const isExam = (q) => (q.slides ?? []).some((s) => cfg.examTag.test(s));
+  const picked = pool.filter(isExam).sort((a, b) => {
+    const at = (q) => (q.slides ?? []).find((s) => cfg.examTag.test(s)) ?? '';
+    const num = (q) => (at(q).match(/(\d+)\D*$/) ?? [])[1] ?? 0;
+    return at(a).localeCompare(at(b)) || Number(num(a)) - Number(num(b));
   });
-  const covered = new Set(picked.flatMap((q) => q.facts ?? []));
-  const rest = pool.filter((q) => !isTest(q));
+  const covered = new Set(picked.flatMap(keysOf));
+  const rest = pool.filter((q) => !isExam(q));
   while (picked.length < size && rest.length) {
     let best = null;
     let bestScore = -Infinity;
     for (const q of rest) {
-      const fresh = (q.facts ?? []).filter((f) => !covered.has(f)).length;
+      const fresh = keysOf(q).filter((f) => !covered.has(f)).length;
       const score = fresh * 100 - STYLE_ORDER.indexOf(q.style);
       if (score > bestScore) {
         bestScore = score;
@@ -73,7 +99,7 @@ function choose(pool, size) {
       }
     }
     picked.push(best);
-    for (const f of best.facts ?? []) covered.add(f);
+    for (const f of keysOf(best)) covered.add(f);
     rest.splice(rest.indexOf(best), 1);
   }
   return { picked, covered };
@@ -136,16 +162,16 @@ function build(code) {
   for (const set of cfg.sets) {
     const authored = JSON.parse(readFileSync(join(dir, 'doing', `${set.dir}.json`), 'utf8'));
     const pool = bank.filter((q) => set.units.includes(q.module));
-    const { picked, covered } = choose(pool, cfg.size);
-    const tests = picked.filter(isTest).length;
+    const { picked, covered } = choose(pool, cfg.size, cfg);
+    const tests = picked.filter((q) => (q.slides ?? []).some((s) => cfg.examTag.test(s))).length;
     const blocks = [
       { kind: 'teach', label: 'How to sit this', tag: 'read this first', html: authored.intro },
       {
         kind: 'drill',
-        label: `Part A: ${cfg.size} objective questions on this module`,
-        tag: `${tests} of them the examiner's own test questions, then ${
-          cfg.size - tests
-        } more chosen to reach ${covered.size} facts`,
+        label: `Part A: ${picked.length} objective questions on this module`,
+        tag: `${tests} of them ${cfg.examNoun}, then ${
+          picked.length - tests
+        } more chosen so the set reaches ${covered.size} separate points`,
         pick: 'all',
         topics: [],
         ids: picked.map((q) => q.id),
@@ -189,8 +215,8 @@ function build(code) {
   if (existsSync(planFile)) {
     const plan = JSON.parse(readFileSync(planFile, 'utf8'));
     for (const set of cfg.sets) {
-      const sitting = plan.find((s) => s.date === set.planDate);
-      if (!sitting) throw new Error(`no sitting dated ${set.planDate} for ${set.slug}`);
+      const sitting = plan.find((s) => s.lessons.includes(set.planAfter));
+      if (!sitting) throw new Error(`no sitting studies ${set.planAfter}, for ${set.slug}`);
       if (!sitting.lessons.includes(set.slug)) sitting.lessons.push(set.slug);
     }
     writeFileSync(planFile, JSON.stringify(plan, null, 2) + '\n');

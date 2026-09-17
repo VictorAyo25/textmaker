@@ -1,0 +1,118 @@
+{
+  "questions": [
+    {
+      "heading": "The SQLite skeleton, end to end",
+      "marks": "17.5 marks",
+      "scenario": {
+        "printed": false,
+        "tag": "written for practice, in the shape the examiner sets",
+        "text": "<p>A department wants a small database of students: a matric number, a name and a score.</p>"
+      },
+      "asked": "<table><tr><th>Part</th><th>What to write</th><th>Marks</th></tr><tr><td>(a)</td><td>List the steps a Python program follows to work with an SQLite database, saying what each step does</td><td>5</td></tr><tr><td>(b)</td><td>Write a program that creates the students table, inserts three students, then selects and prints them all</td><td>6</td></tr><tr><td>(c)</td><td>What is a placeholder in an SQL statement, and why should values never be joined into the SQL string?</td><td>3</td></tr><tr><td>(d)</td><td>What does commit do, and what happens if it is left out? Distinguish fetchone from fetchall</td><td>3.5</td></tr></table>",
+      "breakdown": {
+        "question": "<p>Which single line, if you leave it out, makes the program appear to work and still lose everything? And what does a row come back as?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">The line</b> <code>conn.commit()</code>. Without it the inserts sit in an open transaction and are thrown away when the connection closes. The program prints no error at all.</p><p class=\"row\"><b class=\"lab\">A row</b> comes back as a TUPLE, one value per selected column, so the rows are unpacked as a tuple, not as a dictionary.</p><p class=\"row\"><b class=\"lab\">The other mark</b> IF NOT EXISTS on the create, so running the program twice does not raise an error.</p><p class=\"row\"><b class=\"lab\">Write it in order</b> connect, cursor, execute, commit, select, fetchall, close. The order IS the answer to part (a).</p>"
+      },
+      "exam": {
+        "problem": "<p>(a) The steps for working with SQLite from Python. (b) A program that creates a students table, inserts three rows and prints them. (c) Placeholders, and why not to join values into SQL. (d) commit, and fetchone against fetchall.</p>",
+        "answer": "<p><b>(a) The steps.</b></p><table><tr><th>Step</th><th>What it does</th></tr><tr><td><code>import sqlite3</code></td><td>Brings in the module, which ships with Python</td></tr><tr><td><code>conn = sqlite3.connect(\"school.db\")</code></td><td>Opens the database file, <b>creating it if it does not exist</b></td></tr><tr><td><code>cur = conn.cursor()</code></td><td>Creates a cursor, the object that carries statements to the database and results back</td></tr><tr><td><code>cur.execute(sql)</code></td><td>Runs one SQL statement: create, insert, update, delete or select</td></tr><tr><td><code>conn.commit()</code></td><td>Saves the changes permanently. Without it they are discarded</td></tr><tr><td><code>cur.fetchall()</code></td><td>After a select, hands back the rows, each as a tuple</td></tr><tr><td><code>conn.close()</code></td><td>Closes the connection and releases the file</td></tr></table><p><b>(b) The program.</b></p><div class=\"codelabel\">students_db.py</div><pre class=\"code\"><span class=\"k\">import</span> sqlite3\n\nconn = sqlite3.connect(<span class=\"s\">\"school.db\"</span>)\ncur = conn.cursor()\n\ncur.execute(<span class=\"s\">'''CREATE TABLE IF NOT EXISTS students (\n                   matric TEXT PRIMARY KEY,\n                   name   TEXT NOT NULL,\n                   score  REAL)'''</span>)\n\nstudents = [(<span class=\"s\">\"20/1234\"</span>, <span class=\"s\">\"Ada Obi\"</span>, <span class=\"n\">72.5</span>),\n            (<span class=\"s\">\"20/1235\"</span>, <span class=\"s\">\"Grace Ede\"</span>, <span class=\"n\">64.0</span>),\n            (<span class=\"s\">\"20/1236\"</span>, <span class=\"s\">\"Chinwe Udo\"</span>, <span class=\"n\">58.5</span>)]\n\ncur.executemany(<span class=\"s\">\"INSERT INTO students VALUES (?, ?, ?)\"</span>, students)\nconn.commit()\n\ncur.execute(<span class=\"s\">\"SELECT matric, name, score FROM students ORDER BY score DESC\"</span>)\nrows = cur.fetchall()\n\n<span class=\"k\">print</span>(<span class=\"s\">f\"</span>{<span class=\"k\">len</span>(rows)}<span class=\"s\"> students</span><span class=\"s\">\"</span>)\n<span class=\"k\">for</span> matric, name, score <span class=\"k\">in</span> rows:\n    <span class=\"k\">print</span>(<span class=\"s\">f\"</span>{matric}<span class=\"s\">  </span>{name:<span class=\"s\">&lt;12</span>}<span class=\"s\"> </span>{score:<span class=\"s\">.1f</span>}<span class=\"s\">\"</span>)\n\nconn.close()</pre><pre class=\"out\">3 students\n20/1234  Ada Obi      72.5\n20/1235  Grace Ede    64.0\n20/1236  Chinwe Udo   58.5</pre><p>Four details the examiner looks for: <b>IF NOT EXISTS</b>, so a second run does not fail; <b>question mark placeholders</b> rather than values built into the string; <b>commit</b> after the inserts; and <b>close</b> at the end. <code>executemany</code> runs the same statement once per row in a list, and <code>execute</code> would do it one at a time.</p><p><b>(c) Placeholders.</b> A placeholder is a question mark written where a value belongs in the SQL, with the actual values passed as a second argument to execute, as a tuple:</p><pre class=\"code\"><span class=\"k\">import</span> sqlite3\n\nconn = sqlite3.connect(<span class=\"s\">\"demo.db\"</span>)\ncur = conn.cursor()\ncur.execute(<span class=\"s\">\"CREATE TABLE students (matric TEXT, name TEXT, score REAL)\"</span>)\n\nwanted = <span class=\"n\">60</span>\ncur.execute(<span class=\"s\">\"INSERT INTO students VALUES (?, ?, ?)\"</span>, (<span class=\"s\">\"20/1237\"</span>, <span class=\"s\">\"Ngozi Eze\"</span>, <span class=\"n\">81.0</span>))\nconn.commit()\n\ncur.execute(<span class=\"s\">\"SELECT name, score FROM students WHERE score &gt; ?\"</span>, (wanted,))\n<span class=\"k\">print</span>(cur.fetchall())\nconn.close()</pre><pre class=\"out\">[('Ngozi Eze', 81.0)]</pre><p><b>Why never join values into the string.</b> Two reasons, and both earn marks. First, <b>SQL injection</b>: a value typed by a user that contains SQL of its own becomes part of the statement, and a crafted name can read or destroy the table. Second, correctness: the database driver quotes and escapes each value for you, so a name containing an apostrophe, or a number that arrives as text, is handled properly instead of breaking the statement.</p><p><b>(d) commit, fetchone and fetchall.</b> <code>commit()</code> makes the changes since the last commit permanent. Insert, update or delete without it and the work is <b>rolled back and lost</b> when the connection closes, with no error printed, which is why a program can look correct and save nothing.</p><table><tr><th></th><th>What it returns</th><th>When to use it</th></tr><tr><td><code>fetchone()</code></td><td>The NEXT single row, as a tuple, or None when there are no more</td><td>When the query can only match one row, such as a lookup by primary key</td></tr><tr><td><code>fetchall()</code></td><td>A LIST of every remaining row, each a tuple, and an empty list if there are none</td><td>When you want them all, to loop over or count</td></tr></table><pre class=\"code\"><span class=\"k\">import</span> sqlite3\n\nconn = sqlite3.connect(<span class=\"s\">\":memory:\"</span>)\ncur = conn.cursor()\ncur.execute(<span class=\"s\">\"CREATE TABLE students (name TEXT, score REAL)\"</span>)\ncur.executemany(<span class=\"s\">\"INSERT INTO students VALUES (?, ?)\"</span>, [(<span class=\"s\">\"Ada\"</span>, <span class=\"n\">72.5</span>), (<span class=\"s\">\"Grace\"</span>, <span class=\"n\">64.0</span>)])\nconn.commit()\n\ncur.execute(<span class=\"s\">\"SELECT * FROM students\"</span>)\n<span class=\"k\">print</span>(<span class=\"s\">\"fetchone:\"</span>, cur.fetchone())\n<span class=\"k\">print</span>(<span class=\"s\">\"fetchall of what is left:\"</span>, cur.fetchall())\n<span class=\"k\">print</span>(<span class=\"s\">\"fetchall again:\"</span>, cur.fetchall())\nconn.close()</pre><pre class=\"out\">fetchone: ('Ada', 72.5)\nfetchall of what is left: [('Grace', 64.0)]\nfetchall again: []</pre><p>The last line is the detail worth knowing: a cursor is consumed as it is read, so a second fetch returns nothing until the query is run again. <code>sqlite3.connect(\":memory:\")</code>, used here, makes a database that lives only in memory, which is handy for testing.</p>"
+      },
+      "frames": [
+        {
+          "check": "",
+          "teach": "<p>SQLite is a database that lives in a single file, and <code>sqlite3</code> ships with Python, so nothing is installed. Connecting to a file that does not exist CREATES it.</p><pre class=\"code\"><span class=\"k\">import</span> sqlite3\nconn = sqlite3.connect(<span class=\"s\">\"demo.db\"</span>)\n<span class=\"k\">print</span>(<span class=\"k\">type</span>(conn))\nconn.close()</pre><pre class=\"out\">&lt;class 'sqlite3.Connection'&gt;</pre>",
+          "ask": "You have a connection. You cannot run SQL on it directly. What do you need next?"
+        },
+        {
+          "check": "A cursor.",
+          "teach": "<p><code>cur = conn.cursor()</code>. The connection is the door to the file; the <b>cursor is what carries statements in and results out</b>. Every statement goes through <code>cur.execute(sql)</code>.</p>",
+          "ask": "So which SQL statement creates a table, and what stops it failing the second time the program runs?"
+        },
+        {
+          "check": "CREATE TABLE, and IF NOT EXISTS stops the second run failing.",
+          "teach": "<p>Write it in full: CREATE TABLE IF NOT EXISTS students, then the columns with their types, TEXT, REAL, INTEGER, and a PRIMARY KEY on the column that identifies a row.</p><pre class=\"code\"><span class=\"k\">import</span> sqlite3\nconn = sqlite3.connect(<span class=\"s\">\":memory:\"</span>)\ncur = conn.cursor()\ncur.execute(<span class=\"s\">\"CREATE TABLE IF NOT EXISTS students (matric TEXT PRIMARY KEY, name TEXT, score REAL)\"</span>)\ncur.execute(<span class=\"s\">\"INSERT INTO students VALUES (?, ?, ?)\"</span>, (<span class=\"s\">\"20/1234\"</span>, <span class=\"s\">\"Ada\"</span>, <span class=\"n\">72.5</span>))\nconn.commit()\ncur.execute(<span class=\"s\">\"SELECT * FROM students\"</span>)\n<span class=\"k\">print</span>(cur.fetchall())\nconn.close()</pre><pre class=\"out\">[('20/1234', 'Ada', 72.5)]</pre>",
+          "ask": "Take out the commit line from that program and run it against a FILE. What is in the table afterwards?"
+        },
+        {
+          "check": "Nothing. The insert is thrown away when the connection closes.",
+          "teach": "<p>And no error is printed. <b>commit is the line that saves</b>, and leaving it out is the most expensive one line mistake in this topic.</p>",
+          "ask": "Look at the insert again. Why the question marks, rather than building the values into the string?"
+        },
+        {
+          "check": "Because a value typed by a user could carry SQL of its own.",
+          "teach": "<p>That is <b>SQL injection</b>, and the placeholder prevents it: the driver keeps the value separate from the statement, and quotes and escapes it properly. Always pass the values as a tuple, remembering the comma in a tuple of one.</p>",
+          "ask": "Last piece. After a select, what does fetchall hand back, and what shape is each row?"
+        },
+        {
+          "check": "A list of rows, each row a tuple of the selected columns.",
+          "teach": "<p>So you unpack them as tuples, <code>for matric, name, score in rows:</code>. <code>fetchone()</code> takes the next row alone, or None when there are none left. Then <code>conn.close()</code>, and the seven lines are complete.</p>",
+          "ask": ""
+        }
+      ]
+    },
+    {
+      "heading": "tkinter: a window, its widgets and its layout",
+      "marks": "17.5 marks",
+      "scenario": {
+        "printed": false,
+        "tag": "written for practice, in the shape the examiner sets",
+        "text": "<p>A bureau de change wants a small desktop window: the clerk types an amount in naira, presses a button, and the value in dollars appears, at a rate of 1,650 naira to the dollar.</p>"
+      },
+      "asked": "<table><tr><th>Part</th><th>What to write</th><th>Marks</th></tr><tr><td>(a)</td><td>What is a GUI, and what is tkinter? Explain what Tk() and mainloop() do</td><td>3.5</td></tr><tr><td>(b)</td><td>Name five tkinter widgets and state what each is used for</td><td>4</td></tr><tr><td>(c)</td><td>Name the three geometry managers, say how each places a widget, and state the rule about mixing them</td><td>3</td></tr><tr><td>(d)</td><td>Write a tkinter program for the converter described above</td><td>7</td></tr></table>",
+      "breakdown": {
+        "question": "<p>Which one line, left out, makes the window flash up and vanish? And how does a button run your function without calling it?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">The line</b> <code>window.mainloop()</code>. Without it the program reaches its end and exits, taking the window with it.</p><p class=\"row\"><b class=\"lab\">The button</b> <code>command=convert</code>, with NO brackets. Brackets would call the function immediately, once, at start up, and pass its return value to the button. The name alone hands the function itself over to be called on each click.</p><p class=\"row\"><b class=\"lab\">Reading the box</b> <code>entry.get()</code> returns a STRING, like input, so it must be converted before arithmetic.</p><p class=\"row\"><b class=\"lab\">Showing the answer</b> A Label's text is changed with <code>label.config(text=...)</code>, or by using a StringVar.</p>"
+      },
+      "exam": {
+        "problem": "<p>(a) GUI, tkinter, Tk() and mainloop(). (b) Five widgets. (c) The three geometry managers and the rule about mixing them. (d) A tkinter naira to dollars converter.</p>",
+        "answer": "<p><b>(a) The terms.</b> A <b>GUI</b>, a graphical user interface, lets a user work with a program through windows, buttons and boxes rather than by typing at a prompt. <b>tkinter</b> is Python's standard GUI library, which ships with Python and wraps the Tk toolkit.</p><ul><li><code>window = Tk()</code> creates the <b>main window</b>, the top level container everything else is placed inside. It is the first tkinter line in any program.</li><li><code>window.mainloop()</code> starts the <b>event loop</b>: the program stops running top to bottom and instead waits for events, clicks, key presses, window closes, dispatching each to whatever handles it. It is the LAST line, and without it the program ends immediately and the window disappears.</li></ul><p><b>(b) Five widgets.</b></p><table><tr><th>Widget</th><th>What it is for</th></tr><tr><td><code>Label</code></td><td>Displays text or an image that the user cannot edit. Used for prompts and results</td></tr><tr><td><code>Entry</code></td><td>A single line box the user types into. <code>get()</code> reads it, as a string</td></tr><tr><td><code>Button</code></td><td>A clickable button. Its <code>command</code> names the function to run on each click</td></tr><tr><td><code>Text</code></td><td>A multi line editable text area, for anything longer than one line</td></tr><tr><td><code>Frame</code></td><td>A container that groups other widgets, so a window can be laid out in sections</td></tr></table><p>Others that earn the mark: Checkbutton, Radiobutton, Listbox, Scale, Canvas, Menu, Messagebox.</p><p><b>(c) The three geometry managers.</b></p><table><tr><th>Manager</th><th>How it places a widget</th></tr><tr><td><code>pack()</code></td><td>Stacks widgets in a block, against a side, top by default. Quickest for a simple column of widgets</td></tr><tr><td><code>grid()</code></td><td>Places widgets in rows and columns, by number. Best for a form, where labels and boxes must line up</td></tr><tr><td><code>place()</code></td><td>Places a widget at exact x and y coordinates. Precise, and it does not adapt when the window is resized</td></tr></table><p><b>The rule:</b> pack and grid must <b>not be mixed inside the same container</b>. Doing so makes the program hang while the two managers argue over the same space. Use one per container; different frames may each use a different one.</p><p><b>(d) The converter.</b> This listing is not run here, because its output is a window rather than text.</p><div class=\"codelabel\">converter.py</div><pre class=\"code\"><span class=\"k\">from</span> tkinter <span class=\"k\">import</span> Tk, Label, Entry, Button\n\nRATE = <span class=\"n\">1650</span>\n\n\n<span class=\"k\">def</span> convert():\n    <span class=\"k\">try</span>:\n        naira = <span class=\"k\">float</span>(entry.get())\n    <span class=\"k\">except</span> ValueError:\n        result.config(text=<span class=\"s\">\"Enter a number\"</span>)\n        <span class=\"k\">return</span>\n    dollars = naira / RATE\n    result.config(text=<span class=\"s\">f\"</span>{naira:<span class=\"s\">,.2f</span>}<span class=\"s\"> naira is </span>{dollars:<span class=\"s\">,.2f</span>}<span class=\"s\"> dollars</span><span class=\"s\">\"</span>)\n\n\nwindow = Tk()\nwindow.title(<span class=\"s\">\"Naira to dollars\"</span>)\n\nLabel(window, text=<span class=\"s\">\"Amount in naira:\"</span>).grid(row=<span class=\"n\">0</span>, column=<span class=\"n\">0</span>, padx=<span class=\"n\">8</span>, pady=<span class=\"n\">8</span>)\n\nentry = Entry(window, width=<span class=\"n\">18</span>)\nentry.grid(row=<span class=\"n\">0</span>, column=<span class=\"n\">1</span>, padx=<span class=\"n\">8</span>, pady=<span class=\"n\">8</span>)\n\nButton(window, text=<span class=\"s\">\"Convert\"</span>, command=convert).grid(row=<span class=\"n\">1</span>, column=<span class=\"n\">0</span>, columnspan=<span class=\"n\">2</span>, pady=<span class=\"n\">6</span>)\n\nresult = Label(window, text=<span class=\"s\">\"\"</span>)\nresult.grid(row=<span class=\"n\">2</span>, column=<span class=\"n\">0</span>, columnspan=<span class=\"n\">2</span>, padx=<span class=\"n\">8</span>, pady=<span class=\"n\">8</span>)\n\nwindow.mainloop()</pre><p>Five things the examiner is looking for: <code>Tk()</code> first and <code>mainloop()</code> last; <code>command=convert</code> with <b>no brackets</b>, so the function is handed over rather than called at start up; <code>entry.get()</code> converted with float, because it returns a string; the result shown by changing a Label with <code>config</code>; and one geometry manager throughout, grid here, because the form has two columns. The try and except around the conversion is what stops a letter typed in the box from killing the program.</p>"
+      },
+      "frames": [
+        {
+          "check": "",
+          "teach": "<p>A GUI program is not read top to bottom the way a console program is. It sets up a window, then hands control to tkinter, which waits for the user to do something.</p>",
+          "ask": "If the program hands control away, what must the last line of the program be?"
+        },
+        {
+          "check": "window.mainloop().",
+          "teach": "<p>That starts the <b>event loop</b>. Leave it out and the program runs to the end and exits, so the window appears and vanishes at once. The first line is <code>window = Tk()</code>, which creates the main window.</p>",
+          "ask": "Between those two lines you create widgets. Which widget shows text, and which one takes it from the user?"
+        },
+        {
+          "check": "Label shows, Entry takes.",
+          "teach": "<p>Plus <b>Button</b> to act, <b>Text</b> for several lines, and <b>Frame</b> to group widgets into sections. Each is created with its parent window as the first argument: <code>Label(window, text=\"Amount:\")</code>.</p>",
+          "ask": "Creating a widget does not make it appear. What else has to happen?"
+        },
+        {
+          "check": "It has to be placed by a geometry manager.",
+          "teach": "<p>Three of them. <code>pack()</code> stacks widgets against a side. <code>grid()</code> places them by row and column, which suits a form. <code>place()</code> uses exact coordinates.</p>",
+          "ask": "What happens if you call pack on one widget and grid on another in the same window?"
+        },
+        {
+          "check": "The program hangs: the two managers fight over the same space.",
+          "teach": "<p>So: <b>one geometry manager per container</b>. Now the button. It is given <code>command=convert</code>, with the function name and no brackets.</p>",
+          "ask": "What would command=convert() do instead, with the brackets?"
+        },
+        {
+          "check": "Call the function once, immediately, and give the button its return value.",
+          "teach": "<p>Which means nothing happens when it is clicked. The name alone passes the FUNCTION; the brackets pass its RESULT. That distinction is asked directly.</p>",
+          "ask": "Last one: what type does entry.get() return, and what does that remind you of?"
+        },
+        {
+          "check": "A string, exactly like input().",
+          "teach": "<p>So convert it with float or int before any arithmetic, inside a try, because the user may type anything. Show the answer by changing a Label with <code>result.config(text=...)</code>. That is the whole program: Tk, widgets, grid, command, get, config, mainloop.</p>",
+          "ask": ""
+        }
+      ]
+    }
+  ],
+  "kick": "Topic Five",
+  "title": "Learn by Doing: Topic Five",
+  "lead": "Topic Five sat as a paper: the objective questions on SQLite and tkinter, then two written questions, each answered as you would write it and then taught from nothing.",
+  "minutes": 70,
+  "intro": "<p><b>The SQLite skeleton end to end, and tkinter widgets and geometry managers.</b> The smallest topic, and the one where a memorised skeleton is worth the most: these questions are answered from recall or not at all.</p><div class=\"keypoint\"><span class=\"kplab\">How to sit this</span><p><b>Part A</b> is the objective questions on this topic, the manual's own first.</p><p><b>Part B</b> is two questions of 17.5 marks. The database program here was run before it was printed. The tkinter program is a listing only, because its output is a window rather than text.</p></div><p><b>Learn the seven line database skeleton by heart.</b> connect, cursor, execute, commit, execute a select, fetchall, close. Every database question on the paper is those seven lines with different SQL in the middle.</p>",
+  "lockin": {
+    "big": "\"connect, cursor, execute, commit, select, fetchall, close. Without commit nothing is saved, and without mainloop no window stays on the screen.\"",
+    "sub": "Pass values with question mark placeholders, never by joining strings. pack, grid and place are the three geometry managers, and pack and grid must not be mixed in one container."
+  }
+}
