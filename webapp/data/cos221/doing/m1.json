@@ -1,0 +1,44 @@
+{
+  "kick": "Topic One",
+  "title": "Learn by Doing: The Language, the Toolchain and Objects",
+  "lead": "The topic sat as a paper: its objective questions, then the method taught from nothing, with every listing compiled and run.",
+  "minutes": 45,
+  "intro": "<p><b>Part A</b> is every objective question the bank holds on this topic, the manual's own first.</p><p><b>Part B is empty, and honestly so.</b> Neither past paper sets a written question on the toolchain by itself. It is asked in the objective half, and the skeleton below is the first six lines of every program you will write tomorrow, so the method still earns its place.</p>",
+  "lockin": {
+    "big": "\"javac turns .java into .class bytecode. java runs the bytecode on the JVM. The JDK contains the JRE, and the JRE contains the JVM.\"",
+    "sub": "public static void main(String[] args) is the entry point, and the file name must match the public class name exactly, capital letters included."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>Every Java program starts from the same six lines, and the exam expects you to write them without thinking. Here is the whole skeleton, compiled and run.</p><pre class=\"src\" data-run=\"Hello\"><span class=\"l\"><span class=\"k\">public</span> <span class=\"k\">class</span> <span class=\"t\">Hello</span> {</span><span class=\"l\">    <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">void</span> main(<span class=\"t\">String</span>[] args) {</span><span class=\"l\">        System.out.println(<span class=\"s\">\"Hello from the JVM\"</span>);</span><span class=\"l\">    }</span><span class=\"l\">}</span></pre><pre class=\"out\"><span class=\"olabel\">Output</span>Hello from the JVM</pre>",
+      "ask": "Before the explanation: which word makes this class visible to the JVM, and which line is the entry point?"
+    },
+    {
+      "check": "public, and the main line.",
+      "teach": "<p><b>public</b> makes it visible, and <b>main</b> is the entry point. Word by word: <code>public</code> visible everywhere, <code>static</code> callable without creating an object, <code>void</code> returns nothing, <code>main</code> the name the JVM looks for, <code>String[] args</code> the command line arguments.</p>",
+      "ask": "The file must be called Hello.java. What happens if you save it as hello.java?"
+    },
+    {
+      "check": "It will not compile: the public class name and the file name must match.",
+      "teach": "<p>javac refuses it: <b>the file name must match the public class name exactly</b>, capital letter included. That is one of the planted errors in a debug question, so look at the class name first.</p>",
+      "ask": "Two commands build and run it. What does each one produce?"
+    },
+    {
+      "check": "javac makes a .class file of bytecode; java runs it on the JVM.",
+      "teach": "<p><b>javac Hello.java</b> compiles the source into <b>Hello.class</b>, which holds bytecode, not machine code. <b>java Hello</b> then runs that bytecode on the <b>JVM</b>. Note the second command takes the CLASS name, with no .class on the end.</p>",
+      "ask": "So why is Java called platform independent, and what is the phrase the examiner wants?"
+    },
+    {
+      "check": "Because the bytecode runs on any JVM, so write once, run anywhere.",
+      "teach": "<p><b>Write once, run anywhere.</b> The bytecode is the same on every machine, and each platform has its own JVM to run it. That is the whole answer to \"why is Java portable\".</p>",
+      "ask": "Last piece of vocabulary: JDK, JRE and JVM. Which contains which?"
+    },
+    {
+      "check": "JDK contains JRE contains JVM.",
+      "teach": "<p><b>The JDK contains the JRE, and the JRE contains the JVM.</b> The JDK is for developers and holds javac and the tools; the JRE is what a user needs to run a program; the JVM is the engine inside it. Draw it as three boxes inside one another and the mark is unmissable.</p><p>One more pair the objective half asks: a <b>class</b> is the blueprint and an <b>object</b> is one thing built from it. <code>new</code> is what builds it.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": []
+}

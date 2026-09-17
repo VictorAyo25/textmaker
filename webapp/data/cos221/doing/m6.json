@@ -1,0 +1,39 @@
+{
+  "kick": "Topic Six",
+  "title": "Learn by Doing: Strings",
+  "lead": "The topic sat as a paper: its objective questions, then the method taught from nothing, with every listing compiled and run.",
+  "minutes": 45,
+  "intro": "<p><b>Part A</b> is every objective question the bank holds on this topic.</p><p><b>Part B is empty, and honestly so.</b> Neither past paper sets a written question on strings by itself. They appear inside other questions instead, so the trap below is still worth ten minutes: comparing strings with == is the fastest way to lose a program question that is otherwise right.</p>",
+  "lockin": {
+    "big": "\"== compares references. equals compares characters. For strings, always equals.\"",
+    "sub": "A String cannot be changed, only rebuilt, so every method returns a new one. Use StringBuilder when you are building in a loop."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>Start with the trap, because it costs whole questions.</p><pre class=\"src\" data-run=\"Compare\"><span class=\"l\"><span class=\"k\">public</span> <span class=\"k\">class</span> <span class=\"t\">Compare</span> {</span><span class=\"l\">    <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">void</span> main(<span class=\"t\">String</span>[] args) {</span><span class=\"l\">        <span class=\"t\">String</span> a = <span class=\"s\">\"java\"</span>;</span><span class=\"l\">        <span class=\"t\">String</span> b = <span class=\"s\">\"java\"</span>;</span><span class=\"l\">        <span class=\"t\">String</span> c = <span class=\"k\">new</span> <span class=\"t\">String</span>(<span class=\"s\">\"java\"</span>);</span><span class=\"l\"></span><span class=\"l\">        System.out.println(a == b);</span><span class=\"l\">        System.out.println(a == c);</span><span class=\"l\">        System.out.println(a.equals(c));</span><span class=\"l\">    }</span><span class=\"l\">}</span></pre><pre class=\"out\"><span class=\"olabel\">Output</span>true\nfalse\ntrue</pre>",
+      "ask": "Both pairs hold the same characters. Do you expect both comparisons to be true?"
+    },
+    {
+      "check": "No: true, false, true.",
+      "teach": "<p>true, false, true. <b>== asks whether they are the same OBJECT</b>; equals asks whether they hold the same characters. The literals share one pooled object, so == happened to be true; the moment <code>new</code> is used it is false.</p><p>So: <b>always compare strings with equals</b>, and with equalsIgnoreCase when case does not matter.</p><pre class=\"src\" data-run=\"Immutable\"><span class=\"l\"><span class=\"k\">public</span> <span class=\"k\">class</span> <span class=\"t\">Immutable</span> {</span><span class=\"l\">    <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">void</span> main(<span class=\"t\">String</span>[] args) {</span><span class=\"l\">        <span class=\"t\">String</span> s = <span class=\"s\">\"java\"</span>;</span><span class=\"l\">        s.toUpperCase();</span><span class=\"l\">        System.out.println(s);</span><span class=\"l\">        s = s.toUpperCase();</span><span class=\"l\">        System.out.println(s);</span><span class=\"l\">    }</span><span class=\"l\">}</span></pre><pre class=\"out\"><span class=\"olabel\">Output</span>java\nJAVA</pre>",
+      "ask": "Now immutability. What does this print, and why?"
+    },
+    {
+      "check": "java then JAVA: the first call was thrown away.",
+      "teach": "<p>java, then JAVA. A String <b>cannot be changed in place</b>, so every method returns a NEW string and leaves the original alone. Calling a method without assigning the result changes nothing.</p>",
+      "ask": "Which methods are worth memorising for the exam?"
+    },
+    {
+      "check": "",
+      "teach": "<p>The eight that appear: <code>length()</code>, <code>charAt(i)</code>, <code>substring(a, b)</code>, <code>indexOf(x)</code>, <code>equals</code>, <code>toUpperCase</code>, <code>trim()</code>, <code>split(sep)</code>. Note <code>length()</code> is a METHOD on a String but <code>length</code> is a FIELD on an array, with no brackets, which is asked directly.</p><pre class=\"src\" data-run=\"Build\"><span class=\"l\"><span class=\"k\">public</span> <span class=\"k\">class</span> <span class=\"t\">Build</span> {</span><span class=\"l\">    <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">void</span> main(<span class=\"t\">String</span>[] args) {</span><span class=\"l\">        <span class=\"t\">StringBuilder</span> sb = <span class=\"k\">new</span> <span class=\"t\">StringBuilder</span>();</span><span class=\"l\">        <span class=\"k\">for</span> (<span class=\"k\">int</span> i = 1; i &lt;= 5; i++) sb.append(i).append(<span class=\"s\">\",\"</span>);</span><span class=\"l\">        sb.setLength(sb.length() - 1);</span><span class=\"l\">        System.out.println(sb.toString());</span><span class=\"l\">        System.out.println(sb.reverse());</span><span class=\"l\">    }</span><span class=\"l\">}</span></pre><pre class=\"out\"><span class=\"olabel\">Output</span>1,2,3,4,5\n5,4,3,2,1</pre>",
+      "ask": "Last: why does building a long string inside a loop with + get slow?"
+    },
+    {
+      "check": "Every + creates a new String, so the work grows with the length.",
+      "teach": "<p>Because each + builds a whole new String and throws the old one away, so a loop of n appends copies the text n times. <b>StringBuilder</b> is mutable: append, insert, reverse and setLength all change the one object, and toString hands you the finished String.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": []
+}
