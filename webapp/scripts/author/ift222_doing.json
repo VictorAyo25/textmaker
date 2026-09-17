@@ -1,0 +1,533 @@
+{
+  "m1": {
+    "kick": "Topic One",
+    "title": "Learn by Doing: Architecture versus Organization",
+    "lead": "The topic sat as a paper: the objective questions on it, then every past question the examiner has set on it, each with its model answer and the method taught from nothing.",
+    "minutes": 45,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic, the two tests' own questions first. <b>Part B</b> is past questions only: nothing invented, each one labelled with the year it was set and every other year it has been set in.</p><p>This topic opens almost every paper, and it is two marks you either have or do not.</p>",
+    "lockin": {
+      "big": "\"Architecture is what the programmer sees. Organization is how it is built.\"",
+      "sub": "Instruction set, data types, addressing modes and registers are architecture. Control signals, buses, memory technology and how the adder is wired are organization."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>Two machines can run exactly the same programs and be built completely differently inside. That one sentence is the whole topic.</p>",
+        "ask": "If the programs are identical, what must be identical about the two machines?"
+      },
+      {
+        "check": "What the programmer can see: the instructions, the registers, the way memory is addressed.",
+        "teach": "<p>That visible part is the <b>architecture</b>: the instruction set, the data types, the addressing modes and the register organization. It answers WHAT the computer does.</p>",
+        "ask": "So what is left over, and what question does it answer?"
+      },
+      {
+        "check": "How it is built: the control signals, the buses, the memory technology.",
+        "teach": "<p>That is the <b>organization</b>, and it answers HOW. Two processors with the same architecture may differ entirely in organization: one may have a hardware multiplier, the other may do it by repeated addition, and the same instruction works on both.</p>",
+        "ask": "Which one changes more often, and why does that matter commercially?"
+      },
+      {
+        "check": "Organization, because it can change without breaking the software.",
+        "teach": "<p>That is the answer worth the extra mark: the architecture is kept stable across a family of processors so that old programs still run, while the organization is improved generation by generation.</p>",
+        "ask": "Sort these four into the two boxes: number of general purpose registers, width of the internal data path, the set of addressing modes, the cache size."
+      },
+      {
+        "check": "Architecture: registers and addressing modes. Organization: data path width and cache size.",
+        "teach": "<p>Cache size is the one people get wrong. A cache is invisible to the instruction set: a program runs identically with a bigger one, only faster. Invisible to the programmer means organization.</p>",
+        "ask": "The question is worth 2 marks and says \"differentiate\". How should the answer be laid out?"
+      },
+      {
+        "check": "Two labelled sentences, one for each, with an example in each.",
+        "teach": "<p>Never one paragraph about both. Write <b>Architecture:</b> then its definition and two examples, then <b>Organization:</b> and the same. An examiner marking to a scheme is looking for the two names and the two examples, and a table earns them fastest.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m2": {
+    "kick": "Topic Two",
+    "title": "Learn by Doing: ISA and Microarchitecture",
+    "lead": "The topic sat as a paper: its objective questions, then the method taught from nothing. The examiner has not yet set a written question on this topic alone, and that is stated rather than hidden.",
+    "minutes": 35,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic, the two tests' own first.</p><p><b>Part B is empty, and honestly so.</b> Across the four papers in your manual the examiner has set no written question on the instruction set architecture by itself. It is asked in the objective half, and it underpins the instruction format questions in Topic Six, so the method below is worth knowing even though no past question here carries it.</p>",
+    "lockin": {
+      "big": "\"The ISA is the contract. The microarchitecture is one implementation of that contract.\"",
+      "sub": "Same ISA, different microarchitecture, same programs run. That is why an old binary still runs on a new processor."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>The <b>instruction set architecture</b> is the agreement between the hardware and the software: which instructions exist, what each one does, what the registers are, how memory is addressed, and how data is laid out.</p>",
+        "ask": "Why would a manufacturer treat that agreement as almost unchangeable?"
+      },
+      {
+        "check": "Because every program ever compiled for it depends on it.",
+        "teach": "<p>So the ISA is a <b>contract</b>. The <b>microarchitecture</b> is how one particular chip honours it: the pipeline depth, the caches, the branch predictor, how many instructions issue per cycle.</p>",
+        "ask": "Two processors, same ISA, one twice as fast. What changed?"
+      },
+      {
+        "check": "The microarchitecture, not the architecture.",
+        "teach": "<p>That is the objective question in one line. The ISA is the programmer's view; the microarchitecture is the engineer's. Note the relationship to Topic One: the ISA is the heart of the ARCHITECTURE, and the microarchitecture belongs to the ORGANIZATION.</p>",
+        "ask": "Name three things an ISA must define."
+      },
+      {
+        "check": "The instruction set, the register set, the addressing modes. Data types and the memory model count too.",
+        "teach": "<p>Those five are the list to recite, and they are the same five that make up the architecture half of Topic One's answer. Learn one list, answer two questions.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m3": {
+    "kick": "Topic Three",
+    "title": "Learn by Doing: Number Systems and Codes",
+    "lead": "The topic sat as a paper: its objective questions, then the conversions taught from nothing. No written question has been set on conversion alone, but every calculation question in the paper stands on it.",
+    "minutes": 40,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic, the two tests' own first.</p><p><b>Part B is empty, and honestly so.</b> The examiner has never set a written question on conversion by itself. He does not need to: the signed number table in Topic Four, the IEEE 754 questions in Topic Five and every cache field in Topic Eleven are conversions wearing a different hat. If this method is slow, those questions are unanswerable, so this is the one topic to drill until it is automatic.</p>",
+    "lockin": {
+      "big": "\"Binary to hex is four bits at a time, and hex to binary is the same rule backwards. Never convert through decimal.\"",
+      "sub": "Decimal to binary: divide by 2, keep the remainders, read them upwards. Binary to decimal: add the place values where there is a 1."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>Every base works the same way: a digit's value is the digit times the base to the power of its position, counting from zero on the right. In binary those place values are 1, 2, 4, 8, 16, 32, 64, 128.</p>",
+        "ask": "What is 1011 0110 in decimal? Add the place values where a 1 sits."
+      },
+      {
+        "check": "182: that is 128 plus 32 plus 16 plus 4 plus 2.",
+        "teach": "<p>Going the other way, divide by 2 over and over and keep the remainders, then read them <b>upwards</b>. 182 gives remainders 0,1,1,0,1,1,0,1 read bottom to top as 1011 0110.</p>",
+        "ask": "Now hex. Why is 1011 0110 easy to write in hex but awkward in decimal?"
+      },
+      {
+        "check": "Because hex is exactly four bits per digit, and decimal is not a power of two.",
+        "teach": "<p>So split into fours from the RIGHT: 1011 is B, 0110 is 6, giving <b>B6</b>. Never go through decimal to reach hex, and never split from the left.</p>",
+        "ask": "What do you do when the bits do not divide into fours, say 1 0110?"
+      },
+      {
+        "check": "Pad on the left with zeros: 0001 0110 gives 16 in hex.",
+        "teach": "<p>Padding on the left never changes a value. That habit also saves you on the paper's 11 bit row in the signed number table, where the examiner writes a pattern that is not a multiple of four.</p>",
+        "ask": "Octal is three bits per digit. Convert 1011 0110 to octal."
+      },
+      {
+        "check": "266: split from the right as 10 110 110, which is 2, 6, 6.",
+        "teach": "<p>Same rule, different width, and the same warning about splitting from the right. Two codes are also examined: <b>BCD</b>, where each decimal digit becomes its own four bits, so 182 is 0001 1000 0010; and <b>Gray code</b>, where consecutive values differ by exactly one bit.</p>",
+        "ask": "Why would a designer want a code where consecutive values differ by one bit?"
+      },
+      {
+        "check": "So that a reading taken while the value is changing can only be wrong by one step.",
+        "teach": "<p>That is the answer the objective questions want: Gray code avoids the multiple bit transitions that cause glitches in position encoders and K-map adjacency. BCD trades space for easy decimal display. Both appear in the objective half, never yet in the written half.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m4": {
+    "kick": "Topic Four",
+    "title": "Learn by Doing: Signed Numbers and Complements",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on signed numbers, each with its model answer and the method taught from nothing.",
+    "minutes": 70,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and this topic carries one of the examiner's favourites: the four column table, set in three different years with the same eleven bit trap in it.</p>",
+    "lockin": {
+      "big": "\"Sign and magnitude flips the top bit. One's complement flips every bit. Two's complement flips every bit and adds one.\"",
+      "sub": "In n bits, two's complement runs from minus 2 to the n minus 1, up to 2 to the n minus 1, minus 1. Only two's complement has a single zero."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>A register holds bits, not minus signs, so a convention is needed for negatives. Three exist, and the exam wants all three in one table.</p>",
+        "ask": "Write plus 13 in 8 bits, then decide what the simplest possible way to write minus 13 would be."
+      },
+      {
+        "check": "0000 1101, and the simplest way is to flip the leftmost bit: 1000 1101.",
+        "teach": "<p>That is <b>sign and magnitude</b>: leftmost bit is the sign, the rest is the size. Easy to read, and it has two zeros, 0000 0000 and 1000 0000, which is why hardware dislikes it.</p>",
+        "ask": "Next: one's complement of minus 13 in 8 bits. Flip what?"
+      },
+      {
+        "check": "Every bit of plus 13: 1111 0010.",
+        "teach": "<p><b>One's complement</b> flips all bits. It also has two zeros, and it needs the <b>end around carry</b>: when an addition produces a carry out of the leftmost column, that carry is added back into the rightmost column.</p>",
+        "ask": "Now two's complement of minus 13. One more step than one's complement. What is it?"
+      },
+      {
+        "check": "Flip every bit, then add one: 1111 0011.",
+        "teach": "<p><b>Two's complement</b> has ONE zero, and addition needs no special rule: any carry out of the top is simply discarded. That is why every real machine uses it.</p>",
+        "ask": "In 12 bits, what are the largest and smallest values two's complement can hold?"
+      },
+      {
+        "check": "Plus 2047 down to minus 2048.",
+        "teach": "<p>The range is not symmetric: <b>minus 2<sup>n-1</sup> to plus 2<sup>n-1</sup> minus 1</b>. Unsigned in 12 bits is 0 to 4095. Quote the range in the exam and you have justified every row of the table.</p>",
+        "ask": "The paper's table asks for 12 bit forms of 204 and minus 139. Which columns are identical for a POSITIVE number?"
+      },
+      {
+        "check": "All four: unsigned, sign and magnitude, one's and two's complement agree on a positive value.",
+        "teach": "<p>So 204 is 0000 1100 1100 four times over, and only the negative row does any work. Say that in the answer: it shows you know why, and it fills a column in one line.</p>",
+        "ask": "Last, the trap the examiner has copied forward into three papers. He gives a pattern of 11 bits, grouped 4, 5, 2, and asks for 12 bit answers. What do you do?"
+      },
+      {
+        "check": "Say so, and pad it to 12 bits on the left, then interpret it.",
+        "teach": "<p>Never silently fix a contradiction in a question. Write one line: \"the pattern given is 11 bits, so it is padded on the left to the 12 bits the question specifies\", then answer. The examiner's own paper carries the defect, and the mark is for noticing.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m5": {
+    "kick": "Topic Five",
+    "title": "Learn by Doing: Floating Point and IEEE 754",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on IEEE 754, each with its model answer and the procedure taught from nothing, in both directions.",
+    "minutes": 80,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and this is the examiner's most reliable topic: representing a value, reading one back, and comparing three stored numbers have each been set in more than one year, and the same value keeps coming back.</p>",
+    "lockin": {
+      "big": "\"Sign, exponent plus 127, then the fraction after the leading 1. Single precision is 1, 8 and 23 bits.\"",
+      "sub": "To read one back: exponent field minus 127, put the 1 back in front, and shift. An exponent field of all zeros or all ones is a special value, not an ordinary number."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>IEEE 754 single precision is 32 bits in three fields: <b>1</b> sign bit, <b>8</b> exponent bits, <b>23</b> fraction bits. Every question in this topic is those three fields filled in or read out.</p>",
+        "ask": "Take minus 12.375. First step, before any field: what do you convert it to?"
+      },
+      {
+        "check": "Binary: 1100.011.",
+        "teach": "<p>The whole part by division, the fraction by multiplying by 2 and taking the carries: 0.375 gives 0.011. So minus 12.375 is minus 1100.011 in binary.</p>",
+        "ask": "Now normalise it: move the point so one 1 sits in front of it. What do you get, and what does that cost?"
+      },
+      {
+        "check": "1.100011 times 2 to the power 3, and it costs a shift of three places.",
+        "teach": "<p>That exponent, <b>3</b>, is what goes into the exponent field, but not raw: single precision stores it <b>biased by 127</b>. So the field holds 3 plus 127, which is 130, or 1000 0010.</p>",
+        "ask": "Why bias it instead of using a sign bit inside the exponent?"
+      },
+      {
+        "check": "So that the bit patterns compare in the same order as the numbers themselves.",
+        "teach": "<p>That is the extra mark when a question asks why. Now the fraction field: store <b>only what follows the leading 1</b>, because the leading 1 is always there and never needs storing. From 1.100011 you store 100011, padded with zeros to 23 bits.</p>",
+        "ask": "Assemble the three fields for minus 12.375."
+      },
+      {
+        "check": "1 | 1000 0010 | 100 0110 0000 0000 0000 0000.",
+        "teach": "<p>Then group into fours and write the hex if the question asks. Going backwards is the same steps reversed: take the exponent field, subtract 127, put the 1 back in front of the fraction, and shift the point by that many places.</p>",
+        "ask": "A bit pattern has an exponent field of 1000 0001 and a fraction beginning 011. What value is it?"
+      },
+      {
+        "check": "Exponent 129 minus 127 is 2, so 1.011 times 2 to the power 2, which is 101.1 in binary, or 5.5.",
+        "teach": "<p>That is the reverse procedure in full. Two special cases are worth a line: an exponent field of <b>all zeros</b> means zero or a denormal, and <b>all ones</b> means infinity or not a number. A question that hands you a stored pattern of all zeros is asking about that, not about arithmetic.</p>",
+        "ask": "Last: when three stored numbers are compared, what decides which is larger without converting them?"
+      },
+      {
+        "check": "The sign first, then the exponent field, then the fraction, read left to right.",
+        "teach": "<p>Because of the bias, comparing the bit patterns as if they were plain unsigned integers gives the right order for positive numbers. Say that, then convert only as far as you need to settle the question.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m6": {
+    "kick": "Topic Six",
+    "title": "Learn by Doing: Instruction Types and Formats",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on instruction formats and assembly, each worked and then taught from nothing.",
+    "minutes": 65,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. The zero, one, two and three address question has been set in consecutive years with the same expression, and it is four marks for four short programs.</p>",
+    "lockin": {
+      "big": "\"Three address names both sources and the destination. Two address overwrites one source. One address uses the accumulator. Zero address uses the stack.\"",
+      "sub": "Fewer addresses means shorter instructions and more of them. The total work does not change, only where the operands are assumed to be."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>An instruction has an <b>opcode</b>, which says what to do, and zero or more <b>operand fields</b>, which say what to do it to. The number of operand fields is the whole of this topic.</p>",
+        "ask": "To compute X = A + B, what would the most explicit possible instruction look like?"
+      },
+      {
+        "check": "Something like ADD X, A, B: both sources and the destination named.",
+        "teach": "<p>That is <b>three address</b>. Longest instruction, fewest instructions. <code>ADD X, A, B</code> does in one what other formats need several to do.</p>",
+        "ask": "Now drop one field. If only two can be named, where must the answer go?"
+      },
+      {
+        "check": "Into one of the operands, overwriting it.",
+        "teach": "<p><b>Two address</b>: <code>MOV X, A</code> then <code>ADD X, B</code>. The destination doubles as a source, which is why a MOV usually appears first to protect the original.</p>",
+        "ask": "Down to one field. Where does the other operand live, and where does the result go?"
+      },
+      {
+        "check": "In the accumulator, and the result goes back to the accumulator.",
+        "teach": "<p><b>One address</b>: <code>LOAD A</code>, <code>ADD B</code>, <code>STORE X</code>. Everything flows through the accumulator, so a load and a store bracket every calculation.</p>",
+        "ask": "And zero address: no operand field at all. What does the machine operate on?"
+      },
+      {
+        "check": "The top of the stack.",
+        "teach": "<p><b>Zero address</b>: <code>PUSH A</code>, <code>PUSH B</code>, <code>ADD</code>, <code>POP X</code>. ADD takes the top two, adds them, and pushes the result back. Writing these needs the expression in reverse Polish order.</p>",
+        "ask": "The paper asks for all four formats for one expression, 4 marks. How do you lay the answer out?"
+      },
+      {
+        "check": "Four labelled blocks, one per format, each a short list of instructions.",
+        "teach": "<p>Label them <b>Three address</b>, <b>Two address</b>, <b>One address</b>, <b>Zero address</b>, and keep the same expression throughout. If the expression has two operations, do the inner one first in every format, and end with the result in the named destination.</p>",
+        "ask": "One more mark is usually available for a sentence. What is the trade off between the formats?"
+      },
+      {
+        "check": "Fewer addresses means shorter instructions but more of them.",
+        "teach": "<p>So code size per instruction falls while instruction count rises, and the total work is much the same. That sentence answers every \"compare the formats\" question in the objective half too.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m7": {
+    "kick": "Topic Seven",
+    "title": "Learn by Doing: Addressing Modes",
+    "lead": "The topic sat as a paper: its objective questions, then the past question that traces every mode through a register and memory dump, worked and then taught from nothing.",
+    "minutes": 55,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. The examiner's format here is a dump of registers and memory and one row per addressing mode, and it is worth five marks for five lines of work.</p>",
+    "lockin": {
+      "big": "\"Immediate is the value. Direct is the address. Indirect is the address of the address. Indexed adds a register to it.\"",
+      "sub": "Work every mode out on paper with the dump beside you, and write the effective address before the value it holds."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>An addressing mode answers one question: given the number written in the instruction, where is the operand? Everything else follows from that.</p>",
+        "ask": "The instruction says 500. In the simplest reading, what is the operand?"
+      },
+      {
+        "check": "The number 500 itself.",
+        "teach": "<p>That is <b>immediate</b>: the operand is in the instruction. No memory is touched, which makes it the fastest mode and the one used for constants.</p>",
+        "ask": "Next simplest: 500 is not the value but tells you where the value is. What is that called, and what is the operand?"
+      },
+      {
+        "check": "Direct addressing, and the operand is whatever memory location 500 holds.",
+        "teach": "<p><b>Direct</b>: the instruction carries the address. One memory access. Now the step that confuses people: what if location 500 holds another address rather than data?</p>",
+        "ask": "Give it a name, and say how many memory accesses it costs."
+      },
+      {
+        "check": "Indirect addressing, two accesses.",
+        "teach": "<p><b>Indirect</b>: read 500 to get an address, then read that address to get the operand. Slow, but it lets the address be computed at run time, which is how pointers work.</p>",
+        "ask": "Two register modes mirror those two. What are they?"
+      },
+      {
+        "check": "Register, where the operand is in the register, and register indirect, where the register holds the address.",
+        "teach": "<p>Register mode touches no memory at all; register indirect touches it once. Then the computed modes: <b>indexed</b> adds an index register to the address in the instruction, and <b>relative</b> adds the program counter to it.</p>",
+        "ask": "PC is 7000 and the instruction's address field is 500. What is the effective address in relative mode?"
+      },
+      {
+        "check": "7500, or 7501 if the PC has already been incremented, which the question will tell you.",
+        "teach": "<p>Read the question's own words about the PC and say which you assumed. In the exam, lay the answer out as a table: <b>mode, effective address, operand</b>, one row each. The effective address earns its own mark, so never jump straight to the value.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m8": {
+    "kick": "Topic Eight",
+    "title": "Learn by Doing: Memory, Buses and CPU Components",
+    "lead": "The topic sat as a paper: its objective questions, then the past questions on address bus width and memory technology, worked and then taught from nothing.",
+    "minutes": 55,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic, the largest group in the bank after pipelining. <b>Part B</b> is past questions only: address bus sizing and DRAM against SRAM, both from the 2020/2021 paper, both still exactly the kind of question the objective half asks.</p>",
+    "lockin": {
+      "big": "\"n address lines address 2 to the power n locations. What each location holds is a separate question.\"",
+      "sub": "SRAM is fast, large and needs no refresh, so it is cache. DRAM is dense, cheap and must be refreshed, so it is main memory."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>The address bus decides how much memory can be reached: <b>n lines address 2<sup>n</sup> locations</b>. Everything else in this topic is that one equation rearranged.</p>",
+        "ask": "A processor has 18 address lines. How many locations can it address?"
+      },
+      {
+        "check": "2<sup>18</sup>, which is 256K locations.",
+        "teach": "<p>Keep the powers of two in your head: 2<sup>10</sup> is 1K, 2<sup>20</sup> is 1M, 2<sup>30</sup> is 1G. So 2<sup>18</sup> is 2<sup>8</sup> times 2<sup>10</sup>, which is 256K.</p>",
+        "ask": "Now the half most answers skip. Is 256K locations the same as 256 KB of memory?"
+      },
+      {
+        "check": "Only if each location holds one byte.",
+        "teach": "<p>That is the distinction: <b>byte addressable</b> means one address per byte; <b>word addressable</b> means one address per word. With 4 byte words, 256K locations is 1 MB of storage.</p>",
+        "ask": "Reverse it. A machine supports 4 GB, word addressable, with 32 bit words. How many address lines?"
+      },
+      {
+        "check": "4 GB divided by 4 bytes is 1G words, so 2<sup>30</sup>, which is 30 lines.",
+        "teach": "<p>Method in three steps every time: total bytes, divide by the bytes per addressable unit, then take the power of two. Write those three steps down and the marks follow even if the arithmetic slips.</p>",
+        "ask": "The data bus is separate. What does its width decide?"
+      },
+      {
+        "check": "How many bits move in one transfer.",
+        "teach": "<p>Address bus width decides HOW MUCH memory; data bus width decides HOW FAST it moves. The control bus carries read, write and timing signals. Three buses, three jobs, and the objective half asks for exactly that.</p>",
+        "ask": "Last: why is cache built from SRAM and main memory from DRAM?"
+      },
+      {
+        "check": "SRAM is faster but bigger and dearer per bit; DRAM is dense and cheap but must be refreshed.",
+        "teach": "<p>Four differences to quote: SRAM uses flip flops and needs no refresh, DRAM uses a capacitor and must be refreshed thousands of times a second; SRAM is faster; DRAM is denser and cheaper per bit; SRAM therefore sits in cache and DRAM in main memory.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m9": {
+    "kick": "Topic Nine",
+    "title": "Learn by Doing: Performance, RISC and CISC",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on CPI, MIPS, Amdahl's law and RISC against CISC, each worked and then taught from nothing.",
+    "minutes": 75,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and two of these repeat across years: Amdahl's law with the same hypothetical cache, and RISC against CISC with example processors, which has been set in three separate papers.</p>",
+    "lockin": {
+      "big": "\"CPU time is instructions times CPI times clock period. Amdahl caps the speedup at 1 over the part you did not improve.\"",
+      "sub": "MIPS is clock rate divided by CPI, divided by a million. RISC is fixed length, load and store, many registers; CISC is variable length, memory operands, microcode."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>One equation carries this topic: <b>CPU time equals instruction count times cycles per instruction times the clock period</b>. Every performance question is that equation with one term unknown.</p>",
+        "ask": "A program runs 1M instructions with an average CPI of 2.5 on a 500 MHz machine. How long does it take?"
+      },
+      {
+        "check": "1M times 2.5 times 2 ns, which is 5 ms.",
+        "teach": "<p>The clock period is 1 divided by the clock rate: 500 MHz gives 2 ns. Always convert the rate to a period before multiplying, and keep the units beside the numbers.</p>",
+        "ask": "Where does average CPI come from when a question gives you a mix of instruction types?"
+      },
+      {
+        "check": "The weighted average: each type's share times its cycles, added up.",
+        "teach": "<p>So a mix of 40 per cent at 1 cycle, 20 per cent at 4 and 40 per cent at 2 gives 0.4 plus 0.8 plus 0.8, which is 2.0. Lay it out as a table with a share column and a product column, and the working earns its own marks.</p>",
+        "ask": "Now MIPS. From clock rate and CPI, what is the formula?"
+      },
+      {
+        "check": "MIPS is the clock rate divided by CPI, divided by one million.",
+        "teach": "<p>And the warning worth a mark: MIPS compares two machines fairly only if they run the SAME program with the same instruction count, because a machine with a richer instruction set does more per instruction.</p>",
+        "ask": "Amdahl's law. A cache is ten times faster than memory and is used 90 per cent of the time. What limits the overall speedup?"
+      },
+      {
+        "check": "The 10 per cent that was not speeded up.",
+        "teach": "<p>Amdahl: <b>speedup equals 1 divided by ((1 minus f) plus f over k)</b>, where f is the fraction improved and k is how much faster that fraction became. Here 1 over (0.1 plus 0.09), which is about 5.3, not 10.</p>",
+        "ask": "State the law in one sentence, since 2 marks are usually for the statement alone."
+      },
+      {
+        "check": "The overall speedup is limited by the fraction of the work that cannot be improved.",
+        "teach": "<p>Write the sentence, then the formula, then the substitution. Three lines, three marks. Last piece, the comparison question: <b>RISC</b> is fixed length instructions, load and store only, many registers, hardwired control, one cycle per instruction; <b>CISC</b> is variable length, memory operands, fewer registers, microcoded, many cycles. Examples: ARM, MIPS, SPARC and PowerPC against Intel x86, Motorola 68000 and VAX.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m10": {
+    "kick": "Topic Ten",
+    "title": "Learn by Doing: Von Neumann, Harvard and Image Data",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on the two architectures and on image memory, each worked and then taught from nothing.",
+    "minutes": 60,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. Both families here repeat: Von Neumann against Harvard has been set in two years and the image memory calculation in three, with the same 17.12 by 9.45 inches at 250 dpi each time.</p>",
+    "lockin": {
+      "big": "\"One memory and one bus for both instructions and data is Von Neumann, and that shared bus is the bottleneck. Harvard separates them.\"",
+      "sub": "Image memory equals width times height times dpi squared times bits per pixel, then divide by 8 for bytes and by 2 to the power 20 for megabytes."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>The <b>Von Neumann</b> concept is the stored program computer: instructions and data live in the SAME memory, reached over the same bus, and the machine fetches, decodes and executes one instruction at a time.</p>",
+        "ask": "If instructions and data share one bus, what can the processor not do?"
+      },
+      {
+        "check": "Fetch an instruction and read or write data at the same time.",
+        "teach": "<p>That is the <b>Von Neumann bottleneck</b>: however fast the CPU is, it waits on one shared path to memory. Naming it is a mark on its own.</p>",
+        "ask": "So what does the Harvard architecture change, and what does that cost?"
+      },
+      {
+        "check": "Separate memories and buses for instructions and data, at the cost of more hardware.",
+        "teach": "<p>Harvard can fetch an instruction and a datum in the same cycle. Modern processors use a <b>modified Harvard</b> arrangement: split instruction and data caches inside, one unified memory outside.</p>",
+        "ask": "The exam asks you to compare them with a diagram for each. What must both diagrams show?"
+      },
+      {
+        "check": "The CPU, the memory or memories, and the bus or buses between them, labelled.",
+        "teach": "<p>Draw Von Neumann as one memory box with one arrow to the CPU carrying both, and Harvard as two memory boxes with two arrows. Label every box and both arrows: an unlabelled diagram earns nothing.</p>",
+        "ask": "Now image memory. An image is 17.12 by 9.45 inches at 250 dpi. How many pixels across is it?"
+      },
+      {
+        "check": "17.12 times 250, which is 4280.",
+        "teach": "<p>Then 9.45 times 250 gives 2362.5, which rounds to 2363 pixels down, and the total pixel count is the product. <b>Say which way you rounded and why</b>, because the examiner's own figures do not divide cleanly.</p>",
+        "ask": "You have the pixel count. What two more things do you need before you can answer in megabytes?"
+      },
+      {
+        "check": "The bits per pixel, and the divisions by 8 and by 2<sup>20</sup>.",
+        "teach": "<p>Method: pixels times bits per pixel gives bits; divide by 8 for bytes; divide by 1024 twice for megabytes. If the question does not state the colour depth, state your assumption, 24 bits for true colour, and carry on. An assumption stated is marked; an assumption hidden is not.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m11": {
+    "kick": "Topic Eleven",
+    "title": "Learn by Doing: Cache Mapping Functions",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on cache, each worked and then taught from nothing. This is the heaviest written topic on the paper.",
+    "minutes": 95,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and no topic repeats like this one: splitting an address into fields has been set three times in a single paper, average memory access time in three separate years, and the locality definitions in three.</p><p>If you have time for one topic's Part B, make it this one.</p>",
+    "lockin": {
+      "big": "\"Offset bits come from the block size, line or set bits from how many lines or sets, and the tag is whatever is left of the address.\"",
+      "sub": "Direct mapped: line equals block number modulo number of lines. Set associative: set equals block number modulo number of sets. Fully associative: no index at all, the tag is everything."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>A cache holds copies of blocks from main memory. The mapping function answers one question: given an address, where in the cache could that block be, and how do you know if it is the right one?</p>",
+        "ask": "Memory is 64 MB and blocks are 16 bytes. How many bits of the address pick a byte inside a block?"
+      },
+      {
+        "check": "4 bits, because 16 is 2<sup>4</sup>.",
+        "teach": "<p>Those are the <b>offset</b> or word bits, and they always come from the BLOCK SIZE alone. Nothing about the cache changes them.</p>",
+        "ask": "The cache holds 2K lines. How many bits pick the line, in a direct mapped cache?"
+      },
+      {
+        "check": "11 bits, because 2K is 2<sup>11</sup>.",
+        "teach": "<p>Those are the <b>line</b> bits, and they come from HOW MANY LINES the cache has. What remains of the address is the <b>tag</b>, and the tag is what is stored beside the data to prove which block is present.</p>",
+        "ask": "Memory is 64 MB, so how wide is the address, and what is the tag width here?"
+      },
+      {
+        "check": "26 bits of address, so the tag is 26 minus 11 minus 4, which is 11 bits.",
+        "teach": "<p>Always in that order: <b>address width, offset, index, tag is the rest</b>. Write the three widths as a labelled diagram of the address and the marks are unmissable.</p>",
+        "ask": "Now make it 4 way set associative with the same cache size. What changes?"
+      },
+      {
+        "check": "The index counts SETS, not lines, and there are four times fewer sets, so one bit moves to the tag.",
+        "teach": "<p>Set associative: <b>number of sets equals lines divided by associativity</b>, and set equals block number modulo number of sets. Fully associative has no index at all: the tag is everything above the offset, and every line must be searched.</p>",
+        "ask": "Second family: average memory access time, with a hit rate of 80 per cent, cache 5 ns and memory 100 ns. Two organizations are asked for. What is the difference?"
+      },
+      {
+        "check": "Simultaneous access starts both at once; hierarchical access tries the cache first and only then memory.",
+        "teach": "<p><b>Simultaneous:</b> AMAT equals hit rate times cache time plus miss rate times memory time, so 0.8 times 5 plus 0.2 times 100, which is 24 ns. <b>Hierarchical:</b> a miss costs the cache time AND the memory time, so 0.8 times 5 plus 0.2 times 105, which is 25 ns. One number apart, and the examiner wants both.</p>",
+        "ask": "Last family, the free marks: locality of reference, temporal and spatial."
+      },
+      {
+        "check": "Programs reuse what they used recently, and use what is nearby.",
+        "teach": "<p>Write three labelled lines. <b>Locality of reference:</b> a program accesses a small part of its address space at any time. <b>Temporal:</b> an item used now is likely to be used again soon, which justifies keeping it. <b>Spatial:</b> items near it are likely next, which justifies fetching a whole block. Then one closing line: cache exists because both hold.</p>",
+        "ask": ""
+      }
+    ]
+  },
+  "m12": {
+    "kick": "Topic Twelve",
+    "title": "Learn by Doing: Pipelining and Hazards",
+    "lead": "The topic sat as a paper: its objective questions, then every past question on pipelining and hazards, each worked and then taught from nothing.",
+    "minutes": 90,
+    "intro": "<p><b>Part A</b> is the objective questions on this topic, the largest group in the whole bank. <b>Part B</b> is past questions only, and the four phase pipeline with latch delay has been set in consecutive years with the same durations, 60, 50, 90 and 80 ns.</p>",
+    "lockin": {
+      "big": "\"The clock is the slowest stage plus the latch delay. k stages, n instructions, time is k plus n minus 1 cycles.\"",
+      "sub": "Speedup approaches the number of stages and never exceeds it. Structural, data and control hazards, and forwarding fixes most data hazards."
+    },
+    "methodFrames": [
+      {
+        "check": "",
+        "teach": "<p>Pipelining overlaps instructions: while one is being executed, the next is being decoded and a third fetched. Nothing runs faster; more is in flight at once, so throughput rises.</p>",
+        "ask": "Four stages take 60, 50, 90 and 80 ns. How long can the clock cycle be?"
+      },
+      {
+        "check": "At least 90 ns, the slowest stage.",
+        "teach": "<p>Every stage shares one clock, so the <b>slowest stage sets the cycle</b>. Add the <b>latch delay</b> between stages: with a 10 ns latch the cycle is 100 ns. That addition is where most marks are dropped.</p>",
+        "ask": "Without the pipeline, how long does one instruction take through those four stages?"
+      },
+      {
+        "check": "60 plus 50 plus 90 plus 80, which is 280 ns.",
+        "teach": "<p>So a non pipelined machine takes n times 280 ns for n instructions. The pipelined one fills up first: the first instruction leaves after <b>k</b> cycles, and each one after it leaves one cycle later.</p>",
+        "ask": "Write the general formula for n instructions in a k stage pipeline."
+      },
+      {
+        "check": "k plus n minus 1 cycles.",
+        "teach": "<p>Then multiply by the cycle time. Speedup is the non pipelined time divided by the pipelined time, and as n grows it approaches <b>k</b>, the number of stages, which it never exceeds.</p>",
+        "ask": "For 1000 instructions here: pipelined time, and speedup?"
+      },
+      {
+        "check": "(4 plus 999) times 100 ns, which is 100.3 microseconds, against 280 microseconds, so a speedup of about 2.79.",
+        "teach": "<p>Note it is well short of 4, because of the latch and the uneven stages. Say that in a sentence: an unbalanced pipeline wastes the difference between the slowest stage and the others, every cycle.</p>",
+        "ask": "Now hazards. An instruction needs a result the one before it has not yet written. What is that called, and what type?"
+      },
+      {
+        "check": "A data hazard, of the read after write kind.",
+        "teach": "<p>Three families: <b>structural</b>, two instructions wanting the same hardware; <b>data</b>, an operand not ready, in RAW, WAR and WAW forms; <b>control</b>, a branch whose outcome is not yet known. RAW is the one that happens in a simple pipeline.</p>",
+        "ask": "Two fixes for a data hazard, one cheap and one that costs cycles."
+      },
+      {
+        "check": "Forwarding the result straight from one stage to the next, or stalling until it is written.",
+        "teach": "<p><b>Forwarding</b>, also called bypassing, sends the ALU result back into the next instruction's input without waiting for the write back, and it removes most RAW stalls. A load followed immediately by a use still costs one stall. For control hazards: branch prediction, delayed branches, or flushing what was fetched wrongly.</p>",
+        "ask": ""
+      }
+    ]
+  }
+}

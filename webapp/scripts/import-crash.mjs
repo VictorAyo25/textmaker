@@ -22,6 +22,7 @@
  * for, the screen can enforce.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { balanceBlock } from './lib/html-balance.mjs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -287,7 +288,11 @@ function convert(part) {
         sub: tidy(parts.find((p) => has(p, 'sub'))?.inner ?? ''),
       });
     } else if (has(n, 'box')) {
-      lesson.blocks.push(convertBox(n, lesson));
+      // Balanced as it is stored: a worked box split into problem and working
+      // can leave one half with a div open and the other with a stray close,
+      // which the browser repairs differently from the server. See
+      // lib/html-balance.mjs.
+      lesson.blocks.push(balanceBlock(convertBox(n, lesson)));
     } else if (['p', 'figure', 'table', 'ul', 'ol', 'pre', 'div'].includes(n.tag)) {
       if (text(n.inner) || n.inner.includes('<svg'))
         lesson.blocks.push({ kind: 'prose', html: tidy(n.raw) });

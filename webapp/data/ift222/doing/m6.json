@@ -1,0 +1,130 @@
+{
+  "kick": "Topic Six",
+  "title": "Learn by Doing: Instruction Types and Formats",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on instruction formats and assembly, each worked and then taught from nothing.",
+  "minutes": 65,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. The zero, one, two and three address question has been set in consecutive years with the same expression, and it is four marks for four short programs.</p>",
+  "lockin": {
+    "big": "\"Three address names both sources and the destination. Two address overwrites one source. One address uses the accumulator. Zero address uses the stack.\"",
+    "sub": "Fewer addresses means shorter instructions and more of them. The total work does not change, only where the operands are assumed to be."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>An instruction has an <b>opcode</b>, which says what to do, and zero or more <b>operand fields</b>, which say what to do it to. The number of operand fields is the whole of this topic.</p>",
+      "ask": "To compute X = A + B, what would the most explicit possible instruction look like?"
+    },
+    {
+      "check": "Something like ADD X, A, B: both sources and the destination named.",
+      "teach": "<p>That is <b>three address</b>. Longest instruction, fewest instructions. <code>ADD X, A, B</code> does in one what other formats need several to do.</p>",
+      "ask": "Now drop one field. If only two can be named, where must the answer go?"
+    },
+    {
+      "check": "Into one of the operands, overwriting it.",
+      "teach": "<p><b>Two address</b>: <code>MOV X, A</code> then <code>ADD X, B</code>. The destination doubles as a source, which is why a MOV usually appears first to protect the original.</p>",
+      "ask": "Down to one field. Where does the other operand live, and where does the result go?"
+    },
+    {
+      "check": "In the accumulator, and the result goes back to the accumulator.",
+      "teach": "<p><b>One address</b>: <code>LOAD A</code>, <code>ADD B</code>, <code>STORE X</code>. Everything flows through the accumulator, so a load and a store bracket every calculation.</p>",
+      "ask": "And zero address: no operand field at all. What does the machine operate on?"
+    },
+    {
+      "check": "The top of the stack.",
+      "teach": "<p><b>Zero address</b>: <code>PUSH A</code>, <code>PUSH B</code>, <code>ADD</code>, <code>POP X</code>. ADD takes the top two, adds them, and pushes the result back. Writing these needs the expression in reverse Polish order.</p>",
+      "ask": "The paper asks for all four formats for one expression, 4 marks. How do you lay the answer out?"
+    },
+    {
+      "check": "Four labelled blocks, one per format, each a short list of instructions.",
+      "teach": "<p>Label them <b>Three address</b>, <b>Two address</b>, <b>One address</b>, <b>Zero address</b>, and keep the same expression throughout. If the expression has two operations, do the inner one first in every format, and end with the result in the named destination.</p>",
+      "ask": "One more mark is usually available for a sentence. What is the trade off between the formats?"
+    },
+    {
+      "check": "Fewer addresses means shorter instructions but more of them.",
+      "teach": "<p>So code size per instruction falls while instruction count rises, and the total work is much the same. That sentence answers every \"compare the formats\" question in the objective half too.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q4(b)",
+      "marks": "2025/2026 Q4(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q4(b)",
+        "tag": "2025/2026, Question 4(b), and in 1 other paper",
+        "text": "b.\tUse a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below.  For each format determine the number of bytes required.\r\nX = ((A * B) +C/D)/(F*G+J*K)\t<span class=\"qmark\">8mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, zero, one, two and three address instruction formats, was also set in <b>2024/2025 Q1(d)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p class=\"small\">On the sheet the sentence \"For each format determine the number of bytes required\" is struck through in pen, so in that one sitting only the four programs were wanted. But the PRINTED paper asks for the byte counts too, so here is both: the programs, then the byte count for each format. If the strike is not on your paper, you have the full answer; if it is, the totals cost four lines and cannot lose marks.</p>",
+        "answer": "\n<p><b>Three-address</b> (numerator, then denominator, then divide):</p>\n<pre class=\"code\">MUL  R1, A, B      ; R1 = A*B\r\nDIV  R2, C, D      ; R2 = C/D\r\nADD  R1, R1, R2    ; numerator\r\nMUL  R2, F, G\r\nMUL  R3, J, K\r\nADD  R2, R2, R3    ; denominator\r\nDIV  X,  R1, R2    ; X = numerator / denominator</pre>\n<p><b>Two-address:</b> MOV/op with the destination doubling as a source. <b>One-address:</b> work through the accumulator (LOAD, op, STORE). <b>Zero-address:</b> a stack (PUSH the eight operands, then each ADD/MUL/DIV pops two and pushes the result, finally POP X).</p>\n<p class=\"marks\">Byte count for each format (the printed part, worked)</p>\n<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> the paper gives no field sizes, so state the usual convention: opcode = 1 byte, each address = 2 bytes</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> bytes per instruction = opcode + (address fields &#215; 2) &middot; total = instruction count &#215; bytes per instruction</div>\r\n</div>\n<table class=\"data\">\r\n<tr><th>Format</th><th>Instructions</th><th>Bytes</th></tr>\r\n<tr><td>3-address</td><td>7</td><td>7 &#215; (1 + 3&#215;2) = 7 &#215; 7 = <b>49</b></td></tr>\r\n<tr><td>2-address</td><td>12</td><td>12 &#215; (1 + 2&#215;2) = 12 &#215; 5 = <b>60</b></td></tr>\r\n<tr><td>1-address</td><td>17</td><td>17 &#215; (1 + 1&#215;2) = 17 &#215; 3 = <b>51</b></td></tr>\r\n<tr><td>0-address</td><td>16</td><td>8 pushes&#215;3 + 1 pop&#215;3 + 7 ops&#215;1 = <b>34</b></td></tr>\r\n</table>\nSame X in all four formats. Byte totals <b>49, 60, 51 and 34</b> for 3, 2, 1 and 0-address. Fewer address fields shortens each instruction but needs more of them, so the totals stay close, and 0-address is smallest here because its operation instructions carry no address at all."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q1(d)",
+      "marks": "2024/2025 Q1(d)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q1(d)",
+        "tag": "2024/2025, Question 1(d), and in 1 other paper",
+        "text": "<pre>d. Use a Zero, One, Two and Three address instruction formats to write a Pentium 4 assembly language program segment for the expression below. For each format determine the number of bytes required. <span class=\"qmark\">8mks</span> X = ((A * B) +C/D)/(F*G+J*K)</pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, zero, one, two and three address instruction formats, was also set in <b>2025/2026 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one arithmetic expression and four instruction formats to write it in. The paper does not state the opcode or address field sizes, so you state them yourself: 1 byte per opcode and 2 bytes per address is the usual convention and the one used here.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> two things joined by \"For each format\": <i>write</i> the program segment, and <i>determine</i> the byte count. Four programs and four totals.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 8, which is 2 per format. A format with a listing and no byte count is half answered.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> assuming fewer address fields always means fewer bytes. It does not: 1-address needs 51 bytes against 2-address at 60 but 3-address at only 49, because shortening each instruction lengthens the program. Count instructions first, then multiply.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> the expression &middot; opcode = 1 byte &middot; each address = 2 bytes</div> <div class=\"prow\"><span class=\"plab\">Find</span> the four programs and their byte totals</div> <div class=\"prow\"><span class=\"plab\">Formula</span> bytes per instruction = opcode bytes + (address fields &#215; bytes per address); total = count &#215; that</div> </div> <table class=\"data\"> <tr><th>Format</th><th>Instructions</th><th>Bytes</th></tr> <tr><td>3-address</td><td>7</td><td>7 &#215; (1 + 3&#215;2) = 7 &#215; 7 = 49</td></tr> <tr><td>2-address</td><td>12</td><td>12 &#215; (1 + 2&#215;2) = 12 &#215; 5 = 60</td></tr> <tr><td>1-address</td><td>17</td><td>17 &#215; (1 + 1&#215;2) = 17 &#215; 3 = 51</td></tr> <tr><td>0-address</td><td>16</td><td>8 pushes &#215; 3 + 1 pop &#215; 3 + 7 ops &#215; 1 = 34</td></tr> </table>\nThe full listings are worked in Module One Unit 4. Totals: <b>49, 60, 51 and 34 bytes</b> for 3, 2, 1 and 0 address respectively. Fewer address fields shortens each instruction but needs more of them, which is why the totals stay close."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q2(c)",
+      "marks": "2024/2025 Q2(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q2(c)",
+        "tag": "2024/2025, Question 2(c)",
+        "text": "<pre>c. Provide an assembly language program to add two numbers and store the result. <span class=\"qmark\">4mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2024/2025. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing at all. Two numbers exist only as names you choose.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>provide</i> a program: three operations, load, add, store. \"store the result\" is a separate demand from \"add\", so an answer that ends at ADD is incomplete.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4, which for three instructions means roughly one per instruction plus one for the assumption you state.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4, Instruction Set Architecture.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> leaving the machine unstated. Write the accumulator assumption on the line above the code and the same three lines become unambiguous. Comment each line: comments cost nothing and show the marker you know what the accumulator holds.</div> </div></div>\nOn a one-address (accumulator) machine: <br>LOAD A &nbsp;&nbsp;; accumulator = A <br>ADD&nbsp; B &nbsp;&nbsp;; accumulator = A + B <br>STORE C &nbsp;; C = A + B <br>On a three-address machine it is the single instruction ADD C, A, B. Either scores full marks provided you state which machine you assume."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q5(a)",
+      "marks": "2024/2025 Q5(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q5(a)",
+        "tag": "2024/2025, Question 5(a)",
+        "text": "<pre>a. i) Describe three (3) categories of Instructions that we have. Give two (2) examples for each. <span class=\"qmark\">4½mks</span> ii) Discuss the characteristics of computer memory based on Access Methods. Give one example for each method. <span class=\"qmark\">4mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2024/2025. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing numeric. Two recall parts.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>describe</i> three instruction categories and <i>give</i> two examples of each, six examples in all, then <i>discuss</i> memory by access method with <i>one</i> example each.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4½ + 4 = 8½, the largest recall block on the paper. That is 1½ per instruction category, so a name with two examples and a sentence of description.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 4 for the instruction categories, Module Three Unit 1 for the access methods.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> answering (ii) with RAM, ROM and cache. Those are technologies. The access methods are sequential, direct, random and associative, and each wants its own example device.</div> </div></div>\n(i) <b>Data transfer:</b> LOAD, STORE (also MOVE, PUSH, POP). <b>Arithmetic and logic:</b> ADD, AND (also SUB, MUL, OR, NOT, shifts). <b>Control (test and branch):</b> JUMP, BEQ (also CALL, RETURN). (ii) <b>Sequential:</b> read in order from the start, access time depends on position, as in magnetic tape. <b>Direct:</b> jump near the item then search a small region, as on a disk. <b>Random:</b> every location takes the same time via its address, as in RAM. <b>Associative:</b> located by content rather than address, all locations compared at once, as in a cache tag search."
+      },
+      "frames": []
+    }
+  ]
+}

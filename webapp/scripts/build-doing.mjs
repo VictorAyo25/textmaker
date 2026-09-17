@@ -45,6 +45,32 @@ const COURSES = {
       { slug: 'doing-m3', dir: 'm3', units: [8, 9, 10], planAfter: 'cram' },
     ],
   },
+  ift222: {
+    part: 'Learn by doing',
+    insertBefore: 'final-paper',
+    // Capped rather than exhaustive: this bank holds 1,245 questions over twelve
+    // topics, and eighty chosen for coverage is a sitting. The rest stay in the
+    // drill, which is where a reader goes for volume.
+    size: 80,
+    // This course files its bank by lecture deck and manual module, not by drill.
+    bank: /^(deck|module)\d+[a-z]?\.json$/,
+    examTag: /^Test [12] Q/,
+    examNoun: "the examiner's own test questions",
+    sets: [
+      { slug: 'doing-m1', dir: 'm1', units: [1], planAfter: 'big-picture' },
+      { slug: 'doing-m2', dir: 'm2', units: [2], planAfter: 'big-picture' },
+      { slug: 'doing-m3', dir: 'm3', units: [3], planAfter: 'numbers' },
+      { slug: 'doing-m4', dir: 'm4', units: [4], planAfter: 'signed' },
+      { slug: 'doing-m5', dir: 'm5', units: [5], planAfter: 'ieee' },
+      { slug: 'doing-m6', dir: 'm6', units: [6], planAfter: 'instructions' },
+      { slug: 'doing-m7', dir: 'm7', units: [7], planAfter: 'addressing' },
+      { slug: 'doing-m8', dir: 'm8', units: [8], planAfter: 'memory' },
+      { slug: 'doing-m9', dir: 'm9', units: [9], planAfter: 'performance' },
+      { slug: 'doing-m10', dir: 'm10', units: [10], planAfter: 'image' },
+      { slug: 'doing-m11', dir: 'm11', units: [11], planAfter: 'memory' },
+      { slug: 'doing-m12', dir: 'm12', units: [12], planAfter: 'pipelining' },
+    ],
+  },
   csc241: {
     part: 'Learn by doing',
     insertBefore: 'paper-2526',
@@ -140,12 +166,13 @@ function questionBlocks(q, n) {
     problem: q.exam.problem,
     answer: q.exam.answer,
   });
-  blocks.push({
-    kind: 'frames',
-    label: 'Part 2: the same question, taught from scratch',
-    tag: 'for a reader who has never read the course',
-    frames: q.frames,
-  });
+  if (q.frames?.length)
+    blocks.push({
+      kind: 'frames',
+      label: 'Part 2: the same question, taught from scratch',
+      tag: 'for a reader who has never read the course',
+      frames: q.frames,
+    });
   return blocks;
 }
 
@@ -154,7 +181,8 @@ function build(code) {
   if (!cfg) throw new Error(`no Learn by doing config for ${code}`);
   const dir = join(HERE, '..', 'data', code);
   const bank = [];
-  for (const f of readdirSync(dir).filter((f) => /^(drill\d+[a-z]?|test\d+)\.json$/.test(f)))
+  const pattern = cfg.bank ?? /^(drill\d+[a-z]?|test\d+)\.json$/;
+  for (const f of readdirSync(dir).filter((f) => pattern.test(f)))
     bank.push(...JSON.parse(readFileSync(join(dir, f), 'utf8')));
 
   const lessons = JSON.parse(readFileSync(join(dir, 'lessons.json'), 'utf8'));
@@ -176,8 +204,28 @@ function build(code) {
         topics: [],
         ids: picked.map((q) => q.id),
       },
-      { kind: 'heading', text: 'Part B: the theory questions, each with its practical' },
-      ...authored.questions.flatMap((q, i) => questionBlocks(q, i + 1)),
+      ...(authored.questions.length
+        ? [
+            {
+              kind: 'heading',
+              text: authored.partBHeading ?? 'Part B: the theory questions, each with its practical',
+            },
+            ...authored.questions.flatMap((q, i) => questionBlocks(q, i + 1)),
+          ]
+        : []),
+      // A course whose Part B is past questions teaches the method once, after
+      // them, rather than repeating it under every question that uses it.
+      ...(authored.methodFrames?.length
+        ? [
+            { kind: 'heading', text: 'Part 2: the method behind these, taught from nothing' },
+            {
+              kind: 'frames',
+              label: 'Work it frame by frame',
+              tag: 'for a reader who has never read the course',
+              frames: authored.methodFrames,
+            },
+          ]
+        : []),
       { kind: 'lockin', big: authored.lockin.big, sub: authored.lockin.sub },
     ];
     made.push({
@@ -197,10 +245,10 @@ function build(code) {
     console.log(
       `  ${set.slug.padEnd(9)} Part A ${picked.length} questions (${tests} real test), ${
         covered.size
-      } facts; Part B ${authored.questions.length} theory questions, ${authored.questions.reduce(
-        (t, q) => t + q.frames.length,
-        0
-      )} frames`
+      } facts; Part B ${authored.questions.length} theory questions, ${
+        authored.questions.reduce((t, q) => t + (q.frames?.length ?? 0), 0) +
+        (authored.methodFrames?.length ?? 0)
+      } frames`
     );
   }
 

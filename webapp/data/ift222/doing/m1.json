@@ -1,0 +1,65 @@
+{
+  "kick": "Topic One",
+  "title": "Learn by Doing: Architecture versus Organization",
+  "lead": "The topic sat as a paper: the objective questions on it, then every past question the examiner has set on it, each with its model answer and the method taught from nothing.",
+  "minutes": 45,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic, the two tests' own questions first. <b>Part B</b> is past questions only: nothing invented, each one labelled with the year it was set and every other year it has been set in.</p><p>This topic opens almost every paper, and it is two marks you either have or do not.</p>",
+  "lockin": {
+    "big": "\"Architecture is what the programmer sees. Organization is how it is built.\"",
+    "sub": "Instruction set, data types, addressing modes and registers are architecture. Control signals, buses, memory technology and how the adder is wired are organization."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>Two machines can run exactly the same programs and be built completely differently inside. That one sentence is the whole topic.</p>",
+      "ask": "If the programs are identical, what must be identical about the two machines?"
+    },
+    {
+      "check": "What the programmer can see: the instructions, the registers, the way memory is addressed.",
+      "teach": "<p>That visible part is the <b>architecture</b>: the instruction set, the data types, the addressing modes and the register organization. It answers WHAT the computer does.</p>",
+      "ask": "So what is left over, and what question does it answer?"
+    },
+    {
+      "check": "How it is built: the control signals, the buses, the memory technology.",
+      "teach": "<p>That is the <b>organization</b>, and it answers HOW. Two processors with the same architecture may differ entirely in organization: one may have a hardware multiplier, the other may do it by repeated addition, and the same instruction works on both.</p>",
+      "ask": "Which one changes more often, and why does that matter commercially?"
+    },
+    {
+      "check": "Organization, because it can change without breaking the software.",
+      "teach": "<p>That is the answer worth the extra mark: the architecture is kept stable across a family of processors so that old programs still run, while the organization is improved generation by generation.</p>",
+      "ask": "Sort these four into the two boxes: number of general purpose registers, width of the internal data path, the set of addressing modes, the cache size."
+    },
+    {
+      "check": "Architecture: registers and addressing modes. Organization: data path width and cache size.",
+      "teach": "<p>Cache size is the one people get wrong. A cache is invisible to the instruction set: a program runs identically with a bigger one, only faster. Invisible to the programmer means organization.</p>",
+      "ask": "The question is worth 2 marks and says \"differentiate\". How should the answer be laid out?"
+    },
+    {
+      "check": "Two labelled sentences, one for each, with an example in each.",
+      "teach": "<p>Never one paragraph about both. Write <b>Architecture:</b> then its definition and two examples, then <b>Organization:</b> and the same. An examiner marking to a scheme is looking for the two names and the two examples, and a table earns them fastest.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q1(a)",
+      "marks": "2025/2026 Q1(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q1(a)",
+        "tag": "2025/2026, Question 1(a)",
+        "text": "a.\ti) Computer Systems are designed using two closely related but distinct concepts which are Computer Architecture and Computer Organization. Differentiate between these concepts.\r\n\t<span class=\"qmark\">2mks</span>\r\nii) Compare Von Neumann Architecture and Harvard Architecture. Include a diagram for each.\r\n\t<span class=\"qmark\">3mks</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2025/2026. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>i) Differentiate computer architecture from computer organization.</b></p>",
+        "answer": "\n<p><b>Computer architecture</b> is defined as the functional design and logical structure of the computer system as the programmer sees it: the instruction set, the data types, the addressing modes and the register organization. It answers the question <i>\"What does the computer do?\"</i> and serves as the blueprint for the system.</p>\n<p><b>Computer organization</b> is defined as the operational units and their interconnections that realize (carry out) that architecture: the control signals, the buses, the memory technology used and the cache. It answers the question <i>\"How does the computer do it?\"</i> A useful likeness: architecture is the building's design, organization is the actual construction of the building.</p>\n<p><b>ii) Compare Von Neumann and Harvard architecture, with a diagram for each.</b></p>\n<p><b>Von Neumann architecture</b> is defined as a design that uses a <b>single</b> (shared) area of memory, reached over <b>one</b> bus, for both the program instructions and the data those instructions act on. It is simple to build, but the shared path is a bottleneck (an instruction fetch and a data access cannot happen at the same instant).</p>\n<figure>\r\n<svg viewBox=\"0 0 520 250\" style=\"width:80%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\r\n<defs><marker id=\"vnA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\r\n<g fill=\"#20262f\" text-anchor=\"middle\">\r\n<rect x=\"185\" y=\"12\" width=\"150\" height=\"172\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\r\n<text x=\"260\" y=\"32\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\r\n<rect x=\"205\" y=\"42\" width=\"110\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"65\" font-size=\"11\">Control unit</text>\r\n<rect x=\"205\" y=\"88\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"109\" font-size=\"11\">Registers</text>\r\n<rect x=\"205\" y=\"130\" width=\"110\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"260\" y=\"151\" font-size=\"11\">ALU</text>\r\n<rect x=\"22\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"107\" font-size=\"11\">I/O device</text>\r\n<rect x=\"390\" y=\"80\" width=\"108\" height=\"44\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"107\" font-size=\"11\">I/O device</text>\r\n<rect x=\"185\" y=\"210\" width=\"150\" height=\"38\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/><text x=\"260\" y=\"234\" font-size=\"12\" fill=\"#0e7490\" font-weight=\"bold\">Memory</text>\r\n<line x1=\"130\" y1=\"102\" x2=\"185\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n<line x1=\"390\" y1=\"102\" x2=\"335\" y2=\"102\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n<line x1=\"260\" y1=\"184\" x2=\"260\" y2=\"210\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#vnA)\" marker-end=\"url(#vnA)\"/>\r\n</g></svg>\r\n<figcaption>Von Neumann architecture, the layout the lecturer draws: one Memory serves the whole processor over a single shared path (instructions and data together).</figcaption>\r\n</figure>\n<p><b>Harvard architecture</b> is defined as a design that uses <b>separate</b> memories and <b>separate</b> buses for instructions and data, which lets it <b>fetch an instruction and read data at the same time</b> (a form of parallelism), at the cost of duplicating the address, data and control lines.</p>\n<figure>\r\n<svg viewBox=\"0 0 520 258\" style=\"width:82%\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"DejaVu Sans\" font-size=\"13\">\r\n<defs><marker id=\"hA\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3.2\" orient=\"auto\"><path d=\"M0,0 L8,3.2 L0,6.4 Z\" fill=\"#33566e\"/></marker></defs>\r\n<g fill=\"#20262f\" text-anchor=\"middle\">\r\n<rect x=\"198\" y=\"28\" width=\"132\" height=\"200\" rx=\"3\" fill=\"#f7f9fb\" stroke=\"#33566e\" stroke-width=\"1.6\"/>\r\n<text x=\"264\" y=\"48\" font-size=\"12\" fill=\"#33566e\" font-weight=\"bold\">Processor</text>\r\n<rect x=\"212\" y=\"58\" width=\"104\" height=\"36\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"81\" font-size=\"11\">Control unit</text>\r\n<rect x=\"212\" y=\"104\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"125\" font-size=\"11\">Registers</text>\r\n<rect x=\"212\" y=\"146\" width=\"104\" height=\"32\" rx=\"2\" fill=\"#eef2f6\" stroke=\"#33566e\"/><text x=\"264\" y=\"167\" font-size=\"11\">ALU</text>\r\n<rect x=\"22\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"76\" y=\"70\" font-size=\"11\">I/O device</text>\r\n<rect x=\"390\" y=\"44\" width=\"108\" height=\"42\" rx=\"2\" fill=\"#f7f9fb\" stroke=\"#33566e\"/><text x=\"444\" y=\"70\" font-size=\"11\">I/O device</text>\r\n<rect x=\"18\" y=\"150\" width=\"140\" height=\"56\" rx=\"2\" fill=\"#f0f8f2\" stroke=\"#15803d\" stroke-width=\"1.4\"/>\r\n<text x=\"88\" y=\"172\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">Instruction</text>\r\n<text x=\"88\" y=\"190\" font-size=\"11\" fill=\"#15803d\" font-weight=\"bold\">memory</text>\r\n<rect x=\"374\" y=\"152\" width=\"124\" height=\"52\" rx=\"2\" fill=\"#ecf5f8\" stroke=\"#0e7490\" stroke-width=\"1.4\"/>\r\n<text x=\"436\" y=\"182\" font-size=\"11\" fill=\"#0e7490\" font-weight=\"bold\">Data memory</text>\r\n<line x1=\"130\" y1=\"65\" x2=\"198\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"390\" y1=\"65\" x2=\"330\" y2=\"65\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"158\" y1=\"178\" x2=\"198\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-end=\"url(#hA)\"/>\r\n<line x1=\"374\" y1=\"178\" x2=\"330\" y2=\"178\" stroke=\"#33566e\" stroke-width=\"1.8\" marker-start=\"url(#hA)\" marker-end=\"url(#hA)\"/>\r\n</g></svg>\r\n<figcaption>Harvard architecture, the lecturer's layout: a separate instruction memory (fetched, one arrow in) and data memory (read and written), each on its own path, so both are reached at once.</figcaption>\r\n</figure>"
+      },
+      "frames": []
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "kick": "Topic Five",
+  "title": "Learn by Doing: Floating Point and IEEE 754",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on IEEE 754, each with its model answer and the procedure taught from nothing, in both directions.",
+  "minutes": 80,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and this is the examiner's most reliable topic: representing a value, reading one back, and comparing three stored numbers have each been set in more than one year, and the same value keeps coming back.</p>",
+  "lockin": {
+    "big": "\"Sign, exponent plus 127, then the fraction after the leading 1. Single precision is 1, 8 and 23 bits.\"",
+    "sub": "To read one back: exponent field minus 127, put the 1 back in front, and shift. An exponent field of all zeros or all ones is a special value, not an ordinary number."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>IEEE 754 single precision is 32 bits in three fields: <b>1</b> sign bit, <b>8</b> exponent bits, <b>23</b> fraction bits. Every question in this topic is those three fields filled in or read out.</p>",
+      "ask": "Take minus 12.375. First step, before any field: what do you convert it to?"
+    },
+    {
+      "check": "Binary: 1100.011.",
+      "teach": "<p>The whole part by division, the fraction by multiplying by 2 and taking the carries: 0.375 gives 0.011. So minus 12.375 is minus 1100.011 in binary.</p>",
+      "ask": "Now normalise it: move the point so one 1 sits in front of it. What do you get, and what does that cost?"
+    },
+    {
+      "check": "1.100011 times 2 to the power 3, and it costs a shift of three places.",
+      "teach": "<p>That exponent, <b>3</b>, is what goes into the exponent field, but not raw: single precision stores it <b>biased by 127</b>. So the field holds 3 plus 127, which is 130, or 1000 0010.</p>",
+      "ask": "Why bias it instead of using a sign bit inside the exponent?"
+    },
+    {
+      "check": "So that the bit patterns compare in the same order as the numbers themselves.",
+      "teach": "<p>That is the extra mark when a question asks why. Now the fraction field: store <b>only what follows the leading 1</b>, because the leading 1 is always there and never needs storing. From 1.100011 you store 100011, padded with zeros to 23 bits.</p>",
+      "ask": "Assemble the three fields for minus 12.375."
+    },
+    {
+      "check": "1 | 1000 0010 | 100 0110 0000 0000 0000 0000.",
+      "teach": "<p>Then group into fours and write the hex if the question asks. Going backwards is the same steps reversed: take the exponent field, subtract 127, put the 1 back in front of the fraction, and shift the point by that many places.</p>",
+      "ask": "A bit pattern has an exponent field of 1000 0001 and a fraction beginning 011. What value is it?"
+    },
+    {
+      "check": "Exponent 129 minus 127 is 2, so 1.011 times 2 to the power 2, which is 101.1 in binary, or 5.5.",
+      "teach": "<p>That is the reverse procedure in full. Two special cases are worth a line: an exponent field of <b>all zeros</b> means zero or a denormal, and <b>all ones</b> means infinity or not a number. A question that hands you a stored pattern of all zeros is asking about that, not about arithmetic.</p>",
+      "ask": "Last: when three stored numbers are compared, what decides which is larger without converting them?"
+    },
+    {
+      "check": "The sign first, then the exponent field, then the fraction, read left to right.",
+      "teach": "<p>Because of the bias, comparing the bit patterns as if they were plain unsigned integers gives the right order for positive numbers. Say that, then convert only as far as you need to settle the question.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q4(a)",
+      "marks": "2025/2026 Q4(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q4(a)",
+        "tag": "2025/2026, Question 4(a), and in 2 other papers",
+        "text": "a.\tConsider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.\r\nX = C1400000h,\tY = 42100000h,\tZ = 41400000h\r\nConvert X, Y and Z to decimal numbers and determine which of the following\r\nis true.\t<span class=\"qmark\">9mks</span>\r\ni.\t(Y-Z)&gt;0\r\nii.\tX + Z = 0\r\niii.\tZ= X + Y"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, three ieee 754 numbers in registers, compared, was also set in <b>2024/2025 Q1(a)</b>, <b>2023/2024 Q1(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> X = C1400000h, Y = 42100000h, Z = 41400000h, IEEE-754 single precision</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> each in decimal, then which claim is true</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>\r\n\n<pre class=\"calc\">X = C1400000 = 1 10000010 100 0000...\r\n    sign 1 (neg); exp 130, e = 3; 1.100... = 1.5\r\n    X = -1.5 x 2³ = -12\r\n\r\nY = 42100000 = 0 10000100 001 0000...\r\n    sign 0; exp 132, e = 5; 1.001... = 1.125\r\n    Y = 1.125 x 2⁵ = 36\r\n\r\nZ = 41400000 = 0 10000010 100 0000...\r\n    sign 0; exp 130, e = 3; 1.5\r\n    Z = +1.5 x 2³ = 12\r\n\r\n(Y - Z) = 36 - 12 = 24 > 0   TRUE\r\nX + Z   = -12 + 12 = 0       TRUE\r\nZ = X + Y ?  12 = -12+36=24  FALSE</pre>\nX = −12, Y = 36, Z = 12. (i) true, (ii) true, (iii) false."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q5(a)",
+      "marks": "2025/2026 Q5(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q5(a)",
+        "tag": "2025/2026, Question 5(a), and in 1 other paper",
+        "text": "a.\tRepresent the following -1240.56 using Single Precision IEEE format for floating point numbers.\t<span class=\"qmark\">6mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, representing a decimal number in ieee 754 single precision, was also set in <b>2024/2025 Q3(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> −1240.56, single precision</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the 32-bit pattern (and its hex)</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> sign ; normalise |x| to 1.M &#215; 2<sup>e</sup> ; exp field = e + 127 ; mantissa M = f to 23 bits</div>\r\n</div>\n<pre class=\"calc\">sign = 1  (negative)\r\n1240.56 in binary = 1.0011011000100011110101... x 2¹⁰\r\nexp field = 10 + 127 = 137 = 1000 1001\r\nmantissa (23 bits) = 0011011 0001000 1111010 11\r\npattern = 1 10001001 00110110001000111101011\r\n        = C49B11EB   (truncated;  C49B11EC if rounded)</pre>\n&#8722;1240.56 = <b>C49B11EB</b> (truncated), or C49B11EC rounded. State which."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q5(d)",
+      "marks": "2025/2026 Q5(d)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q5(d)",
+        "tag": "2025/2026, Question 5(d), and in 1 other paper",
+        "text": "d.\tBy using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h\t<span class=\"qmark\">6mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, reading a value back out of an ieee 754 bit pattern, was also set in <b>2024/2025 Q4(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> C4F2E000h, single precision</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the decimal value</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = (&#8722;1)<sup>s</sup> &#215; 1.M &#215; 2<sup>(E &#8722; 127)</sup>, where s = sign bit, M = mantissa, E = exponent field</div>\r\n</div>\n<pre class=\"calc\">C4F2E000 = 1 10001001 11100101110000000000000\r\nsign 1 (neg); exp field 1000 1001 = 137, e = 137 - 127 = 10\r\n1.M = 1.1110010111  =  1.8974609375\r\nvalue = -1.8974609375 x 2¹⁰ = -1.8974609375 x 1024\r\n      = -1943</pre>\nC4F2E000h = &#8722;1943."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q1(a)",
+      "marks": "2024/2025 Q1(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q1(a)",
+        "tag": "2024/2025, Question 1(a), and in 2 other papers",
+        "text": "<pre>a. Consider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format. X = C1400000h, Y = 42100000h, Z = 41400000h Convert X, Y and Z to decimal numbers and determine which of the following is true. <span class=\"qmark\">9mks</span> i. (Y-Z)&gt;0 ii. X + Z = 0 iii. Z= X + Y</pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, three ieee 754 numbers in registers, compared, was also set in <b>2025/2026 Q4(a)</b>, <b>2023/2024 Q1(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> three 32-bit hex words, and the statement that they are IEEE 754 <i>single</i> precision. That fixes the split as 1 sign bit, 8 exponent bits, 23 mantissa bits, and the bias as 127.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> two things, not one. First <i>convert</i> all three to decimal. Then <i>determine which of the following is true</i>. The second verb is the one that earns the marks: a script that converts correctly and stops has answered half the question.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 9 for the part, and there are three conversions plus three tests. Read that as roughly 2 marks per conversion and 1 per verdict, so the conversions carry the weight and must be shown, not asserted.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the question says \"which of the following is true\", singular in feel, and a reader in a hurry stops at the first true claim. Two of the three are true here. Test all three and say so for each.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> X = C1400000H, Y = 42100000H, Z = 41400000H &middot; IEEE-754 single precision &middot; bias 127</div> <div class=\"prow\"><span class=\"plab\">Find</span> the decimal value of each, then the truth of the three statements</div> <div class=\"prow\"><span class=\"plab\">Formula</span> value = &#177;1.M &#215; 2<sup>(E &#8722; 127)</sup></div> </div> <table class=\"data\"> <tr><th>Hex</th><th>Sign / E / e</th><th>1.M &#215; 2<sup>e</sup></th><th>Decimal</th></tr> <tr><td>C1400000</td><td>1 / 130 / 3</td><td>&#8722;1.1 &#215; 2<sup>3</sup> = &#8722;1100</td><td>&#8722;12</td></tr> <tr><td>42100000</td><td>0 / 132 / 5</td><td>1.0001 &#215; 2<sup>5</sup> = 100100</td><td>36</td></tr> <tr><td>41400000</td><td>0 / 130 / 3</td><td>1.1 &#215; 2<sup>3</sup> = 1100</td><td>12</td></tr> </table>\nX = &#8722;12, Y = 36, Z = 12. (i) Y &#8722; Z = 36 &#8722; 12 = 24 &gt; 0, so <b>TRUE</b>. (ii) X + Z = &#8722;12 + 12 = 0, so <b>TRUE</b>. (iii) X + Y = &#8722;12 + 36 = 24, and Z = 12, so <b>FALSE</b>."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q3(c)",
+      "marks": "2024/2025 Q3(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q3(c)",
+        "tag": "2024/2025, Question 3(c), and in 1 other paper",
+        "text": "<pre>c. Represent the following -1240.56 using Single Precision IEEE format for floating point numbers. <span class=\"qmark\">6mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, representing a decimal number in ieee 754 single precision, was also set in <b>2025/2026 Q5(a)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one decimal value, -1240.56, and the target format, IEEE single precision.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>represent</i> it. The verb wants the 32-bit pattern, and by convention the hexadecimal equivalent alongside it.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6, which is the whole of a five part question's third part. Expect a mark each for the sign, the integer part in binary, the fraction in binary, the normalisation, the biased exponent and the assembled pattern.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the fraction. 0.56 never terminates in binary, so it must be expanded by repeated doubling until the mantissa is full, and then rounded or truncated. Say which you did: the last hex digit changes.</div> </div></div>\nSign 1. 1240 = 100 1101 1000 and 0.56 = 0.10001111010111... Normalising gives 1.001101100010001111010111... &#215; 2<sup>10</sup>, so E = 10 + 127 = 137 = 1000 1001, and the first 23 mantissa bits are 0011 0110 0010 0011 1101 011. Pattern 1 10001001 00110110001000111101011 = <b>C49B11EBH</b> (truncated). Rounding the last bit instead gives C49B11ECH, which is what hardware stores; either is accepted if you state the method."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q4(c)",
+      "marks": "2024/2025 Q4(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q4(c)",
+        "tag": "2024/2025, Question 4(c), and in 1 other paper",
+        "text": "<pre>c. By using the reverse of the IEEE Single Precision procedure, determine the value (Base 10) of the following hexadecimal (base 16) value: C4F2E000h <span class=\"qmark\">6mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, reading a value back out of an ieee 754 bit pattern, was also set in <b>2025/2026 Q5(d)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> one 32-bit hexadecimal word and the statement that it is IEEE single precision.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>determine</i> the base 10 value, by running the conversion procedure backwards. The words \"Base 10\" and \"base 16\" are spelled out so that no answer in binary or hex will do.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6. Roughly one each for the sign, the exponent field, the unbiased exponent, restoring the hidden 1, the shifted binary value and the decimal total.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> forgetting the hidden bit. The stored mantissa is the fraction after an implied leading 1, so 1.11100101110 is what you shift, not 0.11100101110. Miss it and the answer halves.</div> </div></div>\nC4F2E000 = 1100 0100 1111 0010 1110 0000 0000 0000. Sign 1, so negative. E = 1000 1001 = 137, so e = 137 &#8722; 127 = 10. Restoring the hidden 1 gives 1.11100101110 &#215; 2<sup>10</sup> = 11110010111<sub>2</sub> = 1024+512+256+128+16+4+2+1 = 1943. So the value is <b>&#8722;1943</b>."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q5(c)",
+      "marks": "2024/2025 Q5(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q5(c)",
+        "tag": "2024/2025, Question 5(c)",
+        "text": "<pre>c. Perform the calculation below in using Single Precision IEEE format. All bits after the first 12 bits of the Mantissa should be 0. -421.55 (all operations must be done in binary). <span class=\"qmark\">5½mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2024/2025. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> the value -421.55, the single precision format, and a truncation rule: everything after the first 12 mantissa bits is zero.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> the 32-bit pattern, in binary, with the mantissa truncated as instructed. The truncation is not a simplification you are being offered, it is a requirement you are being marked on.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 5½. Sign, integer part, fraction, normalisation, exponent field and the truncated assembly, so about a mark each with a half for the unit of the answer.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 3, Floating Point Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> truncating at the wrong place. \"the first 12 bits of the Mantissa\" means the 23-bit stored fraction, not the 24 bits including the hidden 1, so you keep 12 fraction bits and set the remaining 11 to zero. Say what the truncated pattern now reads back as: that is what the question is testing.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> value = &#8722;421.55 &middot; IEEE-754 single precision &middot; keep only the first <b>12</b> mantissa bits, rest zero</div> <div class=\"prow\"><span class=\"plab\">Find</span> the full 32-bit pattern in binary</div> <div class=\"prow\"><span class=\"plab\">Formula</span> normalise to 1.<i>m</i> &#215; 2<sup>e</sup>, E = e + 127, then truncate the mantissa as instructed</div> </div> <ol class=\"steps\"> <li>Sign: negative, so <b>1</b>.</li> <li>421 = 1 1010 0101, and 0.55 = 0.100011001100... so 421.55 = 110100101.100011001100...</li> <li>Normalise: 1.10100101100011001100110 &#215; 2<sup>8</sup>, so e = 8.</li> <li>Exponent field: 8 + 127 = 135 = <b>1000 0111</b>.</li> <li>Mantissa, first 12 bits: 1010 0101 1000, then eleven zeros: <b>1010 0101 1000 0000 0000 000</b>.</li> </ol>\n&#8722;421.55 &#8776; <b>1 10000111 10100101100000000000000</b> = C3D2C000H. Truncating at 12 mantissa bits loses precision: this pattern reads back as &#8722;421.5 exactly, against the untruncated C3D2C666H. Say so, because the question is testing that you know truncation costs accuracy."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2023/2024, Q1(c)",
+      "marks": "2023/2024 Q1(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2023/2024:Q1(c)",
+        "tag": "2023/2024, Question 1(c), and in 2 other papers",
+        "text": "c.\tConsider three (3) floating point numbers X, Y and Z stored in registers based on the IEEE 754 Single precision floating point format.\r\nX = C1400000h,\tY = 42100000h,\tZ = 41400000h\r\nConvert X, Y and Z to decimal numbers and determine which of the following\r\nis true or false\t<span class=\"qmark\">9mks</span>\r\ni.\t(Y-Z)&gt;0\r\nii.\tX + Z = 0\r\niii.\tZ= X + Y"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, three ieee 754 numbers in registers, compared, was also set in <b>2025/2026 Q4(a)</b>, <b>2024/2025 Q1(a)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> three 32-bit hex words and the statement\r\nthat they are IEEE 754 <i>single</i> precision. That one word fixes the split at 1 sign\r\nbit, 8 exponent bits and 23 mantissa bits, and the bias at 127.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> two instructions in one sentence:\r\n<i>convert</i> all three to decimal, then <i>determine</i> the standing of three claims.\r\nThe second verb carries the marks. A script that converts perfectly and stops has answered\r\nhalf the question.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 9mks, the biggest single part anywhere in\r\nthis unit, split across three conversions and three verdicts. Roughly 2 per conversion and\r\n1 per verdict, so the conversions must be shown rather than asserted.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module One Unit 3.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> letting the year's wording decide how many\r\nverdicts you give. Write TRUE or FALSE against every one of the three, every time, and you\r\nsatisfy both versions of the question. Second trap: comparing the hex patterns directly.\r\nThey are not ordinary integers; convert first, compare afterwards.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2023/2024 Q1(c)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> X = C1400000H &middot; Y = 42100000H\r\n&middot; Z = 41400000H &middot; all IEEE-754 single precision, bias 127</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the decimal value of each, then the truth\r\nof the three statements</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> value = &#177;1.M &#215;\r\n2<sup>(E &#8722; 127)</sup>, then ordinary arithmetic on the decimals</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>E</b> = stored exponent field of that pattern &middot; <b>M</b> = its mantissa bits\r\n&middot; convert <b>first</b>, compare <b>second</b>: the hex patterns cannot be compared\r\ndirectly</div>\r\n<p class=\"marks\">Convert each</p>\r\n<table class=\"data\">\r\n<tr><th>Hex</th><th>Sign / Exp field / e</th><th>1.mantissa &#215; 2<sup>e</sup></th><th>Decimal</th></tr>\r\n<tr><td>C1400000</td><td>1 / 130 / 3</td><td>&#8722;1.1 &#215; 2<sup>3</sup> = &#8722;1100</td><td>&#8722;12</td></tr>\r\n<tr><td>42100000</td><td>0 / 132 / 5</td><td>1.0001 &#215; 2<sup>5</sup> = 100100</td><td>36</td></tr>\r\n<tr><td>41400000</td><td>0 / 130 / 3</td><td>1.1 &#215; 2<sup>3</sup> = 1100</td><td>12</td></tr>\r\n</table>\r\n<p class=\"marks\">Apply the tests</p>\r\n<div class=\"answerbox\">X = &#8722;12, Y = 36, Z = 12.\r\n(i) Y &#8722; Z = 36 &#8722; 12 = 24 &gt; 0: <b>TRUE</b>.\r\n(ii) X + Z = &#8722;12 + 12 = 0: <b>TRUE</b>.\r\n(iii) X + Y = &#8722;12 + 36 = 24, which is not 12, so Z = X + Y is <b>FALSE</b>.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> convert all three first, then the three tests are\r\none line of ordinary arithmetic each. Do not try to compare the hex directly.</p>"
+      },
+      "frames": []
+    }
+  ]
+}

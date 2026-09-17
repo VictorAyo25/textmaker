@@ -1,0 +1,165 @@
+{
+  "kick": "Topic Nine",
+  "title": "Learn by Doing: Performance, RISC and CISC",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on CPI, MIPS, Amdahl's law and RISC against CISC, each worked and then taught from nothing.",
+  "minutes": 75,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and two of these repeat across years: Amdahl's law with the same hypothetical cache, and RISC against CISC with example processors, which has been set in three separate papers.</p>",
+  "lockin": {
+    "big": "\"CPU time is instructions times CPI times clock period. Amdahl caps the speedup at 1 over the part you did not improve.\"",
+    "sub": "MIPS is clock rate divided by CPI, divided by a million. RISC is fixed length, load and store, many registers; CISC is variable length, memory operands, microcode."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>One equation carries this topic: <b>CPU time equals instruction count times cycles per instruction times the clock period</b>. Every performance question is that equation with one term unknown.</p>",
+      "ask": "A program runs 1M instructions with an average CPI of 2.5 on a 500 MHz machine. How long does it take?"
+    },
+    {
+      "check": "1M times 2.5 times 2 ns, which is 5 ms.",
+      "teach": "<p>The clock period is 1 divided by the clock rate: 500 MHz gives 2 ns. Always convert the rate to a period before multiplying, and keep the units beside the numbers.</p>",
+      "ask": "Where does average CPI come from when a question gives you a mix of instruction types?"
+    },
+    {
+      "check": "The weighted average: each type's share times its cycles, added up.",
+      "teach": "<p>So a mix of 40 per cent at 1 cycle, 20 per cent at 4 and 40 per cent at 2 gives 0.4 plus 0.8 plus 0.8, which is 2.0. Lay it out as a table with a share column and a product column, and the working earns its own marks.</p>",
+      "ask": "Now MIPS. From clock rate and CPI, what is the formula?"
+    },
+    {
+      "check": "MIPS is the clock rate divided by CPI, divided by one million.",
+      "teach": "<p>And the warning worth a mark: MIPS compares two machines fairly only if they run the SAME program with the same instruction count, because a machine with a richer instruction set does more per instruction.</p>",
+      "ask": "Amdahl's law. A cache is ten times faster than memory and is used 90 per cent of the time. What limits the overall speedup?"
+    },
+    {
+      "check": "The 10 per cent that was not speeded up.",
+      "teach": "<p>Amdahl: <b>speedup equals 1 divided by ((1 minus f) plus f over k)</b>, where f is the fraction improved and k is how much faster that fraction became. Here 1 over (0.1 plus 0.09), which is about 5.3, not 10.</p>",
+      "ask": "State the law in one sentence, since 2 marks are usually for the statement alone."
+    },
+    {
+      "check": "The overall speedup is limited by the fraction of the work that cannot be improved.",
+      "teach": "<p>Write the sentence, then the formula, then the substitution. Three lines, three marks. Last piece, the comparison question: <b>RISC</b> is fixed length instructions, load and store only, many registers, hardwired control, one cycle per instruction; <b>CISC</b> is variable length, memory operands, fewer registers, microcoded, many cycles. Examples: ARM, MIPS, SPARC and PowerPC against Intel x86, Motorola 68000 and VAX.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q1(d)",
+      "marks": "2025/2026 Q1(d)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q1(d)",
+        "tag": "2025/2026, Question 1(d)",
+        "text": "d.\tA processor executes one million(1M) instructions distributed as follows.\r\n<table class=\"astab\"><tr><th>Addressing Mode</th><th>Percentage</th><th>Cycles</th></tr><tr><td>Register</td><td>40%</td><td>1</td></tr><tr><td>Immediate</td><td>20%</td><td>1</td></tr><tr><td>Direct</td><td>15%</td><td>2</td></tr><tr><td>Indirect</td><td>10%</td><td>4</td></tr><tr><td>Indexed</td><td>10%</td><td>3</td></tr><tr><td>Relative</td><td>5%</td><td>2</td></tr></table>\r\ni) Compute the average CPI\t<span class=\"qmark\">2mks</span>\r\nii) Determine total clock cycles.\t<span class=\"qmark\">1mk</span>\r\niii) If indirect addressing is optimized to 2 cycles, compute the new CPI.\t<span class=\"qmark\">1mk</span>\r\niv) Evaluate the performance improvement.\t<span class=\"qmark\">2mks</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2025/2026. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 1,000,000 instructions ; per-mode share and cycles as tabled</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> average CPI, total cycles, new CPI after optimising indirect, improvement</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> CPI = &#931;(fraction &#215; cycles) &middot; total = IC &#215; CPI &middot; improvement = (old − new)/old</div>\r\n\n<pre class=\"calc\">Avg CPI = 0.40x1 + 0.20x1 + 0.15x2 + 0.10x4 + 0.10x3 + 0.05x2\r\n        = 0.40 + 0.20 + 0.30 + 0.40 + 0.30 + 0.10\r\n        = 1.70\r\n\r\nTotal cycles = 1,000,000 x 1.70 = 1,700,000\r\n\r\nIndirect 4 -> 2:  new CPI = 1.70 - 0.10x4 + 0.10x2\r\n                          = 1.70 - 0.20 = 1.50\r\n\r\nImprovement = (1.70 - 1.50) / 1.70 = 0.20 / 1.70 = 11.76%</pre>\nCPI 1.70; total cycles 1,700,000; new CPI 1.50; improvement 11.76%."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q3(c)",
+      "marks": "2025/2026 Q3(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q3(c)",
+        "tag": "2025/2026, Question 3(c), and in 1 other paper",
+        "text": "c.\ti) State Amdahl's law'\t<span class=\"qmark\">2mks</span>\r\nii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.\r\n\t<span class=\"qmark\">2mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, amdahl’s law, was also set in <b>2023/2024 Q1(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> cache 10 times faster than memory ; used 85% of the time</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> state Amdahl's law, then the overall speedup</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> S = 1 / ((1−f) + f/s), with f the sped-up fraction and s its speedup</div>\r\n\n<p><b>Amdahl's law</b> states that the overall speedup obtainable by improving one part of a system is limited by the fraction of the total time that part is actually used: even if that part is made infinitely fast, the speedup can never exceed 1/(1−f), where f is the fraction of the time that is sped up.</p>\n<pre class=\"calc\">f = 0.85 (cache hits), s = 10\r\nS = 1 / ((1 - 0.85) + 0.85/10)\r\n  = 1 / (0.15 + 0.085)\r\n  = 1 / 0.235\r\n  = 4.26</pre>\nS = 4.26, far below 10, because the 15% of slow accesses dominate."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q4(a)",
+      "marks": "2024/2025 Q4(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q4(a)",
+        "tag": "2024/2025, Question 4(a), and in 2 other papers",
+        "text": "<pre>a. i) Compare Von Neumann Architecture and Harvard Architecture. Include diagram for each. <span class=\"qmark\">3mk</span> ii) Mention any four (4) clear differences between RISC and CISC. Give two (2) examples of processors in each category. <span class=\"qmark\">4mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, risc against cisc, with example processors, was also set in <b>2023/2024 Q5(c)</b>, <b>2020/2021 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> four architecture names and nothing numeric.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>compare</i> two architectures with diagrams, then <i>mention</i> four differences and <i>give</i> four example processors. Three verbs, and the diagrams are compulsory, not decoration.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 3 + 4 = 7. In part (ii) that is four differences plus four processors for 4 marks, so half a mark a line: write in a two column table, not prose.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 1 for the architectures, Module Four Unit 1 for RISC and CISC.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> forgetting the diagrams. They are explicitly asked for and carry their own marks, and a compare answered as prose alone cannot score full marks however good the prose is. The second trap is naming processors nobody can check: ARM and MIPS against x86 and 68000 are safe.</div> </div></div>\n(i) Von Neumann uses <b>one</b> memory and <b>one</b> bus for instructions and data, so it is simpler and cheaper but the shared bus carries only one at a time. Harvard uses <b>separate</b> memories and buses, so an instruction fetch and a data access happen simultaneously: faster, but more hardware and less flexible. Draw both diagrams; they carry marks of their own."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2023/2024, Q1(b)",
+      "marks": "2023/2024 Q1(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2023/2024:Q1(b)",
+        "tag": "2023/2024, Question 1(b), and in 1 other paper",
+        "text": "b.\ti) State Amdahl's law'\t<span class=\"qmark\">2½mks</span>\r\nii) Assume in hypothetical system cache is 10 times faster than main memory and CPU accesses the cache 85% of the time. Using Amdahl's law, calculate the overall speed up of the system.\t<span class=\"qmark\">2mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, amdahl’s law, was also set in <b>2025/2026 Q3(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> a cache 10 times faster than main memory, and a CPU that finds what it needs in the cache 85% of the time.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> two things. First \"State\" the law, which is a statement in words plus the formula, not the formula alone. Then \"calculate the overall speed up of the system\".</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 2mks (2&#189;mks in 23/24) for the statement and 2mks for the number, so the words are worth as much as the arithmetic. Write the law out.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, the Must memorise box directly above.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> reading \"10 times faster\" as the answer. That is s, and it applies only to the fraction f = 0.85. The 15% still going to main memory at full cost is what holds the whole machine down to about 4.26.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2023/2024 Q1(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> f = 0.85 (the 85% of accesses served by\r\ncache) &middot; s = 10 (cache is ten times faster than main memory)</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the overall speedup of the machine</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> speedup = 1 / ((1 &#8722; f) + f/s)</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>f</b> = the fraction of the work the improvement touches, here the cache hits &middot;\r\n<b>s</b> = how many times faster that fraction runs &middot; <b>(1 &#8722; f)</b> = the\r\n15% still going to main memory at full cost, which is what caps the answer well below 10</div>\r\n<ol class=\"steps\">\r\n<li>The sped-up fraction is f = 0.85 (the cache accesses), and the speedup factor is\r\ns = 10.</li>\r\n<li>Speedup = 1 / ((1 &#8722; 0.85) + 0.85 / 10) = 1 / (0.15 + 0.085).</li>\r\n<li>= 1 / 0.235 = <b>4.26</b>.</li>\r\n</ol>\r\n<div class=\"answerbox\">Speedup = 1 / (0.15 + 0.085) = 1 / 0.235 &#8776; <b>4.26 times</b>.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> notice the answer is far below 10, because the 15% of\r\nslow accesses dominate. That is exactly the point Amdahl's law makes.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2023/2024, Q5(c)",
+      "marks": "2023/2024 Q5(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2023/2024:Q5(c)",
+        "tag": "2023/2024, Question 5(c), and in 2 other papers",
+        "text": "c.\tMention any 3 clear differences between RISC and CISC. Give two examples of processors in each category.\t<span class=\"qmark\">3mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, risc against cisc, with example processors, was also set in <b>2024/2025 Q4(a)</b>, <b>2020/2021 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> nothing. Pure recall, and the fastest marks on any of these three papers.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> a fixed number of \"clear differences\", then two example processors of each family. Both halves are marked and the examples are the half students forget.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 4mks in 20/21 and 24/25, 3mks in 23/24. The wording tells you how many differences buy them.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, the comparison table directly above.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> the word \"clear\". A difference has to contrast both sides on one property, so write each as a pair rather than as two separate descriptions.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2023/2024 Q5(c)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"answerbox\">Four differences (any four): RISC has few simple fixed-length\r\none-cycle instructions and only load/store touch memory, with many registers and simple\r\npipelined hardware; CISC has many complex variable-length multi-cycle instructions, many\r\nof which access memory directly, with fewer registers and complex hardware. Examples:\r\nRISC, ARM and MIPS (also SPARC, PowerPC); CISC, Intel x86 (8086, Pentium) and the\r\nMotorola 68000.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> pick your four contrasts (instruction count,\r\nlength, cycles, memory access) and memorise two examples each: ARM/MIPS for RISC, x86/68000 for CISC.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q4(b)",
+      "marks": "2020/2021 Q4(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q4(b)",
+        "tag": "2020/2021, Question 4(b), and in 2 other papers",
+        "text": "b.\ti) State Four (4) clear differences between RISC and CISC. Give two examples of processors in each category.\t<span class=\"qmark\">4mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, risc against cisc, with example processors, was also set in <b>2024/2025 Q4(a)</b>, <b>2023/2024 Q5(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q4(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<p><b>The manual answers this question under its other year.</b> The same question, risc against cisc, with example processors, is worked in full at <b>2024/2025 Q4(a)</b>, in this same paper. Read it there, then come back and write this year's wording, which differs only in how many differences it asks for.</p>"
+      },
+      "frames": []
+    }
+  ]
+}

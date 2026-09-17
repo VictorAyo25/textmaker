@@ -1,0 +1,44 @@
+{
+  "kick": "Topic Three",
+  "title": "Learn by Doing: Number Systems and Codes",
+  "lead": "The topic sat as a paper: its objective questions, then the conversions taught from nothing. No written question has been set on conversion alone, but every calculation question in the paper stands on it.",
+  "minutes": 40,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic, the two tests' own first.</p><p><b>Part B is empty, and honestly so.</b> The examiner has never set a written question on conversion by itself. He does not need to: the signed number table in Topic Four, the IEEE 754 questions in Topic Five and every cache field in Topic Eleven are conversions wearing a different hat. If this method is slow, those questions are unanswerable, so this is the one topic to drill until it is automatic.</p>",
+  "lockin": {
+    "big": "\"Binary to hex is four bits at a time, and hex to binary is the same rule backwards. Never convert through decimal.\"",
+    "sub": "Decimal to binary: divide by 2, keep the remainders, read them upwards. Binary to decimal: add the place values where there is a 1."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>Every base works the same way: a digit's value is the digit times the base to the power of its position, counting from zero on the right. In binary those place values are 1, 2, 4, 8, 16, 32, 64, 128.</p>",
+      "ask": "What is 1011 0110 in decimal? Add the place values where a 1 sits."
+    },
+    {
+      "check": "182: that is 128 plus 32 plus 16 plus 4 plus 2.",
+      "teach": "<p>Going the other way, divide by 2 over and over and keep the remainders, then read them <b>upwards</b>. 182 gives remainders 0,1,1,0,1,1,0,1 read bottom to top as 1011 0110.</p>",
+      "ask": "Now hex. Why is 1011 0110 easy to write in hex but awkward in decimal?"
+    },
+    {
+      "check": "Because hex is exactly four bits per digit, and decimal is not a power of two.",
+      "teach": "<p>So split into fours from the RIGHT: 1011 is B, 0110 is 6, giving <b>B6</b>. Never go through decimal to reach hex, and never split from the left.</p>",
+      "ask": "What do you do when the bits do not divide into fours, say 1 0110?"
+    },
+    {
+      "check": "Pad on the left with zeros: 0001 0110 gives 16 in hex.",
+      "teach": "<p>Padding on the left never changes a value. That habit also saves you on the paper's 11 bit row in the signed number table, where the examiner writes a pattern that is not a multiple of four.</p>",
+      "ask": "Octal is three bits per digit. Convert 1011 0110 to octal."
+    },
+    {
+      "check": "266: split from the right as 10 110 110, which is 2, 6, 6.",
+      "teach": "<p>Same rule, different width, and the same warning about splitting from the right. Two codes are also examined: <b>BCD</b>, where each decimal digit becomes its own four bits, so 182 is 0001 1000 0010; and <b>Gray code</b>, where consecutive values differ by exactly one bit.</p>",
+      "ask": "Why would a designer want a code where consecutive values differ by one bit?"
+    },
+    {
+      "check": "So that a reading taken while the value is changing can only be wrong by one step.",
+      "teach": "<p>That is the answer the objective questions want: Gray code avoids the multiple bit transitions that cause glitches in position encoders and K-map adjacency. BCD trades space for easy decimal display. Both appear in the objective half, never yet in the written half.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": []
+}

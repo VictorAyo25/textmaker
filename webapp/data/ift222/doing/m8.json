@@ -1,0 +1,105 @@
+{
+  "kick": "Topic Eight",
+  "title": "Learn by Doing: Memory, Buses and CPU Components",
+  "lead": "The topic sat as a paper: its objective questions, then the past questions on address bus width and memory technology, worked and then taught from nothing.",
+  "minutes": 55,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic, the largest group in the bank after pipelining. <b>Part B</b> is past questions only: address bus sizing and DRAM against SRAM, both from the 2020/2021 paper, both still exactly the kind of question the objective half asks.</p>",
+  "lockin": {
+    "big": "\"n address lines address 2 to the power n locations. What each location holds is a separate question.\"",
+    "sub": "SRAM is fast, large and needs no refresh, so it is cache. DRAM is dense, cheap and must be refreshed, so it is main memory."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>The address bus decides how much memory can be reached: <b>n lines address 2<sup>n</sup> locations</b>. Everything else in this topic is that one equation rearranged.</p>",
+      "ask": "A processor has 18 address lines. How many locations can it address?"
+    },
+    {
+      "check": "2<sup>18</sup>, which is 256K locations.",
+      "teach": "<p>Keep the powers of two in your head: 2<sup>10</sup> is 1K, 2<sup>20</sup> is 1M, 2<sup>30</sup> is 1G. So 2<sup>18</sup> is 2<sup>8</sup> times 2<sup>10</sup>, which is 256K.</p>",
+      "ask": "Now the half most answers skip. Is 256K locations the same as 256 KB of memory?"
+    },
+    {
+      "check": "Only if each location holds one byte.",
+      "teach": "<p>That is the distinction: <b>byte addressable</b> means one address per byte; <b>word addressable</b> means one address per word. With 4 byte words, 256K locations is 1 MB of storage.</p>",
+      "ask": "Reverse it. A machine supports 4 GB, word addressable, with 32 bit words. How many address lines?"
+    },
+    {
+      "check": "4 GB divided by 4 bytes is 1G words, so 2<sup>30</sup>, which is 30 lines.",
+      "teach": "<p>Method in three steps every time: total bytes, divide by the bytes per addressable unit, then take the power of two. Write those three steps down and the marks follow even if the arithmetic slips.</p>",
+      "ask": "The data bus is separate. What does its width decide?"
+    },
+    {
+      "check": "How many bits move in one transfer.",
+      "teach": "<p>Address bus width decides HOW MUCH memory; data bus width decides HOW FAST it moves. The control bus carries read, write and timing signals. Three buses, three jobs, and the objective half asks for exactly that.</p>",
+      "ask": "Last: why is cache built from SRAM and main memory from DRAM?"
+    },
+    {
+      "check": "SRAM is faster but bigger and dearer per bit; DRAM is dense and cheap but must be refreshed.",
+      "teach": "<p>Four differences to quote: SRAM uses flip flops and needs no refresh, DRAM uses a capacitor and must be refreshed thousands of times a second; SRAM is faster; DRAM is denser and cheaper per bit; SRAM therefore sits in cache and DRAM in main memory.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2020/2021, Q1(a)",
+      "marks": "2020/2021 Q1(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q1(a)",
+        "tag": "2020/2021, Question 1(a), and in 1 other paper",
+        "text": "a.\tMinicomputers in the eighties had 18 address signals and 18-bit address bus. Answer the following questions:\t<span class=\"qmark\">3mks</span>\r\ni.\tWhat was the address space of these computers?\r\nii.\tWhat may have been the largest possible memory of these computers in bytes if the memory location is 1 Byte?\r\niii)\tHow long should the program counter (PC) of these computers be?"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, address bus width against addressable memory, was also set in <b>2020/2021 Q5(a)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> 18 address signals, which is the same thing as an 18-bit address bus, and (from the wording of part ii only) one byte per memory location.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> three separate quantities. (i) the <i>address space</i>, which is a count of locations, not a size in bytes. (ii) the largest memory <i>in bytes</i>. (iii) \"How long should the program counter (PC) of these computers be?\", meaning its width in bits.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 3mks for all three sub-items together, so one mark each. That is one line of working per item, not an essay.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module Two Unit 1.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> (i) and (ii) look like the same question and are not. The address space is a count of locations; the memory size is that count times the bytes in a location. They agree here only because the paper quietly sets a location to 1 byte, inside part (ii).</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q1(a)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> k = 18 address lines &middot; 1 byte per\r\nlocation</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> (i) the address space, (ii) the maximum\r\nmemory in bytes, (iii) the width of the PC</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> address space = 2<sup>k</sup> &middot;\r\ncapacity = 2<sup>k</sup> &#215; bytes per location &middot; PC width = k</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>k</b> = the number of address lines, that is the address-bus width in bits &middot;\r\n<b>2<sup>k</sup></b> = how many distinct locations those lines can name &middot; the\r\n<b>PC</b> must be able to hold any address, so it is exactly k bits wide</div>\r\n<ol class=\"steps\">\r\n<li>Address space = 2<sup>number of lines</sup> = 2<sup>18</sup> = 262 144 locations.\r\n<span class=\"note\">2<sup>18</sup> = 2<sup>10</sup> &#215; 2<sup>8</sup> = 1024 &#215; 256.</span></li>\r\n<li>At one byte per location that is 262 144 bytes = 256 KB.</li>\r\n<li>The PC must hold any address, so it is as wide as the address bus: 18 bits.</li>\r\n</ol>\r\n<div class=\"answerbox\">(i) 2<sup>18</sup> = 262 144 locations. (ii) 262 144 bytes = 256 KB.\r\n(iii) PC length = 18 bits.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> address space is always 2 to the power of the number\r\nof address lines, and the PC is always as wide as an address.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q5(a)",
+      "marks": "2020/2021 Q5(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q5(a)",
+        "tag": "2020/2021, Question 5(a), and in 1 other paper",
+        "text": "a.\ti)  A processor can support a maximum memory of 4GB where the memory is word addressable (a word = 2 bytes). Determine the number of bits required to uniquely address the entire memory.\t<span class=\"qmark\">2mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, address bus width against addressable memory, was also set in <b>2020/2021 Q1(a)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> a maximum memory of 4GB, word addressable, with a word of 2 bytes.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> \"the number of bits required to <i>uniquely</i> address the entire memory\". The word uniquely is the instruction to count addressable units, and the addressable unit here is the word.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 2mks, so two steps: turn the capacity into a count of words, then take the base 2 logarithm.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module Two Unit 1.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> answering 32. That is the count of <i>bytes</i>. Word addressable means each address names a 2-byte word, so divide before you take the log.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q5(a)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> memory = 4 GB &middot; word size = 2 bytes\r\n&middot; addressing = word-addressable (each address names a word, not a byte)</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> k, the number of address bits needed</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> N = total bytes / bytes per addressable\r\nunit, then k = log<sub>2</sub>N</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>N</b> = the number of addressable units, here <i>words</i> not bytes &middot;\r\n<b>k</b> = address bits &middot; the phrase <b>word-addressable</b> is the whole\r\nquestion: divide the byte total by the word size <i>before</i> taking the log</div>\r\n<ol class=\"steps\">\r\n<li>4 GB = 4 &#215; 2<sup>30</sup> bytes = 2<sup>32</sup> bytes.</li>\r\n<li>Word-addressable means each address names a word, not a byte. Number of words =\r\n2<sup>32</sup> bytes &#247; 2 bytes = 2<sup>31</sup> words.</li>\r\n<li>To address 2<sup>31</sup> words needs <b>31</b> bits (because\r\n2<sup>31</sup> words need 31 address lines).</li>\r\n</ol>\r\n<div class=\"answerbox\">4 GB &#247; 2-byte word = 2<sup>31</sup> words, so <b>31 address\r\nbits</b> are needed.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> the trap is word-addressable versus byte-\r\naddressable. Divide the total bytes by the bytes per addressable unit first, then take\r\nthe log base 2.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q5(b)",
+      "marks": "2020/2021 Q5(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q5(b)",
+        "tag": "2020/2021, Question 5(b)",
+        "text": "b.\ti)  List four (4) differences between DRAM and SRAM?\t<span class=\"qmark\">4mks</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2020/2021. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> nothing. This is straight recall, and it is the cheapest mark on the paper if you have the table memorised.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> \"List\", so a list. Each line must be a <i>difference</i>, which means both sides named on one property.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 4mks for four differences, one mark each. A fifth earns nothing, a third loses one.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, the Teach box directly above.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> writing four statements about DRAM alone. A difference needs DRAM and SRAM contrasted in the same line, so set it out as pairs.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q5(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<table class=\"data\">\r\n<tr><th>Dynamic RAM (DRAM)</th><th>Static RAM (SRAM)</th></tr>\r\n<tr><td>Stores a bit as charge on a capacitor</td><td>Stores a bit in a transistor latch</td></tr>\r\n<tr><td>Must be refreshed periodically</td><td>Needs no refresh while powered</td></tr>\r\n<tr><td>Slower access</td><td>Faster access</td></tr>\r\n<tr><td>Higher density, cheaper per bit</td><td>Lower density, dearer per bit</td></tr>\r\n<tr><td>Used for main memory</td><td>Used for cache memory</td></tr>\r\n</table>\r\n<p class=\"redo\"><b>Now redo it:</b> the four you must have are refresh, speed, density\r\nand cost. The memory hook: <b>D</b>RAM is <b>D</b>ense, <b>D</b>ynamic (needs refresh)\r\nand cheap; <b>S</b>RAM is <b>S</b>tatic (no refresh), <b>S</b>peedy and costly.</p>"
+      },
+      "frames": []
+    }
+  ]
+}

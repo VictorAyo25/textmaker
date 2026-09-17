@@ -1,0 +1,105 @@
+{
+  "kick": "Topic Ten",
+  "title": "Learn by Doing: Von Neumann, Harvard and Image Data",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on the two architectures and on image memory, each worked and then taught from nothing.",
+  "minutes": 60,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. Both families here repeat: Von Neumann against Harvard has been set in two years and the image memory calculation in three, with the same 17.12 by 9.45 inches at 250 dpi each time.</p>",
+  "lockin": {
+    "big": "\"One memory and one bus for both instructions and data is Von Neumann, and that shared bus is the bottleneck. Harvard separates them.\"",
+    "sub": "Image memory equals width times height times dpi squared times bits per pixel, then divide by 8 for bytes and by 2 to the power 20 for megabytes."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>The <b>Von Neumann</b> concept is the stored program computer: instructions and data live in the SAME memory, reached over the same bus, and the machine fetches, decodes and executes one instruction at a time.</p>",
+      "ask": "If instructions and data share one bus, what can the processor not do?"
+    },
+    {
+      "check": "Fetch an instruction and read or write data at the same time.",
+      "teach": "<p>That is the <b>Von Neumann bottleneck</b>: however fast the CPU is, it waits on one shared path to memory. Naming it is a mark on its own.</p>",
+      "ask": "So what does the Harvard architecture change, and what does that cost?"
+    },
+    {
+      "check": "Separate memories and buses for instructions and data, at the cost of more hardware.",
+      "teach": "<p>Harvard can fetch an instruction and a datum in the same cycle. Modern processors use a <b>modified Harvard</b> arrangement: split instruction and data caches inside, one unified memory outside.</p>",
+      "ask": "The exam asks you to compare them with a diagram for each. What must both diagrams show?"
+    },
+    {
+      "check": "The CPU, the memory or memories, and the bus or buses between them, labelled.",
+      "teach": "<p>Draw Von Neumann as one memory box with one arrow to the CPU carrying both, and Harvard as two memory boxes with two arrows. Label every box and both arrows: an unlabelled diagram earns nothing.</p>",
+      "ask": "Now image memory. An image is 17.12 by 9.45 inches at 250 dpi. How many pixels across is it?"
+    },
+    {
+      "check": "17.12 times 250, which is 4280.",
+      "teach": "<p>Then 9.45 times 250 gives 2362.5, which rounds to 2363 pixels down, and the total pixel count is the product. <b>Say which way you rounded and why</b>, because the examiner's own figures do not divide cleanly.</p>",
+      "ask": "You have the pixel count. What two more things do you need before you can answer in megabytes?"
+    },
+    {
+      "check": "The bits per pixel, and the divisions by 8 and by 2<sup>20</sup>.",
+      "teach": "<p>Method: pixels times bits per pixel gives bits; divide by 8 for bytes; divide by 1024 twice for megabytes. If the question does not state the colour depth, state your assumption, 24 bits for true colour, and carry on. An assumption stated is marked; an assumption hidden is not.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q4(c)",
+      "marks": "2025/2026 Q4(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q4(c)",
+        "tag": "2025/2026, Question 4(c), and in 1 other paper",
+        "text": "c.\tCalculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte\t<span class=\"qmark\">3mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, the memory an image needs, from inches and dpi, was also set in <b>2024/2025 Q3(b)(ii)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 17.12 in by 9.45 in at 250 dpi ; 1 bit per pixel</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the memory in megabytes</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> pixels = inches &#215; dpi (both ways) ; bytes = pixels &#215; bits / 8 ; MB = bytes / 1024 / 1024</div>\r\n</div>\n<pre class=\"calc\">pixels across = 17.12 x 250 = 4280\r\npixels down   =  9.45 x 250 = 2362.5\r\ntotal pixels  = 4280 x 2362.5 = 10,111,500\r\nbytes = 10,111,500 / 8 = 1,263,937.5\r\nMB    = 1,263,937.5 / 1024 / 1024 = 1.21 MB</pre>\n10,111,500 pixels &#215; 1 bit = 1,263,937.5 bytes &#8776; 1.21 MB. State the megabyte convention you used."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q3(a)",
+      "marks": "2024/2025 Q3(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q3(a)",
+        "tag": "2024/2025, Question 3(a)",
+        "text": "<pre>a. i) What do you understand by Von Neumann Concept? <span class=\"qmark\">1mk</span> ii) Mention any 2 significant aspects of Von Neumann Architecture. <span class=\"qmark\">2mks</span> iii) Describe the Von Neumann architecture bottleneck. <span class=\"qmark\">2mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2024/2025. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> nothing but the name of the architecture. This is a recall part from end to end.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> three different verbs on the same topic: what you <i>understand</i> by the concept, <i>mention</i> two aspects, and <i>describe</i> the bottleneck. Mention wants a list, describe wants a mechanism.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 1 + 2 + 2 = 5. The single mark on (i) tells you one sentence is enough there; the two marks on (iii) tell you a bare phrase is not.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 1, Architecture versus Organization.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> describing the bottleneck as \"the CPU is faster than memory\". That is a different problem. The bottleneck named here is the single shared path that instructions and data must both travel, so no instruction fetch and data access can happen in the same instant.</div> </div></div>\nThe Von Neumann concept: a computer stores its program (instructions) and its data together in the <b>same</b> memory, and executes instructions one after another by fetching them from that memory. Two aspects: (a) a single shared memory holds both instructions and data; (b) instructions execute sequentially, one at a time, under the stored-program idea. The bottleneck: because one bus is shared between instructions and data, the CPU cannot fetch an instruction and access data at the same instant, so that single path limits overall speed however fast the CPU is."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q3(b)(ii)",
+      "marks": "2024/2025 Q3(b)(ii)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q3(b)(ii)",
+        "tag": "2024/2025, Question 3(b)(ii), and in 1 other paper",
+        "text": "<pre>ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte. <span class=\"qmark\">3mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, the memory an image needs, from inches and dpi, was also set in <b>2025/2026 Q4(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> 17.12 inches by 9.45 inches at 250 dots per inch. No colour depth, which is the number you need and are not given.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>calculate</i> the memory requirement and <i>express</i> it in megabytes. Two instructions, and the second one is a unit conversion that carries its own mark.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 3. One for the pixel count, one for the conversion to bytes, one for reaching megabytes.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> the silent choice of 1 MB. Dividing by 1024 twice gives about 1.21 MB; dividing by one million gives about 1.26 MB. Both are defensible, neither is safe unstated, so name your convention on the page.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> 17.12 in &#215; 9.45 in &middot; 250 dpi &middot; 1 bit per pixel (black and white, not stated so assumed)</div> <div class=\"prow\"><span class=\"plab\">Find</span> the memory in MB</div> <div class=\"prow\"><span class=\"plab\">Formula</span> bits = (w&#215;dpi)(h&#215;dpi)&#215;bpp, then &#247;8, &#247;1024, &#247;1024</div> </div>\n4280 &#215; 2362.5 = 10 111 500 pixels &#215; 1 bit = 10 111 500 bits = 1 263 937.5 bytes &#8776; <b>1.21 MB</b> (dividing by 1024 twice). State your convention: dividing by one million instead gives about 1.26 MB."
+      },
+      "frames": []
+    }
+  ]
+}

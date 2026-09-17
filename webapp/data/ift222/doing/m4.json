@@ -1,0 +1,170 @@
+{
+  "kick": "Topic Four",
+  "title": "Learn by Doing: Signed Numbers and Complements",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on signed numbers, each with its model answer and the method taught from nothing.",
+  "minutes": 70,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only, and this topic carries one of the examiner's favourites: the four column table, set in three different years with the same eleven bit trap in it.</p>",
+  "lockin": {
+    "big": "\"Sign and magnitude flips the top bit. One's complement flips every bit. Two's complement flips every bit and adds one.\"",
+    "sub": "In n bits, two's complement runs from minus 2 to the n minus 1, up to 2 to the n minus 1, minus 1. Only two's complement has a single zero."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>A register holds bits, not minus signs, so a convention is needed for negatives. Three exist, and the exam wants all three in one table.</p>",
+      "ask": "Write plus 13 in 8 bits, then decide what the simplest possible way to write minus 13 would be."
+    },
+    {
+      "check": "0000 1101, and the simplest way is to flip the leftmost bit: 1000 1101.",
+      "teach": "<p>That is <b>sign and magnitude</b>: leftmost bit is the sign, the rest is the size. Easy to read, and it has two zeros, 0000 0000 and 1000 0000, which is why hardware dislikes it.</p>",
+      "ask": "Next: one's complement of minus 13 in 8 bits. Flip what?"
+    },
+    {
+      "check": "Every bit of plus 13: 1111 0010.",
+      "teach": "<p><b>One's complement</b> flips all bits. It also has two zeros, and it needs the <b>end around carry</b>: when an addition produces a carry out of the leftmost column, that carry is added back into the rightmost column.</p>",
+      "ask": "Now two's complement of minus 13. One more step than one's complement. What is it?"
+    },
+    {
+      "check": "Flip every bit, then add one: 1111 0011.",
+      "teach": "<p><b>Two's complement</b> has ONE zero, and addition needs no special rule: any carry out of the top is simply discarded. That is why every real machine uses it.</p>",
+      "ask": "In 12 bits, what are the largest and smallest values two's complement can hold?"
+    },
+    {
+      "check": "Plus 2047 down to minus 2048.",
+      "teach": "<p>The range is not symmetric: <b>minus 2<sup>n-1</sup> to plus 2<sup>n-1</sup> minus 1</b>. Unsigned in 12 bits is 0 to 4095. Quote the range in the exam and you have justified every row of the table.</p>",
+      "ask": "The paper's table asks for 12 bit forms of 204 and minus 139. Which columns are identical for a POSITIVE number?"
+    },
+    {
+      "check": "All four: unsigned, sign and magnitude, one's and two's complement agree on a positive value.",
+      "teach": "<p>So 204 is 0000 1100 1100 four times over, and only the negative row does any work. Say that in the answer: it shows you know why, and it fills a column in one line.</p>",
+      "ask": "Last, the trap the examiner has copied forward into three papers. He gives a pattern of 11 bits, grouped 4, 5, 2, and asks for 12 bit answers. What do you do?"
+    },
+    {
+      "check": "Say so, and pad it to 12 bits on the left, then interpret it.",
+      "teach": "<p>Never silently fix a contradiction in a question. Write one line: \"the pattern given is 11 bits, so it is padded on the left to the 12 bits the question specifies\", then answer. The examiner's own paper carries the defect, and the mark is for noticing.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q1(c)",
+      "marks": "2025/2026 Q1(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q1(c)",
+        "tag": "2025/2026, Question 1(c), and in 2 other papers",
+        "text": "c.\tA spacecraft telemetry system uses a 16-bit processor to transmit environmental measurements. The following values are to be stored - Temperature = -182; Pressure = 487;\r\nAltitude = -1023. The processor uses 2's complement representation for signed integers.\r\ni) Determine the range of values representable in a 16-bit two's complement system.\r\nIndicate whether the given numbers fall within the range of value\t<span class=\"qmark\">2mks</span>\r\nii) Represent each value in: Binary and Hexadecimal\t<span class=\"qmark\">3mks</span>\r\niii) Demonstrate how the processor uses two's complement to compute\t<span class=\"qmark\">2mks</span>\r\n(−182) + 487"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, the signed number table: unsigned, sign and magnitude, one’s and two’s complement, was also set in <b>2024/2025 Q3(b)</b>, <b>2023/2024 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 16-bit two's complement ; Temperature −182, Pressure 487, Altitude −1023</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the range and whether each fits ; each in binary and hex ; (−182) + 487</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> range = −2<sup>15</sup> to 2<sup>15</sup> − 1 &middot; negative = invert the positive and add 1 &middot; group 4 bits per hex digit</div>\r\n\n<pre class=\"calc\">Range: -2¹⁵ to 2¹⁵ - 1  =  -32768 to 32767   (all three fit)\r\n\r\n487  =  0000 0001 1110 0111  =  01E7\r\n\r\n-182:  +182  =  0000 0000 1011 0110\r\n     invert  =  1111 1111 0100 1001\r\n        + 1  =  1111 1111 0100 1010  =  FF4A\r\n\r\n-1023: +1023 =  0000 0011 1111 1111\r\n     invert  =  1111 1100 0000 0000\r\n        + 1  =  1111 1100 0000 0001  =  FC01\r\n\r\n(-182) + 487:\r\n     1111 1111 0100 1010\r\n   + 0000 0001 1110 0111\r\n   ---------------------\r\n   1 0000 0001 0011 0001   drop the carry off the top\r\n     0000 0001 0011 0001   =  256+32+16+1  =  305</pre>\nRange −32768 to 32767 (all fit). 487 = 01E7, −182 = FF4A, −1023 = FC01. (−182) + 487 = 305: the machine adds the patterns and gets the right signed answer."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q3(b)",
+      "marks": "2024/2025 Q3(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q3(b)",
+        "tag": "2024/2025, Question 3(b), and in 2 other papers",
+        "text": "<pre>b. i) Complete table 1. Show all necessary work done to arrive at the answer. Use 12 bits. <span class=\"qmark\">6mks</span> <table class=\"astab\"><tr><th>Value</th><th>Unsigned</th><th>S-M</th><th>1's Complement</th><th>2's Complement</th></tr><tr><td>204</td><td></td><td></td><td></td><td></td></tr><tr><td>-139</td><td></td><td></td><td></td><td></td></tr><tr><td>1101 00110 11</td><td></td><td></td><td></td><td></td></tr></table> ii) Calculate the memory requirement of an image whose dimension is 17.12 inches by 9.45 inches at resolution 250 dpi. Express your answer in Megabyte. <span class=\"qmark\">3mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, the signed number table: unsigned, sign and magnitude, one’s and two’s complement, was also set in <b>2025/2026 Q1(c)</b>, <b>2023/2024 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> two decimal values, 204 and -139, one bit pattern, four representation schemes and a width of 12 bits.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>complete</i> the table and \"Show all necessary work done to arrive at the answer\", which is an explicit instruction that a filled grid with no working will not score. Part (ii) then switches subject entirely to an image size calculation.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6 + 3 = 9. The 6 covers eight or more cells plus the working, so a cell is worth well under a mark: speed matters more than elegance here.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> writing \"not representable\" and moving on. Unsigned genuinely cannot hold -139, and saying so earns the mark, but every other cell must still be filled. The second trap is the 11-bit row: pad it to 12 on the left, state that you have done so, and read it in all four schemes.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> values 204 and &#8722;139 &middot; n = 12 bits &middot; four schemes</div> <div class=\"prow\"><span class=\"plab\">Find</span> each value in each scheme</div> <div class=\"prow\"><span class=\"plab\">Formula</span> sign-magnitude = sign bit + magnitude &middot; one's complement = invert all n bits &middot; two's complement = invert then add 1</div> </div> <table class=\"data\"> <tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr> <tr><td>204</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td></tr> <tr><td>&#8722;139</td><td>not representable</td><td>1000 1000 1011</td><td>1111 0111 0100</td><td>1111 0111 0101</td></tr> </table>\nReading 1111 0111 0101 back as two's complement: the leading 1 says negative, so invert and add 1, giving 0000 1000 1011 = 139, so the value is <b>&#8722;139</b>. The recipe reverses itself, which is the check to write down."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q4(b)",
+      "marks": "2024/2025 Q4(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q4(b)",
+        "tag": "2024/2025, Question 4(b), and in 1 other paper",
+        "text": "<pre>b. i) Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in a 10-bit register. <span class=\"qmark\">4mks</span> ii) What do you understand by Overflow and Underflow in data representation? Give one example for each. <span class=\"qmark\">3mks</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, end around carry in one’s complement, was also set in <b>2020/2021 Q5(a)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> 153 and 142, a 10-bit register, and one's complement arithmetic. Part (ii) is given nothing at all.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> <i>describe</i> end-around carry and then <i>illustrate</i> it, so a worked subtraction with no explanation, or an explanation with no subtraction, each lose half. Part (ii) wants two definitions and one example each, four items.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 4 + 3 = 7. The example in (ii) is worth as much as the definition, so never skip it.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module One Unit 2, Data Representation.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> discarding the carry. In one's complement the carry out of the top bit is added back into the lowest bit, and that end-around step is the entire point of the question; in two's complement the same carry is thrown away. Mixing the two rules gives an answer one short.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> 153 &#8722; 142 &middot; n = 10 bits &middot; one's complement</div> <div class=\"prow\"><span class=\"plab\">Find</span> the difference as a pattern and in decimal</div> <div class=\"prow\"><span class=\"plab\">Formula</span> a &#8722; b = a + (&#8722;b) with &#8722;b the bitwise inversion; a carry out of the top is <b>added back</b> into the lowest bit</div> </div>\n153 = 00 1001 1001; +142 = 00 1000 1110 so &#8722;142 = 11 0111 0001. Adding: 00 1001 1001 + 11 0111 0001 = 1 00 0000 1010, with a carry out. End-around: 00 0000 1010 + 1 = <b>00 0000 1011 = 11</b>, and 153 &#8722; 142 = 11. Correct. (ii) <b>Overflow</b> is a result too large for the available bits (in 8-bit two's complement, 100 + 50 = 150 overflows the +127 limit). <b>Underflow</b> is a result too small to represent: for integers more negative than the smallest storable value (&#8722;100 &#8722; 50 = &#8722;150 below &#8722;128), and for floating point a value so close to zero it rounds away to nothing."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2023/2024, Q4(b)",
+      "marks": "2023/2024 Q4(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2023/2024:Q4(b)",
+        "tag": "2023/2024, Question 4(b), and in 2 other papers",
+        "text": "b.\ti) Complete the table below. Show all necessary work done to arrive at the answer. Use 12bits.\t<span class=\"qmark\">6mks</span>\r\n<table class=\"astab\"><tr><th>Value</th><th>Unsigned</th><th>S-M</th><th>1's Complement</th><th>2's Complement</th></tr><tr><td>204</td><td></td><td></td><td></td><td></td></tr><tr><td>-139</td><td></td><td></td><td></td><td></td></tr><tr><td>1101 00110 11</td><td></td><td></td><td></td><td></td></tr></table>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, the signed number table: unsigned, sign and magnitude, one’s and two’s complement, was also set in <b>2025/2026 Q1(c)</b>, <b>2024/2025 Q3(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> two decimal values, 204 and\r\n&#8722;139, one bit pattern, 1101 00110 11, and a register width of 12 bits. Four\r\ncolumns are wanted for each row: Unsigned, S-M, one's complement, two's complement.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> two things joined by a full stop:\r\n<i>complete</i> the table, and <i>show all necessary work done to arrive at the answer</i>.\r\nThe second sentence is worth marks on its own, so a page of finished bit patterns with no\r\nderivation is a half answer.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 6mks across twelve cells, so no single\r\ncell is worth arguing over. The working is what separates a 3 from a 6.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module One Unit 2.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> the 11-bit row. Do not silently pad it to\r\n12 and say nothing, and do not stall. Write one line saying the row as printed is 11 bits\r\nagainst an instruction of 12, state the assumption you are making (a leading 0), and\r\ncarry on. Second trap: 204 is positive, so it is identical in all four columns; only the\r\nnegative row needs real work.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2023/2024 Q4(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> values = 204 and &#8722;139 &middot;\r\nn = 12 bits &middot; four schemes required</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> each value's bit pattern in every scheme</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> sign-magnitude: sign bit + magnitude\r\n&middot; one's complement: invert all n bits &middot; two's complement: invert, then add 1</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>n</b> = 12, the total bits <i>including</i> the sign bit &middot; a <b>positive</b>\r\nvalue looks identical in all four schemes, so only the negative needs work &middot;\r\n\"invert all n bits\" includes the leading zeros</div>\r\n<ol class=\"steps\">\r\n<li>Write 204 in 12-bit binary. 204 = 128+64+8+4, so 204 = 0000 1100 1100.\r\n<span class=\"note\">Being positive, 204 looks identical in all four schemes.</span></li>\r\n<li>For &#8722;139, first write +139 in 12 bits: 139 = 128+8+2+1 = 0000 1000 1011.</li>\r\n<li>Sign-magnitude of &#8722;139: set the sign bit to 1, keep the magnitude:\r\n1000 1000 1011.</li>\r\n<li>One's complement of &#8722;139: invert every bit of 0000 1000 1011:\r\n1111 0111 0100.</li>\r\n<li>Two's complement of &#8722;139: add 1 to the one's complement:\r\n1111 0111 0100 + 1 = 1111 0111 0101.</li>\r\n</ol>\r\n<table class=\"data\">\r\n<tr><th>Value</th><th>Unsigned</th><th>Sign-magnitude</th><th>One's complement</th><th>Two's complement</th></tr>\r\n<tr><td>204</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td><td>0000 1100 1100</td></tr>\r\n<tr><td>&#8722;139</td><td>not representable</td><td>1000 1000 1011</td><td>1111 0111 0100</td><td>1111 0111 0101</td></tr>\r\n</table>\r\n<p class=\"redo\"><b>Now redo it:</b> the third row on the real paper gives a bit pattern\r\nand asks its value. Read back 1111 0111 0101 as two's complement: the leading 1 says\r\nnegative, so invert and add 1 (0000 1000 1011 = 139), giving &#8722;139. That is the\r\nsame number, proving the recipe reverses itself.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q5(a)",
+      "marks": "2020/2021 Q5(a)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q5(a)",
+        "tag": "2020/2021, Question 5(a), and in 1 other paper",
+        "text": "ii)  Describe End-Around Carry in 1's Complement? Illustrate this using 153 – 142 in an 10-bit register.\t<span class=\"qmark\">4mks</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, end around carry in one’s complement, was also set in <b>2024/2025 Q4(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> the operands 153 and 142, a register 10\r\nbits wide, and the scheme named for you as one's complement.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> two verbs. <i>Describe</i> what\r\nend-around carry is, then <i>illustrate</i> it on these particular numbers. Marks sit\r\nbehind both.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 4mks, which splits sensibly as one for\r\nthe description and three for the illustration, since the illustration is five lines of\r\nworking.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module One Unit 2.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> reaching for two's complement out of\r\nhabit and throwing the carry away. In one's complement the carry comes back in at the\r\nbottom, and discarding it here leaves you with 10 instead of 11, wrong by exactly one and\r\nwrong in a way that looks right. Second trap: writing 153 and 142 in eight bits because\r\nthey fit. The question says 10, so pad both to 10 before inverting, or the inversion\r\nproduces the wrong pattern.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q5(a)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> minuend = 153 &middot; subtrahend = 142\r\n&middot; n = 10 bits &middot; scheme = one's complement</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the difference, as a 10-bit pattern and in\r\ndecimal</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> a &#8722; b = a + (&#8722;b), where\r\n&#8722;b is the bitwise inversion of b; then if a carry leaves the top, <b>add it back</b>\r\ninto the lowest bit</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>n</b> = 10, the register width, so every pattern is written to 10 bits &middot;\r\n<b>end-around carry</b> = that add-it-back step, and it happens <i>only</i> in one's\r\ncomplement &middot; no carry out means no correction, and the result is negative</div>\r\n<ol class=\"steps\">\r\n<li>153 &#8722; 142 becomes 153 + (&#8722;142). Write 153 in 10 bits: 00 1001 1001.</li>\r\n<li>Write &#8722;142 in one's complement: +142 = 00 1000 1110, invert to 11 0111 0001.</li>\r\n<li>Add: 00 1001 1001 + 11 0111 0001 = 1 00 0000 1010.\r\n<span class=\"note\">A 1 has carried out of the 10th bit.</span></li>\r\n<li>End-around carry: drop that carry and add it into the lowest bit:\r\n00 0000 1010 + 1 = 00 0000 1011.</li>\r\n<li>Read the result: 00 0000 1011 = 11. Positive (leading 0), and 153 &#8722; 142 = 11.\r\nCorrect.</li>\r\n</ol>\r\n<div class=\"answerbox\">153 &#8722; 142 = 00 0000 1011 (one's complement, 10 bits) = 11.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> the signature of one's complement is that a carry out\r\nnever vanishes, it comes back in at the bottom. If there is no carry out, there is\r\nnothing to add and the result is already negative.</p>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q5(b)",
+      "marks": "2020/2021 Q5(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q5(b)",
+        "tag": "2020/2021, Question 5(b)",
+        "text": "ii)  What will be displayed (in binary and decimal) as the sum of 214 and 65 using an 8-bit register? Show details of work?\t<span class=\"qmark\">3mks</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2020/2021. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> two decimal values, 214 and 65, and a\r\nregister 8 bits wide. Nothing is said about signed or unsigned.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> what the register <i>displays</i>,\r\ngiven <i>in binary and decimal</i>, with the working shown. That is three deliverables,\r\nnot one.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 3mks, which reads naturally as one for\r\nthe binary pattern, one for its decimal value, one for the working that gets you\r\nthere.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module One Unit 2.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> writing 279. That is the arithmetic\r\nanswer, and the question did not ask for it. Give the 8 bits the register actually holds,\r\ntheir decimal value, and one sentence naming what happened to the ninth bit. Second trap:\r\nanswering in decimal only when the paper asked for both forms.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q5(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> operands = 214 and 65 &middot; n = 8 bits\r\n&middot; unsigned</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the stored result in binary and decimal,\r\nand whether it overflows</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> unsigned capacity = 2<sup>n</sup>\r\n&#8722; 1 &middot; a register keeps only the low n bits, so the stored value is the true\r\nsum mod 2<sup>n</sup></div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>n</b> = 8, so the register holds 0 to 255 &middot; <b>mod 2<sup>n</sup></b> means the\r\ntrue sum wraps by exactly 256 &middot; <b>overflow</b> = the true answer needed more bits\r\nthan the register has, signalled by a carry out of the top</div>\r\n<ol class=\"steps\">\r\n<li>Convert: 214 = 1101 0110, 65 = 0100 0001.</li>\r\n<li>Add the two bytes: 1101 0110 + 0100 0001 = 1 0001 0111.\r\n<span class=\"note\">The result needs 9 bits.</span></li>\r\n<li>An 8-bit register holds only the low 8 bits, 0001 0111 = 23, and sets a carry.</li>\r\n</ol>\r\n<div class=\"answerbox\">True sum 214 + 65 = 279. In 8 bits the register keeps 0001 0111 =\r\n23 and raises a carry out of the top bit. This is unsigned <b>overflow</b>: 279 will\r\nnot fit in a byte (max 255), so the stored 23 is wrong by exactly 2<sup>8</sup> = 256.</div>\r\n<p class=\"redo\"><b>Now redo it:</b> overflow is simply \"the answer needed more bits\r\nthan the box has\". State the true sum, the wrapped value, and that a carry came out.</p>"
+      },
+      "frames": []
+    }
+  ]
+}

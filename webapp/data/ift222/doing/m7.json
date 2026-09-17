@@ -1,0 +1,65 @@
+{
+  "kick": "Topic Seven",
+  "title": "Learn by Doing: Addressing Modes",
+  "lead": "The topic sat as a paper: its objective questions, then the past question that traces every mode through a register and memory dump, worked and then taught from nothing.",
+  "minutes": 55,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic. <b>Part B</b> is past questions only. The examiner's format here is a dump of registers and memory and one row per addressing mode, and it is worth five marks for five lines of work.</p>",
+  "lockin": {
+    "big": "\"Immediate is the value. Direct is the address. Indirect is the address of the address. Indexed adds a register to it.\"",
+    "sub": "Work every mode out on paper with the dump beside you, and write the effective address before the value it holds."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>An addressing mode answers one question: given the number written in the instruction, where is the operand? Everything else follows from that.</p>",
+      "ask": "The instruction says 500. In the simplest reading, what is the operand?"
+    },
+    {
+      "check": "The number 500 itself.",
+      "teach": "<p>That is <b>immediate</b>: the operand is in the instruction. No memory is touched, which makes it the fastest mode and the one used for constants.</p>",
+      "ask": "Next simplest: 500 is not the value but tells you where the value is. What is that called, and what is the operand?"
+    },
+    {
+      "check": "Direct addressing, and the operand is whatever memory location 500 holds.",
+      "teach": "<p><b>Direct</b>: the instruction carries the address. One memory access. Now the step that confuses people: what if location 500 holds another address rather than data?</p>",
+      "ask": "Give it a name, and say how many memory accesses it costs."
+    },
+    {
+      "check": "Indirect addressing, two accesses.",
+      "teach": "<p><b>Indirect</b>: read 500 to get an address, then read that address to get the operand. Slow, but it lets the address be computed at run time, which is how pointers work.</p>",
+      "ask": "Two register modes mirror those two. What are they?"
+    },
+    {
+      "check": "Register, where the operand is in the register, and register indirect, where the register holds the address.",
+      "teach": "<p>Register mode touches no memory at all; register indirect touches it once. Then the computed modes: <b>indexed</b> adds an index register to the address in the instruction, and <b>relative</b> adds the program counter to it.</p>",
+      "ask": "PC is 7000 and the instruction's address field is 500. What is the effective address in relative mode?"
+    },
+    {
+      "check": "7500, or 7501 if the PC has already been incremented, which the question will tell you.",
+      "teach": "<p>Read the question's own words about the PC and say which you assumed. In the exam, lay the answer out as a table: <b>mode, effective address, operand</b>, one row each. The effective address earns its own mark, so never jump straight to the value.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q1(e)",
+      "marks": "2025/2026 Q1(e)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q1(e)",
+        "tag": "2025/2026, Question 1(e)",
+        "text": "e.\tA processor contains the following information: PC = 7000;  R1 = 1500;\r\nMemory Contents\r\nAddress\tValue\r\n7000\t1200\r\n1200\t4500\r\n1500\t6000\r\n3200\t8100\r\n4500\t999\r\n6000\t200\r\n8100\t400\r\nAssume an instruction contains address field 1200.\r\nDetermine the Effective Address (EA) and operand for the following addressing modes:\r\ni) Immediate addressing mode\t<span class=\"qmark\">1mk</span>\r\nii) Direct addressing mode\t<span class=\"qmark\">1mk</span>\r\niii) Indirect addressing mode\t<span class=\"qmark\">1mk</span>\r\niv) Register addressing mode\t<span class=\"qmark\">1mk</span>\r\nv) Register Indirect (R1) addressing mode\t<span class=\"qmark\">1mk</span>\r\nvi) Relative addressing mode\t<span class=\"qmark\">1mk</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2025/2026. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> PC = 7000, R1 = 1500, address field = 1200 ; M[1200]=4500, M[4500]=999, M[1500]=6000</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the EA and operand under each mode</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> the mode says how to turn the field into the EA ; the operand is M[EA]</div>\r\n\n<table class=\"data\">\r\n<tr><th>Mode</th><th>Effective address</th><th>Operand</th></tr>\r\n<tr><td>i) Immediate</td><td>none</td><td>the field = <b>1200</b></td></tr>\r\n<tr><td>ii) Direct</td><td>1200</td><td>M[1200] = <b>4500</b></td></tr>\r\n<tr><td>iii) Indirect</td><td>M[1200] = 4500</td><td>M[4500] = <b>999</b></td></tr>\r\n<tr><td>iv) Register</td><td>none</td><td>R1 = <b>1500</b></td></tr>\r\n<tr><td>v) Register indirect</td><td>R1 = 1500</td><td>M[1500] = <b>6000</b></td></tr>\r\n<tr><td>vi) Relative</td><td>PC + 1200 = <b>8200</b></td><td>M[8200], not in the given table</td></tr>\r\n</table>\nImmediate 1200; Direct 4500; Indirect 999; Register 1500; Register indirect 6000; Relative EA 8200 (its operand is not listed)."
+      },
+      "frames": []
+    }
+  ]
+}

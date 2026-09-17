@@ -1,0 +1,190 @@
+{
+  "kick": "Topic Twelve",
+  "title": "Learn by Doing: Pipelining and Hazards",
+  "lead": "The topic sat as a paper: its objective questions, then every past question on pipelining and hazards, each worked and then taught from nothing.",
+  "minutes": 90,
+  "intro": "<p><b>Part A</b> is the objective questions on this topic, the largest group in the whole bank. <b>Part B</b> is past questions only, and the four phase pipeline with latch delay has been set in consecutive years with the same durations, 60, 50, 90 and 80 ns.</p>",
+  "lockin": {
+    "big": "\"The clock is the slowest stage plus the latch delay. k stages, n instructions, time is k plus n minus 1 cycles.\"",
+    "sub": "Speedup approaches the number of stages and never exceeds it. Structural, data and control hazards, and forwarding fixes most data hazards."
+  },
+  "methodFrames": [
+    {
+      "check": "",
+      "teach": "<p>Pipelining overlaps instructions: while one is being executed, the next is being decoded and a third fetched. Nothing runs faster; more is in flight at once, so throughput rises.</p>",
+      "ask": "Four stages take 60, 50, 90 and 80 ns. How long can the clock cycle be?"
+    },
+    {
+      "check": "At least 90 ns, the slowest stage.",
+      "teach": "<p>Every stage shares one clock, so the <b>slowest stage sets the cycle</b>. Add the <b>latch delay</b> between stages: with a 10 ns latch the cycle is 100 ns. That addition is where most marks are dropped.</p>",
+      "ask": "Without the pipeline, how long does one instruction take through those four stages?"
+    },
+    {
+      "check": "60 plus 50 plus 90 plus 80, which is 280 ns.",
+      "teach": "<p>So a non pipelined machine takes n times 280 ns for n instructions. The pipelined one fills up first: the first instruction leaves after <b>k</b> cycles, and each one after it leaves one cycle later.</p>",
+      "ask": "Write the general formula for n instructions in a k stage pipeline."
+    },
+    {
+      "check": "k plus n minus 1 cycles.",
+      "teach": "<p>Then multiply by the cycle time. Speedup is the non pipelined time divided by the pipelined time, and as n grows it approaches <b>k</b>, the number of stages, which it never exceeds.</p>",
+      "ask": "For 1000 instructions here: pipelined time, and speedup?"
+    },
+    {
+      "check": "(4 plus 999) times 100 ns, which is 100.3 microseconds, against 280 microseconds, so a speedup of about 2.79.",
+      "teach": "<p>Note it is well short of 4, because of the latch and the uneven stages. Say that in a sentence: an unbalanced pipeline wastes the difference between the slowest stage and the others, every cycle.</p>",
+      "ask": "Now hazards. An instruction needs a result the one before it has not yet written. What is that called, and what type?"
+    },
+    {
+      "check": "A data hazard, of the read after write kind.",
+      "teach": "<p>Three families: <b>structural</b>, two instructions wanting the same hardware; <b>data</b>, an operand not ready, in RAW, WAR and WAW forms; <b>control</b>, a branch whose outcome is not yet known. RAW is the one that happens in a simple pipeline.</p>",
+      "ask": "Two fixes for a data hazard, one cheap and one that costs cycles."
+    },
+    {
+      "check": "Forwarding the result straight from one stage to the next, or stalling until it is written.",
+      "teach": "<p><b>Forwarding</b>, also called bypassing, sends the ALU result back into the next instruction's input without waiting for the write back, and it removes most RAW stalls. A load followed immediately by a use still costs one stall. For control hazards: branch prediction, delayed branches, or flushing what was fetched wrongly.</p>",
+      "ask": ""
+    }
+  ],
+  "questions": [
+    {
+      "heading": "2025/2026, Q1(b)",
+      "marks": "2025/2026 Q1(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q1(b)",
+        "tag": "2025/2026, Question 1(b)",
+        "text": "b.\tA computer manufacturer is evaluating whether to replace a non-pipelined processor with a five-stage pipelined processor. The processor executes the following instruction mix: Arithmetic – 40%, Memory Access – 35%, Branch – 20%, Floating Point – 5%. The Non-pipelined processor clock cycle is 25ns.  Pipelined processor stage times are:  IF – 5ns, ID – 4ns, EX – 6ns, MEM – 5ns and WB – 4ns. Furthermore, Pipeline register overhead is 1 ns. Branch instructions incur a two-cycle penalty, Floating-point instructions has three cycles for EX stage, Memory accesses experience cache misses 10% of the time, adding four extra cycles. The program contains 20 million instructions.\r\ni) Determine the pipelined clock cycle.\t<span class=\"qmark\">1mk</span>\r\nii) Calculate the actual CPI.\t<span class=\"qmark\">2mks</span>\r\niii) Determine the actual execution time.\t<span class=\"qmark\">1mk</span>\r\niv) Compute the speedup over the non-pipelined processor.\t<span class=\"qmark\">1mk</span>\r\nv) Explain why the speedup differs from the theoretical maximum.\t<span class=\"qmark\">1mk</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2025/2026. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> mix arithmetic 40%, memory 35%, branch 20%, floating point 5% ; five stage times 5, 4, 6, 5, 4 ns ; register overhead 1 ns ; non-pipelined clock 25 ns ; IC = 20 000 000 ; branch adds a 2-cycle penalty, floating point adds 4 extra cycles, a memory access misses 10% of the time adding 4 more.</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> pipelined clock, actual CPI, execution time, speedup, and why it is short of the max</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> clock = slowest stage + overhead &middot; actual CPI = 1 + &#931;(fraction &#215; extra cycles) &middot; time = IC &#215; CPI &#215; T &middot; speedup = time(non-pipe) / time(pipe)</div>\r\n\n<p class=\"small\">The stem is dense and does not say whether each penalty is extra or total, so state the reading: base CPI 1; branch +2; memory +(2 + 0.10&#215;4) = 2.4; floating point +4; arithmetic +0.</p>\n<pre class=\"calc\">Clock  = max(5,4,6,5,4) + overhead\r\n       = 6 + 1 = 7 ns\r\n\r\nCPI    = 1                (base, one per cycle)\r\n       + 0.20 x 2         (branch)\r\n       + 0.35 x 2.4       (memory: 2 + 0.10x4)\r\n       + 0.05 x 4         (floating point)\r\n       + 0.40 x 0         (arithmetic)\r\n       = 1 + 0.40 + 0.84 + 0.20\r\n       = 2.44\r\n\r\nTime   = IC x CPI x T\r\n       = 20,000,000 x 2.44 x 7 ns = 0.3416 s\r\nNon-pipe = 20,000,000 x 25 ns    = 0.5 s\r\nSpeedup  = 0.5 / 0.3416          = 1.46</pre>\nClock 7 ns; CPI 2.44; time 0.3416 s; speedup 1.46. (v) It is far below the ideal 5 because the branch, floating-point and cache-miss penalties and the register overhead all raise the CPI above 1."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q2(b)",
+      "marks": "2025/2026 Q2(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q2(b)",
+        "tag": "2025/2026, Question 2(b), and in 1 other paper",
+        "text": "b.\tConsider the following code segment executed on a classic five-stage RISC processor.\r\nI1: LW   R1,0(R2)\r\nI2: ADD  R3,R1,R4\r\nI3: SUB  R5,R3,R6\r\nI4: SW   R5,8(R2)\r\nI5: BEQ  R5,R0,LABEL\r\nI6: MUL  R7,R5,R8\r\nAssume:\r\n•\tforwarding is available\r\n•\tbranch resolved in EX stage\r\n•\tload-use hazards require one stall\r\n•\tmultiplier occupies EX for three cycles\r\n•\tseparate instruction and data caches\r\ni) Identify and explain every pipeline hazard.\t<span class=\"qmark\">5mks</span>\r\nii) Draw the pipeline timing diagram\t<span class=\"qmark\">2mks</span>\r\niii) Determine the total execution cycles\t<span class=\"qmark\">1mk</span>\r\niv) Suggest any two hardware improvements that would reduce stalls.\t<span class=\"qmark\">1mk</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, data hazards in a code segment, was also set in <b>2020/2021 Q1(c)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> six instructions on a classic 5-stage RISC pipeline ; forwarding on ; branch resolved in EX ; load-use costs 1 stall ; MUL holds EX for 3 cycles ; separate caches</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the hazards, the timing diagram, the total cycles, two improvements</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> ideal = (k + n − 1) cycles, then add every stall: 1 per load-use, and (EX cycles − 1) per multi-cycle execute</div>\r\n\n<p class=\"marks\">Hazards</p>\n<p>I1&#8594;I2 is a <b>load-use RAW</b> (R1 not ready until MEM, so I2 stalls one cycle). I2&#8594;I3, I3&#8594;I4, I3&#8594;I5, I3&#8594;I6 are ordinary RAW hazards <b>hidden by forwarding</b>. I6's <b>multiply holds EX for three cycles</b>, adding two extra at the end. Structural hazards are avoided by the separate caches.</p>\n<p class=\"marks\">Timing diagram (one stall, then the long multiply)</p>\n<table class=\"trace\">\r\n<tr><th>Cyc</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>\r\n<tr><td>I1 LW</td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 ADD</td><td></td><td>IF</td><td>ID</td><td>--</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I3 SUB</td><td></td><td></td><td>IF</td><td>--</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I4 SW</td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I5 BEQ</td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>ME</td><td class=\"out\">WB</td><td></td><td></td><td></td></tr>\r\n<tr><td>I6 MUL</td><td></td><td></td><td></td><td></td><td></td><td></td><td>IF</td><td>ID</td><td>EX</td><td>EX</td><td>EX</td><td>ME</td><td class=\"out\">WB</td></tr>\r\n</table>\nOne load-use stall (the -- in cycle 4) plus two extra multiply cycles give a total of <b>13 cycles</b> (a clean run of 6 would be 5 + 6 − 1 = 10). Two improvements: add more forwarding paths, and pipeline or duplicate the multiplier."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q3(b)",
+      "marks": "2025/2026 Q3(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q3(b)",
+        "tag": "2025/2026, Question 3(b)",
+        "text": "b.\tA 5-stage pipelined processor has instruction fetch (IF), Instruction decode (ID), Operand Fetch (OF), Execute (Ex) and Write Back (WB) stages. The IF, ID, OF and WB stages take 1 clock cycle each for any instruction. The PO stage take 1 cycle for ADD and SUB instructions, 3 clock cycles for MUL instruction and 6 clock cycles for DIV instruction respectively. Operand forwarding is used in the pipeline.\r\n\r\nDraw the cycle diagram and determine the number of cycles needed to execute the following sequence of instructions:\r\n\r\ni.\tWhen Operand forwarding is used\t<span class=\"qmark\">4½mks</span>\r\nii.\tWhen Operand forwarding is not used\t<span class=\"qmark\">5½mks</span>\r\n\r\nI1\tMUL R2, R0, R1\t; R2 ← R0 X R1\r\nI2\tDIV R5, R3, R4\t; R5 ← R3/R4\r\nI3\tADD R2, R5, R2\t; R2 ← R5 + R2\r\nI4\tSUB R5, R2, R6\t; R5 ← R2 – R6"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2025/2026. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 5 stages IF, ID, OF, EX, WB, one cycle each except EX = 1 (ADD/SUB), 3 (MUL), 6 (DIV) ; four instructions ; do it with and without forwarding</div></div>",
+        "answer": "\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the cycle diagram and total cycles for each case</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> no single formula once EX is multi-cycle: lay the schedule out cycle by cycle, a long EX blocks those behind it, then read the total off the last write-back</div>\r\n\n<p class=\"small\">The paper prints \"PO stage\", struck through in pen to EX. Instructions: I1 MUL R2,R0,R1 ; I2 DIV R5,R3,R4 ; I3 ADD R2,R5,R2 (needs R5 from I2 and R2 from I1) ; I4 SUB R5,R2,R6 (needs R2 from I3). Read each cell as the stage that instruction is in that cycle; \"--\" is a stall.</p>\n<p class=\"marks\">(i) With operand forwarding</p>\n<table class=\"trace cyc\">\r\n<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>\r\n<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td></tr>\r\n<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class=\"out\">WB</td><td></td></tr>\r\n<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class=\"out\">WB</td></tr>\r\n</table>\n<p>The DIV holds EX for six cycles (7 to 12) and blocks everything behind it. With forwarding, I3 takes R5 straight from I2's EX and runs at cycle 13, and I4 takes R2 from I3 and runs at 14, so the last write-back is at <b>cycle 15</b>.</p>\n<p class=\"marks\">(ii) Without operand forwarding</p>\n<table class=\"trace cyc\">\r\n<tr><th>Instr</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th></tr>\r\n<tr><td>I1 MUL</td><td>IF</td><td>ID</td><td>OF</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I2 DIV</td><td></td><td>IF</td><td>ID</td><td>OF</td><td>--</td><td>--</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td><td></td><td></td></tr>\r\n<tr><td>I3 ADD</td><td></td><td></td><td>IF</td><td>ID</td><td>--</td><td>--</td><td>OF</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>EX</td><td class=\"out\">WB</td><td></td><td></td></tr>\r\n<tr><td>I4 SUB</td><td></td><td></td><td></td><td>IF</td><td>--</td><td>--</td><td>ID</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>OF</td><td>EX</td><td class=\"out\">WB</td></tr>\r\n</table>\n<p>Without forwarding, I3 must wait for I2's <b>write-back</b> before it can read R5 (one cycle later, EX at 14), and I4 likewise waits for I3, so the last write-back slips to <b>cycle 17</b>.</p>\nTotal = <b>15 cycles</b> with forwarding, <b>17 cycles</b> without. Forwarding saved 2 cycles here."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2025/2026, Q5(b)",
+      "marks": "2025/2026 Q5(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2025/2026:Q5(b)",
+        "tag": "2025/2026, Question 5(b), and in 1 other paper",
+        "text": "b.\tConsider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate-\r\ni.\tPipeline cycle time\t<span class=\"qmark\">1mk</span>\r\nii.\tNon-pipeline execution time\t<span class=\"qmark\">1mk</span>\r\niii.\tSpeed up ratio\t<span class=\"qmark\">1mk</span>\r\niv.\tPipeline time for 500 tasks\t<span class=\"qmark\">1mk</span>\r\nv.\tSequential time for 500 tasks\t<span class=\"qmark\">1mk</span>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, a four phase pipeline with latch delay, was also set in <b>2024/2025 Q5(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> 4 phases 60, 50, 90, 80 ns ; latch 10 ns ; 500 tasks</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> cycle time, one-task time, speedup, and the times for 500 tasks</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch ; pipe(n) = (k + n − 1)&#215;cycle ; seq(n) = n &#215; &#931;phases ; speedup = &#931;phases / cycle</div>\r\n</div>\n<pre class=\"calc\">Cycle    = max(60,50,90,80) + 10 = 90 + 10 = 100 ns\r\nOne task = 60 + 50 + 90 + 80 = 280 ns\r\nSpeedup  = 280 / 100 = 2.8\r\nPipe 500 = (4 + 500 - 1) x 100 = 503 x 100 = 50,300 ns\r\nSeq 500  = 500 x 280 = 140,000 ns</pre>\nCycle 100 ns; one task 280 ns; speedup 2.8; 500 tasks pipelined 50,300 ns vs sequential 140,000 ns."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2024/2025, Q5(b)",
+      "marks": "2024/2025 Q5(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2024/2025:Q5(b)",
+        "tag": "2024/2025, Question 5(b), and in 1 other paper",
+        "text": "<pre>b. Consider a pipeline having 4 phases with duration 60, 50, 90 and 80 ns. Given latch delay is 10 ns. Calculate- i. Pipeline cycle time <span class=\"qmark\">1mk</span> ii. Non-pipeline execution time <span class=\"qmark\">1mk</span> iii. Speed up ratio <span class=\"qmark\">1mk</span> iv. Pipeline time for 500 tasks <span class=\"qmark\">1mk</span> v. Sequential time for 500 tasks <span class=\"qmark\">1mk</span> vi. Throughput <span class=\"qmark\">1mk</span></pre>"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, a four phase pipeline with latch delay, was also set in <b>2025/2026 Q5(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>Before you write: what are you given, what is actually asked, and what do the marks tell you about the length of the answer?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Work it out first</b> Read the question twice, list what you are given, and say in one line what the answer will look like: a number, a table, a diagram, or a list of points. Then open the answer and mark yourself against it.</p>"
+      },
+      "exam": {
+        "problem": "<p><b>Cover the answer and work this yourself first,</b> from the question and method set out just above. Then reveal and check line by line.</p>",
+        "answer": "<div class=\"box unpack\"><div class=\"bar\"><span>Break it down</span><span class=\"tag\">before you compute</span></div> <div class=\"body\"> <div class=\"urow\"><span class=\"ulab\">Given</span> four stage durations, 60, 50, 90 and 80 ns, a latch delay of 10 ns, and 500 tasks.</div> <div class=\"urow\"><span class=\"ulab\">Asked</span> six numbers, in the paper's order. Nothing here asks for explanation, so every mark is a figure with its unit.</div> <div class=\"urow\"><span class=\"ulab\">Marks</span> 6, one per item. Answer all six even if one is guessed: an omitted line cannot score, a wrong line costs only itself.</div> <div class=\"urow\"><span class=\"ulab\">Taught in</span> Module Two Unit 3, Pipelining.</div> <div class=\"urow\"><span class=\"ulab\">Trap</span> leaving the latch out of the cycle time. The cycle is the slowest stage <i>plus</i> the latch, 90 + 10 = 100 ns, and every later item depends on it, so one omission poisons five answers. The second trap is the k + n - 1 formula: 500 tasks through 4 stages take 503 cycles, not 504.</div> </div></div> <div class=\"params\"> <div class=\"prow\"><span class=\"plab\">Given</span> k = 4 stages &middot; 60, 50, 90, 80 ns &middot; latch = 10 ns &middot; n = 500 tasks</div> <div class=\"prow\"><span class=\"plab\">Find</span> cycle time, one-task non-pipelined time, speedup, 500-task pipelined and sequential times, throughput</div> <div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest + latch &middot; pipelined = (k + n &#8722; 1) &#215; cycle &middot; sequential = n &#215; &#931;stages &middot; throughput = n / pipelined time</div> </div>\nCycle = 90 + 10 = <b>100 ns</b>. Non-pipelined one task = 60+50+90+80 = <b>280 ns</b>. Ideal speedup = 280/100 = <b>2.8</b>. For 500 tasks: pipelined = (4 + 499) &#215; 100 = <b>50 300 ns</b>; sequential = 500 &#215; 280 = <b>140 000 ns</b>. Throughput = 500 / 50 300 ns, which in the steady state is one task per cycle, that is 1/100 ns = 10 million tasks per second."
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q1(b)",
+      "marks": "2020/2021 Q1(b)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q1(b)",
+        "tag": "2020/2021, Question 1(b)",
+        "text": "b.\ti)  What is pipelining?\t<span class=\"qmark\">2mks</span>\r\nii)  Calculate how long it will take to execute on a regular non-pipelined and pipelined architecture. There are 4 operations with 5 stages each: IF, ID, EX, M and WB; stage1= 8ns, stage2 = 9ns, stage3 = 11ns, stage4 = 13ns, stage5 =16ns. Provide the Gantt Charts for both pipeline and non-pipeline operations. Also calculate the Speedup of the Pipeline system\t<span class=\"qmark\">6mks</span>"
+      },
+      "asked": "<p class=\"flag\">Set once, in 2020/2021. It is still the examiner's own question, and the method behind it is on the syllabus.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> four operations, five stages, five stage times, and no latch delay mentioned at all, so take the latch as zero and say that you have.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> three deliverables packed into one sentence: the two execution times, the two charts, and the speedup. A student who computes the numbers and draws nothing has left marks that were never about arithmetic.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 2mks for the definition in (i) and 6mks for (ii), which is the largest single part of that question.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, Module Two Unit 3. Part (i), the definition of pipelining, is the opening paragraph of this unit.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> the non-pipelined time is n times the <i>sum</i> of the stages, 4 times 57. The pipelined time uses only the <i>slowest</i> stage, 16 ns, as its clock. Mixing the two is the usual loss here.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q1(b)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<div class=\"params\">\r\n<div class=\"prow\"><span class=\"plab\">Given</span> k = 5 stages &middot; stage times = 8, 9,\r\n11, 13, 16 ns &middot; n = 4 operations &middot; no latch delay stated, so take it as 0</div>\r\n<div class=\"prow\"><span class=\"plab\">Find</span> the non-pipelined time, the pipelined\r\ntime, and the speedup</div>\r\n<div class=\"prow\"><span class=\"plab\">Formula</span> cycle = slowest stage &middot;\r\nnon-pipelined = n &#215; &#931;(stage times) &middot; pipelined = (k + n &#8722; 1)\r\n&#215; cycle &middot; speedup = non-pipelined / pipelined</div>\r\n</div>\r\n<div class=\"wheredef\"><span class=\"wlab\">what each symbol means</span>\r\n<b>k</b> = 5 stages &middot; <b>n</b> = 4 operations &middot; <b>&#931;(stage times)</b> =\r\n8+9+11+13+16 = 57 ns, the full journey one operation makes without a pipeline &middot;\r\n<b>cycle</b> = 16 ns, the slowest stage, because every stage must be given that long</div>\r\n<ol class=\"steps\">\r\n<li>Non-pipelined: each operation passes through all stages, 8+9+11+13+16 = 57 ns each,\r\nso 4 &#215; 57 = <b>228 ns</b>.</li>\r\n<li>Pipelined cycle time = slowest stage = 16 ns.</li>\r\n<li>Pipelined time = (k + n &#8722; 1) &#215; cycle = (5 + 4 &#8722; 1) &#215; 16 =\r\n8 &#215; 16 = <b>128 ns</b>.</li>\r\n<li>Speedup = 228 / 128 = <b>1.78</b>.</li>\r\n</ol>\r\n<div class=\"answerbox\">Non-pipelined 228 ns, pipelined 128 ns, speedup &#8776; 1.78. The\r\nspeedup is below 5 because only 4 tasks run, so the fill time still dominates.</div>"
+      },
+      "frames": []
+    },
+    {
+      "heading": "2020/2021, Q1(c)",
+      "marks": "2020/2021 Q1(c)",
+      "scenario": {
+        "printed": true,
+        "src": "2020/2021:Q1(c)",
+        "tag": "2020/2021, Question 1(c), and in 1 other paper",
+        "text": "c.\ti)  Describe the three types of data hazards.\t<span class=\"qmark\">1½mks</span>\r\nii)  What type of data hazards do the following instructions belong? <span class=\"qmark\">1½ mks</span>\r\n1.\tMULTD F0, F2, F4\r\nDIVD F10, F0, F6\r\n2.\tDIVD F10, F0, F6\r\nADDD F6, F8, F2\r\n3.\tMULTD F0, F2, F4\r\nSD F8, 50 (R5)"
+      },
+      "asked": "<p class=\"flag\"><b>This question repeats.</b> The same question, data hazards in a code segment, was also set in <b>2025/2026 Q2(b)</b>. Wording and numbers move; the method does not.</p>",
+      "breakdown": {
+        "question": "<p>What is this question actually asking, what have you been given, and what do the marks tell you about how much to write? Decide, then check.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Given</b> for (i) nothing, it is recall. For (ii)\r\nthree pairs of floating-point instructions, each pair to be classified.</p>\r\n<p class=\"row\"><b class=\"lab\">Asked</b> (i) \"Describe the three types\". The three\r\nnames on their own are not a description: each needs the order of the two clashing accesses\r\nspelled out. (ii) classify each pair, which is a different skill from reciting the list.</p>\r\n<p class=\"row\"><b class=\"lab\">Marks</b> 1&#189;mks for three types, half a mark\r\neach, so one short sentence apiece; then 1&#189; mks for three classifications, again half\r\na mark each.</p>\r\n<p class=\"row\"><b class=\"lab\">Taught in</b> this unit, the Teach box directly above.</p>\r\n<p class=\"row\"><b class=\"lab\">Trap</b> classifying by instruction name instead of by\r\nregister. The mnemonic tells you nothing; only the registers do. Write down what each\r\ninstruction <i>writes</i> and what it <i>reads</i>, then look for the same name on both\r\nsides. That method is also the only thing that shows you pair 3 has no overlap at all.</p>"
+      },
+      "exam": {
+        "problem": "<p>Answer <b>2020/2021 Q1(c)</b> in full in your book, then open this and mark yourself against it.</p>",
+        "answer": "<p><b>(i)</b></p>\r\n<div class=\"answerbox\">Read after write (RAW), write after read (WAR), and write after\r\nwrite (WAW). RAW is a true dependency; WAR and WAW are name dependencies that arise when\r\ninstructions are reordered.</div>\r\n<p><b>(ii)</b> Take each pair and list what it writes and what it reads. The register, not\r\nthe mnemonic, decides the answer.</p>\r\n<table class=\"data\">\r\n<tr><th>Pair</th><th>Writes</th><th>Reads</th><th>Register in common</th><th>Hazard</th></tr>\r\n<tr><td>1. MULTD F0, F2, F4<br>&nbsp;&nbsp;&nbsp;DIVD F10, F0, F6</td>\r\n    <td>F0<br>F10</td><td>F2, F4<br>F0, F6</td>\r\n    <td>F0: written first, read second</td><td><b>RAW</b></td></tr>\r\n<tr><td>2. DIVD F10, F0, F6<br>&nbsp;&nbsp;&nbsp;ADDD F6, F8, F2</td>\r\n    <td>F10<br>F6</td><td>F0, F6<br>F8, F2</td>\r\n    <td>F6: read first, written second</td><td><b>WAR</b></td></tr>\r\n<tr><td>3. MULTD F0, F2, F4<br>&nbsp;&nbsp;&nbsp;SD F8, 50 (R5)</td>\r\n    <td>F0<br>memory at R5+50</td><td>F2, F4<br>F8, R5</td>\r\n    <td>none</td><td><b>none as printed</b></td></tr>\r\n</table>\r\n<div class=\"answerbox\">1 is <b>RAW</b>, a true dependency: DIVD needs the F0 that MULTD has\r\nnot finished writing. 2 is <b>WAR</b>, an anti-dependency: ADDD would overwrite the F6 that\r\nDIVD still has to read. 3, <b>as the paper prints it, is no hazard at all</b>: the two\r\ninstructions touch no register in common.</div>\r\n<div class=\"redo\"><b>What to write in the hall.</b> Answer pair 3 the way the page is\r\nprinted, then add one line: \"as printed these two share no register, so there is no data\r\nhazard; had the store referenced F0 it would be WAW, write after write.\" That earns the\r\nmark for the analysis and shows the examiner you read the registers rather than pattern\r\nmatching on the position in the list.</div>"
+      },
+      "frames": []
+    }
+  ]
+}
