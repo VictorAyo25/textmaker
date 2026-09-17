@@ -1196,6 +1196,12 @@ function checkLessons(cfg, dir, bankModules, ledger, all) {
         );
         check(picked.length > 0, `${where}: asks no questions at all`);
         for (const q of picked) {
+          // A "Learn by doing" lesson asks, on purpose, questions the teaching
+          // lessons already asked: it is the module sat again as a paper. This
+          // rule is about the TEACHING sequence, where the same question in two
+          // lessons means one of them sends the reader elsewhere to be tested,
+          // so a lesson that says revision is counted by neither side of it.
+          if (l.revision) continue;
           if (asked.has(q.id))
             problems.push(
               `${cfg.code}: question ${q.id} is asked by two lessons, ${asked.get(q.id)} and ${l.slug}`

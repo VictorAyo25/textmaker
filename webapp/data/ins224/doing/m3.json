@@ -1,0 +1,179 @@
+{
+  "kick": "Module Three",
+  "title": "Learn by Doing: Module Three",
+  "lead": "Module Three sat as a paper: fifty objective questions on objects and UML, then three theory questions with their practicals, each answered as you would write it and then taught from nothing.",
+  "minutes": 85,
+  "intro": "<p><b>This is the module your Question 3 comes from, and Question 3 is the one you plan not to write.</b> Do Part A whatever happens: the objective section is mixed across all three modules, so Module Three's definitions are on the paper either way.</p><div class=\"keypoint\"><span class=\"kplab\">How to sit it</span><p><b>Part A, fifty objective questions</b>, every fact this module carries. This is the part that pays, because it is where Module Three's marks actually are for you.</p><p><b>Part B, three theory questions.</b> Work these if Friday leaves time, and Question 3 turns into a real fallback instead of a blank page. If you have to choose, do the first one: it is the course text's own assignment, and inheritance with polymorphism is the most quotable thing in the module.</p></div>",
+  "questions": [
+    {
+      "heading": "Candidate classes, inheritance and polymorphism in a hotel",
+      "marks": "17.5 marks",
+      "scenario": {
+        "printed": true,
+        "src": "coursetext:M3U1-p100",
+        "tag": "Course text, Module Three Unit 1, page 100",
+        "text": "1. Consider a simple hotel booking system, where a Guest books a Room for a period.\na. Identify at least three candidate classes for this system.\nb. For each class, list two attributes and two operations.\n2. The same hotel offers both Standard Rooms and Suites, and both charge a booking fee, but the fee is calculated differently for each.\na. Explain, with reference to this scenario, how inheritance could be used to model Standard Room and Suite.\nb. Explain how polymorphism would allow a single calculateFee() call to behave correctly, whether it is called on a Standard Room object or a Suite object."
+      },
+      "asked": "<table><tr><th>Part</th><th>What to write</th><th>Marks</th></tr><tr><td>(a)</td><td>The three things every object has, and the three core concepts of object orientation, defined</td><td>4.5</td></tr><tr><td>(b i)</td><td>At least three candidate classes for the hotel booking system, each with two attributes and two operations</td><td>5</td></tr><tr><td>(b ii)</td><td>How inheritance models Standard Room and Suite, with reference to this scenario</td><td>4</td></tr><tr><td>(b iii)</td><td>How polymorphism lets one calculateFee call behave correctly on either object, and a class diagram fragment showing it</td><td>4</td></tr></table>",
+      "breakdown": {
+        "question": "<p>What tells you, in the scenario's own words, that inheritance is the right answer rather than two unrelated classes? And what would you draw to show it?</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">The words</b> \"both charge a booking fee, but the fee is calculated differently for each\". Same thing, done differently: that is a shared parent with two children that override one operation.</p><p class=\"row\"><b class=\"lab\">The drawing</b> A Room superclass with calculateFee(), and Standard Room and Suite below it, each joined by a line with a HOLLOW TRIANGLE arrowhead pointing UP at Room.</p><p class=\"row\"><b class=\"lab\">Candidate classes</b> Nouns in the scenario that the system keeps data about and that do something: Guest, Room, Booking. Payment is defensible as a fourth.</p><p class=\"row\"><b class=\"lab\">Marks</b> The theory half here is the definitions, so give them crisply and spend your time on part b, where the explanation has to name the scenario.</p>"
+      },
+      "exam": {
+        "problem": "<p>(a) The three things every object has and the three core concepts of object orientation. (b) For the hotel: three candidate classes with two attributes and two operations each; how inheritance models Standard Room and Suite; and how polymorphism lets one calculateFee() call behave correctly on either.</p>",
+        "answer": "<p><b>(a) What every object has, and what object orientation rests on.</b></p><p>An object is a thing in the system that has:</p><table><tr><th>Property</th><th>What it means</th><th>In the hotel</th></tr><tr><td>State</td><td>Its data, the values of its attributes at a moment</td><td>Room 214 is occupied, its rate is 45,000</td></tr><tr><td>Behaviour</td><td>The operations it can perform</td><td>The room can be reserved, released, or have its fee calculated</td></tr><tr><td>Identity</td><td>It is a distinct thing, separate from every other object even with identical data</td><td>Two suites with the same rate are still two different rooms</td></tr></table><p>The three core concepts:</p><ul><li><b>Encapsulation:</b> an object hides its internal data and exposes only its operations, so the inside can change without breaking anything outside.</li><li><b>Inheritance:</b> a class reuses the attributes and operations of a more general class, and adds or changes what is specific to it.</li><li><b>Polymorphism:</b> one call, many behaviours. The same operation name behaves correctly according to the object it is called on.</li></ul><p><b>(b i) Candidate classes for the hotel booking system.</b></p><table><tr><th>Class</th><th>Attributes</th><th>Operations</th></tr><tr><td><b>Guest</b></td><td>guest_id, name (also phone_number, address)</td><td>makeBooking(), cancelBooking()</td></tr><tr><td><b>Room</b></td><td>room_number, rate (also room_type, status)</td><td>checkAvailability(), calculateFee()</td></tr><tr><td><b>Booking</b></td><td>booking_id, check_in_date (also check_out_date, total_cost)</td><td>confirm(), cancel()</td></tr><tr><td><b>Payment</b> (a defensible fourth)</td><td>payment_id, amount</td><td>processPayment(), issueReceipt()</td></tr></table><p>Each is drawn as a rectangle with <b>three compartments</b>: the class name at the top, the attributes in the middle, the operations at the bottom.</p><p><b>(b ii) Inheritance, with reference to this scenario.</b></p><p>Standard Room and Suite are both rooms. They share everything that makes a room a room: a room number, a status, the ability to be checked for availability and to be reserved. Repeating those in two separate classes would duplicate the same attributes and operations twice and leave two places to maintain whenever a rule changes.</p><p>So <b>Room</b> becomes the superclass, holding room_number, rate and status, together with the operations checkAvailability(), reserve() and calculateFee(). <b>Standard Room</b> and <b>Suite</b> become subclasses of Room. Each inherits everything Room has, and each adds only what is peculiar to it: Suite might add lounge_size and a complimentary breakfast flag, Standard Room might add bed_type.</p><p>In the class diagram this is drawn as a line from each subclass up to Room, with a <b>hollow triangle arrowhead touching the superclass</b>, that is Room. The arrowhead always points at the more general class.</p><p><b>(b iii) Polymorphism, and the single calculateFee() call.</b></p><p>The scenario says both charge a booking fee but calculate it differently. Inheritance puts calculateFee() on Room; polymorphism lets each subclass <b>override</b> it with its own version:</p><ul><li><b>Standard Room's calculateFee()</b> might be nights multiplied by the standard nightly rate.</li><li><b>Suite's calculateFee()</b> might be nights multiplied by the suite rate, plus a service charge, less a discount for a stay over a week.</li></ul><p>The rest of the system does not care. The booking process holds a Room, calls <code>room.calculateFee()</code>, and the version that runs is the version belonging to the actual object: the Standard Room's if it is a standard room, the Suite's if it is a suite. <b>One call, many behaviours</b>, resolved by the object rather than by the caller.</p><p>What that buys the hotel: when the hotel adds a third room type, say an Executive Room, nothing in the booking process changes. A new subclass of Room is written with its own calculateFee(), and the existing call keeps working. That is the practical point of polymorphism, and it is worth the closing sentence of the answer.</p>"
+      },
+      "frames": [
+        {
+          "check": "",
+          "teach": "Object orientation starts from a different idea to everything before it. Instead of separating the data from the procedures that work on it, you put them together: an <b>object</b> is a thing that holds its own data and knows its own operations.",
+          "ask": "Think of one hotel room as an object. What data does it hold, and what can be done to it?"
+        },
+        {
+          "check": "Data: number, rate, whether it is free. Operations: reserve it, release it, price it.",
+          "teach": "The text names three things every object has: <b>state</b>, its data; <b>behaviour</b>, its operations; and <b>identity</b>, being a distinct thing even if another object has the same values. Learn those three as a set, because they are asked as a set.",
+          "ask": "A CLASS is not the same as an object. What is the difference, in one line?"
+        },
+        {
+          "check": "The class is the template or category; the object is one actual instance of it.",
+          "teach": "Room is the class; room 214 is an object. A class is drawn as a rectangle in <b>three compartments</b>: name, attributes, operations. To find candidate classes, take the nouns in the scenario that the system keeps data about and that do something: Guest, Room, Booking.",
+          "ask": "The hotel has Standard Rooms and Suites. Would you write two unrelated classes for them, and why not?"
+        },
+        {
+          "check": "No: nearly everything about them is identical, so it would be written and maintained twice.",
+          "teach": "That is what <b>inheritance</b> is for. Put everything shared in a general class, Room, and let Standard Room and Suite be subclasses that inherit it and add only their own bits. Drawn as a line with a <b>hollow triangle arrowhead pointing at the superclass</b>.",
+          "ask": "Now the awkward part of the scenario: both charge a fee, but they calculate it differently. Where does calculateFee() live?"
+        },
+        {
+          "check": "On Room, and each subclass overrides it with its own version.",
+          "teach": "That is <b>polymorphism</b>: one call, many behaviours. The booking process calls calculateFee() on whatever room it is holding, and the version that runs belongs to the actual object. The caller does not ask what type it is.",
+          "ask": "Say the hotel adds a third room type next year. What has to change in the booking process?"
+        },
+        {
+          "check": "Nothing.",
+          "teach": "That is the sentence to finish on, because it shows why polymorphism is worth having rather than just what it means: a new subclass with its own calculateFee() slots in and every existing call keeps working.",
+          "ask": "The third core concept is encapsulation. What does it hide, and why would you want that?"
+        },
+        {
+          "check": "It hides the object's internal data, exposing only its operations, so the inside can change without breaking the outside.",
+          "teach": "Encapsulation, inheritance, polymorphism: those three, with state, behaviour and identity, are the whole of Module Three Unit 1 and they are asked directly. When a question says \"with reference to this scenario\", name the scenario's own classes in every sentence of your explanation.",
+          "ask": ""
+        }
+      ]
+    },
+    {
+      "heading": "Behavioural UML, and an order that can be cancelled",
+      "marks": "17.5 marks",
+      "scenario": {
+        "printed": false,
+        "tag": "written for practice, in the shape the lecturer confirmed",
+        "text": "<p>A campus food delivery app takes orders from students. The student selects items from a vendor's menu and places the order. The app asks the payment service to charge the student's card. If payment succeeds the order is sent to the vendor, who prepares it and marks it ready, and a rider then collects it and delivers it to the student, who confirms receipt. A student may cancel an order at any time before the vendor marks it ready, in which case the payment is refunded. If payment fails the order never reaches the vendor.</p>"
+      },
+      "asked": "<table><tr><th>Part</th><th>What to write</th><th>Marks</th></tr><tr><td>(a)</td><td>How UML groups its diagrams, naming which are structural and which are behavioural, and state what UML is and is not</td><td>5</td></tr><tr><td>(b i)</td><td>Draw a sequence diagram for a successful order, from placing it to delivery</td><td>6</td></tr><tr><td>(b ii)</td><td>Draw a state chart for the Order object, with at least four states and the cancelled path</td><td>4.5</td></tr><tr><td>(b iii)</td><td>Say why a state chart and not an activity diagram was the right tool for (b ii), and how a collaboration diagram would differ from your answer to (b i)</td><td>2</td></tr></table>",
+      "breakdown": {
+        "question": "<p>Three pairs of diagrams get confused, and this question is built on two of them. Name the pairs and the one sentence that separates each.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Pair one</b> Sequence against collaboration. A sequence diagram organises by TIME, which runs down the page. A collaboration diagram organises by STRUCTURE, with the messages numbered to give the order.</p><p class=\"row\"><b class=\"lab\">Pair two</b> State chart against activity. A state chart tracks ONE OBJECT changing state. An activity diagram tracks a PROCESS flowing through steps, with decision diamonds.</p><p class=\"row\"><b class=\"lab\">Pair three</b> Component against deployment. Component is software, deployment is hardware. Not asked here, but asked constantly.</p><p class=\"row\"><b class=\"lab\">The give away</b> The question says \"the Order object\", singular. One object changing means a state chart.</p><p class=\"row\"><b class=\"lab\">Do not omit</b> The cancelled path. The text makes the point deliberately: not every object runs in a straight line to completion, and the failure branch is where the mark is.</p>"
+      },
+      "exam": {
+        "problem": "<p>(a) How UML groups its diagrams, and what UML is and is not. (b) For the campus food delivery app: a sequence diagram for a successful order, a state chart for the Order object with the cancelled path, and why a state chart rather than an activity diagram, plus how a collaboration diagram would differ.</p>",
+        "answer": "<p><b>(a) What UML is, and how its diagrams are grouped.</b></p><p>UML, the Unified Modelling Language, is a <b>notation</b>: a standard set of symbols for modelling an object oriented system. It is <b>not a method or a methodology</b>. It tells you how to draw, not what order to work in, which is why it can be used inside any methodology.</p><table><tr><th>Structural diagrams, the static shape</th><th>Behavioural diagrams, what happens over time</th></tr><tr><td>Class diagram<br>Component diagram<br>Deployment diagram</td><td>Use case diagram<br>Sequence diagram<br>Activity diagram<br>State chart diagram<br>Collaboration diagram</td></tr></table><p>Two that are asked as traps: the <b>use case diagram is classed as behavioural</b>, not structural. And <b>component is software</b>, that is the software modules and their interfaces, while <b>deployment is hardware</b>, the physical nodes the software runs on.</p><p><b>(b i) The sequence diagram for a successful order.</b> Built in the text's four steps: place the objects on lifelines, put the messages in order, draw the arrows, number them if needed. <b>Time runs down the page.</b></p><p>Five participants across the top, each a box with a dashed <b>lifeline</b> hanging down and an activation bar where it is working: <b>Student</b>, <b>Order System</b>, <b>Payment Service</b>, <b>Vendor</b>, <b>Rider</b>.</p><table><tr><th>Step</th><th>Message, from and to</th><th>Arrow</th></tr><tr><td>1</td><td>placeOrder(items) from Student to Order System</td><td>Solid, a request</td></tr><tr><td>2</td><td>chargeCard(amount) from Order System to Payment Service</td><td>Solid</td></tr><tr><td>3</td><td>paymentConfirmed() from Payment Service back to Order System</td><td>Dashed, a response</td></tr><tr><td>4</td><td>sendOrder(orderDetails) from Order System to Vendor</td><td>Solid</td></tr><tr><td>5</td><td>orderReady() from Vendor to Order System</td><td>Dashed</td></tr><tr><td>6</td><td>assignDelivery(order) from Order System to Rider</td><td>Solid</td></tr><tr><td>7</td><td>deliverOrder() from Rider to Student</td><td>Solid</td></tr><tr><td>8</td><td>confirmReceipt() from Student to Order System</td><td>Solid</td></tr></table><p>Solid arrows are requests, dashed arrows are responses, and the vertical order of the arrows IS the order of events: there are no numbers needed unless the diagram is crowded.</p><p><b>(b ii) The state chart for the Order object.</b> A state chart tracks one object through its states. Six states, with the transitions labelled by the event that causes them:</p><table><tr><th>From</th><th>Event</th><th>To</th></tr><tr><td>Initial state (filled circle)</td><td>student places order</td><td><b>Placed</b></td></tr><tr><td>Placed</td><td>payment confirmed</td><td><b>Paid</b></td></tr><tr><td>Placed</td><td>payment failed</td><td><b>Rejected</b> (final state)</td></tr><tr><td>Paid</td><td>vendor accepts</td><td><b>Preparing</b></td></tr><tr><td>Paid or Preparing</td><td>student cancels before ready</td><td><b>Cancelled</b>, with refund issued (final state)</td></tr><tr><td>Preparing</td><td>vendor marks ready</td><td><b>Ready</b></td></tr><tr><td>Ready</td><td>rider collects</td><td><b>Out for delivery</b></td></tr><tr><td>Out for delivery</td><td>student confirms receipt</td><td><b>Delivered</b> (final state, drawn as a circled dot)</td></tr></table><p>The cancelled and rejected branches are drawn, not described, because the failure path is what the question is testing.</p><p><b>(b iii) Why a state chart, and how a collaboration diagram would differ.</b></p><p><b>Why a state chart:</b> the question asks about one object, the Order, and what it turns into as events happen to it. A state chart tracks a single object changing state. An activity diagram would be the tool if I were asked to show the whole ordering PROCESS flowing through its steps with decision diamonds, for example the branch where the app checks whether the vendor is open. States of one thing, not steps of a process.</p><p><b>How a collaboration diagram would differ:</b> it would show the same five participants and the same eight messages, but arranged by <b>structure</b> rather than by time: the objects positioned as they connect to one another, with the messages written along the links and <b>numbered</b> 1 to 8 to give the sequence. A sequence diagram gets its order from the vertical axis; a collaboration diagram gets it from the numbers.</p>"
+      },
+      "frames": [
+        {
+          "check": "",
+          "teach": "UML is a set of drawing symbols, nothing more: the <b>Unified Modelling Language</b>. The trap in the objective section is that it is a NOTATION, not a method, so it never tells you what to do first.",
+          "ask": "Its diagrams split into two families. One shows the shape of the system, one shows what happens over time. What would you call them?"
+        },
+        {
+          "check": "Structural and behavioural.",
+          "teach": "<b>Structural:</b> class, component, deployment. <b>Behavioural:</b> use case, sequence, activity, state chart, collaboration. The use case diagram is behavioural, which surprises people, and component is software while deployment is hardware.",
+          "ask": "You want to show the messages that pass between a student, an app, a payment service, a vendor and a rider, in order. Which diagram?"
+        },
+        {
+          "check": "A sequence diagram.",
+          "teach": "Four steps: put the objects across the top on <b>lifelines</b>, put the messages in order, draw the arrows, number them if needed. <b>Time runs down the page.</b> Solid arrow for a request, dashed arrow for a response.",
+          "ask": "Where does the ORDER of events come from on that diagram, if nothing is numbered?"
+        },
+        {
+          "check": "From the vertical position: higher means earlier.",
+          "teach": "That is exactly what separates it from a <b>collaboration diagram</b>, which shows the same objects and messages arranged by structure, with the messages NUMBERED because there is no time axis to read. Sequence organises by time, collaboration by structure.",
+          "ask": "Now the second half. The question asks about the Order object, and what it turns into. Which diagram is that, and which one is it NOT?"
+        },
+        {
+          "check": "A state chart, not an activity diagram.",
+          "teach": "The rule: a <b>state chart tracks ONE OBJECT changing state</b>; an <b>activity diagram tracks a PROCESS flowing through steps</b>, with decision diamonds. The question's own wording gives it away when it names a single object.",
+          "ask": "List the states an order passes through in this app, from placed to delivered."
+        },
+        {
+          "check": "Placed, Paid, Preparing, Ready, Out for delivery, Delivered.",
+          "teach": "Each is a rounded box, joined by arrows labelled with the EVENT that causes the change: \"payment confirmed\", \"vendor marks ready\". Start at a filled circle, end at a circled dot.",
+          "ask": "That is the happy path. What has the scenario given you that you have not drawn, and where is the mark?"
+        },
+        {
+          "check": "The cancellation before the order is ready, and the failed payment.",
+          "teach": "The text makes the point deliberately: not every object follows a single straight line through its states. Draw the branch from Placed to <b>Rejected</b> on payment failure, and the branch from Paid or Preparing to <b>Cancelled</b> with a refund. The failure path is where the mark is, in every state chart question.",
+          "ask": ""
+        }
+      ]
+    },
+    {
+      "heading": "Class relationships, and an e-library that lends by campus",
+      "marks": "17.5 marks",
+      "scenario": {
+        "printed": false,
+        "tag": "written for practice, in the shape the lecturer confirmed",
+        "text": "<p>A university runs an e-library across three campuses. Each campus library holds many copies of a title, and if a campus library is closed down its copies are withdrawn with it, since they belong to that library alone. A member borrows a copy on a loan, and a member may have many loans over time. Every loan is for exactly one copy. Members belong to the university and continue to exist whether or not any particular campus library does. A member with unpaid fines may not borrow, and the system checks that when a loan is requested. Each campus library is staffed by librarians, who may be transferred between campuses and remain employees of the university when a library closes.</p>"
+      },
+      "asked": "<table><tr><th>Part</th><th>What to write</th><th>Marks</th></tr><tr><td>(a)</td><td>The six activities of object oriented design, and the four class relationships with their notation</td><td>6</td></tr><tr><td>(b i)</td><td>Draw a class diagram with at least four classes showing attributes, operations, relationships and multiplicity, using aggregation and composition correctly</td><td>7</td></tr><tr><td>(b ii)</td><td>Draw an activity diagram for borrowing a copy, including the decision point for unpaid fines</td><td>4.5</td></tr></table>",
+      "breakdown": {
+        "question": "<p>Two sentences in the scenario exist only to tell you which relationship to draw where. Find them, and say what each forces.</p>",
+        "answer": "<p class=\"row\"><b class=\"lab\">Sentence one</b> \"if a campus library is closed down its copies are withdrawn with it, since they belong to that library alone\". The part dies with the whole, so that is COMPOSITION, drawn with a filled diamond.</p><p class=\"row\"><b class=\"lab\">Sentence two</b> \"librarians may be transferred between campuses and remain employees of the university when a library closes\". The part survives the whole, so that is AGGREGATION, drawn with a hollow diamond.</p><p class=\"row\"><b class=\"lab\">Asked</b> Bookwork on the design activities and the four relationships, then a class diagram, then an activity diagram with a decision.</p><p class=\"row\"><b class=\"lab\">The decision point</b> The unpaid fines check is a diamond in the activity diagram with two labelled branches, and the answer must show both.</p>"
+      },
+      "exam": {
+        "problem": "<p>(a) The six activities of object oriented design and the four class relationships with notation. (b) For the campus e-library: a class diagram with four or more classes using aggregation and composition correctly, and an activity diagram for borrowing that includes the unpaid fines decision.</p>",
+        "answer": "<p><b>(a) The six activities of object oriented design.</b> They are iterative, not linear: you go round them again as the model improves.</p><ol><li>Identify the candidate classes.</li><li>Identify the relationships between them.</li><li>Identify the attributes and operations of each class.</li><li>Draw the class diagram.</li><li>Draw the sequence diagram.</li><li>Check the model back against the use cases.</li></ol><p><b>The four class relationships.</b></p><table><tr><th>Relationship</th><th>Meaning</th><th>Notation</th></tr><tr><td>Association</td><td>A structural link between two classes, marked with multiplicity at each end</td><td>A plain line, with numbers such as 1 or 0..* at the ends</td></tr><tr><td>Aggregation</td><td>A whole and its parts, where the PART SURVIVES the whole</td><td>A line with a HOLLOW diamond at the whole end</td></tr><tr><td>Composition</td><td>A whole and its parts, where the PART DIES WITH the whole</td><td>A line with a FILLED diamond at the whole end</td></tr><tr><td>Inheritance or generalisation</td><td>A subclass is a kind of its superclass and inherits its attributes and operations</td><td>A line with a HOLLOW TRIANGLE arrowhead touching the superclass</td></tr></table><p><b>(b i) The class diagram.</b> Five classes, each drawn in three compartments.</p><table><tr><th>Class</th><th>Attributes</th><th>Operations</th></tr><tr><td><b>CampusLibrary</b></td><td>library_id, campus_name, opening_hours</td><td>addCopy(), closeLibrary()</td></tr><tr><td><b>Copy</b></td><td>copy_id, title, shelf_mark, status</td><td>markOnLoan(), markAvailable()</td></tr><tr><td><b>Member</b></td><td>member_id, name, fines_owed</td><td>requestLoan(), payFine()</td></tr><tr><td><b>Loan</b></td><td>loan_id, date_out, date_due, date_returned</td><td>issue(), returnCopy(), calculateFine()</td></tr><tr><td><b>Librarian</b></td><td>staff_id, name, grade</td><td>issueLoan(), transferCampus()</td></tr></table><p><b>The relationships, with multiplicity and the reason for each:</b></p><table><tr><th>Relationship</th><th>Multiplicity</th><th>Why that one</th></tr><tr><td>CampusLibrary <b>composes</b> Copy</td><td>1 to 0..*</td><td>Filled diamond at CampusLibrary. The scenario says copies are withdrawn with the library because they belong to it alone: the part dies with the whole</td></tr><tr><td>CampusLibrary <b>aggregates</b> Librarian</td><td>1 to 0..*</td><td>Hollow diamond at CampusLibrary. Librarians transfer between campuses and remain employees when a library closes: the part survives the whole</td></tr><tr><td>Member <b>association</b> Loan</td><td>1 to 0..*</td><td>A member may have many loans over time, each loan belongs to one member</td></tr><tr><td>Copy <b>association</b> Loan</td><td>1 to 0..*</td><td>Every loan is for exactly one copy, and a copy is lent many times over its life</td></tr><tr><td>Librarian <b>association</b> Loan</td><td>1 to 0..*</td><td>The librarian who issued the loan, if the system records it</td></tr></table><p><b>The pair the examiner is testing:</b> aggregation and composition look the same on the page apart from the diamond, so say in words why each is what it is. The part survives the whole in aggregation; the part dies with it in composition.</p><p><b>(b ii) The activity diagram for borrowing a copy.</b> An activity diagram shows a process flowing through steps, with decision diamonds where it branches.</p><ol><li><b>Filled circle,</b> the start.</li><li><b>Member requests loan</b> of a copy.</li><li><b>System identifies the copy</b> and checks its status.</li><li><b>Decision diamond: is the copy available?</b> Branch labelled <b>no</b> goes to \"Offer reservation\" and then to the end. Branch labelled <b>yes</b> continues.</li><li><b>Decision diamond: does the member have unpaid fines?</b> Branch labelled <b>yes</b> goes to \"Refuse loan and display fines owed\" and then to the end. Branch labelled <b>no</b> continues.</li><li><b>Create loan record</b> with the date out and the date due.</li><li><b>Mark the copy as on loan.</b></li><li><b>Issue the copy to the member</b> and print or display the receipt.</li><li><b>Circled dot,</b> the end.</li></ol><p>Both branches of both decisions are drawn and labelled, because an unlabelled branch is worth nothing, and the refusal path is the one the question named.</p><p>If the diagram is drawn with <b>swimlanes</b>, one for Member, one for System and one for Librarian, each action sits in the lane of whoever performs it, which is worth an extra mark where the question mentions who does what.</p>"
+      },
+      "frames": [
+        {
+          "check": "",
+          "teach": "A class diagram is the structural picture of an object oriented system: the classes, what each holds and does, and how they are joined. The joins carry most of the marks, because there are four kinds and they look alike.",
+          "ask": "A campus library holds copies of books. If the library closes, the copies go with it. Is that just a plain link?"
+        },
+        {
+          "check": "No, it is stronger: one thing is part of another.",
+          "teach": "Whole and part has two flavours, and one clause decides it. <b>Aggregation:</b> the part SURVIVES the whole, drawn with a HOLLOW diamond. <b>Composition:</b> the part DIES WITH the whole, drawn with a FILLED diamond.",
+          "ask": "Copies are withdrawn when the library closes. Librarians transfer to another campus. Which is which?"
+        },
+        {
+          "check": "Library and copies is composition. Library and librarians is aggregation.",
+          "teach": "That pair is asked in nearly every objective test and in every class diagram question. The other two relationships: <b>association</b>, a plain line with multiplicity such as 1 and 0..*, and <b>inheritance</b>, a line with a hollow triangle touching the superclass.",
+          "ask": "How many classes should this diagram have, and where do you get them from?"
+        },
+        {
+          "check": "From the nouns the system keeps data about: CampusLibrary, Copy, Member, Loan, Librarian.",
+          "teach": "The five step class diagram procedure: classes from the use cases, then relationships and multiplicity, then attributes, then operations, then check back against the use cases. Write those steps as headings in the exam, and answer under each.",
+          "ask": "Why is Loan a class of its own, rather than an attribute of Member?"
+        },
+        {
+          "check": "Because it has its own data: dates out, due and returned, and its own operations.",
+          "teach": "Same reasoning as an associative entity in an ERD, one module earlier. Member to Loan is 1 to 0..*, Copy to Loan is 1 to 0..*, and every loan joins exactly one member to exactly one copy.",
+          "ask": "Now the second diagram. Borrowing is a process with a check in the middle. Which UML diagram shows a process with branches?"
+        },
+        {
+          "check": "An activity diagram.",
+          "teach": "Start at a filled circle, end at a circled dot, actions in rounded boxes, and a <b>decision diamond</b> wherever the flow branches. It tracks a PROCESS, unlike a state chart, which tracks ONE OBJECT changing state.",
+          "ask": "The fines check is the decision. What do most answers forget to do to its two branches?"
+        },
+        {
+          "check": "Label them, yes and no, and draw where each one goes.",
+          "teach": "An unlabelled branch earns nothing, and a branch that goes nowhere is worse. Both paths must reach an end: the refusal path ends after \"refuse loan and show fines owed\". If the question mentions who does what, add <b>swimlanes</b>, one per actor, and put each action in its owner's lane.",
+          "ask": ""
+        }
+      ]
+    }
+  ],
+  "lockin": {
+    "big": "\"State, behaviour, identity. Encapsulation, inheritance, polymorphism. Then six design activities, four class relationships, and the failure path drawn in.\"",
+    "sub": "Hollow diamond the part lives, filled diamond it dies. Sequence organises by time, collaboration by number. State chart is one object, activity is a process. Component is software, deployment is hardware."
+  }
+}
