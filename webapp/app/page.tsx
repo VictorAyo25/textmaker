@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { COURSES } from '@/data/courses';
 import { courseHasDoing, doingCards, lessonCards } from '@/data/lessons';
+import BOOKS from '@/data/question-books.json';
 import Timetable from '@/components/Timetable';
 import Providers from '@/components/Providers';
 import AuthBar from '@/components/AuthBar';
@@ -104,6 +105,39 @@ export default function Page() {
           </div>
         </section>
       )}
+
+      {/* Every question, solved, as a file you can read with no signal and no
+          battery anxiety. Built from the same bank by scripts/make-question-book-pdf.mjs,
+          so it cannot drift from what the app shows. */}
+      <section className="card pdfcard">
+        <h2>Question books, as PDFs</h2>
+        <p className="help">
+          Every question each course owns, the examiner's own tests included, with the
+          answer marked, why each wrong option is wrong, and the reasoning under it. The
+          same bank the drill uses, printed.
+        </p>
+        <div className="pdflinks">
+          {visible
+            .filter((c) => !c.taken && (BOOKS as Record<string, { file: string; pages: number; mb: number }>)[c.code])
+            .map((c) => {
+              const b = (BOOKS as Record<string, { file: string; pages: number; mb: number }>)[c.code];
+              return (
+                <a className="pdflink" key={c.code} href={b.file} download>
+                  <b>{c.code}</b>
+                  <span>
+                    {b.pages} pages &middot; {b.mb} MB
+                  </span>
+                </a>
+              );
+            })}
+          <a className="pdflink all" href={BOOKS.ALL.file} download>
+            <b>All three in one</b>
+            <span>
+              {BOOKS.ALL.pages} pages &middot; {BOOKS.ALL.mb} MB
+            </span>
+          </a>
+        </div>
+      </section>
 
       {/* Sign-in used to live only inside a course, which was fine when one
           person used one laptop. Anyone arriving at the platform should be able

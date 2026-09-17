@@ -26,6 +26,7 @@ const WORKED: Record<string, WorkedSolution> = {
   ...(WORKED_TUTORIAL as Record<string, WorkedSolution>),
 };
 import { answerText, blankedPrompt, buildBook, SPEED } from '@/lib/questionbook';
+import BOOKS from '@/data/question-books.json';
 
 /**
  * Every question this course owns, solved, arranged by topic and ordered easy
@@ -79,6 +80,22 @@ export default async function Page({ params }: { params: Promise<{ course: strin
         aside={{ label: 'The drill', href: `/${found.code.toLowerCase()}` }}
       />
 
+      {(BOOKS as Record<string, { file: string; pages: number; mb: number }>)[found.code] && (
+        <p className="pdfline noprint">
+          <a
+            className="btn"
+            href={(BOOKS as Record<string, { file: string; pages: number; mb: number }>)[found.code].file}
+            download
+          >
+            Download this as a PDF
+          </a>
+          <span className="note">
+            {(BOOKS as Record<string, { file: string; pages: number; mb: number }>)[found.code].pages}{' '}
+            pages, {(BOOKS as Record<string, { file: string; pages: number; mb: number }>)[found.code].mb} MB,
+            readable with no signal
+          </span>
+        </p>
+      )}
       <div className="card">
         <h2>How this is arranged</h2>
         <p className="help">
