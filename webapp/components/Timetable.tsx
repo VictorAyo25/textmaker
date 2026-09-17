@@ -11,7 +11,7 @@ import { EXAMS, countdown, longDate } from '@/data/timetable';
  * cannot know, so the highlighting is decided in the browser after mount. Before
  * that the rows still read correctly, they are simply all the same weight.
  */
-export default function Timetable({ onDrill }: { onDrill: string[] }) {
+export default function Timetable({ onDrill, omit = [] }: { onDrill: string[]; omit?: string[] }) {
   const [today, setToday] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,15 +23,19 @@ export default function Timetable({ onDrill }: { onDrill: string[] }) {
     );
   }, []);
 
-  const nextUp = today ? EXAMS.find((e) => e.at.slice(0, 10) >= today)?.code : null;
-  const days = [...new Set(EXAMS.map((e) => e.at.slice(0, 10)))];
+  // A course hidden from the landing page is hidden here too, or "hide it"
+  // would leave its name on the front page in the one card nobody thought of.
+  const papers = EXAMS.filter((e) => !omit.includes(e.code));
+  const nextUp = today ? papers.find((e) => e.at.slice(0, 10) >= today)?.code : null;
+  const days = [...new Set(papers.map((e) => e.at.slice(0, 10)))];
 
   return (
     <div className="card timetable">
       <h2>Exam week</h2>
       <p className="help">
-        Seven papers in five days. The two on the drill carry a dated reading plan;
-        the rest name the manual to revise from.
+        {papers.length} paper{papers.length === 1 ? '' : 's'} in {days.length} day
+        {days.length === 1 ? '' : 's'}. The ones on the drill carry a dated reading plan; the
+        rest name the manual to revise from.
       </p>
       {days.map((day) => (
         <section className={`tday ${today && day < today ? 'past' : ''}`} key={day}>
@@ -41,7 +45,7 @@ export default function Timetable({ onDrill }: { onDrill: string[] }) {
               <span className="cdown">{countdown(today, day)}</span>
             )}
           </h3>
-          {EXAMS.filter((e) => e.at.slice(0, 10) === day).map((e) => {
+          {papers.filter((e) => e.at.slice(0, 10) === day).map((e) => {
             const drillable = onDrill.includes(e.code);
             const row = (
               <>

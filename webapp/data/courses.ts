@@ -750,6 +750,9 @@ const insQuestions: Question[] = [
  * body rather than the front matter, because the front matter is incomplete.
  */
 const ins224: Course = {
+  // Off the landing page at Victor's request, still at its URL: /ins224, its
+  // crash course and its Learn by doing papers all open exactly as before.
+  hidden: true,
   code: 'INS224',
   title: 'Systems Analysis and Design',
   tagline:

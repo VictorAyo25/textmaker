@@ -75,10 +75,12 @@ export default function Page() {
         <span className="code">CU DRILL</span>
         <h1>Makeup week: four papers, from scratch</h1>
         <span className="sub">
-          IFT222 on Wednesday, Python on Thursday, then Java and INS224 on Friday. Each
-          course teaches you frame by frame, drills you on every objective question with
-          every option explained, and gives you the past theory questions to answer in your
-          book.
+          {/* The week's order lives in the Exam week card below and in each course's
+              dated plan, so this line names no course: one hidden course used to
+              leave its name here after it had been hidden everywhere else. */}
+          Each course teaches you frame by frame, drills you on every objective question
+          with every option explained, and gives you the past theory questions to answer in
+          your book.
         </span>
       </header>
 
@@ -118,7 +120,10 @@ export default function Page() {
           a reader actually has at six in the morning: what do I open now. */}
       <Dashboard courses={dash} />
 
-      <Timetable onDrill={visible.filter((c) => c.plan).map((c) => c.code)} />
+      <Timetable
+        onDrill={visible.filter((c) => c.plan).map((c) => c.code)}
+        omit={COURSES.filter((c) => c.hidden).map((c) => c.code)}
+      />
 
       <CourseList courses={cards} />
 
