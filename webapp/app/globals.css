@@ -2775,3 +2775,65 @@ p.gloss {
   letter-spacing: 0.04em;
   color: var(--muted);
 }
+
+/* ------------------------------------------------- a pipeline timing diagram
+
+   The exam asks you to DRAW this, and on paper it is a grid: one row per
+   instruction, one column per cycle, a stage written in each cell. Unstyled it
+   collapsed into a run of text, which is not a diagram, so it is drawn here:
+   ruled cells, the cycle numbers along the top, stalls tinted and the write
+   back shaded, and it scrolls inside its own box rather than pushing the page
+   sideways. */
+table.trace {
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.74rem;
+  white-space: nowrap;
+  background: var(--card);
+}
+table.trace th,
+table.trace td {
+  border: 1px solid var(--line);
+  padding: 4px 6px;
+  text-align: center;
+  min-width: 2.1em;
+}
+table.trace th {
+  background: var(--green-soft);
+  font-weight: 700;
+}
+table.trace td:first-child,
+table.trace th:first-child {
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--green-soft);
+  min-width: 5.2em;
+}
+table.trace td.out {
+  background: var(--green-soft);
+  font-weight: 700;
+}
+table.trace td.stall {
+  background: var(--red-soft);
+  color: var(--red);
+  font-weight: 700;
+}
+.lbody table.trace {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+@media print {
+  table.trace th,
+  table.trace td:first-child {
+    background: #f1f1f1;
+  }
+  table.trace td.stall {
+    background: #f6e3e2;
+  }
+  .lbody table.trace {
+    display: table;
+  }
+}
