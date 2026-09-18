@@ -2181,6 +2181,10 @@ p.gloss {
    destroys the alignment and the table stops being readable, so the block
    scrolls sideways instead and the examiner alignment is preserved exactly. */
 .asprinted pre, .lblock pre { white-space: pre; overflow-x: auto; max-width: 100%; font-size: 0.82rem; line-height: 1.5; -webkit-overflow-scrolling: touch; }
+/* An exam question is prose, not code: it wraps rather than scrolling sideways,
+   which on a phone was pushing half the question off the screen. Listings keep
+   their own rules, because a wrapped line of code reads as a different program. */
+.asprinted pre { white-space: pre-wrap; overflow-wrap: break-word; }
 @media (max-width: 640px) { .asprinted pre, .lblock pre { font-size: 0.74rem; } }
 
 /* Past-paper data tables, transcribed by hand from the examiner drawing. */
@@ -2699,4 +2703,75 @@ p.gloss {
   flex-wrap: wrap;
   gap: 10px;
   margin: 0 0 14px;
+}
+
+/* ------------------------------------------------- a table the examiner printed
+
+   Part of the question, so it keeps the paper's grid instead of collapsing into
+   a run of text lines. It sits inside the quoted <pre>, so it has to opt out of
+   the monospace and the preserved whitespace it would otherwise inherit. The
+   blank cells are the ones a candidate fills in, so they are drawn with room to
+   write rather than as hairlines. */
+.astab {
+  border-collapse: collapse;
+  width: auto;
+  max-width: 100%;
+  margin: 10px 0 6px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  white-space: normal;
+  background: var(--card);
+}
+.asprinted .astab,
+.lblock .astab {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+.astab th,
+.astab td {
+  border: 1px solid var(--line);
+  padding: 6px 9px;
+  text-align: left;
+  vertical-align: top;
+  min-width: 3.4em;
+}
+.astab th {
+  background: var(--green-soft);
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* A cell the candidate is meant to complete: empty, and visibly so. */
+.astab td:empty {
+  height: 1.9em;
+}
+@media (max-width: 640px) {
+  .astab {
+    font-size: 0.74rem;
+  }
+  .astab th,
+  .astab td {
+    padding: 5px 6px;
+  }
+}
+@media print {
+  .astab th {
+    background: #f1f1f1;
+  }
+}
+
+.pdfgrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pdfrow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pdfcode {
+  min-width: 4.5em;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }

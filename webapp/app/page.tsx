@@ -2,6 +2,10 @@ import Link from 'next/link';
 import { COURSES } from '@/data/courses';
 import { courseHasDoing, doingCards, lessonCards } from '@/data/lessons';
 import BOOKS from '@/data/question-books.json';
+
+/** The generated books, by course code, or by code plus "-theory". */
+const BOOK = (key: string) =>
+  (BOOKS as Record<string, { file: string; pages: number; mb: number }>)[key];
 import Timetable from '@/components/Timetable';
 import Providers from '@/components/Providers';
 import AuthBar from '@/components/AuthBar';
@@ -110,28 +114,38 @@ export default function Page() {
           battery anxiety. Built from the same bank by scripts/make-question-book-pdf.mjs,
           so it cannot drift from what the app shows. */}
       <section className="card pdfcard">
-        <h2>Question books, as PDFs</h2>
+        <h2>The books, as PDFs</h2>
         <p className="help">
-          Every question each course owns, the examiner's own tests included, with the
-          answer marked, why each wrong option is wrong, and the reasoning under it. The
-          same bank the drill uses, printed.
+          Two files a course, readable with no signal. The <b>question book</b> is every
+          objective question the course owns, the examiner's own tests included, with the
+          answer marked and why each wrong option is wrong. The <b>theory solutions</b> are
+          the questions you have to write: every past paper and mock, quoted as printed,
+          broken down, then answered in full.
         </p>
-        <div className="pdflinks">
+        <div className="pdfgrid">
           {visible
-            .filter((c) => !c.taken && (BOOKS as Record<string, { file: string; pages: number; mb: number }>)[c.code])
-            .map((c) => {
-              const b = (BOOKS as Record<string, { file: string; pages: number; mb: number }>)[c.code];
-              return (
-                <a className="pdflink" key={c.code} href={b.file} download>
-                  <b>{c.code}</b>
+            .filter((c) => !c.taken && BOOK(c.code))
+            .map((c) => (
+              <div className="pdfrow" key={c.code}>
+                <b className="pdfcode">{c.code}</b>
+                <a className="pdflink" href={BOOK(c.code)!.file} download>
+                  <b>Question book</b>
                   <span>
-                    {b.pages} pages &middot; {b.mb} MB
+                    {BOOK(c.code)!.pages} pages &middot; {BOOK(c.code)!.mb} MB
                   </span>
                 </a>
-              );
-            })}
+                {BOOK(`${c.code}-theory`) && (
+                  <a className="pdflink" href={BOOK(`${c.code}-theory`)!.file} download>
+                    <b>Theory solutions</b>
+                    <span>
+                      {BOOK(`${c.code}-theory`)!.pages} pages &middot; {BOOK(`${c.code}-theory`)!.mb} MB
+                    </span>
+                  </a>
+                )}
+              </div>
+            ))}
           <a className="pdflink all" href={BOOKS.ALL.file} download>
-            <b>All three in one</b>
+            <b>All three question books in one</b>
             <span>
               {BOOKS.ALL.pages} pages &middot; {BOOKS.ALL.mb} MB
             </span>

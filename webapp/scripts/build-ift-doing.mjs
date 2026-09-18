@@ -99,6 +99,30 @@ const MAN = {
   '2020-2021:Q5b:module1_unit2.html': ['overflow-sum', 4],
 };
 
+/**
+ * Answers written here, for past questions the manual quotes without solving.
+ * Keyed by the same key as MAN above.
+ */
+const OWN_ANSWERS = {
+  '2020-2021:Q4b:module4.html':
+    '<p><b>Four clear differences between RISC and CISC.</b> This year asks for four and two example processors in each family; the 2023/2024 paper asks for three of the same differences, so one table answers both.</p>' +
+    '<table><tr><th></th><th>RISC</th><th>CISC</th></tr>' +
+    '<tr><td>Instruction set</td><td>Small and simple, each instruction doing one thing</td><td>Large and complex, single instructions doing multi step work</td></tr>' +
+    '<tr><td>Instruction length</td><td>FIXED length, which makes decoding and pipelining simple</td><td>VARIABLE length, so decoding is harder and pipelining awkward</td></tr>' +
+    '<tr><td>Memory access</td><td>LOAD and STORE only: arithmetic works on registers</td><td>Instructions may operate directly on memory operands</td></tr>' +
+    '<tr><td>Control unit</td><td>Hardwired, and typically one instruction per cycle</td><td>Microcoded, and many cycles per instruction</td></tr>' +
+    '<tr><td>Registers</td><td>Many general purpose registers</td><td>Fewer registers, with more addressing modes instead</td></tr>' +
+    '<tr><td>Where the work goes</td><td>Into the compiler, which emits more instructions</td><td>Into the hardware, which does more per instruction</td></tr></table>' +
+    '<p><b>Two example processors in each category,</b> which the question asks for and which most answers forget:</p>' +
+    '<ul><li><b>RISC:</b> ARM and MIPS. SPARC and PowerPC also earn the mark.</li>' +
+    '<li><b>CISC:</b> the Intel x86 family and the Motorola 68000. The DEC VAX also earns it.</li></ul>' +
+    '<p><b>The closing sentence worth a mark:</b> the two have converged, because modern x86 processors decode their complex instructions into simple internal operations, so the difference now lives in the instruction set the programmer sees rather than in how the chip is built.</p>',
+};
+
+/** Said plainly when a question has no answer anywhere, rather than faked. */
+const missing = (p) =>
+  `<p><b>This question is quoted here without a worked answer.</b> ${p.year} ${p.number} is not solved in the manual, and nothing has been invented to fill the gap. Work it from the method taught under this topic, then check it against the questions in the same family above.</p>`;
+
 /** What each family is, for the label that names the repeat. */
 const FAMILY = {
   'arch-org': 'Architecture against organization, and Von Neumann against Harvard',
@@ -257,15 +281,10 @@ function build() {
             p.problem ||
             `<p>Answer <b>${p.year} ${p.number}</b> in full in your book, then open this and mark yourself against it.</p>`,
           // A handful of the older questions are quoted in the manual without a
-          // solution beside them, because the manual answers that question under
-          // the year it solves in full. Rather than invent one, say where it is.
-          answer:
-            p.answer ||
-            `<p><b>The manual answers this question under its other year.</b> The same question, ${FAMILY[
-              p.family
-            ].toLowerCase()}, is worked in full at <b>${(kin.find((x) => x.answer) ?? kin[0]).year} ${
-              (kin.find((x) => x.answer) ?? kin[0]).number
-            }</b>, in this same paper. Read it there, then come back and write this year's wording, which differs only in how many differences it asks for.</p>`,
+          // solution beside them. A repeat is still its own question, with its
+          // own wording and its own numbers, so it is answered here in full
+          // rather than pointed at the year the manual happens to solve.
+          answer: p.answer || (OWN_ANSWERS[p.key] ?? missing(p)),
         },
         frames: [],
       };

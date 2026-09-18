@@ -32,6 +32,12 @@ const COURSES = [
   { code: 'COS221', title: 'Computer Programming I, Java' },
 ];
 
+/** Two books per course: the objective half, and the questions you write. */
+const BOOKS = [
+  { slug: 'question-book', suffix: 'question-book', what: 'question book, every question solved', count: '.solq' },
+  { slug: 'theory-book', suffix: 'theory-solutions', what: 'theory solutions, every written question answered', count: '.lblock.worked' },
+];
+
 const footer = (title) => `
   <div style="font-family:system-ui,sans-serif;font-size:8px;color:#555;width:100%;
               padding:0 14mm;display:flex;justify-content:space-between;">
@@ -43,32 +49,34 @@ async function main() {
   mkdirSync(OUT, { recursive: true });
   const browser = await chromium.launch({ executablePath: process.env.PW_EXE });
   for (const { code, title } of COURSES) {
+    for (const book of BOOKS) {
     const page = await browser.newPage({ colorScheme: 'light' });
-    const url = `${BASE}/${code.toLowerCase()}/learn/question-book`;
+    const url = `${BASE}/${code.toLowerCase()}/learn/${book.slug}`;
     const started = Date.now();
     const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 180_000 });
     if (res.status() !== 200) throw new Error(`${url} answered ${res.status()}`);
-    const questions = await page.$$eval('.solq', (els) => els.length);
-    if (!questions) throw new Error(`${code}: the question book rendered no questions`);
+    const questions = await page.$$eval(book.count, (els) => els.length);
+    if (!questions) throw new Error(`${code}: ${book.slug} rendered nothing`);
     await page.emulateMedia({ media: 'print', colorScheme: 'light' });
-    const file = join(OUT, `${code}-question-book.pdf`);
+    const file = join(OUT, `${code}-${book.suffix}.pdf`);
     await page.pdf({
       path: file,
       format: 'A4',
       printBackground: true,
       displayHeaderFooter: true,
       headerTemplate: '<span></span>',
-      footerTemplate: footer(`${code} question book, every question solved`),
+      footerTemplate: footer(`${code} ${book.what}`),
       margin: { top: '14mm', bottom: '16mm', left: '12mm', right: '12mm' },
       timeout: 300_000,
     });
     const mb = (statSync(file).size / 1024 / 1024).toFixed(1);
     console.log(
-      `  ${code.padEnd(7)} ${String(questions).padStart(4)} questions  ${mb} MB  ${(
+      `  ${code.padEnd(7)} ${book.suffix.padEnd(17)} ${String(questions).padStart(4)} items  ${mb} MB  ${(
         (Date.now() - started) / 1000
-      ).toFixed(0)}s  ${title}`
+      ).toFixed(0)}s`
     );
     await page.close();
+    }
   }
   await browser.close();
 }
