@@ -18,13 +18,33 @@
  * download is a plain link with no server work behind it.
  */
 import { chromium } from 'playwright';
-import { mkdirSync, statSync } from 'node:fs';
+import { mkdirSync, statSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, '..', 'public', 'pdf');
 const BASE = process.env.BASE ?? 'http://localhost:3100';
+
+/**
+ * Which Chromium to print with. PW_EXE wins; otherwise the headless shell
+ * Playwright has already installed is found, so `npm run books` needs no
+ * environment set up to work on this machine.
+ */
+function browserPath() {
+  if (process.env.PW_EXE) return process.env.PW_EXE;
+  const root = join(process.env.LOCALAPPDATA ?? '', 'ms-playwright');
+  if (!existsSync(root)) return undefined;
+  for (const dir of readdirSync(root).filter((d) => d.startsWith('chromium'))) {
+    for (const sub of ['chrome-headless-shell-win64', 'chrome-win']) {
+      for (const exe of ['chrome-headless-shell.exe', 'chrome.exe']) {
+        const candidate = join(root, dir, sub, exe);
+        if (existsSync(candidate)) return candidate;
+      }
+    }
+  }
+  return undefined;
+}
 
 const COURSES = [
   { code: 'IFT222', title: 'Computer Architecture and Organisation' },
@@ -47,7 +67,8 @@ const footer = (title) => `
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch({ executablePath: process.env.PW_EXE });
+  console.log(`  printing from ${BASE}`);
+  const browser = await chromium.launch({ executablePath: browserPath() });
   for (const { code, title } of COURSES) {
     for (const book of BOOKS) {
     const page = await browser.newPage({ colorScheme: 'light' });
