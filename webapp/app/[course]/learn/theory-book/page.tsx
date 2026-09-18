@@ -5,6 +5,7 @@ import { COURSES, findCourse } from '@/data/courses';
 import { lessonsFor } from '@/data/lessons';
 import Crumbs from '@/components/Crumbs';
 import BOOKS from '@/data/question-books.json';
+import { theoryAsksFor, theoryAskTally } from '@/data/theory-asks';
 
 /**
  * Every theory question this course owns, with its full solution, in one file.
@@ -92,6 +93,10 @@ export default async function Page({
     0
   );
   const pdf = BOOKMAP[`${found.code}-theory`];
+  // The asks that need no calculator, gathered out of the papers and printed
+  // FIRST, because they are the marks you can bank before you can compute.
+  const asks = theoryAsksFor(found.code);
+  const tally = asks ? theoryAskTally(asks) : null;
 
   return (
     <main className="wrap" data-course={found.code}>
@@ -131,10 +136,70 @@ export default async function Page({
           question in the Learn by doing section. Each one is quoted as printed, broken down,
           then answered in full.
         </p>
+        {tally && (
+          <p className="help">
+            It opens with <b>every theory ask the examiner has ever made</b>, {tally.asks} of them,
+            pulled out of the papers and grouped by what they ask you to do. Then the papers
+            themselves, in full.
+          </p>
+        )}
         <p className="note">
           The objective half lives in the <Link href={`/${found.code.toLowerCase()}/learn/question-book`}>question book</Link>.
         </p>
       </div>
+
+      {asks && tally && (
+        <section className="card askbook" id="theory-asks">
+          <h2>Every theory ask, asked and answered</h2>
+          <p className="help">{asks.lead}</p>
+          <p className="askmarks">
+            {tally.papers.map((p) => (
+              <span className="askmark" key={p.paper}>
+                <b>{p.paper}</b> {p.asks} {p.asks === 1 ? 'ask' : 'asks'}, {p.marks} marks
+                {p.shared ? ' and a shared block' : ''}
+              </span>
+            ))}
+          </p>
+          {asks.groups.map((group) => (
+            <div className="askgroup" key={group.kind}>
+              <h3 className="lheading">{group.kind}</h3>
+              <p className="note">{group.when}</p>
+              {group.asks.map((ask) => (
+                <div className="askitem" key={ask.id}>
+                  <div className="lblock paper">
+                    <div className="lbar">
+                      <span>As printed</span>
+                      <span className="ltag">{ask.topic}</span>
+                    </div>
+                    <div className="lbody">
+                      {ask.context && <p className="src">{ask.context}</p>}
+                      {ask.papers.map((source) => (
+                        <div className="askquote" key={`${source.paper} ${source.part}`}>
+                          <p className="askwhere">
+                            {source.paper}, {source.part},{' '}
+                            {source.marks === null
+                              ? source.note
+                              : `${source.marks} ${source.marks === 1 ? 'mark' : 'marks'}`}
+                          </p>
+                          <p className="asprinted">{source.quote}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="lblock worked model">
+                    <div className="lbar">
+                      <span>The answer you write in the hall</span>
+                    </div>
+                    <div className="lbody">
+                      <Html html={ask.answer} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </section>
+      )}
 
       {lessons.map((lesson) => (
         <section className="card theorysec" key={lesson.slug}>

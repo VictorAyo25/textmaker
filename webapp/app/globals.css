@@ -2837,3 +2837,68 @@ table.trace td.stall {
     display: table;
   }
 }
+
+/* The theory asks, at the front of the solutions book: every question on the
+   papers that is answered in words, grouped by what it asks you to do. One ask
+   is a quote and an answer, and the two must be read as a pair, so each pair is
+   held together and kept off a page break where it fits on one. */
+.askmarks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+.askmark {
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.askmark b {
+  color: var(--ink);
+  font-weight: 700;
+}
+.askgroup {
+  margin-top: 8px;
+}
+.askitem {
+  margin-bottom: 22px;
+}
+/* A repeat is the same ask reworded, so the wordings stack inside one quote
+   box with the paper, the part and the marks over each. */
+.askquote + .askquote {
+  margin-top: 10px;
+}
+/* Never uppercased: the examiner numbers his parts Q4(a)(ii), and CSS that
+   shouts it as Q4(A)(II) is naming a part that is not on the paper. */
+.askwhere {
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.askitem .lblock.paper {
+  margin-bottom: 8px;
+}
+
+@media print {
+  .askitem {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .askgroup {
+    break-before: page;
+    page-break-before: always;
+  }
+  .askgroup:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+  .askbook {
+    break-after: page;
+    page-break-after: always;
+  }
+}
